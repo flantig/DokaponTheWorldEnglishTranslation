@@ -1,0 +1,708 @@
+{
+  "schema_version": "0.2",
+  "last_updated": "2026-10-07",
+  "scope": "Milestone: title screen -> new game -> name entry -> prologue (story mode only). Bootstrap term set: series DNA + recurring menu/system terms knowable before text extraction. Milestone-specific NPC lines are added after extraction.",
+  "entries": [
+    {
+      "jp": "ドカポン・ザ・ワールド",
+      "en": "Dokapon the World",
+      "provenance": "official",
+      "source": "Redump disc 97826; PCSX2 wiki page title; Dokapon Wiki",
+      "usage_note": "Locked project title. Short form 'Dokapon World' for internal docs only."
+    },
+    {
+      "jp": "ドカポン",
+      "en": "Dokapon",
+      "provenance": "official",
+      "source": "Series name across all official EN releases",
+      "usage_note": "Series name and root of the battle cry. See ドカポン！ for the exclamation."
+    },
+    {
+      "jp": "ドカポン王国",
+      "en": "Dokapon Kingdom",
+      "provenance": "official",
+      "source": "Dokapon Kingdom (Atlus EN 2008) title; Dokapon Wiki",
+      "usage_note": "The kingdom setting of Dokapon the World. Same EN as the 2007/2008 game title; context disambiguates."
+    },
+    {
+      "jp": "ドカポン3・2・1",
+      "en": "Dokapon 3-2-1",
+      "provenance": "web",
+      "source": "romhacking.net translation 5561; Krokodyl translation blog",
+      "usage_note": "SFC predecessor; EN title comes from the fan translation. Reference-only, unlikely in milestone text."
+    },
+    {
+      "jp": "ドカポンジャーニー",
+      "en": "Dokapon Journey",
+      "provenance": "official",
+      "source": "Dokapon Journey (Atlus EN 2009)",
+      "usage_note": "Series entry title. Full JP subtitle ～なかよくケンカしてっ♪～. Reference-only."
+    },
+    {
+      "jp": "ドカポンキングダムコネクト",
+      "en": "Dokapon Kingdom: Connect",
+      "provenance": "official",
+      "source": "Dokapon Kingdom: Connect (2023, Steam/Switch)",
+      "usage_note": "Remaster title. Reference-only for milestone text."
+    },
+    {
+      "jp": "ドカポン！",
+      "en": "Dokapon!",
+      "provenance": "authored",
+      "source": "Authored: series name plus exclamation; no web attestation found for the battle cry",
+      "usage_note": "Series battle cry. Exact JP form and presence in milestone text to confirm after extraction. See todos."
+    },
+    {
+      "jp": "ニューゲーム",
+      "en": "New Game",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN) title option 'New Game'",
+      "usage_note": "Locked EN. Which JP label World uses (ニューゲーム vs はじめから) is a TODO until extraction."
+    },
+    {
+      "jp": "はじめから",
+      "en": "New Game",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'Start a new game from scratch'",
+      "usage_note": "Same locked EN as ニューゲーム. JP label presumed; confirm after extraction."
+    },
+    {
+      "jp": "つづきから",
+      "en": "Continue",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN) title option 'Continue'",
+      "usage_note": "Locked EN. Manual also phrases it 'continue an old one'."
+    },
+    {
+      "jp": "セーブ",
+      "en": "Save",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'select Save'",
+      "usage_note": "Locked EN for the save command and save confirm."
+    },
+    {
+      "jp": "ロード",
+      "en": "Load",
+      "provenance": "web",
+      "source": "Standard JRPG EN; Kingdom manual uses 'load' as a verb only",
+      "usage_note": "Locked EN for load-data screens. Verify World actually has a Load menu (Kingdom loads via Continue)."
+    },
+    {
+      "jp": "オプション",
+      "en": "Settings",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN) title option 'Settings'",
+      "usage_note": "Atlus EN calls the options screen 'Settings', not 'Options'. Verify World's JP label (オプション vs せってい) after extraction."
+    },
+    {
+      "jp": "ネームエントリー",
+      "en": "Name Entry",
+      "provenance": "web",
+      "source": "Standard JP-RPG name-entry label (DQ/FF convention)",
+      "usage_note": "Locked EN for the name-entry screen. Kana-button labels are separate entries."
+    },
+    {
+      "jp": "プロローグ",
+      "en": "Prologue",
+      "provenance": "web",
+      "source": "Loanword; standard EN rendering",
+      "usage_note": "Locked EN. Milestone covers the prologue chapter title."
+    },
+    {
+      "jp": "ストーリーモード",
+      "en": "Story Mode",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'Story Mode'; Dokapon Wiki lists World's modes as Story Mode + Free Mode",
+      "usage_note": "Locked EN for World's Story Mode."
+    },
+    {
+      "jp": "はい",
+      "en": "Yes",
+      "provenance": "web",
+      "source": "Universal JP-RPG dialogue option",
+      "usage_note": "Locked EN for confirm dialogs."
+    },
+    {
+      "jp": "いいえ",
+      "en": "No",
+      "provenance": "web",
+      "source": "Universal JP-RPG dialogue option",
+      "usage_note": "Locked EN for cancel dialogs."
+    },
+    {
+      "jp": "けってい",
+      "en": "Confirm",
+      "provenance": "web",
+      "source": "Standard JP-RPG button label",
+      "usage_note": "Locked EN. Alternatives 'Decide' and 'OK' rejected for consistency."
+    },
+    {
+      "jp": "キャンセル",
+      "en": "Cancel",
+      "provenance": "web",
+      "source": "Standard JP-RPG button label",
+      "usage_note": "Locked EN."
+    },
+    {
+      "jp": "もどる",
+      "en": "Back",
+      "provenance": "web",
+      "source": "Standard JP-RPG menu label",
+      "usage_note": "Locked EN for back/return navigation."
+    },
+    {
+      "jp": "なまえ",
+      "en": "Name",
+      "provenance": "web",
+      "source": "Standard JP-RPG label",
+      "usage_note": "Field label on name-entry and status screens."
+    },
+    {
+      "jp": "ランダム",
+      "en": "Random",
+      "provenance": "web",
+      "source": "Standard JP-RPG label",
+      "usage_note": "Name-randomizer button."
+    },
+    {
+      "jp": "おまかせ",
+      "en": "Auto",
+      "provenance": "web",
+      "source": "Standard rendering of おまかせ ('leave it to you')",
+      "usage_note": "If おまかせ is the random-name button, render 'Random' for consistency with ランダム; confirm after extraction."
+    },
+    {
+      "jp": "ひらがな",
+      "en": "Hiragana",
+      "provenance": "web",
+      "source": "Standard kana-system label",
+      "usage_note": "Input-mode button. Kana glyphs stay as-is in rendered text."
+    },
+    {
+      "jp": "カタカナ",
+      "en": "Katakana",
+      "provenance": "web",
+      "source": "Standard kana-system label",
+      "usage_note": "Input-mode button."
+    },
+    {
+      "jp": "アルファベット",
+      "en": "Alphabet",
+      "provenance": "web",
+      "source": "Standard JP-RPG label",
+      "usage_note": "Input-mode button for Latin letters."
+    },
+    {
+      "jp": "けす",
+      "en": "Erase",
+      "provenance": "web",
+      "source": "Standard JP-RPG button label",
+      "usage_note": "Backspace/delete in name entry."
+    },
+    {
+      "jp": "おわり",
+      "en": "Done",
+      "provenance": "web",
+      "source": "Standard JP-RPG button label",
+      "usage_note": "Confirms the entered name. 'End' rejected as ambiguous."
+    },
+    {
+      "jp": "ゴールド",
+      "en": "Gold",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'gold'",
+      "usage_note": "Locked EN for the currency."
+    },
+    {
+      "jp": "レベル",
+      "en": "Level",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'Lv: Level'",
+      "usage_note": "Locked EN."
+    },
+    {
+      "jp": "けいけんち",
+      "en": "EXP",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'EXP'",
+      "usage_note": "Locked EN. Full form 'Experience' only in prose."
+    },
+    {
+      "jp": "ステータス",
+      "en": "Status",
+      "provenance": "web",
+      "source": "Standard JRPG EN",
+      "usage_note": "Locked EN for the status screen."
+    },
+    {
+      "jp": "アイテム",
+      "en": "Items",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'items'",
+      "usage_note": "Locked EN for the item menu and bag."
+    },
+    {
+      "jp": "まほう",
+      "en": "Magic",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'MG: Magic', 'Offensive Magic and Defensive Magic'",
+      "usage_note": "Locked EN. Covers field magic and battle magic."
+    },
+    {
+      "jp": "じゅもん",
+      "en": "Spells",
+      "provenance": "web",
+      "source": "Standard JRPG EN",
+      "usage_note": "Locked EN if a spell list exists. World may use まほう only; confirm after extraction."
+    },
+    {
+      "jp": "こうげき",
+      "en": "Attack",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'AT: Attack'",
+      "usage_note": "Locked EN for the battle command and stat."
+    },
+    {
+      "jp": "ぼうぎょ",
+      "en": "Defense",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'DF: Defense'",
+      "usage_note": "Locked EN. US spelling 'Defense' (Atlus used US EN)."
+    },
+    {
+      "jp": "にげる",
+      "en": "Run",
+      "provenance": "web",
+      "source": "Standard JRPG battle command; Kingdom manual uses 'run'",
+      "usage_note": "Locked EN for the flee command."
+    },
+    {
+      "jp": "ワールドマップ",
+      "en": "World Map",
+      "provenance": "web",
+      "source": "Standard JRPG EN",
+      "usage_note": "Locked EN for the overworld map."
+    },
+    {
+      "jp": "ダンジョン",
+      "en": "Dungeon",
+      "provenance": "web",
+      "source": "Standard JRPG EN; Kingdom manual uses cave names instead",
+      "usage_note": "Locked EN. Verify World's dungeons after extraction."
+    },
+    {
+      "jp": "まち",
+      "en": "Town",
+      "provenance": "official",
+      "source": "Dokapon Kingdom manual (Atlus EN): 'town'",
+      "usage_note": "Locked EN for settlements."
+    },
+    {
+      "jp": "たからばこ",
+      "en": "Treasure Chest",
+      "provenance": "web",
+      "source": "Standard JRPG EN",
+      "usage_note": "Locked EN for chest objects."
+    },
+    {
+      "jp": "むかしむかし",
+      "en": "Once upon a time",
+      "provenance": "web",
+      "source": "Standard fairy-tale opener",
+      "usage_note": "Locked EN for the classic opener if the prologue opens this way."
+    },
+    {
+      "jp": "おうこく",
+      "en": "Kingdom",
+      "provenance": "web",
+      "source": "Standard EN",
+      "usage_note": "Generic kingdom noun. Proper name uses the ドカポン王国 entry."
+    },
+    {
+      "jp": "へいわ",
+      "en": "Peace",
+      "provenance": "web",
+      "source": "Standard EN; ties into the World Peace Bank",
+      "usage_note": "Locked EN."
+    },
+    {
+      "jp": "せかい",
+      "en": "World",
+      "provenance": "web",
+      "source": "Standard EN; ties into the game title",
+      "usage_note": "Locked EN."
+    },
+    {
+      "jp": "たから",
+      "en": "Treasure",
+      "provenance": "web",
+      "source": "Standard EN",
+      "usage_note": "Locked EN. Treasure theme is core series DNA."
+    },
+    {
+      "jp": "ぼうけん",
+      "en": "Adventure",
+      "provenance": "web",
+      "source": "Standard EN",
+      "usage_note": "Locked EN."
+    },
+    {
+      "jp": "ゆうしゃ",
+      "en": "Hero",
+      "provenance": "web",
+      "source": "Dokapon Wiki job page 'Hero'; standard EN",
+      "usage_note": "Locked EN for hero figure and Hero job."
+    },
+    {
+      "jp": "ぼうけんしゃ",
+      "en": "Adventurer",
+      "provenance": "web",
+      "source": "Standard EN; Dokapon Wiki calls players adventurers",
+      "usage_note": "Locked EN for the player characters."
+    },
+    {
+      "jp": "あくま",
+      "en": "Demon",
+      "provenance": "web",
+      "source": "Standard EN",
+      "usage_note": "Locked EN for the demon/monster threat."
+    },
+    {
+      "jp": "王様",
+      "en": "The King",
+      "provenance": "official",
+      "source": "Dokapon Kingdom (Atlus EN) 'the King'; Dokapon Wiki page 'Dokapon King' (JP 王様)",
+      "usage_note": "Locked EN 'The King'. Wiki page title 'Dokapon King' is the label variant. Recurring series role; father of the princess."
+    },
+    {
+      "jp": "ワルサー",
+      "en": "Wallace",
+      "provenance": "official",
+      "source": "Dokapon Journey (Atlus EN 2009) final boss 'Wallace'; Dokapon Wiki uses 'Wallace (World)' for the PS2 incarnation",
+      "usage_note": "Locked EN. Same JP name recurs across the series. Confirm which incarnation appears in the World prologue. See todos."
+    },
+    {
+      "jp": "ナビー",
+      "en": "Navi",
+      "provenance": "authored",
+      "source": "JP name from eonet.ne.jp Dokapon character list; EN is standard romanization, no established rendering found",
+      "usage_note": "Help/navigation character. Verify presence and exact EN after extraction."
+    },
+    {
+      "jp": "料理人ドン",
+      "en": "Chef Don",
+      "provenance": "web",
+      "source": "Dokapon Wiki 'Don'/'Don the Chef'; JP from WikiHouse DOKAPONWiki",
+      "usage_note": "Likely post-milestone NPC; kept as series DNA. 2026-10-01: synced to the shipped form 'Chef Don' (was 'Don the Chef'; name-consistency audit)."
+    },
+    {
+      "jp": "美食戦士ヴァイツ",
+      "en": "Valtz",
+      "provenance": "web",
+      "source": "Dokapon Wiki 'Valtz'; JP 美食戦士ヴァイツ from WikiHouse DOKAPONWiki",
+      "usage_note": "Likely post-milestone NPC; kept as series DNA."
+    },
+    {
+      "jp": "フリーモード",
+      "en": "Free Mode",
+      "provenance": "web",
+      "source": "Dokapon Wiki, Dokapon the World page (modes: Story Mode, Free Mode)",
+      "usage_note": "World's second mode. Locked EN."
+    },
+    {
+      "jp": "世界平和金庫",
+      "en": "World Peace Bank",
+      "provenance": "web",
+      "source": "Dokapon Wiki (World Peace Bank, also called 'the Vault'); JP string confirmed from extracted prologue text (0x499190, 0x498c90)",
+      "usage_note": "Locked EN. JP confirmed: 金庫 = vault/strongbox; wiki 'Bank' rendering kept for consistency. Resolves bootstrap todo #1."
+    },
+    {
+      "jp": "アジア村長",
+      "en": "Asia Chief",
+      "provenance": "authored",
+      "source": "Milestone prologue dialog (0x499500, 0x4995c0)",
+      "usage_note": "Locked EN for the Asia village chief. アル dialect tic rendered as a folksy 'yes?' cadence in dialog."
+    },
+    {
+      "jp": "大臣ラベンダ",
+      "en": "Minister Lavender",
+      "provenance": "authored",
+      "source": "Milestone prologue cast label (0x535b30)",
+      "usage_note": "Cast label. Full name ラベンダ・ミニストル = Lavender Minister."
+    },
+    {
+      "jp": "大臣ローズ",
+      "en": "Minister Rose",
+      "provenance": "authored",
+      "source": "Milestone prologue cast label (0x535b40)",
+      "usage_note": "Cast label. Full name ローズ・ミニストル = Rose Minister."
+    },
+    {
+      "jp": "ドカポン王",
+      "en": "Dokapon King",
+      "provenance": "official",
+      "source": "Dokapon Wiki page 'Dokapon King' (JP 王様 label variant); milestone prologue cast + new-game branding (0x535b00)",
+      "usage_note": "Locked EN for the King's proper title. Same character as glossary 王様 = The King."
+    },
+    {
+      "jp": "ドカポンヒーロー",
+      "en": "Dokapon Hero",
+      "provenance": "authored",
+      "source": "Milestone prologue dialog (0x499360, 0x499210)",
+      "usage_note": "Locked EN for the top-gold title. The hero who amasses the most gold."
+    },
+    {
+      "jp": "男の子",
+      "en": "Boy",
+      "provenance": "web",
+      "source": "Standard JP-RPG gender label; milestone name-entry (0x5364c8)",
+      "usage_note": "Locked EN for the male avatar option."
+    },
+    {
+      "jp": "女の子",
+      "en": "Girl",
+      "provenance": "web",
+      "source": "Standard JP-RPG gender label; milestone name-entry (0x5363c4, packed source)",
+      "usage_note": "Locked EN for the female avatar option. Source string packed/corrupt; placement low-confidence per STEP3D."
+    },
+    {
+      "jp": "ナビィ",
+      "en": "Navi",
+      "provenance": "authored",
+      "source": "Milestone prologue cast (0x535bf0); long-i variant of ナビー",
+      "usage_note": "Locked EN, alias of glossary ナビー. Same character."
+    },
+    {
+      "jp": "名前",
+      "en": "Name",
+      "provenance": "web",
+      "source": "Standard JP-RPG label; milestone name-entry field (0x536370)",
+      "usage_note": "Locked EN. Kanji form of glossary なまえ."
+    },
+    {
+      "jp": "マコンデ",
+      "en": "Makonde",
+      "provenance": "authored",
+      "source": "Katakana romanization; milestone prologue villain (0x535d10, 0x498a30, 0x498bc0)",
+      "usage_note": "Locked EN for the World villain. Wiki attestation unverified; see 呪術師マコンデ."
+    },
+    {
+      "jp": "ミチエーリ",
+      "en": "Michieri",
+      "provenance": "authored",
+      "source": "Milestone prologue cast labels (0x498180-0x4981c0); id_table id=41 雪原人ミチエーリ",
+      "usage_note": "Locked EN for the snowlands NPC family."
+    },
+    {
+      "jp": "女神さま",
+      "en": "Goddess",
+      "provenance": "web",
+      "source": "Standard EN; extracted vault-origin lore (0x498c90, next milestone)",
+      "usage_note": "Locked EN for the Goddess figure. Not in milestone text; resolves bootstrap todo."
+    },
+    {
+      "jp": "ラベンダ・ミニストル",
+      "en": "Lavender Minister",
+      "provenance": "authored",
+      "source": "Milestone prologue self-intro (0x498920)",
+      "usage_note": "Full name of 大臣ラベンダ; 税理大臣 = Minister of Taxation."
+    },
+    {
+      "jp": "ローズ・ミニストル",
+      "en": "Rose Minister",
+      "provenance": "authored",
+      "source": "Milestone prologue self-intro (0x4988f0)",
+      "usage_note": "Full name of 大臣ローズ; 会計大臣 = Minister of Finance."
+    },
+    {
+      "jp": "惨憎法師",
+      "en": "Sanzou",
+      "provenance": "authored",
+      "source": "Milestone prologue mention (0x498ff0, 0x4995c0); Asia-area boss (next milestone)",
+      "usage_note": "Locked EN. Pun on 三蔵法師 (Tripitaka); rendered 'the monk Sanzou'."
+    },
+    {
+      "jp": "呪術師マコンデ",
+      "en": "Sorcerer Makonde",
+      "provenance": "authored",
+      "source": "Milestone prologue cast slot (0x535d10); id_table id=45 (0x535cf0)",
+      "usage_note": "Cast label variant of マコンデ. Decoder emitted 忍者我魔丸 at the slot; flow + id_table identify the villain. 2026-10-01: synced to the shipped form 'Sorcerer Makonde' (was 'Makonde the Sorcerer'; name-consistency audit)."
+    },
+    {
+      "jp": "装備",
+      "en": "Equipment",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent1): 24 of 27 occurrences already say 'Equipment'/'equipment' across menu labels (0x534b8a, 0x459300, 0x4595c0), the AT/DF/MG/SP-UP(Equipment) status list (0x477100 etc.), and prose (0x486f10, 0x4d14b0)",
+      "usage_note": "3 outliers used 'gear' in casual/dialect NPC dialogue with no note documenting it as a deliberate register choice - corrected to 'equipment' for consistency. See agent1-corrections.csv ids 0x485d40 (Voice A dialect hint), 0x489510 (Gutz the blacksmith), 0x4ea4e0 (Shop Panels help-text line)."
+    },
+    {
+      "jp": "死神",
+      "en": "Doom / Reaper (context-dependent - do not merge)",
+      "provenance": "authored",
+      "source": "Registry note on 0x477010: '死神 status rendered \"Doom\" per the reconciled system-vocabulary pool (was \"the Grim Reaper\" in an earlier draft) - \"Reaper\" reserved for the character-facing sense (e.g. Reaper's Whistle) elsewhere.' Cross-confirmed by the parallel scroll item シニガーミの書 -> 'Scroll of Doom' (0x532f2e), and by 0x4eb650's own note ('...死神->\"Doom\" were chosen').",
+      "usage_note": "Term-consistency audit 2026-09-03 (agent1): flagged as a possible inconsistency (Doom at 0x477010/0x477090/0x4770c0/0x4eb650 vs Reaper at 0x4613d0/0x531c1e Reaper's Whistle) but is a DOCUMENTED EXCEPTION per the note above - do not flatten to one word. Use 'Doom' for the status ailment/battle-event sense (someone is possessed by / summons / drives away the death-entity as a game mechanic), 'Reaper' for the character-facing/item-flavor sense (the literal grim-reaper figure and its whistle). Logged, not corrected, in agent1-corrections.csv id 0x477010."
+    },
+    {
+      "jp": "職業",
+      "en": "Job",
+      "provenance": "web",
+      "source": "Dokapon Kingdom wiki (dokapon.fandom.com/wiki/Job, Category:Jobs); StrategyWiki 'Dokapon Kingdom/Jobs' page - the Dokapon series' official English localization uniformly calls the class/profession system 'Job(s)' (Warrior, Magician, Thief, Cleric, etc.), confirmed via web search 2026-09-03",
+      "usage_note": "Term-consistency audit 2026-09-03 (agent2): 66 occurrences of 職業 in the registry, 59 already say 'Job'/'Jobs' consistently. 7 outliers in the navi_intro pool's character-creation flow (charcreate-05-class-q, charcreate-09-class-q-alt, and the 5 charcreate-*-class-tooltip-* entries: fighter/mage/tank/speed/freelancer) said 'class' instead - corrected to 'Job'/'job' per the owner's align-to-majority rule; see agent2-corrections.csv ids 0x4efeb0, 0x4effa0, 0x4f0390, 0x4f0400, 0x4f0470, 0x4f04d0, 0x4f0540. No note on any of the 7 documented a deliberate reason to keep 'class', so this is a straightforward majority-alignment fix, not an exception."
+    },
+    {
+      "jp": "犯罪者",
+      "en": "Criminal",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent2): 28 of 29 occurrences render 犯罪者 as 'criminal'/'criminals' (one is the standalone menu label 'Criminal', 0x538428, title-cased as expected for a label)",
+      "usage_note": "DOCUMENTED EXCEPTION, not flattened: entry 0x4eb650 (help-manual-page, event help-page-18-field-ailments, a status-ailment list block) deliberately renders 犯罪者 as 'Wanted' instead. Its own `note` field explicitly says: 'See glossary section above for why コロリ->\"Plague\" and 死神->\"Doom\" and 犯罪者->\"Wanted\" were chosen' - a reasoned register choice for that ailment-list context (matches the list's other short status-name style: Poison, Plague, Hobbled, Sealed, Doom, Sleep). Left as-is per the owner's exception rule; do not correct it to 'Criminal'."
+    },
+    {
+      "jp": "荷物",
+      "en": "Package",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent2): matches the formal item name 'Suspicious Package' (id 0x531c6e, jp 怪しい荷物) that this word refers to throughout the smuggling/courier quest chain (morude, musashi-courier, inquisitor-sermon, hint-npcs event pools)",
+      "usage_note": "5 of 7 occurrences already say 'package' (Morude's delivery-quest dialogue, Musashi the courier's dialogue, and the item label itself). 2 outliers said 'cargo' instead, describing the exact same in-quest item ('suspicious cargo' / 'this cargo') - corrected to 'package' for consistency with the majority and the formal item name. See agent2-corrections.csv ids 0x486af0 (hint-npcs-026) and 0x48ab30 (inquisitor-sermon-012)."
+    },
+    {
+      "jp": "マス",
+      "en": "Panel",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent3); majority convention across registry/string-registry.json (~95 of 99 マス occurrences already render Panel/panels)",
+      "usage_note": "The board-game grid square/tile a player lands on. source_pool=pool_b_gameplay used 'Space' in 12 entries (0x4795a0, 0x4795e0, 0x479620, 0x479d40, 0x479d70, 0x479d90, 0x479ee0, 0x479f20, 0x479f60, 0x47d100, 0x47d1c0, 0x486670) - a known structural drift in that pool, not a coincidence. Realigned all 12 to 'Panel' per the owner's majority-wins rule; none carried a note documenting 'Space' as a deliberate choice. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20) are a different construction (counting travel units, not naming the landable square) and were left alone."
+    },
+    {
+      "jp": "集金マス",
+      "en": "Collection Panel",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent3); 5 of 6 occurrences already 'Collection Panel(s)' (0x4e8560, 0x4e8cb0, 0x4ec830, 0x5388e0, 0x5388f0 'All-Village Collection Panel')",
+      "usage_note": "The panel type where a ruler collects tribute from owned villages/towns/cities (distinct from the 'collect from everywhere at once' panel, which explicitly contrasts itself against 'a Collection Panel' at 0x4e8cb0). 0x479ee0 (pool_b_gameplay) used 'Collect Funds' instead - same structural drift as the マス/Panel case above. Its own note frames 'Collect Funds' only as a fix over an earlier mistranslation ('Toll'), not a reasoned choice to diverge from 'Collection Panel', so realigned to majority."
+    },
+    {
+      "jp": "大神殿最深部",
+      "en": "Temple Depths",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent3); cross-checked against the full 大神殿入口/大神殿内部/大神殿最深部 dungeon-label family (15 entries) and the ムー大神殿 root term",
+      "usage_note": "Elliptical dungeon-label form (JP omits explicit 'ムー'/Mu). Consistently drops both 'Grand' and 'Mu', rendering just 'the Temple Depths' (mid-sentence) / 'Temple Depths' (standalone label) / 'Temple Depths Panel' (マス-suffixed panel label) - mirrors 大神殿入口 -> 'the Temple Entrance' and 大神殿内部 -> 'the Temple Interior', both of which show the identical explicit-Mu-vs-elliptical split. The full form 'ムー大神殿' (JP explicitly includes Mu) instead renders 'the Grand Temple of Mu' (0x52f670, 0x4e92d0, 0x4e9e70, 0x4ec660, 0x538a60 'Grand Temple of Mu Entrance', 0x538d70 'Grand Temple of Mu Exit'). 0x4ea090 ('大神殿最深部マス', no ムー, was 'Grand Temple Depths Panel') incorrectly applied the full-form naming: its own note claims to 'match the Grand Temple of Mu naming used throughout the dungeon-label entries below', but on verification the actual dungeon-label entries below use the SHORT 'Temple X' form, and the directly parallel sibling 0x538fd0 ('大神殿入口マス' -> 'Temple Entrance Panel', not 'Grand Temple of Mu Entrance Panel') confirms the マス-panel-label form should also drop 'Grand'/'Mu'. The note's stated reasoning does not hold up against the actual pattern, so it is not treated as a valid documented exception; realigned to 'Temple Depths Panel'."
+    },
+    {
+      "jp": "悪魔",
+      "en": "Demon",
+      "provenance": "web",
+      "source": "Term-consistency audit 2026-09-03 (agent3); matches the already-locked glossary entry あくま (hiragana, same word) = 'Demon' in registry/glossary.json",
+      "usage_note": "3 of 7 occurrences (0x487dd0 x2 internal uses, 0x489d30, 0x4d1310) used 'devil'/'devils' instead of the majority 'demon' (4 of 7: 0x486e90, 0x4870c0, 0x487760, 0x4d0ce0). No note documents 'devil' as a deliberate register choice - realigned to 'demon' to match both the within-term majority and the pre-existing あくま lock."
+    },
+    {
+      "jp": "熟練度",
+      "en": "Proficiency",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent3); matches the formal, highlighted stat-definition usage in the help-manual page (0x4eb040, capitalized 5x while formally introducing the mechanic) and the battle-system level-up message (0x457db0)",
+      "usage_note": "A named job stat (5 ranks; raises salary; persists across job changes). 4 of 6 occurrences, all in casual/dialect NPC advice dialogue (0x4859f0 Osaka dialect, 0x485ef0 アル-dialect, 0x4862f0, 0x487290), paraphrased the same mechanic as 'skill'/'skill level(s)' instead - no note documents this as deliberate (unlike, e.g., the genuinely documented 死神 Doom/Reaper split found elsewhere in this audit). Realigned the 4 casual lines to 'Proficiency' so the same game mechanic reads as the same stat name in dialogue, the help page, and battle messages, while keeping each line's dialect flavor intact."
+    },
+    {
+      "jp": "金額",
+      "en": "Amount",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent3); 6 of 7 occurrences already render 金額 as 'amount'",
+      "usage_note": "General term for a sum of gold (e.g. a target amount, a deposited amount). The settings-screen label 0x4ef210 ('目標金額', was 'Target Money||') is paired with the description text at 0x4ebf60 ('...a target amount of gold to reach') for the same Free Mode win-condition setting - the label used 'Money' while its own description used 'amount', an internal label/description mismatch. No note documents 'Money' as deliberate (it only explains the string's byte-shape, mirroring sibling 0x4ef1f0 '目標期間' -> 'Target Period'). Realigned the label to 'Target Amount'."
+    },
+    {
+      "jp": "封印",
+      "en": "Seal",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent4, docs/audits/2026-09/term-consistency-audit.json); resolves a standalone-label vs. narration split across battle-status-messages-1/2, vocab-status-effects, battle-status-labels, and help-manual-page",
+      "usage_note": "As a standalone status-ailment/UI label, render 封印 as 'Seal' (noun) - matches 0x534796 'Seal', 0x538408 'Seal', 0x53498e 'Attack Magic Seal', 0x53499e 'Defense Magic Seal', and the combo label 0x4d9dd0 'Cowardice & Seal'. The help-manual field-ailments list entry (0x4eb650) previously used 'Sealed' for this same label slot; corrected to 'Seal' to match. This label convention is separate from 封印's narration/verb-or-adjective uses (e.g. 'had their magic sealed!', \"'s magic is sealed...\", \"'s seal was broken!\", 'the roads...are sealed'), which correctly vary in grammatical form by sentence role and are NOT an inconsistency - do not flatten those to match the label."
+    },
+    {
+      "jp": "所持金",
+      "en": "Gold",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent4, docs/audits/2026-09/term-consistency-audit.json); resolves a 3-way standalone-label split (Money / Gold Held / Gold on Hand) across the battle_system, pool_b_gameplay, misc_labels, and help_and_events source pools",
+      "usage_note": "As a standalone UI stat label for 'the gold you're carrying', use 'Gold' as the head noun. Surrounding scaffolding may still vary naturally by widget - 'Gold Held' for a comparison-table column header (0x47a550, 0x487f40), 'Gold on Hand' to parallel 'Vault'/'Specialty Goods'/'Village Value' in the Total Assets help-manual breakdown (0x4eb290), bare 'Gold:' in the end-of-turn stat summary (0x4eeb00) - but the head word must be 'Gold', matching the game's established currency term (see glossary entry ゴールド -> Gold, official/locked) and the 13+ narrative 'Current gold:' instances that were already consistent. The battle Steal/Discard-command category labels (0x4592e0, 0x459300, 0x459b60) and their matching skill descriptions (0x459660, 0x459d40) previously rendered this 'Money' instead; corrected to 'Gold' for consistency. 0x538450 ('Money: 0') had also deliberately matched that now-corrected 'Money' precedent per its own note - carried forward to 'Gold: 0' to stay consistent with the corrected precedent, since the note's own stated rationale was alignment, not an independent defense of 'Money'."
+    },
+    {
+      "jp": "復活",
+      "en": "Revival",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent4, docs/audits/2026-09/term-consistency-audit.json); aligns a single battle-taunt line to the term's otherwise-uniform rendering",
+      "usage_note": "Consistently rendered 'revive'/'revived'/'Revival' throughout (Revival Potion, Light of Revival, Revival Incantation, 'was revived...', 'brought back to life', etc.). One monster battle-taunt chant line (0x4ab840, \"Chant! | Resurrection!\") used 'Resurrection' instead with no documented rationale for the divergence; corrected to 'Revival!' to match."
+    },
+    {
+      "jp": "デロン",
+      "en": "Outbreak",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent1) + owner override 2026-09-03 (see 0x532ed0's registry note for full context)",
+      "usage_note": "Root shared across the Dark Arts 'Outbreak' family (ワナデロン/Trap Outbreak, ミナデロン/Mass Outbreak, ドミナデロン/World Outbreak) and the Scroll-of-X item family (0x532ef0/0x532ed0/0x532edc). Applied by explicit owner decision after a documented conflict with a prior 'RESOLVED 2026-09-02' note - see HANDOFF.md."
+    },
+    {
+      "jp": "ヘイカモン",
+      "en": "Roll Call",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent1), exact match to Dark Art effect description 0x4eca10",
+      "usage_note": "ヘイ+カモン ('Hey, come on!') - pulls everyone onto your panel. Cleanest of the 5 scroll-renames, no conflict with any prior decision."
+    },
+    {
+      "jp": "メッセヨ",
+      "en": "Ruin",
+      "provenance": "authored",
+      "source": "Term-consistency audit 2026-09-03 (agent1) + owner override 2026-09-03 (see 0x532f10's registry note for full context)",
+      "usage_note": "From 滅せよ ('perish/be destroyed') - Dark Art effect destroys one Item or Magic spell. Applied by explicit owner decision, overriding a prior resolved decision that chose 'Distress-Call' for an unrelated pairing reason - see HANDOFF.md."
+    },
+    {
+      "jp": "必殺",
+      "en": "Strike",
+      "provenance": "authored",
+      "source": "owner decision 2026-10-01 (battle command terms)",
+      "usage_note": "battle command term"
+    },
+    {
+      "jp": "超必殺",
+      "en": "Ultra Strike",
+      "provenance": "authored",
+      "source": "owner decision 2026-10-01 (battle command terms)",
+      "usage_note": "battle command term"
+    },
+    {
+      "jp": "降参",
+      "en": "Give Up",
+      "provenance": "authored",
+      "source": "owner decision 2026-10-01 (battle command terms)",
+      "usage_note": "battle command term 2026-10-01: owner prefers 'Give Up' (shorter; matches baked battle-sheet art)."
+    },
+    {
+      "jp": "特技",
+      "en": "Skill",
+      "provenance": "authored",
+      "source": "owner decision 2026-10-01 (battle command terms)",
+      "usage_note": "battle command term"
+    },
+    {
+      "jp": "モルデ",
+      "en": "Molde",
+      "provenance": "web",
+      "source": "https://dokapon.fandom.com/wiki/Special_Event_NPC_%28World%29 ; https://dokapon.fandom.com/wiki/Molde ; owner correction 2026-10-07",
+      "usage_note": "Canonical spelling for the recurring delivery NPC. Replaces earlier Morude transliteration in dialogue, map nameplate, and phone-list label; approved but not yet shipped in ISO 3899440a."
+    }
+  ],
+  "todos": [
+    {
+      "jp": "ドカポン！ (battle cry)",
+      "reason": "EN 'Dokapon!' follows the series name, but no web attestation of the exclamation and no confirmation it appears in the title-to-prologue path",
+      "needed": "Check extracted text for the exact JP form (ドカポン！ vs variants) and where it appears"
+    },
+    {
+      "jp": "ワルサー (identity in World)",
+      "reason": "EN 'Wallace' is locked from Journey EN, but World's own ワルサー may be a distinct incarnation; fandom wiki disambiguates as 'Wallace (World)'",
+      "needed": "Confirm which character appears in the World prologue after extraction"
+    },
+    {
+      "jp": "ニューゲーム vs はじめから",
+      "reason": "Both map to 'New Game'; World's actual title-screen label is unknown pre-extraction",
+      "needed": "Check extracted title-screen text and keep one canonical JP key (map the other as an alias)"
+    },
+    {
+      "jp": "オプション vs せってい",
+      "reason": "EN 'Settings' locked from the Kingdom manual, but World's JP options label is unknown",
+      "needed": "Check extracted title-screen text for the actual label"
+    }
+  ]
+}
