@@ -2,7 +2,10 @@
 
 `string-registry.json` is the project's canonical per-line translation record.
 Its top-level `entries` array contains 5,544 records with stable `id` values.
-`glossary.json` contains shared terminology and naming decisions.
+`glossary.json` contains 138 curated shared terms and naming decisions, refreshed
+October 16, 2026. It covers approved NPC names, Spinner terminology, revised
+item/spell names, status labels and context-specific UI/image exceptions.
+Unresolved names remain explicit TODOs, not silently chosen replacements.
 
 Useful fields include:
 

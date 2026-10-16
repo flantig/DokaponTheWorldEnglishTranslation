@@ -1,7 +1,7 @@
 {
   "schema_version": "0.2",
-  "last_updated": "2026-10-07",
-  "scope": "Milestone: title screen -> new game -> name entry -> prologue (story mode only). Bootstrap term set: series DNA + recurring menu/system terms knowable before text extraction. Milestone-specific NPC lines are added after extraction.",
+  "last_updated": "2026-10-16",
+  "scope": "Project-wide approved terminology: recurring system terms, named characters, revised item/spell names, and documented UI/image exceptions. Originally bootstrapped for title screen -> prologue; reconciled against registry/string-registry.json and docs/TRANSLATION-DECISIONS.md on 2026-10-16. This is a curated terminology guide, not a second string registry or proof of native verification. Preserve canonical names outside explicitly local aliases; update this file whenever a terminology decision changes. Historical rationale below remains dated evidence, not a reason to restore superseded wording.",
   "entries": [
     {
       "jp": "ドカポン・ザ・ワールド",
@@ -50,21 +50,21 @@
       "en": "Dokapon!",
       "provenance": "authored",
       "source": "Authored: series name plus exclamation; no web attestation found for the battle cry",
-      "usage_note": "Series battle cry. Exact JP form and presence in milestone text to confirm after extraction. See todos."
+      "usage_note": "Provisional reference term, not a confirmed extracted battle cry: no exact ドカポン！ form was found in the current registry during the 2026-10-16 refresh. Keep the source uncertainty in todos; do not invent a game line from this entry."
     },
     {
       "jp": "ニューゲーム",
       "en": "New Game",
       "provenance": "official",
       "source": "Dokapon Kingdom manual (Atlus EN) title option 'New Game'",
-      "usage_note": "Locked EN. Which JP label World uses (ニューゲーム vs はじめから) is a TODO until extraction."
+      "usage_note": "Reference alias for New Game. World's extracted title-menu key is はじめから (0x4ef270 and 0x4ef2b0), not this presumed bootstrap label. Preserve the English word space; do not restore NewGame."
     },
     {
       "jp": "はじめから",
       "en": "New Game",
       "provenance": "official",
       "source": "Dokapon Kingdom manual (Atlus EN): 'Start a new game from scratch'",
-      "usage_note": "Same locked EN as ニューゲーム. JP label presumed; confirm after extraction."
+      "usage_note": "Confirmed World title-menu label at 0x4ef270 and 0x4ef2b0. Owner restored New Game from NewGame; the existing 70% title-menu scale is a local layout choice, not part of the name. See docs/TRANSLATION-DECISIONS.md."
     },
     {
       "jp": "つづきから",
@@ -85,14 +85,14 @@
       "en": "Load",
       "provenance": "web",
       "source": "Standard JRPG EN; Kingdom manual uses 'load' as a verb only",
-      "usage_note": "Locked EN for load-data screens. Verify World actually has a Load menu (Kingdom loads via Continue)."
+      "usage_note": "Use Load for file-loading prompts; confirmed by 0x4890c0 ('Load File ...?'). The title-menu option is Continue, not Load."
     },
     {
       "jp": "オプション",
       "en": "Settings",
       "provenance": "official",
       "source": "Dokapon Kingdom manual (Atlus EN) title option 'Settings'",
-      "usage_note": "Atlus EN calls the options screen 'Settings', not 'Options'. Verify World's JP label (オプション vs せってい) after extraction."
+      "usage_note": "Reference alias from the bootstrap, not World's extracted title-menu key. World's actual label is 設定 (0x4ef2a2 and 0x4ef2da), also Settings; do not rename that option Options."
     },
     {
       "jp": "ネームエントリー",
@@ -169,7 +169,7 @@
       "en": "Auto",
       "provenance": "web",
       "source": "Standard rendering of おまかせ ('leave it to you')",
-      "usage_note": "If おまかせ is the random-name button, render 'Random' for consistency with ランダム; confirm after extraction."
+      "usage_note": "Confirmed board-menu command Auto in 0x479cb0 and 0x479d00. Random remains the separate name-randomizer term; do not infer that every おまかせ occurrence is a random-name button. Ordinary prose may translate the verb naturally."
     },
     {
       "jp": "ひらがな",
@@ -232,7 +232,7 @@
       "en": "Status",
       "provenance": "web",
       "source": "Standard JRPG EN",
-      "usage_note": "Locked EN for the status screen."
+      "usage_note": "Status is the general screen/system term. The narrow Data-menu tab uses Stats in the current translation; that local UI label does not rename status ailments."
     },
     {
       "jp": "アイテム",
@@ -295,7 +295,7 @@
       "en": "Town",
       "provenance": "official",
       "source": "Dokapon Kingdom manual (Atlus EN): 'town'",
-      "usage_note": "Locked EN for settlements."
+      "usage_note": "Use Town where the context calls for a town. Do not flatten the separately established Village and City settlement tiers into Town."
     },
     {
       "jp": "たからばこ",
@@ -365,7 +365,7 @@
       "en": "Demon",
       "provenance": "web",
       "source": "Standard EN",
-      "usage_note": "Locked EN for the demon/monster threat."
+      "usage_note": "Generic demon/monster threat. Proper names and approved titles such as Devilman are separate terms; do not flatten them to Demon just because the generic noun is locked."
     },
     {
       "jp": "王様",
@@ -379,28 +379,28 @@
       "en": "Wallace",
       "provenance": "official",
       "source": "Dokapon Journey (Atlus EN 2009) final boss 'Wallace'; Dokapon Wiki uses 'Wallace (World)' for the PS2 incarnation",
-      "usage_note": "Locked EN. Same JP name recurs across the series. Confirm which incarnation appears in the World prologue. See todos."
+      "usage_note": "World identity confirmed in the extracted nameplate/battle-name rows 0x535d40, 0x5379e8 and 0x5364e8, and the self-introduction at 0x4a9490. Keep Wallace for this World's character; the earlier pre-extraction identity TODO is resolved, not a claim that the different games share one incarnation."
     },
     {
       "jp": "ナビー",
       "en": "Navi",
       "provenance": "authored",
       "source": "JP name from eonet.ne.jp Dokapon character list; EN is standard romanization, no established rendering found",
-      "usage_note": "Help/navigation character. Verify presence and exact EN after extraction."
+      "usage_note": "Historical JP reference alias for Navi. The extracted World nameplate is ナビィ (0x535bf0); do not change its Japanese source to this unobserved bootstrap spelling."
     },
     {
       "jp": "料理人ドン",
       "en": "Chef Don",
       "provenance": "web",
       "source": "Dokapon Wiki 'Don'/'Don the Chef'; JP from WikiHouse DOKAPONWiki",
-      "usage_note": "Likely post-milestone NPC; kept as series DNA. 2026-10-01: synced to the shipped form 'Chef Don' (was 'Don the Chef'; name-consistency audit)."
+      "usage_note": "Confirmed World nameplate and phone label at 0x535c80 and 0x535e10. 2026-10-01: synced to the shipped form 'Chef Don' (was 'Don the Chef'; name-consistency audit)."
     },
     {
       "jp": "美食戦士ヴァイツ",
       "en": "Valtz",
       "provenance": "web",
       "source": "Dokapon Wiki 'Valtz'; JP 美食戦士ヴァイツ from WikiHouse DOKAPONWiki",
-      "usage_note": "Likely post-milestone NPC; kept as series DNA."
+      "usage_note": "World food-battle rival; retain Valtz. This is the role-bearing JP reference form; it is not permission to add a role to every narrow nameplate."
     },
     {
       "jp": "フリーモード",
@@ -421,14 +421,14 @@
       "en": "Asia Chief",
       "provenance": "authored",
       "source": "Milestone prologue dialog (0x499500, 0x4995c0)",
-      "usage_note": "Locked EN for the Asia village chief. アル dialect tic rendered as a folksy 'yes?' cadence in dialog."
+      "usage_note": "Keep Asia Chief as the role label (0x535b50). The bootstrap's アル -> folksy 'yes?' cadence is superseded: owner direction on 2026-10-12 uses natural, neutral English for all shared village-chief greetings and interjections, not Chinese phrases across unrelated countries or caricatured broken English. Preserve individual character style without inventing country-routing code; see docs/TRANSLATION-DECISIONS.md."
     },
     {
       "jp": "大臣ラベンダ",
       "en": "Minister Lavender",
       "provenance": "authored",
       "source": "Milestone prologue cast label (0x535b30)",
-      "usage_note": "Cast label. Full name ラベンダ・ミニストル = Lavender Minister."
+      "usage_note": "Canonical role/title form. The narrow nameplate at 0x535b30 deliberately says Min. Lavender; keep Minister Lavender in prose and roomier contexts. Full name ラベンダ・ミニストル = Lavender Minister."
     },
     {
       "jp": "大臣ローズ",
@@ -462,8 +462,8 @@
       "jp": "女の子",
       "en": "Girl",
       "provenance": "web",
-      "source": "Standard JP-RPG gender label; milestone name-entry (0x5363c4, packed source)",
-      "usage_note": "Locked EN for the female avatar option. Source string packed/corrupt; placement low-confidence per STEP3D."
+      "source": "Standard JP-RPG gender label; current extracted name-entry row 0x5364c0 (earlier bootstrap cited 0x5363c4, packed source)",
+      "usage_note": "Locked EN for the female avatar option. The current registry confirms 女の子 -> Girl at 0x5364c0; the older STEP3D packed-source/placement warning is historical, not the current row identity."
     },
     {
       "jp": "ナビィ",
@@ -477,21 +477,21 @@
       "en": "Name",
       "provenance": "web",
       "source": "Standard JP-RPG label; milestone name-entry field (0x536370)",
-      "usage_note": "Locked EN. Kanji form of glossary なまえ."
+      "usage_note": "Name at the name-entry field 0x536370; kanji form of glossary なまえ. The same Japanese key at 0x534830 is contextually Nickname in the rename system, not a global inconsistency to overwrite."
     },
     {
       "jp": "マコンデ",
       "en": "Makonde",
       "provenance": "authored",
-      "source": "Katakana romanization; milestone prologue villain (0x535d10, 0x498a30, 0x498bc0)",
-      "usage_note": "Locked EN for the World villain. Wiki attestation unverified; see 呪術師マコンデ."
+      "source": "World name audit in docs/audits/2026-10/2026-10-15-probe-visual-and-names.md; registry 0x5379a0, 0x535cf0, 0x498a30 and 0x498bc0; https://dokapon.fandom.com/wiki/Story_Mode_%28World%29",
+      "usage_note": "Canonical World spelling Makonde, replacing earlier Maconde. Role form Sorcerer Makonde; the Foes-only alias is Makonde's Double, while the full monster name remains Makonde's Doppelganger elsewhere. Earlier 0x535d10 attribution was corrected to 0x535cf0; 0x535d10 is Ninja Gamamaru."
     },
     {
       "jp": "ミチエーリ",
       "en": "Michieri",
       "provenance": "authored",
       "source": "Milestone prologue cast labels (0x498180-0x4981c0); id_table id=41 雪原人ミチエーリ",
-      "usage_note": "Locked EN for the snowlands NPC family."
+      "usage_note": "Owner-approved spelling for the snowlands NPC family. Full monster name Michieri the Snowlander remains canonical; a hard line break in that stream is layout markup, not part of the name. Foes list/detail cards deliberately use Michieri only (0x48d1e0); do not shorten all other occurrences."
     },
     {
       "jp": "女神さま",
@@ -519,14 +519,14 @@
       "en": "Sanzou",
       "provenance": "authored",
       "source": "Milestone prologue mention (0x498ff0, 0x4995c0); Asia-area boss (next milestone)",
-      "usage_note": "Locked EN. Pun on 三蔵法師 (Tripitaka); rendered 'the monk Sanzou'."
+      "usage_note": "Retain the current authored name Sanzou / Monk Sanzou (0x537208 / 0x535cd0). Pun on 三蔵法師 (Tripitaka). The World story guide's Hateful Priest may be a role rather than a personal name; the October 15 audit leaves that equivalence unresolved, not an approved rename."
     },
     {
       "jp": "呪術師マコンデ",
       "en": "Sorcerer Makonde",
       "provenance": "authored",
-      "source": "Milestone prologue cast slot (0x535d10); id_table id=45 (0x535cf0)",
-      "usage_note": "Cast label variant of マコンデ. Decoder emitted 忍者我魔丸 at the slot; flow + id_table identify the villain. 2026-10-01: synced to the shipped form 'Sorcerer Makonde' (was 'Makonde the Sorcerer'; name-consistency audit)."
+      "source": "Corrected World prologue cast slot 0x535cf0, NAME_TABLE slot 45; historical bootstrap misattributed 0x535d10, which is Ninja Gamamaru",
+      "usage_note": "Cast label variant of マコンデ. 2026-10-01: synced to the shipped form Sorcerer Makonde (was Makonde the Sorcerer; name-consistency audit). October 15 World-name audit confirms Makonde rather than Maconde. Keep the corrected source identity separate from the earlier erroneous cast-slot reasoning."
     },
     {
       "jp": "装備",
@@ -561,7 +561,7 @@
       "en": "Package",
       "provenance": "authored",
       "source": "Term-consistency audit 2026-09-03 (agent2): matches the formal item name 'Suspicious Package' (id 0x531c6e, jp 怪しい荷物) that this word refers to throughout the smuggling/courier quest chain (morude, musashi-courier, inquisitor-sermon, hint-npcs event pools)",
-      "usage_note": "5 of 7 occurrences already say 'package' (Morude's delivery-quest dialogue, Musashi the courier's dialogue, and the item label itself). 2 outliers said 'cargo' instead, describing the exact same in-quest item ('suspicious cargo' / 'this cargo') - corrected to 'package' for consistency with the majority and the formal item name. See agent2-corrections.csv ids 0x486af0 (hint-npcs-026) and 0x48ab30 (inquisitor-sermon-012)."
+      "usage_note": "Historical September audit aligned two 'cargo' outliers to 'package' (agent2-corrections.csv, 0x486af0 and 0x48ab30). Current generic delivery dialogue still uses package naturally. The formal item name is now Shady Parcel (怪しい荷物, owner-approved October 7), replacing Suspicious Package across all 60 item-name records. Molde supersedes the older Morude spelling; do not use this historical source text to restore either old name."
     },
     {
       "jp": "マス",
@@ -631,7 +631,7 @@
       "en": "Outbreak",
       "provenance": "authored",
       "source": "Term-consistency audit 2026-09-03 (agent1) + owner override 2026-09-03 (see 0x532ed0's registry note for full context)",
-      "usage_note": "Root shared across the Dark Arts 'Outbreak' family (ワナデロン/Trap Outbreak, ミナデロン/Mass Outbreak, ドミナデロン/World Outbreak) and the Scroll-of-X item family (0x532ef0/0x532ed0/0x532edc). Applied by explicit owner decision after a documented conflict with a prior 'RESOLVED 2026-09-02' note - see HANDOFF.md."
+      "usage_note": "Root shared across the Dark Arts Outbreak family (ワナデロン/Trap Outbreak, ミナデロン/Mass Outbreak, ドミナデロン/World Outbreak). Applied by explicit owner decision after a documented conflict with a prior RESOLVED 2026-09-02 note. Current item forms are Outbreak Scroll (0x532ed0), Village Outbreak (0x532edc), and Mass Outbreak (0x532ef0); the owner removed the latter two Scroll suffixes globally on October 7. Mass Outbreak is an intentional item/Dark Art name collision, not permission to merge the records."
     },
     {
       "jp": "ヘイカモン",
@@ -652,7 +652,7 @@
       "en": "Strike",
       "provenance": "authored",
       "source": "owner decision 2026-10-01 (battle command terms)",
-      "usage_note": "battle command term"
+      "usage_note": "Canonical battle command Strike, not Special. The October 16 owner-approved battle explainers also use Strike in the attacker button and Strike/Counter relationship line; this is a text-and-image terminology lock."
     },
     {
       "jp": "超必殺",
@@ -666,7 +666,7 @@
       "en": "Give Up",
       "provenance": "authored",
       "source": "owner decision 2026-10-01 (battle command terms)",
-      "usage_note": "battle command term 2026-10-01: owner prefers 'Give Up' (shorter; matches baked battle-sheet art)."
+      "usage_note": "Owner prefers Give Up (shorter; matches battle-sheet art), not Surrender. The October 16 owner-approved diagram correction applies this to both battle explainers as well as the established text command."
     },
     {
       "jp": "特技",
@@ -680,29 +680,316 @@
       "en": "Molde",
       "provenance": "web",
       "source": "https://dokapon.fandom.com/wiki/Special_Event_NPC_%28World%29 ; https://dokapon.fandom.com/wiki/Molde ; owner correction 2026-10-07",
-      "usage_note": "Canonical spelling for the recurring delivery NPC. Replaces earlier Morude transliteration in dialogue, map nameplate, and phone-list label; approved but not yet shipped in ISO 3899440a."
+      "usage_note": "Canonical spelling for the recurring delivery NPC, replacing Morude. Current dialogue, nameplate 0x535c50 and phone label 0x535df0 use Molde / Client Molde; the old pending-in-3899440a caveat is superseded by promotion in 46913546. Native request-layout verification is separate from the name decision."
+    },
+    {
+      "jp": "設定",
+      "en": "Settings",
+      "provenance": "authored",
+      "source": "registry/string-registry.json: 0x4ef2a2 and 0x4ef2da",
+      "usage_note": "Confirmed World title-menu key; resolves the bootstrap オプション vs せってい question. Keep the earlier オプション reference alias without claiming it was extracted from World."
+    },
+    {
+      "jp": "ルーレット",
+      "en": "Spinner",
+      "provenance": "authored",
+      "source": "Owner direction 2026-10-08, F116; docs/TRANSLATION-DECISIONS.md; registry 0x4aa460 and related movement descriptions",
+      "usage_note": "Movement mechanism: Spinner / Spinners, not roulette wheel(s), roulette or dice. Double Spin and Triple Spin remain item names. Genuine casino roulette is a separate context and must not be changed by a blanket replacement."
+    },
+    {
+      "jp": "フリールーレット",
+      "en": "Free Spinner",
+      "provenance": "authored",
+      "source": "Owner movement-term decision F116; registry 0x4600a0 and purchase prompt 0x47e370",
+      "usage_note": "Use Free Spinner in the item label, purchase prompt and prose. Supersedes Free Roulette; this does not rename unrelated casino mechanics."
+    },
+    {
+      "jp": "マネールーレット",
+      "en": "Money Spinner",
+      "provenance": "authored",
+      "source": "Owner movement-term decision F116; registry 0x460020",
+      "usage_note": "Movement item name, replacing Money Roulette. Keep distinct from Free Spinner."
+    },
+    {
+      "jp": "ジャンキー",
+      "en": "Jankie",
+      "provenance": "web",
+      "source": "https://dokapon.fandom.com/wiki/Special_Event_NPC_%28World%29 ; owner correction 2026-10-16; registry 0x535bf8, 0x535da0 and 0x4890e0",
+      "usage_note": "Canonical World spelling, replacing Junky. Nameplate and phone use Jankie; the self-introduction deliberately keeps Jankie-chan. Both rule-card mentions in mini_g01 also use Jankie; logo lettering remains stylized. Prior card-appearance approval did not approve the old name."
+    },
+    {
+      "jp": "クーリア",
+      "en": "Clear",
+      "provenance": "web",
+      "source": "https://dokapon.fandom.com/wiki/Special_Event_NPC_%28World%29 ; explicit owner choice 2026-10-16; registry 0x47e560, 0x480790, 0x48d0e0 and 0x48d2c0",
+      "usage_note": "Use Clear rather than the earlier Japanese-derived Kuria. The nameplate is Job Clerk Clear and the narrower phone label is Clerk Clear. The wiki's Job Manager role wording does not override these approved local labels."
+    },
+    {
+      "jp": "ルチル",
+      "en": "Luchil",
+      "provenance": "web",
+      "source": "https://dokapon.fandom.com/wiki/Luchil ; October 15 World-name audit; registry 0x48bc90, 0x535ca0 and 0x535e30",
+      "usage_note": "Canonical dancer name, replacing Rutile in dialogue and the Street Performer image. Nameplate/phone role form: Dancer Luchil. Include baked-image text when auditing future name changes."
+    },
+    {
+      "jp": "バイラル",
+      "en": "Viral",
+      "provenance": "web",
+      "source": "docs/audits/2026-10/2026-10-15-probe-visual-and-names.md, World character-category audit; registry 0x537970 and 0x535d20",
+      "usage_note": "Canonical World pirate name, replacing Bairal. Role form Pirate Viral; the associated weapon is Viral's Hook (0x533ade)."
+    },
+    {
+      "jp": "アリサ",
+      "en": "Alisa",
+      "provenance": "web",
+      "source": "docs/audits/2026-10/2026-10-15-probe-visual-and-names.md, World character-category audit; registry 0x537988 and 0x535d30",
+      "usage_note": "Canonical World spelling, replacing Alicia. The narrow nameplate deliberately omits the Monster Girl role; preserve the full meaning in prose where appropriate."
+    },
+    {
+      "jp": "ジュウール",
+      "en": "Jewel",
+      "provenance": "web",
+      "source": "docs/audits/2026-10/2026-10-15-probe-visual-and-names.md, World character-category audit; registry 0x48d180",
+      "usage_note": "Canonical World gambler name, replacing Joueur. Role-bearing nameplate: Gambler Jewel."
+    },
+    {
+      "jp": "キィ",
+      "en": "Key",
+      "provenance": "web",
+      "source": "docs/audits/2026-10/2026-10-15-probe-visual-and-names.md, World character-category audit; registry 0x5379c0, 0x535c28 and 0x535dd0",
+      "usage_note": "Canonical World hitman name, replacing Kii. Role-bearing nameplate/phone: Hitman Key. The ordinary noun key in item names is unrelated."
+    },
+    {
+      "jp": "ムスケル",
+      "en": "Muscle",
+      "provenance": "web",
+      "source": "https://dokapon.fandom.com/wiki/List_of_minor_characters (World section), as recorded in the October 15 audit; registry 0x535b10",
+      "usage_note": "Canonical weapon-shop NPC name, replacing Muskel. The nameplate drops the Weapon Shop role for fit; this does not rename generic muscle-related items."
+    },
+    {
+      "jp": "イマーヘン",
+      "en": "Imahhen",
+      "provenance": "web",
+      "source": "October 15 World story/bestiary audit in docs/audits/2026-10/2026-10-15-probe-visual-and-names.md; registry 0x5375b0 and 0x48d200",
+      "usage_note": "Canonical World boss spelling, replacing Imahen. The nameplate omits the Ancient Idol role for fit."
+    },
+    {
+      "jp": "ウンフーク",
+      "en": "Unphook",
+      "provenance": "web",
+      "source": "October 15 World story/bestiary audit in docs/audits/2026-10/2026-10-15-probe-visual-and-names.md; registry 0x537690 and 0x48d220",
+      "usage_note": "Canonical World boss spelling, replacing Unfuku. The nameplate omits the koala-man role for fit."
+    },
+    {
+      "jp": "ペギゴン",
+      "en": "Pegigon",
+      "provenance": "web",
+      "source": "October 15 World story/bestiary audit in docs/audits/2026-10/2026-10-15-probe-visual-and-names.md; registry 0x5378b0 and 0x535d00",
+      "usage_note": "Canonical World guardian-beast spelling, replacing Peguigon. The short nameplate drops the role, not part of the personal name."
+    },
+    {
+      "jp": "ライディーン",
+      "en": "Rydeen",
+      "provenance": "web",
+      "source": "Owner correction and October 15 World story/bestiary audit; registry 0x5379b0 and 0x48d260",
+      "usage_note": "Canonical World final-boss spelling, not Raideen. Use the evil god Rydeen in prose where the role is needed; narrow nameplates use Rydeen. The anime-romanization speculation in older registry notes is superseded."
+    },
+    {
+      "jp": "回復ざい",
+      "en": "Potion",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531918",
+      "usage_note": "Global item name replacing Recovery Potion, not a Bag-only alias. Max Potion is the SP variant; Revival Potion and Magic Potion remain distinct items."
+    },
+    {
+      "jp": "回復ざいSP",
+      "en": "Max Potion",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531922",
+      "usage_note": "Global SP-variant name replacing Recovery Potion SP. Do not restore Potion SP or abbreviate it separately by menu."
+    },
+    {
+      "jp": "パワーキノコ",
+      "en": "Atk Shroom",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x5319ea",
+      "usage_note": "Global item name replacing Power Mushroom. Keep the Atk prefix to distinguish it from the three other stat Shrooms."
+    },
+    {
+      "jp": "ガードキノコ",
+      "en": "Def Shroom",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x5319fe",
+      "usage_note": "Global item name replacing Guard Mushroom. Keep the Def prefix; not the unrelated monster Mushroom."
+    },
+    {
+      "jp": "マジックキノコ",
+      "en": "Mag Shroom",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531a0e and bestiary mention 0x4d1740",
+      "usage_note": "Global item name replacing Magic Mushroom, including mentions in descriptions. Do not rename the Magic Mush monster or Shroom-named race contestants to this item."
+    },
+    {
+      "jp": "スピードキノコ",
+      "en": "Spd Shroom",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531a20",
+      "usage_note": "Global item name replacing Speed Mushroom. Keep the Spd prefix to distinguish all four stat items."
+    },
+    {
+      "jp": "怪しい荷物",
+      "en": "Shady Parcel",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531c6e and 0x532040-0x5323e0; docs/TRANSLATION-DECISIONS.md",
+      "usage_note": "Global formal item name replacing Suspicious Package in all 60 item-name records. Generic package or suspicious package remains natural descriptive dialogue; do not force every delivery noun into a capitalized item label."
+    },
+    {
+      "jp": "トーレナ岩",
+      "en": "Block Rock",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531a30 and five dialogue/description mentions",
+      "usage_note": "Global short name replacing Roadblock Rock. Keep distinct from Block Statue; the source pun is on being unable to pass."
+    },
+    {
+      "jp": "トーサン像",
+      "en": "Block Statue",
+      "provenance": "authored",
+      "source": "Owner-approved global-name queue 2026-10-07; registry 0x531a3c",
+      "usage_note": "Global short name replacing Roadblock Statue. Do not restore the older erroneous Dad Statue interpretation; this is the blocking-item family."
+    },
+    {
+      "jp": "マビンの書",
+      "en": "Wanted Scroll",
+      "provenance": "authored",
+      "source": "Owner-approved effect-based rename F043; registry 0x532e9e; tools/fix_effect_based_names_2026_10_07.py",
+      "usage_note": "Makes the target wanted; the old Paralysis Scroll interpretation from the sound of マビン was wrong. Use the documented effect, not the superseded etymological guess. A magic-shop-only label may omit Scroll."
+    },
+    {
+      "jp": "ハズシャーン",
+      "en": "Dazzle",
+      "provenance": "authored",
+      "source": "Owner-approved effect-based rename F043; registry 0x5333a6; tools/fix_effect_based_names_2026_10_07.py",
+      "usage_note": "Inflicts Blind. Replaces the misleading Disarm name; it does not strip equipment. Match the established status name Blind in descriptions."
+    },
+    {
+      "jp": "シャキット",
+      "en": "Magic Ward",
+      "provenance": "authored",
+      "source": "Owner-approved effect-based rename F043; registry 0x5336a2; tools/fix_effect_based_names_2026_10_07.py",
+      "usage_note": "Reduces magic damage and raises Magic. Replaces Haste; do not confuse its effect with Speed or the separate Magic Guard spell family."
+    },
+    {
+      "jp": "ドギューン",
+      "en": "Swift Ward",
+      "provenance": "authored",
+      "source": "Owner-approved effect-based rename F043; registry 0x5336b4; tools/fix_effect_based_names_2026_10_07.py",
+      "usage_note": "Reduces magic damage and raises Speed. Replaces Power Surge; older guesses that it might be an attack spell are superseded."
+    },
+    {
+      "jp": "マホガド",
+      "en": "Magic Guard",
+      "provenance": "authored",
+      "source": "registry 0x533654; docs/TRANSLATION-DECISIONS.md and owner-approved local-name/fit plan",
+      "usage_note": "Canonical spell name. Narrow battle command buttons may use approved short labels; retain the canonical name in item data and prose. Generic Magic on an explainer diagram names the command category, not this one spell."
+    },
+    {
+      "jp": "ドマホガド",
+      "en": "Greater Magic Guard",
+      "provenance": "authored",
+      "source": "registry 0x533662; docs/TRANSLATION-DECISIONS.md and owner-approved local-name/fit plan",
+      "usage_note": "Keep this full canonical name outside local display aliases. The magic shop uses Great Guard; short battle-button labels are also local. Do not globally rename the spell or conflate it with Mega Magic Guard."
+    },
+    {
+      "jp": "ドマホガドラ",
+      "en": "Mega Magic Guard",
+      "provenance": "authored",
+      "source": "registry 0x533674; docs/TRANSLATION-DECISIONS.md and owner-approved local-name/fit plan",
+      "usage_note": "Keep the full canonical name in data/prose. The magic shop uses Mega Guard; narrow battle buttons use local short labels. Other menus solve clipping with measured local scaling rather than another global rename."
+    },
+    {
+      "jp": "毒",
+      "en": "Poison",
+      "provenance": "authored",
+      "source": "Established status labels: registry 0x53447a, 0x53470c and 0x538390",
+      "usage_note": "Status name used in readable item descriptions and matching status icons. Do not substitute Plague; that is a separate effect."
+    },
+    {
+      "jp": "コロリ",
+      "en": "Plague",
+      "provenance": "authored",
+      "source": "Established status label: registry 0x534710; field-ailment help 0x4eb650",
+      "usage_note": "Distinct from Poison. Keep this established debuff name when describing cures and exceptions; do not infer that curing Poison also cures Plague."
+    },
+    {
+      "jp": "暗闇",
+      "en": "Blind",
+      "provenance": "authored",
+      "source": "Established status label: registry 0x53481e; owner-approved Dazzle effect rename",
+      "usage_note": "Standalone debuff label. Use Blind when naming Dazzle's effect; ordinary sentence grammar may use blinded."
+    },
+    {
+      "jp": "ピョコタン",
+      "en": "Hobbled",
+      "provenance": "authored",
+      "source": "Established status label: registry 0x53471e; Hobbling Scroll 0x532e76",
+      "usage_note": "Named movement debuff. Preserve Hobbled rather than borrowing Paralysis from the superseded Wanted Scroll mistranslation."
+    },
+    {
+      "jp": "指名手配",
+      "en": "Wanted",
+      "provenance": "authored",
+      "source": "Established status label: registry 0x534842; owner-approved Wanted Scroll rename",
+      "usage_note": "Status/ailment-list label. Criminal remains valid for 犯罪者 when referring to the person; do not flatten the documented person-versus-status distinction."
+    },
+    {
+      "jp": "睡眼",
+      "en": "Sleep",
+      "provenance": "authored",
+      "source": "Extracted status-label spelling in registry 0x534718, 0x5383a0 and 0x538420",
+      "usage_note": "Established debuff label. The Japanese key preserves the extracted registry spelling; do not silently normalize source text while refreshing English terminology."
+    },
+    {
+      "jp": "おくびょう",
+      "en": "Cowardice",
+      "provenance": "authored",
+      "source": "Established status label: registry 0x5383f8; combined status 0x4d9dd0",
+      "usage_note": "Established debuff name; distinguish from the ordinary character adjective cowardly. The separate kanji source spelling at 0x53478e also maps to Cowardice."
+    },
+    {
+      "jp": "シニガーミ",
+      "en": "Doom",
+      "provenance": "authored",
+      "source": "Established status label: registry 0x534a0a; Doom Scroll 0x532f2e",
+      "usage_note": "Status/mechanic name. Doom Scroll supersedes the older Scroll of Doom item form cited in the historical 死神 note. Keep Reaper for the character/flavor sense and Reaper's Whistle item."
+    },
+    {
+      "jp": "ドカポン王杯",
+      "en": "Dokapon King Cup",
+      "provenance": "authored",
+      "source": "Owner-approved image terminology F156, applied in 817962e2; docs/TRANSLATION-DECISIONS.md; Japanese image transcription in generated/explainer-specs/batch_e.json",
+      "usage_note": "Main race-event logo and mini_g06 rule-card subtitle use Dokapon King Cup consistently, replacing King Dokapon Cup and Dokapon King's Cup. The small title-screen caption deliberately remains Monstar Race / The Dokapon King's Commemorative Event, per the owner's separate wording request; preserve Monstar there. These are image terms, not fabricated string-registry records."
     }
   ],
   "todos": [
     {
       "jp": "ドカポン！ (battle cry)",
-      "reason": "EN 'Dokapon!' follows the series name, but no web attestation of the exclamation and no confirmation it appears in the title-to-prologue path",
-      "needed": "Check extracted text for the exact JP form (ドカポン！ vs variants) and where it appears"
+      "reason": "The bootstrap reference has no attested exact extracted registry match as of 2026-10-16; it is not a confirmed game line.",
+      "needed": "Only promote to a confirmed battle cry if an actual source text/image and context are found; no rename or new text is authorized by this TODO."
     },
     {
-      "jp": "ワルサー (identity in World)",
-      "reason": "EN 'Wallace' is locked from Journey EN, but World's own ワルサー may be a distinct incarnation; fandom wiki disambiguates as 'Wallace (World)'",
-      "needed": "Confirm which character appears in the World prologue after extraction"
+      "jp": "惨憎法師 / 破戒僧惨憎法師",
+      "reason": "Current authored Sanzou / Monk Sanzou and the World guide's Hateful Priest may be a personal name versus a role; the October 15 audit leaves the equivalence unresolved.",
+      "needed": "Retain Sanzou until a stronger World-specific source or owner decision settles the distinction. Do not rename it merely to match an uncertain role label."
     },
     {
-      "jp": "ニューゲーム vs はじめから",
-      "reason": "Both map to 'New Game'; World's actual title-screen label is unknown pre-extraction",
-      "needed": "Check extracted title-screen text and keep one canonical JP key (map the other as an alias)"
+      "jp": "シャンス / 老人デジール / 神父ヒエレウス / マイク",
+      "reason": "The October 15 audit did not establish stronger World-specific English naming evidence for Chance, Old Man Desir, Father Hiereus or Mike.",
+      "needed": "Preserve current authored names pending reliable source evidence; wiki-index absence alone is not a reason to invent replacements."
     },
     {
-      "jp": "オプション vs せってい",
-      "reason": "EN 'Settings' locked from the Kingdom manual, but World's JP options label is unknown",
-      "needed": "Check extracted title-screen text for the actual label"
+      "jp": "Mukini(?) (Japanese source unresolved)",
+      "reason": "The October 15 audit retains an uncertain Mukini(?) wiki/source identification rather than an approved rename.",
+      "needed": "Reconcile the actual Japanese source and character identity before adding a canonical English glossary entry; do not guess a correction."
     }
   ]
 }
