@@ -9,6 +9,8 @@ Dokapon the World.
 - [Translated images](images/): 224 PNGs organized by their role in the game.
 - [Image manifest](images/manifest.json): source locations, dimensions and hashes.
 
+I used a handful of llms (Claude, Codex, Deepseek, Kimi, etc.), they all more or less hover around similar effectiveness for translation work. My recommendation for api models like Deepseek is to build a good harness before starting.
+
 ## Snapshot status
 
 This October 16, 2026 snapshot corresponds to translation build `817962e2`.
