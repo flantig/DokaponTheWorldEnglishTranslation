@@ -1,0 +1,525 @@
+{
+  "schema": "reconstruction-mask-proof-v1",
+  "at": "2026-10-21T12:33:42.797227+00:00",
+  "status": "VERIFIED_FINITE_AND_COLOR_SELECTION",
+  "shared_implementation": {
+    "owners": [
+      "reconstructRaster",
+      "composeCells",
+      "authorTexture",
+      "checkJSON",
+      "texture",
+      "writeNewFile"
+    ],
+    "new_functions": 0,
+    "new_production_files": 0,
+    "reuse_decision": "analysis/reconstruction-mask-reuse-decision.json",
+    "contract": "Existing root selector fields remain wire-compatible through embedded RasterSelection. Up to32 extra flat ANDclauses carry independent tolerances. Near includes equality; NotNear is its strict complement, RGBdistance ignoresalpha, sat_lt compares maxRGB-minus-minRGB. Allclauses validate upfront, including after an earlier false condition; currentpixel/growth/hole/donor/native/publisher owners remain shared. Extra selection work is bounded before cloning. Original logo OR/morphology remain held separately."
+  },
+  "original_fidelity": {
+    "portable_fixture": "testdata/reconstruction-masks.zip",
+    "fixture_sha256": "bfaadb71c12020fa85000ac8893ddb526f54c9b79abbf2439be0bf6d92de6c5d",
+    "members": 46,
+    "new_original_whole_outputs": 18,
+    "numeric_mask_cases": 14,
+    "prior_whole_outputs_unchanged": 4,
+    "old45fixture_unchanged": true,
+    "two_shifted_origins": true,
+    "transport": "23 literal source binary copies and15 deterministic original-only derivations (14wholeRGBA plusallow); noGo-derived expectations. Two offered source predicates sat_gt/alpha_gt remain explicitly held.",
+    "native_output_sha256": "f493896ae3733dce31357c1c2a6eb48e5d5087c9bae01e17476ca12cb7bf2d0a",
+    "native_decoded_rgba_sha256": "571477a174f2b99ab0a8f01ecb17f87556a1fab97951b5b08c752c7d41fe8de4",
+    "native_changes": 5685,
+    "outside_exact_allow_changes": 0,
+    "nonpixel_header_CLUT_changes": 0,
+    "qualification": "Original renderer on frozen tutorial panels, then OLD accepted source-policy codec. Native expected bytes are not an independent encoder or historical recipe/visual approval. Cream has no panel matches; calibrated actual green makes both exclusions meaningful. Original panel/cream literal fixture remains unchanged."
+  },
+  "verification": {
+    "root_final_checks": {
+      "at": "2026-10-21T07:47:29.660806+00:00",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "native-focused",
+          "args": [
+            "go",
+            "test",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-run",
+            "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+            "-count=1",
+            "."
+          ],
+          "exit": 0,
+          "package_seconds": 33.945,
+          "log": "cli-golden-first.log",
+          "reused_exact_final_source_pass": true
+        },
+        {
+          "name": "native-selection",
+          "args": [
+            "go",
+            "list",
+            "-tags",
+            "nativefonts",
+            "-f",
+            "{{.GoFiles}} {{.CgoFiles}}",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.032,
+          "log": "native-selection.log"
+        },
+        {
+          "name": "native-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-o",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 2.018,
+          "log": "native-build.log"
+        },
+        {
+          "name": "native-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.365,
+          "log": "native-vet.log"
+        },
+        {
+          "name": "core-focused",
+          "args": [
+            "go",
+            "test",
+            "-p",
+            "2",
+            "-run",
+            "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+            "-count=1",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 30.519,
+          "log": "core-focused.log"
+        },
+        {
+          "name": "core-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 1.518,
+          "log": "core-build.log"
+        },
+        {
+          "name": "core-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.415,
+          "log": "core-vet.log"
+        },
+        {
+          "name": "gofmt",
+          "args": [
+            "gofmt",
+            "-l",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "input_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "raster.go",
+            "raster_font.go",
+            "raster_font_disabled.go",
+            "raster_png.go",
+            "raster_reconstruction.go",
+            "raster_reconstruction_types.go",
+            "raster_resize.go",
+            "raster_runs.go",
+            "raster_types.go",
+            "recipe_types.go",
+            "reference_geometry.go",
+            "reference_types.go",
+            "references.go",
+            "registry_authoring.go",
+            "registry_types.go",
+            "snapshot_types.go",
+            "snapshots.go",
+            "stream_audit.go",
+            "stream_audit_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_contacts.go",
+            "texture_discovery.go",
+            "texture_index.go",
+            "texture_manifest.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go"
+          ],
+          "exit": 0,
+          "wall_seconds": 0.114,
+          "log": "gofmt.log"
+        },
+        {
+          "name": "packaged-native-final-rows-dry",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-native-final-rows-apply",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/native-final-rows.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-native-final-rows-overwrite",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/native-final-rows.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        },
+        {
+          "name": "packaged-core-final-rows-dry",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-core-final-rows-apply",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/core-final-rows.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-core-final-rows-overwrite",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/core-final-rows.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        },
+        {
+          "name": "packaged-native-final-exclusions-dry",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-native-final-exclusions-apply",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/native-final-exclusions.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-native-final-exclusions-overwrite",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/native-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/native-final-exclusions.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        },
+        {
+          "name": "packaged-core-final-exclusions-dry",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-core-final-exclusions-apply",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/core-final-exclusions.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-core-final-exclusions-overwrite",
+          "args": [
+            "/var/tmp/dokapon-mask-selection-arokvmrg/core-final",
+            "--source",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/core-final-exclusions.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        }
+      ],
+      "packaged_cli_input_identity": {
+        "/var/tmp/dokapon-mask-selection-arokvmrg/packaged-cli/original.txd": {
+          "bytes": 525564,
+          "sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+          "dev": 35,
+          "ino": 93576363,
+          "mtime_ns": 1792568848926269997
+        },
+        "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-reconstruction.json": {
+          "bytes": 1365,
+          "sha256": "6672541ec265ce5173af70f510637cf982b2a6f0e01103b65fe74056445de6b3",
+          "dev": 35,
+          "ino": 93570073,
+          "mtime_ns": 1792567641843670738
+        },
+        "/var/tmp/dokapon-mask-selection-arokvmrg/project/profiles/textures/help00-color-exclusions.json": {
+          "bytes": 2190,
+          "sha256": "4de3bffbadd660fe70e4420b339a4f83c5b53b9b02d37fc8bc68c3d780c8f209",
+          "dev": 35,
+          "ino": 93572772,
+          "mtime_ns": 1792568413372938473
+        }
+      },
+      "hygiene": {
+        "gofmt_go_files": 40,
+        "whitespace_and_positive_selfchecked_credentials": 43,
+        "all_candidate_JSON": 380
+      },
+      "native_selection": "[cmb.go fit.go fit_types.go glyphs.go image_types.go input_types.go inputs.go main.go outputs.go patch.go raster.go raster_png.go raster_reconstruction.go raster_reconstruction_types.go raster_resize.go raster_runs.go raster_types.go recipe_types.go reference_geometry.go reference_types.go references.go registry_authoring.go registry_types.go snapshot_types.go snapshots.go stream_audit.go stream_audit_types.go text_types.go texture.go texture_authoring.go texture_contacts.go texture_discovery.go texture_index.go texture_manifest.go texture_palette.go texture_types.go wrap.go] [raster_font.go]",
+      "production": {
+        "files": 39,
+        "bytes": 419307,
+        "named_declarations": 41,
+        "growth_bytes": 1924,
+        "new_files": [],
+        "changed_go": [
+          "patch_test.go",
+          "raster.go",
+          "raster_reconstruction.go",
+          "raster_reconstruction_types.go",
+          "texture_authoring.go"
+        ]
+      },
+      "test_growth_bytes": 4325,
+      "new_profile_bytes": 2190,
+      "new_fixture_bytes": 155124,
+      "limits": "Focused actualCLI/Golden/native race separately tracked. Native oracle is old accepted codec projection. No fullsuite/gameplay/ISOaccess or actualgamepatch."
+    },
+    "native_focused_package_seconds": 33.945,
+    "native_race": {
+      "status": "PASS",
+      "package_seconds": 414.853,
+      "log": "/var/tmp/dokapon-mask-selection-arokvmrg/final-native-race.log",
+      "sha256": "5b55321ad9687192e44ee76e3520526105cc16335b363189631a518704c37927"
+    },
+    "permanent_boundaries": {
+      "pure_API_guards": 37,
+      "positive_extra_AND_clauses": 32,
+      "structured_CLI_cases_per_profile": 32,
+      "profiles": 2,
+      "refusal_modes": [
+        "dry",
+        "apply"
+      ],
+      "wire_cases_by_profile": [
+        12,
+        17
+      ],
+      "opaque_dynamic_icon_IDs": [
+        "ERASES",
+        "LUM_LT",
+        "Reconstruction",
+        "ALL",
+        "NOT_NEAR"
+      ]
+    },
+    "independent_review": {
+      "path": "evidence/reconstruction-mask-review.json",
+      "sha256": "9a60480200984a9e9e62678436acab7358135604dabef126d66e0a28b1752a9c",
+      "root_verified_artifact_members": 57,
+      "extra_original_cases": 8,
+      "extra_origins": 2,
+      "upfront_invalid_later_clause_guard": true,
+      "complete_old_CLI_stdout_stderr_exit_parity": true
+    },
+    "adversarial_reviews": [
+      "evidence/astra-audit-034.json",
+      "evidence/astra-audit-035.json"
+    ],
+    "full_integrated_suite_and_gameplay": "DEFERRED_BY_OWNER"
+  },
+  "metrics": {
+    "production": {
+      "files": 39,
+      "bytes": 419307,
+      "named_declarations": 41,
+      "growth_bytes": 1924,
+      "new_files": [],
+      "changed_go": [
+        "patch_test.go",
+        "raster.go",
+        "raster_reconstruction.go",
+        "raster_reconstruction_types.go",
+        "texture_authoring.go"
+      ]
+    },
+    "runtime": {
+      "files": 149,
+      "bytes": 2380078
+    },
+    "accounted_inputs": 241,
+    "production_growth_bytes": 1924,
+    "runtime_growth_bytes": 4114,
+    "test_growth_bytes": 4325,
+    "fixture_growth_bytes": 155124,
+    "new_functions": 0,
+    "new_production_files": 0,
+    "historical_retirements": 0,
+    "coverage_credit": 0,
+    "reduction_claim": false
+  },
+  "source_pins": {
+    "raster.go": "b6addaf66e84c50e77c280b44f0e9e1505625a958dcd35ce124f1aecaf60ae1b",
+    "raster_reconstruction.go": "a7494aaf2382828545258c8d2c77d61d8fe4eb3a11ef0265bdfa7fd5d41a2772",
+    "raster_reconstruction_types.go": "d0dae1dfb402d89f644bc78fa625ada3ab6d5984fbbf64af168cb85d62b16f68",
+    "texture_authoring.go": "3a0ea9dfa2f7482dde05b80e325296ab7d3561fdd9eff01a79389a31222a537f",
+    "patch_test.go": "f92f72e9f9b9a5e4c4751deeefb18725f49365355c6447a9c8ab3fe1674aafcb",
+    "profiles/textures/help00-color-exclusions.json": "4de3bffbadd660fe70e4420b339a4f83c5b53b9b02d37fc8bc68c3d780c8f209",
+    "testdata/reconstruction-masks.zip": "bfaadb71c12020fa85000ac8893ddb526f54c9b79abbf2439be0bf6d92de6c5d",
+    "analysis/reconstruction-mask-reuse-decision.json": "276d1a1db94431bf67972e6bb540329e783405f9accb47ead14e3d1dd497e053",
+    "analysis/reconstruction-mask-frontier.json": "4f7fe1694e9fa90fa13a837971c4cd1051f95fd6e7c53f174bba5d394cd7890c",
+    "analysis/reconstruction-mask-native-contract.json": "7253557fae2ee43b30553515511c964a62ea0eb985f6ee8ebf41e3c318b2e6ba"
+  },
+  "source_capsule": {
+    "path": "/var/tmp/dokapon-mask-selection-arokvmrg/review-source",
+    "manifest_sha256": "f4b514420c518c4fb810959540a077694e6e5f565bfb62a0006d6699017f1e79",
+    "members": 506,
+    "independent_contained_readonly_single_link_copies": true
+  },
+  "root_artifacts": {
+    "checks": {
+      "path": "/var/tmp/dokapon-mask-selection-arokvmrg/final-checks.json",
+      "sha256": "4544e7a10372851bc1f75b4a0d8763569c590c7e863b81e3b63958a8693efd8d"
+    }
+  },
+  "coverage": {
+    "core_full_families": "6/14=42.86%",
+    "planning_index": "65/84=77.38%",
+    "raster": "5/6",
+    "milestone_credit": 0,
+    "historical_dispositions_unchanged": true,
+    "source_reach": "84directoperation roots/110not_near leaves in2boundedrecipe documents, not84distincthistoricalpaths. sat_lt4directoperations supported.",
+    "remaining": "Other masks/geometry/OR/morphology,PDE,exemplar,plate,radial/contour,material andsource-art duties remain."
+  },
+  "protected_scope": "No ISO/canonicalregistry/emulator/PINE/controller/process/log/settings access/control; frozen/synthetic standalone inputs, new owned outputs only."
+}

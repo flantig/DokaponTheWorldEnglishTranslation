@@ -1,0 +1,234 @@
+{
+  "source_global_manifest": "/var/tmp/dokapon-component-global-stages-aKJmlrhz/manifest.json",
+  "source_global_manifest_sha256": "bae488bad73d006b0a7ab6c7d0010f95acc0cee5646c93321db8be7a0634a6ee",
+  "canonical_shared_panel_source": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/profiles/permissions/batch-c-panels.json",
+    "sha256": "ef76742b4176709d7682da1b3906159adeb91f1a95ecbcdf1ebf0beb7056a018",
+    "copied_as": "canonical-shared-panels.json",
+    "allow_prefix_records": 13
+  },
+  "asset_to_complete_flat_table": {
+    "mini_g02": "tables/mini-g02-g12.json",
+    "mini_g12": "tables/mini-g02-g12.json",
+    "mini_g08": "tables/mini-g08.json",
+    "mini_t2": "tables/mini-t2.json"
+  },
+  "tables": {
+    "tables/mini-g02-g12.json": {
+      "sha256": "e681deda18d919ae2d64e8a97edcfb57883f07af4a1889211f4174eeba47a7e0",
+      "bytes": 4476,
+      "asset_keys": [
+        "mini_g02",
+        "mini_g12"
+      ],
+      "canonical_panel_prefix_records": 13,
+      "complete_all_original_permission_operands": true,
+      "no_erases_loader_extensions_or_includes": true
+    },
+    "tables/mini-g08.json": {
+      "sha256": "00e930894e4fa827a155a3c906e957cbfe08db3bb35a2a1b65abf280b509fd70",
+      "bytes": 2035,
+      "asset_keys": [
+        "mini_g08"
+      ],
+      "canonical_panel_prefix_records": 13,
+      "complete_all_original_permission_operands": true,
+      "no_erases_loader_extensions_or_includes": true
+    },
+    "tables/mini-t2.json": {
+      "sha256": "49c46689417719a766330d040f90b10e09a7532557562f406ad54b47f93f5b56",
+      "bytes": 1062,
+      "asset_keys": [
+        "mini_t2"
+      ],
+      "canonical_panel_prefix_records": 0,
+      "complete_all_original_permission_operands": true,
+      "no_erases_loader_extensions_or_includes": true
+    }
+  },
+  "native_rectangles_by_asset": {
+    "mini_g02": [
+      [
+        104,
+        119,
+        302,
+        30
+      ],
+      [
+        166,
+        161,
+        56,
+        22
+      ],
+      [
+        290,
+        161,
+        56,
+        22
+      ],
+      [
+        212,
+        198,
+        88,
+        20
+      ],
+      [
+        60,
+        228,
+        392,
+        26
+      ],
+      [
+        40,
+        255,
+        432,
+        29
+      ],
+      [
+        168,
+        15,
+        168,
+        70
+      ]
+    ],
+    "mini_g08": [
+      [
+        60,
+        117,
+        392,
+        23
+      ],
+      [
+        28,
+        140,
+        456,
+        27
+      ],
+      [
+        60,
+        209,
+        392,
+        24
+      ],
+      [
+        40,
+        233,
+        432,
+        27
+      ],
+      [
+        40,
+        260,
+        432,
+        24
+      ],
+      [
+        80,
+        21,
+        342,
+        90
+      ]
+    ],
+    "mini_g12": [
+      [
+        104,
+        119,
+        302,
+        30
+      ],
+      [
+        166,
+        161,
+        56,
+        22
+      ],
+      [
+        290,
+        161,
+        56,
+        22
+      ],
+      [
+        212,
+        198,
+        88,
+        20
+      ],
+      [
+        60,
+        228,
+        392,
+        26
+      ],
+      [
+        40,
+        255,
+        432,
+        29
+      ],
+      [
+        168,
+        15,
+        168,
+        70
+      ]
+    ],
+    "mini_t2": [
+      [
+        32,
+        10,
+        189,
+        85
+      ]
+    ]
+  },
+  "original_source_g02_g12_equivalence": {
+    "expanded_allow_records": {
+      "equal_values_and_order": true,
+      "g02_canonical_sha256": "b0dfbf1899653b2d6e80b62bf8673740de290e8f22b01df46d99b36a5318ab7b",
+      "g12_canonical_sha256": "b0dfbf1899653b2d6e80b62bf8673740de290e8f22b01df46d99b36a5318ab7b"
+    },
+    "allow_add_records": {
+      "equal_values_and_order": true,
+      "g02_canonical_sha256": "1b1507b3e9a9067c98da539f612c68474eb101a2922bf2e251e9b53766b47c7f",
+      "g12_canonical_sha256": "1b1507b3e9a9067c98da539f612c68474eb101a2922bf2e251e9b53766b47c7f"
+    },
+    "native_rectangles_original_all_rects": {
+      "equal_values_and_order": true,
+      "g02_canonical_sha256": "4c6b913df86f45764d0b07d7005cfe3fe0381324df8aea0a3b7edd120aad498f",
+      "g12_canonical_sha256": "4c6b913df86f45764d0b07d7005cfe3fe0381324df8aea0a3b7edd120aad498f"
+    },
+    "same_output_by_fixture": {
+      "components-A": {
+        "positive_union": true,
+        "negative_union": true,
+        "after_subtract": true,
+        "allow_add_union": true,
+        "after_add": true,
+        "native_union": true,
+        "final_allow": true
+      },
+      "components-B": {
+        "positive_union": true,
+        "negative_union": true,
+        "after_subtract": true,
+        "allow_add_union": true,
+        "after_add": true,
+        "native_union": true,
+        "final_allow": true
+      }
+    },
+    "asset_keys_stay_distinct": [
+      "mini_g02",
+      "mini_g12"
+    ],
+    "sharing_candidate": "Identical purpose-grouped permission operands may be shared onlywhere values/order match; preserve separate stableassetjoinkeys and any differingnative/text/artfacts. This is source/data evidence, no runtime schema/approval."
+  },
+  "prefix_maintenance_rule": "Tables are completeflat runtimepermissionobjects. Their13rectangleprefixes are copiedfromonecanonicalsharedpanel authority. Laterdata updates must explicitly substitute thisprefix and recheck identity; no runtimeincludes/template/loader introduced.",
+  "historical_mini_t2_partial_reference": {
+    "source_manifest": "/var/tmp/dokapon-original-footprint-actual-7FKjH7rv/manifest.json",
+    "sha256": "7ac28213c30127fa8c426935d6c94e4666e097e318eaf0c07cbf2dba45f284ce",
+    "status": "Immutablehistoricalgeneric-onlypartial archive; originalremnants omission remainsqualifiedthere. Newcomplete mini_t2table doesnotrewriteoldexpectedbytes orcallerprofiles. Rootownsobsoletecaller/deletion."
+  },
+  "scope": "Completeoriginalglobalpermissionoperanddataonly; sourceNativeRects are projectionmetadata. No art/hooks/text/donor/fulltexture/patch/familyapproval."
+}

@@ -1,0 +1,22 @@
+{
+  "operation": "reference_gp_index",
+  "source_size": 4096,
+  "source_sha256": "1cae72f0c3b198fbf8c9fdf510bc53969399580b08359029146637e9f7f309f2",
+  "evidence": "Synthetic three-word GP-base ADDIU index; ELF GP100500, source-order signed offsets -512,+512,+512. Metadata assumption only, no execution or loaded-pointer claim.",
+  "references": {
+    "file_range": {
+      "start": "0x200",
+      "end": "0x20c"
+    }
+  },
+  "address_ranges": {
+    "first_stream": {
+      "start": "0x100300",
+      "end": "0x100306"
+    },
+    "second_stream": {
+      "start": "0x100700",
+      "end": "0x10070c"
+    }
+  }
+}

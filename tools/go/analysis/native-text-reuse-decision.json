@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-20T17:43:11.408884+00:00",
+  "status": "DESIGN before native implementation",
+  "work": "/var/tmp/dokapon-native-text-wmx81r2c",
+  "accepted_baseline": "/var/tmp/dokapon-raster-resize-sealed-53uxadsx",
+  "contract": "analysis/native-raster-integration-contract.json",
+  "contract_sha256": "59ff55eb3a17965ac1bd8283377cdb931f3d6902fed06e530628940dde27e337",
+  "serena_session": "e97a7438",
+  "existing_candidates": {
+    "composeCells": "Enhance wholefont input/commonpreflight/background/strictunclipped containment/finalSrc. Fourcurrentcallers identified bySerena; keeponecanvas/maskowner. Adding220-300numericalfontlines woulddouble pipelinesin400-500linefunction.",
+    "resizeRaster": "Alreadyowns sharedGray/RGBA scaling; reuse unchanged, no newfilter/kernel.",
+    "texture/generatePalette": "Native storage/index/CLUT and color clustering; no font-run/alpha-composition responsibilities.",
+    "authorTexture": "Keepfilepins/load/import/publish; onlywholefontcallchanges.",
+    "pixel math": "GoOver proved318 nativeindex differences inactualcell; no existingexactpixelblend. composeCells cannot reasonablyserveperpixelAPIwithoutunrelatedmodes.",
+    "tests": "Enhance existinggolden andCLIowners; retainfivebinarycase/refusals. No newtestfunction orclosure."
+  },
+  "unavoidable_functions": {
+    "renderRuns": "ONE pure cohesive bounded nativefont/run layer + logicalorigin; metrics/quarterfit/glyphcoverage/coloredstroke/counters/sharedresampling/float32area. No canvascopy/background/mask/IO/palette/writer.",
+    "pixelOver": "ONE pure exactPillowintegerpixelblend sharedby actualglyphCM and finalPANEL contexts; no clip/layercopy/modeflags."
+  },
+  "schema": "Existing BitmapFont adds Em/Ascent/Descent/CapHeight; BitmapGlyph.Left. Cells addRuns/Layout/Background exclusivelywitholdText/Fill/Shade. Onepinnedfontsource; preparednormalizedatlas+metrics issharedfontdata, neverword/sizepayload.",
+  "invariants": [
+    "Native24x24tilebounds kept; normalizedspace andraisedapostrophe insharedfontdata.",
+    "Derive19.25 fit fromrequested22/maxwidth310; preserveperrunfloating addition/reset.",
+    "Addcelllogicalorigin beforeties-evenrounding; baseBounds.Min after.",
+    "Returnunclipped322x35layer; any nonzeroalphaoutsideapprovedcellrefuses beforecropping/publication.",
+    "Existing5binarycells,134resizevectors and227nativecorpus preserved; strictJSON/pins/exclusivewriter unchanged."
+  ],
+  "before_pins": {
+    "raster.go": "26322386d65c23f3158a2b3373706c7a8d9c2d075095b3cd86ef8ed4dc5e5431",
+    "raster_types.go": "2d76143b31bddb21a31baf0d3b9b7405a8df727352281b6e40fa92e846f1b797",
+    "texture_authoring.go": "867bc6fa20db1a885d761a2389b0524d39332c4b7fda3ddb796ef89a8a39de31",
+    "patch_test.go": "ca608aa6d810791f46d05223a6f00ee56ade0b93f2ec907cb0d3774977d7cb90",
+    "analysis/go-current-input-accounting.json": "1747201fe6dfd2130f2ba69a83cddeee88905ca2239038777f07e2aa7f83b6c2",
+    "analysis/reusability-coverage.json": "df1831a552b6184ed66b112af04854ee1a01a87d3a1e5df8ffbd6dae28d5f812",
+    "evidence/reusability-coverage-checks.json": "80eedd809796438951e7336306c8845445be2f2b2db6b98e9013f06d61872499"
+  },
+  "limits": "Only selectednativeoptical smallglyphstroke behavior first; no halo/TTF/rotation/shadow/newCLI/dependency, no familyfull/netreduction/retirement/ISO/gameplay claim."
+}

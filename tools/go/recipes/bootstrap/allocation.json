@@ -1,0 +1,19 @@
+{
+  "operation": "stream_allocate",
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Pristine-image disc-only reservation, not loader activation/readiness. tools/patch_iso_stream_blob.py n=0 contract: zero existing leading padding, unchanged retail ELF, dual-endian SLPM/ZERO records, actual old-byte guards for newly reserved ZERO sectors. Reuses whole ISO tree/path-table containment. Repeated allocation preserves all allocated content. Blob overwrite, shrink and manifest restoration remain outside this operation.",
+  "stream": {
+    "retail_elf_size": 4430000,
+    "elf_record_offset": "0x82a62",
+    "zero_record_offset": "0x8289c",
+    "zero_end": "0x204d9800"
+  },
+  "growth": {
+    "from_sectors": 0,
+    "to_sectors": 320
+  }
+}

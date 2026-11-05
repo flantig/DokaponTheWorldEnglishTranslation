@@ -1,0 +1,58 @@
+{
+  "operation": "reference_candidates",
+  "source_sha256": "37a9a0c7a761cfd6c7b127b79bcfdacefe833d6ac0baf1f296edc7a481d93f8c",
+  "source_size": 5085184,
+  "iso_elf_offset": "0x0",
+  "elf_vma_delta": "0xfff80",
+  "scope_sha256": "7ca467370b3b8a11a92cd2406c623cec80804bf164ae3335483766a06dea616e",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Read-only original ELF capture37a9a0c7 from fully hashed pristine ISOe9074e32; current canonical7ca46737/glypha662eb2f. Candidate high-half matching is not liveness/CFG/whole-reference proof and never authorizes writes. Historical pure-function comparison and independent review required; no path-retirement credit.",
+  "references": {
+    "file_range": {
+      "start": "0x80",
+      "end": "0x439700"
+    },
+    "pointer_min_vma": "0x457000",
+    "skip_words": 8,
+    "decode_words": 500,
+    "queries": {
+      "help_and_events": {
+        "source_pool": "help_and_events",
+        "content_range": {
+          "start": "0x4e7e00",
+          "end": "0x4ecc00"
+        },
+        "backward": true,
+        "check_collisions": true
+      },
+      "misc_labels": {
+        "source_pool": "misc_labels",
+        "content_range": {
+          "start": "0x4eea00",
+          "end": "0x52f800"
+        },
+        "backward": true,
+        "check_collisions": true,
+        "struct_rows": [
+          {
+            "start": "0x4eece0",
+            "end": "0x4eeec0",
+            "stride": 16
+          },
+          {
+            "start": "0x4eeed0",
+            "end": "0x4ef0b0",
+            "stride": 16
+          }
+        ],
+        "excluded": {
+          "0x52f718": "Historical embedded battle-command label; no reviewed independent reference.",
+          "0x52f720": "Historical embedded battle-command label; no reviewed independent reference.",
+          "0x52f728": "Historical embedded battle-command label; no reviewed independent reference.",
+          "0x52f730": "Historical embedded battle-command label; no reviewed independent reference.",
+          "0x52f738": "Historical embedded battle-command label; no reviewed independent reference."
+        }
+      }
+    }
+  }
+}

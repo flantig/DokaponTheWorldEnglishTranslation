@@ -1,0 +1,77 @@
+{
+  "kind": "pre-Go-register-flow-exact-public-semantic-source-oracle",
+  "status": "Independent source-to-public-schema projection, no graph implementation/approval/criterioncredit",
+  "capsule": {
+    "path": "/var/tmp/dokapon-register-flow-cli-NJ8RI2o9",
+    "manifest_sha256": "214591ed5e04433badd90d7f7d8fd0feb505caa5db645db539b1183a6e31cf8d",
+    "member_count": 17,
+    "total_bytes": 505606
+  },
+  "fixture": {
+    "raw_path": "/var/tmp/dokapon-register-flow-cli-NJ8RI2o9/testdata/register-flow.json",
+    "raw_sha256": "b75584823aad02c886912e97deb363f6a26ef29806744b4246a141545dadd978",
+    "raw_size": 250132,
+    "zip_path": "/var/tmp/dokapon-register-flow-cli-NJ8RI2o9/testdata/register-flow-fixture.zip",
+    "zip_sha256": "20b04ea5262affc179531f7471e39a508fa2d56b5599b8e22d5413a77e761bd7",
+    "zip_size": 7637,
+    "member": "register-flow.json"
+  },
+  "source_design": {
+    "path": "/var/tmp/dokapon-register-flow-lfj28b6t/precode-design.json",
+    "sha256": "85679ef95bd44193abd53cd1790d539bc61a9eefa361786d1a50cc18ceca1f4d"
+  },
+  "policy": {
+    "status": "PRE_GRAPH_GO_SOURCE_ONLY_PUBLIC_SCHEMA_PROJECTION",
+    "design_sha256": "85679ef95bd44193abd53cd1790d539bc61a9eefa361786d1a50cc18ceca1f4d",
+    "operation": "instruction_index",
+    "input_placement": "references.register_flow optional nonnull object",
+    "output_placement": "instruction_index.register_flow optional group",
+    "cases": 23,
+    "register_flow_batches": 22,
+    "source_queries": 44,
+    "locally_complete_queries": 25,
+    "schema_refusals": 18,
+    "expected_scopes": {
+      "register_flow_semantic_group_only": 22,
+      "full_instruction_index_baseline_no_queries": 1
+    },
+    "subset_comparison": "For22 semantic cases compare actual instruction_index.register_flow EXACTLY to expected_core.instruction_index.register_flow, including field/key sets and null/empty distinctions. Do not compare entire instruction_index to this subset or allow extra query result fields. Also check register_info null, independent raw-word/header/mapping assertions and source identity. Baseline case compares full prior source-projected instruction_index and requires absent register_flow.",
+    "zero_query_context": "local-fallthrough-false-but-target-entry has zero source queries. Adding register_flow with empty queries would violate frozen API. Retained as baseline-only case; no query invented.",
+    "no_second_decoder": "Reuse previous ELF carrier template/header builder and existing source-projected baseline rows. New golden core intentionally contains ONLY register_flow semantic group; independent source/header/raw-word assertions are in source-assertions.json. Existing247instruction-row corpus retains finite decoder coverage; this projection does not claim new full-row goldens.",
+    "query_translation": "kind defines phase; remove phase/tracked_bits/proof inputs. Source any_reachable/normal copied, source delay_of:offset becomes context delay plus hex(base+offset) controller. Output delay_of always numeric or null. Sort entry/site arrays numeric, reasons lexicographic and query labels lexicographic. Preserve all44manual factsets/unknowns/completeness exactly.",
+    "same_register_branch": "Conservative operand-use sets retain same-register branch site+4 even when static condition makes predicate independent; false likely still reaches+12 consumer and is complete beforekill.",
+    "scope": "All low32 normal-completion graph facts conditional on asserted entries/no unmodeled local predecessor. whole_program_scope_proven always false. No ABI return/clobber or switch inference.",
+    "resource_caps": "Perquery1..100000, graph100000states, batch1mwork, queries1..64 and entries1..256. These small source cases do not exercise maximum caps or batch exhaustion; root must add independent wire/resource controls.",
+    "refusal_scope": "18 schema-only malformed profiles, expected any refusal, no error-message/precedence oracle. Invalid proof/null fields appear ONLY in refusal profiles and are explicitly forbidden. All23 valid profiles contain only frozen allowed fields."
+  },
+  "verification": {
+    "status": "PASS_SOURCE_ONLY_CLI_PROJECTION",
+    "at": "2026-11-04T21:17:46.151042+00:00",
+    "prior_manifest_members_verified": 143,
+    "source_contexts": 23,
+    "carrier_cases": 23,
+    "exact_semantic_batches": 22,
+    "exact_semantic_queries": 44,
+    "complete_queries_under_explicit_scope": 25,
+    "baseline_only_full_index_cases": 1,
+    "baseline_full_instruction_rows": 5,
+    "new_full_instruction_row_projection": false,
+    "schema_refusals": 18,
+    "all44manual_sets_exact": true,
+    "carrier_headers_raw_words_mappings_profiles_checked": true,
+    "strict_valid_field_shapes_null_empty_output_arrays_checked": true,
+    "ZIP_readback": "PASS_ONE_DETERMINISTIC_MEMBER",
+    "JSON_AST_scoped_hygiene": "PASS",
+    "Go_candidate_executions_or_graph_algorithms": 0,
+    "original_module_imports_mains_constructors": 0,
+    "runtime_or_test_code_edits": 0,
+    "all_owned_jobs_terminal": true
+  },
+  "existing_loop_integration": "Reuse TestCLIDryRunAndApply existing ZIP/case/refusal loop. Honor expected_core_scope: graph cases compare whole semantic group exactly, baseline case whole index exactly. Existing source_assertions separately pin complete raw word/header/mapping facts; subset does not claim all new finite rows are golden.",
+  "limitations": [
+    "22 semantic batches across23carriercontexts because one original context has zero manual queries; no empty invalid query batch or invented45thquery.",
+    "No graph algorithm, Go implementation/test edit or candidate execution used for expected facts. Full finite decoder rows remain separately covered by prior247row source corpus.",
+    "All25complete results are conditional low32/normal/asserted-entry facts; whole_program_scope_proven false. No ABI return, patch authority or .05/.06 award.",
+    "Maximum graph/batch-work caps, malformed duplicate/alias raw JSON and remaining resource/wire boundary controls stay root verification duties."
+  ]
+}

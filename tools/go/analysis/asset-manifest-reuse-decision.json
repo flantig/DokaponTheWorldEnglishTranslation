@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-21T00:59:46.961179+00:00",
+  "decision": "Extend existing CMB index, codec and profile/output orchestration; two responsibility-specific functions are necessary rather than appending unrelated algorithms to existing functions. No new per-patch handler, CLI, writer, texture parser or image codec.",
+  "Serena": "Current authorTexture sole production caller run; cmbIndex sole production caller planBundle; texture shared authorTexture and self-readback; inspect consumers ELF/planning/fit/audit; generatePalette texture only. Source bodies and docs inspected.",
+  "existing_candidates": {
+    "cmbIndex": "Enhance to also return original member-name order alongside exact name->span map; change planBundle caller to ignore ordered slice. Do not duplicate CMB parser or sort by payload offsets.",
+    "authorTexture": "Continue owning profile, operation refusal and dispatch/publication. Existing selected-TXD orchestration is already ~370lines; adding full streaming archive traversal, PNG exports and per-entry status rows would mix two distinct lifecycles. Enhance dispatch to manifestTextures without moving historical single-asset behavior.",
+    "texture/indexTextures": "Retain sole structural/layout/pixel parser and decoder; batch calls these. They cannot reasonably own archive entries, metadata-only blobs, annotation joins or sheet manifests.",
+    "generatePalette": "Mutates/normalizes alpha and transparent RGB and quantizes; source discovery measures original pixels without mutation. Enhancing with a reporting mode would couple incompatible contracts.",
+    "composeCells/renderRuns/resizeRaster": "Paint/compose/resample; discovery classifies unchanged pixels. No sensible enhancement owns a tile detector.",
+    "inspect": "ELF mappings/text readiness and edits; a raster detector mode would couple unrelated binary and image domains.",
+    "writeNewFile": "Retain sole exclusive publication with digest/readback; publish one deterministic ZIP containing previews and manifest, not a partial multi-file directory."
+  },
+  "unavoidable_functions": {
+    "inspectRaster": "Pure unchanged-pixel measurements and discovery classification, reusable by manifest and later preview/contact consumers. Accept explicit nil/unmeasurable raster, retain path tier and unknown stats; no OCR or approval.",
+    "manifestTextures": "Streaming extracted-CMB traversal and bounded preview bundle assembly. Reuses cmbIndex order, indexTextures, texture, inspectRaster and writeNewFile. Full source hashing before/after; every entry accounted including empty/nontexture/unsupported, duplicate native names, invalid PNG/TXD; ambiguous authored joins refuse publication."
+  },
+  "source_errors": "Original <8 returns erroneous 3tuple; cropped nonmultiple8 mask throws. New domain explicitly reports unavailable with null score, preserves reason diagnostics and path/name evidence. No claim of legacy6counter parity outside successful multiple8 domain.",
+  "bounds": "Extracted CMB regular <=1GiB streamed, <=100000 index records and <=100000 total raster rows. Individual asset decode <=64MiB and <=1Mpx. Total potential attempted decode pixels <=2^28 (including failed attempts), with explicit row budget status; no entry truncation. Single deterministic contained ZIP<=128MiB, over-limit publication globally refuses. Profile1MiB; JSON strict owned scalar contracts. No ISO reads.",
+  "effects": "Legacy inventory/specification/default outputs/refusals unchanged; new manifest requires explicit source/index pins and archive label. Apply produces only exclusive new ZIP, dry-run none. Source/profile guarded through complete batch; no canonical/protected runtime operations.",
+  "affected": [
+    "texture_types.go",
+    "texture_authoring.go",
+    "cmb.go",
+    "texture_discovery.go",
+    "texture_manifest.go",
+    "patch_test.go",
+    "testdata/asset-manifest.zip",
+    "README.md",
+    "ARCHITECTURE.md",
+    "MIGRATION.md",
+    "same-day MIGRATION-TOOLS.md",
+    "accounting/coverage/proof/roadmap after focused checks and independent review"
+  ],
+  "claim": "New capability growth, not code reduction/retirement. .04 remains open until complete source-backed contract verified.",
+  "source_contract": {
+    "path": "analysis/asset-manifest-contract.json",
+    "sha256": "77918a5c1d465310970b6cbbbf7967c2b3a99f585d7bc541e1fee0c6e1172bb5"
+  },
+  "source_name_domain": "Manifest requires UTF-8 member names, without changing existing CMB planner name semantics. Independent header-only crawl of6extracted CMB indexes found0non-UTF8 names among4201entries; no whole-source hash/codec completion claim from this crawl.",
+  "review_findings": {
+    "source_range": "Added half-open source_file_range directly from existing span and checked frozen source facts.",
+    "PNG_conversion": "Initial Go draw conversion differs from original Pillow. Corrected existing rawPNG branch with frozen34color/alpha/tRNS conversion cases, including Gray16 clamp and low-bit gray/RGB16 transparency semantics. No new helper/decoder or domain restriction.",
+    "raw_PNG_export": "Original encoded rawPNG bytes retained verbatim as preview artifact, matching cmd_export. Measured RGBA/discovery follows pinned Pillow12.3 convention; native TXD previews encode shared-codec pixels."
+  },
+  "PNG_contract": {
+    "path": "analysis/asset-png-conversion-contract.json",
+    "sha256": "ba5de7dca52649dbdab236fd209f53baeff925bf2f2d107da9055729025d15ae"
+  }
+}

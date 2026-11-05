@@ -1,0 +1,68 @@
+{
+  "kind": "independent-register-flow-source-contract-correction-v3",
+  "status": "Corrected independent source semantics after review, no candidate-output oracle or API change",
+  "capsule": {
+    "path": "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl",
+    "manifest_sha256": "791f27ec19f60d43bccc072c12b1c40586e5a5dcaa7a3a5a2e980b5755c56d58",
+    "member_count": 18,
+    "total_bytes": 500371
+  },
+  "fixture": {
+    "raw_path": "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl/testdata/register-flow.json",
+    "raw_sha256": "dac9f981f7a963bef09a85cf50cacdb104102b676581a9b17a71085cb007328d",
+    "raw_size": 265707,
+    "zip_path": "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl/testdata/register-flow-fixture.zip",
+    "zip_sha256": "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2",
+    "zip_size": 8475,
+    "member": "register-flow.json"
+  },
+  "policy": {
+    "status": "SOURCE_CONTRACT_CORRECTION_V3_AFTER_RF_UNKNOWN_ROOT_1",
+    "API_change": false,
+    "input_placement": "Top-level register_flow; references file_range-only unchanged",
+    "output_placement": "instruction_index.register_flow exact public semantic group unchanged",
+    "unknown_root_rule": "Nonzero reaching_defs trusted roots retain all entry-reachable unknown frontiers (unsupported_instruction,unsupported_delay_word,missing_delay_word,control_in_delay_slot,unresolved_indirect_exit), even later than query. Known out_of_scope_direct_target cut excluded. This is conservative incompleteness, not fabricated incoming edges or definitions.",
+    "direction_distinction": "uses_after remains selected-path/value sensitive. A proved low32 kill ends old value flow before later unknown and can preserve useful complete use sets. Reaching_defs cannot use a later kill as no-reentry proof. GPR0 immutable and unreachable-query behavior unchanged.",
+    "original_preservation": "All23original carriers/profiles/source raw words/header/mapping assertions and18schema refusal profiles unchanged. All44known_fact_sites/incoming_entry_sites unchanged;31original result objects unchanged,13change only completeness/reasons. Original v2pack preserved by pin.",
+    "counts": {
+      "cases": 26,
+      "semantic_batches": 25,
+      "queries": 48,
+      "complete": 14,
+      "original_complete": 13
+    },
+    "source_assessment": "Original25complete count relied on undeclared no-reentry assumption. Correct original retained complete count13; adding3cases/4queries yields14complete of48. Known shared-LUI definitions remain useful lower bounds, with unresolved root reason; complete foreign-use-before-kill witnesses remain intact. No .05 or program closure claim.",
+    "expected_scope": "25 explicitly tagged register_flow_semantic_group_only batches; one unchanged full_instruction_index_baseline_no_queries. source-assertions separately pin all26carriers, raw words, headers, counts and mappings.",
+    "no_candidate_dependency": "No Go implementation, output, reviewer query output or graph traversal implementation read/executed to derive semantics. New expected values are literal manual raw equations, and old corrections are an explicit manual frontier/query table. Original helper AST observations are separately labeled uncorrected.",
+    "limitations": "Normal completion, supported low32 model only. Unknown reason retention does not resolve targets, simulate reserved instructions, define ABI policy, prove program closure or authorize patches."
+  },
+  "changed_expectations": "corrected-query-explanations.json gives before/after and manual reachable-frontier witnesses for each of13changed original results. manual-entry-reachable-frontiers.json covers every original context independently. new-raw-equations.json and new-manual-query-facts.json pin all3newcarrier equations/4results.",
+  "verification": {
+    "status": "PASS_INDEPENDENT_SOURCE_CONTRACT_CORRECTION_V3",
+    "at": "2026-11-04T21:48:27.716324+00:00",
+    "original_v2_9pack_unchanged": true,
+    "original_initial16_supplement7_unchanged": true,
+    "all_original44_fact_and_entry_sets_unchanged": true,
+    "original_results_changed": 13,
+    "original_results_unchanged": 31,
+    "original_complete_demoted": 12,
+    "original_complete_retained": 13,
+    "new_carriers": 3,
+    "new_manual_queries": 4,
+    "total_cases": 26,
+    "semantic_batches": 25,
+    "semantic_queries": 48,
+    "complete_queries": 14,
+    "schema_refusals_unchanged": 18,
+    "all_original23_source_assertions_profiles_carriers_unchanged": true,
+    "all26_carrier_header_word_mapping_source_pins_checked": true,
+    "separate_original_helper_observation_queries": 4,
+    "JSON_AST_hygiene": "PASS",
+    "deterministic_ZIP_second_write": "BYTE_IDENTICAL",
+    "Go_candidate_graph_algorithm_executions": 0,
+    "runtime_test_code_edits": 0,
+    "original_imports_mains_constructors": 0,
+    "all_owned_jobs_terminal": true
+  },
+  "ownership": "Only new owned capsule and analysis/register-flow-cli-contract-v3.json written; priorpacks/livev1v2reports preserved. No protected resources."
+}

@@ -1,0 +1,377 @@
+{
+  "at": "2026-10-20T14:30:42.385847+00:00",
+  "status": "VERIFIED explicit whole-raster exact palette in existing calibrated PSMT8 codec; default preserved",
+  "source_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "f88318c9f0068f7c1268aeaa94eab08299b6a4abed0a1a4f2068b2f880db9319",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "be288d46c2a58c5525ec725b75db4d17ac51f6067978bfe47f22a9b68f65838e",
+    "texture_authoring.go": "609189626728f85617f12f4c3735fa73a2c44d64bb5cbf0105c23be660fccc0b",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "2aa7f8e8bebd1fa2ba3e295f8ad9ad4ff465554dfd8c908abfbd8354dc09481a",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "f962ecab7005d15e9da47e33e98b2de8a0ecb3b8b5d3e7540feb0b3256a296f0",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54"
+  },
+  "evidence_pins": {
+    ".goal/exact-palette-checks-work.json": {
+      "sha256": "d81649f1508d2737f6b0182e682ec2f01e9d1c0a1dfc70e586afad10164fc299",
+      "bytes": 6497
+    },
+    "analysis/exact-palette-reuse-decision.json": {
+      "sha256": "51658021877f9000d5568885459d4e57e08bd792ebce6b2b9843adb2aaf9716d",
+      "bytes": 2927
+    },
+    "analysis/texture-codec-remaining-contract.json": {
+      "sha256": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30",
+      "bytes": 70045
+    },
+    "analysis/exact-palette-native-binding.json": {
+      "sha256": "691ede548757aaec7bda1b34dbba4c3bc479ddebfa2f5d9fa65b5978a4471d17",
+      "bytes": 27256
+    },
+    "evidence/exact-palette-review.json": {
+      "sha256": "f7dd3ad2b4b1904377935d22a16e945f1cd65e69cd754f2d8bcfbb57123ec160",
+      "bytes": 18599
+    },
+    "/var/tmp/dokapon-exact-palette-vaeo__3q/accounting-before.json": {
+      "sha256": "78ba682af360d2f1377dec4810f6025baa0d2e2a6668e94c61c51cc9e0a84843",
+      "bytes": 27865
+    },
+    "/var/tmp/dokapon-exact-palette-vaeo__3q/accounting-delta.json": {
+      "sha256": "61823d7a17ee71319d370f396807bf3251903b50913dcc264511c4cd31556391",
+      "bytes": 1268
+    },
+    "/var/tmp/dokapon-exact-palette-sealed-yne82vfd/manifest.json": {
+      "sha256": "8470cbee313fca3feff9cb793571983f8e295ddc7c9170d6f7a4267a7fad34f3",
+      "bytes": 14672
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-exact-palette-sealed-yne82vfd",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 22.636,
+      "output": "ok  \tdokapon/tools\t19.590s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.195,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-exact-palette-vaeo__3q/dokapon-go-exact-palette",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.733,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.038,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json",
+        "testdata/exact-palette.zip"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002,
+      "output": ""
+    },
+    {
+      "name": "credentials_initial_superseded",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key\\s*[:=]\\s*\"[^\" ]{12,}|password\\s*[:=]\\s*\"[^\" ]{8,})",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.012,
+      "output": "",
+      "qualification": "Whitespace clauses had doubled backslashes; superseded by corrected POSIX pattern below. Initial negative scan alone did not fully cover generic assignments."
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.01,
+      "output": "",
+      "selfcheck": "PASS POSIX pattern finds two synthetic nonsecret whitespace assignments through actual rg stdin."
+    }
+  ],
+  "ordinary_review": "evidence/exact-palette-review.json",
+  "ordinary_review_sha256": "f7dd3ad2b4b1904377935d22a16e945f1cd65e69cd754f2d8bcfbb57123ec160",
+  "independent_corpus": {
+    "cases": 227,
+    "accepted": 227,
+    "held": 0,
+    "whole_rgba_noop_txd_onepixel_txd_rgba_source_preservation": true,
+    "receipt": "/var/tmp/dokapon-exact-palette-review-zrxybzm2/corpus-results.json",
+    "sha256": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02"
+  },
+  "independent_standalone": [
+    {
+      "texture": "Y:\\Graphic\\battle\\textures\\mons",
+      "status": "refused1513",
+      "no_output": true
+    },
+    {
+      "texture": "mon0",
+      "status": "PASS",
+      "whole_txd_sha256": "ce83eb5e5d446f02350a1d4b2fe67245d81b4425010d903571a36fc1427b4813",
+      "rgba_sha256": "464091fdc09a76774479467998abf3324a41eb8ae311c0e3b8f49b12ca2bf35e",
+      "changed_bytes": 65987,
+      "outside": 0,
+      "preview_apply_overwrite_source_stats_readback": true,
+      "candidate_normalized_exact": true
+    },
+    {
+      "texture": "mon1",
+      "status": "PASS",
+      "whole_txd_sha256": "8e8b7be4d24b8e2202491fff3e42ea7ca0dea5ba1b44a2a8c1aa5eaf74ae69a0",
+      "rgba_sha256": "d713058b75c2731497d9863b3e1c89fbff7d955870fee0ecfed6045b337546c0",
+      "changed_bytes": 65942,
+      "outside": 0,
+      "preview_apply_overwrite_source_stats_readback": true,
+      "candidate_normalized_exact": true
+    },
+    {
+      "texture": "mon2",
+      "status": "PASS",
+      "whole_txd_sha256": "9db97a68dce5bc6ccc149e0dede0b25e35cdd712222075797975310d5532ee5f",
+      "rgba_sha256": "e76323a6154e9c2cf8a0f9285d590e285a451be9e36a9f93556e4f8f70890831",
+      "changed_bytes": 65662,
+      "outside": 0,
+      "preview_apply_overwrite_source_stats_readback": true,
+      "candidate_normalized_exact": true
+    },
+    {
+      "texture": "mon3",
+      "status": "PASS",
+      "whole_txd_sha256": "bbaf80bba81534dd990e84f9ba49e14e56be6912c4940912632f93c842e7808b",
+      "rgba_sha256": "1ab1cccf1e978fce860f1645c78309fa049d4cf7cc24324c357f2adabc63c460",
+      "changed_bytes": 65103,
+      "outside": 0,
+      "preview_apply_overwrite_source_stats_readback": true,
+      "candidate_normalized_exact": true
+    },
+    {
+      "texture": "mon4",
+      "status": "PASS",
+      "whole_txd_sha256": "96e30c360d3767a661686bdadd079ad86966f2288b0f4f61fc03adec880b6a6b",
+      "rgba_sha256": "a2ed65a1f35d20df05dab1f7869470150429309b79ad9002fe72102f80c09305",
+      "changed_bytes": 65720,
+      "outside": 0,
+      "preview_apply_overwrite_source_stats_readback": true,
+      "candidate_normalized_exact": true
+    }
+  ],
+  "native_binding": "analysis/exact-palette-native-binding.json",
+  "accounting": {
+    "before": "/var/tmp/dokapon-exact-palette-vaeo__3q/accounting-before.json",
+    "before_sha256": "78ba682af360d2f1377dec4810f6025baa0d2e2a6668e94c61c51cc9e0a84843",
+    "group_deltas": {
+      "asset_bundle": {
+        "bytes": 0,
+        "files": 0
+      },
+      "executed_evidence_inputs": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_module": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_tests": {
+        "bytes": 8073,
+        "files": 0
+      },
+      "pointer_selector": {
+        "bytes": 0,
+        "files": 0
+      },
+      "production_go": {
+        "bytes": 2601,
+        "files": 0
+      },
+      "recipe_tables": {
+        "bytes": 0,
+        "files": 0
+      },
+      "testdata": {
+        "bytes": 149573,
+        "files": 1
+      },
+      "build_entrypoint": {
+        "bytes": 0,
+        "files": 0
+      },
+      "consumer_profiles": {
+        "bytes": 0,
+        "files": 0
+      }
+    },
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "bytes": 638292,
+        "files": 77
+      },
+      "runtime_with_bundle": {
+        "bytes": 11951382,
+        "files": 80
+      },
+      "runtime_and_executed_evidence": {
+        "bytes": 12489401,
+        "files": 100
+      }
+    },
+    "production_named_functions": 21,
+    "claim": "New exactpalette capability growth; no code reduction/retirement/family completion."
+  },
+  "reuse": "Existing CLUT physical-index loop, pixel walk/index map, profile validation, readInput/writeNewFile/run and existing test owners. No new namedfunction, handler, writer, alternate mapping, dependency or approximate quantizer.",
+  "verification_correction": "Initial root/reviewer generic credential whitespace pattern was overescaped; both retained as superseded and corrected POSIX patterns selfchecked against nonsecret assignments, scoped scans clean. Current all-source scan supersedes weaker historical generic branches.",
+  "limits": [
+    "Standalone source-bound TXD conversion only; no ISO/CMB CLUT sharing or alias-safety, art approval, visual/gameplay or native runtime-observation claim.",
+    "Exact policy only on existing standard8bit layouts with <=256normalized colors and no rectangles; other depth/layout/approximation/resize/nohdr relaxations remain refused.",
+    "No texture-family completion, historical executor retirement or code-reduction claim; core3/14 remains21.43%.",
+    "Broad legacy Python4041pass/68classifiedfail remains qualified; no unrelated suite rerun."
+  ]
+}

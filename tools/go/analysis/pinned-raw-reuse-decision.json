@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-21T15:57:57.942805+00:00",
+  "status": "PRIVATE_IMPLEMENTED_VERIFICATION_PENDING",
+  "serena_session": "2ce76341",
+  "existing_candidates": {
+    "controls": "Existing shared word consumer; validate exact source pin/count/firstEND/endoffset/roles, clone+surrogate4801 ->same token loop ->assertoneperword andrestore roles. No paralleldecoder. Rawresult fails authoring/native eligibility.",
+    "auditStreams": "Existing source lifecycle/window/mapping/side comparisons; pass explicit per-side pin and include rawarg inorderedArgumentWords. No canonicalgenerationforrawmode; no pool-name dispatch.",
+    "TextToken": "Existing role/Word/relativebyteOffset/Payload precisely represents one-word annotations; reuse instead of creating new role struct.",
+    "TextScanOptions": "Own options pointer to bounded TextReadPin; explicit incompatible mode guards, default grammar untouched.",
+    "StreamAuditPolicy": "Authored wrapping/sourceauthoring policy cannot own source-identity/END/word-role semantics without mixed responsibilities.",
+    "RegistryInput": "File path/size/hash pin is not a finite grammar/END/annotation contract. One TextReadPin type groups the shared scanner/audit contract."
+  },
+  "proposed_type": "TextReadPin {Words int, EndOffset *int relativeBYTE, SHA256 string, Roles []TextToken}; pointer distinguishes missing/null END from explicitoffset0; roles must be nonnil but may be empty. Existing TextToken Payload must nil forroleannotations.",
+  "profile": "StreamAuditEntry.ReadPins map[string]TextReadPin, json read_pins; decoder pinned_raw requires exactlyreference+observed and noCanonical. Policy scoped JSON mandatoryownedkeys/types/null/aliases/duplicates; rawgrammar may remain unbounddeclaredwindows withoutownershipclaims.",
+  "scope": [
+    "text_types.go policy +scanneroption",
+    "patch.go controls pin/surrogate/restore only, encode existing eligibility/refusals retained",
+    "stream_audit_types.go entry",
+    "stream_audit.go scopedpolicy/wire/side/comparisons",
+    "existing patch_test.go owners/sharedbundledfixtures",
+    "purposegroupedtestdata/examples/accounting/docs/evidence"
+  ],
+  "important_guards": [
+    "whole source span identity/count/firstEND/endoffset",
+    "rolesexactword/relativebyteposition/even/unique/inbounds/notEND/Payloadnil/kindonlyrawarg/rawcontrol",
+    "no skipped tokens/one token per inputword/restoreallroles",
+    "immutablecallerdata/options and no surrogate leaks",
+    "rawShape.Readiness blocked, noEN/native/fixed/positional/opaque options",
+    "read_pins exactlybothsides onlypinned_raw and noCanonical; old default reportsbyteidentical",
+    "unknown/refusal preserves separate source/observed failures; no hiddenfallback",
+    "existing transportbindings verify actualsites/wholewindow independentofgrammar"
+  ],
+  "new_functions": 0,
+  "new_types": 1,
+  "coverage_credit": 0,
+  "held": [
+    "canonical/runtimevarargauthoring",
+    "otherbattleboardcompatibilitycohorts not yetindependentlyproven",
+    "event/YBSouterselection",
+    "NULtitlegrammar/unknownruntimerowselector",
+    "fullregistry.05/family/scriptretirements"
+  ],
+  "checkJSON_enhancement": "Existing key tracker now supports requiredByDepth. Needed to distinguish missing zero-valued Word/Offset annotations without changing shared TextToken or duplicating raw JSON traversal. Defaults nil preserve existing behavior. Required pin/role keys scoped at owned depths only."
+}

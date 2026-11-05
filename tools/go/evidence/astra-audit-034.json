@@ -1,0 +1,125 @@
+{
+  "audit": 34,
+  "at": "2026-10-21T07:39:53.458756+00:00",
+  "role": "Purely adversarial read-only challenger; findings only, no approval authority",
+  "status": "COMPLETE_NO_CONFIRMED_NEW_FINDING",
+  "scope": {
+    "snapshot": "/var/tmp/dokapon-astra034-r395l8vv/source",
+    "manifest_sha256": "7f6e8e165bab45d7a40694ecd830893143569a6afff40b3bef9a97b5d0742053",
+    "members_verified": 503,
+    "baseline": "/var/tmp/dokapon-row-reconstruction-dawakf88/sealed-final",
+    "baseline_manifest_sha256": "bb17decd69f4dc0e7344a1dcecfb673a02529fa837c477612c0877e021ff1c3a",
+    "baseline_members_verified": 503,
+    "previous_snapshot": "/var/tmp/dokapon-astra033-bzf6nk3i/source",
+    "previous_manifest_sha256": "5301c9fb82e2886c0b0119698e2316a4aa47ecc2cc44e1d07508e9953f2bcde2",
+    "previous_members_verified": 95,
+    "original_mask_pack": "/var/tmp/dokapon-reconstruction-mask-frontier-zvx1bc19",
+    "original_mask_pack_manifest_sha256": "8590b3e783280fa8315a5302359e385614d70c8c6540c0a145eac59de0c11cba",
+    "original_mask_pack_members_verified": 62,
+    "pin_result": "All listed SHA256 identities match; current snapshot byte sizes also match. Baseline manifest uses SHA-only records. No canonical registry or protected resource accessed."
+  },
+  "findings": [],
+  "reviewed_boundaries": [
+    {
+      "locations": [
+        "raster_reconstruction_types.go:12",
+        "raster_reconstruction_types.go:28",
+        "raster_reconstruction.go:24",
+        "raster_reconstruction.go:27"
+      ],
+      "challenge": "Unneeded abstraction, slice growth, duplicate mask engine",
+      "result": "No concrete defect established. One reusable scalar selector type supports repeated independent tolerances; one bounded prepend creates a common validation/evaluation path. No new function, callback, recursive expression tree or per-patch handler. Flattening repeated exclusions into one color would lose actual two-cube AND behavior."
+    },
+    {
+      "locations": [
+        "raster_reconstruction.go:55",
+        "raster_reconstruction.go:74",
+        "raster.go:333",
+        "raster.go:399"
+      ],
+      "challenge": "Selection semantics, work limits, current source ownership and failure containment",
+      "result": "Reviewed current-pixel evaluation, inclusive near/strict complement, alpha-independent signed channel differences, saturation max-min, full upfront validation, short circuit, bounding and existing caller-owned copy. Focused original corpus plus six independent guards produced no counterexample. Existing geometry/growth/donor distinction preserved."
+    },
+    {
+      "locations": [
+        "texture_authoring.go:174",
+        "texture_authoring.go:183",
+        "texture_authoring.go:190",
+        "inputs.go:40"
+      ],
+      "challenge": "Case aliases, nested clause ownership, null and unknown-key acceptance",
+      "result": "Static trace: typed DisallowUnknownFields decoder plus root all-object nonNull/duplicate checking and per-owned-object canonical checks reach nested All clauses. Icon IDs remain data. No demonstrated bypass. No dynamic CLI alias/lifecycle run in this audit."
+    },
+    {
+      "locations": [
+        "analysis/reconstruction-mask-frontier.json",
+        "analysis/reconstruction-mask-reuse-decision.json",
+        "evidence/reconstruction-row-proof.json"
+      ],
+      "challenge": "Unsupported savings or full-family claims",
+      "result": "Private extension is explicitly unpromoted capability growth. 84 direct not_near operation roots across two JSON documents are not 84 distinct historical paths. Row proof/accounting snapshots remain intentionally historical and were not reported as stale-pin defects."
+    }
+  ],
+  "measurements": {
+    "baseline_production": {
+      "files": 39,
+      "bytes": 417383,
+      "named_func_declarations": 41
+    },
+    "private_production": {
+      "files": 39,
+      "bytes": 419307,
+      "named_func_declarations": 41
+    },
+    "production_growth_bytes": 1924,
+    "paired_production_delta": {
+      "raster.go": 168,
+      "raster_reconstruction.go": 965,
+      "raster_reconstruction_types.go": 392,
+      "texture_authoring.go": 399
+    },
+    "test_growth_bytes": 245,
+    "new_fixture_bytes": 11881,
+    "new_analysis_bytes": 39780,
+    "new_functions": 0,
+    "new_production_files": 0,
+    "module_import_recipe_adapter_delta_bytes": 0,
+    "accepted_runtime": {
+      "files": 148,
+      "bytes": 2375964
+    },
+    "private_runtime_on_unchanged_membership": {
+      "files": 148,
+      "bytes": 2377888
+    },
+    "runtime_qualification": "Accepted runtime membership/count supplied by pinned row proof, delta independently measured from all paired changed files; all four changed production files counted, no runtime additions or removals. Test/fixture/analysis overhead separate. Snapshot excludes baseline external skill copies and source-aliases metadata; those omissions are snapshot scope, not code deletion.",
+    "historical_paths_retired": 0,
+    "savings_claim": false,
+    "coverage": "Unchanged 6/14 full families, planning65/84, raster.06 partial credit0; historical410=8FullGo+20reviewed+16partial+366outstanding. No additional credit established."
+  },
+  "verification": {
+    "performed": [
+      "Read snapshot AGENTS and precode row/mask decisions",
+      "Verify all current, accepted baseline, previous audit and original mask-pack member hashes",
+      "Compare entire paired changed source/test files and additions; inspect composeCells/reconstructRaster/authorTexture/checkJSON callers and contracts",
+      "Inspect original mask frontier and 18-vector portable fixture, with original45-vector regression retained",
+      "Run unchanged focused Golden in isolated copied tree: PASS16.893s (non-native)",
+      "Extend existing test only in owned scratch with six independent guard cases: PASS0.001s",
+      "Rehash frozen snapshot after review and parse report after exclusive write"
+    ],
+    "not_performed": [
+      "Full test suite, race, nativefonts variant, separate build/vet/lint or credentials scan; no project code changed",
+      "Dynamic CLI JSON alias/publication lifecycle tests",
+      "Independent original Python renderer execution or complete410 historical source census",
+      "Current private parent edits after snapshot; accepted metadata promotion",
+      "Protected ISO/registry/emulator/PINE/controller/process/log/settings/auth access or control"
+    ]
+  },
+  "limits": "No confirmed new defect found within this frozen bounded review; this is neither approval nor proof of complete reconstruction. New selector refusal/alias/work-bound cases are not present in the frozen repository test delta (only fixture-loop extension); parent development is ongoing. Independent scratch guards cover six numerical/boundary cases, not permanent regression coverage. OR, morphology, PDE, exemplar, plate, radial and material behavior remain separate held responsibilities.",
+  "artifacts": {
+    "/var/tmp/dokapon-astra034-probe-ectv3p_z/verification.txt": "2946d806c1acea1bb0d39e262417897fda87db0b71b2c6933057f8c13288d6bb",
+    "/var/tmp/dokapon-astra034-probe-ectv3p_z/source/patch_test.go": "aa85f2af75d4df277fed1ce80fc9a9d3fade5c1e7e54140690023fd0fd2996b4",
+    "testdata/reconstruction-masks.zip": "a47c0a072e1b10d4d80a6e2a1d97f889643ddd7594dffcdea6d44f8507e5aa13"
+  },
+  "safety": "Only this requested report and new owned scratch artifacts written. No frozen/live source changes; no subagents or other-person messaging."
+}

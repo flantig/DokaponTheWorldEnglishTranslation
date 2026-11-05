@@ -1,0 +1,663 @@
+{
+  "at": "2026-10-20T14:20:30.161701+00:00",
+  "prior_loader_contract": {
+    "path": "analysis/clut-loader-binding-contract.json",
+    "sha256": "1b74c2d0b44e999b3e46f75f320e851fa3b48dcb5007bdea2c159873b400f678"
+  },
+  "remaining_contract": {
+    "path": "analysis/texture-codec-remaining-contract.json",
+    "sha256": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30"
+  },
+  "code_provenance": {
+    "source_zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "elf_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "elf_bytes": 5087232,
+    "mapping": "PT_LOAD file offset0x80 maps to VMA0x100000; cited code/data file offsets=VMA-0xfff80. Empty symtab/strtab: semantic labels below are analyst names, not recovered symbol names."
+  },
+  "PT_LOAD": [
+    {
+      "file_offset": 128,
+      "vma": "0x100000",
+      "filesz": 4429440,
+      "memsz": 4719360
+    },
+    {
+      "file_offset": 4429568,
+      "vma": "0x580300",
+      "filesz": 0,
+      "memsz": 0
+    }
+  ],
+  "all12_native_spans_rebound": [
+    {
+      "name": "native_texture_read",
+      "start_vma": "0x217488",
+      "end_vma_exclusive": "0x2176b8",
+      "file_offset": 1144072,
+      "sha256": "2919dca0f6fcf35868c34ab4ea749b9514c95827c922f607d0ef828c9f9cfd3f",
+      "bytes": 560,
+      "matched": true
+    },
+    {
+      "name": "native_raster_read",
+      "start_vma": "0x217050",
+      "end_vma_exclusive": "0x217394",
+      "file_offset": 1142992,
+      "sha256": "4a3657b9579bd9f2370038bc62f0596610d2f9126a4b6106a9bbbb2475dfdfe0",
+      "bytes": 836,
+      "matched": true
+    },
+    {
+      "name": "device_registration",
+      "start_vma": "0x219708",
+      "end_vma_exclusive": "0x2197cc",
+      "file_offset": 1152904,
+      "sha256": "f3ed0134feb8047822fd8a785451124450da05736e3f95558a20373a2719b70a",
+      "bytes": 196,
+      "matched": true
+    },
+    {
+      "name": "default_relocation_and_TEX0",
+      "start_vma": "0x2284c0",
+      "end_vma_exclusive": "0x228760",
+      "file_offset": 1213760,
+      "sha256": "00cc2316ef7a6d70a5be4c8e5220997b672cb89b53aea412db37d3224b91a504",
+      "bytes": 672,
+      "matched": true
+    },
+    {
+      "name": "uploader_relocation",
+      "start_vma": "0x2270b0",
+      "end_vma_exclusive": "0x227270",
+      "file_offset": 1208624,
+      "sha256": "3408f810aef6bf7c713afee07f9f1a62ac7cbf826bcc935505cfa2fa3cf107bb",
+      "bytes": 448,
+      "matched": true
+    },
+    {
+      "name": "nonzero_palette_packet",
+      "start_vma": "0x2145a0",
+      "end_vma_exclusive": "0x21477c",
+      "file_offset": 1132064,
+      "sha256": "bf0c524cc7ded17797d6a0c301403741b4079fde0669b7dec24cf0decb7aa29c",
+      "bytes": 476,
+      "matched": true
+    },
+    {
+      "name": "PSMT8_pixel_BITBLTBUF",
+      "start_vma": "0x214410",
+      "end_vma_exclusive": "0x214520",
+      "file_offset": 1131664,
+      "sha256": "6fa28aeee44ccd99c56c8cd415c0981ab4fd1e179e6824efce8c22d39877e59c",
+      "bytes": 272,
+      "matched": true
+    },
+    {
+      "name": "PSMT8_palette_position",
+      "start_vma": "0x213a50",
+      "end_vma_exclusive": "0x213b7c",
+      "file_offset": 1129168,
+      "sha256": "728cb57c2e3a10133205546858b6559eba8651c4bec0824bdbaf6df381476d05",
+      "bytes": 300,
+      "matched": true
+    },
+    {
+      "name": "allocation",
+      "start_vma": "0x2138bc",
+      "end_vma_exclusive": "0x213a1c",
+      "file_offset": 1128764,
+      "sha256": "428167e246196d2e22bd20bc0a547f29ad183cec5c56eab018267e8e0107ad82",
+      "bytes": 352,
+      "matched": true
+    },
+    {
+      "name": "second_residency_path",
+      "start_vma": "0x228c34",
+      "end_vma_exclusive": "0x228ce0",
+      "file_offset": 1215668,
+      "sha256": "557ad21a918807a65e945e2eb9890beffaad7f8ecb64394126217cedef7fefcd",
+      "bytes": 172,
+      "matched": true
+    },
+    {
+      "name": "device_callback_table",
+      "start_vma": "0x455e10",
+      "end_vma_exclusive": "0x455ef0",
+      "file_offset": 3497616,
+      "sha256": "19e496f64927760ddf39dcb336c87a6ae8f6c17d849cc2b249eac03f1446c5c8",
+      "bytes": 224,
+      "matched": true
+    },
+    {
+      "name": "default_cache_data",
+      "start_vma": "0x456200",
+      "end_vma_exclusive": "0x456240",
+      "file_offset": 3498624,
+      "sha256": "6a0fc71ba56715c4c117fc2afa03dd0236e7a2179df121697afbe079bb575d2c",
+      "bytes": 64,
+      "matched": true
+    }
+  ],
+  "primary_sources_rebound": [
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/R5900OpcodeTables.cpp",
+      "sha256": "80562704233e7d7f68d54878f4cf00cad2f63d1ba8362b76ea09634c5093ec1f",
+      "bytes": 31265,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-R5900OpcodeTables.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/MMI.cpp",
+      "sha256": "5b5a045dfbf896bc470d8aed658dfc492a07a5b74859a0d7832b2969f539159a",
+      "bytes": 41508,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-MMI.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/aap/librw/18532c2e13efbc1aa43f0b00b4459831f9414de0/src/ps2/ps2raster.cpp",
+      "path": "/var/tmp/dokapon-clut-position-study-ageeqz2p/librw-ps2raster.cpp",
+      "sha256": "5977d560a7eeb88e4dbefc597c0506731fb3264ff8facd6fab8d7d46056a007e",
+      "bytes": 62135,
+      "matched": true,
+      "role": "field definitions/corroborating layout; actual game bytes decide loader behavior"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ps2dev/ps2sdk/329e2bb43287e16af16c4dde1c614e2662c24468/common/include/gs_gp.h",
+      "path": "/var/tmp/dokapon-clut-position-study-ageeqz2p/gs_gp.h",
+      "sha256": "3e93c3d7a16028bbae8894c07423964b263328b44a0c43bab3ec92c725b778a4",
+      "bytes": 14129,
+      "matched": true,
+      "role": "field definitions/corroborating layout; actual game bytes decide loader behavior"
+    }
+  ],
+  "additional_bounded_spans": [
+    {
+      "name": "exactpalette_TBW4_create_chain",
+      "start_vma": "0x213fa0",
+      "end_vma_exclusive": "0x21427c",
+      "file_offset": 1130528,
+      "bytes": 732,
+      "sha256": "33ccc1947915ed68bac49cbc04c2728e81377c58b58f5ec3868b5d5f2a44d38e"
+    },
+    {
+      "name": "zero_position_CLUT_BITBLTBUF",
+      "start_vma": "0x2146d4",
+      "end_vma_exclusive": "0x21477c",
+      "file_offset": 1132372,
+      "bytes": 168,
+      "sha256": "e109ac5c07e9b8aadfbc131650a93356403cfe763874acea6b2aef5dea5a6db8"
+    },
+    {
+      "name": "stream_read_dispatch",
+      "start_vma": "0x1f76f0",
+      "end_vma_exclusive": "0x1f787c",
+      "file_offset": 1013616,
+      "bytes": 396,
+      "sha256": "fd81f9a34d0a89b6d75182776c86521d78b745ecc971bdb5e7f7e13d2995960c"
+    },
+    {
+      "name": "post_read_cache_helper",
+      "start_vma": "0x119fb0",
+      "end_vma_exclusive": "0x11a0d4",
+      "file_offset": 106544,
+      "bytes": 292,
+      "sha256": "0c1ef7ed2b69c54de9e9ad493260bc0eecc4f984a6a3b9813b1217d08933e478"
+    }
+  ],
+  "critical_instruction_words": {
+    "0x213aa0": "0x54640037",
+    "0x21465c": "0x1040001d",
+    "0x2146dc": "0x9e240010",
+    "0x2146f4": "0x4203c",
+    "0x214700": "0x21638",
+    "0x217134": "0x8fa30018",
+    "0x217138": "0xae030010",
+    "0x217284": "0x14820021",
+    "0x21728c": "0x8e220024",
+    "0x217290": "0x8e060028",
+    "0x217294": "0xc07ddbc",
+    "0x217298": "0x8c450004",
+    "0x2172c0": "0x8e250008",
+    "0x2172c4": "0xc07ddbc",
+    "0x2172c8": "0x24a5ffb0",
+    "0x2271e8": "0x45102d",
+    "0x2271ec": "0x70621389",
+    "0x227228": "0x45102d",
+    "0x22722c": "0x70621389",
+    "0x228550": "0x21182",
+    "0x228560": "0x471021",
+    "0x228578": "0x21140",
+    "0x228c84": "0xc089c2c",
+    "0x228c88": "0x8c450004"
+  },
+  "registration_pairs_asserted": [
+    [
+      4,
+      "0x212fe0"
+    ],
+    [
+      26,
+      "0x217488"
+    ]
+  ],
+  "default_cache_flag": 1,
+  "actual_member": {
+    "archive": "BATTLE.CMB",
+    "entry": "battle\\monster\\textures\\m_015.txd",
+    "path": "../../extracted/iso-root/GRAPHIC/BATTLE.CMB",
+    "offset": 96367710,
+    "bytes": 334620,
+    "sha256": "cc737ace8fd9be990f2e312034c48dc28523959be3ebbe55a8ac1f721b73a27e"
+  },
+  "allfive_actual_rasters": [
+    {
+      "texture": "mon4",
+      "metadata_offset": 120,
+      "metadata_sha256": "a020637190366bcbe39c33e65f3cb430b22cb199fb731d05a598480baa810ce4",
+      "metadata_hex": "000100000001000008000000042502000000312106000020000100000000000000400000040040000040000004004000500001005004000000480000c00f0000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 19,
+        "TW": 8,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 1
+      },
+      "pixel_packet_offset": 196,
+      "pixel_offset": 276,
+      "pixel_bytes": 65536,
+      "pixel_raw_sha256": "7eccad0183f43c8a694cb2eb33978d0e241139fa3d45099d21996df4bf256878",
+      "CLUT_packet_offset": 65812,
+      "CLUT_offset": 65892,
+      "CLUT_bytes": 1024,
+      "CLUT_raw_sha256": "4a865bd03e1ad9787dc63263dd622ed9fd39a4a060ed318a3e2a425c463db132",
+      "pixel_packet_sha256": "c71dda37645ea609b77a085c82969b303fbe57839e6a71c3c42e224d478cb069",
+      "CLUT_packet_sha256": "574611afe9d53bd670acf2fda8708e0c3a354496b63539d0dde9de28cd84a081",
+      "pixel_stream_sha256": "c5464b367c3990e6a1ff94a12907f828b2173f2e3115be8bf2e9d73d8cf2109d",
+      "CLUT_stream_sha256": "460d7a7825b263f40cb86ebe3e4daf91b45e88335394de3507d090ffa14d7d37",
+      "matched_frozen_contract": true
+    },
+    {
+      "texture": "mon3",
+      "metadata_offset": 67036,
+      "metadata_sha256": "a020637190366bcbe39c33e65f3cb430b22cb199fb731d05a598480baa810ce4",
+      "metadata_hex": "000100000001000008000000042502000000312106000020000100000000000000400000040040000040000004004000500001005004000000480000c00f0000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 19,
+        "TW": 8,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 1
+      },
+      "pixel_packet_offset": 67112,
+      "pixel_offset": 67192,
+      "pixel_bytes": 65536,
+      "pixel_raw_sha256": "ea916f77ebff520235ef6123e66e0abc9401e1884f6af196e98bf5588b6c4551",
+      "CLUT_packet_offset": 132728,
+      "CLUT_offset": 132808,
+      "CLUT_bytes": 1024,
+      "CLUT_raw_sha256": "ae9c9a55aea49209668b7049c69223433bd09882d9ac4fd911d6ca4831f78aaf",
+      "pixel_packet_sha256": "c71dda37645ea609b77a085c82969b303fbe57839e6a71c3c42e224d478cb069",
+      "CLUT_packet_sha256": "574611afe9d53bd670acf2fda8708e0c3a354496b63539d0dde9de28cd84a081",
+      "pixel_stream_sha256": "eec60bd99b0100be8a95ed3f9edfc91d14e0ad15851ac7a8fed94e49eb1505e2",
+      "CLUT_stream_sha256": "d1fc46b67371ec4f55fa639c92e29e880bb9e62fc8168d3d51f1588cc7bea3f6",
+      "matched_frozen_contract": true
+    },
+    {
+      "texture": "mon2",
+      "metadata_offset": 133952,
+      "metadata_sha256": "a020637190366bcbe39c33e65f3cb430b22cb199fb731d05a598480baa810ce4",
+      "metadata_hex": "000100000001000008000000042502000000312106000020000100000000000000400000040040000040000004004000500001005004000000480000c00f0000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 19,
+        "TW": 8,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 1
+      },
+      "pixel_packet_offset": 134028,
+      "pixel_offset": 134108,
+      "pixel_bytes": 65536,
+      "pixel_raw_sha256": "0f49ff7252add14d268bd30af94245216fd9316f15575e5751a3fd38fefbe2ff",
+      "CLUT_packet_offset": 199644,
+      "CLUT_offset": 199724,
+      "CLUT_bytes": 1024,
+      "CLUT_raw_sha256": "7a92e276fe87c4fb3ac6b6cb4ebe8e5b1af3452278e5761bbdae809223383453",
+      "pixel_packet_sha256": "c71dda37645ea609b77a085c82969b303fbe57839e6a71c3c42e224d478cb069",
+      "CLUT_packet_sha256": "574611afe9d53bd670acf2fda8708e0c3a354496b63539d0dde9de28cd84a081",
+      "pixel_stream_sha256": "7d8dae1449cc887b060d7ee3c6fd626c9e045c551491e69f93defcd11024b792",
+      "CLUT_stream_sha256": "84c8066917d2423c133bef904357e74059795ff2aadf7a383fb04d1c74dd18b8",
+      "matched_frozen_contract": true
+    },
+    {
+      "texture": "mon1",
+      "metadata_offset": 200868,
+      "metadata_sha256": "a020637190366bcbe39c33e65f3cb430b22cb199fb731d05a598480baa810ce4",
+      "metadata_hex": "000100000001000008000000042502000000312106000020000100000000000000400000040040000040000004004000500001005004000000480000c00f0000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 19,
+        "TW": 8,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 1
+      },
+      "pixel_packet_offset": 200944,
+      "pixel_offset": 201024,
+      "pixel_bytes": 65536,
+      "pixel_raw_sha256": "70903274793e9332b795d3369df2b9d6b83003a1a3dfd7b60754d90cf3a3875b",
+      "CLUT_packet_offset": 266560,
+      "CLUT_offset": 266640,
+      "CLUT_bytes": 1024,
+      "CLUT_raw_sha256": "5c1a76d24130350003abc388469346f49c9c60181fef19c130d1a551f721bf72",
+      "pixel_packet_sha256": "c71dda37645ea609b77a085c82969b303fbe57839e6a71c3c42e224d478cb069",
+      "CLUT_packet_sha256": "574611afe9d53bd670acf2fda8708e0c3a354496b63539d0dde9de28cd84a081",
+      "pixel_stream_sha256": "dbdd161339ad674a689204fa37f377e4db0a7bfbdc234e6e0081e439db38fab1",
+      "CLUT_stream_sha256": "e6f1f35a85f908ba786546cc1457d2bf0e6a232d4a2a0b131f47b7f605418b24",
+      "matched_frozen_contract": true
+    },
+    {
+      "texture": "mon0",
+      "metadata_offset": 267784,
+      "metadata_sha256": "a020637190366bcbe39c33e65f3cb430b22cb199fb731d05a598480baa810ce4",
+      "metadata_hex": "000100000001000008000000042502000000312106000020000100000000000000400000040040000040000004004000500001005004000000480000c00f0000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 19,
+        "TW": 8,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 1
+      },
+      "pixel_packet_offset": 267860,
+      "pixel_offset": 267940,
+      "pixel_bytes": 65536,
+      "pixel_raw_sha256": "87f89311f24b6a6983b75b11caabc05cdefca464ae6c25db87a0a7cc0855b309",
+      "CLUT_packet_offset": 333476,
+      "CLUT_offset": 333556,
+      "CLUT_bytes": 1024,
+      "CLUT_raw_sha256": "acb496e8f4d5c432c87d00deca879bac82d84a21229f724e21ade94e46a6d052",
+      "pixel_packet_sha256": "c71dda37645ea609b77a085c82969b303fbe57839e6a71c3c42e224d478cb069",
+      "CLUT_packet_sha256": "574611afe9d53bd670acf2fda8708e0c3a354496b63539d0dde9de28cd84a081",
+      "pixel_stream_sha256": "3800631348394eee40fa94959bec3edef31ecc1064e09974e450c965aa4fb262",
+      "CLUT_stream_sha256": "03380eb761006ef035ff4b7c5783136ec3902fa1dac5e41c2ce60c46b8452789",
+      "matched_frozen_contract": true
+    }
+  ],
+  "five_candidate_PNG_pins": [
+    {
+      "path": "../../generated/texture-previews/goku/png/014_Goku_mon0.png",
+      "sha256": "851c2065e51996ae4f628403f8061e30f3e4a2c1677a255b2cea6521285f55df",
+      "matched": true,
+      "colors": 51
+    },
+    {
+      "path": "../../generated/texture-previews/goku/png/014_Goku_mon1.png",
+      "sha256": "2271b88c8807d281be8f996aeba7cc8f446453946e21ccd3574fc76746e3fbc2",
+      "matched": true,
+      "colors": 44
+    },
+    {
+      "path": "../../generated/texture-previews/goku/png/014_Goku_mon2.png",
+      "sha256": "c6769e6cb9867c5505bd97e8c38da6afeedfcf1012752fe66a72a018be52a7fe",
+      "matched": true,
+      "colors": 51
+    },
+    {
+      "path": "../../generated/texture-previews/goku/png/014_Goku_mon3.png",
+      "sha256": "29f86b8f766850864d5ce20cfc9b2ee22a5c9e510951c14a7e085e23b7ca224a",
+      "matched": true,
+      "colors": 44
+    },
+    {
+      "path": "../../generated/texture-previews/goku/png/014_Goku_mon4.png",
+      "sha256": "b0fda17ee489f9c6572297f91f4217002d419acc0cfacf8054425ca3c8808a67",
+      "matched": true,
+      "colors": 78
+    }
+  ],
+  "relocation_examples": [
+    {
+      "base_blocks": 0,
+      "base_words": 0,
+      "pixel_BITBLTBUF": "0x2000000020000",
+      "palette_BITBLTBUF": "0x1010000010000",
+      "sampled_TEX0": "0x2000200621310000",
+      "sampled_TBP0": 0,
+      "sampled_CBP": 256,
+      "pixel_words_inclusive": [
+        0,
+        16383
+      ],
+      "CLUT_words_inclusive": [
+        16384,
+        16639
+      ],
+      "allocation_words_inclusive": [
+        0,
+        18431
+      ]
+    },
+    {
+      "base_blocks": 32,
+      "base_words": 2048,
+      "pixel_BITBLTBUF": "0x2002000020000",
+      "palette_BITBLTBUF": "0x1012000010000",
+      "sampled_TEX0": "0x2000240621310020",
+      "sampled_TBP0": 32,
+      "sampled_CBP": 288,
+      "pixel_words_inclusive": [
+        2048,
+        18431
+      ],
+      "CLUT_words_inclusive": [
+        18432,
+        18687
+      ],
+      "allocation_words_inclusive": [
+        2048,
+        20479
+      ]
+    },
+    {
+      "base_blocks": 1024,
+      "base_words": 65536,
+      "pixel_BITBLTBUF": "0x2040000020000",
+      "palette_BITBLTBUF": "0x1050000010000",
+      "sampled_TEX0": "0x2000a00621310400",
+      "sampled_TBP0": 1024,
+      "sampled_CBP": 1280,
+      "pixel_words_inclusive": [
+        65536,
+        81919
+      ],
+      "CLUT_words_inclusive": [
+        81920,
+        82175
+      ],
+      "allocation_words_inclusive": [
+        65536,
+        83967
+      ]
+    },
+    {
+      "base_blocks": 16096,
+      "base_words": 1030144,
+      "pixel_BITBLTBUF": "0x23ee000020000",
+      "palette_BITBLTBUF": "0x13fe000010000",
+      "sampled_TEX0": "0x2007fc0621313ee0",
+      "sampled_TBP0": 16096,
+      "sampled_CBP": 16352,
+      "pixel_words_inclusive": [
+        1030144,
+        1046527
+      ],
+      "CLUT_words_inclusive": [
+        1046528,
+        1046783
+      ],
+      "allocation_words_inclusive": [
+        1030144,
+        1048575
+      ]
+    }
+  ],
+  "scratch": "/var/tmp/dokapon-exact-palette-binding-ysag3J",
+  "status": "STATIC NORMAL-PATH BINDING ESTABLISHED for the five256-square/TBW4 nativev2 rasters; implementation/review remains separate",
+  "scope": "Bounded read-only native binding study. Only analysis/exact-palette-native-binding.json/.md written in repository; owned nice19 varTMP for study files. No Go/test/profile/source/art/registry edits, actualISO read/write, emulator/PINE/process/log/settings access, implementation or approval authority.",
+  "basis": "Rebound previous loader contract1b74c2d0, frozen remaining contract72544c15, exact ZIP/member/all12native spans and4local primary source files. Allfive named raster member/metadata/pixel/palette/packet facts and allfive converted PNG identities matched. Current Go source may be edited concurrently by root; documentary Go pins in old receipts are frozen historical identities, not a drift finding or a review of future code.",
+  "normal_chain": [
+    {
+      "step": "Registration",
+      "vma": "0x455e10..0x455ef0;0x219708..0x2197cc",
+      "fact": "Actual callback pairs key4->0x212fe0 and key26->0x217488 are present; registration loop copies indexed function pointers. Default cache data0x456200 starts1. Existing loader chain is rebound, not guessed from function names."
+    },
+    {
+      "step": "Texture/raster read",
+      "vma": "0x217488..0x2176b8;0x217050..0x217394",
+      "fact": "PS2-native reader validates native magic/structures and calls raster reader. Native record is0x40B.0x217134..0x217138 copies serialized paletteOffset+0x18 into extension+0x10; TEX0 is copied to extension+8/+0xc; TEX1LOW and size/allocation fields are copied separately. For allfive m_015 metadata version2/TEX1LOW0 chooses no-mip creation and raw-v2 read path."
+    },
+    {
+      "step": "Byte payload read and preservation",
+      "vma": "0x217284..0x217304;0x1f76f0..0x1f787c;0x119fb0..0x11a0d4",
+      "fact": "Version2 calls stream read with destination=created pixelPacketPointer and count=extension.pixelSize65616, then destination=palettePointer-0x50 and count=extension.paletteSize1104. Each return count must match or raster is destroyed/refused. There is no palette/index/channel/alpha conversion loop. Post-read0x11a058 helper traverses aligned cache lines with CACHE/SYNC; it is not a palette conversion. Stream type3 delegates a byte copy at0x103950; ordinary stream types delegate read and type4 explicitly delegates a user callback. Claim is normal bytes delivered by registered reader, not arbitrary custom stream callback correctness."
+    },
+    {
+      "step": "TBW4 creation derives separate uploads",
+      "vma": "0x213a50..0x213b7c;0x213fa0..0x21427c;0x214410..0x214520;0x214658..0x21477c",
+      "fact": "Creation sets PSMT8 swizzled flag; native TBW=4 fails equality-to2 at0x213aa0. The special nonzero palette position remains0, so no merge/reused-pixel-base branch. Exactly one no-mip pixel transfer plus one CLUT transfer are counted. Pixel BITBLTBUF derives SBW2/DBW2/DPSM0 and relative DBP0; CLUT branch0x2146d4 derives CPSM0, SBW1/DBW1 and relative DBP=extension.paletteOffset256. Pixel packet is128x128/IMAGE4096qwords; CLUT16x16/IMAGE64qwords. Both source TRXPOS values remain0."
+    },
+    {
+      "step": "Uploader relocates both transfer states",
+      "vma": "0x2270b0..0x227270",
+      "fact": "Receives residency base in32-bit words, aligns to64words, computes(baseWords>>6)<<32. Two-transfer path copies DMA/direct/setup quadwords and adds identical relocation at0x2271e8 and0x227228 to the two BITBLTBUF data words; PCPYLD preserves register address0x50. DMAref addresses/counts continue referencing raw streams; no source pixel/CLUT payload bytes are re-encoded."
+    },
+    {
+      "step": "Normal cache binds sampled palette to same base",
+      "vma": "0x2284c0..0x228760;0x228c34..0x228ce0",
+      "fact": "Residency record.baseWords/64 supplies sampled TBP0; serialized extension.paletteOffset256 is added for sampledCBP before14-bit masking.0x228c84 passes the same record.baseWords to uploader, then0x228cbc adds paletteOffset for sampledCBP. TEX0 emits through register6/7 while preserving PSMT8/CPSM0/CSM1/CSA0/CLD1. Therefore sampledCBP=B+256 is exactly the separate palette uploadDBP."
+    }
+  ],
+  "mode_derivation": {
+    "metadata_common": {
+      "width": 256,
+      "height": 256,
+      "depth": 8,
+      "raster_format": "0x2504",
+      "native_version": 2,
+      "TEX0": "0x2000000621310000",
+      "TEX1LOW": 0,
+      "palette_offset_blocks": 256,
+      "pixel_stream_bytes": 65616,
+      "palette_stream_bytes": 1104,
+      "allocation_words": 18432
+    },
+    "units": "GSblock256B=64x32bitwords; GSpage8192B=2048words. Native serialized allocation and residency units are32-bitwords. Addresses in examples are relative actual register algebra, not runtime observed allocations.",
+    "no_mips": true,
+    "transfer_count": 2,
+    "pixel_upload": {
+      "DPSM": 0,
+      "PSM": "PSMCT32",
+      "DBW": 2,
+      "DBP_relative_blocks": 0,
+      "TRXPOS": [
+        0,
+        0
+      ],
+      "TRXREG": [
+        128,
+        128
+      ],
+      "payload_bytes": 65536,
+      "IMAGE_qwords": 4096,
+      "stream_qwords_with80Bheader": 4101,
+      "unrelocated_BITBLTBUF": "0x2000000020000",
+      "relative_words_inclusive": [
+        0,
+        16383
+      ]
+    },
+    "palette_upload": {
+      "DPSM": 0,
+      "PSM": "PSMCT32",
+      "DBW": 1,
+      "DBP_relative_blocks": 256,
+      "TRXPOS": [
+        0,
+        0
+      ],
+      "TRXREG": [
+        16,
+        16
+      ],
+      "payload_bytes": 1024,
+      "IMAGE_qwords": 64,
+      "stream_qwords_with80Bheader": 69,
+      "unrelocated_BITBLTBUF": "0x1010000010000",
+      "sampled_CBP_relative_blocks": 256,
+      "relative_words_inclusive": [
+        16384,
+        16639
+      ],
+      "allocation_reserved_page_words_inclusive": [
+        16384,
+        18431
+      ]
+    },
+    "algebra": "Let B=aligned(baseWords)/64. pixel DBP=B, palette DBP=B+256, sampled TBP0=B, sampled CBP=B+256.256blocks*64words=16384pixelwords. The1024B CLUT occupies256words in the following reserved2048wordpage, no overlap with the65536B pixel region. Allocation=16384+2048=18432words=9pages=73728B; payloads total66560B; transfer headers are host packet storage, not extra VRAM colors. Four legal bases through maximum nonwrapping B16096 were checked.",
+    "index_color_contract": "Native path preserves bytes and existing sampler modes. Exact palette changes pixel indices and CSM1 CLUT colors at the same sizes/addresses; content does not choose geometry/packet/cache branches. This establishes placement of regenerated bytes, not a new proof of arbitrary palettes/layouts/visual appearance. The existing codec still owns logical-to-physical CSM1 order and PS2 alpha conversion."
+  },
+  "residual_proof_gaps": {
+    "bounded_mode": "No remaining native upload/CBP address-binding blocker identified for these five exact256-square/TBW4/nativev2 rasters on the normal registered/defaultcache route. This is static source evidence; not implementation approval.",
+    "held": [
+      "Current or future Go exactpalette algorithm/profile/refusal/bytecontainment correctness is not assessed by this study.",
+      "Actual m_015 runtime residency/draw selection, arbitrary callbacks, custom stream type4 behavior, mode setters and all indirect call histories are not proved; no game/native visual behavior observed.",
+      "Standalone selected-TXD byte ownership does not prove fullISO/CMB alias safety. Historical clut_sharing_problems sibling/entry/directory-overlap and unparseable-sibling refusal remain a separate contract. Any real ISO copy requires owner-authorized workflow, exact source/output pins and required fresh reviews.",
+      "No colored direct/nohdr4bit/mipmap/othergeometry/force_nohdr relaxation follows. No fulltexturefamily promotion or410script-handler requirement."
+    ]
+  },
+  "verification": {
+    "source_assertions": "PASS exact ZIP/member hashes, PT_LOAD mapping, all12originalnative spans,4primary source files,24criticalinstruction words, registration pairs/defaultcache flag, allfive exact source-member/native metadata/payload/header digests and fivePNG hashes.",
+    "derived_assertions": "PASS common parsed sampler fields, both exact80B GS packet word vectors, no-mip IMAGE counts, two separate upload/CBP base equations, four legal nonwrapping relocation/allocation interval examples. No generalGS simulator was introduced.",
+    "checks_not_run": "No Go tests/build/lint because no implementation changes. No native execution, complete indirect-callgraph or ISO alias scan.",
+    "gocode_pin_qualification": "Old report Go hashes intentionally remain historical and may differ during root implementation; nativeZIP/member/spans and real selected input pins are authoritative for this static receipt."
+  },
+  "study_script": {
+    "path": "/var/tmp/dokapon-exact-palette-binding-ysag3J/rebind.py",
+    "sha256": "c298a062e41594f85d6da2fcccf09b1acc554d1ff7820429c3c038591df7fa83"
+  }
+}

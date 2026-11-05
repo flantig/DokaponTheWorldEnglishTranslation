@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-21T15:06:45.400066+00:00",
+  "status": "READ_ONLY_REVIEW_NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "candidate": {
+    "directory": "/var/tmp/dokapon-fixed-inline-iiom1ld5/review-source",
+    "manifest_sha256": "e0feb32e617bb11c5285d79508e7aa8ae3106acfa0491383052e6893979f0105",
+    "members": 544,
+    "pins": "All verified before/after against immutable0400single-link contained files and writable owned copy"
+  },
+  "baseline": {
+    "directory": "/var/tmp/dokapon-canonical-milestone-xxkcl8et/sealed-final-corrected",
+    "manifest_sha256": "6136099020598b999923a232f89d72f62332d91e8bee4f253ca2c240b7989bc5",
+    "legacy_comparator": "Accepted source-colour core-final; all baseline production Go files independently byte-equal its frozen source capsule; binary pinned in cli-checks.json"
+  },
+  "source_oracles": {
+    "original_pack_manifest_sha256": "bb7bc5d0952dd19549388e463d0b0ffe3c7b6b78789e0e3286219fe9c26ddb7c",
+    "original_pack_members": 99,
+    "package_manifest_sha256": "c9976009f173ae95cd9878b69a2a8fa7351d113d11e6c4d23e811f91d3b3f3df",
+    "package_binding": "Receipt plus all6 packaged files independently verified; full28row oracle SHA5d2df0709ebce4640c0c12154ff20f5e14ec0bc6fe4422db1424fe58a67d280a",
+    "qualification": "Original selected helpers only; whole16byte padding, classification and ELF/field projections are frozen literal/source-equation facts, not original-main replay. Package created after source existed but before candidate execution. Empty/null glyph5 is deliberately projected to missing5 invalid domain. Reversed duplicate-rune insertion parity held."
+  },
+  "owner_review": [
+    {
+      "source": "patch.go:198",
+      "assessment": "Terminated markup remains in one guarded branch; nonterminated literals use the same rune loop. All affected encode callsites traced with Serena: fit remains terminated, source-label recursion now literal, plan retains missing/empty wording/capacity/controls and final write validators. Literal metacharacters produce glyph words, never control authority."
+    },
+    {
+      "source": "patch.go:360",
+      "assessment": "FixedWords is bounded1..4096 and exact size, rejects incompatible narrative/opaque/native policies; all words are checked even after zero. Same classifier/token loop retained. Empty literal validation occurs after policy guards, so incompatible opaque options still refuse."
+    },
+    {
+      "source": "references.go:110",
+      "assessment": "Inline observer reuses registry/pins/site geometry/ELF/raw-read/report lifecycle. Exactly one struct field at numericID/offset0/stride0x10 is required. Four rawu32 values are observed without referenceTarget; target/target_mapping stay null and no ID pointer fallback appears. Old observation paths retain their behavior."
+    },
+    {
+      "source": "stream_audit.go:169",
+      "assessment": "Local *string wording projection distinguishes intentional empty from missing/null without changing RegistryEntry. Canonical generation is independent of observed values, invalid source/observed decode never acquires comparison, and each original/observed full16byte field must match one file-backed mapping. Unbound windows make no ownership/canonical claims; mixed bound cohorts refuse."
+    },
+    {
+      "source": "stream_audit.go:341",
+      "assessment": "Added inline branches remain cohesive with existing observation/binding responsibility. No duplicate decoder or per-script handler, and no new function/type/file is warranted for this finite increment. Separate full original mapping check is readable and important; no line-count-driven extraction recommended."
+    }
+  ],
+  "own_checks": [
+    {
+      "command": "CGO_ENABLED=0 GOMAXPROCS=2 go test -count=1 -p 2 -run '^(TestPlanRefusals|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$' .",
+      "result": "PASS43.745s; owned TMP/GOTMP, nice19, GOMAXPROCS2"
+    },
+    {
+      "command": "same environment; go test -count=1 -p 2 -overlay ../overlay.json -run '^TestPilotHistoricalGoldenBytes$' .",
+      "result": "PASS18.098s;12 fresh original-AST literal byte vectors frozen before Go, including metacharacters, spaces, empty, tab and Unicode"
+    },
+    {
+      "command": "core build/vet",
+      "result": "both exit0"
+    },
+    {
+      "command": "private CLI probes",
+      "result": "3 complete legacy stdout/stderr/exit captures identical;28 complete frozen row projections match after normalizing error wording and omitted/null comparison representation; all inline pointer targets remain null"
+    },
+    {
+      "command": "10 additional CLI cases",
+      "result": "PASS: intentional empty, missing/null/nonstring EN; invalid observed control after zeros; fullfield split across2 otherwise valid PHs on each ELF refuses; canonical/Unicode stride keys and hexadecimal spellings; selected byte/inode/mtime preservation"
+    },
+    {
+      "command": "gofmt allGo; scoped whitespace; positive-selfchecked POSIX credential scan",
+      "result": "PASS"
+    }
+  ],
+  "accounting": {
+    "production_go_files": 39,
+    "production_go_bytes": 434095,
+    "named_declarations": 41,
+    "production_growth_bytes": 6728,
+    "new_example_bytes": 25341,
+    "test_growth_bytes": 8295,
+    "new_oracle_bytes": 140934
+  },
+  "artifacts": {
+    "root": "/var/tmp/dokapon-fixed-inline-review-j_pkds3i",
+    "manifest": "/var/tmp/dokapon-fixed-inline-review-j_pkds3i/artifact-manifest.json",
+    "manifest_sha256": "3320a535513ab677fe0dd970eda82b94c3fa695ca0b2f9e583047f47ecece120",
+    "members": 762,
+    "checks_sha256": "1a3cd7911a363aa21310d4f11217c7b32b5a6e20aba2bebd35518d09c816468a",
+    "cli_checks_sha256": "c641cf0c373773c08286da63bf8cdbd319a828d9986cf07f43c3abf8afcff9fb",
+    "extra_original_sha256": "cfd11fd40382accff7c2b26df304f8861721d9002bb641e09b35fe1c4c6da16e",
+    "contents": "All544 reviewed source members,99original-source members,6packaged inputs/oracle+receipt, accepted/current binaries, fullCLI captures, original extra vectors/private overlay, scripts/logs/diffs/pins"
+  },
+  "limits": [
+    "Focused core verification only; no fullsuite, race or redundant native replay. Root checks are not claimed as own.",
+    "Bounded inline16 read-only comparison, not historical160row batch/main parity, arbitrary alias ordering, liveness, geometry/visual fit or write authority.",
+    "No protected resources or candidate/live implementation edits. No approval, coverage/family/milestone/script-retirement or savings credit. All own jobs terminal."
+  ]
+}

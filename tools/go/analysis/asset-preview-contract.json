@@ -1,0 +1,351 @@
+{
+  "kind": "PRECODE source contract and original-only complete-pixel oracles for asset_preview_inventory.05",
+  "scope": "Checkerboard crop/nearest-scale before-after presentation. No implementation, milestone/family promotion or artwork approval.",
+  "source_pins": {
+    "../batch_c_preview.py": {
+      "bytes": 1398,
+      "sha256": "98a4d37c8188d31f83bc135b6bfeb966eb34db7261b1c044e7dea6c2d30192de"
+    },
+    "../preview_logo_a_2026_10_01.py": {
+      "bytes": 6939,
+      "sha256": "bc94f35b35804b806ef0fd7c3aab05594d39f379a8c9701c2383aa51f3c52f9d"
+    },
+    "../preview_batch_e_ai_repairs_2026_10_01.py": {
+      "bytes": 3215,
+      "sha256": "4b71b9cf0541ea05b601188852165cd5b6d4c76835882928cf5d4dcdc1ee3cff"
+    },
+    "../preview_weekdays_2026_10_01.py": {
+      "bytes": 5021,
+      "sha256": "622ce1345539d55c671ee73bfb6b6b3bca3a5f40eb89afb57c5576fd7b7d3768"
+    },
+    "analysis/pattern-crawl-assets_runtime_tests.json": {
+      "bytes": 106351,
+      "sha256": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3"
+    },
+    "analysis/migration-roadmap.json": {
+      "bytes": 57118,
+      "sha256": "22e84357c0be4cb5d12176a736cfac71f2d718684e63b4020aa202ad03def628"
+    }
+  },
+  "primary_source": {
+    "path": "../batch_c_preview.py",
+    "checker": "13..18",
+    "main": "21..43",
+    "method": "Only original checker/main AST selected; capture-only statements record cropped input pixels and finalRGBA immediately before originalRGBsave. All original calculations/calls stay in their source order. No project imports, main-module side effects, Go or candidate execution.",
+    "versions": {
+      "Python": "3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]",
+      "Pillow": "12.3.0",
+      "NumPy": "2.4.6"
+    }
+  },
+  "exact_checker_contract": {
+    "input_conversion": "Open each source PNG and convertRGBA with originalPillowsemantics. .04PNGconversion contract is reusable foundation; do not independently reimplement a divergentPNGnormalizer. Source inputpixels/files remain unchanged.",
+    "crop": "Optional[x,y,w,h] becomesPillowcrop(x,y,x+w,y+h) forBOTHsources. Negative origin/rightbottomoverrun/fullyoutside positivecrop are successful: outputrequestedsize, originalintersectionattranslatedposition, outsideRGBA(0,0,0,0). SourcehiddenRGBwithinintersection preserved. Croppedimages originreset0. PositiveOOBpadding is a material obligation, not an error that can silently be refused.",
+    "size_binding": "After optionalcrop, first/beforeimage widthw/heighth defines BOTHpaneltargetdimensions(w*scale,h*scale). Withoutcrop, afterimage may differ and is independentlyNEARESTresized tothat target. Requiringequalsources would deliberately withdraw successfullegacybehavior; no source proof permits claimingcomplete.05whileomitting it. Withcommoncrop bothsourcewindows have requestedidenticalsize eveniforiginaldimensions differ.",
+    "nearest": "Nearest operates on straightRGBA, preserving alpha andhiddenRGB beforedisplaycompositing. For frozenunequalratios, sourceX=floor((2*destX+1)*sourceWidth/(2*targetWidth)), similarlyY. Integerupsampling is a subset; sourceafter5x2→9x3 samplesX[0,0,1,1,2,3,3,4,4],Y[0,1,1].",
+    "checker": "For eachpanel independently, generatechecker AFTERcrop+resize inOUTPUTpixelspace. c=((x//8)+(y//8))%2; c0RGBA150/150/150/255,c1RGBA200/200/200/255. Tile8 remains8outputpixels atallscales. Restartx/y0 separatelyatbefore andafterpanel; neitherworldcroporigin norwholepairedcanvascoordinatessetphase.",
+    "composite": "PillowRGBA.alpha_composite(resizedsource) overopaquechecker. Sourcealpha0 leaveschecker, includingwhenhiddenRGBnonzero. Alpha1/128/129/254 needexactintegerrounding; existingpixelOverownsPillowcontract. Do not masked-paste or floattruncate.",
+    "layout": "Beforeontop,afterbelow. EntireRGBAcanvas(w*scale,2*h*scale+6) filled40/40/40/255. Pastecompositedpanel0at(0,0),panel1at(0,h*scale+6). GapEXACT6outputpixels regardlessscale; noothermargins.",
+    "output": "OriginalconvertsfinalopaqueRGBAtoRGBthenPNGsave. CompleteRGBbytes andpreRGBRGBAcaptured; alloutputalphas255. RGBpresentationdoesnotchangeoriginalsourcePNGtransparency orauthorizeartrewrite.",
+    "selected_alpha_pixels": "Scale1beforefirstrow: alpha0hidden→[150,150,150];redalpha1→[150,149,149];greenalpha128→[75,203,75];bluealpha129→[74,74,203];yellowalpha254→[255,255,1]. Lasttransparentx8 shows[200,200,200]. Afterpanelhidden(0,0)resetschecker150 eventhoughglobalpairedY9wouldchecker200."
+  },
+  "meaningful_other_preview_consumers": [
+    {
+      "owner": "../preview_logo_a_2026_10_01.py:42..48 pair",
+      "callers": "Samefilemain127..128 usesfullimage1x andzoom3x/6x; ../preview_batch_e_ai_repairs_2026_10_01.py importsandcalls pair52..53 withrepaircrop3x/fullimage1x.",
+      "contract": "BothimagearraysRGBAcropcommonXYXYbox,includingtransparentOOBpadding. CreateopaqueRGBA90graycanvas(w,2*h+4),alpha_compositebeforeat0andafterat(h+4); THENnearestscaleWHOLEcanvas. Gap4SOURCEpixelsbecomes4*scale,flat90background,RGBAoutput. Itis a realsharedvariant andmustnotbe mislabeled aschecker/gap6/RGBparity. Fouroriginalpixeloracles frozen.",
+      "disposition": "Keep explicit sourcevariant crosswalk forfullassetpreviewfamily. It isnot thecheckerboard.05output, andno genericframework/configflag justified solely tomergeit."
+    },
+    {
+      "owner": "../preview_weekdays_2026_10_01.py:84..92",
+      "contract": "Fixed336x160RGB#e8e8e8contact; BEFORE/AFTERlabels,sourcecrop(0,208,336,272) atrow+16,pasteusingstripasalpha-mask; nearestwholecontact3x.",
+      "disposition": "Labelledcontact/presentation responsibility belongswith.06 and mustremainopen; not coveredbyunlabelledcheckerboard output."
+    },
+    {
+      "owner": "../explainer_scan.py:198..247 contact sheets (priorcontract)",
+      "contract": "6x4labelledpages,perthumbnail checker/background/resampling/group/dedupdetails separatelysourcebound.",
+      "disposition": "Remain.06; thisstudydoesnotclaimtextlabels/layout/sheetindex."
+    }
+  ],
+  "original_refusals": [
+    {
+      "name": "scale0",
+      "crop_xywh": null,
+      "scale": 0,
+      "exception": "ValueError",
+      "message": "height and width must be > 0"
+    },
+    {
+      "name": "scale-negative",
+      "crop_xywh": null,
+      "scale": -1,
+      "exception": "ValueError",
+      "message": "Width and height must be >= 0"
+    },
+    {
+      "name": "crop-zero-width",
+      "crop_xywh": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "scale": 1,
+      "exception": "ValueError",
+      "message": "cannot write empty image"
+    },
+    {
+      "name": "crop-negative-width",
+      "crop_xywh": [
+        0,
+        0,
+        -1,
+        2
+      ],
+      "scale": 1,
+      "exception": "ValueError",
+      "message": "Coordinate 'right' is less than 'left'"
+    },
+    {
+      "name": "crop-negative-height",
+      "crop_xywh": [
+        0,
+        0,
+        2,
+        -1
+      ],
+      "scale": 1,
+      "exception": "ValueError",
+      "message": "Coordinate 'lower' is less than 'upper'"
+    }
+  ],
+  "resource_scope_and_reuse": {
+    "Serena": "resizeRastercurrent symbol andpixelOverreferencingcallers(composeCells/renderRuns/tests) inspected. Parent separatelyowns currentauthorTexture/manifestTextureslifecycle design.",
+    "resizeRaster": "ExistingfixedLANCZOSresamplingowner canreasonablyenhance withfiniteNEARESTchoice; retainalloldLANCZOSgoldens/callers. A newnearesthelperperpreview isunnecessary. Directintegerpixelreplication alone misses successfulunequalsizeinputcases.",
+    "pixelOver": "AlreadyexactPillowRGBAalphaOvercontract; usefordisplaycheckercompositionwithoutnewblendformula/helper.",
+    "composition_owner": "ExistingauthorTexture/manifestTexturesread/profile/pin/publication owners mayreasonablyownboundedpairselectionandpreviewassembly. Font-specificcomposeCells/renderRuns mustnotrequirefakefont/labels toproducecheckerboard. Parentmustrecordactualresponsibilityboundary beforeanyunavoidablefunction; workerproposesnone.",
+    "normal_case_bound_gap": "CurrentresizeRaster1Mpxoutputcap cannot covercommon512x512@3x:panel1536x1536=2359296px,final1536x3078=4727808px.1024x512@3x:panel3072x1536=4718592px,final3072x3078=9455616px. Source.05inputs canstayexisting1Mpx, buthonestboundedpresentationoutput/workpolicy mustaddressactualnormalcases. Do not silentlydeclarethemunsupported merelytoreuseoldbound. No unboundedpolicy inferred."
+  },
+  "precode_packs": {
+    "complete_preview_pixels": {
+      "directory": "/var/tmp/dokapon-asset-preview-contract-3ym5x3v2",
+      "manifest_sha256": "6a2b53daf9f50b5f1c40d06d596e6607eebc3729069ea590b3e96491bea39e1d",
+      "members": 106,
+      "facts_sha256": "835859a1ef3b419f2070f5cd386eda2be5b85c88b532ec76e5674f57956dda15",
+      "checker_cases": 17,
+      "flat90_variant_cases": 4,
+      "invalidgeometry_errors": 5,
+      "coverage": "LiteralRGBAinputswithhiddenRGBandA0/1/127/128/129/254/255;scales1/2/3/4;checker8boundaries;shiftedcrop;negative/rightbottom/fullyOOBcrop;after5x2/11x5versusbefore9x3;commonOOBcrop. EverycheckercasefullRGB+RGBA+bothcroppedrawinputs,notonlyPNGhash."
+    },
+    "nearest_indices": {
+      "directory": "/var/tmp/dokapon-asset-preview-contract-nearest-bfveqzvz",
+      "manifest_sha256": "f5fcda23870906344880e1fdd85f0e72b1ee6803665a737dd2d449fddaa5cf7e",
+      "facts_sha256": "fca97a3e6432865050bcd99f4c4d03eec154bd0a474a0258b03cb87906145e71",
+      "cases": 3,
+      "scope": "OriginalPillownearestexpression sourcepixelsagreewith independentintegercenter-indexsampling atalloutputpixels,includinghiddenRGBA. Existingprimarypackimmutable."
+    }
+  },
+  "verification": {
+    "frozen_member_hashes_sizes": 110,
+    "completeRGB_RGBA_dimensions_and_opaque_alpha": "PASS17checkeroutputs",
+    "gap6atallscales": "PASS all17fullRGBbuffers",
+    "fullyoutsidecroppadding": "PASS sourcecropRGBAallzero",
+    "inputpreservation": "FrozeninputPNG/RGBAhashes unchanged after alloriginalfunctions ran",
+    "JSON_parse_and_whitespace": "PASS;scopedgitdiffcheckbeforeterminal",
+    "limits": "Originalselectedsourcefunctions/privatefixturesonly,noGo/candidate/sourceart/ISO/canonical/protectedruntimeexecutionoraccess."
+  },
+  "milestone_disposition": "Exactchecker/crop/nearest/pair outputs, sourcepins/immutability, positiveOOBpaddingandunequaldimensionsare material.05obligations. Thisstudyonlyfreezesprecodefacts; parentmustverifyimplementation+publicationguards andindependentreviewbeforecredit. Flat90variantremainsidentifiedforfullfamilycrosswalk;labelledsheets/labels/grouping/dedupstay.06. No familypromotionorretirementclaim.",
+  "nearest_numerical_supplement": {
+    "status": "PRECODE ORIGINAL-ONLY PRIMARY SOURCE + FINITE SWEEP; supersedes any universal rational-center inference from earlier three examples",
+    "prior_contract_sha256": "8943ae1c4612e99bcbec56e46017335887fbaf5025685a7fa27ae052e039b7c4",
+    "prior_contract_copy": "/var/tmp/dokapon-nearest-contract-aif2jpfw/asset-preview-contract-before.json",
+    "private_directory": "/var/tmp/dokapon-nearest-contract-aif2jpfw",
+    "manifest_sha256": "1b914a78890d560a7c50f3d5ce5c55456dea9a3587614108d9eef426c76ecf0a",
+    "facts_sha256": "21f3e368cf8e178c085b59650e651b40891ff54e5cc7ac48cd373551fa265844",
+    "source_contract_sha256": "6ab570645d67b69e70aef01ab48be02aa26048fb0cd7179c093766b0d68306bc",
+    "primary_sources": [
+      {
+        "path": "_imaging.c",
+        "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/_imaging.c",
+        "sha256": "a911bab9ec7e74a70875bd92fe07fd43bafeecde2312840062dddbcd9e477f38",
+        "lines": "1937..2007; float box then double step; integer matching-size crop shortcut"
+      },
+      {
+        "path": "Geometry.c",
+        "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/libImaging/Geometry.c",
+        "sha256": "5ca2151823ca7b89e6cfd253d969791b276f564b34bad2bf15f1c75ce93486f1",
+        "lines": "11 COORD; 832..924 scale recurrence/raw pixel copy; 1010..1045 RGBA axis-aligned dispatch"
+      }
+    ],
+    "exact_algorithm": {
+      "step": "binary64(sourceLogicalExtent)/binary64(outputExtent), separately for each axis",
+      "initial_coordinate": "step * 0.5 for explicit full logical image; general C affine includes a[2]/a[5] offset but is not needed for already-cropped image",
+      "each_output_pixel": "sample int(coordinate) (nonnegative truncation); coordinate += step in source order, once per output position",
+      "copy": "copy complete source RGBA bytes; no alpha premultiplication, no interpolation, no transparentRGB normalization",
+      "axes": "precompute horizontal index table by recurrence; independent vertical recurrence",
+      "identity": "Pillow integer full box matching output shortcut copies exact pixels; recurrence step1 also agrees",
+      "crop": "Preview caller crops first: OOB crop generates transparent zero RGBA in logical source; resize logical extent including padding. Resize(box) is not equivalent OOB API (negative and out-of-source box rejected)."
+    },
+    "counterexamples": [
+      {
+        "source": 2,
+        "target": 7,
+        "x": 3,
+        "rational_index": 1,
+        "original_index": 0,
+        "source_ordered_coordinate_hex": "0x1.fffffffffffffp-1"
+      },
+      {
+        "source": 4,
+        "target": 14,
+        "x": 10,
+        "rational_index": 3,
+        "original_index": 2,
+        "source_ordered_coordinate_hex": "0x1.7fffffffffffep+1"
+      }
+    ],
+    "finite_sweep": {
+      "source_widths": [
+        1,
+        256
+      ],
+      "target_widths": [
+        1,
+        512
+      ],
+      "pairs": 131072,
+      "output_pixels": 33619968,
+      "output_digest_record_format": "ascending sw,dw; <HH then original RGBA bytes",
+      "output_sha256": "3669acffb5d7acdb7d16bb1ff866b470046d733a336e5bf0ebdac56d0f7c92fb",
+      "rational_mismatch_pairs": 26341,
+      "rational_mismatch_pixels": 64920,
+      "source_recurrence_mismatch_pixels": 0,
+      "seconds": 14.64354697700037
+    },
+    "large_probe": {
+      "source_widths": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        255,
+        256,
+        257,
+        511,
+        512,
+        1023,
+        1024,
+        2048,
+        4095,
+        4096
+      ],
+      "targets": "unique 1..32,49,255,256,257,511,512,1023,1024,2048,4095,4096,source,source*3",
+      "pairs": 655,
+      "output_pixels": 262041,
+      "record_format": "ascending listed sw and sorted unique dw; <II then original RGBA bytes",
+      "output_sha256": "2beda68192713dac310f87c7dfdc7c05ca5990e9edcf83f7d11df72d05130776",
+      "rational_mismatch_pixels": 156,
+      "source_recurrence_mismatch_pixels": 0
+    },
+    "selected_oracles": [
+      {
+        "name": "two-to-seven",
+        "size": [
+          7,
+          1
+        ],
+        "rgba_sha256": "95a504936d88d3d6bf084dde256ec47564b9e2593bc4271ea7606a26e3c1a251"
+      },
+      {
+        "name": "four-to-fourteen",
+        "size": [
+          14,
+          1
+        ],
+        "rgba_sha256": "183dd6e97191727fef449b1830def3219020649f2ca7841d45a434ae2f58e019"
+      },
+      {
+        "name": "rgba-two-square-to-seven",
+        "size": [
+          7,
+          7
+        ],
+        "rgba_sha256": "7969e93abadcade0fe859f175f861d7016236ebf87a39ac8ffdb880ac15c7a8e"
+      },
+      {
+        "name": "after-five-by-two",
+        "size": [
+          9,
+          3
+        ],
+        "rgba_sha256": "20d122fa3843ddc3876d94b8496e8d92f970075c5758470e76d8fd1ec494e9a5"
+      },
+      {
+        "name": "crop-pad-before-nearest",
+        "size": [
+          14,
+          9
+        ],
+        "rgba_sha256": "3ba83a46e5b74445096e724aadd819407430bc7394e7830bbff424cec51de6a1"
+      },
+      {
+        "name": "identity-hidden-rgba",
+        "size": [
+          5,
+          2
+        ],
+        "rgba_sha256": "79f6f6011216677909ab4ecae33100485ebb9ea13c11c42b964d3d9b7e0444ba"
+      },
+      {
+        "name": "crop-pad-identity",
+        "size": [
+          7,
+          3
+        ],
+        "rgba_sha256": "7782121d5c5f7b01b44bdffeadc23d88884012f4f605cd77315b7dcfdfca99a9"
+      },
+      {
+        "name": "large-source-down",
+        "size": [
+          7,
+          1
+        ],
+        "rgba_sha256": "7bcbb106efdb6cccf43feb58ffd3381941533a8c06da92c5ea133e0a4ffedf2e"
+      },
+      {
+        "name": "large-source-identity",
+        "size": [
+          4096,
+          1
+        ],
+        "rgba_sha256": "31a69cfdd58cc20dc0d1ea6b6cba05417407b4c548cd50aec4b6b5b7cd615c33"
+      },
+      {
+        "name": "large-source-three-times",
+        "size": [
+          12288,
+          1
+        ],
+        "rgba_sha256": "c4a778e6ca3284a7b1d1409e053362576e1e032e03a865a65bb2f3a2a4646843"
+      }
+    ],
+    "scope": "Primary C binds selected RGBA scaling path; exhaustive finite sweep verifies installed12.3 binary on bounded widths. This is not universal all Pillow modes/affine/fractional boxes/architectures proof.",
+    "implementation_recommendation": "Enhance existing resizeRaster finite NEAREST branch using sequential binary64 recurrence on logical already-cropped/padded source. Preserve old LANCZOS implementation, limits and134goldens. Source image1M and proposed nearest/pair output budgets are caller safety decisions, not Pillow numerical equations. No new helper or universal rational formula justified.",
+    "prior_pack_integrity": [
+      {
+        "directory": "/var/tmp/dokapon-asset-preview-contract-3ym5x3v2",
+        "manifest_sha256": "6a2b53daf9f50b5f1c40d06d596e6607eebc3729069ea590b3e96491bea39e1d",
+        "member_count": 106,
+        "all_member_hashes_verified": true
+      },
+      {
+        "directory": "/var/tmp/dokapon-asset-preview-contract-nearest-bfveqzvz",
+        "manifest_sha256": "f5fcda23870906344880e1fdd85f0e72b1ee6803665a737dd2d449fddaa5cf7e",
+        "member_count": 4,
+        "all_member_hashes_verified": true
+      }
+    ],
+    "no_candidate_or_approval": "No Go/project execution, implementation, family milestone or artwork approval. Existing110pack members verified unchanged."
+  }
+}

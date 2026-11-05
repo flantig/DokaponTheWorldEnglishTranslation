@@ -1,0 +1,148 @@
+{
+  "all_owned_jobs_terminal": true,
+  "allowed_live_write": "evidence/reference-owner-final-review.json only",
+  "at": "2026-11-04T23:36:38.530918+00:00",
+  "candidate": {
+    "candidate_and_private_source_unchanged": true,
+    "candidate_manifest": "/var/tmp/dokapon-reference-owners-ov77euwr/owner-final-review-source-manifest.json",
+    "members": 661,
+    "sha256": "658ef283cae8efb1a62b05a516a33eaeff90cdaa630a5ac8a409396ffc518879"
+  },
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestPlanAndCopy|TestCLIDryRunAndApply)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 29.827470064163208
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-owner-final-review-oaru3imo/dokapon-core",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.4390902519226074
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.43622374534606934
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-owner-final-review-oaru3imo/dokapon-nativefonts",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 2.4358694553375244
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.8299131393432617
+    }
+  ],
+  "closure": [
+    {
+      "bounds": "A precisely1MiB flow recipe succeeds and its profile hash matches the exact file;1MiB+1refuses. A1MiB+1legacy image recipe succeeds on a134217729Bsynthetic sparse image; its expected4Bdry-run edit matches and sourceSHA remains unchanged. This independently verifies that recipe limits were not applied to streaming image sources.",
+      "evidence": "All27independent CLI probes passed. Exact initial recipe FIFO reproduction now refuses while a complete request is buffered and the writer stays open. No-writer recipe/glob/alias-base/source/registry/glyph FIFO cases refuse before deadline. Directory, oversized, symlink-to-FIFO, shared-consumer and source-hash refusals leave stdout empty.",
+      "id": "RF-INPUT-REGULAR-1",
+      "residual_limit": "The pre-stat check does not provide hostile atomic regular-to-FIFO replacement protection between stat and open. That guarantee is explicitly outside this contract; opened regular-file identity/size/mtime checks remain in place.",
+      "reviewed_lines": [
+        "inputs.go:21-44",
+        "main.go:99",
+        "main.go:252",
+        "main.go:317-323"
+      ],
+      "status": "CLOSED_FOR_STABLE_PHYSICAL_INPUTS"
+    }
+  ],
+  "findings": [],
+  "initial_review": {
+    "artifact_sha256": "768ecbf22f4cdf7083dad5c8c5157ec0954cb1211fdc4cb1aa53b9e091a4cce4",
+    "artifacts": "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/artifact-manifest.json",
+    "history_preserved": true,
+    "report": "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/reference-owner-review.json",
+    "sha256": "3cc966d3ccec57a12ee3840fc0537a3696faaf3f242bedb7bf9afd974f9fe0fa"
+  },
+  "kind": "independent-read-only-reference-owner-final-review",
+  "limitations": [
+    "Focused checks are not the full test suite; root race results are separate and not claimed here.",
+    "No native-font race or gameplay verification.",
+    "No hostile atomic filesystem replacement guarantee or adversarial scheduler test.",
+    "No protected original/shipping/custom-art ISO, canonical registry, owner emulator/probe/process, account settings or auth data was accessed.",
+    "Review findings provide no approval, patch authority, family completion, retirement or reduction credit."
+  ],
+  "reviewer": "/root/reference_owner_review",
+  "schema_version": 1,
+  "shared_owner_review": {
+    "contracts": "No caller relies on empty or special-file input. The shared reader retains the previous bounded-read, handle-stat and close checks and adds a pre-open guard plus path-to-handle identity. Root extends the existing test function/table, with no production helper or parallel implementation.",
+    "initial_native_tag_correction": "The initial review executed-tags native, which does not select the actual native font backend. This final review independently executes build/vet with the actual nativefonts tag.",
+    "no_function_growth": "No new production named function was introduced for the closure.",
+    "readInput_callers": [
+      "main.run initial recipes, alias bases, flow/observed registry, flow glyphmap and input identity rereads",
+      "previewFit",
+      "authorRegistry",
+      "snapshotArtifacts",
+      "auditStreams",
+      "authorTexture",
+      "contactSheets",
+      "manifestTextures",
+      "existing tests"
+    ],
+    "refusals": "Existing direct recipe-directory expansion remains; empty recipe directories retain their old dedicated error. Known special files reject beforeopen. Existing report pin/error semantics and source type checks remain separate from valid image source size.",
+    "serena_session": "e392a2e9"
+  },
+  "source": "/var/tmp/dokapon-owner-final-review-oaru3imo/source",
+  "status": "RF-INPUT-REGULAR-1_CLOSED_NO_NEW_CONFIRMED_FINDINGS",
+  "verification": {
+    "actual_nativefonts_build": "PASS -tags nativefonts",
+    "actual_nativefonts_vet": "PASS -tags nativefonts",
+    "all_owned_jobs_terminal": true,
+    "all_probe_assertions": "PASS",
+    "core_build": "PASS",
+    "core_vet": "PASS",
+    "focused_tests": "TestPlanAndCopy andTestCLIDryRunAndApply PASS29.827470064s",
+    "gofmt_changed_Go_files": "PASS",
+    "independent_CLI_probes": 27,
+    "large_synthetic_source_sha256_preserved": true,
+    "synthetic_legacy_recipe_bytes": 1048577,
+    "synthetic_source_bytes": 134217729
+  },
+  "what_this_change_does": "The existing shared readInput now rejects known nonregular, empty or oversized paths before opening and checks opened-handle identity, size and modification time. Initial recipe and alias-base reads reuse that reader with a documented128MiB intake ceiling; report profiles keep their1MiB limit and image sources remain streamed.",
+  "workspace": "/var/tmp/dokapon-owner-final-review-oaru3imo"
+}

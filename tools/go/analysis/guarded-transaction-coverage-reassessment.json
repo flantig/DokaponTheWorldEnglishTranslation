@@ -1,0 +1,285 @@
+{
+  "at": "2026-10-20T14:14:19.088699+00:00",
+  "kind": "Independent read-only same-contract workflow family reassessment, separate from apply approval and Astra audit",
+  "family": "guarded_transactions",
+  "baseline_version": "workflow-families-v1",
+  "baseline_sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+  "decision": "full",
+  "completion_credit": 1,
+  "coverage_totals_changed": false,
+  "classification_reason": "All material responsibilities in the two original frozen contracts now have verified shared Go support: typed equal-size old/new planning, source/preimage/complete-state guards, application and explicit revert, sorted bounded nonoverlapping edits, exclusive whole-copy writes, readback, whole-image containment and preserved registry ownership. Actual typed canonical JP restoration closes the former real typed-reversal gap; direct and CLI mixed slot/word reversals close the distinct coupled transaction proof gap. This conclusion uses the evidence together, not one label alone.",
+  "original_contracts": [
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/guarded_transaction",
+      "original_recommendation": "guarded_transaction",
+      "families": [
+        "guarded_transactions"
+      ],
+      "original_contract": "Plan sorted bounded old/new byte edits once, retain preimages/idempotence/exclusive output/readback and registry ownership; no per-script writer. Recipes contain IDs, words, text and explicit old/new states. Existing Go plan/validateEdits/verifySource/patchCopy and Python stream_fix_run already own much of this."
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/binary_edit",
+      "original_recommendation": "binary_edit",
+      "families": [
+        "guarded_transactions"
+      ],
+      "original_contract": "Plan typed equal-size old/new edits, source guards, whole-copy application/revert and readback.",
+      "exclusion": null
+    }
+  ],
+  "original_source_contract_details": {
+    "guarded_transaction": "Recipes contain IDs, words, text and explicit old/new states; no per-script writer; retain preimages/idempotence/exclusive output/readback and registry ownership.",
+    "binary_edit": "Plan typed equal-size old/new edits, source guards, whole-copy application/revert and readback. Recipe facts own addresses, explicit preimages, documented words, dependencies and bounded landing spans. Guards include complete before/new sets, partial-install refusal, alignment/overlap, original/shipping protection, source/hash and whole-image containment.",
+    "unchanged_taxonomy": true,
+    "baseline_scoring_rule": "Full=all material responsibilities of the family have verified shared Go support with declarative inputs and preserved guards. Partial=some shared Go support exists but a material responsibility is missing/held. Unsupported=no verified Go workflow. Partial/unsupported earn zero completion credit; no invented0.5 scores or counts of duplicate historical scripts. Python references/tests may verify Go; operational Python remains an unmet Go responsibility."
+  },
+  "responsibility_matrix": [
+    {
+      "responsibility": "Sorted bounded typed old/new edits and composition",
+      "status": "verified",
+      "owners": [
+        "plan",
+        "validateEdits"
+      ],
+      "evidence": [
+        "evidence/same-length-closure.json",
+        "evidence/stream-slot-proof.json",
+        "evidence/jp-selector-review-b.json"
+      ],
+      "why": "Text is encoded/validated as typed streams, slots or fixed fields; word edits remain words. Same shared planner sorts, rejects overlap/misalignment/overcapacity and composes table orders."
+    },
+    {
+      "responsibility": "Full source/preimage/complete-state guards and refusal of unpinned partial states",
+      "status": "verified",
+      "owners": [
+        "plan",
+        "verifySource",
+        "inspect"
+      ],
+      "evidence": [
+        "evidence/native-probe-guarded-copy-proof.json",
+        "evidence/jp-selector-review-a.json",
+        "evidence/jp-selector-review-b.json"
+      ],
+      "why": "Complete source SHA/size and exact full preimages bind prerequisites; replanning compares every supplied edit. Independent guard cutsets and stale-JP/forged-edit tests show no unsafe partial bypass."
+    },
+    {
+      "responsibility": "Typed text application and explicit text reversal",
+      "status": "verified",
+      "owners": [
+        "plan",
+        "encode",
+        "controls",
+        "validateEdits",
+        "verifySource",
+        "patchCopy"
+      ],
+      "evidence": [
+        "evidence/native-slot-proof.json",
+        "evidence/jp-selector-isolated-run.json"
+      ],
+      "why": "Actual original-stage native DF authoring and actual canonical JP restore use shared typed owners. Restored whole image equals known original, with source/metadata preserved."
+    },
+    {
+      "responsibility": "Code/data application and explicit reversal",
+      "status": "verified",
+      "owners": [
+        "plan",
+        "validateEdits",
+        "verifySource",
+        "patchCopy"
+      ],
+      "evidence": [
+        "evidence/native-probe-guarded-copy-proof.json",
+        "evidence/reverse-word-proof.json"
+      ],
+      "why": "Source-bound words/data, explicit independent preimages/targets, prerequisites and actual full-image known-predecessor restoration."
+    },
+    {
+      "responsibility": "One coupled code/data plus typed text recovery transaction",
+      "status": "verified",
+      "owners": [
+        "plan",
+        "verifySource",
+        "patchCopy"
+      ],
+      "evidence": [
+        "evidence/jp-selector-review-a.json",
+        "evidence/jp-selector-review-b.json"
+      ],
+      "why": "Existing direct domain tests and independent 18/290-byte CLI cases restore typed slot plus code word together, both forward/reverse and table orders; whole synthetic images, source preservation and guard failures independently checked."
+    },
+    {
+      "responsibility": "Exclusive whole-copy output, readback, output pin, cleanup and repeat-state safety",
+      "status": "verified",
+      "owners": [
+        "inspect",
+        "verifySource",
+        "patchCopy"
+      ],
+      "evidence": [
+        "evidence/same-length-closure.json",
+        "evidence/reverse-word-proof.json",
+        "evidence/jp-selector-review-a.json",
+        "evidence/jp-selector-isolated-run.json"
+      ],
+      "why": "Writer independently replans before exclusive creation, verifies copied source hash, guarded writes/sync/readback and output digest, and removes only its owned output on failure. Done-state inspection/existing-output refusal prevent destructive replay."
+    },
+    {
+      "responsibility": "Registry ownership and protected original/shipping state",
+      "status": "verified",
+      "owners": [
+        "run",
+        "plan",
+        "patchCopy"
+      ],
+      "evidence": [
+        "evidence/native-slot-proof.json",
+        "evidence/jp-selector-isolated-run.json"
+      ],
+      "why": "Wording is read from canonical EN/selected JP; machine facts live in recipes. No status rollback or canonical mutation. Actual outputs are new isolated files, original/source/canonical metadata preserved."
+    }
+  ],
+  "new_actual_evidence": {
+    "native_forward_proof_sha256": "76ff2ace75defa75c6329d7b219937d68f88e6973827f5b25bb6810d1f75bfef",
+    "jp_restore_receipt_sha256": "1c36d27b7e2029365aa834428a6b6097ec3637a85e346d5f9db6bc677aef3ca8",
+    "root_receipt": {
+      "source": "/var/tmp/dokapon-go-native-slot-b1p8h77l/native-defense-df.iso",
+      "source_sha256": "e0b3a22bbdd4f5f8baf10f1e9dc97cf0b1f6ba0b1131c030bbf0866412deb7ae",
+      "output": "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/restored-original.iso",
+      "output_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+      "original_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+      "whole_compared_bytes": 4243259392,
+      "every_output_byte_equals_original": true,
+      "declared_edits": 1,
+      "declared_bytes": 8,
+      "changed_bytes": 7,
+      "outside_changes": 0,
+      "source_and_original_identity_preserved": true,
+      "metadata_and_code_data_preserved": true,
+      "native13code_spans_unchanged": true
+    },
+    "assessment_validation": "Validated root receipt, all listed code/data/metadata/review/artifact pins and apply JSON; read audited full three-image comparison script; independently reread output exact slot, 72-byte original neighborhood, all 13 code spans, mode0600 and size. This assessment does not claim a new independent post-copy 4GB hash pass; root actual receipt supplies that, complementing A/B independent pre-copy whole-source inverse checks."
+  },
+  "mixed_evidence_precision": {
+    "B_cli_cases": 71,
+    "B_mixed_success_cases": 8,
+    "B_mixed_guard_cutsets": 40,
+    "capacities_bytes": [
+      18,
+      290
+    ],
+    "whole_synthetic_image_bytes": 640,
+    "active_source_bytes": 18,
+    "active_target_bytes": 12,
+    "code_word_offset": 512,
+    "wording_selection": "reverse uses canonical-style JP field in private synthetic registry; forward EN",
+    "both_table_orders": true,
+    "important_limit": "290 bytes is owned capacity and non-4-byte extent coverage: source active18B to target active12B, with exact zero tail. It is NOT historical narration145active words to135active+10zero and must not be reported as that replay."
+  },
+  "prior_gap_disposition": [
+    {
+      "prior_gap": "No real shared typed text reversal",
+      "now": "Closed by source-bound actual canonical JP restoration of all original bytes."
+    },
+    {
+      "prior_gap": "No coupled code/data and typed text recovery proof",
+      "now": "Closed by direct domain and independently authored CLI mixed forward/reverse complete-image tests, both table orders, typed controls and source/encoding/output pin refusals."
+    },
+    {
+      "prior_gap": "Only ordinary same-length text; shortened bounded slot lacks strict typed owner",
+      "now": "Closed for known-control bounded slots by shared stream_slot/controls/zero-tail validators and preserved strict legacy modes."
+    },
+    {
+      "prior_followup": "Historical fix_bundle narration source/pointer/ownership/consumer facts and unsupported setup/control-count cases",
+      "now": "Still not historical script replay; no retirement/parity credit. These are patch facts and text-codec/layout/inspection limitations, not an additional generic transaction mechanism absent from the original contract."
+    }
+  ],
+  "remaining_material_transaction_gaps": [],
+  "explicitly_not_claimed": [
+    "Every historical repair script migrated or retired.",
+    "Historical fix_bundle narration145-to135-active replay or all source-stage/consumer facts proved.",
+    "Automatic arbitrary undo, allocation shrink, mutable registry rollback or speculative framework.",
+    "Full text grammar/opaque or setup authoring, all native CFG/liveness/ABI, rendering/layout or gameplay validation.",
+    "Unicode-scalar-strict JSON: existing Go encoding/json replacement semantics remain and encoded/source pins still bind selected output.",
+    "New source-code reduction, deduplication percentage or other-family completion."
+  ],
+  "score_handling": {
+    "reviewer_changed_totals": false,
+    "recommendation": "Root may promote guarded_transactions partial to full using this evidence; leave all other family statuses and workflow-families-v1 denominator unchanged.",
+    "if_root_accepts_only_this_promotion": {
+      "core_full": 3,
+      "core_total": 14,
+      "core_percent": 21.4,
+      "expanded_full": 3,
+      "expanded_total": 17,
+      "expanded_percent": 17.6
+    },
+    "meaning": "Workflow completion credit only; not percentage code reused or all migrations complete."
+  },
+  "verification": {
+    "baseline_four_discovery_pins": "PASS",
+    "two_original_caller_pins": "PASS",
+    "B_seventeen_artifact_pins": "PASS",
+    "receipt_current_code_data_metadata_review_artifact_pins": "PASS",
+    "actual_output_slot_neighbor_native13_size_mode_readback": "PASS",
+    "current_Go_checks": "Inherited fresh matching-pin root/A/B race/vet/build/gofmt/scoped scans; no code or test change and no reason for repeat.",
+    "preserved_original_review_files": {
+      "analysis/guarded-transaction-coverage-review.json": "74c188a329fa6949642cad2329349f6b9148593fcf29c9d0cd3c5ca3adecee1b",
+      "analysis/guarded-transaction-coverage-review.md": "e7df1a845f96218afa6a885acf431e95bb3d3909e19c660bd6a96c6a5df3ee4d"
+    },
+    "new_code_tests_or_ISO_writes": false
+  },
+  "source_pins": {
+    "analysis/reusability-coverage-baseline.json": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+    "analysis/pattern-crawl-text_binary.json": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+    "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+    "analysis/pattern-crawl-assets_runtime_tests.json": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+    "analysis/reusable-toolkit-plan.json": "f099024ae73691b76ccf31e128b60cec31aa895f049d09736f9003d4853f11a9",
+    "analysis/guarded-transaction-coverage-review.json": "74c188a329fa6949642cad2329349f6b9148593fcf29c9d0cd3c5ca3adecee1b",
+    "analysis/guarded-transaction-coverage-review.md": "e7df1a845f96218afa6a885acf431e95bb3d3909e19c660bd6a96c6a5df3ee4d",
+    "analysis/reusability-coverage-independent.json": "f42bd282ba141abded7af830f489cf96c8c08b0a525fe25d913377cafea27452",
+    "evidence/reverse-word-proof.json": "a692914ed305bdd6d7c061d3a348753e482a548530e8009bfe369e7ab1773181",
+    "evidence/reverse-word-isolated-run.json": "9415ee6d4d1d4b5e81c832a052bd6bcca20aa51727ea18f3ea4568551784780b",
+    "evidence/same-length-closure.json": "a2d1407619b12d9fd92e73d3d59396499d3c6c744479eb165914e3add4001e14",
+    "evidence/native-probe-guarded-copy-proof.json": "aa68c8f586d32a3e7c2139d32757d55c5e8a7855b0300b96a6079885a263b1b7",
+    "evidence/stream-slot-proof.json": "eaf674790b29d751b729d4e154916aff02238220b629dcd7aacd1509fd784746",
+    "evidence/stream-slot-review.json": "0da1e365bfe2076644b1f66057153b5124e470e57652c3bfabd2baed5a5ba1ef",
+    "evidence/native-slot-proof.json": "76ff2ace75defa75c6329d7b219937d68f88e6973827f5b25bb6810d1f75bfef",
+    "evidence/jp-selector-review-a.json": "77b1852009639f647ccfe69ce3f568fd6d785c04d710a01c77700a915eb3fa78",
+    "evidence/jp-selector-review-b.json": "ed2a30de7064b4a63ecca74a45966bff4122a6a9a18e54057f32f4ba308b7136",
+    "evidence/jp-selector-isolated-run.json": "1c36d27b7e2029365aa834428a6b6097ec3637a85e346d5f9db6bc677aef3ca8",
+    ".goal/jp-selector-checks-work.json": "2c024c093a54b58564442bdc8746ae31e7b13929719a5e33aa3baaab25fad769",
+    "../fix_bundle_2026-09-30.py": "8afb07a9de9a04210d041b78b24866c4672f642c1d8ce6dcc61f8a6648ece90a",
+    "../revert_keyboard_grid_2026_09_30.py": "b503970a574cf452d532a1eddc6b6abd095dcc8bde7f832aa056c5a801e9f3f3",
+    "/var/tmp/dokapon-jp-selector-review-b-7qnq9zu0/cli-checks.py": "38d7f968ae6eb4d284dbbff6786d6518c2a1b5038ed9847b3b3e51476437f650",
+    "/var/tmp/dokapon-jp-selector-review-b-7qnq9zu0/cli-checks.json": "d81fc7bb2694678d0d96cc945f943d16266b83fca0be4a801cf70cf368488cfc"
+  },
+  "current_code_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "181805a0b36c986b3081a298fde03bbf99c77c9ded8527912f0fb10ac980a5be",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+    "texture_authoring.go": "76e9d9b340da6d9b64ac373005aa11f58d5758a7a8fef3e5b37c33af8754bd95",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "61d56d0523a68ef0f69ec3845fb160fba4bcea52a4ac35bc7e17c3fd2d5e614d",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "recipes/text/native-slots/defense-label-restore.json": "efac3610657c288b70a7128366d4624d69bd04883bb7de2e180f0e2179d13790",
+    "testdata/defense-label-restore.json": "c21486c65b3d9f7021d487284897e8a24fb0665de13d1c4095d4597f57975f54",
+    "testdata/runtime-tables.json": "1331cc57ce1216b6f1c893e98b897630cae76a441942aea4064aa7f0262c2b22"
+  }
+}

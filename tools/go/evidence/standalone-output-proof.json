@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-19T20:26:10.595167+00:00",
+  "status": "VERIFIED shared standalone output publication",
+  "contract": "writeNewFile replaces registry/texture duplicated exclusive create/sync/readback/owned cleanup blocks; source/codec validation remain caller-owned. Final output inode checked. Streaming image patchCopy unchanged.",
+  "evidence": {
+    "analysis/standalone-output-reuse-decision.json": "74929d0bd3423c3eace06ccd7a2913347d0dfc63679ee465af8db0b2dfca1f49",
+    "evidence/standalone-output-review.json": "bc8bd9ab5cceccce97a3f2a1f76cfc06dec548cde78ff21aa88a4a239e01ef3b",
+    "evidence/standalone-output-review.md": "cfd0fe4a0d46c52cbc95737aeeab5d7723bd185cdb6ec698bb282ea03b58bc7c",
+    "evidence/standalone-output-checks.json": "2636b4dccb127939be4b8338468fe02a82c4839627c02dc443047492a9fb790e",
+    "analysis/go-current-input-accounting.json": "11676d1acb876018ac5e3ede3c84f497604158749b3adaf7c1a1fce3a65b5a36"
+  },
+  "measured_production": {
+    "before": {
+      "files": 17,
+      "functions": 20,
+      "bytes": 192495,
+      "lines": 4784
+    },
+    "after": {
+      "files": 18,
+      "functions": 21,
+      "bytes": 192140,
+      "lines": 4778
+    },
+    "delta_bytes": -355,
+    "delta_lines": -6,
+    "meaning": "Small actual shared-safety consolidation. New51-line function included in total; no relocation or historical retirement claim. Tests separately grow1218B/25lines."
+  },
+  "verified": "Both real registry/texture callers and original report/artifact expectations,0600/0644 modes, existing/source/symlink/invalid-parent/dir refusals, source preservation, child-confined late partial-write EFBIG removal. Full checks pass.",
+  "unverified": "No induced Sync/Close/device-readback faults or path-swap races. Static cleanup branches reviewed; no ISO/protected registry writes or earlier proofextension."
+}

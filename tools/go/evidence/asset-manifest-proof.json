@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T01:25:56.082857+00:00",
+  "scope": "asset_preview_inventory.04: complete ordered extracted-CMB manifests and material discovery score/tier/flag responsibilities. .05/.06 open.",
+  "source_contracts": {
+    "analysis/asset-manifest-contract.json": "77918a5c1d465310970b6cbbbf7967c2b3a99f585d7bc541e1fee0c6e1172bb5",
+    "analysis/asset-png-conversion-contract.json": "ba5de7dca52649dbdab236fd209f53baeff925bf2f2d107da9055729025d15ae",
+    "analysis/asset-manifest-reuse-decision.json": "696822cf6d45d1bd8a9c7cae6928b7167b666d7a0e5f16ca260771a5ab32ddbe"
+  },
+  "shared_owners": [
+    "authorTexture",
+    "cmbIndex",
+    "indexTextures",
+    "texture",
+    "inspectRaster",
+    "manifestTextures",
+    "writeNewFile",
+    "checkJSON"
+  ],
+  "behavior": [
+    "Streaming regular extracted CMB<=1GiB; full source/index pins and source hash/stat/path-identity rechecks; profile byte recheck before publication.",
+    "Original index order independent of payload/name order. Every member/raster/empty/nontexture/error remains accounted with exact half-open source spans, lengths and hashes.",
+    "Exact optional authored entry/native joins; missing/repeated/ambiguous joins refuse the entire batch before any publication.",
+    "Native decode stays codec-owned. Duplicate/unsupported natives retain null measurements/diagnostics.",
+    "Successful source-backed tile statistics, tiers and ordered reasons are advisory; sub8/cropped-mask original bugs are explicit unavailable scores. No pixels means no flag reasons.",
+    "Raw PNG exports preserve exact encoded source bytes. Measured RGBA follows frozen Pillow12.3 conversion including hidden RGB, grayscale16 clamp and tRNS postconversion semantics. Native previews encode measured native pixels.",
+    "Potential failed decodes charge2^28pixel work bound;100000entry/raster and128MiBZIP bounds. Budget rows are explicit, never silent truncation.",
+    "One deterministic ZIP is published exclusively through existing readback/digest/inode writer. No output on late join/index/resource failures."
+  ],
+  "independent_oracles": {
+    "fixture": "testdata/asset-manifest.zip",
+    "sha256": "731f163716b6d016521c92647bca72d9c2482b201f3ecad644577f7551110a97",
+    "cases": "33original score images incl5unavailable domains,3actual threshold images,25actualpixel flags inclUnicode,9entry out-of-order physical CMB+4badindex variants,34literal PNG type/conversion cases. Original Python AST/Pillow only; no Go outputs used as expected pixels.",
+    "attempted_pixel_boundary": "257invalid one-megapixel headers; first256attempts retain codec errors,257th budget status; all257rows remain."
+  },
+  "root_final_checks": {
+    "checks": [
+      {
+        "label": "build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-asset-manifest-4u27nsrn/dokapon-go",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 2.484
+      },
+      {
+        "label": "vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.518
+      },
+      {
+        "label": "format",
+        "command": [
+          "gofmt",
+          "-l",
+          "texture_manifest.go",
+          "texture_discovery.go",
+          "texture_types.go",
+          "texture_authoring.go",
+          "cmb.go",
+          "patch_test.go"
+        ],
+        "exit": 0,
+        "seconds": 0.054
+      },
+      {
+        "label": "whitespace",
+        "command": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "texture_manifest.go",
+          "texture_discovery.go",
+          "texture_types.go",
+          "texture_authoring.go",
+          "cmb.go",
+          "patch_test.go",
+          "README.md",
+          "ARCHITECTURE.md",
+          "ARCHITECTURE.html",
+          "MIGRATION.md"
+        ],
+        "exit": 0,
+        "seconds": 0.002
+      }
+    ],
+    "credentials": {
+      "positive_selfchecked_patterns": 2,
+      "files": 12,
+      "candidates": 0
+    },
+    "legacy_parity": {
+      "cases": 19,
+      "scope": "Complete exit/stdout/stderr bytes, inventory/default incl duplicate+metadata precedence plus accepted .03 specification",
+      "result": "PASS"
+    },
+    "documented_example": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "-C",
+        "tools/go",
+        "run",
+        ".",
+        "--source",
+        "examples/asset-manifest/source.cmb",
+        "--texture-profile",
+        "examples/asset-manifest/profile.json"
+      ],
+      "exit": 0,
+      "entries": 9,
+      "stdout_sha256": "a8d1fabb4fa087e09c03472fed5af5a3b5d9b710af0b9c30c7f90669ffc97cde"
+    },
+    "native_SYSTEM": {
+      "entries": 11,
+      "rasters": 86,
+      "decoded": 86,
+      "source_index_hash_span_and_preservation": "PASS",
+      "stdout_sha256": "40342919549eee1311585ea454fd7d2202fac17388c6c226c6348717e3ef7189",
+      "limit": "Source accounting; no independent86pixel/visual/currentmod parity claim."
+    }
+  },
+  "root_final_CLI_race": {
+    "command": [
+      "nice",
+      "-n",
+      "19",
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "2",
+      "-run",
+      "^TestCLIDryRunAndApply$",
+      "-count=1",
+      "."
+    ],
+    "exit": 0,
+    "seconds": 39.719,
+    "stdout_sha256": "456f52a57c63294bbe07eef01fb293004eab06c566172d2c171f80608c521dc5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Final post-findings complete CLI owner, not full suite"
+  },
+  "root_prior_four_owner_race": {
+    "result": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanAndCopy|TestPlanRefusals)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 155.437,
+      "stdout_sha256": "867f4c989154950c2df74c33b19cff3c0e424097a7d478f141a281ea6c3f528c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Four focused owners, not full suite"
+    },
+    "scope_note": "Initial pre-findings candidate; not reattributed to final new PNG/range branch. Final branch checked by post-fix CLI race and independent final tests."
+  },
+  "independent_review": {
+    "path": "evidence/asset-manifest-review.json",
+    "sha256": "2e17a13156f9d1932e6cbd1c1079250ea59f77b9ae9854523155be3a878ab289",
+    "candidate_pins_verified": 16,
+    "private_artifact_pins_verified": 9,
+    "findings": "LOW missing source range and MEDIUM PNG conversion drift both independently reproduced as CLOSED. Report is findings/advice, root owns ledger.",
+    "roadmap_pin": "Reviewed roadmap is before .04 promotion; root validates later metadata separately."
+  },
+  "architecture_UI": {
+    "checks": {
+      "status": "PASS",
+      "source_sha256": "b02f03c660dfcccd544a071643f4e8d5b7f6ada551a2081d18f551aedf7670da",
+      "checks": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": true
+        }
+      ],
+      "limits": "Static documentation only; no form behavior applies. No gameplay or Go behavior claim."
+    },
+    "screenshots": [
+      "test-results/architecture-desktop.png",
+      "test-results/architecture-mobile.png"
+    ],
+    "root_visual_inspection": "Both desktop and mobile screenshots inspected; bounded node text/keyboard focus/horizontal scroll validated by existing Playwright check. Initial default browser executable missing; reran existing installed Chromium1243 via CHROMIUM_EXECUTABLE, PASS."
+  },
+  "metrics": {
+    "production": {
+      "files": 33,
+      "bytes": 343343
+    },
+    "named_functions": 35,
+    "new_functions": 2,
+    "runtime": {
+      "files": 120,
+      "bytes": 853100
+    },
+    "accounted_inputs": 205,
+    "production_growth_bytes": 19453,
+    "runtime_growth_bytes": 34444,
+    "tests_growth_bytes": 21760,
+    "fixture_growth_bytes": 71017,
+    "example_growth_bytes": 14991,
+    "claim": "Capability growth; two justified shared responsibility functions. No net code reduction, relocation savings, historical retirement or Full-family promotion."
+  },
+  "limits": [
+    "No Full-family or historical retirement/reduction credit.",
+    "Complete integrated test/race suite deferred by user pacing.",
+    "No ISO reads/writes, canonical writes, emulator/PINE/controller/process/log/settings access/control.",
+    "No OCR/source placement/confirmed screen context/visual-gameplay approval. Native SYSTEM evidence checks source accounting, not independent86pixel/currentmod parity."
+  ]
+}

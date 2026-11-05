@@ -1,0 +1,57 @@
+{
+  "schema": "texture-inventory-ordinary-review-v1",
+  "at": "2026-10-20T20:22:10.982665+00:00",
+  "result": "NO_OPEN_MATERIAL_FINDINGS",
+  "findings": [],
+  "closed_findings": [
+    {
+      "severity": "LOW",
+      "issue": "texture reread five raw fields already decoded by indexTextures, leaving inventory/codec header meaning in two places.",
+      "resolution": "Final texture consumes selected.Header Width/Height/Depth/RasterFormat/Version. Only four declaration lines changed; reversing them reproduces initial texture SHA dabdb7c88304cae2c5791e6e108e1b6765d3af742df14e85ffb20827c10e80f1 exactly. No policy/guard changed.",
+      "proof": "/var/tmp/dokapon-texture-inventory-review-skOsw2/header-delta.json",
+      "sha256": "3cc6c183d839cebd37212b3d09aa0d22c841fd1917eae37ce8290a5865b848c6"
+    }
+  ],
+  "candidate": {
+    "source": ".goal/texture-inventory-work.json candidate_pins",
+    "Go_pins": 28,
+    "before_after_mismatches": [],
+    "final_texture_sha256": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_index_sha256": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "authoring_sha256": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "types_sha256": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "tests_sha256": "14c2e503da4c805d2c684781f435bc404d0590b860a0adc4d7365340ff0cecb8",
+    "private_freeze": "/var/tmp/dokapon-texture-inventory-review-skOsw2/final-freeze.json",
+    "private_freeze_sha256": "ce0ca4212d902914be11f408aefc8529da03757fc77b87f7d2ebbf7bc1f5f940"
+  },
+  "assessment": {
+    "ownership": "One genuine shared RW structural parser serves texture and authorTexture inventory (Serena confirms both references). Codec signature remains unchanged; format/GS/storage/alpha/CLUT/pixel/writer decisions stay with existing owners. Inventory uses one explicit read-only profile operation, not a codec policy mode.",
+    "local_and_global_errors": "Dictionary extent/count, native envelope/name and global traversal failures remain global. Per-entry info/pixel-struct errors retain their text and do not reject another selected raster. Order and duplicate names are preserved; selected metadata errors precede selector cardinality as before.",
+    "chunk_budget": "Global count includes dictionary/native envelopes. Each metadata entry records attempted child count and local errors against that global count. texture adds only matching entry counts cumulatively before surfacing their errors, preserving duplicate-selected budget precedence; unselected metadata consumption does not spend the old selected traversal budget. Inspection found no counterexample. Root103-case differential is supplemental evidence, not an independent rerun.",
+    "raw_inventory": "Dimensions/depth/format/version are raw uint fields; inventory does not apply raster calibration or claim preview/decode support. codec_support=not_evaluated and limits make that explicit. It forbids selectors/images/render/policies/apply/output, validates source pins and publishes JSON only.",
+    "old_behavior": "Remaining codec body is unchanged except descriptor spans/shared header reads. Focused CLI includes existing export/import/render/refusal flows; no shared publisher or placement behavior changed."
+  },
+  "checks": {
+    "focused_cli_owner": "PASS final4.108s (initial4.097s superseded)",
+    "vet": "PASS",
+    "build": "PASS",
+    "independent_CLI": "PASS same5 cases on initial and final binaries: real e01 dictionary27 names/raw header projections; empty dictionary returns[]; wrong dictionary extent/count and invalid global name refuse without report. All source/profile bytes,inode,mtime and directory contents preserved.",
+    "oracle_basis": "Actual fixture source plus all27 native chunk/name/hash records are rebound to precode small-psmt8-native-contract; raw headers are projected directly from fixed native records, not copied from Go output.",
+    "source_contract_sha256": "7a204d144c662257a99fc6bb250e5ca81a8be749de9d86ac2701d66f3aa2add5",
+    "all_Go_pins": "28 held before/after final run"
+  },
+  "evidence": {
+    "private_receipt": "/var/tmp/dokapon-texture-inventory-review-skOsw2/final-receipt.json",
+    "private_receipt_sha256": "d3cfb090cc1f9ae901f44d4bb3912788d61b0492d5c62c115f87c8a3910824c0",
+    "independent_probe": "/var/tmp/dokapon-texture-inventory-review-skOsw2/final-cli/probe.json",
+    "independent_probe_sha256": "9c36fa4299e18af1719374e9bb7f8457a5e6de00f8b0121641af70067f8940c7",
+    "root_differential": "/var/tmp/dokapon-texture-inventory-2_6km32x/differential-checks.json",
+    "root_differential_sha256": "e44ff89076e6a7bd88e3cf2ff9013346a12445437d900c3702516b999ba44ed0",
+    "root_differential_scope": "Initial candidate:103 deterministic complete stdout/stderr/exit comparisons, including chunk boundaries; not exhaustive and not rerun by this reviewer."
+  },
+  "limits": [
+    "No full suite/race/historical-golden rerun or duplicate103-case campaign; parent owns those checks.",
+    "No claim of codec support for inventoried unknown layouts, every native dictionary, family completion or retirement/ISO approval.",
+    "No production/test/docs edits or ISO/emulator/process access; only assigned evidence and owned private artifacts written."
+  ]
+}

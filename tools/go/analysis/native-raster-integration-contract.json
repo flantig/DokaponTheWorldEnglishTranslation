@@ -1,0 +1,491 @@
+{
+  "at": "2026-10-20T17:37:57.185975+00:00",
+  "status": "READ-ONLY DESIGN+PREPARED DATA; no production/test/fixture changes or integration approval",
+  "scope": "10minboundedfrom17:29:55UTC;onlyownedtwoanalysisreports/privatefixturesandprivateGo stdlibcomparison/ownedGOCACHE. RootreportsresizerordinaryPASSbutnativefontintegrationnotimplemented. Currentfoundation24namedfunctions/native85files665610B perrootmessage.",
+  "Serena": "composeCells16..156+authorTexture/testreferences;BitmapFont/Glyph/Render/Cellbodies;resizeRaster13..146+tests inspectedbeforedesign.",
+  "source_pins": {
+    "raster.go": "26322386d65c23f3158a2b3373706c7a8d9c2d075095b3cd86ef8ed4dc5e5431",
+    "raster_types.go": "2d76143b31bddb21a31baf0d3b9b7405a8df727352281b6e40fa92e846f1b797",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "texture_authoring.go": "867bc6fa20db1a885d761a2389b0524d39332c4b7fda3ddb796ef89a8a39de31",
+    "texture_types.go": "3da7c804553ba941140db990889ea963cacb70aacc5213ab7e1539438aec04aa",
+    "texture.go": "8eae718a39843f3930d0d09d6ff9b49df7a085cd39721a70e15611acf2d20e95",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "fonts/hud-labels.json": "f1d73ee0e21a4ac60d28fdb05f7546d12a9bc412b5e7e16a22a8a29d082e405f",
+    "fonts/hud-labels.png": "59a6fa8e3a281f120bc4f0cbf42c441ed1ef5607b772b1567ee61b168dcd690a",
+    "profiles/textures/hud-labels.json": "7a4bb976ef6d307da13df1ee1efcd2f56b511e927a2f9170f1f2fd9128543766"
+  },
+  "prior_contracts": {
+    "analysis/raster-native-font-reuse-contract.json": "3072d79770cf87b39bdd0d2730cd73f80eaca2ce1ed4bcf89f326f8403a3048a",
+    "analysis/raster-resampling-reuse-contract.json": "86c7331eed4417ad669183effb01f81902ef71dcda7932fa66fe48d60f6dbefe"
+  },
+  "prepared": {
+    "scratch": "/var/tmp/dokapon-native-raster-integration-5e12bk90",
+    "font": {
+      "path": "/var/tmp/dokapon-native-raster-integration-5e12bk90/game-optical.json",
+      "sha256": "0675957298f6d1a6468f3c11cc7c9e4587026fe5faab59c5998832e32af226f6",
+      "bytes": 12248,
+      "glyphs": 95,
+      "alpha_PNG": {
+        "path": "/var/tmp/dokapon-native-raster-integration-5e12bk90/game-optical.png",
+        "sha256": "3c018fb610cca1a9716c156387e6f88810252bfe34f463e23abf5cef7900d4d7",
+        "bytes": 9208,
+        "size": [
+          504,
+          120
+        ]
+      },
+      "source_alpha_min2_mapping_exact": true,
+      "no_tile_cropping_or_size_baking": true,
+      "raised_apostrophe": {
+        "rect": [
+          264,
+          96,
+          24,
+          24
+        ],
+        "advance": 7,
+        "left": 2
+      },
+      "space": {
+        "advance": 14
+      }
+    },
+    "recipe": {
+      "path": "/var/tmp/dokapon-native-raster-integration-5e12bk90/mini-g01-rule1.json",
+      "sha256": "64b014c010437e865c3f4a6a8560e1cdaa30ddb37cc156828ebdf255d87dd157",
+      "bytes": 1508,
+      "data": {
+        "source_sha256": "fa7530ca32b50cf4823e0dfa7540a966780d85659795c7a60a6feebd7badbca0",
+        "source_size": 263572,
+        "texture": "guide\\mini_g01",
+        "evidence": "Canonicalmake_junky_card_pngrule1only; originalfa7530ca ->24a8d7e0. Sharednativeopticalfontdata,exactstyledraster/containmentonly,nostandalonefullcard/ISOapproval. Contractanalysis/native-raster-integration-contract.json.",
+        "render": {
+          "font": "game-optical.json",
+          "font_sha256": "0675957298f6d1a6468f3c11cc7c9e4587026fe5faab59c5998832e32af226f6",
+          "cells": [
+            {
+              "id": "event/guide/mini_g01.txd:rule1",
+              "rect": [
+                100,
+                226,
+                316,
+                21
+              ],
+              "background": [
+                244,
+                195,
+                110,
+                255
+              ],
+              "runs": [
+                {
+                  "text": "Lose: pay ",
+                  "fill": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "text": "25%",
+                  "fill": [
+                    208,
+                    0,
+                    0,
+                    255
+                  ]
+                },
+                {
+                  "text": " of your gold!",
+                  "fill": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ]
+                }
+              ],
+              "layout": {
+                "size": 22,
+                "max_width": 310,
+                "scale_x": 0.92,
+                "at": [
+                  158.5,
+                  9.5
+                ],
+                "stroke": 0.55
+              }
+            }
+          ]
+        }
+      }
+    },
+    "normalization_bit_exact": {
+      "selected_gm_sha256": "698288d3853cb5f0d5144980fb5c68b07d35878a86b7e620033902424ea6c077",
+      "selected_cm_sha256": "4815eb826ddfbe3692e04620926ef4189ff44de136837d02689d960e0e20502c",
+      "same_selected_gm_cm": true
+    },
+    "source": {
+      "path": "/var/tmp/dokapon-native-raster-integration-5e12bk90/original-mini-g01.txd",
+      "sha256": "fa7530ca32b50cf4823e0dfa7540a966780d85659795c7a60a6feebd7badbca0",
+      "bytes": 263572
+    },
+    "oracle_paths": "Existingread-only/var/tmp/dokapon-native-font-contract-p58dmmsh original-rule1-expected.txd;resamplingstagearraysremainimmutable.",
+    "source_color_snap": {
+      "source_RGBA_colors": 256,
+      "palette_display_colors": 256,
+      "direct_vs_legacy_snap_native_index_differences": 0,
+      "direct_pixel_sha256": "1ac59ffd7fbbf05af3395fb1409f674ecdc3823c220165b6b6a5811313373892"
+    },
+    "stdlib_Over_comparison": {
+      "private_go_probe": "Purestdlibcomparisononly,noproductionalgorithmimplementationorrepowrites;ownedGOCACHE/GOTMPDIR;canonicaloraclePythonremainsauthoritative.",
+      "glyph_independent_pair_comparisons": [
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "0"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "1"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "2"
+        },
+        {
+          "different_alpha_bytes": 5,
+          "different_pixels": 5,
+          "different_rgb_bytes": 0,
+          "id": "3"
+        },
+        {
+          "different_alpha_bytes": 2,
+          "different_pixels": 2,
+          "different_rgb_bytes": 0,
+          "id": "4"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "5"
+        },
+        {
+          "different_alpha_bytes": 11,
+          "different_pixels": 11,
+          "different_rgb_bytes": 0,
+          "id": "6"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "7"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "8"
+        },
+        {
+          "different_alpha_bytes": 2,
+          "different_pixels": 2,
+          "different_rgb_bytes": 0,
+          "id": "9"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "10"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "11"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "12"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "13"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "14"
+        },
+        {
+          "different_alpha_bytes": 40,
+          "different_pixels": 40,
+          "different_rgb_bytes": 0,
+          "id": "15"
+        },
+        {
+          "different_alpha_bytes": 12,
+          "different_pixels": 12,
+          "different_rgb_bytes": 0,
+          "id": "16"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "17"
+        },
+        {
+          "different_alpha_bytes": 13,
+          "different_pixels": 13,
+          "different_rgb_bytes": 0,
+          "id": "18"
+        },
+        {
+          "different_alpha_bytes": 0,
+          "different_pixels": 0,
+          "different_rgb_bytes": 0,
+          "id": "19"
+        },
+        {
+          "different_alpha_bytes": 3,
+          "different_pixels": 3,
+          "different_rgb_bytes": 0,
+          "id": "20"
+        },
+        {
+          "different_alpha_bytes": 6,
+          "different_pixels": 6,
+          "different_rgb_bytes": 0,
+          "id": "21"
+        }
+      ],
+      "glyph_alpha_different_total": 94,
+      "glyph_RGB_different_total": 0,
+      "final_inside_allowed_different_pixels": 2403,
+      "final_outside_allowed_different_pixels": 119931,
+      "final_restored_outside_native_indices_differences": 318,
+      "qualification": "Per-glyphpairsusecanonicaldst(notcumulativestdlibcm). Alpha-onlydifferencesinthisspecificsame-color/space-separatedthree-runmaskarenotautomaticallyvisiblefinal;cmRGBandnonzeroalphasupportmatter. FullcanvasstdlibOveralsozerosdesthiddenRGBatsourceA0;cellSrccompositioncanavoidoutsideeffect."
+    }
+  },
+  "private_facts_sha256": "9f3c514b4359c4826542f49a57c4ad37582dab7f36b9496af9d37127d92ec048",
+  "schema": {
+    "BitmapFont": "ExistingPNG/PNGSHA256/Glyphs;addEm,Ascent,Descent,CapHeight integerfields. Em0retainsoldbinarymode;Em>0explicitmetricrunfont. Prepared24/22/2/17.",
+    "BitmapGlyph": "ExistingRect/Advance;addLeft integerdefault0. NativeRectstays24x24originaltile;Advanceprecomputedopticalnativeunits. EmptyRectmeansadvance-onlyunderexplicitmetricfont;oldbinarymodeemptyglyphstillrefuses. Spaceadvance14;apostrophenormalizedonefonttile,nocharcasesruntime.",
+    "BitmapRender": "Nochange:onepinnedsharedfontandCells.",
+    "BitmapCell": "RetainoldID/Rect/Text/Fill/Shade. AddRuns []BitmapRun,Layout *BitmapRunLayout,Background []int. NewfieldsmutuallyexclusivewitholdText/Fill/Shade;onefontmodeperrender.",
+    "BitmapRun": "Text string, Fill []int straightopaqueRGBA.",
+    "BitmapRunLayout": "At []float64 relativecell;Size,MaxWidth,ScaleX,Stroke float64. Fixedcenter/cap/SS4/quarterstepminimum6behavior,notnewflags. Actual22/310/.92/.55;relativeAt158.5/9.5. NoTTF/kerning/shadow/rotation/gradient/callbackfield."
+  },
+  "placement": {
+    "recipe": "Preparedonecellrect100,226,316,21,PANEL244/195/110/255,3text/colorruns;requestedsize22mustfitto19.25ratherthanbakesize.",
+    "font_geometry": "Scale=roundToEven(size*4)/Em. Getasc/desccaproundToEvenafterunitscale;24cellresized77. Preserveper-runmeasurementandlocaldrawcursorseparately.",
+    "anchor": "AddlogicalcellRect.X/YtorelativeAtBEFOREroundingglobalwordorigin;addbase.Bounds.MinAFTERlogicalplacement. Integertargettranslationcanchangebankerstieparityifsubtractedbeforerounding. Actualorigin98,217;cellrelativeorigin-2,-9.",
+    "unclipped_word": "Metricbackendreturnsunclipped322x35layer+logicalorigin98,217. Visiblealphabbox103,226,412,245,insidecell. composeCellsrejectseverynonzeroalphapixeloutsideapprovedcellbeforecropping;neverhideoverflowbyrenderingdirectlyintocell.",
+    "background": "Onlyafterstrictvisiblecontainment,composeCellsmakesPANELcelltileandusespixelOverforwordcoverage;finalcommonSrcplacementreusesoldcellpath. Allotheroriginalpixels/hiddenRGBpreserved."
+  },
+  "ownership": {
+    "preferred_existing_enhancement": "composeCellskeepscommonbase/atlasbounds,font/glyphmetadataandcellID/rectangle/nonoverlapvalidation,clonesbase,ownsstrictallowcellcontainment/backgroundandfinalSrcplacement. Change3rdargfromglyphmaptoBitmapFont(sameargcount)sofontmetricsavailable;authorTextureand3directtestcallersfollow. Binaryfontmodekeepsallcurrentbinary/advance/opaque/shade/fitguardsandbytes.",
+    "new_metric_owner": {
+      "name": "renderRuns",
+      "API": "renderRuns(atlas *image.Gray,font BitmapFont,cell BitmapCell)(*image.NRGBA,image.Point,error)",
+      "responsibility": "Pureboundedunclippednativewordlayer+logicaloriginonly:measurement/quarterstepfit,scaledglyphmaskandcolorbuffer,localglyphstroke/fourconnectedcounters,resizeRaster,exactfloat32area/downsampleandplacement. Nocanvasclone/allowedmask/background/I/O/palette/publication.",
+      "why_needed": "Thesearecohesivefont/run-maskdecisionsabsentfromcurrentbinaryloop. Appendingapproximately220-300nativepipeline linesplusvalidationtothe156linecomposeCellsproducesroughly400-500linesandtwoparallelrenderpipelines;separatingfontmaskgenerationkeepsonecontainment/compositionownerwithoutforcingunrelatednumericalstagesintoworkflow/codec.",
+      "cost_estimate": "Approximately220-300Go lines,unmeasured;notanimplementationpromise."
+    },
+    "new_blend_owner": {
+      "name": "pixelOver",
+      "API": "pixelOver(dst,src color.NRGBA)color.NRGBA",
+      "responsibility": "OnlyexactPillow7bitintegerpixelOver;srcA0returnsdstincludinghiddenRGB. PrimaryAlphaComposite.c13/51..78 formula pinnedbyresamplingreport. Noclip/origin/array/modeflagsorlayercopyAPI.",
+      "actual_callers": "renderRunsglyphCMpixeloverlapandcomposeCellsfinalword/PANELcomposition. ScratchCMmaymutate;externalbase/fontstayimmutable.",
+      "why_not_existing": "composeCellsfont/recipeAPIcannotreasonablybeusedasalowlevelpixelblendcallbackormode. resizeRasterownsfiltering;texture/generatePalette/authorTexturenotpixelOver. Tworealnonidenticalcallsitecontextsjustifyonepureformulaowner.",
+      "cost_estimate": "Approximately20-35Go lines;nonewtypes/dependency."
+    },
+    "estimated_functions": "TwoadditionalpureproductionfunctionsrenderRuns+pixelOver:24->26 ifimplementedtogether. EnhancecomposeCells+authorTexture;resizeRaster/texture/generatePalette/writerunchanged. ExistingtestownersTestCLIDryRunAndApplyandTestPilotHistoricalGoldenBytesextend,noper-scriptortestfunction.",
+    "alternatives_rejected": "0newfunctionsmeans400-500linecomposeCellsandduplicatePillowOverformula. OnlynewrenderRunswouldduplicateblendformulaacrossmask/finalowner. Genericimageblend/clippingAPIaddsbookkeepingnotneededbyactualpixelcalls. No perwordassets/runtimePython/fontparser/newCLI."
+  },
+  "real_Over_evidence": {
+    "private_go_probe": "Purestdlibcomparisononly,noproductionalgorithmimplementationorrepowrites;ownedGOCACHE/GOTMPDIR;canonicaloraclePythonremainsauthoritative.",
+    "glyph_independent_pair_comparisons": [
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "0"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "1"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "2"
+      },
+      {
+        "different_alpha_bytes": 5,
+        "different_pixels": 5,
+        "different_rgb_bytes": 0,
+        "id": "3"
+      },
+      {
+        "different_alpha_bytes": 2,
+        "different_pixels": 2,
+        "different_rgb_bytes": 0,
+        "id": "4"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "5"
+      },
+      {
+        "different_alpha_bytes": 11,
+        "different_pixels": 11,
+        "different_rgb_bytes": 0,
+        "id": "6"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "7"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "8"
+      },
+      {
+        "different_alpha_bytes": 2,
+        "different_pixels": 2,
+        "different_rgb_bytes": 0,
+        "id": "9"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "10"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "11"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "12"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "13"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "14"
+      },
+      {
+        "different_alpha_bytes": 40,
+        "different_pixels": 40,
+        "different_rgb_bytes": 0,
+        "id": "15"
+      },
+      {
+        "different_alpha_bytes": 12,
+        "different_pixels": 12,
+        "different_rgb_bytes": 0,
+        "id": "16"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "17"
+      },
+      {
+        "different_alpha_bytes": 13,
+        "different_pixels": 13,
+        "different_rgb_bytes": 0,
+        "id": "18"
+      },
+      {
+        "different_alpha_bytes": 0,
+        "different_pixels": 0,
+        "different_rgb_bytes": 0,
+        "id": "19"
+      },
+      {
+        "different_alpha_bytes": 3,
+        "different_pixels": 3,
+        "different_rgb_bytes": 0,
+        "id": "20"
+      },
+      {
+        "different_alpha_bytes": 6,
+        "different_pixels": 6,
+        "different_rgb_bytes": 0,
+        "id": "21"
+      }
+    ],
+    "glyph_alpha_different_total": 94,
+    "glyph_RGB_different_total": 0,
+    "final_inside_allowed_different_pixels": 2403,
+    "final_outside_allowed_different_pixels": 119931,
+    "final_restored_outside_native_indices_differences": 318,
+    "qualification": "Per-glyphpairsusecanonicaldst(notcumulativestdlibcm). Alpha-onlydifferencesinthisspecificsame-color/space-separatedthree-runmaskarenotautomaticallyvisiblefinal;cmRGBandnonzeroalphasupportmatter. FullcanvasstdlibOveralsozerosdesthiddenRGBatsourceA0;cellSrccompositioncanavoidoutsideeffect."
+  },
+  "source_palette": {
+    "probe": {
+      "source_RGBA_colors": 256,
+      "palette_display_colors": 256,
+      "direct_vs_legacy_snap_native_index_differences": 0,
+      "direct_pixel_sha256": "1ac59ffd7fbbf05af3395fb1409f674ecdc3823c220165b6b6a5811313373892"
+    },
+    "decision": "Actualoriginalusesall256palettecolors;canonicalsourcecolorprojectionthenexistingpreservequantizeranddirectexistingpreservequantizeragreeallindicesonthiscandidate. No new snap function/policyneededforselectedprototype. Do notgeneralizeequivalencetoeveryotherexplainer/source."
+  },
+  "validation": {
+    "old_mode": "Em0requiresallnewfontmetric/glyphLeftfieldszero,noruns/layout/background;retainoldbinarycoverage/nonemptyglyph/advance>=width/equalheight/fillshadeopaquerulesexactly.",
+    "metric_mode": "PositiveboundedEm/ascent/descent/cap;firstpreparednative24/22/2/17. GlyphUTF8singlecodepoint;Rectinboundsoradvance-onlywithLeft0;positiveadvance;boundedLeft;oneGray8atlasallcoverageallowed. OldfontPNG/JSONandprofilebytesunchanged.",
+    "cells": "Oldandnewfieldsstrictlyexclusive;newrequire1..boundedruns,totalUTF8runes<=128,knownspace/apostrophe,opaque4byteintegercolors0..255,finitepositiveSize/MaxWidth/ScaleX/AtandboundedStroke;requestedquartersteps>=6;maxwidth<=cellwidth;twoAtcoordsinsidecell. NoNaN/Inf/nullambiguousfields.",
+    "resource": "Preserveexisting4096/1Mpixelslimitsforallatlas/base/intermediates;preflightwordwidth/height/budgetsandglyphcountbeforelargeallocations;selected1397x137intermediatefits. Refusalsreturnnilwithoutmutatingbase/atlasorpublication.",
+    "publication": "authorTextureonlyload/pinsharedfontandpasswholefonttocomposeCells;sourcepins/GrayPNGdecoding/oneJSON/unknownfields/render-versusPNG/paletteexclusivity/exclusivewriterremain. Layout/textresponsibilitiesdonotentertexture."
+  },
+  "acceptance": {
+    "wholeTXD": "24a8d7e0a099448be6c305de2a2acfbfc3d9cc9c5bd816c60fd14ac7cd5855b8",
+    "RGBA": "93b7045690bfa7832aa856e620051e8fe9a3cb8104f5541b30f30821c1d2cb46",
+    "containment": "5371nativebyteswithin6636allowedpixels;CLUT/metadata/headers/outsideindicesunchanged. Sourcefa7530ca263572B,notalreadyEnglishbundle.",
+    "stages": "NormalizedfontreproducesGM698288d3/CM4815eb82exact;existingresampling134vectorsandnativefloat/byteoracles;selectedfit19.25vsnext19.5overflow. pixelOver65kdomainand23actualpairs.",
+    "negative": "Missingglyph/curlyapostrophe;invalidfontmetadata/emptyrectmisuse;old/newfieldconflicts;badfractional/nonfinite/oversizegeometry;strokevisibleoutsidecell;badfont/source/PNGpin;sourceimmutability/outputexistingpath;binaryalloldgoldens/refusals.",
+    "review": "RequiredGochecks+ordinaryreviewafterimplementation;rootresizerreviewdoesnotapproveintegration."
+  },
+  "cost": "PreparedfontPNG9208B+fontJSON12248B+recipe1508B+source263572B. No pre-renderedword/sizeassets;onecanonicalraisedapostropheisfontdata. Productionroughly240-335newfunctionlinespluscommonowner/schemaadaptationunmeasured;capabilitygrowthnotLOCsavings/retirement.",
+  "verification": "Preparednormalizedglyphmask/colorbufferbitexact;privateGo stdlibcomparisonandcanonicalpalettejoinchecked. Scopedpins/JSON/whitespace/credentialchecksbeforeseal. No production/test/fixture/dependency modifications,rootfoundationcodeunchanged."
+}

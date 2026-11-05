@@ -1,0 +1,538 @@
+{
+  "provenance": "Independent literal3-input semantic oracles; source/JSON-schema-only bridge. No candidate output used. Markdown snippets are literal presentation requirements, not full historical Markdown parity.",
+  "contract_sha256": "b9c32c8d0b1951013092bd847f8370bbaa79448d6a4f75b7747897871f4905bb",
+  "template": "recipes/reports/registry-status.md.tmpl",
+  "template_sha256": "2eb5dc89055ef1bfa9139feb153086ccbbfb63fed0526a5436e7232c39b30b51",
+  "cases": [
+    {
+      "name": "main",
+      "registry": "{\n  \"schema_version\": \"1.0\",\n  \"last_updated\": \"2026-10-01\",\n  \"entries\": [\n    {\n      \"id\": \"0x20\",\n      \"status\": \"patched\",\n      \"source_pool\": \"pool,b\",\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e20\",\n      \"tier\": \"authored\",\n      \"jp\": \"あ,\\\"い\\\"\\n次\",\n      \"en\": \" A, \\\"B\\\"\\nC\\rD\\r\\nE\",\n      \"mode\": \"dialog_box\",\n      \"ref_type\": \"unknown\",\n      \"landing_vma\": null,\n      \"patch_ref\": null,\n      \"note\": \" \\tlead\",\n      \"opaque\": {\n        \"big\": 9007199254740993\n      }\n    },\n    {\n      \"id\": \"0X0002\",\n      \"status\": \"drafted\",\n      \"source_pool\": null,\n      \"character\": \"\",\n      \"event\": \"e2\",\n      \"tier\": null,\n      \"jp\": null,\n      \"en\": \"\",\n      \"mode\": null\n    },\n    {\n      \"id\": \"0x10\",\n      \"status\": \"zone_pending\",\n      \"source_pool\": \"\",\n      \"chapter\": \"\",\n      \"character\": \"King\",\n      \"event\": \"e10\",\n      \"tier\": \"A\",\n      \"jp\": \"JP\",\n      \"en\": \"=1+1\"\n    },\n    {\n      \"id\": \"0x30\",\n      \"status\": \"custom\",\n      \"source_pool\": \"pool\",\n      \"chapter\": \"earlier\",\n      \"character\": \"sys\",\n      \"event\": \"\",\n      \"tier\": \"B\",\n      \"jp\": \"JP\",\n      \"en\": null,\n      \"note\": \"\\\\.\"\n    },\n    {\n      \"id\": \"0x40\",\n      \"jp\": \"x\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x50\",\n      \"status\": null,\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e50\",\n      \"tier\": \"\",\n      \"source_pool\": \"pool\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x60\",\n      \"status\": \"emulator_confirmed\",\n      \"chapter\": \"a|b\\nc\",\n      \"character\": \"\",\n      \"event\": \"\",\n      \"tier\": \"B\",\n      \"source_pool\": \"pool\",\n      \"jp\": \"\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x70\",\n      \"status\": \"decode_verified\",\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e70\",\n      \"tier\": \"authored\",\n      \"source_pool\": \"pool\",\n      \"jp\": \"JP\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x80\",\n      \"status\": \"drafted\",\n      \"tier\": \"unknown\",\n      \"chapter\": \"unknown\",\n      \"source_pool\": \"unknown\",\n      \"character\": \"E\",\n      \"event\": \"e80\",\n      \"en\": null\n    },\n    {\n      \"id\": \"0x90\",\n      \"status\": \"\",\n      \"tier\": \"unknown\",\n      \"chapter\": \"1\",\n      \"source_pool\": null,\n      \"character\": \"E\",\n      \"event\": \"e90\",\n      \"en\": \"\"\n    }\n  ],\n  \"unknown_top\": {\n    \"keep\": \"metadata\"\n  }\n}\n",
+      "glossary": "{\n  \"schema_version\": 1,\n  \"entries\": [\n    {\n      \"provenance\": \"official\"\n    },\n    {\n      \"provenance\": \"official\"\n    },\n    {\n      \"provenance\": \"web\"\n    },\n    {\n      \"provenance\": \"authored\"\n    },\n    {},\n    {},\n    {\n      \"provenance\": \"unknown\"\n    },\n    {\n      \"provenance\": null\n    },\n    {\n      \"provenance\": \"\"\n    },\n    {\n      \"provenance\": \"community\"\n    }\n  ],\n  \"todos\": [\n    \"review\",\n    null,\n    {},\n    []\n  ],\n  \"opaque\": {\n    \"nested\": \"ignored\"\n  }\n}\n",
+      "flow": "[\n  {\n    \"vma\": \"0x10\"\n  },\n  {\n    \"vma\": \"0x10\"\n  },\n  {\n    \"vma\": \"0x0010\"\n  },\n  {\n    \"vma\": \"0X10\"\n  },\n  {\n    \"vma\": \" \"\n  },\n  {\n    \"vma\": \"\"\n  },\n  {\n    \"vma\": null\n  },\n  {},\n  {\n    \"vma\": \"0\"\n  }\n]\n",
+      "expected": {
+        "registry_entries": 10,
+        "groups": {
+          "status": [
+            {
+              "value": "drafted",
+              "count": 2
+            },
+            {
+              "value": "zone_pending",
+              "count": 1
+            },
+            {
+              "value": "patched",
+              "count": 1
+            },
+            {
+              "value": "decode_verified",
+              "count": 1
+            },
+            {
+              "value": "emulator_confirmed",
+              "count": 1
+            },
+            {
+              "value": "custom",
+              "count": 1
+            },
+            {
+              "value": "unknown",
+              "count": 1
+            },
+            {
+              "value": null,
+              "count": 1
+            },
+            {
+              "value": "",
+              "count": 1
+            }
+          ],
+          "source_pool": [
+            {
+              "value": "",
+              "count": 1
+            },
+            {
+              "value": "pool",
+              "count": 4
+            },
+            {
+              "value": "pool,b",
+              "count": 1
+            },
+            {
+              "value": "unknown",
+              "count": 4
+            }
+          ],
+          "chapter": [
+            {
+              "value": "",
+              "count": 1
+            },
+            {
+              "value": "1",
+              "count": 1
+            },
+            {
+              "value": "a|b\nc",
+              "count": 1
+            },
+            {
+              "value": "earlier",
+              "count": 1
+            },
+            {
+              "value": "later",
+              "count": 3
+            },
+            {
+              "value": "unknown",
+              "count": 3
+            }
+          ],
+          "tier": [
+            {
+              "value": "",
+              "count": 1
+            },
+            {
+              "value": "A",
+              "count": 1
+            },
+            {
+              "value": "B",
+              "count": 2
+            },
+            {
+              "value": "authored",
+              "count": 2
+            },
+            {
+              "value": "unknown",
+              "count": 4
+            }
+          ]
+        },
+        "empty_en_ids": [
+          "0X0002",
+          "0x30",
+          "0x80",
+          "0x90"
+        ],
+        "missing_tag_ids": [
+          "0X0002",
+          "0x10",
+          "0x30",
+          "0x40",
+          "0x60"
+        ],
+        "unknown_statuses": [
+          {
+            "value": "custom",
+            "count": 1
+          },
+          {
+            "value": "unknown",
+            "count": 1
+          },
+          {
+            "value": null,
+            "count": 1
+          },
+          {
+            "value": "",
+            "count": 1
+          }
+        ],
+        "flow_steps": 9,
+        "flow_unique_vmas": 5,
+        "glossary_schema": 1,
+        "glossary_schema_present": true,
+        "glossary_entries": 10,
+        "glossary_provenance": [
+          {
+            "value": "official",
+            "count": 2
+          },
+          {
+            "value": "web",
+            "count": 1
+          },
+          {
+            "value": "authored",
+            "count": 1
+          },
+          {
+            "value": "unknown",
+            "count": 3
+          },
+          {
+            "value": null,
+            "count": 1
+          },
+          {
+            "value": "",
+            "count": 1
+          },
+          {
+            "value": "community",
+            "count": 1
+          }
+        ],
+        "glossary_open_todos": 4
+      },
+      "markdown_snippets": [
+        "| Registry entries | 10 |",
+        "| a\\|b<br>c | 1 |",
+        "| *null* | 1 |",
+        "| community | 1 |",
+        "- 0X0002\n- 0x30\n- 0x80\n- 0x90"
+      ]
+    },
+    {
+      "name": "empty",
+      "registry": "{\"entries\": []}",
+      "glossary": "{}",
+      "flow": "[]",
+      "expected": {
+        "registry_entries": 0,
+        "groups": {
+          "status": [],
+          "source_pool": [],
+          "chapter": [],
+          "tier": []
+        },
+        "empty_en_ids": [],
+        "missing_tag_ids": [],
+        "unknown_statuses": [],
+        "flow_steps": 0,
+        "flow_unique_vmas": 0,
+        "glossary_schema": "?",
+        "glossary_schema_present": false,
+        "glossary_entries": 0,
+        "glossary_provenance": [],
+        "glossary_open_todos": 0
+      },
+      "markdown_snippets": [
+        "| Registry entries | 0 |",
+        "| Schema version | ? |",
+        "None."
+      ]
+    },
+    {
+      "name": "null",
+      "registry": "{\"entries\": [{\"id\": \"0x2\", \"status\": null, \"en\": null, \"chapter\": null, \"tier\": null, \"source_pool\": null}]}",
+      "glossary": "{\"schema_version\": null, \"entries\": [{\"provenance\": null}], \"todos\": []}",
+      "flow": "[{}, {\"vma\": null}, {\"vma\": \"\"}]",
+      "expected": {
+        "registry_entries": 1,
+        "groups": {
+          "status": [
+            {
+              "value": null,
+              "count": 1
+            }
+          ],
+          "source_pool": [
+            {
+              "value": "unknown",
+              "count": 1
+            }
+          ],
+          "chapter": [
+            {
+              "value": "unknown",
+              "count": 1
+            }
+          ],
+          "tier": [
+            {
+              "value": "unknown",
+              "count": 1
+            }
+          ]
+        },
+        "empty_en_ids": [
+          "0x2"
+        ],
+        "missing_tag_ids": [
+          "0x2"
+        ],
+        "unknown_statuses": [
+          {
+            "value": null,
+            "count": 1
+          }
+        ],
+        "flow_steps": 3,
+        "flow_unique_vmas": 0,
+        "glossary_schema": null,
+        "glossary_schema_present": true,
+        "glossary_entries": 1,
+        "glossary_provenance": [
+          {
+            "value": null,
+            "count": 1
+          }
+        ],
+        "glossary_open_todos": 0
+      },
+      "markdown_snippets": [
+        "| Schema version | null |",
+        "| *null* | 1 |"
+      ]
+    },
+    {
+      "name": "literal-entities",
+      "registry": "{\"entries\":[{\"id\":\"0x1\",\"status\":\"patched\",\"source_pool\":\"&copy;\",\"chapter\":\"c\",\"character\":\"n\",\"event\":\"e\",\"tier\":\"t\",\"en\":\"E\"}]}",
+      "glossary": "{\"schema_version\":\"&copy;\",\"entries\":[{\"provenance\":\"&copy;\"}]}",
+      "flow": "[]",
+      "expected": {
+        "registry_entries": 1,
+        "groups": {
+          "status": [
+            {
+              "value": "patched",
+              "count": 1
+            }
+          ],
+          "source_pool": [
+            {
+              "value": "&copy;",
+              "count": 1
+            }
+          ],
+          "chapter": [
+            {
+              "value": "c",
+              "count": 1
+            }
+          ],
+          "tier": [
+            {
+              "value": "t",
+              "count": 1
+            }
+          ]
+        },
+        "empty_en_ids": [],
+        "missing_tag_ids": [],
+        "unknown_statuses": [],
+        "flow_steps": 0,
+        "flow_unique_vmas": 0,
+        "glossary_schema": "&copy;",
+        "glossary_schema_present": true,
+        "glossary_entries": 1,
+        "glossary_provenance": [
+          {
+            "value": "&copy;",
+            "count": 1
+          }
+        ],
+        "glossary_open_todos": 0
+      },
+      "markdown_snippets": [
+        "| &amp;copy; | 1 |",
+        "| Schema version | &amp;copy; |"
+      ]
+    }
+  ],
+  "refusals": [
+    {
+      "name": "registry-status-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"status\": false}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-status-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"status\": 0}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-status-2",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"status\": []}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-status-3",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"status\": {}}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-en-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": 0}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-en-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": false}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-en-2",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": []}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-en-3",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": {}}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-tier-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"tier\": 0}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-tier-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"tier\": false}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-tier-2",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"tier\": []}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "registry-tier-3",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\", \"tier\": {}}]}",
+      "glossary": "{}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-entries-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"entries\": null}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-entries-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"entries\": {}}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-entries-2",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"entries\": [\"entry\"]}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-entries-3",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"entries\": [null]}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-todos-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"todos\": null}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-todos-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"todos\": {}}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-todos-2",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"todos\": \"todo\"}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-schema_version-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"schema_version\": []}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-schema_version-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{\"schema_version\": {}}",
+      "flow": "[]"
+    },
+    {
+      "name": "flow-vma-0",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{}",
+      "flow": "[{\"vma\": 0}]"
+    },
+    {
+      "name": "flow-vma-1",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{}",
+      "flow": "[{\"vma\": false}]"
+    },
+    {
+      "name": "flow-vma-2",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{}",
+      "flow": "[{\"vma\": []}]"
+    },
+    {
+      "name": "flow-vma-3",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{}",
+      "flow": "[{\"vma\": {}}]"
+    },
+    {
+      "name": "flow-vma-4",
+      "registry": "{\"entries\": [{\"id\": \"0x20\", \"en\": \"A\"}]}",
+      "glossary": "{}",
+      "flow": "[{\"vma\": 12}]"
+    },
+    {
+      "name": "null-glossary",
+      "registry": "{\"entries\":[{\"id\":\"20\"}]}",
+      "glossary": "null",
+      "flow": "[]"
+    },
+    {
+      "name": "null-flow",
+      "registry": "{\"entries\":[{\"id\":\"20\"}]}",
+      "glossary": "{}",
+      "flow": "null"
+    },
+    {
+      "name": "flow-row-null",
+      "registry": "{\"entries\":[{\"id\":\"20\"}]}",
+      "glossary": "{}",
+      "flow": "[null]"
+    },
+    {
+      "name": "flow-duplicate-key",
+      "registry": "{\"entries\":[{\"id\":\"20\"}]}",
+      "glossary": "{}",
+      "flow": "[{\"vma\":\"a\",\"vma\":\"b\"}]"
+    },
+    {
+      "name": "glossary-duplicate-provenance",
+      "registry": "{\"entries\":[{\"id\":\"20\"}]}",
+      "glossary": "{\"entries\":[{\"provenance\":\"web\",\"provenance\":\"official\"}]}",
+      "flow": "[]"
+    },
+    {
+      "name": "glossary-surrogate",
+      "registry": "{\"entries\":[{\"id\":\"20\"}]}",
+      "glossary": "{\"entries\":[{\"provenance\":\"\\ud800\"}]}",
+      "flow": "[]"
+    }
+  ]
+}

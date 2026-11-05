@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T00:55:05.225608+00:00",
+  "scope": "Exact authored asset_preview_inventory.03 standalone source/name joins and measured geometry; selected assets only.",
+  "contract": {
+    "path": "analysis/asset-specification-contract.json",
+    "sha256": "2f5f300b9b4cab4a2f5d3d99be35ea2857886748dc76bbb98dd01ad626d14e7c"
+  },
+  "reuse_decision": "analysis/asset-specification-reuse-decision.json",
+  "shared_owners": [
+    "authorTexture",
+    "indexTextures",
+    "texture",
+    "checkJSON"
+  ],
+  "semantics": [
+    "Pinned source SHA256/size, exact unique native name, native ordinal and lexically ordered stable asset IDs.",
+    "Declared archive/entry/category/wording remain authored labels; no OCR or context inference.",
+    "Actual codec geometry/format/RGBA hashes are separate from raw headers; errors keep null geometry/hash and diagnostics.",
+    "Read-only mode rejects authoring flags; aliases, duplicates, unknown fields and invalid Unicode refuse.",
+    "1..64 authored rows and <=2^24 potential decoded pixels; per-raster codec bounds remain shared."
+  ],
+  "oracles": {
+    "zip": "testdata/asset-specification.zip",
+    "sha256": "6e06fbbab7112798168698461a754e3daff8d3bdb060b6d24b8494c2d94cb2c1",
+    "basis": "Precode independent constant-index literal rasters incl transparent hidden RGB; unchanged native church_siba frame with prior independently frozen RGBA oracle. Expected hashes are not current Go outputs.",
+    "legacy_parity": {
+      "cases": 18,
+      "comparison": "Complete exit/stdout/stderr bytehashes, no projection",
+      "result": "PASS"
+    }
+  },
+  "root_checks": {
+    "review_pins": 11,
+    "review_artifact_pins": 3,
+    "checks": [
+      {
+        "label": "build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-asset-specification-neqnq086/dokapon-go",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.316,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.081,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "format",
+        "command": [
+          "gofmt",
+          "-l",
+          "texture_authoring.go",
+          "texture_index.go",
+          "texture.go",
+          "texture_types.go",
+          "patch_test.go"
+        ],
+        "exit": 0,
+        "seconds": 0.048,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "whitespace",
+        "command": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "texture_authoring.go",
+          "texture_index.go",
+          "texture.go",
+          "texture_types.go",
+          "patch_test.go",
+          "README.md",
+          "ARCHITECTURE.md",
+          "MIGRATION.md"
+        ],
+        "exit": 0,
+        "seconds": 0.002,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "credentials": {
+      "positive_selfchecked_patterns": 2,
+      "scoped_files": 10,
+      "candidates": 0
+    },
+    "documented_example": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "-C",
+        "tools/go",
+        "run",
+        ".",
+        "--source",
+        "examples/asset-specification/source.txd",
+        "--texture-profile",
+        "examples/asset-specification/profile.json"
+      ],
+      "exit": 0,
+      "stdout_sha256": "951ac1de7205b6c32f2dd4a51e8588c123510c420c4307bd6240d0b1a25bed77",
+      "rows": 2,
+      "literal_pixel_hashes": "PASS"
+    },
+    "prior_root_focused_race": {
+      "session": 79376,
+      "exit": 0,
+      "seconds": 151.617,
+      "command": "GOMAXPROCS=2 nice -n19 go test -race -p2 -run ^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$ -count=1 .",
+      "source": "Recorded terminal tool result in preceding implementation turn; not rerun here."
+    }
+  },
+  "independent_review": {
+    "path": "evidence/asset-specification-review.json",
+    "sha256": "6c4ec93f06087950d25aa01d4f792c4719b94223ff1a873ea950988b1e278e24",
+    "result": "No material findings; 17 independent probes, 18 complete legacy parity cases, build/vet/focused CLI PASS. Reviewed roadmap is pre-promotion; root owns subsequent ledger changes."
+  },
+  "metrics": {
+    "production": {
+      "files": 31,
+      "bytes": 323890
+    },
+    "named_functions": 33,
+    "runtime": {
+      "files": 116,
+      "bytes": 818656
+    },
+    "accounted_inputs": 200,
+    "production_growth_bytes": 5251,
+    "runtime_growth_bytes": 9264,
+    "tests_growth_bytes": 11056,
+    "fixture_growth_bytes": 14020,
+    "example_growth_bytes": 4013,
+    "claim": "Capability growth; zero new functions. No code reduction, relocation savings, historical retirement or family promotion."
+  },
+  "milestone": "asset_preview_inventory.03 only; .04 mandatory score/tier/flags plus batch manifests and .05/.06 remain open.",
+  "limits": [
+    "Full integration test/race suite deferred by user pacing.",
+    "No ISO reads/writes, canonical registry writes or protected runtime access/control.",
+    "No archive placement, OCR, visual/gameplay approval or whole-family promotion.",
+    "Existing architecture HTML owner topology unchanged; no UI change."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-20T19:11:02.610973+00:00",
+  "status": "IMPLEMENTING reasonable snapshot lifecycle; focused verification only",
+  "work": "/var/tmp/dokapon-snapshots-58m7zvsy",
+  "baseline_snapshot": "/var/tmp/dokapon-line-groups-sealed-08cd7awd",
+  "Serena_session": "29632716",
+  "inspected": [
+    "writeNewFile body and two production references",
+    "patchCopy ownership and source guards",
+    "run early routing and registry publication",
+    "existing CLI/publication test owner and fixture helpers"
+  ],
+  "reuse_decision": {
+    "new_owner": "snapshotArtifacts(options SnapshotOptions, stdout io.Writer) error; one function with create/list/restore switch; types grouped with snapshot usage. ~150-220 straightforward lines plus ~15-25 fields/receipt lines, not a source-per-script adapter.",
+    "considered": "run owns argument dispatch, not manifest/copy transactions. patchCopy owns validated edits/recipes/registry; accepting empty or fake recipe would weaken source-preflight and couple snapshot metadata to patches. authorTexture owns bounded TXD/PNG, not large opaque binary snapshots. writeNewFile owns publication, so ENHANCE it for streaming; cannot reasonably own tags, receipts, listing or commit provenance.",
+    "publication": "Change existing writeNewFile(path, reader io.Reader, expectedSize int64, expectedSHA256 string, mode os.FileMode) error. Mandatory nonnegative size and full SHA; seek/readback only its own target. io.Copy(io.MultiWriter(target, hash), io.LimitReader(reader,size+1)); check size+digest before Sync; readback hash+size and existing SameFile check; close failure propagates; failure removes own inode only. No whole-file ReadAll. Existing2 production callers use bytes.NewReader and sha256.Sum256 on already-built bytes; existing public output behavior preserved. No new streaming helper or optional writer modes.",
+    "cost": "Create/restore apply each prehash the source, stream the verified copy and read back the destination: roughly3 payload passes, with bounded-memory IO.",
+    "receipt_read": "Use existing readInput for bounded regular receipt reads/size+mtime checks. Keep explicit nonsymlink preflight and strict one-value JSON validation in the lifecycle owner."
+  },
+  "new_functions": 1,
+  "new_function": "snapshotArtifacts: cohesive create/list/restore lifecycle; cannot reasonably belong to patch planning, image authoring, CLI routing or generic publication.",
+  "new_closures": 0,
+  "deliberate_limits": [
+    "Restore to new explicit output only; duplicate tags refuse.",
+    "Receipt published last. Failed or interrupted create may leave an incomplete reserved tag for manual inspection; never delete unknown directories.",
+    "No old shared-manifest import, implicit current-ISO selection or registry checkout.",
+    "No atomic-filesystem-snapshot or hostile same-user directory mutation guarantee; reject observed symlink redirection and retain exclusive writes/readback."
+  ],
+  "verification": "Focused existing CLI/publication owner plus build/vet/format/whitespace/selfchecked credentials. Full integrated/race suite deferred by user."
+}

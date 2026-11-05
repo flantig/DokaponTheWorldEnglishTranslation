@@ -1,0 +1,590 @@
+{
+  "at": "2026-10-20T15:11:29.113026+00:00",
+  "status": "VERIFIED explicit RGBA512square native-v0 through existing direct codec; default font guards retained",
+  "source_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "12d56f2079e35ca3b4ad4e3e5918408497e4687c1d3179fc7805f71db6e96bad",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "63d463fb0a5700d8850b4850289b37cd733ce97b295ed0835b2924f0c5247d9e",
+    "texture_authoring.go": "50993a03e3f5c4c2c2ff747b9f946cb645a6ad5c858dead533e67ad46b26b3bf",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "799d4d22c290f1a17fa89380d73bf11461831e90f28683b5fa7e04f0bb504421",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "9cd7064d1d6445353fe320e4f890b3428e006c3d75dda9e5457cdc96adae6de1",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87"
+  },
+  "evidence_pins": {
+    ".goal/direct-rgba-checks-work.json": {
+      "bytes": 5703,
+      "sha256": "3ae588042c8552c8e03a0de24a64b914e21f891574c2aa31cce0fc9c5af36065"
+    },
+    "analysis/direct-rgba-reuse-decision.json": {
+      "bytes": 2317,
+      "sha256": "a9adfd019bc6d2636ff6d49c825e3e039b46aa4ffcb2b86e344e121acc7116df"
+    },
+    "analysis/colored-direct-native-contract.json": {
+      "bytes": 96020,
+      "sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85"
+    },
+    "analysis/texture-color-policy-design-review.json": {
+      "bytes": 13370,
+      "sha256": "6db8a9223cec412f430ba4b4c336c8723ceb9eb869271836442795130f869908"
+    },
+    "evidence/direct-rgba-review.json": {
+      "bytes": 24076,
+      "sha256": "b58e2c5faf899b2d4c0cf5cf894f5acb7576848228730f8f655213b9e1296a12"
+    },
+    "/var/tmp/dokapon-direct-rgba-d9mpqjfn/accounting-before.json": {
+      "bytes": 28337,
+      "sha256": "57178f4a3750984218d1119794e0750b6e3fe22e4d7f781e7aa94b1f8a910d3a"
+    },
+    "/var/tmp/dokapon-direct-rgba-d9mpqjfn/accounting-delta.json": {
+      "bytes": 590,
+      "sha256": "f374962f94cd0fb9a6f07e23295ebf972c3deaa6078bec28f769d0ec4040fd03"
+    },
+    "/var/tmp/dokapon-direct-rgba-sealed-jubitcy5/manifest.json": {
+      "bytes": 20314,
+      "sha256": "2ab3ac8ff044a472ef97ddc9a30d1cb04a0dcb41bd83a2f4b7e60e28c02d2992"
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-direct-rgba-sealed-jubitcy5",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 30.134,
+      "output": "ok  \tdokapon/tools\t27.121s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.174,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-direct-rgba-d9mpqjfn/dokapon-go-rgba",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.678,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.038,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json",
+        "testdata/direct-rgba.zip",
+        "testdata/exact-palette.zip",
+        "testdata/multipage-psmt4.zip"
+      ],
+      "exit_code": 0,
+      "seconds": 0.001,
+      "output": ""
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.011,
+      "output": ""
+    }
+  ],
+  "ordinary_review": "evidence/direct-rgba-review.json",
+  "ordinary_review_sha256": "b58e2c5faf899b2d4c0cf5cf894f5acb7576848228730f8f655213b9e1296a12",
+  "corpus": {
+    "path": "/var/tmp/dokapon-complete-texture-parity-g_1eyz4s/oracle.json",
+    "sha256": "6b08f10d1af8ff1f1edbf434710a89332ec1a99ec05b68fd5f77381c147c13c8",
+    "accepted": 227,
+    "held": 0,
+    "full_RGBA_noop_TXD_onepixel_TXD_and_RGBA": true,
+    "source_preserved": true,
+    "harness": "Private overlay inserts corrected227case block into CURRENT existing TestPilotHistoricalGoldenBytes. No older test overwrite/new test function/production edit."
+  },
+  "independent_native_codec": {
+    "status": "PASS",
+    "contract_sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85",
+    "native_spans": 20,
+    "critical_words": 14,
+    "primary_sources": 8,
+    "legacy_dispatch_word": true,
+    "actual_source_instances": 21,
+    "unique_payloads": 12,
+    "source_RGBA_alpha_histograms_witnesses_PNG_inverses": true,
+    "raw_alpha_values": 129,
+    "raw_alpha_max": 128,
+    "modes": [
+      {
+        "mode": "v0_512x512",
+        "source_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v0_512x512"
+      },
+      {
+        "mode": "v0_256x512",
+        "source_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v0_256x512"
+      },
+      {
+        "mode": "v2_256x256",
+        "source_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v2_256x256"
+      },
+      {
+        "mode": "v0_512x256",
+        "source_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v0_512x256"
+      },
+      {
+        "mode": "v2_128x16",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v2_128x16"
+      },
+      {
+        "mode": "v2_16x16",
+        "source_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v2_16x16"
+      }
+    ],
+    "NPC_fixture_original_member_identity": true,
+    "NPC_two_edits": {
+      "txd_sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+      "rgba_sha256": "8e986f39fac5a0a01895a59488ebeaf626f651ce1ebde01d1c4710251c6702bf",
+      "changed_offsets": [
+        200,
+        201,
+        202,
+        203,
+        1048772,
+        1048773,
+        1048774
+      ],
+      "outside_two_selected_pixels": 0
+    }
+  },
+  "actual_standalone": [
+    {
+      "operation": "export_preview_apply",
+      "rgba_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+      "preserves_source_hidden_white": true,
+      "policy_namespaces_correct": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "noop",
+      "txd_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+      "rgba_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+      "changed_bytes": 0,
+      "outside_selected_pixels_or_alpha_ramp": 0,
+      "header_trailer_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "two_colored_edits",
+      "txd_sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+      "rgba_sha256": "8e986f39fac5a0a01895a59488ebeaf626f651ce1ebde01d1c4710251c6702bf",
+      "changed_bytes": 7,
+      "outside_selected_pixels_or_alpha_ramp": 0,
+      "header_trailer_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "all256_candidate_alphas",
+      "txd_sha256": "4dfed1550f18d2822acf109354b8a8f5966d954786bf901bc8fe6a655820ef4f",
+      "rgba_sha256": "2a729f2de26cdd761883efa3ef1d494bd1d6e0bc9f8f0daa55f504b7d8569ac3",
+      "changed_bytes": 1023,
+      "outside_selected_pixels_or_alpha_ramp": 0,
+      "header_trailer_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "hidden_RGB",
+      "txd_sha256": "8aa350e9b5959dbcd8fc21847acbbe0fad9b92db8ac8753019688f12fcb747f1",
+      "rgba_sha256": "8b30f393d11cb369c82ff70d9daadba1ea4e1ce7237d6160256ae567d9c728bd",
+      "changed_bytes": 3,
+      "outside_selected_pixels_or_alpha_ramp": 0,
+      "header_trailer_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "same_rounded_byte_mask",
+      "outside_mask_refused": true,
+      "inside_mask_whole_TXD_noop": true,
+      "status": "PASS"
+    }
+  ],
+  "additional_refusals": [
+    {
+      "case": "v0_256x512",
+      "actual_held_layout_refused": true,
+      "diagnostic": "unsupported direct font raster mode"
+    },
+    {
+      "case": "v2_256x256",
+      "actual_held_layout_refused": true,
+      "diagnostic": "unsupported direct font raster mode"
+    },
+    {
+      "case": "v0_512x256",
+      "actual_held_layout_refused": true,
+      "diagnostic": "unsupported direct font raster mode"
+    },
+    {
+      "case": "v2_128x16",
+      "actual_held_layout_refused": true,
+      "diagnostic": "unsupported direct font raster mode"
+    },
+    {
+      "case": "v2_16x16",
+      "actual_held_layout_refused": true,
+      "diagnostic": "unsupported direct font raster mode"
+    },
+    {
+      "case": "missing_rgba",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "direct font candidate must be monochrome"
+    },
+    {
+      "case": "unknown_pixel",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "pixel policy requires rgba without a palette policy"
+    },
+    {
+      "case": "case_pixel",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "pixel policy requires rgba without a palette policy"
+    },
+    {
+      "case": "exact_in_pixel",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "pixel policy requires rgba without a palette policy"
+    },
+    {
+      "case": "rgba_in_palette",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+    },
+    {
+      "case": "both",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "pixel policy requires rgba without a palette policy"
+    },
+    {
+      "case": "unknown_palette",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+    },
+    {
+      "case": "badsource",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "texture source identity mismatch"
+    },
+    {
+      "case": "badpng",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "candidate PNG hash mismatch"
+    },
+    {
+      "case": "invalid_rect",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "invalid texture rectangle"
+    },
+    {
+      "case": "outside_rect",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "candidate changes a pixel outside approved rectangles"
+    },
+    {
+      "case": "unknown_selector",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "texture selector matches 0 native textures"
+    },
+    {
+      "case": "unknown_field",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "json: unknown field \"new_mode\""
+    },
+    {
+      "case": "second_object",
+      "refused": true,
+      "no_output_input_preserved": true,
+      "diagnostic": "texture profile requires one JSON object"
+    },
+    {
+      "case": "publication-source.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "publication-two_colored_edits.png",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "publication-two_colored_edits.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "publication-symlink.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "publication-hardlink.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "publication-cli",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "publication-output.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "case": "NPC-alpha-129",
+      "refused": true,
+      "diagnostic": "direct source requires native alpha0..128"
+    },
+    {
+      "case": "NPC-alpha-255",
+      "refused": true,
+      "diagnostic": "direct source requires native alpha0..128"
+    },
+    {
+      "case": "font-alpha-129",
+      "refused": true,
+      "diagnostic": "direct source requires native alpha0..128"
+    },
+    {
+      "case": "font-alpha-255",
+      "refused": true,
+      "diagnostic": "direct source requires native alpha0..128"
+    },
+    {
+      "case": "default_font_colored_candidate",
+      "refused": true,
+      "diagnostic": "direct font candidate must be monochrome"
+    },
+    {
+      "case": "std8-rgba",
+      "refused": true,
+      "diagnostic": "rgba pixel policy requires calibrated direct32"
+    },
+    {
+      "case": "nohdr8-rgba",
+      "refused": true,
+      "diagnostic": "rgba pixel policy requires calibrated direct32"
+    },
+    {
+      "case": "std4-low-nibble-rgba",
+      "refused": true,
+      "diagnostic": "rgba pixel policy requires calibrated direct32"
+    }
+  ],
+  "golden_containment": "All16priorbase and6exactpalette rows unchanged; one actualNPC512square explicitRGBA case/test-onlyZIP. Existing test owners reused and CLI fixturefacts read from canonical texturetestdata.",
+  "accounting": {
+    "before": "/var/tmp/dokapon-direct-rgba-d9mpqjfn/accounting-before.json",
+    "before_sha256": "57178f4a3750984218d1119794e0750b6e3fe22e4d7f781e7aa94b1f8a910d3a",
+    "group_deltas": {
+      "asset_bundle": {
+        "files": 0,
+        "bytes": 0
+      },
+      "executed_evidence_inputs": {
+        "files": 0,
+        "bytes": 0
+      },
+      "go_module": {
+        "files": 0,
+        "bytes": 0
+      },
+      "go_tests": {
+        "files": 0,
+        "bytes": 2917
+      },
+      "pointer_selector": {
+        "files": 0,
+        "bytes": 0
+      },
+      "production_go": {
+        "files": 0,
+        "bytes": 1017
+      },
+      "recipe_tables": {
+        "files": 0,
+        "bytes": 0
+      },
+      "testdata": {
+        "files": 1,
+        "bytes": 201431
+      },
+      "build_entrypoint": {
+        "files": 0,
+        "bytes": 0
+      },
+      "consumer_profiles": {
+        "files": 0,
+        "bytes": 0
+      }
+    },
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "files": 77,
+        "bytes": 639397
+      },
+      "runtime_with_bundle": {
+        "files": 80,
+        "bytes": 11952487
+      },
+      "runtime_and_executed_evidence": {
+        "files": 100,
+        "bytes": 12490506
+      }
+    },
+    "production_named_functions": 21,
+    "claim": "Capability growth, no source savings/retirement/familyclosure."
+  },
+  "reuse": "Existing TextureProfile/authorTexture and fifth codec policy string; same parser/modeguards/direct pixelwalk/nearestalpha/currentraw no-op/masks/clone/publisher. No newfunction/type/argument/writer/dependency/runtimebundle. Externalpalette_policy empty/exact and pixel_policy empty/rgba remain separately validated and mutuallyexclusive.",
+  "limits": [
+    "Only existing512x512 RF0504/v0/headerless direct mode. Otherfivefinite modes remain refused.",
+    "Rawsourcealpha0..128; straightRGBA/hiddenRGB preserved. PNGmin255,2raw and edits(candidateA+1)/2 are reversibleauthoringconvention, notnativealpha/128blendsimulation.",
+    "No ISO/CMBalias/placement/art/visual/gameplay or legacywrite-policy approval.",
+    "No family promotion or migration completion. BroadPython4041/68 remainsqualified."
+  ]
+}

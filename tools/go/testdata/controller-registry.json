@@ -1,0 +1,181 @@
+{
+  "historical_path": "tools/registry_writeback_controller_pointer_fixes_2026-09-07.py",
+  "historical_source_sha256": "e3f4457cc35220fd490ad7ecee5765fdde645d76a68582d93173bd55bace176b",
+  "oracle": "Pure main AST from hash-verified historical baseline, original merge_entry; mocked save captures in-memory effects, fixed explicit successor date",
+  "profile_source_sha256": "7ca467370b3b8a11a92cd2406c623cec80804bf164ae3335483766a06dea616e",
+  "profile_source_size": 6341947,
+  "updated": "2026-10-17",
+  "registry_updates": {
+    "0x534a86": {
+      "status": "patched",
+      "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+    },
+    "0x534ae6": {
+      "status": "patched",
+      "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+    },
+    "0x534af4": {
+      "status": "patched",
+      "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+    },
+    "0x534b2c": {
+      "status": "patched",
+      "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+    }
+  },
+  "source": {
+    "entries": [
+      {
+        "id": "0x534a86",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": "drafted"
+      },
+      {
+        "id": "0x534ae6",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": "zone_pending"
+      },
+      {
+        "id": "0x534af4",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": []
+      },
+      {
+        "id": "0x534b2c",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": null
+      },
+      {
+        "id": "0xffff",
+        "en": "untouched",
+        "human": [
+          "extra",
+          123456789012345678901234567890
+        ]
+      }
+    ],
+    "last_updated": "2000-01-01",
+    "unknown_top": {
+      "keep": "preserved"
+    }
+  },
+  "expected": {
+    "entries": [
+      {
+        "id": "0x534a86",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": "patched",
+        "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+      },
+      {
+        "id": "0x534ae6",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": "patched",
+        "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+      },
+      {
+        "id": "0x534af4",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": "patched",
+        "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+      },
+      {
+        "id": "0x534b2c",
+        "jp": "日本語",
+        "en": "<Name> {{HL:0xb007}} ☃",
+        "note": {
+          "keep": [
+            true,
+            null,
+            123456789012345678901234567890
+          ]
+        },
+        "ref_type": "unknown",
+        "ref_sites": [],
+        "status": "patched",
+        "patch_ref": "pointer_fix:controller_ui_stale_pointers_2026-09-07"
+      },
+      {
+        "id": "0xffff",
+        "en": "untouched",
+        "human": [
+          "extra",
+          123456789012345678901234567890
+        ]
+      }
+    ],
+    "last_updated": "2026-10-17",
+    "unknown_top": {
+      "keep": "preserved"
+    }
+  }
+}

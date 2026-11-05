@@ -1,0 +1,1054 @@
+{
+  "at": "2026-10-18T23:11:59.256936+00:00",
+  "draft_root": "/var/tmp/dokapon-go-native-probe-cohort-uvh1pl_v/guarded-full-drafts-31yq6bln",
+  "binary_sha256": "0a33ce95d88db86f26b9f8729ace20b9225a0460184ce7832df82bb544d16b60",
+  "guard_inventory_sha256": "37987c7b59ac6633e592c70dbd26a52ed02b212365c549da0bd6e8327fa7dba2",
+  "supplement_sha256": "b3b65b09976349d2421e6b2e6100e667ed0ef0331e47f2d67dd45e1303aee97d",
+  "prepared39_inputs_unchanged": true,
+  "checks": [
+    {
+      "source": "tools/apply_colorselect_probe.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 2533436,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2533440,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2538980,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2533432,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 2773
+    },
+    {
+      "source": "tools/apply_colorselect_probe2.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 2532440,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2532444,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 144684,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2532436,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 2397
+    },
+    {
+      "source": "tools/apply_hero_hang_probe.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 1719856,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719860,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385824,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719852,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 3263
+    },
+    {
+      "source": "tools/apply_hero_hang_probe_v2.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 1719856,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719860,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385824,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719852,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 4204
+    },
+    {
+      "source": "tools/apply_hero_hang_probe_v3.py",
+      "guards": 13,
+      "guard_bytes": 52,
+      "original_writes": 3,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 1719676,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719680,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719852,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385824,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385828,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385832,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385836,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385840,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385848,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385852,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385856,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385860,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385864,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385876,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1719672,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385844,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 5525
+    },
+    {
+      "source": "tools/apply_hero_hang_probe_v4.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 1718700,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1718704,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385896,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1718696,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 2967
+    },
+    {
+      "source": "tools/apply_monster_name_hooks.py",
+      "guards": 1,
+      "guard_bytes": 64,
+      "original_writes": 4,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2727220,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2095868,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4044180,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2096480,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 7419
+    },
+    {
+      "source": "tools/apply_nameplate_hooks.py",
+      "guards": 0,
+      "guard_bytes": 0,
+      "original_writes": 7,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2727108,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2038576,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2727140,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2024824,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2727180,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2037384,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 8911
+    },
+    {
+      "source": "tools/apply_playercount_probe_v1.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 2517460,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517464,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4429520,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517456,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 4335
+    },
+    {
+      "source": "tools/apply_playercount_probe_v2.py",
+      "guards": 4,
+      "guard_bytes": 16,
+      "original_writes": 3,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 1638808,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1638812,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517428,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517432,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4429520,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1638804,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517424,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 5241
+    },
+    {
+      "source": "tools/apply_playercount_probe_v3.py",
+      "guards": 6,
+      "guard_bytes": 24,
+      "original_writes": 6,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 1638808,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1638812,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517428,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517432,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517460,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517464,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4429520,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2538980,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2728976,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1638804,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517424,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2517456,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 8850
+    },
+    {
+      "source": "tools/apply_playercount_probe_v4.py",
+      "guards": 4,
+      "guard_bytes": 16,
+      "original_writes": 3,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 2516344,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2516348,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1639020,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1639024,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4429520,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2516340,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1639016,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 5016
+    },
+    {
+      "source": "tools/apply_playercount_probe_v5.py",
+      "guards": 2,
+      "guard_bytes": 8,
+      "original_writes": 5,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 2083864,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083868,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1638788,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1578628,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1573208,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4429520,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083860,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 3697
+    },
+    {
+      "source": "tools/apply_playercount_probe_v6.py",
+      "guards": 7,
+      "guard_bytes": 28,
+      "original_writes": 6,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 2082956,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2082928,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2082960,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083172,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083176,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083836,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083840,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4429520,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1638788,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 1578628,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2082952,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083168,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2083832,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 7720
+    },
+    {
+      "source": "tools/apply_controller_pointer_fixes_2026-09-07.py",
+      "guards": 0,
+      "guard_bytes": 0,
+      "original_writes": 4,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4411040,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4411064,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 3659588,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 3659612,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 1632
+    },
+    {
+      "source": "tools/apply_herohang_gender_hook.py",
+      "guards": 1,
+      "guard_bytes": 64,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4042164,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2528944,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 5937
+    },
+    {
+      "source": "tools/apply_jobselect_hook.py",
+      "guards": 1,
+      "guard_bytes": 64,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4385796,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2531968,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 5539
+    },
+    {
+      "source": "tools/apply_jobselect_sibling_hooks.py",
+      "guards": 2,
+      "guard_bytes": 68,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2531968,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4055760,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2531976,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 7385
+    },
+    {
+      "source": "tools/apply_mage_pointer_fix.py",
+      "guards": 0,
+      "guard_bytes": 0,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 3620400,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 3620444,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 1197
+    },
+    {
+      "source": "tools/apply_subst_hook_fixes_2026-09-07_corrected.py",
+      "guards": 1,
+      "guard_bytes": 64,
+      "original_writes": 9,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4386236,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2528952,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2528956,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4388028,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2524320,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2524324,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4388156,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2524296,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 2524300,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 12255
+    },
+    {
+      "source": "tools/apply_vocab_jobs_hang_fix_2026-09-08.py",
+      "guards": 1,
+      "guard_bytes": 64,
+      "original_writes": 2,
+      "original_preflight_and_go_dry_plan_pass": true,
+      "complete_output_equals_original_write_effects": true,
+      "outside_bytes_and_original_source_preserved": true,
+      "existing_output_refused_without_change": true,
+      "negative_checks": [
+        {
+          "offset": 4044116,
+          "kind": "immutable guard",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4042200,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        },
+        {
+          "offset": 4386296,
+          "kind": "write preimage",
+          "original_refused": true,
+          "go_refused_with_fresh_mutated_source_pin": true
+        }
+      ],
+      "draft_bytes": 5639
+    }
+  ],
+  "totals": {
+    "scripts": 21,
+    "original_writes": 72,
+    "guards": 55,
+    "guard_bytes": 580,
+    "mutation_refusals": 127,
+    "draft_bytes": 111902
+  },
+  "limits": "Synthetic buffers and copies only. Exact original sanity functions and first main preflight loop AST-extracted; no imports/main/IO functions executed. Guard-only edits intentionally alter edit reports but not source/output bytes. No live readers/revert/full CLI/native behavior/real game image proof, retirement or full migration claim."
+}

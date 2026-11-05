@@ -1,0 +1,335 @@
+{
+  "schema": "truetype-raster-proof-v1",
+  "at": "2026-10-21T06:11:36.363499+00:00",
+  "status": "VERIFIED finite pinnedTrueType source through same styledruncontract; raster_rendering.05 accepted, family remainsPartial",
+  "shared_implementation": "Existing textMasks owns FreeType/Raqm and fractional Cfloat starts/metrics; existing renderRuns owns fitted rawrunadvances, glyph/colorplane painting then same morphology/resize/area pipeline. Existing composeCells owns word/icon ordered placement, optionalbackground and approvedcell boundaries. Existing authorTexture/readInput/texture/writeNewFile owns pinnedfontIO/nativeimport/exclusivepublication.0newfunctions, dependencies or per-script executors.",
+  "original_fidelity": {
+    "fixture": "testdata/truetype-raster.zip",
+    "members": 134,
+    "sha256": "dfdb85cbc5e431edf404b6b3e7f00118fede5d1c7065d2263dd47cd4478330c3",
+    "coverage": "70fractionalphase+6signed originalmasks/metrics, actualtutorial op8 +8extendedwholeRGBAstyles +combiningmarkworkspacecrop +5implicitLFwholeimages; allold56integeroracles and native/contact/pair cases retained.",
+    "contracts": "Pinnedfonts/properOFL; RAQMwhole-run kerning atzeroTracking versus percharpainting/nonzeroTracking, measured/renderedcursordifference, .25fit, fixedicons, styles/counterroles, ImageDrawcolorplane integermerge, sourcefixedworkspacecrop beforecommonstyles; sharedfinalapprovedcellcontainment.",
+    "LF_correction": "Independent original A\\nB b7dd9db3 differed199pixels from initialcandidate713e8279. Root verified21originalonlypins BEFOREfix; existingrunrequest/positionplanning now retains rawwholeRunmeasurement, prestyle LFlineexpansion atbbox(A).bottom+4, blank/trailinglines and trackedLFblankpaintwithrawadvance. Fivecompleteoriginalcases pass; no newUnicode refusal or groupperline approximation.",
+    "native_expected": "Original-renderer image projected by OLD accepted codec; wholeTXD624c9f3a0a8c613f47c863ff0f5fd0cfa12c581d9f6bb686bc7035054ccf823e/rawRGBA731c6fa4ce1743fecf6c354d9d01771539f17fd748fd2e84b1cb014792b73065.9916nativechanges insideapprovedparent,0outside. Not independent encoder or all8historicalTTFartparity.",
+    "limits": "Finite fonts/styles/nativeformats, not arbitraryUnicode/version equivalence, whole-artwork/ISO/gameplay approval. SourcePillow12.3 FT2.14.3 Raqm0.10.5 HB14.2.1 vs currentGo FT2.14.3 Raqm0.10.1 HB14.1.0; testedcases exact, not blanketlibraryversionequivalence."
+  },
+  "verification": {
+    "root_native_actualCLI_Golden": "PASS32.951s",
+    "root_core_actualCLI_Golden": "PASS26.743s includingdisabledTTF CLI refusal",
+    "root_native_race_log": "/var/tmp/dokapon-ttf-backend-ecll48c9/lf-fixed-native-race.log",
+    "root_build_vet_packagedCLI_hygiene": {
+      "at": "2026-10-21T06:05:02.247388+00:00",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "lf-native-selection",
+          "args": [
+            "go",
+            "list",
+            "-tags",
+            "nativefonts",
+            "-f",
+            "{{.GoFiles}} {{.CgoFiles}}",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.032,
+          "log": "lf-native-selection.log"
+        },
+        {
+          "name": "lf-native-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-o",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 2.218,
+          "log": "lf-native-build.log"
+        },
+        {
+          "name": "lf-native-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.415,
+          "log": "lf-native-vet.log"
+        },
+        {
+          "name": "lf-core-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/core-lf",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 1.416,
+          "log": "lf-core-build.log"
+        },
+        {
+          "name": "lf-core-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.415,
+          "log": "lf-core-vet.log"
+        },
+        {
+          "name": "lf-gofmt",
+          "args": [
+            "gofmt",
+            "-l",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "input_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "raster.go",
+            "raster_font.go",
+            "raster_font_disabled.go",
+            "raster_png.go",
+            "raster_resize.go",
+            "raster_runs.go",
+            "raster_types.go",
+            "recipe_types.go",
+            "reference_geometry.go",
+            "reference_types.go",
+            "references.go",
+            "registry_authoring.go",
+            "registry_types.go",
+            "snapshot_types.go",
+            "snapshots.go",
+            "stream_audit.go",
+            "stream_audit_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_contacts.go",
+            "texture_discovery.go",
+            "texture_index.go",
+            "texture_manifest.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go"
+          ],
+          "exit": 0,
+          "wall_seconds": 0.115,
+          "log": "lf-gofmt.log"
+        },
+        {
+          "name": "packaged-cli-dry",
+          "args": [
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+            "--source",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/project/profiles/textures/help00-turn-order-ttf.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-cli-apply",
+          "args": [
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+            "--source",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/project/profiles/textures/help00-turn-order-ttf.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/new.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-cli-overwrite",
+          "args": [
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+            "--source",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/project/profiles/textures/help00-turn-order-ttf.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/new.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        },
+        {
+          "name": "packaged-cli-disabled",
+          "args": [
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/core-lf",
+            "--source",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/project/profiles/textures/help00-turn-order-ttf.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/disabled.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        }
+      ],
+      "packaged_cli_input_identity": {
+        "/var/tmp/dokapon-ttf-backend-ecll48c9/packaged-cli-lf/original.txd": {
+          "bytes": 525564,
+          "sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+          "dev": 35,
+          "ino": 93539122,
+          "mtime_ns": 1792562701834956060
+        },
+        "/var/tmp/dokapon-ttf-backend-ecll48c9/project/profiles/textures/help00-turn-order-ttf.json": {
+          "bytes": 1934,
+          "sha256": "fd839fe5624bf5f5710c36961cf6ece040080ef696931bffeb367222e4daa2ab",
+          "dev": 35,
+          "ino": 93526133,
+          "mtime_ns": 1792561681452283098
+        },
+        "/var/tmp/dokapon-ttf-backend-ecll48c9/project/fonts/noto-condensed-extra-bold.json": {
+          "bytes": 197,
+          "sha256": "4b27b472f06476e31a230466443e7432da1f1c79363935b3043542e535b72bd8",
+          "dev": 35,
+          "ino": 93526132,
+          "mtime_ns": 1792561681449279389
+        },
+        "/var/tmp/dokapon-ttf-backend-ecll48c9/project/fonts/noto/NotoSans-CondensedExtraBold.ttf": {
+          "bytes": 623368,
+          "sha256": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197",
+          "dev": 35,
+          "ino": 93526130,
+          "mtime_ns": 1792561681449056645
+        }
+      },
+      "hygiene": {
+        "gofmt_go_files": 38,
+        "whitespace_and_positive_selfchecked_credentials": 41,
+        "all_candidate_JSON": "PASS"
+      },
+      "native_selection": "[cmb.go fit.go fit_types.go glyphs.go image_types.go input_types.go inputs.go main.go outputs.go patch.go raster.go raster_png.go raster_resize.go raster_runs.go raster_types.go recipe_types.go reference_geometry.go reference_types.go references.go registry_authoring.go registry_types.go snapshot_types.go snapshots.go stream_audit.go stream_audit_types.go text_types.go texture.go texture_authoring.go texture_contacts.go texture_discovery.go texture_index.go texture_manifest.go texture_palette.go texture_types.go wrap.go] [raster_font.go]",
+      "production_named_declarations": 40,
+      "limits": "Focused actualCLI/Golden/race tracked separately. No fullsuite/gameplay/ISOaccess oractualgamepatch."
+    },
+    "ordinary_review": "evidence/truetype-raster-review.json",
+    "review_artifact_pins_verified": 25,
+    "CLI": "Pinnedsyntheticnative dry/apply completeTXD,20malformedrefusals and5overwrite/sourceidentity checks; actualbuilt documentedprofile nativeoutput matches, defaultbuild refuses with nooutput.",
+    "wire": "Omitted,[] andnonemptyStrokes survive standardJSONroundtrip withtypedoptionalpointer; explicit[] nostrokeTTF preservesoriginal. Native empty[] refusal retained.",
+    "full_suite": "Deferred per ownerpacing; no fullsuite/gameplay claim."
+  },
+  "metrics": {
+    "production": {
+      "files": 37,
+      "bytes": 403624
+    },
+    "named_declarations": 40,
+    "new_functions": 0,
+    "runtime": {
+      "files": 145,
+      "bytes": 2360840
+    },
+    "accounted_inputs": 235,
+    "production_growth_bytes": 7806,
+    "runtime_growth_bytes": 637701,
+    "tests_growth_bytes": 18532,
+    "fixture_growth_bytes": 1599445,
+    "claim": "Capability growth, including623368Bsharedfont+4396BproperOFLnotice+manifest/profile. No source deletion, relocation savings or historical retirement."
+  },
+  "source_pins": {
+    "patch_test.go": "24e493bdc2ef0fb9a1d9732515f4ea1a978055c86200be62e4336fcf370b1273",
+    "raster.go": "02f185430c4b9d0eb7940ea5d1393e44af35742c8d10630fa2c6f1e9d67e922a",
+    "raster_font.go": "2ca9fea5ab1364c833bb45162bd8317e24a7ef74fba6720ced8e09503f863971",
+    "raster_font_disabled.go": "99b5b8b211aedbed32e3c35c11eed9fb9e04ed6583b466fe711d0377fa3b871d",
+    "raster_runs.go": "9f1ff15deb097ea413edfb290271026d8cba5d09c8c7c63d3e6932dddabed649",
+    "raster_types.go": "3d1cd474fe62591117f2f66d86d93be3750f3a199ff4ea0e36f93e9b96d80568",
+    "texture_authoring.go": "50c1e0fa9f98a857ff8f4b1a5d4e03db1127952feefcee7a701b53704cc7f669",
+    "texture_contacts.go": "e04f54ada50ddf423f8d9c4234ee4f0df44e6dbc4bd2f098c1d18ffc9e176041",
+    "fonts/noto/NotoSans-CondensedExtraBold.ttf": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197",
+    "fonts/noto/Noto-OFL-1.1.txt": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+    "fonts/noto-condensed-extra-bold.json": "4b27b472f06476e31a230466443e7432da1f1c79363935b3043542e535b72bd8",
+    "profiles/textures/help00-turn-order-ttf.json": "fd839fe5624bf5f5710c36961cf6ece040080ef696931bffeb367222e4daa2ab",
+    "testdata/truetype-raster.zip": "dfdb85cbc5e431edf404b6b3e7f00118fede5d1c7065d2263dd47cd4478330c3",
+    "analysis/ttf-backend-reuse-decision.json": "0a172a03f111a5e42331eab94ea58772407f0a2dba439af89de385790667db10",
+    "analysis/ttf-raster-reuse-frontier.json": "75997a97adffe56207ae9bb8af6cf03df101b3e9edfb620c2d5df885ca6a634f",
+    "analysis/ttf-styled-prototype-contract.json": "08cb712cbc4c0eeca1e280ee5c24386be71107fccefcdde04c3597d813b2f7e6",
+    "analysis/ttf-styled-corpus-contract.json": "ba86ef0c998bc3ca0e8eb2bb3ea993db15c467d47da9a6c46abbb6489e0c5f55",
+    "analysis/ttf-workspace-contract.json": "7a6262e640adfe7582933181aac7d4b16c65a4612dea81e49a581d55cd11af77",
+    "evidence/truetype-raster-review.json": "22780afb456d3100a03419d3d21c5b5d1d9d8fe94edc95325cbd35c6ceb1b168"
+  },
+  "source_capsule": {
+    "manifest": "/var/tmp/dokapon-ttf-backend-ecll48c9/review-source-lf/manifest.json",
+    "members": 484,
+    "sha256": "f148b8958f511b28acc64b88095b18a27cc612eddad42cb094b53fe7de598684"
+  },
+  "root_artifacts": {
+    "lf-final-checks.json": {
+      "path": "/var/tmp/dokapon-ttf-backend-ecll48c9/lf-final-checks.json",
+      "bytes": 6647,
+      "sha256": "6ddcd13fa1628b9414ac0674a4504547d7ba724cc51f12cd32c3870f72ca4994"
+    },
+    "lf-fixed-native-focused.log": {
+      "path": "/var/tmp/dokapon-ttf-backend-ecll48c9/lf-fixed-native-focused.log",
+      "bytes": 27,
+      "sha256": "e6e36d6cd67596efd5e78d7c205150efe60cf2bcc5d8678a7a489138a80f76a8"
+    },
+    "lf-fixed-core-focused.log": {
+      "path": "/var/tmp/dokapon-ttf-backend-ecll48c9/lf-fixed-core-focused.log",
+      "bytes": 27,
+      "sha256": "5fdeb8ac9547563513b7248f49e9cf1f19f7287e759a7347139dde50974e638a"
+    },
+    "lf-fixed-native-race.log": {
+      "path": "/var/tmp/dokapon-ttf-backend-ecll48c9/lf-fixed-native-race.log",
+      "bytes": 28,
+      "sha256": "78d766ff562f5683bd5379a97fdff073ec201c2a7952c8f6cb9005d1d90eca64"
+    },
+    "prototype-workspace-native.log": {
+      "path": "/var/tmp/dokapon-ttf-backend-ecll48c9/prototype-workspace-native.log",
+      "bytes": 27,
+      "sha256": "cb6bf5471e80368673f010428e4daf4e88ef1d23d51252314140745d41836ea9"
+    },
+    "prototype-cli-first.log": {
+      "path": "/var/tmp/dokapon-ttf-backend-ecll48c9/prototype-cli-first.log",
+      "bytes": 27,
+      "sha256": "94c203ffc1fcee1cba444dba3ac3bb2e3f701eaefc05e9aa305bfff29c423848"
+    }
+  },
+  "coverage": {
+    "milestone": "raster_rendering.05",
+    "raster_checklist": "5/6=83.33%",
+    "planning": "65/84=77.38%",
+    "core": "6Full8Partial/14=42.86% unchanged",
+    "historical": "8FullGo20reviewed16partial366outstanding/410 unchanged",
+    "next": "Donor/reconstruction .06 remainsPartial; source taxonomy/rowinterpolationfrontier is not fullartwork coverage."
+  },
+  "protected_scope": "No ISO/canonicalregistry/emulator/PINE/controller/process/log/settings access/control oractualgamepatchwrites. Newownedstandalone/syntheticoutputs only."
+}

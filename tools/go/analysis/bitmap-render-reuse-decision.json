@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-20T16:56:24.595926+00:00",
+  "status": "DESIGN before implementation",
+  "work": "/var/tmp/dokapon-bitmap-render-p3qv5xau",
+  "baseline": "/var/tmp/dokapon-fullpage-tbw2-sealed-x0iwndqs",
+  "coverage_baseline": "/var/tmp/dokapon-texture-family-promoted-6f082pnk",
+  "contract": "analysis/raster-rendering-prototype-contract.json",
+  "contract_sha256": "4f0a6b89fbbd8f882ebb85f65d9bcc9a4794c4c938903e235522b0b6d4d0826b",
+  "serena_session": "e97a7438",
+  "existing_candidates": {
+    "texture": "Native TXD/index/CLUT/mask owner; adding glyph drawing would mix artwork and storage. Keep unchanged.",
+    "generatePalette": "Pure numerical normalization/median/Lloyd; cannot reasonably own spatial composition. Keep unchanged.",
+    "glyphMaps/previewFit": "Native encoded-word aliases and consumer measurements, not RGBA rendering. Keep unchanged.",
+    "authorTexture": "Sole production texture caller (run45); enhance profile/font loading and orchestration, retaining PNG/decode/import/pins/publisher. Inlining drawing/outline loops would mix pure raster creation with I/O.",
+    "tests": "Enhance existing TestCLIDryRunAndApply standalone authoring block; no new test function/closure."
+  },
+  "unavoidable_function": "ONE pure composeCells owner validates binary glyph masks, lays out centered words and composes outlined/shaded replacement cells. No reasonable existing owner for pixel creation; no per-label handler/helper family/dependency/writer.",
+  "minimal_interface": "Existing TextureProfile gains optional inline render recipe, mutually exclusive with PNG/rectangles/palette generation. A texture profile already is a separate purpose-grouped recipe file, so avoid another wrapper render-file input. Render references a pinned shared font JSON; font references pinned grayscale PNG. Existing PNG loader is shared for candidate/font input. composeCells returns candidate and derived cell rectangles; cell geometry is the single approved mask owner.",
+  "data_ownership": "Five approved historical cell IDs/words/colors/rectangles in one texture profile, not Go literals; no guessed registry IDs. Font metrics/mask in shared fonts/ descriptor+PNG. Legacy scripts remain behavioral references, no retirement from prototype.",
+  "preservation": "Existing PNG/export/default/exact/quantize/RGBA callers unchanged. Render feeds same calibrated texture parser/import, mask check and exclusive artifact writer. No original/shipping/custom-art/registry/ISO writes or emulator access.",
+  "scope": [
+    "texture_authoring.go",
+    "texture_types.go",
+    "raster_types.go",
+    "raster.go",
+    "fonts/hud-labels.json",
+    "fonts/hud-labels.png",
+    "profiles/textures/hud-labels.json",
+    "patch_test.go",
+    "testdata/bitmap-render.json",
+    "existing exact-palette.zip original member appended",
+    "docs/accounting/evidence/goal"
+  ],
+  "before_pins": {
+    "texture_authoring.go": "d75c64784c382175905d89dcc012f49f7127019c1ee6d03ce68ea3b8632db16e",
+    "texture_types.go": "ab4705cc089c4a54669e05c1ba606af18675d6fa56175a2a1abd743bec436145",
+    "patch_test.go": "4ea609aca17a39befee1d0bfa028160d5b57c11bae9e57440b572fb50fd1c605",
+    "testdata/exact-palette.zip": "05a32b18476a297c262a63fc8c4699c16d3b1a6594a7676bcab988d94f819817",
+    "testdata/textures.json": "eeacf64f4781584c17a199beeeb2a9a36ec9cf0f1bddff57e541c8fdb7dad670",
+    "analysis/go-current-input-accounting.json": "c038fc93ea5857e145d2fe9585c50e2366aca0c29f5685c2c228f674574b3f76",
+    "analysis/reusability-coverage.json": "1465f165804ab70c2347bd3af2f5c277efdf889199da30116cd2db43d3060c60",
+    "analysis/reusability-coverage.md": "87e11bba452cd8934d3c0ba10cce23a3896c00e914edbff4b4ec41d63beee896",
+    "evidence/reusability-coverage-checks.json": "c4dadd168b27cb5e94b70e1dfbe1e58398c8b0b265044a45821c306a964822f6"
+  }
+}

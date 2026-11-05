@@ -1,0 +1,1067 @@
+{
+  "authority": "Frozen independent byte literals, syntax-only projection under contract858059d0. Original writer bugs are not goldens.",
+  "source_manifests": {
+    "placement10": "6dfa73d72fe0e160cebdb1f75a1c6b1700d350a5a46832b141af117c1aaed0e8",
+    "roles9": "99a704ac72e3bec4fde389320f1feef8f0132acbc61ba619c2d600a1c2f1951c",
+    "source97": "055a92649675a71d90de7aa43d3c8c05665fd3ae96eb5d4f9d6773d6003a495b"
+  },
+  "Groups": [
+    {
+      "Glyphmap": {
+        "0": " ",
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H",
+        "9": "I",
+        "10": "J"
+      },
+      "Cases": [
+        {
+          "Name": "ordered-placement10-state-before-icon-with-implicit-hdr-speaker-changed-offset0",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}BC",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8",
+          "expected_hex": "01400028013800700200030000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-state-before-icon-with-implicit-hdr-speaker-changed-offset6",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}BC",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8",
+          "expected_hex": "01400028013800700200030000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-state-before-icon-with-implicit-hdr-speaker-noop-offset0",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8",
+          "expected_hex": "0140002801380070010000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-state-before-icon-with-implicit-hdr-speaker-noop-offset6",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8",
+          "expected_hex": "0140002801380070010000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-icon-before-state-and-speaker-anchor-changed-offset0",
+          "EN": "{{PARAM:0x7000}}{{STATE:0x4001}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8",
+          "expected_hex": "0028007001400138020000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-icon-before-state-and-speaker-anchor-changed-offset6",
+          "EN": "{{PARAM:0x7000}}{{STATE:0x4001}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8",
+          "expected_hex": "0028007001400138020000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-icon-before-state-and-speaker-anchor-noop-offset0",
+          "EN": "{{PARAM:0x7000}}{{STATE:0x4001}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8",
+          "expected_hex": "0028007001400138010000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-icon-before-state-and-speaker-anchor-noop-offset6",
+          "EN": "{{PARAM:0x7000}}{{STATE:0x4001}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8",
+          "expected_hex": "0028007001400138010000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-authored-body-setup-and-true-pen-changed-offset0",
+          "EN": "D{{STATE:0x4001}}E{{STATE:0xb8e0}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8",
+          "expected_hex": "0028040001400500e0b8060000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-authored-body-setup-and-true-pen-changed-offset6",
+          "EN": "D{{STATE:0x4001}}E{{STATE:0xb8e0}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8",
+          "expected_hex": "0028040001400500e0b8060000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-authored-body-setup-and-true-pen-noop-offset0",
+          "EN": "A{{STATE:0x4001}}B{{STATE:0xb8e0}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8",
+          "expected_hex": "0028010001400200e0b8030000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-authored-body-setup-and-true-pen-noop-offset6",
+          "EN": "A{{STATE:0x4001}}B{{STATE:0xb8e0}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8",
+          "expected_hex": "0028010001400200e0b8030000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-headerless-prefix-pen-and-argument-changed-offset0",
+          "EN": "{{STATE:0xb801}}{{PARAM:0x7000}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01b800700100001000f8",
+          "expected_hex": "01b800700200001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-headerless-prefix-pen-and-argument-changed-offset6",
+          "EN": "{{STATE:0xb801}}{{PARAM:0x7000}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01b800700100001000f8",
+          "expected_hex": "01b800700200001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-headerless-prefix-pen-and-argument-noop-offset0",
+          "EN": "{{STATE:0xb801}}{{PARAM:0x7000}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01b800700100001000f8",
+          "expected_hex": "01b800700100001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-headerless-prefix-pen-and-argument-noop-offset6",
+          "EN": "{{STATE:0xb801}}{{PARAM:0x7000}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01b800700100001000f8",
+          "expected_hex": "01b800700100001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-prefix-opaque-after-last-icon-distinct-occurrences-changed-offset0",
+          "EN": "C{{PARAM:0x7000}}D{{PARAM:0xb000}}E{{PARAM:0xb000}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007000b0111100f80010222200b000f8007000b001380100001000f8",
+          "expected_hex": "002803000070040000b0111100f800102222050000b000f8007000b001380600001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-prefix-opaque-after-last-icon-distinct-occurrences-changed-offset6",
+          "EN": "C{{PARAM:0x7000}}D{{PARAM:0xb000}}E{{PARAM:0xb000}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007000b0111100f80010222200b000f8007000b001380100001000f8",
+          "expected_hex": "002803000070040000b0111100f800102222050000b000f8007000b001380600001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-prefix-opaque-after-last-icon-distinct-occurrences-noop-offset0",
+          "EN": "{{PARAM:0x7000}}{{PARAM:0xb000}}{{PARAM:0xb000}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007000b0111100f80010222200b000f8007000b001380100001000f8",
+          "expected_hex": "0028007000b0111100f80010222200b000f8007000b001380100001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-prefix-opaque-after-last-icon-distinct-occurrences-noop-offset6",
+          "EN": "{{PARAM:0x7000}}{{PARAM:0xb000}}{{PARAM:0xb000}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028007000b0111100f80010222200b000f8007000b001380100001000f8",
+          "expected_hex": "0028007000b0111100f80010222200b000f8007000b001380100001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-prefix-colour-and-body-classic-plus-scale-pairs-changed-offset0",
+          "EN": "{{INIT:0xb007}}F{{HL:0xb001}}G{{HL:0xb009}}H{{HL:0xe86e}}I{{HL:0xe864}}J",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0010001b0020009b003006ee8040064e80500001000f8",
+          "expected_hex": "002807b0060001b0070009b008006ee8090064e80a00001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-prefix-colour-and-body-classic-plus-scale-pairs-changed-offset6",
+          "EN": "{{INIT:0xb007}}F{{HL:0xb001}}G{{HL:0xb009}}H{{HL:0xe86e}}I{{HL:0xe864}}J",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0010001b0020009b003006ee8040064e80500001000f8",
+          "expected_hex": "002807b0060001b0070009b008006ee8090064e80a00001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-prefix-colour-and-body-classic-plus-scale-pairs-noop-offset0",
+          "EN": "{{INIT:0xb007}}A{{HL:0xb001}}B{{HL:0xb009}}C{{HL:0xe86e}}D{{HL:0xe864}}E",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0010001b0020009b003006ee8040064e80500001000f8",
+          "expected_hex": "002807b0010001b0020009b003006ee8040064e80500001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-prefix-colour-and-body-classic-plus-scale-pairs-noop-offset6",
+          "EN": "{{INIT:0xb007}}A{{HL:0xb001}}B{{HL:0xb009}}C{{HL:0xe86e}}D{{HL:0xe864}}E",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0010001b0020009b003006ee8040064e80500001000f8",
+          "expected_hex": "002807b0010001b0020009b003006ee8040064e80500001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-speaker-inplace-override-and-body-page-anchor-changed-offset0",
+          "EN": "[spk 0x3803]{{STATE:0x4001}}{{PARAM:0x7000}}C//[spk 0x3802]D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01400028013800700100001002380200001000f8",
+          "expected_hex": "01400028033800700300001002380400001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-speaker-inplace-override-and-body-page-anchor-changed-offset6",
+          "EN": "[spk 0x3803]{{STATE:0x4001}}{{PARAM:0x7000}}C//[spk 0x3802]D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01400028013800700100001002380200001000f8",
+          "expected_hex": "01400028033800700300001002380400001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-speaker-inplace-override-and-body-page-anchor-noop-offset0",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}A//[spk 0x3802]B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01400028013800700100001002380200001000f8",
+          "expected_hex": "01400028013800700100001002380200001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-speaker-inplace-override-and-body-page-anchor-noop-offset6",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}A//[spk 0x3802]B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "01400028013800700100001002380200001000f8",
+          "expected_hex": "01400028013800700100001002380200001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-prefix-scale-with-implicit-header-speaker-changed-offset0",
+          "EN": "{{INIT:0xe832}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801380100001000f8",
+          "expected_hex": "32e8002801380200001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-prefix-scale-with-implicit-header-speaker-changed-offset6",
+          "EN": "{{INIT:0xe832}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801380100001000f8",
+          "expected_hex": "32e8002801380200001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-placement10-prefix-scale-with-implicit-header-speaker-noop-offset0",
+          "EN": "{{INIT:0xe832}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801380100001000f8",
+          "expected_hex": "32e8002801380100001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-placement10-prefix-scale-with-implicit-header-speaker-noop-offset6",
+          "EN": "{{INIT:0xe832}}A",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801380100001000f8",
+          "expected_hex": "32e8002801380100001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-refuse-missing-state",
+          "EN": "D{{STATE:0xb8e0}}F",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8"
+        },
+        {
+          "Name": "ordered-refuse-duplicate-state",
+          "EN": "D{{STATE:0x4001}}{{STATE:0x4001}}E{{STATE:0xb8e0}}F",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8"
+        },
+        {
+          "Name": "ordered-refuse-argument-state-order",
+          "EN": "{{STATE:0x4001}}{{PARAM:0x7000}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8"
+        },
+        {
+          "Name": "ordered-refuse-state-as-hl",
+          "EN": "D{{HL:0x4001}}E{{STATE:0xb8e0}}F",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8"
+        },
+        {
+          "Name": "ordered-refuse-scale-as-state",
+          "EN": "{{STATE:0xe832}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801380100001000f8"
+        },
+        {
+          "Name": "ordered-refuse-late-init",
+          "EN": "B{{INIT:0xb007}}",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0010000f8"
+        },
+        {
+          "Name": "ordered-refuse-pair-opener-as-init",
+          "EN": "{{INIT:0xb001}}B{{HL:0xb002}}",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8"
+        },
+        {
+          "Name": "ordered-refuse-missing-speaker",
+          "EN": "A|B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000080238020000f8"
+        },
+        {
+          "Name": "ordered-refuse-wrong-speaker",
+          "EN": "A|[spk 0x3803]B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000080238020000f8"
+        },
+        {
+          "Name": "ordered-refuse-nonboundary-speaker",
+          "EN": "A[spk 0x3802]B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000080238020000f8"
+        },
+        {
+          "Name": "ordered-refuse-invented-speaker",
+          "EN": "[spk 0x3803]{{STATE:0xb801}}{{PARAM:0x7000}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "01b800700100001000f8"
+        },
+        {
+          "Name": "ordered-refuse-split-scale-pair",
+          "EN": "A{{HL:0xe86e}}B//{{HL:0xe864}}C",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801006ee8020064e8030000f8"
+        },
+        {
+          "Name": "ordered-refuse-raw-control",
+          "EN": "D<0x4001>E{{STATE:0xb8e0}}F",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028010001400200e0b8030000f8"
+        },
+        {
+          "Name": "ordered-refuse-pending-state-space",
+          "EN": "{{PARAM:0x7000}} {{STATE:0x4001}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8"
+        },
+        {
+          "Name": "ordered-trimmed-leading-space",
+          "EN": " {{STATE:0x4001}}{{PARAM:0x7000}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8",
+          "expected_hex": "0140002801380070020000f8"
+        },
+        {
+          "Name": "ordered-refuse-pending-state-line",
+          "EN": "{{PARAM:0x7000}}|{{STATE:0x4001}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8"
+        },
+        {
+          "Name": "ordered-refuse-pending-hdr-line",
+          "EN": "|{{STATE:0x4001}}{{PARAM:0x7000}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8"
+        },
+        {
+          "Name": "ordered-refuse-pending-state-page",
+          "EN": "{{PARAM:0x7000}}//{{STATE:0x4001}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028007001400138010000f8"
+        },
+        {
+          "Name": "ordered-refuse-pending-hdr-page",
+          "EN": "//{{STATE:0x4001}}{{PARAM:0x7000}}B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0140002801380070010000f8"
+        },
+        {
+          "Name": "plain-source-scale-prefix-offset0",
+          "EN": "B",
+          "Status": "accept",
+          "source_authoring": "plain",
+          "source_hex": "32e8002801380100001000f8",
+          "expected_hex": "32e8002801380200001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "plain-source-scale-prefix-offset6",
+          "EN": "B",
+          "Status": "accept",
+          "source_authoring": "plain",
+          "source_hex": "32e8002801380100001000f8",
+          "expected_hex": "32e8002801380200001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-refuse-duplicate-prefix-speaker-default-offset0",
+          "EN": "A",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801380238010000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-refuse-duplicate-prefix-speaker-default-offset6",
+          "EN": "A",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801380238010000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-refuse-duplicate-prefix-speaker-override-offset0",
+          "EN": "[spk 0x3803]A",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801380238010000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-refuse-duplicate-prefix-speaker-override-offset6",
+          "EN": "[spk 0x3803]A",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801380238010000f8",
+          "source_offset": 6
+        }
+      ],
+      "expected_accepted": 35,
+      "expected_refused": 22,
+      "expected_canonical": 0
+    },
+    {
+      "Glyphmap": {
+        "0": " ",
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H",
+        "9": "I",
+        "10": "J",
+        "11": "A",
+        "12": "B"
+      },
+      "Cases": [
+        {
+          "Name": "ordered-roles9-pair-opens-before-first-glyph-noop-offset0",
+          "EN": "{{HL:0xb001}}A{{HL:0xb002}}",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8",
+          "expected_hex": "002801b0010002b000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-pair-opens-before-first-glyph-noop-offset6",
+          "EN": "{{HL:0xb001}}A{{HL:0xb002}}",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8",
+          "expected_hex": "002801b0010002b000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-pair-opens-before-first-glyph-changed-offset0",
+          "EN": "{{HL:0xb001}}BC{{HL:0xb002}}",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8",
+          "expected_hex": "002801b00200030002b000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-pair-opens-before-first-glyph-changed-offset6",
+          "EN": "{{HL:0xb001}}BC{{HL:0xb002}}",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8",
+          "expected_hex": "002801b00200030002b000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-pair-opens-before-first-glyph-moved_pair-offset0",
+          "EN": "D{{HL:0xb001}}E{{HL:0xb002}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8",
+          "expected_hex": "0028040001b0050002b0060000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-pair-opens-before-first-glyph-moved_pair-offset6",
+          "EN": "D{{HL:0xb001}}E{{HL:0xb002}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801b0010002b000f8",
+          "expected_hex": "0028040001b0050002b0060000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-colour-opaque-and-body-pair-noop-offset0",
+          "EN": "{{INIT:0xb007}}{{PARAM:0xb000}}A{{HL:0xb001}}B{{HL:0xb002}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b000b0111100f800102222010001b0020002b0030000f8",
+          "expected_hex": "002807b000b0111100f800102222010001b0020002b0030000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-colour-opaque-and-body-pair-noop-offset6",
+          "EN": "{{INIT:0xb007}}{{PARAM:0xb000}}A{{HL:0xb001}}B{{HL:0xb002}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b000b0111100f800102222010001b0020002b0030000f8",
+          "expected_hex": "002807b000b0111100f800102222010001b0020002b0030000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-colour-opaque-and-body-pair-changed-offset0",
+          "EN": "{{INIT:0xb007}}{{PARAM:0xb000}}D{{HL:0xb001}}E{{HL:0xb002}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b000b0111100f800102222010001b0020002b0030000f8",
+          "expected_hex": "002807b000b0111100f800102222040001b0050002b0060000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-colour-opaque-and-body-pair-changed-offset6",
+          "EN": "{{INIT:0xb007}}{{PARAM:0xb000}}D{{HL:0xb001}}E{{HL:0xb002}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b000b0111100f800102222010001b0020002b0030000f8",
+          "expected_hex": "002807b000b0111100f800102222040001b0050002b0060000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-scale-and-body-scale-pair-noop-offset0",
+          "EN": "{{INIT:0xe832}}A{{HL:0xe86e}}B{{HL:0xe864}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801006ee8020064e8030000f8",
+          "expected_hex": "32e8002801006ee8020064e8030000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-scale-and-body-scale-pair-noop-offset6",
+          "EN": "{{INIT:0xe832}}A{{HL:0xe86e}}B{{HL:0xe864}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801006ee8020064e8030000f8",
+          "expected_hex": "32e8002801006ee8020064e8030000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-scale-and-body-scale-pair-changed-offset0",
+          "EN": "{{INIT:0xe832}}D{{HL:0xe86e}}E{{HL:0xe864}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801006ee8020064e8030000f8",
+          "expected_hex": "32e8002804006ee8050064e8060000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-persistent-prefix-scale-and-body-scale-pair-changed-offset6",
+          "EN": "{{INIT:0xe832}}D{{HL:0xe86e}}E{{HL:0xe864}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "32e8002801006ee8020064e8030000f8",
+          "expected_hex": "32e8002804006ee8050064e8060000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-distinct-line-speakers-and-page-speaker-noop-offset0",
+          "EN": "A|[spk 0x3802]B|[spk 0x3803]C//[spk 0x3804]D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801380100000802380200000803380300001004380400001000f8",
+          "expected_hex": "002801380100000802380200000803380300001004380400001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-distinct-line-speakers-and-page-speaker-noop-offset6",
+          "EN": "A|[spk 0x3802]B|[spk 0x3803]C//[spk 0x3804]D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801380100000802380200000803380300001004380400001000f8",
+          "expected_hex": "002801380100000802380200000803380300001004380400001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-roles9-distinct-line-speakers-and-page-speaker-changed-offset0",
+          "EN": "E|[spk 0x3802]F|[spk 0x3803]G//[spk 0x3804]H",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801380100000802380200000803380300001004380400001000f8",
+          "expected_hex": "002801380500000802380600000803380700001004380800001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-roles9-distinct-line-speakers-and-page-speaker-changed-offset6",
+          "EN": "E|[spk 0x3802]F|[spk 0x3803]G//[spk 0x3804]H",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801380100000802380200000803380300001004380400001000f8",
+          "expected_hex": "002801380500000802380600000803380700001004380800001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-alias-source-one-offset0",
+          "EN": "AABB",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801000b0002000c0000f8",
+          "expected_hex": "002801000b0002000c0000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-alias-source-one-offset6",
+          "EN": "AABB",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801000b0002000c0000f8",
+          "expected_hex": "002801000b0002000c0000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-alias-source-two-offset0",
+          "EN": "AABB",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280b0001000c00020000f8",
+          "expected_hex": "00280b0001000c00020000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-alias-source-two-offset6",
+          "EN": "AABB",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280b0001000c00020000f8",
+          "expected_hex": "00280b0001000c00020000f8",
+          "source_offset": 6
+        }
+      ],
+      "expected_accepted": 22,
+      "expected_refused": 0,
+      "expected_canonical": 0
+    },
+    {
+      "Glyphmap": {
+        "0": " ",
+        "1": "A",
+        "10": "J",
+        "11": "K",
+        "12": "L",
+        "13": "M",
+        "14": "N",
+        "15": "O",
+        "16": "P",
+        "17": "Q",
+        "18": "R",
+        "19": "S",
+        "2": "B",
+        "20": "T",
+        "21": "U",
+        "22": "V",
+        "23": "W",
+        "24": "X",
+        "25": "Y",
+        "26": "Z",
+        "3": "C",
+        "4": "D",
+        "5": "E",
+        "6": "F",
+        "7": "G",
+        "8": "H",
+        "9": "I"
+      },
+      "Cases": [
+        {
+          "Name": "ordered-source97-body-scale-explicit-pair-offset0",
+          "EN": "D{{HL:0xe86e}}E{{HL:0xe864}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801006ee8020064e8030000f8",
+          "expected_hex": "002804006ee8050064e8060000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-body-scale-explicit-pair-offset6",
+          "EN": "D{{HL:0xe86e}}E{{HL:0xe864}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801006ee8020064e8030000f8",
+          "expected_hex": "002804006ee8050064e8060000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-ordered-unknown-arguments-offset0",
+          "EN": "E{{ICON:0x7000}}F{{PARAM:0x8800}}G{{ICON:0xa000}}H",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280100007002000088030000a00400001000f8",
+          "expected_hex": "00280500007006000088070000a00800001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-ordered-unknown-arguments-offset6",
+          "EN": "E{{ICON:0x7000}}F{{PARAM:0x8800}}G{{ICON:0xa000}}H",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280100007002000088030000a00400001000f8",
+          "expected_hex": "00280500007006000088070000a00800001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-multiple-param8-offset0",
+          "EN": "{{ICON:0x4800}}CD{{PARAM:0xd800}}E",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028004811112222001000f8010000d800f8007000b001380200001000f8",
+          "expected_hex": "0028004811112222001000f80300040000d800f8007000b001380500001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-multiple-param8-offset6",
+          "EN": "{{ICON:0x4800}}CD{{PARAM:0xd800}}E",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028004811112222001000f8010000d800f8007000b001380200001000f8",
+          "expected_hex": "0028004811112222001000f80300040000d800f8007000b001380500001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-duplicate-param-code-occurrences-offset0",
+          "EN": "D{{PARAM:0xb000}}E{{ICON:0xb000}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000b00100020003000400020000b000f80010007000a0030000f8",
+          "expected_hex": "0028040000b00100020003000400050000b000f80010007000a0060000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-duplicate-param-code-occurrences-offset6",
+          "EN": "D{{PARAM:0xb000}}E{{ICON:0xb000}}F",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000b00100020003000400020000b000f80010007000a0030000f8",
+          "expected_hex": "0028040000b00100020003000400050000b000f80010007000a0060000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-leading-param-explicit-marker-offset0",
+          "EN": "{{PARAM:0x4800}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280048111100f8007034120100001000f8",
+          "expected_hex": "00280048111100f8007034120200001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-leading-param-explicit-marker-offset6",
+          "EN": "{{PARAM:0x4800}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280048111100f8007034120100001000f8",
+          "expected_hex": "00280048111100f8007034120200001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-payload-lookalikes-4800-offset0",
+          "EN": "C{{PARAM:0x4800}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280100004800f8001000480138020000f8",
+          "expected_hex": "00280300004800f8001000480138040000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-payload-lookalikes-4800-offset6",
+          "EN": "C{{PARAM:0x4800}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280100004800f8001000480138020000f8",
+          "expected_hex": "00280300004800f8001000480138040000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-payload-lookalikes-b000-offset0",
+          "EN": "C{{PARAM:0xb000}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000b000f8001000b00138020000f8",
+          "expected_hex": "0028030000b000f8001000b00138040000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-payload-lookalikes-b000-offset6",
+          "EN": "C{{PARAM:0xb000}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000b000f8001000b00138020000f8",
+          "expected_hex": "0028030000b000f8001000b00138040000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-payload-lookalikes-d800-offset0",
+          "EN": "C{{PARAM:0xd800}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000d800f8001000d80138020000f8",
+          "expected_hex": "0028030000d800f8001000d80138040000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-payload-lookalikes-d800-offset6",
+          "EN": "C{{PARAM:0xd800}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028010000d800f8001000d80138020000f8",
+          "expected_hex": "0028030000d800f8001000d80138040000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-noop-multiple-param8-offset0",
+          "EN": "{{ICON:0x4800}}A{{PARAM:0xd800}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028004811112222001000f8010000d800f8007000b001380200001000f8",
+          "expected_hex": "0028004811112222001000f8010000d800f8007000b001380200001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-noop-multiple-param8-offset6",
+          "EN": "{{ICON:0x4800}}A{{PARAM:0xd800}}B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028004811112222001000f8010000d800f8007000b001380200001000f8",
+          "expected_hex": "0028004811112222001000f8010000d800f8007000b001380200001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-noop-ordered-unknown-arguments-offset0",
+          "EN": "A{{ICON:0x7000}}B{{PARAM:0x8800}}C{{ICON:0xa000}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280100007002000088030000a00400001000f8",
+          "expected_hex": "00280100007002000088030000a00400001000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-noop-ordered-unknown-arguments-offset6",
+          "EN": "A{{ICON:0x7000}}B{{PARAM:0x8800}}C{{ICON:0xa000}}D",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "00280100007002000088030000a00400001000f8",
+          "expected_hex": "00280100007002000088030000a00400001000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-source97-noop-explicit-body-scale-offset0",
+          "EN": "A{{HL:0xe86e}}B{{HL:0xe864}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801006ee8020064e8030000f8",
+          "expected_hex": "002801006ee8020064e8030000f8",
+          "source_offset": 0
+        },
+        {
+          "Name": "ordered-source97-noop-explicit-body-scale-offset6",
+          "EN": "A{{HL:0xe86e}}B{{HL:0xe864}}C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002801006ee8020064e8030000f8",
+          "expected_hex": "002801006ee8020064e8030000f8",
+          "source_offset": 6
+        },
+        {
+          "Name": "ordered-manual-opaque-character-wrap-offset0",
+          "EN": "A {{PARAM:0xb000}} B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028040000b0111100f800102222040000f8",
+          "expected_hex": "00280100000800b0111100f8001022220008020000f8",
+          "source_offset": 0,
+          "columns": 1,
+          "rows": 3
+        },
+        {
+          "Name": "ordered-manual-opaque-character-wrap-offset6",
+          "EN": "A {{PARAM:0xb000}} B",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "0028040000b0111100f800102222040000f8",
+          "expected_hex": "00280100000800b0111100f8001022220008020000f8",
+          "source_offset": 6,
+          "columns": 1,
+          "rows": 3
+        },
+        {
+          "Name": "ordered-manual-zero-character-formatting-offset0",
+          "EN": "{{INIT:0xb007}}A {{HL:0xb001}}B{{HL:0xb008}} C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0040001b0040008b0040000f8",
+          "expected_hex": "002807b00100000001b0020008b00000030000f8",
+          "source_offset": 0,
+          "columns": 5,
+          "rows": 1
+        },
+        {
+          "Name": "ordered-manual-zero-character-formatting-offset6",
+          "EN": "{{INIT:0xb007}}A {{HL:0xb001}}B{{HL:0xb008}} C",
+          "Status": "accept",
+          "source_authoring": "ordered",
+          "source_hex": "002807b0040001b0040008b0040000f8",
+          "expected_hex": "002807b00100000001b0020008b00000030000f8",
+          "source_offset": 6,
+          "columns": 5,
+          "rows": 1
+        },
+        {
+          "Name": "ordered-manual-auto-page-crosses-pair-offset0",
+          "EN": "{{HL:0xb001}}A B{{HL:0xb008}}",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801b004000000040008b000f8",
+          "expected_hex": "",
+          "source_offset": 0,
+          "columns": 1,
+          "rows": 1
+        },
+        {
+          "Name": "ordered-manual-auto-page-crosses-pair-offset6",
+          "EN": "{{HL:0xb001}}A B{{HL:0xb008}}",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "002801b004000000040008b000f8",
+          "expected_hex": "",
+          "source_offset": 6,
+          "columns": 1,
+          "rows": 1
+        },
+        {
+          "Name": "ordered-manual-wrong-body-speaker-boundary-offset0",
+          "EN": "A//[spk 0x3802]B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028040000080238040000f8",
+          "expected_hex": "",
+          "source_offset": 0,
+          "columns": 0,
+          "rows": 0
+        },
+        {
+          "Name": "ordered-manual-wrong-body-speaker-boundary-offset6",
+          "EN": "A//[spk 0x3802]B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028040000080238040000f8",
+          "expected_hex": "",
+          "source_offset": 6,
+          "columns": 0,
+          "rows": 0
+        },
+        {
+          "Name": "ordered-manual-auto-page-changes-speaker-line-offset0",
+          "EN": "A|[spk 0x3802]B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028040000080238040000f8",
+          "expected_hex": "",
+          "source_offset": 0,
+          "columns": 1,
+          "rows": 1
+        },
+        {
+          "Name": "ordered-manual-auto-page-changes-speaker-line-offset6",
+          "EN": "A|[spk 0x3802]B",
+          "Status": "refuse",
+          "source_authoring": "ordered",
+          "source_hex": "0028040000080238040000f8",
+          "expected_hex": "",
+          "source_offset": 6,
+          "columns": 1,
+          "rows": 1
+        }
+      ],
+      "expected_accepted": 26,
+      "expected_refused": 6,
+      "expected_canonical": 0
+    }
+  ],
+  "additional_manual_contract": "Two simple character-wrap whole literals plus highlight/speaker boundary refusals are independently specified in words; no candidate encoder output is used. Source97 writer bugs stay excluded."
+}

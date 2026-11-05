@@ -1,0 +1,148 @@
+{
+  "schema": "canonical-audit-review-v1",
+  "sealed_at": "2026-10-21T13:25:59.760242+00:00",
+  "role": "Independent ordinary read-only implementation review; findings only, no approval",
+  "status": "One concrete initial finding closed by independent current-capsule replays; no open finding in finite reviewed scope",
+  "candidate": {
+    "source": "/var/tmp/dokapon-canonical-audit-snq910tn/review-source-nullfixed",
+    "manifest_sha256": "e9083a815e098dccc190605dc5267ccd2d65490a397cd418b744b67b8e50d776",
+    "members": 520,
+    "pins_held_before_after": true,
+    "full_pins": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/pins-final.json",
+    "initial_manifest_sha256": "d17f425c7bc0ae5cf17702c488274a74edf88a6c50d7015907912b96094cfa0a",
+    "baseline_manifest_sha256": "1753a547f5871dd934d6ac942f6f7a28bf32970db2023997ce16ade6ca202e7a",
+    "fixed_delta": "4Go files plusREADME/reuse-decision/accounting metadata; details fixed-delta.json"
+  },
+  "findings": [
+    {
+      "id": "C1",
+      "severity": "MEDIUM",
+      "status": "CLOSED",
+      "location": "stream_audit.go:38; inputs.go:81; input_types.go:17",
+      "initial_problem": "canonical:null exited successfully and removed the canonical side/comparison while original row status remained compared. None-policy columns:null and rows:null silently decoded as zero. This silently disabled a declared audit policy.",
+      "initial_receipt": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/initial-null-probes.json",
+      "fix": "Existing checkJSON gained optional field-scoped nonNullByDepth; audit opts in only canonical atdepth3 and wrap/columns/rows atdepth4. Default nil leaves old callers unchanged. No new function.",
+      "closure": "All4 independently replayed null policy/field cases now refuse with empty stdout. An old no-opt-in profile with opaque null metadata produces exact accepted exit/stdout/stderr, demonstrating no old-caller domain spill.",
+      "final_receipt": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/final-probes.json"
+    }
+  ],
+  "code_assessment": {
+    "ownership": "auditStreams reasonably owns a third derived side. It reuses existing controls/encode/glyphMaps, common side scanning/factor comparison, strict references/inspect binding and buffered recheck/publication. No copied decoder, fake edit plan, new helper/function/closure or per-script handler.",
+    "authority": "Wording is the normalized-ID join to pinned registry EN; original context is the pinned reference window. Metadata/status/JP annotations or supplied expected claims do not select canonical bytes. Explicit none/characters policy validates budgets; narrative and bound-family requirements hold.",
+    "independence": "Original-observed status/comparison remain independent of canonical generation. Missing/unusable EN, context or observed decode leaves canonical comparison unavailable rather than false/PASS. Canonical spans are generated zero-based buffers; through-END comparison does not erase observed tails.",
+    "binding_and_safety": "Every declared observed site and full selected window still undergoes strict converged-target/file-backed binding before any JSON. Profile/glyph/registry/source hashes, paths and identities are rechecked; no audit writes or patch authority.",
+    "limits": "Reviewed1MiB profile,4MiB glyphmap,64MiB observed/registry, bounded64KiB windows/EN/generated streams, existing row/site/mapping caps and64MiB buffered output guard. Post-encode oversize is an error side, not a successful comparison.",
+    "readability": "Policy validation is a clear finite switch; one side/comparison path retains known-versus-unknown data. The optional field-scoped scanner rule is smaller and safer than making all historical JSON non-null."
+  },
+  "verification": {
+    "own_current_core_checks": [
+      {
+        "name": "core-focused",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "CGO_ENABLED": "0",
+          "TMPDIR": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 36.066245805006474
+      },
+      {
+        "name": "core-build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/core",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "CGO_ENABLED": "0",
+          "TMPDIR": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 2.4143371100071818
+      },
+      {
+        "name": "core-vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "CGO_ENABLED": "0",
+          "TMPDIR": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 0.670007868000539
+      }
+    ],
+    "source_oracle": {
+      "receipt": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/source-oracle-binding.json",
+      "copied_pack": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/original-source-pack",
+      "manifest_sha256": "3dab36a3fb68ea908430097a87537a4821856b7f0879318cadebe3ea0d819e80",
+      "members": 30,
+      "facts": "All11 literal original/observed/canonical words, packed expected byte files and SHA projections checked;4 packaged input files exactly match source-only pack. No candidate encoder produced expected fixture bytes."
+    },
+    "extra_built_CLI": {
+      "receipt": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/final-probes.json",
+      "cases": 12,
+      "facts": "Null refusal, literal EN-J authority despite fake expected metadata, metadata nonauthority, normalizedIDs, duplicate-registry/missing-site noJSON, encoded64KiB cap, complete old-byte parity and all5 per-case input identities verified."
+    },
+    "hygiene": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/hygiene.json",
+    "test_quality": "Existing complete CLI+Golden owner retained old stream/bound reports and adds11 independent literal rows, wrapping/control/argument/payload/tail/unknown and binding/EN/policy cases. Source expectation independence explicitly qualified.",
+    "setup_corrections": "Source manifest has a members wrapper. Initial refresh assertion overlooked accompanying documentation/accounting changes and stopped before source copy; resulting repeated initial checks are superseded. Extra encoded-cap probe initially expected an omitted consumed field, corrected to the established null representation. These were review artifact assumptions, not candidate failures.",
+    "jobs": "All review jobs terminal; no native/race/full integrated suite duplicated."
+  },
+  "costs": {
+    "production_files": 39,
+    "production_bytes": 423647,
+    "production_delta_bytes": 4340,
+    "named_declarations": 41,
+    "new_example_data_bytes": 14861,
+    "test_delta_bytes": 6148,
+    "new_oracle_bytes": 63279
+  },
+  "private_evidence": {
+    "root": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm",
+    "manifest": "/var/tmp/dokapon-canonical-audit-review-3ojjxanm/artifact-manifest.json",
+    "members": 172,
+    "manifest_sha256": "1ff363e9466bc951c3e8c67e12a7422a94a9a668c9bc2ae0d08777af89cc09bb",
+    "self_containment": "Owned520-member checkout, original30-member source pack, accepted comparator binary, inputs, literal expectations, probes and command receipts retained."
+  },
+  "limits": [
+    "Finite explicit registry-bound narrative canonical cohort only; no broader historical report, redundant-prefix retry, setup/opaque workaround, fixed-field, sentinel-hook or native-fit coverage claim.",
+    "No migration/.03/full-family/retirement/savings credit or patch/gameplay/ISO approval.",
+    "No full integrated suite, exhaustive max-resource benchmark or native library replay; root native/race evidence is separate.",
+    "No protected ISO/canonical registry/emulator/PINE/process/log/settings/auth access, historical main execution or implementation edits.",
+    "Historical accepted accounting/coverage pins in the private snapshot are intentional pending promotion, not a new defect."
+  ]
+}

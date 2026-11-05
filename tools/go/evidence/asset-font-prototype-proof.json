@@ -1,0 +1,90 @@
+{
+  "status": "VERIFIED_PRIVATE_FONT_FEASIBILITY_PROTOTYPE; production integration open",
+  "at": "2026-10-21T02:57:23.224055+00:00",
+  "scope": "asset_preview_inventory.06 whole-label TrueType coverage using one direct-CGo Go owner; no production or historical retirement credit",
+  "precode_decision": {
+    "path": "analysis/asset-font-backend-decision.json",
+    "sha256": "e33a9c6b479b5933036a3b5536e9e2df9f420ebbbf94b97842b801dc1dfa7281"
+  },
+  "contract": {
+    "path": "analysis/asset-font-backend-contract.json",
+    "sha256": "a26e50772a7aad8bf4dcbbebd2e96352870f896299917313651dbe179f021e3c",
+    "original_members_verified": 191,
+    "prior_contact_members_verified": 139
+  },
+  "implementation": {
+    "location": "/var/tmp/dokapon-font-prototype-vsbilnix/font_raster.go",
+    "sha256": "9a4edfe0c8a1ab77fbca706247c59565c77c7cda4580da47abe99fd20c8851fd",
+    "new_Go_functions": 1,
+    "new_C_functions": 0,
+    "new_types": 1,
+    "Go_bytes": 7038,
+    "Go_lines": 190,
+    "public_header_plus_private_version_shim_bytes": 6135,
+    "native_boundary": "Installed FreeType through pkg-config; runtime Linux libraqm.so.0 and pinned public header. Private blank raqm-version.h is not a matched-version header claim. No Python extension/runtime, installs or host font search.",
+    "behavior": "One owned FT face per label batch; optional RAQM shaper reused across labels. Original BASIC rounding/kerning quirk, unhinted RAQM shaping and hinted mask rendering, pen-inclusive outline bounds, two raster passes, default ascender bearing, signed pitch and overlapping gray alpha-over. Returned masks own Go storage; existing pixelOver/resizeRaster unchanged.",
+    "bounds": "Font4MiB,size1..256,batch4096labels,4096runesperlabel,1Maggregatecharacters,16384glyphsperlabel,maskaxis16384x4096/1Mpx,aggregate16Mpx; UTF8/layout/native failures refuse and cleanup.",
+    "existing_owner_analysis": "Serena inspected renderRuns/composeCells/manifestTextures and referencing callers before code. Native atlas/optical pipeline cannot safely own a contextual TTF shaper; no per-font/script handler or fontmode inserted into it."
+  },
+  "verification": {
+    "focused": "PASS0.311s final existing TestPilotHistoricalGoldenBytes owner in private copied source module",
+    "race": "PASS3.157s package,2.15s test; only focused prototype scope",
+    "cgocheck2": "PASS0.315s package",
+    "mask_vectors": "56 complete mask bytes,dimensions,bearings,26.6 advances individually and in4 role batches (28actual-role/28cross-engine)",
+    "full_RGB_images": 82,
+    "image_breakdown": {
+      "single_line_labels": 68,
+      "multiline_labels": 6,
+      "contact_pages": 8
+    },
+    "contact_limits": "Frozen literal row orders and thumbnail geometry. This verifies composition only; grouping/dedup/link generation, generic thumbnail orchestration and CLI/publication remain open.",
+    "refusals": 10,
+    "build": "PASS Go build with unchanged production sources and prototype; private output only",
+    "vet": "PASS",
+    "format_whitespace_credentials": "PASS gofmt/scopedwhitespace/two credential patterns with two positive selfchecks",
+    "production_unchanged": "All35 production source/module copies exactly match live accepted bytes",
+    "failed_attempts": "Initial private harness extra closing parenthesis corrected. First8page run omitted EVENT item from C group in frozen harness row list; corrected from original source (appears in bothC/D, link overwritten byD). Backend unchanged and final fullpages pass. All failure logs retained."
+  },
+  "review": {
+    "path": "evidence/asset-font-prototype-review.json",
+    "sha256": "07545f522e29b04323b2a73d07e020e6702c3d1fbe9d4b0f62a0e340b9c78020",
+    "result": "No concrete finite-scope finding; root verified report+12 private artifact pins",
+    "independent_extra_masks": 60,
+    "extra_scope": "Original Pillow controls/NUL/zero-width/mixedbidi/combining/notdef/space/size1,256; result independence and aggregate limits. Independently ran82images and cgocheck2/build/vet.",
+    "authority": "Findings only, no implementation or production/patch approval"
+  },
+  "snapshot": {
+    "manifest": "/var/tmp/dokapon-font-prototype-vsbilnix/sealed/manifest.json",
+    "sha256": "2bfdbfc5dcb3a304375867a0fd28ddd4c37cc5781feb7dac22c8acaa140149f6",
+    "members": 54,
+    "copies": "Contained read-only0400,nlink1; source identity before/after copying; all54 rehashed by root",
+    "accepted_runtime_snapshot_unchanged": "/var/tmp/dokapon-asset-comparison-o1junz4q/sealed-final/manifest.json"
+  },
+  "accounting": {
+    "live_runtime_delta_bytes": 0,
+    "live_tests_delta_bytes": 0,
+    "private_test_bytes": 12240,
+    "potential_implementation_and_header_bytes": 13173,
+    "potential_exact_two_font_bytes": 772396,
+    "other_costs": "Fonts/licenses/notices, native development/runtime dependency costs and future integration code must be counted if promoted. No production dependency decision, net reduction, capability credit or source retirement.",
+    "families": "5Full9Partial/14 unchanged",
+    "planning_milestones": "62/84 unchanged",
+    "historical_inventory": "8FullGo20reviewed16partial366outstanding/410 unchanged"
+  },
+  "limitations": [
+    "14fractional-start vectors unclaimed; actual callers use integer anchors",
+    "Only fixed outlinefont/default horizontal roles calibrated; no arbitrary bitmap/color/variable-font/fallback or universalUnicode/library-version portability claim",
+    "No integrated contacts, group/dedup/link/originalCSV behavior, crossarchive collection or flat90 RGBA style yet",
+    "PNG complete pixel parity only; no encoded Pillow PNG byte identity claim",
+    "No complete project suite/gameplay; integrated full-suite checkpoint remains deferred by owner",
+    "No ISO/canonical/emulator/PINE/controller/process/log/settings access/control; no historical mains"
+  ],
+  "next": [
+    "Choose production native build boundary and account dependencies/fonts/licenses explicitly; do not silently break existing CLI build or add unused production helper",
+    "Integrate reusable contact operation through existing manifest/collection and composition/scaling/publication owners, preserving full original groups/dedup/order/pages/links and crossarchive behavior",
+    "Extend existing comparison operation forflat90/gap4source-scaled/RGBA behavior; no separate per-script handler",
+    "Run focused integrated original vectors, refusals, source preservation/publication and independent review before any .06/fullfamily credit",
+    "Record selected production font technique in matching MIGRATION-TOOLS playbook at integration, preserve precode decision and source pins"
+  ],
+  "goal": "Active/incomplete;45% allowance remaining at latest read-only query;pause at10%;Astra next03:32:49.515413UTC;allownedjobs terminal"
+}

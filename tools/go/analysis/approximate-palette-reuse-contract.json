@@ -1,0 +1,2170 @@
+{
+  "at": "2026-10-20T16:11:28.085025+00:00",
+  "status": "READ-ONLY MATERIAL RESPONSIBILITY / PRECODE BEHAVIOR CONTRACT; no implementation or approval",
+  "scope": "Eight-minute bounded study beginning2026-10-20T16:04:28Z. Only analysis/approximate-palette-reuse-contract.json/.md written inrepository; allPNG/TXD/RGBA/trace/ledgerartifacts private. Pythonreferenceonly, noGooutputs, production/test/fixture/art/ISO/canonical writes, wholeISO reads, emulator/PINE/process/log/settings access orsubagents. Nice19.",
+  "coverage": {
+    "core": "3/14=21.43%",
+    "expanded": "3/17=17.65%",
+    "texture": "partial",
+    "new_credit": 0
+  },
+  "scratch": "/var/tmp/dokapon-approximate-palette-AVNduv",
+  "input_pins": {
+    "../cmb_tex_patch.py": {
+      "bytes": 27188,
+      "sha256": "5a9aa60826293f65108ee4424246fa0f373e1f6d97526f93f87da31e6040f849"
+    },
+    "../ps2_tex.py": {
+      "bytes": 19197,
+      "sha256": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733"
+    },
+    "texture.go": {
+      "bytes": 16500,
+      "sha256": "e2882c013be73731b4f238df13da8b89e8f9d7de0831bb53ecdc644cb1669a19"
+    },
+    "texture_authoring.go": {
+      "bytes": 5326,
+      "sha256": "486b0ea81f020e947e3a9533ab76964be931c96584c78ebf57076f2af8a36848"
+    },
+    "texture_types.go": {
+      "bytes": 852,
+      "sha256": "814ed3a0ce83f60d5d0339a6428255c48c9f3bcf41ab16737da17afa857841ec"
+    },
+    "analysis/texture-codec-remaining-contract.json": {
+      "bytes": 70045,
+      "sha256": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30"
+    },
+    "analysis/texture-small-indexed-contract.json": {
+      "bytes": 23821,
+      "sha256": "c0b2a75e58ee671b3c6a6e89d595cac9644ac1a4dfa148e8f560cc9663bdc464"
+    },
+    "testdata/exact-palette.zip": {
+      "bytes": 143639,
+      "sha256": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54"
+    }
+  },
+  "actual_caller_and_owners": {
+    "Python_real_caller": "cmb_tex_patch.py mainrepalette subparser499..503 -> dispatch525..526 -> cmd_repalette396..470 -> quantize_new_palette418. ExistinggenericwholeimageCLI, nothypotheticalformat. quantize_new_palette262..333 calls alpha_to_ps2244/ps2_to_a8249 and_nearest254. AST/rgsourcecallpins inspected; original410membershipc0b2a75e alreadyestablishesrealresponsibility.",
+    "Go_Serena": "Session935d6008 texture18..397; referencingfiles texture_authoring.go1 / patch_test.go35. ExistingauthorTexture profilevalidation/PNGreadInput -> samefifthrasterPolicy -> texture -> existingwriteNewFile. No productionhelperalreadyownscentroidgeneration.",
+    "existing_exact": "Currenttexture sharednormalizedimage/packedlexcolors/paletteIndices block plusCLUTwrite/pixelwalk owns exact; preserve nearest search usesdifferentmetric and4096candidatecache responsibility.",
+    "existing_fixture_reuse": {
+      "ZIP": "testdata/exact-palette.zip",
+      "sha256": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54",
+      "source_key": "vsm_015.txd",
+      "candidate_key": "goku/014_Goku.png",
+      "additional_real_fixture_bytes_required": 0
+    },
+    "real_source": {
+      "png": "../../generated/texture-previews/goku/png/014_Goku.png",
+      "bytes": 15902,
+      "sha256": "087d483594d6c9807a25224e076eb069259973eb2fa9df8b9d1c5ef60b4a47bb",
+      "shape": [
+        256,
+        128
+      ],
+      "unique_normalized_colors": 1513,
+      "method": "mediancut+kmeans",
+      "palette_sha256": "437630b79550d2e9f2c56677dc4003032e42ad0c1aa2324036cca8789335c903",
+      "linear_indices_sha256": "bd8812d381b660f84a061f6f9dbc003839e6866609cad583c9418ee053ca72e6",
+      "swizzled_pixel_sha256": "647ce1567224cd27964f049e83fb4d41b9cc3fdfbf614f12b118226311c3cb3a",
+      "decoded_RGBA_sha256": "4b870408ec7cf93c27a03040c5a32eaabe68ba9303b7f97587906f75f18662fe",
+      "normalized_pixel_exact": false,
+      "archive": "BATTLE",
+      "entry": "battle\\textures\\monster\\vsm_015.txd",
+      "texture": "Y:\\Graphic\\battle\\textures\\mons",
+      "source_member_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+      "source_member_bytes": 34212,
+      "source_CMB_offset": 875108058,
+      "allowed_byte_ranges": [
+        [
+          300,
+          33068
+        ],
+        [
+          33148,
+          34172
+        ]
+      ],
+      "changed_bytes": 33490,
+      "outside_changed_bytes": 0,
+      "edited_TXD_sha256": "116090852fc91d1c3ea5b42daaa8ebfbc4803972b88552da305a6c662cb57323"
+    },
+    "real_source_private_path": "/var/tmp/dokapon-approximate-palette-AVNduv/source.txd"
+  },
+  "canonical_math": [
+    "NormalizeauthoredstraightRGBA: rawA=min128,(A+1)//2 (integertiesup); displayedA=min255,2rawA; transparentRGBzero. LexicographicallysorteduniqueRGBA tuples andfrequencycounts. Exactmode<=256useslexpalette/inverseindices; donotweakenits>256refusal.",
+    "Quantizepolicy reusesexactbranchwhen<=256. Above256reserveonetransparententryifpresent; k255opaque/nonzeroalphacentroidswithtransparency,else256. RemovefullytransparentpixelsbeforeX/weights; retainlexuniqueorderandoriginalinverseindices.",
+    "Median-cutscore is maximumCHANNEL variance acrossUNIQUEcolors(ddof0,unweighted) multipliedbyboxTOTALPIXELFREQUENCY. ItisNOTfrequencyweightedvariance. Strictgreaterboxcomparisonpreservesearliestboxon ties. Channelisfirstargmaxunweightedvariance.",
+    "Stablechannel sort preservespriorboxorderforequalchannelvalues. CumulativePIXELweights; cut=leftsearchsorted(totalWeight/2)+1, clamp1..len(box)-1. Popselectedboxfromitsposition, appendleftthenrightattheEND. Paletteseedorderfollowsthisboxlist, notglobalRGBsort.",
+    "Initialcentroids andeachLloydupdate arefloat64 count-weightedmeans. Exactly8Lloydpasses: assignalluniqueX usingunweightedsquaredRGBAEuclideandistanceandfirstcentroidties, updateallnonemptymeans; emptycentroidsretainoldvalues. FinalassignmentiscomputedAGAINafter8updates, beforecentroidrounding.",
+    "FinalRGB usesPythonroundties-even, NOTnearesttiesup; alphaalsoPythonroundthenintegerPS2resnap. Assignmentsusestillunroundedcentroids, so roundedduplicatepaletteentriesmustnotcollapseortriggernearest-old re-quantization.",
+    "Approxpalettekeepscentroid/boxorder; appendtransparententrythenstabletransparentfirstremap; padunusedentrieszero. Sharedsortingbelongsnormalizedinputhistogram, NOTapproxoutputpalette. ExistingCSM1CLUT/indexencoding andexclusivepublisherstayunchanged."
+  ],
+  "cases": [
+    {
+      "name": "real_goku",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/real_goku.png",
+        "bytes": 16229,
+        "sha256": "e6d8839c74600feb2d9746b2d1c04d00c7f9820ab7238c3d4c1dafe39945de74"
+      },
+      "candidate_RGBA_sha256": "7fb9584d56688bfcc2bba32f709b98583c5cfc81c47287e1792ae5b78476012e",
+      "normalized_RGBA_sha256": "7fb9584d56688bfcc2bba32f709b98583c5cfc81c47287e1792ae5b78476012e",
+      "unique_normalized_colors": 1513,
+      "method": "mediancut+kmeans",
+      "explicit_exact_must_refuse": true,
+      "raw_CLUT_sha256": "437630b79550d2e9f2c56677dc4003032e42ad0c1aa2324036cca8789335c903",
+      "linear_indices_sha256": "bd8812d381b660f84a061f6f9dbc003839e6866609cad583c9418ee053ca72e6",
+      "swizzled_pixel_sha256": "647ce1567224cd27964f049e83fb4d41b9cc3fdfbf614f12b118226311c3cb3a",
+      "decoded_RGBA_sha256": "4b870408ec7cf93c27a03040c5a32eaabe68ba9303b7f97587906f75f18662fe",
+      "full_TXD_sha256": "116090852fc91d1c3ea5b42daaa8ebfbc4803972b88552da305a6c662cb57323",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/real_goku.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/real_goku.rgba",
+      "changed_bytes": 33490,
+      "changed_pixel_bytes": 32677,
+      "changed_CLUT_bytes": 813,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/real_goku-changes.bin",
+        "bytes": 200940,
+        "sha256": "d5a234cef59c1158c489ee63ea9691fc780745e7db192aedf848473a04dccc32",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "f2b1b74f53ddca47e5e8489c490ae156ee0b99d2ae84b17277bdc369f9babaff",
+      "first8_logical_palette": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          50,
+          50,
+          52,
+          255
+        ],
+        [
+          255,
+          255,
+          255,
+          255
+        ],
+        [
+          73,
+          71,
+          84,
+          255
+        ],
+        [
+          255,
+          223,
+          75,
+          255
+        ],
+        [
+          255,
+          238,
+          190,
+          255
+        ],
+        [
+          98,
+          96,
+          112,
+          255
+        ],
+        [
+          255,
+          255,
+          236,
+          255
+        ]
+      ],
+      "used_indices": 251,
+      "transparent_normalized_pixels": 9088,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/real_goku-trace.json",
+        "sha256": "06a4744b5c36953a1d1ee72ba1df9871da7384d634516f7e60a45facb4f16d37",
+        "summary": {
+          "splits": 254,
+          "first4_splits": [
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 1512,
+              "frequency": 23680.0,
+              "variance_float_hex": [
+                "0x1.0f8c30beeb6dcp+12",
+                "0x1.a23f3b248e9cep+11",
+                "0x1.889cc3374e17fp+11",
+                "0x1.85d65544d228ap-8"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.1b9b16d55e45ep+13",
+                "0x1.aba6b1205bac9p+12",
+                "0x1.59b97fe9faa8fp+12",
+                "0x1.9017c9209aeb3p-2"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 116,
+              "rawcut": 116,
+              "half_total": 11840.0,
+              "cumulative_at_cut": 11855.0,
+              "cumulative_before_cut": 11837.0,
+              "ordered_unique_ids_sha256": "9b909629837dc2ffe122c5a001755d7753c9487635a0416b64c7dc3964e2401d"
+            },
+            {
+              "box_position": 1,
+              "channel": 2,
+              "unique_colors": 1396,
+              "frequency": 11825.0,
+              "variance_float_hex": [
+                "0x1.9f9f847607360p+11",
+                "0x1.a32397e937744p+11",
+                "0x1.a68ac8e394ea9p+11",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.7727bfdb30230p+12",
+                "0x1.a700491abcad6p+12",
+                "0x1.c428ae0974c61p+12",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 2,
+              "cut": 973,
+              "rawcut": 973,
+              "half_total": 5912.5,
+              "cumulative_at_cut": 6009.0,
+              "cumulative_before_cut": 5564.0,
+              "ordered_unique_ids_sha256": "d637efd9e8256cc94c7895d6da693b7336c2ce3924890da68dceae7f92747049"
+            },
+            {
+              "box_position": 1,
+              "channel": 0,
+              "unique_colors": 973,
+              "frequency": 6009.0,
+              "variance_float_hex": [
+                "0x1.7da861ae56564p+11",
+                "0x1.5fabf5798a486p+10",
+                "0x1.e2b9ebf093c3fp+8",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.468d582f3cc37p+12",
+                "0x1.7b48157832b25p+11",
+                "0x1.8c9ea8c113469p+9",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 178,
+              "rawcut": 178,
+              "half_total": 3004.5,
+              "cumulative_at_cut": 3007.0,
+              "cumulative_before_cut": 3003.0,
+              "ordered_unique_ids_sha256": "9b079bc155323324e4ee0509741962644dba91ac6411be9badd812e095d9a5e5"
+            },
+            {
+              "box_position": 1,
+              "channel": 2,
+              "unique_colors": 423,
+              "frequency": 5816.0,
+              "variance_float_hex": [
+                "0x1.1139909e0596dp+11",
+                "0x1.0464d98305029p+11",
+                "0x1.4399ff8cfde60p+11",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.6958730bc343ap+11",
+                "0x1.8d1bf75c63cdcp+11",
+                "0x1.d422b8b345c3ap+11",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 2,
+              "cut": 315,
+              "rawcut": 315,
+              "half_total": 2908.0,
+              "cumulative_at_cut": 3092.0,
+              "cumulative_before_cut": 2393.0,
+              "ordered_unique_ids_sha256": "9189f775ba15aea5951060fada8951cb264fc67e54acb500f6efdf208a3dd98d"
+            }
+          ],
+          "strict_score_ties": 0,
+          "median_exact_half_hits": 32,
+          "median_clamps": 19,
+          "unique_vs_weighted_channel_differences": 31,
+          "iterations": [
+            {
+              "iteration": 1,
+              "centroids_before_sha256": "40454023d07b0156d4d034bd6efec5cd1522adcd596fce53c5d6ddf87b90819c",
+              "assignment_sha256": "6c818e941da4b31322cc9a523b5c751a7b2981945cb7add591fb872484813ead",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 2,
+              "centroids_before_sha256": "d8478d9c0dc98255364856895d7a21724942e0dbb2261fcf067f321b814d3f9f",
+              "assignment_sha256": "6c9a0cbc9874dcba5098f1981a36ee22103de264803014f23d337a2bb36da43f",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 3,
+              "centroids_before_sha256": "6a1cf75738f8a23024aa5ea94f07f33ab98343af5a1f887a7b2b51849dd55f50",
+              "assignment_sha256": "7cd8cf9d46ac6d0e063b392ca05fadcd229ca3fb2eaad9848e58b5dadf17d68f",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 4,
+              "centroids_before_sha256": "a89da9b8f2cfb5b4bc52f488ad2f112b9f784f20dde4411b3d634a115ab0aac9",
+              "assignment_sha256": "1306a81b1eb911bdc588ae6acba351a274cdb3402443677fc081271c6606d3c3",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 5,
+              "centroids_before_sha256": "0fc13af2209bf966e4caf697f15840df0782f6e4d2fda99f21b174ac4d2c36a4",
+              "assignment_sha256": "5014af2abd0eab6f1ba863f2c6fae770459790e8e90c097836258211ea743b20",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 6,
+              "centroids_before_sha256": "402fc2cf2cd90ab01b49ed1849fcb543967b93ad33a2d8ac6265910601f3db9c",
+              "assignment_sha256": "7237f5bc0c89bef2d919b7c4c090335578d169bcd7505036a0fe3b14794f2a55",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 7,
+              "centroids_before_sha256": "6a25f55b6d6416e360cfbc3c078f7d73aee0342e5f407b4184e90bee53c621cd",
+              "assignment_sha256": "821cc9e58780e18c667aa5943734cc4d0d0f5ea797f60f269a117f21686576f9",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            },
+            {
+              "iteration": 8,
+              "centroids_before_sha256": "a57f40f9b4b8c4f647a73828ed2fa250190149f5cc627a6895292c67f832f14e",
+              "assignment_sha256": "11e8333d99d251bc290580ac7da1c219a1322923152baf32c3801f1be4e182a3",
+              "empty_clusters": [
+                85,
+                198,
+                217,
+                243,
+                249
+              ]
+            }
+          ],
+          "final_centroids_sha256": "5e88c088f4139a0b3bc89d8bc42b9e1bcfe67d04ea3f2cd775ad76f4cca529ae",
+          "final_assignment_sha256": "903f8a3aeeab23224d40c8568d9274dcf922de66e1a570e33a07d752edf9a854",
+          "last_iteration_changes_centroids": true,
+          "empty_cluster_events": 40,
+          "final_empty_clusters": [
+            85,
+            198,
+            217,
+            243,
+            249
+          ],
+          "half_rounding_count": 24,
+          "half_rounding_first8": [
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.b100000000000p+7",
+              "python_round": 216
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.2500000000000p+7",
+              "python_round": 146
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.aa00000000000p+6",
+              "python_round": 106
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.9200000000000p+6",
+              "python_round": 100
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.7c00000000000p+5",
+              "python_round": 48
+            },
+            {
+              "channel": 2,
+              "value_float_hex": "0x1.4c00000000000p+5",
+              "python_round": 42
+            },
+            {
+              "channel": 2,
+              "value_float_hex": "0x1.b000000000000p+3",
+              "python_round": 14
+            },
+            {
+              "channel": 2,
+              "value_float_hex": "0x1.0200000000000p+6",
+              "python_round": 64
+            }
+          ]
+        }
+      },
+      "all_preexisting72544c15_oracles_match": true
+    },
+    {
+      "name": "unique_variance_frequency",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/unique_variance_frequency.png",
+        "bytes": 485,
+        "sha256": "ef04bd9eaf1f46e2132fefd56777ed51e4137cd2611c4385479cdc59bc4d59c9"
+      },
+      "candidate_RGBA_sha256": "a8699ae5b37880a1bf926bd65e5b5c5aa6a047c2b82994b92bfeacbceb56b9c9",
+      "normalized_RGBA_sha256": "a8699ae5b37880a1bf926bd65e5b5c5aa6a047c2b82994b92bfeacbceb56b9c9",
+      "unique_normalized_colors": 257,
+      "method": "mediancut+kmeans",
+      "explicit_exact_must_refuse": true,
+      "raw_CLUT_sha256": "8d241e074cbbaae02b620d78cbd6f2eebffe98392163d8d2147c7cc84dc3b30a",
+      "linear_indices_sha256": "687939f0b5a4b0d4377e8efcdd66d6eac942ec8da98ffebba53d4597a95200f7",
+      "swizzled_pixel_sha256": "733d082b3c84ca75d669eda58824d8eb86e6cf1230ea7dcd64aa0b93e37c5d39",
+      "decoded_RGBA_sha256": "1737f442e714ab2c912ac9474539618be4f74aec41b4f05ae307aa5195865546",
+      "full_TXD_sha256": "66b321767c534c5e33ed31bb3b796bb587973c20504044cc3c7d315ad100260a",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/unique_variance_frequency.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/unique_variance_frequency.rgba",
+      "changed_bytes": 33387,
+      "changed_pixel_bytes": 32640,
+      "changed_CLUT_bytes": 747,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/unique_variance_frequency-changes.bin",
+        "bytes": 200322,
+        "sha256": "8747e7ce3c7e6c54fced95c7e03a075c40e6003e954953a2da83cf17e018a6ba",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "0cbd3b74e8f0169d9d202f79e5a0eacaa7d03d0edba3ab86cfc0d8bd384f553b",
+      "first8_logical_palette": [
+        [
+          0,
+          255,
+          0,
+          255
+        ],
+        [
+          68,
+          0,
+          0,
+          255
+        ],
+        [
+          99,
+          0,
+          0,
+          255
+        ],
+        [
+          2,
+          0,
+          0,
+          255
+        ],
+        [
+          5,
+          0,
+          0,
+          255
+        ],
+        [
+          130,
+          0,
+          0,
+          255
+        ],
+        [
+          193,
+          0,
+          0,
+          255
+        ],
+        [
+          224,
+          0,
+          0,
+          255
+        ]
+      ],
+      "used_indices": 256,
+      "transparent_normalized_pixels": 0,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/unique_variance_frequency-trace.json",
+        "sha256": "c38d73c86eec91a0f0e3cdfbb6d51994e49710aefa8ef975b9adb2b2a94d1695",
+        "summary": {
+          "splits": 255,
+          "first4_splits": [
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 257,
+              "frequency": 32768.0,
+              "variance_float_hex": [
+                "0x1.57f01fd03fb06p+12",
+                "0x1.f80fe81fd837ap+7",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.aa9437dc00000p+12",
+                "0x1.fbba8fb800000p+13",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 1,
+              "cut": 7,
+              "rawcut": 7,
+              "half_total": 16384.0,
+              "cumulative_at_cut": 16396.0,
+              "cumulative_before_cut": 16330.0,
+              "ordered_unique_ids_sha256": "05b4f1100dddcd0cc66fbee1e81c95d80cdecc7237babc1fd6a6e143f251ad75"
+            },
+            {
+              "box_position": 0,
+              "channel": 1,
+              "unique_colors": 7,
+              "frequency": 16396.0,
+              "variance_float_hex": [
+                "0x1.a1f58d0fac687p+1",
+                "0x1.f1a3eb1a1f58dp+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.bdf386ffd052dp-3",
+                "0x1.7f24579edd586p+10",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 1,
+              "cut": 6,
+              "rawcut": 7,
+              "half_total": 8198.0,
+              "cumulative_at_cut": 396.0,
+              "cumulative_before_cut": 330.0,
+              "ordered_unique_ids_sha256": "470150ea8148aa9ef46e8c2657273263a4f4b443efdda2667a2fea5a21673063"
+            },
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 250,
+              "frequency": 16372.0,
+              "variance_float_hex": [
+                "0x1.4584000000000p+12",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.458f9f3f4f246p+12",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 125,
+              "rawcut": 125,
+              "half_total": 8186.0,
+              "cumulative_at_cut": 8247.0,
+              "cumulative_before_cut": 8182.0,
+              "ordered_unique_ids_sha256": "24bb5c3f3567c515eeeb51d5e0236b289ce3e92b672e1c6acd69554960097371"
+            },
+            {
+              "box_position": 2,
+              "channel": 0,
+              "unique_colors": 125,
+              "frequency": 8247.0,
+              "variance_float_hex": [
+                "0x1.4580000000000p+10",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.4547a2c129767p+10",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 63,
+              "rawcut": 63,
+              "half_total": 4123.5,
+              "cumulative_at_cut": 4158.0,
+              "cumulative_before_cut": 4092.0,
+              "ordered_unique_ids_sha256": "ea38a165838f3803858796f5c755f51de8f19caaea9332f6ded4ecc3c7432e8e"
+            }
+          ],
+          "strict_score_ties": 5142,
+          "median_exact_half_hits": 221,
+          "median_clamps": 1,
+          "unique_vs_weighted_channel_differences": 1,
+          "iterations": [
+            {
+              "iteration": 1,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 2,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 3,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 4,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 5,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 6,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 7,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 8,
+              "centroids_before_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+              "assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+              "empty_clusters": []
+            }
+          ],
+          "final_centroids_sha256": "e2c233e49609f31ff47f51f52cb2be646c822bce2802a2fe2af25d3094aadafc",
+          "final_assignment_sha256": "80fd4ed65988789472d1d8f69c2015208049bb061ae04f43f9935ee11465d4e8",
+          "last_iteration_changes_centroids": false,
+          "empty_cluster_events": 0,
+          "final_empty_clusters": [],
+          "half_rounding_count": 1,
+          "half_rounding_first8": [
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.fb00000000000p+7",
+              "python_round": 254
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "stable_channel_box_ties",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/stable_channel_box_ties.png",
+        "bytes": 1441,
+        "sha256": "0b52097c1c3a254eea3045b12822fd04c96a1f6edbe8e5e2e30868f8411b9f69"
+      },
+      "candidate_RGBA_sha256": "0124ab186555747244e8a4b2c0f55d371fd950ee346dbb98063758d0f716dea5",
+      "normalized_RGBA_sha256": "0124ab186555747244e8a4b2c0f55d371fd950ee346dbb98063758d0f716dea5",
+      "unique_normalized_colors": 289,
+      "method": "mediancut+kmeans",
+      "explicit_exact_must_refuse": true,
+      "raw_CLUT_sha256": "9eddbf12f9a72e1ad280f4e09a200b1bf2aaffa947507311c06a951ac1b437f5",
+      "linear_indices_sha256": "b73623c775c0fc48b7b9d130ceaf03606827e5c01d7472892d97b84053ba483c",
+      "swizzled_pixel_sha256": "cfbbf979d4ee0a5fa24fe96136eebf8433eaca14d070efa88a263b177ca270b7",
+      "decoded_RGBA_sha256": "ea9822f78389954a5e0cc5aa632fd81050891a82a4a01ca55e738772bed5dde1",
+      "full_TXD_sha256": "177fc0632ec596bcbeac080ae3763037ba9ac20dffff278d38455374f0ebc909",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/stable_channel_box_ties.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/stable_channel_box_ties.rgba",
+      "changed_bytes": 33412,
+      "changed_pixel_bytes": 32628,
+      "changed_CLUT_bytes": 784,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/stable_channel_box_ties-changes.bin",
+        "bytes": 200472,
+        "sha256": "02ef7f1d2cb09d232570718986914c691aba44d9ac552ec1511ac1744a3cfe34",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "30c654ae31d300d6b6f9ab6163a7831511de5c1e1cc6c8c2e9f8c7d6b71d5198",
+      "first8_logical_palette": [
+        [
+          30,
+          15,
+          0,
+          255
+        ],
+        [
+          15,
+          45,
+          0,
+          255
+        ],
+        [
+          30,
+          30,
+          0,
+          255
+        ],
+        [
+          30,
+          150,
+          0,
+          255
+        ],
+        [
+          15,
+          180,
+          0,
+          255
+        ],
+        [
+          165,
+          112,
+          0,
+          255
+        ],
+        [
+          180,
+          112,
+          0,
+          255
+        ],
+        [
+          225,
+          172,
+          0,
+          255
+        ]
+      ],
+      "used_indices": 256,
+      "transparent_normalized_pixels": 0,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/stable_channel_box_ties-trace.json",
+        "sha256": "36d0e282525d6e80055835e94dd65a711fbde6dc96990e39be9cedc6552b7872",
+        "summary": {
+          "splits": 255,
+          "first4_splits": [
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 289,
+              "frequency": 32768.0,
+              "variance_float_hex": [
+                "0x1.5180000000000p+12",
+                "0x1.5180000000000p+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.51d1d2a2a5c21p+12",
+                "0x1.517ead633bfdep+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 145,
+              "rawcut": 145,
+              "half_total": 16384.0,
+              "cumulative_at_cut": 16496.0,
+              "cumulative_before_cut": 16383.0,
+              "ordered_unique_ids_sha256": "000512a8cde285bd9ab923714bf3d5ae11d554dcbf7f45890333b90165b8eabe"
+            },
+            {
+              "box_position": 0,
+              "channel": 1,
+              "unique_colors": 145,
+              "frequency": 16496.0,
+              "variance_float_hex": [
+                "0x1.574b7db78d8b0p+10",
+                "0x1.4f782965f94d9p+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.56b7a76e88604p+10",
+                "0x1.4f76a1c7b590cp+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 1,
+              "cut": 73,
+              "rawcut": 73,
+              "half_total": 8248.0,
+              "cumulative_at_cut": 8306.0,
+              "cumulative_before_cut": 8192.0,
+              "ordered_unique_ids_sha256": "469eab596a77afcb2f7845e7199d2880264896fcf6fe00aa34b615c7e71b1414"
+            },
+            {
+              "box_position": 0,
+              "channel": 1,
+              "unique_colors": 144,
+              "frequency": 16272.0,
+              "variance_float_hex": [
+                "0x1.52ac000000000p+10",
+                "0x1.51cb000000000p+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.52ac000000000p+10",
+                "0x1.51cb000000000p+12",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 1,
+              "cut": 72,
+              "rawcut": 72,
+              "half_total": 8136.0,
+              "cumulative_at_cut": 8136.0,
+              "cumulative_before_cut": 8023.0,
+              "ordered_unique_ids_sha256": "c46858d68245f530979301bc339d355d817fcd05ad51c26472e423c311d3e5f1"
+            },
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 73,
+              "frequency": 8306.0,
+              "variance_float_hex": [
+                "0x1.7e05dc5ae3cd1p+10",
+                "0x1.32a82f4539686p+10",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.7d5c1d7ae24ecp+10",
+                "0x1.32adac6583c10p+10",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 37,
+              "rawcut": 37,
+              "half_total": 4153.0,
+              "cumulative_at_cut": 4218.0,
+              "cumulative_before_cut": 4104.0,
+              "ordered_unique_ids_sha256": "324bdecfb20bef5c7109614b9f808ab97a9125dd4bd84c9603ddf6c9985ab980"
+            }
+          ],
+          "strict_score_ties": 4497,
+          "median_exact_half_hits": 144,
+          "median_clamps": 0,
+          "unique_vs_weighted_channel_differences": 1,
+          "iterations": [
+            {
+              "iteration": 1,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 2,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 3,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 4,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 5,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 6,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 7,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 8,
+              "centroids_before_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+              "assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+              "empty_clusters": []
+            }
+          ],
+          "final_centroids_sha256": "255a7073a4a0bb3895f9db4548fb069e75a66356fe2ce35b53fc0dffa9ca1aeb",
+          "final_assignment_sha256": "748401b2b89094ae52bc92cd67726e04884fa19c4b40974c3ceea219458ef19e",
+          "last_iteration_changes_centroids": false,
+          "empty_cluster_events": 0,
+          "final_empty_clusters": [],
+          "half_rounding_count": 37,
+          "half_rounding_first8": [
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.c200000000000p+6",
+              "python_round": 112
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.c200000000000p+6",
+              "python_round": 112
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.5900000000000p+7",
+              "python_round": 172
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.5900000000000p+7",
+              "python_round": 172
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.e000000000000p+2",
+              "python_round": 8
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.e000000000000p+2",
+              "python_round": 8
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.3b00000000000p+7",
+              "python_round": 158
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.3b00000000000p+7",
+              "python_round": 158
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "rounding_257_boundary",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/rounding_257_boundary.png",
+        "bytes": 875,
+        "sha256": "f07d6e5fa386ecacf12f2a5ec74b215f48a6584d47ab3102900eecd79f5e6f39"
+      },
+      "candidate_RGBA_sha256": "62a8b34c3aa2329a963231179a402db5634e326e4ae70e3cbb02a97c11c336c3",
+      "normalized_RGBA_sha256": "62a8b34c3aa2329a963231179a402db5634e326e4ae70e3cbb02a97c11c336c3",
+      "unique_normalized_colors": 257,
+      "method": "mediancut+kmeans",
+      "explicit_exact_must_refuse": true,
+      "raw_CLUT_sha256": "5cf10bdf366e0c3b2c0043f5909bce4e99be51a2d4cfaed97ca8454391a9d7ea",
+      "linear_indices_sha256": "938a233810ca5a6023e935f2149c225a24f5389d1a7b416d18489839842b9508",
+      "swizzled_pixel_sha256": "c3e050e529bbbd85c68c19f1e2f5e5d685536e22ad2079d76d3f2ea1fe47f037",
+      "decoded_RGBA_sha256": "e1d6f76eda4b12baa24206f14cfabab54fb8505e48ccc8b4b816ebaad0c1b668",
+      "full_TXD_sha256": "e39a386328562895fcf4dcc2808ebe5cc93ccda8c694f2f8b8641a6155b764a4",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/rounding_257_boundary.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/rounding_257_boundary.rgba",
+      "changed_bytes": 33425,
+      "changed_pixel_bytes": 32678,
+      "changed_CLUT_bytes": 747,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/rounding_257_boundary-changes.bin",
+        "bytes": 200550,
+        "sha256": "522ebc3945b3aac7fef66cbbcc59324a54b54280e88b39570c9d9f98ed175957",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "b0d593e8f5552f64e3082b9e594db7e76831f5e6543c793e624bd7c49284b759",
+      "first8_logical_palette": [
+        [
+          254,
+          0,
+          0,
+          255
+        ],
+        [
+          1,
+          0,
+          0,
+          255
+        ],
+        [
+          2,
+          0,
+          0,
+          255
+        ],
+        [
+          3,
+          0,
+          0,
+          255
+        ],
+        [
+          4,
+          0,
+          0,
+          255
+        ],
+        [
+          5,
+          0,
+          0,
+          255
+        ],
+        [
+          6,
+          0,
+          0,
+          255
+        ],
+        [
+          7,
+          0,
+          0,
+          255
+        ]
+      ],
+      "used_indices": 256,
+      "transparent_normalized_pixels": 0,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/rounding_257_boundary-trace.json",
+        "sha256": "2cbf768b9d39c73cee4ede228d35074b31b4134d51b933d5f25aec0a1b05dde1",
+        "summary": {
+          "splits": 255,
+          "first4_splits": [
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 257,
+              "frequency": 32768.0,
+              "variance_float_hex": [
+                "0x1.57f01fd03fb06p+12",
+                "0x1.fc05f809f409ep-9",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.57e5e3dc00000p+12",
+                "0x1.fa07f80000000p-9",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 129,
+              "rawcut": 129,
+              "half_total": 16384.0,
+              "cumulative_at_cut": 16511.0,
+              "cumulative_before_cut": 16383.0,
+              "ordered_unique_ids_sha256": "05b4f1100dddcd0cc66fbee1e81c95d80cdecc7237babc1fd6a6e143f251ad75"
+            },
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 129,
+              "frequency": 16511.0,
+              "variance_float_hex": [
+                "0x1.5a6ba7b296da4p+10",
+                "0x1.f817c09e83792p-8",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.5a61a30ad4ee1p+10",
+                "0x1.f43713b1b5bd3p-8",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 65,
+              "rawcut": 65,
+              "half_total": 8255.5,
+              "cumulative_at_cut": 8319.0,
+              "cumulative_before_cut": 8191.0,
+              "ordered_unique_ids_sha256": "d0f29e3c65cc44e8a60df9ccef3dc96c10ee5da1b0783d0a6daa8b540be4ea16"
+            },
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 128,
+              "frequency": 16257.0,
+              "variance_float_hex": [
+                "0x1.5550000000000p+10",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.555a7f95ae057p+10",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 64,
+              "rawcut": 64,
+              "half_total": 8128.5,
+              "cumulative_at_cut": 8129.0,
+              "cumulative_before_cut": 8002.0,
+              "ordered_unique_ids_sha256": "b443fc93b0717fabd959a6cd0e5f9fcefcdc67ca8ba8b9f3f74a58718a9b5d52"
+            },
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 65,
+              "frequency": 8319.0,
+              "variance_float_hex": [
+                "0x1.5f07d0fb17920p+8",
+                "0x1.f05e09d0dc118p-7",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.5ef5034b2a401p+8",
+                "0x1.ec9b9dbdd1f70p-7",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 33,
+              "rawcut": 33,
+              "half_total": 4159.5,
+              "cumulative_at_cut": 4223.0,
+              "cumulative_before_cut": 4095.0,
+              "ordered_unique_ids_sha256": "fee16ec542015efdeec7654ea06333eb655815da008a8a349efad6d02e86ed35"
+            }
+          ],
+          "strict_score_ties": 5157,
+          "median_exact_half_hits": 239,
+          "median_clamps": 0,
+          "unique_vs_weighted_channel_differences": 0,
+          "iterations": [
+            {
+              "iteration": 1,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 2,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 3,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 4,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 5,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 6,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 7,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 8,
+              "centroids_before_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+              "assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+              "empty_clusters": []
+            }
+          ],
+          "final_centroids_sha256": "b7d8de9b3116eac83f64c0499f417d067546bfc9b6cc99720a65e21c0421aee0",
+          "final_assignment_sha256": "ed9a017e8e83ec8cd18a294ec62caa58b319994e93ff9f95040896c4c7b05a7c",
+          "last_iteration_changes_centroids": false,
+          "empty_cluster_events": 0,
+          "final_empty_clusters": [],
+          "half_rounding_count": 1,
+          "half_rounding_first8": [
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.fd00000000000p+7",
+              "python_round": 254
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "transparent_odd_alpha",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/transparent_odd_alpha.png",
+        "bytes": 1086,
+        "sha256": "5eeb12e3b405a638fa5402c37212da638eebd0b4c9f81bf2c6dc041d3514a23f"
+      },
+      "candidate_RGBA_sha256": "57040796a809713c0b871bb7bf22b70253d603feac4e90baefdf9dccfc2a1775",
+      "normalized_RGBA_sha256": "9b120797487aec41db3106d948d1dfc73ddd9661bef7198cb8cbacfdb5260ffa",
+      "unique_normalized_colors": 514,
+      "method": "mediancut+kmeans",
+      "explicit_exact_must_refuse": true,
+      "raw_CLUT_sha256": "5219cf82dc52e345ea03863fadf76a5904af9026dae3efe3b4ad984e9d508d7a",
+      "linear_indices_sha256": "f6687113f9f0352d28344e719750e92659cb7aa493f05ea8d6c78fcfe71c506e",
+      "swizzled_pixel_sha256": "76353274e67f4770cd21711f27d0b63683996334ad09449e9e20ef582c1c6fd1",
+      "decoded_RGBA_sha256": "339821c741ad6a44d166d498bb6316757a504917c76b7483949fb151c63c75c4",
+      "full_TXD_sha256": "94d5a57ae121a9962031338387cdfb0924faaeb92ffb1e84fcefbe51a20877d7",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/transparent_odd_alpha.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/transparent_odd_alpha.rgba",
+      "changed_bytes": 33645,
+      "changed_pixel_bytes": 32657,
+      "changed_CLUT_bytes": 988,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/transparent_odd_alpha-changes.bin",
+        "bytes": 201870,
+        "sha256": "deaea19478ab358001a80f4bfd12a9f023d786cd64af1a65ffa02b39fbba09d4",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "6d812f282b8cd3b6951ca49b8ceb0ed22e11e74f46e056a22c798bb6fd4c4c70",
+      "first8_logical_palette": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          92,
+          1,
+          31,
+          128
+        ],
+        [
+          94,
+          1,
+          31,
+          128
+        ],
+        [
+          71,
+          43,
+          29,
+          255
+        ],
+        [
+          120,
+          1,
+          31,
+          128
+        ],
+        [
+          124,
+          1,
+          31,
+          128
+        ],
+        [
+          128,
+          1,
+          31,
+          128
+        ],
+        [
+          130,
+          1,
+          31,
+          128
+        ]
+      ],
+      "used_indices": 256,
+      "transparent_normalized_pixels": 126,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/transparent_odd_alpha-trace.json",
+        "sha256": "24990f4e84a8d07b96d737b02c31781da894b93e4db4f83b24c3e9abd59122ab",
+        "summary": {
+          "splits": 254,
+          "first4_splits": [
+            {
+              "box_position": 0,
+              "channel": 0,
+              "unique_colors": 513,
+              "frequency": 32642.0,
+              "variance_float_hex": [
+                "0x1.550d09b30a88bp+12",
+                "0x1.e1bdc9c6c6c5dp+1",
+                "0x1.fe017f009f94cp-8",
+                "0x1.f7efe221e597dp+11"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.558aabed825fdp+12",
+                "0x1.dd5c013b76233p+1",
+                "0x1.f8f80f0dc502cp-8",
+                "0x1.f7e070a71c590p+11"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 256,
+              "rawcut": 256,
+              "half_total": 16321.0,
+              "cumulative_at_cut": 16323.0,
+              "cumulative_before_cut": 16259.0,
+              "ordered_unique_ids_sha256": "3bec2bc0662b1bd967d88930ba4aa1d565be7a1e994c87c4c7dfaa4c5e62d082"
+            },
+            {
+              "box_position": 0,
+              "channel": 3,
+              "unique_colors": 256,
+              "frequency": 16323.0,
+              "variance_float_hex": [
+                "0x1.516af00000000p+10",
+                "0x1.d1c7000000000p+2",
+                "0x1.fe00000000000p-7",
+                "0x1.ffc87fe000000p+11"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.516264d2563d0p+10",
+                "0x1.cc7689677e153p+2",
+                "0x1.f7ee5485ac275p-7",
+                "0x1.ff9e514eb3490p+11"
+              ],
+              "weighted_alternative_channel": 3,
+              "cut": 128,
+              "rawcut": 128,
+              "half_total": 8161.5,
+              "cumulative_at_cut": 8192.0,
+              "cumulative_before_cut": 8128.0,
+              "ordered_unique_ids_sha256": "6c0b9eda633591d20e119ffcbed9da4b9ff62964f5d297026a66b679da9b0907"
+            },
+            {
+              "box_position": 0,
+              "channel": 3,
+              "unique_colors": 257,
+              "frequency": 16319.0,
+              "variance_float_hex": [
+                "0x1.5803fffc07f47p+10",
+                "0x1.fffe03fa07f55p-3",
+                "0x0.0p+0",
+                "0x1.f01e13ba7756ep+11"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.57fe9a80c6547p+10",
+                "0x1.fffdeba8d4098p-3",
+                "0x0.0p+0",
+                "0x1.f01dfc2a47f4ep+11"
+              ],
+              "weighted_alternative_channel": 3,
+              "cut": 128,
+              "rawcut": 128,
+              "half_total": 8159.5,
+              "cumulative_at_cut": 8192.0,
+              "cumulative_before_cut": 8128.0,
+              "ordered_unique_ids_sha256": "08b127fb1767273db70bf95e496c999d5518ed6b3fe6ddae2cf4df6de5782ed9"
+            },
+            {
+              "box_position": 3,
+              "channel": 0,
+              "unique_colors": 129,
+              "frequency": 8127.0,
+              "variance_float_hex": [
+                "0x1.5aaaaaaaaaaabp+10",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.5aaaaaaaaaaabp+10",
+                "0x0.0p+0",
+                "0x0.0p+0",
+                "0x0.0p+0"
+              ],
+              "weighted_alternative_channel": 0,
+              "cut": 65,
+              "rawcut": 65,
+              "half_total": 4063.5,
+              "cumulative_at_cut": 4095.0,
+              "cumulative_before_cut": 4032.0,
+              "ordered_unique_ids_sha256": "162768df169fe36b29af88fbb613b25f07bc1de3c5629e6e4d12da276f117a93"
+            }
+          ],
+          "strict_score_ties": 5550,
+          "median_exact_half_hits": 239,
+          "median_clamps": 0,
+          "unique_vs_weighted_channel_differences": 0,
+          "iterations": [
+            {
+              "iteration": 1,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 2,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 3,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 4,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 5,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 6,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 7,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            },
+            {
+              "iteration": 8,
+              "centroids_before_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+              "assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+              "empty_clusters": []
+            }
+          ],
+          "final_centroids_sha256": "409cce450ab18c5e59802c88293b65cfbf2f3f54736145f28ee486d29be855ee",
+          "final_assignment_sha256": "65036580c5059f600eb3271108c1472d1a8d259d4c7f7e338d9dfdcc0af4bd1f",
+          "last_iteration_changes_centroids": false,
+          "empty_cluster_events": 0,
+          "final_empty_clusters": [],
+          "half_rounding_count": 251,
+          "half_rounding_first8": [
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.7200000000000p+6",
+              "python_round": 92
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.e200000000000p+6",
+              "python_round": 120
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.f200000000000p+6",
+              "python_round": 124
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.0500000000000p+7",
+              "python_round": 130
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.0000000000000p-1",
+              "python_round": 0
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.4000000000000p+1",
+              "python_round": 2
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.2000000000000p+2",
+              "python_round": 4
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.a000000000000p+2",
+              "python_round": 6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "lloyd_eight_iterations",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/lloyd_eight_iterations.png",
+        "bytes": 5593,
+        "sha256": "1d3e8ca0f261fc400498e9986f17d8f11a8a4f7805747e344c15f9af3c8b61ff"
+      },
+      "candidate_RGBA_sha256": "d8df37dab888c87b28261871b3885c9fcd7cbc43d8a59dfba39be7e66a9d6919",
+      "normalized_RGBA_sha256": "dd0d6b4682b33a12d898299cb837c90d692e4bc793148b3e9c1560ba3c58c6b0",
+      "unique_normalized_colors": 769,
+      "method": "mediancut+kmeans",
+      "explicit_exact_must_refuse": true,
+      "raw_CLUT_sha256": "da188c8a7de9644a34c26fdc2b0b2ef5e56f40906d1899742e685e027b028575",
+      "linear_indices_sha256": "41ee55aef8f54d4906787bc5d8d7ec4e0158d6ba61a8169d9fb06769a7794ba5",
+      "swizzled_pixel_sha256": "f268822a4e05c26cbb99aa63ff359e55e05b27c563c1aea094e8ecc3f709f952",
+      "decoded_RGBA_sha256": "b3a9140aca7fa8eaa42840145425f7edf9cf94ddece717d273692860b3955958",
+      "full_TXD_sha256": "e8182051e9731a23ec030baa08d7f3778c05de6d8e8a48554b86f9a6fe2a1376",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/lloyd_eight_iterations.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/lloyd_eight_iterations.rgba",
+      "changed_bytes": 33609,
+      "changed_pixel_bytes": 32647,
+      "changed_CLUT_bytes": 962,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/lloyd_eight_iterations-changes.bin",
+        "bytes": 201654,
+        "sha256": "3b14cff21c421dc4f37242c21486535898df45c299f7febdc6e295e0c7ee9755",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "56f89d99e7685b8974e8d875a10f87faabfc6ba32ef830b229ee85a2b2522a6b",
+      "first8_logical_palette": [
+        [
+          110,
+          46,
+          199,
+          255
+        ],
+        [
+          163,
+          75,
+          220,
+          255
+        ],
+        [
+          140,
+          209,
+          122,
+          128
+        ],
+        [
+          164,
+          61,
+          29,
+          255
+        ],
+        [
+          126,
+          176,
+          41,
+          255
+        ],
+        [
+          124,
+          16,
+          119,
+          128
+        ],
+        [
+          242,
+          132,
+          138,
+          2
+        ],
+        [
+          138,
+          181,
+          196,
+          128
+        ]
+      ],
+      "used_indices": 255,
+      "transparent_normalized_pixels": 0,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/lloyd_eight_iterations-trace.json",
+        "sha256": "cacae5dbca1791b0cd64c061eb466ccd24e4c0d49f9f92b80694bdbb77185898",
+        "summary": {
+          "splits": 255,
+          "first4_splits": [
+            {
+              "box_position": 0,
+              "channel": 3,
+              "unique_colors": 769,
+              "frequency": 32768.0,
+              "variance_float_hex": [
+                "0x1.480bc0857530bp+12",
+                "0x1.48cdc55e7237cp+12",
+                "0x1.497aaeef85c11p+12",
+                "0x1.4d989d30ea5fbp+13"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.4807005c17009p+12",
+                "0x1.48d7c672f1c27p+12",
+                "0x1.495243aa87bf1p+12",
+                "0x1.4d9682032780ep+13"
+              ],
+              "weighted_alternative_channel": 3,
+              "cut": 385,
+              "rawcut": 385,
+              "half_total": 16384.0,
+              "cumulative_at_cut": 16403.0,
+              "cumulative_before_cut": 16360.0,
+              "ordered_unique_ids_sha256": "8e87d8874a2a553e0e26eb30e71762a18d95b62b64b06603a57e3486071bb4fc"
+            },
+            {
+              "box_position": 0,
+              "channel": 2,
+              "unique_colors": 385,
+              "frequency": 16403.0,
+              "variance_float_hex": [
+                "0x1.3e24288f2f0f9p+12",
+                "0x1.3d8b88eef64d7p+12",
+                "0x1.554298f9fcea6p+12",
+                "0x1.b86d0040fe91ep+11"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.3e2e6bcc236b1p+12",
+                "0x1.3d85ab36d987bp+12",
+                "0x1.5536f87909dc1p+12",
+                "0x1.b85dcb601ab3dp+11"
+              ],
+              "weighted_alternative_channel": 2,
+              "cut": 193,
+              "rawcut": 193,
+              "half_total": 8201.5,
+              "cumulative_at_cut": 8223.0,
+              "cumulative_before_cut": 8180.0,
+              "ordered_unique_ids_sha256": "6db8f4a5f36e79e48ddadc72332e0ae051daac776a092aa2e01b76d87c032d95"
+            },
+            {
+              "box_position": 0,
+              "channel": 1,
+              "unique_colors": 384,
+              "frequency": 16365.0,
+              "variance_float_hex": [
+                "0x1.22d638e38e37ep+12",
+                "0x1.541781f8e38d9p+12",
+                "0x1.3a8c538e38e33p+12",
+                "0x1.c0071c71c716fp+11"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.22b1fcc0f6bbbp+12",
+                "0x1.54309479e84bep+12",
+                "0x1.3a4ddb4b13f00p+12",
+                "0x1.c01c210bdc616p+11"
+              ],
+              "weighted_alternative_channel": 1,
+              "cut": 192,
+              "rawcut": 192,
+              "half_total": 8182.5,
+              "cumulative_at_cut": 8187.0,
+              "cumulative_before_cut": 8144.0,
+              "ordered_unique_ids_sha256": "f745c83327cbf8bae2338930a4aca004db95782d3cb3594ae7b0a234997dc97b"
+            },
+            {
+              "box_position": 2,
+              "channel": 2,
+              "unique_colors": 192,
+              "frequency": 8187.0,
+              "variance_float_hex": [
+                "0x1.195ed1aaaaaabp+12",
+                "0x1.44f5e38e38e39p+10",
+                "0x1.5040538e38e40p+12",
+                "0x1.b126e00000000p+11"
+              ],
+              "weighted_variance_alternative_float_hex": [
+                "0x1.19778d8bb8754p+12",
+                "0x1.446b2cbc5d05bp+10",
+                "0x1.4fc6f44acbe8dp+12",
+                "0x1.b11c87d7b1161p+11"
+              ],
+              "weighted_alternative_channel": 2,
+              "cut": 96,
+              "rawcut": 96,
+              "half_total": 4093.5,
+              "cumulative_at_cut": 4096.0,
+              "cumulative_before_cut": 4053.0,
+              "ordered_unique_ids_sha256": "6176cbe99e573f1d037f430951054e5fd66e4113a9b152449784b43de5ab452e"
+            }
+          ],
+          "strict_score_ties": 9,
+          "median_exact_half_hits": 42,
+          "median_clamps": 4,
+          "unique_vs_weighted_channel_differences": 0,
+          "iterations": [
+            {
+              "iteration": 1,
+              "centroids_before_sha256": "7fafbbd40dc57d48a9012be4e9873b2a49a2a26c955d0374e72c56e799f1af82",
+              "assignment_sha256": "d3c406cbd4d6b2c8c8e36d04070538b3150af052b82c7ce6f24623cf533d5f84",
+              "empty_clusters": [
+                149,
+                157
+              ]
+            },
+            {
+              "iteration": 2,
+              "centroids_before_sha256": "e4515a8a80424bedd2ce7864f76f2abaec6016e298a5797ed10ed8af92d0f508",
+              "assignment_sha256": "ffbabc15b0c70eb5382fb8195c7f9b1f95a5810786cb7d1d435e35b3c7f5f1ab",
+              "empty_clusters": [
+                149
+              ]
+            },
+            {
+              "iteration": 3,
+              "centroids_before_sha256": "3834033d39b39e2ca23638c46d1076a8da592b7928e362190be382c23ba455ae",
+              "assignment_sha256": "f5ee9a62a350e16055224d86b26d2822aedbcaff1098cf435794d8317ac339be",
+              "empty_clusters": [
+                149
+              ]
+            },
+            {
+              "iteration": 4,
+              "centroids_before_sha256": "786c8fc04d0f2d6cc8fc5c74d7b571f2545da6e43b7da2d99c3d8e4ac39f4c7a",
+              "assignment_sha256": "225f34bc117d8d582a427a6689a07c0bd17b2670eaf98e70c172d8db603f1ba0",
+              "empty_clusters": [
+                149
+              ]
+            },
+            {
+              "iteration": 5,
+              "centroids_before_sha256": "47fcc480344984270336b6b41020af6dd06c898ee5d97932c4fe65c9da54bee2",
+              "assignment_sha256": "a636253fa32a0856d4f4f15bec2ed8a5c46a31246577375c3e02a69051f5bd8a",
+              "empty_clusters": [
+                149
+              ]
+            },
+            {
+              "iteration": 6,
+              "centroids_before_sha256": "f2d8187f94220e3a9e768778d6f88f045c0c5f99f4035506fec33ad520320bdb",
+              "assignment_sha256": "a636253fa32a0856d4f4f15bec2ed8a5c46a31246577375c3e02a69051f5bd8a",
+              "empty_clusters": [
+                149
+              ]
+            },
+            {
+              "iteration": 7,
+              "centroids_before_sha256": "f2d8187f94220e3a9e768778d6f88f045c0c5f99f4035506fec33ad520320bdb",
+              "assignment_sha256": "a636253fa32a0856d4f4f15bec2ed8a5c46a31246577375c3e02a69051f5bd8a",
+              "empty_clusters": [
+                149
+              ]
+            },
+            {
+              "iteration": 8,
+              "centroids_before_sha256": "f2d8187f94220e3a9e768778d6f88f045c0c5f99f4035506fec33ad520320bdb",
+              "assignment_sha256": "a636253fa32a0856d4f4f15bec2ed8a5c46a31246577375c3e02a69051f5bd8a",
+              "empty_clusters": [
+                149
+              ]
+            }
+          ],
+          "final_centroids_sha256": "f2d8187f94220e3a9e768778d6f88f045c0c5f99f4035506fec33ad520320bdb",
+          "final_assignment_sha256": "a636253fa32a0856d4f4f15bec2ed8a5c46a31246577375c3e02a69051f5bd8a",
+          "last_iteration_changes_centroids": false,
+          "empty_cluster_events": 9,
+          "final_empty_clusters": [
+            149
+          ],
+          "half_rounding_count": 53,
+          "half_rounding_first8": [
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.c300000000000p+7",
+              "python_round": 226
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.7900000000000p+7",
+              "python_round": 188
+            },
+            {
+              "channel": 2,
+              "value_float_hex": "0x1.d800000000000p+4",
+              "python_round": 30
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.4800000000000p+4",
+              "python_round": 20
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.3800000000000p+4",
+              "python_round": 20
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.2900000000000p+7",
+              "python_round": 148
+            },
+            {
+              "channel": 0,
+              "value_float_hex": "0x1.c500000000000p+7",
+              "python_round": 226
+            },
+            {
+              "channel": 1,
+              "value_float_hex": "0x1.6d00000000000p+7",
+              "python_round": 182
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "exact_256_boundary",
+      "PNG": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/exact_256_boundary.png",
+        "bytes": 471,
+        "sha256": "c142f83107e8f6a81cb7b84c17abdae0c9b362262512e34867caed7a14575c12"
+      },
+      "candidate_RGBA_sha256": "33368dabc5822fb2b14ff7e2cac31e5eb291ee2735489ba649e798c619ee3f99",
+      "normalized_RGBA_sha256": "33368dabc5822fb2b14ff7e2cac31e5eb291ee2735489ba649e798c619ee3f99",
+      "unique_normalized_colors": 256,
+      "method": "exact",
+      "explicit_exact_must_refuse": false,
+      "raw_CLUT_sha256": "539daf4d77795947b88c08d8602f2d07394305231fe0a27ff7cdbd514123134d",
+      "linear_indices_sha256": "e11360251d1173650cdcd20f111d8f1ca2e412f572e8b36a4dc067121c1799b8",
+      "swizzled_pixel_sha256": "7df02ca880273aeaac3bf4c06cb52104103e19b5a5397bbcc2bad9b112e1b52a",
+      "decoded_RGBA_sha256": "33368dabc5822fb2b14ff7e2cac31e5eb291ee2735489ba649e798c619ee3f99",
+      "full_TXD_sha256": "f902187c838d426f47d85b52a21ad9238588fcd75567c51ac6848de5c7f520c7",
+      "full_TXD_path": "/var/tmp/dokapon-approximate-palette-AVNduv/exact_256_boundary.txd",
+      "decoded_RGBA_path": "/var/tmp/dokapon-approximate-palette-AVNduv/exact_256_boundary.rgba",
+      "changed_bytes": 33480,
+      "changed_pixel_bytes": 32641,
+      "changed_CLUT_bytes": 839,
+      "outside_changed_bytes": 0,
+      "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/exact_256_boundary-changes.bin",
+        "bytes": 200880,
+        "sha256": "57515af33dff1b2f66ffc525c701b1be7061dcd05db15dd4e20300929464e366",
+        "format": "sorted<IBB offset,old,new"
+      },
+      "logical_palette_u8_sha256": "0005314cddea63233378751b420d4684a212e7c2702b9a0a35c373b437e90398",
+      "first8_logical_palette": [
+        [
+          0,
+          255,
+          17,
+          255
+        ],
+        [
+          1,
+          254,
+          17,
+          255
+        ],
+        [
+          2,
+          253,
+          17,
+          255
+        ],
+        [
+          3,
+          252,
+          17,
+          255
+        ],
+        [
+          4,
+          251,
+          17,
+          255
+        ],
+        [
+          5,
+          250,
+          17,
+          255
+        ],
+        [
+          6,
+          249,
+          17,
+          255
+        ],
+        [
+          7,
+          248,
+          17,
+          255
+        ]
+      ],
+      "used_indices": 256,
+      "transparent_normalized_pixels": 0,
+      "trace": {
+        "path": "/var/tmp/dokapon-approximate-palette-AVNduv/exact_256_boundary-trace.json",
+        "sha256": "4dcc9357d79a9382fb0824a5a34214bb3f988ee50c54209dd36f75229b4ff30c",
+        "summary": {
+          "splits": 0,
+          "first4_splits": [],
+          "strict_score_ties": 0,
+          "median_exact_half_hits": 0,
+          "median_clamps": 0,
+          "unique_vs_weighted_channel_differences": 0,
+          "iterations": [],
+          "final_centroids_sha256": null,
+          "final_assignment_sha256": null,
+          "last_iteration_changes_centroids": false,
+          "empty_cluster_events": 0,
+          "final_empty_clusters": [],
+          "half_rounding_count": 0,
+          "half_rounding_first8": []
+        }
+      }
+    }
+  ],
+  "micro_oracles": {
+    "nearest_first_tie": {
+      "X": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          2.0,
+          0.0,
+          0.0,
+          255.0
+        ]
+      ],
+      "centroids": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          2.0,
+          0.0,
+          0.0,
+          255.0
+        ]
+      ],
+      "expected_assignment": [
+        0,
+        2
+      ],
+      "chunk1_equals2048": true
+    },
+    "empty_centroid_canonical8loop": {
+      "input_centroids": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          2.0,
+          0.0,
+          0.0,
+          255.0
+        ]
+      ],
+      "output_centroids": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          255.0
+        ],
+        [
+          2.0,
+          0.0,
+          0.0,
+          255.0
+        ]
+      ],
+      "empty_index": 1,
+      "unchanged": true,
+      "qualification": "ControlledcanonicalLloydASTmicrostate, notclaimthisduplicatecentroidinitializationisreachablefrommedian-cutPNG."
+    },
+    "round_ties_even_canonical_palette_loop": {
+      "centroids": [
+        [
+          0.5,
+          1.5,
+          2.5,
+          63.5
+        ],
+        [
+          254.5,
+          253.5,
+          252.5,
+          64.5
+        ]
+      ],
+      "expected_palette": [
+        [
+          0,
+          2,
+          2,
+          64
+        ],
+        [
+          254,
+          254,
+          252,
+          64
+        ]
+      ],
+      "qualification": "CanonicalfinalpaletteASTnode; RGBroundties-even andalpha roundbeforePS2resnap."
+    },
+    "alpha_helpers_all256": {
+      "raw_alpha_u8_sha256": "f1eae48d9d72e6f488f522ca3a0480780c9e435a545d243ab1500d0be2ebd340",
+      "display_alpha_u8_sha256": "ad8e59689895f882494fa38935a11e35979c71496090343c1cfc0ccc9bc09bd9"
+    }
+  },
+  "material_eight_pass_negative_witness": {
+    "qualification": "PrivatecanonicalAST withonlyrange8 changedtorange7; negativewitness, notcanonicaloutput",
+    "raw_CLUT_sha256": "68ea2f04d22e3823501844f454d78a1e92eef72e37301ae96c2743c153eea2fd",
+    "linear_indices_sha256": "dc6435bca0624994589e8811c8e9a257ebb7c5853e67ff7025735ea867846bcb",
+    "decoded_RGBA_sha256": "0e282aa355f48f1ca1eaa30c81085efc8080ad6e23e108645b791bdb13075532",
+    "differs_from8pass_CLUT": true,
+    "differs_from8pass_indices": true,
+    "differs_from8pass_RGBA": true
+  },
+  "case_design": {
+    "real_goku": "1513normalizedcolors,9088transparentpixels; allfrozen72544c15wholeTXD/CLUT/pixel/index/RGBA/changedbytes pins rechecked. Actual8passes include40empty-cluster EVENTS (not40distinctclusters) and24half-roundingchannels. Eighthupdate changescentroids andfinalCLUT/indices/RGBA.",
+    "unique_variance_frequency": "257normalizedcolors; firstsplitcanonicalunweighteduniquevariancechoosesR, weightedvariancealternativechoosesG; weightedmediancut7 ratherthanuniquecountmedian. Repeatedmedianhalf/clamps/scoretiescaptured.",
+    "stable_channel_box_ties": "289normalized17x17grid; equalchannelvariances/selectedfirstchannel,stableties/boxorder;4497equal-scorecomparisons and37half-roundingchannels in canonicaltrace. Countsareobservedcomparison/events, notuniquebranchcoveragepercentages.",
+    "rounding_257_boundary": "257colors exercisesminimumoverfullpalette andhalf-rounding; compareexact_256_boundary autoexactcase. AllcandidatePNGs256x128,so257uniqueiseasilyrepresentable.",
+    "transparent_odd_alpha": "514normalizedcolors,126transparentpixels,authoredA0/A1/A127/A255; hiddenRGBnormalization andreserved255centroidbudget;stabletransparentfirstremap and251half-roundingchannels.",
+    "lloyd_eight_iterations": "769deterministicseedcolors/alpha1,127,255;9emptyclusterevents. Thiscaseconvergesbefore8thupdate; therealGoku caseisactual8thpasswitness.",
+    "exact_256_boundary": "256colors muststaymethodexact underautoquantize; explicitexactexistingbehaviorunchanged."
+  },
+  "floating_and_resource_contract": {
+    "concrete_crosslanguage_gap": "NoGoalgorithmexistsorwascompared. NumPyfloat64means/variance/reductionorder can differfromnaiveGoaccumulation andbranchon near-ties. Eachcasefreezesfullartifactbytes plusprivatecanonicaltraces:everymedianorder/cut/variancefloathex, eachpasscentroid/assignmentdigest, emptyindices andhalf-rounding. Real/syntheticpassesarefixtures, notproofofallfloatinputs. Matchtheseandtargetedtieinputs beforeclaimingparity.",
+    "rounding": "Go math.RoundToEven iscandidateforPythonround(nonnegativefinitefloat64);verifyagainstfrozenmicroandactualroundingtraces. math.Roundiswrong. Alpha normalizationstillintegernearesttiesup.",
+    "memory": "Python_nearestchunks2048 toboundtemporarydistancearray. Go canstreamnearestcentroids peruniqueinputcolor withsamefirsttieorder ratherthanallocateU*256distances; thisisboundedmemoryoptimization, notchangedmetric/subsample/dither/iterationcount. ExistingboundedPNG/rasterlimitsstay. Do notsilentlyapplypreserve4096candidate-cacheceilingtonewuniquehistogram.",
+    "versions": {
+      "NumPy": "2.4.6",
+      "Pillow": "12.3.0"
+    }
+  },
+  "proposed_external_policy": {
+    "value": "quantize",
+    "justification": "Explicitpermissiontogeneratewholepalettewithapproximationwhenneeded mirrorsactualgenericcmd_repalette/quantize_new_palette1513colorcaller. <=256takesidenticalexactbranch; >256takescanonicalmedian-cut+8Lloyd. Thisisonefinitepolicyvalue inexistingpalette_policy/fifthrasterPolicy, notthreshold/iterations/dither/distanceframework.",
+    "guards": "Keep palette_policy exactstrict>256refusal. QuantizerequireswholePNG,zerorectangles,depth8,standardv2andcurrentlycalibratedmetadata/storage, sameasexact. Pixel_policyrgba conflictstays;unknownvaluesrefuse. Noheaderlessforceoverride, resize, 4bitrepalette ornewnativegeometry inferred.",
+    "outside_scope": "Legacycmd_repaletteISOsharing/clutownership/sourcepixel+CLUTpins/shippingguard/resthash/readback andoptionalpremultipliedresize/force-nohdr remainseparaterealcertainresponsibilities, notretiredbyastandalonequantizer."
+  },
+  "readable_reuse_design": {
+    "shared_flow": "Convergeexactandquantize normalization/histogramcounts/lexsorteduniqueinputonce. Exactfailsasnowat257; quantizecontinuescountsandselectsexact<=256orcentroidbranch>256. Produceone256logicalpaletteand normalizedinputcolor->logicalbyteindexmapping. Existingtexture pixelwalkconsumesthatmapping, includingapproxassignmentsbeforecentroidrounding;CSM1CLUTwriter/masks/clone/publisher remainsoleowners.",
+    "existing_owner_alternatives": [
+      {
+        "candidate": "texture existingpalette-generationblock",
+        "assessment": "Closestbehaviorownerandfirstreusecandidate. Current397linesalreadycoverdictionaryvalidation,PS2metadata/multiplelayouts,packetguards,masks,palette/directwalk,preserve-distanceandpublicationbytes. AddingallGo median-cut/weightedmeans/8-passassignment/rounding inline islikely~150-220readablelines, entanglingtwo distinctquantizerdistancecontractswithnativecodec. A500+line multi-responsibilityfunctionmerelytokeeps21countisnotrecommended. Estimateisplanning, notmeasuredimplementation."
+      },
+      {
+        "candidate": "authorTexture",
+        "assessment": "I/O/profilepins/PNGdecode/exclusivepublicationworkflow. Movingcentroidmathherewouldmakecodecbehaviorvarybyentrypointandduplicate normalizationbetweenworkflowanddirecttexturetests/callers; notappropriateowner."
+      },
+      {
+        "candidate": "existingpreserve nearestpalette block",
+        "assessment": "Cannotowngeneration: fixedsourcepalette,alphaweightedRGB+3alpha\u00b2andoriginalindex/duplicatepreservation differfromLloydunweightedRGBA,unroundedcentroids/countweights. Reusingitsdistanceorcacheguardwouldchangelegacyoutputs."
+      }
+    ],
+    "recommended_boundary": "Ifreadableinlineimplementationcannotstaycohesive, justifyONEpurepalette-generationfunctionthatABSORBSexistingexactnormalization/sorting/bookkeepingandownstheapproxbranch too; texturekeepsPS2validation/layout/map/CLUT/write. Thisisonecohesiveresponsibilityextraction, notparallelapproxhelperplusduplicatedexactpipeline. Noextra nearest/variance/normalization helperfamily, config/typeframeworkorfunctioncounttarget.",
+    "possible_plain_contract": "Inputimage+finiteexact-vsquantizepolicy; returnnormalizedNRGBA,logical256palette,normalizedcolor->logicalindexmap,error usingexistingstdlibtypes. Existingfifthpolicyargument/caller/schemafield remain; no newoptionsstruct/6tharg required. Specificsignature/linecostmustbeevaluatedbyimplementationowner beforeaddingit.",
+    "cost_accounting": "Onepureownerwouldadd1productionnamedfunction andonecall; movetheexisting~40-50lineexactblock ratherthanduplicatingit. Addedhistogram/counts/boxes/centroidstateandGoimportsplusprofileallowlist/comment/testfixturecostmustallbecounted. Behaviorcapabilitygrowthisnotasavings/retirementclaim.",
+    "decision_authority": "Studydoesnotdeclareanewfunctionunconditionallyunavoidableorapproveimplementation. Parentmustassessactualreadability/minimaldiff, existingownerreasonableenhancementfirst;explanationaboveisrequirediftheonecohesiveextractionisneeded."
+  },
+  "verification": {
+    "real_preexisting_oracles_all_match": true,
+    "canonical_cases": 7,
+    "all_source_pins_unchanged": true,
+    "private_trace_provenance": "sys.settraceobservesactualquantize_new_palette locals; noreplacementalgorithmusedforcanonicalcaseoutputs. ControlledmicrocasescompilecanonicalASTnodes307and315;seven-passcaseisclearlymarkedcounterfactual.",
+    "script_sha256": "3db9f640bff5360bc61897b55acc45435bc51b8296a3fe06e3bfc412e200df7d",
+    "facts_sha256": "b8523f69fdde3fd6323cdb8610d4617e7fbd903aa920025f9c6ae32f47dc48ad",
+    "checks": "AllPNG/TXD/CLUT/index/RGBA/source/changedledger/outsidebytes/roundtrips/mathassertions passed. ReportsJSON/scopedwhitespace/credentialscan/gitdiff--checkchecked. NoGo test/build/vet because no code/test edits."
+  },
+  "limits": "NoGoimplementation/crosslanguageparity/nativeblend/visual/ISOownership/apply/legacycallerretirement/familycoverageapproval. Previousreportsimmutable. Thisisexactlyknownapproximatecallerfrontier, notneededarbitrary4bitgeometryorbelow16cropwork."
+}

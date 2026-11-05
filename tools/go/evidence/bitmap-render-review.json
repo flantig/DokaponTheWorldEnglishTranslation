@@ -1,0 +1,186 @@
+{
+  "at": "2026-10-20T17:18:54.624898+00:00",
+  "status": "PASS within finite bitmap prototype scope; no open material findings",
+  "scope": "Independent read-only implementation review. Only this JSON/MD and owned private scratch written. No source/test/fixture/art/ISO/emulator changes.",
+  "candidate": {
+    "frozen_at": "2026-10-20T17:13:10.444605+00:00",
+    "source_data_pins": 35,
+    "pins_unchanged": true,
+    "pins_artifact": "/var/tmp/dokapon-bitmap-render-review-rpv1461q/source-pins.json",
+    "pins_sha256": "9704252d4d7ec7da2d2a00e712e893b537701d8e2f1fae7e75b6d75b82ad382f",
+    "baseline": "/var/tmp/dokapon-fullpage-tbw2-sealed-x0iwndqs",
+    "important_pins": {
+      "raster.go": "26322386d65c23f3158a2b3373706c7a8d9c2d075095b3cd86ef8ed4dc5e5431",
+      "raster_types.go": "2d76143b31bddb21a31baf0d3b9b7405a8df727352281b6e40fa92e846f1b797",
+      "texture_authoring.go": "867bc6fa20db1a885d761a2389b0524d39332c4b7fda3ddb796ef89a8a39de31",
+      "texture_types.go": "3da7c804553ba941140db990889ea963cacb70aacc5213ab7e1539438aec04aa",
+      "patch_test.go": "77e0441f71ed5a669d2db18776155eb1139ac86700222d830f9d52addc205815"
+    },
+    "unchanged_from_baseline": [
+      "texture.go",
+      "texture_palette.go",
+      "main.go",
+      "inputs.go",
+      "outputs.go",
+      "go.mod"
+    ]
+  },
+  "findings": [],
+  "resolved_during_review": [
+    {
+      "issue": "Go []uint8 colors serialize as base64 strings instead of authored numeric arrays.",
+      "resolution": "Current BitmapCell Fill/Shade use []int, validate all channels0..255, then explicitly convert to uint8. Numeric JSON assertion and four added production-test refusals pass; independent32 direct API channel cutsets and CLI base64/range refusals pass.",
+      "lines": [
+        "raster_types.go:23",
+        "raster.go:63",
+        "raster.go:66",
+        "raster.go:114"
+      ],
+      "superseded_receipts": "Private pre-revision pins/race85.585s/checks do not validate this revised candidate."
+    }
+  ],
+  "ownership_and_reuse": {
+    "serena_session": "d7f95853",
+    "production_caller": "authorTexture at texture_authoring.go:141; other references are existing TestCLIDryRunAndApply.",
+    "new_function": "ONE composeCells at raster.go:17. Spatial glyph composition is a separate responsibility from texture native storage/index/mask, generatePalette numerical quantization, and glyphMaps/previewFit encoded text measurement. Inlining it into authorTexture would mix drawing loops with I/O. No reasonable existing owner absorbs this responsibility.",
+    "control": "Validation precedes drawing; bounded glyphs/cells/images, layout pass followed by drawing pass; clones input; returns cell rectangles for existing containment. Whole-cell Src and opaque ink copies preserve transparent-white RGB. No per-cell handler, dependency, writer, CLI or test function added.",
+    "data": "Shared font descriptor/atlas, inline optional Render recipe, stable historical cell IDs and declarative colors/text/geometry. Existing PNG loader shared; same texture importer and exclusive publisher used.",
+    "code_references": [
+      "raster.go:18",
+      "raster.go:33",
+      "raster.go:62",
+      "raster.go:103",
+      "raster.go:146",
+      "texture_authoring.go:44",
+      "texture_authoring.go:71",
+      "texture_authoring.go:132",
+      "texture_authoring.go:146",
+      "texture_types.go:16"
+    ]
+  },
+  "independent_reference": {
+    "source_original_not_approved": true,
+    "canonical_Python_cells_rawcandidate_wholeTXD_match": true,
+    "source_sha256": "47a4503368955cf77065e2e25784e600a08863ad8ffa99a050ae350457749874",
+    "approved_sha256": "6164eddb823f2d27cef1ea2b63e3940d7be0936db8d4713ee6c80a8943c521b3",
+    "raw_RGBA_sha256": "c4b239ea67bf0b21f1d97b2e9c999d66cb70ae55acb9507310e30de3f68569d8",
+    "CLUT_sha256": "ee9fac4f9106e59e08a8da388a6d75eac77bf7fc8d05d2194729bd8d2aab78b1",
+    "pixels_sha256": "bb5f7963795ca48a33d7afeb0346eae8af490630538505a38a9633c0ebd6649f",
+    "ledger_sha256": "1932ed70b3e40cdbb221ef0dff583da2d3302a2e215541e7ffde4acca300331f",
+    "changed_bytes": 2361,
+    "allowed_pixels": 2922,
+    "outside_changes": 0,
+    "font_glyphs_allmatch_canonical": 11,
+    "allold44base35palette_and14ZIPentries_unchanged": true,
+    "one_original_sourceZIPentry_added": true,
+    "per_cell_details": "All five cell RGBA hashes, ink counts and bounding boxes independently match; details in hashed private reference.json."
+  },
+  "verification": {
+    "race": {
+      "result": "PASS",
+      "package_seconds": 87.289,
+      "command": "nice -n19 env GOMAXPROCS=2 TMPDIR=<owned>/revised/tmp GOTMPDIR=<owned>/revised/tmp go test -race -count=1 -p2 -overlay=<private CURRENT testfile overlay> ./...",
+      "corpus": "227 accepted; fullRGBA, byte-identical noop, independent one-pixel exact artifact and source preservation all true. Current canonical golden/CLI tests, exact/approximate palettes, PSMT4/8/direct policies also ran in this full suite."
+    },
+    "required_checks": "Independent vet/build/gofmt/scoped git whitespace PASS; manual trailing-whitespace scan of all29 pinned text paths PASS; POSIX API/password/AKIA/private-key and token/secret credential scans no matches with synthetic pattern selfchecks2+4.",
+    "CLI": {
+      "actual_original_to_approved": true,
+      "preview_apply_readback_deterministic_reapply_exact": true,
+      "output_sha256": "6164eddb823f2d27cef1ea2b63e3940d7be0936db8d4713ee6c80a8943c521b3",
+      "RGBA_sha256": "c4b239ea67bf0b21f1d97b2e9c999d66cb70ae55acb9507310e30de3f68569d8",
+      "CLUT_unchanged": true,
+      "changed_bytes": 2361,
+      "ledger_sha256": "1932ed70b3e40cdbb221ef0dff583da2d3302a2e215541e7ffde4acca300331f",
+      "source_font_profile_atlas_identity_stats_preserved": true,
+      "publisher_cutsets": 8,
+      "invalid_input_cutsets": 40,
+      "details": "Hashed private cli.py/.json contain vectors; range/serialization, identities, font geometry/format, policy conflicts, bounded counts, missing glyphs, overlaps and malformed JSON all refuse in preview and apply."
+    },
+    "direct_API": "Private CURRENT-testfile overlay PASS3.497s: translated base/atlas origins preserve identical pixels and translate returned cell masks; base/atlas unchanged; all32 invalid fill/shade channels reject nil outputs. Raw Go candidate bytes equal independent original Python candidate.",
+    "mutation": "Private draw.Over replacement fails existing rawRGBA oracle (patch_test.go:3890, bitmap RGBA differs); demonstrates transparent hidden RGB is checked independently of final native TXD.",
+    "fixture_preservation": "Independent baseline comparison: all44 prior base cases,35 palette cases and14 old exact-palette ZIP entry contents unchanged; one original source member added. Native codec/parser/quantizer unchanged.",
+    "final_pins": {
+      "pins_unchanged": 35,
+      "corpus_accepted": 227,
+      "corpus_all_four_invariants": true,
+      "manual_whitespace_all_pinned_text_paths": 29,
+      "token_scan": {
+        "pattern": "(access[_-]?token|auth[_-]?token|token|secret)[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}",
+        "selfcheck_matches": 4,
+        "scan_exit": 1,
+        "matches": 0
+      },
+      "candidate_raw_matches_canonical": true
+    }
+  },
+  "raster_family_assessment": {
+    "recommendation": "Unsupported -> Partial",
+    "denominator": "Same14 core families; this increment earns no Full-family credit. Authoritative coverage ledger not edited by reviewer.",
+    "baseline_contract": "One styled glyph/run/layer path and one mask/containment path, with TTF, game bitmap and hand-designed alphabets as font sources.",
+    "positive_crosswalk": [
+      {
+        "responsibility": "Generate actual raster from font masks and text.",
+        "evidence": "composeCells raster.go:33,84,117; shared11-glyph binary atlas matches original Python glyphs; all5 approved cells match fullRGBA, bounding boxes and ink counts."
+      },
+      {
+        "responsibility": "Reusable layout/style and containment.",
+        "evidence": "raster.go:96 center/fit,121 two-row shade,137 one-pixel eight-neighbor outline,154 whole-cell Src; authorTexture:141/146 derives masks from cells and reuses bounded native importer. Independent2361 changed bytes all within2922 approved pixels; CLUT/header/rest unchanged."
+      },
+      {
+        "responsibility": "Data separate from execution and shared publication.",
+        "evidence": "fonts/hud-labels.json/.png plus profiles/textures/hud-labels.json; existing authorTexture PNG loading, identity checks and output writer. Actual original47a source -> approved6164 artifact with preservation/refusal/readback evidence."
+      }
+    ],
+    "remaining_material_gaps": [
+      "Native game-font antialiasing, optical metrics/apostrophe and LANCZOS behavior; TTF hinting/kerning/raster parity.",
+      "Styled runs/layers, scale and anchors beyond the finite centered binary-word style.",
+      "Arbitrary masks/erosions, protected regions and paper/contour/radial donor reconstruction retain distinct original responsibilities.",
+      "Secondary weekday preview caller was studied but not reproduced; five cells do not establish coverage of all original rendering callers."
+    ],
+    "baseline_references": [
+      "analysis/reusability-coverage-baseline.json:219",
+      "analysis/pattern-crawl-assets_runtime_tests.json:80",
+      "analysis/raster-rendering-prototype-contract.json:639",
+      "analysis/raster-rendering-prototype-contract.json:660"
+    ]
+  },
+  "limits": [
+    "Finite binary 8-bit grayscale atlas, opaque fill/shade, one-pixel black outline, two shaded rows, centered nonoverlapping whole cells. No antialiased/TTF/native-font equivalence claimed.",
+    "No renderer-family Full, historical-script retirement, new visual/artwork approval, savings, ISO placement or emulator/runtime approval. No inference that all original rendering callers were tested."
+  ],
+  "references": {
+    "analysis/raster-rendering-prototype-contract.json": "4f0a6b89fbbd8f882ebb85f65d9bcc9a4794c4c938903e235522b0b6d4d0826b",
+    "analysis/bitmap-render-reuse-decision.json": "1e100d57c03a15dcd00ea706bea0d185fc5048e163aa569bfe3cf3c8ba14fcd6",
+    "analysis/reusability-coverage-baseline.json": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+    "analysis/pattern-crawl-assets_runtime_tests.json": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+    "../make_weekday_labels_png.py": "1b4cdd363a159d6154e5d3f1b4a39b92bba8736c410975a276406b7f1ca8d716"
+  },
+  "private_artifacts": {
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/source-pins.json": "9704252d4d7ec7da2d2a00e712e893b537701d8e2f1fae7e75b6d75b82ad382f",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/race.log": "cee64ccdbc5095ff1f4dde420a4c6cd13ec7cbc6694848e9d3bb673822607570",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/checks.json": "9d8667a1122dc498b0085e4033c02bf9029cab886bd5e0cd6cb4db098fc35962",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/seal-checks.json": "2ee53e0608bedb009a2b7b657f2c82443f4df55b53e9f6dd8bfae202c3b14f89",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/overlay.json": "fe44ab0da2d02dbaf235ef7be1377e742a6efcc1ee26cfea6ad3558fee1d644c",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/patch_test.go": "34778003e42164a484e7ff75b3a759778c34fc4e78f5f5b1924c6ebd9bfdb851",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/corpus-results.json": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/reference.py": "b575863b32e12bbd7cca22bf24fb380015bc8362751acb4e7a492c76dfa1f664",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/reference.json": "16ab219d6949035fe416970088248ffdb3a24ab2949e041b6ded5c9c9edb20e5",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/cli.py": "602dc2ea4862a8c6f555f0d27c5bf78464bfc68789fa84e684c8c00db50eb36f",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/cli.json": "94b2f3816efafe73c903501fb3f6d37b6437379e3c278c5f660bf042d25d78b1",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/shifted-test.go": "e74ccd04382ea55bc8a419364ee7d23ae7adec509b0cea9ca54074bb4657cb93",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/shifted-overlay.json": "31919dadd90e1ed2b8387a2f09ac100ae9434a42268a039ea5efdbef26404b03",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/shifted.log": "07d1dbb14ed9dd62be14364f7622a9ac5cced01cbe8136acfae05621bec7b672",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/Over-mutant.go": "0a3f6e92255a0b4c2921637d662b38322637d1810221ea32ce5e3b145120c562",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/Over-overlay.json": "3fc4482c650dd8d2902a7fbbd36c143e8150cde67e97c19a6d03bb56c4d5eaad",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/Over-mutant.log": "f3ace05b044d8e751a56aba1a57bfaa1a853ccf5f30a1102b9fa17b9bd00da00",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/canonical-candidate.rgba": "c4b239ea67bf0b21f1d97b2e9c999d66cb70ae55acb9507310e30de3f68569d8",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/Go-candidate.rgba": "c4b239ea67bf0b21f1d97b2e9c999d66cb70ae55acb9507310e30de3f68569d8",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/actual.txd": "6164eddb823f2d27cef1ea2b63e3940d7be0936db8d4713ee6c80a8943c521b3",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/readback.png": "094cb1b39b664f93981aedf2b8d373dfbc24ba577b280910192b12e81da41d60",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/dokapon-go": "da92b4c14a3f7f3a6bdee3e11b75d425acadc17cd9582bd35e40e86acb91c496",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/pre-revision.json": "d74a82fdf7795ca1d204a4e62f958da4f19f2831be24ba4074b7cc6d8a70bcc2",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/source-pins-pre-revision.json": "344751f00d3c29686c73573cce7619826fff5b25a604b6dc8c21e53086193ae5",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/race-pre-revision.log": "1ba8668d23121719ff9de4b66304387bc122a4eefbbf1095dee5f15d496c74fc",
+    "/var/tmp/dokapon-bitmap-render-review-rpv1461q/checks-pre-revision.json": "2a2fea4791677a21c7cab27130de0f17118223fe321306cc77e3f303a7bbfbce"
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "schema": "ordinary-read-only-review-v1",
+  "scope": "GP-relative observed-reference increment; reviewer findings, not approval",
+  "outcome": "No open material finding; one LOW report caveat defect reproduced and closed after root fix",
+  "candidate": {
+    "path": "/var/tmp/dokapon-gp-reader-wnw7d8ab/review-source-final",
+    "manifest_sha256": "b4f0a745a6063b128ad137166a7edd140e89f6bf8bcbd3d42287ecb05ba748ed",
+    "members": 584,
+    "all_sizes_hashes_containment_singlelink_verified": true,
+    "pins_held_after_checks": true,
+    "initial_manifest_sha256": "97009a5d354e2d30999110446d00426ead6c3dd686337e7d7d03f7a08d443d45",
+    "final_delta": [
+      "references.go",
+      "patch_test.go",
+      "analysis/go-current-input-accounting.json"
+    ],
+    "production_pins": {
+      "image_types.go": {
+        "bytes": 2542,
+        "sha256": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda"
+      },
+      "patch.go": {
+        "bytes": 108936,
+        "sha256": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42"
+      },
+      "reference_geometry.go": {
+        "bytes": 4165,
+        "sha256": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a"
+      },
+      "reference_types.go": {
+        "bytes": 5753,
+        "sha256": "bc875239f48d1e9bad521dc2f6b3bb4034cd6edc4a99d26e07f30a7b101dc5da"
+      },
+      "references.go": {
+        "bytes": 24406,
+        "sha256": "aba5f851c72e893d4a70167e62506e0bc9eb0de76cfed6127ca9e9aeb0dbc1c5"
+      },
+      "patch_test.go": {
+        "bytes": 670910,
+        "sha256": "200a76b4012fa30e2652a4d293dd14a92ca92e4562a885f7529ca9e4154ea51e"
+      }
+    }
+  },
+  "baseline": {
+    "path": "/var/tmp/dokapon-event-read-check-kh5cm3gf/sealed-final",
+    "manifest_sha256": "236e339abfa9473c0dbb69639deee7b07635454dba6cd8d72f49d1e1b258b4d4"
+  },
+  "findings": [
+    {
+      "id": "GP-LIMITS-1",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "initial_source": "references.go:160/237",
+      "issue": "Final base Limits assignment overwrote the GP-not-runtime and shared-target-not-display-ownership caveats.",
+      "reproduction": "Initial actual synthetic GP CLI had metadata and targets but neither caveat.",
+      "fix_by_root": "Append GP caveat after base/inline Limits selection; add assertion in existing CLI owner.",
+      "final_source": "references.go:243",
+      "closure": "Final actual CLI retains both caveats; all other GP report fields identical.",
+      "initial_receipt_sha256": "350e8374b33d4f7df282961dcf83f965cd637a8b7af4e3c769ee58b8b14e2036"
+    }
+  ],
+  "owner_review": [
+    {
+      "source": "patch.go:1741",
+      "assessment": "Bounded optional metadata belongs in existing ELF inspector: unique uncompressed aligned24B SHT_MIPS_REGINFO, complete read, section-index provenance; invalid metadata preserves ordinary mappings. Zero GP is represented by a nonnil pointer."
+    },
+    {
+      "source": "reference_geometry.go:37/72",
+      "assessment": "Existing normalization and word interpretation own the new geometry and signed ADDIU equation. Exact opcode/rs28/rt guards; modulo32 signed carry; no guessed GP or target fallback."
+    },
+    {
+      "source": "references.go:184",
+      "assessment": "Retains readable instruction words before metadata join; metadata errors leave targets unknown. Shared observations preserve site ordinals. Target mapping remains ordinary ELF, with no execution/display claim."
+    },
+    {
+      "source": "patch.go:1067",
+      "assessment": "GP pointer_check explicitly refuses; stream writer allowlist remains unchanged. No new write authority."
+    },
+    {
+      "source": "image_types.go:23",
+      "assessment": "One grouped ELFRegisterInfo type is justified to carry optional metadata/provenance/error together. No new function, helper, file or duplicate instruction decoder; existing owners remain coherent."
+    }
+  ],
+  "independent_checks": {
+    "phase_one": {
+      "four_owners": "TestPlanAndCopy|TestPlanRefusals|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes",
+      "test_result": "PASS26.648s",
+      "core_build": "PASS",
+      "core_vet": "PASS",
+      "legacy_complete_stdout_stderr_exit_parity": 6,
+      "synthetic_complete_oracle_rows": 3,
+      "additional_metadata_arithmetic_edges": [
+        "zero target known",
+        "negative immediate0x8000 wraps",
+        "positive wrap32",
+        "metadata sectionindex2 retained",
+        "compressed metadata unknown with words retained",
+        "missing metadata unknown with words retained"
+      ],
+      "ordinary_bad_metadata_complete_old_new_parity": 2,
+      "frozen_native_literal_join": "9IDs/10site records/9unique instructions; index7,24B metadata,GP0x536bf0; all words, equations, geometry and mapping verified; source identity preserved"
+    },
+    "final_delta": {
+      "complete_CLI_owner": "PASS15.208s",
+      "core_build": "PASS",
+      "core_vet": "PASS",
+      "legacy_complete_stdout_stderr_exit_parity": 6,
+      "GP_capture": "Only Limits changed; both required caveats present",
+      "input_bytes_inode_mtime_preserved": true,
+      "gofmt_all_Go": "PASS",
+      "scoped_whitespace": "PASS",
+      "scoped_POSIX_credentials": "PASS; nonsecret positive selfcheck"
+    },
+    "source_independence": {
+      "original_pack_manifest_sha256": "5f09d020c5898ba107bfe35b1f0e4c90187bed092abc26964b7763a5b9479089",
+      "original_pack_members": 46,
+      "portable_pack_manifest_sha256": "1fe7aaeadb5a33357b105e6234d49492c9c6ca5ec0fa793f59184065e1b24b9e",
+      "portable_pack_members": 14,
+      "all_pack_pins_verified": true,
+      "selected_original_replay": "7 metadata cases/8 source-equation vectors plus native facts PASS; no original main/import execution",
+      "portable_replay": "3rows/14repinned refusals/8vectors PASS"
+    },
+    "harness_notes": [
+      "First private comparison treated omitted empty argument_words/opaque_payloads as unequal to independent empty arrays; normalized only those empty representation fields, then full rows matched.",
+      "One setup command specified not-yet-created owned cwd and did not launch; rerun after copy succeeded."
+    ],
+    "execution": "nice19;GOMAXPROCS2;CGO_ENABLED0;go -p 2;owned TMPDIR/GOTMPDIR;all owned jobs terminal; no full suite/race/native-font replay"
+  },
+  "cost_check": {
+    "production_Go_files": 39,
+    "production_Go_bytes": 454811,
+    "named_function_count": "41 per frozen source accounting; unchanged",
+    "growth": "3540 production bytes plus10738 example bytes; test/oracle overhead separate; no savings claim"
+  },
+  "limits": [
+    "Static ELF register-info is not runtime GP or display ownership. Shared Male/Female targets retain shared context, not independent liveness.",
+    "Finite metadata/instruction and frozen extracted-native cases; no full reader ABI, runtime, whole-cohort, family, milestone, retirement or coverage claim.",
+    "No ISO, canonical registry or protected runtime resources accessed. Root race/native results are separate receipts, not claimed as reviewer-run."
+  ],
+  "evidence": {
+    "work": "/var/tmp/dokapon-gp-reader-review-w9i4lsve",
+    "manifest": {
+      "path": "/var/tmp/dokapon-gp-reader-review-w9i4lsve/artifacts-manifest.json",
+      "sha256": "7881ea0d890e7109d2eba7a5e9580d13ac229545b8c44f4db44b913cd2876d3d",
+      "members": 1432
+    },
+    "final_checks": {
+      "path": "/var/tmp/dokapon-gp-reader-review-w9i4lsve/final-checks.json",
+      "sha256": "22e2ab6ec2d64aaf6232c54ac5ce6dc3d4ef97e59d41ee693975937e7921408c"
+    },
+    "phase_one_checks": {
+      "path": "/var/tmp/dokapon-gp-reader-review-w9i4lsve/cli-checks.json",
+      "sha256": "0ed2c98e6997169bbcde609cbe2f3b8ac6453e9597c6a728819131cb7aac823f"
+    }
+  },
+  "all_owned_jobs_terminal": true
+}

@@ -1,0 +1,192 @@
+{
+  "at": "2026-10-19T21:45:08.818918+00:00",
+  "kind": "Independent read-only family-coverage assessment; separate from candidate safety review",
+  "baseline_version": "workflow-families-v1",
+  "baseline_sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+  "family": "guarded_transactions",
+  "decision": "partial",
+  "completion_credit": 0,
+  "coverage_totals_changed": false,
+  "reason": "Real explicit word-only whole-copy reversal is now verified. The original merged family also covers typed equal-size byte/text edits and mixed code/data recovery. No inspected proof demonstrates typed text reversal or coupled code/text restoration under the shared Go planner with its type/control guards and ownership preserved. Word representability and forward typed coverage do not alone verify that missing workflow.",
+  "original_contracts": [
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/guarded_transaction",
+      "original_recommendation": "guarded_transaction",
+      "families": [
+        "guarded_transactions"
+      ],
+      "original_contract": "Plan sorted bounded old/new byte edits once, retain preimages/idempotence/exclusive output/readback and registry ownership; no per-script writer. Recipes contain IDs, words, text and explicit old/new states. Existing Go plan/validateEdits/verifySource/patchCopy and Python stream_fix_run already own much of this."
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/binary_edit",
+      "original_recommendation": "binary_edit",
+      "families": [
+        "guarded_transactions"
+      ],
+      "original_contract": "Plan typed equal-size old/new edits, source guards, whole-copy application/revert and readback.",
+      "exclusion": null
+    }
+  ],
+  "original_scope_evidence": [
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "pointer": "small_toolkit/guarded_transaction",
+      "scope": "120 disjoint current paths",
+      "material_contract": "Plan sorted bounded old/new edits once; preimages/idempotence/exclusive output/readback and registry ownership; recipes include IDs, words, text and explicit old/new states.",
+      "exception": "Legacy in-place write and registry side-effect order differ; do not silently call global mutable drivers on scratch images."
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "pointer": "core_opportunities/binary_edit",
+      "scope": "149 disjoint current paths",
+      "material_contract": {
+        "responsibility": "Plan typed equal-size old/new edits, source guards, whole-copy application/revert and readback.",
+        "shared": "Go plan guarded_words / same_length_stream / stream_append, validateEdits, verifySource, patchCopy.",
+        "facts": "Addresses, explicit preimages, documented instruction words, dependencies and bounded landing spans; no one function per repair.",
+        "guards": "Complete before/new-state sets; reject partial install; alignment and overlap; original and shipping protection; delay slots/opcodes/registers; source/hash; readback and whole-image containment."
+      }
+    },
+    {
+      "caller": "tools/fix_bundle_2026-09-30.py",
+      "source_sha256": "8afb07a9de9a04210d041b78b24866c4672f642c1d8ce6dcc61f8a6648ece90a",
+      "crawl_exception": "Mixed code/data rollback plus text tail; generic edit list can own writes, while recipe facts retain prerequisite checks.",
+      "locations": "lines27-34 restore3probe hook words and zero stub/data spans; lines47-49 define145u16 narrative slot; lines99-111 rewrite shorter narration tail with zero fill and readback.",
+      "distinct_boundary": "One workflow mixes code restoration, data cleanup and a290-byte16-bit text slot. The slot is not a whole32-bit-word extent; treating it as arbitrary padded machine words would bypass typed text/control meaning. This is an original discovery example, not a requirement to port its unsafe in-place interface."
+    },
+    {
+      "caller": "tools/revert_keyboard_grid_2026_09_30.py",
+      "source_sha256": "b503970a574cf452d532a1eddc6b6abd095dcc8bde7f832aa056c5a801e9f3f3",
+      "locations": "lines45-60 restore original LUI/addiu pair; lines64-82 optionally reset registry status/landing/patch_ref only after image readback.",
+      "ownership_implication": "Registry is a separate owner. Binary reversal must preserve canonical registry or explicitly produce a separately guarded private snapshot; a blind status downgrade is not authorized. No general registry rollback is added to this family."
+    }
+  ],
+  "new_verified_support": {
+    "proof": "evidence/reverse-word-isolated-run.json",
+    "proof_sha256": "9415ee6d4d1d4b5e81c832a052bd6bcca20aa51727ea18f3ea4568551784780b",
+    "source_sha256": "fd446934870a64be96572a4632a24c9892fa065542e6675f5341fb2e3d5f672c",
+    "output_sha256": "329f93e9225599385a48b71d8165a9467c2028067f684dcb72934ba3a90adaa2",
+    "compared_bytes": 4243259392,
+    "spans": 8,
+    "declared_bytes": 32,
+    "changed_bytes": 8,
+    "outside_changes": 0,
+    "meaning": "Actual full-size Go exclusive copy restores all predecessor bytes using independently authored old/new word data, full source/preimage/output guards and readback. This closes the former no-real-word-revert evidence gap.",
+    "source_preservation": true,
+    "shared_current_code_pins_match": true
+  },
+  "existing_evidence_boundaries": [
+    {
+      "path": "evidence/same-length-closure.json",
+      "credit": "Verified same-length text forward editing, ordered controls, source identity, exclusive copy and done-state inspection.",
+      "not_evidenced": "Reverse typed text workflow or coupled reversal with code/data."
+    },
+    {
+      "path": "evidence/native-probe-guarded-copy-proof.json",
+      "credit": "21source/72write/55guard synthetic forward copies with127mutation refusals.",
+      "limit": "Report explicitly excludes revert; cannot substitute for reverse closure."
+    },
+    {
+      "path": "evidence/native-probe-color-revert-proof.json",
+      "credit": "Six independently compared synthetic explicit word inversions including mixed installed/reverted word states.",
+      "limit": "Synthetic only, word operation; no typed text or real mixed workflow claim."
+    },
+    {
+      "path": "evidence/unregistered-short-rebuild-proof.json",
+      "credit": "92-entry synthetic reverse-source construction then Go forward replay186effects reproduces shipping image.",
+      "limit": "Reverse source is synthesized; receipt does not demonstrate shared Go typed reverse application. No historical predecessor claim."
+    }
+  ],
+  "concrete_material_gap": {
+    "responsibility": "Verified declarative typed byte/text reversal, including one coupled code/text case, through existing planner/validator/copy writer.",
+    "current_boundary": "Optional expected whole-output pin is accepted only for one guarded_words table or named bundle. Non-word/multiple-table pins refuse in main/plan; typed text still traverses encode/controls and registry wording. Thus real word-only proof does not test this distinct control/ownership path.",
+    "not_an_implementation_verdict": "Existing operations may already express a suitable reviewed text reversal with explicit private author data and external full-image verification. Missing proof does not establish that a new function/schema/operation is needed."
+  },
+  "minimal_legitimate_next_contract": {
+    "inspect_first": [
+      "Find one retained same-size typed text before/after source pair with complete ordered controls and independently stated target bytes.",
+      "Use existing plan, encode, controls, validateEdits, verifySource, patchCopy and TestPlanAndCopy/TestCLIDryRunAndApply; preserve recipe-specific facts in a purpose-grouped table.",
+      "Keep target wording under the appropriate private author snapshot; do not silently alter canonical English/status, broaden machine field permissions, or claim registry truth reverted."
+    ],
+    "proof": [
+      "First prove one typed2-byte-aligned text reversal including a non4-byte-multiple extent; complete old/new controls, exact source and known full-output identity; no raw-machine-word recoding of text to skip controls.",
+      "Then prove one small coupled code/data plus text recovery case in a single guarded new-copy transaction, or show existing independent evidence already covers that boundary. No arbitrary mixed allocator/registry undo requirement.",
+      "Extend existing tests for full target bytes/known predecessor, source/preimage/controls/length/source-context mismatches, partial source refusal unless independently pinned, invented/outside changes, overwrite and owned cleanup.",
+      "Actual code change only if the existing owner cannot express that case. If an expected-output-pin enhancement is needed, enhance existing shared validation with one coherent transaction pin rather than another writer/helper."
+    ],
+    "scope_limit": "This is a bounded verification/design direction, not new implementation, blanket apply approval, caller-by-caller migration or automatic inversion feature."
+  },
+  "not_required_by_this_assessment": [
+    "Automatic inversion of arbitrary Edit arrays",
+    "New rollback flag/function/framework",
+    "Every historical script independently migrated",
+    "Generic allocation shrinking/registry recovery/runtime validation",
+    "A new denominator or partial weighting"
+  ],
+  "qualification": "The prior blanket wording no independently verified reverse workflow is now obsolete; replace it with verified word reversal, typed/coupled recovery still unverified. Broad Python historical baseline failures remain qualified, not a reason to erase separately verified Go support.",
+  "source_pins": {
+    "analysis/reusability-coverage-baseline.json": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+    "analysis/pattern-crawl-text_binary.json": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+    "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+    "analysis/reusable-toolkit-plan.json": "f099024ae73691b76ccf31e128b60cec31aa895f049d09736f9003d4853f11a9",
+    "analysis/reusability-coverage-independent.json": "f42bd282ba141abded7af830f489cf96c8c08b0a525fe25d913377cafea27452",
+    "analysis/reverse-workflow-reuse-contract.json": "c06b4e0b144ae7750b1ea61d14734b4dd352597e6adbc60bc84dc17ef21d4c74",
+    "evidence/reverse-word-isolated-run.json": "9415ee6d4d1d4b5e81c832a052bd6bcca20aa51727ea18f3ea4568551784780b",
+    "evidence/reverse-word-proof.json": "a692914ed305bdd6d7c061d3a348753e482a548530e8009bfe369e7ab1773181",
+    "evidence/reverse-word-review-a.json": "be560ca8428e00fed52b00f3a833e5e8eebfed7bef64f378df5228eb2bea8d50",
+    "evidence/reverse-word-review-b.json": "a9f0fb9ab3e3441fb7ca4024a7e7e8237981251ab3f17057b52dc330f432f76a",
+    "evidence/same-length-closure.json": "a2d1407619b12d9fd92e73d3d59396499d3c6c744479eb165914e3add4001e14",
+    "evidence/native-probe-guarded-copy-proof.json": "aa68c8f586d32a3e7c2139d32757d55c5e8a7855b0300b96a6079885a263b1b7",
+    "evidence/native-probe-color-revert-proof.json": "5bbfb1097297fc5c0316e8d1c09785abd3f46f4b20ceb3dea63cc2e7308b8a45",
+    "evidence/unregistered-short-rebuild-proof.json": "bc729d6cc353132229bd72234e49a9d673732bff96be5a053985cc5bde10f54c",
+    "analysis/unregistered-short-reverse-plan.json": "593f0cb26f1ea20d2c08f38deba5f3a1e33ea573afe9363097a06b648114a3b9",
+    "main.go": "1d9de0b1a746fb835a2e708af6b1e541e5c3a154ed6a06b3be4a6682587fbc64",
+    "patch.go": "4754d5ac5cee97f79d7d77b97c2647ab2541e76d8e13e56ecbf39a17d3ef669b",
+    "recipe_types.go": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+    "patch_test.go": "5f5ee831739ffd8bb90a5761f611d67f18e3d4873dacaa6a2686b46e949af2eb",
+    "../fix_bundle_2026-09-30.py": "8afb07a9de9a04210d041b78b24866c4672f642c1d8ce6dcc61f8a6648ece90a",
+    "../revert_keyboard_grid_2026_09_30.py": "b503970a574cf452d532a1eddc6b6abd095dcc8bde7f832aa056c5a801e9f3f3",
+    "../revert_settings_option_sentinel_mistake.py": "a06ed99145d5b834fdaa3663f512d01bba312d533f7c2d479d60a057e45799bf",
+    "../apply_colorselect_probe.py": "3585e9f1b15f813bac645ce268231fd93b17e0389b6db4974563737f91d9553e",
+    "../patch_iso_stream_blob.py": "cd943f22faee9b6c7bb129e01ad48b98d3d54bf2573d83aaba7769287dfad2e2"
+  },
+  "verification": {
+    "baseline_and_four_discovery_source_pins": "PASS",
+    "four_original_revert_caller_pins_still_match_crawl": "PASS",
+    "new_real_reverse_receipt_consistency_and_current_code_pins": "PASS",
+    "reports_json_validation": "PASS",
+    "new_code_or_test_changes": false,
+    "new_tests_build_required": "No implementation changed. Current pinned code independently passed race26.762s/vet/build/gofmt/scoped checks in review A; no unnecessary repeat in this report-only assessment."
+  },
+  "historical_slot_followup": {
+    "source": "../fix_bundle_2026-09-30.py",
+    "constant": "NARR_OFF=0x10a10; NARR_WORDS=145",
+    "slot_bytes": 290,
+    "old_tail_words": 50,
+    "new_tail_words": 40,
+    "preserved_prefix_words": 95,
+    "new_active_words": 135,
+    "new_zero_tail_words": 10,
+    "old_tail_text": "while immersing|yourself in Dokapon|the World...",
+    "new_tail_text": "while immersed|in the Dokapon|world...",
+    "old_and_new_tail_controls": [
+      "0x0800",
+      "0x0800",
+      "0x1000",
+      "0xf800"
+    ],
+    "deduction": "Under the historical pending old-tail branch, words[:95] are preserved; the new slot has135active words through END and10zero words. This is a statically derived conditional write contract, not a fresh source-image or consumer proof.",
+    "existing_typed_refusals": "same_length_stream requires equal complete encoded length and END last; controls refuses early END, fixed_field refuses control words, exact_control_stream fixes exact control offsets. The padded shortened source/target pair cannot simply be submitted as an ordinary same-length terminated stream.",
+    "smallest_owner_direction": "If the independently verified source calls for it, enhance existing plan/validateEdits and reuse controls/encode to validate bounded terminated active prefixes plus exact zero-only tail, while retaining full slot preimages/edits and copy/readback. Preserve current unpadded semantics and early-END refusal globally. No new writer/helper/operation is assumed.",
+    "proof_still_required": [
+      "Identify exact retained source stage and actual blob ISO extent from ISO/ELF metadata; do not assume historical BLOB_ISO_OFF maps a current grown stage.",
+      "Prove source entry0x4ef2e0 points to the intended slot and that290bytes are owned/read-safe and not shared or referenced in the tail.145words alone is a historical executor window, not proof of consumer copy capacity.",
+      "Acquire complete source prefix and all control/argument words; preserve ordinary semantic control order, while allowing intentional LINE/END offset movement only within the bounded slot.",
+      "Establish the actual consumer uses END and accepts the target geometry/length; if fixed-copy or inherited formatting semantics differ, retain those bounds/holds.",
+      "Use the existing grammar to distinguish active END from argument payload data; do not add a blind first-0xf800 scan or silently allow unknown controls.",
+      "For this case require exact zero-only unused tail, complete full-slot preimage, even alignment/extent, encoded payload capacity, no overflow/truncation, no unknown appended nonzero bytes, and untouched outside bytes."
+    ],
+    "test_extension": "Existing tests should cover135active+10zero versus145active words and a2-byte-multiple/non4-byte-multiple slot, round-trip restoration with independently stated bytes, bad tail/missing or duplicate END/control changes, odd or short extents, overcapacity, pointer/source mismatch, mixed code/text composition and failure cleanup. Tests/data first; implement only the shared-owner delta actually required."
+  }
+}

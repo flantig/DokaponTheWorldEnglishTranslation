@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T13:22:30.049613+00:00",
+  "status": "SOURCE_ONLY_FRONTIER_NOT_IMPLEMENTATION_OR_APPROVAL",
+  "recommendation": {
+    "smallest_increment": "Preserve recognized payload-free leading setup words before ContentStart in the existing source-context encode/controls path. Headerless4001 is independently present in actual frozen ELF458f20. Leading non-scale pen words can share exactly the same copy-before-content rule, but the four sampled real sources do not establish their installed population.",
+    "responsibility": "Source-context encoding preserves renderer-state prefix bytes and speaker substitution at their original ordinal; it must not create a new parser or authoring framework. encode already owns copying/encoding, controls owns source grammar/readiness/complete validation; existing auditStreams and plan callers then reuse it. No new function is justified.",
+    "do_not_silently_expand": "Plain leading colour and existing explicit mixed-marker semantics are distinct. Keep colour/scale/icon/opaque domains held in the first setup increment unless an explicit source convention is separately bound. No planner layout, source fit, runtime semantics or registry status may be inferred from copying a prefix.",
+    "why_not_all_leading_controls": "Original plain encoder copies HL state verbatim; original mixed encoder filters leading HL then places EN markup. Current Go scanner counts leading HL in the EN marker sequence, and encode skips prefix HL/icon. Blindly copying them would change existing marker outputs and readiness diagnostics."
+  },
+  "primary_source_contract": [
+    {
+      "source": "../dialog_codec.py292..452",
+      "fact": "Leading decoder loop recognizes at most one HDR and speaker plus setup/HL/pen0; stops for content/ICON/param8/duplicates. Main decoder still produces recognized tokens. HDR is not required at byte0; require_hdr is a separate source-reader restriction. setup4000..47ff and a800..afff are self-contained; nonzero pen families have no inline payload. Exact4800/b000/d800 have8Bpayload and remain separate."
+    },
+    {
+      "source": "../text_encoder.py276..314",
+      "fact": "jp_prologue boundary is first glyph/page/line/space/end, not merely decoder leading-loop length. Therefore ICON/param8 can be classified as prologue by this function even though they stop the decoder leading loop. This mismatch is material to the opaque bug."
+    },
+    {
+      "source": "../text_encoder.py1724..1845",
+      "fact": "encode_stream emits each prologue token word verbatim in source order, substitutes page0 EN speaker in place (or appends EN speaker if source lacked it), emits EN page/line structure, appends structural source final PAGE then END—even after explicit English final PAGE. It writes only word, not token.payload."
+    },
+    {
+      "source": "../text_encoder.py1848..1933",
+      "fact": "encode_entry_from_elf decodes original source and rejects setup/pen0/param8/icon/HL inside CONTENT (except separately reviewed HL wrapping); it does not reject those kinds in the computed prologue. The plain path rejects any {{...}} EN markup."
+    },
+    {
+      "source": "../text_encoder.py1020..1135 and1483..1530",
+      "fact": "Markup-aware algorithms deliberately remove leading HL from filtered JP before encode_stream, so explicit EN markers can reposition colour without duplicated prefix. Original plain and mixed policy outputs must remain distinct."
+    }
+  ],
+  "current_owner_facts": {
+    "Serena": "Live session321e7af4, encode references inspected before recommendation; no snapshot project activation. Source locations and caller counts are qualified to this read-only source snapshot.",
+    "encode": "patch.go41..272 currently permits only hdr/speaker/glyph/space/line/page/end/hl/icon source token kinds; rejects setup/pen0/param8 anywhere, skips prefix HL/icon, substitutes speaker, uses existing wrapping then final controls validation.",
+    "controls": "patch.go282..679 already decodes arbitrary leading self-contained state order; readiness only blocks true pen/setup after ContentStart, but leading HL/e800..efff still participates in marker sequence. Complete terminated validation separately insists HDR leads, restricts speaker adjacency, and rejects most setup/pen words. Merely broadening encode allowlist is insufficient.",
+    "callers": "Live Serena finds plan and previewFit plus recursive literal encoding. previewFit uses source=nil, so a source-only expansion must preserve its literal behavior. Private canonical candidate adds existing auditStreams encode call; pin retained separately and pending ordinary review, no execution by worker.",
+    "minimum_change_boundary": "Enhance existing source-prefix copy/validation only when a real decoded source shape supplies the prefix boundary. Validate generated body with existing grammar; preserve source header/order/speaker only under that source context. Do not relax literal controls, ExactControls, positional labels or arbitrary speaker/HDR placement globally. Preserve budget/wrapping/readiness/byte-limit guards and caller-owned patch permissions. Specific field/API representation remains root decision before code."
+  },
+  "native_source_reach": {
+    "qualification": "Four actual streams are copied through END from existing frozen extracted ELF6e; no ISO/canonical registry read. A is synthetic replacement wording using pinned a662 glyphmap, not authoritative English.",
+    "pins": {
+      "elf": {
+        "path": "/var/tmp/dokapon-elf-layout-wqrm7am8/SLPM_657.50",
+        "bytes": 5087232,
+        "sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831"
+      },
+      "glyphmap": {
+        "path": "/var/tmp/dokapon-reference-check-_ivbenrd/native/glyphmap.json",
+        "bytes": 20646,
+        "sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d"
+      },
+      "cases": [
+        {
+          "name": "native-0x4ef2e0",
+          "vma": "0x4ef2e0",
+          "file_range": [
+            4125536,
+            4125656
+          ],
+          "source_sha256": "fe6410b067a54771cd2a6032200072200f6cc574c402457c73a6175a7001593a",
+          "en": "A",
+          "wording_provenance": "synthetic replacement A with actual pinned glyphs; NOT registry/canonical translation",
+          "prologue": [
+            {
+              "kind": "setup",
+              "word": 43018
+            },
+            {
+              "kind": "setup",
+              "word": 16385
+            },
+            {
+              "kind": "hdr",
+              "word": 10240
+            },
+            {
+              "kind": "hl",
+              "word": 45063
+            },
+            {
+              "kind": "speaker",
+              "word": 15243
+            }
+          ],
+          "content_kinds": [
+            "end",
+            "glyph",
+            "line",
+            "page",
+            "speaker"
+          ],
+          "original_source_trailing_pause": true,
+          "original_status": "success",
+          "expected_hex": "0aa80140002807b08b3b4500001000f8",
+          "expected_sha256": "d5e9e69b100db9502eea1b221717f7ec445dc09e360ff4f9f4fa80afd1788f69"
+        },
+        {
+          "name": "native-0x4ef360",
+          "vma": "0x4ef360",
+          "file_range": [
+            4125664,
+            4125902
+          ],
+          "source_sha256": "6459232271123655e73ea62e3555f48aedc27e9eb7cd707182717814de7f5bf4",
+          "en": "A",
+          "wording_provenance": "synthetic replacement A with actual pinned glyphs; NOT registry/canonical translation",
+          "prologue": [
+            {
+              "kind": "speaker",
+              "word": 15245
+            },
+            {
+              "kind": "setup",
+              "word": 43018
+            },
+            {
+              "kind": "setup",
+              "word": 16385
+            },
+            {
+              "kind": "hdr",
+              "word": 10240
+            },
+            {
+              "kind": "hl",
+              "word": 45063
+            }
+          ],
+          "content_kinds": [
+            "end",
+            "glyph",
+            "line",
+            "page",
+            "speaker"
+          ],
+          "original_source_trailing_pause": true,
+          "original_status": "success",
+          "expected_hex": "8d3b0aa80140002807b04500001000f8",
+          "expected_sha256": "8a7a146701995edef8dea8a59b0b5827bbaf35cc2e0443f1bcf91aa639b50458"
+        },
+        {
+          "name": "native-0x4ef500",
+          "vma": "0x4ef500",
+          "file_range": [
+            4126080,
+            4126114
+          ],
+          "source_sha256": "3fe50830a0fad443eac9c46cf27537ecfde88c2d5ec6ccf0fd8032c9bbe1b04d",
+          "en": "A",
+          "wording_provenance": "synthetic replacement A with actual pinned glyphs; NOT registry/canonical translation",
+          "prologue": [
+            {
+              "kind": "speaker",
+              "word": 14989
+            }
+          ],
+          "content_kinds": [
+            "end",
+            "glyph",
+            "space"
+          ],
+          "original_source_trailing_pause": false,
+          "original_status": "success",
+          "expected_hex": "8d3a450000f8",
+          "expected_sha256": "6a2e72b91ea38a90a5aa51294424e0be6442d59000018567edf6e2e5d4444c1d"
+        },
+        {
+          "name": "native-0x458f20",
+          "vma": "0x458f20",
+          "file_range": [
+            3510176,
+            3510234
+          ],
+          "source_sha256": "545260a3f34edd9bdec4e2f437f23210f5052014d7aa14953f9eac37477290e9",
+          "en": "A",
+          "wording_provenance": "synthetic replacement A with actual pinned glyphs; NOT registry/canonical translation",
+          "prologue": [
+            {
+              "kind": "setup",
+              "word": 16385
+            }
+          ],
+          "content_kinds": [
+            "end",
+            "glyph",
+            "line",
+            "page"
+          ],
+          "original_source_trailing_pause": true,
+          "original_status": "success",
+          "expected_hex": "01404500001000f8",
+          "expected_sha256": "76d509d9a52f83f1e6c836efb0891161e2559a3f584a7185a20b9012392d3bb1"
+        }
+      ]
+    },
+    "consequence": "458f20 is a concrete positive for headerless leading setup4001. 4ef2e0/4ef360 are concrete broader setup+HL+nonstandard speaker/HDR order, not proven supported by a setup-only increment. 4ef500 is an already simpler speaker-only control. Source comments alone were not used for their actual word order."
+  },
+  "bounded_original_execution": {
+    "directory": "/var/tmp/dokapon-source-prologue-frontier-fs0ktz64",
+    "manifest_sha256": "e5caaa6080f12b7bca965e541c0f2ec53fa78467ab14e25b6d68849c0ea231f3",
+    "facts_sha256": "424bd234f7d3e1310a6d5d5fd1c96c41ebbce317e006c03bc23a3878dfeec3a0",
+    "members": 59,
+    "source_cases": 24,
+    "original_success": 18,
+    "original_refuse": 6,
+    "native_cases": 4,
+    "chronology": "Original source-only AST execution and expected files frozen before any future Go comparison on this corpus. Current canonical candidate already exists; this is not a claim these expectations predate that candidate.",
+    "harness": "freeze.py retains all executed instructions. Original FunctionDef/ClassDef and literal/re.compile assignments selected via AST; project imports and main/top-level IO excluded. Original load_glyphmap reads only owned copied literal/frozen glyph files. Full original source copies included. No project modules imported; no candidate executed.",
+    "expected_examples": {
+      "headerless_setup_synthetic_glyphA1": "01400100001000f8",
+      "actual458f20_glyphA45": "01404500001000f8",
+      "setup_before_HDR": "0aa800280100001000f8",
+      "speaker_override_in_place": "0aa8013800280100001000f8",
+      "duplicate_final_pause": "0028014001000010001000f8"
+    },
+    "original_bug": {
+      "case": "leading-opaque-original-bug",
+      "original_result": "success",
+      "expected_hex": "002800480100001000f8",
+      "fact": "Original source4800 carries8Bpayload1111,f800,7000,1234. encode_stream drops all8payloadbytes. This is a bug counterexample, not supported equivalence. Both leading/body param8 must remain refused until separate exact semantics; never interpret payload lookalikes as END/args."
+    },
+    "synthetic_not_execution": "Inputs are literal synthetic streams, outputs were actually produced by selected original functions. Documented-order synthetic case is labelled as such; the separate native4ef cases establish exact actual order."
+  },
+  "reach_accounting": {
+    "static": {
+      "inventory_paths": 410,
+      "input_pins": {
+        "analysis/pattern-crawl-assets_runtime_tests-input.json": "98cf8484e958a287e571ee3db28de2b1b5936e3214994709ce8d24b3ee1f3e93",
+        "analysis/pattern-crawl-iso_registry_reports-input.json": "e6e15de3859e5b3a2ca881791ef6aabeff08b1bff3986fa071b693258131cec6",
+        "analysis/pattern-crawl-text_binary-input.json": "3dc438676333570aa4085abf5d68cb7b4b3bdeab2e352cce387cbdbc9c8d9e51"
+      },
+      "direct_410_paths": [
+        {
+          "path": "tools/migrate_prologue_gap.py",
+          "sha256": "dae955579cc350bcbf31b522493afcf4a2d23f59ceb21e143bec2cbddb0fdf54",
+          "call_lines": [
+            253
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/migrate_weak_normal_2026-09-07.py",
+          "sha256": "a8a22839462b960478ba8807aff03ebc72397257b109dd28722a1ef074bc4c5f",
+          "call_lines": [
+            224
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/recover_sentinel_ground_truth_2026-09-07.py",
+          "sha256": "0a9f43c7cb0fd54e54e51e66799422c9e1a63dae46241527560e7c27280bbfd5",
+          "call_lines": [
+            398
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/relocate_code_immediate.py",
+          "sha256": "23f58e2244e6002841e135da426f01d760265eb384f54294aa86e083cf9884eb",
+          "call_lines": [
+            141
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/relocate_gp_relative.py",
+          "sha256": "971ae79033cfba6fb07772b1281d63082db7e7233421b5d3f042427f0c85f134",
+          "call_lines": [
+            215
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/relocate_pointer_array.py",
+          "sha256": "6995b7285401ccc86d48783d07dbee1d21c936fe5830e64f8c840ce5f529e358",
+          "call_lines": [
+            125
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/repatch_line_overflow.py",
+          "sha256": "2bbfc08e8cc7960daae5fb1e7a9b95eeb983dcda9fac2b348971f9d7c31ce71e",
+          "call_lines": [
+            108
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/rerelocate_entry.py",
+          "sha256": "63670f94a7ebd8b3e395a182633353a8e822089469e0960999c1963262e5b7b8",
+          "call_lines": [
+            110
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        },
+        {
+          "path": "tools/test_dialog_type28_layout_2026_10_01.py",
+          "sha256": "aac9dc0c0c5c2e86ba5ed5708d93c947c66f2c3fa07806d5ef5dc5bc79d0ab4d",
+          "call_lines": [
+            70
+          ],
+          "qualification": "exact direct AST call in410-source union; one is historical source test, not a runtime author. No transitive or retirement credit."
+        }
+      ],
+      "shared_provider_calls": [
+        {
+          "path": "../rework/new_tool/reports/writeback.py",
+          "sha256": "3d3f05afab6d9c8ca60e75baa3eb7d0616ffca6569b8300d4d5ea934e6632fde",
+          "call_lines": [
+            598,
+            618
+          ],
+          "qualification": "shared provider outside original120-row text subset, not additional historical-script coverage"
+        },
+        {
+          "path": "../rework/new_tool/reports/backlog.py",
+          "sha256": "0510e7aba2ca5e540bb323c14c772f7470367bbe6e2c0c77f6b6e670c4d728b9",
+          "call_lines": [
+            345
+          ],
+          "qualification": "shared provider outside original120-row text subset, not additional historical-script coverage"
+        }
+      ]
+    },
+    "interpretation": "Nine exact direct te.encode_entry_from_elf AST calls in nine current paths of the frozen410union: eight authoring/repair callers and one historical source test. Plus shared writeback2calls and backlog1call in2provider files. This is static source responsibility reach, not9eligible operations, runtime executions, script retirement or nine migrated tools.",
+    "existing_fixture": {
+      "path": "testdata/source-context-oracle.json",
+      "total": 248,
+      "leading_state_rows": {
+        "plain:accept": 31,
+        "mixed:accept": 26
+      },
+      "lesson": "31 plain and26 mixed accepted original rows contain setup/pen/HL prologue facts; these include synthetic permutations and25canonical mixed rows. They are compatibility obligations, not57newly unlocked real assets. The25canonical mixed rows must retain exact marker behavior; do not count them as unsupported plain setup."
+    }
+  },
+  "must_remain_refused_or_held": [
+    "Body setup/true pen controls: copying state at word-relative positions in translated content is not explained by prefix preservation.",
+    "Any inline8Bparam8, leading or body; original payload-dropping success is a known bug.",
+    "e800..efff scale/highlight-like pen, literal leading colour, prologue icons: source copy proves bytes only; current marker/readiness policy cannot be silently reinterpreted.",
+    "Duplicate source HDR/speaker ambiguity, unknown words, absent/truncated END and unknown glyphs remain failures under existing decoder/encoder policies.",
+    "Unsupported physical widths/source-specific readers, fixed/positional semantics, live sentinel mappings and wrapping conventions are not established by this study."
+  ],
+  "required_future_verification": [
+    "Original24case outputs and4native-source outputs where selected domain applies, with intentional-held original successes tested as refusals.",
+    "Preserve old248source-context oracle outputs/refusals except individually documented deliberate expansions; especially25canonical mixed leading-colour rows and whitespace/speaker/final-pause quirks.",
+    "No-wrap/explicit-character-budget canonical audit generation and independent observed comparisons; all old plain/bound audit captures unchanged.",
+    "Direct literal encode/previewFit/positional paths unchanged, source/glyph inputs immutable, no broadened patch authority; focused tests/build/vet/race and ordinary review owned by root."
+  ],
+  "verification": {
+    "done": "Parsed all JSON; rechecked every manifest length/SHA; original source24cases executed18success/6refusal; four bounded actual source cases executed independently; source bytes re-read and expected full bytes/word arrays verified. All owned jobs terminal (freeze.py exit0).",
+    "not_done": "No Go, candidate comparison, build, project tests or approval. No live production/test/fixture/accounting changes; only this report and owned private pack written."
+  },
+  "source_pins": {
+    "patch.go": {
+      "bytes": 93491,
+      "sha256": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a"
+    },
+    "text_types.go": {
+      "bytes": 2041,
+      "sha256": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab"
+    },
+    "fit.go": {
+      "bytes": 8392,
+      "sha256": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba"
+    },
+    "wrap.go": {
+      "bytes": 7625,
+      "sha256": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+    },
+    "testdata/source-context-oracle.json": {
+      "bytes": 177455,
+      "sha256": "641f6a9fac555d61b47d44c602c6e162403e0648220e221080d790b4d7ed32cc"
+    },
+    "analysis/pattern-crawl-text_binary-input.json": {
+      "bytes": 47438,
+      "sha256": "3dc438676333570aa4085abf5d68cb7b4b3bdeab2e352cce387cbdbc9c8d9e51"
+    },
+    "analysis/pattern-crawl-iso_registry_reports-input.json": {
+      "bytes": 62636,
+      "sha256": "e6e15de3859e5b3a2ca881791ef6aabeff08b1bff3986fa071b693258131cec6"
+    },
+    "analysis/pattern-crawl-assets_runtime_tests-input.json": {
+      "bytes": 59435,
+      "sha256": "98cf8484e958a287e571ee3db28de2b1b5936e3214994709ce8d24b3ee1f3e93"
+    },
+    "../text_encoder.py": {
+      "bytes": 120840,
+      "sha256": "a9d2d5ce4146520ac851807a0ead1e3ba8943c58d40dc23b1ed010e771ab9936"
+    },
+    "../dialog_codec.py": {
+      "bytes": 25964,
+      "sha256": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc"
+    },
+    "../migrate_prologue_gap.py": {
+      "bytes": 26492,
+      "sha256": "dae955579cc350bcbf31b522493afcf4a2d23f59ceb21e143bec2cbddb0fdf54"
+    },
+    "../relocate_pointer_array.py": {
+      "bytes": 11981,
+      "sha256": "6995b7285401ccc86d48783d07dbee1d21c936fe5830e64f8c840ce5f529e358"
+    },
+    "../relocate_code_immediate.py": {
+      "bytes": 12845,
+      "sha256": "23f58e2244e6002841e135da426f01d760265eb384f54294aa86e083cf9884eb"
+    },
+    "../rework/new_tool/reports/writeback.py": {
+      "bytes": 34552,
+      "sha256": "3d3f05afab6d9c8ca60e75baa3eb7d0616ffca6569b8300d4d5ea934e6632fde"
+    },
+    "../rework/new_tool/reports/backlog.py": {
+      "bytes": 29815,
+      "sha256": "0510e7aba2ca5e540bb323c14c772f7470367bbe6e2c0c77f6b6e670c4d728b9"
+    },
+    "/var/tmp/dokapon-canonical-audit-snq910tn/review-source/stream_audit.go": {
+      "bytes": 16058,
+      "sha256": "e4a4810763c728e16a643c95d59ef6af1e1e62dcc707f25f8f6be617fbfdd7d6",
+      "qualification": "read-only source pin of private pending candidate; no candidate executed or approval inferred"
+    },
+    "/var/tmp/dokapon-canonical-audit-snq910tn/review-source/stream_audit_types.go": {
+      "bytes": 3667,
+      "sha256": "5044ab855092c6d0e2f4d464473d3b8e23e7b6b0e1232cfcd47ac70319a5e756",
+      "qualification": "read-only source pin of private pending candidate; no candidate executed or approval inferred"
+    },
+    "/var/tmp/dokapon-canonical-audit-snq910tn/review-source/manifest.json": {
+      "bytes": 77177,
+      "sha256": "d17f425c7bc0ae5cf17702c488274a74edf88a6c50d7015907912b96094cfa0a",
+      "qualification": "read-only source pin of private pending candidate; no candidate executed or approval inferred"
+    }
+  }
+}

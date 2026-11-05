@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T22:08:53.942545+00:00",
+  "status": "READ_ONLY_NARROW_SOURCE_PRECODE_CONTRACT_NO_IMPLEMENTATION",
+  "recommendation": "Enhance SAME pointer_check physical expected-word audit for existing struct_table_field and strictly reviewed LUI/ADDIU code_immediate shapes. No new report engine, function, helper, schema, per-script handler or content/argument mode. This is useful common declared-site coverage, not a complete registry-vs-disc reconciliation tool.",
+  "owner_analysis": {
+    "serena": "references owns candidate reports; controls owns exact stream grammar; plan owns recipe guards and pointer_check; inspect/verifySource owns current source identity and exact preimages. Symbols/references inspected via Serena before focused source study.",
+    "existing_pointer_check": "plan888..935 selects exact registry patch_ref and currently restricts pointer_array. Expected target is registry ID or declared landing; creates same-byte 4B Edit guards, sorts physical offsets, scope-hashes (expected word,siteVMA) pairs. It DOES NOT read/reconstruct observed live target or stream. inspect compares exact source bytes, validateEdits checks noops, verifySource replans/hashes, patchCopy rejects pointer_check apply.",
+    "small_shared_extension": "Reuse same target selection and one site loop; switch RefType among data pointer, struct pointer and strict code pair. Data guards keep current representation/projection. Code pairs yield two exact instruction-word guards; sort all physical offsets before existing scope projection. Current mipsRegisters and stream_append signed-low arithmetic/strict site-shape policy are already authorities; do not copy its allocation/content loops.",
+    "validator_gotcha": "validateEdits(pointer_check) currently permits only ID/sentinel pointer values, so instruction noops cannot pass unchanged. Minimal option is emit existing guarded_words same-byte edits for code while table Operation remains pointer_check (apply gate uses TABLE operation), retaining generic word validation/inspect/source replan. Alternatively a narrowly justified validator extension must not turn arbitrary instructions into pointer values. Root decides; no new operation needed.",
+    "not_already_complete": "Existing stream_append DONE path already compares stored sentinel bytes to canonical encode and refuses mismatches (patch.go1358..1370); do not duplicate that content check. It requires the complete reviewed stream/native/layout/caller scope, so it is not general live reconciliation.",
+    "other_candidates": "references intentionally uses high-half heuristics/glyph-only normalization and reports candidates, not exact guards; do not promote it to truth by stripping markup. controls already parses Word/Offset/Payload correctly; no new decoder is justified. authorRegistry/status is metadata projection and cannot reasonably own image site/instruction guards."
+  },
+  "native_word_contract": {
+    "target": "uint32 registry ID by default; registry_landing uses existing valid aligned sentinel domain. Compute hi=((target+0x8000)>>16)&0xffff, lo=target&0xffff; LUI=(0x3c00|reg)<<16 |hi; ADDIU=(0x2400|(reg<<5)|reg)<<16 |lo. Signed low reconstructs modulo2^32.",
+    "data": "pointer_array raw pointer_vma; struct_table_field must additionally bind struct_vma+field_offset==pointer_vma with aligned nonoverflow coordinates, following existing append strictness. Historical sparse struct entries without coordinates remain held rather than inferred.",
+    "code": "Known nonzero register; lui_vma<addiu_vma, mapped/aligned/inbounds32-bit; no data/struct fields. Exact expected full opcodes/register fields; supports ADDIU only, no ORI/load/store/immediate heuristics. Gap between words allowed as already reviewed append policy, but no control-flow/liveness proof inferred.",
+    "scope": "Physical sort; exactly existing8B LE(word,siteVMA) record per physical guarded word. Reject overlap/duplicates/sharedLUI rather than deduplicate ownership. Existing data scope bytes unchanged. Full source/glyph/scope pins and source readback remain mandatory.",
+    "semantics": "Failclosed success means all declared physical words equal expected words under pinned source. Mismatch is failure, not recovered target/EN text, not exhaustive consumer/site discovery. Never mutate pointer states or registry status.",
+    "identity_limit": "Scope projection binds physical expected words+site VMAs. It is not a complete registry-document identity: when declared landing/site words remain equal, logical metadata changes can leave physical scope equal. Do not infer complete registry ID/content/status ownership from that projection alone; preserve any separately pinned registry evidence."
+  },
+  "historical_responsibilities": {
+    "reconcile": "reconcile.classify compares generated ledger jp/en/landing by ID; special phase3 patch_ref removes markup, JP spaces differ from EN treatment. Missing rows/orphans/status warnings are separate metadata reconciliation, not byte/source truth by themselves.",
+    "build_change_ledger": "Original+working ISO decoding, many format-specific rows/known policies, generated CSV disc truth; cannot replace with registry projections or advertise this narrow guard extension as ledger parity. No ISO read/execution in study.",
+    "writeback": "Shared writeback resolver already covers pointer_array/struct_table_field and declared-register LUI/ADDIU signed-low targets. Some original ground_truth code retains warnings and tries as-is/prefix-stripped encoding variants; these are historical evidence conventions, not exact-match fallback success.",
+    "argument_audit": "Original audit_argtok_order delegates reports/text; raw word scans, weak pair checks and fallback_to_id are retained legacy behaviors. Ordered FAULT/SHIFT/GARBLE/SWAP classifiers are not safety proof; payload boundaries and actual site ownership must be exact before any reuse.",
+    "precise_held_gap": "Observed per-site target and bounded source-vs-canonical stream/control/opaque-payload comparison remains a later contract. Existing controls tokens can support it, but mapping/pinned original context and exact declared encoding must be bound; no normalizing/prefix/ID fallback may assert equality.",
+    "actual_retained_callers": "audit_drafted_writeback_gap_2026-09-08.py125 delegates drafted_main; audit_writeback_gap_70_2026-09-08b.py104 delegates multi_main; audit_sentinel_ground_truth_2026-09-07.py150 delegates ground_truth_main. These actual source routes justify common declared-site behavior; none is claimed migrated by the narrow pointer extension."
+  },
+  "precode": {
+    "directory": "/var/tmp/dokapon-registry-disc-audit-nhirt83g",
+    "cases": "Two512B mixed data/struct/3codepair source states (ID and landing),8 exact physical guards/5 IDs; independently literal LE instruction bytes and signed-low algebra, low>=8000 carry/ffff8000 wrap boundary; original data scope unchanged;7 byte mutations and9 refusal classes; opaque-payload future-audit counterexample.",
+    "independence": "No Go/candidate output or project Python import/execution. Literal bytes/words manually supplied, verified via independent stdlib struct arithmetic/hashes. Proposed fixture schema is evidence vocabulary, not new runtime API.",
+    "files": {
+      "byte-mutations.json": {
+        "bytes": 1377,
+        "sha256": "fcfa5aa65b172bb2af58223445501ad9a549730630c0a0041a9fa7e3504ce79e"
+      },
+      "existing-data-scope.bin": {
+        "bytes": 8,
+        "sha256": "f6ef83739238c636751fe9dbf202c714e7bb9d906e213d41079583acad826a76"
+      },
+      "expected-facts.json": {
+        "bytes": 4073,
+        "sha256": "a3e5d167c6cbbdbb9116d22104333f4047268c9a32160fb625258ad31606c3e1"
+      },
+      "id-scope.bin": {
+        "bytes": 64,
+        "sha256": "d8c610c72dc3b8f0af3efe3e11586bcac30b3a54a961b555b94c3b7addda434b"
+      },
+      "id-source.bin": {
+        "bytes": 512,
+        "sha256": "e06abafb80d6ff602e6e2102318467338efece8c4f9e74b749e3de6cce5f359d"
+      },
+      "landing-scope.bin": {
+        "bytes": 64,
+        "sha256": "8bab6c64845cfc29c0df9edf48054f873b1ae99cda50b7cb129f789fa066e2a3"
+      },
+      "landing-source.bin": {
+        "bytes": 512,
+        "sha256": "2ed66391d049d7e48b30802eb1033b802b92025f2d86de2197984fbfd2691e0c"
+      },
+      "migrate-hi_lo-source.txt": {
+        "bytes": 204,
+        "sha256": "6c3bf7785401696c95f830941a0e4757b2df5b13860d83be01994af011489d39"
+      },
+      "opaque-payload-counterexample.bin": {
+        "bytes": 18,
+        "sha256": "b9c15385a49fac74854e060d6e6778137aeadc769956774dc2288d98256fe592"
+      },
+      "opaque-payload-facts.json": {
+        "bytes": 817,
+        "sha256": "21776c14c23a042968ad4fa6fa312ce0f2a99a372528475763d711a76223350e"
+      },
+      "reconcile-classify.txt": {
+        "bytes": 3905,
+        "sha256": "4de921cc51e02bfac67170cb30bb4f4bbbbc8df851dfdc76e155736701545e82"
+      },
+      "refusal-facts.json": {
+        "bytes": 1420,
+        "sha256": "10157c0c3722822f2726b1c7815288a504deeade34458a55eee72c3a854575e1"
+      },
+      "registry.json": {
+        "bytes": 1468,
+        "sha256": "f7e24ce3a105e852c174fb44e0da5923e3706e7cac83e2e333540dc75436a929"
+      },
+      "text-argtoks.txt": {
+        "bytes": 142,
+        "sha256": "9e5981cd0434b4fd58a974704a36e151a82c68db8791933602ef0101262bd2eb"
+      },
+      "text-classify.txt": {
+        "bytes": 691,
+        "sha256": "9c1eb184c15d9c3e694dd307a2d7b4fa60174f1e2f80285e38ca4fcb89e5f2a4"
+      },
+      "text-live_targets.txt": {
+        "bytes": 1053,
+        "sha256": "e8463b8205a6cd7525355a6e6dad9728ce06b60bb6cb59e22eeb7110ccb62f18"
+      },
+      "text-read_words.txt": {
+        "bytes": 350,
+        "sha256": "6e686ef4b1d73fef769a780a124defc50ad0f1c17190d757244cda4045615b56"
+      },
+      "writeback-ground_truth_resolve_code_immediate_site.txt": {
+        "bytes": 1403,
+        "sha256": "eff4dd64f7e25e48e2d5179b55a03f4f639298b5fbd734f7773bb94d9d96849e"
+      },
+      "writeback-ground_truth_resolve_entry_targets.txt": {
+        "bytes": 1473,
+        "sha256": "d85fbf7463b75b95fa4296b68603a2940e90ff7d58b35e8785a961432bb0d77f"
+      },
+      "writeback-ground_truth_try_encode_variants.txt": {
+        "bytes": 1858,
+        "sha256": "002bf940818ca19832afca9e750642bf385a756612b47d75fee4d6c9ed9647b8"
+      },
+      "writeback-resolve_single_site.txt": {
+        "bytes": 1791,
+        "sha256": "da3fcafad3ceba922b459776abb624c2ad1d6577985fec664f817a6fcd636418"
+      }
+    },
+    "freeze_qualification": "The 5-ID/8-physical-word literal sources, scope bytes/hashes and refusal facts were frozen and delivered BEFORE parent began the pointer-check implementation. They remain immutable. No candidate Go output was used to derive or revise expectations."
+  },
+  "source_slices": [
+    {
+      "source": "../reconcile.py",
+      "symbol": "classify",
+      "lines": [
+        106,
+        171
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/reconcile-classify.txt",
+      "sha256": "4de921cc51e02bfac67170cb30bb4f4bbbbc8df851dfdc76e155736701545e82"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "argtoks",
+      "lines": [
+        43,
+        45
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/text-argtoks.txt",
+      "sha256": "9e5981cd0434b4fd58a974704a36e151a82c68db8791933602ef0101262bd2eb"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "read_words",
+      "lines": [
+        55,
+        64
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/text-read_words.txt",
+      "sha256": "6e686ef4b1d73fef769a780a124defc50ad0f1c17190d757244cda4045615b56"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "live_targets",
+      "lines": [
+        79,
+        105
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/text-live_targets.txt",
+      "sha256": "e8463b8205a6cd7525355a6e6dad9728ce06b60bb6cb59e22eeb7110ccb62f18"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "classify",
+      "lines": [
+        108,
+        122
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/text-classify.txt",
+      "sha256": "9c1eb184c15d9c3e694dd307a2d7b4fa60174f1e2f80285e38ca4fcb89e5f2a4"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "resolve_single_site",
+      "lines": [
+        47,
+        80
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/writeback-resolve_single_site.txt",
+      "sha256": "da3fcafad3ceba922b459776abb624c2ad1d6577985fec664f817a6fcd636418"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "ground_truth_resolve_code_immediate_site",
+      "lines": [
+        476,
+        504
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/writeback-ground_truth_resolve_code_immediate_site.txt",
+      "sha256": "eff4dd64f7e25e48e2d5179b55a03f4f639298b5fbd734f7773bb94d9d96849e"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "ground_truth_resolve_entry_targets",
+      "lines": [
+        507,
+        533
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/writeback-ground_truth_resolve_entry_targets.txt",
+      "sha256": "d85fbf7463b75b95fa4296b68603a2940e90ff7d58b35e8785a961432bb0d77f"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "ground_truth_try_encode_variants",
+      "lines": [
+        585,
+        626
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/writeback-ground_truth_try_encode_variants.txt",
+      "sha256": "002bf940818ca19832afca9e750642bf385a756612b47d75fee4d6c9ed9647b8"
+    },
+    {
+      "source": "../migrate_drafted_2026_09_30.py",
+      "symbol": "hi_lo",
+      "lines": [
+        1131,
+        1133
+      ],
+      "private_slice": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/migrate-hi_lo-source.txt",
+      "sha256": "6c3bf7785401696c95f830941a0e4757b2df5b13860d83be01994af011489d39"
+    }
+  ],
+  "source_pins": {
+    "patch.go": {
+      "sha256": "2721e771410da22e25871ba4e88138eac5feec9db5e1b76af65633f25ea39bbb",
+      "bytes": 94218
+    },
+    "references.go": {
+      "sha256": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+      "bytes": 15206
+    },
+    "reference_types.go": {
+      "sha256": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+      "bytes": 3871
+    },
+    "recipe_types.go": {
+      "sha256": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+      "bytes": 6193
+    },
+    "registry_types.go": {
+      "sha256": "987f9f47f023432232a0547bfc3a487f848fc67c4c3cf3ba3432da68f5725434",
+      "bytes": 1186
+    },
+    "text_types.go": {
+      "sha256": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "bytes": 2041
+    },
+    "main.go": {
+      "sha256": "69e778f7f445b80c0f30c5903017728123f9e46bd078847ea9a3ffb41e59a477",
+      "bytes": 12910
+    },
+    "../reconcile.py": {
+      "sha256": "d0afd03f5a5fe7f5873baa829c363d19cb86cba2fd57efe0eae7ed482f21c00a",
+      "bytes": 17482
+    },
+    "../build_change_ledger.py": {
+      "sha256": "43598024c933f89d29c9fd64592674120815f3638c32b988f4b4969733325a5a",
+      "bytes": 102489
+    },
+    "../audit_argtok_order_2026_10_01.py": {
+      "sha256": "9c271521463e341bb47b009217d831ec5b144a473aefd0b407c076a444fdd371",
+      "bytes": 3335
+    },
+    "../rework/new_tool/reports/text.py": {
+      "sha256": "bdc640e0ae426aa12f57873d425f57ef643d3f70f3cb0abbe264aaf25ae15030",
+      "bytes": 30694
+    },
+    "../rework/new_tool/reports/writeback.py": {
+      "sha256": "3d3f05afab6d9c8ca60e75baa3eb7d0616ffca6569b8300d4d5ea934e6632fde",
+      "bytes": 34552
+    },
+    "../elf_references.py": {
+      "sha256": "fbb33fdd4d086d5205de85857be7c104ed4b75695c314482ba5dd187533b0987",
+      "bytes": 4154
+    },
+    "evidence/current-pointer-checks-proof.json": {
+      "sha256": "8541cf24095cd3e1d4d67fb594e25d2db8863cc8126b6da9e8301cd6a9626d73",
+      "bytes": 1256
+    },
+    "../audit_drafted_writeback_gap_2026-09-08.py": {
+      "sha256": "c03a719fcc0f135d997ed774a6495191c6165f33eb9c7569c90a133b9d965abb",
+      "bytes": 5823
+    },
+    "../audit_writeback_gap_70_2026-09-08b.py": {
+      "sha256": "690d815b928d712ae54c94cfb9a1a42409277bb4284e16d820124fc6a254a36a",
+      "bytes": 4039
+    },
+    "../audit_sentinel_ground_truth_2026-09-07.py": {
+      "sha256": "5de09880a60b1a08b287d2b4a45701fa5c678eba50196daba99e11573b3e5fb0",
+      "bytes": 7105
+    },
+    "../migrate_drafted_2026_09_30.py": {
+      "sha256": "a35c8078bde4bab8ca978f22d5c9a843551ba523b8fff806f37ccc0edf005bdf",
+      "bytes": 106911
+    }
+  },
+  "accepted_baseline_reference": {
+    "directory": "/var/tmp/dokapon-registry-status-2cdaggda/sealed-final",
+    "manifest_sha256_supplied_by_parent": "d408fc92038fc9379845954bf0a2e901e5a80e3f3834509af424487186276927",
+    "qualification": "Prior accepted baseline reference only; no protected data reopened or full suite rerun."
+  },
+  "required_checks": [
+    "Existing pointer_array scope/report bytes unchanged; all literal ID/landing physical words and scope hashes match; no source/input mutation.",
+    "Selected mixed structs/code fail closed on wrong opcode/reg/partial carry, invalid metadata, duplicates/overlap/bounds/no-selection/pins; apply remains refused even when code Edit uses guarded_words.",
+    "Source identity and replanning must guard all same-byte edits; report observed success as declared-word audit only, not current contents/argument/readiness.",
+    "Focused existing owner tests/build/vet/format/scoped checks by implementer; no fullsuite/protected execution required for read-only study."
+  ],
+  "limits": "No source/test/doc/ledger edits, no Go or project Python execution, no ISO/canonical registry/emulator/process/PINE/controller/settings/log access, no installs/agents, no coverage/retirement/approval claim.",
+  "final_verification": {
+    "private_files_rehashed": 21,
+    "historical_primary_helper_pins_rechecked": true,
+    "literal_word_and_signed_low_reconstruction_checked": true,
+    "go_documentary_drift": [
+      {
+        "path": "patch.go",
+        "observed_sha256": "5d388738600889b77d006abc2197116256d78eb969c7b657c60befa6bd90a427",
+        "qualification": "Parent code work after precode oracle freeze; documentary owner pin drift only, no candidate outputs inspected."
+      }
+    ],
+    "execution": "Independent stdlib AST/struct/hash study only; no project imports or Go execution."
+  },
+  "source_snapshot_qualification": {
+    "patch_go": "source_pins.patch.go is PRE-IMPLEMENTATION documentary source, not an assertion that current plan is unchanged. Parent intentionally changed patch.go after oracle freeze.",
+    "verified_before_copy": {
+      "path": "/var/tmp/dokapon-reference-check-_ivbenrd/before/patch.go",
+      "sha256": "2721e771410da22e25871ba4e88138eac5feec9db5e1b76af65633f25ea39bbb"
+    },
+    "parent_baseline_record": ".goal/reference-check-work.json",
+    "boundary": "This study supplies source/evidence contract only; no inspection of candidate outputs or implementation approval."
+  }
+}

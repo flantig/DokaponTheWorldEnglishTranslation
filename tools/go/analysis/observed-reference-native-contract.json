@@ -1,0 +1,805 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T23:16:52.202313+00:00",
+  "status": "INDEPENDENT_LITERAL_NATIVE_FACTS_FROZEN_BEFORE_NEW_OBSERVED_CANDIDATE_EXECUTION",
+  "directory": "/var/tmp/dokapon-observed-reference-native-cs8xvsr2",
+  "inputs": {
+    "source": {
+      "path": "/var/tmp/dokapon-elf-layout-wqrm7am8/SLPM_657.50",
+      "size": 5087232,
+      "sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831"
+    },
+    "registry": {
+      "path": "/var/tmp/dokapon-registry-status-2cdaggda/canonical/registry.json",
+      "size": 6352646,
+      "sha256": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6"
+    }
+  },
+  "mapping": {
+    "LOADs": [
+      {
+        "index": 0,
+        "offset": 128,
+        "vma": 1048576,
+        "filesz": 4429440,
+        "memsz": 4719360
+      },
+      {
+        "index": 1,
+        "offset": 4429568,
+        "vma": 5767936,
+        "filesz": 0,
+        "memsz": 0
+      }
+    ],
+    "qualification": "Direct ELF32 programheader facts; entire site4B intervals must lie in LOAD0 file-backed extent. Target point1B is mapped independently; no flat delta assumption across unrelated segments. delta0xfff80 is derived and valid for these selected LOAD0 words only."
+  },
+  "profiles": [
+    {
+      "name": "code",
+      "family": "writeback-gap-inplace:vocab_shop_verbs_misc_2026-09-09",
+      "profile": "/var/tmp/dokapon-observed-reference-native-cs8xvsr2/code-profile.json",
+      "expected_summary": {
+        "entries": 3,
+        "declared_sites": 8,
+        "physical_words": 16,
+        "failed_sites": 0,
+        "divergent_rows": 0,
+        "all_rows_resolved": true,
+        "qualification": "resolved means strict declared words interpreted; unmapped target is still a resolved scalar, never readable content proof."
+      },
+      "expected_rows": [
+        {
+          "id": "0x535ab0",
+          "family": "writeback-gap-inplace:vocab_shop_verbs_misc_2026-09-09",
+          "ref_type": "code_immediate",
+          "site_count": 3,
+          "sites": [
+            {
+              "ordinal": 0,
+              "site": {
+                "lui_vma": "0x2bb588",
+                "addiu_vma": "0x2bb58c",
+                "reg": "$s6"
+              },
+              "geometry": {
+                "vmas": [
+                  2864520,
+                  2864524
+                ],
+                "register": 22
+              },
+              "words_literal": [
+                1008074835,
+                651582128
+              ],
+              "words_hex": [
+                "0x3c160053",
+                "0x26d65ab0"
+              ],
+              "target_literal": 5462704,
+              "target_hex": "0x535ab0",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2864520,
+                      2864524
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1816072,
+                      1816076
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2864524,
+                      2864528
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1816076,
+                      1816080
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300163c",
+                "b05ad626"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462704,
+                    5462705
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414256,
+                    4414257
+                  ]
+                }
+              ]
+            },
+            {
+              "ordinal": 1,
+              "site": {
+                "lui_vma": "0x2cca00",
+                "addiu_vma": "0x2cca08",
+                "reg": "$s2"
+              },
+              "geometry": {
+                "vmas": [
+                  2935296,
+                  2935304
+                ],
+                "register": 18
+              },
+              "words_literal": [
+                1007812691,
+                642931376
+              ],
+              "words_hex": [
+                "0x3c120053",
+                "0x26525ab0"
+              ],
+              "target_literal": 5462704,
+              "target_hex": "0x535ab0",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2935296,
+                      2935300
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1886848,
+                      1886852
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2935304,
+                      2935308
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1886856,
+                      1886860
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300123c",
+                "b05a5226"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462704,
+                    5462705
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414256,
+                    4414257
+                  ]
+                }
+              ]
+            },
+            {
+              "ordinal": 2,
+              "site": {
+                "lui_vma": "0x2d0738",
+                "addiu_vma": "0x2d0740",
+                "reg": "$s3"
+              },
+              "geometry": {
+                "vmas": [
+                  2950968,
+                  2950976
+                ],
+                "register": 19
+              },
+              "words_literal": [
+                1007878227,
+                645094064
+              ],
+              "words_hex": [
+                "0x3c130053",
+                "0x26735ab0"
+              ],
+              "target_literal": 5462704,
+              "target_hex": "0x535ab0",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2950968,
+                      2950972
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1902520,
+                      1902524
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2950976,
+                      2950980
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1902528,
+                      1902532
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300133c",
+                "b05a7326"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462704,
+                    5462705
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414256,
+                    4414257
+                  ]
+                }
+              ]
+            }
+          ],
+          "distinct_targets_source_order": [
+            5462704
+          ],
+          "divergent": false
+        },
+        {
+          "id": "0x535ab8",
+          "family": "writeback-gap-inplace:vocab_shop_verbs_misc_2026-09-09",
+          "ref_type": "code_immediate",
+          "site_count": 3,
+          "sites": [
+            {
+              "ordinal": 0,
+              "site": {
+                "lui_vma": "0x2bb598",
+                "addiu_vma": "0x2bb59c",
+                "reg": "$s6"
+              },
+              "geometry": {
+                "vmas": [
+                  2864536,
+                  2864540
+                ],
+                "register": 22
+              },
+              "words_literal": [
+                1008074835,
+                651582136
+              ],
+              "words_hex": [
+                "0x3c160053",
+                "0x26d65ab8"
+              ],
+              "target_literal": 5462712,
+              "target_hex": "0x535ab8",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2864536,
+                      2864540
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1816088,
+                      1816092
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2864540,
+                      2864544
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1816092,
+                      1816096
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300163c",
+                "b85ad626"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462712,
+                    5462713
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414264,
+                    4414265
+                  ]
+                }
+              ]
+            },
+            {
+              "ordinal": 1,
+              "site": {
+                "lui_vma": "0x2cca10",
+                "addiu_vma": "0x2cca18",
+                "reg": "$s2"
+              },
+              "geometry": {
+                "vmas": [
+                  2935312,
+                  2935320
+                ],
+                "register": 18
+              },
+              "words_literal": [
+                1007812691,
+                642931384
+              ],
+              "words_hex": [
+                "0x3c120053",
+                "0x26525ab8"
+              ],
+              "target_literal": 5462712,
+              "target_hex": "0x535ab8",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2935312,
+                      2935316
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1886864,
+                      1886868
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2935320,
+                      2935324
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1886872,
+                      1886876
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300123c",
+                "b85a5226"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462712,
+                    5462713
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414264,
+                    4414265
+                  ]
+                }
+              ]
+            },
+            {
+              "ordinal": 2,
+              "site": {
+                "lui_vma": "0x2d0748",
+                "addiu_vma": "0x2d0750",
+                "reg": "$s3"
+              },
+              "geometry": {
+                "vmas": [
+                  2950984,
+                  2950992
+                ],
+                "register": 19
+              },
+              "words_literal": [
+                1007878227,
+                645094072
+              ],
+              "words_hex": [
+                "0x3c130053",
+                "0x26735ab8"
+              ],
+              "target_literal": 5462712,
+              "target_hex": "0x535ab8",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2950984,
+                      2950988
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1902536,
+                      1902540
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2950992,
+                      2950996
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1902544,
+                      1902548
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300133c",
+                "b85a7326"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462712,
+                    5462713
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414264,
+                    4414265
+                  ]
+                }
+              ]
+            }
+          ],
+          "distinct_targets_source_order": [
+            5462712
+          ],
+          "divergent": false
+        },
+        {
+          "id": "0x535ac8",
+          "family": "writeback-gap-inplace:vocab_shop_verbs_misc_2026-09-09",
+          "ref_type": "code_immediate",
+          "site_count": 2,
+          "sites": [
+            {
+              "ordinal": 0,
+              "site": {
+                "lui_vma": "0x2bb5c0",
+                "addiu_vma": "0x2bb5c8",
+                "reg": "$s6"
+              },
+              "geometry": {
+                "vmas": [
+                  2864576,
+                  2864584
+                ],
+                "register": 22
+              },
+              "words_literal": [
+                1008074835,
+                651582152
+              ],
+              "words_hex": [
+                "0x3c160053",
+                "0x26d65ac8"
+              ],
+              "target_literal": 5462728,
+              "target_hex": "0x535ac8",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2864576,
+                      2864580
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1816128,
+                      1816132
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2864584,
+                      2864588
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1816136,
+                      1816140
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300163c",
+                "c85ad626"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462728,
+                    5462729
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414280,
+                    4414281
+                  ]
+                }
+              ]
+            },
+            {
+              "ordinal": 1,
+              "site": {
+                "lui_vma": "0x2cca38",
+                "addiu_vma": "0x2cca40",
+                "reg": "$s2"
+              },
+              "geometry": {
+                "vmas": [
+                  2935352,
+                  2935360
+                ],
+                "register": 18
+              },
+              "words_literal": [
+                1007812691,
+                642931400
+              ],
+              "words_hex": [
+                "0x3c120053",
+                "0x26525ac8"
+              ],
+              "target_literal": 5462728,
+              "target_hex": "0x535ac8",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2935352,
+                      2935356
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1886904,
+                      1886908
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2935360,
+                      2935364
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1886912,
+                      1886916
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "5300123c",
+                "c85a5226"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    5462728,
+                    5462729
+                  ],
+                  "storage": "file_backed",
+                  "program_header": 0,
+                  "file_range": [
+                    4414280,
+                    4414281
+                  ]
+                }
+              ]
+            }
+          ],
+          "distinct_targets_source_order": [
+            5462728
+          ],
+          "divergent": false
+        }
+      ]
+    },
+    {
+      "name": "unmapped",
+      "family": "owner-polish-2026-10-16",
+      "profile": "/var/tmp/dokapon-observed-reference-native-cs8xvsr2/unmapped-profile.json",
+      "expected_summary": {
+        "entries": 1,
+        "declared_sites": 1,
+        "physical_words": 2,
+        "failed_sites": 0,
+        "divergent_rows": 0,
+        "all_rows_resolved": true,
+        "qualification": "resolved means strict declared words interpreted; unmapped target is still a resolved scalar, never readable content proof."
+      },
+      "expected_rows": [
+        {
+          "id": "0x459300",
+          "family": "owner-polish-2026-10-16",
+          "ref_type": "code_immediate",
+          "site_count": 1,
+          "sites": [
+            {
+              "ordinal": 0,
+              "site": {
+                "lui_vma": "0x2701c0",
+                "addiu_vma": "0x2701ec",
+                "reg": "$a1"
+              },
+              "geometry": {
+                "vmas": [
+                  2556352,
+                  2556396
+                ],
+                "register": 5
+              },
+              "words_literal": [
+                1006961673,
+                614839392
+              ],
+              "words_hex": [
+                "0x3c050409",
+                "0x24a5b460"
+              ],
+              "target_literal": 67679328,
+              "target_hex": "0x408b460",
+              "error": null,
+              "word_mappings": [
+                [
+                  {
+                    "vma": [
+                      2556352,
+                      2556356
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1507904,
+                      1507908
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "vma": [
+                      2556396,
+                      2556400
+                    ],
+                    "storage": "file_backed",
+                    "program_header": 0,
+                    "file_range": [
+                      1507948,
+                      1507952
+                    ]
+                  }
+                ]
+              ],
+              "bytes_le": [
+                "0904053c",
+                "60b4a524"
+              ],
+              "target_mapping": [
+                {
+                  "vma": [
+                    67679328,
+                    67679329
+                  ],
+                  "storage": "unmapped"
+                }
+              ]
+            }
+          ],
+          "distinct_targets_source_order": [
+            67679328
+          ],
+          "divergent": false
+        }
+      ]
+    }
+  ],
+  "independence": "Only stdlib json/struct/hash arithmetic. Literalinstruction words manually supplied then checked at exact source offsets; register/opcode/signed-low and full4B/point1B mappings independently checked. No Go/projectmodules/decoder execution or candidate report inspected.",
+  "source_scope": "Native oracles freeze after implementation but BEFORE observed-native candidate execution. Actual Go schema is not used as a result oracle; names describe independent semantics. All source/registry inputs are explicitly permitted frozen copies.",
+  "artifacts": {
+    "code-profile.json": {
+      "bytes": 472,
+      "sha256": "8c43bf3e5b5e4cbcba75c7d8ec944fe75ddd6631ed0f12161afdf0ee39deaaaa"
+    },
+    "expected-facts.json": {
+      "bytes": 20570,
+      "sha256": "f9854d9388ebb6e619edf5a5be2499c9f361f4e74f724d5509488a6e4dce8e4c"
+    },
+    "receipt.json": {
+      "bytes": 1462,
+      "sha256": "d7b3d9dd3a16cb85079cf5fb391a36e2e1461fc4da1705c35477d899dabf2809"
+    },
+    "selected-registry-facts.json": {
+      "bytes": 1671,
+      "sha256": "3dd3873c79d2c7a04141c9e3bd20a1c4a568d43e0457ab226cd5ba04af19f4ac"
+    },
+    "unmapped-profile.json": {
+      "bytes": 441,
+      "sha256": "c5f7cd5597193cf5c01d54c416f425b684b677085a328f34e0b8e09830d3e81b"
+    }
+  },
+  "limits": "Declared strict words only; no CFG/liveness/completeness, native content/stream validity or current whole-mod/ISO proof. Owner-polish target0408b460 is outside frozen ELF; do not inspect ID459300 as its translated content."
+}

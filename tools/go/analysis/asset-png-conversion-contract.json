@@ -1,0 +1,159 @@
+{
+  "kind": "Original-only PNG conversion supplemental contract; no implementation or approval",
+  "pack": {
+    "directory": "/var/tmp/dokapon-png-conversion-contract-yomcqssq",
+    "manifest_sha256": "f7641e9a032a70569c1abeaab63adda870f99d57bae4879d1124dcbc029ae28e",
+    "members": 71,
+    "conversion_oracles_sha256": "a280d3741efb8ef14a3bddcc4631faba8b14ef1900a497ebf39d07581d619841",
+    "cases": 34,
+    "versions": {
+      "Python": "3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]",
+      "Pillow": "12.3.0",
+      "NumPy": "2.4.6"
+    }
+  },
+  "method": "Stdlib literal PNG chunks/filter0 samples; original installed Pillow open.convertRGBA; exact full PNG/rawRGBA bytes and hashes, firstrow pixels and originalASTselected explainer_scan.score frozen. No Go/candidate execution, no project module/main import, no source artwork.",
+  "source_pins": {
+    "../explainer_scan.py": {
+      "bytes": 13716,
+      "sha256": "48ec5c0acb8989071e6f0f487005ee8b2f620677d167431c08f8afea49b87f28"
+    },
+    "/var/tmp/dokapon-asset-manifest-contract-9ycx5wzu/primary-selected.py": {
+      "bytes": 2133,
+      "sha256": "7ea8c4881be545304989685bb27ee2e91f90d6b4c01d1c127da95b044b2d2364"
+    },
+    "/home/franklinl/.local/lib/python3.14/site-packages/PIL/Image.py": {
+      "bytes": 153786,
+      "sha256": "04af3f2db7ffdd61e829fa7aa8f5481d394a0a4129a8fd8aa5b13908928fcd6d"
+    },
+    "/home/franklinl/.local/lib/python3.14/site-packages/PIL/PngImagePlugin.py": {
+      "bytes": 52399,
+      "sha256": "5911ebb3c8e58edf4fccace85ade20c3a062cc41dc55340bfb7b40f0bf1861c5"
+    },
+    "/home/franklinl/.local/lib/python3.14/site-packages/PIL/_imaging.cpython-314-x86_64-linux-gnu.so": {
+      "bytes": 3402273,
+      "sha256": "fdf8144377b394125d936c9a5acea2985797977304d8ac974ccb75256f03475c"
+    },
+    "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/png16-probe.py": {
+      "bytes": 1665,
+      "sha256": "3f504cce8cc9ff8e5463deb53434a51bc3f55397027b8c12f289ba84305658e3"
+    },
+    "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/png16-checks.json": {
+      "bytes": 512,
+      "sha256": "30f4266bfe6f3dbad5760bd169d17a822807e65953fd85b5c7a35edc7363cd4f"
+    }
+  },
+  "conversion_facts": [
+    {
+      "PNG": "Gray16, color type0 depth16",
+      "Pillow_mode": "I;16",
+      "color": "Each RGBA gray channel=min(raw16,255), not highbyte or scale65535to255. Samples0,1,254,255,256,257,32768,65535 map0,1,254,255,255,255,255,255.",
+      "transparency": "Compare converted/clamped8bitgray to low8(tRNS); alpha0 on match,255 otherwise. RGB stays converted evenwhenalpha0. tRNS257 hidesraw1,NOTraw257;65535 hidesallraw>=255;256 hidesraw0;510 hidesraw254. Keys0/256/257/510/65535 plus absent frozen."
+    },
+    {
+      "PNG": "Gray1, color type0 depth1",
+      "Pillow_mode": "1",
+      "color": "Samples expand0/255.",
+      "transparency": "PngImagePlugin changes nonzerotRNS to255,zero to0. Validkey1 hideswhite. Do not apply Gray16 lowbyte1 comparison unchanged."
+    },
+    {
+      "PNG": "Gray2/Gray4, color type0 depth2/4",
+      "Pillow_mode": "L",
+      "color": "Samples expand by255/(2^depth-1).",
+      "transparency": "Plugin retains rawtRNS integer; converted8bitgray is comparedagainstthatinteger(low8). Validkey1 atdepth2 doesNOThideexpanded85;validkey15atdepth4 doesNOThide255. Key0hidesblack. This is original behavior, not PNG-spec-correct matching."
+    },
+    {
+      "PNG": "Gray8, color type0 depth8",
+      "Pillow_mode": "L",
+      "color": "Graybyte preserved; validtRNSbyte comparison retains hiddengray.",
+      "transparency": "Keys1/255 frozen with samples0,1,127,128,129,254,255,17."
+    },
+    {
+      "PNG": "GrayAlpha16, color type4 depth16",
+      "Pillow_mode": "RGBA viaLA;16B",
+      "color": "Bothgrayandalpha useHIGHBYTES, unlike Gray16withoutalpha. Hidden gray survives resultingalpha0.",
+      "transparency": "Genuinealpha fromsamples; do not reset usingtRNS logic."
+    },
+    {
+      "PNG": "RGB16, color type2 depth16",
+      "Pillow_mode": "RGB viaRGB;16B",
+      "color": "Highbyte ofeachcolorchannel.",
+      "transparency": "Compare convertedRGBbytes againstLOW8ofeachrawtRNS component. Raw(257,514,771)and(256,512,768)bothbecome(1,2,3)andbothtransparentforkey(257,514,771). Originalraw16equality woulddiffer."
+    },
+    {
+      "PNG": "RGBA16, color type6 depth16",
+      "Pillow_mode": "RGBA viaRGBA;16B",
+      "color": "All4channels useHIGHBYTES; hiddenRGBsurvivesgenuinealpha0.",
+      "transparency": "No tRNS branch for truealpha."
+    },
+    {
+      "PNG": "Indexed, color type3 depth1/2/4/8",
+      "Pillow_mode": "P",
+      "color": "RawPLTE RGB lookup; tRNS shortalpha table specifiesfirstentries, omittedentriesopaque255.",
+      "transparency": "Frozen alpha0/128/129 with upperindices14/15/254/255. Index0hiddenRGBA[17,33,65,0] retained. Do not premultiply/unpremultiply away hiddenRGB."
+    },
+    {
+      "PNG": "GrayAlpha8/RGB8/RGBA8",
+      "color": "Baselinebytes,straightalpha,validRGBtRNS frozen. HiddenRGB atalpha0 remains part of rawpixel oracle."
+    }
+  ],
+  "primary_library_source_refs": {
+    "PngImagePlugin": "Pinned installed file70..88 mode/rawmode table;500..523 tRNS retention/normalization.",
+    "Image_py": "Pinned installed file1120..1130 promotes transparent1/L/I/I;16/RGB using coreconvert_transparent. Exact _imaging binarySHA+version pins observed core behavior.",
+    "qualification": "No new codec inferred solely from mode names; formulas are checked against actual original frozen outputs. No claim stdlibGo conversion already matches."
+  },
+  "notable_scores": [
+    {
+      "name": "gray16-contrast64",
+      "pattern": "64x8;each8tile4rawgray0+4rawgray257",
+      "RGBA_sha256": "2ebe0851b4e02d75d0f9f1e684219b6cfa94fd2962679a0277d6da3519c460f2",
+      "score": [
+        6,
+        0.75,
+        8,
+        0.5,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gray2-trns3-contrast64",
+      "pattern": "4gray0+4gray3 per8tile,tRNS3;originalwhiteopaque",
+      "score": [
+        6,
+        0.75,
+        8,
+        0.5,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gray4-trns15-contrast64",
+      "pattern": "4gray0+4gray15 per8tile,tRNS15;originalwhiteopaque",
+      "score": [
+        6,
+        0.75,
+        8,
+        0.5,
+        1,
+        1
+      ]
+    }
+  ],
+  "existing_owner_feedback": "Enhance only existing manifest rawPNGconversion after bounded standard decode/validated chunks and before RGBAhash/export/discovery. Type/bitdepth/tRNS are distinct facts; standard decoder-applied alpha cannot blindly replace original transparent-conversion semantics. Preserve rawcolor evenwhenstandard decoder setsalpha0. No new schema or speculative domain restriction inferred; calibratedTXDconversion remains separate.",
+  "verification": {
+    "frozen_member_hashes_sizes": "PASS71",
+    "PNG_chunk_CRC_extents_IEND": "PASS34",
+    "IDAT_filter0scanline_lengths": "PASS34 byactualbitdepth/channelcount",
+    "raw_RGBA_lengths": "PASS34",
+    "Gray16_formula": "All8samples and5tRNSkeys checked against min255/low8comparison.",
+    "score_origin": "Only original isolatedASTsource on privatePNGs, not Go-generated expected data."
+  },
+  "limits": [
+    "Fixtures are noninterlaced/filter0; this does not invent an interlace/filterpolicy or newdecoder.",
+    "No APNG/ICC/gamma/nativeblend/visualapproval claim.",
+    "Parent owns implementation/checks/review; worker ran noGo/candidate.",
+    "Only assigned analysisJSON andownedprivatepack written; previousassetmanifestpacks immutable."
+  ]
+}

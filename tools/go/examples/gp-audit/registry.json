@@ -1,0 +1,47 @@
+{
+  "entries": [
+    {
+      "id": "0x100300",
+      "jp": "A",
+      "en": "B",
+      "patch_ref": "literal-gp-cohort",
+      "ref_type": "gp_relative",
+      "ref_sites": [
+        {
+          "addiu_vma": "0x100100",
+          "reg": "$a1"
+        }
+      ]
+    },
+    {
+      "id": "0x100302",
+      "jp": "A",
+      "en": "B",
+      "patch_ref": "literal-gp-cohort",
+      "ref_type": "gp_relative",
+      "ref_sites": [
+        {
+          "addiu_vma": "0x100100",
+          "reg": "$a1"
+        }
+      ]
+    },
+    {
+      "id": "0x100700",
+      "jp": "A B",
+      "en": "A B",
+      "patch_ref": "literal-gp-cohort",
+      "ref_type": "gp_relative",
+      "ref_sites": [
+        {
+          "addiu_vma": "0x100104",
+          "reg": "$a2"
+        },
+        {
+          "addiu_vma": "0x100108",
+          "reg": "$v0"
+        }
+      ]
+    }
+  ]
+}

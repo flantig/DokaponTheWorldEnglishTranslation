@@ -1,0 +1,162 @@
+{
+  "at": "2026-10-21T00:12:36.821255+00:00",
+  "status": "ACCEPTED focused increment; migration active/incomplete",
+  "scope": "Optional exact LINE count in existing previewFit, using existing controls page vectors. No new function/type/scanner/formatter/CLI/dependency or runtime recipe.",
+  "source_contract": {
+    "path": "analysis/fit-line-count-contract.json",
+    "sha256": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc"
+  },
+  "reuse_decision": {
+    "path": "analysis/fit-line-count-reuse-decision.json",
+    "sha256": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714"
+  },
+  "oracle_erratum": {
+    "path": "analysis/fit-line-count-oracle-erratum.json",
+    "sha256": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3",
+    "note": "Sealed raw scale-word vector is proposed bytes, not accepted authoring encoding. Preserved existing pre-measurement refusal; original immutable pack remains unchanged."
+  },
+  "independent_review": {
+    "path": "evidence/fit-line-count-review.json",
+    "sha256": "96df222c7af09a975466db73ccce75e91988405d771e85359376e8e8c4e04200",
+    "findings": [],
+    "authority": "Findings only; root owns acceptance."
+  },
+  "root_verification": [
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-fit-line-count-p1p46j4_/dokapon-go",
+        "."
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "gofmt",
+        "-l",
+        "fit.go",
+        "fit_types.go",
+        "patch_test.go"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "scoped_credentials": [
+        "fit.go",
+        "fit_types.go",
+        "patch_test.go",
+        "testdata/fit-line-count.json",
+        "analysis/fit-line-count-contract.json",
+        "analysis/fit-line-count-reuse-decision.json",
+        "analysis/fit-line-count-oracle-erratum.json"
+      ],
+      "result": "PASS",
+      "positive_selfchecks": 2
+    },
+    {
+      "whitespace_and_JSON": "PASS"
+    },
+    {
+      "focused_race": "go test -race -p 2 -run ^TestCLIDryRunAndApply$ -count=1 .",
+      "result": "PASS",
+      "seconds": 33.721,
+      "full_suite": false
+    }
+  ],
+  "legacy_and_native": [
+    {
+      "name": "literal",
+      "legacy_complete_byte_parity": true,
+      "stdout_sha256": "f92d0283d34ff423aa519f8d11cd9b16c0e66d25e8594286c5823da9940c321a"
+    },
+    {
+      "name": "native",
+      "legacy_complete_byte_parity": true,
+      "stdout_sha256": "af7d5583a0ef9c9c37d86851b2b99eafe74707ed82beb1dc58af6a085fa4400e"
+    },
+    {
+      "native_source_oracles": 3,
+      "measured_plain": 2,
+      "held_scaled": 1,
+      "report_sha256": "0ebdfed422a0aa1b550852dc1c4be63b56a0daea5070a7f8f86c5367acebbdc3",
+      "input_identity_and_bytes_preserved": true
+    }
+  ],
+  "native_negative_demonstration": [
+    {
+      "label": "before",
+      "ids": [
+        "0x47ed70",
+        "0x47eda0"
+      ],
+      "status": "within_profile",
+      "output_sha256": "d86007f0409e93fba88661ca5a18e3171304444c6cf587cdedd1b4e30a703eac"
+    },
+    {
+      "label": "after",
+      "ids": [
+        "0x47ed70",
+        "0x47eda0"
+      ],
+      "status": "row_count_mismatch",
+      "output_sha256": "508768ef7bb0f82fa77bf0c98f439178b2746a97d695c15aec9314bf102025ad"
+    }
+  ],
+  "semantics": "Explicit0 known vs nil unknown. LINE count includes trailing breaks, PAGE distinct. Wrap+constraint refuses. Retain width/height/page/byte diagnostics then mismatch last. Unsupported encoding/measurement omits count.",
+  "JSON_policy": "Deliberately refuse duplicate object keys throughout fit profile; ASCII/Unicode aliases of new required_line_breaks refuse. Existing unrelated alias behavior preserved.",
+  "accounting": {
+    "production_files": 31,
+    "production_bytes": 318639,
+    "named_functions": 33,
+    "functions_added": 0,
+    "production_growth_bytes": 1343,
+    "implementation_lines_added": 24,
+    "tests_growth_bytes": 3920,
+    "new_fixture_bytes": 11196,
+    "runtime": {
+      "files": 114,
+      "bytes": 809392
+    },
+    "interpretation": "Capability growth; no deletion/relocation/reduction/family/retirement credit."
+  },
+  "coverage": "5Full9Partial of14=35.71%; historical8FullGo20reviewed16partial366outstanding/410 unchanged.",
+  "limits": [
+    "Focused CLI race33.721s, independent CLI5.031s; full integrated suite/gameplay deferred.",
+    "Structural separator contract only; loose native bounds are not calibrated physical menu geometry.",
+    "Native scale/position/ink/nested argument contracts remain held.",
+    "No ISO/canonical registry writes or protected runtime access/control."
+  ],
+  "candidate_pins": {
+    "fit.go": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba",
+    "fit_types.go": "c4a4e34b8370bb2a47bb3f666e2c8e7cb86ea8ec33658fb27077c3150a0bb93c",
+    "patch_test.go": "f156a1f85f665d0675e6b0891968bd51d1379e3626ef139292b537e6dc5cd156",
+    "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+    "patch.go": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a",
+    "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+    "testdata/fit-line-count.json": "ff7961b54bcab4a5884d41f9b7f616c2b172bc4f908007fa35394af9fbddd98c",
+    "analysis/fit-line-count-contract.json": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc",
+    "analysis/fit-line-count-reuse-decision.json": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714",
+    "analysis/fit-line-count-oracle-erratum.json": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3"
+  },
+  "private_work": "/var/tmp/dokapon-fit-line-count-p1p46j4_"
+}

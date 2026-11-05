@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T16:13:52.374860+00:00",
+  "status": "SOURCE_ONLY_CORRECTION_HOLD_NEW_NUL_GRAMMAR_NO_IMPLEMENTATION_OR_CREDIT",
+  "finding": "No original NUL title decoder was found in the bounded actual providers. The older metadata script asserts NUL termination but contains no binary read/decode helper. Later original migration reader/writer uses f800 END, and the frozen modified ELF proves internal zero SPACE plus END at old title addresses and END-terminated short strings at current title table targets. Do not implement a NUL mode from the older prose claim.",
+  "source_conflict": [
+    {
+      "source": "add_event_taunt_title_entries.py",
+      "lines": [
+        33,
+        43
+      ],
+      "fact": "Declares50rows/10distinct NUL-terminated glyph strings, unknown runtime selector."
+    },
+    {
+      "source": "add_event_taunt_title_entries.py",
+      "lines": [
+        345,
+        471
+      ],
+      "fact": "Actual module functions validate/add declared metadata; only read/decode call AST node is REGISTRY_PATH.read_text line408. No selected NUL helper exists to execute."
+    },
+    {
+      "source": "migrate_drafted_2026_09_30.py",
+      "lines": [
+        194,
+        210
+      ],
+      "fact": "jp_stream consumes to f800, preserves zero as ordinary word; exact original selected helper executed for20contained frozen spans."
+    },
+    {
+      "source": "migrate_drafted_2026_09_30.py",
+      "lines": [
+        1396,
+        1422
+      ],
+      "fact": "Title consumer-safety hold says memcpy0x29093c copies0x12B (8glyphs+f800) into0x18 stride; this is source assertion, not fresh native instruction proof."
+    },
+    {
+      "source": "migrate_drafted_2026_09_30.py",
+      "lines": [
+        1555,
+        1563
+      ],
+      "fact": "Shared writer builds words+[f800] after validation."
+    },
+    {
+      "source": "migrate_drafted_2026_09_30.py",
+      "lines": [
+        1902,
+        1904
+      ],
+      "fact": "Title hold exempted only when generated words beforeEND<=8; no runtime selector proof here."
+    }
+  ],
+  "frozen_native_evidence": {
+    "source_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "source_size": 5087232,
+    "source_identity": "Previously frozen installed/modified extracted ELF, NOT pristine retail reference. JP labels in original declaration are metadata only; old-address text is frequently English now.",
+    "old_declared_addresses": 10,
+    "current_table": {
+      "vma": "0x520c10",
+      "file_offset": 4328592,
+      "bytes": 400,
+      "rows": 50,
+      "unique_observed_pointers": 10,
+      "pointer_storage": "All current observed pointers lie in the prior independently bound sentinel dispatch+loaded physical region, not PT_LOAD. No runtime row selection or liveness claimed."
+    },
+    "current_table_target_strings": 10,
+    "decisive_counterexample": {
+      "vma": "0x478c90",
+      "span_hex": "4800390035002b003a0039003800000051002b003d003e002f003c0000f8",
+      "decoded": "Dokapon Master",
+      "internal_zero_SPACE_byte_offset": 14,
+      "END_byte_offset": 28,
+      "hypothetical_first_NUL_text": "Dokapon",
+      "qualification": "Literal first-zero truncation is manual counterexample, not original NUL-helper execution."
+    }
+  },
+  "grammar_facts": {
+    "observed_END": "20native selected spans contain firstf800 after glyphs/spaces; existing original shared decoder and original jp_stream agree wordwise.",
+    "word_zero": "Shared decoder emits SPACE for word0 even atfirstword. Empty glyphmap[0] does not change specialSPACE classification. NUL-only-withoutEND refuses; it is not valid empty-string proof.",
+    "glyph_membership": "Unknown nonempty glyph word literal refuses in original shared decoder; native20words are known glyphs, spaces andEND only.",
+    "controls": "Known LINE is ACCEPTED by general shared decoder in literal controlcase. No title-specific control refusal is established by these providers; do not invent one or reinterpret general acceptance as title authoring approval.",
+    "tail": "Original shared decoder stops atEND; postEND bytes are separately known tail and not partof consumedstream.",
+    "pristine_original": "Unavailable under this bounded task. Cannot prove original title NUL semantics, title consumer encoding, runtime selection or firstNUL control refusal from modified6e. Remain unknown, not stale/untranslated."
+  },
+  "recommended_owner": "No new API/mode/function. Existing narrative/headerless one-word SPACE+END reader already describes observed installed forms; existing bounded observed pointer table fields and sentinel mapper describe the declared current row pointers. Exact table row declarations can be separate data if later chosen; do not infer rowselector/liveness or fallbackID. Pristine reference grammar remains an explicit HOLD, and no EN authoring contract is added.",
+  "corpus": {
+    "native_positive_spans": 20,
+    "literal_shared_decoder_cases": 7,
+    "original_helpers_executed": [
+      "dialog_codec.decode_structured",
+      "dialog_codec.stream_text",
+      "migrate_drafted_2026_09_30.jp_stream"
+    ],
+    "manual_equations": [
+      "50literal<u32pointer,u32threshold>rows from400Btable",
+      "firstzero vs firstEND offsets and wrongfirstNUL text",
+      "bounded physical offsets from prior frozen mapping facts"
+    ],
+    "no_original_NUL_execution": true,
+    "no_Go_or_candidate_access": true
+  },
+  "milestone_limit": "registry_reconciliation.05 remainsPartial; event/YBS and other battle/source-pool cohorts remainopen. This corrects a discovery lead; it does not prove titlecriterion closure or all410responsibilities.",
+  "source_pins": [
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/add_event_taunt_title_entries.py",
+      "contained": "sources/add_event_taunt_title_entries.py",
+      "size": 35585,
+      "sha256": "b094ff99b72539b3032542bd847b2b1d0b98e43781efe81f30a53e5c1d535a2f"
+    },
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/migrate_drafted_2026_09_30.py",
+      "contained": "sources/migrate_drafted_2026_09_30.py",
+      "size": 106911,
+      "sha256": "a35c8078bde4bab8ca978f22d5c9a843551ba523b8fff806f37ccc0edf005bdf"
+    },
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/dialog_codec.py",
+      "contained": "sources/dialog_codec.py",
+      "size": 25964,
+      "sha256": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc"
+    }
+  ],
+  "pack_directory": "/var/tmp/dokapon-nul-label-reader-frontier-36nrmrnf",
+  "pack_manifest": {
+    "path": "/var/tmp/dokapon-nul-label-reader-frontier-36nrmrnf/manifest.json",
+    "sha256": "a5708b92e82a02a39dd9d034dd2f5e0fdab25f32c62414339dba806ba3a27cc7",
+    "members": 37,
+    "member_bytes": 269267,
+    "facts_sha256": "8e64ece214fbe6cb1e693f500969edd229266c5f356f80a471811f2efcdbd9f4"
+  }
+}

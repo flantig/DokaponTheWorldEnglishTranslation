@@ -1,0 +1,66 @@
+{
+  "schema": "toolkit-responsibility-review-v1",
+  "status": "METADATA_FINDINGS_ONLY_NOT_COVERAGE_OR_RETIREMENT_APPROVAL",
+  "reviewed_candidate": {
+    "audit": "evidence/toolkit-responsibility-audit.json",
+    "audit_sha256": "99fa069e8896c50f36e3b1160dc3957ef473bd46dc5f36d48b347413504b4d90",
+    "row_index_sha256": "194c3f5583ce540c929aa9cd59e34a4a81698d770a008d1de2a757904337de6d",
+    "preserved_directory": "/var/tmp/dokapon-toolkit-routing-review-ab1HO8",
+    "preserved_audit": "/var/tmp/dokapon-toolkit-routing-review-ab1HO8/audit-reviewed.json",
+    "preserved_index": "/var/tmp/dokapon-toolkit-routing-review-ab1HO8/rows-reviewed.json"
+  },
+  "verified": {
+    "study_partition": "120+149+141=410 rows;410 unique current paths; each indexed study row/path matches; all current source hashes match the index.",
+    "identity": "406 discovery hashes unchanged; exactly the four disclosed paths changed. Drift flags match the underlying study hashes.",
+    "unknowns": "All132 nonempty original unknown markers match the index; immutable study pointers retain their text/exceptions. No unknown was silently resolved.",
+    "routing_structure": "Every mapped ID exists in the unchanged17-family baseline; route arrays reproduce the declared candidate map, including the explicit already-retired glyph override. This structural equality does not establish semantic correctness; findings below challenge the map itself.",
+    "original_dispositions": {"core_references":293,"optional_runtime_references":62,"administrative_references":55},
+    "source_drift_scope": "Static symbols/bodies support runtime scenario/platform classification for autoplay_all_com, text_probe_run and its mock safety tests. patch_font_glyph is an existing refusal stub with compatibility offsets and a prior retirement override; it adds no retirement credit.",
+    "AST_qualification": "Root's410-source AST-parsed statement was not independently rerun. Independent checks used static JSON joins, source hashes and bounded source reads only."
+  },
+  "findings": [
+    {
+      "id": 1,
+      "severity": "FIX_ROUTING",
+      "path": "tools/ram_snap.py:27-43",
+      "problem": "snapshot-inspection routes to core asset_preview_inventory, but snap calls pine_misc.save(slot), waits on a PCSX2 savestate and extracts eeMemory.bin. The original study explicitly retains its savestate overwrite/freshness/ownership exception. This is live runtime capture, not an offline art preview.",
+      "minimal_change": "Map snapshot-inspection to existing optional runtime_platform. It has one row. Preserve its immutable study pointer and exception.",
+      "count_effect": "292 core references /63 optional runtime references /55 administrative references; still410 paths,406 unchanged hashes and132 unknown rows.",
+      "parent_status": "Parent accepted the finding and announced correction; this report binds the ORIGINAL candidate and does not independently seal the later mapping."
+    },
+    {
+      "id": 2,
+      "severity": "FIX_ROUTING",
+      "path": "candidate_workflow_routes/assets_runtime_tests/binary.consumer",
+      "problem": "The sole consumer_layout route misses the actual contract of several tests. test_strength_legend_2026_10_07.py:16-45 checks four guarded words, readback, idempotence and source-caller refusal without measuring layout. test_foes_template_pointer_2026_10_07.py:15-50 checks guarded install, shipping refusal and complete byte containment. Metric fitting is not their transaction owner.",
+      "minimal_change": "Include guarded_transactions. Include binary_inspection for the group's instruction/ABI/interpreter assertions; consumer_layout remains relevant to its geometry cases. Existing IDs suffice; no new handler or family is needed.",
+      "count_effect": "No core/optional/admin count change; only responsibility navigation changes.",
+      "parent_status": "Parent accepted the finding and announced the three-ID candidate owner set, with per-row applicability still determined by immutable evidence. Revised audit/index were not re-read or sealed here."
+    }
+  ],
+  "architecture_conclusion": "No additional core domain identified. The two corrections use existing17 IDs.293 capability references are NOT293 migrated scripts, and55 administrative references are NOT55 new retirements. Existing partial contracts, source exceptions and runtime ownership limits remain held.",
+  "private_checks": {
+    "program": "check.jq",
+    "program_sha256": "4e0eb414e62e78504073f964752bf7eb8d83d34588fe80186a8b81ce285258eb",
+    "result": "check.json",
+    "result_sha256": "ea113092a87e768904e81be115307edfeb2312c6e9592551ce567dc997b0da3e",
+    "source_hash_checks": "source-hashes.txt",
+    "source_hash_checks_sha256": "d38a7cd73bfbbb551f496942c5cf25925771b3e9f99e0e60bd74420835afefe0"
+  },
+  "source_pins": {
+    "analysis/reusability-coverage-baseline.json": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+    "analysis/pattern-crawl-text_binary.json": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+    "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+    "analysis/pattern-crawl-assets_runtime_tests.json": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+    "analysis/pattern-crawl-historical-refusals.json": "c1fe15f5de3ffd8089d15e30386f78228cae464fcef4f64c5e40ff512cadd02d",
+    "evidence/go-coverage.json": "19fd11d489d34255eba12a63b019a82d8049cd72ba4ce871ddf0e26b71e1a183",
+    "../ram_snap.py": "0e39c40d10c96aa3b870ca1399c1cac2fac0d8b1cf2eefc6f92254ba5638d378",
+    "../test_strength_legend_2026_10_07.py": "dd7a5cd8675c2384988a1b0a5d9c79c8cc2cf26e56ca67cfb361a5dd6fd0132c",
+    "../test_foes_template_pointer_2026_10_07.py": "89f9508b9d248cca7c23695adbfc73e463776823a34a8f4ef89471e845cc75d7",
+    "../autoplay_all_com.py": "ace191d6df6fad16b99a5109fb0805424c2353ecb97f165589aa6b5586f14551",
+    "../patch_font_glyph.py": "f2c2350d89e11b5be860bd528f433b77817f2494b3e1803bdf14cd0986c3f332",
+    "../test_text_probe_run_safety.py": "0036de75ddbdf6b2ae602259f1471004c6db29a7051aa74ffafe70fcf718a1ba",
+    "../text_probe_run.py": "7f3ba8bf2c352e94c750713169728dedc31b5fde72fcc30713223f17ade0abe6"
+  },
+  "execution_limits": "No tests, imports, Python/Go tool execution, implementation changes, protected artifacts, ISO/registry/emulator/PINE/process/log/settings/auth access or daemon controls. Static source/hash/JSON inspection only."
+}

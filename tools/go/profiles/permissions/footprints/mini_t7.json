@@ -1,0 +1,78 @@
+{
+  "allow": [
+    [
+      31,
+      26,
+      188,
+      69
+    ]
+  ],
+  "masks": {
+    "allow": [
+      {
+        "rect": [
+          26,
+          22,
+          200,
+          78
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "blue-red": -4,
+                "luminance": 140,
+                "alpha": 200
+              }
+            }
+          ],
+          [
+            {
+              "near": [
+                90,
+                53,
+                19
+              ],
+              "tol": 22
+            }
+          ],
+          [
+            {
+              "below": {
+                "luminance": 60
+              }
+            }
+          ],
+          [
+            {
+              "above": {
+                "blue-red": 10,
+                "alpha": 100
+              }
+            }
+          ]
+        ],
+        "fill": "core",
+        "grow": 3,
+        "core": [
+          [
+            {
+              "above": {
+                "blue-red": -4,
+                "luminance": 140,
+                "alpha": 200
+              }
+            }
+          ]
+        ],
+        "core_grow": 8,
+        "clip": [
+          26,
+          22,
+          200,
+          78
+        ]
+      }
+    ]
+  }
+}

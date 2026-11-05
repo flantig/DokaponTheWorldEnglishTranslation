@@ -1,0 +1,131 @@
+{
+  "at": "2026-10-20T20:46:33.972033+00:00",
+  "status": "VERIFIED shared registry draft addition lifecycle; full migration ACTIVE/incomplete",
+  "scope": "registry_add reuses authorRegistry normalized/raw/Unicode/source/field/publication owners and existing keyed RegistryUpdates. No new function/helper/closure/production type/recipe field/dependency/writer. Local test decoder structs and fixture growth counted separately.",
+  "reuse_decision": "analysis/registry-add-reuse-decision.json",
+  "reuse_decision_sha256": "4f6f2511117dab8854ec71cf231b97f2b6966284b691993c784ab0e7f6b8229c",
+  "source_contract": "analysis/registry-insert-contract.json",
+  "source_contract_sha256": "404bc6ae2fdbe715863359adabaa3120268ec6c8c92d65ed7dcd2b4f5634e7bb",
+  "Serena_session": "321e7af4",
+  "production_go_pins": {
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "1ecdd7ef108b33ba47753534e67b18b43f1648369172183e0773cb3dd2e15536",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "registry_authoring.go": "0901daf23e9dd640b70de116f205891486a0741d16ecf9e32f87d6dbbcedd50a",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "test_sha256": "bc3199e5c8d543b6c46c2a48c951c42af6d95831e87c4ba8fa8adc69e329b1d8",
+  "fixture_sha256": "9c5a7d0c09edf85bec6c13d22bc69306d8dbe1606d928d61ee4746ecc8217649",
+  "vectors": {
+    "precode_source_lifecycle": 11,
+    "postreview_counterexamples": 2,
+    "qualification": "Original11 rows independently compared to frozen source oracle before accepting2 disclosed review cases. Differing historical text-validator policies are study-only gaps, not silently folded into generic import."
+  },
+  "ordinary_review": "evidence/registry-add-review.json",
+  "ordinary_review_sha256": "ba8183aa96ba95a33991189e01ff4a715f793f74bc1956a1510b0a17108317b8",
+  "review_fix": "MEDIUM: drafted-status rule initially affected existing exact-text rows. Moved after existing match/conflict classification; final13-vector/independent probe coverage preserves non-draft incoming metadata and conflict precedence. Switch dispatch uses same cases/position.",
+  "accounting": "analysis/go-current-input-accounting.json",
+  "accounting_sha256": "f44958ccfc69d4fc5c234f3eae49935f752f91169fa2d50f95c87bcc54ac2baf",
+  "costs": {
+    "runtime_before": {
+      "files": 95,
+      "bytes": 736045
+    },
+    "runtime_after": {
+      "files": 95,
+      "bytes": 738440
+    },
+    "runtime_bytes_added": 2395,
+    "production_go_before": {
+      "files": 27,
+      "bytes": 263582
+    },
+    "production_go_after": {
+      "files": 27,
+      "bytes": 265977
+    },
+    "test_bytes_added": 10035,
+    "test_total_bytes": 419079,
+    "new_fixture_bytes": 4963,
+    "production_named_functions_before": 29,
+    "production_named_functions_after": 29,
+    "new_functions_helpers_closures_production_types_recipe_fields_dependencies": 0,
+    "runtime_recipe_configuration_growth": 0,
+    "claims": "Capability growth, not savings, retirement or full-family credit."
+  },
+  "checks": {
+    "final_focused_race_vet_build_format": {
+      "path": "/var/tmp/dokapon-registry-add-d6htxqeq/delta-checks.json",
+      "sha256": "b6696bec8b091406d2dce985179947c949f5fb82da560896781f4ef60842a1ae"
+    },
+    "source_contract_pins": {
+      "path": "/var/tmp/dokapon-registry-add-d6htxqeq/source-contract-verification.json",
+      "sha256": "c8f3c51e7056be33344a1d2e16d90e21f1daa134eb1dfb71fc1f8053e57a70db"
+    },
+    "actual_source_shaped_flow": {
+      "path": "/var/tmp/dokapon-registry-add-d6htxqeq/actual-flow-checks.json",
+      "sha256": "5cb6eba83cc106aac6a09a16b74bda4f955027fd35cc98b73b14eefe3fa62f3f"
+    },
+    "hygiene": {
+      "path": "/var/tmp/dokapon-registry-add-d6htxqeq/hygiene-checks.json",
+      "sha256": "9f338db368c58518b842c16362e087e654c29e78fcf875d035a06a4556007b94"
+    }
+  },
+  "contracts_verified": [
+    "Six explicit root fields and keyed uint32 hex IDs; no body ID ambiguity, normalized duplicate or source-ID collision ambiguity.",
+    "Four required string fields, intentionally empty English, nonempty source pool; only genuinely new rows require drafted status.",
+    "Existing exact JP/EN retains all metadata/status/ID spelling; changed wording conflicts before new-row status policy.",
+    "Some-new batches sort whole registry numerically and use explicit date; all-present batch copies exact source bytes/hash/date.",
+    "Raw unknown metadata, large numbers, numeric lexemes and nested opaque duplicate members survive; rewritten-scope duplicates and malformed selected Unicode refuse.",
+    "Same exclusive publisher/source identity/preview hash behavior, no overwrites or partial batch publication.",
+    "All existing registry operation tests retain their field ownership/order and meaningful refusals."
+  ],
+  "draft_test_corrections": [
+    "Duplicate-key injection originally searched pretty spacing in compact JSON; corrected and added a mutation-took-effect assertion.",
+    "New fixture outputs initially affected the older four-file image CLI assertion; exact owned files are now removed after their checks.",
+    "The independent review status-policy defect was a production bug, fixed and verified separately; no refusal policy weakened to force a test pass."
+  ],
+  "diagram": {
+    "source_sha256": "8eeb812dd0a964060b3f302568c23ceb0853872c05ee502a472f8baf2e678753",
+    "checks": "test-results/architecture-checks.json",
+    "checks_sha256": "484f18eaa866806bcc646805a5fe212d064402a4f7bd893199379e5f3cb16309",
+    "result": "PASS1440x900/390x844 existing Playwright test; root inspected both screenshots. No forms introduced."
+  },
+  "external_topic_update": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/skills/STRING-REGISTRY.md",
+    "before_sha256": "12b6d60133524a7475d5b333029cac34711232998bf194217c751ab442f00f58",
+    "after_sha256": "c726c021391e4848d39e3023af91ee71a6ccd6b288781c142ab55bcd9f3b05c5"
+  },
+  "limitations": [
+    "Generic reviewed draft-data lifecycle does not validate glyphs, speaker/marker/page parity, fit, reference topology or patch readiness; historical policy variants remain explicit gaps.",
+    "No universal import, CSV/glossary merge/discovery-scan, full-family, historical retirement or savings claim. Coverage remains5/14 Full, with9 Partial.",
+    "Final complete CLI owner race/build/vet/checks only; no current full-suite/race rerun or new historical-golden campaign.",
+    "Source-shaped lifecycle is synthetic metadata publication, not game deployment or visual verification. No original/shipping/custom-art ISO/canonical registry or emulator/PINE/controller/process/log/settings access."
+  ],
+  "binary": {
+    "path": "/var/tmp/dokapon-registry-add-d6htxqeq/dokapon-go-final",
+    "sha256": "88f18dd9a8d58e86737a2dd2b261ac719aaa89bd126679d28f457100916c3dba"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-21T05:13:51.771757+00:00",
+  "status": "PRECODE_PRIVATE_BACKEND_PROTOTYPE",
+  "work": "/var/tmp/dokapon-ttf-backend-ecll48c9",
+  "project": "/var/tmp/dokapon-ttf-backend-ecll48c9/project",
+  "baseline_manifest": "/var/tmp/dokapon-inline-icons-6x56rlg_/sealed-final/manifest.json",
+  "baseline_sha256": "e8c05238f1fb1fcef2a0142d3bf938e0c7e10385eb49954d7b05d8d68d137b74",
+  "source_frontier": "analysis/ttf-raster-reuse-frontier.json",
+  "source_frontier_sha256": "75997a97adffe56207ae9bb8af6cf03df101b3e9edfb620c2d5df885ca6a634f",
+  "Serena": "textMasks/TextMask definitions and type refs inspected321e7af4; all6callers exactrg. Prior CGo gopls metadata limitations known; symbol query succeeds but reference routing also verifiedwithrg.",
+  "decision": "Enhance existingtextMasks with per-label typedTextRequest(Text,Start[2]float64) and TextMaskAscent/Descent. No newfunction/Cfunction/helper/testclosure/backend. requests0phase preservesexistingpreviewglyphpixels; shapeAdvanceunrounded; ascender-relativeBearing unchanged.",
+  "why_types": "TextRequestgroups text+fractionalphase toavoid parallelarray mismatch; metrics are measuredperface resultfacts, not authoredmodeflags. ExistingTextMask owns coverage/bearing/advance and canreasonablycarryfontmetrics.",
+  "reach": [
+    "raster_font.go",
+    "raster_font_disabled.go",
+    "raster_types.go",
+    "texture_contacts.go",
+    "texture_authoring.go",
+    "patch_test.go"
+  ],
+  "source_numeric_contract": "Narrowphase tofloat32 asPillowCfloat; allocationsaddceil(phase); penoriginusesCroundtiesaway overfloat32 arithmetic, thenPIXEL. NoFT_Set_Transform. Startfinite strict(-1,1) corresponds signedfraction aftertruncation.",
+  "oracle": "Existing56integerfontmasks+contact/pairoutputs retained;227originalfont/phase/license/colorfiles frozen precode. Actual24memberop8styledoracle frozenbeforecandidate butwhole styled integration remainsfuturestep.",
+  "limits": "PRIVATE ONLY;liveGo/runtime/coverage unchanged. No .05credit until sharedstyledfontcaller+wholeimages/refusals/reviews verified. Fullsuite/gameplaydeferred, noISO/canonical/protectedruntimeaccess.",
+  "backend_first_verification": {
+    "native_CLI": "PASS18.123s in privatecopy;70original phase masks/metrics/advance+56oldintegerfontoracles and allpriorcontact/pairCLIoutputs.",
+    "live_runtime_delta": 0,
+    "setup": "Initialprivateedit assumed literal labels declaration but currentcodeusesvar; correctedremainingcallers beforefirstcompile. Not a productiondefect."
+  },
+  "integration_extension": {
+    "at": "2026-10-21T05:19:24.831881+00:00",
+    "owners": "Existing BitmapFont manifest gets mutuallyexclusive pinned TTF RegistryInput+layout and transientownedfontbytes; authorTexture ownsread andfontselection; composeCells source-specificfontpreflight butsharedcell/ink/linecopy; renderRuns onlychanges fontwidth/initialmaskcolorplanes then rejoins existingstyle/resample/containment pipeline.",
+    "source_oracle": "Actualop8 frozen24members manifest68b63efb; rootverifiedall beforestyledintegration.",
+    "no_new_functions": true,
+    "styles": "Explicit emptyorderedstrokes represents original no-strokeTTFsource; existingnativeempty-stroke refusal retained. Counter clearing appliesonlywhenaglyphstrokeexists.",
+    "TTF_color_plane": "PillowImageDraw fill_mask_L integer merge in existinginitialrunpaint, not pixelOver. Tracking0 shapeswholeruns; nonzerotrackingmeasurestillwholerunbutpaintperchar and sourcecursor differ.",
+    "limits": "PRIVATEprototype, no .05credit, no arbitrarysourceextras/shadow/gradient/skew/extrusion implementation.",
+    "font_type_name": "Rename existing BitmapFont to RasterFont in privatecopy: source now covers mutuallyexclusive bitmapatlas orTrueType; no duplicate alias/newfunction.",
+    "background": "Omitted metric Background now preserves original input, with no BackgroundRect allowed unless a color is supplied. Existing explicit opaque painting and all malformed color/rect refusals retained. Required by original text-only operations on existing artwork; no preserve-mode flag or font-specific background behavior."
+  },
+  "private_progress": {
+    "at": "2026-10-21T05:29:26.493726+00:00",
+    "native_CLI_actual_Golden": "PASS28.739s afterpinnedTTFfontIO wiring (newTTFCLI not yet exercised)",
+    "actual_op8": "Fulloriginalpanel57167614 matches; all70phases+old56integermasks preserved",
+    "new_corpus": "Frozen114members/8styles+6signedmasks before candidate on NEWcases; normalization/verification next",
+    "production_delta": 0
+  },
+  "cli_wire_followup": {
+    "at": "2026-10-21T05:43:29.210245+00:00",
+    "existing_owners": [
+      "authorTexture: pinned bounded readInput/font decode, samecomposeCells/texture/writeNewFile",
+      "BitmapRunLayout.Strokes: optionalpointer preservesomitted/defaultvs[]/nostrokewithstandardJSON",
+      "TestCLIDryRunAndApply: extendexistingwholeCLI/fixture/wire/refusaltables, no newtestfunction/closure"
+    ],
+    "serena": "321e7af4 authorTexture definition and run reference reconfirmed; private currentbody inspectedwithrg",
+    "portable_fixture": "Package selected original-only captures with hashes; no candidate-generated expectations, no hardcoded temporary test paths.",
+    "workspace": "Rootverified24/24 originalpositiveworkspacepack beforeNEWstresscandidate; docsemantics qualifyfinalword-layercontainment."
+  },
+  "candidate_cost": {
+    "production_files": 37,
+    "production_bytes": 403624,
+    "production_growth_bytes": 7806,
+    "named_production_declarations": 40,
+    "new_functions": 0,
+    "runtime_files": 145,
+    "runtime_bytes": 2360840,
+    "runtime_growth_bytes": 637701,
+    "accounted_inputs": 235,
+    "test_growth_bytes": 18532,
+    "new_fixture_bytes": 1599445,
+    "classification": "Capability growth, includes623368Bfont+proper4396Bnotice+manifest/profile; no source deletion/relocation savings or historicalretirement."
+  },
+  "verification_followup": {
+    "at": "2026-10-21T05:52:35.954174+00:00",
+    "nativeCLI": "PASS22.635s: wholeoriginalimage->oldcodecTXD624c9f3a/RGBA731c6fa4,20refusals,exclusive/inputpreservation",
+    "roundtrip": "omitted/[]/nonemptyStrokes exacttypedpresence",
+    "workspace": "Root24/24pins then fulloriginalstressRGBA6731e6f5; docsintentionaltemporarycrop",
+    "focused": "native32.853s/core22.986s actualCLI+Golden",
+    "pending": "Race session68441, rootbuild/vet/hygiene/packagedprofile and freshordinaryreview; no productionpromotion or coveragecredityet."
+  },
+  "implicit_lf_correction_precode": {
+    "at": "2026-10-21T06:01:01.623507+00:00",
+    "source_finding": "Independent original A\\nB image b7dd9db3 vs candidate713e8279,199pixels differ; original succeeds. Preserveoutput, do not replace with a new refusal.",
+    "existing_candidates": {
+      "renderRuns": "Owns initial coverage/colorplanes before common styling; extend existing TextRequest/position planning to paint implicit lines. No newfunction.",
+      "composeCells linegroups": "Wrongstage for implicit LF inside one run: groups style/downsample/composite eachline, while source draws all implicitlines into same4xplanes BEFOREmorphology/resampling. Existinggroups remain unchanged.",
+      "textMasks": "Keep rawfont.getmask2/getlength semantics. LF dispatch belongs ImageDraw caller, not nativefontshape boundary."
+    },
+    "source_contract": "PrimaryinstalledPillow12.3 ImageText.Text._split: defaultleftalign, anchorls, splitLF, lineadvance=font.getbbox(A,defaultascenderanchor).bottom+4; zeroTracking paints multiline and stillreserves rawwhole-run getlength. NonzeroTracking drawscharLF asblank but retains rawLFadvance.",
+    "serena": "321e7af4 renderRuns symbol+composeCells/Goldenrefs reconfirmed beforecode; currentprivatebody inspected withrg.",
+    "next": "Wait independent original-only boundedLFpack freeze, enhance existingrunrequestplanning; preserve otherC0/tab/CR behavior, no broadUnicodeban. Re-run focused/race/build/vet and freshreviewdelta."
+  },
+  "implicit_lf_correction_result": {
+    "at": "2026-10-21T06:04:09.937851+00:00",
+    "native_actualCLI_Golden": "PASS32.951s afterfiveoriginalLFwholeRGBAcases+allpriorTTF/native/contact/paircases",
+    "status": "No newfunction/refusal. Sameinitialplanes/pipeline. Finalrace/build/vet/freshreview stillpending."
+  }
+}

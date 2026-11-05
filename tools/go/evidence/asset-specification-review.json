@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T00:50:52.161181+00:00",
+  "scope": "Read-only ordinary code and exact asset_preview_inventory.03 milestone review; findings, not approval/promotion.",
+  "result": "No material findings in reviewed scope",
+  "findings": [],
+  "candidate_pins": {
+    "texture_authoring.go": "8e3a73a64f6db71113f56deaf9080838d530982ea1a41883bbf84a9d445fc791",
+    "texture_types.go": "4bb5e13608c9eb29d83050d9962b2317825cb78de8b3ec494b906fa60a8855c8",
+    "texture_index.go": "f608d8fdc32178d233c1a3fe91162afd7ebd0b46bbd2d4d9ea5c6b5fd27d77db",
+    "texture.go": "e1f207763ecf08be0706e473ab8e2af6ec8322e089549b4a79b44ba414c6c961",
+    "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+    "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+    "patch_test.go": "e887f67e8e3c3aa40d244bad7d2ed1243f1323317bf2e9a3c4ead6596a68754d",
+    "testdata/asset-specification.zip": "6e06fbbab7112798168698461a754e3daff8d3bdb060b6d24b8494c2d94cb2c1",
+    "analysis/asset-specification-contract.json": "2f5f300b9b4cab4a2f5d3d99be35ea2857886748dc76bbb98dd01ad626d14e7c",
+    "analysis/asset-specification-reuse-decision.json": "41917ef35db9d2aa0179cb2aacdd4aa47dd841717faeb0a0367d8be527302516",
+    "analysis/migration-roadmap.json": "841c5b3e2e4fc07b2d99ce00c86fb3844f002ac1a4deec5de5bb210520ffba09"
+  },
+  "candidate_pins_before_after": "All11 unchanged; roadmap pin is pre-promotion and no later ledger change is reviewed here.",
+  "source_review": {
+    "callers": "Serena confirms indexTextures is shared by texture and authorTexture; run remains sole production authorTexture caller. Public function signatures unchanged.",
+    "reuse": "One native-name->ordered-ordinals map is constructed by the existing structural parser and consumed by codec selection and spec join. It retains duplicates rather than silently choosing first. Current codec still checks selected metadata errors and cumulative chunks before duplicate-match failure;18 complete old-report captures confirm these cases.",
+    "orchestration": "Existing authorTexture owns pinned profile/source IO, all joins, measurements and read-only report. Two clear passes validate all joins/budget before any selected decode; existing texture remains the single layout/storage/pixel validator. New usage-grouped specification/row types are justified data contracts, not another executor.",
+    "lines": {
+      "new_mode_JSON_and_refusals": "texture_authoring.go:43-65",
+      "all_joins_and_budget": "texture_authoring.go:116-141",
+      "codec_measurement_and_nulls": "texture_authoring.go:143-173",
+      "shared_ordered_name_cache": "texture_index.go:21,79",
+      "legacy_selected_error_precedence": "texture.go:36-56",
+      "authored_vs_measured_types": "texture_types.go:23-51"
+    }
+  },
+  "semantics_checked": [
+    "Exact source hash/size plus exact unique native name identify the raster; original ordinal is retained independently from lexical arbitrary UTF8 asset-ID order. Missing names, duplicate native names, and two IDs selecting one native refuse before stdout.",
+    "Authored labels remain separate from parsed Header and successfully decoded geometry/format/RGBA hash. Unsupported dimensions/depth or metadata errors retain unavailable/null measurement fields and diagnostics. No first-native or default-format fallback.",
+    "New-mode duplicate object keys, owned-key ASCII/Unicode aliases, unknown fields and invalid Unicode scalars refuse. Optional annotation omission/null intentionally normalizes to empty string; arrays/nonstring scalars refuse. Arbitrary IDs remain exact map keys.",
+    "New mode forbids active authoring flags/policies and writes no artifact. Per-profile/source/row bounds and aggregate declared area<=2^24 are checked before decode; individual potential decoded raster bounds remain codec-owned (<=2^20 pixels). Oversized raw headers bypassing the area sum cannot decode because texture refuses before allocation.",
+    "Shared name cache does not change codec selector traversal order, metadata-local refusal priority or serialized inventory. Source/profile identities and file lists stay unchanged in independent flows."
+  ],
+  "verification": {
+    "focused_CLI": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "session": 31362,
+      "seconds": 5.345,
+      "result": "PASS"
+    },
+    "build": {
+      "command": "GOMAXPROCS=2 nice -n 19 go build -p 2 -o /var/tmp/dokapon-asset-specification-review-IzXKj72z/dokapon-go .",
+      "result": "PASS",
+      "binary_sha256": "427762dad7eb1fbec8fea668af30f3db7e72539782c8acba18d807d9d271f080"
+    },
+    "vet": {
+      "command": "GOMAXPROCS=2 nice -n 19 go vet -p 2 .",
+      "result": "PASS"
+    },
+    "format_whitespace": "gofmt/git diff --check/manual pinned Go+JSON whitespace PASS",
+    "credentials": "Selfchecked real-whitespace pattern; zero candidates in7 pinned Go files",
+    "independent_standalone_probes": {
+      "cases": 17,
+      "details": "Reordered IDs/native ordinals; two independently derived constant RGBA rows including hidden transparent RGB; invalid selected metadata/depth/width nulls; valid selection with bad unselected sibling; real unchanged church source; missing/ambiguous/repeated joins; scalar/nullrow; source-overwrite apply refusal; ASCII/Unicode aliases; escaped duplicate IDs; unknown owned key; lone surrogate. Inputs preserve byte/inode/mtime and no output artifacts appear."
+    },
+    "independent_fixture_rebinding": "13 frozen manifest members rehashed; raw two-native dictionary names/16x16x8 headers/constant index0 and literal CLUT0 independently checked. Actual church native frame is byte-identical to its prior pinned direct-layout ZIP member span; existing independent wholeRGBA oracle reused. No Go outputs used as expected values.",
+    "legacy_parity": "All18 PRECODE complete stdout/stderr/exit records match exactly, including duplicate names combined with selected metadata errors.",
+    "test_scope": "Existing complete CLI owner exercises source pins, missing/case/duplicate/repeated selectors, all read-only conflicts, raw ambiguity, null normalization, deterministic repeats and16/17 potential-megapixel-row budget boundary. No new test function/closure.",
+    "full_suite": "Not run; no full-suite/race claim."
+  },
+  "milestone_assessment": {
+    "id": "asset_preview_inventory.03",
+    "exact_frozen_requirement": "Join authored specification/translation/category facts to exact asset identities and measured geometry",
+    "finding": "Satisfied by positively verified selected standalone-TXD authored joins, exact ordinal/name identity, source provenance and actual codec measurements with explicit unavailable boundaries. This is advice for root to apply to the ledger, not a ledger update.",
+    "not_satisfied_or_promoted": [
+      ".04 batch manifest/discovery accounting including mandatory score/tier/flags remains open. This report neither exports every asset nor evaluates discovery counters.",
+      ".05 checkerboard/before-after and.06 linked contact sheets remain open.",
+      "Archive/entry are declared labels; source placement, OCR, confirmed screen context, visual/gameplay approval and full-family completion are not established."
+    ]
+  },
+  "artifact_receipts": {
+    "work": "/var/tmp/dokapon-asset-specification-review-IzXKj72z",
+    "checks": {
+      "path": "/var/tmp/dokapon-asset-specification-review-IzXKj72z/checks.json",
+      "sha256": "c6c7f2b36b8fafd806d57f6646f59439cc323f13b7d23e29ff59a6995b167ccd"
+    },
+    "probes": {
+      "path": "/var/tmp/dokapon-asset-specification-review-IzXKj72z/probes.json",
+      "sha256": "4fe3eca716fdcd06eda1592db113eeb1ec62e966c4ab8a5d64567c1a930b8bed"
+    },
+    "probe_source": {
+      "path": "/var/tmp/dokapon-asset-specification-review-IzXKj72z/probes.py",
+      "sha256": "003c27a6406cd8d0c88fedffd81cfe5a4e7819daecbd2caedfb20587217ebe0d"
+    }
+  },
+  "limits": "Only assigned report and owned private artifacts written. No source/tests/docs/coverage/goal edits, ISO/canonical or protected runtime access. Review supplies findings, not implementation/approval."
+}

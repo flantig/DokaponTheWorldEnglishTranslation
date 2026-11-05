@@ -1,0 +1,59 @@
+{
+  "evidence": "Independent synthetic installed sentinel protocol: manual source-equation bounds and canonical literal bytes. Extracted ELF trailer only; no ISO, liveness, source English or gameplay authority.",
+  "observed_family": "literal-sentinel-cohort",
+  "sources": {
+    "reference": {
+      "path": "reference.elf",
+      "size": 1920,
+      "sha256": "1b8f45e0b23aeb738eaac6744aa08b795c7b84aa5d99b3a66a9da60462c90ef0"
+    },
+    "observed": {
+      "path": "observed.elf",
+      "size": 6144,
+      "sha256": "a1d801f321ba52240efddbf5729b12659cba03b9a0285ea1de06e05fc02d7b20"
+    },
+    "registry": {
+      "path": "registry.json",
+      "size": 261,
+      "sha256": "b28b70f24c550ce3e417f59cf7e5fa60f45375450421b0d7b0c0c64edfdc3356"
+    },
+    "glyphmap": {
+      "path": "glyphmap.json",
+      "size": 63,
+      "sha256": "e8d0cca72e0a41a997fc61c74f04527be57c4534e68fe5a814abd45efeaa28e5"
+    }
+  },
+  "sentinel": {
+    "retail_elf_size": 1920,
+    "loader_vmas": [
+      "0x100140",
+      "0x100144",
+      "0x100150",
+      "0x100154"
+    ],
+    "window_bases": [
+      "0x100100",
+      "0x100120"
+    ],
+    "window_sizes": [
+      "0x100110",
+      "0x100130"
+    ]
+  },
+  "entries": {
+    "0x100500": {
+      "reference": {
+        "start": "0x600",
+        "end": "0x60a"
+      },
+      "observed": {
+        "start": "0x810",
+        "end": "0x81e"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      }
+    }
+  }
+}

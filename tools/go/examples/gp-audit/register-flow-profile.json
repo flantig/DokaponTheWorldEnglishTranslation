@@ -1,0 +1,33 @@
+{
+  "operation": "instruction_index",
+  "source_size": 4096,
+  "source_sha256": "1cae72f0c3b198fbf8c9fdf510bc53969399580b08359029146637e9f7f309f2",
+  "evidence": "Synthetic shared decoded ADDIU facts with asserted entry; conditional low32 graph facts, no whole-program, ABI or patch proof.",
+  "references": {
+    "file_range": {
+      "start": "0x200",
+      "end": "0x20c"
+    }
+  },
+  "register_flow": {
+    "entry_vmas": [
+      "0x100100"
+    ],
+    "queries": {
+      "a1-before-third": {
+        "kind": "reaching_defs",
+        "register": 5,
+        "vma": "0x100108",
+        "context": "normal",
+        "max_visited_states": 32
+      },
+      "gp-after-first": {
+        "kind": "uses_after",
+        "register": 28,
+        "vma": "0x100100",
+        "context": "normal",
+        "max_visited_states": 32
+      }
+    }
+  }
+}

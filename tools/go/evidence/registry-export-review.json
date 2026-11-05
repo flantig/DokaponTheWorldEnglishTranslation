@@ -1,0 +1,135 @@
+{
+  "schema": "registry-export-ordinary-review-v1",
+  "at": "2026-10-20T21:26:51.082167+00:00",
+  "result": "PASS_NO_OPEN_FINDINGS",
+  "findings": [],
+  "candidate_pins": {
+    "cmb.go": "a8b7256b54c03b4c560c48e59ab23f759ade47baa3e44799604943850c8400bd",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "cc48b15cee3184141f7e88716b8b6c8b32f78005f1adbdcfc6ad64dcc245e5e7",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "e9b0db2ab992ac53b164acaf170fd89281b3a82aa8b8e30af7a558b8988c990d",
+    "patch_test.go": "8e45eb718728b6e4b38d1731de077b9ea42aba5aa8c05a9afea5a0f30863cbba",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "b5c2517698550e5f45d448433eeff700b714fb2a2ca86292721c5fb94a75a2c9",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "21fc5717bd4f6e88593fa9414ff88f7e15b90adbc47a9b93ee4aa31b79d29be4",
+    "registry_authoring.go": "26c5b976df83a38ce0fb8f43a7e58660a6b6a6ac39cfb72934fc2d3af9fed0bb",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/registry-export.json": "5909ecaf8a8bf038d8e31de903381a5b2e3ffdb2e63148fbb8361f572ad2354c"
+  },
+  "pins_held_before_after": true,
+  "source_contract": {
+    "path": "analysis/registry-export-contract.json",
+    "sha256": "c3312135ce0c89d0445157cb9d43e12763f83be5d2db5185a490ae20536786cf"
+  },
+  "reuse_decision": {
+    "path": "analysis/registry-export-reuse-decision.json",
+    "sha256": "df62055aeb28164601133da6075f3b7b3252203054872589b4adbf7e9f7d02a6"
+  },
+  "assessment": [
+    {
+      "area": "Ownership/DRY/readability",
+      "result": "Existing authorRegistry appropriately shares pinned raw registry parsing, normalized ID/Unicode/duplicate-key checks and exclusive publisher. Ordered RegistryColumns is necessary data rather than a mutation-map overload. The scalar switch and short quote loop directly express the selected CSV contract; Go csv.Writer cannot preserve the required byte semantics with UseCRLF. No new function/helper/closure/type/dependency/writer; no gratuitous new abstraction found.",
+      "lines": [
+        "registry_authoring.go:26",
+        "registry_authoring.go:42",
+        "registry_authoring.go:557",
+        "registry_authoring.go:591",
+        "recipe_types.go:37"
+      ]
+    },
+    {
+      "area": "Projection domain and ordering",
+      "result": "Numeric ID sorting preserves source ID spelling. Missing/null/false/integer-zero become empty; true emits True; math/big preserves arbitrary integer precision. Selected strings preserve text and paired Unicode, while floats/arrays/objects explicitly refuse. Unselected opaque metadata remains ignored. Header/body quoting doubles quotes, quotes comma/CR/LF and single empty cells, writes CRLF records and preserves embedded CR/LF, leading whitespace and literal backslash-dot.",
+      "lines": [
+        "registry_authoring.go:125",
+        "registry_authoring.go:558",
+        "registry_authoring.go:566",
+        "registry_authoring.go:577",
+        "registry_authoring.go:592"
+      ]
+    },
+    {
+      "area": "Publication, isolation and legacy behavior",
+      "result": "Five-field explicit recipe and ordered-column guards reject update/date/image fields; foreign RegistryColumns refuses in plan/planBundle/references/other registry operations and strict inspect schemas. Export skips mutation and last_updated rewriting, rehashes/rechecks source, previews only JSON and applies through unchanged writeNewFile. Existing-operation branches retain their semantics; complete existing CLI owner passes.",
+      "lines": [
+        "registry_authoring.go:40",
+        "registry_authoring.go:62",
+        "registry_authoring.go:602",
+        "registry_authoring.go:624",
+        "main.go:237",
+        "patch.go:697",
+        "cmb.go:147",
+        "references.go:23"
+      ]
+    }
+  ],
+  "checks": {
+    "focused_complete_TestCLIDryRunAndApply": "PASS 4.368s; -count=1 -p 2",
+    "build": "PASS",
+    "vet": "PASS",
+    "gofmt": "PASS",
+    "scoped_git_whitespace": "PASS",
+    "selfchecked_credentials_scan": "PASS; no hits",
+    "independent_probes": {
+      "positive_byte_oracles": 3,
+      "typed_or_pin_refusals": 7,
+      "per_positive": "Preview and apply output hash/whole bytes match independently frozen Python stdlib csv.writer expectation; five overwrite/source/profile/symlink/hardlink aliases refuse with empty stdout.",
+      "inputs": "All source/profile bytes and source inode/mtime preserved.",
+      "positive_cases": [
+        "Unusual Unicode/comma/quote/CRLF column names; NUL, NBSP, emoji, combining text, embedded CR/LF, literal backslash-dot, leading whitespace, formula text, true/false/zero/large negative integer; numeric ID order and source spelling",
+        "Single selected empty/null/NUL column including required single-empty-cell quoting",
+        "Unselected opaque nested duplicate keys and lone surrogate remain unread metadata"
+      ],
+      "refusals": [
+        "0.0",
+        "1e2",
+        "empty list",
+        "empty object",
+        "selected lone surrogate",
+        "normalized duplicate ID",
+        "stale source hash"
+      ]
+    }
+  },
+  "private_evidence": [
+    {
+      "path": "/var/tmp/dokapon-csv-review-nP0v1mOk/probe.py",
+      "sha256": "a9bcdc286f6804df22637588db1fc24067a09a0ce2657ed3373e4568c8bb1f26"
+    },
+    {
+      "path": "/var/tmp/dokapon-csv-review-nP0v1mOk/probes.json",
+      "sha256": "536f3a260cba2131e5a5796532b00ebf4ae73ef66996b720a819f2981d6e3571"
+    },
+    {
+      "path": "/var/tmp/dokapon-csv-review-nP0v1mOk/checks.json",
+      "sha256": "e16d69e0e68a8183ec28b2c0d44c9e3a47c02830638db34768bf6199f72f411c"
+    },
+    {
+      "path": "/var/tmp/dokapon-csv-review-nP0v1mOk/initial-pins.json",
+      "sha256": "3f71f4692247b8ff89654e004b74967686f09fe4a98dbbf9346a7c322600f8cb"
+    }
+  ],
+  "limits": [
+    "Focused ordinary review only; no full suite/race, exhaustive type/performance/concurrency campaign or family completion claim.",
+    "Flat registry-plan CSV projection only: no status counts, glossary/flow report, installed disc truth, spreadsheet formula escaping or historical retirement claim.",
+    "No production/test/doc changes; no original project Python executed/imported, ISO/canonical registry/emulator/process/PINE/controller/settings access. Reviewer supplies findings, not approval."
+  ]
+}

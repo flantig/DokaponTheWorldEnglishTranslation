@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-21T01:39:09.669444+00:00",
+  "scope": "Close root-evaluated Astra031 quadratic repeated indexing by sharing actual validated TXD context, not adding a parallel decoder.",
+  "existing_owners": {
+    "indexTextures": "Retain sole bounded RW parser; record exact source byte view in unexported field when index successfully returned.",
+    "texture": "Enhance with optional *TextureIndex. Nil keeps existing standalone parsing. Supplied context must be nonempty and match exact backing-view pointer+length; source and index remain immutable while used. No cryptographic cache validity claim.",
+    "authorTexture": "Existing specification already holds source/index; pass its index for selected decode. Default/render single-asset paths keep nil; no new loader or cache global.",
+    "manifestTextures": "Retain successfully parsed per-entry index pointer through native decode loop. Do not reuse across different CMB member buffers.",
+    "source_color_recursion": "Existing source-color internal decode may reuse same readonly source index; no mutation of data occurs (artifact is a separate copy). New artifact verification calls still pass nil and parse fresh."
+  },
+  "Serena": "Actual references and function bodies inspected: texture called by authorTexture/manifestTextures/self plus existing CLI/Golden tests; indexTextures sole structural parser; no API export/CLI flags added.",
+  "cache_contract": "Internal read-only view, not memoization across mutable files. Caller cannot mutate source bytes/index between parse and codec use. Optional index is bound by exact slice start+len; equal-content copies, changed-length/sliced views and different members refuse rather than fallback. Public CLI users cannot provide an index. Existing source hash/stat/write guards remain separate.",
+  "rejected_alternatives": [
+    "Whole-buffer hashing per native would retain quadratic CPU work and does not eliminate repeated source scans.",
+    "Global hash cache/second parser/helper or modeflag would add lifetime/ownership mechanisms unnecessary for already-live per-entry index.",
+    "Changing texture to require all callers preparse would alter standalone validation/refusal ordering and spread parser handling across callers."
+  ],
+  "new_functions": 0,
+  "affected": [
+    "texture.go",
+    "texture_index.go",
+    "texture_types.go",
+    "texture_authoring.go",
+    "texture_manifest.go",
+    "patch_test.go",
+    "docs/accounting/proof/coveragepins"
+  ],
+  "verification_required": [
+    "Existing complete CLI/Golden/Plan owners and focused race/build/vet/format/scans.",
+    "Complete cached/uncached outputs and refusal bytes identical for valid/unsupported/duplicate/metadata priority cases.",
+    "Prepared foreign/sliced/copied views refuse; readonly source/index inputs unchanged.",
+    "Instrumented existing indexTextures call count drops N+1 to1 for manifest N natives, spec shares1 parse, standalone/fresh artifact verification still parses.",
+    "Independent ordinary review and honest full source+data accounting; no milestone/retirement/reduction claim from relocation."
+  ]
+}

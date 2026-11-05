@@ -1,0 +1,185 @@
+{
+  "audit": "028",
+  "at": "2026-10-20T19:32:37.298453+00:00",
+  "role": "Pure adversarial read-only challenger; findings only, no implementation or approval authority",
+  "snapshot": "/var/tmp/dokapon-astra028-gm5ohfri/source",
+  "manifest": "/var/tmp/dokapon-astra028-gm5ohfri/manifest.json",
+  "manifest_sha256": "d434779d6d97a59f75d32c1899378caff624e9b918030d90a1d40279088830a5",
+  "findings": [
+    {
+      "id": "A028-1",
+      "severity": "LOW",
+      "category": "documentation-maintainability",
+      "title": "Update or explicitly supersede the stale architecture extension guide",
+      "locations": [
+        {
+          "path": "ARCHITECTURE.md",
+          "lines": [
+            5,
+            7,
+            29,
+            143,
+            149,
+            159
+          ]
+        },
+        {
+          "path": "ARCHITECTURE.html",
+          "lines": [
+            136,
+            423,
+            425
+          ]
+        }
+      ],
+      "evidence": "The architecture guide labels itself current, reports19 reviewed historical dispositions/368 outstanding, describes registry writes and validation inside run, and directs new shared registry behavior into that branch. Frozen main.go:216-217 instead dispatches to authorRegistry; the current ledger records20/367. Its component guide also omits previewFit, authorTexture/composeCells/renderRuns and snapshotArtifacts, which are now important extension owners.",
+      "reproduction": "Compare ARCHITECTURE.md:143 and ARCHITECTURE.html:423 with main.go:216-217 and registry_authoring.go:19-23; compare their historical counts with frozen MIGRATION.md:39-43. Follow the documented extension instruction and the registry branch no longer contains its alleged policy owner.",
+      "recommendation": "Use the planned14-owner map as the single current extension guide. Update these documents or visibly mark the old diagrams historical and link the replacement; avoid maintaining another independently copied set of counts and ownership facts. No production helper, package split or runtime abstraction is needed.",
+      "status": "Observed in frozen snapshot. Root was notified and already planned documentation finalization; later fixes are outside this report unless separately verified."
+    }
+  ],
+  "conclusion": "One low-severity stale extension-guide finding. Bounded static inspection did not establish a reproducible functional defect, a needless new owner, or an unsupported reduction/Full-coverage claim. This is not exhaustive correctness evidence or approval.",
+  "comparison_to027": {
+    "prior_snapshot": "/var/tmp/dokapon-astra027-u3_b_5su/source",
+    "prior_manifest": "evidence/astra-audit-027-pins.json",
+    "prior_manifest_sha256": "4af9dfc3d46fb2d2a54dfe2ba966e575532fbc255de1f8ac95b8f62550f351a9",
+    "prior_go_pins_verified": 24,
+    "runtime_before": {
+      "files": 89,
+      "bytes": 701938
+    },
+    "runtime_current": {
+      "files": 94,
+      "bytes": 731954
+    },
+    "runtime_growth_bytes": 30016,
+    "production_go_growth_bytes": 25212,
+    "profile_growth_bytes": 4804,
+    "test_source_growth_separate_bytes": 29118,
+    "functions_before": 26,
+    "functions_current": 28,
+    "prior_A027_1": "Frozen current raster preflight separates common and metric/nonmetric font guards. Earlier counter-gap closure is represented by an independent counter oracle test, but no dynamic rerun was performed in this audit."
+  },
+  "registry_extraction": {
+    "mapped_body_exact": true,
+    "mapped_body_sha256": "a551673ad43bfc4a84ccd19a1937f2df300bf9e87b8e9d56bbfd8cf2be852e82",
+    "accepted_snapshot_runtime_bytes": 731386,
+    "new_runtime_bytes": 731954,
+    "charged_growth_bytes": 568,
+    "meaning": "Existing policy relocated into one owner; no deleted behavior, new capability, reuse-saving or historical migration credit. Long policy body remains long, but no specific safe consolidation/removal was established merely from its length."
+  },
+  "availability_challenge": {
+    "assessment": "Each of14 broad families has at least one meaningful ordinary bounded operation. This is availability only, not completion of each compound family contract. The two weakest mappings remain explicitly limited below.",
+    "operations": [
+      {
+        "family": "guarded_transactions",
+        "ordinary_operation": "Recipe-driven dry run and exclusive verified output",
+        "code": "main.go:238-270; patch.go:plan/verifySource/patchCopy"
+      },
+      {
+        "family": "text_codec",
+        "ordinary_operation": "Encode canonical wording and inspect controls as part of patch/fit operations",
+        "code": "patch.go:encode/controls; fit.go:previewFit"
+      },
+      {
+        "family": "consumer_layout",
+        "ordinary_operation": "Standalone bounded native text-fit report",
+        "code": "main.go:55-59; fit.go:previewFit"
+      },
+      {
+        "family": "binary_inspection",
+        "ordinary_operation": "Selected raw-pointer/high-low/reference report and guarded word templates",
+        "code": "main.go:181-214; references.go:177-220; patch.go:plan"
+      },
+      {
+        "family": "image_layout",
+        "ordinary_operation": "Guarded named extents and stream allocation/growth",
+        "code": "cmb.go:isoFileExtent; patch.go:plan/inspect"
+      },
+      {
+        "family": "registry_authoring",
+        "ordinary_operation": "Existing-ID wording or allowed metadata updates to a new file",
+        "code": "main.go:216-217; registry_authoring.go:424-505"
+      },
+      {
+        "family": "registry_reconciliation",
+        "ordinary_operation": "Selected independently read content versus registry glyph projection and reference candidates",
+        "code": "references.go:17-22 and reference report rows/summaries"
+      },
+      {
+        "family": "artifact_snapshots",
+        "ordinary_operation": "Create/list/verified restore of an explicit immutable-by-tool tag",
+        "code": "snapshots.go:22-229"
+      },
+      {
+        "family": "offline_reports",
+        "ordinary_operation": "Text-shape, fit and reference JSON reports",
+        "code": "registry_authoring.go:225-420; fit.go; references.go"
+      },
+      {
+        "family": "candidate_composition",
+        "ordinary_operation": "Compose compatible reviewed recipes with overlap checks and new output",
+        "code": "main.go:67-168,238-270; patch.go:plan/validateEdits/patchCopy"
+      },
+      {
+        "family": "texture_codec",
+        "ordinary_operation": "Standalone PNG export/import through shared native codec",
+        "code": "texture_authoring.go:176-196; texture.go"
+      },
+      {
+        "family": "asset_placement",
+        "ordinary_operation": "Named fixed-size ISO/CMB member replacement",
+        "code": "cmb.go:isoFileExtent/cmbIndex/planBundle; patch.go:patchCopy"
+      },
+      {
+        "family": "raster_rendering",
+        "ordinary_operation": "Render authored binary-font cells or native styled lines into a masked texture",
+        "code": "texture_authoring.go:171-176; raster.go:149-242; raster_runs.go"
+      },
+      {
+        "family": "asset_preview_inventory",
+        "ordinary_operation": "Export one selected texture as a usable PNG preview",
+        "code": "texture_authoring.go:184-196"
+      }
+    ],
+    "weak_mapping_limits": [
+      "Registry reconciliation currently provides selected advisory glyph/content and structural/reference comparison. It does not prove exact controls, complete canonical-plan-versus-disc equivalence, exhaustive topology or patch authority. An advisory comparison is useful for triage; it must remain named as such in the usable-tool map.",
+      "Asset preview/inventory currently offers actual PNG export, not merely profile prerequisites. It does not offer a general inventory, contact sheet, checkerboard, manifest or spec builder. The map must name PNG preview instead of implying those additional operations."
+    ],
+    "coverage": "Frozen core4Full/10Partial/0Unsupported and historical8FullGo/20reviewed/15partial/367outstanding stay qualified. Partial coverage is allowed; no demand for every historical edge case is made."
+  },
+  "architecture_challenge": {
+    "new_owners": "snapshotArtifacts contains lifecycle/tag/receipt decisions absent from the writer, patch planner or texture owner; writeNewFile remains shared publication. authorRegistry extracts existing document policy without another implementation. Serena confirms their production caller is run.",
+    "shared_mechanics": "Serena and frozen source show writeNewFile used by registry, texture and snapshot outputs, renderRuns used by both group fitting probes and final scalar/group rasterization, and existing compositor/importer routes retained.",
+    "costs_not_findings": "renderRuns and composeCells grew with explicit style/group contracts; group probes render before final anchored output and charge combined stroke work. This costs work and leaves long owners; no reproducible failure or smaller behavior-preserving replacement was established here. Do not add splits, caches or measure modes solely to improve function-count/length metrics."
+  },
+  "checks": {
+    "frozen_manifest_files": 175,
+    "all_frozen_hashes_match": true,
+    "root_source_data_pins_frozen_and_live_match": 78,
+    "prior027_go_hashes_match": 24,
+    "native_runtime_items_independently_recomputed": 94,
+    "production_files": 26,
+    "production_named_functions": 28,
+    "accepted_accounting_mismatches": "Only main.go and registry_types.go differ from prior accepted accounting, plus the explicitly added registry_authoring.go. Frozen accounting is intentionally prior accepted state; current values were independently recomputed.",
+    "Serena_session": "2678e80b",
+    "Serena": "Owner overviews and references for authorRegistry, snapshotArtifacts, writeNewFile, references and renderRuns; owner signatures/contracts for plan, composeCells and renderRuns. Frozen call sites cross-checked.",
+    "execution": "No test suite, build, vet, mutation campaign or production command executed by this auditor. All analysis shell work used nice19/login:false/explicitcwd; scratch only in owned /var/tmp.",
+    "parent_verification_reported": "Root message reports integrated race PASS145.271s plus vet/build/gofmt/whitespace/scans and78held pins. That is parent-owned verification, not an independent dynamic audit run."
+  },
+  "private_receipts": {
+    "/var/tmp/dokapon-astra028-gm5ohfri/static-checks.json": "3fe11d62a4544da9a66cceb86df196691ca682e4b2efb7707d35b29aa7ea22aa",
+    "/var/tmp/dokapon-astra028-gm5ohfri/manifest.json": "d434779d6d97a59f75d32c1899378caff624e9b918030d90a1d40279088830a5"
+  },
+  "unverified_limits": [
+    "No full historical corpus or full arbitrary-input re-audit.",
+    "No protected ISO/canonical registry access, owner emulator/PINE/controller/process/log/settings or authentication access.",
+    "No real artifact application, runtime/gameplay or visual correctness claim.",
+    "Root is finalizing docs/accounting concurrently; findings and measurements bind this immutable frozen snapshot."
+  ],
+  "writes": [
+    "evidence/astra-audit-028.json",
+    "evidence/astra-audit-028.md",
+    "owned /var/tmp audit snapshot and receipts"
+  ]
+}

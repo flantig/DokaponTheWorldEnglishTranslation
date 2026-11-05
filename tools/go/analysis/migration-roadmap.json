@@ -1,0 +1,1953 @@
+{
+  "schema_version": 1,
+  "checklist_version": "capability-milestones-v1",
+  "created_at": "2026-10-21T00:32:23.943095+00:00",
+  "scope": "All14core families under unchanged workflow-families-v1. New planning milestones expose partial progress; no scope replacement or family promotion.",
+  "original_baseline": {
+    "path": "analysis/reusability-coverage-baseline.json",
+    "sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b"
+  },
+  "scoring": {
+    "rule": "100 * proven milestones / six milestones per family. Partial/missing/held earn zero credit. Equal-weight acceptance groups are not equal effort.",
+    "denominator_frozen_for_future_updates": true,
+    "family_completion": "Allmaterial original family obligations and independent completion assessment still required. Checklist arithmetic never automatically promotes a family.",
+    "does_not_measure": [
+      "Code reuse or readability",
+      "Percentage of implementation effort/time remaining",
+      "Historical script migration",
+      "Current mod byte parity or visual/gameplay approval"
+    ]
+  },
+  "evidence_basis": {
+    "independent_static_review": "analysis/sixth-family-closure-review.json",
+    "review_sha256": "863c904dec6b563c9f5e6568e857c267b0bfbf8914e3747c7efb3317f798340a",
+    "current_source_recheck": "evidence/migration-roadmap-source-checks.json",
+    "source_recheck_sha256": "09ddaf64ffb12cd0d9733ec74c000fbda00feeaa6792ec4c18899b1b490f1d69",
+    "review_preceding_source_receipt_sha256": "a091128a9dd411165571bc3c58f7fec38c8014264ecc9e1bcd6bbd424ed92dc9",
+    "accepted_code_snapshot": "/var/tmp/dokapon-fit-line-count-p1p46j4_/sealed-final",
+    "accepted_code_manifest_sha256": "0189e234e47105fe2ce521c0d2e32f62bbd6852d0017ca050ac6fe81786ac647",
+    "verification_scope": "Current source/proof/checklist review; prior accepted behavior evidence cited, no new full-suite run. Inline code WIP remains private and earns no credit."
+  },
+  "families": [
+    {
+      "id": "guarded_transactions",
+      "title": "Guarded patching",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "guarded_transactions.01",
+          "requirement": "Plan typed sorted old/new byte edits from declarative facts",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/same-length-closure.json"
+          ]
+        },
+        {
+          "id": "guarded_transactions.02",
+          "requirement": "Require complete preimages and reject partial-installed states",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/native-slot-proof.json",
+            "evidence/jp-selector-proof.json"
+          ]
+        },
+        {
+          "id": "guarded_transactions.03",
+          "requirement": "Validate bounds/alignment/overlap once for all writers",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/guarded-transaction-coverage-reassessment.json"
+          ]
+        },
+        {
+          "id": "guarded_transactions.04",
+          "requirement": "Recognize done/idempotent state and explicit reversible proposals",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/reverse-word-proof.json",
+            "analysis/guarded-transaction-coverage-reassessment.json"
+          ]
+        },
+        {
+          "id": "guarded_transactions.05",
+          "requirement": "Use exclusive output, source replan/hash checks and preserve registry/source ownership",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/standalone-output-proof.json",
+            "evidence/native-probe-guarded-copy-proof.json"
+          ]
+        },
+        {
+          "id": "guarded_transactions.06",
+          "requirement": "Verify readback, expected-only changes and failed-copy cleanup",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/stream-slot-proof.json",
+            "analysis/guarded-transaction-coverage-reassessment.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Complete under the frozen contract; retain regression coverage.",
+      "next_achievable_milestone": "Maintain the shared transaction owner and integrated regression; automatic inversion is optional.",
+      "dependencies": [
+        "plan",
+        "validateEdits",
+        "verifySource",
+        "patchCopy",
+        "writeNewFile"
+      ],
+      "acceptance_checks": [
+        "Retain complete mixed slot/code forward/reverse and protected-source/output refusal checks."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-text_binary.json",
+          "pointer": "small_toolkit/guarded_transaction",
+          "contract": "Plan sorted bounded old/new byte edits once, retain preimages/idempotence/exclusive output/readback and registry ownership; no per-script writer. Recipes contain IDs, words, text and explicit old/new states. Existing Go plan/validateEdits/verifySource/patchCopy and Python stream_fix_run already own much of this."
+        },
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/binary_edit",
+          "contract": "Plan typed equal-size old/new edits, source guards, whole-copy application/revert and readback."
+        }
+      ]
+    },
+    {
+      "id": "text_codec",
+      "title": "Text codec",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100,
+      "milestones": [
+        {
+          "id": "text_codec.01",
+          "requirement": "Share source glyph maps and typed word/token representation",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/native-advance-exception-proof.json",
+            "evidence/stream-audit-proof.json"
+          ]
+        },
+        {
+          "id": "text_codec.02",
+          "requirement": "Encode supported authored ordinary markup and bounded fixed fields",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/icon-grammar-checkpoint.json",
+            "evidence/stream-slot-proof.json"
+          ]
+        },
+        {
+          "id": "text_codec.03",
+          "requirement": "Decode explicit narrative/positional/fixed-reader forms with bounded termination",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/stream-audit-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "text_codec.04",
+          "requirement": "Preserve exact semantic-control/ordered argument/opaque payload observations and refusal boundaries",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/stream-audit-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "text_codec.05",
+          "requirement": "Author/re-encode remaining setup/pen/opaque grammar while preserving unknown arguments",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/ordered-text-proof.json",
+            "evidence/ordered-text-review.json",
+            "analysis/ordered-text-family-assessment.json"
+          ],
+          "detail": "Originalscope independentlyassessed;changed-wording/source-role/full8Bpayload/context-roundtrips andmeaningfulrefusals verified throughsharedactualcallers. Unknownnative/ABI domainsnotwaived."
+        },
+        {
+          "id": "text_codec.06",
+          "requirement": "Perform source-context-preserving roundtrips across material mixed control sequences",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/ordered-text-proof.json",
+            "evidence/ordered-text-review.json",
+            "analysis/ordered-text-family-assessment.json"
+          ],
+          "detail": "Originalscope independentlyassessed;changed-wording/source-role/full8Bpayload/context-roundtrips andmeaningfulrefusals verified throughsharedactualcallers. Unknownnative/ABI domainsnotwaived."
+        }
+      ],
+      "remaining_roadmap": "Originalfinitecodecrequirements complete; native/ABI/write/unclassified domains retain explicit boundaries.",
+      "next_achievable_milestone": "Completed under original six milestones. Enhance shared owners when a new established source contract appears.",
+      "dependencies": [
+        "encode",
+        "controls",
+        "glyphMaps",
+        "independent source grammar cases"
+      ],
+      "acceptance_checks": [
+        "Independent literal mixed controls/arguments/payloads, final pauses, malformed/truncated refusals, explicit decoder style and exact/noop roundtrips."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-text_binary.json",
+          "pointer": "small_toolkit/text_codec",
+          "contract": "One source-aware word/token grammar, glyph map, markup encoder/decoder and semantic-control checks. Canonical wording remains registry data. Reuse Go encode/controls, Python dialog_codec/text_encoder; do not make one codec handler per chapter."
+        },
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/text_codec_fit",
+          "contract": "Decode/encode game text and inspect native line/byte/layout constraints or apply bounded edits."
+        }
+      ]
+    },
+    {
+      "id": "consumer_layout",
+      "title": "Text fitting and layout",
+      "accepted_family_status": "partial",
+      "verified_milestones": 3,
+      "total_milestones": 6,
+      "checklist_percent": 50.0,
+      "milestones": [
+        {
+          "id": "consumer_layout.01",
+          "requirement": "Derive native glyph/space advances from guarded source metrics",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/native-advance-exception-proof.json"
+          ]
+        },
+        {
+          "id": "consumer_layout.02",
+          "requirement": "Measure/wrap supported literal text and bounded numeric substitutions",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/numeric-wrap-proof.json"
+          ]
+        },
+        {
+          "id": "consumer_layout.03",
+          "requirement": "Report declared width/height/page/byte/exact-LINE constraints with honest unknowns",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/fit-line-count-proof.json",
+            "evidence/fit-line-count-review.json"
+          ]
+        },
+        {
+          "id": "consumer_layout.04",
+          "requirement": "Model explicit native scale, positioned/centered pens and their rounding/consumer units",
+          "status": "held",
+          "credit": 0,
+          "evidence": [
+            "analysis/native-scale-reuse-contract.json"
+          ],
+          "detail": "Native numerical/consumer-unit proof remains held; bitmap renderer scale is not native text layout."
+        },
+        {
+          "id": "consumer_layout.05",
+          "requirement": "Measure relevant native ink extents as well as pen advance",
+          "status": "partial",
+          "credit": 0,
+          "evidence": [
+            "analysis/reusability-coverage.json"
+          ],
+          "detail": "Raster-layer bounds exist separately; native text ink support is incomplete."
+        },
+        {
+          "id": "consumer_layout.06",
+          "requirement": "Provide proved consumer geometry/expansion diagnostics including nested producer domains",
+          "status": "held",
+          "credit": 0,
+          "evidence": [
+            "analysis/nested-job-producer-contract.json",
+            "analysis/nested-job-index-followup.json",
+            "analysis/nested-job-gender-followup.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Native scale/position and rounding \u2192 ink bounds \u2192 nested expansions and proved consumer boxes.",
+      "next_achievable_milestone": "Complete one source-proven scale/leading consumer contract and its exact rounding/geometry checks before generalizing.",
+      "dependencies": [
+        "inspect",
+        "controls",
+        "wrapPages",
+        "previewFit",
+        "source-proven native consumer units"
+      ],
+      "acceptance_checks": [
+        "Independent fractional/negative/centered pen and ink cases; preserve exact-LINE and unsupported scale behavior until proved.",
+        "Bound nested argument domains and expansion widths; source-derived geometry must replace nominal character budgets."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-text_binary.json",
+          "pointer": "small_toolkit/consumer_layout",
+          "contract": "Shared native metrics, explicit scale, measured wrapping/ink bounds and expansion diagnostics, parameterized by proved consumer geometry. New canonical EN first gets read-only evidence; generated encoded pins then feed strict replay."
+        },
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/text_codec_fit",
+          "contract": "Decode/encode game text and inspect native line/byte/layout constraints or apply bounded edits."
+        }
+      ]
+    },
+    {
+      "id": "binary_inspection",
+      "title": "Instruction and reference inspection",
+      "accepted_family_status": "partial",
+      "verified_milestones": 4,
+      "total_milestones": 6,
+      "checklist_percent": 66.67,
+      "milestones": [
+        {
+          "id": "binary_inspection.01",
+          "requirement": "Classify declared raw pointer/struct field references and preserve source-order sites",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/reference-check-proof.json",
+            "evidence/observed-reference-proof.json"
+          ]
+        },
+        {
+          "id": "binary_inspection.02",
+          "requirement": "Encode/check deterministic strict adjusted-high/signed-low instruction pairs and guarded words",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/reference-check-proof.json",
+            "evidence/native-probe-guarded-copy-proof.json"
+          ]
+        },
+        {
+          "id": "binary_inspection.03",
+          "requirement": "Read complete instruction words, reconstruct targets and report mappings/errors/divergence without fallback",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/observed-reference-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "binary_inspection.04",
+          "requirement": "Provide general GP-relative reference classification/indexing, not only one metadata backfill",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/gp-index-reuse-frontier.json",
+            "analysis/gp-index-fixture-contract.json",
+            "analysis/gp-index-reuse-decision.json",
+            "analysis/gp-index-milestone-study.json",
+            "analysis/gp-index-milestone-assessment.json",
+            "evidence/gp-index-proof.json",
+            "evidence/gp-index-review.json",
+            "testdata/gp-index-fixture.zip",
+            "examples/gp-audit/index-profile.json"
+          ],
+          "detail": "General bounded source-order GP-base address classification/index through shared Go reference/ELF owners: complete-word reverse mappings, supportedADDIU/memory/cache/prefetch forms, metadataunknown/zero, signedwrap, pointqueries/maps. No loaded-pointer/liveGP/CFG/hook claim."
+        },
+        {
+          "id": "binary_inspection.05",
+          "requirement": "Classify branch/fallthrough and perform bounded register/CFG reasoning required by original reports",
+          "status": "partial",
+          "credit": 0,
+          "evidence": [
+            "analysis/pattern-crawl-text_binary.json",
+            "analysis/reusability-coverage-baseline.json",
+            "evidence/instruction-flow-proof.json",
+            "evidence/instruction-flow-review.json",
+            "analysis/instruction-flow-reuse-decision.json",
+            "testdata/instruction-index-fixture.zip",
+            "examples/gp-audit/instruction-profile.json",
+            "evidence/register-flow-proof.json",
+            "evidence/register-flow-final-review.json",
+            "analysis/register-flow-reuse-decision.json",
+            "analysis/register-flow-cli-contract-v3.json",
+            "testdata/register-flow-fixture.zip",
+            "examples/gp-audit/register-flow-profile.json",
+            "evidence/reference-owner-proof.json",
+            "evidence/reference-owner-final-review.json",
+            "analysis/reference-owner-reuse-decision.json",
+            "analysis/register-flow-caller-gap-study.json",
+            "analysis/reference-owner-cli-contract.json",
+            "evidence/reference-owner-review.json",
+            "evidence/ori-operand-review.json",
+            "evidence/reference-owner-approach-review.json",
+            "testdata/reference-owner-fixture.zip",
+            "testdata/instruction-ori-fixture.zip",
+            "examples/reference-flow/profile.json"
+          ],
+          "detail": "Actual one-batch graph joined to canonical registry ownership, registered-LUI membership, multiple/incoming/nonLUI definitions, originalID/landing target arithmetic, exact benign pairs, foreign-reader statuses, full ordered refusals and strict canonicalpair errors. Fresh pinnedELF computes facts, no injectedproofs. Original reads_arg and Tracerconsumer events remain; .06interior/hookABI separate. No full.05credit."
+        },
+        {
+          "id": "binary_inspection.06",
+          "requirement": "Identify interior references and preserve hook/ABI proof boundaries across those forms",
+          "status": "partial",
+          "credit": 0,
+          "evidence": [
+            "analysis/reusability-coverage.json"
+          ],
+          "detail": "Strict recorded sites are useful; exhaustive/interior/liveness/hook reasoning remains held."
+        }
+      ],
+      "remaining_roadmap": "Original reads_arg/Tracerconsumer report duties and interior-reference/hookABI boundaries remain; shared graph ownership/refusal join verified.",
+      "next_achievable_milestone": "Freeze remaining reads_arg/Tracerconsumer contracts before enhancing existing analysis owners; avoid fullTracer append.",
+      "dependencies": [
+        "references",
+        "normalizeReference",
+        "referenceTarget",
+        "inspect",
+        "original Scanner/Code/Tracer source contracts"
+      ],
+      "acceptance_checks": [
+        "Freeze raw pointer, signed pair, GP, branch/fallthrough and interior-reference counterexamples; unknown opcodes/register paths stay unknown.",
+        "Show that matching a constant is distinct from liveness/hook ABI proof; preserve existing advisory bytes and read-only gates."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-text_binary.json",
+          "pointer": "small_toolkit/binary_inspection",
+          "contract": "Share deterministic word/instruction encoding, fixed-width decoding and reference indexes. Reports classify raw pointers, adjusted-high/signed-low pairs, GP offsets, branch/fallthrough, and interior references. Existing Go references and historical Scanner/Code/Tracer are reuse candidates, not interchangeable proof levels."
+        }
+      ]
+    },
+    {
+      "id": "image_layout",
+      "title": "Image allocation and capacity",
+      "accepted_family_status": "partial",
+      "verified_milestones": 4,
+      "total_milestones": 6,
+      "checklist_percent": 66.67,
+      "milestones": [
+        {
+          "id": "image_layout.01",
+          "requirement": "Map half-open ELF VMA ranges to file-backed/BSS/unmapped spans",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/elf-layout-proof.json",
+            "evidence/elf-layout-review.json"
+          ]
+        },
+        {
+          "id": "image_layout.02",
+          "requirement": "Map named disc files and self-consistent ISO extents",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json",
+            "evidence/allocation-proof-status.json"
+          ]
+        },
+        {
+          "id": "image_layout.03",
+          "requirement": "Validate/grow declared initialized stream capacity with loader/window coherence",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/capacity-proof-status.json",
+            "evidence/allocation-proof-status.json"
+          ]
+        },
+        {
+          "id": "image_layout.04",
+          "requirement": "Enforce explicit reviewed reservations/ranges and preservation guards",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/allocation-proof-status.json",
+            "evidence/capacity-proof-status.json"
+          ]
+        },
+        {
+          "id": "image_layout.05",
+          "requirement": "Derive independent safe-cave/landing ownership rather than infer it from zero bytes",
+          "status": "held",
+          "credit": 0,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "analysis/pattern-crawl-text_binary.json"
+          ]
+        },
+        {
+          "id": "image_layout.06",
+          "requirement": "Support general ELF segment/BSS growth with coherent image metadata",
+          "status": "held",
+          "credit": 0,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "analysis/pattern-crawl-iso_registry_reports.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Prove safe placement ownership \u2192 coherent ELF segment/BSS growth.",
+      "next_achievable_milestone": "A finite segment-growth/reservation contract with independent loader/heap ownership proof; current read-only mapping is not allocator approval.",
+      "dependencies": [
+        "inspect",
+        "isoFileExtent",
+        "plan",
+        "native loader/heap constraints"
+      ],
+      "acceptance_checks": [
+        "Independent boundary/overlap/BSS/segment-order/growth fixtures, all metadata reachability/endian fields, unrelated bytes and startup-window coherence."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-text_binary.json",
+          "pointer": "small_toolkit/allocation_safety",
+          "contract": "Shared ELF/disc/sentinel mapping, self-consistent loader/window capacity and bounded placement/reservations; recipes supply approved ranges and named claims. Enhance existing inspect/plan before adding allocators."
+        },
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/image_layout",
+          "contract": "Map VMA/file/ISO ranges and validate or grow ISO9660/ELF/stream capacity."
+        }
+      ]
+    },
+    {
+      "id": "registry_authoring",
+      "title": "Registry authoring and import",
+      "accepted_family_status": "partial",
+      "verified_milestones": 3,
+      "total_milestones": 6,
+      "checklist_percent": 50.0,
+      "milestones": [
+        {
+          "id": "registry_authoring.01",
+          "requirement": "Normalize IDs, reject duplicates/conflicts and preserve unknown raw metadata",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/registry-author-proof.json",
+            "evidence/registry-add-proof.json"
+          ]
+        },
+        {
+          "id": "registry_authoring.02",
+          "requirement": "Merge reviewed allowed machine fields while preserving human ownership/status policies",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/registry-policy-closure.json"
+          ]
+        },
+        {
+          "id": "registry_authoring.03",
+          "requirement": "Author existing wording and insert reviewed drafts into guarded new snapshots with idempotent state",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/registry-author-proof.json",
+            "evidence/registry-add-proof.json",
+            "evidence/registry-add-review.json"
+          ]
+        },
+        {
+          "id": "registry_authoring.04",
+          "requirement": "Ingest authored batches with declared schema/required-field normalization and per-pool import responsibilities",
+          "status": "partial",
+          "credit": 0,
+          "evidence": [
+            "../rework/new_tool/registry_tools/registry_import.py:843-852",
+            "analysis/pattern-crawl-iso_registry_reports.json"
+          ],
+          "detail": "Keyed draft JSON exists; full import/schema/CSV adapters and original required-field roles are incomplete. Historical CLI spelling is not the gap."
+        },
+        {
+          "id": "registry_authoring.05",
+          "requirement": "Validate speaker/page/marker/glyph integrity under declared source policies before accepting imports",
+          "status": "partial",
+          "credit": 0,
+          "evidence": [
+            "../rework/new_tool/registry_tools/registry_import.py:45-107",
+            "analysis/reusability-coverage.json"
+          ],
+          "detail": "Generic draft acceptance deliberately does not imply text readiness."
+        },
+        {
+          "id": "registry_authoring.06",
+          "requirement": "Reconcile glossary/corrections and distinct human/machine field owners without silent drift or locked-status rollback",
+          "status": "missing",
+          "credit": 0,
+          "evidence": [
+            "../rework/new_tool/registry_tools/registry.py:227-371",
+            "../rework/new_tool/registry_tools/registry.py:398-550"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Declared batch/CSV imports \u2192 text-integrity policies \u2192 glossary and field ownership.",
+      "next_achievable_milestone": "One declarative authored-import policy joining required fields plus speaker/marker/glyph checks; glossary correction/conflict duty remains separate work.",
+      "dependencies": [
+        "authorRegistry",
+        "checkJSON",
+        "glyphMaps",
+        "controls where its grammar agrees",
+        "human-versus-machine field policy"
+      ],
+      "acceptance_checks": [
+        "Independent duplicate normalized ID, missing/falsy fields, speaker/page mismatch, ordered marker/glyph failures, Unicode and locked/drift conflicts.",
+        "Unknown metadata and all-present source-byte idempotence; preview/apply/exclusive new output; glossary conflict and required provenance/source/usage-note cases."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/registry_merge",
+          "contract": "Normalize stable IDs; validate/import authored entries or merge allowed machine fields into a new snapshot. Human wording and machine metadata have different owners."
+        }
+      ]
+    },
+    {
+      "id": "registry_reconciliation",
+      "title": "Registry versus installed content",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "registry_reconciliation.01",
+          "requirement": "Select normalized registry IDs/families with pinned source and explicit ownership",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/observed-reference-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.02",
+          "requirement": "Independently read declared site words/targets/mappings and retain divergence/errors",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/observed-reference-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.03",
+          "requirement": "Compare selected complete streams, controls, ordered arguments and payloads without normalization hiding differences",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/stream-audit-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.04",
+          "requirement": "Build source-aware canonical expected streams and classify plan-versus-installed differences",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "../rework/new_tool/reports/writeback.py:569-626",
+            "analysis/canonical-audit-reuse-frontier.json",
+            "analysis/canonical-audit-reuse-decision.json",
+            "testdata/canonical-audit.json",
+            "examples/canonical-audit/profile.json",
+            "evidence/canonical-audit-proof.json",
+            "evidence/canonical-audit-review.json",
+            "analysis/source-prologue-frontier.json",
+            "analysis/source-prologue-reuse-decision.json",
+            "testdata/source-prologues.json",
+            "evidence/source-prologue-proof.json",
+            "evidence/source-prologue-review.json",
+            "analysis/source-colour-policy-frontier.json",
+            "analysis/source-colour-reuse-decision.json",
+            "testdata/source-colours.json",
+            "evidence/source-colour-proof.json",
+            "evidence/source-colour-review.json",
+            "analysis/canonical-comparison-milestone-assessment.json",
+            "analysis/source-aware-roadmap-gap-study.json",
+            "evidence/astra-audit-036.json"
+          ],
+          "detail": "Source-aware canonical expectations and independent installed bindings verified for explicit bounded narrative authoring, including setup/plain-colour/marked policies, exact mismatch factors and meaningful unknowns. No supplied expected buffer or fallback. Reader/source-pool expansion and joined proposals remain separate later milestones; whole family stays Partial."
+        },
+        {
+          "id": "registry_reconciliation.05",
+          "requirement": "Cover material fixed-field/sentinel/source-pool/reader forms under explicit bounds and unknowns",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "../rework/new_tool/registry_tools/registry.py:981-1145",
+            "analysis/fixed-inline-audit-frontier.json",
+            "analysis/fixed-inline-reuse-decision.json",
+            "analysis/fixed-inline-oracle-packaging.json",
+            "testdata/fixed-inline-audit.json",
+            "examples/fixed-audit/glyphmap.json",
+            "examples/fixed-audit/observed.elf",
+            "examples/fixed-audit/profile.json",
+            "examples/fixed-audit/reference.elf",
+            "examples/fixed-audit/registry.json",
+            "evidence/fixed-inline-audit-proof.json",
+            "evidence/fixed-inline-audit-review.json",
+            "analysis/sentinel-reader-frontier.json",
+            "analysis/sentinel-reader-reuse-decision.json",
+            "testdata/sentinel-reader.json",
+            "testdata/sentinel-reader.zip",
+            "examples/sentinel-audit/profile.json",
+            "examples/sentinel-audit/layout-profile.json",
+            "evidence/sentinel-reader-proof.json",
+            "evidence/sentinel-reader-review.json",
+            "analysis/sourcepool-reader-frontier.json",
+            "analysis/pinned-raw-reuse-decision.json",
+            "analysis/nul-label-reader-frontier.json",
+            "testdata/pinned-raw-audit.json",
+            "examples/pinned-raw-audit/profile.json",
+            "evidence/pinned-raw-reader-proof.json",
+            "evidence/pinned-raw-reader-review.json",
+            "analysis/raw-reader-compatibility-frontier.json",
+            "evidence/raw-reader-compatibility-proof.json",
+            "evidence/raw-reader-compatibility-review.json",
+            "evidence/astra-audit-037.json",
+            "analysis/event-reader-selection-frontier.json",
+            "analysis/material-reader-gap-assessment.json",
+            "evidence/event-reader-composition-proof.json",
+            "evidence/event-reader-composition-review.json",
+            "analysis/gp-reader-reuse-decision.json",
+            "testdata/gp-audit.json",
+            "examples/gp-audit/profile.json",
+            "evidence/gp-reader-proof.json",
+            "evidence/gp-reader-review.json",
+            "analysis/material-reader-milestone-assessment.json",
+            "evidence/material-reader-milestone-review.json"
+          ],
+          "detail": "Identified material fixed16, ordinary/sentinel, pinned raw, declared event-slot and GP-relative forms are verified through shared bounded readers, complete observed windows and independent original/native facts. Unsupported/pristine/runtime/display ownership remains explicit; no full410 or patch-authority claim. Joined proposals remain the next separate checkpoint."
+        },
+        {
+          "id": "registry_reconciliation.06",
+          "requirement": "Propose evidence-bound differences for reviewed human/machine updates before any mutation",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/registry-policy-closure.json",
+            "analysis/pattern-crawl-iso_registry_reports.json",
+            "evidence/joined-reconciliation-proof.json",
+            "evidence/joined-reconciliation-review.json",
+            "evidence/inline-reconciliation-proof.json",
+            "evidence/inline-reconciliation-review.json",
+            "analysis/joined-capability-milestone-assessment.json",
+            "evidence/joined-family-assessment-review.json",
+            "evidence/structural-audit-proof.json",
+            "evidence/structural-audit-review.json",
+            "evidence/joined-workflow-proof.json",
+            "evidence/joined-workflow-review.json",
+            "analysis/structural-audit-source-contract.json",
+            "testdata/structural-audit.json"
+          ],
+          "detail": "Original bounded shared capability verified by source crosswalk, complete source-aware comparison/proposals, operational Go structure and reproducibly pinned audit/fit/CSV/status composition. Explicit unknowns, ownership and native-fit limits remain."
+        }
+      ],
+      "remaining_roadmap": "No material gap under the original bounded shared family contract. Dataset-specific reader/authoring/runtime/native-fit proofs remain required for new uses.",
+      "next_achievable_milestone": "Extend these existing shared owners as new independently proved source policies arise; no per-script migration or automatic publication implied.",
+      "dependencies": [
+        "auditStreams",
+        "references",
+        "controls/encode",
+        "authorRegistry",
+        "source-pool/fixed-field/sentinel reader contracts"
+      ],
+      "acceptance_checks": [
+        "Changed pointer with same text, unchanged JP, canonical EN with control difference, divergent sites, missing reference, fixed-field termination and raw payload unknowns.",
+        "No fallback to registry ID/landing or automatic human-wording writeback; all proposals carry source hashes and exact evidence."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/registry_reconcile",
+          "contract": "Compare canonical plan with independently read on-disc bytes/references and propose differences. Report before mutating."
+        }
+      ]
+    },
+    {
+      "id": "artifact_snapshots",
+      "title": "Snapshot and restore",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "artifact_snapshots.01",
+          "requirement": "Create an explicit immutable-by-tool version from a regular file",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/snapshots-proof.json"
+          ]
+        },
+        {
+          "id": "artifact_snapshots.02",
+          "requirement": "Hash and record source size/identity/provenance",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/snapshots-proof.json"
+          ]
+        },
+        {
+          "id": "artifact_snapshots.03",
+          "requirement": "Index multiple explicit tags with unambiguous receipts",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/snapshot-family-proof.json"
+          ]
+        },
+        {
+          "id": "artifact_snapshots.04",
+          "requirement": "Inventory versions honestly, including missing/corrupt payload state",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/snapshot-family-proof.json"
+          ]
+        },
+        {
+          "id": "artifact_snapshots.05",
+          "requirement": "Restore a selected version only after stored-digest verification",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/snapshots-proof.json",
+            "evidence/snapshot-family-proof.json"
+          ]
+        },
+        {
+          "id": "artifact_snapshots.06",
+          "requirement": "Preserve sources and refuse duplicate tags/overwrites/unsafe identities; copied-byte readback",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/snapshots-review.json",
+            "evidence/snapshot-family-assessment.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Complete under the frozen explicit-version contract; retain regression coverage.",
+      "next_achievable_milestone": "Maintain existing lifecycle and integrated regression; no feature needed for original family.",
+      "dependencies": [
+        "snapshotArtifacts",
+        "readInput",
+        "writeNewFile"
+      ],
+      "acceptance_checks": [
+        "Retain multi-version empty/large create/list/restore, digest corruption, duplicate and overwrite/source-identity refusals."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/artifact_snapshot",
+          "contract": "Create/index/hash immutable snapshots and restore or inventory explicit versions."
+        }
+      ]
+    },
+    {
+      "id": "offline_reports",
+      "title": "Reports and exports",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "offline_reports.01",
+          "requirement": "Project explicit registry data to deterministic derived exports",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/registry-export-proof.json",
+            "evidence/registry-export-review.json"
+          ]
+        },
+        {
+          "id": "offline_reports.02",
+          "requirement": "Derive progress/status/glossary/flow facts with pinned presentation",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/registry-status-proof.json",
+            "evidence/registry-status-review.json"
+          ]
+        },
+        {
+          "id": "offline_reports.03",
+          "requirement": "Report supported native text shapes/fit/reference structures with explicit evidence",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/fit-line-count-proof.json",
+            "evidence/observed-reference-proof.json"
+          ]
+        },
+        {
+          "id": "offline_reports.04",
+          "requirement": "Audit complete selected bytes/controls/arguments/payloads and declared observed-site bindings",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/stream-audit-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "offline_reports.05",
+          "requirement": "Compare an authored canonical plan with independently read installed content, not two supplied/self windows alone",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "../rework/new_tool/reports/writeback.py:629-760",
+            "analysis/canonical-audit-reuse-frontier.json",
+            "analysis/canonical-audit-reuse-decision.json",
+            "testdata/canonical-audit.json",
+            "examples/canonical-audit/profile.json",
+            "evidence/canonical-audit-proof.json",
+            "evidence/canonical-audit-review.json",
+            "analysis/source-prologue-frontier.json",
+            "analysis/source-prologue-reuse-decision.json",
+            "testdata/source-prologues.json",
+            "evidence/source-prologue-proof.json",
+            "evidence/source-prologue-review.json",
+            "analysis/source-colour-policy-frontier.json",
+            "analysis/source-colour-reuse-decision.json",
+            "testdata/source-colours.json",
+            "evidence/source-colour-proof.json",
+            "evidence/source-colour-review.json",
+            "analysis/canonical-comparison-milestone-assessment.json",
+            "analysis/source-aware-roadmap-gap-study.json",
+            "evidence/astra-audit-036.json"
+          ],
+          "detail": "Source-aware canonical expectations and independent installed bindings verified for explicit bounded narrative authoring, including setup/plain-colour/marked policies, exact mismatch factors and meaningful unknowns. No supplied expected buffer or fallback. Reader/source-pool expansion and joined proposals remain separate later milestones; whole family stays Partial."
+        },
+        {
+          "id": "offline_reports.06",
+          "requirement": "Join registry/byte/structural audit facts with source identities, coverage/unknown diagnostics and derived export/progress evidence",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/pattern-crawl-iso_registry_reports.json",
+            "../rework/new_tool/reports/text.py:130-166",
+            "../rework/new_tool/reports/text.py:366-433",
+            "analysis/joined-capability-milestone-assessment.json",
+            "evidence/joined-family-assessment-review.json",
+            "evidence/structural-audit-proof.json",
+            "evidence/structural-audit-review.json",
+            "evidence/joined-workflow-proof.json",
+            "evidence/joined-workflow-review.json",
+            "analysis/structural-audit-source-contract.json",
+            "testdata/structural-audit.json"
+          ],
+          "detail": "Original bounded shared capability verified by source crosswalk, complete source-aware comparison/proposals, operational Go structure and reproducibly pinned audit/fit/CSV/status composition. Explicit unknowns, ownership and native-fit limits remain."
+        }
+      ],
+      "remaining_roadmap": "No material gap under the original bounded shared family contract. Dataset-specific reader/authoring/runtime/native-fit proofs remain required for new uses.",
+      "next_achievable_milestone": "Extend these existing shared owners as new independently proved source policies arise; no per-script migration or automatic publication implied.",
+      "dependencies": [
+        "auditStreams",
+        "references",
+        "inspect",
+        "encode/controls",
+        "registry plan and explicit reader/source-pool policies"
+      ],
+      "acceptance_checks": [
+        "Independent patched/unpatched/divergent/unreadable/noncanonical/argument-changing cases, canonical controls and post-END tails.",
+        "Report complete selected-ID/site coverage and unknown forms; bind every result to independently pinned inputs; no gameplay inference.",
+        "Preserve CSV/status and old plain/bound audit complete bytes."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/evidence_report",
+          "contract": "Derived exports, progress/structural checks and byte/registry audits from explicit inputs."
+        }
+      ]
+    },
+    {
+      "id": "candidate_composition",
+      "title": "Patch composition",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "candidate_composition.01",
+          "requirement": "Accept multiple reviewed declarative edit tables with ordered prerequisites",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/composition-run.json"
+          ]
+        },
+        {
+          "id": "candidate_composition.02",
+          "requirement": "Compose against one pinned source and private registry state",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/composition-run.json",
+            "evidence/registry-author-proof.json"
+          ]
+        },
+        {
+          "id": "candidate_composition.03",
+          "requirement": "Reject cross-table overlap and incompatible preimages/partial states",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/composition-checks.json"
+          ]
+        },
+        {
+          "id": "candidate_composition.04",
+          "requirement": "Preserve source/registry ownership and isolate disposable output",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/composition-checks.json",
+            "evidence/latest-build-proof.json"
+          ]
+        },
+        {
+          "id": "candidate_composition.05",
+          "requirement": "Apply once through shared exclusive copy/replan/readback",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/composition-checks.json"
+          ]
+        },
+        {
+          "id": "candidate_composition.06",
+          "requirement": "Prove expected-only whole-image changes and idempotent replay",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/composition-checks.json",
+            "evidence/latest-build-proof.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Complete under the frozen contract; retain integration coverage.",
+      "next_achievable_milestone": "Maintain reviewed composition boundary; no new composition engine needed.",
+      "dependencies": [
+        "plan",
+        "patchCopy",
+        "run"
+      ],
+      "acceptance_checks": [
+        "Retain reversed table ordering, overlap/preimage drift, source preservation and outside-edit full-copy comparisons."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "pointer": "core_opportunities/candidate_compose",
+          "contract": "Compose reviewed edit sets into a new disposable image/private registry and prove expected-only changes."
+        }
+      ]
+    },
+    {
+      "id": "texture_codec",
+      "title": "Texture and font-atlas codec",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "texture_codec.01",
+          "requirement": "Share structural TXD parsing while retaining distinct PSMT4/8/headerless/direct native facts",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/texture-codec-final-assessment.json",
+            "evidence/texture-inventory-proof.json"
+          ]
+        },
+        {
+          "id": "texture_codec.02",
+          "requirement": "Decode/encode finite native storage/address layouts from primary GS/native evidence",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/multipage-psmt4-proof.json",
+            "evidence/grouped-psmt8-proof.json",
+            "evidence/fullpage-tbw2-proof.json"
+          ]
+        },
+        {
+          "id": "texture_codec.03",
+          "requirement": "Preserve CLUT/index identity, alpha, hidden RGB and meaningful unsupported guards",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/texture-codec-final-assessment.json",
+            "evidence/direct-layouts-proof.json"
+          ]
+        },
+        {
+          "id": "texture_codec.04",
+          "requirement": "Provide preserve/exact/approximate/source-color palette responsibilities with original tie semantics",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/exact-palette-proof.json",
+            "evidence/approximate-palette-proof.json",
+            "evidence/native-styles-proof.json"
+          ]
+        },
+        {
+          "id": "texture_codec.05",
+          "requirement": "Apply only contained pixel/mask edits through one clone/native writer and safe standalone publication",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/direct-rgba-proof.json",
+            "evidence/native-styles-proof.json"
+          ]
+        },
+        {
+          "id": "texture_codec.06",
+          "requirement": "Validate independent golden bytes/oracles as well as noop and edited roundtrips",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/texture-codec-final-assessment.json",
+            "evidence/fullpage-tbw2-review.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Complete for the frozen finite native-format contract; retain golden coverage.",
+      "next_achievable_milestone": "Maintain the verified finite native boundaries; arbitrary formats are not a newly invented completion requirement.",
+      "dependencies": [
+        "indexTextures",
+        "texture",
+        "generatePalette",
+        "authorTexture"
+      ],
+      "acceptance_checks": [
+        "Retain full corpus/golden storage/alpha/index/mask/palette refusals at the deferred integrated checkpoint."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "pointer": "minimum_toolkit_recommendation/asset-codec",
+          "contract": "One PS2 TXD/index/CLUT codec independent of ISO placement and artwork. Retain distinct PSMT4/8/nohdr/PSMCT32 parsing facts and alpha/index invariants; use golden fixtures as well as roundtrips."
+        }
+      ]
+    },
+    {
+      "id": "asset_placement",
+      "title": "ISO/CMB asset placement",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "asset_placement.01",
+          "requirement": "Resolve named ISO9660 file extents",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json"
+          ]
+        },
+        {
+          "id": "asset_placement.02",
+          "requirement": "Resolve named CMB members with bounded index parsing",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json"
+          ]
+        },
+        {
+          "id": "asset_placement.03",
+          "requirement": "Bind placement to source/member/index hashes and exact identities",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json"
+          ]
+        },
+        {
+          "id": "asset_placement.04",
+          "requirement": "Plan bounded fixed-size member/file replacements without unrelated changes",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json"
+          ]
+        },
+        {
+          "id": "asset_placement.05",
+          "requirement": "Reuse exclusive whole-copy writer and source rechecks",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json",
+            "evidence/latest-build-proof.json"
+          ]
+        },
+        {
+          "id": "asset_placement.06",
+          "requirement": "Verify readback and outside-edit containment across named archives",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/cmb-members-stage-proof.json"
+          ]
+        }
+      ],
+      "remaining_roadmap": "Complete under the frozen named-placement contract; retain containment coverage.",
+      "next_achievable_milestone": "Maintain named-placement guards; automatic artwork selection is not a new family requirement.",
+      "dependencies": [
+        "isoFileExtent",
+        "cmbIndex",
+        "planBundle",
+        "patchCopy"
+      ],
+      "acceptance_checks": [
+        "Retain malformed index, duplicate/missing name, size/hash, overlap and whole-copy containment checks."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "pointer": "minimum_toolkit_recommendation/asset-location-and-guarded-placement",
+          "contract": "Share named ISO/CMB lookup and bounded plan/validate/copy/readback. Reuse existing Go safe writer for future Go authoring; do not create another writer per batch."
+        }
+      ]
+    },
+    {
+      "id": "raster_rendering",
+      "title": "Raster and text rendering",
+      "accepted_family_status": "partial",
+      "verified_milestones": 5,
+      "total_milestones": 6,
+      "checklist_percent": 83.33,
+      "milestones": [
+        {
+          "id": "raster_rendering.01",
+          "requirement": "Render pinned game bitmap and explicit hand-designed binary font alphabets",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/bitmap-render-proof.json",
+            "evidence/native-text-proof.json"
+          ]
+        },
+        {
+          "id": "raster_rendering.02",
+          "requirement": "Render shared styled runs/multiline groups with fit/tracking/anchors/stroke roles",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/native-styles-proof.json",
+            "evidence/native-line-groups-proof.json"
+          ]
+        },
+        {
+          "id": "raster_rendering.03",
+          "requirement": "Share numerical resize/composition, approved masks/background paint and native importer/publication",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/raster-resize-proof.json",
+            "evidence/native-styles-proof.json"
+          ]
+        },
+        {
+          "id": "raster_rendering.04",
+          "requirement": "Integrate inline icon runs through the same layout/containment path",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/inline-icons-contract-recovery.json",
+            "analysis/inline-icons-current-reuse-decision.json",
+            "analysis/inline-icons-bridge-correction.json",
+            "evidence/inline-icons-proof.json",
+            "evidence/inline-icons-review.json"
+          ],
+          "detail": "Fixed-source icon runs share fitting, typed placements, original per-lineRGBAreplacement/fullcontainment/nativeimport and publication. Nativeopticalfont coverage; actualTTFartparity notclaimed."
+        },
+        {
+          "id": "raster_rendering.05",
+          "requirement": "Accept a pinned TTF font source through the same styled layout contract",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/ttf-raster-reuse-frontier.json",
+            "analysis/ttf-backend-reuse-decision.json",
+            "analysis/ttf-styled-prototype-contract.json",
+            "analysis/ttf-styled-corpus-contract.json",
+            "analysis/ttf-workspace-contract.json",
+            "evidence/truetype-raster-proof.json",
+            "evidence/truetype-raster-review.json"
+          ],
+          "detail": "PinnedTTF throughsamefont/runcontract with sourcefractionalphases/metrics/styles/LFsemantics andsharedcontainment/nativepublication;0newfunctions."
+        },
+        {
+          "id": "raster_rendering.06",
+          "requirement": "Support donor/reconstruction-based layers and the material remaining visual-source decisions through shared containment",
+          "status": "partial",
+          "credit": 0,
+          "evidence": [
+            "analysis/pattern-crawl-assets_runtime_tests.json",
+            "analysis/donor-reconstruction-frontier.json",
+            "analysis/reconstruction-row-reuse-decision.json",
+            "analysis/reconstruction-row-corpus-contract.json",
+            "analysis/reconstruction-interleaving-contract.json",
+            "analysis/donor-reconstruction-boundary-review.json",
+            "analysis/reconstruction-icon-source-contract.json",
+            "analysis/reconstruction-native-contract.json",
+            "evidence/reconstruction-row-proof.json",
+            "evidence/reconstruction-row-review.json",
+            "analysis/reconstruction-mask-reuse-decision.json",
+            "analysis/reconstruction-mask-frontier.json",
+            "analysis/reconstruction-mask-native-contract.json",
+            "evidence/reconstruction-mask-proof.json",
+            "evidence/reconstruction-mask-review.json",
+            "evidence/permission-resource-proof.json",
+            "evidence/permission-resource-final-review.json",
+            "analysis/fixed-permission-resource-reuse-decision.json",
+            "analysis/raster-remaining-source-study.json",
+            "profiles/permissions/help00-panels.json",
+            "profiles/permissions/batch-c-panels.json",
+            "testdata/fixed-permissions.zip",
+            "evidence/mask-pipeline-proof.json",
+            "evidence/mask-pipeline-review.json",
+            "analysis/mask-pipeline-reuse-decision.json",
+            "analysis/original-permission-source-study.json",
+            "testdata/mask-selection.zip",
+            "testdata/footprint-source.zip",
+            "profiles/permissions/footprints/mini_g04.json",
+            "profiles/permissions/footprints/mini_g09.json",
+            "profiles/permissions/footprints/mini_g11.json",
+            "profiles/permissions/footprints/mini_t4.json",
+            "profiles/permissions/footprints/mini_t5.json",
+            "profiles/permissions/footprints/mini_t7.json",
+            "evidence/component-mask-proof.json",
+            "evidence/component-mask-review.json",
+            "analysis/component-mask-reuse-decision.json",
+            "analysis/component-source-study.json",
+            "evidence/component-mask-approach.json",
+            "testdata/component-source.zip",
+            "evidence/flood-mask-proof.json",
+            "evidence/flood-mask-review.json",
+            "analysis/flood-mask-reuse-decision.json",
+            "analysis/flood-source-study.json",
+            "analysis/flood-global-table-ledger.json",
+            "evidence/flood-mask-approach.json",
+            "testdata/flood-source.zip",
+            "profiles/permissions/footprints/mini-g02-g12.json",
+            "profiles/permissions/footprints/mini-g08.json",
+            "profiles/permissions/footprints/mini-t2.json"
+          ],
+          "detail": "Finite ordered flat/clear/row/column kernel verified through shared containment/native publication, exact permissions/current donors/immutable icons. Other masks, PDE, exemplar, plate, radial/contour, material and source-art duties remain; credit0. Existing selection now supports RGB exclusion/finiteAND/sat_lt with exact source/native/current-pixel/refusal proof; no newfunction. Broader source-art duties remain; credit0. Sharedpinnedpermissiontables nowreuseexistingthree-stagecompositor withlocalsteps unchanged. Twoactualnativeprofiles shareonecanonicaldatum; sourcefixedshape13rectangles match80254pixels. No parametricshapeengine/fullartworkflowclaim; nine source-material groups remain. SharedOR-of-AND/scalar4-connectedfootprints nowimplement14genericproviderrecords with179sourcevectors/3shiftedobservations, sharingexistingcurrenterases/fontcounters. Sevenpurpose-groupedtables; other27providerrecords/donor/advancedreconstruction/artduties remain held. Noautomaticfull.06or9/14promotion. ExistingcomponentBFS nowshares4/8seed/tag/minimumcriteria; SampleRect keepssourcecroplabelingdistinctfromwholecanvasgrowth. Sevenadditionalmaskfnrecordsverifiedagainst30neworiginalmasks,209totalsourcevectorsplus33shifted. Fullglobalcontextsremainheldforfloodlabel0/posterosion. Sharedlabel-zero/erosion nowclose6sourcefloodcallsandall56stagesof4fullpermissioncontexts; no art/hooks/text/donorworkflowclosure. Obsoletepartialt2inputreplacedwithfulltable, g02/g12shareoneflatobject."
+        }
+      ],
+      "remaining_roadmap": "Remaining20maskfnproviderrecords/font-dependentpermissions, donoracquisition/PDE/exemplar/familyfields/radial/contour/sourceart/material duties. Completefourpermissioncontexts isnotwholeartwork/familyclosure.",
+      "next_achievable_milestone": "Remaining shape/OR/morphology/source-art contracts, preserving source ownership and shared containment. Canonical-audit cross-family work can proceed independently.",
+      "dependencies": [
+        "renderRuns",
+        "composeCells",
+        "resizeRaster",
+        "authorTexture",
+        "explicit font and donor data",
+        "textMasks",
+        "reconstructRaster"
+      ],
+      "acceptance_checks": [
+        "Independent mixed text/icon baselines, scaling/anchors/ink boundaries and source/mask preservation.",
+        "For TTF freeze shaping/rasterizer/font/license/numerics; for donors freeze reconstruction decision and containment, keeping one native publication path."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "pointer": "minimum_toolkit_recommendation/mask-contained-raster-rendering",
+          "contract": "Keep one styled glyph/run/layer path and one mask/containment execution path. TTF, game bitmap fonts and hand-designed pixel alphabets are explicit font sources, not three patch executors."
+        }
+      ]
+    },
+    {
+      "id": "asset_preview_inventory",
+      "title": "Specifications, previews and inventory",
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
+      "total_milestones": 6,
+      "checklist_percent": 100.0,
+      "milestones": [
+        {
+          "id": "asset_preview_inventory.01",
+          "requirement": "Inventory native TXD names/order/raw dimensions/formats while retaining unsupported metadata",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/texture-inventory-proof.json",
+            "evidence/texture-inventory-review.json"
+          ]
+        },
+        {
+          "id": "asset_preview_inventory.02",
+          "requirement": "Export selected supported rasters as source-bound verified PNG previews",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "evidence/texture-codec-proof.json",
+            "evidence/raw-font-codec-proof.json",
+            "evidence/texture-inventory-proof.json"
+          ]
+        },
+        {
+          "id": "asset_preview_inventory.03",
+          "requirement": "Join authored specification/translation/category facts to exact asset identities and measured geometry",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "analysis/pattern-crawl-assets_runtime_tests.json",
+            "../build_explainer_inventory.py:28-40",
+            "evidence/asset-specification-proof.json",
+            "evidence/asset-specification-review.json",
+            "analysis/asset-specification-contract.json"
+          ],
+          "detail": "Exact pinned standalone TXD/name joins with native ordinal, authored annotations, decoded geometry and pixel hashes; unavailable measurements retain nulls/diagnostics. Declared archive/entry labels are not placement or context proof."
+        },
+        {
+          "id": "asset_preview_inventory.04",
+          "requirement": "Build a batch manifest/index accounting for every selected entry, export/error status, source and pixel hashes, annotation/measurement links",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "texture_authoring.go:87-101",
+            "texture_authoring.go:227-242",
+            "../explainer_scan.py:97-136",
+            "../rework/new_tool/texture_tools/textures.py:117-191",
+            "evidence/asset-manifest-proof.json",
+            "evidence/asset-manifest-review.json",
+            "analysis/asset-manifest-contract.json",
+            "analysis/asset-png-conversion-contract.json"
+          ],
+          "detail": "Complete source-pinned extracted-CMB index/raster accounting, original order, source spans/hash, encoded previews/links, exact authored joins and mandatory source-backed discovery score/tier/ordered flags verified. Failed decoder/work domains remain explicit; .05/.06 are separate."
+        },
+        {
+          "id": "asset_preview_inventory.05",
+          "requirement": "Produce contained crop/nearest-scale before-after previews on explicit checkerboards without rewriting asset transparency",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "../batch_c_preview.py:13-43",
+            "analysis/pattern-crawl-assets_runtime_tests.json",
+            "evidence/asset-comparison-proof.json",
+            "evidence/asset-comparison-review.json",
+            "analysis/asset-preview-contract.json",
+            "analysis/asset-comparison-decision.json"
+          ],
+          "detail": "Verifiedoriginal17fullRGB/RGBAchecker/crop/unequalgeometrycases plus2normalcapacitycases, exactdecoderreuse, strictprofiles, sourcepreservation, exclusivepublication andfreshordinaryreview. No .06/flatvariant/fullfamilycredit."
+        },
+        {
+          "id": "asset_preview_inventory.06",
+          "requirement": "Produce bounded labelled contact sheets with deterministic cell/order/page layout and linked manifests",
+          "status": "proven",
+          "credit": 1,
+          "evidence": [
+            "../explainer_scan.py:195-247",
+            "analysis/pattern-crawl-assets_runtime_tests.json",
+            "analysis/asset-contact-contract.json",
+            "evidence/asset-contact-integration-proof.json",
+            "evidence/asset-contact-integration-final-review.json",
+            "evidence/asset-pair-variants-proof.json",
+            "evidence/asset-pair-variants-review.json",
+            "evidence/asset-contact-score-policy-proof.json",
+            "evidence/asset-contact-score-policy-review.json",
+            "analysis/asset-preview-family-closure.json"
+          ],
+          "detail": "Original labelled contacts, exact font/multiline/order/dedup/linkage and flat/weekday variants verified; score-presence correction and normalized-view policies close source assessment. No historical retirement."
+        }
+      ],
+      "remaining_roadmap": "Original frozen shared contract verified; future assets/formats extend shared owners under explicit limits.",
+      "next_achievable_milestone": "All six original milestones proven; no new milestone or denominator introduced.",
+      "dependencies": [
+        "authorTexture",
+        "indexTextures",
+        "texture",
+        "manifestTextures",
+        "contactSheets",
+        "textMasks",
+        "decodePNG",
+        "resizeRaster",
+        "pixelOver",
+        "writeNewFile"
+      ],
+      "acceptance_checks": [
+        "Independent small multi-TXD fixture: multiple textures, duplicate names, unsupported metadata, no-texture/empty entry, missing/ambiguous authored join and safe name collisions.",
+        "Freeze expected crop/scale/checkerboard alpha pixels and sheet cell placements; compare complete pixels, not only PNG roundtrip.",
+        "Manifest covers every selected entry exactly, ties each thumbnail to source selector/hash, records real decode failures and labels metadata-only support separately.",
+        "Test repeat-run/exclusive publication, aliases, output/source containment and preservation; preserve existing single export/inventory behavior.",
+        "Resolve advisory scan scoring explicitly before code: explainer_scan.score/tier/flag is a source-backed discovery role. Implement any declared measured counters in Go or demonstrate its optional advisory status in a positive responsibility crosswalk; do not leave required measurement as operational Python."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "pointer": "minimum_toolkit_recommendation/specification-export-preview-index",
+          "contract": "Spec builders are chiefly authored tables plus measurement, not a new engine per batch. Share preview/checkerboard/contact-sheet/manifest mechanics where contracts agree."
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "fully_verified_families": 9,
+    "core_families": 14,
+    "family_completion_percent": 64.29,
+    "verified_milestones": 73,
+    "milestones": 84,
+    "checklist_index_percent": 86.9,
+    "warning": "Checklist index is a planning aid; equal-weight groups differ in effort and do not measure reuse or script migration."
+  },
+  "next_target": {
+    "family": "registry_authoring",
+    "milestone": "registry_authoring.04",
+    "action": "Source-only inspect originalremaining import/schema/glossary responsibilities and existing authorRegistry before choosing a reusable increment.",
+    "reason": "Textfinitecodec nowcomplete. Fiveotherfamiliespartial; no quick-credit scopewaiver."
+  },
+  "updated_at": "2026-11-05T04:42:55.607463+00:00",
+  "latest_milestone": {
+    "at": "2026-11-05T04:42:55.607463+00:00",
+    "proof": "evidence/ordered-text-proof.json",
+    "review": "evidence/ordered-text-review.json",
+    "assessment": "analysis/ordered-text-family-assessment.json",
+    "reuse": "analysis/ordered-text-reuse-decision.json",
+    "milestone_credit": 2,
+    "family_credit": 1,
+    "full_families": 9,
+    "planning_milestones": 73,
+    "metrics": {
+      "production_before": 548925,
+      "production_after": 562270,
+      "runtime_before": {
+        "files": 206,
+        "bytes": 2649535
+      },
+      "runtime_after": {
+        "files": 206,
+        "bytes": 2662880
+      },
+      "production_growth": 13345,
+      "runtime_growth": 13345,
+      "test_source_growth": 17681,
+      "test_fixture_growth": 42527,
+      "new_production_files": 0,
+      "new_functions": 0,
+      "named_functions": 45,
+      "new_local_types": 1,
+      "new_public_types": 0,
+      "retirements": 0,
+      "milestone_credit": 2,
+      "family_credit": 1,
+      "claim": "Reusable recognized-source serialization andrealcaller capabilitygrowth; notcode reduction, relocation savings,410scriptretirement or opaque writepermission."
+    },
+    "limits": "Fullrecognizedcodecworkflow, not scriptretirement/nativefit/opaqueimagewrite/E000ABI/multiruneauthoring approval.",
+    "ids": [
+      "text_codec.05",
+      "text_codec.06"
+    ],
+    "family_counts_unchanged": false
+  },
+  "latest_partial_increment": {
+    "at": "2026-11-04T20:43:11.533204+00:00",
+    "proof": "evidence/instruction-flow-proof.json",
+    "review": "evidence/instruction-flow-review.json",
+    "reuse_decision": "analysis/instruction-flow-reuse-decision.json",
+    "metrics": {
+      "production_before": 474721,
+      "production_after": 489925,
+      "runtime_before": {
+        "files": 181,
+        "bytes": 2549244
+      },
+      "runtime_after": {
+        "files": 184,
+        "bytes": 2564808
+      },
+      "production_growth": 15204,
+      "runtime_growth": 15564,
+      "test_source_growth": 2752,
+      "test_fixture_growth": 16115,
+      "new_production_files": 2,
+      "new_fact_types": 8,
+      "new_functions": 0,
+      "named_functions": 41,
+      "new_example_files": 1,
+      "retirements": 0,
+      "milestone_credit": 0
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "claim": "Finite branch/operand facts are foundation, not actual CFG/def-use. No reduction/retirement."
+  },
+  "latest_joined_reconciliation_prototype": {
+    "at": "2026-10-21T17:57:25.645497+00:00",
+    "proof": "evidence/joined-reconciliation-proof.json",
+    "review": "evidence/joined-reconciliation-review.json",
+    "scope": "Advisory pointer-stream machine proposals under explicit current-pin review; fullbindings/canonicalbytes/zerotail/currentdraftedrequired. HumanEN/JP/note/patch_ref untouched. Inlinepolicyheld.",
+    "metrics": {
+      "runtime": {
+        "files": 180,
+        "bytes": 2531734
+      },
+      "runtime_growth_bytes": 19132,
+      "production_growth_bytes": 4348,
+      "example_bytes": 14784,
+      "test_growth_bytes": 6047,
+      "oracle_bytes": 62614,
+      "new_functions": 0,
+      "savings": 0,
+      "script_retirements": 0
+    },
+    "new_milestone_credit": 0,
+    "family_promotion": false,
+    "retirements": 0
+  },
+  "latest_inline_reconciliation": {
+    "at": "2026-10-21T18:25:55.490745+00:00",
+    "proof": "evidence/inline-reconciliation-proof.json",
+    "review": "evidence/inline-reconciliation-review.json",
+    "source": "analysis/joined-report-remaining-duties.json",
+    "scope": "Same reviewed machineproposal path nowhandles exact inline16fieldlocations underbothcompletefieldmaps; no storedpointer inferred. Rawpointer_vma keypresence evenempty/null holds proposals; oldunreviewedreadfacts preserved.",
+    "metrics": {
+      "runtime": {
+        "files": 180,
+        "bytes": 2533593
+      },
+      "runtime_delta_bytes": 1859,
+      "production_delta_bytes": 523,
+      "example_delta_bytes": 1336,
+      "test_delta_bytes": 966,
+      "oracle_delta_bytes": 6933,
+      "new_analysis_evidence": "Reportedseparatelyatfinalseal.",
+      "functions_added": 0,
+      "types_added": 0,
+      "new_runtime_files": 0,
+      "script_retirements": 0
+    },
+    "new_credit": 0,
+    "family_promotion": false,
+    "retirements": 0
+  },
+  "latest_register_flow_increment": {
+    "at": "2026-11-04T21:56:54.648606+00:00",
+    "proof": "evidence/register-flow-proof.json",
+    "review": "evidence/register-flow-final-review.json",
+    "reuse_decision": "analysis/register-flow-reuse-decision.json",
+    "metrics": {
+      "production_before": 489925,
+      "production_after": 503383,
+      "runtime_before": {
+        "files": 184,
+        "bytes": 2564808
+      },
+      "runtime_after": {
+        "files": 187,
+        "bytes": 2579104
+      },
+      "production_growth": 13458,
+      "runtime_growth": 14296,
+      "test_source_growth": 3916,
+      "test_fixture_growth": 8475,
+      "new_production_files": 2,
+      "new_request_result_types": 4,
+      "new_functions": 1,
+      "named_functions": 42,
+      "new_example_files": 1,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "Capability growth. No net reduction, relocation savings or historical retirement."
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "claim": "Actual bounded low32 register graph facts, with explicit unknown frontiers and conditional completeness. Original caller obligations remain; no full .05, net reduction or retirement."
+  },
+  "latest_reference_owner_increment": {
+    "at": "2026-11-04T23:39:41.104835+00:00",
+    "proof": "evidence/reference-owner-proof.json",
+    "review": "evidence/reference-owner-final-review.json",
+    "reuse_decision": "analysis/reference-owner-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 43,
+        "bytes": 503383
+      },
+      "production_after": {
+        "files": 45,
+        "bytes": 525164
+      },
+      "runtime_before": {
+        "files": 187,
+        "bytes": 2579104
+      },
+      "runtime_after": {
+        "files": 193,
+        "bytes": 2604317
+      },
+      "production_growth": 21781,
+      "runtime_growth": 25213,
+      "test_source_growth": 14304,
+      "fixture_growth": 14518,
+      "moved_producer_body_bytes": 16137,
+      "new_production_files": 2,
+      "new_data_types": 6,
+      "new_functions": 1,
+      "named_functions": 43,
+      "new_example_files": 4,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "One producer extraction is relocation, not savings. Additional caller capability is net growth; no net reduction/retirement."
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "claim": "Fresh pinned-ELF graph facts joined to registry owner and per-ID benign-reader policy. Canonical patch grammar unchanged; original reads_arg/Tracerconsumer/interior/ABI duties remain. Growth, no reduction or retirement."
+  },
+  "latest_fixed_permission_increment": {
+    "at": "2026-11-05T00:11:13.880242+00:00",
+    "proof": "evidence/permission-resource-proof.json",
+    "review": "evidence/permission-resource-final-review.json",
+    "reuse_decision": "analysis/fixed-permission-resource-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 45,
+        "bytes": 525164
+      },
+      "production_after": {
+        "files": 45,
+        "bytes": 527998
+      },
+      "runtime_before": {
+        "files": 193,
+        "bytes": 2604317
+      },
+      "runtime_after": {
+        "files": 195,
+        "bytes": 2607715
+      },
+      "production_growth": 2834,
+      "runtime_growth": 3398,
+      "test_growth": 9860,
+      "fixture_growth": 734,
+      "named_functions": 43,
+      "new_functions": 0,
+      "new_types": 0,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "Resource capability growth, not netreduction. Two nativeprofiles shareonepermissiontable, fixedbatchC13rectangles aredata not runtimegeometry."
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "claim": "Two existing nativeprofiles reuseonecanonicalpermissiontable. One fixedsource shape uses13existingrectangles, no new geometryengine. Runtimegrowth,0newfunctions/types/retirements; raster.06partial."
+  },
+  "latest_mask_pipeline_increment": {
+    "at": "2026-11-05T01:36:41.154989+00:00",
+    "proof": "evidence/mask-pipeline-proof.json",
+    "review": "evidence/mask-pipeline-review.json",
+    "reuse_decision": "analysis/mask-pipeline-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 45,
+        "bytes": 527998
+      },
+      "production_after": {
+        "files": 47,
+        "bytes": 542244
+      },
+      "runtime_before": {
+        "files": 195,
+        "bytes": 2607715
+      },
+      "runtime_after": {
+        "files": 204,
+        "bytes": 2635757
+      },
+      "production_growth": 14246,
+      "runtime_growth": 28042,
+      "test_growth": 19437,
+      "fixture_growth": 157572,
+      "new_functions": 2,
+      "new_types": 4,
+      "new_production_files": 2,
+      "canonical_permission_tables": 7,
+      "redundant_literal_masks_removed": 1,
+      "named_functions": 45,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "Actual current/original predicate and erase/font/permission topology reuse. Extraction is relocation; broader source capability is growth, not net reduction or whole-family closure."
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "claim": "Currenterases/originalpermissions share predicates; erasegrowth/fontcounters/footprints share one four-connected topology. Sevenasset-keyedtables carry14providerfacts. Runtimegrowth,notnetreduction orfullrasterclosure."
+  },
+  "latest_component_mask_increment": {
+    "at": "2026-11-05T02:05:03.875480+00:00",
+    "proof": "evidence/component-mask-proof.json",
+    "review": "evidence/component-mask-review.json",
+    "reuse_decision": "analysis/component-mask-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 47,
+        "bytes": 542244
+      },
+      "production_after": {
+        "files": 47,
+        "bytes": 547352
+      },
+      "runtime_before": {
+        "files": 204,
+        "bytes": 2635757
+      },
+      "runtime_after": {
+        "files": 204,
+        "bytes": 2640865
+      },
+      "production_growth": 5108,
+      "runtime_growth": 5108,
+      "test_growth": 9932,
+      "fixture_growth": 66388,
+      "new_functions": 0,
+      "new_types": 1,
+      "new_production_files": 0,
+      "new_runtime_tables": 0,
+      "named_functions": 45,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "One component walk and predicate evaluator enhanced for seven source provider records. This is capability growth, no net reduction/whole art migration. Full original four-context source masks remain held for flood closure."
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "claim": "Oneexistingcomponentwalk nowownsminimumsize/seedmembership/tagveto. Samplingbounds separatedfromtopologyextent; components4/8 andmorphology4 remainexplicit. Sevenadditionalmaskfnproviderrecords sourceproven,notwholeglobal/artworkclosure."
+  },
+  "latest_flood_mask_increment": {
+    "at": "2026-11-05T02:50:08.014955+00:00",
+    "proof": "evidence/flood-mask-proof.json",
+    "review": "evidence/flood-mask-review.json",
+    "reuse_decision": "analysis/flood-mask-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 47,
+        "bytes": 547352
+      },
+      "production_after": {
+        "files": 47,
+        "bytes": 548925
+      },
+      "runtime_before": {
+        "files": 204,
+        "bytes": 2640865
+      },
+      "runtime_after": {
+        "files": 206,
+        "bytes": 2649535
+      },
+      "production_growth": 1573,
+      "runtime_growth": 8670,
+      "test_growth": 8408,
+      "fixture_growth": 152220,
+      "new_functions": 0,
+      "new_types": 0,
+      "new_production_files": 0,
+      "new_runtime_tables": 3,
+      "removed_obsolete_runtime_tables": [
+        {
+          "path": "profiles/permissions/footprints/mini_t2-generic-only.json",
+          "bytes": 476,
+          "sha256": "88b6ee2702a13ecf753f08ad2bd32b1e964f01cd48786e773767005d09ecddf9"
+        }
+      ],
+      "named_functions": 45,
+      "source_vectors": 297,
+      "shifted_observations": 121,
+      "new_source_vectors": 88,
+      "new_full_global_stage_fields": 56,
+      "complete_permission_contexts": 4,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "Existing label/component, fill and erosion owners close six original flood operands and four complete permission contexts. One obsolete partial table476B deleted; new source capability remains net growth, not full artwork migration."
+    },
+    "milestone_credit": 0,
+    "family_counts_unchanged": true,
+    "removed_obsolete_input": [
+      "profiles/permissions/footprints/mini_t2-generic-only.json"
+    ],
+    "claim": "Existingcomponentinputlabelzero andfour-neighborerosion close6floodcalls/4completeglobalpermissioncontexts;3tables/4assetIDs, no per-providerhandlers ornewfunctions/types. Newcapabilityisnetgrowth, notwholeart/fullrasterorhistoricalretirement."
+  },
+  "latest_ordered_text_increment": {
+    "at": "2026-11-05T04:42:55.607463+00:00",
+    "proof": "evidence/ordered-text-proof.json",
+    "review": "evidence/ordered-text-review.json",
+    "assessment": "analysis/ordered-text-family-assessment.json",
+    "reuse": "analysis/ordered-text-reuse-decision.json",
+    "milestone_credit": 2,
+    "family_credit": 1,
+    "full_families": 9,
+    "planning_milestones": 73,
+    "metrics": {
+      "production_before": 548925,
+      "production_after": 562270,
+      "runtime_before": {
+        "files": 206,
+        "bytes": 2649535
+      },
+      "runtime_after": {
+        "files": 206,
+        "bytes": 2662880
+      },
+      "production_growth": 13345,
+      "runtime_growth": 13345,
+      "test_source_growth": 17681,
+      "test_fixture_growth": 42527,
+      "new_production_files": 0,
+      "new_functions": 0,
+      "named_functions": 45,
+      "new_local_types": 1,
+      "new_public_types": 0,
+      "retirements": 0,
+      "milestone_credit": 2,
+      "family_credit": 1,
+      "claim": "Reusable recognized-source serialization andrealcaller capabilitygrowth; notcode reduction, relocation savings,410scriptretirement or opaque writepermission."
+    },
+    "limits": "Fullrecognizedcodecworkflow, not scriptretirement/nativefit/opaqueimagewrite/E000ABI/multiruneauthoring approval."
+  },
+  "previous_latest_milestone_before_ordered_text": {
+    "at": "2026-10-21T20:13:39.237490+00:00",
+    "ids": [
+      "binary_inspection.04"
+    ],
+    "assessment": "analysis/gp-index-milestone-assessment.json",
+    "challenge": "analysis/gp-index-milestone-study.json",
+    "behavior_review": "evidence/gp-index-review.json",
+    "milestone_credit": 1,
+    "family_counts_unchanged": true
+  }
+}

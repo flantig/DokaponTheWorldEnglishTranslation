@@ -1,0 +1,141 @@
+{
+  "schema": "original-component-permission-astra-preflight-v1",
+  "role": "Read-only adversarial approach challenge, not implementation/approval or cadenceaudit044",
+  "started_at_utc": "2026-11-05T01:38:55+00:00",
+  "assessment": "Enhance the existing foreground-component walk in transformRasterMask; no new component function, provider handler, second BFS or recursive DSL is justified. Existing selectRaster should compile the rejection predicate through its shared predicate loop and supply immutable binary inputs. Optional SampleRect is a meaningful distinction between pixel sampling and topology/output domain, not a source-specific growth mode. The proposed grouped Components data is cohesive if connectivity and seed/veto rules remain confined to foreground component selection.",
+  "actual_owners": [
+    {
+      "owner": "transformRasterMask",
+      "locations": "raster_mask.go:289-416, especially322-353",
+      "reuse": "Existing minimum branch visits each foreground component once, retains a queue containing its members, and removes it by size. Extend that SAME traversal to accumulate foreground seed membership and a component-wide rejection bit. Retain one removal loop and straightforward independent checks. The existing minimum4 behavior and new components operation may share this branch; do not duplicate it or introduce a label-image service without a concrete caller needing labels."
+    },
+    {
+      "owner": "selectRaster",
+      "locations": "raster_mask.go:33-284, especially75-210,248-259",
+      "reuse": "Already compiles bounded OR-of-AND main/core predicates, constructs masks, applies fixed topology, and returns charged work. Add the rejection role to this same evaluation path, not a provider-specific RGB routine. Initial sampling, component phase, final growth and clipping stay explicit. Current/original raster choice remains the caller's responsibility."
+    },
+    {
+      "owner": "composeCells",
+      "locations": "raster.go:348-390",
+      "reuse": "Retain existing original-image selection call, fixed permission stages, native intersection and text leakage protection. It must not select component labels or rebuild provider-specific masks."
+    },
+    {
+      "owner": "renderRuns/reconstructRaster",
+      "reuse": "Their existing four-connected fill/growth calls continue unchanged. Eight-connected labeling is not a reason to change glyph disc/EDT kernels, nearest-color ties, fill exterior reachability or erosion neighborhoods."
+    }
+  ],
+  "proposed_data_boundary_conditions": {
+    "components": "One optional cohesive RasterComponentFilter with Connectivity, presence-aware Seeds and Reject OR-of-AND groups is justified; keep existing MinimumSize rather than create a duplicate size field. Public Seeds omitted selects all foreground components, explicit[] selects none, null refuses. Coordinates are canvas-relative and bounded inside SampleRect (or Rect when absent). Resolve any actual historical Python negative-index wrapping in source projection, not implicit Go indexing.",
+    "internal_transform": "Internal Seeds[]int are checked local offsets; nil and nonnil-empty must survive conversion. Reject[]bool must be absent or exactly mask length and immutable. Connectivity must be explicitly4/8 with a documented omitted/default rule, and is allowed ONLY for component operations. Existing morphology/fill refuse irrelevant component fields and retain four-neighbor behavior. No seed-on-background policy flag is required for this foreground-only contract.",
+    "sample_rect": "Optional SampleRect is a bounded canvas-relative subrectangle of Rect, defaulting to Rect. Rect remains topology extent and crop-local output layout. Main/core/reject masks are initialized false OUTSIDE SampleRect even for an empty AND group or predicates such as alpha<1; do not evaluate predicates against fabricated zero-RGBA pixels there. For art_components, Rect may be the whole canvas, SampleRect the original crop: zero exterior preserves crop component membership, then final four-neighbor growth can cross the sampling boundary. Current cases with SampleRect absent retain exact crop behavior.",
+    "fixed_phase": "Component filtering remains at the existing MinimumSize phase, after close/fill/core restriction and before final growth. Source projections for these six calls explicitly use identity earlier phases, so component labels see exactly the intended original foreground. Reject bits veto only selected component members. Do not move clip/exclusion into labeling or grow before classifying components."
+  },
+  "concrete_findings": [
+    {
+      "id": "CMP-CONNECTIVITY",
+      "severity": "HIGH",
+      "counterexample": "Two diagonal foreground pixels with a seed on one form one source8-connected component. Independent source witness selects2 pixels; a reused4-connected minimum walk selects only1. Remnants with a diagonal white pixel must reject both members, not just the white one.",
+      "direction": "Select the eight-neighbor stencil only in the component branch. Preserve default4 minimum/fill/growth/erosion and source component size equality. Keep foreground and background connectivity concepts distinct."
+    },
+    {
+      "id": "CMP-VETO",
+      "severity": "HIGH",
+      "counterexample": "A red opaque pixel and a diagonally touching white opaque pixel yield zero remnants. Pixelwise subtraction of white or four-connected labeling incorrectly preserves the red pixel. A white TRANSPARENT background pixel does not veto an adjacent opaque component.",
+      "direction": "Accumulate veto over the full foreground-component queue, then remove all members. Never mutate the reject mask or subtract it before connectivity labeling. Iterating only component members automatically ignores tag pixels outside foreground."
+    },
+    {
+      "id": "CMP-SEEDS",
+      "severity": "HIGH",
+      "counterexample": "Source empty seeds returns an empty mask; duplicate/multiple seeds union components; a later background seed refuses even after an earlier valid seed. Public Seeds:[] converted via a nil local slice changes NONE into ALL.",
+      "direction": "Allocate a nonnil empty internal slice for explicit empty seeds. Validate every seed, bounded count and shape before traversal/publication. Precompute membership once, not an O(components*seeds) search. Refuse a seed outside foreground for this art contract. Source out-of-crop positive indices raise while bounded negative indices may wrap; classify new bounded refusals honestly rather than claiming source parity for those malformed-domain cases."
+    },
+    {
+      "id": "CMP-DOMAIN",
+      "severity": "HIGH",
+      "counterexample": "A seed at the crop corner, grown1 after source embedding, produces5 pixels, including two outside the crop. Cropped growth produces only3. Changing predicate sampling to the full canvas instead also selects unrelated source pixels outside the crop.",
+      "direction": "Use the separate sampling rectangle and topology domain, or an equally explicit source-bound normalization. Preserve zero outside sample and full-domain charging. Never extend Rect alone, clamp final output back to SampleRect, or hide the distinction behind a grow_canvas/provider mode."
+    },
+    {
+      "id": "CMP-PREDICATES",
+      "severity": "MEDIUM",
+      "counterexample": "Art panel uses unequal inclusive per-channel tolerances R238..250/G187..203/B100..120. A single existing RGB cube tolerance cannot represent it. Remnants cream mode can select alpha0 pixels, unlike its default alpha-threshold mode.",
+      "direction": "Express panel complement using six strict scalar OR groups, retaining source inclusive bounds by complement. Express white with all three RGB>225 predicates, then apply component-wide veto. Existing scalar maps and RGB distance already cover all six component calls; do not add hardcoded panel/color handlers or silently intersect alpha in cream mode."
+    },
+    {
+      "id": "CMP-WORK",
+      "severity": "HIGH",
+      "counterexample": "Adding a third predicate role plus eight-neighbor traversal increases work; the current generic topology weight64 and main/core-only count cannot simply be assumed sufficient without accounting. A whole-canvas topology domain can dwarf SampleRect.",
+      "direction": "Keep one authoritative selectRaster cost calculation. Charge all main/core/reject groups/checks, full Rect binary buffers and component traversal, bounded seed setup and membership, eight neighbor visits, removal scan and final full-domain growth. Queue each foreground pixel once, with bounded immutable source/reject masks. No per-seed flood, label traversal per recipe or repeated property-map construction per pixel. Preserve exact budget and one-over refusal tests and old absent-option charged behavior."
+    }
+  ],
+  "g03_separate_extension": {
+    "assessment": "G03 is one additional declared provider call, separate from the six component calls. A single source-proven signed green-blue scalar with Above(-28) and Below(28) can express abs(G-B)<28 through existing checks; no generic abs operator or expression evaluator is needed. It is reasonable to hold this tiny scalar addition separately if the current increment targets only component semantics.",
+    "growth": "Source g03 calls SciPy dilation directly, so grow0/negative converges across the full canvas. Independent5x5 witness selects25 pixels instead of identity1. Normalizing source nonpositive g03 growth to the existing negative/convergent Grow representation is explicit projection, whereas art_components source nonpositive growth maps to identity0. Do not change the shared finalGrow0 contract to satisfy g03. SampleRect is already useful for both domains."
+  },
+  "flood_hold": {
+    "source_distinction": "Original make_batch_c_png.shape_mask flood first derives a four-connected filled light region, labels foreground4, then compares labels to the seed label. A background seed has label0 and therefore selects ALL zero-label pixels, even disconnected background, rather than refusing or selecting one connected background component. Optional erosion follows selection before crop embedding.",
+    "direction": "Keep that provider explicitly held in this increment. Do not generalize art foreground-seed refusal into flood or add background-selection/erosion flags speculatively. Existing topology owner already contains useful fill/erosion operations, but future source-justified assembly and label0 semantics need their own finite contract. Full-context source fixtures containing flood must retain it as a held contributor; component-only equality is not whole-context permission equality. Do not delete flood from expected masks or claim complete stage/texture support while substituting it silently."
+  },
+  "static_data_alternative": "Pinned masks remain a possible explicit disposition for an immutable artwork identity, not a substitute for pixel-dependent component authoring behavior across inputs. Six calls use four literal records but their components depend on source pixels and seed membership. Reuse the shared traversal unless the required responsibility is explicitly narrowed with source identity and exact whole-mask evidence; this review made no actual-artwork claim.",
+  "verification": {
+    "Serena": "Session86d8031d located selectRaster, transformRasterMask, RasterFootprint/RasterMaskTransform and existing font/erase/compositor/test callers. Inspected accepted source and no private candidate.",
+    "independent_original_only_witnesses": "Seven small checks PASS: art diagonal8, empty/repeated/background seeds, whole-canvas growth5vs3, full-component veto, outside-foreground white ignored, cream ignoresalpha, and separate g03grow0 convergence25vs1. check.py extracts original selected AST functions only, using NumPy2.4.6/SciPy1.17.1.",
+    "sealed_source_counts": "Source47-member capsule now sealed and inspected only after root supplied immutable identities:6 actual component calls/4 literal records/2 fixture inputs/12 component outputs; separate1g03call/2outputs;16small manual cases and8source refusals. These are not6 migrated artworks or full original-provider coverage.",
+    "not_performed": "No Go execution, private candidate code read, mutable source-worker oracle read, full source crawl or protected artwork/process access."
+  },
+  "terminal_state": "Only this new owned /var/tmp capsule written; no LIVE changes or implementation/approval/coverage claim. All synchronous jobs terminal. Audit044 next02:02:37UTC unchanged.",
+  "source_pins": [
+    {
+      "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/raster_mask.go",
+      "bytes": 12825,
+      "sha256": "27c029965c43b31e969fa5efdb306131b5746f37bf152d8a9327b83501b963c7"
+    },
+    {
+      "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/raster_mask_types.go",
+      "bytes": 1865,
+      "sha256": "891a3427baff756e03d6007619c901d8281f62c0be42516f6573c1b3462e53de"
+    },
+    {
+      "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/raster.go",
+      "bytes": 21641,
+      "sha256": "15d043dd862ccc78f1ff4d81a77e6e3152387d3f8f306678916bb04a0aeeabbc"
+    },
+    {
+      "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/raster_reconstruction.go",
+      "bytes": 4548,
+      "sha256": "08d61937dc7053193404e561d122f20ba79724fd7a6903efc7545540cd7a4a9d"
+    },
+    {
+      "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/raster_runs.go",
+      "bytes": 18951,
+      "sha256": "e7c5ca19c972cf2028bcd285c3add559abc2f1e180346b48c2a66d4d50cc6874"
+    },
+    {
+      "path": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/sources/batch_c_card_art.py",
+      "bytes": 5638,
+      "sha256": "7afbc8f9127651ee283c53c0a3fcb1ca7342617dae8655f1eb49bd9420c26569"
+    },
+    {
+      "path": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/sources/batch_c_logo_art.py",
+      "bytes": 28285,
+      "sha256": "2056df4848a0b949faff55efcdc8d5daea6fbffaebf4779680f7959e6aa79cba"
+    },
+    {
+      "path": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/sources/make_batch_c_png.py",
+      "bytes": 13499,
+      "sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149"
+    }
+  ],
+  "sealed_source_members_verified": 47,
+  "accepted_manifest": {
+    "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/manifest.json",
+    "sha256": "e50dcf4c780d7a4a037e406d234b4347a0a158d6d837b45e357f0d873057f5da",
+    "scope": "manifest and5 selected Go members verified, not full694 replay"
+  },
+  "sealed_source_manifest": {
+    "path": "/var/tmp/dokapon-component-permission-source-AHrdkqz2/manifest.json",
+    "sha256": "20d69dc6930d9801a4c128db504322833772f02c96300763ddc6dafe2385d207",
+    "members": 47
+  },
+  "finished_at_utc": "2026-11-05T01:45:55.526651+00:00"
+}

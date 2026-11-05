@@ -1,0 +1,201 @@
+{
+  "kind": "PRECODE read-only source responsibility and independent structural fit oracles",
+  "scope": "Exact LINE-count constraint for declared row-counted consumers; enhance existing previewFit and FitBox/FitRow only. No new function, decoder, wrapping policy or native scale model.",
+  "accepted_before_baseline": {
+    "snapshot": "/var/tmp/dokapon-reference-bound-audit-66ars7cp/sealed-final",
+    "manifest_sha256": "2435359c955468203d9f40857cfc9d1395fe5669340c6b7eb03ff63257f8e1d1"
+  },
+  "source_pins_frozen_before_candidate": {
+    "fit.go": {
+      "bytes": 7360,
+      "sha256": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32"
+    },
+    "fit_types.go": {
+      "bytes": 2148,
+      "sha256": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b"
+    },
+    "patch.go": {
+      "bytes": 93491,
+      "sha256": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a"
+    },
+    "text_types.go": {
+      "bytes": 2041,
+      "sha256": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab"
+    },
+    "patch_test.go": {
+      "bytes": 486444,
+      "sha256": "ae978e16b82c10a3043c5ba117016c079e6137891f9d7dd393686a864dec1eb2"
+    },
+    "main.go": {
+      "bytes": 15513,
+      "sha256": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93"
+    },
+    "profiles/fit/item-descriptions.json": {
+      "bytes": 6750,
+      "sha256": "25d8ffd1f205b3740bc4c90b787d58dbe5bba149f6ccf60ed5fa01e5aaf0f8bd"
+    },
+    "../fix_shop_menu_rows_2026_09_30.py": {
+      "bytes": 2018,
+      "sha256": "cd04003a4466bd71b7cc9df8dbf8b11488ac08f5dc5f8361385d2869b51dbd01"
+    },
+    "../rework/new_tool/text_tools/streams.py": {
+      "bytes": 20911,
+      "sha256": "0ab5e03f969ad208291c5944f9d893d329b042e60426564f9b390640533215ae"
+    },
+    "../rework/new_tool/text_tools/text.py": {
+      "bytes": 37886,
+      "sha256": "1fa08304070d7ad0282438b9870f0da53b2a331a6cf8b2bfb3eba270d11b7af7"
+    },
+    "../rework/new_tool/text_tools/stream-layout-recipes.json": {
+      "bytes": 150625,
+      "sha256": "1225ee5cc60b07da98587b7c59cb4ed37b1d8491ecf78c3791479271f0892bc7"
+    },
+    "../rework/new_tool/text_tools/fixtures/menu-label-baselines.json": {
+      "bytes": 9299,
+      "sha256": "5ba62d75992fc722eaeb0bc40f31ded22f56ebbbbe085830f7fda74fbd3cf028"
+    },
+    "../../skills/LAYOUT-AND-FONT.md": {
+      "bytes": 47122,
+      "sha256": "930f4dde798d09d51d43c32ca2884cd9fdf09928b5a6cf396ddade5c6affae3c"
+    }
+  },
+  "symbol_work": {
+    "method": "Serena previewFit body and run caller; controls location and source slices; glyphMaps body inspected before source-native join. No Go/project Python execution.",
+    "owners": {
+      "previewFit": "fit.go:17..178 consumes declared boxes, encode then controls(native Advances), existing diagnostics and pinned input lifecycle.",
+      "controls": "patch.go:281..678; initializes LineWidths{{0}}, LINE appends zero width to current page, PAGE starts new page; unsupported measurement returns error.",
+      "inspect": "patch.go:2010..2084 derives Advances from source metric records and eight pinned space instructions.",
+      "run": "main.go:65 routes exclusive fit profile to previewFit.",
+      "fit types": "fit_types.go FitBox and FitRow are existing shared configuration/result owners."
+    }
+  },
+  "historical_source_contract": {
+    "original_caller": "../fix_shop_menu_rows_2026_09_30.py:2..13,34..40 identifies F034/F034b/F035 and delegates shop-menu-rows recipe to shared text tools.",
+    "migrated_call_chain": [
+      "../rework/new_tool/text_tools/text.py:289..303 menu_context loads menu_recipe and selects shop_menu_main.",
+      "../rework/new_tool/text_tools/streams.py:227..236 menu_recipe loads independent table facts;279..281 shop_menu_main delegates table_stream_main.",
+      "../rework/new_tool/text_tools/streams.py:174..203 table_stream_main preflights exact old/new streams then optional apply/registry; it is NOT a generic row-count validator."
+    ],
+    "data": "../rework/new_tool/text_tools/stream-layout-recipes.json:3049..3079 and fixtures/menu-label-baselines.json preserve independent historical recipe wording.",
+    "playbook": "../../skills/LAYOUT-AND-FONT.md:23 and58..59:0x2f5260 menu row sizing uses translated LINE count; preserve vanilla0x0800 count including trailing break. Historical softlock explanation is source evidence, not newly re-proved runtime behavior.",
+    "examples": [
+      {
+        "id": "0x53593c",
+        "historical_new_en": "Weapons|Shields",
+        "required_line_breaks": 1,
+        "historical_new_has_trailing_LINE": false
+      },
+      {
+        "id": "0x47ed70",
+        "historical_new_en": "Attack|Defense|Field|",
+        "required_line_breaks": 3,
+        "historical_new_has_trailing_LINE": true
+      },
+      {
+        "id": "0x47eda0",
+        "historical_new_en": "Items|Magic|Gear|",
+        "required_line_breaks": 3,
+        "historical_new_has_trailing_LINE": true
+      }
+    ],
+    "important_distinction": "Exact control count is not Shape.Lines or number of nonempty labels. Three LINEs with a trailing break produce four pen rows, while the cited menu has three selectable labels. Do not rename this field required_rows or infer native selectable rows generically."
+  },
+  "proposed_minimal_contract": {
+    "FitBox": "RequiredLineBreaks *int json required_line_breaks,omitempty; pointer distinguishes absent from explicitly0.",
+    "validation": "If present require0<=value<maxStreamBytes/2 (8192/2=4096), and Wrap false. No automatic insertion/deletion/merging of option separators. Existing MaxWidth/MaxLines/AllowPages/MaxBytes and read-only source/pin limits remain.",
+    "FitRow": "LineBreaks *int json line_breaks,omitempty; set only when requested and existing controls native measurement succeeds. Explicit measured0 serializes0; unsupported stays absent.",
+    "measurement": "Sum len(page)-1 for every page in existing Shape.LineWidths. PAGE creates a fresh page and adds zero to this total; trailing, leading and consecutive LINE controls all count. No second token scanner.",
+    "diagnostics": "Retain existing width,height,page,byte diagnostic order; append LINE mismatch diagnostic last. Mismatch sets dedicated row_count_mismatch even when existing overflow facts also occur. A matching exact count leaves existing within_profile/overflow outcome unchanged. Encoding/measurement unsupported remains unsupported without line_breaks.",
+    "compatibility": "Absent/null constraint omits both new fields and leaves all old unambiguous valid report behavior/bytes intact. Whole-profile duplicate-key refusal is a deliberate ambiguity tightening, not byte parity for malformed legacy profiles. Root will establish a precode legacy report baseline and compare; this study did not execute it.",
+    "new_field_JSON_boundary": "Root before-code decision: reuse existing checkJSON with allObjects:true plus aliasesByDepth{3:[required_line_breaks]}. Deliberately tighten duplicate object-key refusal throughout the fit profile; ASCII/Unicode case aliases are specially refused for the new box field only. Existing unrelated old field casefold behavior stays unchanged. Root freezes duplicate canonical/new-field ASCII/Unicode alias and unrelated-root-duplicate raw refusals separately. No new validator, helper or configuration flag."
+  },
+  "independent_precode_oracles": {
+    "literal_pack": {
+      "directory": "/var/tmp/dokapon-fit-line-count-contract-9hp4zcf8",
+      "manifest_sha256": "0a4137bf1b3d405ea45dc37c10cbbae68d938decc488137404429b91251e6f2c",
+      "expected_facts_sha256": "5e3867f88d97bf145c10d59a4d03e82420b051f433c2727c6c70b656d5463ecd",
+      "cases": 17,
+      "profile_refusals": 5,
+      "facts": "16small literal cases plus4095LINE/8192B boundary; source-font fixture reuses existing stream_reflow test metric facts A13 B28 C22 space14. Expected words and widths/statuses were literal constants, no project encoder/decoder."
+    },
+    "coverage": [
+      "explicit0 and empty stream",
+      "exact1/too few/too many",
+      "trailingLINE and3including trailing",
+      "PAGEdistinctfromLINE and sum across pages",
+      "PAGErefusal unchanged",
+      "width+height+byte+row mismatch diagnostics retained",
+      "matching count plus width overflow",
+      "missing-glyph/scale unsupported count unknown",
+      "constraint absent old shape",
+      "maximum4095 allowed versus4096 rejected",
+      "Wrap+constraint, negative, fractional/string JSON counts refused"
+    ],
+    "native_pack": {
+      "directory": "/var/tmp/dokapon-fit-line-count-contract-native-joined-s5exejwa",
+      "manifest_sha256": "351456181f5fb72952fea6f4f490cb7bbd3a194ced173de6fd6a19c0762d445b",
+      "native_facts_sha256": "61d8d494e1ac4b5e77e02353a271681a5c7f228967581618bbc3c31cede96cb6",
+      "profile_sha256": "3964d8d949e2a4fa3faf79a8bfc1e35ccc5a7d71c0ab1c0f51c6b127dc590e6d",
+      "independence": "Frozen b9 registry literal EN+lowest source glyph indices from a662+raw6e metric records; source pinned and joined via stdlib only before implementation/candidate output. No candidate output used."
+    },
+    "native_results": [
+      {
+        "id": "0x47ed70",
+        "line_widths_by_page": [
+          [
+            105,
+            118,
+            77,
+            0
+          ]
+        ],
+        "line_breaks": 3,
+        "max_lines_per_page": 4,
+        "bytes": 44,
+        "encoded_sha256": "6758c199113297796f7e783622b0c71652bb9caae8f25beb5af19db3760c67df",
+        "status": "within_profile"
+      },
+      {
+        "id": "0x47eda0",
+        "line_widths_by_page": [
+          [
+            83,
+            84,
+            70,
+            0
+          ]
+        ],
+        "line_breaks": 3,
+        "max_lines_per_page": 4,
+        "bytes": 36,
+        "encoded_sha256": "8bee18cfeb57e99f608dac875d3f40fe16bbf61e74d86443c9b6463b1256bdf9",
+        "status": "within_profile"
+      },
+      {
+        "id": "0x53593c",
+        "exact_current_frozen_en": "<0xe85a>Weapons|Shields<0xe864>",
+        "line_breaks": null,
+        "line_breaks_field_present": false,
+        "status": "unsupported",
+        "reason": "Keep scale refusal; no stripping or nominal percent width."
+      }
+    ],
+    "native_bounds": "1000 unscaled advance units and16 pen rows are deliberately loose declared demo bounds, NOT measured menu dimensions/physical clip units or native GUI approval.",
+    "immutable_earlier_native_supplement": {
+      "directory": "/var/tmp/dokapon-fit-line-count-contract-native-m2c6je4c",
+      "manifest_sha256": "cfa974db5ea45d814055d949580d66face333a82df350f5edb250b59f81226e1",
+      "note": "Initial source-only supplement preserved; joined pack adds independent glyph/font word/width facts without modifying it."
+    }
+  },
+  "reuse_recommendation": {
+    "recommendation": "Enhance previewFit validation/measurement bookkeeping and existing FitBox/FitRow. Existing controls already owns LINE/PAGE measurement; encode/inspect/wrap remain unchanged. Extend existing read-only authoring fit test table, no new test/helper/function needed.",
+    "considered": "controls should not acquire consumer-specific required counts or report status; wrapPages must not change menu topology; plan is a mutation/byte-guard owner and should not own read-only structural preview. Existing previewFit is already the coherent owner."
+  },
+  "limits": [
+    "This is source-contract and precode-oracle study only, not implementation or approval.",
+    "Exact LINE count alone does not prove option wording/order, nonempty labels, menu ownership, runtime reference, argument substitution, physical fit or absence of softlocks.",
+    "Scale/nested/position/opaque payload measurements remain unsupported rather than inferring count from raw markup.",
+    "No ISO/canonical paths/emulator/PINE/process/settings access; only named frozen private source snapshots read.",
+    "No family promotion or code-reduction claim;5/14 Full remains unchanged."
+  ]
+}

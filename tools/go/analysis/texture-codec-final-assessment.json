@@ -1,0 +1,253 @@
+{
+  "at": "2026-10-20T16:49:32.845435+00:00",
+  "recommendation": "FULL",
+  "family": "texture_codec",
+  "decision": "All seven original material codec responsibilities now have verifiedsharedGoowners/declarativeinputs/preservedguards. No remaining material codec gap reproduced after acceptedapproximatecb0ee0b9 andfullpage33801728. This is a recommendationagainst unchangedbaseline, not a familyJSON/score edit or retirement/ISO approval.",
+  "scope": "Separatebounded8minute read-only finalassessment. Only analysis/texture-codec-final-assessment.json/.md written inrepository; ownedvarTMP foronefocusedpositiveprobe. No production/test/fixture/art/ISO/canonical changes, ISO reads or owneremulator/PINE/process/log/settings access. NarrowselectedCMBmemberread only. Earlierreports unchanged.",
+  "unchanged_contract": {
+    "baseline": "analysis/reusability-coverage-baseline.json",
+    "baseline_sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+    "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+    "source_sha256": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+    "source_lines": [
+      "analysis/reusability-coverage-baseline.json:199",
+      "analysis/pattern-crawl-assets_runtime_tests.json:54"
+    ],
+    "text": "One PS2 TXD/index/CLUT codec independent of ISO placement and artwork. Retain distinct PSMT4/8/nohdr/PSMCT32 parsing facts and alpha/index invariants; use golden fixtures as well as roundtrips.",
+    "scoring": "FULL means originalmaterialresponsibilities verified, notallpossiblePS2layouts/everyhistoricalscript/individualdiscoveryrow. ScoreandfamilyJSON unchanged bythisassessment."
+  },
+  "current_source_binding": {
+    "snapshot": "/var/tmp/dokapon-fullpage-tbw2-sealed-x0iwndqs",
+    "all29pins_equal_accepted_fullpage_proof_and_stable": true,
+    "texture.go": "8eae718a39843f3930d0d09d6ff9b49df7a085cd39721a70e15611acf2d20e95",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_authoring.go": "d75c64784c382175905d89dcc012f49f7127019c1ee6d03ce68ea3b8632db16e",
+    "texture_types.go": "ab4705cc089c4a54669e05c1ba606af18675d6fa56175a2a1abd743bec436145",
+    "Serena": "d7f95853: texture18..376 soleauthorTexturecaller; generatePalette solelycalledbytexture; authorTexture solecaller run45. No operationalPython dependency onGoexecutionpath."
+  },
+  "positive_crosswalk": [
+    {
+      "duty": "Bounded RW PS2-native parse/selection/storage",
+      "positive_sources": [
+        "../ps2_tex.py:61",
+        "../ps2_tex.py:87",
+        "../rework/new_tool/texture_tools/textures.py:36"
+      ],
+      "shared_Go": [
+        "texture.go:18",
+        "texture_authoring.go:18",
+        "texture_types.go:6"
+      ],
+      "evidence": [
+        "texture-footprint",
+        "clut-packet",
+        "fullpage-tbw2"
+      ],
+      "result": "MET: boundednativeparse/uniqueexactselection/storage/metadata/packet guards; declarativepinnedprofiles andPNGexport. Newfullpageproof closespreviouspositivepacketrefusals; current44base/35palette/31CLIand227frozenartifactcorpus pass."
+    },
+    {
+      "duty": "PSMT4 single/multipage index/16colorCLUT/alpha/padding/PNG",
+      "positive_sources": [
+        "../make_vlg_plates.py:114",
+        "../test_psmt4_roundtrip.py:26",
+        "../test_psmt4_roundtrip.py:50"
+      ],
+      "shared_Go": [
+        "texture.go:140",
+        "texture.go:200",
+        "texture.go:298"
+      ],
+      "evidence": [
+        "multipage-psmt4",
+        "exact-palette"
+      ],
+      "result": "MET: actual74village128x32 plusvs_sen512square;4096old and262144independentnativeaddresspairs,16sampledcolors/96Bupload/32CDpadding,alpha/noop/golden/maskededit invariants. Native16colorjoin in remaining-psmt4-frontier retained; no inventedarbitrarygeometry responsibility."
+    },
+    {
+      "duty": "Standard PSMT8 index/CSM1/rawCLUT/preservequantizer/read-export",
+      "positive_sources": [
+        "../ps2_tex.py:145",
+        "../ps2_tex.py:333",
+        "../ps2_tex.py:365",
+        "../ps2_tex.py:405",
+        "../cmb_tex_patch.py:202",
+        "../explainer_scan.py:65"
+      ],
+      "shared_Go": [
+        "texture.go:112",
+        "texture.go:207",
+        "texture.go:267",
+        "texture.go:344"
+      ],
+      "evidence": [
+        "clut-packet",
+        "small-psmt8",
+        "grouped-psmt8",
+        "fullpage-tbw2"
+      ],
+      "result": "MET:19finitepartialgeometries pluspositivefullpageforms undernativepage/TBW/CLUT rules. FullpageY32/Y128actualsources nowverified;128squareY64 retained. WiderseparateCLUTsource256x64 BossUGB focusedexport/noop/nativejoin matcheshistoricalSHA1 81b72ba4bed4. DefaultpreservesrawCLUTalpha/duplicateindices/nearestfirstties andboundedcandidatecache."
+    },
+    {
+      "duty": "Headerless PSMT8 distinct parsing/export/preservePNG",
+      "positive_sources": [
+        "../ps2_tex.py:113",
+        "../test_nohdr_roundtrip.py:47",
+        "../test_nohdr_roundtrip.py:56",
+        "../test_nohdr_roundtrip.py:65",
+        "../explainer_scan.py:70"
+      ],
+      "shared_Go": [
+        "texture.go:137",
+        "texture.go:198"
+      ],
+      "evidence": [
+        "texture-footprint",
+        "clut-packet",
+        "fullpage-tbw2"
+      ],
+      "result": "MET:actual1024x512/512x1024 headerlessforms includedin227completebytecorpus; rawpixels+CLUTstorage andwhole/rectangle noops retained. Defaultunverifiednohdrrepalette refusal stays; optionalforce/resize policy is not requirednewcodec semantics."
+    },
+    {
+      "duty": "Direct32 font/color read/export/import/alpha/hiddenRGB",
+      "positive_sources": [
+        "../explainer_scan.py:77",
+        "analysis/pattern-crawl-assets_runtime_tests.json:62",
+        "evidence/raw-font-codec-proof.json"
+      ],
+      "shared_Go": [
+        "texture.go:154",
+        "texture.go:319",
+        "texture.go:337"
+      ],
+      "evidence": [
+        "raw-font-codec",
+        "direct-rgba",
+        "direct-layouts"
+      ],
+      "result": "MET:21actualinstances in6nativev0/v2layouts havefullRGBA/export/noop;additionalactualedits/alpha/mask checks. Defaultfontmonochrome guards andexplicitRGBA/sourcealpha0..128/hiddenRGB/nearesttiesup preserved. Paletteanddirectformat assumptions remain distinct."
+    },
+    {
+      "duty": "Wholepalette exact and approximate generation",
+      "positive_sources": [
+        "../cmb_tex_patch.py:262",
+        "../cmb_tex_patch.py:396",
+        "../cmb_tex_patch.py:418"
+      ],
+      "shared_Go": [
+        "texture_palette.go:15",
+        "texture_palette.go:149",
+        "texture.go:258",
+        "texture_authoring.go:38"
+      ],
+      "evidence": [
+        "exact-palette",
+        "approximate-palette"
+      ],
+      "result": "MET:strict256 exact/fallback,actual1513colorGokuand6syntheticcanonicaloracles,12rootseededprobes plusindependentextra/dense4097/shiftedbounds/7numericalmutants. NativeCLUT/index/writeintegration,goldenwholeartifact/ledgers/alpha/transparency/rounding/masks/publisherrefusals verified. Numericalowner isGo; Python supplies references, not operationalgeneration."
+    },
+    {
+      "duty": "Meaningful unsupported-layout/refusal boundary",
+      "positive_sources": [
+        "../ps2_tex.py:147",
+        "../ps2_tex.py:333",
+        "../explainer_scan.py:72",
+        "../rework/new_tool/texture_tools/textures.py:38",
+        "../rework/new_tool/texture_tools/textures.py:51"
+      ],
+      "shared_Go": [
+        "texture.go:93",
+        "texture.go:115",
+        "texture.go:140",
+        "texture.go:176",
+        "texture.go:313"
+      ],
+      "evidence": [
+        "grouped-psmt8",
+        "fullpage-tbw2"
+      ],
+      "result": "MET:124below16rows historicallyunsupportedwithblankPNG; originalstrictparseandindexeddecode freshlyaffirmativelyrefuseactual8x8source. Currentall10heldtuple/refusalreceipts retained. Depth16/24 parser vocabulary has noindexeddecode implementation; not an inventedpositiveformat requirement. Nativecrop/padding extension is outsideexistingpositivecodeccontract, not excused merelybyabsenceofauthoringcallers."
+    }
+  ],
+  "surface_qualification": {
+    "PSMT8_positive_geometries": 33,
+    "decomposition": "19partial+12standardfullpage+2headerless;mode/rulecoverage,notall15030positivePSMT8rows individuallytested.",
+    "PSMT4": "75actualrasters intwoobservedmodes; originalvillageauthoringandvs_senread/roundtrippositivecontracts.",
+    "direct32": "21observedinstances insixfinitev0/v2groups.",
+    "below16": "124affirmativelyunsupportedhistoricalrecords, not anewpositivecrop requirement.",
+    "counts_not_claims": "Twonewfullpagerepresentatives are not299independentlyexecutedexports. Manifestpositivealiases and repeatedassets do notincreasecaller/workflowcounts. Positive-native-selector duplicategroups0andnonASCIIselectors0 inthismanifest; notuniversalnameproof."
+  },
+  "caller_rebinding": "Original410membershipmanifestpins rebound,11codec-token sourcefiles anddelegatedtexturemodule matchtheearlierpositivecallerledger. Existingfourunrelatedmembershipdrifts retainedhistorically, notblindlyrepinned. Detailedcalllist inprivate rebindings.json.",
+  "latest_evidence_closes_prior_gaps": {
+    "approximate_proof_sha256": "cb0ee0b92441a82b601906806bf498ea1307333107185b16a71bdf6797ece619",
+    "fullpage_proof_sha256": "338017283945460a7c53d5c112ec527b6ddb1c30ed26a0a885b8647e77f60834",
+    "previous_reassessment_sha256": "f0cde47737b4406a14f1738b7d08a09cd11ca83a19a9ac1909926fabad64ac33",
+    "interpretation": "PreviousPARTIAL finding wascorrectatitsoldsource. Its twomaterialgaps are nowacceptedwithfreshordinaryreviews/rootchecks andunchangedguardregressions; historicalreports remainimmutable."
+  },
+  "verification": {
+    "reused_terminal_checks": "Latestrootrace57.806s/ordinary88.484s withCURRENT227overlay,44base/35palette/31baseCLI,vet/build/gofmt/selfcheckedscans. No redundantfullsuite rerun forread-onlyassessment. Approximateordinary85.365s andpriornative/actualCLIproofs reusedbyhash, withcurrentpalette/direct/PSMT4codeunchangedbyfullpage2linechange.",
+    "one_focused_extra": "256x64positivehistorical31rowgroup lackedaselected227/basefixture. BossUGB inselected62904B BATTLEb29member nowcanonicalfullRGBA/export/noop/sourceidentity checkedagainstGo; historicalRGBA SHA1prefix81b72ba4bed4 matches. Independent16384pixel/256CLUTjoin andboundedallocation/nativeTBW4/separateCLUT facts verified. Oneextra representative, notall31rows.",
+    "fresh_negative_confirmation": "Originalactual8x8source strictparse andindexdecode bothrefuse; errorstrings recorded privately.",
+    "reports_and_pins": "JSON/scopedwhitespace/inputhashes checked; baseline/crawl/source29pins unchanged. No newcode/testrequired."
+  },
+  "material_gaps_remaining": [],
+  "scope_limits_and_distinct_families": [
+    "No exhaustionclaim forallassetrows,arbitraryfloatinghistograms,unknownnativecallbacks/cacheconfigurations orfuturepixelstorageformats.",
+    "Below16crop/padding,unobserved4bit/nativeformats remainunsupportedasdeclared. Futurepositiveworkflowwouldrequireitsownproof.",
+    "Nativeblend/filtering/gameplayvisual/artapproval and ISOalias/CLUTownership/publication/legacyretirement are not granted.",
+    "Resize/TTF/glyphshaping/rendering/reconstruction,contact-sheets/inventorynaming/bulkexportorchestration andCMB/ISOplacement belongto separateexplicitfrozenrecommendations (crawl64,75,90,104); they are notcountedascodeccompletion orsilentlyretired.",
+    "Optionalforce-nohdr repalette overridesanexplicitdefaultunverified-order refusal (cmb_tex_patch401); noverifiedpositivecodecsourcecontract isreplacedbyanunsafeoverrideclaim. Existingheaderlessdecode/preserve duty iscovered."
+  ],
+  "evidence_pins": {
+    "evidence/texture-footprint-proof.json": "2ca34e4d4acc935309f499b06ca44667d5be3172ee1eb685cf4c47d7562bf32a",
+    "evidence/clut-packet-proof.json": "393dd80b910279906665fc0cb18b38421387ad999cbc07b9d7c8cedb5ec514af",
+    "evidence/raw-font-codec-proof.json": "1f10ec54bdbd47c950e08b09eda96aa17dbd66543013d06d9531357f4143cc97",
+    "evidence/exact-palette-proof.json": "0ecc576c9b76def3ab3b68dfee500ebd16e7879d6fbfc8b81d327bcea5ad58a5",
+    "evidence/multipage-psmt4-proof.json": "48e73fda152e539db534624dd58796b07bc729601399724ffaec68a71a04a588",
+    "evidence/direct-rgba-proof.json": "94fe9aa49ed62cb9f18f557f3ac272071d63c0ae1033e2b20024783b61fc6543",
+    "evidence/direct-layouts-proof.json": "9b2d70d592831e702896a13ae6acd257e046f33c93ffffa1f2e87846480125c9",
+    "evidence/small-psmt8-proof.json": "2e65515bdb372f3299ea5cede1fde210ae25da8477e6ed02f33285d5b99967fe",
+    "evidence/grouped-psmt8-proof.json": "926cddf47832b62388d3b895a733d28dd2400b70c1c3150f7766366bb1deb4fa",
+    "evidence/approximate-palette-proof.json": "cb0ee0b92441a82b601906806bf498ea1307333107185b16a71bdf6797ece619",
+    "evidence/fullpage-tbw2-proof.json": "338017283945460a7c53d5c112ec527b6ddb1c30ed26a0a885b8647e77f60834",
+    "analysis/texture-codec-coverage-reassessment.json": "f0cde47737b4406a14f1738b7d08a09cd11ca83a19a9ac1909926fabad64ac33",
+    "analysis/remaining-psmt4-frontier.json": "2553d18dafac1bbedb9dde89eeed49b7b8d363bd942ca7fd96063ce6f8b2ea3f",
+    "analysis/grouped-psmt8-authoring-contract.json": "b5bf4aaf7ac743cd130ec4470af132f39b98cf140c57a171df77b76ebcd5da01",
+    "analysis/colored-direct-native-contract.json": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85",
+    "evidence/approximate-palette-review.json": "e5ddc6bf47adfa15823599ab0d905573f2229a9f9193b6dbea9fe7db65eeded0",
+    "evidence/fullpage-tbw2-review.json": "c97e98fd1a875cea06c21c248873d950edbbfc417cf4dd9dba66656fe6a3dd67"
+  },
+  "private_artifacts": {
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/source-pins.json": {
+      "bytes": 2637,
+      "sha256": "7e507fb32ff14e3a7c6e380ce82952ef05ff11159c0153d9608110b4e0547aca"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/surface.json": {
+      "bytes": 1705,
+      "sha256": "61842a3b5e1ae788f203c0f754623fca50522617affdb8a736dc85ff1e3203f2"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/rebindings.json": {
+      "bytes": 9147,
+      "sha256": "bf5f0e288773cea9dc751bf9bbdedaeea1ad365e68bfa91077d4d95a57518b16"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/positive.json": {
+      "bytes": 1176,
+      "sha256": "a7fbe2b70907845aab0657b0bdbe42fcc7418249cca250a2d7b1f4c5d05defc5"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/positive.py": {
+      "bytes": 2479,
+      "sha256": "6542d714e1d9b5d57d645add3c67696f0491f1e7f71c8f8953d718d881c28d94"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/BossUGB-source.txd": {
+      "bytes": 62904,
+      "sha256": "d861b60cf29906db0a7e59252cbcc0ab9550ae62a3af645935dd974196eb4af3"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/BossUGB-export.png": {
+      "bytes": 14898,
+      "sha256": "9e8130af9a81aec0c804832e51e2a94e2a95f9088959e5fe9eaeffa24315819d"
+    },
+    "/var/tmp/dokapon-texture-final-assessment-gdb1sr6a/BossUGB-noop.txd": {
+      "bytes": 62904,
+      "sha256": "d861b60cf29906db0a7e59252cbcc0ab9550ae62a3af645935dd974196eb4af3"
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schema": "raw-reader-compatibility-proof-v1",
+  "at": "2026-10-21T16:41:05.620012+00:00",
+  "status": "VERIFIED_DATA_ONLY_RAW_READER_COMPATIBILITY",
+  "responsibility": "Data-only proof that the existing pinned one-word scanner handles selected additional original battle/board bodies; no new parser/function/API/production changes.",
+  "corpus": {
+    "report": "analysis/raw-reader-compatibility-frontier.json",
+    "manifest": "/var/tmp/dokapon-raw-reader-compatibility-iv5gygjn/manifest.json",
+    "manifest_sha256": "53afdd50fcd889c169157632d74c57826e241073e093b749a2f49adf98c44e8c",
+    "members_root_verified": 42,
+    "bytes": 777827,
+    "root_original_replay": {
+      "native_sides": 31,
+      "literal_EN_shapes": 2,
+      "original_refusals": 21,
+      "genuine_inline8_counterexample": true
+    },
+    "Go_specimens": 33,
+    "normalization": "Only source-backed matrix4800 pen0\u2192rawarg and069B000/D800 param8/null\u2192rawarg kind labels; Word/Offset/Payload unchanged. Other selected cohorts exact tokenkind parity.",
+    "limits": "Matrix/069 native EN landing, independent caller/reference selection and runtime ABI unproved. Original21refusals replayed against original only; no claim all legacy permissive acceptance sets match."
+  },
+  "verification": {
+    "focused_owner": "TestCLIDryRunAndApply",
+    "focused_seconds": 14.748,
+    "race_seconds": 178.925,
+    "focused_log_sha256": "51abc35725e4e8b57d6f919c0e104f59aa79f3a9347396daf37c376022a79188",
+    "race_log_sha256": "8ab28bac62d4d3c74135f7e14a150080c7c776a5ddb612df1f3472184f37c577",
+    "root_QA": {
+      "path": "/var/tmp/dokapon-raw-compatibility-data-88etrxn9/final-checks.json",
+      "sha256": "5aa7ae661586bcab8182a056f15d901ef818221ce5ba0dbab84371e89f8208bb",
+      "status": "PASS",
+      "core_nativefonts_build_vet": true,
+      "gofmt": true,
+      "scoped_whitespace_credentials": true
+    },
+    "all33_full_tokens_exact": true,
+    "caller_bytes_and_policy_unchanged": true,
+    "readiness_blocked": true,
+    "source_capsule": {
+      "at": "2026-10-21T16:36:04.854484+00:00",
+      "members": 571,
+      "manifest": "/var/tmp/dokapon-raw-compatibility-data-88etrxn9/review-source-final/manifest.json",
+      "manifest_sha256": "6ed816bd8911127a6e359b55b94c5c91761aa07e190eeaddf35caebd62449bb5",
+      "new": [
+        "analysis/raw-reader-compatibility-frontier.json",
+        "evidence/astra-audit-037.json"
+      ],
+      "runtime": {
+        "files": 170,
+        "bytes": 2498324
+      },
+      "production_files": 39,
+      "production_bytes": 451271,
+      "named_declarations": 41,
+      "new_functions": 0,
+      "new_Go_files": 0,
+      "production_growth_bytes": 0,
+      "runtime_growth_bytes": 0,
+      "test_growth_bytes": 1179,
+      "oracle_growth_bytes": 315908,
+      "accounted_inputs": 269
+    },
+    "review": {
+      "status": "PASS_NO_MATERIAL_FINDINGS",
+      "path": "evidence/raw-reader-compatibility-review.json",
+      "sha256": "4bb35884aa336409370a2135668af90212b75de6a9d07266ba385e653c0f0a6b",
+      "root_verified_review_artifacts": 629,
+      "root_verified_candidate_pins": 571,
+      "artifact_manifest_sha256": "5ed04efefadcacbe6ff84b722d2bcd107aef57d1b0434fa652841bc1006b2b37"
+    },
+    "full_suite_gameplay": "Deferred by owner; no repeated completeCLI/nativefonts race claim."
+  },
+  "metrics": {
+    "at": "2026-10-21T16:36:04.854484+00:00",
+    "members": 571,
+    "manifest": "/var/tmp/dokapon-raw-compatibility-data-88etrxn9/review-source-final/manifest.json",
+    "manifest_sha256": "6ed816bd8911127a6e359b55b94c5c91761aa07e190eeaddf35caebd62449bb5",
+    "new": [
+      "analysis/raw-reader-compatibility-frontier.json",
+      "evidence/astra-audit-037.json"
+    ],
+    "runtime": {
+      "files": 170,
+      "bytes": 2498324
+    },
+    "production_files": 39,
+    "production_bytes": 451271,
+    "named_declarations": 41,
+    "new_functions": 0,
+    "new_Go_files": 0,
+    "production_growth_bytes": 0,
+    "runtime_growth_bytes": 0,
+    "test_growth_bytes": 1179,
+    "oracle_growth_bytes": 315908,
+    "accounted_inputs": 269
+  },
+  "source_pins": {
+    "patch_test.go": "31b273a68abb635aeaee7e920c2863f0a07a4170a5e8a874affcca11117da471",
+    "testdata/pinned-raw-audit.json": "31375539c2046c0fbe8e8f7ba5b0515bef12107138496766c9d312a21255bf2e",
+    "analysis/raw-reader-compatibility-frontier.json": "fe8cac815267cde1fbd8a763c57f81cfcd1ef655befb8e1ae7fc6ad56100f3a1",
+    "evidence/astra-audit-037.json": "21768e2a10e7f435bf745dc2710aa70831ef3157e27a8bd5197940dd9d0959ac"
+  },
+  "coverage": {
+    "full_families": "6/14 unchanged",
+    "planning": "67/84 unchanged",
+    "new_credit": 0,
+    "script_retirements": 0,
+    "reduction_claim": false
+  },
+  "protected_scope": "Frozen extracted/synthetic/source-only inputs and new owned outputs; no protected ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control or actual game patch."
+}

@@ -1,0 +1,164 @@
+{
+  "at": "2026-10-20T15:52:22.515027+00:00",
+  "status": "READ-ONLY FRONTIER; no implementation approval",
+  "scope": "Only these two study reports written. No production/test/fixture/art/ISO/canonical/emulator changes or access. Documentation-only study; no Go rerun.",
+  "study_input_pins": {
+    "analysis/texture-codec-remaining-contract.json": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30",
+    "analysis/multipage-psmt4-native-contract.json": "7b8392c79d7c65faff8356e581c8154a9952ee79d3455537184e76acad65ac08",
+    "evidence/multipage-psmt4-proof.json": "48e73fda152e539db534624dd58796b07bc729601399724ffaec68a71a04a588",
+    "../../generated/explainer-textures/manifest.json": "3771c54798728f16115010f89743ab6d1b7cb3f02118337260cd91b608328fe5",
+    "../ps2_tex.py": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733",
+    "../cmb_tex_patch.py": "5a9aa60826293f65108ee4424246fa0f373e1f6d97526f93f87da31e6040f849",
+    "../make_vlg_plates.py": "f4b27326093bdf84af1d5206e3e7de8e12d5abb27a5ef174307551286919a2d1",
+    "../test_psmt4_roundtrip.py": "17c860b6e4701ad21c46a6f627bff9e3d14b68ac2d2e1bf9cdef8fe540435c12",
+    "../explainer_scan.py": "48ec5c0acb8989071e6f0f487005ee8b2f620677d167431c08f8afea49b87f28",
+    "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSTables.cpp": "a9a226297ede32b89177d7bdb04e9d8e21728e7d55799405f6112e97fe4969e8",
+    "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSClut.cpp": "9f4ed253c162855bc4d2838c08b522cbd28b6af96d03abd44cf0f83415bb1e32",
+    "analysis/pattern-crawl-text_binary-input.json": "3dc438676333570aa4085abf5d68cb7b4b3bdeab2e352cce387cbdbc9c8d9e51",
+    "analysis/pattern-crawl-iso_registry_reports-input.json": "e6e15de3859e5b3a2ca881791ef6aabeff08b1bff3986fa071b693258131cec6",
+    "analysis/pattern-crawl-assets_runtime_tests-input.json": "98cf8484e958a287e571ee3db28de2b1b5936e3214994709ce8d24b3ee1f3e93"
+  },
+  "study_input_pins_stable": true,
+  "accepted_smallPSMT8_pins_now_changed": [
+    "texture.go",
+    "patch_test.go",
+    "testdata/textures.json",
+    "testdata/small-psmt8.zip"
+  ],
+  "pin_qualification": "Concurrent root next-candidate work means no claim of accepted production-baseline pin stability; this study reads immutable historical contracts, legacy original callers, manifest, selected fixtures and primary tables.",
+  "manifest": {
+    "PSMT4_records": 75,
+    "groups": [
+      {
+        "width": 128,
+        "height": 32,
+        "status": "unsupported depth 4",
+        "count": 74
+      },
+      {
+        "width": 512,
+        "height": 512,
+        "status": "unsupported depth 4",
+        "count": 1
+      }
+    ]
+  },
+  "selected_actual_members": [
+    {
+      "zip": "assets/cmb-members.zip",
+      "key": "GRAPHIC/SYSTEM.CMB/system/vlg_plt.txd",
+      "sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "bytes": 185336,
+      "textures": 74
+    },
+    {
+      "zip": "testdata/multipage-psmt4.zip",
+      "key": "vs_sen.txd",
+      "sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "bytes": 131588,
+      "textures": 1
+    }
+  ],
+  "actual_groups": [
+    {
+      "width": 128,
+      "height": 32,
+      "rasterformat": 148740,
+      "TEX0": "0x200000055d408000",
+      "CLUT_base_blocks": 28,
+      "pixel_stream_bytes": 2128,
+      "CLUT_stream_bytes": 176,
+      "allocation_words": 2048,
+      "count": 74
+    },
+    {
+      "width": 512,
+      "height": 512,
+      "rasterformat": 148740,
+      "TEX0": "0x2000000665420000",
+      "CLUT_base_blocks": 512,
+      "pixel_stream_bytes": 131152,
+      "CLUT_stream_bytes": 176,
+      "allocation_words": 34816,
+      "count": 1
+    }
+  ],
+  "original410": {
+    "members": 410,
+    "token_hit_files": [
+      "tools/cmb_tex_patch.py",
+      "tools/explainer_scan.py",
+      "tools/make_vlg_plates.py",
+      "tools/ps2_tex.py",
+      "tools/test_psmt4_roundtrip.py"
+    ],
+    "real_material_caller": "make_vlg_plates.py creates74 village128x32 PNGs using existing16color palette snapping and masks, delegates publication through generated cmb_tex_patch recipe. VERIFIED_4BIT contains only system\\vlg_plt.txd.",
+    "other_responsibility": "test_psmt4_roundtrip.py reads vs_sen512square and five village plates using Target(read_only=True). Target refuses writes to other4bit entries. explainer_scan is discovery/export; ps2_tex is shared codec. No uncalibrated4bit material authoring geometry identified."
+  },
+  "primary_16color_join": {
+    "sources": "Pinned GSTables.cpp columnTable32/clutTableT32I4; GSClut.cpp I4 CSM1 binding at239. Explicit4bit comparison, no8bit inference.",
+    "sample_word_offsets": [
+      0,
+      1,
+      4,
+      5,
+      8,
+      9,
+      12,
+      13,
+      2,
+      3,
+      6,
+      7,
+      10,
+      11,
+      14,
+      15
+    ],
+    "upload_stream_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "third_row_word_offsets": [
+      16,
+      17,
+      20,
+      21,
+      24,
+      25,
+      28,
+      29
+    ],
+    "all16_match_first16_uploaded_colors": true,
+    "third_row_disjoint": true,
+    "native_dependency": "Prior7b8392c7 establishes game CPSM0/CSM0/CSA0/CLD1, CLUTTRXPOS0, PSMCT32 DBW1 transfer8x3/96B, sharedbase relocation and sampledCBP=base+paletteOffset. No fresh MIPS rebind in this bounded study.",
+    "padding": "32CD bytes are8uploaded thirdrow words, never sampled palette entries; these physical word offsets are not contiguous linearVRAMwords."
+  },
+  "frontier": {
+    "answer": "No remaining observed PSMT4 geometry/version/storage group beyond the two calibrated modes. Historical unsupported-depth4 scanner labels and generic formula algebra cannot justify new modes.",
+    "native_facts": "Prior version2/std modes:128x32 TBW2/base28/allocation2048words;512square TBW8/base512/allocation34816words=16pixelpages+oneCLUTpage. Fresh selected member metadata and packet TRXREG8x3/96B/32CD agree.",
+    "owner": "Existing texture depth4 finite geometry/packet/CLUT/sharedpixelwalk; authorTexture masks/publisher. No new function/engine/framework warranted.",
+    "oracles": "Existing4096position village15930ab5,262144position multipageb1fe51ae,227defaultcorpus with74village, multipage actualcorner/pageboundary/sharedbyte/fiveaddressdigit fixtures.",
+    "new_group_blockers": [
+      "Actual original material caller/source absent from this observed75recordinventory.",
+      "Independent finite nativeallocation/TBW/PSMCT16uploadshape/pagecorrespondence/CBPproof.",
+      "Explicit actual16color CSM/CPSM/CSA transport/storage/padding join plus independent wholeartifact and guard oracles."
+    ],
+    "limits": "Not allpossiblePS2layouts/runtimevisual/blend/ISOalias/art/family/savings approval. nohdr/force-nohdr are8bitpolicy, not4bitcontract."
+  },
+  "verification": "JSON parse; study inputs stable; original410 and actual75-membertextures census; primary16color join. Initial private assertion used wrong packetoffset48, corrected to32 after inspection; no codec/test failure."
+}

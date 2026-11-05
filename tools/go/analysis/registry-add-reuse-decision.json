@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-20T20:32:56.130652+00:00",
+  "operation": "registry_add",
+  "Serena_session": "321e7af4",
+  "candidates": [
+    {
+      "owner": "authorRegistry",
+      "reuse": "Owns normalized registry index, raw/Unicode/duplicate-key checks, source pins, field ownership and exclusive publication. Enhance its ID/update loop and common encoder/publisher; no new function, helper, closure or recipe field."
+    },
+    {
+      "owner": "run",
+      "reuse": "Add operation to existing registry table capture and dispatch only."
+    },
+    {
+      "owner": "encode/glyphMaps/controls/previewFit",
+      "reuse": "Retain encoding/control/source-fit responsibilities. This generic add lifecycle does not duplicate differing historical translation-validator rules or claim text readiness."
+    },
+    {
+      "owner": "writeNewFile",
+      "reuse": "Same exclusive output, digest/readback/inode safety; no new writer."
+    }
+  ],
+  "inputs": "Exactly six fields as author tables: operation,source_size,source_sha256,evidence,updated,registry_updates. RegistryUpdates maps stable IDs to raw new-row metadata; inner id forbidden.",
+  "contract": [
+    "Require jp/en/status/source_pool strings; intentionally empty en allowed, source_pool nonempty and new row status drafted. Additional metadata stays raw, without claiming reference schema/topology validation.",
+    "Normalize uint32 hex IDs through existing number; reject ambiguous normalized batch keys and existing source IDs. Canonicalize only newly inserted ID spelling.",
+    "An existing ID with exactly equal JP/EN is already_present and preserves ALL current metadata/status. Changed JP/EN conflicts, regardless of incoming metadata.",
+    "When at least one row is added, sort the whole registry numerically, preserving old ID spelling and opaque values, and stamp explicit Updated. Existing update operations retain their order.",
+    "When every proposed row is already present, publish/report exact original source bytes/hash and date, preserving true whole-document idempotency. Publication still creates a new exclusive file when apply is requested.",
+    "Source, updates table and canonical registry remain read-only. No translation/glyph/markup/fit/reference/patch authorization claim from schema acceptance."
+  ],
+  "source_contract_sha256": "404bc6ae2fdbe715863359adabaa3120268ec6c8c92d65ed7dcd2b4f5634e7bb",
+  "precode_fixture_sha256": "70dfbd99446fc4cbaaa35848519173a8263998b796470df0bd1455b599626eac",
+  "tests": "Enhance existing TestCLIDryRunAndApply plain registry block/fixtures. Replay eleven independently authored vectors and add mixed-order/all-noop/Unicode/duplicate-key/publication guards without new test functions or closures.",
+  "claims": "Capability growth only; no family or historical retirement credit.",
+  "review_correction": "Independent review found drafted-status policy applied before existing-ID classification. Final implementation applies it only to genuinely new rows; existing exact JP/EN rows preserve all metadata. Two explicit post-review vectors supplement the11 precode source vectors."
+}

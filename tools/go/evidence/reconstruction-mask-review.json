@@ -1,0 +1,176 @@
+{
+  "schema": "reconstruction-mask-review-v1",
+  "sealed_at": "2026-10-21T07:59:00.296274+00:00",
+  "role": "Independent ordinary read-only code/behavior review; findings only, no implementation/approval authority",
+  "status": "No concrete open finding in reviewed finite scope",
+  "findings": [],
+  "candidate": {
+    "source": "/var/tmp/dokapon-mask-selection-arokvmrg/review-source",
+    "manifest_sha256": "f4b514420c518c4fb810959540a077694e6e5f565bfb62a0006d6699017f1e79",
+    "members": 506,
+    "all_pins_held_before_after": true,
+    "full_pin_receipt": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/pins-final.json",
+    "baseline": "/var/tmp/dokapon-row-reconstruction-dawakf88/sealed-final",
+    "baseline_manifest_sha256": "bb17decd69f4dc0e7344a1dcecfb673a02529fa837c477612c0877e021ff1c3a",
+    "changed_Go": [
+      "raster_reconstruction.go",
+      "raster_reconstruction_types.go",
+      "raster.go",
+      "texture_authoring.go",
+      "patch_test.go"
+    ]
+  },
+  "code_assessment": {
+    "reuse": "The existing reconstructRaster owns all predicate evaluation; one RasterSelection facts type carries per-clause thresholds/tolerance and preserves old flat JSON through embedding. No new function/sourcefile/helper/dispatcher/dependency. The same RGB distance loop handles Near and NotNear; row/column/growth/native writer paths are unchanged.",
+    "predicate_contract": "Root and each All element combine with AND. Empty All is identity. RGB maximum absolute distance ignores input/reference alpha; Near uses <=tol and NotNear uses >tol. Negative tolerance and strict saturation/luminance comparisons match bounded original cases. Thresholds/references in every clause are validated before per-pixel short circuit.",
+    "boundaries": "At most32 additional nonrecursive clauses; no OR/recursive grammar or alpha_gt/sat_gt support claimed. Composer scales existing aggregate work by1+len(All); cardinality is checked before multiplication. Geometry, exact permission intersection, current reads, immutable icons and publication ownership remain in accepted owners.",
+    "wire_and_inputs": "Per-owned raw-object canonical checks now include root/new leaf keys and each All object. Dynamic icon IDs remain unexamined data. All clause slices/reference colors are read-only; default-order preservation from the accepted baseline remains tested.",
+    "readability": "The finite facts type and shared validation/distance loops avoid parallel selector engines. No concrete needless-function, duplication or unsafe control-flow finding."
+  },
+  "verification": {
+    "own_focused_build_vet": [
+      {
+        "name": "core-focused",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "exit": 0,
+        "wall_seconds": 30.88287643600779,
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/gotmp",
+          "CGO_ENABLED": "0"
+        }
+      },
+      {
+        "name": "core-build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/core",
+          "."
+        ],
+        "exit": 0,
+        "wall_seconds": 1.2599451249989215,
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/gotmp",
+          "CGO_ENABLED": "0"
+        }
+      },
+      {
+        "name": "core-vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "exit": 0,
+        "wall_seconds": 0.3336235070019029,
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/gotmp",
+          "CGO_ENABLED": "0"
+        }
+      }
+    ],
+    "additional_original_API": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-overlay",
+        "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/extra-overlay.json",
+        "-count=1",
+        "-p",
+        "2",
+        "-run",
+        "^TestPilotHistoricalGoldenBytes$",
+        "."
+      ],
+      "exit": 0,
+      "wall_seconds": 16.464674807997653,
+      "original_only_cases": 8,
+      "origins": 2,
+      "upfront_invalid_later_clause_before_empty_mask_method": "asserted",
+      "vectors_sha256": "536cdb5352e38c8891f73b5cc534121f19edf0112d02618adec75a1dbe4627d4"
+    },
+    "extra_case_scope": "Eight original-only cases frozen before candidate comparison: root+additional clauses with distinct tolerances, inclusive/exclusive color boundaries, reference alpha ignored, sat_lt0/1/200/200.5, fractional luminance intersections, negative tolerance and duplicate-clause identity. Each checked at zero and shifted padded origins with base/recipe preservation. An invalid later clause still refuses before an empty root mask and unknown method.",
+    "fixture_binding": {
+      "receipt": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/fixture-bindings.json",
+      "source62_members_verified": 62,
+      "newZIP_members": 46,
+      "binary_members": 38,
+      "literal_source_copies": 23,
+      "original_only_deterministic_derivations": 15,
+      "qualification": "Normalized allow mask and14 numeric whole outputs were independently reproduced with original build_allow/op_erase from frozen source facts; compared fixture bytes were not repinned. Initial all-literal-copy assumption was an artifact-setup error, not a candidate failure. Old45-case ZIP bytes unchanged."
+    },
+    "built_CLI": {
+      "receipt": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/standalone.json",
+      "checks": "Default/core executable: old and new profiles each pass dry/apply/existing-output/source-alias/profile-alias checks; whole native outputs match5245d6bb… andf493896a…; source/profile bytes+inode+mtime unchanged.",
+      "legacy_parity": "Complete old-profile stdout/stderr/exit identical to accepted native-fixed at the same paths.",
+      "wire_probe": "Nested long-S saturation alias refuses as noncanonical with empty stdout."
+    },
+    "hygiene": {
+      "receipt": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/hygiene.json",
+      "gofmt_files": 40,
+      "scoped_secret_scan": "PASS; real POSIX whitespace pattern selfchecked against single/double-quoted synthetic nonsecret assignments",
+      "scoped_whitespace": "PASS"
+    },
+    "jobs": "All terminal. Native focused/race not duplicated: changed numerical/JSON code is shared Go, own core tests include current Golden and CLI; root native verification is separate evidence. No full suite claim."
+  },
+  "source_oracle_qualification": {
+    "native_contract": "analysis/reconstruction-mask-native-contract.json",
+    "native_contract_sha256": "7253557fae2ee43b30553515511c964a62ea0eb985f6ee8ebf41e3c318b2e6ba",
+    "native_expected": "OLD accepted codec projection after original-only renderer, not independent encoding. Calibrated actualgreen replaces absent cream only for this explicit native test. Both exclusions affect original pixels; expected native changes5685, exact outside-allow0, CLUT/header/nonpixel unchanged.",
+    "historical_scope": "Declared84 source mask roots are reuse evidence, not84 migrated or tested historical paths."
+  },
+  "costs": {
+    "production_files": 39,
+    "production_bytes": 419307,
+    "production_delta_bytes": 1924,
+    "named_declarations": 41,
+    "new_profile_bytes": 2190,
+    "test_delta_bytes": 4325,
+    "new_fixture_bytes": 155124
+  },
+  "private_artifacts": {
+    "root": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n",
+    "manifest": "/var/tmp/dokapon-reconstruction-mask-review-eaam9w4n/artifact-manifest.json",
+    "members": 57,
+    "manifest_sha256": "0449ed3a2bfea7d42c419b359cf6f82c68c9c5fd09e48e02a98cd3f7fb01c1c8"
+  },
+  "limits": [
+    "Finite current-pixel selectors and rectangle permission workflow only; logo OR, morphologic/connected-region masks, other predicates and donor algorithms remain separate held duties.",
+    "Existing valid Go image storage and caller-owned kernel working canvas remain accepted assumptions; no malformed image-struct hardening claim.",
+    "No native library/version equivalence, arbitrary artwork, gameplay/ISO approval, .06/full-family/migration/retirement credit or savings claim.",
+    "No full integrated suite, new race run, protected resource access, project implementation or historical main execution.",
+    "Known pending private accounting/coverage refresh is historical metadata, not a new code finding."
+  ]
+}

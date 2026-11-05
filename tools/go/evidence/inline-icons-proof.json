@@ -1,0 +1,255 @@
+{
+  "schema": "inline-icons-proof-v1",
+  "at": "2026-10-21T05:07:50.073952+00:00",
+  "status": "VERIFIED finite inline-icon responsibility; raster_rendering.04 accepted, family remainsPartial",
+  "shared_implementation": "Existing renderRuns reserves fixed-size source icon slots during quarter-step fit and returns typed placements; existing composeCells preflights full rectangles and paints each word then immutable original RGBA icon copies. Existing authorTexture passes shared recipe icons; texture/import/publisher unchanged.0newfunctions or per-script handlers.",
+  "original_fidelity": {
+    "fixture": "testdata/inline-icons.zip",
+    "original_zip_sha256": "2d108a77cce0bcf52488b67b688db168921e3a80fcf65a14307b64d4122e11a8",
+    "normalized_zip_sha256": "e569d9722466d9763af09aa9b3ada3548dff5615188efb7b4189339f9e66fba4",
+    "cases": "11completeoriginalRGBAcases plus nativewholeRGBA/expectedTXD old-codec projection; all11repeat with shiftedbase origin; defaultgap and15structuredrefusals",
+    "bridge_correction": "Three normalized group text fills corrected to original absentcolor black after independent source-only replay. All17otherZIPmembers incl all expectedpixels unchanged; originalZIP untouched. Failedlogs preserved.",
+    "contracts": "Fixedsource size under ScaleX, icon-only measured-vs-renderedwidth discrepancy, two-stage ties-even placement, full transparency/hiddenRGB replacement, per-line order and group overlap.",
+    "limits": "Independent original renderer proves images; native expectedTXD uses prior accepted codec projection. Not independent encoder oracle,8actualTTFartoperation parity or visual approval."
+  },
+  "verification": {
+    "root_checks": [
+      {
+        "name": "native-focused",
+        "command": [
+          "go",
+          "test",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "CGO_ENABLED": "1",
+        "exit": 0,
+        "seconds": 33.603,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/native-focused.log"
+      },
+      {
+        "name": "native-race",
+        "command": [
+          "go",
+          "test",
+          "-tags",
+          "nativefonts",
+          "-race",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "CGO_ENABLED": "1",
+        "exit": 0,
+        "seconds": 359.826,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/native-race.log"
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-inline-icons-6x56rlg_/native",
+          "."
+        ],
+        "CGO_ENABLED": "1",
+        "exit": 0,
+        "seconds": 1.95,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/native-build.log"
+      },
+      {
+        "name": "native-vet",
+        "command": [
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "."
+        ],
+        "CGO_ENABLED": "1",
+        "exit": 0,
+        "seconds": 0.349,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/native-vet.log"
+      },
+      {
+        "name": "core-focused",
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "CGO_ENABLED": "0",
+        "exit": 0,
+        "seconds": 32.537,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/core-focused.log"
+      },
+      {
+        "name": "core-build",
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-inline-icons-6x56rlg_/core",
+          "."
+        ],
+        "CGO_ENABLED": "0",
+        "exit": 0,
+        "seconds": 1.205,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/core-build.log"
+      },
+      {
+        "name": "core-vet",
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "CGO_ENABLED": "0",
+        "exit": 0,
+        "seconds": 0.287,
+        "log": "/var/tmp/dokapon-inline-icons-6x56rlg_/core-vet.log"
+      }
+    ],
+    "hygiene": {
+      "status": "PASS",
+      "Go_files": 38,
+      "production_named_declarations": 40,
+      "scoped_whitespace_and_selfchecked_credentials": "PASS"
+    },
+    "ordinary_review": "evidence/inline-icons-review.json",
+    "review_artifact_pins_verified": 16,
+    "CLI": "Pinnedsyntheticnative dry/apply, completeexpectedTXD, exclusiveoutput,4newrefusals and source/profile/output preservation; prior native group/styles and allcontact/pair CLI regressions retained.",
+    "full_suite": "Deferred per ownerpacing; no fullsuite/gameplay claim."
+  },
+  "metrics": {
+    "production": {
+      "files": 37,
+      "bytes": 395818
+    },
+    "named_declarations": 40,
+    "new_functions": 0,
+    "runtime": {
+      "files": 141,
+      "bytes": 1723139
+    },
+    "accounted_inputs": 230,
+    "production_growth_bytes": 3526,
+    "runtime_growth_bytes": 3526,
+    "tests_growth_bytes": 9722,
+    "fixture_growth_bytes": 313846,
+    "claim": "Shared capability growth. No implementation deletion, relocation savings, historical retirement or Full-family promotion."
+  },
+  "source_pins": {
+    "raster.go": "f3c5e2bc6fc6000e5ccac9f79c04e63040c9a6901e34e185481dc6ee28032efe",
+    "raster_runs.go": "deeb1f8270fd9bb3e885e32b71307afb3792c665c2b4eff0ba4939f5149e65e2",
+    "raster_types.go": "93743de1e8bc49d791d516b94cc2398c161efe459fd0b884ff77f1e6036c9842",
+    "texture_authoring.go": "86ba4a6c80abb5d6a24da0c8b8652b05821287ea3d13b3978814223571827f8e",
+    "patch_test.go": "d7680623ca365ab9523570e334c76032afd2e83de33d24f36251bfc3ac8ad20c",
+    "testdata/inline-icons.zip": "e569d9722466d9763af09aa9b3ada3548dff5615188efb7b4189339f9e66fba4",
+    "analysis/inline-icons-current-reuse-decision.json": "f12c61346b93fe83eae5eadcf6d81292b6b590cc3edbe809f14a0dee3722ef9b",
+    "analysis/inline-icons-contract-recovery.json": "e92a93d8244a7b58f0c64bd4015f9af7ffcd8119b87e5951cd23bcb531174384",
+    "analysis/inline-icons-bridge-correction.json": "42a15bd4f8927a8b077d31e6e4084cdc4073133aa91980f98bd005245e027b6e",
+    "analysis/inline-icons-reuse-decision.json": "7220f120359530fe540098a00a80d1f18d47f7022d35257de23fd222ed5bc656",
+    "analysis/donor-composition-contract.json": "acf635da2cb2e9255990696de86810aa741915f13905b5753517a4b2b37cbd74",
+    "evidence/inline-icons-review.json": "dabdf9d6bdbcd352754ded16f8c0af5281463bc92577a9c255107b0c40142829"
+  },
+  "source_capsule": {
+    "manifest": "/var/tmp/dokapon-inline-icons-6x56rlg_/review-source/review-manifest.json",
+    "sha256": "f51f48d175dede31f3e4920e03ceb742c19a26dc82761dab43cc4d3366804b79",
+    "members": 474,
+    "allowed_drift": [
+      "patch_test.go",
+      "raster.go",
+      "raster_runs.go",
+      "raster_types.go",
+      "texture_authoring.go"
+    ],
+    "new": [
+      "analysis/inline-icons-current-reuse-decision.json",
+      "analysis/inline-icons-contract-recovery.json",
+      "analysis/inline-icons-bridge-correction.json",
+      "testdata/inline-icons.zip"
+    ]
+  },
+  "root_artifacts": {
+    "checks.json": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/checks.json",
+      "bytes": 2327,
+      "sha256": "8168eea90fe05521ce7a3a1afb27233dc15670dbccea090b06d869eabef041fe"
+    },
+    "hygiene.json": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/hygiene.json",
+      "bytes": 139,
+      "sha256": "5ee28464457c230689d779953444d1464124b00c7b456c04398b9b54156a5b57"
+    },
+    "native-focused.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/native-focused.log",
+      "bytes": 27,
+      "sha256": "3bd627bd67da751822e7ec7646655ed4b4ebaa08ca4e6b528f2ab5fa6a4e89bd"
+    },
+    "native-race.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/native-race.log",
+      "bytes": 28,
+      "sha256": "ba7638e57a49f664b0faee3f14c2d7f52016bbfe9154facdaa7c5aa076552776"
+    },
+    "core-focused.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/core-focused.log",
+      "bytes": 27,
+      "sha256": "d52373641d314dbf23f689eafa11f7522b668ba1940095ac02df0b5219ed962e"
+    },
+    "old-golden-first.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/old-golden-first.log",
+      "bytes": 27,
+      "sha256": "23678a8b2b40c39803de7ece25d6acb7ac3eabc82a28d17d0ebc11a54213e325"
+    },
+    "inline-golden-first.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/inline-golden-first.log",
+      "bytes": 180,
+      "sha256": "c963d17582722016ce82ff71a3fcf2cc76650fdeadd0d3f262d45f3f3970ad70"
+    },
+    "inline-golden-bridge-fixed-final.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/inline-golden-bridge-fixed-final.log",
+      "bytes": 27,
+      "sha256": "8564c85ea6dddfb6abcd396fe9a3e0b24f20beabf118bd545ed0209ef2963380"
+    },
+    "inline-cli-first.log": {
+      "path": "/var/tmp/dokapon-inline-icons-6x56rlg_/inline-cli-first.log",
+      "bytes": 27,
+      "sha256": "6e31a67d9a26ce7d6dd1b6dbd4c4d1904ae8fccac888938282cf65552492ab01"
+    }
+  },
+  "coverage": {
+    "milestone": "raster_rendering.04",
+    "raster_checklist": "4/6=66.67%",
+    "planning": "64/84=76.19%",
+    "core": "6Full8Partial/14=42.86% unchanged",
+    "historical": "8FullGo20reviewed16partial366outstanding/410 unchanged",
+    "next": "raster_rendering.05 pinnedTTF through same styledruncontract; sourcefontbackend exists but fractional starts/metrics need originalproof."
+  },
+  "protected_scope": "No ISO/canonicalregistry/emulator/PINE/controller/process/log/settings access/control or actualpatchwrites; outputs owned scratch only."
+}

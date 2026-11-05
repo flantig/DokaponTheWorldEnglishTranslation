@@ -1,0 +1,190 @@
+{
+  "kind": "ordinary read-only implementation review; findings/advice, not approval",
+  "sealed_at": "2026-10-21T04:23:01.674154+00:00",
+  "scope": "Finite checker/default, flat90 RGBA and captioned weekday RGB pair presentation in existing authorTexture. No full-suite, migration, family, retirement, artwork or gameplay claim.",
+  "result": "PASS within reviewed finite scope; no new pair-variant finding",
+  "candidate": {
+    "capsule": "/var/tmp/dokapon-pair-variants-jcbjiy4p/review-source/review-manifest.json",
+    "manifest_sha256": "65672eea3e501c3f8a0fa03218bd3a5e750114072f8adb69f30dbd2268ff035f",
+    "members": 463,
+    "held_at_end": true,
+    "live_code_and_runtime_data_match": true,
+    "critical_pins_count": 125,
+    "final_wording_delta": {
+      "path": "raster_font_disabled.go",
+      "capsule": {
+        "bytes": 372,
+        "sha256": "5e2361745c46f67df7e123b7f357d03dfdf232c0d9b736b2e455199363352ad8"
+      },
+      "final": {
+        "bytes": 372,
+        "sha256": "ffd85d200cbc3b38f77fce3b8e1a78a79f520f2d75782acf11417ce9fd2fd500"
+      },
+      "diff": "--- \n+++ \n@@ -6,5 +6,5 @@\n \n // textMasks retains the font boundary in builds without native font support.\n func textMasks(font []byte, size int, layout string, labels []string) ([]TextMask, error) {\n-\treturn nil, fmt.Errorf(\"labelled contacts require a Linux CGO build with -tags nativefonts, FreeType headers and libraqm.so.0\")\n+\treturn nil, fmt.Errorf(\"TrueType previews require a Linux CGO build with -tags nativefonts, FreeType headers and libraqm.so.0\")\n }\n"
+    },
+    "other_live_capsule_drift": [
+      "ARCHITECTURE.html",
+      "ARCHITECTURE.md",
+      "README.md",
+      "test-results/architecture-checks.json",
+      "test-results/architecture-desktop.png",
+      "test-results/architecture-mobile.png"
+    ]
+  },
+  "baseline": {
+    "snapshot": "/var/tmp/dokapon-contact-integration-ul2hqxg_/sealed-final",
+    "manifest_sha256": "53479c4a66bb019e13665514b30003b5a20ef0a9a697b567b2bc99e76b5adea1",
+    "native_binary": "/var/tmp/dokapon-contact-final-review-6xn319tu/native-final",
+    "native_binary_sha256": "d8afc6423c5d3e1516a189ba72910d4ffc01360ad1e92ee59ab71ed8e4f45597"
+  },
+  "contracts": {
+    "analysis/asset-pair-variants-contract.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/project/analysis/asset-pair-variants-contract.json",
+      "sha256": "efe23aab92a04a1865f6a6870df9a15216a822da451c1a0ecf6c644b4bb4c3de"
+    },
+    "analysis/asset-pair-variants-decision.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/project/analysis/asset-pair-variants-decision.json",
+      "sha256": "9c8945e88e70740aee94443cbfea6dce1473a9ab90c5fe471230b87618a3209c"
+    },
+    "profiles/previews/pair-layouts.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/project/profiles/previews/pair-layouts.json",
+      "sha256": "11d05a92703e5f89007ede4e7153d8dadee3cd13a489673c92157671648940e6"
+    }
+  },
+  "findings": [],
+  "design_assessment": [
+    {
+      "location": "texture_authoring.go:106,227-389; texture_types.go:25-57",
+      "assessment": "Existing two-PNG authoring lifecycle remains one owner for strict profile validation, shared decode/crop/nearest/pixelOver, source rechecks and exclusive publication. Three finite presentations are data, not per-script handlers. Captioned masks control fixed native-size composition before whole-canvas scale; flat geometry forces both crops to before extent and scales source-space gap. No duplicated decoder, resampler, font backend or writer."
+    },
+    {
+      "location": "raster_png.go:18-21; texture_authoring.go:347-350",
+      "assessment": "The one Opaque method is justified by stdlib PNG RGB/RGBA selection. Embedded NRGBA retains pixels while forcing flat wire type6, avoiding a custom encoder; measured flat bytes have opaque alpha but preserve RGBA mode. Default checker and weekday retain type2."
+    },
+    {
+      "location": "texture_authoring.go:110-135,243-265,280-365",
+      "assessment": "Typed canonical-key/non-null JSON, layout/font compatibility guards, bounded source/crop/canvas/font work, and all-input rechecks are cohesive. Fixed embedded layout invariants are not exposed as unbounded profile switches. Resize/font kernels and old policies remain byte-identical to accepted contacts baseline."
+    }
+  ],
+  "checks": {
+    "native_focused": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -tags nativefonts -count=1 -p 2 -run ^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$ .",
+      "package_seconds": 27.312,
+      "wall_seconds": 33.004,
+      "exit": 0
+    },
+    "core_focused_before_wording": {
+      "command": "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "package_seconds": 12.392,
+      "exit": 0
+    },
+    "core_focused_final_wording": {
+      "command": "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "package_seconds": 12.589,
+      "wall_seconds": 18.065,
+      "exit": 0
+    },
+    "build_vet": "Native and CGO_ENABLED=0 builds/vet PASS; final wording core build/vet PASS; exact commands in private receipts.",
+    "hygiene": "All Go gofmt, scoped manual whitespace, selfchecked POSIX credential scans PASS; final disabled-file delta separately refreshed.",
+    "standalone_frozen_images": "39 complete PNG outputs:17 old checker +22 variants(12 flat/10 weekday), full RGBA/RGB hashes/available raw arrays, geometry, wiremode, deterministic dry/apply report and encoded-hash readback. Each case refuses existing output/source/candidate/profile/font overwrites and preserves all input bytes/inodes/mtimes.",
+    "oracle_independence": "All22 normalized variant expected RGBA/geometry/mode tuples rebound to original output PNGs from326 hash-verified members in4 immutable original-only packs. No Go outputs repinned; pack manifests/details in oracle-binding.json.",
+    "extra_original_only_pixels": "6 additional Pillow12.3 references frozen before Go execution:4 flat OOB/unequal/small-source scale2/3/7/9 and2 weekday all-transparent/edge crop scale2/7; full RGBA and wiremode match.",
+    "compatibility": "17 checker complete stdout/stderr/exit match accepted contacts native binary;20 complete legacy captures match, including2 successful public specification/manifest examples.",
+    "JSON": "8 additional font/layout/null/duplicate/Unicode long-s/alias/typed-number cuts refuse without output; existing focused owner also covers finite resource and new layout/font cutsets.",
+    "drift": "PRIVATE current-source overlay appends one byte immediately before shared comparison input recheck. Each of source/candidate/profile/font refuses publication; no output. Production/capsule unchanged.",
+    "all_jobs_terminal": true
+  },
+  "limits": [
+    "Focused verification only; no full suite, race,227-case private overlay, hostile same-user concurrent namespace mutation or cross-platform native-font verification performed in this review.",
+    "Native weekday text requires Linux CGO, FreeType and libraqm.so.0; finite measured BASIC10/Aileron outcomes do not prove every system font/library configuration or fractional text anchor.",
+    "PNG pixel/wiremode fidelity is measured; original Pillow and Go compressed PNG bytes are not claimed identical. Published Go encoded-byte hashes/readbacks are checked against their own dry reports.",
+    "Separate preexisting CONTACTS nil-score eligibility gap was reported by root/source worker during review; it is not a pair regression or a closure here. Current contactSheets score-nil gate is outside this change. Family remains Partial pending those original duties.",
+    "Two safe external/skills aliases in capsule have no same-relative live path; capsule bytes verified.125 live code/runtime pins plus separately refreshed disabled-file wording bind the reviewed implementation."
+  ],
+  "setup_notes": [
+    "Source-output catalog initially encountered intentionally invalid.png in frozen contact input fixtures; excluded that known input from output catalog and completed all326 member hash checks. No candidate failure or source change."
+  ],
+  "private_work": "/var/tmp/dokapon-pair-variants-review-dpm9xw85",
+  "artifacts": {
+    "pins-before.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/pins-before.json",
+      "bytes": 19034,
+      "sha256": "d6b08bbc215c9e1ba4f2828f84b74c8550462b44b41b113a3990777a47d37c76"
+    },
+    "pins-final.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/pins-final.json",
+      "bytes": 19537,
+      "sha256": "2bdc46c479a0e18bde76d5bb3ecaed6c98fe0943ee97372fa5e0c350c83cf3c3"
+    },
+    "required-checks.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/required-checks.json",
+      "bytes": 3085,
+      "sha256": "971738a0a188f78b188180138a08fdd11ab4493c4f95e74d3fd0ac522ffb8159"
+    },
+    "delta-checks.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/delta-checks.json",
+      "bytes": 1322,
+      "sha256": "078aaaa043b095a048799554893b11d689dcd9b6a130a46e984d9219275560da"
+    },
+    "hygiene.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/hygiene.json",
+      "bytes": 874,
+      "sha256": "27bc4885dfef8a0b5f16130592d89d4cff0e8d0df9f02389770ecce04330f457"
+    },
+    "probes.py": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/probes.py",
+      "bytes": 7542,
+      "sha256": "4709271e4c057bce092b4affa6cb9f32fdf7d33207690427d31616a0bea4b0cc"
+    },
+    "probes.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/probes.json",
+      "bytes": 23136,
+      "sha256": "05cfcd9f5a7458779e440af05513d9518a71ec73d30cbdbf832858707df8e1ef"
+    },
+    "drift-check.py": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/drift-check.py",
+      "bytes": 3934,
+      "sha256": "428c2bca41b62f08cd8c09f322dafa901a27432add404484a02aa6301be8f48e"
+    },
+    "drift-results.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/drift-results.json",
+      "bytes": 1181,
+      "sha256": "51cef34525e7dfa568efa6e73d2e99e107584a0e58eebd979b2b9aeb464fd4d9"
+    },
+    "drift-overlay.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/drift-overlay.json",
+      "bytes": 169,
+      "sha256": "9d06d43ab621369261494ce6329d91e9ec6487bb5178ac281e8a2fb9c0db3f45"
+    },
+    "texture-authoring-drift.go": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/texture-authoring-drift.go",
+      "bytes": 25595,
+      "sha256": "037ea4fd6aa8eb9acc50154a534ccbf1b1ac1591ccdc6a8247ad1cf0f7fa3fbd"
+    },
+    "oracle-bind.py": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/oracle-bind.py",
+      "bytes": 2294,
+      "sha256": "4e94a59a7518ef674be43f8a53185a431c7f2d4ead4f41ad886db874762a1ccf"
+    },
+    "oracle-binding.json": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/oracle-binding.json",
+      "bytes": 13245,
+      "sha256": "5add4c79952b7fe500e35332a3ff09e4c61736cd92f9ba9efce3572b3c1f4479"
+    },
+    "native": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/native",
+      "bytes": 8007544,
+      "sha256": "7823bb6068cea57912279d0b1fe3e7c72a1de77dc56fa2f1aaa75bc52806bfc2"
+    },
+    "core-final": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/core-final",
+      "bytes": 8086701,
+      "sha256": "464e913946a23cde3d8f586db22eb44dfeb6480d65f1c1bae9c50b7af72bf831"
+    },
+    "drift-native": {
+      "path": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/drift-native",
+      "bytes": 8007800,
+      "sha256": "b65a28e72c7943d566f11bef35150e65b910579ee2f79d3f47b0b6e112a8f23f"
+    }
+  }
+}

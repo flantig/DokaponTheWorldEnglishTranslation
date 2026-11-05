@@ -1,0 +1,90 @@
+{
+  "audit": "027",
+  "at": "2026-10-20T18:02:38.667999+00:00",
+  "role": "Purely adversarial read-only challenger; findings only, no implementation or approval authority",
+  "snapshot": "/var/tmp/dokapon-astra027-u3_b_5su/source",
+  "manifest": "evidence/astra-audit-027-pins.json",
+  "manifest_sha256": "4af9dfc3d46fb2d2a54dfe2ba966e575532fbc255de1f8ac95b8f62550f351a9",
+  "findings": [
+    {
+      "id": "A027-1",
+      "severity": "LOW",
+      "category": "readability",
+      "path": "raster.go",
+      "lines": [
+        28,
+        41,
+        51
+      ],
+      "title": "Separate common and mode-specific font validation in the existing compositor",
+      "evidence": "The metrics predicate at line28 combines metric and nonmetric branches in one long &&/|| expression. The glyph and rectangle predicates at lines41 and51 repeat metric/!metric terms alongside common UTF-8, advance and geometry guards. Checking one invariant requires mentally carrying both mode alternatives and operator precedence across unrelated checks. This is a concrete readability cost in the shared preflight owner, not a demonstrated acceptance/refusal defect.",
+      "reproduction": "Read composeCells preflight with Em=0 and then Em=24: independently trace permitted ascent/descent/cap-height, Left, advance and tile dimensions through lines28,41,51. The same mode decision must be reconstructed in each mixed predicate. Existing binary/native refusal tables already exercise both modes.",
+      "recommendation": "Keep composeCells as owner. Separate common checks from explicit metric/else guards, preserve existing error messages and refusal order, and keep all current validation. Add no helper, mode field, adapter or dependency. Verify existing binary/native refusals and goldens after the edit.",
+      "root_disposition": "Root accepted this finding and plans that local guard refactor; no implementation or post-fix verification was inspected by this auditor."
+    }
+  ],
+  "conclusion": "One low-severity readability finding. No reproducible functional defect, unjustified additional function, or unsupported reduction/coverage claim established in this bounded inspection. This report grants no integration, family-promotion, retirement or ISO-apply approval.",
+  "scope": [
+    "Frozen raster.go/raster_types.go/raster_resize.go/raster_runs.go and authorTexture, connected golden/CLI tests, shared font and cell profile",
+    "Serena live reference analysis cross-checked against frozen rg callers: pixelOver has two production contexts; resizeRaster has two native run stages; renderRuns is called by composeCells",
+    "Existing texture storage/palette/publication ownership and the preimplementation native-owner decisions",
+    "Candidate complete runtime/code/data accounting and prior026/current coverage qualifications"
+  ],
+  "checks": {
+    "frozen_source_pins_before_and_after": 249,
+    "all_pins_match": true,
+    "candidate_accounting_items_verified": 156,
+    "all_accounting_hashes_and_bytes_match": true,
+    "candidate_group_deltas_recomputed": true,
+    "named_production_functions": 26,
+    "focused_command": "TMPDIR=<owned>/tmp GOTMPDIR=<owned>/tmp GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run 'TestPilotHistoricalGoldenBytes|TestCLIDryRunAndApply/standalone_texture_authoring' ./...",
+    "focused_exit_code": 0,
+    "focused_result": "ok dokapon/tools 7.191s",
+    "legacy_text_layer_source_pin_verified": true,
+    "full_suite_build_vet_format_credentials": "Not rerun: this auditor changed no source. Root full race58.616s and required-check PASS receipts are frozen in .goal/native-text-checks-work.json; ordinary review is separately owned. Focused tests above were independently executed."
+  },
+  "accounting": {
+    "accepted_resizer_runtime": {
+      "files": 85,
+      "bytes": 665610
+    },
+    "candidate_runtime": {
+      "files": 89,
+      "bytes": 701938
+    },
+    "increment": {
+      "production_go": 13352,
+      "font_data": 21456,
+      "consumer_profile": 1520,
+      "combined_runtime": 36328,
+      "test_source_separate": 15377,
+      "testdata_separate": 212458
+    },
+    "since026_runtime_growth": 60638,
+    "qualification": "Runtime growth includes code, schema/imports, shared font data and profile. It is capability cost, not deletion or relocation savings. Core coverage remains4/14=28.57%; native raster remains Partial and candidate at this snapshot."
+  },
+  "challenge_limits": [
+    "The selected three-run profile and shared95-glyph atlas do not establish all113 discovered GameOptical operations or other styles. No such completion claim was found.",
+    "Font/run rasterization cannot reasonably move into texture byte storage, palette clustering or I/O publication. Combining it with composeCells would intertwine distinct pixel pipelines. pixelOver is an actual two-context formula rather than an unused wrapper. These observations do not prove arbitrary-input correctness.",
+    "Counter clearing was checked against the pinned Python source: it clears complete counter pixels after fill, so the early skip in raster_runs.go is not a discrepancy. Minimum6 possibly-overwide fitting is explicitly preserved by the contract; containment remains the outer refusal."
+  ],
+  "disclosed_test_gap": {
+    "snapshot": "The4-to8 connectivity mutant survives the selected-rule golden although production implements4-connected flood fill. It was disclosed before this audit and is not reported as a concealed validation claim.",
+    "subsequent_work": "Root reports an independent diagonal-counter fixture now kills that mutant and is being added after quiescence, alongside the planned readability fix. Those later source/test states are outside this immutable audit; no verification or acceptance of them is implied."
+  },
+  "private_receipts": {
+    "/var/tmp/dokapon-astra027-checks-2zz2wmwz/verification.json": "dcd6daf32b194d31055c9252bb57122cf4fb942d69d2d4480f7ec3f094fe7614",
+    "/var/tmp/dokapon-astra027-checks-2zz2wmwz/focused.log": "b4b4f44432be5edcf87ec2fe4457293c98c4aff36bff67f630f81f7205ef3855",
+    "/var/tmp/dokapon-astra027-checks-2zz2wmwz/pins-accounting.json": "9e97c00c159d86a3a0f7882fb1688f04d73cc1a2504da4cccd2e7795d540bc47"
+  },
+  "unverified_limits": [
+    "No fresh full race/build/vet rerun or entire historical-corpus re-audit by this auditor.",
+    "No native gameplay/blend/visual proof, arbitrary font/style parity or new ISO application verified.",
+    "No owner emulator/PINE/controller/process/log/settings/auth access; no protected ISO or canonical registry writes."
+  ],
+  "writes": [
+    "evidence/astra-audit-027.json",
+    "evidence/astra-audit-027.md",
+    "owned /var/tmp audit receipts"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "operation": "reference_candidates",
+  "source_size": 2048,
+  "source_sha256": "d3edeb9fa558f9842c74b25918c50867904c1b1ade6ce3c575b252c1d59c942c",
+  "scope_sha256": "9fc0f59f002f9e50ff9243378741f474c2a3f14f6d951533b28da0a0ffdccdc7",
+  "glyphmap_sha256": "c84cd19df37f20fe71cbb752e7ac07afaedf7b5386bfe9f5681bf31c1c5cd0d4",
+  "evidence": "Independent realizable source/manual reference-owner corpus; no candidate graph outputs, program closure, patch or milestone authority.",
+  "iso_elf_offset": "0x0",
+  "elf_vma_delta": "0xfff00",
+  "references": {
+    "file_range": {
+      "start": "0x100",
+      "end": "0x114"
+    },
+    "pointer_min_vma": "0x100000",
+    "skip_words": 4,
+    "decode_words": 8,
+    "queries": {
+      "selected": {
+        "id_range": {
+          "start": "0x100400",
+          "end": "0x100402"
+        },
+        "content_range": {
+          "start": "0x100300",
+          "end": "0x100700"
+        },
+        "decode_target": true,
+        "check_collisions": true
+      }
+    }
+  },
+  "reference_flow": {
+    "entry_vmas": [
+      "0x100000"
+    ],
+    "max_visited_states": 4000,
+    "entries": {
+      "0x100400": {}
+    }
+  }
+}

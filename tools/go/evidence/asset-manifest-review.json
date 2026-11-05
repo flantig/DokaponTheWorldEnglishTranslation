@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T01:24:15.242649+00:00",
+  "scope": "Ordinary independent read-only code/contract review of asset_preview_inventory.04; findings/advice only, no promotion or approval authority.",
+  "result": "Both reproduced findings CLOSED on revised16pin candidate; no remaining material findings in reviewed scope.",
+  "candidate_pins": {
+    "texture_manifest.go": "f3c4860a7b4f64704ba7303f2f36fbc83684d166c19ee19f90e79a7ac07fb2ee",
+    "texture_discovery.go": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c",
+    "texture_authoring.go": "8d4a977535b480411c4fd71296fe204d83ecafd19d42d616ce95d4d6c1ead540",
+    "texture_types.go": "9303d4539112d200998e291bcb47181c8cafa94f8341df2bfa6bf17fac3261f1",
+    "cmb.go": "7b6fdbf9c1f49509f6f7222100202b92983a4c1eb007c6cd3a764eadb0b09049",
+    "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+    "texture.go": "e1f207763ecf08be0706e473ab8e2af6ec8322e089549b4a79b44ba414c6c961",
+    "texture_index.go": "f608d8fdc32178d233c1a3fe91162afd7ebd0b46bbd2d4d9ea5c6b5fd27d77db",
+    "patch_test.go": "5b6265a35b38809a7e59fd14ed86693b537519b7652af3d696146ce1c2c6f4d2",
+    "testdata/asset-manifest.zip": "731f163716b6d016521c92647bca72d9c2482b201f3ecad644577f7551110a97",
+    "analysis/asset-manifest-contract.json": "77918a5c1d465310970b6cbbbf7967c2b3a99f585d7bc541e1fee0c6e1172bb5",
+    "analysis/asset-manifest-reuse-decision.json": "696822cf6d45d1bd8a9c7cae6928b7167b666d7a0e5f16ca260771a5ab32ddbe",
+    "analysis/migration-roadmap.json": "22e84357c0be4cb5d12176a736cfac71f2d718684e63b4020aa202ad03def628",
+    "analysis/asset-png-conversion-contract.json": "ba5de7dca52649dbdab236fd209f53baeff925bf2f2d107da9055729025d15ae"
+  },
+  "candidate_pins_before_after": "All16 held; pre-promotion roadmap hash reviewed here, not any later bookkeeping.",
+  "findings": [
+    {
+      "id": "source-range",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "original_case": "All9 independent CMB rows omitted the half-open member file span promised by frozen contract. Hash/name/index still identified bytes but did not meet report contract.",
+      "minimal_fix": "Existing span offset/end now emitted as source_file_range without new mapper/helper.",
+      "verification": "All9 frozen file_span oracles and all35 supplemental PNG ranges match exactly.",
+      "source": "texture_manifest.go:66; texture_types.go:109"
+    },
+    {
+      "id": "PNG-conversion",
+      "severity": "MEDIUM",
+      "status": "CLOSED",
+      "original_case": "Valid64x8 Gray16 alternating samples0/257 became black/1 using generic Go draw conversion; original Pillow produced black/white. Candidate incorrectly reported measured score[0,0,0,1,1,0] instead of[6,.75,8,.5,1,1].",
+      "original_reproduction": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/png16-probe.py",
+        "sha256": "3f504cce8cc9ff8e5463deb53434a51bc3f55397027b8c12f289ba84305658e3",
+        "input_png_sha256": "cebd435d9dc1e999d142e9f2985576d301945a3cb9650f015a478f57d7175c0f",
+        "independent_expected_RGBA_sha256": "2ebe0851b4e02d75d0f9f1e684219b6cfa94fd2962679a0277d6da3519c460f2",
+        "superseded_receipt": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/first-review.json"
+      },
+      "minimal_fix": "Existing raw PNG branch preserves original Pillow12.3 gray/alpha/tRNS conversion; no new helper or narrowed input-domain workaround. Raw encoded PNG previews remain verbatim, matching original export; native previews still encode measured NRGBA.",
+      "verification": "All34 independently frozen PNG type/alpha/tRNS vectors were separately reconverted with original Pillow to verify full expected RGBA before comparison to Go. These34 and the original reviewer case now match exact pixels, scores and source ranges; raw previews match source encoded bytes.",
+      "source": "texture_manifest.go:139-206; analysis/asset-png-conversion-contract.json"
+    }
+  ],
+  "ownership_and_quality": {
+    "new_functions": "Both justified. inspectRaster owns pure unchanged-pixel statistics and the classification depending on them; generatePalette mutates colors, rendering/resizing changes pixels, and inspect owns ELF/text domains. manifestTextures owns a streaming CMB/index/entry-status/bundle lifecycle distinct from one-TXD authorTexture. Appending these algorithms to codec/render/authorTexture would mix responsibilities. No additional helper/abstraction recommended.",
+    "reuse": "cmbIndex remains sole member index/bounds/overlap parser and adds original record order; planBundle ignores only the extra return. indexTextures/texture remain sole native parsers/codec; stdlib PNG/ZIP and existing writeNewFile reused. New-mode JSON contracts consolidate in authorTexture without changing public CLI or default texture policy.",
+    "readability": "Validation, ordered traversal, decoding/discovery, bundle assembly and final provenance/publication form a direct pipeline. PNG conversion is finite and documented because original semantics deliberately differ from PNG-spec-correct transparency. No per-patch handlers or new writer.",
+    "refusal_boundaries": "Missing/repeated/ambiguous authored joins globally refuse before publication. Native duplicate names/local metadata failures preserve rows/valid siblings rather than choosing first or inventing dimensions. Sub8/odd reference detector bugs become explicit nullable scores; nil pixels have no reasons."
+  },
+  "independent_verification": {
+    "focused_CLI": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "session": 64180,
+      "seconds": 6.524,
+      "result": "PASS"
+    },
+    "focused_golden": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestPilotHistoricalGoldenBytes$ .",
+      "session": 13917,
+      "seconds": 9.927,
+      "result": "PASS"
+    },
+    "build": {
+      "command": "GOMAXPROCS=2 nice -n 19 go build -p 2 -o /var/tmp/dokapon-asset-manifest-review-sSGsNY0o/dokapon-go-final .",
+      "result": "PASS",
+      "binary_sha256": "0636d2a7ca452cb8fee695610dceecfd1602ed81df4a59797475211dcdc752eb"
+    },
+    "vet": "GOMAXPROCS=2 nice -n 19 go vet -p 2 . PASS",
+    "format_whitespace": "PASS gofmt, git diff --check, manual pinned Go/JSON",
+    "credentials": "PASS selfchecked real-whitespace pattern, zero candidates in11Go files",
+    "archive_lifecycle": "11 standalone flows: complete9-entry source/index order independent physical layout; native/PNG pixel hashes; null/error/empty/nontexture rows; exact annotation join; deterministic dry/apply ZIP hashes; safe relative unique ZIP paths/manifest equality; original raw PNG bytes; native preview decoded pixels; overwrite and late bad joins/indexes refuse without output; source/profile bytes/inodes/mtimes preserved.",
+    "source_score_oracles": "All33 primary cases+3 threshold images exercised through actual PNG/CMB CLI lifecycle. Focused Golden independently checks33 raw/shifted-stride score vectors,3 threshold images and25 actual-pixel ordered tier/reason vectors, including Unicode dotted/dotlessI and strict fraction/edge/opacity thresholds.",
+    "PNG_supplement": "71 supplemental manifest members rehashed;34 fullRGBA expectations independently verified by original Pillow; all34 plus reviewer original case pass fullGo/PNG/ZIP conversion, score and preservation checks.",
+    "legacy_parity": "19 accepted-baseline versus current complete stdout/stderr/exit comparisons pass, including duplicate+selected metadata error order and accepted .03 specification. This is the exact tested cohort, not universal malformed-profile byte parity.",
+    "resources": "Static guards cover1GiB streamed source,100000 records/rows,64MiB individual assets,1Mpx native/raw PNG bounds, attempted work2^28 and ZIP128MiB. Current complete CLI tests257 failed1M-header rasters:256 attempts charged and final row explicitly budget-exhausted without truncation. No full-corpus throughput, peak-memory sandbox or hostile namespace-concurrency claim.",
+    "source_write_safety": "Whole-source hash before and after traversal, regular/size/mtime/path-inode checks, profile byte reread before sole exclusive digest/readback publisher. Dry-run no artifact; joins/source failures cannot leave partial directory publication.",
+    "full_suite_race": "Not run by reviewer; root race is separate evidence."
+  },
+  "milestone_assessment": {
+    "id": "asset_preview_inventory.04",
+    "finding": "The frozen responsibility is positively met within declared extracted-CMB/native-codec and original PNG conversion domains: complete ordered entry/raster accounting, source spans/hashes, measured pixel/PNG links, authored joins, required score/tier/ordered flags and explicit unavailable boundaries. This supports root consideration of .04 credit without changing its definition; this report does not edit/promote the ledger.",
+    "open_next": [
+      ".05 checkerboard/before-after presentation",
+      ".06 labelled contact-sheet/manifest links"
+    ],
+    "not_claimed": "No full family, every historical archive/caller, all possible PNG/native variants, source ISO placement, OCR, screen context, visual/gameplay or artwork approval."
+  },
+  "artifact_receipts": {
+    "work": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o",
+    "checks": {
+      "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/checks.json",
+      "sha256": "521a3825d096bc456017bf2467d75d9a244d38b7c08893b2460813b3b63592ad"
+    },
+    "detailed": {
+      "first-review.json": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/first-review.json",
+        "sha256": "7c2b302e33872d097f620ce18b3f9b4e2be588e6d8a8aecf83a98b6218241d8a"
+      },
+      "first/checks.json": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/first/checks.json",
+        "sha256": "7403e692af56c1b34cf5b87791afa2d1ecc28db93682116e9cd3db497ef65f6b"
+      },
+      "final/checks.json": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/final/checks.json",
+        "sha256": "0810ead7e599ac9e33a10965826983eddb150fd7bef12be3b2e0ac362c0a77d6"
+      },
+      "png16-checks.json": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/png16-checks.json",
+        "sha256": "30f4266bfe6f3dbad5760bd169d17a822807e65953fd85b5c7a35edc7363cd4f"
+      },
+      "png-final/checks.json": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/png-final/checks.json",
+        "sha256": "e8dd63cb0c1df3abef8ab4cf62e84381914722de2e0260f26de5b0ff2cde3ea0"
+      },
+      "probes-before-findings.py": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/probes-before-findings.py",
+        "sha256": "5a8679b39df6c86587aec4eb92de4f614c71bad92010af4d4662ca40f8894446"
+      },
+      "probes.py": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/probes.py",
+        "sha256": "507fbc234f3d01f7ca02720289a2999be172f1fa49d5985796742e94fc45d5e3"
+      },
+      "png-final.py": {
+        "path": "/var/tmp/dokapon-asset-manifest-review-sSGsNY0o/png-final.py",
+        "sha256": "a564d9a8deb69491884b227423d89d527a1c75a6b374ed9bb405d90d5c9b8528"
+      }
+    }
+  },
+  "limits": "Only assigned report and owned private artifacts written. No source/tests/docs/coverage/goal edits or ISO/canonical/protected runtime access. Detailed original/final receipts remain separate; superseded15pin results do not approve revision."
+}

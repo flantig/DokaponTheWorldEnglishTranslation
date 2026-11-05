@@ -1,0 +1,163 @@
+{
+  "provenance": "Four independently sealed Python stdlib CSV byte oracles plus one explicit stdlib-only single-empty-cell edge. No candidate Go output used. Deliberately typed-domain refusal vectors are separate from historical coercions.",
+  "contract_sha256": "c3312135ce0c89d0445157cb9d43e12763f83be5d2db5185a490ae20536786cf",
+  "cases": [
+    {
+      "name": "canonical",
+      "source": "{\n  \"schema_version\": \"1.0\",\n  \"last_updated\": \"2026-10-01\",\n  \"entries\": [\n    {\n      \"id\": \"0x20\",\n      \"status\": \"patched\",\n      \"source_pool\": \"pool,b\",\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e20\",\n      \"tier\": \"authored\",\n      \"jp\": \"あ,\\\"い\\\"\\n次\",\n      \"en\": \" A, \\\"B\\\"\\nC\\rD\\r\\nE\",\n      \"mode\": \"dialog_box\",\n      \"ref_type\": \"unknown\",\n      \"landing_vma\": null,\n      \"patch_ref\": null,\n      \"note\": \" \\tlead\",\n      \"opaque\": {\n        \"big\": 9007199254740993\n      }\n    },\n    {\n      \"id\": \"0X0002\",\n      \"status\": \"drafted\",\n      \"source_pool\": null,\n      \"character\": \"\",\n      \"event\": \"e2\",\n      \"tier\": null,\n      \"jp\": null,\n      \"en\": \"\",\n      \"mode\": null\n    },\n    {\n      \"id\": \"0x10\",\n      \"status\": \"zone_pending\",\n      \"source_pool\": \"\",\n      \"chapter\": \"\",\n      \"character\": \"King\",\n      \"event\": \"e10\",\n      \"tier\": \"A\",\n      \"jp\": \"JP\",\n      \"en\": \"=1+1\"\n    },\n    {\n      \"id\": \"0x30\",\n      \"status\": \"custom\",\n      \"source_pool\": \"pool\",\n      \"chapter\": \"earlier\",\n      \"character\": \"sys\",\n      \"event\": \"\",\n      \"tier\": \"B\",\n      \"jp\": \"JP\",\n      \"en\": null,\n      \"note\": \"\\\\.\"\n    },\n    {\n      \"id\": \"0x40\",\n      \"jp\": \"x\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x50\",\n      \"status\": null,\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e50\",\n      \"tier\": \"\",\n      \"source_pool\": \"pool\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x60\",\n      \"status\": \"emulator_confirmed\",\n      \"chapter\": \"a|b\\nc\",\n      \"character\": \"\",\n      \"event\": \"\",\n      \"tier\": \"B\",\n      \"source_pool\": \"pool\",\n      \"jp\": \"\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x70\",\n      \"status\": \"decode_verified\",\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e70\",\n      \"tier\": \"authored\",\n      \"source_pool\": \"pool\",\n      \"jp\": \"JP\",\n      \"en\": \"A\"\n    }\n  ],\n  \"unknown_top\": {\n    \"keep\": \"metadata\"\n  }\n}\n",
+      "source_sha256": "3c5d5d4209c291a150f88d40ca25dca146bc494633c74c9447f5c3e455be8150",
+      "columns": [
+        "id",
+        "status",
+        "source_pool",
+        "chapter",
+        "character",
+        "event",
+        "tier",
+        "jp",
+        "en",
+        "mode",
+        "ref_type",
+        "landing_vma",
+        "patch_ref",
+        "note"
+      ],
+      "expected_hex": "69642c7374617475732c736f757263655f706f6f6c2c636861707465722c6368617261637465722c6576656e742c746965722c6a702c656e2c6d6f64652c7265665f747970652c6c616e64696e675f766d612c70617463685f7265662c6e6f74650d0a3058303030322c647261667465642c2c2c2c65322c2c2c2c2c2c2c2c0d0a307831302c7a6f6e655f70656e64696e672c2c2c4b696e672c6531302c412c4a502c3d312b312c2c2c2c2c0d0a307832302c706174636865642c22706f6f6c2c62222c6c617465722c4e6176692c6532302c617574686f7265642c22e381822c2222e3818422220ae6aca1222c2220412c2022224222220a430d440d0a45222c6469616c6f675f626f782c756e6b6e6f776e2c2c2c20096c6561640d0a307833302c637573746f6d2c706f6f6c2c6561726c6965722c7379732c2c422c4a502c2c2c2c2c2c5c2e0d0a307834302c2c2c2c2c2c2c782c412c2c2c2c2c0d0a307835302c2c706f6f6c2c6c617465722c4e6176692c6535302c2c2c412c2c2c2c2c0d0a307836302c656d756c61746f725f636f6e6669726d65642c706f6f6c2c22617c620a63222c2c2c422c2c412c2c2c2c2c0d0a307837302c6465636f64655f76657269666965642c706f6f6c2c6c617465722c4e6176692c6537302c617574686f7265642c4a502c412c2c2c2c2c0d0a",
+      "expected_sha256": "5fbfee53b8f6a8f41a44027b401a56f4bc4e372ec21912cd81c8d7e612bb5085",
+      "rows": 8
+    },
+    {
+      "name": "empty",
+      "source": "{\"entries\":[]}\n",
+      "source_sha256": "7a0b7943ccd293821e69c3413abdfebf3d74e3d9a2a92c2f362a7fcbab72f8b3",
+      "columns": [
+        "id",
+        "status",
+        "source_pool",
+        "chapter",
+        "character",
+        "event",
+        "tier",
+        "jp",
+        "en",
+        "mode",
+        "ref_type",
+        "landing_vma",
+        "patch_ref",
+        "note"
+      ],
+      "expected_hex": "69642c7374617475732c736f757263655f706f6f6c2c636861707465722c6368617261637465722c6576656e742c746965722c6a702c656e2c6d6f64652c7265665f747970652c6c616e64696e675f766d612c70617463685f7265662c6e6f74650d0a",
+      "expected_sha256": "6e8850d29fd3a2452b5678d6806f297467abcc8faa01411ccd38f50e2c4bb014",
+      "rows": 0
+    },
+    {
+      "name": "subset",
+      "source": "{\n  \"entries\": [\n    {\n      \"id\": \"0x20\",\n      \"status\": \"patched\",\n      \"source_pool\": \"pool,b\",\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e20\",\n      \"tier\": \"authored\",\n      \"jp\": \"あ,\\\"い\\\"\\n次\",\n      \"en\": \" A, \\\"B\\\"\\nC\\rD\\r\\nE\",\n      \"mode\": \"dialog_box\",\n      \"ref_type\": \"unknown\",\n      \"landing_vma\": null,\n      \"patch_ref\": null,\n      \"note\": \" \\tlead\",\n      \"opaque\": {\n        \"big\": 9007199254740993\n      }\n    },\n    {\n      \"id\": \"0X0002\",\n      \"status\": \"drafted\",\n      \"source_pool\": null,\n      \"character\": \"\",\n      \"event\": \"e2\",\n      \"tier\": null,\n      \"jp\": null,\n      \"en\": \"\",\n      \"mode\": null\n    },\n    {\n      \"id\": \"0x10\",\n      \"status\": \"zone_pending\",\n      \"source_pool\": \"\",\n      \"chapter\": \"\",\n      \"character\": \"King\",\n      \"event\": \"e10\",\n      \"tier\": \"A\",\n      \"jp\": \"JP\",\n      \"en\": \"=1+1\"\n    },\n    {\n      \"id\": \"0x30\",\n      \"status\": \"custom\",\n      \"source_pool\": \"pool\",\n      \"chapter\": \"earlier\",\n      \"character\": \"sys\",\n      \"event\": \"\",\n      \"tier\": \"B\",\n      \"jp\": \"JP\",\n      \"en\": null,\n      \"note\": \"\\\\.\"\n    },\n    {\n      \"id\": \"0x40\",\n      \"jp\": \"x\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x50\",\n      \"status\": null,\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e50\",\n      \"tier\": \"\",\n      \"source_pool\": \"pool\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x60\",\n      \"status\": \"emulator_confirmed\",\n      \"chapter\": \"a|b\\nc\",\n      \"character\": \"\",\n      \"event\": \"\",\n      \"tier\": \"B\",\n      \"source_pool\": \"pool\",\n      \"jp\": \"\",\n      \"en\": \"A\"\n    },\n    {\n      \"id\": \"0x70\",\n      \"status\": \"decode_verified\",\n      \"chapter\": \"later\",\n      \"character\": \"Navi\",\n      \"event\": \"e70\",\n      \"tier\": \"authored\",\n      \"source_pool\": \"pool\",\n      \"jp\": \"JP\",\n      \"en\": \"A\"\n    }\n  ]\n}\n",
+      "source_sha256": "3ca9ac2e83a0e7758a5dedfa851cf5cccd6060666e0c89f5b4bcf844073adf81",
+      "columns": [
+        "en",
+        "id",
+        "note"
+      ],
+      "expected_hex": "656e2c69642c6e6f74650d0a2c3058303030322c0d0a3d312b312c307831302c0d0a2220412c2022224222220a430d440d0a45222c307832302c20096c6561640d0a2c307833302c5c2e0d0a412c307834302c0d0a412c307835302c0d0a412c307836302c0d0a412c307837302c0d0a",
+      "expected_sha256": "ce9f09aa7e0d3ecfdfdcd2c6088acb28026949f3494c7d10f45a0a2336a9c143",
+      "rows": 8
+    },
+    {
+      "name": "scalars",
+      "source": "{\n  \"entries\": [\n    {\n      \"id\": \"0x30\",\n      \"flag\": true,\n      \"count\": 123456789012345678901234567890,\n      \"text\": \" \\tlead\"\n    },\n    {\n      \"id\": \"0x10\",\n      \"flag\": false,\n      \"count\": 0,\n      \"text\": \"\\\\.\"\n    },\n    {\n      \"id\": \"0x20\",\n      \"flag\": null,\n      \"count\": -9007199254740993,\n      \"text\": \"雪,\\\"x\\\"\\nY\\rZ\\r\\nW\",\n      \"opaque\": {\n        \"ignored\": [\n          1,\n          2\n        ]\n      }\n    }\n  ]\n}\n",
+      "source_sha256": "b32f86dfbbeff1b77a940ef69d381844976177db9d1b3b648c37d9ab9659df0e",
+      "columns": [
+        "id",
+        "flag",
+        "count",
+        "text",
+        "missing"
+      ],
+      "expected_hex": "69642c666c61672c636f756e742c746578742c6d697373696e670d0a307831302c2c2c5c2e2c0d0a307832302c2c2d393030373139393235343734303939332c22e99baa2c22227822220a590d5a0d0a57222c0d0a307833302c547275652c3132333435363738393031323334353637383930313233343536373839302c20096c6561642c0d0a",
+      "expected_sha256": "0dc3e719aa701b2755291277be4907293cc5a4e40e9bdc0e683ba6bb06d5c835",
+      "rows": 3
+    },
+    {
+      "name": "single-empty-cell",
+      "source": "{\"entries\":[{\"id\":\"0\",\"en\":null}]}",
+      "source_sha256": "e6743be30b211c46cc1a1727a643c15495a414ced05f8b930fc0680848934fe3",
+      "columns": [
+        "en"
+      ],
+      "expected_hex": "656e0d0a22220d0a",
+      "expected_sha256": "400676efc03a067b2b471fd438f53ae93e47f48f0fe7dccb7a654d945f6aee92",
+      "rows": 1
+    }
+  ],
+  "refusals": [
+    {
+      "name": "selected-domain-0",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":[]}]}"
+    },
+    {
+      "name": "selected-domain-1",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":{}}]}"
+    },
+    {
+      "name": "selected-domain-2",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":[\"A\"]}]}"
+    },
+    {
+      "name": "selected-domain-3",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":{\"x\":1}}]}"
+    },
+    {
+      "name": "selected-domain-4",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":0.0}]}"
+    },
+    {
+      "name": "selected-domain-5",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":-0.0}]}"
+    },
+    {
+      "name": "selected-domain-6",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":1.0}]}"
+    },
+    {
+      "name": "selected-domain-7",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":1e+20}]}"
+    },
+    {
+      "name": "selected-domain-8",
+      "source": "{\"entries\":[{\"id\":\"0x20\",\"en\":1e-07}]}"
+    },
+    {
+      "name": "duplicate-ID",
+      "source": "{\"entries\":[{\"id\":\"20\"},{\"id\":\"0X0020\"}]}"
+    },
+    {
+      "name": "bad-ID",
+      "source": "{\"entries\":[{\"id\":\"oops\"}]}"
+    },
+    {
+      "name": "null-entries",
+      "source": "{\"entries\":null}"
+    },
+    {
+      "name": "missing-entries",
+      "source": "{}"
+    },
+    {
+      "name": "null-row",
+      "source": "{\"entries\":[null]}"
+    },
+    {
+      "name": "duplicate-key",
+      "source": "{\"entries\":[{\"id\":\"20\",\"en\":\"one\",\"en\":\"two\"}]}"
+    },
+    {
+      "name": "selected-surrogate",
+      "source": "{\"entries\":[{\"id\":\"20\",\"en\":\"\\ud800\"}]}"
+    },
+    {
+      "name": "nonfinite",
+      "source": "{\"entries\":[{\"id\":\"20\",\"en\":NaN}]}"
+    }
+  ]
+}

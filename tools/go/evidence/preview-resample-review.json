@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T02:08:33.110355+00:00",
+  "scope": "Read-only ordinary review of shared nearest resampling foundation; not completion of asset_preview_inventory.05.",
+  "result": "No material findings in reviewed scope",
+  "findings": [],
+  "candidate_pins": {
+    "raster_resize.go": "18a0d347df4b49c2ce7b137a500edce8585ff9555ddc94fd64c5921cb94128bc",
+    "raster_runs.go": "8aa06ad8942f75162b06667d2329a5b851ccb8ccd44d8c20b1bf184a5ae1f146",
+    "patch_test.go": "0965fd04a7d3b2aa49dc573524f4b56d62059c4b8e155d1803abc09917350173",
+    "testdata/raster-nearest.zip": "65a3505a9e8388527cccc6e78d25da9f77be5e07f4230e370581fca7a7a2e665",
+    "analysis/preview-resample-decision.json": "b796b2be29e5db78c56f27a17ade27809b8a2301668e3d6d76e8ac6f5396e604",
+    "analysis/asset-preview-contract.json": "9ca3fc5786bc8f86ed56837e36c50e5a82c639f0ba38c7c655b933958bab8b96",
+    "analysis/migration-roadmap.json": "467cdbaf15eff9ef3c4e6fdde15db5111dc03253e0e51941f348af4db94e8b2b"
+  },
+  "candidate_pins_before_after": "All7 held; later roadmap/accounting changes are not covered by this receipt.",
+  "contract_review": {
+    "ownership": "Existing pure resizeRaster reasonably owns the finite lanczos/nearest choice and nearest-only logical crop. Common source/storage validation remains shared. Nearest returns early through straight-byte copy; Lanczos numerical implementation remains one unchanged owner. No new function/helper/closure or profile/CLI added.",
+    "callers": "Serena and source search confirm only two production calls, both renderRuns, now explicit lanczos,nil. Current nearest reachability is foundational/internal plus tests; no user-facing checkerboard operation is claimed.",
+    "numerics": "Matches primary Pillow12.3 Geometry.c binary64 axis recurrence: start step*.5, sample nonnegative int(coordinate), then +=step in source order. Earlier rational-center generalization is explicitly superseded by the contract numerical supplement. No per-pixel multiplication, epsilon, premultiplication or hidden-RGB cleanup.",
+    "crop": "Relative logical rectangle describes crop-before-resize, including transparent/zero padding. Adding integer crop Min after logical sampling is correct; padding participates in the logical extent. Source Rect.Min is independent from crop coordinates and raw row access honors source stride. No padded crop allocation is needed.",
+    "bounds": "Existing source1Mpx/4096 and Lanczos output/intermediate limits stay intact. Nearest output is finite16Mpx/16384axis and crop1Mpx/4096axis with endpoints within\u00b12^30; malformed/inverted/nonpositive cases refuse before allocation/index use. Logical coordinates, bounded target area and validated physical row storage prevent the tested overflow/access failures. Pair-canvas work/output bounds remain later caller responsibility.",
+    "preservation": "Fresh origin-zero Gray/NRGBA output; exact source bytes including hidden transparent RGB, parent padding and crop rectangle remain unchanged. No source/art/ISO write path.",
+    "readability": "The new branch is a direct independent-axis table and copy loop within the existing resampling responsibility. Larger preview output policy is isolated to nearest; it does not relax legacy Lanczos authoring guards. No additional abstraction is warranted."
+  },
+  "source_bindings": {
+    "decision": "analysis/preview-resample-decision.json",
+    "contract": "analysis/asset-preview-contract.json nearest_numerical_supplement",
+    "primary_pack": "/var/tmp/dokapon-nearest-contract-aif2jpfw",
+    "primary_pack_manifest_sha256": "1b914a78890d560a7c50f3d5ce5c55456dea9a3587614108d9eef426c76ecf0a",
+    "verified_primary_pack_members": 39,
+    "primary_files": {
+      "Geometry.c": "5ca2151823ca7b89e6cfd253d969791b276f564b34bad2bf15f1c75ce93486f1",
+      "_imaging.c": "a911bab9ec7e74a70875bd92fe07fd43bafeecde2312840062dddbcd9e477f38"
+    },
+    "inspection": "Geometry.c832..924 recurrence/raw copies and _imaging.c1979..1999 full-box affine setup inspected; private source/manifests rehashed. No project/historical main executed.",
+    "LANCZOS_equivalence": "Current tail from order initialization through return is byte-identical to baseline. Inverse gofmt AST rewrite of explicit lanczos,nil render arguments exactly recovers baseline raster_runs.go."
+  },
+  "independent_verification": {
+    "focused_Golden": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestPilotHistoricalGoldenBytes$ .",
+      "session": 80385,
+      "seconds": 12.703,
+      "result": "PASS"
+    },
+    "build": {
+      "command": "GOMAXPROCS=2 nice -n 19 go build -p 2 -o /var/tmp/dokapon-preview-resample-review-czOjbuku/dokapon-go .",
+      "result": "PASS",
+      "binary_sha256": "a12b9dd4c528e1144ebba0225e40b3123d99f3e084e1b7c4c64d4acb39e8fa67"
+    },
+    "vet": "GOMAXPROCS=2 nice -n 19 go vet -p 2 . PASS",
+    "format_whitespace": "PASS gofmt/git diff --check/manual pinned Go+JSON",
+    "credentials": "PASS selfchecked real-whitespace pattern, zero candidates in3pinnedGo files",
+    "repository_vectors": "Focused existing owner retains134unchanged Lanczos cases and10original-only nearest full-pixel vectors; padded/nonzero-origin and Gray channel checks, source freshness,131072width pairs/33619968pixels frozen digest, actual512square/1024x5123x capacity and12new refusals pass. Source-independent goldens\u2014not roundtrip outputs\u2014define expectations.",
+    "private_API_overlay": {
+      "result": "PASS10.051s",
+      "method": "Original installed Pillow crop+NEAREST complete expected buffers generated before Go execution, then an owned overlay extends existing Golden owner only. No production/test edit.",
+      "cases": "10Gray/NRGBA vectors:2square\u21927square hiddenRGB/alpha; negative mixed OOB crop; fully outside positive/negative crops at valid\u00b12^30edges; huge valid source origins\u00b12^60;16384axis;257\u219212288wide and257\u219216384tall inexact ratios;4096source axis; padded crop identity. Every complete byte buffer equals original Pillow; padded parent and output mutation tests prove input preservation/freshness. Two extreme invalid crop-coordinate cases also refuse."
+    },
+    "full_suite_race": "Not run by reviewer; no full-suite claim."
+  },
+  "milestone_limit": "No .05credit: checker generation, exact pixelOver composition, before/after size binding/gap6/RGB output and guarded public orchestration/publication remain future work. Labelled contacts/.06 and other source presentation variants remain separately open. No family/retirement/artwork/runtime approval.",
+  "artifacts": {
+    "work": "/var/tmp/dokapon-preview-resample-review-czOjbuku",
+    "checks": {
+      "path": "/var/tmp/dokapon-preview-resample-review-czOjbuku/checks.json",
+      "sha256": "56694059bc6a9ba2bab260de88901c13918ba2face11dda1e2abb31b0880d2cf"
+    },
+    "detailed": {
+      "preparation.json": {
+        "path": "/var/tmp/dokapon-preview-resample-review-czOjbuku/preparation.json",
+        "sha256": "dc47934be879f975b435e53d9956ef4cd07615e16fbce4d78eaf947a9e5bee5a"
+      },
+      "prepare-probes.py": {
+        "path": "/var/tmp/dokapon-preview-resample-review-czOjbuku/prepare-probes.py",
+        "sha256": "0cb8fadedc4e05bdfccf341a9eea3ca7bfec66389bc8101925511e12c48f9bcb"
+      },
+      "api-vectors.json": {
+        "path": "/var/tmp/dokapon-preview-resample-review-czOjbuku/api-vectors.json",
+        "sha256": "335915be7e61253c25b086e5e4a83ae5ba4d730b3d4978b9b1fc258245f30288"
+      },
+      "private-patch_test.go": {
+        "path": "/var/tmp/dokapon-preview-resample-review-czOjbuku/private-patch_test.go",
+        "sha256": "79953f730034962c79354aa5bb8a11505325d0bdb79a3c8ec6b7aeff979afc10"
+      },
+      "overlay.json": {
+        "path": "/var/tmp/dokapon-preview-resample-review-czOjbuku/overlay.json",
+        "sha256": "11711d259236225cb850651de7c6a8d2a9851b5c9d198272d2e47f7c8cb4c108"
+      }
+    }
+  },
+  "write_access": "Only assigned report and owned private artifacts written; no production/test/docs/coverage/goal edits or ISO/canonical/protected runtime access."
+}

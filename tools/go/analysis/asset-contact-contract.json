@@ -1,0 +1,588 @@
+{
+  "status": "ORIGINAL-ONLY PRECODE RESPONSIBILITY/PIXEL CONTRACT; no implementation or milestone/family/artwork approval",
+  "scope": "asset_preview_inventory.06 material labelled contact sheets, grouping/dedup/linkage and flat90 pair variant; previous .05 packs unchanged. Only this JSON and owned private artifacts written.",
+  "source_pins": {
+    "../explainer_scan.py": {
+      "bytes": 13716,
+      "sha256": "48ec5c0acb8989071e6f0f487005ee8b2f620677d167431c08f8afea49b87f28"
+    },
+    "../preview_weekdays_2026_10_01.py": {
+      "bytes": 5021,
+      "sha256": "622ce1345539d55c671ee73bfb6b6b3bca3a5f40eb89afb57c5576fd7b7d3768"
+    },
+    "../preview_logo_a_2026_10_01.py": {
+      "bytes": 6939,
+      "sha256": "bc94f35b35804b806ef0fd7c3aab05594d39f379a8c9701c2383aa51f3c52f9d"
+    }
+  },
+  "source_locations": {
+    "explainer_scan.py": {
+      "tier": [
+        42,
+        48
+      ],
+      "cmd_export": [
+        97,
+        134
+      ],
+      "_sheet": [
+        198,
+        218
+      ],
+      "cmd_sheets": [
+        221,
+        247
+      ],
+      "cmd_csv": [
+        251,
+        283
+      ]
+    },
+    "preview_logo_a_2026_10_01.py": {
+      "pair": [
+        42,
+        48
+      ]
+    },
+    "preview_weekdays_2026_10_01.py": {
+      "main": [
+        33,
+        98
+      ]
+    }
+  },
+  "responsibility_crosswalk": {
+    "original_family": "analysis/pattern-crawl-assets_runtime_tests.json specification-export-preview-index; analysis/reusability-coverage-baseline.json original preview/checker/contact/manifest contract",
+    "material": [
+      "Exact selected source pixels and original order/provenance",
+      "thumbnail aspect/no-upscale/filter/composition",
+      "actual label fonts and layout",
+      "page geometry/order/group overlap and first-occurrence dedup",
+      "sheetmap plus duplicate linkage in manifest-order inventory",
+      "flat90 pair crop/OOB/scaled-gap/RGBA format"
+    ],
+    "not_covered_by_unlabelled_checker": "Both labelled source providers remain real obligations; labels/indices are not optional decoration. .06/full family stays open until the font/backend and collection/linkage responsibilities are verified."
+  },
+  "inventory_sheet": {
+    "source": "../explainer_scan.py:198..218",
+    "canvas": {
+      "mode": "RGB",
+      "size": [
+        1440,
+        680
+      ],
+      "background": [
+        110,
+        110,
+        110
+      ]
+    },
+    "cells": {
+      "size": [
+        240,
+        170
+      ],
+      "columns": 6,
+      "rows": 4,
+      "page_capacity": 24,
+      "placement": "row-major over chunk; x=(i%6)*240,y=(i//6)*170; final page remains full-sized; no page when group empty"
+    },
+    "thumbnail": {
+      "fit_size": [
+        232,
+        136
+      ],
+      "upscale": false,
+      "aspect": "Pillow Image.thumbnail floors provided bounds; fits aspect choosing max(1,min(floor,ceil,key=absolute aspect error)), floor wins equal error; do not replace with generic round(width*ratio). Exact Python source pinned privately.",
+      "filter": "NEAREST when min(original source dimensions)<=16, otherwise LANCZOS; tests pin513x16 vs513x17",
+      "input": "Pillow open.convertRGBA then copy; thumbnails do not modify source",
+      "reducing_gap": "thumbnail default2 exists, but RGBA nonNEAREST resize premultiplies and recurses without forwarding reducing_gap; the actual path uses direct existing LANCZOS, not integer pre-reduce. Four independent original outputs equal direct resize.",
+      "background": "same-sized opaque RGBA150, alpha_composite thumbnail, convertRGB; place at cell+[4,4], without centering"
+    },
+    "labels": [
+      {
+        "text": "cmb + ':' + entry.split(backslash,1)[-1][-26:]",
+        "at_cell": [
+          4,
+          142
+        ],
+        "fill": [
+          255,
+          255,
+          255
+        ]
+      },
+      {
+        "text": "tex[-14:] + ' ' + w+'x'+h + ' #'+idx + ' s'+score[0]",
+        "at_cell": [
+          4,
+          156
+        ],
+        "fill": [
+          255,
+          230,
+          120
+        ]
+      }
+    ],
+    "label_clipping": "Default Pillow text anchor/no stroke/no explicit features. Source does not clip each label to its cell, truncate archive prefix, wrap text or prevent label collisions; overall image clipping only. Do not silently present a changed policy as byte parity.",
+    "thumbnail_facts": [
+      {
+        "name": "tiny",
+        "input_size": [
+          9,
+          3
+        ],
+        "size": [
+          9,
+          3
+        ],
+        "filter": "NEAREST",
+        "equals_direct_without_reduce": true,
+        "rgba_sha256": "cfa5a05f077cdabd59b715307af5e2f186464d15a4b9158900c475746046f665"
+      },
+      {
+        "name": "thin16",
+        "input_size": [
+          513,
+          16
+        ],
+        "size": [
+          232,
+          7
+        ],
+        "filter": "NEAREST",
+        "equals_direct_without_reduce": true,
+        "rgba_sha256": "abcf171fc346859648c03c98355407988217415c660c89922f0dc4e9a17c29dc"
+      },
+      {
+        "name": "thin17",
+        "input_size": [
+          513,
+          17
+        ],
+        "size": [
+          232,
+          8
+        ],
+        "filter": "LANCZOS",
+        "equals_direct_without_reduce": true,
+        "rgba_sha256": "35a16e003264e13750f12793ed4bdd2c40be631e6747aeaa05349aa0ba775d04"
+      },
+      {
+        "name": "large",
+        "input_size": [
+          1024,
+          512
+        ],
+        "size": [
+          232,
+          116
+        ],
+        "filter": "LANCZOS",
+        "equals_direct_without_reduce": true,
+        "rgba_sha256": "bfd29b6f591ddcf1e837ab34b75aeb34b104d7c1a6e6c3eb2c6d668ce39828a2"
+      }
+    ]
+  },
+  "grouping_and_linkage": {
+    "source": "../explainer_scan.py:221..283",
+    "eligible": "manifest order, only rows whose png key exists in det; no status or actual PNG verification until opening",
+    "groups_order": [
+      "A_ui",
+      "B_icons",
+      "C_model-flagged",
+      "D_event-bg-race"
+    ],
+    "predicates": {
+      "A_ui": "tier(entry)==ui",
+      "B_icons": "tier(entry)==icons",
+      "C_model-flagged": "tier(entry)==model AND (score[5]>=1 OR HINT.search(entry+space+tex))",
+      "D_event-bg-race": "tier(entry)==model AND cmb==EVENT AND re.match(event\\\\(bg|race\\\\rm),entry.lower())"
+    },
+    "tier_hint": "Exact original regex/Unicode semantics already frozen in analysis/asset-manifest-contract.json; no rescoped detector.",
+    "dedup": "A_ui never deduplicates. Other groups independently retain first manifest occurrence of each truthy sha; None/empty/missing sha are not deduplicated. Then stable sort by(cmb,idx); first-keep occurs BEFORE sort.",
+    "source_key": "Exported native SHA is first12 hex SHA1 of RGBA raw bytes only; rawPNG rows have no SHA. Comment about skin color variants does not change actual identical-byte key.",
+    "overlap": "Groups are not partitions. A png may appear in C and D; sheetmap assignment from later group overwrites earlier link. Equal sort keys preserve original manifest/native ordering.",
+    "filenames": "group_001.png, subsequent three-digit minimum page counter; sheetmap values are bare filenames, not HTML.",
+    "CSV": "Manifest source order; bysha first directly linked manifest row wins. Unlinked truthy SHA match inherits sheet filename + literal space(dup pixels); this modifies only emitted CSV map, not saved sheetmap.json. 15 fixed columns were frozen in prior manifest source contract.",
+    "literal_expected": {
+      "groups_before_sheetmap_overwrite": {
+        "A_ui": [
+          "inputs/row01.png",
+          "inputs/row00.png"
+        ],
+        "B_icons": [
+          "inputs/row04.png",
+          "inputs/row05.png",
+          "inputs/row02.png"
+        ],
+        "C_model-flagged": [
+          "inputs/row06.png",
+          "inputs/row07.png"
+        ],
+        "D_event-bg-race": [
+          "inputs/row07.png"
+        ]
+      },
+      "UI_duplication_preserved": true,
+      "nonUI_duplicate_first_manifest_idx9_wins_over_idx1": true,
+      "missing_and_empty_hash_not_deduplicated": true,
+      "event_overlap_later_D_wins_link": true,
+      "sort": "stable(cmb,idx), after first-occurrence per-group dedup; no native ordinal tie breaker",
+      "csv_rows_remain_in_manifest_order": true,
+      "csv_duplicate_links": {
+        "inputs/row03.png": "B_icons_001.png (dup pixels)",
+        "inputs/row08.png": "D_event-bg-race_001.png (dup pixels)",
+        "inputs/row09.png": "A_ui_001.png (dup pixels)",
+        "inputs/row10.png": "A_ui_001.png (dup pixels)"
+      },
+      "sha_collision_geometry_counterexample": {
+        "source_sizes": [
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "source_raw_sha1_12": "8ab71ea49b2b",
+        "same_key_different_geometry": true,
+        "source_algorithm_would_discard_second_nonUI_row": true,
+        "not_safe_equal_raster_proof": true
+      },
+      "flat90": [
+        {
+          "name": "flat90-oob-unequal",
+          "before_size": [
+            9,
+            3
+          ],
+          "after_size": [
+            9,
+            212
+          ],
+          "crop_xyxy": [
+            -1,
+            -1,
+            11,
+            5
+          ],
+          "scale": 3,
+          "mode": "RGBA",
+          "size": [
+            36,
+            48
+          ],
+          "rgba_sha256": "d67fe118dae4ea7d6a4c3b9f0e7c93e679cfb3e8af6f397cdbae13517e941a24"
+        },
+        {
+          "name": "flat90-identity",
+          "before_size": [
+            9,
+            3
+          ],
+          "after_size": [
+            9,
+            212
+          ],
+          "crop_xyxy": [
+            0,
+            0,
+            9,
+            3
+          ],
+          "scale": 1,
+          "mode": "RGBA",
+          "size": [
+            9,
+            10
+          ],
+          "rgba_sha256": "209dfd263fb8452d61e6014da6d742a5fe71b50cbcbc52832eb4b6ad5439aa96"
+        }
+      ]
+    },
+    "bugs_qualifications": [
+      "Truncated SHA collision is not proof of equal pixels.",
+      "Even collision-free raw byte equality omits dimensions: actual frozen2x6/3x4 counterexample would deduplicate incorrectly.",
+      "Source trusts supplied SHA/PNG/score manifest fields; it does not rehash during sheets/csv.",
+      "Source lacks atomic publication and manifest path confinement; new exclusive contained ZIP publication is a deliberate safety improvement, not historical failure side-effect parity."
+    ]
+  },
+  "weekday_contact": {
+    "source": "../preview_weekdays_2026_10_01.py:84..92 only contact statements; game/font/codec main not run",
+    "canvas": {
+      "mode": "RGB",
+      "size": [
+        336,
+        160
+      ],
+      "background": [
+        232,
+        232,
+        232
+      ]
+    },
+    "sequence": [
+      {
+        "label": "BEFORE",
+        "y": 0
+      },
+      {
+        "label": "AFTER - PREVIEW ONLY",
+        "y": 80
+      }
+    ],
+    "label": "ImageDraw.text((3,y),label,black), no explicit font -> pinned default Aileron10 BASIC in this environment",
+    "strip": "source.crop((0,208,336,272)); masked paste strip at(0,y+16) using strip RGBA alpha mask; no alpha_composite call at this site",
+    "scale": "Save1x then nearest whole canvas3x ->1008x480, including labels/background.",
+    "valid_OOB_unequal": "Original contact statements succeed for literal before9x212/after5x210 with transparent crop padding; no shape equality refusal is justified by presentation source. Actual main game validations are separate responsibilities.",
+    "blend": "RGB mask paste uses DIV255(dst*(255-A)+src*A), equivalent nearest integer division by255. Exhaustive65536 sourcegray/alpha pairs for backgrounds90/110/150/232 equal Pillow opaque RGBA Over. This equality is scoped to opaque RGB destinations, not generic RGBA paste.",
+    "output_raw_sha256": {
+      "before-after-1x.png": "dc103440ea33231ef91392c1f3aaf307be3055b2300be96c5a72fc6f063334a1",
+      "before-after-3x.png": "c5deed88cc45b3e707d0b103a9ecc3390d8d773a39b94a3c6027c2990e5e793a"
+    }
+  },
+  "flat90_variant": {
+    "source": "../preview_logo_a_2026_10_01.py:42..48; also prior real preview_batch_e_ai_repairs.py caller recorded in asset-preview-contract",
+    "contract": "Crop both source RGBA arrays by same XYXY (transparent OOB padding allowed). Before crop defines w,h; opaque RGBA90 canvas(w,2*h+4). Alpha-composite before at0,after at h+4; nearest scale WHOLE canvas. Gap4 source pixels scales, unlike checker gap6 output pixels.",
+    "output_format": "Pillow saves RGBA PNG color type6, even when output opaque. Labelled inventory/weekday pages are RGB PNG color type2. Standard Go PNG opacity optimization must not be mistaken for exact original file-format parity.",
+    "new_original_cases": [
+      {
+        "name": "flat90-oob-unequal",
+        "before_size": [
+          9,
+          3
+        ],
+        "after_size": [
+          9,
+          212
+        ],
+        "crop_xyxy": [
+          -1,
+          -1,
+          11,
+          5
+        ],
+        "scale": 3,
+        "mode": "RGBA",
+        "size": [
+          36,
+          48
+        ],
+        "rgba_sha256": "d67fe118dae4ea7d6a4c3b9f0e7c93e679cfb3e8af6f397cdbae13517e941a24"
+      },
+      {
+        "name": "flat90-identity",
+        "before_size": [
+          9,
+          3
+        ],
+        "after_size": [
+          9,
+          212
+        ],
+        "crop_xyxy": [
+          0,
+          0,
+          9,
+          3
+        ],
+        "scale": 1,
+        "mode": "RGBA",
+        "size": [
+          9,
+          10
+        ],
+        "rgba_sha256": "209dfd263fb8452d61e6014da6d742a5fe71b50cbcbc52832eb4b6ad5439aa96"
+      }
+    ],
+    "previous_immutable_pack": "analysis/asset-preview-contract.json prior four flat cases remain referenced; no member mutated."
+  },
+  "font_contract": {
+    "fonts": [
+      {
+        "path": "/var/tmp/dokapon-asset-contact-contract-yvafikb_/DejaVuSans.ttf",
+        "bytes": 759720,
+        "sha256": "f0d9a390aa7cf43999a2fd1502a47c381bc7809ab5fac6937f0f6dd6524096cd",
+        "name_metadata": "DejaVuSans.ttf.names.json"
+      },
+      {
+        "path": "/var/tmp/dokapon-asset-contact-contract-yvafikb_/Aileron-Pillow-default.ttf",
+        "bytes": 12676,
+        "sha256": "69853909b940023570964e29cffe30da95aea8de3627736b5cd15ab30143169f",
+        "name_metadata": "Aileron-Pillow-default.ttf.names.json"
+      }
+    ],
+    "versions": {
+      "pil": "12.3.0",
+      "freetype2": "2.14.3",
+      "raqm": "0.10.5",
+      "harfbuzz": "14.2.1",
+      "fribidi": "1.0.16"
+    },
+    "DejaVu": "Original explicit installed /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf, Book Version2.37 at11px; defaults to RAQM because available. Metrics ascent11,descent3; no explicit direction/features/language; default shaping/kerning/ligatures apply.",
+    "default": "Original no-font call resolves ImageFont.load_default(): embedded subset Aileron Regular Version1.102 at10px, explicitly BASIC. If FreeType absent original may choose other bitmap fallback; script does not pin dependency versions. This study defines current pinned12.3 original-provider oracle, not every historical installation.",
+    "kerning_evidence": "DejaVu11 AVATAR To fi ffi whole advance81.0, sum single characters86.1875, -kern86.0; complete label pixels and per-glyph masks pinned. Isolated glyph atlas/advances alone do not reproduce shaping/kerning/fractional placement.",
+    "Unicode": "Original source does not restrict names to ASCII. Accents, combining marks, CJK missing glyphs and Arabic bidirectional text are frozen original reference outputs. Do not narrow metadata to conceal backend gap.",
+    "assets": "222 individual glyph masks + offsets/advances in glyph-masks.raw/json;12 complete512x32 RGB label vectors; font files are reusable source-data fixtures. Per-label pixels are TEST ORACLES, not proposed production payloads.",
+    "licenses": {
+      "DejaVu": "Complete installed8816B copyright/license + TTF name records pinned; Bitstream/Arev notices and redistribution conditions apply, DejaVu changes public domain.",
+      "Aileron": "Embedded font name0 says No Rights Reserved; creator primary https://dotcolon.net/font/aileron/ redirects to /fonts/aileron/ and confirms unrestricted alteration/redistribution without warranty. Creator HTML/provenance pinned privately; no claim current creator download is byteidentical to Pillow subset.",
+      "Pillow": "Official12.3 MIT-CMU LICENSE pinned, retain notices if adapting source; no thirdparty production font/code was added."
+    },
+    "toolchain": "Current go.mod has no dependencies. No cached golang.org/x/image download directory was found in bounded probe. Existing system pkg-config does not provide raqm and HarfBuzz version differs from Pillow wheel; availability does not establish parity. No installs/execution/bridge added."
+  },
+  "existing_owner_assessment": {
+    "inspection": "Serena live session4adf9747 symbol+caller inspection, no snapshot activation; go-owner-inspection-pins.json binds inspected source snapshots only.",
+    "authorTexture": "Existing profile/pinning/dispatch/exclusive publisher can reasonably own finite presentation dispatch; no new per-script CLI or handler. Current input domain singleTXD/CMB; do not fabricate ISO semantics.",
+    "manifestTextures": "Already owns streaming source manifest/advisory facts/contained ZIP links. Can reasonably collect bounded thumbnails and add grouped-sheet/index stage for its source; original cross-archive collection/sort must also be explicitly supported before claiming whole original collection contract. Avoid redecode/global cache or unpinned directory scan.",
+    "resizeRaster": "Reuse existing exact NEAREST/LANCZOS pixels; caller computes thumbnail no-upscale/aspect dimensions. Nearest recurrence from prior supplemental contract mandatory. No new image-scaling helper justified.",
+    "pixelOver": "Reuse for opaque150/90 backgrounds; channel/paste equivalence frozen for actual opaque RGB destinations.",
+    "composeCells": "Can reuse coherent canvas composition/containment if receiving real layers; does not reasonably own archive grouping/link resolution. Do not invent dummy bitmap font just to paste thumbnails.",
+    "renderRuns_BitmapFont": "Current optical4x native full-cell and hand-designed binary-font paths do not implement FreeType hinting, RAQM/BASIC shaping or actualTTF masks. Do not substitute game font or per-label images. A real backend responsibility remains; no additional production function proposed before backend/cost/parity decision.",
+    "smallest_next": "First bind exact label backend/font-data strategy against frozen masks/whole labels, without narrowing Unicode; then grouping/paging/link orchestration reuses manifest lifecycle and existing pixel primitives. Flat90 variant is finite existing comparison-layout enhancement. No framework or per-provider engine required."
+  },
+  "malformed_original_facts": [
+    {
+      "name": "missing_png",
+      "exception": "FileNotFoundError",
+      "message": "[Errno 2] No such file or directory: '/var/tmp/dokapon-asset-contact-contract-yvafikb_/inputs/not-present.png'"
+    },
+    {
+      "name": "invalid_png",
+      "exception": "UnidentifiedImageError",
+      "message": "cannot identify image file '/var/tmp/dokapon-asset-contact-contract-yvafikb_/inputs/invalid.png'"
+    },
+    {
+      "name": "missing_entry",
+      "exception": "KeyError",
+      "message": "'entry'"
+    },
+    {
+      "name": "nonscalar_texture",
+      "exception": "TypeError",
+      "message": "'NoneType' object is not subscriptable"
+    }
+  ],
+  "new_guard_requirements": "Fail closed on missing/corrupt referenced pixels, wrong pinned font/source, malformed owned typed fields, invalid link path, duplicate output paths and work/page budget before publication. Do not claim original Python exception wording or partially written pages as meaningful successful behavior. Historical script has no such complete safety contract.",
+  "private_pack": {
+    "directory": "/var/tmp/dokapon-asset-contact-contract-yvafikb_",
+    "manifest_sha256": "39f2d0d857e563a1766d0a50c94ef96b7f7959f89d0758fa2ae88433a603271e",
+    "members": 139,
+    "member_bytes": 22748950,
+    "zip_path": "/var/tmp/dokapon-asset-contact-contract-yvafikb_/original-contact-oracles.zip",
+    "zip_bytes": 923743,
+    "zip_sha256": "584122c962cd00a258c4d726b3895fe566e15a19d6bef6975c1a4e2ca083c43e",
+    "expected_facts_sha256": "2a1e57000db14d4c0a94e6cbfef77dd1e73d8a27fa0876c36858e8706eb9c514",
+    "complete_outputs": [
+      {
+        "path": "before-after-1x.png",
+        "mode": "RGB",
+        "size": [
+          336,
+          160
+        ],
+        "raw_path": "before-after-1x.png.rgb",
+        "bytes": 161280,
+        "sha256": "dc103440ea33231ef91392c1f3aaf307be3055b2300be96c5a72fc6f063334a1"
+      },
+      {
+        "path": "before-after-3x.png",
+        "mode": "RGB",
+        "size": [
+          1008,
+          480
+        ],
+        "raw_path": "before-after-3x.png.rgb",
+        "bytes": 1451520,
+        "sha256": "c5deed88cc45b3e707d0b103a9ecc3390d8d773a39b94a3c6027c2990e5e793a"
+      },
+      {
+        "path": "sheets/A_ui_001.png",
+        "mode": "RGB",
+        "size": [
+          1440,
+          680
+        ],
+        "raw_path": "sheets/A_ui_001.png.rgb",
+        "bytes": 2937600,
+        "sha256": "5e425ea59500eb53f983d5afa65beca9f91a5c44c0ece90db87268306afd8ecd"
+      },
+      {
+        "path": "sheets/B_icons_001.png",
+        "mode": "RGB",
+        "size": [
+          1440,
+          680
+        ],
+        "raw_path": "sheets/B_icons_001.png.rgb",
+        "bytes": 2937600,
+        "sha256": "04b3df5f8cb057d83959bb946425a8bf0da5f7102b1f486774e993a786c4b6a9"
+      },
+      {
+        "path": "sheets/C_model-flagged_001.png",
+        "mode": "RGB",
+        "size": [
+          1440,
+          680
+        ],
+        "raw_path": "sheets/C_model-flagged_001.png.rgb",
+        "bytes": 2937600,
+        "sha256": "778d5f632ac693aa8a321ddbfe658b8e02d20c90ea42ca070cdc72408a090037"
+      },
+      {
+        "path": "sheets/D_event-bg-race_001.png",
+        "mode": "RGB",
+        "size": [
+          1440,
+          680
+        ],
+        "raw_path": "sheets/D_event-bg-race_001.png.rgb",
+        "bytes": 2937600,
+        "sha256": "68f79138f348f88353f429d349d9cc2f3518942973b5e8b0839bf173009b53d6"
+      },
+      {
+        "path": "sheets/boundary_001.png",
+        "mode": "RGB",
+        "size": [
+          1440,
+          680
+        ],
+        "raw_path": "sheets/boundary_001.png.rgb",
+        "bytes": 2937600,
+        "sha256": "c0b2aca88d8f436d3e82af5f435ac2c4274905b62c01a8d0582051f988eb50c7"
+      },
+      {
+        "path": "sheets/boundary_002.png",
+        "mode": "RGB",
+        "size": [
+          1440,
+          680
+        ],
+        "raw_path": "sheets/boundary_002.png.rgb",
+        "bytes": 2937600,
+        "sha256": "721b6bbc618f5efc5c57436588ab1d42294447bfd6e8d0a3184dce75f53b2f7c"
+      }
+    ]
+  },
+  "verification": {
+    "at": "2026-10-21T02:13:08.200360+00:00",
+    "complete_page_readbacks": 8,
+    "literal_inputs_preserved": 4,
+    "source_pins_rechecked": 3,
+    "explicit_manual_group_link_assertions": true,
+    "glyph_masks": 222,
+    "labels": 12,
+    "thumbnail_readbacks": 4,
+    "paste_formula_pairs": 262144,
+    "png_color_types_verified": 10,
+    "original_exceptions": 4,
+    "no_Go_or_project_modules_or_historical_main": true,
+    "no_protected_resources": true,
+    "production_files_written": []
+  },
+  "limits": "No Go/candidate/project module/historical main execution, no source art/ISO/canonical/protected runtime access, no implementation/dependency installs, no visual approval, retirement, family or milestone promotion. Full labelled responsibility remains open."
+}

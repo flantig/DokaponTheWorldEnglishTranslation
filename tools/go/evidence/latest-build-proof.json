@@ -1,0 +1,69 @@
+{
+  "verified_at": "2026-10-19T19:02:42.669028+00:00",
+  "scope": "Actual one-command latest49ab compiled artifact build, after two fresh independent reviews; no semantic/visual/fullmigration claim",
+  "command": [
+    "nice",
+    "-n19",
+    "bash",
+    "build-current.sh",
+    "../../iso/original/original.iso",
+    "/var/tmp/dokapon-go-latest-proof-ry3glw0p/current-mod.iso"
+  ],
+  "output": "/var/tmp/dokapon-go-latest-proof-ry3glw0p/current-mod.iso",
+  "size": 4243259392,
+  "stage_edit_counts": [
+    7,
+    1,
+    142
+  ],
+  "stage_source_sha256": [
+    "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "7ed45000fada45f969b79074ee2a4061353a604aa43c90bda58dc018def1f9bf",
+    "f1670b4417cd2af39ec6f021a32033589ce7285530f9ffc4f41603970d68e2c7"
+  ],
+  "stage_output_sha256": [
+    "7ed45000fada45f969b79074ee2a4061353a604aa43c90bda58dc018def1f9bf",
+    "f1670b4417cd2af39ec6f021a32033589ce7285530f9ffc4f41603970d68e2c7",
+    "49ab69ace2de5575dea17c3939d0f24280b03a05fb794b525a5ad4dab0041010"
+  ],
+  "actual_sha256": {
+    "original": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "shipping": "49ab69ace2de5575dea17c3939d0f24280b03a05fb794b525a5ad4dab0041010",
+    "output": "49ab69ace2de5575dea17c3939d0f24280b03a05fb794b525a5ad4dab0041010"
+  },
+  "output_equals_shipping_every_byte": true,
+  "source_unchanged_outside_declared_edit_union": true,
+  "declared_edits": 150,
+  "merged_intervals": 26,
+  "declared_union_bytes": 44577116,
+  "actual_changed_bytes": 4173391,
+  "uncovered_changed_bytes": 0,
+  "named_target_readbacks_verified": 143,
+  "protected_metadata_pins": {
+    "/home/franklinl/Documents/Dokapon World Mod/registry/string-registry.json": {
+      "bytes": 6352646,
+      "sha256": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6"
+    },
+    "/home/franklinl/Documents/Dokapon World Mod/extracted/glyphmap.json": {
+      "bytes": 20646,
+      "sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d"
+    }
+  },
+  "review_snapshot_sha256": "428a5061ae1ea6f3b7d5e0a890e0d4095d124322463224052bee5f891329825b",
+  "all117_snapshot_and_external_pins_rechecked_unchanged": true,
+  "independent_reviews_sha256": {
+    "evidence/latest-build-review-a.json": "8a2496c65befb78b91b420ae2f1e31e2f6ed7a1867ff116fb7063b302c6c1ba3",
+    "evidence/latest-build-review-b.json": "aae1b2a7bbc28e68ac25fe0bbab25bb6e9eb8fc357e040c2c75c38d9fa5ac6a7"
+  },
+  "actual_log_sha256": "3b8b506277c0a5667e241fcc81eb3361b99e3e5e6f8cb3543526d54da5efe824",
+  "output_identity": {
+    "device": 35,
+    "inode": 93165979,
+    "mtime_ns": 1792436517017315104
+  },
+  "limits": [
+    "Frozen executable/assets reproduce current mods but do not make every modification semantically editable.",
+    "No emulator/PINE, gameplay, visual ink or new410path retirement claim.",
+    "Snapshot copy mode and3supplemental test dependencies disclosed by reviewers; live modes and golden fixture hashes verified."
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "schema": "observed-reference-ordinary-review-v1",
+  "at": "2026-10-20T23:26:14.333364+00:00",
+  "result": "PASS_NO_OPEN_FINDINGS",
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "input_types.go": "c1e7e83821048514cbfe63e99df0a2823b9da5183692bacb8d051684100318f7",
+    "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+    "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a",
+    "patch_test.go": "2204156b982bd33a4e1d54ca81fd58e0afe367a9b57fb5780da77820a44ed6b3",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "reference_geometry.go": "4c2c8584cd36925fb4f555e93ccdb986641b0755efe1983b8c13fcec18d8cffa",
+    "reference_types.go": "391a83361aa3bf939916fcf9d72c54eb689f13eeb036146695c7520f5e6647c0",
+    "references.go": "e62276a7e71fa16a53c55a4e04bd20931ff4d747b06752b2542ddde026cc311d",
+    "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+    "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "stream_audit.go": "d2a29c23ea5f1c26300ce259358507d30783752b8ad54f6a59830de7fdb7055f",
+    "stream_audit_types.go": "30f107b0c504f3aa1adadd96107ab63ed73803da5f91846373852a3765542072",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/observed-references.json": "f34325dd9a14f36dcf9b08908eba61d3fcb2e82a934ed2b7c8b802769098dd39",
+    "recipes/reports/observed-references.json": "c945c77063ffdc5c464f0472021c6ff78cea0da0b769daf3faf02202e227c608",
+    "testdata/runtime-tables.json": "aba9bbf37875beb581909bf6b4256ab3c89e50e1a934ec220b2f9a9153418843"
+  },
+  "all35_final_pins_held": true,
+  "findings": [
+    {
+      "id": "OBS-CLI-1",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "initial_problem": "reference_observed with forbidden --glyphmap returned a shared diagnostic saying registry and glyphmap were required.",
+      "counterexample": "/var/tmp/dokapon-observed-review-jGXH6tWd/diagnostic.json",
+      "counterexample_sha256": "7440a3d42d31afc2daf77ad9a8807c6c877190a5a1895afcd97015925856e599",
+      "fix": "Observed-specific message in existing failed guard; old advisory message retained. Existing CLI foreign-input table asserts the new diagnostic.",
+      "closure": "Rebuilt final binary refuses with glyphmap and writes are forbidden; reversing only this production addition reconstructs prior reviewed main.go SHA. Old advisory normal and refused stdout/stderr/exit remain exact."
+    }
+  ],
+  "assessment": [
+    {
+      "area": "Shared geometry/observed interpretation",
+      "result": "Two pure extractions are justified: normalizeReference immediately serves expected planning, append and reporting; referenceTarget shares append exact opcode/register/signed-low interpretation with report. Expected planning stays read-free and constructs expected words itself. Consumer ranges, convergence, overlap, scope and append write policy remain caller-owned. No extra framework or duplicated instruction decoder.",
+      "sources": [
+        "reference_geometry.go:8",
+        "reference_geometry.go:50",
+        "patch.go:907",
+        "patch.go:1257",
+        "references.go:106"
+      ]
+    },
+    {
+      "area": "Observed facts and mapping",
+      "result": "Family selection preserves each site ordinal, readable nullable words, exact4B mappings, target scalar and independent1B target mapping. Repeated sites remain repeated, unique targets preserve source order, divergent rows are explicit. Partial file/BSS words never become fabricated zeros; one readable code word remains visible when its partner is unavailable. No ID/landing fallback. Full inspect source is unchanged from baseline.",
+      "sources": [
+        "references.go:83",
+        "references.go:104",
+        "references.go:132",
+        "references.go:151",
+        "references.go:185"
+      ]
+    },
+    {
+      "area": "Inputs/safety",
+      "result": "New recipe owns only explicit source/registry/evidence/family fields, rejects aliases/duplicates and forbids glyphs, composition and writes. Source/registry/profile pins, size/type and pre-output rereads/identity checks are retained. Full-registry Unicode-scalar validity is a deliberate strict input domain; unknown nested metadata otherwise remains opaque. Selected entries/sites<=256 and mapper queries remain bounded.",
+      "sources": [
+        "main.go:111",
+        "main.go:214",
+        "main.go:279",
+        "references.go:26",
+        "references.go:50",
+        "inputs.go:77"
+      ]
+    },
+    {
+      "area": "Compatibility and deliberate policy",
+      "result": "Independent old/new advisory stdout/stderr/exit exactly match for positive report and missing-glyph refusal. Existing focused PlanAndCopy/PlanRefusals pass. Append now deliberately refuses unused struct coordinates on pointer_array; no other range/convergence/overlap/guard policy moved into helpers. Root frozen crawl0/3868 supports this chosen tightening; reviewer did not read canonical registry paths. Runtime catalog repair retains all51 old hashes and adds5 report profiles; all56 current hashes verify."
+    }
+  ],
+  "verification": {
+    "final_focused_tests": {
+      "owners": [
+        "TestCLIDryRunAndApply",
+        "TestPlanAndCopy",
+        "TestPlanRefusals"
+      ],
+      "result": "PASS5.084s -count=1 -p2"
+    },
+    "build_vet_gofmt_tracked_and_manual_untracked_whitespace_selfchecked_credentials": "PASS",
+    "private_expected_no_read_probe": "PASS4.628s existingCLI owner overlay; plan(pointer_check, nil ReaderAt) returns expected guards for ID/landing literal vectors. Same helper/plan source pins remain in final35; subsequent production delta is diagnostic-only.",
+    "independent_probes": {
+      "cases": 11,
+      "positive_details": "Repeated/divergent sites, partialBSS codeword, target0xffffffff with exclusive mapping end2^32, opaque nested duplicate/case-like keys and typed values, unselected site aliases.",
+      "refusal_details": "Owned aliases/escaped duplicate ID, source/registry pins, apply; lone surrogate globally refuses under declared new domain.",
+      "preservation": "Synthetic inputs retain bytes/inodes/mtimes; no forbidden output."
+    },
+    "catalog": {
+      "old51unchanged": true,
+      "all56hashes_match": true,
+      "added_profiles": [
+        "recipes/reports/code-references.json",
+        "recipes/reports/elf-layout.json",
+        "recipes/reports/observed-references.json",
+        "recipes/reports/registry-export.json",
+        "recipes/reports/registry-status.json"
+      ]
+    },
+    "native_private_facts": {
+      "profiles": 2,
+      "IDs": 4,
+      "sites": 9,
+      "words": 18,
+      "result": "Full geometry/ordinals/words/signed targets/site and target mappings/summaries match independent native facts; final binary normal report bytes unchanged.",
+      "contract": "analysis/observed-reference-native-contract.json",
+      "contract_sha256": "e3f08cb10ac93c36b3a76ff68933c80c546406e4b9e15df149c9b2ee8d43bf5c",
+      "qualification": "Native facts frozen after code, before candidate execution; only earlier permitted private ELF/registry copies read. File-backed IDs and owner-polish0408b460unmapped scalar remain separate from content/liveness proof."
+    },
+    "precode_bindings": "9 independent pack files and12 baseline source pins verified."
+  },
+  "source_contract": {
+    "path": "analysis/observed-reference-contract.json",
+    "sha256": "8dd35e84ca4e5db2f983b02706470fc1336c3a877bf09d49841cc0fdb2e11d86"
+  },
+  "reuse_decision": {
+    "path": "analysis/observed-reference-reuse-decision.json",
+    "sha256": "a9bd5448b1828ed358b4337ea5cec46c8eb99b38f4700d1ba4eb28b198bdbbd6"
+  },
+  "private_evidence": [
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/final-pins.json",
+      "sha256": "c900aa4ee1784cfb2c2731ae06a25626f16c00754a0f1f4a7c251cbe8c401675"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/catalog-pins.json",
+      "sha256": "d460012a4dcb1517a8cf691e7190352881f225e42b0782e7c73c86858acdd7ac"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/checks-pre-diagnostic.json",
+      "sha256": "edc15dc7161cf6a8d0954aa0f1f8373f585b96273d06a44d18bfac59b684a7ff"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/final-checks.json",
+      "sha256": "7f4d899477ce5af0841a16400a2eb9c07a6275b43378cca73b60206784879302"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/probe.py",
+      "sha256": "58365f2b38eb379d0b8136a262ae426a70b61a0867f08effa262823d1985bfe4"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/probes.json",
+      "sha256": "144da7a87f5da24a33f2212e55159191342d158bcbfe46fb4aaeb2b03d12d9f0"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/native-checks.json",
+      "sha256": "d974bc4242ecd39c629411bd3adaf2302a6bb66903527c552f6923781eee77af"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/sharing-check.json",
+      "sha256": "ef336a3c997603a4f5d75b2f531fd7f5bef26f3d9974aa0e56e134e88493892a"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/overlay.json",
+      "sha256": "c47ce58c3c4f537dbd36396c8d206920e15305c6221ba1a60e5b20d156723ce7"
+    },
+    {
+      "path": "/var/tmp/dokapon-observed-review-jGXH6tWd/no-read-overlay_test.go",
+      "sha256": "354730068831991e1c764c09cfed42669ffa06dcaf585956f4c449cd0e91bc77"
+    }
+  ],
+  "limits": [
+    "Focused tests/probes only; no fullsuite/race/exhaustive campaign, family/script promotion or approval.",
+    "Resolved means declared words interpreted, even for unmapped targets;1B target mapping is not a complete stream extent, reference discovery, liveness, safe placement, content/fit or runtime authority.",
+    "Only assigned evidence/private scratch written. No production/test/recipe/sourcecontract/coverage/account/goal edits, projectPython execution/imports, ISO/canonicalpath/emulator/PINE/controller/process/log/settings/control access."
+  ]
+}

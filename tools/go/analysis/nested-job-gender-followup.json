@@ -1,0 +1,381 @@
+{
+  "at": "2026-10-20T20:09:10.921137+00:00",
+  "decision": "ACTOR-GENDER remains NOT CLOSED universally. Defaults proved; normal selection producer now bound to exact2x1 cursor and delegated update, conditional on cursor/ownership invariant. Concrete save-buffer bulk ingress requires upstream value provenance/validation closure. No A000 enablement or new API authorized.",
+  "scope": "Read-only ACTOR-GENDER followup only; parent owns JOB-INDEX. No game/project Python imported or executed; no ISO/canonical registry/runtime/emulator/process/settings access. Only frozen native ZIP statically parsed; Capstone reading aid, decisive standard instruction fields asserted.",
+  "elf": {
+    "zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "member_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "bytes": 5087232,
+    "vma_delta": "0xfff80"
+  },
+  "positive_paths": [
+    {
+      "id": "DEFAULTS",
+      "facts": "367e30 clears byte6 of all four32B charcreate records at offsets6,26,46,66. With supported0<=human_count<=4,367f18..50 writes literal1 only to odd-index CPU records from human_count..3. These record gender bytes are0/1; no mask inference from other consumers.",
+      "caller": "367ad8/367ae0 obtains records via gp+3274 and calls367e30(records,count). Record allocation3678cc..dc requests0xc4 bytes, stores resulting pointer gp+3274. Count source remains normal count-selector dependency; no arbitrary inputcount claim."
+    },
+    {
+      "id": "NORMAL-GENDER-MENU",
+      "facts": "New computed-offset writer36aed0 sb v0,2(s1). Both observed direct callers3699bc and369c00 pass record+4;369bf0..c04 computes records+32*record_index+4. Therefore the write targets charcreate byte6. 36aec0 skips write when result statuszero (cancel); nonzero path gets current flattened cursor index via28dd40 and writes low8 bits without range check. Cancel preserves priorbyte; retry reopens with priorbyte.",
+      "constructor": "36ae44 reads prior gender into t2;36ae50 a2=2;36ae60 t1=1;36b9e0 builds params initialindex at+4, total/visibleX2 at+a/+e,total/visibleY1 at+c/+10. 28e510 calls28dfe0;28e080..9c copies dimensions into object+0/+1/+2/+3, then28e0c4 invokes common setter with initialindex. Thus gender menu is2x1 with supplied priorgender, not a generic unbounded list.",
+      "callback": "36ae68 obtains original callback through28d980, saves it at records+84;36ae80 installs36af30 through28d9a0. 36af30 calls saved callback and performs highlight writes using selected coordinate; no coordinate/genderstore in this wrapper. Parent owns deeper common input update proof.",
+      "conditional_result": "If initialgender0/1 and shared cursor update/ownership remains within2x1, every confirmed normal store remains0/1. This report does not silently convert constructor dimensions into universal cursor-writer closure."
+    },
+    {
+      "id": "ACTOR-COMMIT",
+      "facts": "36810c LB(record+6),368114..120 addressactor=56bed0+508*permuted_actor,368124 SB(actor+175). Sign extension is discarded by byte store; ALL256 input byte values are preserved, not normalized. Writer4-record loop at368218..28 advances record32 and permutation-slot4. One observed direct caller367c38 passes same records.",
+      "index_qualification": "GP from .reginfo536bf0;gp+2a30 table539620 containsu32[0,1,2,3]. Raw R5900 load/store words367f88=7b822a30,367f94=7c620000 were observed but not used as proof of LQ/SQ semantics; permutation/random-return proof is outside this gender closure."
+    },
+    {
+      "id": "TEMPORARY-ROUNDTRIP",
+      "facts": "2b5e90 truebranch copies four508B actorrecords into56f8c8+508*i; falsebranch2b5f80..a8 copies them back, including+175. It preserves whatever values were captured; no binary normalization. Observed direct callers2b4b3c and2b4ef0. Their wider workflow/provenance is not claimed closed. Capture caller2b4b38 supplies literal1;restore caller2b4ef4 delay-slot supplieszero. This pair is a value-preserving temporary return path conditional on captured actor validity, not a new 0/1 producer."
+    }
+  ],
+  "concrete_remaining_gaps": [
+    {
+      "id": "SAVED-BUFFER-INGRESS",
+      "facts": "2c2b90 gets a selected buffer pointer from [a0+4*selected+0xc];2c2be0..c00 copies4*508B to actors56bed0+508*i frombuffer+0xd44+508*i. Gender source byte isbuffer+0xeb9+508*i. No per-field validation or normalization in this function. Reverse2c2c90 (called2c2b5c) serializes actors to same layout. Loadcaller2c1c10 supplies parentbuffer+selected.",
+      "hook": "103950 jumps4ad070: only remaps source addresses in04000000..040fffff via427798; ordinary savebuffers outside this range are unchanged. 103958..9fc includes bytecopy path with rawLBU/SB. No assumption that hooked memcpy has uninspected old semantics.",
+      "local_counterexample": "For a function inputbuffer outside04000000..040fffff,16Baligned,bytebuffer+eb9=2,first actor copy has unalignedsource(+d44) and uses standard bytecopy branch; it stores actor+175=2. This is a static FUNCTION-LOCAL counterexample to local range checking, not evidence an accepted normal save actually contains2. Need prove accepted save-load buffers originate from0/1-normal producers or validators reject otherbytes, including oldsave/dynamic ingress.",
+      "blocker": "Upstream selected-buffer loading, integrity/version validators and source-value provenance not closed within bounded study. Checksum integrity alone, if found, would not imply gender domain.",
+      "serialized_gender_offsets": [
+        "0xeb9",
+        "0x10b5",
+        "0x12b1",
+        "0x14ad"
+      ]
+    },
+    {
+      "id": "ALIAS-WRITER-COMPLETENESS",
+      "facts": "Exact aligned SB immediate175 finds only368124; no matching stores with immediatec045. This does NOT exclude computed offsets, pointeraliases, wider stores, bulk restore or indirect callbacks. Fresh normal writer36aed0 and bulkloader2c2be8 demonstrate why the prior direct-offset uniqueness cannot prove completeness.",
+      "bounded_scan": "Recorded751 aligned ADDIU-immediatebed0 reference leads and84 c045 pointer leads as private reading aids, not751 verified producers. Only selected coherent contexts were examined. No complete whole-program aliasanalysis asserted."
+    },
+    {
+      "id": "CURSOR-OWNERSHIP",
+      "facts": "No direct JAL28e2d0 in charactercreation span367880..36bd64; constructor28dfe0 calls it for initialization. Exact direct targets alone do not exclude computed setters/otheralias writes. Parent common cursor proof may discharge update invariants, but all normal producer/ownership closure still must be explicit."
+    }
+  ],
+  "caller_scans": {
+    "0x28e2d0": {
+      "all_calls_count": 7,
+      "charcreate_calls": [],
+      "calls": [
+        "0x28e0c4",
+        "0x2b2690",
+        "0x350904",
+        "0x350e54",
+        "0x3513d4",
+        "0x351e40",
+        "0x352ca0"
+      ]
+    },
+    "0x28d9a0": {
+      "all_calls_count": 4,
+      "charcreate_calls": [
+        "0x36ae80"
+      ],
+      "calls": [
+        "0x24e964",
+        "0x24ea5c",
+        "0x2719c4",
+        "0x36ae80"
+      ]
+    },
+    "0x28d170": {
+      "all_calls_count": 22,
+      "charcreate_calls": [],
+      "calls": "parent owns generic auto cursor"
+    },
+    "0x367880": {
+      "all_calls_count": 2,
+      "charcreate_calls": [],
+      "calls": [
+        "0x3669f0",
+        "0x366a60"
+      ]
+    },
+    "0x36abd0": {
+      "all_calls_count": 2,
+      "charcreate_calls": [
+        "0x3699bc",
+        "0x369c00"
+      ],
+      "calls": [
+        "0x3699bc",
+        "0x369c00"
+      ]
+    },
+    "0x367f60": {
+      "all_calls_count": 1,
+      "charcreate_calls": [
+        "0x367c38"
+      ],
+      "calls": [
+        "0x367c38"
+      ]
+    },
+    "0x2c2b90": {
+      "all_calls_count": 1,
+      "charcreate_calls": [],
+      "calls": [
+        "0x2c1c10"
+      ]
+    },
+    "0x2c2c90": {
+      "all_calls_count": 1,
+      "charcreate_calls": [],
+      "calls": [
+        "0x2c2b5c"
+      ]
+    },
+    "0x2b5e90": {
+      "all_calls_count": 2,
+      "charcreate_calls": [],
+      "calls": [
+        "0x2b4b3c",
+        "0x2b4ef0"
+      ]
+    }
+  },
+  "raw_word_assertions": {
+    "path": "/var/tmp/dokapon-gender-native-7vc6uzvz/decisive-standard-words.json",
+    "sha256": "f58622af427946a131c57c73937283ffc9469b2260eaec12c18cbef2f3833d19",
+    "count": 38,
+    "method": "Little-endian u32 equality plus opcode/register/immediate fields. Branch delay slots included in nativeblocks. No Capstone DSP/MSA/LQ/SQ labels treated as standard MIPS proof."
+  },
+  "native_blocks": [
+    {
+      "role": "charcreate-allocation",
+      "start": "0x367880",
+      "end_exclusive": "0x3678f8",
+      "bytes": 120,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/charcreate-allocation.bin",
+      "raw_sha256": "3061a9f74b872567ae32d637bc125468f8d00f08684384e8bb02b66d7d9ca2e9",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/charcreate-allocation.txt",
+      "disassembly_sha256": "9330f33524bb992f96de01a6d07571950fce096d9073c10ae4704910bd2e2869"
+    },
+    {
+      "role": "charcreate-states",
+      "start": "0x367a50",
+      "end_exclusive": "0x367c58",
+      "bytes": 520,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/charcreate-states.bin",
+      "raw_sha256": "7e5fb4abd3732936d78ba6398ff30325c8f73b740c13ba97522a05eebaf6b0b8",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/charcreate-states.txt",
+      "disassembly_sha256": "7e166dceace6ca2f7b3776da425243977d1592285d76185298cd7fe73887ae35"
+    },
+    {
+      "role": "gender-defaults",
+      "start": "0x367e30",
+      "end_exclusive": "0x367f60",
+      "bytes": 304,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-defaults.bin",
+      "raw_sha256": "b23e9efca41c10a0604edea00c2b570a16626ff858ebcecdc3deaed3062e2979",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-defaults.txt",
+      "disassembly_sha256": "76222084b5081aefa736445d426499b14ced73d9be4b10f63bf4d283027457dc"
+    },
+    {
+      "role": "gender-actor-commit",
+      "start": "0x368104",
+      "end_exclusive": "0x368128",
+      "bytes": 36,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-actor-commit.bin",
+      "raw_sha256": "789da875058d6147fc690dca59e4ac32439c6f2c57a5cc4e5e7ef4f1aa41666e",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-actor-commit.txt",
+      "disassembly_sha256": "281f4f52f790383f79834d1ff77d6745a730272b35a52ad80fa7671236df2a60"
+    },
+    {
+      "role": "gender-user-producer",
+      "start": "0x36abd0",
+      "end_exclusive": "0x36af30",
+      "bytes": 864,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-user-producer.bin",
+      "raw_sha256": "b4d1d8e7d6e7b277410b41f19fe5639c8ce03f265b864a19194cf417401326b2",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-user-producer.txt",
+      "disassembly_sha256": "24e55ac95f33540f55621a69217779fde25c88ad0fd3efab0b4c0686e7fa57d1"
+    },
+    {
+      "role": "gender-record-caller",
+      "start": "0x369bf0",
+      "end_exclusive": "0x369c34",
+      "bytes": 68,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-record-caller.bin",
+      "raw_sha256": "62e0b4ec95b3163aa444e5f036e66a1f67380e62666f67d1c5d45ac2f9b5dfdb",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-record-caller.txt",
+      "disassembly_sha256": "e8c9bb6eb1b51ccc9d86319955ef7cb22127c07a99ba354998c7080c3edb57a1"
+    },
+    {
+      "role": "gender-retry-caller",
+      "start": "0x3699b8",
+      "end_exclusive": "0x3699cc",
+      "bytes": 20,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-retry-caller.bin",
+      "raw_sha256": "1e799a6a371b9f7efff0762dcfd5f368bfabac0ac8038282860e5d788bbf13d8",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-retry-caller.txt",
+      "disassembly_sha256": "d2d1410be4c2bf85d9b28937ad69ab84b8f76a7cb00888df8d69c228e0c81732"
+    },
+    {
+      "role": "gender-menu-grid-params",
+      "start": "0x36b9e0",
+      "end_exclusive": "0x36ba84",
+      "bytes": 164,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-menu-grid-params.bin",
+      "raw_sha256": "0eea367a053223abc17f3c61d5167d9e404344e6f81c58bb46bb0dacefc24562",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-menu-grid-params.txt",
+      "disassembly_sha256": "b31b32b629e12cb52bbe464b17ff1ac3b8f58f5dd4d07ec0d86ff756e9e406c5"
+    },
+    {
+      "role": "gender-menu-cursor",
+      "start": "0x28e510",
+      "end_exclusive": "0x28e5d0",
+      "bytes": 192,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-menu-cursor.bin",
+      "raw_sha256": "8cae19a162a74657c8f082eccd62806857d4d93dab4ff2582a09943892fed123",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-menu-cursor.txt",
+      "disassembly_sha256": "6a0bd4da05c467fb66623c10cc382e2230654c60562f62f856fd277ae8d2ce95"
+    },
+    {
+      "role": "cursor-parameter-transfer",
+      "start": "0x28dfe0",
+      "end_exclusive": "0x28e0cc",
+      "bytes": 236,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/cursor-parameter-transfer.bin",
+      "raw_sha256": "db460e381be401f6429ab1a429cac4a263e91413205ce77490cb32fefa373931",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/cursor-parameter-transfer.txt",
+      "disassembly_sha256": "f9cdc6c468a87b3438804c403514d47200a98666f876e46d1574a8be436e970f"
+    },
+    {
+      "role": "gender-display-callback",
+      "start": "0x36af30",
+      "end_exclusive": "0x36afbc",
+      "bytes": 140,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-display-callback.bin",
+      "raw_sha256": "0852865a17b55e63b83139938f19961f16f8511eea0a3af1e408f6d3ce837776",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/gender-display-callback.txt",
+      "disassembly_sha256": "3dfff04f3c586e22b6ac3c700ef5a769804b4b062fce020cdb682933305f1dc2"
+    },
+    {
+      "role": "actor-save-load",
+      "start": "0x2c2b90",
+      "end_exclusive": "0x2c2da0",
+      "bytes": 528,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-save-load.bin",
+      "raw_sha256": "29dd3d83158b016cb8c39ab92b279836cf9ebf1c3ca348cbcdc7fbda972d46c9",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-save-load.txt",
+      "disassembly_sha256": "a76663d12bc26454123567277ed2475f358a457c2ab6252f3ff25b2534196607"
+    },
+    {
+      "role": "actor-load-caller",
+      "start": "0x2c1c08",
+      "end_exclusive": "0x2c1c58",
+      "bytes": 80,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-load-caller.bin",
+      "raw_sha256": "71e67548e95ae403b1fd5b3d9d022e9921c993887c73f1475e025e3a03b59f85",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-load-caller.txt",
+      "disassembly_sha256": "cd78ba159773b864c2642f16fe11b23cc9637b41facd3ff149f2cae5d252729b"
+    },
+    {
+      "role": "actor-temporary-roundtrip",
+      "start": "0x2b5e90",
+      "end_exclusive": "0x2b5fd0",
+      "bytes": 320,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-temporary-roundtrip.bin",
+      "raw_sha256": "ed3f58484ef131efa064acc719f5662e3e92d70849e4daeec8f94207c96f76ab",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-temporary-roundtrip.txt",
+      "disassembly_sha256": "10eda46c8e8286b6372547cc193e3798081acf036e95bde4cc3c7741ad918387"
+    },
+    {
+      "role": "copy-source-hook",
+      "start": "0x4ad070",
+      "end_exclusive": "0x4ad098",
+      "bytes": 40,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/copy-source-hook.bin",
+      "raw_sha256": "7ca30907959d2c3b9d2d7e52f8aeb99a30928bf62713951c95586656a5a388ec",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/copy-source-hook.txt",
+      "disassembly_sha256": "88d37b6021c7f00ae85809796e96ef1880b4abc48d81f7af9ac8c18740663424"
+    },
+    {
+      "role": "copy-scalar-path",
+      "start": "0x103950",
+      "end_exclusive": "0x103a00",
+      "bytes": 176,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/copy-scalar-path.bin",
+      "raw_sha256": "e5ef8b75e38124347470ec671c967d5e093b45990f02ff7b8ca24aba037f8cd4",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/copy-scalar-path.txt",
+      "disassembly_sha256": "32018ff0046b6d2ccf92c82ed336b9656c47d3d0f2d4ee2dc18637acce35536d"
+    },
+    {
+      "role": "actor-gender-job-reader",
+      "start": "0x2decb0",
+      "end_exclusive": "0x2ded18",
+      "bytes": 104,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-gender-job-reader.bin",
+      "raw_sha256": "9dbc720e9c2f439de660f0894801f07c0c655b4a9536cf60fa8d0c6d746e2fc7",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/actor-gender-job-reader.txt",
+      "disassembly_sha256": "8e0c9ff06c3d6d4e0f1f8bb401b5e5b6096418f2c2de2fdc0d046b8f22e517c5"
+    },
+    {
+      "role": "callback-accessors",
+      "start": "0x28d980",
+      "end_exclusive": "0x28d9b0",
+      "bytes": 48,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/callback-accessors.bin",
+      "raw_sha256": "aebf5341a3aab2313f4dceb18d4ce5287780cf1bc77df7793ae4efd275a4483d",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/callback-accessors.txt",
+      "disassembly_sha256": "cc8107405e5fac4e984560bd759d11ac06d3da32d62b79fe3d76e10bf2087037"
+    },
+    {
+      "role": "temporary-capture-caller",
+      "start": "0x2b4b28",
+      "end_exclusive": "0x2b4b44",
+      "bytes": 28,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/temporary-capture-caller.bin",
+      "raw_sha256": "7cd745c1c3d5c8104fcf78f0a68dda68d9463e9b311f6c66965052aa0ca94309",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/temporary-capture-caller.txt",
+      "disassembly_sha256": "5323b72e4531d8e870c630f4d8ef693518cc3ecf0a3f051fe28d1fa3ee2ddcde"
+    },
+    {
+      "role": "temporary-restore-caller",
+      "start": "0x2b4ee8",
+      "end_exclusive": "0x2b4f00",
+      "bytes": 24,
+      "raw_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/temporary-restore-caller.bin",
+      "raw_sha256": "f59a93f6607abcf971c281cc94dbf53181c7be731fe6019be31b589618f09ac9",
+      "disassembly_path": "/var/tmp/dokapon-gender-native-7vc6uzvz/temporary-restore-caller.txt",
+      "disassembly_sha256": "2965d96454e311d6777bad0b0f5a71adf0436baa53cab88d0115bbd417ca49dd"
+    }
+  ],
+  "private": {
+    "directory": "/var/tmp/dokapon-gender-native-7vc6uzvz",
+    "byte_examples": {
+      "path": "/var/tmp/dokapon-gender-native-7vc6uzvz/byte-preservation-examples.json",
+      "sha256": "e26efa9491a1bb4ac53f33e57c411c9a97386c7710a7b52e4b7c27e87baa0ef8"
+    },
+    "GP_reginfo": {
+      "path": "/var/tmp/dokapon-gender-native-7vc6uzvz/reginfo.raw",
+      "sha256": "0fb48ca07a2a3b8f1c20807f2fd30acecdc7db113590ae17439aa8618d893cc7"
+    },
+    "permutation_table_observation": {
+      "path": "/var/tmp/dokapon-gender-native-7vc6uzvz/commit-order-table.raw",
+      "sha256": "baed642339816affb3fe8719792d0e4ce82f12db72b7373d244eaa65445800fe"
+    }
+  },
+  "input_pins": {
+    "analysis/nested-job-producer-contract.json": {
+      "sha256": "3df198a33b33bc4e44dc22c319acfe65e1b39c078b923cf17df1de227ad5e42d",
+      "bytes": 18986
+    },
+    "analysis/nested-text-expansion-reuse-contract.json": {
+      "sha256": "cd98b88931a17ef85022c895c92a35139be5c19fabe2459f0f173112c0e0cf6a",
+      "bytes": 19253
+    },
+    "assets/executable-49ab69ac.zip": {
+      "sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+      "bytes": 1556601
+    }
+  },
+  "verification": "ZIP/member fullSHA/size verified;38 decisive standardwords rawasserted;20 rawblocks and their reading-aid disassemblies pinned;all256 LB/SB bytepreservation follows low8-bit identity (six explicit boundary examples frozen). No native execution, no projectPython import, no tests/build/fullsuite or runtime claims. Only owned analysis JSON and private scratch created.",
+  "conclusion": "Keep unknown nested A000 refusal and existing metric behavior. Conditional new-character0/1 path is substantially narrowed, but no complete all-normal/restore runtime-domain proof. Strongest actionable next evidence is accepted save-buffer producer/validator closure plus shared cursor/ownership result, not another catalog sample or new schema."
+}

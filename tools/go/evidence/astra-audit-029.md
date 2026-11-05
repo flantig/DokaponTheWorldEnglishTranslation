@@ -1,0 +1,12 @@
+# Astra audit 029 — shared parsing and read-only exports
+
+No reproducible new functional defect or concrete unnecessary helper was established in this bounded static review. This supplies findings only; it grants no integration, application, retirement or coverage approval.
+
+The new structural parser has two real callers (`texture.go:32`, `texture_authoring.go:89`) and owns the shared TXD envelope/name/header facts once. Selected codec checks remain separate from raw inventory. Registry additions and export share document/ID/Unicode validation and exclusive publication (`registry_authoring.go:28–646`). The owner is now 650 lines and its mode guards deserve scrutiny, but size alone does not justify a new function or framework. CSV quoting preserves embedded CR/LF deliberately; scalar truthiness and unsupported container/float refusals are explicit. ELF mapping (`patch.go:1551–1660`) distinguishes initialized file backing, BSS and unmapped ranges without claiming safe placement or runtime ownership. No duplicated parser or unsupported savings claim was demonstrated.
+
+All 332 current manifest members and 175 previous snapshot members hash-check. Current source pins also match the worktree. Both snapshot manifest hashes and every current Go/module pin are in the JSON report. All accounting item hashes/sizes and group totals were independently checked; the high-confidence credential-pattern scan of frozen Go source found no matches. Serena caller analysis was cross-checked against frozen source. Audit028’s stale registry owner guidance is corrected at `ARCHITECTURE.md:151`.
+
+Since audit028, production grows from 26 files / 259,491 bytes / 28 named functions to 27 / 276,580 / 29: **+17,089 production bytes**. Complete runtime accounting grows from 94 files / 731,954 bytes to 97 / 750,233: **+18,279 bytes**. Test source grows separately by 35,585 bytes to 433,455. These are capability costs; no historical retirement or net reduction follows. Coverage remains 5 Full / 9 Partial of 14 (35.71% Full); narrowly available entrypoints do not establish complete parity.
+
+Skipped: independent builds/tests/vet/race/dynamic probes, canonical CSV replay and exhaustive historical behavior. Root’s focused execution receipts are not this auditor’s test runs; the integrated suite remains deferred.
+Risk: bounded negative findings establish neither arbitrary-input correctness nor real-image, visual, runtime or gameplay safety. No protected resources were accessed; only the two requested audit reports were added to the repository.

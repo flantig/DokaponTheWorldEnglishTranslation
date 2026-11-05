@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "audit": "043",
+  "role": "Purely adversarial read-only Astra challenger; findings/advice only, no implementation, approval or coverage authority",
+  "started_at_utc": "2026-11-05T00:02:37+00:00",
+  "finished_at_utc": "2026-11-05T00:06:12.193488+00:00",
+  "next_due_at_utc": "2026-11-05T02:02:37+00:00",
+  "cadence": "Prior042 start22:01:40UTC; scheduled due00:01:40UTC. This audit began57seconds after due. Earlier raster preflights are separate and did not reset the cadence.",
+  "status": "COMPLETE_NO_NEW_CONFIRMED_ACCEPTED_CODE_FINDING_KNOWN_PRIVATE_FINDING_RETAINED",
+  "accepted_findings": [],
+  "findings": [
+    {
+      "id": "PRM-WIRE-SHADOW-1",
+      "severity": "HIGH",
+      "scope": "Unpublished frozen670 permission prototype only; already reported by ordinary reviewer and accepted for correction by root, not a new audit discovery or accepted665 regression",
+      "locations": [
+        "/var/tmp/dokapon-rounded-permission-jtbvggtz/review-source/texture_authoring.go:37-47",
+        "/var/tmp/dokapon-rounded-permission-jtbvggtz/review-source/texture_authoring.go:166-182"
+      ],
+      "counterexample": "In an otherwise valid export profile, append duplicate root members render:{permissions:{path:...,size:...,sha256:...},reconstruction:{...}} followed by render:null. Typed decoding leaves profile.Render nil; the map used for later validation loses the first duplicate as well. The new guard is itself inside profile.Render!=nil, so the resource request disappears and execution reaches export instead of refusing. Ordinary reviewer confirmed this behavior; this audit independently inspected the frozen control path but did not execute Go.",
+      "minimal_direction": "Before relying on the decoded Render pointer or a duplicate-collapsing map, validate the relevant raw root render ownership and its new resource request. Reuse checkJSON for canonical aliases/duplicate/null semantics; do not create a second JSON parser. Cover resource-then-null, aliases and other overwritten render forms; preserve old profiles with the option absent. Revalidate the corrected private snapshot before publication.",
+      "disposition_at_audit_end": "ROOT_FIX_IN_PROGRESS, corrected mutable project intentionally not inspected"
+    }
+  ],
+  "accepted_delta_challenges": [
+    {
+      "locations": [
+        "instruction_index.go:12-414",
+        "references.go:100-114",
+        "references.go:330-343",
+        "register_flow.go"
+      ],
+      "assessment": "One indexInstructions producer now serves both existing indexed reports and the actual registry/reference-flow route. Serena confirmed both production call sites; queryRegisterFlow remains the single decoded-row graph owner. Compared the648 removal against665 extraction and inspected the ORI operand behavior. No second word scanner, mapping owner or graph builder introduced. The producer's asserted16137-byte extraction is relocation, not deletion. Its GP/instruction branch predates extraction; extraction alone does not establish reduced behavioral complexity."
+    },
+    {
+      "locations": [
+        "references.go:646-691",
+        "references.go:694-739",
+        "references.go:741-937"
+      ],
+      "assessment": "Existing ownership collection retains full-pair/memory collision keys and adds a distinct lower-reader projection. Exact per-ID(LUI,use) benign facts remain separate from entry flags and exclusions. Preplanned queries cover every selected nonzero LUI, registered or not; the64 deduplicated cap precedes graph invocation. Reviewed bucket ordering, incoming/non-LUI definitions, unknown completeness, registered-but-missing highs, branch-shared definitions, canonical pair errors, signedADDIU/zeroextendedORI target arithmetic, padding checks, reader ownership/status preservation and graph holds. No concrete counterexample to the frozen finite policy identified. Eligible caller disposition remains separate from strict patch grammar and patch authorization."
+    },
+    {
+      "locations": [
+        "main.go:97-237",
+        "main.go:279-287",
+        "main.go:315-465",
+        "inputs.go:14-43"
+      ],
+      "assessment": "The existing optional-field guard handles reference_flow rather than introducing another dispatcher; alias-base reports are refused, physical inputs use the shared bounded reader, and flow output retains buffered publication and source/registry/glyph/profile rechecks. Stable special-file pre-stat is implemented in shared readInput, not replicated per consumer. No hostile concurrent path replacement guarantee follows: a path can change between stat and open, and the accepted documentation explicitly limits that claim. No new accepted lifecycle defect confirmed."
+    },
+    {
+      "locations": [
+        "references.go:23-976",
+        "main.go",
+        "analysis/reference-owner-reuse-decision.json"
+      ],
+      "assessment": "The registry projection remains a substantial block in a large report owner. Size alone does not justify another helper or mode framework. Its policies depend on the existing registry selection, lower-owner collection and actual graph result, so the inspected implementation reuses those decisions rather than repeating traversals. Challenge future growth at the independent responsibility boundary; do not extract tiny validators or per-ID handlers merely to reduce line counts."
+    }
+  ],
+  "prospective_advice_not_accepted_defects": [
+    {
+      "locations": [
+        "/var/tmp/dokapon-rounded-permission-jtbvggtz/review-source/raster_types.go:27-34",
+        "/var/tmp/dokapon-rounded-permission-jtbvggtz/review-source/texture_authoring.go:519-540"
+      ],
+      "assessment": "The optional resource correctly sits on existing RasterRender, outside pure RasterComposition. It reuses RegistryInput/readInput/checkJSON and copies only existing allow/exclude/allow_add arrays, retaining local erase steps and the unchanged compositor. Its root table closure rejects erases/nested references even though it decodes into an existing richer struct. No new function/type/geometry engine is needed for this finite data edge. The known raw-root shadowing defect must be fixed before considering publication."
+    },
+    {
+      "locations": [
+        "analysis/donor-reconstruction-frontier.json",
+        "analysis/reconstruction-mask-frontier.json",
+        "/var/tmp/dokapon-raster06-astra-fixed-6OaC1xvR/addendum.json"
+      ],
+      "assessment": "The11 observed rounded permissions share one literal geometry. Prior separate preflight proved its80254 native pixels equal13 coalesced rectangles, with116 protected corner pixels; this audit does not count that preflight as a new test. One canonical pinned datum with two distinct prototype consumers demonstrates a reusable direction, not11 migrated artworks or parameterized rounded geometry. Preserve explicit held morphology/flood/providers, PDE/exemplar, family/provenance, radial/contour/pictogram/material/source-art responsibilities. No9/14 or raster6/6 claim is supported."
+    }
+  ],
+  "accounting": {
+    "before648": {
+      "production_go_files": 43,
+      "production_go_bytes": 503383,
+      "named_functions": 42,
+      "runtime_files": 187,
+      "runtime_bytes": 2579104
+    },
+    "accepted665": {
+      "production_go_files": 45,
+      "production_go_bytes": 525164,
+      "named_functions": 43,
+      "runtime_files": 193,
+      "runtime_bytes": 2604317
+    },
+    "independently_measured_delta": {
+      "production_go_bytes": 21781,
+      "runtime_bytes": 25213,
+      "test_source_bytes": 14304,
+      "new_named_functions": [
+        "indexInstructions"
+      ]
+    },
+    "reported_separate_fixture_growth": 14518,
+    "assessment": "Accepted scope documents call this capability growth and charge the whole runtime data/config/adapters. No net reduction, deletion or historical retirement is claimed. Independent runtime item pin verification covered187 prior and193 accepted items, with total sums matching their accounting files.",
+    "coverage": "Accepted roadmap and coverage agree:8/14Full57.14%,71/84planning84.52%,binary4/6. Planning percentages explicitly do not measure script migration. No credit changed."
+  },
+  "checks_receipt": {
+    "path": "/var/tmp/dokapon-astra043-ySaKZPJr/checks.json",
+    "sha256": "53a69139abb78ca96ffb9f36507d39d69e54de8bca3f2f43097948d3c5b8ef7a"
+  },
+  "verified_capsules": [
+    {
+      "path": "/var/tmp/dokapon-register-flow-lfj28b6t/sealed-final/manifest.json",
+      "sha256": "b03466bfe5b2a6b7868e3b7ee5da53a7962864ee3d2191dce08d8a40c8581035",
+      "members": 648,
+      "role": "actual prior042 audited snapshot"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-owners-ov77euwr/sealed-final/manifest.json",
+      "sha256": "721bb5bda8ddc38f6526957a3a75b41ba424c72599e5a0150df1288bbf0fe605",
+      "members": 665,
+      "role": "accepted current snapshot"
+    },
+    {
+      "path": "/var/tmp/dokapon-rounded-permission-jtbvggtz/review-source-manifest.json",
+      "sha256": "906950e3286c6bcf89e0803122e5ab5eef94a58c6d88367b77502d73826b8a94",
+      "members": 670,
+      "role": "unpublished frozen prototype, not accepted"
+    }
+  ],
+  "verification": {
+    "performed": "Full manifest hash/member containment/regularity checks for648+665+670 frozen files; independent production byte/function accounting;187+193 runtime input pins and totals;648-to665 connected delta review; accepted final-review/proof/source-contract pins; prospective frozen resource flow review.",
+    "Serena": "Session86d8031d symbol references for indexInstructions and queryRegisterFlow, references boundary. Queried LIVE source files independently matched their accepted665 snapshot bytes before reporting.",
+    "own_Go_executions": 0,
+    "not_replayed": "No fresh Go tests/build/vet/race or source oracle execution; prior test/review receipts remain prior evidence. No independent replay of all4898root artifacts or760ordinary review artifacts.",
+    "all_jobs": "All synchronous commands terminal; no background jobs/subagents launched by this auditor."
+  },
+  "limitations": [
+    "No implementation, approval, current mutable candidate review, source-worker mutable capsule read, canonical registry access/write, source-art image access or protected process/resource manipulation.",
+    "No complete ISA/CFG/ABI or runtime/gameplay proof; finite report eligibility cannot authorize a patch.",
+    "Only permitted LIVE write is evidence/astra-audit-043.json; goal state and audit cadence ledger updates remain root-owned.",
+    "No requirement to invent a new finding: none confirmed against accepted665 within this bounded review. The private known wire finding remains open pending root verification."
+  ]
+}

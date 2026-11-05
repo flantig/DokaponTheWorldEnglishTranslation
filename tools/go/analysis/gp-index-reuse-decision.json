@@ -1,0 +1,348 @@
+{
+  "at": "2026-10-21T20:13:39.237490+00:00",
+  "status": "ACCEPTED_ROOT_VERIFIED_GP_INDEX",
+  "operation": "reference_gp_index",
+  "serena": "Session3a697717: references/run callers, inspect, referenceTarget, ReferenceScan/ReferenceReport/Recipes and GP/ELF contracts inspected before edits.",
+  "existing_candidates": {
+    "references": "Owns read-only source-derived reference facts; enhanced with bounded GP-base indexing. No registry match or per-script handler.",
+    "inspect": "Already validates ELF32LE MIPS EXEC, register metadata and unique LOAD address mappings; reused, not copied. Reverse file ambiguity is a distinct source-window guard not supplied by forward mapping.",
+    "referenceTarget": "Strict declared ADDIU/pair/pointer semantics are used by append and observation callers. Memory effective addresses, raw rt fields and discarded rt0 calculations cannot reasonably satisfy retained-address contract. Left unchanged.",
+    "run": "Existing read-only report/profile/source lifecycle enhanced, no separate runner.",
+    "TestCLIDryRunAndApply": "Existing ZIP fixture reader and CLI assertions extended; no new test function/helper/closure."
+  },
+  "new_functions": 0,
+  "new_Go_files": 0,
+  "new_types": [
+    "GPInstruction",
+    "GPIndex"
+  ],
+  "type_ownership": "Two cohesive public reference facts in existing usage-grouped reference_types.go; not a new layer.",
+  "source_reports": {
+    "analysis/gp-index-reuse-frontier.json": "1d70a463bba2b8732730aaa44e96583b650f0c7f6395c9c3339bbcf38ad008ee",
+    "analysis/gp-index-fixture-contract.json": "6be37e3ac0bda5abeb2c14a0433b56e4224327d75f34718e80fa1ce8e62505f9"
+  },
+  "independent_precode_fixture": {
+    "archive_sha256": "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97",
+    "archive_bytes": 76544,
+    "uncompressed_JSON_bytes": 1557499,
+    "positive_unknown_cases": 13,
+    "complete_rows": 1480,
+    "refusals": 39,
+    "source_facts_unchanged": true
+  },
+  "bounds": {
+    "source": "Regular ELF32 little-endian MIPS ET_EXEC,52B..64MiB, fullsource hash and lifecycle checks",
+    "scan": "Aligned nonempty bounded FileRange, max1<<20completewords. Every selected word has one unique full file-backed reverse PT_LOAD mapping and aligned VMA. No holes, split/ambiguous aliases or align-forward.",
+    "queries": "At most8nonempty names <=128UTF8bytes; start<end<=2^32, bytepointmembership, overlapping queries legal, exactsourceorderrows, sortedmatchedquerynames.",
+    "rows": "At most32768 supportedinstructionrows, finalbufferedJSON<=64MiB; dedup targetpoints then forwardmap in<=1024querychunks through existinginspect."
+  },
+  "semantics": {
+    "GP": "Unique bounded originalELFmetadata; absent/invalid=>computed/matches/mapsnull, knownzero valid, all arithmeticmod32. PriorGPwrites donotupdate thisexplicitmetadataassumption.",
+    "ADDIU": "rs28/op09 constructed_address;rt0discarded_value stillhas arithmeticcomputedpoint/matches ifGPknown, no retainedvalue/reference claim.",
+    "memory": "Finite original load/store/merge/quad/double/FP/COP memory forms, cache andprefetch separate fromconstructedaddresses. RT numericopcodefield, not universallyGPR.",
+    "unsupported": "Wrongbase,LUI,ORI,ADDI,rawCOPop12rsbits28,etc excluded; indexnotallGPRuses orcode/livenessproof.",
+    "loaded_pointer_target": "Alwaysnull; do not dereference effectiveaddresses or infer memorywidth/accessbounds."
+  },
+  "example_manual_equations_before_example_execution": {
+    "GP": 1049856,
+    "file_offsets": [
+      512,
+      516,
+      520
+    ],
+    "VMAs": [
+      1048832,
+      1048836,
+      1048840
+    ],
+    "words": [
+      663092736,
+      663093760,
+      662831616
+    ],
+    "signed_immediates": [
+      -512,
+      512,
+      512
+    ],
+    "computed_addresses": [
+      1049344,
+      1050368,
+      1050368
+    ]
+  },
+  "verification": {
+    "focused_seconds": 14.721,
+    "race_seconds": 170.216,
+    "core_native_build_vet_format_hygiene": "PASS",
+    "actual_CLI": {
+      "at": "2026-10-21T19:55:40.393498+00:00",
+      "status": "PASS_GP_CORE_NATIVE_COMPLETE_CLI_SOURCE_AND_LEGACY_PARITY",
+      "positive_cases": [
+        "GP536bf0-42word-full-index",
+        "GPzero-known-valid",
+        "GPhigh-wrap-known",
+        "no-query-map-absent",
+        "empty-query-map-known-empty",
+        "moved-unique-reginfo-positive",
+        "missing-reginfo-GPunknown",
+        "duplicate-reginfo-GPunknown",
+        "reginfo-size20-GPunknown",
+        "compressed-reginfo-GPunknown",
+        "out-of-file-reginfo-GPunknown",
+        "COP12-rsbits28-not-GPRbase",
+        "1025-distinct-point-mappings-no-inherited-cap"
+      ],
+      "complete_independent_fixture_rows": 1480,
+      "refusals": [
+        "aliased-file-disjoint-VMA",
+        "overlapping-memory-LOADS",
+        "split-full-word-two-LOADS",
+        "BSS-not-file-scan",
+        "misaligned-mapped-VMA",
+        "unmapped-physical-scan",
+        "unaligned-file-scan",
+        "empty-word-range",
+        "out-of-file-word-range",
+        "null-References",
+        "null-AddressRanges",
+        "missing-References",
+        "extra-skipwords",
+        "extra-pointermin",
+        "extra-decodewords",
+        "extra-registry-query",
+        "patch-Entries",
+        "registry-proof-pin",
+        "glyph-proof-pin",
+        "expected-GP-proof",
+        "source-size-cap",
+        "query-empty-name",
+        "query-name129B",
+        "query-count9",
+        "null-query-value",
+        "empty-query-range",
+        "reversed-query",
+        "query-end-beyond32bit",
+        "query-start-at-2pow32",
+        "null-query-start",
+        "null-query-end",
+        "null-file-range",
+        "null-file-start",
+        "null-file-end",
+        "ASCII-alias-References",
+        "Unicode-alias-reference-longS",
+        "ASCII-alias-file-range",
+        "duplicate-source-size",
+        "emitted-row-budget32769"
+      ],
+      "whole_existing_example_parity": [
+        "stream-audit",
+        "reference-bound-audit",
+        "canonical-audit",
+        "fixed-audit",
+        "pinned-raw-audit",
+        "gp-audit",
+        "reconciliation-audit",
+        "sentinel-audit"
+      ],
+      "frozen_native_scan_words": 683392,
+      "frozen_native_supported_rows": 10212,
+      "frozen_native_opcode_counts": {
+        "09": 907,
+        "1e": 110,
+        "1f": 1,
+        "20": 96,
+        "21": 252,
+        "23": 4417,
+        "24": 535,
+        "25": 135,
+        "27": 28,
+        "28": 246,
+        "29": 121,
+        "2b": 2173,
+        "31": 611,
+        "37": 441,
+        "39": 25,
+        "3f": 114
+      },
+      "input_identities_preserved": 105,
+      "core_native_complete_stdout_stderr_identical": true,
+      "full_suite_gameplay_live_GP_loaded_pointers": "not checked or claimed"
+    },
+    "final_guard_delta": {
+      "focused_seconds": 15.347,
+      "race_seconds": 167.474,
+      "root_checks": {
+        "at": "2026-10-21T20:09:36.424050+00:00",
+        "status": "FINAL_GUARD_DELTA_ROOT_ALL_FOCUSED_CHECKS_PASS",
+        "results": [
+          {
+            "name": "focused",
+            "exit": 0,
+            "output": "ok  \tdokapon/tools\t15.347s"
+          },
+          {
+            "name": "focused-race",
+            "exit": 0,
+            "output": "ok  \tdokapon/tools\t167.474s"
+          },
+          {
+            "name": "build-checks.py",
+            "exit": 0
+          },
+          {
+            "name": "verify-cli.py",
+            "exit": 0
+          },
+          {
+            "name": "verify-example-compat.py",
+            "exit": 0
+          }
+        ],
+        "scope": "Guard-only consolidation; full suite/nativefonts race/gameplay deferred."
+      },
+      "CLI": {
+        "at": "2026-10-21T20:09:36.187923+00:00",
+        "status": "PASS_GP_CORE_NATIVE_COMPLETE_CLI_SOURCE_AND_LEGACY_PARITY",
+        "positive_cases": [
+          "GP536bf0-42word-full-index",
+          "GPzero-known-valid",
+          "GPhigh-wrap-known",
+          "no-query-map-absent",
+          "empty-query-map-known-empty",
+          "moved-unique-reginfo-positive",
+          "missing-reginfo-GPunknown",
+          "duplicate-reginfo-GPunknown",
+          "reginfo-size20-GPunknown",
+          "compressed-reginfo-GPunknown",
+          "out-of-file-reginfo-GPunknown",
+          "COP12-rsbits28-not-GPRbase",
+          "1025-distinct-point-mappings-no-inherited-cap"
+        ],
+        "complete_independent_fixture_rows": 1480,
+        "refusals": [
+          "aliased-file-disjoint-VMA",
+          "overlapping-memory-LOADS",
+          "split-full-word-two-LOADS",
+          "BSS-not-file-scan",
+          "misaligned-mapped-VMA",
+          "unmapped-physical-scan",
+          "unaligned-file-scan",
+          "empty-word-range",
+          "out-of-file-word-range",
+          "null-References",
+          "null-AddressRanges",
+          "missing-References",
+          "extra-skipwords",
+          "extra-pointermin",
+          "extra-decodewords",
+          "extra-registry-query",
+          "patch-Entries",
+          "registry-proof-pin",
+          "glyph-proof-pin",
+          "expected-GP-proof",
+          "source-size-cap",
+          "query-empty-name",
+          "query-name129B",
+          "query-count9",
+          "null-query-value",
+          "empty-query-range",
+          "reversed-query",
+          "query-end-beyond32bit",
+          "query-start-at-2pow32",
+          "null-query-start",
+          "null-query-end",
+          "null-file-range",
+          "null-file-start",
+          "null-file-end",
+          "ASCII-alias-References",
+          "Unicode-alias-reference-longS",
+          "ASCII-alias-file-range",
+          "duplicate-source-size",
+          "emitted-row-budget32769"
+        ],
+        "whole_existing_example_parity": [
+          "stream-audit",
+          "reference-bound-audit",
+          "canonical-audit",
+          "fixed-audit",
+          "pinned-raw-audit",
+          "gp-audit",
+          "reconciliation-audit",
+          "sentinel-audit"
+        ],
+        "frozen_native_scan_words": 683392,
+        "frozen_native_supported_rows": 10212,
+        "frozen_native_opcode_counts": {
+          "09": 907,
+          "1e": 110,
+          "1f": 1,
+          "20": 96,
+          "21": 252,
+          "23": 4417,
+          "24": 535,
+          "25": 135,
+          "27": 28,
+          "28": 246,
+          "29": 121,
+          "2b": 2173,
+          "31": 611,
+          "37": 441,
+          "39": 25,
+          "3f": 114
+        },
+        "input_identities_preserved": 105,
+        "core_native_complete_stdout_stderr_identical": true,
+        "full_suite_gameplay_live_GP_loaded_pointers": "not checked or claimed"
+      },
+      "example_compatibility": {
+        "at": "2026-10-21T20:09:36.410369+00:00",
+        "status": "PASS_MANUAL_EXAMPLE_AND_THREE_COMPLETE_OLD_REPORT_OUTPUTS",
+        "example_rows": 3,
+        "independent_equations_before_execution": {
+          "GP": 1049856,
+          "file_offsets": [
+            512,
+            516,
+            520
+          ],
+          "VMAs": [
+            1048832,
+            1048836,
+            1048840
+          ],
+          "words": [
+            663092736,
+            663093760,
+            662831616
+          ],
+          "signed_immediates": [
+            -512,
+            512,
+            512
+          ],
+          "computed_addresses": [
+            1049344,
+            1050368,
+            1050368
+          ]
+        },
+        "whole_stdout_stderr_parity": [
+          "reference_observed",
+          "reference_candidates",
+          "elf_layout"
+        ],
+        "input_identities_preserved": 4
+      }
+    }
+  },
+  "accounting": "Capability growth, not deletion/relocation or script retirement. Full runtime/test/evidence costs accounted separately before acceptance.",
+  "remaining": "Bounded branch/delay/CFG register def-use and interior/hook ABI remain unimplemented. Binary family stays Partial4/6; only reviewed .04 indexing duty awarded.",
+  "guard_consolidation": "One common layout/GP read-only predicate, unchanged exact diagnostics, no additional helper/state/policy; sole LOW from initial ordinary review.115B repeated production validation removed.",
+  "fresh_review": {
+    "path": "evidence/gp-index-review.json",
+    "sha256": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba",
+    "root_verified_artifacts": 2220,
+    "open_findings": 0
+  }
+}

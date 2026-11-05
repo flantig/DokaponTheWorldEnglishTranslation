@@ -1,0 +1,2807 @@
+{
+  "at": "2026-10-20T15:45:07.263518+00:00",
+  "status": "VERIFIED finite32square/64x128/64x256 standardPSMT8 through existing codec,4actual preserve+exact oracles",
+  "source_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "a078bb1329864a74dc306a57743b2829ed56db75a71725d58f9fba0477e57a4e",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "814ed3a0ce83f60d5d0339a6428255c48c9f3bcf41ab16737da17afa857841ec",
+    "texture_authoring.go": "486b0ea81f020e947e3a9533ab76964be931c96584c78ebf57076f2af8a36848",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "8bcfed69dde619ced0785cc3ad71d5eb8815adc959135d7f8885aad5a30d34e3",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "b6ab796ba3f3d19005f2b0616cc9a7e54d9f35777f8c2c77fe19e533be4fa37a",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+    "testdata/small-psmt8.zip": "b0b42d8afaa1e3866c233cc77b2fcae55492a0fee80863579716fbcc0e98c97d"
+  },
+  "evidence_pins": {
+    ".goal/small-psmt8-checks-work.json": {
+      "bytes": 5994,
+      "sha256": "54060aa0bd3bf45ad8feb3eec676e0d76dae27d4d7c6442e10ba0782bb8784dc"
+    },
+    "analysis/small-psmt8-reuse-decision.json": {
+      "bytes": 2192,
+      "sha256": "fc478fe6c108eaaeab1d2d011deb92d949d0240f091565d344ec30c146be7bb4"
+    },
+    "analysis/small-psmt8-native-contract.json": {
+      "bytes": 66391,
+      "sha256": "7a204d144c662257a99fc6bb250e5ca81a8be749de9d86ac2701d66f3aa2add5"
+    },
+    "analysis/small-psmt8-exact-oracles.json": {
+      "bytes": 20655,
+      "sha256": "8abdd2dae818ecef26ad6d2b2c350ce08f13828d4f9e9e524e9536aaa21b7d93"
+    },
+    "evidence/small-psmt8-review.json": {
+      "bytes": 99532,
+      "sha256": "fe918cf6ed84c34de88ef462c306b4078c0a9c653b1c558356ebe80bedfb9738"
+    },
+    "/var/tmp/dokapon-small-psmt8-ldugodi2/accounting-before.json": {
+      "bytes": 28712,
+      "sha256": "9cffb25041e4b4152fc72aa7df3c50ad8bdd027e8a6c5c913b7db83a4201a412"
+    },
+    "/var/tmp/dokapon-small-psmt8-ldugodi2/accounting-delta.json": {
+      "bytes": 588,
+      "sha256": "ccefdd3432dff50c466bd3afeb8eff258d718fa5eb61a1f0e1ce3a4d6de62aa5"
+    },
+    "/var/tmp/dokapon-small-psmt8-sealed-xe3cbrvr/manifest.json": {
+      "bytes": 20596,
+      "sha256": "4de389a9fae3306260dfc7d655326f5bbb5df99217af25930d24c027a933a31d"
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-small-psmt8-sealed-xe3cbrvr",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 40.806,
+      "output": "ok  \tdokapon/tools\t37.335s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.211,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-small-psmt8-ldugodi2/dokapon-go-small-psmt8",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.773,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.04,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json",
+        "testdata/direct-rgba.zip",
+        "testdata/exact-palette.zip",
+        "testdata/multipage-psmt4.zip",
+        "testdata/direct-layouts.zip",
+        "testdata/small-psmt8.zip"
+      ],
+      "exit_code": 0,
+      "seconds": 0.001,
+      "output": ""
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.014,
+      "output": ""
+    }
+  ],
+  "ordinary_review": "evidence/small-psmt8-review.json",
+  "ordinary_review_sha256": "fe918cf6ed84c34de88ef462c306b4078c0a9c653b1c558356ebe80bedfb9738",
+  "corpus": {
+    "path": "/var/tmp/dokapon-complete-texture-parity-g_1eyz4s/oracle.json",
+    "sha256": "6b08f10d1af8ff1f1edbf434710a89332ec1a99ec05b68fd5f77381c147c13c8",
+    "accepted": 227,
+    "held": 0,
+    "complete_RGBA_noop_TXD_onepixel_TXD_and_RGBA": true,
+    "source_preserved": true,
+    "harness": "Privateoverlay insertscorrected227caseall-acceptedblock intoCURRENTexistingTestPilotHistoricalGoldenBytes. No oldtestoverwrite/newfunction/source edit."
+  },
+  "independent_native_codec": {
+    "status": "PASS",
+    "native_spans": 18,
+    "primary_sources": 10,
+    "source_member_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+    "dictionary_total": 27,
+    "unselected_siblings": 26,
+    "cases": [
+      {
+        "texture": "sofashadow",
+        "dimensions": [
+          32,
+          32
+        ],
+        "all_pixel_GS_join": 1024,
+        "all_CLUT_GS_join": 256,
+        "mapping_sha256": "c7633ab27bc08082fe1f41a2f0c086d4a79bfa94f0a1ec1e26fe0ab4b1bcceef",
+        "GS_disjoint_allocation_relocations": true,
+        "source_RGBA_preserve_mutation_oracles": true,
+        "exact_full_member_CLUT_pixels_RGBA_ledger": true,
+        "exact_changed_bytes": 1395,
+        "siblings_preserved": 26
+      },
+      {
+        "texture": "colums3",
+        "dimensions": [
+          64,
+          256
+        ],
+        "all_pixel_GS_join": 16384,
+        "all_CLUT_GS_join": 256,
+        "mapping_sha256": "c958d8e483b518515ca4e9af617f925befe42dcf7dbdbd57d33219af57bbbff1",
+        "GS_disjoint_allocation_relocations": true,
+        "source_RGBA_preserve_mutation_oracles": true,
+        "exact_full_member_CLUT_pixels_RGBA_ledger": true,
+        "exact_changed_bytes": 17388,
+        "siblings_preserved": 26
+      },
+      {
+        "texture": "colums",
+        "dimensions": [
+          64,
+          256
+        ],
+        "all_pixel_GS_join": 16384,
+        "all_CLUT_GS_join": 256,
+        "mapping_sha256": "c958d8e483b518515ca4e9af617f925befe42dcf7dbdbd57d33219af57bbbff1",
+        "GS_disjoint_allocation_relocations": true,
+        "source_RGBA_preserve_mutation_oracles": true,
+        "exact_full_member_CLUT_pixels_RGBA_ledger": true,
+        "exact_changed_bytes": 17393,
+        "siblings_preserved": 26
+      },
+      {
+        "texture": "gate",
+        "dimensions": [
+          64,
+          128
+        ],
+        "all_pixel_GS_join": 8192,
+        "all_CLUT_GS_join": 256,
+        "mapping_sha256": "edfbef08df3ad102b4eb457f02f3c59a63c24deb25f5dc75b29c797df176e056",
+        "GS_disjoint_allocation_relocations": true,
+        "source_RGBA_preserve_mutation_oracles": true,
+        "exact_full_member_CLUT_pixels_RGBA_ledger": true,
+        "exact_changed_bytes": 9205,
+        "siblings_preserved": 26
+      }
+    ]
+  },
+  "four_actual_mode_workflows": [
+    {
+      "texture": "sofashadow",
+      "dimensions": [
+        32,
+        32
+      ],
+      "export_preview_apply": true,
+      "operations": [
+        {
+          "operation": "noop",
+          "TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+          "RGBA_sha256": "3f84c90fd6902418a2be5414cedc0442689e598ffae30f499b406e3a20f87c6c",
+          "changed_bytes": 0,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "preserve_two_edits",
+          "TXD_sha256": "d6d10a118975b4323177f7bc38f603974cbac9ea8b6a21acc75f5bceb484476e",
+          "RGBA_sha256": "6302a34f2c92695a4019586e49a2dc2590e1b39e759e1d411b99957e0c1e59ac",
+          "changed_bytes": 2,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "exact",
+          "TXD_sha256": "14d6e8938f96c8c2f8e24aad0e02a9844a66e7072d22f2c166a651844c67fb1d",
+          "RGBA_sha256": "365f8e9156ddffe1fd2ef404ceca4b265fd32ef0f444fbd340b1b8f3ef585365",
+          "changed_bytes": 1395,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "all256alphas",
+          "TXD_sha256": "50f2d962bfac954c39bca348fd3223f12849d902d4f6a11397ac6f335292c9d1",
+          "RGBA_sha256": "b178d9b50e31fa6ca2296b9bc71cbc3c0dbc496cf55ee5a9d4bfe8d54e56a5f4",
+          "changed_bytes": 1770,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit256",
+          "TXD_sha256": "56933a978af0b5aef2fc4974a1a41646cf3a93c34a6ba0818fa738eb4aabf519",
+          "RGBA_sha256": "cd7433698c163a0b2b020fcd45412d214b62154a133f22919c37d508df284eea",
+          "changed_bytes": 1826,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit257",
+          "refused": true,
+          "no_output": true
+        }
+      ]
+    },
+    {
+      "texture": "colums3",
+      "dimensions": [
+        64,
+        256
+      ],
+      "export_preview_apply": true,
+      "operations": [
+        {
+          "operation": "noop",
+          "TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+          "RGBA_sha256": "74464e13db5156856830662e2cef8aa290aaf12c364e8f02f6e63e99eed9ff74",
+          "changed_bytes": 0,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "preserve_two_edits",
+          "TXD_sha256": "770092b3f75b912ecc26624bf777f8bc502502d551806f6fac25392b71c8f64c",
+          "RGBA_sha256": "ce2138a5e7afc5b8ff773f748777c666f6592f9c1b67396bde106d71c26aef39",
+          "changed_bytes": 2,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "exact",
+          "TXD_sha256": "f071677a1310283f379524bd7c2f1353f3ea5166b853df59d7ec24abe2e13dfa",
+          "RGBA_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+          "changed_bytes": 17388,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "all256alphas",
+          "TXD_sha256": "9d0bcb41d66dac8058158abcc0e7c7831c77ebe43d968c81f3af054d0038aa9b",
+          "RGBA_sha256": "8aeffcbddfbf3c730bac1e5777f4bd3950f6b2aa0e2a7912fc8623ce0b9a70a3",
+          "changed_bytes": 17373,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit256",
+          "TXD_sha256": "3d77a5254d8fa390ea0726e4d585681e84488bbd1b6b8062cf6d441a47c94525",
+          "RGBA_sha256": "f404f6d43eae0bfc76f0a81ecd907bb5dc641c15b99e9f827cec53ae6e4bb822",
+          "changed_bytes": 17117,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit257",
+          "refused": true,
+          "no_output": true
+        }
+      ]
+    },
+    {
+      "texture": "colums",
+      "dimensions": [
+        64,
+        256
+      ],
+      "export_preview_apply": true,
+      "operations": [
+        {
+          "operation": "noop",
+          "TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+          "RGBA_sha256": "4655cb3694207848c98a71a4047032a7a8e1550eb363573f9d7c6be1549b2671",
+          "changed_bytes": 0,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "preserve_two_edits",
+          "TXD_sha256": "0fe53735d47c293b8b2547a46b387b86495ec7360f96946ebaf38e3ac66e98d2",
+          "RGBA_sha256": "dfa900382359e3dd765931eb52255e4cee7dc75ca9cf5dc771e6a16e6bd8d660",
+          "changed_bytes": 2,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "exact",
+          "TXD_sha256": "98aba456f3c06a002c6518ddd196606436c8e6eaef906f061d71a1c283abdd90",
+          "RGBA_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+          "changed_bytes": 17393,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "all256alphas",
+          "TXD_sha256": "83e431ebccfa7145d8ac9e68cc93fe651de076a937f9be999fa8cc1f299bbe3a",
+          "RGBA_sha256": "8aeffcbddfbf3c730bac1e5777f4bd3950f6b2aa0e2a7912fc8623ce0b9a70a3",
+          "changed_bytes": 17399,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit256",
+          "TXD_sha256": "be1cf1d3348189746ea21334baeed79045313a06aff853f565a28ec127eba133",
+          "RGBA_sha256": "f404f6d43eae0bfc76f0a81ecd907bb5dc641c15b99e9f827cec53ae6e4bb822",
+          "changed_bytes": 17141,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit257",
+          "refused": true,
+          "no_output": true
+        }
+      ]
+    },
+    {
+      "texture": "gate",
+      "dimensions": [
+        64,
+        128
+      ],
+      "export_preview_apply": true,
+      "operations": [
+        {
+          "operation": "noop",
+          "TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+          "RGBA_sha256": "2898bf4626beba01f728d18631e553cc4aa84f275a63f80f720de9b869dc6b27",
+          "changed_bytes": 0,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "preserve_two_edits",
+          "TXD_sha256": "c75760c614ef061c0d4374cfecd41085b2dfb4d9163faf9670c80daabd360d8f",
+          "RGBA_sha256": "653478a4192e10a2269284ae16d15c72df22ca695b42d4c1b1c38718a983335f",
+          "changed_bytes": 2,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": false
+        },
+        {
+          "operation": "exact",
+          "TXD_sha256": "54b1cf2968e9430c6af8d6e6aa14ea5977b88e4e4f66ca7dc957a7449c8c1cee",
+          "RGBA_sha256": "a5a7fbca1446263a471325a931c991d0c60ae59f8a874eef4e4aa5d18948294e",
+          "changed_bytes": 9205,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "all256alphas",
+          "TXD_sha256": "1e9768c49e0a34c69f06e128399853d34bbd6de2f53a3191199b7e47084a88a5",
+          "RGBA_sha256": "f9565ca88ec91dc046a796013b83e707796c005f950a27dc0463536c2dbec793",
+          "changed_bytes": 9204,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit256",
+          "TXD_sha256": "3615e4c392de1d6a70c4793a2727fc4f91999a0dbf8bc73ba540a125074c6c85",
+          "RGBA_sha256": "6702ef8cc050fa201d8e778501feda9142132f165c87b81a54cc32055aea2c3a",
+          "changed_bytes": 8952,
+          "outside_selected_pixel_CLUT_ranges": 0,
+          "26siblings_headers_preserved": true,
+          "preview_apply_readback_overwrite_input_identity": true,
+          "exact_reapply_idempotent": true
+        },
+        {
+          "operation": "limit257",
+          "refused": true,
+          "no_output": true
+        }
+      ]
+    }
+  ],
+  "direct_regression": [
+    {
+      "instance": 0,
+      "texture": "NPC_18_0",
+      "source_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+      "RGBA_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 1,
+      "texture": "font2",
+      "source_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+      "RGBA_sha256": "10fc786dc51b2602b9a4886b8fe0bd3ea25481cc565b2324eee97ffcde3f2bb9",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 2,
+      "texture": "font1",
+      "source_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+      "RGBA_sha256": "0fbbac456c549277ea9775a278cb63cdf76f3c8b4279140b18e74fc655ad9d30",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 3,
+      "texture": "font0",
+      "source_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+      "RGBA_sha256": "e834cb277959176057b6dac71261aa852c1828d512ffbd17c0844b86caf5f5f9",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 4,
+      "texture": "Y:\\Graphic\\SYSTEM\\icon_p",
+      "source_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+      "RGBA_sha256": "2367c32fb90104c3e0d768eec3813e851f559a0c6ed42dd6a0d7199f8b9d20a8",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 5,
+      "texture": "Y:\\Graphic\\SYSTEM\\multitap",
+      "source_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+      "RGBA_sha256": "bddc99c27e69afef5082681b55ffec49371073ea1d6484316536259a95aeafa0",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 6,
+      "texture": "Y:\\Graphic\\SYSTEM\\rw",
+      "source_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+      "RGBA_sha256": "abbbeff6510a5cf666a7b7976519d1af19236ad2d18ee3cb1104b6486bbe71e0",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 7,
+      "texture": "Y:\\Graphic\\SYSTEM\\tycoon",
+      "source_sha256": "7bfbe22b9cd842557978fe0869a009a6d4796224b24253de830fcf82abcbecb6",
+      "RGBA_sha256": "c897bf7054edca904d4c5d372ca73ad5867b99bfd0fd8a224dfaeaf17eb7d7a4",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 8,
+      "texture": "streetI",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 9,
+      "texture": "streetI",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 10,
+      "texture": "streetI",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 11,
+      "texture": "streetI",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 12,
+      "texture": "street",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 13,
+      "texture": "streetI",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 14,
+      "texture": "street",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 15,
+      "texture": "streetI",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 16,
+      "texture": "street",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 17,
+      "texture": "streetI",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 18,
+      "texture": "street",
+      "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 19,
+      "texture": "Y:\\Graphic\\battle\\shield\\null",
+      "source_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+      "RGBA_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    },
+    {
+      "instance": 20,
+      "texture": "Y:\\Graphic\\battle\\weapon\\null",
+      "source_sha256": "d1b7c09d79f7325c8da89757c86ef6d4a5c41255f0bcb939d8601abe36e5b8d7",
+      "RGBA_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "export_PNG_fullRGBA_noop_wholeTXD_source_preserved": true
+    }
+  ],
+  "coherent_refusals_and_harness_correction": {
+    "status": "PASS",
+    "cases": [
+      {
+        "texture": "sofashadow",
+        "case": "version0",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "version1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "version3",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "wrongRF",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 format or version"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "depth4",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT4 geometry, flags or sampling mode"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "width",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "height",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "base_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "base_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "fullpage_palettebase",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "foot_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "foot_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "fullpage_footprint",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX1LOW",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "palette_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixelSTRUCT_oob",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit0",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit14",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit15",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit20",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit26",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit30",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit34",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit35",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit37",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit51",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit55",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit56",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "TEX0bit61",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "pixel_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xc8"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_XYzero",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "CLUT_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x518"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "headerless_v1",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "headerless_v2",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "extraCLUTpadding32",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "extra_empty_packet",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "missing_CLUTheader",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "outside_preserve",
+        "refused": true,
+        "diagnostic": "candidate changes a pixel outside approved rectangles"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "exact_with_rectangles",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "rgba_indexed",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      },
+      {
+        "texture": "sofashadow",
+        "case": "exact_export",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "colums3",
+        "case": "version0",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "version1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "version3",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "wrongRF",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 format or version"
+      },
+      {
+        "texture": "colums3",
+        "case": "depth4",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT4 geometry, flags or sampling mode"
+      },
+      {
+        "texture": "colums3",
+        "case": "width",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "colums3",
+        "case": "height",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "colums3",
+        "case": "base_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "base_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "fullpage_palettebase",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "foot_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "colums3",
+        "case": "foot_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "colums3",
+        "case": "fullpage_footprint",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX1LOW",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums3",
+        "case": "palette_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixelSTRUCT_oob",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit0",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit14",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit15",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit20",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit26",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit30",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit34",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit35",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit37",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit51",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit55",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit56",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "TEX0bit61",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "pixel_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x29b34"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_XYzero",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "CLUT_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2db84"
+      },
+      {
+        "texture": "colums3",
+        "case": "headerless_v1",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums3",
+        "case": "headerless_v2",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums3",
+        "case": "extraCLUTpadding32",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums3",
+        "case": "extra_empty_packet",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums3",
+        "case": "missing_CLUTheader",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums3",
+        "case": "outside_preserve",
+        "refused": true,
+        "diagnostic": "candidate changes a pixel outside approved rectangles"
+      },
+      {
+        "texture": "colums3",
+        "case": "exact_with_rectangles",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "colums3",
+        "case": "rgba_indexed",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      },
+      {
+        "texture": "colums3",
+        "case": "exact_export",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "colums",
+        "case": "version0",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "version1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "version3",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "wrongRF",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 format or version"
+      },
+      {
+        "texture": "colums",
+        "case": "depth4",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT4 geometry, flags or sampling mode"
+      },
+      {
+        "texture": "colums",
+        "case": "width",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "colums",
+        "case": "height",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "colums",
+        "case": "base_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "base_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "fullpage_palettebase",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "foot_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "colums",
+        "case": "foot_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "colums",
+        "case": "fullpage_footprint",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX1LOW",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums",
+        "case": "palette_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums",
+        "case": "pixelSTRUCT_oob",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit0",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit14",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit15",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit20",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit26",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit30",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit34",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit35",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit37",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit51",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit55",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit56",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "TEX0bit61",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "pixel_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x2e098"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_XYzero",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "CLUT_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x320e8"
+      },
+      {
+        "texture": "colums",
+        "case": "headerless_v1",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "colums",
+        "case": "headerless_v2",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums",
+        "case": "extraCLUTpadding32",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums",
+        "case": "extra_empty_packet",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums",
+        "case": "missing_CLUTheader",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "colums",
+        "case": "outside_preserve",
+        "refused": true,
+        "diagnostic": "candidate changes a pixel outside approved rectangles"
+      },
+      {
+        "texture": "colums",
+        "case": "exact_with_rectangles",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "colums",
+        "case": "rgba_indexed",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      },
+      {
+        "texture": "colums",
+        "case": "exact_export",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "gate",
+        "case": "version0",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "version1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "version3",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "wrongRF",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 format or version"
+      },
+      {
+        "texture": "gate",
+        "case": "depth4",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT4 geometry, flags or sampling mode"
+      },
+      {
+        "texture": "gate",
+        "case": "width",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "gate",
+        "case": "height",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "texture": "gate",
+        "case": "base_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "base_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "fullpage_palettebase",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "foot_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "gate",
+        "case": "foot_plus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX1LOW",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "gate",
+        "case": "palette_info_minus1",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "gate",
+        "case": "pixelSTRUCT_oob",
+        "kind": "metadata_guard",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit0",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit14",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit15",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit20",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit26",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit30",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit34",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit35",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit37",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit51",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit55",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit56",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "TEX0bit61",
+        "kind": "exact_TEX0_guard",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "pixel_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x8ebb8"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word0",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word1",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word2",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word3",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word4",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word5",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word6",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word7",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word8",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_word9",
+        "kind": "packet_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_XYzero",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_X1Y1",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "CLUT_high_state",
+        "kind": "packet_XY_guard",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x90c08"
+      },
+      {
+        "texture": "gate",
+        "case": "headerless_v1",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "texture": "gate",
+        "case": "headerless_v2",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "gate",
+        "case": "extraCLUTpadding32",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "gate",
+        "case": "extra_empty_packet",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "gate",
+        "case": "missing_CLUTheader",
+        "kind": "coherent_outer_storage",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "texture": "gate",
+        "case": "outside_preserve",
+        "refused": true,
+        "diagnostic": "candidate changes a pixel outside approved rectangles"
+      },
+      {
+        "texture": "gate",
+        "case": "exact_with_rectangles",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "texture": "gate",
+        "case": "rgba_indexed",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      },
+      {
+        "texture": "gate",
+        "case": "exact_export",
+        "refused": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "shape": [
+          16,
+          16
+        ],
+        "coherent_chunks_storage_metadata_packets_native_position": true,
+        "refused_by_finite_geometry": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "shape": [
+          32,
+          64
+        ],
+        "coherent_chunks_storage_metadata_packets_native_position": true,
+        "refused_by_finite_geometry": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "shape": [
+          64,
+          64
+        ],
+        "coherent_chunks_storage_metadata_packets_native_position": true,
+        "refused_by_finite_geometry": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "shape": [
+          64,
+          512
+        ],
+        "coherent_chunks_storage_metadata_packets_native_position": true,
+        "refused_by_finite_geometry": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      },
+      {
+        "shape": [
+          128,
+          32
+        ],
+        "coherent_chunks_storage_metadata_packets_native_position": true,
+        "refused_by_finite_geometry": true,
+        "diagnostic": "unsupported PSMT8 geometry, format, version or palette base"
+      }
+    ],
+    "nonmutating_vectors_excluded": [
+      {
+        "texture": "gate",
+        "case": "fullpage_footprint",
+        "reason": "same valid4096footprint; not a negative case"
+      }
+    ],
+    "initial_attempt": "Initial privateharness stopped at its poisonassertion because gate count/4+2048 equals the valid4096footprint. Corrected to exclude that non-negative vector; gate off-by-one footprint/wrongbase negatives remain. No projecttest or production failure."
+  },
+  "additional_publisher_rawCLUT_TBW": [
+    {
+      "texture": "sofashadow",
+      "case": "publisher-source.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "sofashadow",
+      "case": "publisher-exact.png",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "sofashadow",
+      "case": "publisher-exact.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "sofashadow",
+      "case": "publisher-linked.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "sofashadow",
+      "case": "publisher-cli-sofashadow",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "sofashadow",
+      "case": "publisher-output.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "sofashadow",
+      "case": "raw_alphaFF_duplicate_CLUT_PNG_noop",
+      "whole_member_exact": true
+    },
+    {
+      "texture": "sofashadow",
+      "wrong_TBW": 1,
+      "refused": true
+    },
+    {
+      "texture": "sofashadow",
+      "wrong_TBW": 4,
+      "refused": true
+    },
+    {
+      "texture": "colums3",
+      "case": "publisher-source.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums3",
+      "case": "publisher-exact.png",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums3",
+      "case": "publisher-exact.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums3",
+      "case": "publisher-linked.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums3",
+      "case": "publisher-cli-colums3",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums3",
+      "case": "publisher-output.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums3",
+      "case": "raw_alphaFF_duplicate_CLUT_PNG_noop",
+      "whole_member_exact": true
+    },
+    {
+      "texture": "colums3",
+      "wrong_TBW": 1,
+      "refused": true
+    },
+    {
+      "texture": "colums3",
+      "wrong_TBW": 4,
+      "refused": true
+    },
+    {
+      "texture": "colums",
+      "case": "publisher-source.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums",
+      "case": "publisher-exact.png",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums",
+      "case": "publisher-exact.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums",
+      "case": "publisher-linked.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums",
+      "case": "publisher-cli-colums",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums",
+      "case": "publisher-output.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "colums",
+      "case": "raw_alphaFF_duplicate_CLUT_PNG_noop",
+      "whole_member_exact": true
+    },
+    {
+      "texture": "colums",
+      "wrong_TBW": 1,
+      "refused": true
+    },
+    {
+      "texture": "colums",
+      "wrong_TBW": 4,
+      "refused": true
+    },
+    {
+      "texture": "gate",
+      "case": "publisher-source.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "gate",
+      "case": "publisher-exact.png",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "gate",
+      "case": "publisher-exact.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "gate",
+      "case": "publisher-linked.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "gate",
+      "case": "publisher-cli-gate",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "gate",
+      "case": "publisher-output.txd",
+      "refused": true,
+      "source_PNG_existing_output_preserved": true
+    },
+    {
+      "texture": "gate",
+      "case": "raw_alphaFF_duplicate_CLUT_PNG_noop",
+      "whole_member_exact": true
+    },
+    {
+      "texture": "gate",
+      "wrong_TBW": 1,
+      "refused": true
+    },
+    {
+      "texture": "gate",
+      "wrong_TBW": 4,
+      "refused": true
+    }
+  ],
+  "golden_containment": "Prior22base+6exactrows unchanged;4actuale01base+4independentexactcases added. Samegolden/CLIowners now13defaultmodes, actualwidth for exactlimit/alpha vectors. One testonlyZIP/source+3PNGs, no runtimebundle.",
+  "accounting": {
+    "before": "/var/tmp/dokapon-small-psmt8-ldugodi2/accounting-before.json",
+    "before_sha256": "9cffb25041e4b4152fc72aa7df3c50ad8bdd027e8a6c5c913b7db83a4201a412",
+    "group_deltas": {
+      "asset_bundle": {
+        "files": 0,
+        "bytes": 0
+      },
+      "executed_evidence_inputs": {
+        "files": 0,
+        "bytes": 0
+      },
+      "go_module": {
+        "files": 0,
+        "bytes": 0
+      },
+      "go_tests": {
+        "files": 0,
+        "bytes": 284
+      },
+      "pointer_selector": {
+        "files": 0,
+        "bytes": 0
+      },
+      "production_go": {
+        "files": 0,
+        "bytes": 748
+      },
+      "recipe_tables": {
+        "files": 0,
+        "bytes": 0
+      },
+      "testdata": {
+        "files": 1,
+        "bytes": 539820
+      },
+      "build_entrypoint": {
+        "files": 0,
+        "bytes": 0
+      },
+      "consumer_profiles": {
+        "files": 0,
+        "bytes": 0
+      }
+    },
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "files": 77,
+        "bytes": 640959
+      },
+      "runtime_with_bundle": {
+        "files": 80,
+        "bytes": 11954049
+      },
+      "runtime_and_executed_evidence": {
+        "files": 100,
+        "bytes": 12492068
+      }
+    },
+    "production_named_functions": 21,
+    "claim": "Capabilitygrowth, no source reduction/retirement/familyclosure."
+  },
+  "reuse": "Depth8 finiteTEX0/base/footprint/CLUTposition switch, expectedTBW2 only8bit, existingpacketdestinationX+Y. Existingindex/CSM1/preservequantizer/exactgeneration/pixelwalk/masks/clone/storage/publisher unchanged. No newfunction/type/argument/profilepolicy/schema/writer/dependency/runtimebundle.",
+  "limits": [
+    "Finite threePSMT8geometries withfouractualobservedrasters, not all1522manifestsmallindexedleads orwholetexturefamily. No arbitrarydims,below16,newheaderless/mipmap/CLUTmodes/approximatequantizer orresize/forcepolicy.",
+    "Static normalregistered/defaultcache transport/nativeGSjoin and projectPNGauthoring convention only; no actualdraw/residency/rendering/blendproof. Unuploadedphysicalholes, out-of-bounds sampling/filteredges/CLAMP/indirectcallbacks remainunproved.",
+    "Standalonefull-member26siblingcontainment is not wholeISO/CMBalias/placement/art/shippingapproval. No protectedISO/canonicalwrites orowneremulator/PINE/controller/process/log/settings access.",
+    "No retirement/source-savings/migrationcompletion/familypromotion claim. Rootowns laterdocumentation/accounting outside frozenreviewedcode/test/datapins."
+  ]
+}

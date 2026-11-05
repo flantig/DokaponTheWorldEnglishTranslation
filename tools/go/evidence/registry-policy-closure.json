@@ -1,0 +1,65 @@
+{
+  "status": "COMPLETE Controller and GP full-responsibility replacement under reviewed native snapshot/date/exclusiveoutput redesign",
+  "at": "2026-10-17T08:52:09.482615+00:00",
+  "reviews": {
+    "/var/tmp/dokapon-go-registry-policies-review1-0p4ovsyr/review.json": "b0ed7576192e5ba4a7a66ee15815b93ac3f71d207dc704b3d486d81c24094d45",
+    "/var/tmp/dokapon-go-registry-policies-review2-jjr5hd0p/review.json": "36f3eb8943c76f80ea95265334517279473c072c988aa8d21d954cfbeee3ad93"
+  },
+  "proof_pins": {
+    "evidence/registry-policy-go-checks.json": "4cb3fe2094aa9cff5ccb454d62cef23c81ba27d3a7c11458c6a875dabcc7d41f",
+    "evidence/registry-policy-focused.json": "ba462faeb63b649970ebc68f39bbd5cc614e293926c7be0f9d72f8ab129c719e",
+    "evidence/registry-policy-full-python.json": "e49c2294c9034a622566fe9d3567b40d64ce5b469e70503a44bc35f9deb94d5a",
+    "evidence/registry-policy-temp-correction.json": "4e1723abad99c1327122745dd7d37d90502085688bc342dbe55467a43bb5b670",
+    "evidence/registry-policy-python-static.json": "63f0bb6b277909775b687465c8da5238b246aa2e4b3f7223881b8e739673abb1",
+    "evidence/registry-policy-copy-proof.json": "de51214e420532e54d95e679454311d231dabb392bddda3bf9871490da73e2f3",
+    "analysis/registry-policy-contracts.json": "861d0e76a0ee16922ddae37a15539ce15bfe42b7a34f41e8d02930e857f0fc99",
+    "analysis/registry-policy-test-retirement.json": "204d3441f21418b8bdeb4015703792215760f56bb4c8f37475cedfb075abc9eb"
+  },
+  "reviewed_partial_ledger_sha256": "3571096817bc457ebbc0bde94c85a5337b0be95e1970e33df542efdf0148df1f",
+  "promoted_ledger_sha256": "1bd877daaeb0f400d196baade78670a347279870dbfdd5ba304df8163668e9b8",
+  "legacy_execution_projection_before": {
+    "tools/patch_yes_no.py": "reference-only",
+    "tools/patch_scream_eek.py": "reference-only",
+    "tools/patch_menu.py": "reference-only",
+    "tools/registry_writeback_controller_pointer_fixes_2026-09-07.py": "reference-only",
+    "tools/backfill_gp_relative_refs_2026-09-07.py": "reference-only"
+  },
+  "legacy_execution_projection_after": {
+    "tools/patch_yes_no.py": "reference-only",
+    "tools/patch_scream_eek.py": "reference-only",
+    "tools/patch_menu.py": "reference-only",
+    "tools/registry_writeback_controller_pointer_fixes_2026-09-07.py": "reference-only",
+    "tools/backfill_gp_relative_refs_2026-09-07.py": "reference-only"
+  },
+  "promotion_changes_execution_policy": false,
+  "regression": "Full9507 run had119failures; exact50fixture-location failures passedaftercorrectTMPDIR rerun onunchangedcode. Consolidated9438passes/same69knownfailures. InitialresultandJUnitretained. Notallgreen orsingle69-failurefullrun. TestID removals/additions exactly reviewed inventory.",
+  "counts": {
+    "full_Go": 5,
+    "reviewed_historical": 2,
+    "partial": 10,
+    "outstanding": 393,
+    "total": 410
+  },
+  "Go_runtime_source_changed": false,
+  "new_functions": 0,
+  "source_registry_sha256": "7ca467370b3b8a11a92cd2406c623cec80804bf164ae3335483766a06dea616e",
+  "new_outputs": [
+    {
+      "policy": "controller",
+      "path": "/var/tmp/dokapon-go-registry-policy-proof-uf4porlq/controller-registry.json",
+      "sha256": "354a7a72c1e0d7b9ebc4ffede875e66df305b95616b2493e4b72a27e52b9d752"
+    },
+    {
+      "policy": "gp",
+      "path": "/var/tmp/dokapon-go-registry-policy-proof-uf4porlq/gp-registry.json",
+      "sha256": "354a7a72c1e0d7b9ebc4ffede875e66df305b95616b2493e4b72a27e52b9d752"
+    }
+  ],
+  "Astra": "Purelyadversarial challenger; noimplementation/approvalrole. Twoordinaryreviewsare separate.",
+  "limits": [
+    "No registry_io85-import-caller or four othermetadata policy closure",
+    "No physical filedeletion ornet codebasesavings",
+    "No ISO/emulator/gameplay actions",
+    "Old Python/defaultoverwrite interfaces explicitlyunsupported references"
+  ]
+}

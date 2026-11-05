@@ -1,0 +1,31 @@
+{
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "growth": {
+    "from_sectors": 0,
+    "to_sectors": 320
+  },
+  "source_fixture": "initialized-growth.json",
+  "expected_edits": [
+    {
+      "offset": 534686,
+      "old_hex": "b3090000000009b30000002020000000",
+      "new_hex": "f30a000000000af30000f61f1ff60000"
+    },
+    {
+      "offset": 535148,
+      "old_hex": "b0984300004398b0",
+      "new_hex": "00a04d00004da000"
+    }
+  ],
+  "padding": {
+    "offset": 5083312,
+    "length": 1872
+  },
+  "zero_tail": {
+    "offset": 5085184,
+    "length": 655360
+  },
+  "evidence": "Independent go_field_facts historical n=0 arithmetic and source-bound original fields. Shared frozen directory topology is reused; only the two frozen original metadata fields are restored before planning. No loader/runtime readiness claim."
+}

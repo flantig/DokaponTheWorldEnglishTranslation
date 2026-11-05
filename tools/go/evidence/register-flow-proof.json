@@ -1,0 +1,255 @@
+{
+  "at": "2026-11-04T21:56:54.648606+00:00",
+  "status": "ROOT_VERIFIED_BOUNDED_REGISTER_FLOW",
+  "root_verification": {
+    "at": "2026-11-04T21:51:17.659159+00:00",
+    "status": "PASS_ROOT_CORE_NATIVE_CLI_BUILD_VET_FORMAT_HYGIENE",
+    "vet": [
+      "core-build",
+      "native-build",
+      "core-vet",
+      "native-vet"
+    ],
+    "complete_positive_cases": 113,
+    "independent_graph_queries": 48,
+    "decoded_rows_equal635_plain_baseline": 148,
+    "old_index_whole_output_parities": 88,
+    "old_audit_whole_output_parities": [
+      "stream-audit",
+      "reference-bound-audit",
+      "canonical-audit",
+      "fixed-audit",
+      "pinned-raw-audit",
+      "gp-audit",
+      "reconciliation-audit",
+      "sentinel-audit"
+    ],
+    "graph_schema_refusals_both_builds": 18,
+    "shared_batch_limit": {
+      "literal_closed_loop_states": 32768,
+      "query_count": 64,
+      "complete_queries": 30,
+      "batch_limited_queries": 34,
+      "core_native_exact": true
+    },
+    "example_two_queries_manual_equations": true,
+    "input_identities_preserved": 226,
+    "core_native_outputs_identical": true,
+    "production_Go_files": 43,
+    "production_bytes": 503383,
+    "named_production_functions": 42,
+    "core_sha256": "b749cbb40cbc442c2e8af54d6341ce2844d4d20b3ce31dd0d712fa6494548394",
+    "native_sha256": "07535a6794e6a9e3f7b5152a1628f6243d1643f48f62654c503094932463db6f",
+    "limits": "Full suite/nativefonts race/gameplay not checked. No full .05/whole-program/reduction/retirement claim."
+  },
+  "source_verification": {
+    "at": "2026-11-04T21:50:03.503698+00:00",
+    "status": "V3_ALL18_PINS_AND_ORIGINAL_FACT_PRESERVATION_VERIFIED",
+    "manifest_sha256": "791f27ec19f60d43bccc072c12b1c40586e5a5dcaa7a3a5a2e980b5755c56d58",
+    "cases": 26,
+    "queries": 48,
+    "complete": 14,
+    "reason_only_corrected_queries": [
+      [
+        "register-flow-straight-def-use",
+        "straight-before-kill"
+      ],
+      [
+        "register-flow-straight-def-use",
+        "straight-rd-before"
+      ],
+      [
+        "register-flow-diamond-two-defs",
+        "diamond-rd"
+      ],
+      [
+        "register-flow-loop-join-limit",
+        "loop-rd"
+      ],
+      [
+        "register-flow-loop-join-limit",
+        "loop-rd-limit"
+      ],
+      [
+        "register-flow-likely-link-annul-counterexample",
+        "likely-link-rd"
+      ],
+      [
+        "register-flow-conditional-write-not-definite-kill",
+        "conditional-rd"
+      ],
+      [
+        "register-flow-shared-lui-foreign-use-killed",
+        "shared-rd-positive"
+      ],
+      [
+        "register-flow-loop-preserved-value-fixedpoint",
+        "loop-fixedpoint-rd"
+      ],
+      [
+        "register-flow-movn-preserves-old-destination",
+        "movn-rd"
+      ],
+      [
+        "register-flow-merge-load-preserves-old-destination",
+        "merge-rd"
+      ],
+      [
+        "register-flow-movz-source-destination-alias",
+        "alias-rd"
+      ],
+      [
+        "register-flow-false-likely-annuls-unsupported-physical-delay",
+        "false-likely-rd-before-consumer"
+      ]
+    ],
+    "original_profiles_carriers_knownfacts_entries_preserved": 23,
+    "schema_refusals_unchanged": 18
+  },
+  "source_replay": {
+    "at": "2026-11-04T21:50:52.733364+00:00",
+    "status": "PASS_ROOT_EXACT_V3_SOURCE_REPLAY_BEFORE_LIVE_PUBLICATION_TAIL",
+    "root": "/tmp/dokapon-register-source-v3-root-bvuzi9zu",
+    "exact_compared": [
+      "testdata/register-flow.json",
+      "testdata/register-flow-fixture.zip",
+      "corrected-query-explanations.json",
+      "manual-entry-reachable-frontiers.json",
+      "new-raw-equations.json",
+      "new-manual-query-facts.json",
+      "source-assertions.json"
+    ],
+    "Go_query_engine_executions": 0,
+    "live_writes": 0,
+    "limitations": "Original source/manual hypotheses remain bounded. Root separately tests Go against independent semantics; replay alone is not proof of ISA completeness."
+  },
+  "review_fix_probes": {
+    "at": "2026-11-04T21:44:40.855373+00:00",
+    "status": "PASS_BOTH_REVIEW_COUNTEREXAMPLES_AND_ENTRY_QUERY_BOUNDS",
+    "checks": [
+      "unknown",
+      "indirect",
+      "256-entries",
+      "257-entries",
+      "65-queries",
+      "per-query-limit"
+    ],
+    "limits": "Only revised binaries checked; corrected permanent source goldens and final focused/race/review still pending."
+  },
+  "initial_review_root_pins": {
+    "at": "2026-11-04T21:44:09.295631+00:00",
+    "status": "INITIAL_REVIEW_668_PINS_AND_REPORT_VERIFIED_FINDING_ACCEPTED",
+    "artifacts": 668,
+    "report": "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/register-flow-review.json",
+    "manifest": "/var/tmp/dokapon-register-review-18p58u82/artifact-manifest.json",
+    "finding": "RF-UNKNOWN-ROOT-1",
+    "disposition": "Accepted both actual unsupported and indirect-target counterexamples. Revised Go/source contract pending final tests and delta review."
+  },
+  "metrics": {
+    "production_before": 489925,
+    "production_after": 503383,
+    "runtime_before": {
+      "files": 184,
+      "bytes": 2564808
+    },
+    "runtime_after": {
+      "files": 187,
+      "bytes": 2579104
+    },
+    "production_growth": 13458,
+    "runtime_growth": 14296,
+    "test_source_growth": 3916,
+    "test_fixture_growth": 8475,
+    "new_production_files": 2,
+    "new_request_result_types": 4,
+    "new_functions": 1,
+    "named_functions": 42,
+    "new_example_files": 1,
+    "retirements": 0,
+    "milestone_credit": 0,
+    "claim": "Capability growth. No net reduction, relocation savings or historical retirement."
+  },
+  "race": {
+    "at": "2026-11-04T21:55:56.541631+00:00",
+    "status": "PASS_FOCUSED_RACE_FINAL_SOURCE",
+    "owned_session": 97711,
+    "terminal_exit_code": 0,
+    "command": "GOMAXPROCS=2 nice -n19 go test -p2 -race -run ^TestCLIDryRunAndApply$ -count=1 .",
+    "test_seconds": 167.04,
+    "log_sha256": "b21022a7fcb8890b9c64736896961ffdb8c7c0065e7959fd7a296ee369b905ce",
+    "final_source_pins": {
+      "cmb.go": "0c03c31a74ff0d96a0c40cf2bfbb82ccbf2b45a76eca88a21642189acbc2d0e2",
+      "fit.go": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba",
+      "fit_types.go": "c4a4e34b8370bb2a47bb3f666e2c8e7cb86ea8ec33658fb27077c3150a0bb93c",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+      "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+      "input_types.go": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf",
+      "inputs.go": "1d31376672f059f73aec0e7048dab810e6264527e70e427a77ce79a73126541a",
+      "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+      "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+      "main.go": "50873e8e5a36e4cc366e4f5fbf94d6129983c9f095456d72de65cb231e7e8e7a",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+      "patch_test.go": "ca5d8efd0340176616db01b13677c96b6334ec6eb14b1ddb26f5dcfb9103ead0",
+      "raster.go": "b6addaf66e84c50e77c280b44f0e9e1505625a958dcd35ce124f1aecaf60ae1b",
+      "raster_font.go": "2ca9fea5ab1364c833bb45162bd8317e24a7ef74fba6720ced8e09503f863971",
+      "raster_font_disabled.go": "99b5b8b211aedbed32e3c35c11eed9fb9e04ed6583b466fe711d0377fa3b871d",
+      "raster_png.go": "ad0780f018feb014005df054731030a8e7b5a574d09391bae0d1872437c6ecbe",
+      "raster_reconstruction.go": "a7494aaf2382828545258c8d2c77d61d8fe4eb3a11ef0265bdfa7fd5d41a2772",
+      "raster_reconstruction_types.go": "d0dae1dfb402d89f644bc78fa625ada3ab6d5984fbbf64af168cb85d62b16f68",
+      "raster_resize.go": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63",
+      "raster_runs.go": "9f1ff15deb097ea413edfb290271026d8cba5d09c8c7c63d3e6932dddabed649",
+      "raster_types.go": "8b7433e8482c947584fc170f7cffdd137f0782994928615a160ee5b07f42f748",
+      "recipe_types.go": "650f5e67ce425b695b34ee0410913744343387478da45482afb621c3cbe40b79",
+      "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+      "reference_types.go": "57ec030258490309c0524d58d6efa95780e5c8f465834547eca5655b23516092",
+      "references.go": "ca525b2f71f77e13e512344a93a7a28680312c6474fcd50fa2c134767b98eca5",
+      "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+      "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+      "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+      "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "stream_audit.go": "4321493eb41ce981961139fcee9eeb2babd6507af21545248ed35743f5a62399",
+      "stream_audit_types.go": "e2fdc292fa95a84f087c2282197fe5ea91d05e2dd324aec0a99423f2ba0d325d",
+      "testdata/register-flow-fixture.zip": "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2",
+      "text_types.go": "a7b04b016529ae7b6307c18aeb9c7e62b906873abafed6eeeebfd5131292f71f",
+      "texture.go": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed",
+      "texture_authoring.go": "3a0ea9dfa2f7482dde05b80e325296ab7d3561fdd9eff01a79389a31222a537f",
+      "texture_contacts.go": "e04f54ada50ddf423f8d9c4234ee4f0df44e6dbc4bd2f098c1d18ffc9e176041",
+      "texture_discovery.go": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c",
+      "texture_index.go": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65",
+      "texture_manifest.go": "7a9a7c818f20bc986bff976505b2e955c815de944e960bdbbf2bdf7d385aa920",
+      "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+      "texture_types.go": "723db520fa02a67a3728368e728a009d6c3953597a22702fb2efb18f9a1bd40e",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+    },
+    "deferred": "Fullsuite/nativefontsrace/gameplay deferred by owner pacing."
+  },
+  "source_pins": {
+    "main.go": "50873e8e5a36e4cc366e4f5fbf94d6129983c9f095456d72de65cb231e7e8e7a",
+    "references.go": "ca525b2f71f77e13e512344a93a7a28680312c6474fcd50fa2c134767b98eca5",
+    "recipe_types.go": "650f5e67ce425b695b34ee0410913744343387478da45482afb621c3cbe40b79",
+    "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+    "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+    "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+    "patch_test.go": "ca5d8efd0340176616db01b13677c96b6334ec6eb14b1ddb26f5dcfb9103ead0",
+    "testdata/register-flow-fixture.zip": "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2",
+    "examples/gp-audit/register-flow-profile.json": "89deb313dae399b337c4d3d78c18293f7bd074b5c4a29772ceeb670c26dd38c4",
+    "analysis/register-flow-reuse-decision.json": "ac2936ab48b20f32ab2c25c3a772a0fb73524966b59c36ba5f5cc3db825f5b45",
+    "analysis/go-current-input-accounting.json": "5e9e1da0c5fb3fd41ba9f02ddfe6f9b05caec18d4ea99c1c1d9f6346b2a060ae",
+    "analysis/register-flow-cli-contract-v3.json": "2368bfb21c12b177a74c08238179d0eb3aa7330208e6f2061ac02e21f969724d",
+    "evidence/register-flow-review.json": "d7f7fde3589502c8af4440b360048fc0c642b65d871dea5ed33ee82ab7ff89f4",
+    "evidence/register-flow-final-review.json": "aa01bc08c6df45793da15354d073cfc94646370d2391852c080fc48e62514bd3"
+  },
+  "scope": "Bounded low32 graph lower-bound facts and conditional completeness. Full originalbinary.05 caller duties/.06,fullsuite/nativefontsrace/gameplay remain open. No protectedresources/gamepatch/reduction/retirement.",
+  "review": {
+    "path": "evidence/register-flow-final-review.json",
+    "sha256": "aa01bc08c6df45793da15354d073cfc94646370d2391852c080fc48e62514bd3",
+    "root_verified_artifacts": 813
+  },
+  "initial_finding_disposition": "RF-UNKNOWN-ROOT-1 closed by corrected unknown-frontier rule, permanent independent source cases and final delta review. Originalv2/initialreview remain preserved; corrected sourcev3 replaces unsupported no-reentry assumptions.",
+  "root_artifact_manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/root-artifact-manifest.json",
+  "root_artifact_manifest_sha256": "e86d074f51f32ef84d2eb73faf0f811873d8d61fd9f8189eb816ca5e71196205"
+}

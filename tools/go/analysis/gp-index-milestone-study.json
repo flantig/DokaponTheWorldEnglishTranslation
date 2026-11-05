@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T19:58:18.212630+00:00",
+  "status": "SOURCE_ONLY_GP_INDEX_MILESTONE_STUDY_NO_APPROVAL_OR_CREDIT",
+  "directory": "/var/tmp/dokapon-gp-index-milestone-x39h2qga",
+  "criterion": {
+    "id": "binary_inspection.04",
+    "exact_requirement": "Provide general GP-relative reference classification/indexing, not only one metadata backfill",
+    "source_crosswalk": [
+      {
+        "source": "analysis/pattern-crawl-text_binary.json",
+        "pointer": "small_toolkit/binary_inspection",
+        "contract": "Share deterministic word/instruction encoding, fixed-width decoding and reference indexes. Reports classify raw pointers, adjusted-high/signed-low pairs, GP offsets, branch/fallthrough, and interior references. Existing Go references and historical Scanner/Code/Tracer are reuse candidates, not interchangeable proof levels."
+      }
+    ],
+    "recommendation": "The privateboundedGP-index source implements the identifiedmaterial .04 duty beyondmetadata backfill: generaldeclaredrange supportedGPbase address/materialization andmemoryeffectiveaddressclassification with sourceorder, query/mappingfacts andunknowns. Sourcecriterionwouldbe supportable after freshordinarybehaviorreview+pin/probeverification. This study grantsneitherapprovalnorcredit; FULLbinaryfamily remainsPartial because .05/.06 materialreasoning notcovered."
+  },
+  "material_source_alignment": [
+    {
+      "original": "text-native.py447-475; relocate_gp_relative.py124-139,225-258",
+      "duty": "ELFmetadataGP and signedADDIUarithmetic/strictopcode-base contract. Candidate retainszeroGP/nullunknown andreport actualrt numeric; no fakeLUI/highseed."
+    },
+    {
+      "original": "migrate_drafted.py1025-1045 and1627; Tracer.step840-845",
+      "duty": "GeneralLWgp queriedslot andSWglobalstore effectiveaddress. Candidateindexes load/store points beyonddeclaredlabelsites; no claim ofactualdereference orpointervalueflow."
+    },
+    {
+      "original": "fix_inline_copies.py109-146/346; zone_safety.py76-77",
+      "duty": "FiniteR5900 memoryopcodebase uses includingmerge/loadstore/FP/COP/cache-pref fields. Candidate distinguisheskind andrawnumericrt; no false universalGPRlabel orCPUsbrsbit misuse."
+    },
+    {
+      "original": "zone_safety.py132-208/222-259",
+      "duty": "Old64wordhighhalfcandidatechains/4096wordGPinit leadseparate; sourcecounterexample freezeswhyindependentmetadataGPindexmustnotseed thathightracker."
+    }
+  ],
+  "private_source_preconditions": [
+    "RegularpinnedELF32LE MIPS source52B..64MiB, readonlysingleprofile/source, explicitnonemptyalignedfile_range <=1Mwords, no registry/glyph/patchfields.",
+    "Wholewordscangeometry uniquelycompletefile-backedPT_LOADreverseprojection, nohole/alias/split/BSS/unalignedmapping. ELFforwardVMAoverlap alone isnot sufficient; candidatepartitionchecksreversefilealias.",
+    "Atmost8namedhalfopencomputedpointqueries0<=start<end<=2^32,names1..128B; namedrangesmayincludeinteriorbyteaddresses; empty/absentqueries preserveallrows.",
+    "Onlysource-backedGPbaseforms rs28 indexed. Unknown/otheropcodes excluded withexplicitlimitedclassification wording. GPmetadata validknown0distinctfrommissing/ambiguous24Brecord.",
+    "Knownmetadata: computedaddress=(GP+signext16)mod2^32; rt0ADDIUarithmetic remainsknownbutkinddiscarded; memoryr0semanticsdifferent. Unknownmetadata: address/matches/targetmapsnull, sites/rawinstructionindexretained.",
+    "Numericrtopcodefield bank-dependent; no loadedpointer actualread, runtimeGPupdate orGPRliveness inferred.",
+    "32768row/64MiBJSON bounds; mappingdedup/chunksrespectexistinginspect1024range cap withouttruncatingindex; sourceorderdeterministic. Existingoldreference/audit behavior muststaybyte-compatible."
+  ],
+  "remaining_binary_milestones": [
+    {
+      "id": "binary_inspection.05",
+      "requirement": "Classify branch/fallthrough and perform bounded register/CFG reasoning required by original reports",
+      "material_remaining": "OriginalCode.br/succ/reaching_defs/uses_after andTracer boundedregister/valueflow; Scannerbranch_targets/fallthrough. Newmetadata-basedindexdoesnotinterpretliveGPoverwrites, branchdelay/fallthrough, pointerloads, caller/registerABI, orunknownregisterpaths. Otherarithmetic/branchactualGPRuses notindexedaddressforms."
+    },
+    {
+      "id": "binary_inspection.06",
+      "requirement": "Identify interior references and preserve hook/ABI proof boundaries across those forms",
+      "material_remaining": "NamedGPpointquerycanmatchaninterioraddressbutdoesnotcloseallrawunalignedpointers/LUIchains/GP/branch/fallthroughinteriorreferences, executableownership, safehookzone/RA/callerclobber/delay-slotABI proof. Originalfix_inlinecheck_site308-342/zone_safetyclass4andfallthroughremainstronger distinctproof levels."
+    }
+  ],
+  "native_source_oracle": {
+    "counts_file": "native/counts.json",
+    "expected_core_file": "native/expected-index.json",
+    "portable_readonly_profile": "native/profile.json",
+    "source_range_bytes": "native/scan-words.bin",
+    "scanned_words": 683392,
+    "supported_rows": 10212,
+    "per_opcode": {
+      "0x9": 907,
+      "0x1e": 110,
+      "0x1f": 1,
+      "0x20": 96,
+      "0x21": 252,
+      "0x23": 4417,
+      "0x24": 535,
+      "0x25": 135,
+      "0x27": 28,
+      "0x28": 246,
+      "0x29": 121,
+      "0x2b": 2173,
+      "0x31": 611,
+      "0x37": 441,
+      "0x39": 25,
+      "0x3f": 114
+    },
+    "per_kind": {
+      "store": 2680,
+      "load": 6625,
+      "constructed_address": 907
+    },
+    "rt_zero_per_kind": {
+      "store": 477,
+      "load": 368
+    },
+    "point_storage": {
+      "bss": 7100,
+      "file_backed": 3112
+    },
+    "unique_computed_points": 1298,
+    "qualification": "IndependentfullfrozenELFexpected10212sourceorderedrows/per-opcounts preparedwithoutGoexecution. This doesnotprove allwordsarecode orreachable; TEXTboundsareoriginaldeclaredretailwindow appliedtoalreadymodifiedfrozenextract."
+  },
+  "source_pins": [
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/manifest.json",
+      "contained": "sources/frontier-manifest.json",
+      "size": 13627,
+      "sha256": "99d803082cd3482a871d9a2aeab3121088c407df505784ca63c9d07c6956a525"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/facts.json",
+      "contained": "sources/frontier-facts.json",
+      "size": 46188,
+      "sha256": "e0d512e22b19b2ca10d569a2ffbbe6c32de85e260ec78065f11e32e77bcf8bc8"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/report.json",
+      "contained": "sources/frontier-report.json",
+      "size": 9439,
+      "sha256": "1d70a463bba2b8732730aaa44e96583b650f0c7f6395c9c3339bbcf38ad008ee"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/sources/zone_safety.py",
+      "contained": "sources/zone_safety.py",
+      "size": 53653,
+      "sha256": "690fdbe1eadda6b2ecd732126a59ae79a0debf6903783fae35cdd46a3d9384bb"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/sources/migrate_drafted.py",
+      "contained": "sources/migrate_drafted.py",
+      "size": 106911,
+      "sha256": "a35c8078bde4bab8ca978f22d5c9a843551ba523b8fff806f37ccc0edf005bdf"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/sources/fix_inline_copies.py",
+      "contained": "sources/fix_inline_copies.py",
+      "size": 26944,
+      "sha256": "b969e2197cd8aad4243d82e055084080ad7059d11ea12adc5a249bc9b486893c"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2/sources/relocate_gp_relative.py",
+      "contained": "sources/relocate_gp_relative.py",
+      "size": 15906,
+      "sha256": "971ae79033cfba6fb07772b1281d63082db7e7233421b5d3f042427f0c85f134"
+    },
+    {
+      "source": "/var/tmp/dokapon-structural-audit-s9qdhozq/sealed-final/analysis/migration-roadmap.json",
+      "contained": "sources/accepted-roadmap.json",
+      "size": 69917,
+      "sha256": "c779dc39ffd37140d5349707c899d7ed961b35115f48e852648472eae2be6b4e"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/reusability-coverage-baseline.json",
+      "contained": "sources/original-baseline.json",
+      "size": 13267,
+      "sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b"
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-ojcy9sxb/project/references.go",
+      "contained": "sources/candidate-references.go",
+      "size": 32340,
+      "sha256": "26a45c4e51547947568fa6c5a504a053a93727cc9c331906df9b65e7d5ea5c83",
+      "qualification": "Privateprototype sourceinspectedonly; no execution orapproval, freshordinaryreviewseparate."
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-ojcy9sxb/project/reference_types.go",
+      "contained": "sources/candidate-reference_types.go",
+      "size": 7318,
+      "sha256": "8491c92026abbefd8d194b246651532ac5cba61365590486caaff37491aa7e50",
+      "qualification": "Privateprototype sourceinspectedonly; no execution orapproval, freshordinaryreviewseparate."
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-ojcy9sxb/project/reference_geometry.go",
+      "contained": "sources/candidate-reference_geometry.go",
+      "size": 4165,
+      "sha256": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+      "qualification": "Privateprototype sourceinspectedonly; no execution orapproval, freshordinaryreviewseparate."
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-ojcy9sxb/project/main.go",
+      "contained": "sources/candidate-main.go",
+      "size": 18904,
+      "sha256": "835fdac1982b1db3ec56cf2d61556a7bfd7c990d151608333cf941e8fbc24963",
+      "qualification": "Privateprototype sourceinspectedonly; no execution orapproval, freshordinaryreviewseparate."
+    },
+    {
+      "source": "/var/tmp/dokapon-gp-index-ojcy9sxb/project/image_types.go",
+      "contained": "sources/candidate-image_types.go",
+      "size": 2542,
+      "sha256": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+      "qualification": "Privateprototype sourceinspectedonly; no execution orapproval, freshordinaryreviewseparate."
+    }
+  ],
+  "candidate_code_pins": {
+    "references.go": "26a45c4e51547947568fa6c5a504a053a93727cc9c331906df9b65e7d5ea5c83",
+    "reference_types.go": "8491c92026abbefd8d194b246651532ac5cba61365590486caaff37491aa7e50",
+    "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+    "main.go": "835fdac1982b1db3ec56cf2d61556a7bfd7c990d151608333cf941e8fbc24963",
+    "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda"
+  },
+  "verification": "Originalpurehelpers plus rawbinary/ELFheader-equation staticchecks only. No candidateGoexecution/build/test, sourceimports/mains, protectedISO/currentregistry/emulator/PINE/auth/process/log/settings. Alljobs terminal."
+}

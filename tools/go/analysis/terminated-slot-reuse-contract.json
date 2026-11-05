@@ -1,0 +1,223 @@
+{
+  "kind": "read_only_reuse_contract_probe",
+  "date": "2026-10-19",
+  "status": "design_only_not_implemented_by_probe; root prototype is in flight and is not reviewed by this report",
+  "question": "Can a typed bounded terminated-u16 slot operation safely reuse existing Go planner/encoder/control/writer owners for reviewed shorter rewrites with zero-tail padding?",
+  "conclusion": {
+    "decision": "Sensible as a narrow new operation named stream_slot, provided it uses controls' existing default supported-control allowlist before collecting exact token offsets. exact_control_stream must remain unchanged and must not become an escape hatch for this operation.",
+    "why_new_operation": "same_length_stream requires equal active byte lengths and has no zero-tail storage contract; fixed_field rejects terminated controls and markup; stream_append allocates/repoints rather than replacing a fixed in-place slot. The existing planner and writer can still own the complete write path.",
+    "limits": "A full reviewed ExpectedHex is a preimage and byte bound, not proof that the native consumer owns the entire span. Source identity, canonical ID/landing/reference uniqueness and independently reviewed consumer extent/copy behavior remain required. A maxStreamBytes cap proves only an implementation limit, not native extent or visual fit.",
+    "historical_application": "No production recipe is justified by the inspected historical evidence. fix_bundle has a suffix preimage and no full source/slot/consumer proof. fix_intro has a stronger historical 145-word/consumer proof pattern but current canonical wording changed again, its rewritten PAGE count differs, and its A80A/4001 prologue is outside the safe ordinary-control subset. Do not apply either historical recipe directly or claim closure."
+  },
+  "minimal_contract": {
+    "operation": "stream_slot",
+    "encoding": "Require a SHA-256 pin of the canonical active u16 encoding including its single END and excluding zero padding. Encode through existing encode; validate the result with controls' default supported-control policy. Exact control-token collection, if needed for offset comparison, occurs only after that default validation. Do not broaden default acceptance or change exact_control_stream.",
+    "preimage_and_extent": "Require the complete pinned predecessor slot as ExpectedHex; nonempty, even-sized, <= maxStreamBytes. Match every source byte at the canonical registry landing after source SHA/size checks. Recipe evidence must independently identify one canonical ID and establish no alias/interior target and the complete reader-owned copy extent; the length bound alone is insufficient.",
+    "terminated_slot": "Parse u16 words. The active prefix has exactly one final END. The remainder of the reviewed full slot consists only of zero u16 words. Apply the same rules to old and planned new slot; reject missing/early/duplicate END, nonzero tail, odd length, overflow, or unbounded extent.",
+    "control_policy": "Run the existing default controls allowlist on both active prefixes first. This supports the existing accepted HDR/speaker/LINE/PAGE/known pen/icon/highlight cases only where that default validator accepts them. Reject unsupported setup/opaque controls and all param8 payload markers (4800/B000/D800) in v1; do not use ExactControls to admit them. Preserve the full ordered control-word sequence. Every supported non-break control must remain at its exact u16 offset; only LINE/PAGE/END may move, and they may not be added, removed, or reordered. Existing break/highlight/speaker adjacency rules remain in force.",
+    "write_path": "Pad the pinned active encoding with zero u16 words to exactly the old slot length. Produce one same-sized Edit; rely on validateEdits for bounds/alignment/nonoverlap, then existing verifySource/patchCopy/new-output/readback path. Mixed independent guarded_words and stream_slot edits may compose through plan only with explicit source/table agreement and no overlap. If optional OutputSHA256 is supported for mixtures, require an explicit identical whole-output pin on every contributing table and verify it independent of table order; current plan/run only permit/report OutputSHA256 for one guarded_words table, so this needs planner/CLI policy work, not a first-table shortcut.",
+    "claims_excluded": [
+      "No visual-fit claim from capacity or byte equality.",
+      "No native consumer copy-bound claim from ExpectedHex length or maxStreamBytes.",
+      "No generic arbitrary-control rewrite or param8 support.",
+      "No automatic rollback or inferred old-state reconstruction.",
+      "No complete fix_bundle mixed transaction closure from a synthetic stream-slot test."
+    ]
+  },
+  "existing_go_owners": {
+    "plan": {
+      "file": "patch.go",
+      "symbol": "plan",
+      "lines_1_based": "672-1427",
+      "role": "dispatch operation, resolve canonical entry/landing, source identity, full ExpectedHex, encode and construct Edit; add stream_slot policy here rather than a per-script path"
+    },
+    "encode": {
+      "file": "patch.go",
+      "symbol": "encode",
+      "lines_1_based": "39-270",
+      "role": "canonical text encoding; reuse. Its markup syntax already supports glyphs, HL/PARAM/ICON, speakers and raw u16 words, so slot-specific post-encoding default validation is mandatory."
+    },
+    "controls": {
+      "file": "patch.go",
+      "symbol": "controls",
+      "lines_1_based": "279-666",
+      "role": "existing default allowlist and terminated grammar; extend only as needed to expose exact token offsets after default validation. Current ExactControls branch bypasses the default allowlist and therefore cannot alone secure a new slot op."
+    },
+    "validateEdits": {
+      "file": "patch.go",
+      "symbol": "validateEdits",
+      "lines_1_based": "1431-1506",
+      "role": "preserve equal whole-edit size, even alignment, bounds, no overlap and operation-specific old/new stream semantics; add u16 prefix/zero-tail/control checks for the new type here."
+    },
+    "writer": {
+      "file": "patch.go",
+      "symbols": "verifySource, patchCopy",
+      "role": "already replan, compare exact old bytes, write only planned edits to a new output, read back and preserve source identity; no new writer/helper is needed."
+    },
+    "cli": {
+      "file": "main.go",
+      "symbol": "run",
+      "lines_1_based": "26-744",
+      "role": "existing dry-run/apply/whole output flow; make any mixed-table OutputSHA256 agreement explicit if that optional policy is adopted."
+    },
+    "tests": [
+      {
+        "file": "patch_test.go",
+        "symbol": "TestPlanAndCopy",
+        "lines_1_based": "260-1910",
+        "role": "extend existing planner/writer synthetic fixture table"
+      },
+      {
+        "file": "patch_test.go",
+        "symbol": "TestCLIDryRunAndApply",
+        "lines_1_based": "3365-5301",
+        "role": "extend existing end-to-end CLI test table for preview/apply/output/source preservation"
+      }
+    ]
+  },
+  "historical_corpus_observations": {
+    "primary_mixed_candidate": {
+      "path": "../fix_bundle_2026-09-30.py",
+      "sha256": "8afb07a9de9a04210d041b78b24866c4672f642c1d8ce6dcc61f8a6648ece90a",
+      "facts": "NARR_OFF=0x10a10; NARR_WORDS=145. Old/new narration tails are glyph-encoded lines with trailing 0x1000 and 0xf800. It checks only the old suffix at tail_at or a new suffix derived from first END, then constructs words[:tail_at]+new_tail and zero-pads to 145 u16 words. Same script also restores/zeros code ranges and checks readback/prefix/suffix unchanged.",
+      "blockers": "No full 145-word predecessor slot preimage; no full source SHA/size recipe; no demonstrated reader-owned copy extent, alias/ref proof or bounded native consumer. Existing already-applied path does not validate the complete new slot tail. This is only a candidate for the operation pattern, not proof of an eligible recipe."
+    },
+    "stronger_slot_example": {
+      "path": "../fix_intro_wording_2026_10_01.py",
+      "sha256": "ecb70a35db842f60fd1dd86854ea6b439feb155015402899990e2aa99bcc96d1",
+      "facts": "RID 0x4ef2e0, landing 0x4010a10, slot 145 u16/290 bytes; full packed OLD or NEW slot equality; source code guards and ref-site pair at 0x3670b8/0x3670c4; checks no other registry landing inside slot, no interior u32 or pair targets, exact canonical references, and unchanged trailing page/end plus preserved non-break control words. Historic next landing 0x4ef360->0x4010b34 is 292 bytes later, leaving a 2-byte separation after the 290-byte slot.",
+      "blockers": "Parent-observed current canonical wording has changed since this historic recipe. It has A80A and 4001 setup prologue words not accepted by current default control allowlist. New narration changes page count, so a contract preserving the complete control sequence must reject it. Its visual fit checks are separate from storage-capacity proof."
+    },
+    "shared_historical_engine": {
+      "path": "../stream_edit.py",
+      "sha256": "1d5fabd40e3a1117a4a5a0b7a1b68737d1b68fa418c1ca38af65a67a0ff41290",
+      "facts": "Existing Python StreamEdit scans u16 to first END with a 4096-word cap, extends through following zero words, checks new stream has one final END and fits, writes zero-padded slot, reads back and checks bytes outside span unchanged.",
+      "blockers": "It lacks Go recipe source/registry/consumer proof and its span discovery is weaker than an explicit full ExpectedHex plus independent native ownership evidence; do not blindly translate its dynamic span inference."
+    },
+    "related_corpus_cases": [
+      {
+        "path": "../fix_equip_names_2026_10_01.py",
+        "sha256": "aa72204dae7648315fbe2f5b43a5bc28d0798938c815fc01d3550113de51256b",
+        "distinction": "36-name family: sentinel StreamEdit slots use shorter terminated text with zero padding, plus ELF resident entries with different original-END bounds; width and registry/readback contracts remain recipe-specific."
+      },
+      {
+        "path": "../fix_bag_header_2026_09_30.py",
+        "sha256": "353485cd848c921aaf0b3a202c1a46e96a24dd1e94b64fd55185be8483566058",
+        "distinction": "Fixed-cell UI header with control layout/copy limits; not ordinary narration grammar."
+      },
+      {
+        "path": "../fix_data_tabs_2026_09_30.py",
+        "sha256": "abba01ef16d3d2b2eb45f4e5100079e34f5cceb2827e7ad86796454944f726c1",
+        "distinction": "Fixed-cell tab labels preserve row/control structure and custom layout checks."
+      },
+      {
+        "path": "../fix_exp_label_2026_09_30.py",
+        "sha256": "1d2c95c5040fcf3640e25dbf988433cfff14caaf646479d9af138ecda0ca1e7a",
+        "distinction": "Label coupled to live instruction target; not a scalar stream rewrite."
+      },
+      {
+        "path": "../fix_warp_prefixes_2026_10_07.py",
+        "sha256": "a1d5d139b5cf66c9bfd6c19c85171532fe2c00d327322d4b7b7859f7c439f7db",
+        "distinction": "Fixed copied inputs; add END within consumer length, not zero-tail replacement of a canonical slot."
+      },
+      {
+        "path": "../fix_unknown_area_placeholder_2026_10_01.py",
+        "sha256": "76d70fc13d49b7f2deb62f06fe830f09bbad15a76f5fa421300f6e568cfcc5e5",
+        "distinction": "Five question-mark/zero padding u16 words in a scratch-only fixed slot; not a terminated u16 text stream."
+      }
+    ],
+    "crawl_scope": {
+      "text_crawl": "analysis/pattern-crawl-text_binary.json; 120 scripts; targeted stream_edit/slot/zero-padding candidates inspected, but tags are discovery leads, not semantic proof.",
+      "mixed_crawl": "analysis/pattern-crawl-iso_registry_reports.json; fix_bundle classified binary_edit+text_codec_fit and explicitly mixed code/data rollback with text tail; stream_edit is its shared Python engine.",
+      "known_gap": "No crawl row supplies a frozen complete expected 145-word predecessor/output slot oracle for fix_bundle. Historical candidate must remain held until its full source and ownership evidence exist."
+    }
+  },
+  "independent_oracle_and_cutsets": {
+    "oracle": "Synthetic source bytes containing an explicitly authored full old slot, independent literal active old/new u16 bytes and independently checked SHA-256 pins. Expected output should be assembled from the independent literal new active bytes plus exactly the known zero-u16 tail; do not generate the expected bytes with Go encode/plan. No ISO required.",
+    "positive_cases": [
+      "shorter active wording plus zero tail, exact old slot preimage and full source pin",
+      "unchanged supported control sequence with LINE/PAGE/END movement allowed under the reviewed rule",
+      "mixed nonoverlapping guarded_words + stream_slot plan in both table orders, where any output pin is explicitly repeated and equal"
+    ],
+    "negative_cutsets": [
+      "one changed byte anywhere in full old active/tail slot",
+      "incorrect source SHA or size; wrong registry ID/landing; alias/interior landing/consumer extent missing",
+      "bad/incorrect active EncodedSHA256, too long active stream, odd slot, source out of bounds, overlapping edit",
+      "missing/early/duplicate END or any nonzero post-END u16",
+      "unsupported setup/opaque/pen0 word and each param8 marker 0x4800/0xb000/0xd800",
+      "default control allowlist bypass attempt; changed/reordered/additional/removed supported control; moved non-break control offset; allowed break moving across an illegal speaker/highlight boundary",
+      "wrong/inconsistent/missing mixed output pin if policy requires it; table order must not change acceptance",
+      "CLI preview must not write; apply must use new isolated output, preserve source bytes, read back exact target and verify whole output hash when pinned"
+    ]
+  },
+  "source_pins": [
+    {
+      "path": "analysis/pattern-crawl-text_binary.json",
+      "sha256": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+      "bytes": 111214
+    },
+    {
+      "path": "analysis/pattern-crawl-iso_registry_reports.json",
+      "sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+      "bytes": 119708
+    },
+    {
+      "path": "analysis/stream-slot-frontier.json",
+      "sha256": "0112b1205b876b0019bfd82cd7d9426efddf4605572b190f58b08e3bcafe5d49",
+      "bytes": 3411
+    },
+    {
+      "path": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko/patch.go",
+      "sha256": "4754d5ac5cee97f79d7d77b97c2647ab2541e76d8e13e56ecbf39a17d3ef669b",
+      "bytes": 87617
+    },
+    {
+      "path": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko/main.go",
+      "sha256": "1d9de0b1a746fb835a2e708af6b1e541e5c3a154ed6a06b3be4a6682587fbc64",
+      "bytes": 29691
+    },
+    {
+      "path": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko/recipe_types.go",
+      "sha256": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+      "bytes": 5777
+    },
+    {
+      "path": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko/text_types.go",
+      "sha256": "2692f874ee7539bdd5a8f11209d4d4f6e1a1f9553f5d6a4e58ed07367b3be45c",
+      "bytes": 1948
+    },
+    {
+      "path": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko/patch_test.go",
+      "sha256": "5f5ee831739ffd8bb90a5761f611d67f18e3d4873dacaa6a2686b46e949af2eb",
+      "bytes": 303806
+    }
+  ],
+  "verification": "All listed SHA-256 values were recomputed directly from the named file bytes during this probe. Serena symbol/reference inspection was performed against the frozen pre-prototype Go snapshot for plan, encode, controls, validateEdits, run, and the two existing test functions. No tests, builds, ISO operations, emulator, or live maintenance process were run or controlled. Root prototype changes observed during the probe belong to root and are explicitly not reviewed here.",
+  "working_basis_snapshot": {
+    "path": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko",
+    "state": "frozen pre-stream_slot prototype snapshot supplied by root after concurrent source changes began",
+    "sha256": {
+      "patch.go": {
+        "sha256": "4754d5ac5cee97f79d7d77b97c2647ab2541e76d8e13e56ecbf39a17d3ef669b",
+        "bytes": 87617
+      },
+      "main.go": {
+        "sha256": "1d9de0b1a746fb835a2e708af6b1e541e5c3a154ed6a06b3be4a6682587fbc64",
+        "bytes": 29691
+      },
+      "recipe_types.go": {
+        "sha256": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+        "bytes": 5777
+      },
+      "text_types.go": {
+        "sha256": "2692f874ee7539bdd5a8f11209d4d4f6e1a1f9553f5d6a4e58ed07367b3be45c",
+        "bytes": 1948
+      },
+      "patch_test.go": {
+        "sha256": "5f5ee831739ffd8bb90a5761f611d67f18e3d4873dacaa6a2686b46e949af2eb",
+        "bytes": 303806
+      }
+    },
+    "note": "Serena symbol locations and Go behavior in this report refer to these frozen pre-prototype bytes; current root implementation was not examined as a review target."
+  }
+}

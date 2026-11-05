@@ -1,0 +1,47 @@
+{
+  "kind": "source-only-register-flow-source-supplement",
+  "status": "FROZEN_BEFORE_GRAPH_GO_NO_IMPLEMENTATION_OR_CREDIT",
+  "capsule": {
+    "path": "/var/tmp/dokapon-register-flow-supplement-KUepKIxO",
+    "manifest_sha256": "905c388afa135dd27f6adecdd3add7a8ad16f26a0e8163dea59ab677acef9080",
+    "member_count": 7,
+    "total_bytes": 46813
+  },
+  "base_capsule": {
+    "path": "/var/tmp/dokapon-register-flow-source-bB7GvrQ1",
+    "manifest_sha256": "92c5dd9195fb0263544c011cc25475f2443384462bf94a0aa3e0aab5690c2077",
+    "all16members_unchanged": true
+  },
+  "change_reason": "Astra041 preflight requested path-specific likely-delay handling and explicit entry state with backedge, before graph implementation. This source supplement does not implement a graph engine.",
+  "contract_clarifications": [
+    "A raw control row may retain a physical unsupported delay_error even when a statically false likely branch annuls that instruction on every feasible path. Graph incompleteness belongs only to paths that actually execute the delay.",
+    "Unknown likely condition preserves useful false-path consumer facts while separately retaining taken-path unsupported-delay incompleteness. Always-taken likely condition cannot establish the false-path consumer.",
+    "Explicit entry boundary facts coexist with ordinary local predecessor edges. Reaching definitions before an entry read include external incoming value plus any local loop-carried definitions, even when entry indegree is nonzero.",
+    "Conservative explicit operand reads include same-register branch site itself. Thus false BNEL t0,t0 gives uses afterLUI={0x100004,0x10000c}, complete because kill0x100010 closes value flow; no predicate-independence optimization added."
+  ],
+  "concrete_cases": {
+    "annulled": "LUI+0; BNEL t0,t0+4; unsupported+8; consumer+12; kill+16; JR+20; NOP+24. uses={+4,+12}, defs beforeconsumer={+0}, complete under explicit entry.",
+    "taken": "BEQL t0,t0 variant: uses={+4}, incomplete unsupported_delay_word. Consumer+12 not established.",
+    "unknown": "BNEL t0,t1 variant: known uses={+4,+12}, incomplete unsupported_delay_word on taken outcome only.",
+    "backedge": "Entry+0 ADDIU a0,t0,0; +4 LUI t0; +8 J base; +12 NOP. defs BEFOREentry={def+4,entry+0}; uses AFTERLUI={+0}, locally complete."
+  },
+  "replay": "freeze.py extracts and executes the exact original-helper harness AST from sealed initial freeze.py with new literal contexts/query tuples. It bypasses original constructors/imports/main. Original helper outputs retain their flaws separately; e.g backedge original returns onlydef+4, missing entryfact; taken BEQL original wrongly reports consumer+12.",
+  "primary_evidence": "Initial pinned primary/Interpreter.cpp411-436 implements BEQL/BNEL with false outcome skipping delay. Original Code.reaching_defs517-536 derives entry solely from absent predecessors, motivating backedge counterexample.",
+  "verification": {
+    "status": "PASS_SOURCE_ONLY_SUPPLEMENT",
+    "at": "2026-11-04T20:59:53.860038+00:00",
+    "initial_members_verified_before_and_after": 16,
+    "initial_manifest_unchanged": true,
+    "supplement_contexts": 4,
+    "manual_queries": 6,
+    "complete_queries_under_explicit_scope": 4,
+    "separate_original_helper_queries": 6,
+    "literal_checks": 14,
+    "JSON_AST_scoped_hygiene": "PASS",
+    "original_imports_mains_constructors": 0,
+    "Go_or_candidate_execution": 0,
+    "runtime_functions_added": 0,
+    "all_owned_jobs_terminal": true
+  },
+  "limitations": "Low32 normal-completion conservative facts under explicit synthetic entries. No whole-program scope proof, graph Go/API implementation, call policy extension, .05/.06 award, approval, patch or code reduction. No protected resource access."
+}

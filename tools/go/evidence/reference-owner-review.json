@@ -1,0 +1,208 @@
+{
+  "all_owned_jobs_terminal": true,
+  "allowed_live_write": "evidence/reference-owner-review.json only",
+  "at": "2026-11-04T23:19:08.898045+00:00",
+  "commands": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestPlanAndCopy|TestCLIDryRunAndApply)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 23.71984076499939
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/dokapon-core",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 1.5593063831329346
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.37545347213745117
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "native",
+        "-o",
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/dokapon-native",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 1.4790418148040771
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "native",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 1.2730228900909424
+    }
+  ],
+  "connected_code_review": {
+    "accounting": "Extraction is relocation. No deletion, family completion, original read_arg/full Tracer equivalence or .05/.06 retirement claim is supported by this review.",
+    "callers": "Serena traced main.run, auditStreams and existing test callers of references; indexInstructions and queryRegisterFlow each have two references consumers. Shared normalizeReference/referenceTarget remain used by patch.plan.",
+    "no_other_confirmed_findings": true,
+    "reuse": "One extracted finite producer replaces the previous inline block; no second decoder, graph engine, mode-flag framework or per-patch handler was found. Separate lower-site projection extends the existing collector and leaves full pair/memory keys in place.",
+    "semantics_checked": [
+      "unknown root refusal retained alongside known foreign facts",
+      "non-LUI/entry/registered-missing/multiple definitions",
+      "ADDIU signed carry and ORI zero-extension",
+      "benign tuple exact source/use/entry scoping",
+      "all owner statuses and numeric spelling preserved",
+      "duplicate declared pairs/query deduplication",
+      "GP lower claim remains visible",
+      "registry landing no fallback across null/zero/wide/nonnumeric/object values",
+      "zero-padding byte/bound checks",
+      "global64-query cap before graphcall",
+      "null/wrongmode/Unicode/alias request guards",
+      "read-only buffered stdout and regular-input byte preservation"
+    ],
+    "serena_session": "e392a2e9",
+    "symbols": [
+      "references",
+      "indexInstructions",
+      "queryRegisterFlow",
+      "normalizeReference",
+      "referenceTarget",
+      "readInput"
+    ]
+  },
+  "findings": [
+    {
+      "classification": "connected inherited lifecycle gap, retained by the new flow route",
+      "disposition": "Sent promptly to root; no runtime code changed by reviewer.",
+      "id": "RF-INPUT-REGULAR-1",
+      "if_skipped": "Malformed local input can hang a supposedly bounded read-only report; a very large recipe is read before its bound is enforced.",
+      "locations": [
+        {
+          "detail": "Initial recipe os.ReadFile runs before the size and regularity guard at228-230.",
+          "file": "main.go",
+          "line": 99
+        },
+        {
+          "detail": "Shared readInput opens the path before checking its regular-file mode.",
+          "file": "inputs.go",
+          "line": 20
+        },
+        {
+          "detail": "Flow registry is statted but no regularity guard runs before readInput.",
+          "file": "main.go",
+          "line": 373
+        },
+        {
+          "detail": "Same ordering for the flow glyphmap.",
+          "file": "main.go",
+          "line": 386
+        }
+      ],
+      "minimal_fix": "Validate mode/size before opening each expanded recipe path and perform bounded reads. Enhance the existing shared readInput with a pre-open regular-file/size check while retaining its opened-handle checks. Do not add per-route readers or helpers.",
+      "problem": "A recipe FIFO containing a complete valid reference_flow request keeps the CLI blocked while its writer stays open. Registry/glyphmap FIFOs without a writer block in os.Open before readInput can reject their mode. Initial recipe reads also allocate the whole file before the 1MiB check.",
+      "proof_paths": [
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/probes/recipe-fifo",
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/probes/fifo-registry.json",
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/probes/fifo-glyphs.json",
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/probe-results.json",
+        "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/fifo-input-results.json"
+      ],
+      "reproduction": "Run the retained probes.py and fifo-input-probes.py against the private built CLI. recipe-fifo writes a complete pinned flow profile and holds the writer open; it remains blocked until close, then refuses with no stdout. The registry and glyph FIFO cases remain blocked without a writer and were terminated through their exact owned Popen handles.",
+      "severity": "should_fix",
+      "title": "Input files can block before their regular-file guard",
+      "what_this_is": "The optional report promises bounded regular recipe, registry and glyphmap artifacts and refuses special files."
+    }
+  ],
+  "kind": "independent-read-only-reference-owner-review",
+  "limitations": [
+    "No full test suite or race run by this reviewer; root race evidence is separate.",
+    "No native-font race, emulator, gameplay, original ISO, shipping/custom-art image, canonical registry, account settings or owner processes were accessed.",
+    "No historical expectation was rewritten from candidate output.",
+    "Source comparison used frozen accepted648; the31 real source cases are distinct from injected policy tuples.",
+    "Review records findings only and grants no approval or migration credit."
+  ],
+  "pins": [
+    {
+      "kind": "candidate",
+      "manifest": "/var/tmp/dokapon-reference-owners-ov77euwr/owner-review-source-manifest.json",
+      "members_verified": 665,
+      "private_copy_runtime_equal": true,
+      "sha256": "1e16983b029f99b94f6b30f8205f886dfd8e3a7ec6e3d2427d44fea7592f236b"
+    },
+    {
+      "kind": "baseline",
+      "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/sealed-final/manifest.json",
+      "members_verified": 648,
+      "private_copy_runtime_equal": false,
+      "sha256": "b03466bfe5b2a6b7868e3b7ee5da53a7962864ee3d2191dce08d8a40c8581035"
+    },
+    {
+      "kind": "oracle",
+      "manifest": "/var/tmp/dokapon-reference-owner-cli-Xb2ndjhf/manifest.json",
+      "members_verified": 199,
+      "private_copy_runtime_equal": false,
+      "sha256": "836261d707d794db06b9c0460122e199c8f3ec2b32de947c5b39292b63aa0e5a"
+    },
+    {
+      "kind": "pre-Go source",
+      "manifest": "/var/tmp/dokapon-register-caller-gap-LpXbmD92/manifest.json",
+      "members_verified": 28,
+      "private_copy_runtime_equal": false,
+      "sha256": "a37ce28f171c12c32ac3d769cbefb0bd697a1025abe819468b9b6c2dd7c89394"
+    }
+  ],
+  "probe_corrections": [
+    "Initial additional landing probe used bad as invalid text, but number() deliberately interprets unprefixed strings as hexadecimal. Corrected probe to not-hex; this was a probe assumption error, not a production defect.",
+    "Initial pin verifier accidentally included the trailing199 member count in the copied oracle manifest hash. Corrected to the64hex hash and verified all199members."
+  ],
+  "reviewed_candidate_manifest": "/var/tmp/dokapon-reference-owners-ov77euwr/owner-review-source-manifest.json",
+  "reviewed_candidate_manifest_sha256": "1e16983b029f99b94f6b30f8205f886dfd8e3a7ec6e3d2427d44fea7592f236b",
+  "reviewer": "/root/reference_owner_review",
+  "schema_version": 1,
+  "source": "/var/tmp/dokapon-owner-independent-review-kf1h1wrd/source",
+  "status": "REVIEW_COMPLETE_WITH_ONE_CONNECTED_INPUT_LIFECYCLE_FINDING",
+  "verification": {
+    "additional_assertion_probes": 17,
+    "all_owned_jobs_terminal": true,
+    "core_build": "PASS",
+    "core_vet": "PASS",
+    "focused_test_seconds": 23.71984076499939,
+    "independent_source_refusals_with_empty_stdout": 23,
+    "input_bytes_preserved_for_all_regular_CLI_probes": true,
+    "native_build": "PASS",
+    "native_vet": "PASS",
+    "oracle_cases_exact_graph_and_rowflow": 31,
+    "registry_glyph_fifo_probes": 2
+  },
+  "what_this_change_does": "Shares the finite instruction producer between index/report routes and adds bounded registry caller diagnostics using the existing register-flow engine. ORI operand facts expand the same decoder; canonical patch pair rules remain separate.",
+  "workspace": "/var/tmp/dokapon-owner-independent-review-kf1h1wrd"
+}

@@ -1,0 +1,171 @@
+{
+  "schema": "event-reader-composition-proof-v1",
+  "at": "2026-10-21T16:49:31.226280+00:00",
+  "status": "VERIFIED_EXISTING_OWNERS_NO_PRODUCTION_CHANGE",
+  "contract": "Explicit source-proven pool slots reuse existing pointer_array observations, PT_LOAD mapping, installed sentinel allocation and common stream decoder. Outer row/script/event relationships remain provenance, not pointer authority. No event handler/YBS interpreter was needed for selected reads.",
+  "source_evidence": {
+    "report": "analysis/event-reader-selection-frontier.json",
+    "source_manifest_sha256": "81a4aa815a32fccfc448f0365fb66ebaeb95b6eaffe49e4e7883172293e96c33",
+    "members_root_verified": 22,
+    "bytes": 357500,
+    "root_original_replay": {
+      "outcome": "PASS",
+      "literal_native_relations": 90,
+      "selected_original_pointer_and_stream_cases": 3,
+      "original_refusal_cases": 5,
+      "wrong_outer_and_null_counterexamples": 2,
+      "sparse_replay_qualification": "Preserves exact selected original bytes and file bounds; no originalmain or game execution."
+    },
+    "frozen_ELF_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "native_cases": [
+      {
+        "id": "0x4ad060",
+        "ordinal": 0,
+        "site": {
+          "outer_table_row_vma": "0x4cecec",
+          "pointer_vma": "0x536920"
+        },
+        "target": 67365744,
+        "window": [
+          4688752,
+          4688872
+        ],
+        "stream_sha256": "3b828d1d7ca2c809f4fb9d01fcdbfaaa4d7cb46ef70bd1ca5d5533b47a036136"
+      },
+      {
+        "id": "0x4acd40",
+        "ordinal": 4,
+        "site": {
+          "outer_table_row_vma": "0x4ced1c",
+          "pointer_vma": "0x536940"
+        },
+        "target": 67365600,
+        "window": [
+          4688608,
+          4688752
+        ],
+        "stream_sha256": "d9cace7eead31f264c346f5a3d20ce139ad26c3d250308eeb7d2da3af8ec9535"
+      },
+      {
+        "id": "0x4ac4a0",
+        "ordinal": 69,
+        "site": {
+          "outer_table_row_vma": "0x4cf028",
+          "pointer_vma": "0x536b48"
+        },
+        "target": 67175660,
+        "window": [
+          4498668,
+          4498704
+        ],
+        "stream_sha256": "f3a774d203ebc508f6cd7c2cc1792edb5af3717afa43fbef632ccd85d26e3f04"
+      }
+    ]
+  },
+  "verification": {
+    "native_positive": {
+      "at": "2026-10-21T16:38:22.350956+00:00",
+      "status": "PASS",
+      "rows": 3,
+      "profile_sha256": "116e3f10d14412f9372767d5daab892eaf828fd4dcd3f8a33abc32accd53ac7b",
+      "stdout_sha256": "c323ac1b0a9c914bd9aae06abfce347f357c3b96b8fc89c5a7b6fb9c07c9e163",
+      "original_tokens_exact": true,
+      "actual_slot_words_and_full_loaded_windows_exact": true,
+      "new_production_code": false,
+      "scope": "Installed-source selfcomparison to verify actual declared observedreference path; no pristine/canonical/runtime claim."
+    },
+    "guards": {
+      "at": "2026-10-21T16:38:55.195663+00:00",
+      "status": "PASS",
+      "new_production_code": false,
+      "root_native_event_positive_rows": 3,
+      "core_nativefonts_complete_CLI_identical": true,
+      "guards": [
+        {
+          "mode": "outer-as-pointer",
+          "exit": 1,
+          "expected": "refused-no-report",
+          "stderr_sha256": "a7bd65b971853405159c77c5cc03ddd4ab3183f290ab879682aab6f738dbd28a"
+        },
+        {
+          "mode": "slot-second-word",
+          "exit": 1,
+          "expected": "refused-no-report",
+          "stderr_sha256": "a7bd65b971853405159c77c5cc03ddd4ab3183f290ab879682aab6f738dbd28a"
+        },
+        {
+          "mode": "outer-only",
+          "exit": 1,
+          "expected": "refused-no-report",
+          "stderr_sha256": "a436d177d3260d43a57e875341ae159db7d1927f3f44f20987d6281d7b2a382c"
+        },
+        {
+          "mode": "missing-sites",
+          "exit": 1,
+          "expected": "refused-no-report",
+          "stderr_sha256": "a436d177d3260d43a57e875341ae159db7d1927f3f44f20987d6281d7b2a382c"
+        },
+        {
+          "mode": "wrong-window",
+          "exit": 1,
+          "expected": "refused-no-report",
+          "stderr_sha256": "a7bd65b971853405159c77c5cc03ddd4ab3183f290ab879682aab6f738dbd28a"
+        },
+        {
+          "mode": "wrong-landing-ignored",
+          "exit": 0,
+          "expected": "stored-pointer-authority-retained",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "scope": "Finite source-proven actual observed slot reads and complete loaded-window mapping. No eventruntime selector/pristine/canonical/criterion closure."
+    },
+    "root_artifact_manifest": {
+      "path": "/var/tmp/dokapon-event-read-check-kh5cm3gf/root-artifact-manifest.json",
+      "sha256": "a7320945e42b74fe959132e1478376bb0200c39d7749db69db131d0d8470bb38",
+      "members": 56
+    },
+    "review": {
+      "path": "evidence/event-reader-composition-review.json",
+      "sha256": "f5cfec2dce52e21086a62049db24d1615a194becbd3bd35fd7aefb742a7f47d3",
+      "root_verified_artifacts": 85,
+      "status": "NO_MATERIAL_FINDINGS"
+    },
+    "tests_builds": "No Go/source/recipe changes: accepted573 focused14.748s/race178.925s/buildvet/gofmt checks inherited, not rerun for this evidence-only composition. Originalhelpers and actual core/native CLI separately replayed.",
+    "full_suite_gameplay": "Deferred by owner"
+  },
+  "metrics": {
+    "at": "2026-10-21T16:49:31.226280+00:00",
+    "new": [
+      "analysis/event-reader-selection-frontier.json",
+      "analysis/material-reader-gap-assessment.json"
+    ],
+    "runtime": {
+      "files": 170,
+      "bytes": 2498324
+    },
+    "production_files": 39,
+    "production_bytes": 451271,
+    "named_declarations": 41,
+    "production_growth_bytes": 0,
+    "runtime_growth_bytes": 0,
+    "test_growth_bytes": 0,
+    "oracle_growth_bytes": 0,
+    "accounted_inputs": 269,
+    "new_functions": 0,
+    "new_Go_files": 0
+  },
+  "source_pins": {
+    "analysis/event-reader-selection-frontier.json": "3b21dfd0a72f58028ae649228f2d6dacd261af0eb78423c68f8aaecc79ffe54a",
+    "analysis/material-reader-gap-assessment.json": "613fc4e237f0256f94d3ca90364e54690e18a485da53d6d6ea77c1c9c40fe599"
+  },
+  "coverage": {
+    "full_families": "6/14 unchanged",
+    "planning": "67/84 unchanged",
+    "new_credit": 0,
+    "script_retirements": 0,
+    "reduction_claim": false,
+    "concrete_remaining": "Independently observe gp_relative singleADDIU using ELF-derived GP; sourcepack46verified, not implemented. Joined reconciliation/proposals separate."
+  },
+  "limits": "Both reference/observed deliberately same frozen installedsource, not pristineJP/canonicalEN. Static slot/event/script relationships and stored reference values do not prove runtime selection/liveness/displayownership. No game patch/protectedresource access."
+}

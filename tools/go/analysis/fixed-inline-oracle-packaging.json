@@ -1,0 +1,438 @@
+{
+  "at": "2026-10-21T14:45:01.029984+00:00",
+  "chronology": "After fixed-inline Go source exists, before any candidate comparison/execution on these NEWpackaged inputs; worker never inspected Go source or ran candidate. Read only established canonical fixture wire shape.",
+  "source_pack": "/var/tmp/dokapon-fixed-inline-frontier-mg_sh_s0",
+  "source_manifest_sha256": "bb7bc5d0952dd19549388e463d0b0ffe3c7b6b78789e0e3286219fe9c26ddb7c",
+  "source_facts_sha256": "38b0be8483d44dd7cdc8cbb9de3ddca3aa3c54578a7728a1e718f1826a1ec619",
+  "source_members_verified": 99,
+  "files": {
+    "examples/fixed-audit/profile.json": {
+      "bytes": 8390,
+      "sha256": "be6c30b6e3a00313ecd22ea6a82360c2e2f7d5cd96ae9f81388870f2b71bc1b6"
+    },
+    "examples/fixed-audit/registry.json": {
+      "bytes": 8631,
+      "sha256": "90a375ee3a6add92176e79b6d2a61631639d2e3d033c496485cbcd27e6a7c95a"
+    },
+    "examples/fixed-audit/glyphmap.json": {
+      "bytes": 128,
+      "sha256": "e4e66f4c40272c07fceb6e9f56842d9503c9218e64f4d096005485d09b0901f2"
+    },
+    "examples/fixed-audit/reference.elf": {
+      "bytes": 4096,
+      "sha256": "1fcd40939358a5637d4e21aa8ef2b751059867a9a99f51bed1fe683b9feb3678"
+    },
+    "examples/fixed-audit/observed.elf": {
+      "bytes": 4096,
+      "sha256": "47247890ed3cbe56187a4a15214b49ee96bb9f804f4f87b688a74f066110c940"
+    },
+    "testdata/fixed-inline-audit.json": {
+      "bytes": 140934,
+      "sha256": "5d2df0709ebce4640c0c12154ff20f5e14ec0bc6fe4422db1424fe58a67d280a"
+    }
+  },
+  "row_count": 28,
+  "rows": [
+    {
+      "ordinal": 0,
+      "case": "canonical-A",
+      "id": "0x100300",
+      "file_range": [
+        1024,
+        1040
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 1,
+      "case": "original-only",
+      "id": "0x100310",
+      "file_range": [
+        1040,
+        1056
+      ],
+      "source_disposition": "original_only",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 2,
+      "case": "neither",
+      "id": "0x100320",
+      "file_range": [
+        1056,
+        1072
+      ],
+      "source_disposition": "neither",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 3,
+      "case": "canonical-equals-original",
+      "id": "0x100330",
+      "file_range": [
+        1072,
+        1088
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 4,
+      "case": "empty-EN",
+      "id": "0x100340",
+      "file_range": [
+        1088,
+        1104
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 5,
+      "case": "eight-spaces-EN",
+      "id": "0x100350",
+      "file_range": [
+        1104,
+        1120
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 6,
+      "case": "eight-glyphs",
+      "id": "0x100360",
+      "file_range": [
+        1120,
+        1136
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 7,
+      "case": "nine-glyphs",
+      "id": "0x100370",
+      "file_range": [
+        1136,
+        1152
+      ],
+      "source_disposition": "capacity",
+      "canonical_known": false,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 8,
+      "case": "space-in-middle",
+      "id": "0x100380",
+      "file_range": [
+        1152,
+        1168
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 9,
+      "case": "leading-trailing-space",
+      "id": "0x100390",
+      "file_range": [
+        1168,
+        1184
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 10,
+      "case": "repeated-spaces",
+      "id": "0x1003a0",
+      "file_range": [
+        1184,
+        1200
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 11,
+      "case": "last-word-after-zero",
+      "id": "0x1003b0",
+      "file_range": [
+        1200,
+        1216
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 12,
+      "case": "unknown-source-last-word",
+      "id": "0x1003c0",
+      "file_range": [
+        1216,
+        1232
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 13,
+      "case": "empty-source-glyph",
+      "id": "0x1003d0",
+      "file_range": [
+        1232,
+        1248
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": "Common glyph5 absent projects both old empty/nullglyph5source cases to same independently invalid source. Does not replay original diagnostic nullGM behavior."
+    },
+    {
+      "ordinal": 14,
+      "case": "null-source-glyph",
+      "id": "0x1003e0",
+      "file_range": [
+        1248,
+        1264
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": "Common glyph5 absent projects both old empty/nullglyph5source cases to same independently invalid source. Does not replay original diagnostic nullGM behavior."
+    },
+    {
+      "ordinal": 15,
+      "case": "END-in-source",
+      "id": "0x1003f0",
+      "file_range": [
+        1264,
+        1280
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 16,
+      "case": "LINE-in-source",
+      "id": "0x100400",
+      "file_range": [
+        1280,
+        1296
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 17,
+      "case": "setup-in-source",
+      "id": "0x100410",
+      "file_range": [
+        1296,
+        1312
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 18,
+      "case": "param8-word-in-source",
+      "id": "0x100420",
+      "file_range": [
+        1312,
+        1328
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 19,
+      "case": "unknown-handler-word",
+      "id": "0x100430",
+      "file_range": [
+        1328,
+        1344
+      ],
+      "source_disposition": "source_invalid",
+      "canonical_known": false,
+      "reference_valid": false,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 20,
+      "case": "missing-authoring-glyph",
+      "id": "0x100440",
+      "file_range": [
+        1344,
+        1360
+      ],
+      "source_disposition": "encoding_unavailable",
+      "canonical_known": false,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 21,
+      "case": "null-EN",
+      "id": "0x100450",
+      "file_range": [
+        1360,
+        1376
+      ],
+      "source_disposition": "encoding_unavailable",
+      "canonical_known": false,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 22,
+      "case": "dash-alias",
+      "id": "0x100460",
+      "file_range": [
+        1376,
+        1392
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 23,
+      "case": "angle-glyphs",
+      "id": "0x100470",
+      "file_range": [
+        1392,
+        1408
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 24,
+      "case": "slash-glyphs",
+      "id": "0x100480",
+      "file_range": [
+        1408,
+        1424
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 25,
+      "case": "eight-slashes",
+      "id": "0x100490",
+      "file_range": [
+        1424,
+        1440
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    },
+    {
+      "ordinal": 26,
+      "case": "observed-control-neither",
+      "id": "0x1004a0",
+      "file_range": [
+        1440,
+        1456
+      ],
+      "source_disposition": "neither",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": false,
+      "qualification": ""
+    },
+    {
+      "ordinal": 27,
+      "case": "adjacent-record-END",
+      "id": "0x1004b0",
+      "file_range": [
+        1456,
+        1472
+      ],
+      "source_disposition": "canonical",
+      "canonical_known": true,
+      "reference_valid": true,
+      "observed_valid": true,
+      "qualification": ""
+    }
+  ],
+  "counts": {
+    "reference_valid": 20,
+    "observed_valid": 27,
+    "canonical_known": 17,
+    "canonical_comparison_known": 16
+  },
+  "bindings": "SiteCount1 and4 rawlittle-endian observed [VMA,word]facts; target records declaredinline address as test input only. Production reference_inline16 Target mustremainnull/ObservedTargetsabsent; no dereference assumption.",
+  "old_example_preimages": {},
+  "resources": "No Go/candidate/projectPython/main/ISO/canonicalregistry/emulator/PINE/process/log/settings/auth access; only named private6files written. All commands terminal."
+}

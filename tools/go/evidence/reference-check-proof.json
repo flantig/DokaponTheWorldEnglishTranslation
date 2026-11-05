@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T22:19:37.460536+00:00",
+  "status": "VERIFIED shared canonical reference-word checks; migration ACTIVE/incomplete",
+  "contract": "Existing pointer_check now guards declared data arrays, explicit struct fields and strict LUI/ADDIU pairs. Default expectedtarget=registryID or opt-in canonical sentinellanding. Exact full physicalwords/sites and fullsource pin; no observed-target or text-content/divergence report.",
+  "owners": [
+    "plan",
+    "validateEdits",
+    "verifySource",
+    "inspect",
+    "patchCopy",
+    "run"
+  ],
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "69e778f7f445b80c0f30c5903017728123f9e46bd078847ea9a3ffb41e59a477",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "5d388738600889b77d006abc2197116256d78eb969c7b657c60befa6bd90a427",
+    "patch_test.go": "b590630bd3a04432bd512fa3f8c6da44bac70b15e04718d8eb5d709f5d4aa309",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "recipes/reports/code-references.json": "8cefec1e1e60a0ea142954692412646fd559a7b99f9b0b9f04e9590658e55fe7",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+    "registry_authoring.go": "be6104b83f8e47703de6e12551875236ba7c14db15930c0b5c09f850fd99fc1f",
+    "registry_types.go": "987f9f47f023432232a0547bfc3a487f848fc67c4c3cf3ba3432da68f5725434",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "testdata/reference-check.json": "69be7fc89b464f9b1c84eb66f7fce32dc801abb29ae1870027a5a968198a6cf0",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "source_contract": {
+    "path": "analysis/registry-disc-audit-contract.json",
+    "sha256": "9bff0fb24e66c29c823b7f2067379b9666dc410e0e9457c56be507aa267b2c9d",
+    "independent_precode": "5IDs/8physicalwords in ID and landing states; literal signed-low carry/32bitwrap bytes, sources/scopes frozen BEFORE implementation"
+  },
+  "reuse_decision": {
+    "path": "analysis/reference-check-reuse-decision.json",
+    "sha256": "37201f5e7924b16e746979c84c8ac69242d0091362b6b8ca09e128127599f4c7"
+  },
+  "review": {
+    "path": "evidence/reference-check-review.json",
+    "sha256": "2223d056d9117b4d069d3e4328d5e7b4aafe8563b6df7924021d67596aaa53c2",
+    "result": "PASS_NO_OPEN_FINDINGS",
+    "independent_CLI_seconds": 4.336,
+    "private_current_test_overlay_seconds": 4.307,
+    "synthetic_CLI_cases": 9,
+    "carry_wrap_targets": 9,
+    "native_IDs": 4,
+    "native_physical_words": 18
+  },
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPlanRefusals|TestMisalignedTargetAndWriterBoundary)$",
+        "-count=1",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 34.74275,
+      "log": "/var/tmp/dokapon-reference-check-_ivbenrd/check-0.log",
+      "log_sha256": "d7b903cef77e70ad3610060b86b5dd4356bd9ea90e2a15f9fe1c1c66edca7b8e"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.271492,
+      "log": "/var/tmp/dokapon-reference-check-_ivbenrd/check-1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-reference-check-_ivbenrd/dokapon-go",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 1.101175,
+      "log": "/var/tmp/dokapon-reference-check-_ivbenrd/check-2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_receipts": {
+    "/var/tmp/dokapon-reference-check-_ivbenrd/fixture-verification.json": "743b41823e39c2041f3da4072eb5cac3bb5507bcf131942d7ae81b1f5c02c7d8",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/checks.json": "29a511b56f4f11b5b9982b948ee6ad1bb61a43bfe39016de39493e1d96e4ed57",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/native-independent-leads.json": "9e88eec6aa5dafbc8d7ac3c4abb3abac05dc9e755ad97d4eb6ec3b20690e7eea",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/native/source-freeze.json": "b826fd54cddf18717918cc614da438e57dfb4f7414bd58149f6f6505468e785f",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/native/expected-facts.json": "2b6999c189a83c9915f9e8914940bc8a58ae2f38d2cf681ac4c51a52bbdb4799",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/native/checks.json": "9d23f090634cbff385ced441fcd16e2b7badc0193a8e9e153643295681e50751",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/data-compatibility.json": "f9aa1df9a5356151a09f43509102fb7054fc842f86d25ec9f2038473b7f30264",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/accounting-checks.json": "338cbb435ebb2b00c82c2fa14b12acaa8ccb908e849f5d69790c7ba67a541262",
+    "/var/tmp/dokapon-reference-check-_ivbenrd/hygiene-checks.json": "76b05c33ab224236e21439cc4996345bfac1f447ec913a724cbb72c0b9435767"
+  },
+  "native_facts": {
+    "status": "PASS",
+    "cases": [
+      {
+        "family": "writeback-gap-inplace:vocab_shop_verbs_misc_2026-09-09",
+        "pointer_state": "id",
+        "registry_ids": 3,
+        "physical_words": 16,
+        "scope_sha256": "95d677ff39904dc6397cc505a95911d2aadca2d18b6ce19a3ccea921d223a55e",
+        "complete_guard_rows_match_independent_facts": true,
+        "apply_refused": true
+      },
+      {
+        "family": "owner-polish-2026-10-16",
+        "pointer_state": "registry_landing",
+        "registry_ids": 1,
+        "physical_words": 2,
+        "scope_sha256": "af2bd7ac9a978e398ec8661eead8e8bbc1be8e715e27e5ce575e7c64ec9908eb",
+        "complete_guard_rows_match_independent_facts": true,
+        "apply_refused": true
+      }
+    ],
+    "all3input_sources_and_copies_preserved": true,
+    "limit": "Frozen extracted executable word evidence only; no ISO read, current shipping/native runtime, text payload or exhaustive reference proof."
+  },
+  "old_data_compatibility": {
+    "status": "PASS actual accepted-before/current complete stdout/stderr/exit equivalence for valid data-only scope",
+    "scope_sha256": "f6ef83739238c636751fe9dbf202c714e7bb9d906e213d41079583acad826a76",
+    "stdout_sha256": "3ad68d6c5d08bdb25e9290e98b846d23c2a38f0280666c8a1456047c879ef661",
+    "prior_binary_sha256": "1d057ec27ca0ed1b497b890576a2a49d6037325e7e951f6129246aa61f264a43",
+    "candidate_binary_sha256": "4760860da91fb898cc8cbfe839572aa6ba8985e4a61ca60379b4d1dd4452f158",
+    "limits": "Single complete data-only vector plus existing currentdataCLI regressions. Intentional mixed-unused-field refusal tightening is not old malformed-profile parity."
+  },
+  "accounting": {
+    "path": "analysis/go-current-input-accounting.json",
+    "sha256": "7b57feab382d948b516f73dcba40c4dcd6bcf173d57f4f58aa7d63e1c7c9bc7f",
+    "status": "ROOT_ACCOUNTING_PASS",
+    "functions": 29,
+    "production_go": {
+      "files": 27,
+      "bytes": 288781
+    },
+    "delta_bytes": {
+      "go_tests": 8088,
+      "production_go": 1837,
+      "recipe_tables": 706,
+      "testdata": 9147
+    },
+    "runtime_before": {
+      "files": 99,
+      "bytes": 762938
+    },
+    "runtime_after": {
+      "files": 100,
+      "bytes": 765481
+    },
+    "test_bytes": 451016,
+    "total_accounted_inputs": 179,
+    "claim": "Capability growth; no implementation deletion or relocation savings. Source/recipe counted together; tests/fixture separately."
+  },
+  "verification_vectors": {
+    "mixed_source_states": 2,
+    "IDs_per_state": 5,
+    "physical_words_per_state": 8,
+    "structural_schema_refusals_per_state": 28,
+    "source_byte_mutations": 7,
+    "input_preservation": "whole bytes/inodes/mtimes, no outputs on refused apply",
+    "independent_extra": "zero-offsetstruct,9carry/wraptargets, forgedcodeedit replan, bothcompositionorder earlyread-only gates"
+  },
+  "design_decisions": [
+    "No new function/helper/closure/type/schema/validator mode/dependency. Existing one site-kind switch feeds shared physical word emission.",
+    "Data guards retain pointer_check edit shape; code noops reuse guarded_words exactly as append already does. Table-operation gate refuses all apply, including composition.",
+    "Scope remains sorted LE32(expectedword),LE32(siteVMA), retaining old data scopes; pins physical words/sites, not registry wording or the entire registry identity.",
+    "Strict struct equation/alignment, nonzero knownreg, LUI<ADDIU, whole-wordbounds/overlap/duplicate scopes; shared-LUI ownership deliberately refuses.",
+    "Previously ignored mixed unused struct/code fields on data sites now deliberately refuse; valid old complete data output unchanged.",
+    "Native expectedfacts computed independently AFTER implementation but BEFORE candidate execution; distinct from literal precode synthetic oracles."
+  ],
+  "coverage": {
+    "core_full": 5,
+    "core_total": 14,
+    "percent": 35.71,
+    "historical_full_go": 8,
+    "reviewed_dispositions": 20,
+    "partial": 16,
+    "outstanding": 366,
+    "total": 410,
+    "promotion": false,
+    "retirement": false
+  },
+  "limits": [
+    "Full integrated suite/race and gameplay deferred; focusedCLI/planrefusals/writerboundary race only.",
+    "No ISO/canonicalregistry writes or ISO reads; no emulator/PINE/controller/process/log/settings access. NativeGo used private frozen extractedfile/registry/glyph copies.",
+    "No content/argument/native liveness, safe landing, exhaustive references, general divergence report, fullreconciliation or shipping readiness claim.",
+    "No source-script deletion/reduction/retirement or new Go handler; production+recipe growth counted together.",
+    "No HTML/UI changed; ordinary review binds30candidate files. Later metadata/snapshot root verified."
+  ]
+}

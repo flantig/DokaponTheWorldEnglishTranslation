@@ -1,0 +1,283 @@
+{
+  "schema": "source-prologue-proof-v1",
+  "at": "2026-10-21T14:04:26.811430+00:00",
+  "status": "VERIFIED_FINITE_SOURCE_STATE_PREFIX",
+  "owners": [
+    "encode",
+    "controls",
+    "wrapPages"
+  ],
+  "new_functions": 0,
+  "new_production_files": 0,
+  "contract": "Existing encode preserves decoded payload-free setup/non-scale-pen prefix in original order and speaker ordinal. Prefix uses existing source decoder, cap4096 and uniqueHDR/speaker guards; translated body uses existing strict validator, with prefix outside wrapping budget. Default controls/wrapper/literal/positional/ExactControls/native write validators unchanged. Colour/icon/scale/opaque and body-state policies held; original opaque payload-drop success deliberately refused.",
+  "source_original": {
+    "report": "analysis/source-prologue-frontier.json",
+    "pack": "/var/tmp/dokapon-source-prologue-frontier-fs0ktz64",
+    "manifest_sha256": "e5caaa6080f12b7bca965e541c0f2ec53fa78467ab14e25b6d68849c0ea231f3",
+    "members_root_verified": 59,
+    "original_executed_synthetic_cases": 24,
+    "actual_frozen_source_cases_with_synthetic_A": 4,
+    "supported": 14,
+    "refused": 14,
+    "limits": "Native glyphs/source bytes are real frozen extracts; A is synthetic wording, not canonical translation or game approval. Leading param8 original loses8Bpayload and remains refusal."
+  },
+  "verification": {
+    "focused_tests": [
+      "TestPlanRefusals",
+      "TestCLIDryRunAndApply",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "core_focused_package_seconds": 31.192,
+    "race": {
+      "status": "PASS",
+      "package_seconds": 337.378,
+      "path": "/var/tmp/dokapon-source-prologue-kfmx4zb4/focused-race.log",
+      "sha256": "bb32dd56815c42c5e9c7f3d8412b6b868ba24e2af067104170b0bc05cc744163"
+    },
+    "root_QA": {
+      "at": "2026-10-21T13:43:14.288185+00:00",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "core-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-source-prologue-kfmx4zb4/core-final",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 2.718
+        },
+        {
+          "name": "core-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.688
+        },
+        {
+          "name": "native-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-o",
+            "/var/tmp/dokapon-source-prologue-kfmx4zb4/native-final",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 3.575
+        },
+        {
+          "name": "native-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 1.241
+        },
+        {
+          "name": "gofmt",
+          "args": [
+            "gofmt",
+            "-l",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "input_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "raster.go",
+            "raster_font.go",
+            "raster_font_disabled.go",
+            "raster_png.go",
+            "raster_reconstruction.go",
+            "raster_reconstruction_types.go",
+            "raster_resize.go",
+            "raster_runs.go",
+            "raster_types.go",
+            "recipe_types.go",
+            "reference_geometry.go",
+            "reference_types.go",
+            "references.go",
+            "registry_authoring.go",
+            "registry_types.go",
+            "snapshot_types.go",
+            "snapshots.go",
+            "stream_audit.go",
+            "stream_audit_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_contacts.go",
+            "texture_discovery.go",
+            "texture_index.go",
+            "texture_manifest.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go"
+          ],
+          "exit": 0,
+          "wall_seconds": 0.107
+        },
+        {
+          "name": "core-final-canonical-cli",
+          "rows": 11,
+          "status": "PASS"
+        },
+        {
+          "name": "native-final-canonical-cli",
+          "rows": 11,
+          "status": "PASS"
+        },
+        {
+          "name": "complete-old-CLI-parity-stream-audit",
+          "status": "PASS"
+        },
+        {
+          "name": "complete-old-CLI-parity-reference-bound-audit",
+          "status": "PASS"
+        }
+      ],
+      "hygiene_files": 50,
+      "production_files": 39,
+      "production_bytes": 425669,
+      "named_declarations": 41,
+      "new_functions": 0,
+      "new_production_files": 0,
+      "test_growth_bytes": 2876,
+      "new_example_bytes": 0,
+      "new_oracle_bytes": 13895,
+      "limits": "Focused core tests and race separately tracked; native build/vet and actualCLI checked. Fullsuite/gameplay deferred, no protected resources or game patch."
+    },
+    "prefix_guard_cases": 7,
+    "decoded_caller_context_immutable": true,
+    "old_context": {
+      "total": 248,
+      "accepted": 168,
+      "refused": 80,
+      "canonical": 69,
+      "deliberate_expansion": "require-HDR-after-setup only; old original fixture unchanged"
+    },
+    "canonical_report_intentional_delta": {
+      "status": "PASS",
+      "only_changed_row": "0x100580",
+      "only_changed_fields": [
+        "canonical",
+        "canonical_comparison"
+      ],
+      "all_other_report_fields_and_rows_equal": true,
+      "stderr_and_exit_equal": true,
+      "expected_bytes_provenance": "Original-executed hdr-leading-setup from59member source pack; no observed-derived runtime authority"
+    },
+    "UI": {
+      "status": "PASS",
+      "source_sha256": "3a488be27f9b6a031d418f982e82fc4afc9265b9b2e86e3ab291cb8b4fef94dc",
+      "checks": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": true
+        }
+      ],
+      "limits": "Static documentation only; no form behavior applies. No gameplay or Go behavior claim."
+    },
+    "UI_screenshots_root_viewed": true,
+    "ordinary_review": {
+      "path": "evidence/source-prologue-review.json",
+      "sha256": "cf7c8ee598f96a092c7f55a02374a1c1bc9b827ea72587afba7c5f6b0f9b123c",
+      "root_verified_artifact_members": 100,
+      "extra_API_probes": 8
+    },
+    "full_integrated_suite_gameplay": "DEFERRED_BY_OWNER",
+    "test_fixture_type": "Existing anonymous fixture shape named locally and reused for old248/new28 cases; no new test/helper function.",
+    "source_capsule": {
+      "path": "/var/tmp/dokapon-source-prologue-kfmx4zb4/review-source",
+      "manifest_sha256": "c362858a2c5dc95ba4676d39e4b81977c536edc754c098e39fc8e1ae68b61bd6",
+      "members": 525
+    }
+  },
+  "metrics": {
+    "at": "2026-10-21T13:45:09.263466+00:00",
+    "scope": "Private sourceprologue candidate, original-executed finite prefix/body contract, no fullfamily/retirement credit",
+    "members": 525,
+    "manifest": "/var/tmp/dokapon-source-prologue-kfmx4zb4/review-source/manifest.json",
+    "manifest_sha256": "c362858a2c5dc95ba4676d39e4b81977c536edc754c098e39fc8e1ae68b61bd6",
+    "new": [
+      "analysis/source-prologue-frontier.json",
+      "analysis/source-prologue-reuse-decision.json",
+      "testdata/source-prologues.json"
+    ],
+    "runtime": {
+      "files": 154,
+      "bytes": 2401301
+    },
+    "accounted_inputs": 248,
+    "production_files": 39,
+    "production_bytes": 425669,
+    "production_growth_bytes": 2022,
+    "runtime_growth_bytes": 2022,
+    "test_growth_bytes": 2876,
+    "new_oracle_bytes": 13895,
+    "changed_existing_oracle_bytes": 1594,
+    "new_functions": 0,
+    "new_production_files": 0
+  },
+  "source_pins": {
+    "patch.go": "b7f09c0779bbb150035aea5640cddb7ef2fad40604fafbbecf9ad76acb7403d1",
+    "patch_test.go": "5da896621a7f4d4adf880af1c9f8317978acb7819ff8dbeb91ed000da44369e7",
+    "testdata/source-prologues.json": "7f802c1c6df520ce289e21e694307b2e248ec4caaf57bacff98da4eb00c3e4b7",
+    "testdata/canonical-audit.json": "ccf54d9ec109033ef0baf7d5cdf796d78801058fb2993b4a8a153791819816e6",
+    "testdata/source-context-oracle.json": "641f6a9fac555d61b47d44c602c6e162403e0648220e221080d790b4d7ed32cc",
+    "analysis/source-prologue-frontier.json": "5d8758afa98947b122d248ae01e06736851f78db0e86e3f1c589bc370f83e074",
+    "analysis/source-prologue-reuse-decision.json": "07b2153b18ab7bb8f9097bd47ec2e235630d9bea013496538d69411b3a035f2c"
+  },
+  "coverage": {
+    "full_families": "6/14",
+    "planning": "65/84",
+    "new_credit": 0,
+    "historical_retirements": 0,
+    "reduction_claim": false,
+    "remaining": "Plain-versus-mixed colour convention, scaling/opaque and wider reader/native/fixed/sentinel/write domains remain separate."
+  },
+  "protected_scope": "No ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control or actual game patch; frozen/synthetic inputs/new owned outputs only.",
+  "new_production_types_or_mode_flags": 0
+}

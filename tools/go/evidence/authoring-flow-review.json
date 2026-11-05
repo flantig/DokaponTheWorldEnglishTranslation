@@ -1,0 +1,36 @@
+{
+  "schema": "authoring-flow-focused-review-v1",
+  "result": "NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "at": "2026-10-20T19:43:23.127380+00:00",
+  "candidate": {
+    "patch_test.go_sha256": "b6abdf78bd0e08f3fff0f2b52c7dd9b658c69dc6d79b20f068db88ac3265e091",
+    "baseline": "/var/tmp/dokapon-registry-owner-sealed-go0ii1x8",
+    "production_Go_count": 26,
+    "production_byte_identical_before_after": true,
+    "test_delta": "+102 lines, existing owner; no production/helper/function changes"
+  },
+  "review": [
+    "Literal B=020000f8 and A A=01000000010000f8 match independent fixture glyph IDs/END/space encoding; widths28 and40 match declared native fixture advances. Fit encoding/hash are checked against these literals before their hash is consumed by the patch recipe.",
+    "The successful full copy is compared against original ELF with only the explicitly owned16-byte slot cleared and replaced by literal bytes. This checks padding and all bytes outside the slot. The fixture explicitly makes no native-capacity claim.",
+    "Authored output provenance and unrelated raw metadata are checked; synthetic status drafted allows the expected authoring update. Cloned ELF, fresh entry maps and isolated absolute paths preserve fixture inputs and prevent parent directory-count pollution.",
+    "Stale-encoding and source-pin negatives each change only one well-formed digest after a successful flow; map replacement avoids mutating the valid recipe. Fresh refusal output must remain absent. Existing output must refuse, and established patchCopy safety tests separately check preservation of existing paths.",
+    "The same existing run dispatch connects authorRegistry -> previewFit -> plan/patchCopy; no alternate encoder, writer or new test helper. Final source/registry/font/glyph byte preservation checks remain explicit."
+  ],
+  "verification": {
+    "focused_complete_owner": "PASS 4.067s",
+    "command": "TMPDIR=/var/tmp/dokapon-authoring-flow-review-nnchrz1p/tmp GOTMPDIR=/var/tmp/dokapon-authoring-flow-review-nnchrz1p/tmp GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run '^TestCLIDryRunAndApply$' .",
+    "nice": 19,
+    "GOMAXPROCS": 2,
+    "p": 2,
+    "owned_TMPDIR_and_GOTMPDIR": "/var/tmp/dokapon-authoring-flow-review-nnchrz1p/tmp",
+    "before_after_pins": "PASS",
+    "receipt": "/var/tmp/dokapon-authoring-flow-review-nnchrz1p/receipt.json",
+    "receipt_sha256": "2f6c49d9c1baf016be6b03aab544ede0d5c20aaebf176815c9062b4d3bcda3bc"
+  },
+  "limits": [
+    "Only synthetic two-wording single-slot handoff is demonstrated; no native allocation/family completion or approval.",
+    "No full suite/race/227/mutation campaign; no separate build/vet because production is unchanged and the complete requested owner compiled and passed.",
+    "Review only; no source/test/protected resource edits or actual ISO/canonical registry/emulator/process access."
+  ]
+}

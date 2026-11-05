@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-21T04:53:46.172655+00:00",
+  "status": "PRECODE_CURRENT_SOURCE_RECOVERY",
+  "accepted_snapshot": "/var/tmp/dokapon-contact-score-fix-uws1ri10/sealed-final/manifest.json",
+  "accepted_sha256": "bf076814c93adce78489c9adff9531fb1a57bf223db7f17a8298d7283e9b16c3",
+  "prior_decision": "analysis/inline-icons-reuse-decision.json",
+  "prior_fixture_sha256": "2d108a77cce0bcf52488b67b688db168921e3a80fcf65a14307b64d4122e11a8",
+  "current_source_pins": {
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_runs.go": "8aa06ad8942f75162b06667d2329a5b851ccb8ccd44d8c20b1bf184a5ae1f146",
+    "raster_types.go": "0a678f3da3f3214ae558fe1bd94ef39834b3365c86e2004acc01cda4d7814193",
+    "texture_authoring.go": "fd76ae20df86d029020860ebee590b47dfe9a4cb3f39048f6c90318e90865c34",
+    "patch_test.go": "12d1beeae38ae11f5f63a3fe5c84ab547d8a9895a1f8208797775d113689a541"
+  },
+  "Serena": "Current renderRuns/composeCells definitions and all production/test references inspected in session321e7af4. authorTexture owns immutable original texture decode/publisher; existing tests own complete original comparisons.",
+  "decision": "Enhance same renderRuns fit/cursor/output contract and composeCells preflight/per-line composition. No new function, helper, test closure, loader, compositor or historical handler. Optional shared icon map is authored sheet data, typed placement belongs with BitmapLayer.",
+  "refinement": "Use line-major text composition and exact source rectangle copy per line. Preserve existing float/Pillow blend equations in one place; preflight full target/source rectangles even transparent. Fixed source-sized icons reserve width independently of text scale.",
+  "reach": [
+    "raster.go",
+    "raster_runs.go",
+    "raster_types.go",
+    "texture_authoring.go",
+    "patch_test.go",
+    "testdata/inline-icons.zip",
+    "README.md",
+    "ARCHITECTURE.md",
+    "ARCHITECTURE.html",
+    "MIGRATION.md",
+    "analysis/go-current-input-accounting.json",
+    "analysis/migration-roadmap.json",
+    "analysis/reusability-coverage.json",
+    "evidence/reusability-coverage-checks.json"
+  ],
+  "limits": "Native optical-font icon behavior only. Does not establish8TTFrecipe output parity, literal marker authoring, external donors/BICUBIC/exemplar or visual approval."
+}

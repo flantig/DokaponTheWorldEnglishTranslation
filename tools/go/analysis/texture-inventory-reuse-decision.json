@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-20T20:12:29.122366+00:00",
+  "scope": "Read-only pinned extracted TXD metadata inventory through existing texture profile entrypoint; no ISO or registry writes.",
+  "Serena_session": "321e7af4",
+  "inspected": [
+    "texture/texture.go",
+    "authorTexture/texture_authoring.go",
+    "TextureProfile/texture_types.go",
+    "run/main.go",
+    "TestCLIDryRunAndApply and TestPilotHistoricalGoldenBytes/patch_test.go"
+  ],
+  "candidates": [
+    {
+      "owner": "texture",
+      "decision": "Retain decode/replace signature and responsibilities. Widening return type would spread changes through52 test references and authoring/self calls. An inventory raster-policy sentinel would mix structural discovery with calibration/pixel rules."
+    },
+    {
+      "owner": "authorTexture",
+      "decision": "Enhance existing profile operation dispatch/source pin checks/reporting for inventory; it is not a second structural parser or raster decoder."
+    },
+    {
+      "owner": "references",
+      "decision": "ELF/registry reference and structural text scan owner; unsuitable for RW/TXD metadata."
+    }
+  ],
+  "new_function_justification": {
+    "name": "indexTextures",
+    "why_unavoidable": "Existing texture can reasonably reuse a pure bounded structural parser, but cannot own a useful metadata inventory through its current bytes/image result contract without an unrelated output/mode or breaking all codec callers. Extract its existing RW traversal into one shared index owner; both texture and authorTexture reuse it. No new executor/writer/helper/test function."
+  },
+  "contract": [
+    "Preserve global dictionary/native envelope/name refusals and limits.",
+    "Per-entry metadata errors remain local; texture rejects selected errors and duplicate/missing selectors under existing policy. Malformed unselected raster structs must not cause a new decoder refusal.",
+    "Preserve selected cumulative chunk-count limit, not aggregate descent into all unselected raster structures.",
+    "Inventory keeps native order and duplicate names; metadata is not format/storage/pixel calibration. Support is not_evaluated.",
+    "Inventory forbids selector/PNG/render/palette/pixel/rectangle/apply/output inputs; ordinary authoring unchanged.",
+    "Existing tests enhanced with multi-native/duplicate/unselected-malformed fixtures, metadata-only unsupported data and CLI no-write checks."
+  ],
+  "affected_files": [
+    "texture.go",
+    "new texture_index.go",
+    "texture_types.go",
+    "texture_authoring.go",
+    "patch_test.go",
+    "README.md",
+    "MIGRATION.md",
+    "coverage/accounting/evidence and goal records"
+  ],
+  "independent_design_review": "Read-only exact_palette_review recommendation2026-10-20; no implementation or approval authority.",
+  "baseline_pins": {
+    "texture.go": "623d83e75e5efef1b9c44392ae11cd1845e58ae08d962fee437c3b5b2a8d26b8",
+    "texture_authoring.go": "d30636d148412f7e7a2dcbe583d6d95d6a497f7d6bda88a979e460872ba4e39b",
+    "texture_types.go": "6e99ec60c6c34b9964522ee65324e686bf52165fe9c1ba19fd904e119ada6d69",
+    "main.go": "3b65c39619b3cda8ce485af1f08137290848d32c38e0d4ae18d04f1e8cae4750",
+    "patch_test.go": "b6abdf78bd0e08f3fff0f2b52c7dd9b658c69dc6d79b20f068db88ac3265e091",
+    "README.md": "5c4a2b06c4bc557a9c22e9645529b3a4340c785562cd1447262020cf3244f8b0",
+    "MIGRATION.md": "28b24e0bee19dd74ccce9339512d21de571d25737d12ecd97e2916d5699485f8",
+    "analysis/go-current-input-accounting.json": "e6be93ae7b8c55def41bee0defec538b51c6ca23f377a7d9ff14d92942701262",
+    "analysis/reusability-coverage.json": "6218cb23ad82d38a492a10deaddd31891bbf8f567fd0aef597796b36cf0fe273",
+    "analysis/reusability-coverage.md": "6747a829eb917dbafedece742a15aa6f5d2411fbdcb83d2d35a877b020fd79a5"
+  },
+  "claims": "Capability growth and shared structural owner extraction, not code reduction or historical retirement. Full-family score remains5/14."
+}

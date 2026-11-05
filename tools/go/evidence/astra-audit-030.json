@@ -1,0 +1,183 @@
+{
+  "audit": 30,
+  "at": "2026-10-20T23:34:52.495682+00:00",
+  "role": "Adversarial read-only challenger; no implementation or approval authority",
+  "snapshot": "/var/tmp/dokapon-observed-reference-mly_qel2/sealed-final",
+  "manifest_sha256": "76062d4be7328412ded56c52293408aa55128813c48394d15418b6bddeb6d13f",
+  "previous_snapshot": "/var/tmp/dokapon-registry-export-m131wn1x/sealed-current",
+  "previous_manifest_sha256": "3e3b93a8482123e819e6ae596ac3baf60a6bf995d3fad987296a1c2ba5cef480",
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "input_types.go": "c1e7e83821048514cbfe63e99df0a2823b9da5183692bacb8d051684100318f7",
+    "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+    "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a",
+    "patch_test.go": "2204156b982bd33a4e1d54ca81fd58e0afe367a9b57fb5780da77820a44ed6b3",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "reference_geometry.go": "4c2c8584cd36925fb4f555e93ccdb986641b0755efe1983b8c13fcec18d8cffa",
+    "reference_types.go": "391a83361aa3bf939916fcf9d72c54eb689f13eeb036146695c7520f5e6647c0",
+    "references.go": "e62276a7e71fa16a53c55a4e04bd20931ff4d747b06752b2542ddde026cc311d",
+    "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+    "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "stream_audit.go": "d2a29c23ea5f1c26300ce259358507d30783752b8ad54f6a59830de7fdb7055f",
+    "stream_audit_types.go": "30f107b0c504f3aa1adadd96107ab63ed73803da5f91846373852a3765542072",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/observed-references.json": "f34325dd9a14f36dcf9b08908eba61d3fcb2e82a934ed2b7c8b802769098dd39",
+    "recipes/reports/observed-references.json": "c945c77063ffdc5c464f0472021c6ff78cea0da0b769daf3faf02202e227c608",
+    "testdata/runtime-tables.json": "aba9bbf37875beb581909bf6b4256ab3c89e50e1a934ec220b2f9a9153418843"
+  },
+  "findings": [],
+  "conclusion": "No reproducible new functional defect or concrete unnecessary helper/split established by this bounded static audit. This is not correctness, integration or release approval.",
+  "comparison_to029": {
+    "production_files": [
+      27,
+      31
+    ],
+    "production_bytes": [
+      276580,
+      313749
+    ],
+    "production_growth_bytes": 37169,
+    "named_functions": [
+      29,
+      33
+    ],
+    "runtime_without_bundle_files": [
+      97,
+      109
+    ],
+    "runtime_without_bundle_bytes": [
+      750233,
+      796740
+    ],
+    "runtime_growth_bytes": 46507,
+    "runtime_growth_components": {
+      "production_go": 37169,
+      "recipe_tables": 2096,
+      "report_templates": 1394,
+      "audit_examples": 5848
+    },
+    "test_bytes": [
+      433455,
+      480074
+    ],
+    "test_growth_bytes": 46619,
+    "testdata_growth_bytes": 107395,
+    "historical_retirement": false,
+    "net_reduction_claim": false,
+    "changed_go": [
+      "cmb.go",
+      "input_types.go",
+      "inputs.go",
+      "main.go",
+      "patch.go",
+      "patch_test.go",
+      "recipe_types.go",
+      "reference_geometry.go",
+      "reference_types.go",
+      "references.go",
+      "registry_authoring.go",
+      "registry_types.go",
+      "stream_audit.go",
+      "stream_audit_types.go"
+    ]
+  },
+  "scope_challenges": [
+    {
+      "location": "reference_geometry.go:8; patch.go:907; patch.go:1257; references.go:107",
+      "result": "normalizeReference has three immediate call sites across expected planning, append and observation. Numeric geometry and shape checks are shared; expected planning does not acquire a source read. Consumer range, duplicate/overlap, convergence and authorization remain in callers. number limits operands to uint32, so struct addition cannot overflow uint64 into a false match."
+    },
+    {
+      "location": "reference_geometry.go:48; patch.go:1282; references.go:152",
+      "result": "referenceTarget is a real two-caller extraction of strict instruction/register and signed-low interpretation, not an extra decoder. Modulo-2^32 arithmetic matches the previous append expression. No existing unrelated owner can reasonably absorb the pure responsibility without a mode or fake profile."
+    },
+    {
+      "location": "analysis/observed-reference-reuse-decision.json:1; analysis/stream-audit-reuse-decision.json:1",
+      "result": "Both decisions name existing candidate owners and real caller reasons for the four new named functions. Their final hashes include later notes; current documents are not themselves proof of original precode timing. The observed proof explicitly narrows that timing claim."
+    },
+    {
+      "location": "inputs.go:37; input_types.go:10; registry_authoring.go:174; stream_audit.go:34; references.go:50",
+      "result": "checkJSON extracts the preexisting registry ambiguity/Unicode scanner and has real registry, stream and observed-report callers. Four policy booleans plus depth maps are a readability cost, but preserve distinct opaque-metadata versus fully-owned-profile boundaries; no concrete redundant second scanner or defective combination established. JSON validity is checked before indexing raw strings."
+    },
+    {
+      "location": "stream_audit.go:18; stream_audit.go:135; stream_audit.go:181; stream_audit.go:200",
+      "result": "auditStreams is a separate paired-file lifecycle with one production dispatch caller and direct shared decoder/readInput calls. It retains full-span comparison even on decode failure, and compares through-END and semantic facts only after both decodes succeed. No new text decoder, native renderer, inferred target resolver or writer identified."
+    },
+    {
+      "location": "registry_authoring.go:33; registry_authoring.go:71; registry_authoring.go:612",
+      "result": "Registry owner grew and now has several operation booleans. Status aggregation shares nullable grouping bookkeeping across registry and glossary, while profile allowlisting fails closed. The 823-line owner merits continued scrutiny, but size alone does not justify another helper or a mode framework. Arbitrary pinned-template resource bounds are explicitly excluded in its reuse decision."
+    },
+    {
+      "location": "references.go:105; references.go:139; references.go:185; references.go:199",
+      "result": "Each declared ordinal and readable word survives independently. Complete four-byte mapping gates dereference; target mapping is only one byte. Divergent and repeated targets are preserved, with no ID/landing fallback or claimed content/liveness proof. Sparse or contradictory struct geometry is explicitly held; no full canonical struct coverage is claimed or independently verified here."
+    },
+    {
+      "location": "main.go:98; main.go:118; main.go:288",
+      "result": "Observed recipe size is checked after the shared os.ReadFile and decode path, with bounded reread before output. The one-MiB accepted-input cap must not be described as a hard peak-memory/read-work bound. No large-file exhaustion test was run, and no exploitable/data-corruption counterexample is claimed."
+    },
+    {
+      "location": "patch_test.go:3696; patch_test.go:3807; patch_test.go:3864",
+      "result": "Inspected assertions bind literal per-site geometry/words/mapping, source identities, foreign workflow refusal, aliases, normalized duplicates, site/row limits, partial words and opaque metadata. These tests were read, not executed by this auditor. Ordinary-review and root test results remain separately attributed."
+    },
+    {
+      "location": "analysis/go-current-input-accounting.json:1; analysis/reusability-coverage.json:1; evidence/go-coverage.json:1",
+      "result": "All 190 accounted inputs and group totals match frozen bytes/hashes, including runtime recipe/template/example cost. Coverage stays 5 Full and 9 Partial of 14; historical ledger remains 8 full-Go, 20 explicitly reviewed, 16 partial/reference, 366 other of 410. No net reduction, new family completion or retirement credit is supported by this delta."
+    }
+  ],
+  "verification": {
+    "current_manifest_entries_verified": 373,
+    "prior_manifest_entries_verified": 332,
+    "current_source_bindings": 372,
+    "storage_paths": "All manifest keys normalized relative, no parent segments, resolved inside snapshot, no symlink members; source-aliases.json verified as the exact expected control record. Its two external values are provenance bindings, not stored parent paths. No live external source read performed.",
+    "ordinary_review_candidate_pins_verified": 35,
+    "coverage_scoped_pins_verified": 251,
+    "proof_source_and_review_pins_verified": 7,
+    "accounting_items_verified": 190,
+    "named_production_functions": 33,
+    "serena": "Isolated session160069e5, private byte-identical Go source copy; read-only symbol references for normalizeReference, referenceTarget, checkJSON and auditStreams.",
+    "credential_scan": {
+      "files": 87,
+      "scope": "Frozen Go source including tests, module file, JSON recipes and JSON examples; high-confidence literal key/token/private-key and long named credential assignments; no values emitted",
+      "matched_files": [],
+      "positive_selfcheck": true
+    },
+    "final_frozen_recheck": {
+      "manifest_members": 373,
+      "copied_go_files": 32,
+      "match": true
+    }
+  },
+  "private_receipts": {
+    "path": "/var/tmp/dokapon-astra-030-gejece_w/static-receipt.json",
+    "sha256": "328294ca4c9c82a400327fb19aba9f1972a8c0e7d92221bf4da782d178147c22"
+  },
+  "claims_boundary": "The ordinary review attests its 35 candidate pins only. This audit independently verifies later frozen manifest and accounting bindings, not root dynamic evidence or live workspace equality. Parent ongoing struct-storage studies are outside this immutable candidate and do not supply findings.",
+  "unverified_limits": [
+    "Static source and connected tests/contracts inspection, not exhaustive semantic execution.",
+    "No build, vet, test, race, benchmark or dynamic probe rerun; this audit changes reports only. Root and ordinary-review focused pass claims are not auditor reruns.",
+    "No canonical registry or full native corpus replay; sparse struct storage and all historical callers remain unproven.",
+    "No ISO reads/writes, emulator/PINE/controller/process/log/settings access or control, project Python execution/imports, UI screenshots, gameplay or native-runtime conclusions.",
+    "Full integrated suite remains deferred under the recorded user pacing; source preservation is inspected and attributed, not dynamically reproven here."
+  ],
+  "writes": [
+    "evidence/astra-audit-030.json",
+    "evidence/astra-audit-030.md"
+  ]
+}

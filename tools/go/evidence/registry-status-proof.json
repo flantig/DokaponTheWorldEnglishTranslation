@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T22:03:36.489218+00:00",
+  "status": "VERIFIED shared3input registry progress report; migration ACTIVE/incomplete",
+  "contract": "Pinned registry+glossary+flow with complete plan counts, source-order diagnostics and exact VMA spellings; one reviewed Markdown template; preview or exclusive new output. Presentation/date/escaping deliberately redesigned, no old Markdown byte-parity claim.",
+  "owners": [
+    "authorRegistry",
+    "run",
+    "readInput",
+    "writeNewFile"
+  ],
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "69e778f7f445b80c0f30c5903017728123f9e46bd078847ea9a3ffb41e59a477",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "2721e771410da22e25871ba4e88138eac5feec9db5e1b76af65633f25ea39bbb",
+    "patch_test.go": "9194ed2b7d5175ccef852547045b578bf01acfe9b969db75128ef7c9ba7a7e68",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "recipes/reports/registry-status.json": "7a00b9101773ac86a3b9d5ff0b38cd66fb5a3c14a58c1df26f32620984df4f6c",
+    "recipes/reports/registry-status.md.tmpl": "2eb5dc89055ef1bfa9139feb153086ccbbfb63fed0526a5436e7232c39b30b51",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+    "registry_authoring.go": "be6104b83f8e47703de6e12551875236ba7c14db15930c0b5c09f850fd99fc1f",
+    "registry_types.go": "987f9f47f023432232a0547bfc3a487f848fc67c4c3cf3ba3432da68f5725434",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "testdata/registry-status.json": "c9d5082f93e72b63d266ed3b6091041d5ee3aed5db70f921ac9b48f45fd8e4ad",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "source_contract": {
+    "path": "analysis/registry-status-contract.json",
+    "sha256": "b9c32c8d0b1951013092bd847f8370bbaa79448d6a4f75b7747897871f4905bb"
+  },
+  "reuse_decision": {
+    "path": "analysis/registry-status-reuse-decision.json",
+    "sha256": "f9171e2646c2dcb888da69e186defe3e6ff9ff99827da55d829a7476e67a5f92"
+  },
+  "review": {
+    "path": "evidence/registry-status-review.json",
+    "sha256": "a6364e76ecb924fc0ff5c7cc1b28a717d88f0e9392d0dc234b4a75f5d48d9cf0",
+    "result": "PASS_NO_OPEN_FINDINGS",
+    "resolved_finding": "LOW STATUS-DISPLAY-1 entity literal escaping",
+    "independent_CLI_seconds": 9.698,
+    "independent_probes": 13,
+    "alias_refusals": 48
+  },
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "-count=1",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 38.527599,
+      "log": "/var/tmp/dokapon-registry-status-2cdaggda/accepted-check-0.log",
+      "log_sha256": "9565092f52b8e69f5cbff946d10c9f7fd102902a6d6780335ed78c6ff00b05b7"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.26874,
+      "log": "/var/tmp/dokapon-registry-status-2cdaggda/accepted-check-1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-registry-status-2cdaggda/dokapon-go",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.260405,
+      "log": "/var/tmp/dokapon-registry-status-2cdaggda/accepted-check-2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_receipts": {
+    "/var/tmp/dokapon-registry-status-2cdaggda/fixture-verification.json": "83cc5a085e887297b98de58f5531b9bc5df1ba41f3b6dc47292c8ba6f54236d6",
+    "/var/tmp/dokapon-registry-status-2cdaggda/accepted-checks.json": "63460ebe8e1381c9be23faacebde44bbf7ee5c7d356f9d4bb6c0f1172eb3c12e",
+    "/var/tmp/dokapon-registry-status-2cdaggda/canonical/source-freeze.json": "efce43b9dd74e694e5aee4cbe519bcbbdb58c0d4a4c1ef0ba4f60694a87ac5d0",
+    "/var/tmp/dokapon-registry-status-2cdaggda/canonical/expected-facts.json": "317de3538299700783f73a78ce02fea432c4dd44e7d1eb56c3b17cca683037d2",
+    "/var/tmp/dokapon-registry-status-2cdaggda/canonical/final-checks.json": "ba7c273ddedc3d662c6537aeaf98ee718f57ad668471e229f22d1c91daf83729",
+    "/var/tmp/dokapon-registry-status-2cdaggda/final-accounting-checks.json": "61bdc43f73f4bac5f3e42b6a43ca1a05106e124fe25d18cfbb57598031268f01",
+    "/var/tmp/dokapon-registry-status-2cdaggda/final-hygiene-checks.json": "c1b1ef2db13e1aa2d8af8e17e949387f6e7a93c9686a2764524f9c895fe8d451",
+    "/var/tmp/dokapon-registry-status-2cdaggda/final-checks.json": "3a3b6fe9400674f9ffad694ce555bcc1e3219fc2a60ea89415b9819ce55aff8b"
+  },
+  "canonical_facts": {
+    "status": "PASS final frozen production",
+    "all_meaningful_facts_equal_independent_oracle": true,
+    "registry_entries": 5544,
+    "flow_steps": 63,
+    "flow_unique_vmas": 62,
+    "glossary_entries": 138,
+    "glossary_open_todos": 4,
+    "output_bytes": 24175,
+    "output_sha256": "9c84ab2ce3e35447b90b9d6399dfd65309b35a3356b16b52a00ad606a4cce415",
+    "canonical_and_copy4inputs_bytes_identity_mtime_unchanged": true,
+    "preview_apply_overwrite_refusal": true,
+    "limit": "Fact parity; changed Markdown/date/escaping by design. Root Go only accessed private copies."
+  },
+  "accounting": {
+    "path": "analysis/go-current-input-accounting.json",
+    "sha256": "4f309dc998ecd07308b248f780f18fc221b47c6019fad00c1fcb76b0cff4bfe3",
+    "status": "ROOT_ACCOUNTING_PASS",
+    "functions": 29,
+    "delta_bytes": {
+      "production_go": 10364,
+      "recipe_tables": 947,
+      "report_templates": 1394,
+      "go_tests": 9473,
+      "testdata": 17439
+    },
+    "runtime_before": {
+      "files": 97,
+      "bytes": 750233
+    },
+    "runtime_after": {
+      "files": 99,
+      "bytes": 762938
+    },
+    "test_bytes": 442928,
+    "total_accounted_inputs": 177,
+    "claim": "Capability growth, not reduction. Tests/fixtures separate."
+  },
+  "verification_vectors": {
+    "independent_precode_positive_semantic_cases": 3,
+    "additional_literal_entity_case": 1,
+    "malformed_domain_cases": 32,
+    "malformed_profiles_templates": 12,
+    "source_schema_fact_comparison": "Decoded scalars normalized with UseNumber; JSON escaping is not a semantic difference. Failed first-fix raw-JSON test receipt retained, superseded by final green run."
+  },
+  "schema_and_safety_decisions": [
+    "Any JSON scalar schema accepted raw; containers refuse. Strings/null/missing only for selected grouping fields.",
+    "Typed registry recipe allowlist intentionally also refuses previously silently ignored bundle_path/bundle_sha256/target_reference_sha256 fields on registry_merge/derived owners.",
+    "All3 supplemental inputs required/pinned; paths recipe-relative; reread before existing exclusive publication.",
+    "Template reviewed pinned recipe data max1MiB; post-render64MiB bound is not a CPU/memory sandbox.",
+    "All provenance buckets visible, unlike historical fixed3 displayed buckets."
+  ],
+  "coverage": {
+    "core_full": 5,
+    "core_total": 14,
+    "percent": 35.71,
+    "historical_full_go": 8,
+    "reviewed_dispositions": 20,
+    "partial": 16,
+    "outstanding": 366,
+    "total": 410,
+    "promotion": false,
+    "retirement": false
+  },
+  "limits": [
+    "Full integrated suite/race and gameplay deferred; focused complete CLI only.",
+    "No canonical registry/glossary/flow or ISO writes; no emulator/PINE/controller/process/log/settings access.",
+    "No source-script deletion or code reduction; production/recipe/template costs counted together.",
+    "No HTML/UI changed; architecture HTML unchanged. Ordinary reviewer binds31 frozen candidate files, not later bookkeeping."
+  ]
+}

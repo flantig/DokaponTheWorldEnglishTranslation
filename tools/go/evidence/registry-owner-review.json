@@ -1,0 +1,64 @@
+{
+  "schema": "registry-owner-ordinary-review-v1",
+  "at": "2026-10-20T19:26:32.998425+00:00",
+  "result": "PASS_FOCUSED_NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "freeze": {
+    "path": ".goal/registry-owner-work.json",
+    "frozen_at": "2026-10-20T19:24:36.059865+00:00",
+    "pin_count": 78,
+    "before_and_after_mismatches": [],
+    "selected_pins": {
+      "main.go": "3b65c39619b3cda8ce485af1f08137290848d32c38e0d4ae18d04f1e8cae4750",
+      "registry_authoring.go": "191eb79ebd0b55a0309424c6d7de627d9e256dbc59e4e48d69988bf099c86488",
+      "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+      "patch_test.go": "6128036e7cd0265ca69db2a41a294e3a0d42a1a13ee104614a9ff2d48d2f5cbe",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41"
+    }
+  },
+  "baseline": "/var/tmp/dokapon-snapshots-sealed-woa7cf5p",
+  "equivalence": {
+    "mapped_body_exact": true,
+    "mapped_body_sha256": "a551673ad43bfc4a84ccd19a1937f2df300bf9e87b8e9d56bbfd8cf2be852e82",
+    "substitutions": [
+      "*registryPath -> options.RegistryPath",
+      "*glyphPath -> options.GlyphmapPath",
+      "*output -> options.Output",
+      "*apply -> options.Apply"
+    ],
+    "new_prelude": "profile := tables[0]; var err error",
+    "main_outside_branch_exact_after_import_partition": true,
+    "old_registry_types_unchanged_options_appended": true,
+    "only_changed_Go_files": [
+      "main.go",
+      "registry_authoring.go",
+      "registry_types.go"
+    ],
+    "test_bytes_unchanged": true
+  },
+  "boundary_review": {
+    "caller": "Serena confirms one production caller, run at main.go:217. It retains table/source regular-file/size preflight before dispatch, so tables[0] is valid and borrowed source is open at the same initial position. All flag values and recipe bytes are forwarded unchanged.",
+    "error_precedence": "Mechanical body equality retains every validation, error text, statement and publication/report order. Former outer err is nil after successful source.Stat at this branch; new local nil err preserves that state. Nonregistry dispatch remains byte-equivalent after import partition.",
+    "lifetime": "run retains deferred source.Close. authorRegistry only closes the separately opened derived registrySource; its defer executes before run closes source, preserving prior defer order. No borrowed-handle ownership transfer or early close.",
+    "ownership": "One cohesive registry document/report boundary is justified. run keeps routing; readInput only owns bounded reads; controls keeps grammar scanning; plan keeps image edits; authorTexture keeps raster authoring. None reasonably owns registry human/machine field policy and JSON metadata preservation. No duplicated implementation/helper/closure/dependency or new policy.",
+    "readability_and_cost": "The long existing algorithm remains long; extraction exposes responsibility and reduces routing interleaving. It is relocation with charged imports/types, not code reduction, new feature or historical migration credit."
+  },
+  "checks": {
+    "focused_TestCLIDryRunAndApply": "PASS 7.641s",
+    "build": "PASS",
+    "pin_verification": "All78 held before/after",
+    "verification_scope": "Only the requested focused owner and build; no full suite/race/227 overlay/mutation campaign or additional oracle cases."
+  },
+  "evidence": {
+    "receipt": "/var/tmp/dokapon-registry-owner-review-cratqgv5/receipt.json",
+    "receipt_sha256": "7c16fa2350034a4a0e41810586d307fa7d42f18104cabde8ceacfb50918a9e71",
+    "independent_equivalence": "/var/tmp/dokapon-registry-owner-review-cratqgv5/equivalence.json",
+    "independent_equivalence_sha256": "9b917e7cfe08499cd7881796b131bc02bafb45ed0d393ae649a0f6cac17de2bd"
+  },
+  "limits": [
+    "No new registry grammar/import/discovery or general-purpose public API guarantee.",
+    "No production/test edits, actual registry/protected artifact/process/ISO/emulator access.",
+    "Full integrated verification remains the parent final checkpoint; no family/retirement approval."
+  ]
+}

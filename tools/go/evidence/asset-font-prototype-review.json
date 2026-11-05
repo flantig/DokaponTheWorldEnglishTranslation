@@ -1,0 +1,51 @@
+{
+  "scope": "Isolated native font-backend feasibility prototype; ordinary read-only review, no production integration or approval",
+  "at_utc": "2026-10-21T02:54:36.253894+00:00",
+  "result": "No concrete defect found in the reviewed finite two-font/integer-placement scope.",
+  "findings": [],
+  "candidate": {
+    "directory": "/var/tmp/dokapon-font-prototype-vsbilnix",
+    "font_raster.go": "9a4edfe0c8a1ab77fbca706247c59565c77c7cda4580da47abe99fd20c8851fd",
+    "raqm.h": "eb1acbb11ae82ff93da2f8313ea78ef1611c83f18c9d2cc95ae89fc80d87e288",
+    "raqm-version.h": "3358c45861dad27b0225cc36535642cc27184c268df10517f7c01fb8b3704b1a",
+    "final_patch_test.go": "e1fe422a0dc364c4ecceeff33753d95e5968c67559bcb2e3d14a34888ef26a84",
+    "production_binding": "All35 copied production source/module members independently matched live accepted bytes before and after. Initial/full copy pins are in private evidence."
+  },
+  "source_contract": {
+    "path": "analysis/asset-font-backend-contract.json",
+    "sha256": "a26e50772a7aad8bf4dcbbebd2e96352870f896299917313651dbe179f021e3c",
+    "decision_path": "analysis/asset-font-backend-decision.json",
+    "decision_sha256": "e33a9c6b479b5933036a3b5536e9e2df9f420ebbbf94b97842b801dc1dfa7281",
+    "font_pack_manifest": "d80b893022bb516a4fb14efb7f5eacef6215e02646c4ebc21add911b22d64bf6",
+    "font_members_verified": 191,
+    "prior_contact_manifest": "39f2d0d857e563a1766d0a50c94ef96b7f7959f89d0758fa2ae88433a603271e",
+    "prior_contact_members_verified": 139
+  },
+  "analysis": {
+    "ownership": "One cohesive textMasks owner is justified: native atlas renderRuns, compositing, sampling and manifest publication cannot reasonably supply TrueType shaping/hinting by enhancement. Direct C APIs introduce no extra C function. One face and optional shaper are reused across a batch; output remains plain owned Gray masks/bearings/26.6 advances for existing composition.",
+    "pointer_lifetimes": "Font bytes copied into C memory outlive the face. Deferred cleanup order is shaper,face,font bytes,library. Pinned Raqm source copies UCS4 synchronously in raqm_set_text; temporary Go rune storage is not retained. Raqm glyph arrays are borrowed and consumed before next clear; FreeType slot bitmap storage is consumed before next glyph load. Each returned mask owns independent Go bytes. Signed pitch follows original source traversal.",
+    "bounds_and_errors": "Font/size/labels/runes/glyphs/per-mask/aggregate pixel bounds precede respective retained allocations; error returns discard partial results and deferred resources release. Load/GetGlyph failures are checked; each temporary FT_Glyph is destroyed. Reviewed64-bit positional accumulators remain bounded by glyph count and32-bit advances/offsets. Non-gray bitmap modes refuse rather than silently invent conversion.",
+    "text_semantics": "Primary FreeType/Raqm/Pillow sources corroborate BASIC rounded-pixel kerning quirk,unhinted RAQM metrics versus hinted masks,ascender bearing,pen-inclusive bounds,two rendered passes,rounding and overlapping gray alpha-over. Existing compositor/resampler remain unchanged. Multiline split/line-step placement is orchestration outside textMasks."
+  },
+  "verification": {
+    "original_vectors": "PASS56 complete masks/dimensions/bearings/advances individually and four batched role groups;10 original refusals. Expanded copied harness PASS82 completeRGB images:74 labels and8 contact pages.",
+    "independent_original_cases": "PASS60 additional Pillow masks frozen before Go execution, covering embeddedNUL,zero-width/control characters,mixed bidi,combining marks,.notdef,spaces and size1/256 across actual and cross-check engines. Repeated labels remain byte-stable after other shaping calls; mutating one returned mask does not alias another.",
+    "aggregate_limits": "PASS total-character and total-pixel budget refusals and empty-batch acceptance; outputs nil on refusals.",
+    "native_boundary": "GOEXPERIMENT=cgocheck2 focused edge harness PASS; this is exercised pointer-rule evidence, not proof for every native error path.",
+    "build_vet_format_secrets": "Own build/vet and scoped formatting/whitespace/selfchecked credential scan PASS. No full suite/race claim.",
+    "frozen_state": "Backend and final expanded test hashes held at sealing. All reviewer jobs terminal."
+  },
+  "private_evidence": {
+    "path": "/var/tmp/dokapon-font-prototype-review-d6sih0mi/checks.json",
+    "sha256": "35dfcab6211d382c8eb1679f78feff7a8f5ea56955ae84a6baba95a54678f65d",
+    "extra_original_oracles_sha256": "a2eb9ca974701db05267b2bfd37105d6d31ec6819d93885443190ed13b686eab",
+    "description": "Detailed command results,private test code,expected vectors,source/member pins and artifacts hashed here. Review modified only its own copied test harness and the assigned report."
+  },
+  "limits": [
+    "Integer-position masks only;14 original fractional-start vectors remain explicitly unclaimed.",
+    "Fixed outline fonts/default horizontal layout roles only; no arbitrary color/bitmap/variable fonts,font fallback or full-Unicode/version portability claim.",
+    "Current host cgo,FreeType development headers/pkg-config and Linux libraqm.so.0 runtime are required. Pinned public Raqm header is newer than installed runtime; the blank private version shim is not a matching-header/version claim. Current API/ABI behavior is measured here; deployment dependency versions,licensing/build/runtime costs remain a production decision.",
+    "82 RGB image checks use explicitly frozen rows/thumbnail geometry. They establish composition fidelity only,not grouping/dedup/link generation or integrated CLI/publication behavior.",
+    "No public feature,integration,milestone,family,migration,retirement,artwork or ISO approval. Live production unchanged; no protected resources or historical mains accessed/executed."
+  ]
+}

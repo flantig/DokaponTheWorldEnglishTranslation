@@ -1,0 +1,238 @@
+{
+  "status": "READ-ONLY ORIGINAL-ONLY FONT BACKEND CONTRACT; no implementation, dependency installation, completion or approval",
+  "scope": "Material asset_preview_inventory.06 DejaVu11 RAQM / embeddedAileron10 BASIC label gap. Existing .06 contract and139-member original pack unchanged. Only this analysis JSON and owned private artifacts written.",
+  "prior_contract": {
+    "path": "analysis/asset-contact-contract.json",
+    "sha256": "9d442442157b5f819090d1cdc03eef32ca35a354038ea0a0a59b00841d0e724c",
+    "private_pack": "/var/tmp/dokapon-asset-contact-contract-yvafikb_",
+    "manifest_sha256": "39f2d0d857e563a1766d0a50c94ef96b7f7959f89d0758fa2ae88433a603271e"
+  },
+  "primary_sources": [
+    {
+      "file": "_imagingft.c",
+      "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/_imagingft.c",
+      "bytes": 52402,
+      "sha256": "ac833fac38fb87d53b82e49327395ee0952134e09869df2ae206b74dd90d0a20",
+      "lines": "115..245 font face/size;251..398 RAQM;405..519 BASIC/layout;580..750 bbox/anchors;842..1245 mask render;1654 initializer"
+    },
+    {
+      "file": "Pillow-raqm-raqm.c",
+      "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/thirdparty/raqm/raqm.c",
+      "bytes": 69294,
+      "sha256": "5549e7458674077ca4794033ade277910ba0ad6989651787eba1a8b5513a9f9d",
+      "lines": "238..247 defaultlang/loadflags;889..900 hb_ft creation;2180..2204 shape settings"
+    },
+    {
+      "file": "Pillow-raqm-raqm.h",
+      "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/thirdparty/raqm/raqm.h",
+      "bytes": 5990,
+      "sha256": "eb1acbb11ae82ff93da2f8313ea78ef1611c83f18c9d2cc95ae89fc80d87e288",
+      "lines": "public glyph/API contract"
+    },
+    {
+      "file": "hb-ft.cc",
+      "url": "https://raw.githubusercontent.com/harfbuzz/harfbuzz/14.2.1/src/hb-ft.cc",
+      "bytes": 49356,
+      "sha256": "4d05416a59b4f57703f1a379e33d3fa441efc55eb63614bce586c1650930c986",
+      "lines": "105..115 unhinted FT font default;1332..1375 font creation/scale"
+    },
+    {
+      "file": "Pillow-fribidi-shim-fribidi.c",
+      "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/thirdparty/fribidi-shim/fribidi.c",
+      "bytes": 3064,
+      "sha256": "7e8cfa78dcd21cebeb0ad91c0cd23e0dba6496c0fbd66e1ec3d25c5b1b365d11",
+      "lines": "version/runtime loading shim; no direct NEEDED entry expected"
+    }
+  ],
+  "original_roles": [
+    {
+      "caller": "../explainer_scan.py:205..214/225",
+      "font": "DejaVuSans.ttf",
+      "sha256": "f0d9a390aa7cf43999a2fd1502a47c381bc7809ab5fac6937f0f6dd6524096cd",
+      "size_px": 11,
+      "layout": "RAQM default selected when available",
+      "colors": "white and(255,230,120) on opaqueRGB110",
+      "positions": "integer cell offsets(4,142),(4,156)"
+    },
+    {
+      "caller": "../preview_weekdays_2026_10_01.py:87",
+      "font": "Aileron-Pillow-default.ttf",
+      "sha256": "69853909b940023570964e29cffe30da95aea8de3627736b5cd15ab30143169f",
+      "size_px": 10,
+      "layout": "BASIC explicitly selected by ImageFont.load_default",
+      "colors": "black on opaqueRGB232",
+      "positions": "integer(3,0)/(3,80) before nearest-wholecanvas3x"
+    }
+  ],
+  "shared_contract": {
+    "minimum_behavior": "Pinned font bytes + nominal pixel size + the two actual layout roles -> complete8-bit grayscale label coverage and default ascender-relative bearing. Existing composition owns tint/opaqueRGBpaste; source identity, work bounds and exclusive publication stay in existing lifecycle. No per-label image tables or host font search.",
+    "font_face": "FT_New_Memory_Face index0 (filefaceequivalent); retain bytes for face lifetime; default selected charmap, no explicit4-char encoding tag. Source stores size asCfloat, width=(FT_Long)(size*64), FT_Request_Size NOMINAL width=height,width+height resolutions0. Actual10/11 sizes exactly representable.",
+    "RAQM": "Pass original Unicode codepoints via raqm_set_text(UCS4); default paragraph direction; no explicit features/language; raqm_set_freetype_face then raqm_layout/get_glyphs. Keep returned visual glyph order,index,x/yoffset,x/yadvance and clusters; do not manually reverse or decode oneglyphperrune. Default language in vendoredRaqm is hb_language_get_default(), not hardcodedEnglish.",
+    "RAQM_load_flags_chain": "Pillow does NOT call raqm_set_freetype_load_flags. VendoredRaqm percharacterftloadflags=-1; hb_ft_font_create_referenced receives no override. PinnedHB14.2.1 default FT_LOAD_DEFAULT|FT_LOAD_NO_HINTING. Thus shape/advance metrics are unhinted even though final rasterization is hinted. Do not set Raqm flagsDEFAULT as an apparent simplification.",
+    "BASIC": "Unicodecodepoints -> FT_Get_Char_Index -> FT_Load_Glyph(DEFAULT); zero offsets; xadvance=glyph.metrics.horiAdvance26.6, yadvance0. FT_HAS_KERNING with previous nonzeroindex triggers FT_Get_Kerning(DEFAULT). Actualsource quirk adds PIXEL(delta) directly to26.6 advance; do not multiply back by64. Proven syntheticDejaVuBASIC To advance895/64 vs separate14.0. AileronTTF has GPOS but no kern table; tablepresence alone is not runtimekerning flag proof.",
+    "render_flags": "Actual modeL/stroke0/embeddedcolorfalse -> FT_LOAD_DEFAULT (targetNORMAL) for bbox and DEFAULT|RENDER for two bitmap passes. No MONO, NO_BITMAP, LCD, FT_Set_Transform, artificial DPI or color flag requested. Both fixed fonts contain outlineglyf, not embeddedbitmap tables; arbitrarycolor/variable/fontfallbackformats are not required by these callers.",
+    "bbox": "Startbounds at0, include penline advance as well as ink. For each glyph use PIXEL(pen+offset), loadDEFAULT, FT_Get_Glyph/CBox(PIXELS), union. Default anchor la: xanchor0,yanchor=PIXEL(ascender); width=xmax-xmin,height=ymax-ymin; return bearing(xmin,ascender-ymax). Do not replace with positive-ink bbox or top-left baseline assumption.",
+    "rounding": "PIXEL(v)=((v+32)&-64)>>6: integer26.6 nearest with ties towardpositiveinfinity, including negativecoordinates. Not RoundToEven/round-away. ImageDraw splits coordinate with int(towardzero), math.modf(signedfraction); getmask2 passes start throughCfloat(ff). Width/height addceil(start) for stroke0; origin usesCround(floatarithmetic*64) then PIXEL. Cround tiesaway fromzero differs fromPIXEL. Actual caller anchors areintegers, but fractionalRAQM penpositions remain material.",
+    "mask_raster": "Allocate zeroL mask. First rendered pass finds bitmapleft/top extrema at roundedglyphpositions. Setorigin fromextrema+start; secondpass usesDEFAULT|RENDER and bitmapleft/top, signedpitch and glyphadvances. Per-glyph graycoverage overlaps use alphaover: src + round255(dst*(255-src)), saturated; not max, sum or bitwiseOR. ModeMONO/GRAY2/GRAY4 conversion exists in primarysource but fixedoutlinefontNORMAL output isgray8.",
+    "final_paste": "Original ImageDraw mask bearing added to integer anchor; constantforeground RGB is blended with glyphcoverage againstexistingopaqueRGB viaDIV255. No global layerpremultiplication or second opacity multiplication. ExistingpixelOver matches opaqueRGBresult as prior262144-channelvectorproof; rawRGBApastegeneralization is not implied.",
+    "empty_whitespace": "Emptytext mask0x0/bearing0,0/advance0 is valid. DejaVuspace mask4x0/bearing0,11/advance224/64; Aileronspace2x0/bearing0,10/advance128/64. Blankmask can have nonzeroadvance; no falsemalformed glyph error.",
+    "multiline": "ImageDraw defaults splitnewline (includingemptyline), alignleft, anchorla, spacing4. Line step=font.getbbox(A).bottom+4 (15 forDejaVu11,14 forAileron10), NOT ascent+descent+4. Default noauto-wrap/truncate. Six wholelabelvectors pin multiple and blank lines. Backend or existingcompositionorchestration can own this finite step; no styleframework/newalignmentoptions required.",
+    "Unicode": "Preserve combiningmarkshaping, ligatures, bidirectional/scriptitemization, missingglyph(.notdef) behavior and original runeorder. Do not replace RAQM with BASIC forASCII-only tests, normalize strings, stripmarks, substitute fonts or pre-renderwordPNGassets."
+  },
+  "installed_dependencies": {
+    "pillow": {
+      "pillow_linked_versions": {
+        "pil": "12.3.0",
+        "freetype2": "2.14.3",
+        "raqm": "0.10.5",
+        "harfbuzz": "14.2.1",
+        "fribidi": "1.0.16"
+      },
+      "binary_pins": [
+        {
+          "path": "/home/franklinl/.local/lib/python3.14/site-packages/PIL/_imagingft.cpython-314-x86_64-linux-gnu.so",
+          "bytes": 327049,
+          "sha256": "8a553d447ea598f8882f6902a75f71c4fa48e3ca519d3e49e3bbf752c398d9ec"
+        },
+        {
+          "path": "/home/franklinl/.local/lib/python3.14/site-packages/pillow.libs/libfreetype-9fc94c80.so.6.20.6",
+          "bytes": 1467713,
+          "sha256": "994d650f4fe686013580524dd868d7001325fa3bbf408800eaa4778138a7e690"
+        },
+        {
+          "path": "/home/franklinl/.local/lib/python3.14/site-packages/pillow.libs/libharfbuzz-172d1f63.so.0.61421.0",
+          "bytes": 970233,
+          "sha256": "7ff87422406706600619c8467a2daa42a8122207dcb95337273ae18419f7a220"
+        }
+      ],
+      "system_headers": [
+        {
+          "path": "/usr/include/freetype2/freetype/freetype.h",
+          "bytes": 177129,
+          "sha256": "fd45e7ee01c8f0f2419186d3fc9dd58e25cd866ef0c49f0b347c2d141665a364"
+        },
+        {
+          "path": "/usr/include/freetype2/freetype/config/ftoption.h",
+          "bytes": 41653,
+          "sha256": "2520574e0a1382f9c6d2dba4dfd889571f335326853287281b5fea32c09a5854"
+        },
+        {
+          "path": "/usr/include/harfbuzz/hb-version.h",
+          "bytes": 2597,
+          "sha256": "8776b8f4197b45ad08b90a093eab42da4e562faf3f5e18575f7f2643d662a0e2"
+        },
+        {
+          "path": "/usr/include/fribidi/fribidi-config.h",
+          "bytes": 673,
+          "sha256": "0b9ef32720bf628c36c8dfebda0efbb3c0632a7aa3c06c6b12f562dacb92348a"
+        },
+        {
+          "path": "/usr/lib64/pkgconfig/freetype2.pc",
+          "bytes": 354,
+          "sha256": "6296e58b31d1cbfd0ee9de6f6dfe1fdacfb4fcb9f23444d3d580384c441aebc9"
+        },
+        {
+          "path": "/usr/lib64/pkgconfig/harfbuzz.pc",
+          "bytes": 309,
+          "sha256": "d5c41c9cc9d6daa735b140d5346c304412d3738c603d5b6756e15db66a7e9c13"
+        },
+        {
+          "path": "/usr/lib64/pkgconfig/fribidi.pc",
+          "bytes": 212,
+          "sha256": "98b30a77c15c18e8fe6bdd1153ff50e0f713adb99e8c89d13b6dcb5114c37cf4"
+        }
+      ],
+      "bounded_pureGo_cache_probes": [
+        {
+          "path": "/home/franklinl/go/pkg/mod/cache/download/golang.org/x/image",
+          "exists": false
+        },
+        {
+          "path": "/home/franklinl/go/pkg/mod/cache/download/github.com/benoitkugler/textlayout",
+          "exists": false
+        },
+        {
+          "path": "/home/franklinl/go/pkg/mod/cache/download/github.com/go-text/typesetting",
+          "exists": false
+        }
+      ],
+      "note": "Static library metadata/header inspection only; no C/Go build, system dependency render or project execution. Cache absence is bounded probe, not exhaustive host inventory."
+    },
+    "system_runtime": {
+      "scope": "Read-only documented version getters only; no font rendering/system backend prototype or project execution.",
+      "libraries": [
+        {
+          "path": "/usr/lib64/libraqm.so.0",
+          "realpath": "/usr/lib64/libraqm.so.0.10.1",
+          "getter": "raqm_version_string",
+          "reported_version": "0.10.1",
+          "bytes": 32000,
+          "sha256": "d97118de07c3dc5e7cdf04a34d38de6af43dea004f458f4b3450f55b201778e9"
+        },
+        {
+          "path": "/usr/lib64/libharfbuzz.so",
+          "realpath": "/usr/lib64/libharfbuzz.so.0.61410.0",
+          "getter": "hb_version_string",
+          "reported_version": "14.1.0",
+          "bytes": 1311280,
+          "sha256": "1ad30cd84f030ac9aa2bda6edba150d612cab3534da0e42fd1102dffc286e5e5"
+        }
+      ]
+    },
+    "pkg_config_file": "pkg-config.json",
+    "availability_file": "raqm-availability.json",
+    "precise_facts": "Systemfreetype headers2.14.3; pkg-configfreetype2 reports26.6.20 (do not mistake this literal forproduct2.6.20). SystemHarfBuzz14.1.0 vsPillow14.2.1. SystemRaqmversiongetter0.10.1 vsPillowvendored0.10.5; runtimeSONAME0exists but/usr/include/raqm.h,libraqm.so devlink andpkg-configraqm absent. FriBiDi1.0.16 matches. PillowbinaryNEEDED itsprivateFT/HB, while vendoredRaqm/FriBiDishim loads systemFriBiDi. Staticdynamicmetadata+versiongetters only.",
+    "parity_boundary": "Version/builddifferences are real provenancefacts, not measuredpixelmismatches between system and wheel. No systemrender orcandidateexecuted. EqualFTproductversion does not proveidenticalinterpreter/buildconfiguration. No locale/settings read orforced language was performed."
+  },
+  "owner_analysis": {
+    "Serena": "Live session4adf9747 inspected renderRuns/composeCells/BitmapFont/BitmapGlyph/BitmapRender symbols and actualcallers; noimmutable snapshotactivation. go-owner-pins.json binds liveinspection snapshot only.",
+    "renderRuns": "Currentatlas/fullnativecell font, supersampled4x optical sizing/stroke/fitting pipeline cannot reasonably own FreeTypeface/shaper/hinting under anotherLayoutmode. Its signature has noTTFsource; fixednativeintegeradvance/rect data cannot express contextualglyphselection/26.6 positions/defaultTTFmask. Preservecurrentnativegoldens.",
+    "composeCells": "Reasonably remainscomposition/containmentowner oncevalidlabelcoverageexists. It cannot create missingTTFmask by acceptingdummyfont or prerenderedwordassets; archivepage grouping staysmanifest orchestration.",
+    "resizeRaster_pixelOver": "Retain scaling/blending owners. Neither can reasonablyown fontloading,bidi,shapingorhinting. ReusepixelOver foractualopaqueRGBpaint; no secondcolorblendpolicyhelper.",
+    "authorTexture_manifestTextures": "Existingpinnedreaders/publication/manifestpagefinishing own fontassetpins and labelsources; do not bury aCfontengine in sourceZIP/data parser.",
+    "unavoidable_boundary": "If root selects implementation, one cohesive whole-label font-to-Gray-mask backend is justified by missingrealresponsibility afterexistingowneranalysis. CFFIentry/Go glue and anytypes/dependencybuildfiles must be counted honestly; not a functionperfont/script and not zero-cost because oneGoentrypoint. No productionfunction/API was added or mandated by thisstudy."
+  },
+  "feasibility": {
+    "CGo_existing_libraries": "Promising minimal route: fixedactualfont/size/layout behavior, FreeType+Raqm APIs, outputmask+bearing; reuseexistingtint/compose/resizer. Existingruntimecanbe investigatedwithoutdependencyinstall by pinnedpublicraqmheader+SONAMElink, butthis isLinux/toolchainruntimecoupling and system0.10.1/14.1versionsmustpassfocusedoriginalgoldens. NoPythonextension/runtimebridge orprivatewheelsharedlib link is a portableproductionanswer.",
+    "CGo_cost": "Planningestimate only:~250–450C lines forboundedface/setup,2layouts,bounds/2passmask,cleanup/error handling plus~50–100Go glue/validation. Actualrevieweddesignmaydiffer. Copyingfull52,402B_imagingft or69,294BvendoredRaqm isnotminimal. Nativebuild/runtime+fontdata/license costs count withimplementation; testvectors/evidence separate.",
+    "pureGo": "Standardlibrary lacksTTFshaping/rasterizer. Currentgo.mod stdonly; boundedknownfontmodulecacheprobes absent. AnewpureGo dependency would still need measuredFreeTypehinting/RAQMshapingparity; hand-writtenSFNT/hinter/bidi engine isunreasonable for this finitegap. No installs or parserprototypes done.",
+    "smallest_next_test": "Beforeproductionintegration, root may isolateonewhole-labelmaskbackend usingexistinglibraries and compareactualrole28singlelinemasks +old12labels/8pages +newfractional/multiline/Unicodeadversarialvectors. Distinguishglyphposition vsrasterdifference iffailure; do notassumeversionmismatchrequiresupgrade or silentlyfallbackBASIC. No fullfamilypromotion untilremaininggroup/link/flatformat obligationsverified."
+  },
+  "new_original_oracles": {
+    "masks": 56,
+    "subpixel_masks": 14,
+    "whole_RGB_labels": 76,
+    "multiline_labels": 6,
+    "engine_comparisons": 28,
+    "engine_pixel_differences": 19,
+    "engine_advance_differences": 25,
+    "DejaVu_AV": "RAQM919/64 vsBASIC1024/64; masksandpixelsdiffer",
+    "Aileron_AV": "BASIC768/64 vsRAQM769/64; pixelscoincideforAVonly, notuniversalengineequivalence",
+    "subpixel_counterexample": "start0.49218749 narrowedtoCfloat behaveslike0.4921875/0.5 ratherthan0.49; mask/dimensionvectorsfrozen. No need to exposefractionalpositionknob forintegeractualcallers.",
+    "BASIC_refusals": "Explicitfeatures=[]/direction=ltr/language=en each raisesKeyError; original None fields are semanticallydifferent fromemptyfeaturelist. No newpublicfeatureflags proposed.",
+    "font_oracles_sha256": "d31938ef64122db99efa5d247b856404d38e650a5e7926979660681f51447993"
+  },
+  "licenses": "Existingexactfonts/DejaVuBitstreamArev/Aileroncreator notices remain inpriorcontract. NewprimaryPillow MIT-CMU, RaqmMIT, HarfBuzzpermissive notices andFreeTypeFTLtext frozen privately; futurelink/distribution mustpreservenotices/chosenFreeType terms and accountdynamicFriBiDi obligations. No thirdpartyproductioncode/font/dependencyadded.",
+  "pack": {
+    "directory": "/var/tmp/dokapon-asset-font-contract-0du86obg",
+    "members": 191,
+    "member_bytes": 1561430,
+    "manifest_sha256": "d80b893022bb516a4fb14efb7f5eacef6215e02646c4ebc21add911b22d64bf6",
+    "font_oracles_sha256": "d31938ef64122db99efa5d247b856404d38e650a5e7926979660681f51447993"
+  },
+  "verification": {
+    "at": "2026-10-21T02:38:52.025536+00:00",
+    "mask_readbacks": 70,
+    "whole_label_readbacks": 76,
+    "explicit_engine_comparisons": 28,
+    "engine_pixel_differences": 19,
+    "engine_advance_differences": 25,
+    "all_mask_pastes_equal_original_Draw": true,
+    "old_contact_pack_members_rehashed": 139,
+    "old_contract_unchanged": true,
+    "no_Go_candidate_project_historical_main_execution": true,
+    "only_system_native_calls": "documentedraqm_version_string/hb_version_string versionmetadata getters; no systembackendrender",
+    "no_protected_resources": true
+  },
+  "limitations": "No C/Go implementation/build/candidate/systemrender comparison, installation, sourceart/ISO/canonical/emulator/PINE/process/log/settings access/control. Existingacceptedcode/currentcandidateunmodified. Researchsupportsbackenddecisiononly; .06/family remainsopen."
+}

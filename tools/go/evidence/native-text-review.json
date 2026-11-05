@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-20T18:05:46.041948+00:00",
+  "status": "PASS for finite native optical run integration; no open material implementation findings",
+  "scope": "Read-only ordinary source/reuse/behavior review; only assigned evidence reports and private scratch written. No source/test/fixture/art/ISO/emulator changes by reviewer.",
+  "candidate": {
+    "baseline": "/var/tmp/dokapon-raster-resize-sealed-53uxadsx",
+    "frozen_at": "2026-10-20T18:02:39.793274+00:00",
+    "source_data_pins": 52,
+    "all_pins_held": true,
+    "source_pins_path": "/var/tmp/dokapon-native-text-review-uxore8ds/source-pins.json",
+    "source_pins_sha256": "15efb1cf241a2ca4a3b9fc03df64c9a25d641c53b889b7d146d6e3db988b341b",
+    "key_pins": {
+      "raster_runs.go": "c6867ff123af886d2cdf9602e8a126cc7424a25979aee6b62ab6b64eba7f6e78",
+      "raster.go": "8b79bb1bf1a0427016572eed5a96dec32d7e0b725ba619f39ac6d41f7b457426",
+      "raster_types.go": "53471b0f96e03c2c6f5561454212ba0aa09eb91e4f164fb7dd032402e632aec7",
+      "texture_authoring.go": "a2a4362952b23be121b4ed27b798993c7cdfe9f3bf031f5e251c810865d6e968",
+      "patch_test.go": "1462e162b60e774dbc0dbe18eadec9e4cb8ff4fdf7d77a50d36d115994403897",
+      "testdata/native-raster.json": "3adf614fd4c09cf8820d1ed10d29c8da076a4725df681b939af85cb124004616",
+      "testdata/native-raster.zip": "440ae3f233b4e54175bd53383279e07024dc67bba7e3535458875e820b368dfa"
+    }
+  },
+  "findings": [],
+  "resolved_review_findings": [
+    {
+      "finding": "The initial selected-rule golden did not distinguish four-connected counter fill from eight-connected fill.",
+      "evidence": "Private eight-connected mutation initially survived; independent synthetic diagonal-open glyph rendered through original GameBitmapFont/text_layer/place exposed the difference. Correct production implementation passed.",
+      "resolution": "Six independent counter fixture entries appended; revised existing Golden owner asserts unclipped layer/origin and whole candidate. CURRENT eight-connected mutation now fails repository four-connected counter layer oracle. No numerical production change.",
+      "chronology": "Counter oracle generated independently after native implementation, before its Go comparison; expected data were never derived or repinned from Go."
+    },
+    {
+      "finding": "Mixed metric/binary &&/|| guards obscured validation decisions (separate Astra readability finding).",
+      "resolution": "Final composeCells separates common guards and explicit metric/else invariants with equivalent conditions, error messages and ordering; source diff inspected and fresh suites pass."
+    }
+  ],
+  "ownership": {
+    "serena_session": "d7f95853",
+    "new_functions": "Exactly two justified pure owners: renderRuns for bounded unclipped native word/placement; pixelOver for exact Pillow integer compositing used both at glyph overlap and word/background composition. Existing resizeRaster numerical scaling remains shared.",
+    "existing_owner": "composeCells retains common font/cell/rectangle/preflight, visible-alpha containment before clipping, background and final Src placement; authorTexture retains pinned JSON/PNG I/O and publication. New font metrics/run data extend existing types.",
+    "why_split": "Inlining the roughly220-line native mask/stroke/area pipeline into composeCells would obscure its common composition/containment responsibility; duplicating pixelOver in its two actual callers would duplicate a required rounding contract. No helper/closure framework, per-word runtime images, dependency, alternate writer or CLI.",
+    "null_change": "Token walk refuses any null only in active bitmap profile/font documents, preventing numeric/color null silently becoming zero. Omitted optional fields remain valid; strings containing null are ordinary strings. Prior PNG/export paths retain their validation.",
+    "references": [
+      "raster_runs.go:11",
+      "raster_runs.go:35",
+      "raster.go:17",
+      "raster.go:28",
+      "raster.go:127",
+      "raster.go:175",
+      "texture_authoring.go:93",
+      "texture_authoring.go:157",
+      "raster_types.go:3"
+    ]
+  },
+  "independent_results": {
+    "source_SHA256": "fa7530ca32b50cf4823e0dfa7540a966780d85659795c7a60a6feebd7badbca0",
+    "whole_TXD_SHA256": "24a8d7e0a099448be6c305de2a2acfbfc3d9cc9c5bd816c60fd14ac7cd5855b8",
+    "decoded_RGBA_SHA256": "93b7045690bfa7832aa856e620051e8fe9a3cb8104f5541b30f30821c1d2cb46",
+    "raw_candidate_SHA256": "de3640c6ecee5cb9fba6408c7b96c5cdceff55583d6d9a7c1dde9a63d095cedc",
+    "word_layer_SHA256": "492a41f103513a224519dd3677140bf08a10fb93460e8f6ce80a236f2e060733",
+    "word_origin": [
+      98,
+      217
+    ],
+    "fit": "Requested22 derives19.25; explicit19.25 gives identical word bytes/origin.",
+    "native_changes": 5371,
+    "allowed_pixels": 6636,
+    "ledger_SHA256": "d05c9393e1452897907c64e31041a4bb174ca715c8bd24d054ea3ccfdc70f23b",
+    "outside_changes": 0,
+    "CLUT_headers_rest_unchanged": true,
+    "stage_instrumentation": [
+      {
+        "stage": "gm.raw",
+        "bytes": 191389,
+        "exact": true,
+        "sha256": "698288d3853cb5f0d5144980fb5c68b07d35878a86b7e620033902424ea6c077"
+      },
+      {
+        "stage": "cm.raw",
+        "bytes": 765556,
+        "exact": true,
+        "sha256": "4815eb826ddfbe3692e04620926ef4189ff44de136837d02689d960e0e20502c"
+      },
+      {
+        "stage": "area-floats.raw",
+        "bytes": 180320,
+        "exact": true,
+        "sha256": "a31e237d18b7911df6c8263347d8c9f95a21467f1ed38ea3aeac45f56f091144"
+      },
+      {
+        "stage": "word.raw",
+        "bytes": 765556,
+        "exact": true,
+        "sha256": "2020d0d46dfa4dd9eb9336e310abb12dca4e37abb1be88397682a0292bebddb5"
+      }
+    ],
+    "pixelOver": "All65,536 independently frozen alpha-domain pairs match; raw fixtures independently rebound to canonical arrays.",
+    "preservation": "Whole artifact/idempotence, source/base/atlas/profile preservation, shifted source+atlas origins and half-tie placement, unclipped top/left spill refusals pass.",
+    "refusals": "Current existing owners cover29 native API and24 CLI cutsets including malformed fonts/runs/layout/colors, finite bounds, conflicts, unknown fields, JSON null and visible spills.",
+    "actual_standalone_CLI": "Actual original\u2192expected binary preview/apply, deterministic second output, readback decodedRGBA, rebound-source reapply,5371 ledger, input identity+mtime preservation; six additional null/unknown/spill cutsets in preview+apply and overwrite/four input aliases refuse. Full receipt hashed as cli.json."
+  },
+  "mutants": [
+    {
+      "name": "standard-Over",
+      "result": "KILLED"
+    },
+    {
+      "name": "continuous-cursor",
+      "result": "KILLED"
+    },
+    {
+      "name": "anchor-after-base-origin",
+      "result": "KILLED"
+    },
+    {
+      "name": "eight-connected-counters",
+      "result": "KILLED"
+    },
+    {
+      "name": "zero-hole-threshold",
+      "result": "KILLED"
+    },
+    {
+      "name": "clipped-containment",
+      "result": "KILLED"
+    }
+  ],
+  "verification": {
+    "race": {
+      "exit": 0,
+      "package_seconds": 99.411,
+      "command": "nice -n19 env GOMAXPROCS=2 TMPDIR=<owned>/tmp GOTMPDIR=<owned>/tmp go test -race -count=1 -p2 -overlay=<CURRENT existing Golden owner plus227 preserve cases> ./..."
+    },
+    "corpus": "All227 accepted with fullRGBA/noop/sample artifact/source preservation; old five-label CLI and134 resampling vectors also ran in fresh full suite.",
+    "required_checks": "Independent vet/build/gofmt, scoped git and manual pinned-text whitespace, two selfchecked POSIX credential patterns PASS. Exact commands/logs hashed privately.",
+    "primary_rebind": "/var/tmp/dokapon-native-text-review-uxore8ds/rebind.json",
+    "primary_rebind_summary": "Shared95-glyph font/atlas equal prepared contract; actual source/expected TXD equal original private canonical artifacts; all13 fixture entries independently bound (seven original plus six review counter entries). Old HUD, resizer/134 ZIP, codec/palette/publisher and all previous testdata unchanged.",
+    "root_receipt_SHA256": "26c2f140f2cf2192497dabba3593db974f1a2426e4575d9724397a8b0e5ffd58",
+    "superseded": "Initial52-pin race93.241s and receipts retained in pre-revision; these do not validate revised guard/test/fixture pins."
+  },
+  "metadata_qualification": "native-raster.json top-level before-implementation provenance applies to original seven entries; the six appended counter entries have the explicit postimplementation independent-canonical chronology above. Counter_case provenance is accurate. No Go-derived expected values.",
+  "limits": [
+    "raster_rendering remains Partial. One actual mixed-color rule cell plus counter boundary vector does not cover all113 operations/17 specifications or full card authoring.",
+    "Native optical metric/bearing/alpha source facts are shared data; no TTF, general kerning, black/source-fill/shadow/extrusion/gradient/rotation or donor reconstruction parity claimed.",
+    "Only bounded current run/style/font contracts are evidenced; no all-size/platform numerical proof, new artwork/visual/gameplay approval, retirement, savings or ISO/runtime approval."
+  ],
+  "contracts": {
+    "analysis/native-raster-integration-contract.json": "59ff55eb3a17965ac1bd8283377cdb931f3d6902fed06e530628940dde27e337",
+    "analysis/raster-native-font-reuse-contract.json": "3072d79770cf87b39bdd0d2730cd73f80eaca2ce1ed4bcf89f326f8403a3048a",
+    "analysis/raster-resampling-reuse-contract.json": "86c7331eed4417ad669183effb01f81902ef71dcda7932fa66fe48d60f6dbefe"
+  },
+  "private_artifacts": {
+    "/var/tmp/dokapon-native-text-review-uxore8ds/source-pins.json": "15efb1cf241a2ca4a3b9fc03df64c9a25d641c53b889b7d146d6e3db988b341b",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/revision.json": "9b822bf4c64346823a56ed0551a9c5d0b57c3fcbf66c53f08e217a752e693127",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/race.log": "730f563dd40dcf417fce423be13ba0166a496124629000f474e9b81696590381",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/checks.json": "2cfca906948881c08bd3d506899bd84b3e3e348ec13e9e3e04e4572be94bfd02",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/overlay.json": "e048d71b35ef73564229efa34d4fe0bf4fcb1d1c3891c319406c5a734f27b721",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/patch_test.go": "53f949a60a099c00073e1d2c61b09b37e6fae10891af0bcfec5ad75949aefa6e",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/corpus-results.json": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/probes.py": "e78ad474a84ca6c9418fe8b0f7d34f775952356fcb19741bd1825a2fe24644db",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/probes.json": "fd08a11f239e654741344a4a72b642ee4a043b617ca83857196c93646554bdcb",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/instrument.go": "05b9c7dfcac93929c8688e9b187493bc9a5f1f26686c6c56cb96ad1ed131c081",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/gm.raw": "698288d3853cb5f0d5144980fb5c68b07d35878a86b7e620033902424ea6c077",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/cm.raw": "4815eb826ddfbe3692e04620926ef4189ff44de136837d02689d960e0e20502c",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/word.raw": "2020d0d46dfa4dd9eb9336e310abb12dca4e37abb1be88397682a0292bebddb5",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/area-floats.raw": "a31e237d18b7911df6c8263347d8c9f95a21467f1ed38ea3aeac45f56f091144",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/eight-connected-counters.log": "f2a809813c812ac4d936d01e873d3417037e7e555d8472379251f280d9130263",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/clipped-containment.log": "479114ee0139455a7f75d673eb2e586f886f1919294875d2d349879b1b07d01c",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/standard-Over.log": "7ebfe0f7f1c716745cd9c9a3e9e942a48e41f3db332efdc59689b2918af4761c",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/continuous-cursor.log": "3917354a3eb863b4a77c17629f135ca9cdab1cb34868eb1cf5e481389c2b8521",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/anchor-after-base-origin.log": "645ecf293567e4b72b2c978742e5326fbba764970fc2fd682833e8f8d179a5b3",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/zero-hole-threshold.log": "3917354a3eb863b4a77c17629f135ca9cdab1cb34868eb1cf5e481389c2b8521",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/cli.py": "a710efdad47661f909e44da1294beaae9764c42ec2331b9e08361ff1c6200993",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/cli.json": "504af1cda3dfa000c513e2fbcf3dc89f19a9d69453daec824c9e17becc56ed9f",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/rebind.json": "4faaf40605827d9e30b835dc5c0d5948001050378bfc23ed709c9153539f088e",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/diagonal-portable.py": "587744845a330216d6ee85e4718ef0a8df6abf0f6b9588608c04ff79b15fc7c7",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/diagonal-portable.zip": "12d7e2644e573ea382acaeac813323a2d080480fd832e2a989e30c95f3a8b067",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/diagonal-portable.json": "060957f3df306c7c36abf7247f513111070c1c262951d8d231fcff3f666f24d9",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/diagonal.json": "ecb684ae2f671c862a1058534f30cbdfcfac59fb4fe9ab9e504d7cad1f74e906",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/pre-revision/source-pins.json": "95c0051e1574a8e1e53539d8032ea209d862dcbd7bc612f373754f10d42202ff",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/pre-revision/race.log": "f721092d7fce0cddb369bf58344080ea43fd0d6ad3abd75b0fac7db6200967e7",
+    "/var/tmp/dokapon-native-text-review-uxore8ds/pre-revision/checks.json": "a4b25cca3ed2215058f8bce4ad0c3ced7b7508e9ca4fe911294fe40159bc26cf"
+  }
+}

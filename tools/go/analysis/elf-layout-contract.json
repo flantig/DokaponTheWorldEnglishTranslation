@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:05:49.502485+00:00",
+  "status": "READ_ONLY_PRECODE_CONTRACT_NOT_IMPLEMENTATION_OR_COVERAGE",
+  "scope": "General bounded read-only ELF program-header/LOAD VMA/file/BSS mapping. Native ELF ZIP read only. No ISO/registry/emulator/process/native execution or production/test changes.",
+  "baseline": "Frozen image_layout contract includes ELF/disc/sentinel mapping, self-consistent loader/window capacity and bounded reservations; this next increment covers only general ELF mapping/report, not entirefamily.",
+  "source_facts": {
+    "addr": "tools/addr.py and compatibility addresses.py implement two historical constantVMA windows. Newsegment guard accepts exact preappend filesize for PLANNING or postappend filesize; it does NOT parse ELF PH or establish loaded bytes. VMA conversion rejects outside declared windows; inverse adds chosen delta withoutbounds and is intentionally permissive. Generic source-derived mapping deliberately replaces those assumptions; do not relabel it exact legacy behavior.",
+    "layout_audit": "inspect_elf_layout ->verify.elf_layout_check_elf_program_headers decodes two expected littleendian PH tuples. Other duties check fixed crt0 heap/syscallwords, ISO directoryextents/dualendianfields and ZERO.BIN filename references. Those duties are NOT satisfied by generic segmentmap, and ZERO absence is not runtime reachabilityproof.",
+    "callers": "relocate_pointer_array/code_immediate/settings/class_tooltip and rerelocate combine explicit ISO_ELFbase with addr.vma_to_file_off. Their pointer/opcode/header/ledger checks remain separate. relocate_gp_relative derivesGP from SHT_MIPS_REGINFO separately; LOADmapping does not prove GP reachability.",
+    "native_frozen_observation": {
+      "path": "/var/tmp/dokapon-elf-layout-cazzt061/native-headers.json",
+      "sha256": "302b32b29a279976062fc705659bf3b4335b88120449ffa1a8d6c51ed450d97a",
+      "headers": [
+        {
+          "index": 0,
+          "type": 1,
+          "offset": 128,
+          "vaddr": 1048576,
+          "paddr": 1048576,
+          "filesz": 4429440,
+          "memsz": 4719360,
+          "flags": 7,
+          "align": 128
+        },
+        {
+          "index": 1,
+          "type": 1,
+          "offset": 4429568,
+          "vaddr": 5767936,
+          "paddr": 5767936,
+          "filesz": 0,
+          "memsz": 0,
+          "flags": 6,
+          "align": 16
+        }
+      ],
+      "qualification": "Frozen executable contains filetail outside original filebacked LOAD ranges; appended data/runtime sentinel redirection is NOT automatic PT_LOAD mapping. Empty native LOAD remains metadata, not evidence of allocated storage."
+    },
+    "native_ranges": {
+      "file_backed_vma": [
+        "0x100000",
+        "0x539680"
+      ],
+      "file_offsets": [
+        "0x80",
+        "0x439700"
+      ],
+      "bss_vma": [
+        "0x539680",
+        "0x580300"
+      ],
+      "empty_load_vma": "0x580300",
+      "tail_qualification": "Fileoffset439700 onward has no LOAD-backedVMA from these headers, even though frozenmember is5087232B. Does not classify runtime sentinel loader mapping."
+    }
+  },
+  "stdlib": {
+    "version": "go1.26.6\ntime 2026-08-11T00:40:52Z",
+    "source": "/usr/lib/golang/src/debug/elf/file.go",
+    "usable": "debug/elf.NewFile accepts io.ReaderAt, decodes class/byteorder/programheaders into standard ProgHeader inclOff,Vaddr,Paddr,Filesz,Memsz,Flags,Align. Use io.SectionReader bounded to actual source extent; no manual second ELF parser/dependency.",
+    "limits": "NewFile source288..445 checks magic/class/endian/version, header sizes/truncated PH data and signed offset/Filesz admissibility. It creates SectionReaders without validating fullsegment EOF, Filesz<=Memsz,32bit memorywrap, LOAD overlap or align/congruence. Caller must impose selected mapping contract. Section metadata may also be parsed/refused by stdlib; first contract need not emulate permissive legacy invalidheaders.",
+    "primary_spec": "https://gabi.xinuos.com/elf/07-pheader.html sections7.1/7.2: PT_LOAD fileprefix and zero-initialized memorytail, Filesz<=Memsz,align0/1or power2 and Vaddr/Off congruence. This gives memoryimage semantics, not actual running-loader or cave availability.",
+    "license": "Use installed standard library via import; no vendored/copied implementation or added dependency. Source files carry Go BSD-style license notice."
+  },
+  "selected_root_direction": {
+    "owner": "Enhance existing inspect via early elf_layout branch. Existing inspection responsibility already owns bounded image reads/native readiness; genericmapper need not become newfunction/helper. Main shares pinnedsource/read/recheck/JSON report routing with reference_candidates. Keep existing fixed-delta patch/font/stream branches unchanged.",
+    "data": "One new Recipes.AddressRanges map[string]AddressRange keyed stableIDs or labels; no patch Entries/ReadBytes/reference scan overload. No new ISOflags/profile. Root owns final schema/limits.",
+    "report": "Standard debug/elf.ProgHeader LOAD records with original PH index/order; each named halfopenVMA range split at fileprefix/BSS/segment/hole boundaries into file_backed,bss,unmapped. Only file_backed has ELF file offsets. PhysicalPaddr is metadata, not VMA substitute.",
+    "refusals": "Reject overlapping nonempty PT_LOAD memory intervals,Filesz>Memsz,payload outsideactualsource,32bit memorywrap,invalidalign/congruence; bound querycount/reportrows/source/header reads. Reject empty/reversedquery. Query start uint32,exclusiveend can2^32. EmptyLOAD accepted and reported but maps nothing.",
+    "coverage": "Queries represent unmapped spans explicitly rather than speculative constantdelta/BSSfileoffset. NumericAddressRange parser must accept endpoint2^32 separately from existing number uint32parser; do not globallyrelax existing patch-addressguards."
+  },
+  "precode": {
+    "directory": "/var/tmp/dokapon-elf-layout-cazzt061",
+    "fixtures": {
+      "addr-file_off_to_vma.txt": {
+        "bytes": 390,
+        "sha256": "0fac5cac12e9460d0e82928c9accbb64c78c2e418f47d24238a75636dc38b783"
+      },
+      "addr-new_segment_valid.txt": {
+        "bytes": 880,
+        "sha256": "c7ef59870b120b9a84517b461115457aab2746a6dfc8434769f17a0ad2e420e8"
+      },
+      "addr-vma_to_file_off.txt": {
+        "bytes": 666,
+        "sha256": "30848a9b0dc613ea49520a0d0a738b1b556b77af66be9e8b89140f2f9e8fdd82"
+      },
+      "addresses-file_off_to_vma.txt": {
+        "bytes": 322,
+        "sha256": "5e9579e4fed5b4a03ffa562092f0bf3472b730360d71b300a8e0b4802a33a058"
+      },
+      "addresses-new_segment_valid.txt": {
+        "bytes": 743,
+        "sha256": "7ce2efd24f5e4c7778005bab3d90e45fb6a1e8ed8b1656a0e2f84aaadd174642"
+      },
+      "addresses-vma_to_file_off.txt": {
+        "bytes": 597,
+        "sha256": "b7acd9799c15b8db8ea209efe2ab4f0ea5bc76acb3ad201c190336a98e498bb7"
+      },
+      "expected.json": {
+        "bytes": 3387,
+        "sha256": "cdd52dc4675d65db8b2216577591009c2860f1702d49718c4d5b385939fd3367"
+      },
+      "filesz-over-memsz.elf": {
+        "bytes": 544,
+        "sha256": "640599dee565044858a2bd03ac8fe04ed1e3069c1829d20ade758d022c78b5b9"
+      },
+      "invalid-align.elf": {
+        "bytes": 544,
+        "sha256": "720dba35d6727add1ff45a797d5a83ce8c1ecd11e4a8f15f06aadaa1c918863b"
+      },
+      "memory-wrap32.elf": {
+        "bytes": 544,
+        "sha256": "f8703e75d1e90002276bbb77f82cc09e96283feb13fd1a285176501008b0f979"
+      },
+      "multi-load-bss.elf": {
+        "bytes": 544,
+        "sha256": "079e84436600f2333fc8dab82f5e186763adef32ace17776524edffd567ef43f"
+      },
+      "native-ELF-PH.raw": {
+        "bytes": 116,
+        "sha256": "58a56f61327cd18d305fd358096b68362425ec888d1c98b64d2ceb8d467c614d"
+      },
+      "native-headers.json": {
+        "bytes": 617,
+        "sha256": "302b32b29a279976062fc705659bf3b4335b88120449ffa1a8d6c51ed450d97a"
+      },
+      "noncongruent-align.elf": {
+        "bytes": 544,
+        "sha256": "7c12c1594e4e70d774f449110fc8f662a81dd8182f789564db6539ec1e049f21"
+      },
+      "overlap-memory.elf": {
+        "bytes": 544,
+        "sha256": "99d3dbb031ba80c46d3924a7fe79fe84718155a06e28821e4553fef76fd99a58"
+      },
+      "payload-beyond-EOF.elf": {
+        "bytes": 544,
+        "sha256": "68ae44d4a0c5cc3f1bf453d04688ef93580b04ea0fc610451f973d28983a3900"
+      },
+      "refusals.json": {
+        "bytes": 2172,
+        "sha256": "04f41eb5e54e089c588079eacd59d0799425140b53e4796bd86ae19e27813b55"
+      },
+      "truncated-PH.elf": {
+        "bytes": 211,
+        "sha256": "fb8cce8b2fe1228f9ae9957b31ebcb11303fc1b4e9ca2c4fa77311ca059931f9"
+      },
+      "verify-elf_layout_check_crt0_syscalls.txt": {
+        "bytes": 2445,
+        "sha256": "5253f6201032d172b4ad138a466c98dfd2514d6d665158eb9bacfd5fd9bc8b41"
+      },
+      "verify-elf_layout_check_elf_program_headers.txt": {
+        "bytes": 1491,
+        "sha256": "91a2588b02504bcccd5e6f9456dbd5667ae85edf3c2cee9185de1cf29a64f089"
+      },
+      "verify-elf_layout_check_zero_bin_unreferenced.txt": {
+        "bytes": 701,
+        "sha256": "d7ac336ca162f62af7a84a82bb393f3cf7a7b56f24575e9628c36226ebb91eec"
+      }
+    },
+    "positive_queries": 7,
+    "invalid_files": 7,
+    "invalid_ranges": 4,
+    "method": "Independent stdlib struct fixtureconstruction and manually authored expected split rows, arithmetic/coverage asserts. No Go outputs/projectPython used. Includes two distinct LOADdeltas,BSS-only,emptyLOAD,hole,boundarysplit,last32bitendpoint,sentinelunmapped,7 defects and4invalidqueries.",
+    "generator": {
+      "path": "/var/tmp/dokapon-elf-layout-cazzt061/prepare.py",
+      "sha256": "a3b660ad9d96925c482b0ae337ed9e1004a9c06308a5de360fb23d6307c3d2e7"
+    },
+    "expected_sha256": "cdd52dc4675d65db8b2216577591009c2860f1702d49718c4d5b385939fd3367"
+  },
+  "safety_limits": [
+    "BSS is zero-initialized memory with NO filebytes; never invent physical fileoffsets or read padding asBSS.",
+    "Mapped/filebacked/zero does not mean unreferenced,free,executable,writeable at runtime,safe cave or approved reservation.",
+    "Filesystem size, ELFLOAD size, ISOextent, streamblob capacity, loadersectorcount, sentinelwindow and heap boundaries are distinct facts.",
+    "No allocation,growth,write/repoint,GPrelocation,section/cave ownership or native runtime/visual proof from this report.",
+    "No generalELF64/endian/ET_DYN/loadbias feature scope added merely because stdlib can parse them; parent chooses finite supported header contract."
+  ],
+  "source_slices": [
+    {
+      "source": "../addr.py",
+      "symbol": "new_segment_valid",
+      "start_line": 48,
+      "end_line": 62,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/addr-new_segment_valid.txt",
+      "slice_sha256": "c7ef59870b120b9a84517b461115457aab2746a6dfc8434769f17a0ad2e420e8"
+    },
+    {
+      "source": "../addr.py",
+      "symbol": "vma_to_file_off",
+      "start_line": 65,
+      "end_line": 78,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/addr-vma_to_file_off.txt",
+      "slice_sha256": "30848a9b0dc613ea49520a0d0a738b1b556b77af66be9e8b89140f2f9e8fdd82"
+    },
+    {
+      "source": "../addr.py",
+      "symbol": "file_off_to_vma",
+      "start_line": 81,
+      "end_line": 88,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/addr-file_off_to_vma.txt",
+      "slice_sha256": "0fac5cac12e9460d0e82928c9accbb64c78c2e418f47d24238a75636dc38b783"
+    },
+    {
+      "source": "../rework/new_tool/iso_build/addresses.py",
+      "symbol": "new_segment_valid",
+      "start_line": 32,
+      "end_line": 44,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/addresses-new_segment_valid.txt",
+      "slice_sha256": "7ce2efd24f5e4c7778005bab3d90e45fb6a1e8ed8b1656a0e2f84aaadd174642"
+    },
+    {
+      "source": "../rework/new_tool/iso_build/addresses.py",
+      "symbol": "vma_to_file_off",
+      "start_line": 47,
+      "end_line": 58,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/addresses-vma_to_file_off.txt",
+      "slice_sha256": "b7acd9799c15b8db8ea209efe2ab4f0ea5bc76acb3ad201c190336a98e498bb7"
+    },
+    {
+      "source": "../rework/new_tool/iso_build/addresses.py",
+      "symbol": "file_off_to_vma",
+      "start_line": 61,
+      "end_line": 67,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/addresses-file_off_to_vma.txt",
+      "slice_sha256": "5e9579e4fed5b4a03ffa562092f0bf3472b730360d71b300a8e0b4802a33a058"
+    },
+    {
+      "source": "../rework/new_tool/reports/verify.py",
+      "symbol": "elf_layout_check_elf_program_headers",
+      "start_line": 464,
+      "end_line": 493,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/verify-elf_layout_check_elf_program_headers.txt",
+      "slice_sha256": "91a2588b02504bcccd5e6f9456dbd5667ae85edf3c2cee9185de1cf29a64f089"
+    },
+    {
+      "source": "../rework/new_tool/reports/verify.py",
+      "symbol": "elf_layout_check_crt0_syscalls",
+      "start_line": 496,
+      "end_line": 547,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/verify-elf_layout_check_crt0_syscalls.txt",
+      "slice_sha256": "5253f6201032d172b4ad138a466c98dfd2514d6d665158eb9bacfd5fd9bc8b41"
+    },
+    {
+      "source": "../rework/new_tool/reports/verify.py",
+      "symbol": "elf_layout_check_zero_bin_unreferenced",
+      "start_line": 624,
+      "end_line": 638,
+      "slice_path": "/var/tmp/dokapon-elf-layout-cazzt061/verify-elf_layout_check_zero_bin_unreferenced.txt",
+      "slice_sha256": "d7ac336ca162f62af7a84a82bb393f3cf7a7b56f24575e9628c36226ebb91eec"
+    }
+  ],
+  "source_pins": {
+    "../addr.py": {
+      "sha256": "85177a1dc8b3e5ed9e5555da10c42927b638a8e8b9e61e8e4e47932f2a8da821",
+      "bytes": 5036
+    },
+    "../rework/new_tool/iso_build/addresses.py": {
+      "sha256": "9c165e59aa1cbdd02e40a0bbd557bce5fc5dbe731953682c26144462b3922242",
+      "bytes": 32233
+    },
+    "../rework/new_tool/reports/verify.py": {
+      "sha256": "f09327293483d75e3e848cd7a2f76cef37fc8f8368347d2abed69fe4619d8386",
+      "bytes": 33273
+    },
+    "../inspect_elf_layout.py": {
+      "sha256": "cbbd98d7ca7e9a4b22fee55bb15ee95489d0b329c1d5bfcc4d127a085bf11e46",
+      "bytes": 3079
+    },
+    "../relocate_gp_relative.py": {
+      "sha256": "971ae79033cfba6fb07772b1281d63082db7e7233421b5d3f042427f0c85f134",
+      "bytes": 15906
+    },
+    "../relocate_pointer_array.py": {
+      "sha256": "6995b7285401ccc86d48783d07dbee1d21c936fe5830e64f8c840ce5f529e358",
+      "bytes": 11981
+    },
+    "../relocate_code_immediate.py": {
+      "sha256": "23f58e2244e6002841e135da426f01d760265eb384f54294aa86e083cf9884eb",
+      "bytes": 12845
+    },
+    "analysis/reusability-coverage-baseline.json": {
+      "sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+      "bytes": 13267
+    },
+    "analysis/pattern-crawl-iso_registry_reports.json": {
+      "sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+      "bytes": 119708
+    },
+    "patch.go": {
+      "sha256": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+      "bytes": 89262
+    },
+    "image_types.go": {
+      "sha256": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+      "bytes": 484
+    },
+    "main.go": {
+      "sha256": "1ecdd7ef108b33ba47753534e67b18b43f1648369172183e0773cb3dd2e15536",
+      "bytes": 11367
+    },
+    "recipe_types.go": {
+      "sha256": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+      "bytes": 5923
+    },
+    "/usr/lib/golang/src/debug/elf/file.go": {
+      "sha256": "dddc762f5e7a6d16814665e55d4f207c9b769cfef73daff9c8ee584a75d4830a",
+      "bytes": 48978
+    },
+    "/usr/lib/golang/VERSION": {
+      "sha256": "19a1647c6e8fcfdd9b4ecc10d4c83303d4211738d01daed0a822558d96896c54",
+      "bytes": 35
+    }
+  },
+  "verification": "Verified pinnedZIP/memberSHA and nativePHraw;all7 authored queryrowcoverages/fileprefix arithmetic and allBSS-no-offset invariants; syntheticfixture/refusal hashes and source slices pinned. JSON/whitespace/credential checks. No tests/build/fullsuite claimed for report-onlywork.",
+  "source_pin_observations": {
+    "../addr.py": {
+      "study_sha256": "85177a1dc8b3e5ed9e5555da10c42927b638a8e8b9e61e8e4e47932f2a8da821",
+      "final_sha256": "85177a1dc8b3e5ed9e5555da10c42927b638a8e8b9e61e8e4e47932f2a8da821"
+    },
+    "../rework/new_tool/iso_build/addresses.py": {
+      "study_sha256": "9c165e59aa1cbdd02e40a0bbd557bce5fc5dbe731953682c26144462b3922242",
+      "final_sha256": "9c165e59aa1cbdd02e40a0bbd557bce5fc5dbe731953682c26144462b3922242"
+    },
+    "../rework/new_tool/reports/verify.py": {
+      "study_sha256": "f09327293483d75e3e848cd7a2f76cef37fc8f8368347d2abed69fe4619d8386",
+      "final_sha256": "f09327293483d75e3e848cd7a2f76cef37fc8f8368347d2abed69fe4619d8386"
+    },
+    "../inspect_elf_layout.py": {
+      "study_sha256": "cbbd98d7ca7e9a4b22fee55bb15ee95489d0b329c1d5bfcc4d127a085bf11e46",
+      "final_sha256": "cbbd98d7ca7e9a4b22fee55bb15ee95489d0b329c1d5bfcc4d127a085bf11e46"
+    },
+    "../relocate_gp_relative.py": {
+      "study_sha256": "971ae79033cfba6fb07772b1281d63082db7e7233421b5d3f042427f0c85f134",
+      "final_sha256": "971ae79033cfba6fb07772b1281d63082db7e7233421b5d3f042427f0c85f134"
+    },
+    "../relocate_pointer_array.py": {
+      "study_sha256": "6995b7285401ccc86d48783d07dbee1d21c936fe5830e64f8c840ce5f529e358",
+      "final_sha256": "6995b7285401ccc86d48783d07dbee1d21c936fe5830e64f8c840ce5f529e358"
+    },
+    "../relocate_code_immediate.py": {
+      "study_sha256": "23f58e2244e6002841e135da426f01d760265eb384f54294aa86e083cf9884eb",
+      "final_sha256": "23f58e2244e6002841e135da426f01d760265eb384f54294aa86e083cf9884eb"
+    },
+    "analysis/reusability-coverage-baseline.json": {
+      "study_sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+      "final_sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b"
+    },
+    "analysis/pattern-crawl-iso_registry_reports.json": {
+      "study_sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+      "final_sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4"
+    },
+    "patch.go": {
+      "study_sha256": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+      "final_sha256": "215f13b936c66c3fc4e05b97693d9241fe935360b3ca3a5e7af69f87ae5855c3"
+    },
+    "image_types.go": {
+      "study_sha256": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+      "final_sha256": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d"
+    },
+    "main.go": {
+      "study_sha256": "1ecdd7ef108b33ba47753534e67b18b43f1648369172183e0773cb3dd2e15536",
+      "final_sha256": "1ecdd7ef108b33ba47753534e67b18b43f1648369172183e0773cb3dd2e15536"
+    },
+    "recipe_types.go": {
+      "study_sha256": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+      "final_sha256": "50a9ff6e7e4ce8594c888dba287143d4fb272c8c7bf333cce66ca533a376094d"
+    },
+    "/usr/lib/golang/src/debug/elf/file.go": {
+      "study_sha256": "dddc762f5e7a6d16814665e55d4f207c9b769cfef73daff9c8ee584a75d4830a",
+      "final_sha256": "dddc762f5e7a6d16814665e55d4f207c9b769cfef73daff9c8ee584a75d4830a"
+    },
+    "/usr/lib/golang/VERSION": {
+      "study_sha256": "19a1647c6e8fcfdd9b4ecc10d4c83303d4211738d01daed0a822558d96896c54",
+      "final_sha256": "19a1647c6e8fcfdd9b4ecc10d4c83303d4211738d01daed0a822558d96896c54"
+    }
+  }
+}

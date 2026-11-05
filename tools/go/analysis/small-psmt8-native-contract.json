@@ -1,0 +1,2134 @@
+{
+  "at": "2026-10-20T15:26:05.445549+00:00",
+  "status": "READ-ONLY FINITE NATIVE CONTRACT; no implementation/review/approval authority",
+  "scope": "Only analysis/small-psmt8-native-contract.json/.md written in repository. Selected original extracted CMB member read; private scratch scripts, no production/test/fixture/art/ISO/canonical writes, no wholeISO reads, emulator/PINE/process/log/settings access or subagents. Nice19.",
+  "coverage": {
+    "core": "3/14=21.43%",
+    "expanded": "3/17=17.65%",
+    "texture": "partial",
+    "this_study_grants_new_credit": false
+  },
+  "scratch": "/var/tmp/dokapon-small-psmt8-native-b14qEL",
+  "input_pins": {
+    "texture.go": {
+      "bytes": 15411,
+      "sha256": "3190ff9a3453874e217ab974c94506ebc9c8f0b2ecf6c635871aad211ed46a8a"
+    },
+    "texture_authoring.go": {
+      "bytes": 5326,
+      "sha256": "486b0ea81f020e947e3a9533ab76964be931c96584c78ebf57076f2af8a36848"
+    },
+    "texture_types.go": {
+      "bytes": 852,
+      "sha256": "814ed3a0ce83f60d5d0339a6428255c48c9f3bcf41ab16737da17afa857841ec"
+    },
+    "../ps2_tex.py": {
+      "bytes": 19197,
+      "sha256": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733"
+    },
+    "../cmb_tex_patch.py": {
+      "bytes": 27188,
+      "sha256": "5a9aa60826293f65108ee4424246fa0f373e1f6d97526f93f87da31e6040f849"
+    },
+    "analysis/texture-small-indexed-contract.json": {
+      "bytes": 23821,
+      "sha256": "c0b2a75e58ee671b3c6a6e89d595cac9644ac1a4dfa148e8f560cc9663bdc464"
+    },
+    "analysis/texture-codec-remaining-contract.json": {
+      "bytes": 70045,
+      "sha256": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30"
+    },
+    "analysis/clut-loader-binding-contract.json": {
+      "bytes": 19818,
+      "sha256": "1b74c2d0b44e999b3e46f75f320e851fa3b48dcb5007bdea2c159873b400f678"
+    },
+    "analysis/colored-direct-native-contract.json": {
+      "bytes": 96020,
+      "sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85"
+    },
+    "analysis/direct-layout-storage-contract.json": {
+      "bytes": 63296,
+      "sha256": "70124576a4b45c640184367bb39647bc04c26680082639005e95078a6e59ee02"
+    }
+  },
+  "source_pin_qualification": "Go source is the frozen five-direct-layout candidate observed during this study. Documentary Go pin drift after parent implementation does not invalidate unchanged actual member/nativeZIP/address tables. Prior report pins remain untouched.",
+  "Serena_owners_and_callers": {
+    "session": "935d6008",
+    "texture": "texture.go:18 existing sole codec; referencing symbols authorTexture(texture_authoring.go:97) and TestPilotHistoricalGoldenBytes. Current depth8 walk unchanged.",
+    "standalone_owner": "authorTexture -> existing readInput/texture/writeNewFile, run dispatch; reuse same metadata/storage/packet/CLUT/mask/quantization/publication owners and existing tests. No new helper/function/type/argument/schema/handler/GS framework indicated."
+  },
+  "selected_actual_member": {
+    "path": "../../extracted/iso-root/GRAPHIC/EVENT.CMB",
+    "entry": "event\\bg\\e01\\e01.txd",
+    "offset": 537670,
+    "bytes": 816696,
+    "sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+    "whole_container_hash": "not calculated; bounded selected member only"
+  },
+  "dictionary_native_count": 27,
+  "actual_native_chunks": [
+    {
+      "name": "sofashadow",
+      "offset": 28,
+      "bytes": 2408,
+      "sha256": "42772ad8f02a698c85c60a3cee9b07052c03b1d69203810fb7b8c17de80c1967"
+    },
+    {
+      "name": "windowlight",
+      "offset": 2436,
+      "bytes": 17768,
+      "sha256": "a9828e570c191b4c8378a47a1d9be3402968a8c8eb0f4e1f7b65938e1b346274"
+    },
+    {
+      "name": "maku02",
+      "offset": 20204,
+      "bytes": 34148,
+      "sha256": "453e0e0e43ec72c30255611415e39d9ad66b0438346dc64b46ca92e1592fe8e8"
+    },
+    {
+      "name": "light3",
+      "offset": 54352,
+      "bytes": 17764,
+      "sha256": "e0a48dbc50abf639b8b7c691acd335ab4c11f82a5c93cb82db886c25805913f8"
+    },
+    {
+      "name": "pole",
+      "offset": 72116,
+      "bytes": 1508,
+      "sha256": "330864ff7b9f20a8f05599708fa7e6cfe1519242819fffd50c08632bb0604d8a"
+    },
+    {
+      "name": "maku",
+      "offset": 73624,
+      "bytes": 34148,
+      "sha256": "b61a44845d1298ddc2d6b65788251cc3e05c435c432da675fb69bb548bd5f91e"
+    },
+    {
+      "name": "nuno2",
+      "offset": 107772,
+      "bytes": 9572,
+      "sha256": "99d1c598b750a9feb2c28b499c4a269f8bff7cab99021f0ad1fb446d44a4f5f1"
+    },
+    {
+      "name": "nuno",
+      "offset": 117344,
+      "bytes": 9572,
+      "sha256": "13ef505a73be16dff7c215162e9f2ec33b50110a304136b95182fb4ddb353150"
+    },
+    {
+      "name": "flag",
+      "offset": 126916,
+      "bytes": 34148,
+      "sha256": "0be10777aecc481b7a929262bb99fe5102e70457811efa74a6014d64b22b9703"
+    },
+    {
+      "name": "nuno3",
+      "offset": 161064,
+      "bytes": 9572,
+      "sha256": "6093573a7a22963e114dbd7444db9d863d2c84f335bcf26c4ae6c56062f41c17"
+    },
+    {
+      "name": "colums3",
+      "offset": 170636,
+      "bytes": 17764,
+      "sha256": "be88b897ec9f16d354a72289f2e0391e7ff78d723fd1d1b24821be3cd635b756"
+    },
+    {
+      "name": "colums",
+      "offset": 188400,
+      "bytes": 17764,
+      "sha256": "d8f2f27dfdf2c9c41bbe4aa7cc1fcd0f4c7d2130c43d8c0b2a383cda820a019a"
+    },
+    {
+      "name": "mark",
+      "offset": 206164,
+      "bytes": 9572,
+      "sha256": "0b72b8e12802ef600236212b50bdc1fab874f4b915eff15b9b130cb99becf30d"
+    },
+    {
+      "name": "door",
+      "offset": 215736,
+      "bytes": 66916,
+      "sha256": "1639c986f6ab027d8ddcb52d88d6ab30442fd18427fc5cddbc93a731c7a5443e"
+    },
+    {
+      "name": "wall6",
+      "offset": 282652,
+      "bytes": 66916,
+      "sha256": "d88d6658821304a270a2bec200c55c2833ee25dab51dd12fb794fbc8437b774b"
+    },
+    {
+      "name": "wall5",
+      "offset": 349568,
+      "bytes": 66916,
+      "sha256": "cdf682440a0aaa64b5510e93b43afb11eb19e74f98648e8d36a4ef09d6a9cf7a"
+    },
+    {
+      "name": "yuka",
+      "offset": 416484,
+      "bytes": 66916,
+      "sha256": "d706a4ac615dc83e90c894a8cf4859cfeed6c9b788f033af25e2a27be3b7d9c8"
+    },
+    {
+      "name": "wall",
+      "offset": 483400,
+      "bytes": 66916,
+      "sha256": "b034cf7ef42fa8511ad5b769a787284751ce47b4f6d3c1d82df4127e224c0f41"
+    },
+    {
+      "name": "crown2",
+      "offset": 550316,
+      "bytes": 34148,
+      "sha256": "945e02ca81d179641993aa155848cb9d4f2d41bbd3ad2ab62fff1dc061a11928"
+    },
+    {
+      "name": "gate",
+      "offset": 584464,
+      "bytes": 9572,
+      "sha256": "6bacaa97983ca4bc5546e87f762220cbcdb04330556e4ab3aefd1da97efa95cd"
+    },
+    {
+      "name": "wall3",
+      "offset": 594036,
+      "bytes": 34148,
+      "sha256": "3188e54442c6fdeb8cbc2d6c1adc369f8962cd570e9e0363cb668b5b0692ac11"
+    },
+    {
+      "name": "wall4",
+      "offset": 628184,
+      "bytes": 34148,
+      "sha256": "d315660d7370b970a2895020f401e655e8d2e8cfa0d225d270593f2b0ad0cc43"
+    },
+    {
+      "name": "kabe",
+      "offset": 662332,
+      "bytes": 17764,
+      "sha256": "7a980e30b5194a0e672dd6bfe5bb5aac7a1c0448e58c0a2266939b1e57c35634"
+    },
+    {
+      "name": "wall2",
+      "offset": 680096,
+      "bytes": 66916,
+      "sha256": "3c48cf8748978d0176c4126e689afe01d44c6903c1d0d9f65d27fdc19ca3f242"
+    },
+    {
+      "name": "isu",
+      "offset": 747012,
+      "bytes": 17760,
+      "sha256": "245455e0018f843ba808d385589be44a1924ca79a9ab601895e50201d064ce66"
+    },
+    {
+      "name": "sofa1",
+      "offset": 764772,
+      "bytes": 17764,
+      "sha256": "80282c813cd9a2808abe94e159ee8d467fe466fc8a577a08631830955acd5347"
+    },
+    {
+      "name": "jyutan",
+      "offset": 782536,
+      "bytes": 34148,
+      "sha256": "c98e73836925fd84d50ac8553fafc80b32a38487a4b31f8cab818c2727a9d017"
+    }
+  ],
+  "selected_cases": [
+    {
+      "texture": "sofashadow",
+      "dimensions": [
+        32,
+        32
+      ],
+      "native_chunk": {
+        "kind": 21,
+        "header": 28,
+        "start": 40,
+        "end": 2436,
+        "size": 2396,
+        "RW_version": "0x1c02000a"
+      },
+      "data_chunks": [
+        {
+          "kind": 1,
+          "header": 112,
+          "start": 124,
+          "end": 188,
+          "size": 64,
+          "RW_version": "0x1c02000a"
+        },
+        {
+          "kind": 1,
+          "header": 188,
+          "start": 200,
+          "end": 2408,
+          "size": 2208,
+          "RW_version": "0x1c02000a"
+        }
+      ],
+      "metadata_offset": 124,
+      "metadata_hex": "2000000020000000080000000425020000803055050000201c0000000000000000400000040040000040000004004000500400005004000000080000c00f0000",
+      "TEX0": "0x2000000555308000",
+      "raster_format": "0x2504",
+      "native_version": 2,
+      "TBW": 2,
+      "palette_base_blocks": 28,
+      "footprint_words": 2048,
+      "pixel_offset": 280,
+      "pixel_bytes": 1024,
+      "palette_offset": 1384,
+      "palette_bytes": 1024,
+      "palette_padding_bytes": 0,
+      "pixel_info_size": 1104,
+      "palette_info_size": 1104,
+      "headers": [
+        {
+          "offset": 200,
+          "bytes": 80,
+          "sha256": "574611afe9d53bd670acf2fda8708e0c3a354496b63539d0dde9de28cd84a081",
+          "hex": "03000000000000100e0000000000000000000000000000005100000000000000100000001000000052000000000000000000000000000000530000000000000040000000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x0",
+            "0x51",
+            "0x1000000010",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000040",
+            "0x0"
+          ]
+        },
+        {
+          "offset": 1304,
+          "bytes": 80,
+          "sha256": "cf3cf5f15a5bcfa6726a2bc7b14ce6270395ebed48a98c47d1a4315e743a345d",
+          "hex": "03000000000000100e0000000000000000000000300010005100000000000000100000001000000052000000000000000000000000000000530000000000000040000000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x10003000000000",
+            "0x51",
+            "0x1000000010",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000040",
+            "0x0"
+          ]
+        }
+      ],
+      "CLUT_destination_xy": [
+        48,
+        16
+      ],
+      "native_adjusted_palette_block": 22,
+      "merged_DMA_REF_qwords": 138,
+      "merged_stream_sha256": "89a878a11e875fc326b5c0fab3eb2a3cb0d4f3b536153447e7b711b7678e318e",
+      "mapping_u32_sha256": "c7633ab27bc08082fe1f41a2f0c086d4a79bfa94f0a1ec1e26fe0ab4b1bcceef",
+      "independent_all_pixel_address_join": true,
+      "sampled_address_u32_sha256": "0ce1e0d4877e3133079865de22087e43007e46eb362ef1e0a049719b42256a50",
+      "linear_indices_sha256": "eb3abc98f87e9837a710d3ff48b8b3146852e2b2387a8155113fa65e15c7ecf8",
+      "pixel_sha256": "edad24ecd5d8dad53ad9bf111fe4b92546288eb6430f229ed6fee7472f582a57",
+      "palette_sha256": "06056948c0551e518845c244d276b07da964c1e168af392e3a4d8aa3c2010120",
+      "RGBA_sha256": "3f84c90fd6902418a2be5414cedc0442689e598ffae30f499b406e3a20f87c6c",
+      "raw_CLUT_alpha_distribution": {
+        "0": 1,
+        "5": 1,
+        "9": 1,
+        "10": 1,
+        "12": 1,
+        "15": 2,
+        "17": 1,
+        "19": 2,
+        "20": 1,
+        "21": 1,
+        "22": 2,
+        "23": 1,
+        "24": 1,
+        "33": 1,
+        "34": 1,
+        "36": 2,
+        "45": 2,
+        "49": 1,
+        "50": 2,
+        "53": 2,
+        "61": 1,
+        "63": 1,
+        "64": 222,
+        "65": 1,
+        "66": 1,
+        "67": 2,
+        "68": 1
+      },
+      "raw_CLUT_alpha_min_max": [
+        0,
+        68
+      ],
+      "unique_displayed_palette_colors": 28,
+      "used_indices": 36,
+      "CSM1_all256_join": true,
+      "CSM1_join_pair_u32_sha256": "f32389a2cabb0bc74a25302aabf53d1dad3c7bb81ceea9d3d2d2695df233b008",
+      "pixel_physical_byte_range": [
+        0,
+        1023
+      ],
+      "pixel_physical_blocks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "CLUT_physical_word_range": [
+        1792,
+        2047
+      ],
+      "CLUT_physical_blocks": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "unused_allocation_bytes": 6144,
+      "source_noop_TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "PNG_preserve_noop_exact": true,
+      "relocations": [
+        {
+          "base_blocks": 0,
+          "upload_BITBLTBUF": "0x1000000010000",
+          "sample_TBP0": 0,
+          "sample_CBP": 28,
+          "allocated_words_inclusive": [
+            0,
+            2047
+          ]
+        },
+        {
+          "base_blocks": 1,
+          "upload_BITBLTBUF": "0x1000100010000",
+          "sample_TBP0": 1,
+          "sample_CBP": 29,
+          "allocated_words_inclusive": [
+            64,
+            2111
+          ]
+        },
+        {
+          "base_blocks": 32,
+          "upload_BITBLTBUF": "0x1002000010000",
+          "sample_TBP0": 32,
+          "sample_CBP": 60,
+          "allocated_words_inclusive": [
+            2048,
+            4095
+          ]
+        },
+        {
+          "base_blocks": 1024,
+          "upload_BITBLTBUF": "0x1040000010000",
+          "sample_TBP0": 1024,
+          "sample_CBP": 1052,
+          "allocated_words_inclusive": [
+            65536,
+            67583
+          ]
+        },
+        {
+          "base_blocks": 16352,
+          "upload_BITBLTBUF": "0x13fe000010000",
+          "sample_TBP0": 16352,
+          "sample_CBP": 16380,
+          "allocated_words_inclusive": [
+            1046528,
+            1048575
+          ]
+        }
+      ],
+      "selected_points": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "source_offset": 0,
+          "TXD_offset": 280,
+          "GS_byte_address": 0,
+          "index": 220,
+          "RGBA": [
+            19,
+            41,
+            69,
+            0
+          ]
+        },
+        {
+          "xy": [
+            0,
+            31
+          ],
+          "source_offset": 961,
+          "TXD_offset": 1241,
+          "GS_byte_address": 713,
+          "index": 220,
+          "RGBA": [
+            19,
+            41,
+            69,
+            0
+          ]
+        },
+        {
+          "xy": [
+            15,
+            15
+          ],
+          "source_offset": 479,
+          "TXD_offset": 759,
+          "GS_byte_address": 255,
+          "index": 254,
+          "RGBA": [
+            19,
+            41,
+            69,
+            134
+          ]
+        },
+        {
+          "xy": [
+            16,
+            16
+          ],
+          "source_offset": 544,
+          "TXD_offset": 824,
+          "GS_byte_address": 768,
+          "index": 254,
+          "RGBA": [
+            19,
+            41,
+            69,
+            134
+          ]
+        },
+        {
+          "xy": [
+            31,
+            0
+          ],
+          "source_offset": 62,
+          "TXD_offset": 342,
+          "GS_byte_address": 310,
+          "index": 220,
+          "RGBA": [
+            19,
+            41,
+            69,
+            0
+          ]
+        },
+        {
+          "xy": [
+            31,
+            31
+          ],
+          "source_offset": 1023,
+          "TXD_offset": 1303,
+          "GS_byte_address": 1023,
+          "index": 220,
+          "RGBA": [
+            19,
+            41,
+            69,
+            0
+          ]
+        }
+      ],
+      "two_edits": {
+        "edits": [
+          {
+            "xy": [
+              0,
+              0
+            ],
+            "old_index": 220,
+            "new_index": 0,
+            "candidate_RGBA": [
+              0,
+              0,
+              0,
+              128
+            ],
+            "relative_pixel_offset": 0,
+            "TXD_offset": 280,
+            "GS_sample_byte_address_relative_base": 0
+          },
+          {
+            "xy": [
+              31,
+              31
+            ],
+            "old_index": 220,
+            "new_index": 0,
+            "candidate_RGBA": [
+              0,
+              0,
+              0,
+              128
+            ],
+            "relative_pixel_offset": 1023,
+            "TXD_offset": 1303,
+            "GS_sample_byte_address_relative_base": 1023
+          }
+        ],
+        "changed_TXD_offsets": [
+          280,
+          1303
+        ],
+        "full_member_sha256": "d6d10a118975b4323177f7bc38f603974cbac9ea8b6a21acc75f5bceb484476e",
+        "pixel_sha256": "3fc5bc767c8490ccacee2b659957bb23f2350180bb6e715cb2a2c4a65be8c826",
+        "linear_indices_sha256": "0114ff62d8da86242e6fd267bd05833facec96b5cbad810b0ddff918b6b49cc3",
+        "RGBA_sha256": "6302a34f2c92695a4019586e49a2dc2590e1b39e759e1d411b99957e0c1e59ac",
+        "outside_pixel_changes": 0,
+        "palette_and_packets_unchanged": true,
+        "all_siblings_unchanged": true
+      },
+      "unchanged_sibling_count": 26
+    },
+    {
+      "texture": "colums3",
+      "dimensions": [
+        64,
+        256
+      ],
+      "native_chunk": {
+        "kind": 21,
+        "header": 170636,
+        "start": 170648,
+        "end": 188400,
+        "size": 17752,
+        "RW_version": "0x1c02000a"
+      },
+      "data_chunks": [
+        {
+          "kind": 1,
+          "header": 170716,
+          "start": 170728,
+          "end": 170792,
+          "size": 64,
+          "RW_version": "0x1c02000a"
+        },
+        {
+          "kind": 1,
+          "header": 170792,
+          "start": 170804,
+          "end": 188372,
+          "size": 17568,
+          "RW_version": "0x1c02000a"
+        }
+      ],
+      "metadata_offset": 170728,
+      "metadata_hex": "4000000000010000080000000425020000803019060000207c0000000000000000400000040040000040000004004000504000005004000000200000c00f0000",
+      "TEX0": "0x2000000619308000",
+      "raster_format": "0x2504",
+      "native_version": 2,
+      "TBW": 2,
+      "palette_base_blocks": 124,
+      "footprint_words": 8192,
+      "pixel_offset": 170884,
+      "pixel_bytes": 16384,
+      "palette_offset": 187348,
+      "palette_bytes": 1024,
+      "palette_padding_bytes": 0,
+      "pixel_info_size": 16464,
+      "palette_info_size": 1104,
+      "headers": [
+        {
+          "offset": 170804,
+          "bytes": 80,
+          "sha256": "5ec32e927c757c56329f8ac6c1ed3bb146c4718f0028a4cb4cd8b9f957432900",
+          "hex": "03000000000000100e0000000000000000000000000000005100000000000000200000008000000052000000000000000000000000000000530000000000000000040000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x0",
+            "0x51",
+            "0x8000000020",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000400",
+            "0x0"
+          ]
+        },
+        {
+          "offset": 187268,
+          "bytes": 80,
+          "sha256": "1e6d39e6ffe916622c57b6eabbbeb66c2ce4d34dbaedc4f603c31ee1973228f3",
+          "hex": "03000000000000100e0000000000000000000000300070005100000000000000100000001000000052000000000000000000000000000000530000000000000040000000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x70003000000000",
+            "0x51",
+            "0x1000000010",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000040",
+            "0x0"
+          ]
+        }
+      ],
+      "CLUT_destination_xy": [
+        48,
+        112
+      ],
+      "native_adjusted_palette_block": 118,
+      "merged_DMA_REF_qwords": 1098,
+      "merged_stream_sha256": "23f5cdc89b14bcb5de163af826cd41ac86bc4cd0c81b04f133e8fe27119737b8",
+      "mapping_u32_sha256": "c958d8e483b518515ca4e9af617f925befe42dcf7dbdbd57d33219af57bbbff1",
+      "independent_all_pixel_address_join": true,
+      "sampled_address_u32_sha256": "97f87a1870773543b45eb961698ffb20d71641fac9656e12081eab1df59df27c",
+      "linear_indices_sha256": "98d7aad7086b12ed9cef85a428b5396e340deec883e7210560257dce018c0989",
+      "pixel_sha256": "ef2c0ddb2983e11c15f6f3fef72eff47284ea3f318a0b7503b66806341908b51",
+      "palette_sha256": "7713ad2d6651d389052a22ea9f1c53c4a80d51eda982ea5b6fb82f38640af556",
+      "RGBA_sha256": "74464e13db5156856830662e2cef8aa290aaf12c364e8f02f6e63e99eed9ff74",
+      "raw_CLUT_alpha_distribution": {
+        "128": 256
+      },
+      "raw_CLUT_alpha_min_max": [
+        128,
+        128
+      ],
+      "unique_displayed_palette_colors": 256,
+      "used_indices": 256,
+      "CSM1_all256_join": true,
+      "CSM1_join_pair_u32_sha256": "fef293160ccd602499ef69bb053c39b713c5105da648a4690b26eb5b666cebc2",
+      "pixel_physical_byte_range": [
+        0,
+        28671
+      ],
+      "pixel_physical_blocks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "CLUT_physical_word_range": [
+        7936,
+        8191
+      ],
+      "CLUT_physical_blocks": [
+        124,
+        125,
+        126,
+        127
+      ],
+      "unused_allocation_bytes": 15360,
+      "source_noop_TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "PNG_preserve_noop_exact": true,
+      "relocations": [
+        {
+          "base_blocks": 0,
+          "upload_BITBLTBUF": "0x1000000010000",
+          "sample_TBP0": 0,
+          "sample_CBP": 124,
+          "allocated_words_inclusive": [
+            0,
+            8191
+          ]
+        },
+        {
+          "base_blocks": 1,
+          "upload_BITBLTBUF": "0x1000100010000",
+          "sample_TBP0": 1,
+          "sample_CBP": 125,
+          "allocated_words_inclusive": [
+            64,
+            8255
+          ]
+        },
+        {
+          "base_blocks": 32,
+          "upload_BITBLTBUF": "0x1002000010000",
+          "sample_TBP0": 32,
+          "sample_CBP": 156,
+          "allocated_words_inclusive": [
+            2048,
+            10239
+          ]
+        },
+        {
+          "base_blocks": 1024,
+          "upload_BITBLTBUF": "0x1040000010000",
+          "sample_TBP0": 1024,
+          "sample_CBP": 1148,
+          "allocated_words_inclusive": [
+            65536,
+            73727
+          ]
+        },
+        {
+          "base_blocks": 16256,
+          "upload_BITBLTBUF": "0x13f8000010000",
+          "sample_TBP0": 16256,
+          "sample_CBP": 16380,
+          "allocated_words_inclusive": [
+            1040384,
+            1048575
+          ]
+        }
+      ],
+      "selected_points": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "source_offset": 0,
+          "TXD_offset": 170884,
+          "GS_byte_address": 0,
+          "index": 250,
+          "RGBA": [
+            216,
+            219,
+            189,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            63
+          ],
+          "source_offset": 3969,
+          "TXD_offset": 174853,
+          "GS_byte_address": 2761,
+          "index": 106,
+          "RGBA": [
+            169,
+            171,
+            131,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            64
+          ],
+          "source_offset": 4096,
+          "TXD_offset": 174980,
+          "GS_byte_address": 8192,
+          "index": 100,
+          "RGBA": [
+            167,
+            168,
+            135,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            255
+          ],
+          "source_offset": 16257,
+          "TXD_offset": 187141,
+          "GS_byte_address": 27337,
+          "index": 24,
+          "RGBA": [
+            126,
+            125,
+            90,
+            255
+          ]
+        },
+        {
+          "xy": [
+            15,
+            15
+          ],
+          "source_offset": 927,
+          "TXD_offset": 171811,
+          "GS_byte_address": 255,
+          "index": 168,
+          "RGBA": [
+            185,
+            191,
+            153,
+            255
+          ]
+        },
+        {
+          "xy": [
+            16,
+            16
+          ],
+          "source_offset": 1056,
+          "TXD_offset": 171940,
+          "GS_byte_address": 768,
+          "index": 158,
+          "RGBA": [
+            184,
+            187,
+            152,
+            255
+          ]
+        },
+        {
+          "xy": [
+            63,
+            0
+          ],
+          "source_offset": 126,
+          "TXD_offset": 171010,
+          "GS_byte_address": 1334,
+          "index": 250,
+          "RGBA": [
+            216,
+            219,
+            189,
+            255
+          ]
+        },
+        {
+          "xy": [
+            63,
+            255
+          ],
+          "source_offset": 16383,
+          "TXD_offset": 187267,
+          "GS_byte_address": 28671,
+          "index": 24,
+          "RGBA": [
+            126,
+            125,
+            90,
+            255
+          ]
+        }
+      ],
+      "two_edits": {
+        "edits": [
+          {
+            "xy": [
+              0,
+              0
+            ],
+            "old_index": 250,
+            "new_index": 0,
+            "candidate_RGBA": [
+              75,
+              79,
+              44,
+              255
+            ],
+            "relative_pixel_offset": 0,
+            "TXD_offset": 170884,
+            "GS_sample_byte_address_relative_base": 0
+          },
+          {
+            "xy": [
+              63,
+              255
+            ],
+            "old_index": 24,
+            "new_index": 0,
+            "candidate_RGBA": [
+              75,
+              79,
+              44,
+              255
+            ],
+            "relative_pixel_offset": 16383,
+            "TXD_offset": 187267,
+            "GS_sample_byte_address_relative_base": 28671
+          }
+        ],
+        "changed_TXD_offsets": [
+          170884,
+          187267
+        ],
+        "full_member_sha256": "770092b3f75b912ecc26624bf777f8bc502502d551806f6fac25392b71c8f64c",
+        "pixel_sha256": "10f53b3163fbf1495b0b86531407c7164b68a38f3b68766b9f5d59374bf5705e",
+        "linear_indices_sha256": "e4ae8f07ec15381a430f52f0dc61771702ae97d8370c817af89be1bce782c233",
+        "RGBA_sha256": "ce2138a5e7afc5b8ff773f748777c666f6592f9c1b67396bde106d71c26aef39",
+        "outside_pixel_changes": 0,
+        "palette_and_packets_unchanged": true,
+        "all_siblings_unchanged": true
+      },
+      "unchanged_sibling_count": 26
+    },
+    {
+      "texture": "colums",
+      "dimensions": [
+        64,
+        256
+      ],
+      "native_chunk": {
+        "kind": 21,
+        "header": 188400,
+        "start": 188412,
+        "end": 206164,
+        "size": 17752,
+        "RW_version": "0x1c02000a"
+      },
+      "data_chunks": [
+        {
+          "kind": 1,
+          "header": 188480,
+          "start": 188492,
+          "end": 188556,
+          "size": 64,
+          "RW_version": "0x1c02000a"
+        },
+        {
+          "kind": 1,
+          "header": 188556,
+          "start": 188568,
+          "end": 206136,
+          "size": 17568,
+          "RW_version": "0x1c02000a"
+        }
+      ],
+      "metadata_offset": 188492,
+      "metadata_hex": "4000000000010000080000000425020000803019060000207c0000000000000000400000040040000040000004004000504000005004000000200000c00f0000",
+      "TEX0": "0x2000000619308000",
+      "raster_format": "0x2504",
+      "native_version": 2,
+      "TBW": 2,
+      "palette_base_blocks": 124,
+      "footprint_words": 8192,
+      "pixel_offset": 188648,
+      "pixel_bytes": 16384,
+      "palette_offset": 205112,
+      "palette_bytes": 1024,
+      "palette_padding_bytes": 0,
+      "pixel_info_size": 16464,
+      "palette_info_size": 1104,
+      "headers": [
+        {
+          "offset": 188568,
+          "bytes": 80,
+          "sha256": "5ec32e927c757c56329f8ac6c1ed3bb146c4718f0028a4cb4cd8b9f957432900",
+          "hex": "03000000000000100e0000000000000000000000000000005100000000000000200000008000000052000000000000000000000000000000530000000000000000040000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x0",
+            "0x51",
+            "0x8000000020",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000400",
+            "0x0"
+          ]
+        },
+        {
+          "offset": 205032,
+          "bytes": 80,
+          "sha256": "1e6d39e6ffe916622c57b6eabbbeb66c2ce4d34dbaedc4f603c31ee1973228f3",
+          "hex": "03000000000000100e0000000000000000000000300070005100000000000000100000001000000052000000000000000000000000000000530000000000000040000000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x70003000000000",
+            "0x51",
+            "0x1000000010",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000040",
+            "0x0"
+          ]
+        }
+      ],
+      "CLUT_destination_xy": [
+        48,
+        112
+      ],
+      "native_adjusted_palette_block": 118,
+      "merged_DMA_REF_qwords": 1098,
+      "merged_stream_sha256": "5adda205142528d0c64f1d8206fe6fb0bc2d64298da7567297d247bc4f1d3d22",
+      "mapping_u32_sha256": "c958d8e483b518515ca4e9af617f925befe42dcf7dbdbd57d33219af57bbbff1",
+      "independent_all_pixel_address_join": true,
+      "sampled_address_u32_sha256": "97f87a1870773543b45eb961698ffb20d71641fac9656e12081eab1df59df27c",
+      "linear_indices_sha256": "3082caf6c5cc8158d5bd0ec988b61de5ab5211a07d819d155cd1deedfe1dbbd0",
+      "pixel_sha256": "52fbbe97b1342f9443efeead5541560dbc0c54e7f188e0785dff568307a62978",
+      "palette_sha256": "d4e1468afbc3de2ec54289bca4a86e1e70978e697dedf9a1066f84c20296429a",
+      "RGBA_sha256": "4655cb3694207848c98a71a4047032a7a8e1550eb363573f9d7c6be1549b2671",
+      "raw_CLUT_alpha_distribution": {
+        "128": 256
+      },
+      "raw_CLUT_alpha_min_max": [
+        128,
+        128
+      ],
+      "unique_displayed_palette_colors": 256,
+      "used_indices": 256,
+      "CSM1_all256_join": true,
+      "CSM1_join_pair_u32_sha256": "fef293160ccd602499ef69bb053c39b713c5105da648a4690b26eb5b666cebc2",
+      "pixel_physical_byte_range": [
+        0,
+        28671
+      ],
+      "pixel_physical_blocks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "CLUT_physical_word_range": [
+        7936,
+        8191
+      ],
+      "CLUT_physical_blocks": [
+        124,
+        125,
+        126,
+        127
+      ],
+      "unused_allocation_bytes": 15360,
+      "source_noop_TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "PNG_preserve_noop_exact": true,
+      "relocations": [
+        {
+          "base_blocks": 0,
+          "upload_BITBLTBUF": "0x1000000010000",
+          "sample_TBP0": 0,
+          "sample_CBP": 124,
+          "allocated_words_inclusive": [
+            0,
+            8191
+          ]
+        },
+        {
+          "base_blocks": 1,
+          "upload_BITBLTBUF": "0x1000100010000",
+          "sample_TBP0": 1,
+          "sample_CBP": 125,
+          "allocated_words_inclusive": [
+            64,
+            8255
+          ]
+        },
+        {
+          "base_blocks": 32,
+          "upload_BITBLTBUF": "0x1002000010000",
+          "sample_TBP0": 32,
+          "sample_CBP": 156,
+          "allocated_words_inclusive": [
+            2048,
+            10239
+          ]
+        },
+        {
+          "base_blocks": 1024,
+          "upload_BITBLTBUF": "0x1040000010000",
+          "sample_TBP0": 1024,
+          "sample_CBP": 1148,
+          "allocated_words_inclusive": [
+            65536,
+            73727
+          ]
+        },
+        {
+          "base_blocks": 16256,
+          "upload_BITBLTBUF": "0x13f8000010000",
+          "sample_TBP0": 16256,
+          "sample_CBP": 16380,
+          "allocated_words_inclusive": [
+            1040384,
+            1048575
+          ]
+        }
+      ],
+      "selected_points": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "source_offset": 0,
+          "TXD_offset": 188648,
+          "GS_byte_address": 0,
+          "index": 185,
+          "RGBA": [
+            192,
+            196,
+            170,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            63
+          ],
+          "source_offset": 3969,
+          "TXD_offset": 192617,
+          "GS_byte_address": 2761,
+          "index": 95,
+          "RGBA": [
+            178,
+            175,
+            135,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            64
+          ],
+          "source_offset": 4096,
+          "TXD_offset": 192744,
+          "GS_byte_address": 8192,
+          "index": 112,
+          "RGBA": [
+            179,
+            180,
+            142,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            255
+          ],
+          "source_offset": 16257,
+          "TXD_offset": 204905,
+          "GS_byte_address": 27337,
+          "index": 56,
+          "RGBA": [
+            164,
+            163,
+            133,
+            255
+          ]
+        },
+        {
+          "xy": [
+            15,
+            15
+          ],
+          "source_offset": 927,
+          "TXD_offset": 189575,
+          "GS_byte_address": 255,
+          "index": 144,
+          "RGBA": [
+            184,
+            188,
+            152,
+            255
+          ]
+        },
+        {
+          "xy": [
+            16,
+            16
+          ],
+          "source_offset": 1056,
+          "TXD_offset": 189704,
+          "GS_byte_address": 768,
+          "index": 156,
+          "RGBA": [
+            187,
+            190,
+            154,
+            255
+          ]
+        },
+        {
+          "xy": [
+            63,
+            0
+          ],
+          "source_offset": 126,
+          "TXD_offset": 188774,
+          "GS_byte_address": 1334,
+          "index": 177,
+          "RGBA": [
+            192,
+            194,
+            164,
+            255
+          ]
+        },
+        {
+          "xy": [
+            63,
+            255
+          ],
+          "source_offset": 16383,
+          "TXD_offset": 205031,
+          "GS_byte_address": 28671,
+          "index": 48,
+          "RGBA": [
+            161,
+            161,
+            130,
+            255
+          ]
+        }
+      ],
+      "two_edits": {
+        "edits": [
+          {
+            "xy": [
+              0,
+              0
+            ],
+            "old_index": 185,
+            "new_index": 0,
+            "candidate_RGBA": [
+              125,
+              130,
+              87,
+              255
+            ],
+            "relative_pixel_offset": 0,
+            "TXD_offset": 188648,
+            "GS_sample_byte_address_relative_base": 0
+          },
+          {
+            "xy": [
+              63,
+              255
+            ],
+            "old_index": 48,
+            "new_index": 0,
+            "candidate_RGBA": [
+              125,
+              130,
+              87,
+              255
+            ],
+            "relative_pixel_offset": 16383,
+            "TXD_offset": 205031,
+            "GS_sample_byte_address_relative_base": 28671
+          }
+        ],
+        "changed_TXD_offsets": [
+          188648,
+          205031
+        ],
+        "full_member_sha256": "0fe53735d47c293b8b2547a46b387b86495ec7360f96946ebaf38e3ac66e98d2",
+        "pixel_sha256": "13c971fcee454475add7fc4fdad833ccab6a6b090a9a5a5a0157176379c15637",
+        "linear_indices_sha256": "d0b8a7e3bf50882be684759714f6e537487346cc12e036c6bfc1ad127cc9089e",
+        "RGBA_sha256": "dfa900382359e3dd765931eb52255e4cee7dc75ca9cf5dc771e6a16e6bd8d660",
+        "outside_pixel_changes": 0,
+        "palette_and_packets_unchanged": true,
+        "all_siblings_unchanged": true
+      },
+      "unchanged_sibling_count": 26
+    },
+    {
+      "texture": "gate",
+      "dimensions": [
+        64,
+        128
+      ],
+      "native_chunk": {
+        "kind": 21,
+        "header": 584464,
+        "start": 584476,
+        "end": 594036,
+        "size": 9560,
+        "RW_version": "0x1c02000a"
+      },
+      "data_chunks": [
+        {
+          "kind": 1,
+          "header": 584544,
+          "start": 584556,
+          "end": 584620,
+          "size": 64,
+          "RW_version": "0x1c02000a"
+        },
+        {
+          "kind": 1,
+          "header": 584620,
+          "start": 584632,
+          "end": 594008,
+          "size": 9376,
+          "RW_version": "0x1c02000a"
+        }
+      ],
+      "metadata_offset": 584556,
+      "metadata_hex": "40000000800000000800000004250200008030d9050000203c0000000000000000400000040040000040000004004000502000005004000000100000c00f0000",
+      "TEX0": "0x20000005d9308000",
+      "raster_format": "0x2504",
+      "native_version": 2,
+      "TBW": 2,
+      "palette_base_blocks": 60,
+      "footprint_words": 4096,
+      "pixel_offset": 584712,
+      "pixel_bytes": 8192,
+      "palette_offset": 592984,
+      "palette_bytes": 1024,
+      "palette_padding_bytes": 0,
+      "pixel_info_size": 8272,
+      "palette_info_size": 1104,
+      "headers": [
+        {
+          "offset": 584632,
+          "bytes": 80,
+          "sha256": "44ca0c25fbf0e48246f7729641fa65c3c468593669938099691a92e030536922",
+          "hex": "03000000000000100e0000000000000000000000000000005100000000000000200000004000000052000000000000000000000000000000530000000000000000020000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x0",
+            "0x51",
+            "0x4000000020",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000200",
+            "0x0"
+          ]
+        },
+        {
+          "offset": 592904,
+          "bytes": 80,
+          "sha256": "d1d06126bce2333a083e1608c768362039063967167492fdfe6b74c47a84f372",
+          "hex": "03000000000000100e0000000000000000000000300030005100000000000000100000001000000052000000000000000000000000000000530000000000000040000000000000080000000000000000",
+          "words": [
+            "0x1000000000000003",
+            "0xe",
+            "0x30003000000000",
+            "0x51",
+            "0x1000000010",
+            "0x52",
+            "0x0",
+            "0x53",
+            "0x800000000000040",
+            "0x0"
+          ]
+        }
+      ],
+      "CLUT_destination_xy": [
+        48,
+        48
+      ],
+      "native_adjusted_palette_block": 54,
+      "merged_DMA_REF_qwords": 586,
+      "merged_stream_sha256": "34bef65603ca83a7266fc2a09a320a9fe85a490eeec3ab712a5a15e9f62c9cdb",
+      "mapping_u32_sha256": "edfbef08df3ad102b4eb457f02f3c59a63c24deb25f5dc75b29c797df176e056",
+      "independent_all_pixel_address_join": true,
+      "sampled_address_u32_sha256": "ec4421899b9195c27104a11a13d6dd95dd7f0b3bdd83ec987d677982a8579366",
+      "linear_indices_sha256": "6362d06d9803d2b5b344e697eaa7c28d2feb9a8fb09c5bab1036a98b15c17d51",
+      "pixel_sha256": "c9e92b531813a78a5248c44dc0e546531c2033c7fba4107ffe201c71569306b6",
+      "palette_sha256": "962c68986166efccbe58d4d4d93cc220c567234710b5562574c2fff8ef085fd6",
+      "RGBA_sha256": "2898bf4626beba01f728d18631e553cc4aa84f275a63f80f720de9b869dc6b27",
+      "raw_CLUT_alpha_distribution": {
+        "128": 256
+      },
+      "raw_CLUT_alpha_min_max": [
+        128,
+        128
+      ],
+      "unique_displayed_palette_colors": 256,
+      "used_indices": 256,
+      "CSM1_all256_join": true,
+      "CSM1_join_pair_u32_sha256": "82ceb180d4a176ea3c20b49770b18d13dd574621f964530d6c352796ccba431d",
+      "pixel_physical_byte_range": [
+        0,
+        12287
+      ],
+      "pixel_physical_blocks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "CLUT_physical_word_range": [
+        3840,
+        4095
+      ],
+      "CLUT_physical_blocks": [
+        60,
+        61,
+        62,
+        63
+      ],
+      "unused_allocation_bytes": 7168,
+      "source_noop_TXD_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "PNG_preserve_noop_exact": true,
+      "relocations": [
+        {
+          "base_blocks": 0,
+          "upload_BITBLTBUF": "0x1000000010000",
+          "sample_TBP0": 0,
+          "sample_CBP": 60,
+          "allocated_words_inclusive": [
+            0,
+            4095
+          ]
+        },
+        {
+          "base_blocks": 1,
+          "upload_BITBLTBUF": "0x1000100010000",
+          "sample_TBP0": 1,
+          "sample_CBP": 61,
+          "allocated_words_inclusive": [
+            64,
+            4159
+          ]
+        },
+        {
+          "base_blocks": 32,
+          "upload_BITBLTBUF": "0x1002000010000",
+          "sample_TBP0": 32,
+          "sample_CBP": 92,
+          "allocated_words_inclusive": [
+            2048,
+            6143
+          ]
+        },
+        {
+          "base_blocks": 1024,
+          "upload_BITBLTBUF": "0x1040000010000",
+          "sample_TBP0": 1024,
+          "sample_CBP": 1084,
+          "allocated_words_inclusive": [
+            65536,
+            69631
+          ]
+        },
+        {
+          "base_blocks": 16320,
+          "upload_BITBLTBUF": "0x13fc000010000",
+          "sample_TBP0": 16320,
+          "sample_CBP": 16380,
+          "allocated_words_inclusive": [
+            1044480,
+            1048575
+          ]
+        }
+      ],
+      "selected_points": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "source_offset": 0,
+          "TXD_offset": 584712,
+          "GS_byte_address": 0,
+          "index": 33,
+          "RGBA": [
+            80,
+            112,
+            122,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            63
+          ],
+          "source_offset": 3969,
+          "TXD_offset": 588681,
+          "GS_byte_address": 2761,
+          "index": 94,
+          "RGBA": [
+            104,
+            132,
+            128,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            64
+          ],
+          "source_offset": 4096,
+          "TXD_offset": 588808,
+          "GS_byte_address": 8192,
+          "index": 89,
+          "RGBA": [
+            102,
+            130,
+            128,
+            255
+          ]
+        },
+        {
+          "xy": [
+            0,
+            127
+          ],
+          "source_offset": 8065,
+          "TXD_offset": 592777,
+          "GS_byte_address": 10953,
+          "index": 25,
+          "RGBA": [
+            78,
+            110,
+            120,
+            255
+          ]
+        },
+        {
+          "xy": [
+            15,
+            15
+          ],
+          "source_offset": 927,
+          "TXD_offset": 585639,
+          "GS_byte_address": 255,
+          "index": 105,
+          "RGBA": [
+            106,
+            135,
+            144,
+            255
+          ]
+        },
+        {
+          "xy": [
+            16,
+            16
+          ],
+          "source_offset": 1056,
+          "TXD_offset": 585768,
+          "GS_byte_address": 768,
+          "index": 127,
+          "RGBA": [
+            115,
+            145,
+            152,
+            255
+          ]
+        },
+        {
+          "xy": [
+            63,
+            0
+          ],
+          "source_offset": 126,
+          "TXD_offset": 584838,
+          "GS_byte_address": 1334,
+          "index": 9,
+          "RGBA": [
+            73,
+            106,
+            106,
+            255
+          ]
+        },
+        {
+          "xy": [
+            63,
+            127
+          ],
+          "source_offset": 8191,
+          "TXD_offset": 592903,
+          "GS_byte_address": 12287,
+          "index": 3,
+          "RGBA": [
+            73,
+            101,
+            94,
+            255
+          ]
+        }
+      ],
+      "two_edits": {
+        "edits": [
+          {
+            "xy": [
+              0,
+              0
+            ],
+            "old_index": 33,
+            "new_index": 0,
+            "candidate_RGBA": [
+              69,
+              97,
+              86,
+              255
+            ],
+            "relative_pixel_offset": 0,
+            "TXD_offset": 584712,
+            "GS_sample_byte_address_relative_base": 0
+          },
+          {
+            "xy": [
+              63,
+              127
+            ],
+            "old_index": 3,
+            "new_index": 0,
+            "candidate_RGBA": [
+              69,
+              97,
+              86,
+              255
+            ],
+            "relative_pixel_offset": 8191,
+            "TXD_offset": 592903,
+            "GS_sample_byte_address_relative_base": 12287
+          }
+        ],
+        "changed_TXD_offsets": [
+          584712,
+          592903
+        ],
+        "full_member_sha256": "c75760c614ef061c0d4374cfecd41085b2dfb4d9163faf9670c80daabd360d8f",
+        "pixel_sha256": "7573aa8816a2328142db18f61467d050d7f901192b8aa8e172096acefa989366",
+        "linear_indices_sha256": "3ee3e499740f0ccef3a72baf776607fdfd513ec5a29cf7573803dfdb677b9654",
+        "RGBA_sha256": "653478a4192e10a2269284ae16d15c72df22ca695b42d4c1b1c38718a983335f",
+        "outside_pixel_changes": 0,
+        "palette_and_packets_unchanged": true,
+        "all_siblings_unchanged": true
+      },
+      "unchanged_sibling_count": 26
+    }
+  ],
+  "native_provenance": {
+    "source_zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "elf_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "elf_bytes": 5087232,
+    "mapping": "PT_LOAD file offset0x80 maps to VMA0x100000; cited code/data file offsets=VMA-0xfff80. Empty symtab/strtab: semantic labels below are analyst names, not recovered symbol names."
+  },
+  "native_spans_rebound": [
+    {
+      "name": "native_texture_read",
+      "start_vma": "0x217488",
+      "end_vma_exclusive": "0x2176b8",
+      "file_offset": 1144072,
+      "sha256": "2919dca0f6fcf35868c34ab4ea749b9514c95827c922f607d0ef828c9f9cfd3f",
+      "matched": true
+    },
+    {
+      "name": "native_raster_read",
+      "start_vma": "0x217050",
+      "end_vma_exclusive": "0x217394",
+      "file_offset": 1142992,
+      "sha256": "4a3657b9579bd9f2370038bc62f0596610d2f9126a4b6106a9bbbb2475dfdfe0",
+      "matched": true
+    },
+    {
+      "name": "device_registration",
+      "start_vma": "0x219708",
+      "end_vma_exclusive": "0x2197cc",
+      "file_offset": 1152904,
+      "sha256": "f3ed0134feb8047822fd8a785451124450da05736e3f95558a20373a2719b70a",
+      "matched": true
+    },
+    {
+      "name": "default_relocation_and_TEX0",
+      "start_vma": "0x2284c0",
+      "end_vma_exclusive": "0x228760",
+      "file_offset": 1213760,
+      "sha256": "00cc2316ef7a6d70a5be4c8e5220997b672cb89b53aea412db37d3224b91a504",
+      "matched": true
+    },
+    {
+      "name": "uploader_relocation",
+      "start_vma": "0x2270b0",
+      "end_vma_exclusive": "0x227270",
+      "file_offset": 1208624,
+      "sha256": "3408f810aef6bf7c713afee07f9f1a62ac7cbf826bcc935505cfa2fa3cf107bb",
+      "matched": true
+    },
+    {
+      "name": "nonzero_palette_packet",
+      "start_vma": "0x2145a0",
+      "end_vma_exclusive": "0x21477c",
+      "file_offset": 1132064,
+      "sha256": "bf0c524cc7ded17797d6a0c301403741b4079fde0669b7dec24cf0decb7aa29c",
+      "matched": true
+    },
+    {
+      "name": "PSMT8_pixel_BITBLTBUF",
+      "start_vma": "0x214410",
+      "end_vma_exclusive": "0x214520",
+      "file_offset": 1131664,
+      "sha256": "6fa28aeee44ccd99c56c8cd415c0981ab4fd1e179e6824efce8c22d39877e59c",
+      "matched": true
+    },
+    {
+      "name": "PSMT8_palette_position",
+      "start_vma": "0x213a50",
+      "end_vma_exclusive": "0x213b7c",
+      "file_offset": 1129168,
+      "sha256": "728cb57c2e3a10133205546858b6559eba8651c4bec0824bdbaf6df381476d05",
+      "matched": true
+    },
+    {
+      "name": "allocation",
+      "start_vma": "0x2138bc",
+      "end_vma_exclusive": "0x213a1c",
+      "file_offset": 1128764,
+      "sha256": "428167e246196d2e22bd20bc0a547f29ad183cec5c56eab018267e8e0107ad82",
+      "matched": true
+    },
+    {
+      "name": "second_residency_path",
+      "start_vma": "0x228c34",
+      "end_vma_exclusive": "0x228ce0",
+      "file_offset": 1215668,
+      "sha256": "557ad21a918807a65e945e2eb9890beffaad7f8ecb64394126217cedef7fefcd",
+      "matched": true
+    },
+    {
+      "name": "device_callback_table",
+      "start_vma": "0x455e10",
+      "end_vma_exclusive": "0x455ef0",
+      "file_offset": 3497616,
+      "sha256": "19e496f64927760ddf39dcb336c87a6ae8f6c17d849cc2b249eac03f1446c5c8",
+      "matched": true
+    },
+    {
+      "name": "default_cache_data",
+      "start_vma": "0x456200",
+      "end_vma_exclusive": "0x456240",
+      "file_offset": 3498624,
+      "sha256": "6a0fc71ba56715c4c117fc2afa03dd0236e7a2179df121697afbe079bb575d2c",
+      "matched": true
+    },
+    {
+      "name": "native_minimum_TBW_depth8_setup",
+      "start_vma": "0x213150",
+      "end_vma_exclusive": "0x213248",
+      "file_offset": 1126864,
+      "sha256": "eefb387481398ebeb5beebf7162fb41dfc564cd09d79ee1ac57e7b840dbc79d5",
+      "matched": true
+    },
+    {
+      "name": "native_PSMT8_CPSM32_palette_setup",
+      "start_vma": "0x2133a8",
+      "end_vma_exclusive": "0x213428",
+      "file_offset": 1127464,
+      "sha256": "578b9d09d9b2fa2b1f7fb88f03cfa91a40ec1528d80a16f1690cf68559ad28fe",
+      "matched": true
+    },
+    {
+      "name": "native_nomip_dispatch",
+      "start_vma": "0x21345c",
+      "end_vma_exclusive": "0x21347c",
+      "file_offset": 1127644,
+      "sha256": "f93f90c18ca071fb9942989ae6db0662f058adaf898ed07924e89cd657b981fa",
+      "matched": true
+    },
+    {
+      "name": "native_halfsize_pixel_packet",
+      "start_vma": "0x214280",
+      "end_vma_exclusive": "0x214410",
+      "file_offset": 1131264,
+      "sha256": "c2b620fd2250ae8eb7e82e1ec76dd8fddb4d7def6ae72b2deeebf1ed93b2a096",
+      "matched": true
+    },
+    {
+      "name": "native_page_width_depth8",
+      "start_vma": "0x5169bc",
+      "end_vma_exclusive": "0x5169c0",
+      "file_offset": 4287036,
+      "sha256": "50c8ba3a6170f0a2fb6736ece8a603576ef6309a35e810911599bc6211b554a9",
+      "matched": true
+    },
+    {
+      "name": "native_page_height_depth8",
+      "start_vma": "0x516a3c",
+      "end_vma_exclusive": "0x516a40",
+      "file_offset": 4287164,
+      "sha256": "c31425b44a7ed682a3356bf6820141e1584a15c43b6d6793f552e5d4621586f7",
+      "matched": true
+    }
+  ],
+  "primary_sources_rebound": [
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/R5900OpcodeTables.cpp",
+      "sha256": "80562704233e7d7f68d54878f4cf00cad2f63d1ba8362b76ea09634c5093ec1f",
+      "bytes": 31265,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-R5900OpcodeTables.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/MMI.cpp",
+      "sha256": "5b5a045dfbf896bc470d8aed658dfc492a07a5b74859a0d7832b2969f539159a",
+      "bytes": 41508,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-MMI.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSLocalMemory.h",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSLocalMemory.h",
+      "bytes": 33989,
+      "sha256": "8cd6ed874f53aafde5f3d294048b2b0beed87765ab099a5f8aa93899cb988a19",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSLocalMemory.cpp",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSLocalMemory.cpp",
+      "bytes": 25866,
+      "sha256": "46da01086c93f3839c0c20787433f8cd0b7b89790d42f12414f9589c66fd4e51",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSRegs.h",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSRegs.h",
+      "bytes": 23792,
+      "sha256": "b9d73e6f5a8caf8ab12ab470de1ba8fdc407b5eb58c5bafa80e178adb57d730c",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/bin/resources/shaders/opengl/tfx_fs.glsl",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-tfx_fs.glsl",
+      "bytes": 36957,
+      "sha256": "3aa5999392096043acd6dad291665453d9f290121ea9f0bd8eed3b9b07572124",
+      "matched": true
+    },
+    {
+      "path": "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSTables.h",
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSTables.h",
+      "sha256": "34c60c7163952ed34c4b150e603d8bc78aa35ed6661d684c485510167b9cc0eb",
+      "bytes": 5762,
+      "matched": true
+    },
+    {
+      "path": "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSTables.cpp",
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSTables.cpp",
+      "sha256": "a9a226297ede32b89177d7bdb04e9d8e21728e7d55799405f6112e97fe4969e8",
+      "bytes": 11711,
+      "matched": true
+    },
+    {
+      "path": "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSClut.cpp",
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSClut.cpp",
+      "sha256": "9f4ed253c162855bc4d2838c08b522cbd28b6af96d03abd44cf0f83415bb1e32",
+      "bytes": 25415,
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/aap/librw/18532c2e13efbc1aa43f0b00b4459831f9414de0/src/ps2/ps2raster.cpp",
+      "revision": "18532c2e13efbc1aa43f0b00b4459831f9414de0",
+      "sha256": "5977d560a7eeb88e4dbefc597c0506731fb3264ff8facd6fab8d7d46056a007e",
+      "bytes": 62135,
+      "path": "/var/tmp/dokapon-clut-position-study-ageeqz2p/librw-ps2raster.cpp",
+      "matched": true
+    }
+  ],
+  "native_binding_novel_facts": [
+    {
+      "vma": "0x213150..0x213248;0x5169bc;0x516a3c",
+      "fact": "Page geometry tables index depth-1, not PSM: actual depth8 words128 and64. TEX0 buffer width is max(pageWidth,width)>>6, giving minimumTBW2 for all three finite modes. This minimum must not be copied to direct32, whose proven minimum is1."
+    },
+    {
+      "vma": "0x2133a8..0x213428;0x21345c..0x21347c;0x2138bc..0x2139fc",
+      "fact": "PSMT8 palette dimensions16x16 with CPSM0/4bytes per entry; RF2504 lacks mipmap bit, follows no-mip allocation. Page counts ceil(w/128),ceil(h/64); totalWords=pageCounts*2048. A partial page takes native21399c: paletteBase=totalWords/64-4; it does not allocate a separate CLUT page. Actual allocations2048/4096/8192 and bases28/60/124 match every serialized metadata record."
+    },
+    {
+      "vma": "0x213a50..0x213b7c",
+      "fact": "PSMT8+CPSM0+finalTBW2 selects existing palette-coordinate branch. With bufferBase0 and pixelTRXPOS0, inverse block permutation U(b)=(b&~30)|((b&2)<<2)|((b&4)>>1)|((b&8)<<1)|((b&16)>>2); paletteX=(U(base)*8)&63; paletteY=(U(base)>>3)*8. Thus bases28/60/124 become adjusted22/54/118 and destinations(48,16)/(48,48)/(48,112). No asset-name dispatch or arbitrary position assumption."
+    },
+    {
+      "vma": "0x214280..0x214410;0x214410..0x214458;0x2145a0..0x21477c",
+      "fact": "Existing swizzled8 flag halves pixelTRXREG dimensions and TBW2 to transferDBW1, DPSM0/PSMCT32. RelativeDBP0, host-to-local, firstTRXPOS0. Nonzero paletteTRXPOS reuses pixelBITBLTBUF through existing LQ/SQ path and merges the contiguous two80byte headers+raw payloads into one DMAREF:138/586/1098qwords. Storage still has TWO headers and no CLUT padding: rawCLUT1024, infoPalette1104. No empty/dummy packet or CD padding."
+    },
+    {
+      "vma": "registered reader217488/217050;uploader2270b0;cache2284c0/228c34;default456200=1",
+      "fact": "Same previously proved normal registeredv2/defaultcache chain: reader copies both serialized payloads unchanged; uploader adds baseB to common uploadDBP; cache binds sampledTBP0=B and CBP=B+serializedpaletteBase. Actual sourceZIP/member and all12 source spans freshly rebound, plus six small-mode setup/table spans. No arbitrary callback/custom-cache/format-path claim."
+    }
+  ],
+  "GS_address_join": {
+    "method": "Independently parse pinned PCSX2 primary _blockTable32/_blockTable8,columnTable32/columnTable8,clutTableT32I8; use documented GS page/block geometry and GSLocalMemory address semantics. Invert row-major PSMCT32 upload addresses byte-by-byte, then look up every PSMT8 sampled address. No call to legacy swizzle in constructing the independent mapping; compare it afterward to current/legacy expression and frozen mapping digest.",
+    "upload_address_word": "A32(x,y,B)=64*(B+32*((y//32)*DBW+x//64)+BT32[(y%32)//8][(x%64)//8])+CT32[y%8][x%8], DBW1",
+    "sample_address_byte": "A8(x,y,B)=256*(B+32*((y//64)*(TBW//2)+x//128)+BT8[(y%64)//16][(x%128)//16])+CT8[y%16][x%16], TBW2",
+    "join": "For each upload coordinate(u,v), source bytes4*(v*(w/2)+u)+lane map to4*A32(u,v,B)+lane. For each logical(x,y), inverse(A8(x,y,B)) is exactly the existing width-dependent PSMT8 file offset. All1024/8192/16384 joins, bijections and rawpixel roundtrips pass, not a same-format cancellation inference.",
+    "CSM1": "For each logical indexi, native primary GSClut CPSM32/PSMT8/CSM1/CSA0 reads word64*(B+paletteBase)+clutTableT32I8[i&127]+(i&128). Join each to uploadedCLUT word A32(paletteX+j%16,paletteY+j//16,B). All256 yield j=(i&~0x18)|((i&8)<<1)|((i&16)>>1), exactly existing CSM1 file permutation.",
+    "relocations": "Checked base blocks0,1,32,1024 and highest fittingbase for each allocation; GS addresses add B*256bytes/B*64words. Entire pixel and CLUT sets are disjoint and contained, including unaligned blockbase1. No wraparound or filtering-outside-logical-bounds claim.",
+    "physical_scope": "32square pixels physicalblocks0..3 andCLUT28..31. 64wide pixels blocks0..15 of each page; gateCLUT60..63, columsCLUT124..127. Remaining holes are reserved allocation, not serialized padding, and are not assumed initialized. File offsets differ from physicalVRAM addresses for64wide; selected boundary points and full mapping/address digests are in each case."
+  },
+  "pixel_palette_alpha_contract": {
+    "source": "Actualsofashadow CLUT has28 distinct displayedRGBAcolors, rawalpha0..68 (222entries have64), including hiddenRGB19,41,69 atalpha0; gate/colums palettes allalpha128. All256 palettewords and allactualpixels checked independently. Duplicate colors/index identity matter: unchanged PNG must preserve each source index and rawCLUT, not collapse to first palette match.",
+    "RGBA": "RawbyteorderR,G,B,A established by prior native copy/primaryGSRegs/GSLocalMemory. AuthoringRGBA alpha convention min(255,2*raw) and nearest ties-up inverse(A+1)//2 is reversible on these sourcevalues; no premultiply/unpremultiply or transparentRGB normalization in preserve mode. Alpha>128/native blending equivalence is not inferred.",
+    "policies": "Existing preserve/exact standalone policies remain separate. Native transport/addressproof applies to arbitrary raw256entryCLUT payload for these finite metadata/packet modes, but actual small-source exact-palette authoring oracles were not generated here; introducing additional policy-specific claims needs focused exactcases. No ISO CLUT ownership/alias sharing approval follows."
+  },
+  "minimal_existing_owner_increment": {
+    "rank1": "Add only nativev2 32x32 PSMT8/RF2504/TBW2/TEX1LOW0/paletteBase28/allocation2048 to depth8 finite acceptance, preserving current full-page branch. Keep exact header sizes1104+1104 and same existing index/CSM1/quantizer/mask/clone/publisher.",
+    "rank2_optional": "64x128/base60/allocation4096 and64x256/base124/allocation8192 have identical fresh native/table/oracle proof in this report; adding these exact guarded modes in the same finite branch is justified, not all partial-page shapes. colums3 andcolums shareonegeometry with different actualpayloads.",
+    "common_TBW": "Existing common max(1,width/64) fails these verified smallPSMT8 rasters. Set expected buffer width to max(2,width/64) only for the calibrated PSMT8 branch; retain direct32minimum1 and existingPSMT4 contracts. Do not merely loosen the check.",
+    "packet_owner": "Enhance existing packet destination fields withX alongsideY; only these finite modes use paletteX48 and calibratedY16/48/112. Keep pixelX/Y0 and all ten64bitpacket words exact. Existing128square full-pageY64/X0 and otherzero-position goldens stay unchanged. No new packetbuilder/GS simulator/helper/type/function is needed.",
+    "storage_owner": "No new storage branch needed: existing indexed standard two80byteheaders remains correct, infoPalette1104 and rawCLUT1024. Do not permit v1/headerless partialpages, forced flags, CLUTpadding or mipmaps.",
+    "tests": "Extend existing golden table/TestPilotHistoricalGoldenBytes and standaloneCLI block with this actualfullmember/sourceRGBA/noop/twoedits plus malformed coherent metadata/packet/allocation refusals. Retain227prior preserve corpus and current exact/direct/multipage tests. Build/refusal failure mutations must be pinned coherently at theCLI so sourceidentity guards do not mask codecvalidation."
+  },
+  "refusal_requirements": [
+    "Finite accepted tuples must bind dimensions,version2,RF2504,PSMT8,TEX1LOW0,TBW2,serializedpaletteBase28/60/124 and exact2048/4096/8192wordfootprints. Refuse basecount/256 substitutes4/32/64, fullpage count/4+2048 allocations2304/4096/6144 when wrong (64x128 happens also4096, so base/position still essential), offbyone allocation, wrongTBW1/0/3 and mismatched metadata dimensions/TW/TH.",
+    "Refuse v0/v1/v3 partialpages, nonzero mipmap/TEX1LOW, depth/PSM/RF mismatches, CPSM/CSM/CSA changes, truncated/wrong pixel/palette sizefields and payloadextents; keep full dictionary/names/selector/count/extent validation. Unselected sibling pixelpayloads stay opaque and bytepreserved.",
+    "Refuse zero/wrongX/wrongY/bitshift orpixelnonzeroTRXPOS, wrongTRXREG fullsize instead ofhalfsize, direction/register/A+D/IMAGEcount/order/trailingwords, missing/extra headers, palette rawsize!=1024, fakeemptyCLUT, CD/extraCLUTpadding. Require all existingpacketwordchecks.",
+    "Adjacent actual/discovery32x16,32x64,64x32,64x64,128x32,16x16 and widths/heightsbelow16 remain held by this proposed finite increment, even if a legacy mapping happens bijective. Their existence is not a failure of finitecalibration. Previously accepted fullpage modes stay golden.",
+    "Preserve profile/source/PNG pins, masks/outside-rectangle refusals, selection uniqueness, policy restrictions, exclusive output/overwrite/input-preservation guards. Do not import nativevisual/ISOsharing approval from standalone fullmemberbytes."
+  ],
+  "residual_proof_gaps": {
+    "bounded_normal_native_path": "No unresolved transport/address/allocation/CLUTlayout blocker found for these three exact geometries/four actualrasters on the pinned normalregisteredv2/defaultcache path.",
+    "held": "No implementation tested/reviewed; no new Go acceptance claim. No allsmalltextures/mipmap/headerless/unusualpacket/customcallback/nativevisual/filtering/beyondlogicalraster/CLUTaliasownership/ISOapply/allgamepaths proof. ActualhistoricalPNGexports absent; PNG roundtrip occurs privately in memory. Manifest1522rows remain discoveryaliases/repeatedassets, not readycoverage or realcallercount."
+  },
+  "verification": {
+    "bounded_checks": "PASS independentallpixelGSjoins, all256CSM1joins eachcase, source64metadata/rawheaders/payload/hashchecks, nativeZIP/member/18spans/10primaryfiles rebound, actualPNGpreserve/noop/twoeditreadback/fullmembercontainment,27nativeenvelopes and26siblingspercase, priorreporthashes, sourcepinsbefore/after.",
+    "project_checks": "No Go test/build/vet rerun because no code/test changes; parent candidate verification is separate. Reports JSONparsed, assertionchecked, scopedwhitespace/credentials scans and gitdiff--check performed before completion.",
+    "scratch_script_sha256": "266edb2a88b19e68a8f6975952071f14771d761ff82d030ad30956c2a96cc8a8",
+    "scratch_facts_sha256": "68a0f2408da53aa6d42a344d4aebd367fdd61b7d410aa8d793866b9fd20bff58",
+    "all_source_pins_unchanged": true
+  }
+}

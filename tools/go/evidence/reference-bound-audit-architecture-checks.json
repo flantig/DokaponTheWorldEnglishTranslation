@@ -1,0 +1,198 @@
+{
+  "status": "PASS",
+  "scope": "Static architecture documentation for optional observed-family stream binding; no Go behavior, native execution, coverage or approval claim.",
+  "html": {
+    "path": "ARCHITECTURE.html",
+    "bytes": 30653,
+    "sha256": "54b8005cf9df228bd769a4b02984144ed8dbb0dae8694bb6647e75629f1bdad9",
+    "before_sha256": "ed90a1ae71a97d54641b9fc9d9e469ad7181a6f03a6867c7f03a6f34a85ee49e"
+  },
+  "documented_behavior": [
+    "Existing auditStreams optionally adds one pinned registry input through observed_family; references/reference_observed and inspect are reused without a new function, type or decoder.",
+    "Exact normalized ID membership, every declared site valid, at least one site and a single target, full observed window including tail as one file-backed exact explicit range; binding errors precede stdout JSON.",
+    "Optional observed_references and observed_mappings retained; plain three-input comparisons and large reference streams remain separate from bounded observed ELF/registry inputs.",
+    "Native source-only three-label self-comparison has eight sites/sixteen words, with no canonical English, sentinel, liveness or fit claim."
+  ],
+  "verification": {
+    "browser": {
+      "status": "PASS",
+      "source_sha256": "54b8005cf9df228bd769a4b02984144ed8dbb0dae8694bb6647e75629f1bdad9",
+      "checks": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": true
+        }
+      ],
+      "limits": "Static documentation only; no form behavior applies. No gameplay or Go behavior claim."
+    },
+    "static": {
+      "svg_xml_parse": "PASS",
+      "svg_count": 3,
+      "trailing_whitespace": false,
+      "scripts": 0,
+      "forms": 0,
+      "original_checker_sha256": "05b851ef69894a8c6514c5cea8d7d7e8622ba6d0981343636a50c950877c481c"
+    },
+    "git_diff_check": "PASS (ARCHITECTURE.html only)",
+    "secret_pattern_scan": "PASS (changed static HTML; common credential/private-key signatures)",
+    "links": "All relative local links and fragment IDs resolve, including reference-bound example profile.",
+    "svg_text_fit": "Every text bounding box contained by its node rectangle at both viewports.",
+    "accessibility": "Three named SVG images with title/description IDs; three named focusable scroll regions; nav keyboard activation, visible focus, mobile keyboard horizontal scrolling; no forms.",
+    "visual_inspection": {
+      "desktop": "Inspected full-page 1440x900 screenshot; three diagrams retain existing style, added binding node has readable contained text and no edge crosses its text.",
+      "mobile": "Inspected full-page 390x844 screenshot; prose wraps without page overflow; diagrams retain intentional focusable horizontal scrolling."
+    }
+  },
+  "source_snapshot": {
+    "before": {
+      "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+      "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+      "input_types.go": "c1e7e83821048514cbfe63e99df0a2823b9da5183692bacb8d051684100318f7",
+      "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+      "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "patch.go": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a",
+      "patch_test.go": "ae978e16b82c10a3043c5ba117016c079e6137891f9d7dd393686a864dec1eb2",
+      "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+      "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+      "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+      "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+      "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+      "reference_geometry.go": "4c2c8584cd36925fb4f555e93ccdb986641b0755efe1983b8c13fcec18d8cffa",
+      "reference_types.go": "391a83361aa3bf939916fcf9d72c54eb689f13eeb036146695c7520f5e6647c0",
+      "references.go": "e62276a7e71fa16a53c55a4e04bd20931ff4d747b06752b2542ddde026cc311d",
+      "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+      "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "stream_audit.go": "b6d47806c0518043a94dea792b583ec2c2ef8fac7d1db6cc5be710f67565a476",
+      "stream_audit_types.go": "71aadd434bd0eff83805f89ed636e6e95a8a9dfd30c877011a67235c85348ad4",
+      "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+      "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+      "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+      "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+      "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+    },
+    "after": {
+      "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+      "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+      "input_types.go": "c1e7e83821048514cbfe63e99df0a2823b9da5183692bacb8d051684100318f7",
+      "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+      "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "patch.go": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a",
+      "patch_test.go": "ae978e16b82c10a3043c5ba117016c079e6137891f9d7dd393686a864dec1eb2",
+      "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+      "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+      "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+      "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+      "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+      "reference_geometry.go": "4c2c8584cd36925fb4f555e93ccdb986641b0755efe1983b8c13fcec18d8cffa",
+      "reference_types.go": "391a83361aa3bf939916fcf9d72c54eb689f13eeb036146695c7520f5e6647c0",
+      "references.go": "e62276a7e71fa16a53c55a4e04bd20931ff4d747b06752b2542ddde026cc311d",
+      "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+      "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "stream_audit.go": "b6d47806c0518043a94dea792b583ec2c2ef8fac7d1db6cc5be710f67565a476",
+      "stream_audit_types.go": "71aadd434bd0eff83805f89ed636e6e95a8a9dfd30c877011a67235c85348ad4",
+      "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+      "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+      "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+      "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+      "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+    },
+    "changed": {},
+    "note": "Source pins document inspected ownership, not runtime approval. No Go execution was performed by this task."
+  },
+  "public_example": {
+    "files": {
+      "examples/reference-bound-audit/reference.elf": {
+        "bytes": 512,
+        "sha256": "8b2ba58f775863e51e5b668ce98639c54371aaaa7b2f7186d16c1583adff5408"
+      },
+      "examples/reference-bound-audit/observed.elf": {
+        "bytes": 3072,
+        "sha256": "34ea0f2ee2e63cd33198921c055d7ddd4fd59eff970606e39aedef31393a576d"
+      },
+      "examples/reference-bound-audit/glyphmap.json": {
+        "bytes": 63,
+        "sha256": "2bea13f1edda47972ee5f2b117854077b172deda6c9fff871f9fc0aecd4ae8d8"
+      },
+      "examples/reference-bound-audit/registry.json": {
+        "bytes": 1811,
+        "sha256": "4b7dcf2eaa1843105ac353a01d9037759428127d433e38df4d15d86f940a9b7d"
+      },
+      "examples/reference-bound-audit/profile.json": {
+        "bytes": 2304,
+        "sha256": "5a62dce759703d5c3bd612b5e5139f9081aa7bab0d6fd5ff9b43541fe5b011f5"
+      }
+    },
+    "file_count": 5,
+    "total_bytes": 7762
+  },
+  "private_artifacts": {
+    "architecture-check.py": {
+      "path": "/var/tmp/dokapon-reference-bound-diagram-88nq_iir/architecture-check.py",
+      "bytes": 5656,
+      "sha256": "e751d21b903e1f3b336997dd23a04293a922930da2ef2800a05e67c4d8fab560"
+    },
+    "architecture-checks.json": {
+      "path": "/var/tmp/dokapon-reference-bound-diagram-88nq_iir/architecture-checks.json",
+      "bytes": 582,
+      "sha256": "631398ed94b1f73b856eda2362c1c1637c6087db86f7d32fbb02a01dc521ccf6"
+    },
+    "architecture-desktop.png": {
+      "path": "/var/tmp/dokapon-reference-bound-diagram-88nq_iir/architecture-desktop.png",
+      "bytes": 1013761,
+      "sha256": "ce5d129948161966ea49c3921391f29dc00db8880652de21af5c3a975e4881e3"
+    },
+    "architecture-mobile.png": {
+      "path": "/var/tmp/dokapon-reference-bound-diagram-88nq_iir/architecture-mobile.png",
+      "bytes": 650099,
+      "sha256": "5ab1d5003a4ba97ea921e900c42fef771b0b7d7b564a5867b104cbf7539ef6e8"
+    },
+    "before.json": {
+      "path": "/var/tmp/dokapon-reference-bound-diagram-88nq_iir/before.json",
+      "bytes": 3843,
+      "sha256": "8867f8555932089f7ce5db8214a67b1cd4d5d43bd051efa526fbe77ebdb11147"
+    },
+    "static-checks.json": {
+      "path": "/var/tmp/dokapon-reference-bound-diagram-88nq_iir/static-checks.json",
+      "bytes": 207,
+      "sha256": "e8740524feba85381821157c71ad0750e30c2ca28d5d6a85ab55e0708568dc12"
+    }
+  },
+  "limits": [
+    "Browser verification concerns offline documentation only.",
+    "No Go tests/build/lint/runtime executed; production review/checks are parent-owned.",
+    "No new interactive controls or forms were introduced.",
+    "Core family score remains 5/14; no family promotion."
+  ]
+}

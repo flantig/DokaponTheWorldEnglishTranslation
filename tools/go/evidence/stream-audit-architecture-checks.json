@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T22:39:40.878239+00:00",
+  "status": "PASS_STATIC_ARCHITECTURE_REFRESH",
+  "scope": "ARCHITECTURE.html only plus this evidence receipt. Existing visual style and three diagrams preserved; no runtime/source/test/profile/oracle/coverage changes by this worker.",
+  "changes": [
+    "Components diagram includes auditStreams with paired pinned sources, controls reuse, checkJSON and read-only source rechecks.",
+    "Registry/report diagram adds separate profile→bounded windows→existing decoder→fact report lifecycle and shared checkJSON calls from authorRegistry/auditStreams.",
+    "Usage-grouped stream_audit_types.go/input_types.go and exclusive --stream-audit-profile notes; span versus through-END distinction and no live-reference/canonical/native authority.",
+    "Historical display synchronized to current ledger16partial/366outstanding; no count/coverage source changed or promotion claimed."
+  ],
+  "source_observation": {
+    "method": "Serena symbols/references plus focused current source reads",
+    "calls": [
+      "run exclusive --stream-audit-profile → auditStreams",
+      "auditStreams → readInput, checkJSON(profile/glyphmap), glyphMaps, controls(Decode), bounded file ReadAt and streaming source hash/rechecks",
+      "authorRegistry → shared checkJSON preserving selective ownership"
+    ],
+    "unfrozen_note": "Root is still adding tests; these are observed architecture facts, not frozen runtime verification or implementation approval. No Go execution by this worker."
+  },
+  "verification": {
+    "existing_E2E": "test-results/architecture-check.py reused with paths redirected privately and assertions extended for newowners/report branch; repository test owner unchanged.",
+    "command": "nice -n 19 env CHROMIUM_EXECUTABLE=/home/franklinl/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell python3 /var/tmp/dokapon-stream-audit-diagram-az286wkp/architecture-check.py",
+    "result": {
+      "status": "PASS",
+      "source_sha256": "59b3e69ade5025f725033d5c8f05ce74be3113e635548be30a93cad8a1452265",
+      "checks": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": true
+        }
+      ],
+      "limits": "Static documentation only; no form behavior applies. No gameplay or Go behavior claim."
+    },
+    "checks": [
+      "Three SVGs parse as XML; accessible title/description references and region names; every SVG box contains its text.",
+      "All local navigation and file links resolve; keyboard activation reaches reports anchor; focus is visible.",
+      "1440x900 and390x844: no document overflow; mobile diagram arrow-key scrolling works.",
+      "No forms/inputs/selects/textareas; no form-validation tests apply.",
+      "git diff --check scoped to HTML, whitespace and credential-pattern scan PASS; no scripts/external dependencies added."
+    ],
+    "visual_inspection": {
+      "desktop": "PASS: all seven component owners and complete audit/validator branches readable; no overlapping labels or clipped text.",
+      "mobile": "PASS: intentional horizontally scrollable SVG regions; prose and navigation wrap within page; visible focus retained.",
+      "screenshots": "Both fullpage screenshots opened and inspected with view_image."
+    }
+  },
+  "artifacts": {
+    "ARCHITECTURE.html": {
+      "sha256": "59b3e69ade5025f725033d5c8f05ce74be3113e635548be30a93cad8a1452265",
+      "bytes": 26303
+    },
+    "test-results/architecture-check.py": {
+      "sha256": "05b851ef69894a8c6514c5cea8d7d7e8622ba6d0981343636a50c950877c481c",
+      "bytes": 4225
+    },
+    "/var/tmp/dokapon-stream-audit-diagram-az286wkp/architecture-check.py": {
+      "sha256": "4e8040d52b89ad6bda18a50e77e297a1e109928256e96e7f90c12aa8b64b52aa",
+      "bytes": 4723
+    },
+    "/var/tmp/dokapon-stream-audit-diagram-az286wkp/architecture-checks.json": {
+      "sha256": "12e7c9901bbd8ab3fee4c3a0c386996fcd3edb2c2089c34292bc901375d2e66f",
+      "bytes": 582
+    },
+    "/var/tmp/dokapon-stream-audit-diagram-az286wkp/setup.json": {
+      "sha256": "2f251df8c21eb473289f03eafbae6e2e715d7800a972fa04acb24eefaf608cd2",
+      "bytes": 491
+    },
+    "/var/tmp/dokapon-stream-audit-diagram-az286wkp/architecture-desktop.png": {
+      "sha256": "7bc04ee521d1222215ca61feb2075c4392d983d48092e0dd562190835c828223",
+      "bytes": 785195
+    },
+    "/var/tmp/dokapon-stream-audit-diagram-az286wkp/architecture-mobile.png": {
+      "sha256": "cc9456e94815622f1e4b07e55aec73c389102fb3ce86effb0c6f3b239a4eac20",
+      "bytes": 471261
+    }
+  },
+  "limits": [
+    "Static documentation/browser verification only. No Go build/test/runtime, native rendering, ISO/gameplay, family coverage or historical retirement claim.",
+    "Existing color palette/layout/navigation retained; no new interactive component or dependency. Only owned headless Chromium launched and closed by Playwright; no shared emulator/browser/process/control/settings inspected.",
+    "Screenshots and adapted test/receipts remain in owned private directory, not old test-results paths."
+  ]
+}

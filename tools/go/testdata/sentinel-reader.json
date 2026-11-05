@@ -1,0 +1,1785 @@
+{
+  "qualification": "Independent original source-equation manual synthetic guard/mapping/completecanonical oracle frozen before Go changes. No original-main or runtime parity claim.",
+  "bundle": "testdata/sentinel-reader.zip",
+  "bundle_sha256": "991a0772859e89f02ef6d2a62868f33a887369938d769401c9891c4956b19ee1",
+  "files": {
+    "canonical-stream.bin": {
+      "bytes": 14,
+      "sha256": "1a41f88a5f8f7423ff55faa4c69d8da2211c807f3c9dce822c2d6e8fc246bfa1"
+    },
+    "glyphmap.json": {
+      "bytes": 63,
+      "sha256": "e8d0cca72e0a41a997fc61c74f04527be57c4534e68fe5a814abd45efeaa28e5"
+    },
+    "guard-oracles.json": {
+      "bytes": 21107,
+      "sha256": "1bf84054f10259bb36880b826316e349619502b67983842bb70fbfc9b055da03"
+    },
+    "guards/base-LUI-opcode.elf": {
+      "bytes": 6144,
+      "sha256": "76c5a7ff009ba9f93853a0168c21b999173d94c21a8625ffad2b00dc65da6221"
+    },
+    "guards/base-LUI-rs.elf": {
+      "bytes": 6144,
+      "sha256": "a6070250693fb6098f53bdd52b09d9cd7cc426dd43d61552855c4c8c01d01000"
+    },
+    "guards/base-ORI-crossreg.elf": {
+      "bytes": 6144,
+      "sha256": "d02f7293c117de2e7c5ec5b0f19c7f6ad097632a6c771cc7916ea1e2a56301a0"
+    },
+    "guards/base-ORI-is-ADDIU.elf": {
+      "bytes": 6144,
+      "sha256": "25b51bc0380e16a420c46c6da780ef4ea5664e7d85079ecc7c450fccbbe07a52"
+    },
+    "guards/base-copy-disagrees.elf": {
+      "bytes": 6144,
+      "sha256": "60413b3cf510e6ea375369c9c4c8995d4318c23948cb416c292a5a9402087f91"
+    },
+    "guards/both-base-not-protocol.elf": {
+      "bytes": 6144,
+      "sha256": "4e1b118a0ce06fb2db51a6e8cdfa851c996d48180f85fd4b497c112e3340fcbb"
+    },
+    "guards/byte-LUI-wrongreg.elf": {
+      "bytes": 6144,
+      "sha256": "7ff753cec7546ad9f68e0a4cd51ce93bd3de32e72d1aed780e3d71e5b38d8cd4"
+    },
+    "guards/byte-ORI-crossreg.elf": {
+      "bytes": 6144,
+      "sha256": "220197e80ff624dc1048beb8c729ce6dd2f72305fdf711391cfa115618cdc51a"
+    },
+    "guards/bytes-count-mismatch.elf": {
+      "bytes": 6144,
+      "sha256": "1e9a355e7b91199068e74dc44dd27fde8bf73f20c806c71fd3d3c709857ed4e9"
+    },
+    "guards/length-copy-disagrees.elf": {
+      "bytes": 6144,
+      "sha256": "36c525eb398af23c3ae4072acc6d2c695713aaeaf49160ed321964630abda9f3"
+    },
+    "guards/length-odd.elf": {
+      "bytes": 6144,
+      "sha256": "5630ffe1878bdecc46c89f04d789c4cb4936dbc3790ec2db1511db4c6080bded"
+    },
+    "guards/length-overflow.elf": {
+      "bytes": 6144,
+      "sha256": "8913eb53714d39fa6924aabd977ffa5d2ae4eca3299498d914a3df142ddfb23b"
+    },
+    "guards/length-zero.elf": {
+      "bytes": 6144,
+      "sha256": "c8617038f351fc85084967aca37735ac668b4913183bf33b7ab34eecb30f10fa"
+    },
+    "guards/loaded-exceeds-window.elf": {
+      "bytes": 6144,
+      "sha256": "345d361cdae91946f75428e305ec5a146031185df5494fa7a3191fd5eed110e0"
+    },
+    "guards/padding-nonzero.elf": {
+      "bytes": 6144,
+      "sha256": "6d8b77e824200ed7ea9f31c876fa3eea34065e798e1b094fbf167111feebf084"
+    },
+    "guards/sector-copies-disagree.elf": {
+      "bytes": 6144,
+      "sha256": "33530a75f1208f947a7920be2c81933c68aca737c216c6302d48fe1bf0141def"
+    },
+    "guards/sector-limit8000.elf": {
+      "bytes": 6144,
+      "sha256": "b07e4f38d12c2e475ba5cec357832c8a6172a07b07b77215a8947e8ae94eba24"
+    },
+    "guards/sector-reg-not14.elf": {
+      "bytes": 6144,
+      "sha256": "56bde6643fe6aca08ba3137938f2b4c36c1fd8c5ce565f20d06d975c523b454c"
+    },
+    "guards/sector-rs-notzero.elf": {
+      "bytes": 6144,
+      "sha256": "5f0091678006f0952ce21e3810b311fdcae1e9151847ab18f5324b15ce36bc77"
+    },
+    "guards/trailer-extra.elf": {
+      "bytes": 6145,
+      "sha256": "4ee52ffe4fb20936f293f4d948277c2e4afbd826b078ffc7b6f544a372880900"
+    },
+    "guards/trailer-truncated.elf": {
+      "bytes": 6142,
+      "sha256": "8f0e3dd188d6975919670fb09e94ac6f547d45cbd242a5e6ed6f44daf0f90ab5"
+    },
+    "guards/word-in-BSS.elf": {
+      "bytes": 6144,
+      "sha256": "8c1f4afa181649d9cb79096015cb16dce338f5033a4656aef2ceba6dab75a798"
+    },
+    "guards/word-split-LOAD.elf": {
+      "bytes": 6144,
+      "sha256": "56db9659bd82b44dbdf357fef805d838a0cb29411501d9ca8162f3b6e43f14d6"
+    },
+    "guards/zero-sectors.elf": {
+      "bytes": 6144,
+      "sha256": "f8efb124393207fad4b99dbf484d4da6769a43da65ad8ee128987d8e1596ff73"
+    },
+    "layout-profile.json": {
+      "bytes": 1215,
+      "sha256": "04431590b36096bd13ba3cc8cc1d32b3f5c11aae27e769a08e6350e709ec1c11"
+    },
+    "mapping-oracles.json": {
+      "bytes": 4307,
+      "sha256": "d11319ee66b2ec655a1fbfa4242d71a4fdfad52151cc9de656f2861d51dd9d36"
+    },
+    "observed.elf": {
+      "bytes": 6144,
+      "sha256": "a1d801f321ba52240efddbf5729b12659cba03b9a0285ea1de06e05fc02d7b20"
+    },
+    "protocol-oracle.json": {
+      "bytes": 8733,
+      "sha256": "bf3a70c5127be02ea6e86f584624b2a0ef0579bf1ee374aeb3788550f5f5ce62"
+    },
+    "receipt.json": {
+      "bytes": 549,
+      "sha256": "49cf54819c5476e62b69db858c2f97bbe82b9ee854f7f72779e0cb656dfdaecb"
+    },
+    "reference.elf": {
+      "bytes": 1920,
+      "sha256": "1b8f45e0b23aeb738eaac6744aa08b795c7b84aa5d99b3a66a9da60462c90ef0"
+    },
+    "registry.json": {
+      "bytes": 261,
+      "sha256": "b28b70f24c550ce3e417f59cf7e5fa60f45375450421b0d7b0c0c64edfdc3356"
+    },
+    "sentinel-layout.json": {
+      "bytes": 229,
+      "sha256": "96bb5c245dd0758f6a6f5eba3e02f33a56f260b22872d9756f2ea32e07f5b158"
+    },
+    "stream-audit-profile.json": {
+      "bytes": 1473,
+      "sha256": "86ff96fcb745f3bb3f968ec71523d7021abd26ba6074e07c9e2fcc309221fd47"
+    }
+  },
+  "protocol": {
+    "qualification": "Manual sourceequation literal protocol guard/mapping oracle; nativebasis remains separate sourcefacts, not syntheticnative execution.",
+    "retail_elf_size": 1920,
+    "padding_file_range": [
+      1920,
+      2048
+    ],
+    "padding_all_zero": true,
+    "loader_bytes": 4096,
+    "sectors": 2,
+    "dispatch_range": [
+      67108864,
+      68157440
+    ],
+    "loaded_range": [
+      67108864,
+      67112960
+    ],
+    "blob_file_range": [
+      2048,
+      6144
+    ],
+    "observed_words": [
+      {
+        "role": "baseA.LUI",
+        "vma": 1048832,
+        "word": 1006699520,
+        "raw_hex": "0004013c",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            512,
+            516
+          ],
+          "vma_range": [
+            1048832,
+            1048836
+          ]
+        }
+      },
+      {
+        "role": "baseA.ORI",
+        "vma": 1048836,
+        "word": 874577920,
+        "raw_hex": "00002134",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            516,
+            520
+          ],
+          "vma_range": [
+            1048836,
+            1048840
+          ]
+        }
+      },
+      {
+        "role": "lengthA.LUI",
+        "vma": 1048848,
+        "word": 1007222800,
+        "raw_hex": "1000093c",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            528,
+            532
+          ],
+          "vma_range": [
+            1048848,
+            1048852
+          ]
+        }
+      },
+      {
+        "role": "lengthA.ORI",
+        "vma": 1048852,
+        "word": 891879424,
+        "raw_hex": "00002935",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            532,
+            536
+          ],
+          "vma_range": [
+            1048852,
+            1048856
+          ]
+        }
+      },
+      {
+        "role": "baseB.LUI",
+        "vma": 1048864,
+        "word": 1006699520,
+        "raw_hex": "0004013c",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            544,
+            548
+          ],
+          "vma_range": [
+            1048864,
+            1048868
+          ]
+        }
+      },
+      {
+        "role": "baseB.ORI",
+        "vma": 1048868,
+        "word": 874577920,
+        "raw_hex": "00002134",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            548,
+            552
+          ],
+          "vma_range": [
+            1048868,
+            1048872
+          ]
+        }
+      },
+      {
+        "role": "lengthB.LUI",
+        "vma": 1048880,
+        "word": 1007222800,
+        "raw_hex": "1000093c",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            560,
+            564
+          ],
+          "vma_range": [
+            1048880,
+            1048884
+          ]
+        }
+      },
+      {
+        "role": "lengthB.ORI",
+        "vma": 1048884,
+        "word": 891879424,
+        "raw_hex": "00002935",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            564,
+            568
+          ],
+          "vma_range": [
+            1048884,
+            1048888
+          ]
+        }
+      },
+      {
+        "role": "bytes.LUI",
+        "vma": 1048896,
+        "word": 1006960640,
+        "raw_hex": "0000053c",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            576,
+            580
+          ],
+          "vma_range": [
+            1048896,
+            1048900
+          ]
+        }
+      },
+      {
+        "role": "bytes.ORI",
+        "vma": 1048900,
+        "word": 883232768,
+        "raw_hex": "0010a534",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            580,
+            584
+          ],
+          "vma_range": [
+            1048900,
+            1048904
+          ]
+        }
+      },
+      {
+        "role": "sectors.A",
+        "vma": 1048912,
+        "word": 604897282,
+        "raw_hex": "02000e24",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            592,
+            596
+          ],
+          "vma_range": [
+            1048912,
+            1048916
+          ]
+        }
+      },
+      {
+        "role": "sectors.B",
+        "vma": 1048916,
+        "word": 604897282,
+        "raw_hex": "02000e24",
+        "ordinary_mapping": {
+          "storage": "file_backed",
+          "program_header": 0,
+          "file_range": [
+            596,
+            600
+          ],
+          "vma_range": [
+            1048916,
+            1048920
+          ]
+        }
+      }
+    ],
+    "all12words_distinct": true,
+    "canonical": {
+      "en": "A|B",
+      "source_words": [
+        10240,
+        14337,
+        4,
+        4096,
+        63488
+      ],
+      "expected_words": [
+        10240,
+        14337,
+        1,
+        2048,
+        2,
+        4096,
+        63488
+      ],
+      "expected_hex": "00280138010000080200001000f8",
+      "bytes": 14,
+      "sha256": "1a41f88a5f8f7423ff55faa4c69d8da2211c807f3c9dce822c2d6e8fc246bfa1",
+      "tokens": [
+        {
+          "Kind": "hdr",
+          "Word": 10240,
+          "Offset": 0,
+          "Payload": null
+        },
+        {
+          "Kind": "speaker",
+          "Word": 14337,
+          "Offset": 2,
+          "Payload": null
+        },
+        {
+          "Kind": "glyph",
+          "Word": 1,
+          "Offset": 4,
+          "Payload": null
+        },
+        {
+          "Kind": "line",
+          "Word": 2048,
+          "Offset": 6,
+          "Payload": null
+        },
+        {
+          "Kind": "glyph",
+          "Word": 2,
+          "Offset": 8,
+          "Payload": null
+        },
+        {
+          "Kind": "page",
+          "Word": 4096,
+          "Offset": 10,
+          "Payload": null
+        },
+        {
+          "Kind": "end",
+          "Word": 63488,
+          "Offset": 12,
+          "Payload": null
+        }
+      ],
+      "observed_target": 67108880,
+      "observed_file_range": [
+        2064,
+        2078
+      ],
+      "reference_file_range": [
+        1536,
+        1546
+      ],
+      "stored_pointer": {
+        "site_vma": 1049344,
+        "site_file_range": [
+          1024,
+          1028
+        ],
+        "observed_word": 67108880,
+        "reference_word": 1049856
+      },
+      "expected_original_stream_equal": false,
+      "expected_canonical_stream_equal": true,
+      "expected_control_sequence_original_equal": false,
+      "expected_ordered_arguments_equal": true,
+      "expected_opaque_payloads_equal": true
+    },
+    "native_source_basis": {
+      "original_pack_manifest_sha256": "c8d11381d6bd5f744128da1bd389754c907ff88f887de412c532180a17b66b44",
+      "native_ELF_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+      "native_blob_sha256": "9f6a07559b5c7a05eb5fcb6d89d98a42673bcb65ea3c8995c48ca1b066c7efbd",
+      "native_dispatch_range": [
+        67108864,
+        68157440
+      ],
+      "native_loaded_bytes": 655360,
+      "native_words": [
+        {
+          "vma": "0x4db494",
+          "file_offset": 4044052,
+          "word": "0x3c010400",
+          "raw_hex": "0004013c"
+        },
+        {
+          "vma": "0x4db498",
+          "file_offset": 4044056,
+          "word": "0x34210000",
+          "raw_hex": "00002134"
+        },
+        {
+          "vma": "0x4db4a0",
+          "file_offset": 4044064,
+          "word": "0x3c090010",
+          "raw_hex": "1000093c"
+        },
+        {
+          "vma": "0x4db4a4",
+          "file_offset": 4044068,
+          "word": "0x35290000",
+          "raw_hex": "00002935"
+        },
+        {
+          "vma": "0x4db4d4",
+          "file_offset": 4044116,
+          "word": "0x3c010400",
+          "raw_hex": "0004013c"
+        },
+        {
+          "vma": "0x4db4d8",
+          "file_offset": 4044120,
+          "word": "0x34210000",
+          "raw_hex": "00002134"
+        },
+        {
+          "vma": "0x4db4e0",
+          "file_offset": 4044128,
+          "word": "0x3c090010",
+          "raw_hex": "1000093c"
+        },
+        {
+          "vma": "0x4db4e4",
+          "file_offset": 4044132,
+          "word": "0x35290000",
+          "raw_hex": "00002935"
+        },
+        {
+          "vma": "0x399b30",
+          "file_offset": 2726832,
+          "word": "0x3c05000a",
+          "raw_hex": "0a00053c"
+        },
+        {
+          "vma": "0x399b34",
+          "file_offset": 2726836,
+          "word": "0x34a50000",
+          "raw_hex": "0000a534"
+        },
+        {
+          "vma": "0x399b94",
+          "file_offset": 2726932,
+          "word": "0x240e0140",
+          "raw_hex": "40010e24"
+        },
+        {
+          "vma": "0x399c0c",
+          "file_offset": 2727052,
+          "word": "0x240e0140",
+          "raw_hex": "40010e24"
+        }
+      ]
+    },
+    "clock": "2026-10-21T15:23:19.713391+00:00",
+    "resource": "Only frozen sourcepack and syntheticdata. No ISO/canonicalregistry/Go/candidate/main/import/runtime access; alljobs terminal."
+  },
+  "mappings": {
+    "qualification": "Manual literal mappings and complete-window audit guards from source equations; original mains/candidate notexecuted. Ordinary ELFunknown/BSS pieces remain facts, not externalstream success. sentinel_blob has NO programheader.",
+    "queries": [
+      {
+        "name": "firstblobword",
+        "vma_range": [
+          67108864,
+          67108866
+        ],
+        "mapping": [
+          {
+            "storage": "sentinel_blob",
+            "file_range": [
+              2048,
+              2050
+            ],
+            "vma_range": [
+              67108864,
+              67108866
+            ]
+          }
+        ],
+        "whole_supported": true
+      },
+      {
+        "name": "canonical-stream",
+        "vma_range": [
+          67108880,
+          67108894
+        ],
+        "mapping": [
+          {
+            "storage": "sentinel_blob",
+            "file_range": [
+              2064,
+              2078
+            ],
+            "vma_range": [
+              67108880,
+              67108894
+            ]
+          }
+        ],
+        "whole_supported": true
+      },
+      {
+        "name": "last-loaded-word",
+        "vma_range": [
+          67112958,
+          67112960
+        ],
+        "mapping": [
+          {
+            "storage": "sentinel_blob",
+            "file_range": [
+              6142,
+              6144
+            ],
+            "vma_range": [
+              67112958,
+              67112960
+            ]
+          }
+        ],
+        "whole_supported": true
+      },
+      {
+        "name": "cross-loaded-end",
+        "vma_range": [
+          67112958,
+          67112962
+        ],
+        "whole_supported": false,
+        "reason": "complete external query crosses loaded/physical end, although firstword maps"
+      },
+      {
+        "name": "dispatch-only",
+        "vma_range": [
+          67112960,
+          67112962
+        ],
+        "whole_supported": false,
+        "reason": "inside dispatcher only, no loaded physical blob"
+      },
+      {
+        "name": "cross-dispatch-end",
+        "vma_range": [
+          68157438,
+          68157442
+        ],
+        "whole_supported": false,
+        "reason": "outside dispatcher and allocation"
+      },
+      {
+        "name": "ordinary-pointer",
+        "vma_range": [
+          1049344,
+          1049348
+        ],
+        "mapping": [
+          {
+            "storage": "file_backed",
+            "program_header": 0,
+            "file_range": [
+              1024,
+              1028
+            ],
+            "vma_range": [
+              1049344,
+              1049348
+            ]
+          }
+        ],
+        "whole_supported": true
+      },
+      {
+        "name": "ordinary-BSS",
+        "vma_range": [
+          1050240,
+          1050244
+        ],
+        "mapping": [
+          {
+            "storage": "bss",
+            "program_header": 0,
+            "vma_range": [
+              1050240,
+              1050244
+            ]
+          }
+        ],
+        "whole_supported": true,
+        "audit_file_binding": false
+      },
+      {
+        "name": "ordinary-unmapped",
+        "vma_range": [
+          2097152,
+          2097154
+        ],
+        "mapping": [
+          {
+            "storage": "unmapped",
+            "vma_range": [
+              2097152,
+              2097154
+            ]
+          }
+        ],
+        "whole_supported": true,
+        "audit_file_binding": false
+      },
+      {
+        "name": "ordinary-loadsplit",
+        "vma_range": [
+          1050238,
+          1050242
+        ],
+        "mapping": [
+          {
+            "storage": "file_backed",
+            "program_header": 0,
+            "file_range": [
+              1918,
+              1920
+            ],
+            "vma_range": [
+              1050238,
+              1050240
+            ]
+          },
+          {
+            "storage": "bss",
+            "program_header": 0,
+            "vma_range": [
+              1050240,
+              1050242
+            ]
+          }
+        ],
+        "whole_supported": true,
+        "audit_file_binding": false
+      },
+      {
+        "name": "odd-external-start",
+        "vma_range": [
+          67108865,
+          67108867
+        ],
+        "whole_supported": false,
+        "reason": "wordquery alignment"
+      },
+      {
+        "name": "trailer-as-ELF",
+        "vma_range": [
+          1050368,
+          1050370
+        ],
+        "mapping": [
+          {
+            "storage": "unmapped",
+            "vma_range": [
+              1050368,
+              1050370
+            ]
+          }
+        ],
+        "whole_supported": true,
+        "reason": "physical blob bytes are not a fabricated PT_LOAD"
+      }
+    ]
+  },
+  "guards": {
+    "qualification": "Wholeprotocol expected refusals manually independently projected from proposed fixedsource contract; not originalhelper/main parity. No candidate inspected/executed.",
+    "guards": [
+      {
+        "name": "base-LUI-opcode",
+        "source": "guards/base-LUI-opcode.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            512,
+            872481792
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "base LUI fullshape"
+      },
+      {
+        "name": "base-LUI-rs",
+        "source": "guards/base-LUI-rs.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            512,
+            1008796672
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "base LUI rs must0"
+      },
+      {
+        "name": "base-ORI-is-ADDIU",
+        "source": "guards/base-ORI-is-ADDIU.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            516,
+            606142464
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "ORI is unsigned bitconcat, not signed ADDIU"
+      },
+      {
+        "name": "base-ORI-crossreg",
+        "source": "guards/base-ORI-crossreg.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            516,
+            876740608
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "base ORI rs/rt1"
+      },
+      {
+        "name": "base-copy-disagrees",
+        "source": "guards/base-copy-disagrees.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            548,
+            874577922
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "two basecopies disagree/fixedbase"
+      },
+      {
+        "name": "both-base-not-protocol",
+        "source": "guards/both-base-not-protocol.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            512,
+            1006699776
+          ],
+          [
+            544,
+            1006699776
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "base must04000000"
+      },
+      {
+        "name": "length-copy-disagrees",
+        "source": "guards/length-copy-disagrees.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            560,
+            1007222792
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "two lengthcopies disagree"
+      },
+      {
+        "name": "length-zero",
+        "source": "guards/length-zero.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            528,
+            1007222784
+          ],
+          [
+            560,
+            1007222784
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "nonzero dispatch window"
+      },
+      {
+        "name": "length-odd",
+        "source": "guards/length-odd.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            532,
+            891879425
+          ],
+          [
+            564,
+            891879425
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "even dispatch window"
+      },
+      {
+        "name": "length-overflow",
+        "source": "guards/length-overflow.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            528,
+            1007287296
+          ],
+          [
+            532,
+            891879426
+          ],
+          [
+            560,
+            1007287296
+          ],
+          [
+            564,
+            891879426
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "base+length exceeds2^32"
+      },
+      {
+        "name": "byte-LUI-wrongreg",
+        "source": "guards/byte-LUI-wrongreg.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            576,
+            1006895104
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "loader byte LUI reg5"
+      },
+      {
+        "name": "byte-ORI-crossreg",
+        "source": "guards/byte-ORI-crossreg.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            580,
+            883167232
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "loader ORI rs/rt5"
+      },
+      {
+        "name": "sector-rs-notzero",
+        "source": "guards/sector-rs-notzero.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            592,
+            606994434
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "ADDIU zero->reg14"
+      },
+      {
+        "name": "sector-reg-not14",
+        "source": "guards/sector-reg-not14.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            592,
+            604831746
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "count rt14"
+      },
+      {
+        "name": "sector-copies-disagree",
+        "source": "guards/sector-copies-disagree.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            596,
+            604897281
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "countA/countB agreement"
+      },
+      {
+        "name": "zero-sectors",
+        "source": "guards/zero-sectors.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            580,
+            883228672
+          ],
+          [
+            592,
+            604897280
+          ],
+          [
+            596,
+            604897280
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "nonzero positive sectors"
+      },
+      {
+        "name": "sector-limit8000",
+        "source": "guards/sector-limit8000.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            592,
+            604930048
+          ],
+          [
+            596,
+            604930048
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "sectors<=7fff"
+      },
+      {
+        "name": "bytes-count-mismatch",
+        "source": "guards/bytes-count-mismatch.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            580,
+            883230720
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "bytes!=sectors*2048"
+      },
+      {
+        "name": "loaded-exceeds-window",
+        "source": "guards/loaded-exceeds-window.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            528,
+            1007222784
+          ],
+          [
+            532,
+            891881472
+          ],
+          [
+            560,
+            1007222784
+          ],
+          [
+            564,
+            891881472
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "loaded bytes exceed dispatcher"
+      },
+      {
+        "name": "word-split-LOAD",
+        "source": "guards/word-split-LOAD.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            68,
+            338
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "countA4Bword splits file/BSS despite physical bytes before retailEOF"
+      },
+      {
+        "name": "word-in-BSS",
+        "source": "guards/word-in-BSS.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "changes": [
+          [
+            68,
+            320
+          ]
+        ],
+        "expected": "refuse/unknown",
+        "reason": "loader words physicallypresent but not filebacked"
+      },
+      {
+        "name": "padding-nonzero",
+        "source": "guards/padding-nonzero.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "retail-to-aligned padding notzero"
+      },
+      {
+        "name": "trailer-truncated",
+        "source": "guards/trailer-truncated.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "physical trailer shorter than loaderbytecount"
+      },
+      {
+        "name": "trailer-extra",
+        "source": "guards/trailer-extra.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "physical trailer size differs from loaderbytecount"
+      },
+      {
+        "name": "retail-zero",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 0,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "positive explicitretailEOF"
+      },
+      {
+        "name": "retail-before-word",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 592,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "12word spans mustend<=retailEOF"
+      },
+      {
+        "name": "retail-past-file",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 6146,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "retail/alignedstart outside pinnedsource"
+      },
+      {
+        "name": "duplicate-role-address",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100100",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "rolemetadata overlapsbaseword"
+      },
+      {
+        "name": "duplicate-base-copy",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100100"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "two distinctcopies/12unique wordpositions"
+      },
+      {
+        "name": "base-pair-overlaps-size",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100104",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "pair-wordoverlap"
+      },
+      {
+        "name": "one-copy",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "exacttwo copies"
+      },
+      {
+        "name": "three-loader-words",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "exactfour loaderwords"
+      },
+      {
+        "name": "site-in-BSS",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100100",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100680"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "whole4Bword ordinaryELFfilebacked required"
+      },
+      {
+        "name": "site-unaligned",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x100102",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "4Bsite alignment"
+      },
+      {
+        "name": "site-unmapped",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "0x200000",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "whole4Bword mapped PTLOAD"
+      },
+      {
+        "name": "site-badhex",
+        "source": "observed.elf",
+        "sentinel": {
+          "retail_elf_size": 1920,
+          "loader_vmas": [
+            "0x100140",
+            "0x100144",
+            "0x100150",
+            "0x100154"
+          ],
+          "window_bases": [
+            "bogus",
+            "0x100120"
+          ],
+          "window_sizes": [
+            "0x100110",
+            "0x100130"
+          ]
+        },
+        "expected": "refuse/unknown",
+        "reason": "valid32bitaddress"
+      }
+    ]
+  }
+}

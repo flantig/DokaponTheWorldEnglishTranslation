@@ -1,0 +1,16 @@
+{
+  "operation": "registry_author",
+  "source_size": 6352646,
+  "source_sha256": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6",
+  "evidence": "Isolated authoring transaction verification on currentcanonical snapshot; requested changes are synthetic and must not be promoted as product wording. DraftEN and patchednote exercise separate ownership contracts; canonical and all machinefields remain unchanged.",
+  "updated": "2026-10-19",
+  "registry_updates": {
+    "0x4ef230": {
+      "en": "Free Mode Settings (draft)",
+      "note": "Go authoring scratch verification; not canonical promotion."
+    },
+    "0x473450": {
+      "note": "struct-table short-desc field (27-record job table); per-record base VMA not given in source, not derived here. Job 1/27, short pair of 0x472380. 2026-09-09: registry write-back-gap fix (NOT a new migration, 0 new ISO bytes) - both ref_sites already resolve to the SAME sentinel address 0x4019040, content-verified byte-exact match (markup-normalized) to the registered en. Same class as this chapter's other 16 already-patched siblings (2026-09-08 systematic audit), which excluded multi-ref-site entries - this is that exclusion being closed out. See docs/planning-log/2026-09-09-job-descriptions-migration.md. | 2026-10-08 bba3ba63 disc-sync: English and line/markup layout read back from the promoted ISO. [Go authoring scratch verification; not canonical promotion.]"
+    }
+  }
+}

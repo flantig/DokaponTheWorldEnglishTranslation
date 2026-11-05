@@ -1,0 +1,557 @@
+{
+  "schema": "reconstruction-mask-native-contract-v1",
+  "at": "2026-10-21T07:36:25.531204+00:00",
+  "status": "Original-only native mask expectations frozen; no candidate execution/implementation/approval",
+  "chronology": "Original selected-source final pixels and stage manifest frozen before old accepted codec import. No root mask candidate/new Go, historical main or project module executed. Old accepted codec used for export/import/readback only.",
+  "scope": "Two literal finite flat erases on actual originalhelp00 using an original LIST-AND of two RGB not_near exclusions, exact allow-minus-add, old source-palette projection. Not a historical authored artwork migration.",
+  "pack": {
+    "directory": "/var/tmp/dokapon-mask-native-oracle-r1hdjhc8",
+    "members": 56,
+    "manifest_sha256": "db8941081a79a6b9fef086f4d6ea62c9eb7ca4ebff293507abbbac1de8ed7e79",
+    "receipt_sha256": "a3322cbfa2eab50a3864cdfb5bffd8381ba2fb622786d15233fbce43dc54b090",
+    "original_facts_sha256": "195b5849fa4b8b6c87402719ede563fdcb8a775e4c742f3b91089c42262dfbab",
+    "original_stage_manifest_sha256": "9599c50ee559a304968f4a4d31c628255b47e23d0c211022c79ede9b78b06a27",
+    "seal": "All member names contained; all regular single-link0400 files verified by size/hash after sealing."
+  },
+  "source_evidence": {
+    "source_pins": "source-pins.json",
+    "62pack": {
+      "path": "/var/tmp/dokapon-reconstruction-mask-frontier-zvx1bc19/manifest.json",
+      "sha256": "8590b3e783280fa8315a5302359e385614d70c8c6540c0a145eac59de0c11cba",
+      "members": 62,
+      "all62member_hashes_verified": true
+    },
+    "renderer_sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "driver_sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149",
+    "accepted_codec_manifest_sha256": "bb17decd69f4dc0e7344a1dcecfb673a02529fa837c477612c0877e021ff1c3a",
+    "accepted_codec_binary": {
+      "path": "/var/tmp/dokapon-row-reconstruction-dawakf88/native-fixed",
+      "bytes": 8085912,
+      "sha256": "8b677f42ce227b1cc482f314d8ada8d3cccc0f66529bfedbc2ec2c1636aa549c"
+    },
+    "accepted_build_receipt": {
+      "path": "/var/tmp/dokapon-row-reconstruction-dawakf88/fixed-final-checks.json",
+      "sha256": "915a7d7ac5de9e6a35d81cd243738a99511cb7b28c72aa73dfa869eff97a9e62",
+      "build": "fixed-native-build PASS from accepted matching source"
+    },
+    "accepted_source_matches": 41
+  },
+  "source_recipe": {
+    "key": "actual-help00-literal-AND-exclusions",
+    "colors": {
+      "panel": [
+        244,
+        195,
+        110
+      ],
+      "green": [
+        49,
+        137,
+        24
+      ],
+      "cream_reference_only": [
+        254,
+        230,
+        154
+      ]
+    },
+    "rects": [
+      [
+        151,
+        248,
+        354,
+        29
+      ],
+      [
+        153,
+        164,
+        320,
+        26
+      ]
+    ],
+    "allow": [
+      {
+        "rect": [
+          151,
+          248,
+          354,
+          29
+        ]
+      },
+      {
+        "rect": [
+          153,
+          164,
+          320,
+          26
+        ]
+      },
+      {
+        "rect": [
+          210,
+          251,
+          7,
+          22
+        ],
+        "minus": true
+      }
+    ],
+    "allow_add": [
+      {
+        "rect": [
+          213,
+          256,
+          3,
+          4
+        ]
+      }
+    ],
+    "ops": [
+      {
+        "id": "flat-lower",
+        "op": "erase",
+        "rect": [
+          151,
+          248,
+          354,
+          29
+        ],
+        "mask": [
+          {
+            "not_near": "panel",
+            "tol": 16
+          },
+          {
+            "not_near": "green",
+            "tol": 10
+          }
+        ],
+        "grow": 0,
+        "method": "flat",
+        "color": "panel"
+      },
+      {
+        "id": "flat-upper",
+        "op": "erase",
+        "rect": [
+          153,
+          164,
+          320,
+          26
+        ],
+        "mask": [
+          {
+            "not_near": "panel",
+            "tol": 16
+          },
+          {
+            "not_near": "green",
+            "tol": 10
+          }
+        ],
+        "grow": 0,
+        "method": "flat",
+        "color": "panel"
+      }
+    ],
+    "snap": false
+  },
+  "calibration": {
+    "honest_relation": "Original62pack panel244/195/110tol16 +cream254/230/154tol10 remains immutable. Cream has0 matching pixels in both actual retained bounds, so this new actual-native case uses measured green49/137/24tol10. This is finite input calibration, not a claim the historical original pair occurred in help00.",
+    "counts": [
+      {
+        "rect": [
+          151,
+          248,
+          354,
+          29
+        ],
+        "counts": {
+          "panel": {
+            "near_count": 6530,
+            "exact_count": 5541,
+            "tolerance": 16
+          },
+          "cream_reference_only": {
+            "near_count": 0,
+            "exact_count": 0,
+            "tolerance": 10
+          },
+          "green": {
+            "near_count": 540,
+            "exact_count": 272,
+            "tolerance": 10
+          }
+        }
+      },
+      {
+        "rect": [
+          153,
+          164,
+          320,
+          26
+        ],
+        "counts": {
+          "panel": {
+            "near_count": 5100,
+            "exact_count": 4247,
+            "tolerance": 16
+          },
+          "cream_reference_only": {
+            "near_count": 0,
+            "exact_count": 0,
+            "tolerance": 10
+          },
+          "green": {
+            "near_count": 707,
+            "exact_count": 418,
+            "tolerance": 10
+          }
+        }
+      }
+    ],
+    "exact_samples": [
+      {
+        "reference": "panel",
+        "rect": [
+          151,
+          248,
+          354,
+          29
+        ],
+        "xy": [
+          151,
+          248
+        ],
+        "observed_RGBA": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "exact_matches": 5541
+      },
+      {
+        "reference": "green",
+        "rect": [
+          151,
+          248,
+          354,
+          29
+        ],
+        "xy": [
+          185,
+          257
+        ],
+        "observed_RGBA": [
+          49,
+          137,
+          24,
+          255
+        ],
+        "exact_matches": 272
+      },
+      {
+        "reference": "panel",
+        "rect": [
+          153,
+          164,
+          320,
+          26
+        ],
+        "xy": [
+          153,
+          164
+        ],
+        "observed_RGBA": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "exact_matches": 4247
+      },
+      {
+        "reference": "green",
+        "rect": [
+          153,
+          164,
+          320,
+          26
+        ],
+        "xy": [
+          356,
+          169
+        ],
+        "observed_RGBA": [
+          49,
+          137,
+          24,
+          255
+        ],
+        "exact_matches": 418
+      }
+    ]
+  },
+  "positive_effects": {
+    "ops": [
+      {
+        "id": "flat-lower",
+        "selected": 3172,
+        "changed_pixels": 3172,
+        "changed_channels": 9516,
+        "sample_changes": [
+          {
+            "xy": [
+              302,
+              254
+            ],
+            "before": [
+              255,
+              212,
+              119,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              461,
+              259
+            ],
+            "before": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              350,
+              263
+            ],
+            "before": [
+              53,
+              42,
+              26,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              260,
+              267
+            ],
+            "before": [
+              254,
+              220,
+              129,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              277,
+              270
+            ],
+            "before": [
+              191,
+              153,
+              87,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          }
+        ]
+      },
+      {
+        "id": "flat-upper",
+        "selected": 2513,
+        "changed_pixels": 2513,
+        "changed_channels": 7539,
+        "sample_changes": [
+          {
+            "xy": [
+              358,
+              167
+            ],
+            "before": [
+              210,
+              185,
+              95,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              226,
+              173
+            ],
+            "before": [
+              116,
+              157,
+              55,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              395,
+              176
+            ],
+            "before": [
+              191,
+              179,
+              88,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              325,
+              180
+            ],
+            "before": [
+              186,
+              148,
+              84,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          },
+          {
+            "xy": [
+              279,
+              184
+            ],
+            "before": [
+              0,
+              0,
+              0,
+              255
+            ],
+            "after": [
+              244,
+              195,
+              110,
+              255
+            ]
+          }
+        ]
+      }
+    ],
+    "raw_changed_pixels": 5685,
+    "raw_changed_channels": 17055,
+    "allowed_pixels": 18444,
+    "native_cover_pixels": 18586,
+    "raw_outside_allow": 0,
+    "protected_exclusion_changes": 0,
+    "allow_add_changed_pixels": 4,
+    "counterexamples": {
+      "panel-only": {
+        "different_pixels": 1199,
+        "different_channels": 3597
+      },
+      "green-only": {
+        "different_pixels": 1828,
+        "different_channels": 5484
+      },
+      "wrong-OR": {
+        "different_pixels": 3027,
+        "different_channels": 9081
+      }
+    },
+    "reversed_AND_equals": true
+  },
+  "native_projection": {
+    "qualification": "OLD accepted codec projection after independent original renderer; NOT independent encoding. Existing accepted codec binary source/builder receipt bound before use; no new candidate execution.",
+    "whole_TXD": {
+      "bytes": 525564,
+      "sha256": "f493896ae3733dce31357c1c2a6eb48e5d5087c9bae01e17476ca12cb7bf2d0a"
+    },
+    "decoded_raw": {
+      "bytes": 2097152,
+      "sha256": "571477a174f2b99ab0a8f01ecb17f87556a1fab97951b5b08c752c7d41fe8de4"
+    },
+    "raw_original_result": {
+      "bytes": 2097152,
+      "sha256": "571477a174f2b99ab0a8f01ecb17f87556a1fab97951b5b08c752c7d41fe8de4"
+    },
+    "PNG_original_result": {
+      "bytes": 116885,
+      "sha256": "541939e1014ed6684c130f5e7a552fe0d3879f04ff53f36688c7ef704d1a67cd"
+    },
+    "native_ledger": {
+      "bytes": 237871,
+      "sha256": "bbc5c9e0e85ec6fdc448eb86e244a879960cf3be9e73202c4c49a3888721e369"
+    },
+    "changed_native_bytes": 5685,
+    "decoded_outside_allow": 0,
+    "native_pixel_outside_allow": 0,
+    "nonpixel_changes": 0,
+    "projection_vs_original_pixels_different": 0,
+    "ledger_scope": "PSMT8 addresses derived from OLD accepted texture.go walk; full mapping bijective; all nonpixel bytes including CLUT and headers unchanged.",
+    "source_identity_preserved": true,
+    "old_binary_preserved": true,
+    "dry_apply_readback_pass": true,
+    "overwrite_refused": true
+  },
+  "limits": [
+    "No candidate/new Go execution, project implementation, original main import, ISO/registry/emulator/PINE/process/settings access.",
+    "No independent native encoder, artwork/gameplay/ISO approval, full-family or retirement credit.",
+    "Two flat original LIST-AND mask operations only; no claim all supported mask predicates, nested schemas or arbitrary original paths.",
+    "All frozen artifact sizes/hashes and actual commands/stdout/profiles are in the private contained manifest/receipt."
+  ]
+}

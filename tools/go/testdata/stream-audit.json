@@ -1,0 +1,2773 @@
+{
+  "qualification": "Schema-only projection of independent precode literal tokens/factors; no Go output used. Sources/profile in examples/stream-audit count as runtime example inputs. Failed-side error marker is nonempty, not prescribed message wording.",
+  "rows": [
+    {
+      "registry_id": "0x1000",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": true,
+      "first_span_byte_difference": null,
+      "comparison": {
+        "stream_bytes_equal": true,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1001",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 20,
+      "comparison": {
+        "stream_bytes_equal": false,
+        "glyph_words_equal": false,
+        "glyph_text_equal": false,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x80",
+          "end": "0xa4"
+        },
+        "span_sha256": "5e73aba2e2c6025c6851250c630a289fa77c05f289b789f589b988b1f263bc55",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "5e73aba2e2c6025c6851250c630a289fa77c05f289b789f589b988b1f263bc55",
+        "glyph_words": [
+          1,
+          0,
+          3,
+          3,
+          4
+        ],
+        "glyph_text": "A CCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1002",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 22,
+      "comparison": {
+        "stream_bytes_equal": false,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": false,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": false
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0xe0",
+          "end": "0x104"
+        },
+        "span_sha256": "51582aeb8537fc9a750916ff907848e0b20bcdf2f9805301378b049edb473507",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45058,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "51582aeb8537fc9a750916ff907848e0b20bcdf2f9805301378b049edb473507",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1003",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 9,
+      "comparison": {
+        "stream_bytes_equal": false,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": false,
+        "argument_words_equal": false,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": false
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x140",
+          "end": "0x164"
+        },
+        "span_sha256": "1afc2dc4ea9ad52899832a34245a674d9e39113fe9332b1c06c051463bc71860",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "1afc2dc4ea9ad52899832a34245a674d9e39113fe9332b1c06c051463bc71860",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          40960,
+          18432,
+          28672
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1004",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 14,
+      "comparison": {
+        "stream_bytes_equal": false,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": false,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": false,
+        "control_sequence_equal": false
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x1a0",
+          "end": "0x1c4"
+        },
+        "span_sha256": "22fb301f4bdbe82970ebf1d26417c9fa6668c0584d8beeddb3e6f1d74c04eeba",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgBoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "22fb301f4bdbe82970ebf1d26417c9fa6668c0584d8beeddb3e6f1d74c04eeba",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgBoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1005",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 4,
+      "comparison": {
+        "stream_bytes_equal": false,
+        "glyph_words_equal": false,
+        "glyph_text_equal": true,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x200",
+          "end": "0x224"
+        },
+        "span_sha256": "912157b1bb0920f29eb08915f285dc563d0e2bdd476e2051b8c3d75e63dd7f10",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 5,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "912157b1bb0920f29eb08915f285dc563d0e2bdd476e2051b8c3d75e63dd7f10",
+        "glyph_words": [
+          5,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1006",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 20,
+      "comparison": {
+        "stream_bytes_equal": false,
+        "glyph_words_equal": false,
+        "glyph_text_equal": false,
+        "control_tokens_equal": false,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x260",
+          "end": "0x286"
+        },
+        "span_sha256": "4cd4b4b7c8269c4fa18f76933db435a3cceacaa0844ff463fbd7e6bf572f9105",
+        "consumed_bytes": 38,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 34,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 36,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "4cd4b4b7c8269c4fa18f76933db435a3cceacaa0844ff463fbd7e6bf572f9105",
+        "glyph_words": [
+          1,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A ABCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1007",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 36,
+      "comparison": {
+        "stream_bytes_equal": true,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x2c0",
+          "end": "0x2e6"
+        },
+        "span_sha256": "ce0932c52f38077c2cb7ab7a278f51042f530e77a1d3ba9bf32026367df6b76c",
+        "consumed_bytes": 36,
+        "trailing_bytes": 2,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      }
+    },
+    {
+      "registry_id": "0x1008",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": true,
+      "first_span_byte_difference": null,
+      "comparison": {
+        "stream_bytes_equal": true,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0x80",
+          "end": "0x88"
+        },
+        "span_sha256": "df24af729d99dabba4866342354111b3c865b3cd7d10dfc68b54b31c4aa3f757",
+        "consumed_bytes": 8,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "df24af729d99dabba4866342354111b3c865b3cd7d10dfc68b54b31c4aa3f757",
+        "glyph_words": [
+          1,
+          2
+        ],
+        "glyph_text": "AB",
+        "argument_words": [
+          28672
+        ],
+        "opaque_payloads": []
+      },
+      "observed": {
+        "span": {
+          "start": "0x320",
+          "end": "0x328"
+        },
+        "span_sha256": "df24af729d99dabba4866342354111b3c865b3cd7d10dfc68b54b31c4aa3f757",
+        "consumed_bytes": 8,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "df24af729d99dabba4866342354111b3c865b3cd7d10dfc68b54b31c4aa3f757",
+        "glyph_words": [
+          1,
+          2
+        ],
+        "glyph_text": "AB",
+        "argument_words": [
+          28672
+        ],
+        "opaque_payloads": []
+      }
+    },
+    {
+      "registry_id": "0x1009",
+      "decoder": "positional",
+      "status": "compared",
+      "span_bytes_equal": true,
+      "first_span_byte_difference": null,
+      "comparison": {
+        "stream_bytes_equal": true,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0xa0",
+          "end": "0xae"
+        },
+        "span_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "consumed_bytes": 14,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45056,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "pen0",
+            "Word": 55296,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 12,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "glyph_words": [
+          1,
+          2,
+          3
+        ],
+        "glyph_text": "ABC",
+        "argument_words": [
+          40960
+        ],
+        "opaque_payloads": []
+      },
+      "observed": {
+        "span": {
+          "start": "0x380",
+          "end": "0x38e"
+        },
+        "span_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "consumed_bytes": 14,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45056,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "pen0",
+            "Word": 55296,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 12,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "glyph_words": [
+          1,
+          2,
+          3
+        ],
+        "glyph_text": "ABC",
+        "argument_words": [
+          40960
+        ],
+        "opaque_payloads": []
+      }
+    },
+    {
+      "registry_id": "0x100a",
+      "decoder": "narrative",
+      "status": "decode_failed",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 16,
+      "comparison": null,
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x3e0",
+          "end": "0x3f0"
+        },
+        "span_sha256": "709870b6a065ce0840fc0b327977f6ef2ea84e2525728fb7ae715167aefea3a3",
+        "consumed_bytes": null,
+        "trailing_bytes": null,
+        "error": "unsupported"
+      }
+    },
+    {
+      "registry_id": "0x100b",
+      "decoder": "narrative",
+      "status": "decode_failed",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 34,
+      "comparison": null,
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x440",
+          "end": "0x462"
+        },
+        "span_sha256": "dbdcf540bbb149bb85f3ae6495b37cccab2d3c5f24bf3145795920ca4710d9f1",
+        "consumed_bytes": null,
+        "trailing_bytes": null,
+        "error": "unsupported"
+      }
+    },
+    {
+      "registry_id": "0x100c",
+      "decoder": "narrative",
+      "status": "decode_failed",
+      "span_bytes_equal": false,
+      "first_span_byte_difference": 4,
+      "comparison": null,
+      "reference": {
+        "span": {
+          "start": "0x20",
+          "end": "0x44"
+        },
+        "span_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "consumed_bytes": 36,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14337,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 28672,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 10,
+            "Payload": "APgAoABwALA="
+          },
+          {
+            "Kind": "glyph",
+            "Word": 2,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 3,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 26,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 28,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 30,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 32,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 34,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "eb1a2feef77ada55aa507669c3540e23bf171e1ec49daa94d197d36c87880e52",
+        "glyph_words": [
+          1,
+          0,
+          2,
+          3,
+          4
+        ],
+        "glyph_text": "A BCD",
+        "argument_words": [
+          28672,
+          18432,
+          40960
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 18432,
+            "Offset": 0,
+            "Payload": "APgAoABwALA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x4a0",
+          "end": "0x4c4"
+        },
+        "span_sha256": "e133b8cc972f6ab3949ab3744e04ec80e226bf0aab69d2f1b174f0ccff059c77",
+        "consumed_bytes": null,
+        "trailing_bytes": null,
+        "error": "unsupported"
+      }
+    },
+    {
+      "registry_id": "0x100e",
+      "decoder": "narrative",
+      "status": "compared",
+      "span_bytes_equal": true,
+      "first_span_byte_difference": null,
+      "comparison": {
+        "stream_bytes_equal": true,
+        "glyph_words_equal": true,
+        "glyph_text_equal": true,
+        "control_tokens_equal": true,
+        "argument_words_equal": true,
+        "opaque_payloads_equal": true,
+        "control_sequence_equal": true
+      },
+      "reference": {
+        "span": {
+          "start": "0xa0",
+          "end": "0xae"
+        },
+        "span_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "consumed_bytes": 14,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 45056,
+            "Offset": 2,
+            "Payload": "AgAA2AMAAKA="
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 12,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "glyph_words": [
+          1
+        ],
+        "glyph_text": "A",
+        "argument_words": [
+          45056
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 45056,
+            "Offset": 0,
+            "Payload": "AgAA2AMAAKA="
+          }
+        ]
+      },
+      "observed": {
+        "span": {
+          "start": "0x560",
+          "end": "0x56e"
+        },
+        "span_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "consumed_bytes": 14,
+        "trailing_bytes": 0,
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 45056,
+            "Offset": 2,
+            "Payload": "AgAA2AMAAKA="
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 12,
+            "Payload": null
+          }
+        ],
+        "stream_sha256": "a94419d9b90958ecfb54b40aaa06d411b3d9799fee8aab32991ae8caeea1e081",
+        "glyph_words": [
+          1
+        ],
+        "glyph_text": "A",
+        "argument_words": [
+          45056
+        ],
+        "opaque_payloads": [
+          {
+            "Kind": "param8",
+            "Word": 45056,
+            "Offset": 0,
+            "Payload": "AgAA2AMAAKA="
+          }
+        ]
+      }
+    }
+  ]
+}

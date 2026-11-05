@@ -1,0 +1,241 @@
+{
+  "at": "2026-10-21T20:13:39.237490+00:00",
+  "status": "VERIFIED_GP_CAPABILITY_COST_NOT_REDUCTION",
+  "basis": "Accepted616 allruntimeinputgroups vs exact reviewed final candidate. Go source includes imports; existing module/config/adapters/profile tables/notices/fonts/entrypoint and all runnable examples charged. Tests/fixtures separate.",
+  "baseline_manifest": "/var/tmp/dokapon-structural-audit-s9qdhozq/sealed-final/manifest.json",
+  "baseline_manifest_sha256": "97a0957c9c4550c2f84052d027c952df3e0c1d0504d59c6e5eea0235047acc85",
+  "metrics": {
+    "production_before": 463377,
+    "production_after": 474721,
+    "production_growth": 11344,
+    "runtime_before": {
+      "files": 180,
+      "bytes": 2537288
+    },
+    "runtime_after": {
+      "files": 181,
+      "bytes": 2549244
+    },
+    "runtime_growth": 11956,
+    "test_source_growth": 6213,
+    "fixture_growth": 76544,
+    "fixture_uncompressed_original_JSON_bytes": 1557499,
+    "new_named_functions": 0,
+    "production_Go_files": 39,
+    "named_production_functions": 41,
+    "new_fact_types": 2,
+    "new_runtime_example_files": 1,
+    "retired_scripts": 0,
+    "new_family_credit": 0
+  },
+  "current_full_input_inventory": "analysis/go-current-input-accounting.json",
+  "groups": {
+    "asset_bundle": {
+      "before_files": 3,
+      "before_bytes": 11313090,
+      "after_files": 3,
+      "after_bytes": 11313090
+    },
+    "executed_evidence_inputs": {
+      "before_files": 21,
+      "before_bytes": 622132,
+      "after_files": 21,
+      "after_bytes": 622132
+    },
+    "go_module": {
+      "before_files": 1,
+      "before_bytes": 30,
+      "after_files": 1,
+      "after_bytes": 30
+    },
+    "go_tests": {
+      "before_files": 1,
+      "before_bytes": 683337,
+      "after_files": 1,
+      "after_bytes": 689550
+    },
+    "pointer_selector": {
+      "before_files": 4,
+      "before_bytes": 10121,
+      "after_files": 4,
+      "after_bytes": 10121
+    },
+    "production_go": {
+      "before_files": 39,
+      "before_bytes": 463377,
+      "after_files": 39,
+      "after_bytes": 474721
+    },
+    "recipe_tables": {
+      "before_files": 52,
+      "before_bytes": 419065,
+      "after_files": 52,
+      "after_bytes": 419065
+    },
+    "testdata": {
+      "before_files": 78,
+      "before_bytes": 12276121,
+      "after_files": 79,
+      "after_bytes": 12352665
+    },
+    "build_entrypoint": {
+      "before_files": 1,
+      "before_bytes": 1155,
+      "after_files": 1,
+      "after_bytes": 1155
+    },
+    "consumer_profiles": {
+      "before_files": 15,
+      "before_bytes": 27690,
+      "after_files": 15,
+      "after_bytes": 27690
+    },
+    "font_data": {
+      "before_files": 8,
+      "before_bytes": 1418898,
+      "after_files": 8,
+      "after_bytes": 1418898
+    },
+    "third_party_notices": {
+      "before_files": 5,
+      "before_bytes": 22076,
+      "after_files": 5,
+      "after_bytes": 22076
+    },
+    "report_templates": {
+      "before_files": 1,
+      "before_bytes": 1394,
+      "after_files": 1,
+      "after_bytes": 1394
+    },
+    "audit_examples": {
+      "before_files": 53,
+      "before_bytes": 167448,
+      "after_files": 54,
+      "after_bytes": 168060
+    },
+    "native_headers": {
+      "before_files": 1,
+      "before_bytes": 6034,
+      "after_files": 1,
+      "after_bytes": 6034
+    }
+  },
+  "claim": "Only115B repeated validation removed from initial GP prototype; net accepted production growth11344B/runtimegrowth11956B. No relocation reduction or historical-script retirement. Full raw1557499B source fixture retained; ZIP76544B counted physically, not as production savings.",
+  "nonruntime_overhead": "Source-analysis/review/proof/Markdown additions are separate evidence/documentation cost. Current flat coverage/check ledgers and this accounting document are excluded from fixed-point byte totals; runtime/test/fixture totals above include every required operational input.",
+  "measured_nonruntime_documents_evidence": {
+    "files": 15,
+    "delta_bytes": 65934,
+    "excluded": [
+      "this self-describing accounting file",
+      "current flat coverage/check pin ledgers"
+    ],
+    "items": [
+      {
+        "path": "ARCHITECTURE.md",
+        "before_bytes": 26761,
+        "after_bytes": 27465,
+        "delta_bytes": 704,
+        "sha256": "7d0ba2ff527271c6aa61e71e736e0ca122d79d7809f714312e59354b70e45897"
+      },
+      {
+        "path": "MIGRATION.md",
+        "before_bytes": 144646,
+        "after_bytes": 146122,
+        "delta_bytes": 1476,
+        "sha256": "931e69b10f40739b41c5541e21b6b49d15b402bc090211fc03e170a6d7a0db70"
+      },
+      {
+        "path": "README.md",
+        "before_bytes": 91260,
+        "after_bytes": 92854,
+        "delta_bytes": 1594,
+        "sha256": "fa852e839ec72daad0f332891ce29d72ac67d5e1d8c51b1233106037c3fc2de4"
+      },
+      {
+        "path": "analysis/go-current-input-accounting.json",
+        "before_bytes": 56588,
+        "after_bytes": 56691,
+        "delta_bytes": 103,
+        "sha256": "d7c70f50be866b5f7b1bf394f82a6b5f8cf9bb087d8976d362521d4517f62841"
+      },
+      {
+        "path": "analysis/gp-index-fixture-contract.json",
+        "before_bytes": 0,
+        "after_bytes": 3776,
+        "delta_bytes": 3776,
+        "sha256": "6be37e3ac0bda5abeb2c14a0433b56e4224327d75f34718e80fa1ce8e62505f9"
+      },
+      {
+        "path": "analysis/gp-index-milestone-assessment.json",
+        "before_bytes": 0,
+        "after_bytes": 5516,
+        "delta_bytes": 5516,
+        "sha256": "19c5382bcc661e51aa139af910e1654c4b1b66c47a36f05dbe428b84b822604a"
+      },
+      {
+        "path": "analysis/gp-index-milestone-study.json",
+        "before_bytes": 0,
+        "after_bytes": 10873,
+        "delta_bytes": 10873,
+        "sha256": "f8eec900938086cb05a5577c921eb4edf929baa51565e3db2980fa9b84138cf9"
+      },
+      {
+        "path": "analysis/gp-index-reuse-decision.json",
+        "before_bytes": 0,
+        "after_bytes": 12401,
+        "delta_bytes": 12401,
+        "sha256": "a0040ea4abeab66ebf306fb75190d6c659a736413d231fdd0241d354d93dcf3d"
+      },
+      {
+        "path": "analysis/gp-index-reuse-frontier.json",
+        "before_bytes": 0,
+        "after_bytes": 9439,
+        "delta_bytes": 9439,
+        "sha256": "1d70a463bba2b8732730aaa44e96583b650f0c7f6395c9c3339bbcf38ad008ee"
+      },
+      {
+        "path": "analysis/migration-roadmap.json",
+        "before_bytes": 69917,
+        "after_bytes": 70543,
+        "delta_bytes": 626,
+        "sha256": "20c0c38adedd5d78d47a1ed369f4cab7735ca5b572314132742d16e1670846fa"
+      },
+      {
+        "path": "analysis/reusability-coverage.md",
+        "before_bytes": 48797,
+        "after_bytes": 49447,
+        "delta_bytes": 650,
+        "sha256": "089fc8a6a7fbba8035da2194dfed8daf01bbc093a0476b77211daaf8598bc802"
+      },
+      {
+        "path": "evidence/gp-index-proof.json",
+        "before_bytes": 0,
+        "after_bytes": 8995,
+        "delta_bytes": 8995,
+        "sha256": "8fb1f39896d3f22ffcb31ef6feb8d284f163b17906380e2d157231b25b487b72"
+      },
+      {
+        "path": "evidence/gp-index-review.json",
+        "before_bytes": 0,
+        "after_bytes": 7344,
+        "delta_bytes": 7344,
+        "sha256": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba"
+      },
+      {
+        "path": "evidence/migration-roadmap-source-checks.json",
+        "before_bytes": 9938,
+        "after_bytes": 11017,
+        "delta_bytes": 1079,
+        "sha256": "0b0606df0a29d81a51b8d729ab4754eced29221ba9ebee855c0452435f4fecc9"
+      },
+      {
+        "path": "external/skills/MIGRATION-TOOLS.md",
+        "before_bytes": 173457,
+        "after_bytes": 174815,
+        "delta_bytes": 1358,
+        "sha256": "be1e1ba035f3385ba7b022e396498dd550f790dd78e2a3ef0987101e7630fa85"
+      }
+    ]
+  }
+}

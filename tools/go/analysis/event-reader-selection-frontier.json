@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T16:33:23.175643+00:00",
+  "status": "SOURCE_ONLY_DECLARED_SELECTION_FINDINGS_NO_IMPLEMENTATION_APPROVAL_OR_CREDIT",
+  "finding": "The selected event/taunt pool has ordinary two-level data indirection: outerrow word0 names an8B poolslot whose word0 is currenttextpointer. Explicit declaration of that slot as an existing pointer site suffices for selected observedtext reads; no YBS interpreter or new source-pool decoder was shown necessary. The historical outer_table_row_vma-only metadata is insufficient and must remainunsupported unless supplemented by independently verified pointer-slot data. This does not prove runtime event/script selection or pristine sourcecontext.",
+  "deterministic_relationship": {
+    "cohort": "90 literal EVENT_TAUNT_ENTRIES declarations",
+    "registryID": "Original source literal e.id associates a historical textaddress with eventID; not the installed currenttextpointer. Do not useID fallback.",
+    "ordinal_to_outer_row": "0x4cecec+12*ordinal",
+    "outer_row_layout": "Three LEu32: poolslotVMA,eventID,YBSscriptVMA. Observed field order, not inferred runtime ABI.",
+    "ordinal_to_pool_slot": "0x536920+8*ordinal, NOT4*ordinal",
+    "pool_slot_layout": "Observed LEu32 textpointer then LEu32 zero; zero secondword observed only, no runtime semantic claim.",
+    "eventID_guard": "Outerword1 matches all90 declared eventIDs:218..223 followed300..383.",
+    "script_guard": "Outerword2 points to bytes beginningYBS2DTW_1 in all90 frozenrows. Only24B header copied to facts; bytecode not parsed.",
+    "observed_target_mapping": "Poolslot itself is ordinary frozenELF mapped data; selected currenttargets are in prior independently bound sentinel loaded physicalrange. Their sourcewindows remain explicit bounded spans.",
+    "scope": "Manual native-struct equations verified independently from frozen bytes. No original selector helper exists/executed in inspected add-provider."
+  },
+  "source_callsite_matrix": [
+    {
+      "source": "add_event_taunt_title_entries.py",
+      "lines": [
+        14,
+        31
+      ],
+      "responsibility": "Historical declaration of90event/taunt relationships, scriptbytecode explicitlyunparsed."
+    },
+    {
+      "source": "add_event_taunt_title_entries.py",
+      "lines": [
+        69,
+        302
+      ],
+      "responsibility": "Authoritative declared eventID→historicalregistryID/textmetadata association, no native read implied."
+    },
+    {
+      "source": "add_event_taunt_title_entries.py",
+      "lines": [
+        416,
+        434
+      ],
+      "responsibility": "Registryprovider ultimately writes outer_table_row_vma only, despite temporary pointer_vma placeholder; source initialplaceholder mustNOTbe migrated as a realsite."
+    },
+    {
+      "source": "writeback.py",
+      "lines": [
+        463,
+        473
+      ],
+      "responsibility": "Actual pointerreader resolves explicit pointer_vma, deliberately warns on outer-only shape and filebounds. Executedoriginal helper positive3cases, fiveinvalidshape/address/bounds cases."
+    },
+    {
+      "source": "writeback.py",
+      "lines": [
+        507,
+        533
+      ],
+      "responsibility": "Entryresolver delegates pointer_array/struct refs to explicitsite reader; it has no event/YBS selector. No fallback supplied by this strict sourceowner."
+    },
+    {
+      "source": "slots.py",
+      "lines": [
+        848,
+        885
+      ],
+      "responsibility": "Real F130 consumer checks eventrecord oldID4acd40 has bothouterrow4ced1c and actualpointer536940, expectedobservedtarget403eae0. Frozen bytes match this exact relationship. This is independent activecaller evidence that adding source-proven slotmetadata is meaningful."
+    },
+    {
+      "source": "slots.py",
+      "lines": [
+        824,
+        845
+      ],
+      "responsibility": "Regionalhook payload starts LUIat0x58 and otherinstructions. FrozenoldID4acd40 starts3c010058 etc, counterexample to interpreting registryID as currenttext."
+    },
+    {
+      "source": "build_change_ledger.py",
+      "lines": [
+        1335,
+        1736
+      ],
+      "responsibility": "Existing shared sentinel/ELF read+streamcomparison responsibilities, not a supplied event-specific binaryselector. This study does not extend itsmain or claim wholeledgerparity."
+    }
+  ],
+  "recommended_reuse": {
+    "existing_responsibility": "Existing observedreference reader loads the explicit pointerfield, existing mapper binds complete targetwindow, existing audit/controls decode andcompare it. Source-authored finite relationshipdata can declare actual poolslot; keep event/outerrow/script provenance separate from pointerauthority.",
+    "minimal_next": "No new algorithm/function/API is established as necessary. A finite verified site-data cohort using existing pointer_vma semantics can cover this selected observedrelationship. If a caller insists on outer-onlymetadata, do not silentlyguess fields or addfallback; keepunsupported until site provenance is supplied.",
+    "what_not_to_do": [
+      "Do not treat outerrowaddress as textpointer site: originalhelper returns0x536940 for row4ced1c, which is poolslotaddress not texttarget.",
+      "Do not use4B slotstride, derive slots from eventIDs withoutordinal/indexevidence, or decodeYBS header/script bytes as text.",
+      "Do not automatically invent pristineJP/referencewindow from modifiedinstalledELF or trust registrylanding. Current table reflects installedmovement.",
+      "Do not equate pointerreadsuccess with validmappedtext: originalhelper acceptszero; mapper/decoder must retainunmapped/unknown and neverfallbackID.",
+      "No runtime eventdispatch, reachability, liveness, ENauthoring, gamevisualfit or canonicalEN generation proof."
+    ]
+  },
+  "corpus": {
+    "directory": "/var/tmp/dokapon-event-reader-selection-6q85j3i2",
+    "native_relationship_rows": 90,
+    "native_selected_original_pointer_and_stream_cases": 3,
+    "original_refusal_cases": 5,
+    "wrong_outer_and_null_counterexamples": 2,
+    "selected_ordinals": [
+      0,
+      4,
+      69
+    ],
+    "selected_stream_sizes": [
+      120,
+      144,
+      36
+    ],
+    "provenance": "OriginalASTselected iso_old/readu32/pointerreader and originalshareddecoder executed; manual source-row equations explicitly separate. Sparsecontained replay restores only needed exactbytes andoriginalfilebounds, not a runnableELF.",
+    "chronology": "Frozen source-only before any future event-cohort candidate comparison. Current unrelated private rawcandidate exists, not inspected/executed.",
+    "manifest_path": "/var/tmp/dokapon-event-reader-selection-6q85j3i2/manifest.json",
+    "manifest_sha256": "81a4aa815a32fccfc448f0365fb66ebaeb95b6eaffe49e4e7883172293e96c33",
+    "member_count": 22,
+    "member_bytes": 357500,
+    "facts_sha256": "70962d540ce33b100424402ce8f3fa43a84e8699e8d2227a954bdfa6e50585c3"
+  },
+  "held": [
+    "YBSscript runtime selector/bytecode semantics and liveness remainunknown. They are not required to honestly read an explicitlydeclared pointerfield, but no automatic runtimeeventselection capability is proved.",
+    "Pristine originalJP/reference identity/window is not recovered from this installedmodified6e; canonicalexpectedEN context requires independentpinnedreference elsewhere.",
+    "Other sourcepools/rawcohort acceptance and all410scope remain separate. registry_reconciliation.05 closure/credit is not granted by this boundedcohort."
+  ],
+  "source_pins": [
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/add_event_taunt_title_entries.py",
+      "contained": "sources/add_event_taunt_title_entries.py",
+      "size": 35585,
+      "sha256": "b094ff99b72539b3032542bd847b2b1d0b98e43781efe81f30a53e5c1d535a2f"
+    },
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/rework/new_tool/reports/writeback.py",
+      "contained": "sources/writeback.py",
+      "size": 34552,
+      "sha256": "3d3f05afab6d9c8ca60e75baa3eb7d0616ffca6569b8300d4d5ea934e6632fde"
+    },
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/rework/new_tool/text_tools/slots.py",
+      "contained": "sources/slots.py",
+      "size": 50797,
+      "sha256": "2fb1cbdcfcf4db5c6fa724908c901ba698ce4f217bdf328effd4e4484d427efe"
+    },
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/dialog_codec.py",
+      "contained": "sources/dialog_codec.py",
+      "size": 25964,
+      "sha256": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc"
+    },
+    {
+      "original": "/home/franklinl/Documents/Dokapon World Mod/tools/build_change_ledger.py",
+      "contained": "sources/build_change_ledger.py",
+      "size": 102489,
+      "sha256": "43598024c933f89d29c9fd64592674120815f3638c32b988f4b4969733325a5a"
+    }
+  ],
+  "frozen_source": {
+    "path": "/var/tmp/dokapon-elf-layout-wqrm7am8/SLPM_657.50",
+    "size": 5087232,
+    "sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "identity": "Installed/modified extracted frozen ELF, not pristine retail"
+  },
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d"
+}

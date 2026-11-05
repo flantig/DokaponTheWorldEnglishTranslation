@@ -1,0 +1,75 @@
+{
+  "audit": "026",
+  "at": "2026-10-20T16:00:35.250731+00:00",
+  "role": "Purely adversarial read-only challenger; findings only, no implementation or approval authority",
+  "manifest": "evidence/astra-audit-026-pins.json",
+  "manifest_sha256": "ae3d72cb503768ff3aa93d8edfb1db99db602979e9ba0ed44cbc047716d06944",
+  "previous_manifest": "evidence/astra-audit-025-pins.json",
+  "findings": [],
+  "conclusion": "No new reproducible defect or justified consolidation/deletion finding established in the inspected increment. Bounded negative evidence; not correctness, coverage promotion, retirement, or ISO-apply approval.",
+  "scope": [
+    "Serena texture symbol/reference analysis: sole production authorTexture caller, run caller, shared readInput/writeNewFile contracts",
+    "Frozen025-to-current changed production texture.go, texture_authoring.go, texture_types.go and connected tests/data; grouped candidate diff against sealed small-PSMT8 checkpoint",
+    "Texture depth/mode validation, common TEX0 guards, partial geometry/base/footprint/packet positioning, original/exact palettes, index storage, mask checks, direct alpha and source preservation",
+    "Native-slot JP restore recipe identity/wording/output pin; unchanged shared implementation since025",
+    "Candidate complete source/module/selectors/entrypoint/recipe/profile accounting, bundles, executed evidence, tests and fixtures"
+  ],
+  "checks": {
+    "production_test_fixture_recipe_profile_pins_checked": 114,
+    "pins_match_before_and_after": true,
+    "candidate_accounting_items_checked": 140,
+    "candidate_accounting_all_bytes_and_hashes_match": true,
+    "focused_command": "TMPDIR=<owned>/tmp GOTMPDIR=<owned>/tmp GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run 'TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec|TestCLIDryRunAndApply/standalone_texture_authoring' ./...",
+    "focused_exit_code": 0,
+    "focused_result": "ok dokapon/tools 6.286s",
+    "focused_log": "/var/tmp/dokapon-astra026-checks-O8uxkP/focused.log",
+    "old_fixture_records_preserved": {
+      "base": 26,
+      "exact": 10,
+      "small_zip_entries": 4
+    },
+    "current_fixture_records": {
+      "base": 42,
+      "exact": 26
+    },
+    "full_suite_build_vet_format_credentials": "Not rerun by this read-only audit. Inspected pinned root PASS receipt .goal/grouped-psmt8-checks-work.json: full race53.320s, vet/build/gofmt/scoped whitespace and selfchecked POSIX credentials. Independent ordinary review is separately owned."
+  },
+  "costs": {
+    "since025_production_go_bytes": 5609,
+    "since025_recipe_bytes": 1100,
+    "since025_profile_bytes": 0,
+    "since025_combined_source_recipe_profile_growth": 6709,
+    "since025_test_source_growth": 15955,
+    "since025_testdata_growth": 2816972,
+    "current_runtime_without_bundle": {
+      "files": 77,
+      "bytes": 641300
+    },
+    "current_runtime_with_bundle": {
+      "files": 80,
+      "bytes": 11954390
+    },
+    "current_runtime_and_executed_evidence": {
+      "files": 100,
+      "bytes": 12492409
+    },
+    "qualification": "Growth pays for capability/validation and is not a reduction. Twenty-one named production functions and unchanged owner count alone do not prove maintainability."
+  },
+  "challenges_retained": [
+    "texture.go:115-136 uses nineteen finite geometry pairs and one page/base expression, not nineteen handlers. These are codec layout facts, not registry patch facts. No justified new helper or recipe indirection established.",
+    "texture.go:256-302 and354-388 add explicit palette regeneration while retaining one index/storage owner; rgba retains direct storage/alpha checks. Policy branches are related codec responsibilities; function length alone is not evidence of harmful abstraction.",
+    "Group discovery1089 rows are not1089 accepted CLI tests. Partial families earn zero; current three-of-fourteen core and three-of-seventeen expanded claims remain separate from historical whole-image byte parity.",
+    "Frozen docs explicitly describe last verified small checkpoint and grouped recount pending. PSMT4 frontier wording correction is documented pending work, not a hidden full-family claim."
+  ],
+  "unverified_limits": [
+    "No fresh full-suite/build/vet rerun by this auditor; focused existing tests only.",
+    "No native gameplay/blend/visual proof, arbitrary texture layouts, below16 crop/padding, approximate palette regeneration, or new ISO application verified.",
+    "No owner emulator/PINE/controller/process/log/settings access and no protected ISO/canonical registry writes.",
+    "No entire historical corpus re-audit or endorsement of unchanged code."
+  ],
+  "writes": [
+    "evidence/astra-audit-026.json",
+    "evidence/astra-audit-026.md",
+    "owned /var/tmp focused-check artifacts"
+  ]
+}

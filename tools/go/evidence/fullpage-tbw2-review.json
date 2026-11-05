@@ -1,0 +1,148 @@
+{
+  "at": "2026-10-20T16:39:55.055152+00:00",
+  "status": "PASS ordinary read-only finite full-page TBW2 CLUT position implementation/DRY/behavior review",
+  "findings": [],
+  "verdict": "PASS within finite standalone artifact bounds; parent owns acceptance.",
+  "baseline": "/var/tmp/dokapon-approximate-palette-sealed-wedh3uum",
+  "work": "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3",
+  "scope": "Only assigned2reviewreports written inrepository; privatecurrenttestoverlay/vectors/artifacts under owned disk-backedvarTMP. No production/test/fixture/art/ISO/canonical edits, ISO reads or owneremulator/PINE/process/log/settings access. One existingselectedextractedEVENTCMBmember narrowlyread forfixtureidentity.",
+  "source_data_pins": {
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "patch_test.go": "4ea609aca17a39befee1d0bfa028160d5b57c11bae9e57440b572fb50fd1c605",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "8eae718a39843f3930d0d09d6ff9b49df7a085cd39721a70e15611acf2d20e95",
+    "texture_authoring.go": "d75c64784c382175905d89dcc012f49f7127019c1ee6d03ce68ea3b8632db16e",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "ab4705cc089c4a54669e05c1ba606af18675d6fa56175a2a1abd743bec436145",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "eeacf64f4781584c17a199beeeb2a9a36ec9cf0f1bddff57e541c8fdb7dad670",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "05a32b18476a297c262a63fc8c4699c16d3b1a6594a7676bcab988d94f819817",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+    "testdata/small-psmt8.zip": "a8e60bcefda173823307e240c34fea3c8d1640c5c5f2c00f36fbb65e6170faaf",
+    "analysis/texture-codec-coverage-reassessment.json": "f0cde47737b4406a14f1738b7d08a09cd11ca83a19a9ac1909926fabad64ac33",
+    "analysis/fullpage-tbw2-reuse-decision.json": "2be87c6520f8f752612c8ea42e82a1cffcd049965ed37844c96c5feac47aca04"
+  },
+  "pins_equal_root29_and_stable": true,
+  "code_review": {
+    "change": "Onlytexture.go +51B: standarddepth8/w128 CLUT-Y specialcase usesfiniteheights64/128/256 andY=int(validatedpaletteBaseBlocks); X0. Old128square stillY64.",
+    "reuse": "Existingpacket-positionowner; no newfunction/type/argument/policy/import/schema/writer/dependency. Nativeparse/index/CSM1/preserve/exact/quantize/mask/publisher untouched.",
+    "callers": "Serena d7f95853: texture soleproductioncaller authorTexture,36testreferences; same5argument signature.",
+    "metadata_boundary": "Fullpagebase=count/256/allocation=count/4+2048, format/version/TEX1/TBW/TWTH/CPSM/CSM/CSA andexactstorage/packet checks remain. Partial-mode strictTEX0core is notappliedtofullpages. Twentyretainedserializedpointer/TCC/TFX/CLDallowance vectors pass; they are baselinecodec allowances, notbroadnativevisualapproval."
+  },
+  "concrete_results": {
+    "native": "18native spans/10primaryfiles rebound. All8192+32768pixel addresses and256CSM1CLUT samples each independentlyjoined viaGS tables; disjoint/containedat5legalrelocations. Frozen source/preserve/exact hashes and4ledgers match.",
+    "fixtures": "Old42base/33palette rows and23 ZIP entrycontents unchanged;2newexactPNGs only, no wholememberduplication. Both selectors unique inexisting27native e01member, sourceSHA56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f matches selectedoriginalCMBbytes.",
+    "race": "UncachedracePASS88.484s withCURRENTtest227overlay; all227completeRGBA/noopTXD/onepixelTXD+RGBA/sourcepreservation match. Current44base/35palette/31baseCLIcases includepriorapproximate/grouped/multipage/direct/headerlessbehavior.",
+    "required_checks": "Vet/build/gofmt/scopedwhitespace/selfcheckedPOSIXAPI/password/token/secret scans PASS; seeprivatechecks/extra receipts. GOMAXPROCS2/-p2,nice19.",
+    "actual2CLI": "Export/noop/maskedfourcorners/exact/quantize-exactfallback/all256alpha/256success257refusal/originalcandidateidempotence/readback pass. FouractualGobyteledgers matchfrozenoracles;0outsidechanges,26siblings/metadata/packets intact. Both rawalpha255/duplicateCLUTnoops preserveallindices/bytes.",
+    "write_safety": "Overwrite/sourcealias/symlink/previewoutput/applymissingoutput refuse. EveryCLIcall preserves inputdev/inode/mode/size/mtimeNS/SHA; atimeexcluded.",
+    "negative_counts": {
+      "identity_rebound_metadata_packet": 132,
+      "coherent_storage_version_unlisted_nonzeroY": 16,
+      "coherent_base_allocation_Y": 4
+    },
+    "important_limits_of_refusals": "Coherentnative-derivednonzeroY for128x512/1024 refuses. Coherentv1headerless defaults matchpriorbinary; no claimthatallsyntheticzero-positionfullpagelayouts wererejectedbeforeorafter."
+  },
+  "contract_pins": {
+    "analysis/texture-codec-coverage-reassessment.json": "f0cde47737b4406a14f1738b7d08a09cd11ca83a19a9ac1909926fabad64ac33",
+    "analysis/fullpage-tbw2-reuse-decision.json": "2be87c6520f8f752612c8ea42e82a1cffcd049965ed37844c96c5feac47aca04",
+    "analysis/small-psmt8-native-contract.json": "7a204d144c662257a99fc6bb250e5ca81a8be749de9d86ac2701d66f3aa2add5",
+    "../ps2_tex.py": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733",
+    "../cmb_tex_patch.py": "5a9aa60826293f65108ee4424246fa0f373e1f6d97526f93f87da31e6040f849"
+  },
+  "prior_report_integrity": {
+    "all_prior_pinned_reports_verified_unchanged": true,
+    "previous_review": "evidence/approximate-palette-review.json",
+    "previous_review_sha256": "e5ddc6bf47adfa15823599ab0d905573f2229a9f9193b6dbea9fe7db65eeded0"
+  },
+  "private_evidence": {
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/native.json": {
+      "bytes": 1138,
+      "sha256": "abb7c32e291c3833babf16c24ce5109921fd52c96e2620582194a6d087ae7880"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/cli.json": {
+      "bytes": 3815,
+      "sha256": "6024c937e80524fd04ec7bd05819ce00af30de52ffb3ccc0ad7c2123d56905ae"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/quantize-fallback.json": {
+      "bytes": 323,
+      "sha256": "43fdcec16f9bdb238d60e5682dc2f906376a31426f917dd5ee78f5d4ba6fcc35"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/guards.json": {
+      "bytes": 4806,
+      "sha256": "d703f65427fbc4745d13e925db4534ac6ae24f214b8b3919c3516075cb03c40b"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/extra.json": {
+      "bytes": 2681,
+      "sha256": "d2c4df8ecc2bc5ea666ca0dbca62b10e071db1e0dced16de6246e2ed6a739b29"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/checks.json": {
+      "bytes": 2805,
+      "sha256": "394a83a494569fc09ae7691c13edbeeebd630d999fef04752af7486101a6da3c"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/corpus-results.json": {
+      "bytes": 76145,
+      "sha256": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/race.log": {
+      "bytes": 27,
+      "sha256": "5db177446cb885927ac80083121e2b904c33d7de6d34bdcffa2188ac97035c40"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/source-pins.json": {
+      "bytes": 2637,
+      "sha256": "7e507fb32ff14e3a7c6e380ce82952ef05ff11159c0153d9608110b4e0547aca"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/overlay.json": {
+      "bytes": 147,
+      "sha256": "a51adceac0295a541505c2c97065eb4aef9ebe948bcf4bb5a4640fffd6b37a7b"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/patch_test.go": {
+      "bytes": 337666,
+      "sha256": "b6d683cc0cf89746dcffb5b99ec9d2ea3d621c6ff187c64a5f9b2869418ff713"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/dokapon-go": {
+      "bytes": 5258844,
+      "sha256": "7798fbd20465cf0053d8ac88658ea1cb5f4623a6f0ece555a828cde3d1e9e2eb"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/native.py": {
+      "bytes": 4673,
+      "sha256": "bad1a8ef2b54c9fa814209d86efaa52e4775cd396d5952754d7f1b60a3c582ce"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/cli.py": {
+      "bytes": 8212,
+      "sha256": "46dea6c0e7bfe068be137240253dd7eb14a5b82b5185ebe1918c412d57beff1d"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/guards.py": {
+      "bytes": 5611,
+      "sha256": "9a2eeb11d32f8230c8c714aff5493c0f36ddd2d80063bfd691a1ab564ad73e4c"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/extra.py": {
+      "bytes": 3063,
+      "sha256": "65691fb0e9ff22944e40e29c207ea07270decc34909763b67059e431b6ebb461"
+    },
+    "/var/tmp/dokapon-fullpage-tbw2-review-0gngerf3/checks.py": {
+      "bytes": 1534,
+      "sha256": "9cb7ce3c08c374b34575bc87789b522e3ac096488aabcef2baa6f1da48c8adf5"
+    }
+  },
+  "limits": [
+    "Twoactualrepresentatives, notall299historicalexport/discoveryrows orfamilyclosure. Texture remainsPARTIAL.",
+    "Finite128wide nonzeroCLUT-Y support64/128/256 only; no genericposition/runtimecallback/cache guarantee.",
+    "No below16crop/padding/nativevisual/blend/ISOalias/CLUTownership/art/publication/retirement/workflowpromotion/savings approval."
+  ]
+}

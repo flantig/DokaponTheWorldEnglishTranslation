@@ -1,0 +1,152 @@
+{
+  "schema": "fixed-inline-audit-proof-v1",
+  "at": "2026-10-21T15:15:24.959475+00:00",
+  "status": "VERIFIED_BOUNDED_INLINE16_READER",
+  "contract": "Existing encode emits nonterminated literal glyphs and validates empty policy; controls.FixedWords uses shared token loop with exact count/size/no controls/END. Existing references/normalizeReference observe one inline struct field with four rawu32 facts and null pointer target. auditStreams derives literal canonical bytes+exact16Bpadding from present EN, keeps missing/null unknown, and maps complete original/observed fields independently before publication. All narrative output and planner/write guards preserved.",
+  "owners": [
+    "encode",
+    "controls",
+    "normalizeReference",
+    "references",
+    "inspect",
+    "auditStreams"
+  ],
+  "new_functions": 0,
+  "new_named_production_types": 0,
+  "new_production_files": 0,
+  "local_projection": "Local anonymous EN *string projection preserves presentempty vs missing/null without changing RegistryEntry or adding Unmarshal methods.",
+  "source_original": {
+    "report": "analysis/fixed-inline-audit-frontier.json",
+    "decision": "analysis/fixed-inline-reuse-decision.json",
+    "pack": "/var/tmp/dokapon-fixed-inline-frontier-mg_sh_s0",
+    "manifest_sha256": "bb7bc5d0952dd19549388e463d0b0ffe3c7b6b78789e0e3286219fe9c26ddb7c",
+    "members_root_verified_before_candidate": 99,
+    "raw_cases": 30,
+    "original_helpers_only": true,
+    "wholefield_classification_padding": "Independent literal/source-equation projections, not original-main execution.",
+    "packaged_cohort": "analysis/fixed-inline-oracle-packaging.json",
+    "packaged_example_records": 28,
+    "independent_oracle_sha256": "5d2df0709ebce4640c0c12154ff20f5e14ec0bc6fe4422db1424fe58a67d280a",
+    "source_valid": 20,
+    "observed_valid": 27,
+    "canonical_known": 17,
+    "canonical_comparison_known": 16,
+    "limits": [
+      "Two original truncated-buffer vectors excluded from successfulprofile; independent wrongwidth/oddword/bounds guards verified.",
+      "Source GM empty/null glyph5 cases project absent5 in combinedfixture, both sourceinvalid; no exact diagnostic replay.",
+      "Current deterministic lowest-index aliases retained; arbitrary reversed-insertion original firstalias parity held.",
+      "All fields/EN synthetic; actuala662 reservedglyph membership/alias facts pinned, no native field population/gameplay claim."
+    ]
+  },
+  "verification": {
+    "focused_owners": [
+      "TestPlanRefusals",
+      "TestCLIDryRunAndApply",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "focused_seconds": 36.812,
+    "race": {
+      "status": "PASS",
+      "seconds": 459.209,
+      "path": "/var/tmp/dokapon-fixed-inline-iiom1ld5/focused-race.log",
+      "sha256": "e7e94180af8e934cb2c71c9181d31cf03767db55095287b988fba15eb41058ea",
+      "scope": "DefaultCGO1 focused owners; not nativefonts/raster/fullsuite race."
+    },
+    "root_QA": {
+      "path": "/var/tmp/dokapon-fixed-inline-iiom1ld5/final-checks.json",
+      "sha256": "cf4a77b7dd023e3a363a1a73fdf0b9865083163ed03321169b183138759e8bb0",
+      "status": "PASS",
+      "core_native_build_vet": true,
+      "all40Go_gofmt": true,
+      "scoped_whitespace_credentials": "Two positive-selfchecked patterns, zero scopedmatches",
+      "packaged_CLI_captures": 8,
+      "complete_legacy_profiles_unchanged": [
+        "stream-audit",
+        "reference-bound-audit",
+        "canonical-audit"
+      ]
+    },
+    "inline_geometry_window_policy_guards": 19,
+    "scanner_guards": 18,
+    "max4096_word_positive": true,
+    "literal_metacharacter_empty_opaque_policy": true,
+    "missing_EN_not_empty": true,
+    "unbound_windows_no_authority": true,
+    "ordinary_review": {
+      "path": "evidence/fixed-inline-audit-review.json",
+      "sha256": "9448e18dcafe097d28fde52e1c7a27a49569942ac919bb2c350474c9daa37fbc",
+      "root_verified_private_artifacts": 762,
+      "artifact_manifest_sha256": "3320a535513ab677fe0dd970eda82b94c3fa695ca0b2f9e583047f47ecece120",
+      "extra_original_literal_cases": 12,
+      "extra_CLI_cases": 10,
+      "findings": []
+    },
+    "review_source": {
+      "members": 544,
+      "manifest_sha256": "e0feb32e617bb11c5285d79508e7aa8ae3106acfa0491383052e6893979f0105"
+    },
+    "UI": "HTML and UI source unchanged; accepted desktop/mobile source-matching receipt retained. No newUI feature.",
+    "full_suite_gameplay": "Deferred byowner"
+  },
+  "metrics": {
+    "at": "2026-10-21T14:59:25.525964+00:00",
+    "scope": "Private fixedinline candidate, original-helper/literal-projection bounded inline16 reader, explicit nonpointer ownership/literal glyph contract, no fullfamily/retirement credit",
+    "members": 544,
+    "manifest": "/var/tmp/dokapon-fixed-inline-iiom1ld5/review-source/manifest.json",
+    "manifest_sha256": "e0feb32e617bb11c5285d79508e7aa8ae3106acfa0491383052e6893979f0105",
+    "new": [
+      "analysis/fixed-inline-audit-frontier.json",
+      "analysis/fixed-inline-reuse-decision.json",
+      "analysis/fixed-inline-oracle-packaging.json",
+      "testdata/fixed-inline-audit.json",
+      "examples/fixed-audit/glyphmap.json",
+      "examples/fixed-audit/observed.elf",
+      "examples/fixed-audit/profile.json",
+      "examples/fixed-audit/reference.elf",
+      "examples/fixed-audit/registry.json"
+    ],
+    "runtime": {
+      "files": 159,
+      "bytes": 2435068
+    },
+    "accounted_inputs": 255,
+    "production_files": 39,
+    "production_bytes": 434095,
+    "production_growth_bytes": 6728,
+    "new_example_bytes": 25341,
+    "runtime_growth_bytes": 32069,
+    "test_growth_bytes": 8295,
+    "new_oracle_bytes": 140934,
+    "changed_existing_oracle_bytes": 0,
+    "new_functions": 0,
+    "new_production_files": 0
+  },
+  "source_pins": {
+    "patch.go": "e40ce72ec7f462521963e3320a1653da8b94b2320c9d3732868bc0367b757753",
+    "patch_test.go": "cb0c0dbfbc4cc99bb02b5b1382bdfdbdcf32c4b7877f9f2090e59f96ac19d94e",
+    "text_types.go": "52282761e52be95540fe9c86cafbe8716a4d54e4b2122af1d281697f07c59df3",
+    "references.go": "f81eaa0bd149ad58c429335dd0b3b5c35292e4233ee971f0fe01f0e7f58af91b",
+    "reference_geometry.go": "be8baf9785911b10b1b7b6abe2d64f53e5031666d8c9fb7ef65e4410f2701eb6",
+    "reference_types.go": "3486d7d76f66a5ec4cac587eb8febd8a04bb944f7445479856b79dca1f2ad523",
+    "stream_audit.go": "82bbf245fd0845493fcad074dd09e96f86a85869c90471d0590b53b16614ee91",
+    "stream_audit_types.go": "01fed4be4b6fc04f404312b3cbde95ffbc8c797fa5557556df0b5d999afc78fc",
+    "analysis/fixed-inline-audit-frontier.json": "4bcdbf30c19e4cc9e42e26771110c1e1c6bc491f43cafa1b9eb3a98527eaf87d",
+    "analysis/fixed-inline-reuse-decision.json": "40accf50a0c49c0c89740d462e2586b7f78d4533ee4a78681313e5973734b76e",
+    "analysis/fixed-inline-oracle-packaging.json": "4634627a51c6e4ec3b2265333652e98934fcf63596089628f8f8439026b77553",
+    "testdata/fixed-inline-audit.json": "5d2df0709ebce4640c0c12154ff20f5e14ec0bc6fe4422db1424fe58a67d280a",
+    "examples/fixed-audit/glyphmap.json": "e4e66f4c40272c07fceb6e9f56842d9503c9218e64f4d096005485d09b0901f2",
+    "examples/fixed-audit/observed.elf": "47247890ed3cbe56187a4a15214b49ee96bb9f804f4f87b688a74f066110c940",
+    "examples/fixed-audit/profile.json": "be6c30b6e3a00313ecd22ea6a82360c2e2f7d5cd96ae9f81388870f2b71bc1b6",
+    "examples/fixed-audit/reference.elf": "1fcd40939358a5637d4e21aa8ef2b751059867a9a99f51bed1fe683b9feb3678",
+    "examples/fixed-audit/registry.json": "90a375ee3a6add92176e79b6d2a61631639d2e3d033c496485cbcd27e6a7c95a"
+  },
+  "coverage": {
+    "full_families": "6/14 unchanged",
+    "planning": "67/84 unchanged",
+    "new_milestone_credit": 0,
+    "historical_script_retirements": 0,
+    "reduction_claim": false,
+    "remaining": "Registry.05 fixedsubset only; sentinel/sourcepool/othermaterialreaders andjoined/updateproposal duties remain. Textcodec/fit not declaredcomplete."
+  },
+  "protected_scope": "No protected ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control or actualgamepatchwrites; frozen/synthetic inputs and newowned outputs only."
+}

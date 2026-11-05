@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-20T16:15:57.946824+00:00",
+  "status": "DESIGN before implementation; no parity or acceptance claim",
+  "work": "/var/tmp/dokapon-approximate-palette-6z4h8avk",
+  "baseline": "/var/tmp/dokapon-grouped-psmt8-sealed-x73kvab8",
+  "contract": "analysis/approximate-palette-reuse-contract.json",
+  "contract_sha256": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
+  "serena_session": "e97a7438",
+  "existing_candidates": {
+    "texture": "397-line native codec; existing exact block owns normalization/sorting. Enhance calling/policy/CLUT/index integration, but a roughly150-220line median-cut/Lloyd algorithm has independent numerical invariants and would obscure its parsing/storage/safety duties.",
+    "authorTexture": "Sole production texture caller; run calls authorTexture. Owns input/profile/pins/publication and reporting, not pure palette math. Enhance finite policy validation/report only.",
+    "preserve search inside texture": "Different alpha-weighted metric, duplicate/index preservation,4096 cache bound. Cannot own new unweighted, pre-rounding centroid assignment without changing preserve behavior.",
+    "tests": "Enhance existing TestPilotHistoricalGoldenBytes and existing CLI harness, no new test owner."
+  },
+  "unavoidable_function_decision": "Add ONE pure generatePalette owner absorbing existing exact block and new quantize branch. Shared normalized image, histogram, sorted unique colors, alpha convention and logical index map. texture retains calibrated parser/GS mapping/CSM1/write walk. No helper family/callback/option framework/dependency; function count21->22 is a capability cost, not reduction.",
+  "scope": [
+    "texture.go",
+    "texture_palette.go (cohesive palette numerical owner)",
+    "texture_authoring.go",
+    "texture_types.go",
+    "patch_test.go",
+    "testdata/textures.json",
+    "existing exact-palette.zip (synthetic PNGs only; reuse real source/candidate)",
+    "README/MIGRATION/topic/accounting/coverage/checks/goal evidence"
+  ],
+  "preserve": "Exact remains strict256 normalized colors; quantize shares exact at<=256 and uses original8passes only above256. Default preserve/rawalpha/duplicateindices/direct32/4bit/headerless/rectangles/metadata/storage/publisher unchanged. Whole calibrated standard PSMT8 only. No ISO writes/art approval/retirement/family credit.",
+  "before_pins": {
+    "texture.go": "e2882c013be73731b4f238df13da8b89e8f9d7de0831bb53ecdc644cb1669a19",
+    "texture_authoring.go": "486b0ea81f020e947e3a9533ab76964be931c96584c78ebf57076f2af8a36848",
+    "texture_types.go": "814ed3a0ce83f60d5d0339a6428255c48c9f3bcf41ab16737da17afa857841ec",
+    "patch_test.go": "5140537b9ab2b61cace45e1c330bed88c2ff3304518336077caeca90f97de359",
+    "testdata/textures.json": "889b75997169d9e8ee1e0c0d063014cbf34e11de2836ecfef959814ba903d268",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54",
+    "analysis/go-current-input-accounting.json": "9b3495c94570a5e55d6f44628a7cdd3b21beeaf252a7bc806c881e3a1e9f1a1a",
+    "analysis/reusability-coverage.json": "9e5b9bfa5fe37b8fc35537101d6000626a193e4c72b49c0ba3e78bf861c8975a",
+    "analysis/reusability-coverage.md": "9ebffc85250989cecb1031a23d4d475f677481447eb3215375ba61f22251aa0d",
+    "evidence/reusability-coverage-checks.json": "935b7cd20e1df9025a437b62b0554d76db0af27284ad2ca71b3759c149f67203"
+  }
+}

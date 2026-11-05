@@ -36,3 +36,8 @@ character artwork, probe screenshots and emulator files are excluded.
 No game disc images, executables, save data or BIOS files are distributed.
 The translated textures contain original game artwork; rights to that artwork
 and the game remain with their respective owners.
+
+
+## Go migration tooling
+
+The reusable [Go toolkit](tools/go/README.md) has 9 of 14 core workflow families verified. This measures toolkit capabilities, not historical script retirement. Build instructions, contracts and verification evidence are in the toolkit documentation.

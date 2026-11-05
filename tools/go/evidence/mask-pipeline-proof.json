@@ -1,0 +1,793 @@
+{
+  "at": "2026-11-05T01:36:41.154989+00:00",
+  "status": "ROOT_VERIFIED_SHARED_MASK_PIPELINE",
+  "baseline_manifest": "/var/tmp/dokapon-rounded-permission-jtbvggtz/sealed-final/manifest.json",
+  "baseline_manifest_sha256": "6dbc9fa5d8c67fbc087413bb4d256fa2ab8dbf99875fdb16285da69161813d97",
+  "metrics": {
+    "production_before": {
+      "files": 45,
+      "bytes": 527998
+    },
+    "production_after": {
+      "files": 47,
+      "bytes": 542244
+    },
+    "runtime_before": {
+      "files": 195,
+      "bytes": 2607715
+    },
+    "runtime_after": {
+      "files": 204,
+      "bytes": 2635757
+    },
+    "production_growth": 14246,
+    "runtime_growth": 28042,
+    "test_growth": 19437,
+    "fixture_growth": 157572,
+    "new_functions": 2,
+    "new_types": 4,
+    "new_production_files": 2,
+    "canonical_permission_tables": 7,
+    "redundant_literal_masks_removed": 1,
+    "named_functions": 45,
+    "retirements": 0,
+    "milestone_credit": 0,
+    "claim": "Actual current/original predicate and erase/font/permission topology reuse. Extraction is relocation; broader source capability is growth, not net reduction or whole-family closure."
+  },
+  "root_verification": {
+    "at": "2026-11-05T01:29:21.937459+00:00",
+    "status": "PASS_FINAL_CORE_NATIVE_FOCUSED_BUILD_VET_WHOLE_PARITY_HYGIENE",
+    "commands": [
+      {
+        "name": "core-build",
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-mask-pipeline-j_248fr1/core-final",
+          "."
+        ],
+        "exit": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "native-build",
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-o",
+          "/var/tmp/dokapon-mask-pipeline-j_248fr1/native-final",
+          "."
+        ],
+        "exit": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "core-vet",
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "native-vet",
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "core-focused",
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "-count=1",
+          "."
+        ],
+        "exit": 0,
+        "stdout_sha256": "d28d4da57942f66a6951448f1a1186320e7fdfc3d177e4682376c1186172b9fd"
+      },
+      {
+        "name": "native-focused",
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "-count=1",
+          "."
+        ],
+        "exit": 0,
+        "stdout_sha256": "4d1dd77d4e4cfe6240640ab46f39a442db1f37731f8c2cc2acfb231ff382ed3a"
+      }
+    ],
+    "whole_report_or_refusal_parities": [
+      {
+        "backend": "core",
+        "profile": "help00-reconstruction.json",
+        "status": 0
+      },
+      {
+        "backend": "core",
+        "profile": "help00-color-exclusions.json",
+        "status": 0
+      },
+      {
+        "backend": "core",
+        "profile": "help00-turn-order.json",
+        "status": 0
+      },
+      {
+        "backend": "core",
+        "profile": "help00-turn-order-ttf.json",
+        "status": 1
+      },
+      {
+        "backend": "native",
+        "profile": "help00-reconstruction.json",
+        "status": 0
+      },
+      {
+        "backend": "native",
+        "profile": "help00-color-exclusions.json",
+        "status": 0
+      },
+      {
+        "backend": "native",
+        "profile": "help00-turn-order.json",
+        "status": 0
+      },
+      {
+        "backend": "native",
+        "profile": "help00-turn-order-ttf.json",
+        "status": 0
+      }
+    ],
+    "input_identity_preserved": true,
+    "source_vectors_both_backends": 179,
+    "source_shifted_observations_both_backends": 3,
+    "macro_records": 14,
+    "nested_footprint_records": 19,
+    "source_contexts": 2,
+    "permission_stage_fields": 98,
+    "canonical_permission_tables": 7,
+    "limits": "Scopeisgenericmaskgroup14of41declaredproviderrecords, not14families/scripts orwholeartpipeline. Other27providerrecordsheld. Fullsuite/nativefontsrace/gameplaydeferred. Focusedrace/freshreviewpending.",
+    "metrics": {
+      "production_before": {
+        "files": 45,
+        "bytes": 527998
+      },
+      "production_after": {
+        "files": 47,
+        "bytes": 542244
+      },
+      "runtime_before": {
+        "files": 195,
+        "bytes": 2607715
+      },
+      "runtime_after": {
+        "files": 204,
+        "bytes": 2635757
+      },
+      "production_growth": 14246,
+      "runtime_growth": 28042,
+      "test_growth": 19437,
+      "fixture_growth": 157572,
+      "new_functions": 2,
+      "new_types": 4,
+      "new_production_files": 2,
+      "canonical_permission_tables": 7,
+      "redundant_literal_masks_removed": 1,
+      "named_functions": 45,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "claim": "Actual current/original predicate and erase/font/permission topology reuse. Extraction is relocation; broader source capability is growth, not net reduction or whole-family closure."
+    },
+    "core_sha256": "081fcb3cbb5f91b3fd66520b54a4755372a552a9d463b40adf5cdf2636ef8b4c",
+    "native_sha256": "9b53018d20f81c02236660407eaba71d78f207dab1b595e571e50b234dada25a",
+    "source_pins": {
+      "cmb.go": "0c03c31a74ff0d96a0c40cf2bfbb82ccbf2b45a76eca88a21642189acbc2d0e2",
+      "fit.go": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba",
+      "fit_types.go": "c4a4e34b8370bb2a47bb3f666e2c8e7cb86ea8ec33658fb27077c3150a0bb93c",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+      "input_types.go": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf",
+      "inputs.go": "f37e980aebc9e5042bef967fba13956c36a11ea2319ea3a351aa8caa69ba4e8a",
+      "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+      "instruction_index.go": "d2d100961d9fa271e4e92b2daa0038b947aa1fce000538b4d72889150126e37d",
+      "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+      "main.go": "577be3fb49b604e82eb5714b289ce2b49a0bcf66f8750151148fa89c6cd73956",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+      "patch_test.go": "45a018db8d523ab29defb10d290468b5622c0e21521a86694c8477fd2ca8a264",
+      "raster.go": "15d043dd862ccc78f1ff4d81a77e6e3152387d3f8f306678916bb04a0aeeabbc",
+      "raster_font.go": "2ca9fea5ab1364c833bb45162bd8317e24a7ef74fba6720ced8e09503f863971",
+      "raster_font_disabled.go": "99b5b8b211aedbed32e3c35c11eed9fb9e04ed6583b466fe711d0377fa3b871d",
+      "raster_png.go": "ad0780f018feb014005df054731030a8e7b5a574d09391bae0d1872437c6ecbe",
+      "raster_reconstruction.go": "08d61937dc7053193404e561d122f20ba79724fd7a6903efc7545540cd7a4a9d",
+      "raster_reconstruction_types.go": "fe93295aae18dbca31cdc2d6b79d3f2532ca84a536db04a3aeb5333fddd7a6f8",
+      "raster_resize.go": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63",
+      "raster_runs.go": "e7c5ca19c972cf2028bcd285c3add559abc2f1e180346b48c2a66d4d50cc6874",
+      "raster_types.go": "20a11dd5735a9f7105022b3696aaa32fc97998e7f1f7d7f6045dce71f6cdf0b9",
+      "recipe_types.go": "37af9cffb2020a992fcd86d203938fd88263d7162522befb016e82d69c1b26af",
+      "reference_flow_types.go": "324128e3427a45247735e6efeffce15c590684c65a25b863fdbe6331f7690205",
+      "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+      "reference_types.go": "de954bf9c1c9043513f081ac63bebd8ddc525aa0520055dd365683bea8520c90",
+      "references.go": "3ff8cdc675a137dc50a39a89cc2fffc428e5fb03b6c8aced3c627eb939fb8ac2",
+      "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+      "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+      "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+      "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "stream_audit.go": "4321493eb41ce981961139fcee9eeb2babd6507af21545248ed35743f5a62399",
+      "stream_audit_types.go": "e2fdc292fa95a84f087c2282197fe5ea91d05e2dd324aec0a99423f2ba0d325d",
+      "text_types.go": "a7b04b016529ae7b6307c18aeb9c7e62b906873abafed6eeeebfd5131292f71f",
+      "texture.go": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed",
+      "texture_authoring.go": "9c5d7c795ff1769a3c29386ada93ca9f7f0471933fc6c42ae4ca2d3d5f2cf58e",
+      "texture_contacts.go": "e04f54ada50ddf423f8d9c4234ee4f0df44e6dbc4bd2f098c1d18ffc9e176041",
+      "texture_discovery.go": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c",
+      "texture_index.go": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65",
+      "texture_manifest.go": "7a9a7c818f20bc986bff976505b2e955c815de944e960bdbbf2bdf7d385aa920",
+      "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+      "texture_types.go": "723db520fa02a67a3728368e728a009d6c3953597a22702fb2efb18f9a1bd40e",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+      "raster_mask.go": "27c029965c43b31e969fa5efdb306131b5746f37bf152d8a9327b83501b963c7",
+      "raster_mask_types.go": "891a3427baff756e03d6007619c901d8281f62c0be42516f6573c1b3462e53de"
+    }
+  },
+  "race": {
+    "at": "2026-11-05T01:36:41.044516+00:00",
+    "status": "PASS_FOCUSED_RACE_FINAL_SOURCE",
+    "session_id": 86363,
+    "exit": 0,
+    "test_seconds": 307.249,
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "2",
+      "-race",
+      "-run",
+      "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+      "-count=1",
+      "."
+    ],
+    "workdir": "/var/tmp/dokapon-mask-pipeline-j_248fr1/project",
+    "GOMAXPROCS": 2,
+    "priority": 19,
+    "owned_TMPDIR": "/var/tmp/dokapon-mask-pipeline-j_248fr1/tmp",
+    "owned_GOTMPDIR": "/var/tmp/dokapon-mask-pipeline-j_248fr1/gotmp",
+    "frozen_review_source_manifest_sha256": "443c12f55b32b69def1e5b07a3325a097e52655f613314a06d7738836ae50f3a",
+    "source_pins": {
+      "cmb.go": "0c03c31a74ff0d96a0c40cf2bfbb82ccbf2b45a76eca88a21642189acbc2d0e2",
+      "fit.go": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba",
+      "fit_types.go": "c4a4e34b8370bb2a47bb3f666e2c8e7cb86ea8ec33658fb27077c3150a0bb93c",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+      "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+      "input_types.go": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf",
+      "inputs.go": "f37e980aebc9e5042bef967fba13956c36a11ea2319ea3a351aa8caa69ba4e8a",
+      "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+      "instruction_index.go": "d2d100961d9fa271e4e92b2daa0038b947aa1fce000538b4d72889150126e37d",
+      "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+      "main.go": "577be3fb49b604e82eb5714b289ce2b49a0bcf66f8750151148fa89c6cd73956",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+      "patch_test.go": "45a018db8d523ab29defb10d290468b5622c0e21521a86694c8477fd2ca8a264",
+      "profiles/permissions/footprints/mini_g04.json": "a7f2dc453854806b0fe220a232698070050d7f2da628f43cad90c32165269983",
+      "profiles/permissions/footprints/mini_g09.json": "ea16e9d62421747be18c30fc8e666905ef0d3af869b76f124975ee973f1e735d",
+      "profiles/permissions/footprints/mini_g11.json": "172c003b96d4dc2c6acbc942bd9337adf0c1098f57dd2a89638cbe70b00571bb",
+      "profiles/permissions/footprints/mini_t2-generic-only.json": "88b6ee2702a13ecf753f08ad2bd32b1e964f01cd48786e773767005d09ecddf9",
+      "profiles/permissions/footprints/mini_t4.json": "a4e9ca6d258a93d8223b52ce2f170bd9fc3927321a8746f1f676cc6e6cb6449e",
+      "profiles/permissions/footprints/mini_t5.json": "3b9e215d82ff5bc88287537c577f55479dfc888e95f64c0c43b987974ac4d301",
+      "profiles/permissions/footprints/mini_t7.json": "cf19836ca2f1eb6b373f613464f2ac1d547d5448c2071a2183db18149607e3b8",
+      "raster.go": "15d043dd862ccc78f1ff4d81a77e6e3152387d3f8f306678916bb04a0aeeabbc",
+      "raster_font.go": "2ca9fea5ab1364c833bb45162bd8317e24a7ef74fba6720ced8e09503f863971",
+      "raster_font_disabled.go": "99b5b8b211aedbed32e3c35c11eed9fb9e04ed6583b466fe711d0377fa3b871d",
+      "raster_mask.go": "27c029965c43b31e969fa5efdb306131b5746f37bf152d8a9327b83501b963c7",
+      "raster_mask_types.go": "891a3427baff756e03d6007619c901d8281f62c0be42516f6573c1b3462e53de",
+      "raster_png.go": "ad0780f018feb014005df054731030a8e7b5a574d09391bae0d1872437c6ecbe",
+      "raster_reconstruction.go": "08d61937dc7053193404e561d122f20ba79724fd7a6903efc7545540cd7a4a9d",
+      "raster_reconstruction_types.go": "fe93295aae18dbca31cdc2d6b79d3f2532ca84a536db04a3aeb5333fddd7a6f8",
+      "raster_resize.go": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63",
+      "raster_runs.go": "e7c5ca19c972cf2028bcd285c3add559abc2f1e180346b48c2a66d4d50cc6874",
+      "raster_types.go": "20a11dd5735a9f7105022b3696aaa32fc97998e7f1f7d7f6045dce71f6cdf0b9",
+      "recipe_types.go": "37af9cffb2020a992fcd86d203938fd88263d7162522befb016e82d69c1b26af",
+      "reference_flow_types.go": "324128e3427a45247735e6efeffce15c590684c65a25b863fdbe6331f7690205",
+      "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+      "reference_types.go": "de954bf9c1c9043513f081ac63bebd8ddc525aa0520055dd365683bea8520c90",
+      "references.go": "3ff8cdc675a137dc50a39a89cc2fffc428e5fb03b6c8aced3c627eb939fb8ac2",
+      "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+      "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+      "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+      "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "stream_audit.go": "4321493eb41ce981961139fcee9eeb2babd6507af21545248ed35743f5a62399",
+      "stream_audit_types.go": "e2fdc292fa95a84f087c2282197fe5ea91d05e2dd324aec0a99423f2ba0d325d",
+      "testdata/allocation.json": "4051cad15378a487040da023a10c1d7591559b61f2b50a799c06e86023f34519",
+      "testdata/asset-comparison.zip": "b115ecaccb3ad2d133546651dc31d6bc9092db50fcd65e08b5854cbef13578e6",
+      "testdata/asset-contacts.zip": "ab408bdbd0a0a9f30defd3b76af3b9d0159a9b92196dfca924f43df5b1d7492f",
+      "testdata/asset-manifest.zip": "731f163716b6d016521c92647bca72d9c2482b201f3ecad644577f7551110a97",
+      "testdata/asset-specification.zip": "6e06fbbab7112798168698461a754e3daff8d3bdb060b6d24b8494c2d94cb2c1",
+      "testdata/bitmap-render.json": "60b9b69f14ae9abdd654ebcea7ccb5e12d2e8ba5d0c5310ac1c3f4cc999dbed2",
+      "testdata/canonical-audit.json": "ccf54d9ec109033ef0baf7d5cdf796d78801058fb2993b4a8a153791819816e6",
+      "testdata/consumer-install.json": "889fee929acf6cb7f1cb1b0f92290f4bbc0a7cc281e5bb2cfe8407c088a776c3",
+      "testdata/controller-registry.json": "2f8f2cf15b10c047fa13cd14aa903a9bd172d5503f73dbda1ae2f07ec8223ad4",
+      "testdata/defense-label-restore.json": "c21486c65b3d9f7021d487284897e8a24fb0665de13d1c4095d4597f57975f54",
+      "testdata/defense-label.json": "68c4630d64e97476df6a71d2f559351a2d3e0d8909590e2165e0d1c11c3fb9ac",
+      "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+      "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+      "testdata/elf-layout.json": "fa95da6692c1a036cabe143004628c732f50bb7ea83b4b1ebe2b09305d0aae8b",
+      "testdata/elf-layout.zip": "35f352c7f124def125bb237383979d05f465e57296df8afdb1634bd0ab5869a7",
+      "testdata/event-streams.json": "db5aaf9019f6dc8ba62f3c5b9838a001bbeec583f5ad93fe5c18b1676263dbb3",
+      "testdata/exact-palette.zip": "9a4f2e8e8d7ae38947aaa336525a1c2162f3bfa313bab4c42377bbf74f4e3ad9",
+      "testdata/fit-line-count.json": "ff7961b54bcab4a5884d41f9b7f616c2b172bc4f908007fa35394af9fbddd98c",
+      "testdata/fixed-fields.json": "e160a4aa1598e6611ff0bd8177484e8ead8f0c053ee262e487610b85653d16f5",
+      "testdata/fixed-inline-audit.json": "6658f908134bf5f51469ee83e8b2ad072aea6f33a81731b689429da6fdf868f1",
+      "testdata/fixed-permissions.zip": "1fb6e677c7788267302219129e4d690ca595f9ca893133da31296f1818158b4a",
+      "testdata/fixed-ui-exp-original.json": "57bd8e0a4babf640cec3fdd57932467a542620b1eca3a7b08c482e67b62b7744",
+      "testdata/fixed-ui-original.json": "d6ac282db9363db5b2eb11d94d622c9db80f5428aabf5b1f510cad710a81ce0a",
+      "testdata/footprint-source.zip": "85e32925d6d05a0a1de43faa093bdfba2c76f7facd615aeb01bbf842320287de",
+      "testdata/formatted-events.json": "06af90d8dcf45a255206085e2237ae0c9613dc607249c541ada1f385bf2ac532",
+      "testdata/gp-audit.json": "6cdd68a8e93187bef8c1dada63a957fcfc4e2c99f92919db186ba2f75204ab17",
+      "testdata/gp-index-fixture.zip": "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97",
+      "testdata/gp-registry.json": "80a17baa7f9d224327aebcf5d39eae65458ad2d02d1bff10d2a2c891b52311cc",
+      "testdata/initialized-growth.json": "fe4156c95f068b3051204788c55f0808b465d716b9dd612489e837800993d8d1",
+      "testdata/inline-icons.zip": "e569d9722466d9763af09aa9b3ada3548dff5615188efb7b4189339f9e66fba4",
+      "testdata/inplace.json": "f0aa9b9741a1b8ec7a7b1227b737f5b7b1276de90f37a40f4442013bba5c9e2b",
+      "testdata/instruction-index-fixture.zip": "6eb077edda6569ef5af3c7844d1189da902bf8773673bdd1f90076f8d9c4fc35",
+      "testdata/instruction-ori-fixture.zip": "31d9cdd7193258d89335722b50bab448d8906cc6c35a4cea4e04d82ad71076e7",
+      "testdata/loader-code.json": "be2ed42c9f7120315cd2e33ca50b83bfeb74b6471782aec6f3d29526ddd17090",
+      "testdata/markup-analysis.json": "1151e75025c9602fdb8238fdf267bfb3d38438f92b9dc1c9aaa4893e279920db",
+      "testdata/markup-registry.json": "b3697add6bda4c1aa647ee756cdc4d97ff4023d55cc375c697cbdacf2b80973d",
+      "testdata/mask-selection.zip": "f82ef016267f47cfe83616cd3267f344ad5b5ac7d5e03ad8627b54367c941524",
+      "testdata/menu-boy.json": "1ab5ecdd3fe461aee4d6d05b39beb1203b03afe0ee030f44d09b011d4a6605e7",
+      "testdata/menu-labels.json": "916b3cfc77c50000b50f97dc44df776ad2f85fc56396dec5a4bef68aa81c0988",
+      "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+      "testdata/native-line-groups.json": "74b867b428b3f9a0d6cd682c3a60653fd4caaa6ed6fe7536c59e6b22fbbeea1a",
+      "testdata/native-line-groups.zip": "9a63de05c5b9cea09106b0bbeb2a6dfaba4fd972274a26a760c46547885d285f",
+      "testdata/native-raster.json": "3adf614fd4c09cf8820d1ed10d29c8da076a4725df681b939af85cb124004616",
+      "testdata/native-raster.zip": "440ae3f233b4e54175bd53383279e07024dc67bba7e3535458875e820b368dfa",
+      "testdata/native-styles.json": "457302e221bade74b8581a8694f0baa1e4b863b0c7f57c8b1368f576cbbbfeb5",
+      "testdata/native-styles.zip": "7d02fb107be7c2cc178fc1b740992fd081a9ed55daba74c10e8e15c7695b4e86",
+      "testdata/nicknames.json": "95cf26269af8d6088cc65d32708fdfa1fd64279678630f993f222ba9385a5dd9",
+      "testdata/observed-references.json": "f34325dd9a14f36dcf9b08908eba61d3fcb2e82a934ed2b7c8b802769098dd39",
+      "testdata/original-short.json": "b7eb90db221cfe8882fb1b7d5fcc76e0ff8c49037ab18392a62e80be2d42de3e",
+      "testdata/pinned-raw-audit.json": "31375539c2046c0fbe8e8f7ba5b0515bef12107138496766c9d312a21255bf2e",
+      "testdata/positional-labels.json": "2c87e318430bf9a801de81aad50f7de6be15ad433bd57bd0630f641209a93721",
+      "testdata/psmt4-nibble-map.bin": "15930ab5e4dbe3bbef41d0957e004db043d95e437c0c0135cc0d9d035ce12cec",
+      "testdata/raster-nearest.zip": "65a3505a9e8388527cccc6e78d25da9f77be5e07f4230e370581fca7a7a2e665",
+      "testdata/raster-resampling.zip": "1ff4ba495241d12e72f4c3d09f5e841a1aa86bfea739bea38e9db69ce4bf9a61",
+      "testdata/reconciliation-audit.json": "83581962dfae89307361bbcb4ad93c81bb24462701e96a44014fe2d2a0024e12",
+      "testdata/reconstruction-masks.zip": "bfaadb71c12020fa85000ac8893ddb526f54c9b79abbf2439be0bf6d92de6c5d",
+      "testdata/reconstruction-rows.zip": "1fc8751a5f42731d1f4e78b0582316bda331ac9559d62a1d66e7863638e7f58e",
+      "testdata/reference-bound-audit.json": "d835a05ea6110637edc3b0b26c54e3a412b7a90604ceda202f84f8ca0f605991",
+      "testdata/reference-check.json": "69be7fc89b464f9b1c84eb66f7fce32dc801abb29ae1870027a5a968198a6cf0",
+      "testdata/reference-owner-fixture.zip": "a8a76300aab41a80a3775dd9eedf12391cfbf7ddd9d74567c24d097ba28b905f",
+      "testdata/register-flow-fixture.zip": "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2",
+      "testdata/registry-add.json": "9c5a7d0c09edf85bec6c13d22bc69306d8dbe1606d928d61ee4746ecc8217649",
+      "testdata/registry-export.json": "5909ecaf8a8bf038d8e31de903381a5b2e3ffdb2e63148fbb8361f572ad2354c",
+      "testdata/registry-status.json": "c9d5082f93e72b63d266ed3b6091041d5ee3aed5db70f921ac9b48f45fd8e4ad",
+      "testdata/runtime-tables.json": "aba9bbf37875beb581909bf6b4256ab3c89e50e1a934ec220b2f9a9153418843",
+      "testdata/sentinel-reader.json": "b6221b3bdf26955bc63b6e0dbb7f5fbb82054255d4a865e3a38eacbc6ad1ab32",
+      "testdata/sentinel-reader.zip": "991a0772859e89f02ef6d2a62868f33a887369938d769401c9891c4956b19ee1",
+      "testdata/small-psmt8.zip": "a8e60bcefda173823307e240c34fea3c8d1640c5c5f2c00f36fbb65e6170faaf",
+      "testdata/source-colors.json": "6ca171664ae9025a35b61dedf9d385ca7b403cf1bf1281efc6092bc773a656bf",
+      "testdata/source-colors.zip": "f2a76d93b8e4b1c1cac61e4cac2a40d3c9484fa98bfd274dcb0a59a8f4c23102",
+      "testdata/source-colours.json": "dbcb0012df0821129be2fc20f964b1e4eb03c4583972652532f78439e31a8ea6",
+      "testdata/source-context-oracle.json": "641f6a9fac555d61b47d44c602c6e162403e0648220e221080d790b4d7ed32cc",
+      "testdata/source-context-whitespace.json": "9ac554f1cd16d84f4194cdfcafdb615e8ba339d7a8a4613d6a973a646cebb64e",
+      "testdata/source-prologues.json": "7f802c1c6df520ce289e21e694307b2e248ec4caaf57bacff98da4eb00c3e4b7",
+      "testdata/space-width-restore.json": "10839327515943f8d033f115872b981d812b83c261412da2c8340fb1a9531b08",
+      "testdata/space-width.json": "aa6ab54b7a450d1d2d76e1834b71a218f719774596393369852e51fd170cb03a",
+      "testdata/stream-audit.json": "7ee553f100ce4e5d37fa969745102b1681644f7a54788ed5c883aa5fb9bca89e",
+      "testdata/structural-audit.json": "af5b65ee08c0db9dc97fc560249db7148ec1bf8561ba5f5f6beba398ed243d48",
+      "testdata/structured-text.json": "5cd76c534e74cac77f71abfc7e2132463b7bbd6c857314b92987b738301c8d40",
+      "testdata/text-shape-analysis.json": "400e652fe7c520112b7cd97f9e0f64ad152a9d3a9fa4c83987be925ec8cacd12",
+      "testdata/text-shapes.json": "be3f2ec939d4ffe684772307d972a192547a3800dce21037fb055d61340f610b",
+      "testdata/textures.json": "9cd41caa39e44f39fd8d497180d34a45c3ff8335e34493e81d7ec82123bb2b91",
+      "testdata/truetype-raster.zip": "dfdb85cbc5e431edf404b6b3e7f00118fede5d1c7065d2263dd47cd4478330c3",
+      "testdata/unregistered-short-glyphs.json": "b052488605dff2df43461277189a907870b0b51de604c9d1e143c58389b87074",
+      "testdata/unregistered-short.json": "14cba589dcc11d1be397ec6696c8d9ec65621d1cfbc8799a9b3f3c41edd511b7",
+      "testdata/wrapping-canonical.json": "ec30f7557f46f04e3af533e41acecff2594de403ccc387c00e127eae9f9ffb6d",
+      "text_types.go": "a7b04b016529ae7b6307c18aeb9c7e62b906873abafed6eeeebfd5131292f71f",
+      "texture.go": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed",
+      "texture_authoring.go": "9c5d7c795ff1769a3c29386ada93ca9f7f0471933fc6c42ae4ca2d3d5f2cf58e",
+      "texture_contacts.go": "e04f54ada50ddf423f8d9c4234ee4f0df44e6dbc4bd2f098c1d18ffc9e176041",
+      "texture_discovery.go": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c",
+      "texture_index.go": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65",
+      "texture_manifest.go": "7a9a7c818f20bc986bff976505b2e955c815de944e960bdbbf2bdf7d385aa920",
+      "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+      "texture_types.go": "723db520fa02a67a3728368e728a009d6c3953597a22702fb2efb18f9a1bd40e",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+    },
+    "limits": "Focused core race only; fullsuite/native-font race/gameplay deferred. Original source outcomes and ordinary review recorded separately."
+  },
+  "review": {
+    "path": "evidence/mask-pipeline-review.json",
+    "sha256": "81028d17ba79ab3e2d8e2a7fe079e4f9644dbb0d32aed621135ad73ed837d9e2",
+    "root_verified_artifacts": 872
+  },
+  "review_root_checks": {
+    "at": "2026-11-05T01:34:39.792309+00:00",
+    "status": "PASS_MASK_REVIEW_ALL_ARTIFACT_PINS_NO_CONFIRMED_FINDINGS",
+    "report": "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/mask-pipeline-review.json",
+    "report_sha256": "81028d17ba79ab3e2d8e2a7fe079e4f9644dbb0d32aed621135ad73ed837d9e2",
+    "manifest": "/var/tmp/dokapon-mask-review-nz002s05/artifact-manifest.json",
+    "manifest_sha256": "d52c281786401e5b3e86ab7dc8437c550d8f275086ad783cfbcfb431ff861dec",
+    "artifacts": 872,
+    "bytes_verified": 63831675,
+    "special_files": 0,
+    "numeric_assertions": 14179,
+    "CLI_probes": 46,
+    "whole_report_refusal_parities": 8,
+    "limits": "Independent review findings only; no whole-family/gameplay/real-patch authority. Root race separate."
+  },
+  "sources": {
+    "at": "2026-11-05T01:33:36.890210+00:00",
+    "status": "PASS_ALL_ORIGINAL_SOURCE_AND_TWO_APPROACH_CAPSULE_PINS",
+    "capsules": [
+      {
+        "manifest": "/var/tmp/dokapon-original-permission-source-jdo2V5Rg/manifest.json",
+        "sha256": "4c6e945eeb8643ece9597941c0dd20f28bf1947b308cc2b3ad862fbb2ef16222",
+        "members_verified": 66,
+        "bytes_verified": 621968
+      },
+      {
+        "manifest": "/var/tmp/dokapon-original-permission-study-P1Jb4p3X/manifest.json",
+        "sha256": "ecbe1c8945af30e5449311f202154e9f3f1231ed02cc1cd10041ad11db32f555",
+        "members_verified": 19,
+        "bytes_verified": 420387
+      },
+      {
+        "manifest": "/var/tmp/dokapon-original-footprint-actual-7FKjH7rv/manifest.json",
+        "sha256": "7ac28213c30127fa8c426935d6c94e4666e097e318eaf0c07cbf2dba45f284ce",
+        "members_verified": 102,
+        "bytes_verified": 25355604
+      },
+      {
+        "manifest": "/var/tmp/dokapon-footprint-wire-projection-8GFbxmt0/manifest.json",
+        "sha256": "d17cde5126e35acf0b6dc284577b6dd947aa475459078c1a4deeedc892112210",
+        "members_verified": 127,
+        "bytes_verified": 26181872
+      },
+      {
+        "manifest": "/var/tmp/dokapon-original-mask-astra-YDZIr8CC/manifest.json",
+        "sha256": "f3b5132d4a66940851b687987489a256da225aa0d0e3f69240027c68365cf983",
+        "members_verified": 6,
+        "bytes_verified": 22937
+      },
+      {
+        "manifest": "/var/tmp/dokapon-footprint-api-astra-GJnn2NHt/manifest.json",
+        "sha256": "60da625868f81952d46e9e10bc15a7504443cecba6e34f3061f3c9eab9517fe7",
+        "members_verified": 1,
+        "bytes_verified": 9200
+      }
+    ],
+    "total_members": 321,
+    "limits": "Pin checks establish identity, not whole workflow or remaining provider coverage."
+  },
+  "source_study": {
+    "at": "2026-11-05T00:26:53.671636+00:00",
+    "status": "PASS_ORIGINAL_PERMISSION_SOURCE_SUPPLEMENT_PINS",
+    "manifest_sha256": "ecbe1c8945af30e5449311f202154e9f3f1231ed02cc1cd10041ad11db32f555",
+    "report_sha256": "a72aa2ce9df09aea67365a0154b95ffc4cbe867ccd5c3d46e2c858b669591588",
+    "members": 19,
+    "qualification": "Source-only19 supplement including2cropdomainwitnesses andfixedEdata proof; no newgenericOR/pipelinecode hasbeenwritten. Move-onlypredicate/font/growth extraction isprivate."
+  },
+  "actual_source": {
+    "at": "2026-11-05T00:38:06.271977+00:00",
+    "status": "PASS_ACTUAL_ORIGINAL_SPECS_CORE_ALL_PINS_BEFORE_FOOTPRINT_PIPELINE",
+    "manifest_sha256": "7ac28213c30127fa8c426935d6c94e4666e097e318eaf0c07cbf2dba45f284ce",
+    "members": 102,
+    "bytes": 25355604,
+    "expected_facts_sha256": "76df8ff65e4dfa4f07d49c923322766ad6c62529bf26e171c7f9fbf839168a6d",
+    "portable_zip_sha256": "8f251bb96c70912912f618d2092d0519c8df7f866190d62cb29f44011d9118c1",
+    "scope": "2synthetic512RGBAfixtures,28macro38nestedmasks,14stage98fieldreplays; sixfullpermissions,mini_t2heldremnants omitted. No candidateoracle/sourcebyworker."
+  },
+  "wire_projection": {
+    "at": "2026-11-05T01:01:12.385451+00:00",
+    "status": "PASS_INPUT_PROJECTION_ALL_PINS_ORIGINAL_EXPECTATION_BYTES_UNCHANGED",
+    "members": 127,
+    "bytes": 26181872,
+    "manifest_sha256": "d17cde5126e35acf0b6dc284577b6dd947aa475459078c1a4deeedc892112210",
+    "portable_zip_sha256": "85e32925d6d05a0a1de43faa093bdfba2c76f7facd615aeb01bbf842320287de",
+    "scope": "179inputrequests, originalmasks/RGBAcopiedfromindependentprimarycapsules; no candidate-derivedexpectations. Runtimepipelinewrittenbeforeinputprojection butsourceexpectedallfrozenbeforepipeline."
+  },
+  "api_approach": {
+    "at": "2026-11-05T00:54:52.943955+00:00",
+    "status": "PASS_FOOTPRINT_API_ADVERSARIAL_ADDENDUM_PINS",
+    "artifacts": 1,
+    "addendum_sha256": "fcf07e8484441b755e106d965246f2718b0456ae14b287ddaa6543fa86dc9b0a",
+    "manifest_sha256": "60da625868f81952d46e9e10bc15a7504443cecba6e34f3061f3c9eab9517fe7",
+    "scope": "Prospectiveboundary, notimplementationapproval. Corepresence/denyall/coordinate/rawancestor/budgetconditions adopted; constructorandfrontendimplementedprivately, sourceoutcomesverificationpending."
+  },
+  "precode_owner_contract": {
+    "path": "/var/tmp/dokapon-mask-pipeline-j_248fr1/precode-mask-owner-contract.json",
+    "sha256": "0747a09bd1301a56087d0c2154a1db50f686102c12405e170c53a8ec92b3f81f"
+  },
+  "move_only": {
+    "at": "2026-11-05T00:33:00.597998+00:00",
+    "status": "PASS_MOVE_ONLY_LEGACY_SHARED_MASK_OWNERS",
+    "tests": {
+      "move-focused.log": {
+        "seconds": 26.846,
+        "sha256": "925e823d3af48cecfc98cfbf5014679fb7c8c83ebaa09b2ce142ec13bcadf20c"
+      },
+      "move-focused-final.log": {
+        "seconds": 25.041,
+        "sha256": "ea1728c8f327c65885d86208df7cfad913e41b2abfd52706610b42f93fa2cc5b"
+      },
+      "move-native-focused.log": {
+        "seconds": 35.475,
+        "sha256": "c8d65ad661bebd9dc5488bb8e9013b3b024b83bafc2d03db0a1920d74ee1336e"
+      }
+    },
+    "buildvet_parity": {
+      "at": "2026-11-05T00:27:47.038154+00:00",
+      "status": "PASS_MOVE_ONLY_CORE_NATIVE_BUILD_VET_WHOLE_REPORT_AND_REFUSAL_PARITY",
+      "commands": [
+        "core-build",
+        "native-build",
+        "core-vet",
+        "native-vet"
+      ],
+      "whole_report_or_refusal_parities": [
+        {
+          "backend": "core",
+          "profile": "help00-reconstruction.json",
+          "status": 0
+        },
+        {
+          "backend": "core",
+          "profile": "help00-color-exclusions.json",
+          "status": 0
+        },
+        {
+          "backend": "core",
+          "profile": "help00-turn-order.json",
+          "status": 0
+        },
+        {
+          "backend": "core",
+          "profile": "help00-turn-order-ttf.json",
+          "status": 1
+        },
+        {
+          "backend": "native",
+          "profile": "help00-reconstruction.json",
+          "status": 0
+        },
+        {
+          "backend": "native",
+          "profile": "help00-color-exclusions.json",
+          "status": 0
+        },
+        {
+          "backend": "native",
+          "profile": "help00-turn-order.json",
+          "status": 0
+        },
+        {
+          "backend": "native",
+          "profile": "help00-turn-order-ttf.json",
+          "status": 0
+        }
+      ],
+      "input_identity_preserved": true,
+      "core_sha256": "323280c66048d9a6a805f04e68db0309862a1c3447bd2f1e1c4a293f19645786",
+      "native_sha256": "7e518ed1ecf0db075318765d244681a376639265987cd35331b796fe65825cb0",
+      "source_pins": {
+        "cmb.go": "0c03c31a74ff0d96a0c40cf2bfbb82ccbf2b45a76eca88a21642189acbc2d0e2",
+        "fit.go": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba",
+        "fit_types.go": "c4a4e34b8370bb2a47bb3f666e2c8e7cb86ea8ec33658fb27077c3150a0bb93c",
+        "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+        "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+        "input_types.go": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf",
+        "inputs.go": "f37e980aebc9e5042bef967fba13956c36a11ea2319ea3a351aa8caa69ba4e8a",
+        "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+        "instruction_index.go": "d2d100961d9fa271e4e92b2daa0038b947aa1fce000538b4d72889150126e37d",
+        "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+        "main.go": "577be3fb49b604e82eb5714b289ce2b49a0bcf66f8750151148fa89c6cd73956",
+        "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+        "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+        "patch_test.go": "b4408cb8c2cc20f469019a4edefc9a246bcfd8472e7bc5ab274c4c40d387affd",
+        "raster.go": "b6addaf66e84c50e77c280b44f0e9e1505625a958dcd35ce124f1aecaf60ae1b",
+        "raster_font.go": "2ca9fea5ab1364c833bb45162bd8317e24a7ef74fba6720ced8e09503f863971",
+        "raster_font_disabled.go": "99b5b8b211aedbed32e3c35c11eed9fb9e04ed6583b466fe711d0377fa3b871d",
+        "raster_png.go": "ad0780f018feb014005df054731030a8e7b5a574d09391bae0d1872437c6ecbe",
+        "raster_reconstruction.go": "d437cc2df0209e0136f6ce1d5c134893309821fa68b907f398b9cc0731c79805",
+        "raster_reconstruction_types.go": "d0dae1dfb402d89f644bc78fa625ada3ab6d5984fbbf64af168cb85d62b16f68",
+        "raster_resize.go": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63",
+        "raster_runs.go": "e7c5ca19c972cf2028bcd285c3add559abc2f1e180346b48c2a66d4d50cc6874",
+        "raster_types.go": "20a11dd5735a9f7105022b3696aaa32fc97998e7f1f7d7f6045dce71f6cdf0b9",
+        "recipe_types.go": "37af9cffb2020a992fcd86d203938fd88263d7162522befb016e82d69c1b26af",
+        "reference_flow_types.go": "324128e3427a45247735e6efeffce15c590684c65a25b863fdbe6331f7690205",
+        "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+        "reference_types.go": "de954bf9c1c9043513f081ac63bebd8ddc525aa0520055dd365683bea8520c90",
+        "references.go": "3ff8cdc675a137dc50a39a89cc2fffc428e5fb03b6c8aced3c627eb939fb8ac2",
+        "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+        "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+        "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+        "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+        "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+        "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+        "stream_audit.go": "4321493eb41ce981961139fcee9eeb2babd6507af21545248ed35743f5a62399",
+        "stream_audit_types.go": "e2fdc292fa95a84f087c2282197fe5ea91d05e2dd324aec0a99423f2ba0d325d",
+        "text_types.go": "a7b04b016529ae7b6307c18aeb9c7e62b906873abafed6eeeebfd5131292f71f",
+        "texture.go": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed",
+        "texture_authoring.go": "af6f93c0fc7d559a6f71b332421337d7e1db5bc83ab8abee98f6cb79cbc9b52d",
+        "texture_contacts.go": "e04f54ada50ddf423f8d9c4234ee4f0df44e6dbc4bd2f098c1d18ffc9e176041",
+        "texture_discovery.go": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c",
+        "texture_index.go": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65",
+        "texture_manifest.go": "7a9a7c818f20bc986bff976505b2e955c815de944e960bdbbf2bdf7d385aa920",
+        "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+        "texture_types.go": "723db520fa02a67a3728368e728a009d6c3953597a22702fb2efb18f9a1bd40e",
+        "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+        "raster_mask.go": "d061e2dd271070274664ceae6a75a516603b953f654efacc1b7a5620882279f4",
+        "raster_mask_types.go": "238cf86f3b56aa58f26f96f18fae6eba2be6d32a31f2b5d082e81633cfa899a8"
+      },
+      "limits": "Move-only sharedoldselection/growth/fontfill; newOR/scalars/topology/schema notyetimplemented. Nativefocusedtests separate; fullsuite/race/gameplay notclaimed."
+    },
+    "source_manifest_sha256": "edc664b323ba5bb07af6f8b16119d28449c4be4f50f9944e75f1bbcdaed09068",
+    "source_members": 676,
+    "new_functions": 2,
+    "new_types": 1,
+    "production_files": 47,
+    "production_named_functions": 45,
+    "production_growth_bytes": 2620,
+    "claim": "Numericalownerextraction isrelocation+contractgrowth, notnetreduction. Publicsource-maskAPI/scalars/OR/newtopology remainunimplemented.",
+    "limits": "Fullsuite/race/gameplay notrun; nativefocusedgoldens/core-nativebuildvet+8wholebaselineparities done. No publication/credit."
+  },
+  "canonical_data": {
+    "at": "2026-11-05T01:13:19.838135+00:00",
+    "status": "CANONICAL_DATA_PROJECTED_FROM_ORIGINAL_FIXED_PARAMS",
+    "entries": [
+      {
+        "texture": "mini_g04",
+        "path": "profiles/permissions/footprints/mini_g04.json",
+        "bytes": 3325,
+        "sha256": "a7f2dc453854806b0fe220a232698070050d7f2da628f43cad90c32165269983",
+        "removed_redundant_masks": [
+          {
+            "stage": "allow",
+            "discarded_index": 2,
+            "covered_by_index": 0,
+            "reason": "IdenticalbasefootprintM, narrowerfinalclipBsubsetA: (M&A)|(M&B)=M&A. No image assumption or similarityscore."
+          }
+        ],
+        "all_actual_permission_shapes_retained": true,
+        "whole_artwork_migration": false
+      },
+      {
+        "texture": "mini_g09",
+        "path": "profiles/permissions/footprints/mini_g09.json",
+        "bytes": 2733,
+        "sha256": "ea16e9d62421747be18c30fc8e666905ef0d3af869b76f124975ee973f1e735d",
+        "removed_redundant_masks": [],
+        "all_actual_permission_shapes_retained": true,
+        "whole_artwork_migration": false
+      },
+      {
+        "texture": "mini_g11",
+        "path": "profiles/permissions/footprints/mini_g11.json",
+        "bytes": 2076,
+        "sha256": "172c003b96d4dc2c6acbc942bd9337adf0c1098f57dd2a89638cbe70b00571bb",
+        "removed_redundant_masks": [],
+        "all_actual_permission_shapes_retained": true,
+        "whole_artwork_migration": false
+      },
+      {
+        "texture": "mini_t2",
+        "path": "profiles/permissions/footprints/mini_t2-generic-only.json",
+        "bytes": 476,
+        "sha256": "88b6ee2702a13ecf753f08ad2bd32b1e964f01cd48786e773767005d09ecddf9",
+        "removed_redundant_masks": [],
+        "all_actual_permission_shapes_retained": false,
+        "whole_artwork_migration": false
+      },
+      {
+        "texture": "mini_t4",
+        "path": "profiles/permissions/footprints/mini_t4.json",
+        "bytes": 2232,
+        "sha256": "a4e9ca6d258a93d8223b52ce2f170bd9fc3927321a8746f1f676cc6e6cb6449e",
+        "removed_redundant_masks": [],
+        "all_actual_permission_shapes_retained": true,
+        "whole_artwork_migration": false
+      },
+      {
+        "texture": "mini_t5",
+        "path": "profiles/permissions/footprints/mini_t5.json",
+        "bytes": 1699,
+        "sha256": "3b9e215d82ff5bc88287537c577f55479dfc888e95f64c0c43b987974ac4d301",
+        "removed_redundant_masks": [],
+        "all_actual_permission_shapes_retained": true,
+        "whole_artwork_migration": false
+      },
+      {
+        "texture": "mini_t7",
+        "path": "profiles/permissions/footprints/mini_t7.json",
+        "bytes": 1255,
+        "sha256": "cf19836ca2f1eb6b373f613464f2ac1d547d5448c2071a2183db18149607e3b8",
+        "removed_redundant_masks": [],
+        "all_actual_permission_shapes_retained": true,
+        "whole_artwork_migration": false
+      }
+    ],
+    "scope": "Sevenpurposegroupedpermissiontables byexistingassetidentity; mini_t2generic-only explicitlyholdsremnants. One redundantclip-containedduplicate removed algebraically, source14finalstagegoldens willverifycanonicaltables."
+  },
+  "harness_corrections": [
+    {
+      "at": "2026-11-05T01:03:43.151779+00:00",
+      "status": "TEST_HARNESS_LABEL_CORRECTION",
+      "detail": "SourceprojectionlabelswholeRGBAobservationRGBAuppercase. Firstharnesscheckedlowercase andtreatedlastvectorasmask;178maskvectors reachedbeforelabelassertfailure. CorrectedtestlabelONLY, no runtime/oracle/inputchange.",
+      "failed_log": "footprint-source-goldens.log"
+    },
+    {
+      "at": "2026-11-05T01:14:18.216605+00:00",
+      "status": "TEST_HARNESS_ZERO_INITIALIZATION_CORRECTION",
+      "detail": "Canonicaltableoverride unmarshaled into an existingvectorstruct; Go preservesomittedfields/sliceelements, retainingoldcoredataafterdedup. Reset permissions struct BEFOREdecode. Runtime loader alreadydecodesfreshstruct; no productionororacle/datachange.",
+      "failed_log": "footprint-final-core.log",
+      "core_replay_log": "footprint-final-core-2.log"
+    }
+  ],
+  "source_pins": {
+    "raster.go": "15d043dd862ccc78f1ff4d81a77e6e3152387d3f8f306678916bb04a0aeeabbc",
+    "raster_mask.go": "27c029965c43b31e969fa5efdb306131b5746f37bf152d8a9327b83501b963c7",
+    "raster_mask_types.go": "891a3427baff756e03d6007619c901d8281f62c0be42516f6573c1b3462e53de",
+    "raster_reconstruction.go": "08d61937dc7053193404e561d122f20ba79724fd7a6903efc7545540cd7a4a9d",
+    "raster_reconstruction_types.go": "fe93295aae18dbca31cdc2d6b79d3f2532ca84a536db04a3aeb5333fddd7a6f8",
+    "raster_runs.go": "e7c5ca19c972cf2028bcd285c3add559abc2f1e180346b48c2a66d4d50cc6874",
+    "texture_authoring.go": "9c5d7c795ff1769a3c29386ada93ca9f7f0471933fc6c42ae4ca2d3d5f2cf58e",
+    "patch_test.go": "45a018db8d523ab29defb10d290468b5622c0e21521a86694c8477fd2ca8a264",
+    "testdata/mask-selection.zip": "f82ef016267f47cfe83616cd3267f344ad5b5ac7d5e03ad8627b54367c941524",
+    "testdata/footprint-source.zip": "85e32925d6d05a0a1de43faa093bdfba2c76f7facd615aeb01bbf842320287de",
+    "README.md": "3fa186fb69bba198ba7305e9004e9daf35ac9ef347de140d801ecc6f5f399758",
+    "ARCHITECTURE.md": "11b4a8813f7446f2c7075c018a3511498b6884367034da65c979aabe1e67ed56",
+    "ARCHITECTURE.html": "3784ed59f45181fbb1284bc04f267371aadac079575f0f06e8791441cbc04056",
+    "analysis/go-current-input-accounting.json": "494a8c18f04fff55f68eba7a7807297da59071e92dedeb576d9c3dfb7fe3f20c",
+    "analysis/mask-pipeline-reuse-decision.json": "b058abeb89f40a2b13c54ca7ccba5ef870a3fc1721051edbad843abd5e7e320d",
+    "analysis/original-permission-source-study.json": "a72aa2ce9df09aea67365a0154b95ffc4cbe867ccd5c3d46e2c858b669591588",
+    "evidence/mask-pipeline-review.json": "81028d17ba79ab3e2d8e2a7fe079e4f9644dbb0d32aed621135ad73ed837d9e2",
+    "evidence/mask-pipeline-approach.json": "bdd18685b94b16368605d52275ee43a6c3e60752c384345b608960b3edd106f2",
+    "evidence/mask-pipeline-api-approach.json": "fcf07e8484441b755e106d965246f2718b0456ae14b287ddaa6543fa86dc9b0a",
+    "profiles/permissions/footprints/mini_g04.json": "a7f2dc453854806b0fe220a232698070050d7f2da628f43cad90c32165269983",
+    "profiles/permissions/footprints/mini_g09.json": "ea16e9d62421747be18c30fc8e666905ef0d3af869b76f124975ee973f1e735d",
+    "profiles/permissions/footprints/mini_g11.json": "172c003b96d4dc2c6acbc942bd9337adf0c1098f57dd2a89638cbe70b00571bb",
+    "profiles/permissions/footprints/mini_t2-generic-only.json": "88b6ee2702a13ecf753f08ad2bd32b1e964f01cd48786e773767005d09ecddf9",
+    "profiles/permissions/footprints/mini_t4.json": "a4e9ca6d258a93d8223b52ce2f170bd9fc3927321a8746f1f676cc6e6cb6449e",
+    "profiles/permissions/footprints/mini_t5.json": "3b9e215d82ff5bc88287537c577f55479dfc888e95f64c0c43b987974ac4d301",
+    "profiles/permissions/footprints/mini_t7.json": "cf19836ca2f1eb6b373f613464f2ac1d547d5448c2071a2183db18149607e3b8"
+  },
+  "root_artifact_manifest": "/var/tmp/dokapon-mask-pipeline-j_248fr1/root-artifact-manifest.json",
+  "root_artifact_manifest_sha256": "bb5505a7a4635954bd5c97780d2ade7ad6f43575097bb6fd50c0d98858620968",
+  "scope": "Two shared numerical owners reuse actualcurrent/originalselection and erase/font/footprint topology. Seven purpose-grouped tables cover14genericprovider records, not14families or wholeartwork. Other27providerrecords andmaterialreconstruction/artduties remain held. Capabilitygrowth,0family/.06/retirement/netreductioncredit; no protectedinputs/gamepatch."
+}

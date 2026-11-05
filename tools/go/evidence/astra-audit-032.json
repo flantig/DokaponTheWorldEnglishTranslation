@@ -1,0 +1,304 @@
+{
+  "audit": 32,
+  "at": "2026-10-21T03:39:29.738315+00:00",
+  "role": "Purely adversarial read-only challenger; findings only, no implementation or approval authority.",
+  "snapshot": "/var/tmp/dokapon-astra032-814z1k50/source",
+  "manifest_sha256": "61b16cc77223b8dca59a2fca29fd1cb9b674f43ae8f7621df106dde7995e288d",
+  "members_verified": 451,
+  "scope": "Frozen current WIP contact collection, font backend and shared inputs/resizing. Accepted accounting/pins intentionally remain baseline; no unsupported reduction or retirement claim inferred from unpromoted WIP.",
+  "prior_comparison": {
+    "prior_audit_manifest": "/var/tmp/dokapon-asset-manifest-4u27nsrn/sealed-final/manifest.json",
+    "prior_manifest_sha256": "1fb1cf3f2c06257e00ee0897a51be835a95c8c471b80aa83ccaf7dafddbc270e",
+    "old_members": 414,
+    "new_members": 451,
+    "added": [
+      ".goal/USAGE-CHECK.md",
+      "analysis/asset-comparison-decision.json",
+      "analysis/asset-contact-contract.json",
+      "analysis/asset-contact-integration-decision.json",
+      "analysis/asset-contact-pagination-contract.json",
+      "analysis/asset-font-backend-contract.json",
+      "analysis/asset-font-backend-decision.json",
+      "analysis/asset-preview-contract.json",
+      "analysis/preview-resample-decision.json",
+      "analysis/texture-index-reuse-decision.json",
+      "audit-scope.json",
+      "evidence/asset-comparison-proof.json",
+      "evidence/asset-comparison-review.json",
+      "evidence/asset-font-prototype-proof.json",
+      "evidence/asset-font-prototype-review.json",
+      "evidence/astra-audit-031.json",
+      "evidence/preview-resample-proof.json",
+      "evidence/preview-resample-review.json",
+      "evidence/texture-index-reuse-proof.json",
+      "evidence/texture-index-reuse-review.json",
+      "examples/asset-comparison/after.png",
+      "examples/asset-comparison/before.png",
+      "examples/asset-comparison/profile.json",
+      "examples/asset-contacts/profile.json",
+      "examples/asset-contacts/source.zip",
+      "fonts/preview/DejaVuSans.ttf",
+      "licenses/DejaVu.txt",
+      "licenses/FreeType.txt",
+      "native/raqm.h",
+      "profiles/previews/inventory-layout.json",
+      "raster_font.go",
+      "raster_font_disabled.go",
+      "raster_png.go",
+      "testdata/asset-comparison.zip",
+      "testdata/asset-contacts.zip",
+      "testdata/raster-nearest.zip",
+      "texture_contacts.go"
+    ],
+    "changed": [
+      "AGENTS.md",
+      "ARCHITECTURE.html",
+      "ARCHITECTURE.md",
+      "MIGRATION.md",
+      "README.md",
+      "analysis/go-current-input-accounting.json",
+      "analysis/migration-roadmap.json",
+      "analysis/reusability-coverage.json",
+      "analysis/reusability-coverage.md",
+      "evidence/reusability-coverage-checks.json",
+      "external/skills/MIGRATION-TOOLS.md",
+      "input_types.go",
+      "inputs.go",
+      "patch_test.go",
+      "raster_resize.go",
+      "raster_runs.go",
+      "raster_types.go",
+      "test-results/architecture-check.py",
+      "test-results/architecture-checks.json",
+      "test-results/architecture-desktop.png",
+      "test-results/architecture-mobile.png",
+      "texture.go",
+      "texture_authoring.go",
+      "texture_index.go",
+      "texture_manifest.go",
+      "texture_types.go"
+    ],
+    "removed": []
+  },
+  "prior_finding": "A031-1 prepared source-bound TextureIndex is now reused by manifest/specification paths. Current texture function parses only for nil index. This audit did not rerun the old allocation benchmark.",
+  "findings": [
+    {
+      "id": "A032-1",
+      "severity": "MEDIUM",
+      "status": "OPEN in immutable reviewed WIP snapshot",
+      "title": "Newline labels lose the original multiline layout",
+      "locations": [
+        "texture_contacts.go:374",
+        "texture_contacts.go:380",
+        "raster_font.go:69",
+        "raster_font.go:76"
+      ],
+      "problem": "Accepted archive/entry/texture strings can contain LF. contactSheets passes each entire caption to single-line shaping; original ImageDraw.text dispatches LF-containing captions to multiline_text with preserved blank lines, default line step and caption color. The new output publishes successfully with different pixels.",
+      "counterexample": {
+        "case": "newline",
+        "original_png": "/var/tmp/dokapon-astra032-probe-3r96wtt7/original-newline/sheets/A_ui_001.png",
+        "original_png_sha256": "0472d2f800a4a18a1604385d19cf9caeb69a445090d5340e88019c4a16f8b095",
+        "dimensions": [
+          1440,
+          680
+        ],
+        "mode": "RGB",
+        "total_pixels": 979200,
+        "total_channels": 2937600,
+        "differing_channels": 2942,
+        "differing_pixels": 984,
+        "original_rgb_sha256": "5835be175158259a8e922aeaca7d22caa77fabd018ae7070af8306f2d2abbd81",
+        "candidate_rgb_sha256": "eed579c7585fa75c8f8869b0ce526184369d27683ccab6c0c127284da335fcc6",
+        "manual_reference_matches_unmodified_original_function": true
+      },
+      "control": {
+        "case": "control",
+        "original_png": "/var/tmp/dokapon-astra032-probe-3r96wtt7/original-control/sheets/A_ui_001.png",
+        "original_png_sha256": "6d6cae5c3588946aa78b2b635845555b1ff5c10b21cd9a4ba51e5e890416abcb",
+        "dimensions": [
+          1440,
+          680
+        ],
+        "mode": "RGB",
+        "total_pixels": 979200,
+        "total_channels": 2937600,
+        "differing_channels": 0,
+        "differing_pixels": 0,
+        "original_rgb_sha256": "8dcc806868b9c7446f41e45b20e69e1fa712ffcb875b2203a181dab80f5207d1",
+        "candidate_rgb_sha256": "8dcc806868b9c7446f41e45b20e69e1fa712ffcb875b2203a181dab80f5207d1",
+        "manual_reference_matches_unmodified_original_function": true
+      },
+      "difference_bbox": [
+        4,
+        145,
+        129,
+        170
+      ],
+      "minimal_fix": "In the existing contactSheets label orchestration preserve original LF line splitting, blank/trailing lines and default vertical placement before invoking the existing whole-line textMasks backend. Carry each caption color explicitly when expanding labels. Do not narrow accepted text by rejecting or removing newlines. Extend existing integration test with complete-page original oracle.",
+      "if_skipped": "Valid manifest labels produce wrong caption content/placement while command exits successfully."
+    },
+    {
+      "id": "A032-2",
+      "severity": "MEDIUM",
+      "status": "OPEN in immutable reviewed WIP snapshot",
+      "title": "Painting all thumbnails before all captions changes occlusion",
+      "locations": [
+        "texture_contacts.go:359",
+        "texture_contacts.go:380",
+        "texture_contacts.go:384"
+      ],
+      "problem": "The original _sheet paints thumbnail then both captions for each row before advancing to the next row. The new code paints all page thumbnails then all captions. Whole-page clipping explicitly permits ink outside the cell. Tall Unicode combining marks from an earlier row therefore paint over a later thumbnail that should cover them. This is independent of LF handling.",
+      "counterexample": {
+        "case": "dark-tall-7",
+        "original_png": "/var/tmp/dokapon-astra032-probe-3r96wtt7/original-dark-tall-7/sheets/A_ui_001.png",
+        "original_png_sha256": "e31815a70a67728111709659cd08eb1ecb5aa59b2253e405ea68aa2aa0ea6f38",
+        "dimensions": [
+          1440,
+          680
+        ],
+        "mode": "RGB",
+        "total_pixels": 979200,
+        "total_channels": 2937600,
+        "differing_channels": 207,
+        "differing_pixels": 69,
+        "original_rgb_sha256": "fedfc9f3eff1ac6f2bf7e9b9fca6bd463804ba2a4f1bf2484c4f10e7cd1ec99b",
+        "candidate_rgb_sha256": "080f1e179e9a9673e1a83bd329db2622fc1f97c2b884ffa1737ca07b5338cc75",
+        "manual_reference_matches_unmodified_original_function": true
+      },
+      "control": {
+        "case": "dark-tall-1",
+        "original_png": "/var/tmp/dokapon-astra032-probe-3r96wtt7/original-dark-tall-1/sheets/A_ui_001.png",
+        "original_png_sha256": "34785c08f132db69cf49edd4351a7933573017debd1030ca8972a79d745585e1",
+        "dimensions": [
+          1440,
+          680
+        ],
+        "mode": "RGB",
+        "total_pixels": 979200,
+        "total_channels": 2937600,
+        "differing_channels": 0,
+        "differing_pixels": 0,
+        "original_rgb_sha256": "116551397250b7de21decaeb2c1dd93d741119134b24569beb6377dd5af86c47",
+        "candidate_rgb_sha256": "116551397250b7de21decaeb2c1dd93d741119134b24569beb6377dd5af86c47",
+        "manual_reference_matches_unmodified_original_function": true
+      },
+      "input": "Seven UI rows, archive = A followed by sixteen U+0325 COMBINING RING BELOW characters, no newline; same pinned opaque64x40 PNG filled RGBA(20,30,40,255). Archive uses33 UTF8bytes, well below256bound. Rows have unique entry ordinals0..6; UI intentionally retains duplicates.",
+      "difference_bbox": [
+        8,
+        174,
+        11,
+        197
+      ],
+      "minimal_fix": "Keep existing page-level shaping if useful, but composite in source draw order: each row thumbnail, first caption, second caption, then next row. Reuse pixelOver and existing loops; no new renderer/helper needed. Extend existing page test with the seven-row control pair.",
+      "if_skipped": "Valid labels can paint over and misrepresent later preview artwork; fixing only multiline dispatch leaves this mismatch."
+    }
+  ],
+  "reproduction": {
+    "directory": "/var/tmp/dokapon-astra032-probe-3r96wtt7",
+    "probe_seal": "/var/tmp/dokapon-astra032-probe-3r96wtt7/probe-seal.json",
+    "probe_seal_sha256": "e0d256c02c88fdb7ad740cd837447fd474229833394320cc2a25051f4042ceb9",
+    "scripts": [
+      "probe.py",
+      "dark-order-probe.py",
+      "original-oracle.py"
+    ],
+    "method": "AST select only exact frozen _sheet function; execute no historical main/import; inject private paths and pinnedfont only. Legacy row shape derived from synthetic pinned manifest values; all original statements unchanged. Post-implementation adversarial oracle, not pre-code expectations.",
+    "selected_original_source_sha256": "029f3d08aa799fd891e4bcf95f6645d4092ae69b2cb38668f9c96f7897b5b5e7",
+    "font_sha256": "f0d9a390aa7cf43999a2fd1502a47c381bc7809ab5fac6937f0f6dd6524096cd",
+    "oracle_versions": {
+      "pillow": "12.3.0",
+      "freetype": "2.14.3",
+      "raqm": "0.10.5",
+      "harfbuzz": "14.2.1",
+      "fribidi": "1.0.16"
+    },
+    "candidate_inputs": "Source ZIPs, profiles, generated bundles, stdout, stderr, PNGs, binaries and scripts are pinned individually in probe-seal.json. Source implementation is exact copy of451-member snapshot; no candidate instrumentation/edits.",
+    "rerun": "Scripts use fixed private path and exclusive outputs. To rerun copy scripts/fixture inputs to fresh owned directory, mechanically replace the private root and rerun; do not overwrite sealed artifacts. Original oracle executes only AST-selected frozen _sheet; no historical main/import."
+  },
+  "verification": [
+    {
+      "name": "core-build",
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-astra032-probe-3r96wtt7/core",
+        "."
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-vet",
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "./..."
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-build",
+      "command": [
+        "env",
+        "GOMAXPROCS=2",
+        "TMPDIR=/var/tmp/dokapon-astra032-probe-3r96wtt7/tmp",
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-astra032-probe-3r96wtt7/native",
+        "."
+      ],
+      "exit": 0,
+      "record_source": "Tool execution completed exit0; stdout empty."
+    },
+    {
+      "name": "native-focused-test",
+      "command": [
+        "env",
+        "GOMAXPROCS=2",
+        "TMPDIR=/var/tmp/dokapon-astra032-probe-3r96wtt7/tmp",
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "stdout": "ok  dokapon/tools 8.476s",
+      "record_source": "Tool execution observed; no independent redirected logfile was created for this invocation."
+    }
+  ],
+  "safety": "Only private scratch writes plus this requested evidence report. No ISO/canonical registry/emulator/PINE/controller/process/log/settings access or control; no historical mains; no production code or snapshot edits. All started jobs terminal.",
+  "limitations": [
+    "Full suite/race suite deferred by owner; this audit ran focused native CLI test, native/core build and native vet.",
+    "No implementation or approval, no gameplay/artwork claim.",
+    "No blanket security or resource-exhaustion claim; unconfirmed possibilities excluded."
+  ]
+}

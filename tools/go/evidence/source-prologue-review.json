@@ -1,0 +1,142 @@
+{
+  "schema": "source-prologue-review-v1",
+  "sealed_at": "2026-10-21T13:58:36.178951+00:00",
+  "role": "Independent ordinary read-only implementation review; findings only, no approval",
+  "status": "No concrete open finding in reviewed finite scope",
+  "findings": [],
+  "candidate": {
+    "source": "/var/tmp/dokapon-source-prologue-kfmx4zb4/review-source",
+    "manifest_sha256": "c362858a2c5dc95ba4676d39e4b81977c536edc754c098e39fc8e1ae68b61bd6",
+    "members": 525,
+    "pins_held_before_after": true,
+    "full_pins": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/pins-final.json",
+    "baseline": "/var/tmp/dokapon-canonical-audit-snq910tn/sealed-final",
+    "baseline_manifest_sha256": "7371e5fd1cc3a637936be557009299b7060c454999152d3a80a7f115e3b851e7",
+    "production_scope": "Only existing encode in patch.go changes; controls/wrapPages/plan/validateEdits unchanged."
+  },
+  "assessment": {
+    "reuse_and_readability": "The change remains within encode: one source-state prefix copy, existing decoder truth check and unchanged strict body validation. No helper/function/type/mode/sourcefile added. Prefix and translated-body responsibilities are explicit, without a second grammar engine.",
+    "state_boundary": "Payload-free setup and nonscale pen words must precede ContentStart. Actual emitted prefix is decoded anew, must end exactly at appended END, contain no content, be<=4096words and have unique HDR/speaker. Held state/colour/icon/opaque domains cannot be smuggled by scalar token-kind mutation.",
+    "wrapping_and_speaker": "State prefix is excluded from character/native body budgets; order and page0 speaker substitution/insertion are preserved. Source final pause remains independent, including duplicate authored final PAGE. All old nonstate paths retain their whole-output validation.",
+    "input_and_write_safety": "Source bytes/context are read-only. Broader readonly encoding does not relax complete stream measurement, append payload, planner layout or publication gates. A newly encoded setup stream is still refused by the unchanged append-payload validator.",
+    "held_scope": "Leading/body param8 payload-drop success is intentionally not copied. Prefix colour/icon/scale combinations and body setup/pen remain held. No native fit, patch authority or population claim follows from prefix copying."
+  },
+  "verification": {
+    "focused_core": [
+      {
+        "name": "core-focused",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "^(TestPlanRefusals|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "CGO_ENABLED": "0",
+          "TMPDIR": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 50.289888872997835
+      },
+      {
+        "name": "core-build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-source-prologue-review-k31s2dkm/core",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "CGO_ENABLED": "0",
+          "TMPDIR": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 1.6496712429943727
+      },
+      {
+        "name": "core-vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "CGO_ENABLED": "0",
+          "TMPDIR": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 0.5547530140029266
+      }
+    ],
+    "original_provenance": {
+      "receipt": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/source-oracle-binding.json",
+      "copied_pack": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/original-source-pack",
+      "members": 59,
+      "manifest_sha256": "e5caaa6080f12b7bca965e541c0f2ec53fa78467ab14e25b6d68849c0ea231f3",
+      "facts": "24 original-executed synthetic cases plus4 actual frozen-stream/synthetic-A cases bind portable source/expected hex;14 accepted and14 refused are finite test domains, not28 migrated callers. Native glyph object exactly reuses prior semantic fixture. Held original successes remain explicitly qualified."
+    },
+    "extra_API": {
+      "receipt": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/extra.json",
+      "cases": 8,
+      "facts": "4096-word prefix positive;4097 forced-ready cap refusal; duplicateHDR forged-prefix refusal; exact literal character/native body budgets; speaker insertion; no-source setup rejection; unchanged append-payload gate; caller shape preservation. Literal invariants are additional tests, not new original-executed oracle captures."
+    },
+    "boundary_challenge": {
+      "receipt": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/prefix-boundary.json",
+      "facts": "Translated raw HDR/speaker injection attempts refuse through the existing source-markup guard; no duplicated stream state admitted."
+    },
+    "built_CLI": {
+      "receipt": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/cli-checks.json",
+      "facts": "Complete old plain and bound exit/stdout/stderr parity against accepted core-final; canonical setup alone advances unknown->known with original expected SHA. All other10rows and original observation factors identical. Profile/source/glyph/registry bytes+inode+mtime preserved."
+    },
+    "hygiene": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/hygiene.json",
+    "setup_notes": "Portable case fields use source_hex rather than the initially assumed jp_hex; corrected metadata inspection only, no candidate failure.",
+    "jobs": "All review jobs terminal; no native/race/full integrated suite duplicated."
+  },
+  "costs": {
+    "production_files": 39,
+    "production_bytes": 425669,
+    "production_delta_bytes": 2022,
+    "named_declarations": 41,
+    "test_delta_bytes": 2876,
+    "new_source_fixture_bytes": 13895,
+    "changed_canonical_fixture_delta_bytes": 1594
+  },
+  "private_evidence": {
+    "root": "/var/tmp/dokapon-source-prologue-review-k31s2dkm",
+    "manifest": "/var/tmp/dokapon-source-prologue-review-k31s2dkm/artifact-manifest.json",
+    "members": 100,
+    "manifest_sha256": "ea5cade9440dfe945c8f22d73830510bda6460963bc3ce7674a3c79ddcbfb8ae",
+    "self_containment": "Owned525-member checkout, copied59-member original pack, accepted comparator binary, overlays, literal probes and receipts retained."
+  },
+  "limits": [
+    "Finite source setup/nonscale-pen prefix encoding and readonly canonical expectations; not general control-prefix/opaque/colour semantics.",
+    "Typed maps/context normally come from existing glyphMaps/controls; tests challenge newly relevant scalar prefix mutations, not arbitrary forged image/runtime structures or every impossible Go value.",
+    "No source population, full-family/migration/retirement/coverage credit, savings, native geometry/gameplay/ISO or patch approval.",
+    "No complete integrated suite or race replay; no protected ISO/canonical registry/emulator/PINE/process/log/settings/auth access or historical main execution.",
+    "Historical accepted coverage/accounting pins in this private snapshot are intentionally pending promotion, not new defects."
+  ]
+}

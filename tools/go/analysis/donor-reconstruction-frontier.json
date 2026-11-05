@@ -1,0 +1,558 @@
+{
+  "schema": "donor-reconstruction-frontier-v1",
+  "at": "2026-10-21T05:56:37.446119+00:00",
+  "status": "Read-only original source taxonomy and finite reference pack; no implementation or coverage approval",
+  "scope": "raster_rendering.06 using existing141recordcrawl and13asset.renderrows, not a new410scan. Historicaldonorwork file and acf635da donorstudy recovered first; accepted inlineicons not re-researched or credited again.",
+  "taxonomy_method": "Project only13asset.renderrows from frozenassignedcrawl; pinactualsourcebytes, inspectASTfunctionspans andbounded4specdocuments. Groupbyalgorithm/ownership/alpha/read-order decisions, not byscriptname. Repeated/hook counts areevidenceleads, nothandlersorretirementcredit.",
+  "source_set": {
+    "rows": 13,
+    "all_original_hashes_match_crawl": true,
+    "taxonomy_groups": 9
+  },
+  "taxonomy": [
+    {
+      "class": "ordered exact replacement and donor acquisition",
+      "sources": [
+        "make_explainer_png.render701..745 copy/fill/clear",
+        "batch_c_logo_art.relogo375..418 translatedshift",
+        "batch_c_prize_art.rebuild61..89 siblingcopy"
+      ],
+      "facts": "Immutableoriginal versus per-operationcurrent snapshot is explicit and differs by provider. ExactRGBA copies overwritehiddenRGB; source/destination offsets, mask/hole and sequence matter. Prizeparchments rank original siblings byclean&hole coverage, stabledeclaredties, then copy samecoordinates; no cropresize in this positiveprizecontract.",
+      "status": "Inline same-sheet copies nowaccepted separately. Genericcopy existsprovider but prior bounded currentrecipe scan found0activecopyops. Externalpinnedacquisition, guardedtranslateddonors and siblingselection arestillheld. Do not infer arbitrarypaperresize from alignedparchmentcopy."
+    },
+    {
+      "class": "flat and row/column reconstruction",
+      "sources": [
+        "make_explainer_png.op_inpaint296..347",
+        "make_batch_c_png.op_erase151..220",
+        "make_junky_card_png.inpaint_rows82..102"
+      ],
+      "facts": "CurrentRGBA donors, explicitmask/allow, row/column float64linearinterpolation, endpointclamp, ties-even. All-unknownrow unchanged. Flat replacement alreadyconceptuallyexists asbackground, but arbitraryholes/sequence not equivalent toflatwholecell. Junkyselects/growsitsownthresholdmask, so selection isnotidenticalenginepolicy.",
+      "status": "Smallest useful nextfinite behavior recommended: masked rowinterpolation with sharedsource-mask/containment semantics. Rows6active erases inmini_g02/mini_g12; colsprovider exists but noactivecolsoperation established inboundedrecipeinputs."
+    },
+    {
+      "class": "allow masks and sourcepixel predicates",
+      "sources": [
+        "make_explainer_png.make_mask227..257/grow260..271",
+        "make_batch_c_png.shape_mask58..117/build_allow120..140",
+        "batch_c_card_art.art_components111..128"
+      ],
+      "facts": "Strictluma/alpha/saturation/near predicates; listAND, four-neighbor repeatedgrowth, fillholes; rect/AAshape/full4xarea-inside, floodconnectedcomponent/erosion, dynamicmaskfn. Positiveunion minusnegativeunion; allow_add appliedlast canresurrectpixel. Original-vs-currentselection differs byoperation.",
+      "status": "Materialsharedcontainment gap beyondcurrentrectcells, notoptional metadata. Freezecertainpredicates/allowcombinations beforeclaimingallmaskproviders. Dynamicimports/componentheuristics areheld."
+    },
+    {
+      "class": "OpenCV PDE inpainting",
+      "sources": [
+        "make_explainer_png.op_inpaint323..343",
+        "make_batch_c_png.op_erase175..203",
+        "batch_c_logo_art._bg_fill258..296"
+      ],
+      "facts": "Telea/NS areseparatealgorithms andnotrowinterpolation. Genericmx processesRGB+alpha withpaddedcontext; batch_ceraseTelea changesRGBonly andwriteslimitedhole; logobg processesRGB+alpha atfixedradius4, maskonly. Preserveactualvariants, boundaryconditions andversions.",
+      "status": "Held:noOpenCVbinding/numericalproof. Do notsilentlyreplacewithclone/flat/nearest or sharewrongalpha semantics."
+    },
+    {
+      "class": "exemplar patch matching and progressive clone",
+      "sources": [
+        "make_vs_set_icons.exemplar_inpaint78..142",
+        "batch_d_banner_art.fast_exemplar87..146",
+        "batch_c_prize_art.rebuild61..89",
+        "make_survive_card.build46..95"
+      ],
+      "facts": "Criminisi/onionpeel, patchcandidates, confidence, seededrandomties/SSD/corestep. FirstimplementationusesstaticRGBcandidatepatches andforcesholealpha255; fastvariantusesdynamicknown/searchwindow/cv2.matchTemplate, nearestknownfallback andcopiesallRGBA. Theseare related butnotidenticalalgorithms.",
+      "status": "Held:needsfinitealgorithm/version/seed/candidatetie andbounds proof. Externalcleandonorconstraints andlackofpatches arematerialrefusals."
+    },
+    {
+      "class": "family plates and smooth field estimation",
+      "sources": [
+        "batch_d_banner_art.confirmed_bg162..185/build_masks203..234/banner394..487",
+        "batch_c_logo_art._bg_fill258..296",
+        "batch_e_art.smooth_fill930..947"
+      ],
+      "facts": "Letteringidentity/consensus, maskedNaNmedian/counters, own-lightinglowpassresidual, normalizedGaussianconvolution, scatteredlineargriddata+nearestfallback. Not ordinaryimage resampling.",
+      "status": "Held:requirespinnedfamilymember/mask/provenance andnumericfieldoracles. Genericdonorrectangle cannotcompletepaperfamilyreconstruction."
+    },
+    {
+      "class": "radial reconstruction",
+      "sources": [
+        "batch_e_art.ring_polar672..698/ray_fill950..998"
+      ],
+      "facts": "Pixelcenterpolarcoordinates, halfpixelradiusbins, periodicangularinterpolation(min3known), raynearestknown inward/outward anddistance/alphaweightedmix; leftovers explicit.",
+      "status": "Held:genuinelydifferentcoordinate/selection/alphakernel, notcloneorbilinearresize."
+    },
+    {
+      "class": "contours, pictograms and source-art geometry",
+      "sources": [
+        "batch_c_logo_art.contour_rebuild556..583",
+        "make_vs_set_icons.draw_icon174..247",
+        "batch_e_art.pictogram505..538",
+        "make_rank4_png.make_cell50..86"
+      ],
+      "facts": "4xpolygon/line/joint/morphology, counters/bevels, sword/shield/designedsymbols andartprotection. Rank4extractswhitenumeralcoverage, LANCZOSresizescoverage thenrebuildsoutline/counter/bevel. Literalshape/thresholdfacts belongdata; drawingkernel stillrequiresproof.",
+      "status": "Held:thesearematerialvisualsource decisions, notinterchangeabletextglyphs or arbitraryowner-approvalfacts."
+    },
+    {
+      "class": "material transforms and reconstructed fill",
+      "sources": [
+        "make_explainer_png.texture_fill640..664",
+        "batch_d_banner_art.remap_fill343..380",
+        "batch_e_art.profile_fill494..502/reuse_layer1324..1369"
+      ],
+      "facts": "Nearestoriginaltexturefill, remappedoldrowprofiles/detail, premultRGBseparateBICUBIC+alphafilter, maxalphabutaddRGBsegmentmerge, extrusion/sticker. ExistingLANCZOS/Over isnotuniversalreplacement.",
+      "status": "Held:noBICUBIC/fieldfillproof; sourcePNGname/hash canbepinnedwithoutclaimingfullhookparity."
+    }
+  ],
+  "bounded_data_observations": {
+    "batch_b_tutorial": {
+      "text": 45,
+      "lines": 42,
+      "inpaint": 53,
+      "inpaint_methods": {
+        "flat": 37,
+        "telea": 16
+      },
+      "rrect": 6,
+      "fill": 6
+    },
+    "batch_c": {
+      "text": 68,
+      "hook": 27,
+      "erase": 57,
+      "erase_methods": {
+        "flat": 51,
+        "rows": 6
+      },
+      "include": 7,
+      "hooks": {
+        "prize_rebuild": 11,
+        "logo_relogo": 8,
+        "janken": 3,
+        "clear_mask": 4,
+        "g09_cards": 1
+      },
+      "allow_shapes": {
+        "rect": 42,
+        "maskfn": 21,
+        "rrect": 11
+      }
+    },
+    "batch_e": {
+      "hooks": 20,
+      "by_function": {
+        "title": 7,
+        "wed_logo": 4,
+        "brand_logo2": 3,
+        "win": 3,
+        "sale": 1,
+        "button": 1,
+        "op_p": 1
+      }
+    },
+    "warning": "Includesfragments/nesteddataoverlap; donotsumcountsasuniquepatchesorpercentcoverage. Actualrows6 are3pillrects repeatedinmini_g02 andmini_g12, allmasklum_lt200/grow1."
+  },
+  "next_finite_recommendation": {
+    "behavior": "Mask-contained deterministic rowinterpolation fromcurrentimage; flatprefix andexistingorderedimagecomposition exposehonestsourceorder. Keepcolsasproviderproven optionalextension, notinventedactualcaller.",
+    "why": "Commonboundedkernel acrossmx/batch_c/Junky, active6recipeuses, noCVdependency/exemplarRNG/externalsiblingdiscoveryneeded. Moreimmediatelyjustifiedthan genericcopywithnoactiveboundedrecipe.",
+    "ownership_direction": "ExistingcomposeCells ownsclone/background/cellpreflight/order andauthorTexture ownspinneddecode/publication; inspectthefinitebackground/reconstructionboundarythere beforeaddinganyfunction. renderRuns isfont/style,resizeRaster isresampling,pixelOver iscompositing: none shouldgainPDE/exemplarmodes. Thisstudy choosesno newschema/function/type/CLI or code. Rootmustseparatelyjustifyimplementationboundary/readability.",
+    "minimum_required_facts": [
+      "Fullimage/operation/allow bounds andstrictoutside-maskpreservation; actualselectionfromcurrentpixels plusimmutableoriginalsourcecontext.",
+      "Rowdonors complementoflimitedhole, straightRGBAallchannels inclhiddenRGB/alpha, npfloat64linearinterpolation, ties-even andendpointclamp. NoalphaOver/premultipliedfilter.",
+      "Four-neighborgrow isnotexistingcirculardiskdilation. fillholes/allowintersections/order mustnotbeapproximated.",
+      "Emptyrow/no-known-row semantics explicit; malformedinput validation changes needdeliberatepolicy, not guessedlegacyrefusals."
+    ]
+  },
+  "new_original_only_pack": {
+    "directory": "/var/tmp/dokapon-donor-reconstruction-frontier-7evd4aet",
+    "manifest_sha256": "adc24fae32731f0ab67f3d0f9653d46acf43c1eb6d5c859a89a6104dea302acf",
+    "facts_sha256": "15c4471cfb81c40be6253110ee3f11832e44393f802b35d2674ef8a113dc3d6f",
+    "members": 27,
+    "member_bytes": 70448,
+    "harness_sha256": "8cb2c30eb28227e86dde035c8192d2783d47f608934aa9052f8107682cabddf5",
+    "method": "ASTselected originalpurehelpers/build_allow/op_erase. Reference mx namespace directly binds selectedoriginalfunctions; no projectimport/main. WholeRGBAinput/output/masks areoriginal results; counterexample deliberately mergesoriginal-input hole intoafterprefix toshowwrong donor source.",
+    "input": {
+      "allow": {
+        "ops": [],
+        "allow": [
+          {
+            "rect": [
+              1,
+              1,
+              10,
+              6
+            ]
+          },
+          {
+            "rect": [
+              6,
+              3,
+              1,
+              1
+            ],
+            "minus": true
+          }
+        ]
+      },
+      "allow_add_variant": {
+        "ops": [],
+        "allow": [
+          {
+            "rect": [
+              1,
+              1,
+              10,
+              6
+            ]
+          },
+          {
+            "rect": [
+              6,
+              3,
+              1,
+              1
+            ],
+            "minus": true
+          }
+        ],
+        "allow_add": [
+          {
+            "rect": [
+              6,
+              3,
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      "colors": {
+        "clean": [
+          250,
+          220,
+          210,
+          17
+        ]
+      },
+      "prefix": {
+        "op": "erase",
+        "rect": [
+          3,
+          3,
+          1,
+          2
+        ],
+        "mask": "all",
+        "grow": 0,
+        "method": "flat",
+        "color": "clean"
+      },
+      "reconstruct": {
+        "op": "erase",
+        "rect": [
+          2,
+          2,
+          8,
+          4
+        ],
+        "mask": {
+          "lum_lt": 200
+        },
+        "grow": 1,
+        "method": "rows"
+      }
+    },
+    "arrays": {
+      "base": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "base.raw",
+        "sha256": "a4228b377f2843df8fecb28df28364ed9e100dfc13a7497895fd3971c6f70b81"
+      },
+      "after-flat-prefix": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "after-flat-prefix.raw",
+        "sha256": "33bf246e1ac97cb35e9be0e43312b2d841ae3967aa96735ae73fce959ba00e5d"
+      },
+      "rows-current": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "rows-current.raw",
+        "sha256": "ceaf1177ee1d5f4a7a6463a02999bc7c99ae8edc794c546887c2ccc8c3a691af"
+      },
+      "rows-original-input": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "rows-original-input.raw",
+        "sha256": "35af26064433157c121c455b8c1e9280056a607acc316fc83e17fdfac1b55be1"
+      },
+      "wrong-original-donor-counterexample": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "wrong-original-donor-counterexample.raw",
+        "sha256": "8900fd71d55f2926da7f73966bf8ccf33cc8a07706430f91f03bebc763000f33"
+      },
+      "rows-allow-add": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "rows-allow-add.raw",
+        "sha256": "e2e37fe6dec23f8550d75365d972f4213b2c0d62eefa6054faba34628e3268df"
+      },
+      "cols-current": {
+        "shape": [
+          8,
+          12,
+          4
+        ],
+        "raw": "cols-current.raw",
+        "sha256": "54ab212638296ced8e04dfccacf98c062bc2c0670f274c831d2da0ff708d737b"
+      },
+      "allow": {
+        "shape": [
+          8,
+          12
+        ],
+        "raw": "allow.raw",
+        "sha256": "168ffa1dbe3719286fa122d875d37fd91118333c042ca7bd47ab9164c003659b"
+      },
+      "allow-add": {
+        "shape": [
+          8,
+          12
+        ],
+        "raw": "allow-add.raw",
+        "sha256": "b174ec9fa979189334b1ff5a9a6e9795a66fed4188f291874ebfab797129ad89"
+      },
+      "selected-current-mask": {
+        "shape": [
+          8,
+          12
+        ],
+        "raw": "selected-current-mask.raw",
+        "sha256": "11b4c817b0707a44c81e70c4de547a9750d48cec9a0f1a8760d42b381eff2e6c"
+      },
+      "grown-limited-hole": {
+        "shape": [
+          8,
+          12
+        ],
+        "raw": "grown-limited-hole.raw",
+        "sha256": "4cc783ba32ac1abe8352227403e0bb2e232ad5d9ac350e044c6dd0c85e665946"
+      }
+    },
+    "positive_facts": {
+      "hole_pixels": 21,
+      "wrong_orig_read_changed_channels_in_hole": 16,
+      "outside_allow_unchanged": true,
+      "protected_pixel_6_3_preserved": true,
+      "all_unknown_row_2_unchanged": true
+    },
+    "counterexample": "Prefixflat changesbrightdonors, thenoriginalop_erase rows readsCURRENTpixels despite immutableorigargument. Wrongread-original replacement differs16channelsinsidehole; wholecounterimage is explicitlyconstructedillustration, not normativeoriginalprogram. Originalcurrent/original-start outputs separatelyfrozen.",
+    "allow_fact": "Originalbuild_allow minusprotectspixel6,3; allow_add aftersubtraction resurrectsit andchangeswholeoutput.",
+    "refusal_facts": [
+      {
+        "name": "unknown-mask-key",
+        "operation": {
+          "op": "erase",
+          "rect": [
+            2,
+            2,
+            8,
+            4
+          ],
+          "mask": {
+            "bogus": 1
+          },
+          "grow": 1,
+          "method": "rows"
+        },
+        "outcome": "SystemExit",
+        "message": "unknown mask key 'bogus'"
+      },
+      {
+        "name": "unknown-method-nonempty",
+        "operation": {
+          "op": "erase",
+          "rect": [
+            2,
+            2,
+            8,
+            4
+          ],
+          "mask": {
+            "lum_lt": 200
+          },
+          "grow": 1,
+          "method": "bogus"
+        },
+        "outcome": "SystemExit",
+        "message": "unknown erase method 'bogus'"
+      },
+      {
+        "name": "unknown-method-empty-mask",
+        "operation": {
+          "op": "erase",
+          "rect": [
+            2,
+            2,
+            8,
+            4
+          ],
+          "mask": {
+            "lum_lt": 0
+          },
+          "grow": 1,
+          "method": "bogus"
+        },
+        "outcome": "success",
+        "unchanged": true
+      }
+    ],
+    "qualifications": "Sourceunknownmethodwithnonemptyhole refuses; emptyselectedmask returnsbeforeunknownmethodvalidation. Preservefact, donotdescribeinventedblanketrefusal. Literal12x8RGBAonly, noactualart/nativeplacementorencoderclaim."
+  },
+  "remaining_material_duties": "Row/flatprototype cannotclose .06. Arbitraryallow/maskproviders, externalsiblingselection/provenance, progressiveexemplar/PDE, plateestimation, radial/contour/pictogram/materialfill/filtervariants remainseparatelyheld. Somefacts canbemovedtopurposegroupeddata, butthat doesnoteliminatetheiralgorithms orsourceartapprovalboundaries.",
+  "source_pins": {
+    "tools/batch_c_card_art.py": {
+      "sha256": "7afbc8f9127651ee283c53c0a3fcb1ca7342617dae8655f1eb49bd9420c26569",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/batch_c_logo_art.py": {
+      "sha256": "2056df4848a0b949faff55efcdc8d5daea6fbffaebf4779680f7959e6aa79cba",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/batch_c_prize_art.py": {
+      "sha256": "dd342b1ee97a055ff81c789236d0defd5fe347623103b85790f0c01a3f49101b",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/batch_d_banner_art.py": {
+      "sha256": "fb7970de4adc99ff6fb95b2f1caedb101e64bba2271b5c9562ad969a57fd03e4",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/batch_e_art.py": {
+      "sha256": "529d2fa2fbb8a64cc3960c24c078ea194b8166ddbca6df51cc1cc125d40ca55d",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/make_batch_c_png.py": {
+      "sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/make_explainer_png.py": {
+      "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/make_junky_card_png.py": {
+      "sha256": "240c31f139fda4a034a54685c692c1d0d1f3902b6ee90a730ff48d088fbf8a41",
+      "matches_frozen_crawl": true,
+      "role": "recipe"
+    },
+    "tools/make_rank4_png.py": {
+      "sha256": "4cfba02562eaf992834c45379246ee493c1db198f052443e3f3453b9690a8095",
+      "matches_frozen_crawl": true,
+      "role": "recipe"
+    },
+    "tools/make_survive_card.py": {
+      "sha256": "1fbfca4054bad98ccd273b351a6136a5c848399abe61350c175060e44064f946",
+      "matches_frozen_crawl": true,
+      "role": "recipe"
+    },
+    "tools/make_vlg_plates.py": {
+      "sha256": "f4b27326093bdf84af1d5206e3e7de8e12d5abb27a5ef174307551286919a2d1",
+      "matches_frozen_crawl": true,
+      "role": "recipe"
+    },
+    "tools/make_vs_set_icons.py": {
+      "sha256": "62be74434cd4d25326767393ae4f0e7c9a005e0203f7e0c1a774c69592dd2128",
+      "matches_frozen_crawl": true,
+      "role": "engine"
+    },
+    "tools/make_weekday_labels_png.py": {
+      "sha256": "1b4cdd363a159d6154e5d3f1b4a39b92bba8736c410975a276406b7f1ca8d716",
+      "matches_frozen_crawl": true,
+      "role": "recipe"
+    },
+    "analysis/donor-composition-contract.json": {
+      "bytes": 18244,
+      "sha256": "acf635da2cb2e9255990696de86810aa741915f13905b5753517a4b2b37cbd74"
+    },
+    ".goal/donor-composition-work.json": {
+      "bytes": 2322,
+      "sha256": "94a5fc5df6de52335bdfb7f7d185f6c174680a21bb762c50359689658c31531c"
+    },
+    "analysis/pattern-crawl-assets_runtime_tests.json": {
+      "bytes": 106351,
+      "sha256": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3"
+    },
+    "raster.go": {
+      "bytes": 15079,
+      "sha256": "f3c5e2bc6fc6000e5ccac9f79c04e63040c9a6901e34e185481dc6ee28032efe"
+    },
+    "raster_runs.go": {
+      "bytes": 15670,
+      "sha256": "deeb1f8270fd9bb3e885e32b71307afb3792c665c2b4eff0ba4939f5149e65e2"
+    },
+    "texture_authoring.go": {
+      "bytes": 25302,
+      "sha256": "86ba4a6c80abb5d6a24da0c8b8652b05821287ea3d13b3978814223571827f8e"
+    },
+    "raster_resize.go": {
+      "bytes": 7274,
+      "sha256": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63"
+    },
+    "../../generated/explainer-specs/batch_b_tutorial.json": {
+      "bytes": 54590,
+      "sha256": "1992b7a37a7d24fea92d6b0bddcf239ade252728e8be02ec172049342334f6d4"
+    },
+    "../../generated/explainer-specs/batch_c.json": {
+      "bytes": 103036,
+      "sha256": "df7b92f0696ff2a411cecb46b17380627da790fb9261574e538622214fff6dd1"
+    },
+    "../../generated/explainer-specs/batch_c_parts/prize.json": {
+      "bytes": 13721,
+      "sha256": "a0e6745547d48cbfb295c4073da2f86d14aaaedd37182620465301f4b7ed65ad"
+    },
+    "../../generated/explainer-specs/batch_e.json": {
+      "bytes": 42902,
+      "sha256": "cefaa19d90b8f706cfcdbf4671064311c08dba7593ec989c58b94b4bf9157d24"
+    }
+  },
+  "verification": {
+    "source_crawl": "All13asset.rendersourceSHA matchfrozencrawl",
+    "pack": "27manifest members size/SHA verified,11rawPNGwholeimages/masksbyteequal",
+    "source_execution": "OnlyASTselectedpureoriginalhelpers/build_allow/op_erase, directlibraryNumPy/Pillow/SciPy; nomodulemain/projectmoduleimports.",
+    "scope": "Onlynewanalysisreport+ownedprivatepack written; priorpacks/reports/goals/sources untouched. NoGo/candidate/fullsuite/protectedresources orapproval.",
+    "versions": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "pillow": "12.3.0"
+    }
+  },
+  "limits": [
+    "No family/.06/historicalpathretirement orcode-reductioncredit.",
+    "No newbroadoperationframework/schema/code/functionproposal; sourcearchitectureboundaryneedsrootdecision.",
+    "Noactualsourceart/ISO/canonicalregistry/emulator/PINE/process/log/settings/sharedservice access.",
+    "Skippedwholeartworkreconstructionparity; outputquality/liveness/nativeplacementnotprovedbyliteraloracles."
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T02:09:54.651685+00:00",
+  "scope": "Shared nearest resampling foundation for comparison previews; asset_preview_inventory.05 remains open. Full410/all14objective unchanged.",
+  "decision": "analysis/preview-resample-decision.json",
+  "source_contract": "analysis/asset-preview-contract.json",
+  "implementation": "Enhances existing resizeRaster with explicit lanczos/nearest and optional relative logical nearest crop. Two renderRuns calls select lanczos,nil; no new function/helper/closure/CLI/profile/writer/dependency. Lanczos numerical tail remains byte-identical.",
+  "contract": "Nearest uses separate binary64 step*.5 then sequential +=step on each axis. Copy straight channels, including hidden RGB; crop/pad before sampling, relative to source content independent of Rect.Min, fresh origin-zero output, source/padding unchanged. Nearest16Mpx/16384output; source/crop1Mpx/4096; cropendpoint\u00b12^30; Lanczos bounds/intermediate unchanged. No padded-source allocation.",
+  "original_pixel_verification": {
+    "unchanged_LANCZOS_cases": 134,
+    "nearest_complete_RGBA_cases": 10,
+    "Gray_channel_and_padded_view_cases": "Same10originalcompletevectors; source/outalias preservation verified.",
+    "frozen_sweep_pairs": 131072,
+    "frozen_sweep_pixels": 33619968,
+    "frozen_sweep_sha256": "3669acffb5d7acdb7d16bb1ff866b470046d733a336e5bf0ebdac56d0f7c92fb",
+    "real_3x_capacity": "512\u00b2 and1024x512 inputs, complete constant hiddenRGBAoutputs checked.",
+    "new_geometry_filter_refusals": 12,
+    "fixture": "testdata/raster-nearest.zip",
+    "fixture_sha256": "65a3505a9e8388527cccc6e78d25da9f77be5e07f4230e370581fca7a7a2e665",
+    "fixture_origin": "Frozen original-only Pillow12.3 primaryC study and expectedcompletePNG/rawRGBA; no Go-derived expected pixels."
+  },
+  "focused_normal": {
+    "command": [
+      "nice",
+      "-n",
+      "19",
+      "go",
+      "test",
+      "-p",
+      "2",
+      "-run",
+      "^(TestPilotHistoricalGoldenBytes|TestCLIDryRunAndApply)$",
+      "-count=1",
+      "."
+    ],
+    "exit": 0,
+    "seconds": 19.88,
+    "stdout_sha256": "25815f486cfd01d4fc9f9e398bd8604a6675460a5b84425e3563a451c670b4e6",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Two focused existing Golden and completeCLI owners, including134unchangedLanczos+10nearestRGBA/Gray/paddedcases,131072finite sweep pairs, real3xcapacity and12geometry/filterrefusals; not full suite."
+  },
+  "focused_race": {
+    "command": [
+      "nice",
+      "-n",
+      "19",
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "2",
+      "-run",
+      "^(TestPilotHistoricalGoldenBytes|TestCLIDryRunAndApply)$",
+      "-count=1",
+      "."
+    ],
+    "exit": 0,
+    "seconds": 148.124,
+    "stdout_sha256": "df6a65d01f9d657e044ed9cb687989c3bb528da94f1c2a963becddc14ccb1e2a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Two focused existing Golden and completeCLI owners; not full suite."
+  },
+  "checks": [
+    {
+      "label": "build",
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-preview-resample-qvxtwlpn/dokapon-go",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 1.295
+    },
+    {
+      "label": "vet",
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.33
+    },
+    {
+      "label": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "raster_resize.go",
+        "raster_runs.go",
+        "patch_test.go"
+      ],
+      "exit": 0,
+      "seconds": 0.05
+    }
+  ],
+  "hygiene": {
+    "at": "2026-10-21T02:04:23.324616+00:00",
+    "pins": 7,
+    "whitespace": "PASS manual8changedfiles/gitdiffcheck",
+    "credentials": {
+      "patterns": 2,
+      "positive_selfchecks": true,
+      "scoped_files": 8,
+      "candidates": 0
+    }
+  },
+  "independent_review": {
+    "path": "evidence/preview-resample-review.json",
+    "sha256": "fb0a5f7111f172e51061795ffdf1e0c35db6b1509efbfedb6805a187938dc9ae",
+    "findings": 0,
+    "candidate_pins_verified": 7,
+    "private_artifacts_verified": 6,
+    "own_Golden_seconds": 12.703,
+    "additional_original_completepixel_cases": 10,
+    "private_overlay_seconds": 10.051,
+    "scope": "OwnGolden/build/vet/format/scans; extraGray/NRGBAOOB/extremecoordinates/sourceorigins/largeaxis/inexactratios/padding. ExactoldLanczos tail and inverseASTcallerrestore. No completion/approval authority."
+  },
+  "private_receipts": {
+    "/var/tmp/dokapon-preview-resample-qvxtwlpn/focused-normal.json": {
+      "sha256": "46198af549de75c24a633644f1946a94a2fde85b4362f7e2775fd492cfa4be94",
+      "bytes": 616
+    },
+    "/var/tmp/dokapon-preview-resample-qvxtwlpn/focused-race.json": {
+      "sha256": "396cbdbb9d2751581518a27ad02fc45e1788e77c05c9b5d0e631f8c8bdf6a5e5",
+      "bytes": 500
+    },
+    "/var/tmp/dokapon-preview-resample-qvxtwlpn/initial-checks.json": {
+      "sha256": "a0dc30e6cadcaea7fab4f8f57f587a0d952c1ee6f5a10fe25ef9285ed8e83607",
+      "bytes": 641
+    },
+    "/var/tmp/dokapon-preview-resample-qvxtwlpn/hygiene.json": {
+      "sha256": "618afa83303b9efdd94b11a5bdf67e027311af47cf5c143555aadcb499702fe6",
+      "bytes": 236
+    },
+    "/var/tmp/dokapon-preview-resample-qvxtwlpn/candidate-pins.json": {
+      "sha256": "aa9a5bb3fd5cd36ed2b883d007f19dbadb48014d991d0debb312ed7ae80ef4ac",
+      "bytes": 697
+    },
+    "/var/tmp/dokapon-preview-resample-qvxtwlpn/metrics.json": {
+      "sha256": "16a4feeccfe541665db6a0a6f67e3c246dc8879bea9b53db6cdd9410d0090c63",
+      "bytes": 475
+    }
+  },
+  "metrics": {
+    "production": {
+      "files": 33,
+      "bytes": 345775
+    },
+    "named_functions": 35,
+    "new_functions": 0,
+    "runtime": {
+      "files": 120,
+      "bytes": 855532
+    },
+    "accounted_inputs": 206,
+    "production_growth_bytes": 1895,
+    "runtime_growth_bytes": 1895,
+    "tests_growth_bytes": 4967,
+    "fixture_growth_bytes": 7656,
+    "claim": "Shared numerical capability growth; no new function, net source-code reduction, .05milestone, family promotion or historical retirement."
+  },
+  "coverage": "Unchanged61/84planningmilestones,5Full9Partial/14,8FullGo20reviewed16partial366outstanding/410.",
+  "UI": "No HTML/UI change; existing diagram topology unchanged. No new browser/UI run.",
+  "limits": [
+    "No checker/pair/publiccomparison operation yet; these are .05remaining duties, not waived.",
+    "Contact labels/order/groups/dedup/linkage and flat90variant remain material fullfamily obligations; font backendgap underoriginal-only study.",
+    "Full integrated suite/gameplay deferred by owner pacing; focused twoowner race only.",
+    "No ISO/canonical/protectedruntime access/control; no patch or artapproval.",
+    "Numerical capability growth, not net code reduction or historicalretirement."
+  ]
+}

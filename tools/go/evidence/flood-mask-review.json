@@ -1,0 +1,309 @@
+{
+  "all_owned_jobs_terminal": true,
+  "allowed_live_write": "evidence/flood-mask-review.json only",
+  "at": "2026-11-05T02:48:31.002330+00:00",
+  "closed_findings": [
+    {
+      "evidence": [
+        "authority-negative-results.json",
+        "documented-golden-only.stdout",
+        "existing-cli-source-panel-guard.stdout",
+        "doc-delta-checks.json",
+        "doc-delta.diff"
+      ],
+      "fix": "README and table_authority.verification now specify the existing combined CLI+Golden command. Metadata explicitly states source-panel validation plus allfiveprefixes. No runtime/test/data changes were needed.",
+      "id": "A044-DOC-COMMAND-1",
+      "initial_file": "README.md",
+      "initial_line": 1663,
+      "problem": "Golden-only prefix comparison accepted shared allow13to12 while five flattened tables retained13records. The existing CLItest independently catches the source panel13rectangle/80254pixel mismatch.",
+      "reproduction": "Exact frozen testbinary on isolated resource copy: documented Golden-onlyPASS14.795s; CLItestFAIL1.786s. CandidateGo/data never changed.",
+      "severity": "LOW",
+      "status": "CLOSED_DOC_ONLY_DELTA"
+    },
+    {
+      "closure": "One authored panel authority is named; allfiveflattened derivatives are identified; finite prefix replacement/preservation/repin and independent source revision checks are documented. Existing tests check equality and source mask. Archived Python is lineage only, not a runtime or maintenance dependency. No numerical helper or source-saving claim was added.",
+      "id": "A044-DATA-AUTHORITY-1",
+      "original_report": "evidence/astra-audit-044.json remains historical and unchanged",
+      "severity": "LOW",
+      "status": "CONTRACT_FIXED_IN_REVIEWED_INCREMENT"
+    }
+  ],
+  "connected_review": {
+    "deletion": "The476Bobsolete runtime partial table is absent. Both historicalt2literal expectations and unchanged original sourceZIP remain; immutable700snapshot preserves oldtable. This is an input deletion, not410script retirement.",
+    "publication_only_pending": "Root owns pruning the removed path from current roadmap/workflowbindings/covscopedpins/checksfinalpins/currentaccounting/sources/sealedbindings and adding replacements before acceptance. Root explicitly acknowledged this pending finalization. Immutable historicalproof/sourcepins remain unchanged; this is not a shipped runtime finding.",
+    "reuse": "No new function/type/file or labeler. Existing component BFS handles seed membership and adds immutable background bits; selectRaster invokes the unchanged four-neighbor erode kernel at one fixed phase. Existing authorTexture validates only the two new canonical fields; current erase, font, compositor and publication callers retain defaults.",
+    "semantics": "Label-zero requires explicit seeds without nonzero minimum or any present rejection criteria. A false input seed selects all false INPUT bits across Rect, including disconnected sampling padding. Unselected foreground components never become background. Foreground/background seed selections union before erosion; Erode0skips and negative erodes to stability, before final growth and clipping. Reject pointer presence preserves explicit[]refusals and foreground-mode oldempty behavior.",
+    "serena_session": "e392a2e9",
+    "source_geometry": "Actual normalized flood Rect is the source crop. Nine permission tables now describe ten source contexts on synthetic inputs; shared g02/g12 operands join one table. Full stage/native-footprint expectations remain distinct from artwork/text/hook/donor claims."
+  },
+  "final_doc_delta": {
+    "Go_tests_and_data_byte_exact": true,
+    "all_owned_jobs_terminal": true,
+    "changed_files": [
+      "README.md",
+      "analysis/mask-pipeline-reuse-decision.json"
+    ],
+    "combined_command": "go test -p 2 -run '^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$' -count=1 .",
+    "manifest": "/var/tmp/dokapon-flood-mask-uozw1oid/final-review-source-manifest.json",
+    "manifest_sha256": "7aa150dd507900b9166ebbf92832f93f7faed245faea8ebf5de297ed861b5533",
+    "members_verified": 705,
+    "status": "PASS_DOC_ONLY_CLOSURE",
+    "unchanged_other_members": 703,
+    "verified_authority_scope": {
+      "audit": "A044-DATA-AUTHORITY-1",
+      "authored_shared_fact": "profiles/permissions/batch-c-panels.json",
+      "dependency": "ArchivedPython/sourcecapsulesareone-timeevidence, notruntimeorrequiredmaintenanceexecution. Prefixreplacementisfiniteexplicitdatamaintenance, no newresourceframework/helper.",
+      "flattened_shared_prefix_derivatives": [
+        "profiles/permissions/footprints/mini_g04.json",
+        "profiles/permissions/footprints/mini_g09.json",
+        "profiles/permissions/footprints/mini_g11.json",
+        "profiles/permissions/footprints/mini-g02-g12.json",
+        "profiles/permissions/footprints/mini-g08.json"
+      ],
+      "lineage_only_converter": "/var/tmp/dokapon-mask-pipeline-j_248fr1/prepare-canonical-footprints.py",
+      "lineage_only_converter_sha256": "b685cd74dedd9a94ac45173a7da94e54e63b5580f7f1b07a7a8598d8a79e246c",
+      "rule": "DerivedAllow[:len(sharedAllow)] must equal ordered sharedAllow. Replaceonlythisprefix afterauthoritativefactrevision, preserveallremainingrecords/maskstages, updateaffectedpins andsource-independentgoldens throughnormalreview.",
+      "superseded_partial_table": {
+        "preserved_history": "Literaloldsourceexpectations/700immutablebaseline; no historicalscript retirement.",
+        "removed": "profiles/permissions/footprints/mini_t2-generic-only.json",
+        "replacement": "profiles/permissions/footprints/mini-t2.json"
+      },
+      "verification": "go test -p 2 -run '^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$' -count=1 .",
+      "verification_scope": "CombinedCLIandGoldencommand validates authoritative13rectangle/80254pixeloriginalmask plus allfiveflattenedprefixcopies. Golden-onlyprefixequalitydoesnotindependentlyvalidateauthoritytruncation."
+    }
+  },
+  "findings": [],
+  "initial_finding_preserved": {
+    "manifest": "/var/tmp/dokapon-flood-review-63xynsaw/initial-artifact-manifest.json",
+    "manifest_sha256": "3f904ee9cfdf79b79309d5e9ab6b22f40d65a672a6b3cf4f45a87fe13b3b45d3",
+    "report": "/var/tmp/dokapon-flood-review-63xynsaw/initial-review.json",
+    "sha256": "a052bc9d7a554b8c5ad63d88f89da810bf1587f58b59f8792c1f17f44166e74b"
+  },
+  "kind": "independent-read-only-flood-mask-review",
+  "limitations": [
+    "Focused checks are not the full suite. Root finalQA/race results are separate and not claimed as reviewer executions.",
+    "No further Go run was needed for the final two-file documentation delta; all703othermembers, including Go/tests/data, are byte-identical to the tested freeze.",
+    "No native-font race, gameplay, artwork approval or complete raster.06/family credit.",
+    "No protected original/shipping/custom-art ISO, canonical registry, owner emulator/probe/processes/auth/settings/logs accessed.",
+    "Only private external harness/scripts/resources and the authorized evidence report were written.",
+    "Review grants no implementation, approval, patch or migration coverage authority."
+  ],
+  "numeric_reference": "Private external main driver compiles exact copied numerical owners/types. Independent set-based immutable foreground labels plus global original background aggregation, full-grid four-neighbor erosion and boundary-background hole filling generated expectations before Go invocation. Cases cover every1x1/2x2/3x3mask, explicit/nil/empty/mixed/background seeds, disconnected background, default foreground refusals, union-before-erosion, sampling padding, shifted origin, final grow/exclude and exact1593budget/1592refusal. Foreground/reject/seed inputs stay unchanged and outputs owned.",
+  "own_commands": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestPlanAndCopy|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 42.938711404800415
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-flood-review-63xynsaw/dokapon-core",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.23490118980407715
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.38942599296569824
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-flood-review-63xynsaw/dokapon-nativefonts",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 2.2330143451690674
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.8002734184265137
+    }
+  ],
+  "own_verification": {
+    "actual_nativefonts_build": "PASS",
+    "actual_nativefonts_vet": "PASS",
+    "all_owned_jobs_terminal": true,
+    "complex_inline_and_shared_flood_programs_match_frozen_native_golden": true,
+    "core_build": "PASS",
+    "core_vet": "PASS",
+    "doc_negative_control": {
+      "all_owned_jobs_terminal": true,
+      "external-recipes-fixed": "Initialsymlinkrecipeswasnotwalkedbytest; copiedrecipesdirectoryverbatim toremoveharnessartifact",
+      "mutation": "Onlyexternalsharedpanelauthority allow13to12; derivedtablesunchanged",
+      "results": [
+        {
+          "command": [
+            "/var/tmp/dokapon-flood-review-63xynsaw/documented-check.test",
+            "-test.run",
+            "^TestPilotHistoricalGoldenBytes$",
+            "-test.count=1"
+          ],
+          "exit": 0,
+          "label": "documented-golden-only",
+          "seconds": 14.795044898986816
+        },
+        {
+          "command": [
+            "/var/tmp/dokapon-flood-review-63xynsaw/documented-check.test",
+            "-test.run",
+            "^TestCLIDryRunAndApply$",
+            "-test.count=1"
+          ],
+          "exit": 1,
+          "label": "existing-cli-source-panel-guard",
+          "seconds": 1.78623366355896
+        }
+      ]
+    },
+    "explicit_empty_label_seeds_preserve_native_source": true,
+    "focused_tests": "TestPlanAndCopy+TestCLIDryRunAndApply+TestPilotHistoricalGoldenBytes PASS42.938711405s",
+    "gofmt_scoped_Go": "PASS",
+    "independent_CLI_probes": 45,
+    "independent_flood_cases": {
+      "all_assertions_passed": true,
+      "all_owned_jobs_terminal": true,
+      "cases": 12114,
+      "reference": "Set-based immutable foreground labels plus global original background aggregate, independent full-grid erosion and boundary-background fill.",
+      "request_sha256": "d32b39e13057a408b466a9ec72d2d3be7912d9306c68e219c298c1af1dcc9e93"
+    },
+    "invalid_requests_empty_stdout_and_no_apply_output": true,
+    "source_bytes_preserved": true,
+    "source_vectors": "Existing focused/golden suite checks297frozen source vectors, including88newflood/global stages. Original expectedbytes are unchanged.",
+    "table_and_removal_checks": {
+      "five_shared_prefixes": [
+        {
+          "prefix": 13,
+          "table": "mini_g04.json"
+        },
+        {
+          "prefix": 13,
+          "table": "mini_g09.json"
+        },
+        {
+          "prefix": 13,
+          "table": "mini_g11.json"
+        },
+        {
+          "prefix": 13,
+          "table": "mini-g02-g12.json"
+        },
+        {
+          "prefix": 13,
+          "table": "mini-g08.json"
+        }
+      ],
+      "four_asset_joins": {
+        "mini_g02": "tables/mini-g02-g12.json",
+        "mini_g08": "tables/mini-g08.json",
+        "mini_g12": "tables/mini-g02-g12.json",
+        "mini_t2": "tables/mini-t2.json"
+      },
+      "historical_t2_literal_vectors": 2,
+      "old_partial_baseline_bytes": 476,
+      "old_partial_runtime_absent": true,
+      "publication_metadata_cleanup": "Root finalization pending; active roadmap/cov/currentbinding old references will be pruned, historical proof pins preserved.",
+      "three_new_tables_exact_ledger": true,
+      "unchanged_historical_footprint_fixture": true
+    },
+    "unsupported_size_and_nonnil_reject_refuse_including_empty": true,
+    "whole_accepted700_report_or_refusal_parities": 8,
+    "zero_positive_negative_erosion_wire_and_kernel_checks": true
+  },
+  "probe_corrections": [
+    {
+      "detail": "Initial reviewer expected1584 but omitted the per-property scalar charge. Correct independent charge is(14predicate+80component+16erosion+64growth+3geometry)*9=1593. Initial script/requests/results preserved; corrected final assertions pass. No runtime/source oracle changed.",
+      "kind": "budget assumption"
+    },
+    {
+      "detail": "Initial external recipes symlink was not traversed by filepath.WalkDir and caused an unrelated runtime table-set failure. Recipes were copied byte-for-byte into the externalresourcecopy; the documented Golden-only gate thenpassed and existing CLIguard failed as reported. Initial output is preserved.",
+      "kind": "negative-control harness"
+    }
+  ],
+  "reviewer": "/root/reference_owner_review",
+  "schema_version": 1,
+  "status": "REVIEW_COMPLETE_A044_AUTHORITY_AND_DOC_COMMAND_FINDINGS_CLOSED_NO_RUNTIME_FINDINGS",
+  "tested_initial_pins": [
+    {
+      "kind": "candidate",
+      "manifest": "/var/tmp/dokapon-flood-mask-uozw1oid/review-source-manifest.json",
+      "members_verified": 705,
+      "sha256": "c82f0592358bbbdc28027f848f5090e54557b1a4a974c800ef33925c3b8cc1d3"
+    },
+    {
+      "kind": "baseline",
+      "manifest": "/var/tmp/dokapon-component-mask-eo_jbpc5/sealed-final/manifest.json",
+      "members_verified": 700,
+      "sha256": "58fae33ee97812609b1480a6e58f63a46ba99eb6c47c41ccaac264713fcc0abf"
+    },
+    {
+      "kind": "flood projection",
+      "manifest": "/var/tmp/dokapon-flood-wire-projection-heyOGrTd/manifest.json",
+      "members_verified": 102,
+      "sha256": "509df2b4ce3eec00e0d4c4e00f4e594da33060baee571a908f39da3d8dc45208"
+    },
+    {
+      "kind": "independent source",
+      "manifest": "/var/tmp/dokapon-flood-permission-source-Ui9Vc7zO/manifest.json",
+      "members_verified": 55,
+      "sha256": "622eb0fa93e14c6fac6ae8547af89ae3a2d97d91c18647ddd70f4644c7767b27"
+    },
+    {
+      "kind": "independent source",
+      "manifest": "/var/tmp/dokapon-component-global-stages-aKJmlrhz/manifest.json",
+      "members_verified": 53,
+      "sha256": "bae488bad73d006b0a7ab6c7d0010f95acc0cee5646c93321db8be7a0634a6ee"
+    },
+    {
+      "kind": "independent source",
+      "manifest": "/var/tmp/dokapon-component-wire-projection-AIJkVO0d/manifest.json",
+      "members_verified": 50,
+      "sha256": "4cf760c73f87b57fc006eeff271522d7af2645a86c610b0da278034b4c0b7d6f"
+    },
+    {
+      "kind": "independent source",
+      "manifest": "/var/tmp/dokapon-footprint-wire-projection-8GFbxmt0/manifest.json",
+      "members_verified": 127,
+      "sha256": "d17cde5126e35acf0b6dc284577b6dd947aa475459078c1a4deeedc892112210"
+    }
+  ],
+  "what_this_change_does": "Adds explicit label-zero background aggregation to the existing component traversal and an erosion phase after component union. Three complete permission tables replace the partial runtime t2 datum and bind four source contexts. Shared panel authority and its finite update/test contract are documented without a runtime helper or Python dependency.",
+  "workspace": "/var/tmp/dokapon-flood-review-63xynsaw"
+}

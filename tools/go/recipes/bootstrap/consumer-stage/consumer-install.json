@@ -1,0 +1,481 @@
+{
+  "operation": "guarded_words",
+  "source_sha256": "7ed45000fada45f969b79074ee2a4061353a604aa43c90bda58dc018def1f9bf",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x0",
+  "elf_vma_delta": "0x0",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Atomic consumer bootstrap after allocation-isolated-run.json; source hash pins the installed loader/cleanup and disc prerequisites. Identity mapping: keys are ISO offsets; notes retain VMAs. Preserve six original JP streams and exact18B monster reads; no canonicalEN/registry writes. Pure builder references and caller/zone proofs: analysis/bootstrap-contracts.json and bootstrap-source-facts.json. Global memcpy translation supersedes the two older monster adapters.",
+  "values": {
+    "window_bytes": "0x100000",
+    "window_shift": "0x14"
+  },
+  "word_blocks": {
+    "translate_a1": {
+      "words": [
+        {"hex": "0x3c010400", "assembly": "lui $at, 0x0400"},
+        {"hex": "0x00a10823", "assembly": "subu $at, $a1, $at"},
+        {"hex": "0x00011802", "assembly": "srl $v1, $at, window_shift"},
+        {"hex": "0x3c020042", "assembly": "lui $v0, 0x0042"},
+        {"hex": "0x8c427798", "assembly": "lw $v0, 0x7798($v0)"},
+        {"hex": "0x00410821", "assembly": "addu $at, $v0, $at"},
+        {"hex": "0x0023280a", "assembly": "movz $a1, $at, $v1"}
+      ],
+      "fixups": {
+        "0x8": {
+          "value": "window_shift",
+          "bits": 5,
+          "lsb": 6
+        }
+      }
+    }
+  },
+  "entries": {
+    "0xa1678": {
+      "expected_hex": "a0ffbd273000a6ff",
+      "evidence": "0x101df8: sprintf entry",
+      "words": [
+        {"hex": "0x0812b444", "assembly": "j 0x4ad110"},
+        {"hex": "0x00000000", "assembly": "nop (original prologue replayed in stub)"}
+      ]
+    },
+    "0xa31d0": {
+      "expected_hex": "2d4080002000c22c",
+      "evidence": "0x103950: memcpy entry",
+      "words": [
+        {"hex": "0x0812b41c", "assembly": "j 0x4ad070"},
+        {"hex": "0x00000000", "assembly": "nop (original prologue replayed in stub)"}
+      ]
+    },
+    "0x23fd64": {
+      "expected_hex": "3400023c2d200000",
+      "evidence": "0x2a04e4: loader activation",
+      "words": [
+        {"hex": "0x080e66b8", "assembly": "j 0x399ae0"},
+        {"hex": "0x0000202d", "assembly": "preserve original delay instruction"}
+      ]
+    },
+    "0x2431a8": {
+      "expected_hex": "0000b07f2d88c000",
+      "evidence": "0x2a3928: parameter entry",
+      "words": [
+        {"hex": "0x0c14dd04", "assembly": "jal 0x537410"},
+        {"hex": "0x7fb00000", "assembly": "sq $s0, 0($sp) (replayed delay)"}
+      ]
+    },
+    "0x244a00": {
+      "expected_hex": "60ffbd27ffff0324",
+      "evidence": "0x2a5180: dialogue entry",
+      "words": [
+        {"hex": "0x08136d24", "assembly": "j 0x4db490"},
+        {"hex": "0x2403ffff", "assembly": "preserve original delay instruction"}
+      ]
+    },
+    "0x25e3a0": {
+      "expected_hex": "00fbbd2705000324",
+      "evidence": "0x2beb20: name-line entry",
+      "words": [
+        {"hex": "0x0812b430", "assembly": "j 0x4ad0c0"},
+        {"hex": "0x00000000", "assembly": "nop (original prologue replayed in stub)"}
+      ]
+    },
+    "0x28dd78": {
+      "expected_hex": "0000e4942d10e000",
+      "evidence": "0x2ee4f8: nameplate duplicate1 entry",
+      "words": [
+        {"hex": "0x080e6719", "assembly": "j 0x399c64"},
+        {"hex": "0x00000000", "assembly": "nop (displaced pair replayed in adapter)"}
+      ]
+    },
+    "0x290700": {
+      "expected_hex": "3c4c090040febd27",
+      "evidence": "0x2f0e80: word-wrap entry",
+      "words": [
+        {"hex": "0x0812b43a", "assembly": "j 0x4ad0e8"},
+        {"hex": "0x00000000", "assembly": "nop (original prologue replayed in stub)"}
+      ]
+    },
+    "0x290e88": {
+      "expected_hex": "0000e4942d10e000",
+      "evidence": "0x2f1608: nameplate duplicate2 entry",
+      "words": [
+        {"hex": "0x080e6723", "assembly": "j 0x399c8c"},
+        {"hex": "0x00000000", "assembly": "nop (displaced pair replayed in adapter)"}
+      ]
+    },
+    "0x291330": {
+      "expected_hex": "000085942d108000",
+      "evidence": "0x2f1ab0: nameplate entry",
+      "words": [
+        {"hex": "0x080e6711", "assembly": "j 0x399c44"},
+        {"hex": "0x00000000", "assembly": "nop (displaced pair replayed in adapter)"}
+      ]
+    },
+    "0x293040": {
+      "expected_hex": "60ffbd273000bfff",
+      "evidence": "0x2f37c0: append entry",
+      "words": [
+        {"hex": "0x0812b426", "assembly": "j 0x4ad098"},
+        {"hex": "0x00000000", "assembly": "nop (original prologue replayed in stub)"}
+      ]
+    },
+    "0x293250": {
+      "expected_hex": "00f8033400000000000086940000000000000000000000000300c31000000000f9ff0010020084240000a7942d30a00000f80334000087a40200c5240000c694f9ffc314020084240800e00300000000",
+      "evidence": "0x2f39d0: u16 strcat",
+      "words": [
+        {"hex": "0x3c080400", "assembly": "lui $t0, 0x0400"},
+        {"hex": "0x00a84023", "assembly": "subu $t0, $a1, $t0"},
+        {"hex": "0x00084802", "assembly": "srl $t1, $t0, window_shift"},
+        {"hex": "0x3c0a0042", "assembly": "lui $t2, 0x0042"},
+        {"hex": "0x8d4a7798", "assembly": "lw $t2, 0x7798($t2)"},
+        {"hex": "0x01484021", "assembly": "addu $t0, $t2, $t0"},
+        {"hex": "0x0109280a", "assembly": "movz $a1, $t0, $t1"},
+        {"hex": "0x3403f800", "assembly": "ori $v1, $zero, 0xf800"},
+        {"hex": "0x94860000", "assembly": "lhu $a2, 0($a0)"},
+        {"hex": "0x24840002", "assembly": "addiu $a0, $a0, 2"},
+        {"hex": "0x14c3fffd", "assembly": "bne $a2, $v1, 0x2f39f0"},
+        {"hex": "0x00000000", "assembly": "nop (R5900 short-loop delay)"},
+        {"hex": "0x94a70000", "assembly": "lhu $a3, 0($a1)"},
+        {"hex": "0x24a50002", "assembly": "addiu $a1, $a1, 2"},
+        {"hex": "0xa487fffe", "assembly": "sh $a3, -2($a0)"},
+        {"hex": "0x24840002", "assembly": "addiu $a0, $a0, 2"},
+        {"hex": "0x14e3fffb", "assembly": "bne $a3, $v1, 0x2f3a00"},
+        {"hex": "0x00000000", "assembly": "nop (R5900 short-loop delay)"},
+        {"hex": "0x03e00008", "assembly": "jr $ra"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ],
+      "fixups": {
+        "0x8": {
+          "value": "window_shift",
+          "bits": 5,
+          "lsb": 6
+        }
+      }
+    },
+    "0x3394c4": {
+      "expected_hex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "0x399c44: nameplate adapter",
+      "words": [
+        {"hex": "0x00802825", "assembly": "or $a1, $a0, $zero"},
+        {"hex": "0x0c136d35", "assembly": "jal SUBST"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x00a02025", "assembly": "or $a0, $a1, $zero"},
+        {"hex": "0x94850000", "assembly": "<original lhu, replayed verbatim>"},
+        {"hex": "0x0080102d", "assembly": "<original move, replayed verbatim>"},
+        {"hex": "0x080bc6ae", "assembly": "j 0x2f1ab8"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ]
+    },
+    "0x3394e4": {
+      "expected_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "0x399c64: duplicate1 adapter; preserve a1",
+      "words": [
+        {"hex": "0x00a05825", "assembly": "or $t3, $a1, $zero (save live dest-cursor)"},
+        {"hex": "0x00e02825", "assembly": "or $a1, $a3, $zero"},
+        {"hex": "0x0c136d35", "assembly": "jal SUBST"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x00a03825", "assembly": "or $a3, $a1, $zero"},
+        {"hex": "0x01602825", "assembly": "or $a1, $t3, $zero (restore dest-cursor)"},
+        {"hex": "0x94e40000", "assembly": "<original lhu, replayed verbatim>"},
+        {"hex": "0x00e0102d", "assembly": "<original move, replayed verbatim>"},
+        {"hex": "0x080bb940", "assembly": "j 0x2ee500"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ]
+    },
+    "0x33950c": {
+      "expected_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "0x399c8c: duplicate2 adapter; preserve a1",
+      "words": [
+        {"hex": "0x00a05825", "assembly": "or $t3, $a1, $zero (save live dest-cursor)"},
+        {"hex": "0x00e02825", "assembly": "or $a1, $a3, $zero"},
+        {"hex": "0x0c136d35", "assembly": "jal SUBST"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x00a03825", "assembly": "or $a3, $a1, $zero"},
+        {"hex": "0x01602825", "assembly": "or $a1, $t3, $zero (restore dest-cursor)"},
+        {"hex": "0x94e40000", "assembly": "<original lhu, replayed verbatim>"},
+        {"hex": "0x00e0102d", "assembly": "<original move, replayed verbatim>"},
+        {"hex": "0x080bc584", "assembly": "j 0x2f1610"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ]
+    },
+    "0x44c8f0": {
+      "expected_hex": "03b047014301880108b0a3006b008f000b0000107e008c007300960063000d018b000008d8019200",
+      "evidence": "0x4ad070: memcpy shared-prefix stub",
+      "words": [
+        {"hex": "0x0080402d", "assembly": "or $t0, $a0, $zero"},
+        {"hex": "0x08040e56", "assembly": "j 0x103958"},
+        {"hex": "0x2cc20020", "assembly": "sltiu $v0, $a2, 0x20 (replayed delay)"}
+      ],
+      "use": "translate_a1"
+    },
+    "0x44c918": {
+      "expected_hex": "710065007100660088007d006b008f000b00001000f800000028f43a820092006e005f000b000008",
+      "evidence": "0x4ad098: append shared-prefix stub",
+      "words": [
+        {"hex": "0x27bdff60", "assembly": "addiu $sp, $sp, -0xa0"},
+        {"hex": "0x080bcdf2", "assembly": "j 0x2f37c8"},
+        {"hex": "0xffbf0030", "assembly": "sd $ra, 0x30($sp) (replayed delay)"}
+      ],
+      "use": "translate_a1"
+    },
+    "0x44c940": {
+      "expected_hex": "03b0a3017a017b0108b0a3006b008f000b000008de019600b401c4026a007100600065007d006b00",
+      "evidence": "0x4ad0c0: name-line shared-prefix stub",
+      "words": [
+        {"hex": "0x27bdfb00", "assembly": "addiu $sp, $sp, -0x500"},
+        {"hex": "0x080afaca", "assembly": "j 0x2beb28"},
+        {"hex": "0x24030005", "assembly": "addiu $v1, $zero, 5 (replayed delay)"}
+      ],
+      "use": "translate_a1"
+    },
+    "0x44c968": {
+      "expected_hex": "8f000b00001000f80028f43a820092006e005f000b00000803b0b200d600af00b4002000c400f500",
+      "evidence": "0x4ad0e8: word-wrap shared-prefix stub",
+      "words": [
+        {"hex": "0x00094c3c", "assembly": "dsll32 $t1, $t1, 16"},
+        {"hex": "0x080bc3a2", "assembly": "j 0x2f0e88"},
+        {"hex": "0x27bdfe40", "assembly": "addiu $sp, $sp, -0x1c0 (replayed delay)"}
+      ],
+      "use": "translate_a1"
+    },
+    "0x44c990": {
+      "expected_hex": "d70008b0a3006b008f000b0000087e008c00730063003202860069008a009700a3006b008f000b00",
+      "evidence": "0x4ad110: sprintf shared-prefix stub",
+      "words": [
+        {"hex": "0x27bdffa0", "assembly": "addiu $sp, $sp, -0x60"},
+        {"hex": "0x08040780", "assembly": "j 0x101e00"},
+        {"hex": "0xffa60030", "assembly": "sd $a2, 0x30($sp) (replayed delay)"}
+      ],
+      "use": "translate_a1"
+    },
+    "0x47ad10": {
+      "expected_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "0x4db490: dialogue redirect",
+      "words": [
+        {"hex": "0x27bdff60", "assembly": "addiu $sp, $sp, -0xa0"},
+        {"hex": "0x3c010400", "assembly": "lui $at, hi(SENTINEL_LO)"},
+        {"hex": "0x34210000", "assembly": "ori $at, $at, lo(SENTINEL_LO)"},
+        {"hex": "0x00a14023", "assembly": "subu $t0, $a1, $at"},
+        {"hex": "0x3c090000", "assembly": "lui $t1, hi(SENTINEL_SIZE)"},
+        {"hex": "0x35290000", "assembly": "ori $t1, $t1, lo(SENTINEL_SIZE)"},
+        {"hex": "0x0109482b", "assembly": "sltu $t1, $t0, $t1"},
+        {"hex": "0x11200007", "assembly": "beq $t1, $zero, not_sentinel"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x3c0a0042", "assembly": "lui $t2, 0x0042"},
+        {"hex": "0x354a7798", "assembly": "ori $t2, $t2, 0x7798"},
+        {"hex": "0x8d4a0000", "assembly": "lw $t2, 0($t2)"},
+        {"hex": "0x11400002", "assembly": "beq $t2, $zero, not_sentinel"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x01482821", "assembly": "addu $a1, $t2, $t0"},
+        {"hex": "0x080a9462", "assembly": "j 0x2A5188"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ],
+      "fixups": {
+        "0x10": {
+          "value": "window_bytes",
+          "shift": 16,
+          "bits": 16
+        }
+      }
+    },
+    "0x47ad54": {
+      "expected_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "0x4db4d4: shared pointer substitution",
+      "words": [
+        {"hex": "0x3c010400", "assembly": "lui $at, hi(SENTINEL_LO)"},
+        {"hex": "0x34210000", "assembly": "ori $at, $at, lo(SENTINEL_LO)"},
+        {"hex": "0x00a14023", "assembly": "subu $t0, $a1, $at"},
+        {"hex": "0x3c090000", "assembly": "lui $t1, hi(SENTINEL_SIZE)"},
+        {"hex": "0x35290000", "assembly": "ori $t1, $t1, lo(SENTINEL_SIZE)"},
+        {"hex": "0x0109482b", "assembly": "sltu $t1, $t0, $t1"},
+        {"hex": "0x11200007", "assembly": "beq $t1, $zero, ret"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x3c0a0042", "assembly": "lui $t2, 0x0042"},
+        {"hex": "0x354a7798", "assembly": "ori $t2, $t2, 0x7798"},
+        {"hex": "0x8d4a0000", "assembly": "lw $t2, 0($t2)"},
+        {"hex": "0x11400002", "assembly": "beq $t2, $zero, ret"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x01482821", "assembly": "addu $a1, $t2, $t0"},
+        {"hex": "0x03e00008", "assembly": "jr $ra"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ],
+      "fixups": {
+        "0xc": {
+          "value": "window_bytes",
+          "shift": 16,
+          "bits": 16
+        }
+      }
+    },
+    "0x4c6f58": {
+      "expected_hex": "10745300",
+      "evidence": "0x5276d8",
+      "words": [
+        {"hex": "0x040000e0", "assembly": ".word original JP0x537410 preserved at sentinel0x40000e0"}
+      ]
+    },
+    "0x4c6fa0": {
+      "expected_hex": "20745300",
+      "evidence": "0x527720",
+      "words": [
+        {"hex": "0x04000100", "assembly": ".word original JP0x537420 preserved at sentinel0x4000100"}
+      ]
+    },
+    "0x4c7030": {
+      "expected_hex": "30745300",
+      "evidence": "0x5277b0",
+      "words": [
+        {"hex": "0x04000120", "assembly": ".word original JP0x537430 preserved at sentinel0x4000120"}
+      ]
+    },
+    "0x4d61a0": {
+      "expected_hex": "60d04a00",
+      "evidence": "0x536920",
+      "words": [
+        {"hex": "0x04000000", "assembly": ".word original JP0x4ad060 preserved at sentinel0x4000000"}
+      ]
+    },
+    "0x4d61a8": {
+      "expected_hex": "b0d04a00",
+      "evidence": "0x536928",
+      "words": [
+        {"hex": "0x04000050", "assembly": ".word original JP0x4ad0b0 preserved at sentinel0x4000050"}
+      ]
+    },
+    "0x4d61b0": {
+      "expected_hex": "f0d04a00",
+      "evidence": "0x536930",
+      "words": [
+        {"hex": "0x04000090", "assembly": ".word original JP0x4ad0f0 preserved at sentinel0x4000090"}
+      ]
+    },
+    "0x4d6c90": {
+      "expected_hex": "cb00d700ba00e3002000cd00dc0000f8bf002000ca00b0002000e800d70000f8f600e200",
+      "evidence": "0x537410: parameter translator",
+      "words": [
+        {"hex": "0x3c080400", "assembly": "lui $t0, 0x0400"},
+        {"hex": "0x00c84023", "assembly": "subu $t0, $a2, $t0"},
+        {"hex": "0x00084802", "assembly": "srl $t1, $t0, window_shift"},
+        {"hex": "0x3c0a0042", "assembly": "lui $t2, 0x0042"},
+        {"hex": "0x8d4a7798", "assembly": "lw $t2, 0x7798($t2)"},
+        {"hex": "0x01484021", "assembly": "addu $t0, $t2, $t0"},
+        {"hex": "0x0109300a", "assembly": "movz $a2, $t0, $t1"},
+        {"hex": "0x03e00008", "assembly": "jr $ra"},
+        {"hex": "0x00c08825", "assembly": "or $s1, $a2, $zero (replayed delay)"}
+      ],
+      "fixups": {
+        "0x8": {
+          "value": "window_shift",
+          "bits": 5,
+          "lsb": 6
+        }
+      }
+    },
+    "0x4d9800": {
+      "expected_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "JP 0x4ad060 \u2192 0x4000000; original copy span retained",
+      "words": [
+        {"hex": "0x3af42800", "assembly": ".word JP 0x0"},
+        {"hex": "0x00920082", "assembly": ".word JP 0x4"},
+        {"hex": "0x005f006e", "assembly": ".word JP 0x8"},
+        {"hex": "0x0800000b", "assembly": ".word JP 0xc"},
+        {"hex": "0x0147b003", "assembly": ".word JP 0x10"},
+        {"hex": "0x01880143", "assembly": ".word JP 0x14"},
+        {"hex": "0x00a3b008", "assembly": ".word JP 0x18"},
+        {"hex": "0x008f006b", "assembly": ".word JP 0x1c"},
+        {"hex": "0x1000000b", "assembly": ".word JP 0x20"},
+        {"hex": "0x008c007e", "assembly": ".word JP 0x24"},
+        {"hex": "0x00960073", "assembly": ".word JP 0x28"},
+        {"hex": "0x010d0063", "assembly": ".word JP 0x2c"},
+        {"hex": "0x0800008b", "assembly": ".word JP 0x30"},
+        {"hex": "0x009201d8", "assembly": ".word JP 0x34"},
+        {"hex": "0x00650071", "assembly": ".word JP 0x38"},
+        {"hex": "0x00660071", "assembly": ".word JP 0x3c"},
+        {"hex": "0x007d0088", "assembly": ".word JP 0x40"},
+        {"hex": "0x008f006b", "assembly": ".word JP 0x44"},
+        {"hex": "0x1000000b", "assembly": ".word JP 0x48"},
+        {"hex": "0x0000f800", "assembly": ".word JP 0x4c"}
+      ]
+    },
+    "0x4d9850": {
+      "expected_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "JP 0x4ad0b0 \u2192 0x4000050; original copy span retained",
+      "words": [
+        {"hex": "0x3af42800", "assembly": ".word JP 0x0"},
+        {"hex": "0x00920082", "assembly": ".word JP 0x4"},
+        {"hex": "0x005f006e", "assembly": ".word JP 0x8"},
+        {"hex": "0x0800000b", "assembly": ".word JP 0xc"},
+        {"hex": "0x01a3b003", "assembly": ".word JP 0x10"},
+        {"hex": "0x017b017a", "assembly": ".word JP 0x14"},
+        {"hex": "0x00a3b008", "assembly": ".word JP 0x18"},
+        {"hex": "0x008f006b", "assembly": ".word JP 0x1c"},
+        {"hex": "0x0800000b", "assembly": ".word JP 0x20"},
+        {"hex": "0x009601de", "assembly": ".word JP 0x24"},
+        {"hex": "0x02c401b4", "assembly": ".word JP 0x28"},
+        {"hex": "0x0071006a", "assembly": ".word JP 0x2c"},
+        {"hex": "0x00650060", "assembly": ".word JP 0x30"},
+        {"hex": "0x006b007d", "assembly": ".word JP 0x34"},
+        {"hex": "0x000b008f", "assembly": ".word JP 0x38"},
+        {"hex": "0xf8001000", "assembly": ".word JP 0x3c"}
+      ]
+    },
+    "0x4d9890": {
+      "expected_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "JP 0x4ad0f0 \u2192 0x4000090; original copy span retained",
+      "words": [
+        {"hex": "0x3af42800", "assembly": ".word JP 0x0"},
+        {"hex": "0x00920082", "assembly": ".word JP 0x4"},
+        {"hex": "0x005f006e", "assembly": ".word JP 0x8"},
+        {"hex": "0x0800000b", "assembly": ".word JP 0xc"},
+        {"hex": "0x00b2b003", "assembly": ".word JP 0x10"},
+        {"hex": "0x00af00d6", "assembly": ".word JP 0x14"},
+        {"hex": "0x002000b4", "assembly": ".word JP 0x18"},
+        {"hex": "0x00f500c4", "assembly": ".word JP 0x1c"},
+        {"hex": "0xb00800d7", "assembly": ".word JP 0x20"},
+        {"hex": "0x006b00a3", "assembly": ".word JP 0x24"},
+        {"hex": "0x000b008f", "assembly": ".word JP 0x28"},
+        {"hex": "0x007e0800", "assembly": ".word JP 0x2c"},
+        {"hex": "0x0073008c", "assembly": ".word JP 0x30"},
+        {"hex": "0x02320063", "assembly": ".word JP 0x34"},
+        {"hex": "0x00690086", "assembly": ".word JP 0x38"},
+        {"hex": "0x0097008a", "assembly": ".word JP 0x3c"},
+        {"hex": "0x006b00a3", "assembly": ".word JP 0x40"},
+        {"hex": "0x000b008f", "assembly": ".word JP 0x44"},
+        {"hex": "0xf8001000", "assembly": ".word JP 0x48"}
+      ]
+    },
+    "0x4d98e0": {
+      "expected_hex": "0000000000000000000000000000000000000000",
+      "evidence": "JP 0x537410 \u2192 0x40000e0; original copy span retained",
+      "words": [
+        {"hex": "0x00d700cb", "assembly": ".word JP 0x0"},
+        {"hex": "0x00e300ba", "assembly": ".word JP 0x4"},
+        {"hex": "0x00cd0020", "assembly": ".word JP 0x8"},
+        {"hex": "0xf80000dc", "assembly": ".word JP 0xc"},
+        {"hex": "0x000000bf", "assembly": ".word JP 0x10"}
+      ]
+    },
+    "0x4d9900": {
+      "expected_hex": "0000000000000000000000000000000000000000",
+      "evidence": "JP 0x537420 \u2192 0x4000100; original copy span retained",
+      "words": [
+        {"hex": "0x002000bf", "assembly": ".word JP 0x0"},
+        {"hex": "0x00b000ca", "assembly": ".word JP 0x4"},
+        {"hex": "0x00e80020", "assembly": ".word JP 0x8"},
+        {"hex": "0xf80000d7", "assembly": ".word JP 0xc"},
+        {"hex": "0x000000f6", "assembly": ".word JP 0x10"}
+      ]
+    },
+    "0x4d9920": {
+      "expected_hex": "0000000000000000000000000000000000000000",
+      "evidence": "JP 0x537430 \u2192 0x4000120; original copy span retained",
+      "words": [
+        {"hex": "0x00e200f6", "assembly": ".word JP 0x0"},
+        {"hex": "0x00ca00e8", "assembly": ".word JP 0x4"},
+        {"hex": "0x00c200e2", "assembly": ".word JP 0x8"},
+        {"hex": "0x0000f800", "assembly": ".word JP 0xc"},
+        {"hex": "0x000000ef", "assembly": ".word JP 0x10"}
+      ]
+    }
+  }
+}

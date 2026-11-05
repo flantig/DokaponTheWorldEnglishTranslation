@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T22:31:04.186408+00:00",
+  "status": "PRECODE_READ_ONLY_SOURCE_AND_LITERAL_COMPARISON_CONTRACT",
+  "responsibility": "Compare declared reference/baseline and observed native streams as exact bytes, decoded glyph/control facts, ordered argument words and opaque inline payloads; report mismatches and unsupported inputs without patching. A baseline names provenance, not automatically canonical EN or runtime truth.",
+  "recommended_owner": {
+    "decision": "ONE cohesive auditStreams(profilePath string, stdout io.Writer) error read-only orchestrator, analogous previewFit/authorTexture. run adds only an exclusive profile route. It owns fixed-role source opening/pins/windows/rechecks and report assembly; controls remains sole decoder. No decoder, live-reference, VMA/ISO mapper or canonical encoder is duplicated.",
+    "why_existing_not_reasonable": [
+      {
+        "owner": "controls",
+        "reason": "Already owns source decoding/validation/layout/label grammar and readiness, not file paths/source identities or comparison reports. Adding second-input/path/report modes to~398lines accumulates unrelated policy."
+      },
+      {
+        "owner": "encode",
+        "reason": "Builds canonical bytes from wording/prefix/source context, with intentional refusals. It cannot own observed-source I/O or comparison reporting."
+      },
+      {
+        "owner": "plan/append DONE",
+        "reason": "Mutation/preimage/allocation planner; DONE already exact-compares sentinel bytes to canonical EN encoding. A new report policy would mix plan safety with mismatch diagnostics and require unrelated modes."
+      },
+      {
+        "owner": "previewFit",
+        "reason": "Requires native font+consumer boxes and evaluates proposed wording against pen limits; two observed streams need neither font nor geometry and do not measure fit."
+      },
+      {
+        "owner": "references",
+        "reason": "Candidate discovery/high-half heuristic/advisory glyph-only checks; exact explicit windows require no search or reference reconstruction. Reusing its result as truth would weaken the domain."
+      },
+      {
+        "owner": "authorRegistry",
+        "reason": "~900line raw metadata editing/projection owner; byte-stream grammar and large binary source lifecycle do not belong there."
+      },
+      {
+        "owner": "run/readInput",
+        "reason": "run should dispatch, not gain another80line source/report workflow. readInput is bounded small-file ingestion, not streaming4.24GB sources or a JSON validator."
+      }
+    ],
+    "shared_JSON_validation": "Parent plans extracting existing authorRegistry selective checkedJSON scanner to ONE shared checkJSON owner in inputs.go, with existing checkedJSON/RegistryInput grouped in input_types.go. Audit profile/glyphmap are entirely owned and can request all-object duplicate/Unicode checks; opaque metadata policy stays unchanged. This is justified existing-validator extraction/reuse, not a second scanner or parse flags on readInput. No separate JSON study/implementation approval supplied here.",
+    "cost": "One new cohesive audit orchestrator plus one extracted existing JSON validator are the parent design; no wrapper/decoder/normalizer/framework/FuncMap per comparison. New report/profile types should be usage-grouped. Capability growth is not script deletion or migration completion."
+  },
+  "profile_and_lifecycle": {
+    "fixed_roles": "sources exactly reference,observed,glyphmap; reuse existing RegistryInput Path/Size/SHA because pinned artifact identity semantics match. Paths resolve relative to profile. Same actual file may be reference and observed explicitly.",
+    "entries": "Map keyed normalized32bit hexadecimal registry IDs/labels. Each contains reference and observed half-open FILE spans plus explicit decoder narrative|positional. Keys associate evidence only; no implicit registry lookup, liveness/site resolution or status update. Common evidence/provenance at top is sufficient.",
+    "range_reuse": "AddressRange Start/End can represent half-open declared file positions when explicitly documented as FILE offsets. Parse/range arithmetic must support source-file offsets rather than accidentally applying a32bit VMA delta helper. Keep file offsets distinct from VMA mapping; no automatic ISO/ELF/sentinel translation.",
+    "bounds": "Profile/glyphmap readInput-bounded; both regular positive source files may exceed64MiB and be4.24GB. Bounded ReaderAt windows<=64KiB each; endpoint within declared source size, no negative/overflow. Bound entries/total report work. Source streaming SHA and before/after size/mtime/identity recheck complete before any JSON stdout.",
+    "expanded_text_bound": "glyphMaps(decode=true) allows multi-rune alias strings: a small glyphmap plus many tokens can expand very large display text. Set a declared expanded-text/report bound (e.g64KiB per decoded side, unsupported beyond) or compare/hash bounded chunks. Do not infer display-memory bound from native span bytes. No new helper required.",
+    "isolation": "One stream-audit-profile route rejects all other workflow flags/positional args, including apply/output/recipes/registry/fit/texture/snapshot. No input mutation/publication/default canonical paths. Shared profile/glyph JSON scanner rejects duplicates, invalid Unicode, malformed domain before source processing."
+  },
+  "decoder_contract": {
+    "reuse": "controls(span, TextScanOptions{Decode:true,Glyphs:forward,PositionalLabels:decoder==positional}), with one explicit style and no retry. glyphMaps(...,true) supplies forward aliases. Decode does not require a header by default; optional headerless narrative is deliberate selected grammar, not fallback success.",
+    "narrative": "Source grammar preserves HDR/speaker/setup/HL/icon/pen0/param8 plus glyph/space/line/page/END. Inline4800/B000/D800 consumes exactly8 following payload bytes, even when they contain F800/A000/7000. Unknown words/glyphs/truncated payload/missing END remain unsupported.",
+    "positional": "Distinct finite UI grammar: B000 is HL; D800/E000 are pen words; A000 is argument-like icon. Do not run narrative first then retry; no inferred style by success.",
+    "termination": "Decoder stops at first grammar-level END (not payload lookalike); consumed bytes=finalEND.Offset+2. Compare consumed bytes separately from selected-span bytes and unconsumed tail lengths/hashes. A consumed match with differing tail is not unqualified exact span/padding/capacity equality.",
+    "no_authoring_readiness": "Decoding a setup/opaque/nested token proves syntax and bytes only. No substitution expansion, argument producer/type safety, geometry, visual fit, caller liveness or source-context authoring readiness follows.",
+    "overlapping_grammars": "Literal same14B label data is valid in both styles: positional rendersABC with B000HL/D800pen/A000icon; narrative rendersA with B000+8B opaque payload followed END. Explicit source-proven decoder style is required; decode success cannot choose style."
+  },
+  "comparison_factors": {
+    "consumed_bytes": "Exact byte identity through END; full-span identity separate. SHA/length and first different byte useful, no giant byte/token dumps needed.",
+    "glyphs": "Exact ordered glyph/space words plus separately mapped sameGlyphText with NO whitespace/markup/case normalization. Different glyph aliases may display same text while byte/word equality is false. LINE/PAGE are control facts, not flattened into text-match success.",
+    "controls": "Exact non-glyph/non-space token Kind/Word/relativeOffset/Payload sequence, including HDR/speaker/line/page/END. Changed placement after inserted glyph is a control-position mismatch even if ordered control words remain same. If additionally exposing ordered-word-only equality, label it distinctly.",
+    "arguments": "Ordered decoded icon/param8 token Kind+Word, without payload-lookalike words or arbitrary raw ranges. Opaque payload equality separately binds each param8 word to its8B payload in ordinal order. Positional B000/D800 tokens are not narrative argument records. No legacy FAULT/SHIFT/GARBLE/SWAP runtime-severity promise.",
+    "unsupported": "Profile/identity errors fatal with empty stdout; per-side stream decode/expanded-text failure gives unsupported with diagnostics and unavailable comparison fields (null/omitted, never false/true as completed comparison). Other valid rows continue. Raw span bytes/hashes may remain factual.",
+    "sorting": "Deterministic numeric normalized-ID order, preserve explicit ID spelling or emit canonical ID consistently; duplicate normalized keys refuse. Same source path allowed; profile rows do not certify registry entry existence."
+  },
+  "historical_source_qualification": {
+    "actual_consumers": "audit_argtok_order_2026_10_01.py delegates reports/text; drafted/multi/sentinel-ground-truth launchers delegate reports/writeback. They need ordered argument/control/content facts across original/live and multisite streams, but contain different selection/normalization/fallback conventions. This operation is common comparison foundation, not whole historical parity.",
+    "unsafe_to_promote": "reports/text read_words raw-word scan sees END/pseudoarguments in inline payload; live_targets can fallback to entry ID and weakly accepts LUI. reports/writeback norm strips markup/spacing; ground_truth tries as_is and prefix_stripped conventions and retries missing HDR. None of those heuristics may turn differing bytes/tokens into exact audit success.",
+    "canonical_EN_boundary": "Current encode and plan append DONE already own reviewed canonical source-context EN byte construction and exact installed-content check. This increment takes two explicit baseline sources and does not duplicate automatic prefix/source-context/wrap/encoding policy. Future canonical-EN comparison must bind one explicit encoding policy, not try variants until something matches.",
+    "remaining_gap": "Observed reference resolution/site completeness, source-to-disc mapping, registry/ledger/status reconciliation and native argument producer closure remain separate. The accepted pointer_check only proves declared physical expected words. Do not infer them from a two-span comparison."
+  },
+  "precode": {
+    "directory": "/var/tmp/dokapon-stream-audit-corrected-9urz_16y",
+    "frozen_before_code": "Original pack delivered precode and retained immutable. One independently discovered narrative-overlap oracle error corrected in new pack; parent confirmed no implementation had begun. Corrected pack also freezes BEFORE implementation and any Go comparison. Source/profile/glyph bytes and other14 cases unchanged. See oracle-correction.json.",
+    "expected_sha256": "490129b1847d12f5b46228c1d622c13b13da6b3d8842f92d0a0ae24167d93d6c",
+    "profile_sha256": "99ee88a917d7d7df8f2add7fbccdd481c98b185cb79b9496d87eaecce2ec62d9",
+    "cases": "14 combined cases plus separate odd-span refusal. Exact, changed glyph, changed HL, swapped7000/A000 arguments, changed opaque payload containing apparentEND/args, same rendered glyph alias/different word, inserted glyph shifts controls, tail afterEND, explicit headerless, positionalB000/D800/A000, truncated payload, missingEND, unknown glyph and explicitly declared overlapping narrative/positional grammar.",
+    "oracle_semantics": "Literal token offsets/words/payloads and factor booleans manually supplied; independent stdlib verifies raw windows/words/payload bytes, flags projected from literals, pin/length identities. Oracle names are semantic vocabulary, not imposed Go output schema. Odd-byte extent can be profile refusal or unsupported, never exact success.",
+    "files": {
+      "expected-facts.json": {
+        "bytes": 50831,
+        "sha256": "490129b1847d12f5b46228c1d622c13b13da6b3d8842f92d0a0ae24167d93d6c"
+      },
+      "glyphmap.json": {
+        "bytes": 63,
+        "sha256": "2bea13f1edda47972ee5f2b117854077b172deda6c9fff871f9fc0aecd4ae8d8"
+      },
+      "observed.bin": {
+        "bytes": 2048,
+        "sha256": "e2c04d69bdd7d0d52e9f19f8a39e0f78f31b4748399eb2ef49ab4aa956238228"
+      },
+      "odd-span-refusal-profile.json": {
+        "bytes": 794,
+        "sha256": "b70441794bcf0fa10c892a79bd7ca1dc6367aefc458090f57f96c533fef54eaa"
+      },
+      "oracle-correction.json": {
+        "bytes": 1012,
+        "sha256": "11d810096190c265104b5d719d298fe3b136339235a5b881c0af7b6629b587dc"
+      },
+      "prepare.py": {
+        "bytes": 8597,
+        "sha256": "3011faed09cc04796d5c06ac4ee7b14bfcb9eb536124e8ba731af2d256f0d595"
+      },
+      "profile-facts.json": {
+        "bytes": 3481,
+        "sha256": "99ee88a917d7d7df8f2add7fbccdd481c98b185cb79b9496d87eaecce2ec62d9"
+      },
+      "reference.bin": {
+        "bytes": 256,
+        "sha256": "7b9a05677e13b551f0c24fe31961e936bb5e3999a4c8488f9db8c254883ebba2"
+      },
+      "refusal-facts.json": {
+        "bytes": 1692,
+        "sha256": "5a323895559a7548346861b1949b9f22d1d1105d708299d2363e28cd0a1b1fc3"
+      },
+      "text-argtoks-source.txt": {
+        "bytes": 142,
+        "sha256": "9e5981cd0434b4fd58a974704a36e151a82c68db8791933602ef0101262bd2eb"
+      },
+      "text-classify-source.txt": {
+        "bytes": 691,
+        "sha256": "9c1eb184c15d9c3e694dd307a2d7b4fa60174f1e2f80285e38ca4fcb89e5f2a4"
+      },
+      "text-is_arg-source.txt": {
+        "bytes": 149,
+        "sha256": "8300a8ef90b9f973493a8a4beb1df7a94d05a91dc5c89826e2ae50ddee5a1628"
+      },
+      "text-kind-source.txt": {
+        "bytes": 198,
+        "sha256": "9a68f1b9b7c0e6b1fdf76fbcfba3568e1d73b3aac56b715fbea9b5e7cc90db64"
+      },
+      "text-live_targets-source.txt": {
+        "bytes": 1053,
+        "sha256": "e8463b8205a6cd7525355a6e6dad9728ce06b60bb6cb59e22eeb7110ccb62f18"
+      },
+      "writeback-decode_at-source.txt": {
+        "bytes": 357,
+        "sha256": "19bf25447b091c558175d38b9c3ec8626d6e377b4068314f8444ca616cf6f854"
+      },
+      "writeback-ground_truth_try_encode_variants-source.txt": {
+        "bytes": 1858,
+        "sha256": "002bf940818ca19832afca9e750642bf385a756612b47d75fee4d6c9ed9647b8"
+      },
+      "writeback-norm-source.txt": {
+        "bytes": 310,
+        "sha256": "49d7033ccd21a53aebf0c1b5e1163285dcfcfceac039f950e5d541a673bdcd41"
+      }
+    },
+    "original_frozen_directory": "/var/tmp/dokapon-stream-audit-aa3mqviv"
+  },
+  "source_slices": [
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "is_arg",
+      "lines": [
+        29,
+        31
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/text-is_arg-source.txt",
+      "sha256": "8300a8ef90b9f973493a8a4beb1df7a94d05a91dc5c89826e2ae50ddee5a1628"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "kind",
+      "lines": [
+        34,
+        40
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/text-kind-source.txt",
+      "sha256": "9a68f1b9b7c0e6b1fdf76fbcfba3568e1d73b3aac56b715fbea9b5e7cc90db64"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "argtoks",
+      "lines": [
+        43,
+        45
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/text-argtoks-source.txt",
+      "sha256": "9e5981cd0434b4fd58a974704a36e151a82c68db8791933602ef0101262bd2eb"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "live_targets",
+      "lines": [
+        79,
+        105
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/text-live_targets-source.txt",
+      "sha256": "e8463b8205a6cd7525355a6e6dad9728ce06b60bb6cb59e22eeb7110ccb62f18"
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py",
+      "symbol": "classify",
+      "lines": [
+        108,
+        122
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/text-classify-source.txt",
+      "sha256": "9c1eb184c15d9c3e694dd307a2d7b4fa60174f1e2f80285e38ca4fcb89e5f2a4"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "norm",
+      "lines": [
+        117,
+        124
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/writeback-norm-source.txt",
+      "sha256": "49d7033ccd21a53aebf0c1b5e1163285dcfcfceac039f950e5d541a673bdcd41"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "decode_at",
+      "lines": [
+        127,
+        134
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/writeback-decode_at-source.txt",
+      "sha256": "19bf25447b091c558175d38b9c3ec8626d6e377b4068314f8444ca616cf6f854"
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py",
+      "symbol": "ground_truth_try_encode_variants",
+      "lines": [
+        585,
+        626
+      ],
+      "private_slice": "/var/tmp/dokapon-stream-audit-aa3mqviv/writeback-ground_truth_try_encode_variants-source.txt",
+      "sha256": "002bf940818ca19832afca9e750642bf385a756612b47d75fee4d6c9ed9647b8"
+    }
+  ],
+  "source_pins": {
+    "patch.go": {
+      "sha256": "5d388738600889b77d006abc2197116256d78eb969c7b657c60befa6bd90a427",
+      "bytes": 96055
+    },
+    "fit.go": {
+      "sha256": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "bytes": 7360
+    },
+    "fit_types.go": {
+      "sha256": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+      "bytes": 2148
+    },
+    "references.go": {
+      "sha256": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+      "bytes": 15206
+    },
+    "reference_types.go": {
+      "sha256": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+      "bytes": 3871
+    },
+    "registry_authoring.go": {
+      "sha256": "be6104b83f8e47703de6e12551875236ba7c14db15930c0b5c09f850fd99fc1f",
+      "bytes": 35391
+    },
+    "registry_types.go": {
+      "sha256": "987f9f47f023432232a0547bfc3a487f848fc67c4c3cf3ba3432da68f5725434",
+      "bytes": 1186
+    },
+    "recipe_types.go": {
+      "sha256": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+      "bytes": 6193
+    },
+    "inputs.go": {
+      "sha256": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+      "bytes": 1011
+    },
+    "glyphs.go": {
+      "sha256": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "bytes": 1342
+    },
+    "text_types.go": {
+      "sha256": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "bytes": 2041
+    },
+    "main.go": {
+      "sha256": "69e778f7f445b80c0f30c5903017728123f9e46bd078847ea9a3ffb41e59a477",
+      "bytes": 12910
+    },
+    "analysis/registry-disc-audit-contract.json": {
+      "sha256": "9bff0fb24e66c29c823b7f2067379b9666dc410e0e9457c56be507aa267b2c9d",
+      "bytes": 19396
+    },
+    "../audit_argtok_order_2026_10_01.py": {
+      "sha256": "9c271521463e341bb47b009217d831ec5b144a473aefd0b407c076a444fdd371",
+      "bytes": 3335
+    },
+    "../audit_drafted_writeback_gap_2026-09-08.py": {
+      "sha256": "c03a719fcc0f135d997ed774a6495191c6165f33eb9c7569c90a133b9d965abb",
+      "bytes": 5823
+    },
+    "../audit_writeback_gap_70_2026-09-08b.py": {
+      "sha256": "690d815b928d712ae54c94cfb9a1a42409277bb4284e16d820124fc6a254a36a",
+      "bytes": 4039
+    },
+    "../audit_sentinel_ground_truth_2026-09-07.py": {
+      "sha256": "5de09880a60b1a08b287d2b4a45701fa5c678eba50196daba99e11573b3e5fb0",
+      "bytes": 7105
+    },
+    "../rework/new_tool/reports/text.py": {
+      "sha256": "bdc640e0ae426aa12f57873d425f57ef643d3f70f3cb0abbe264aaf25ae15030",
+      "bytes": 30694
+    },
+    "../rework/new_tool/reports/writeback.py": {
+      "sha256": "3d3f05afab6d9c8ca60e75baa3eb7d0616ffca6569b8300d4d5ea934e6632fde",
+      "bytes": 34552
+    }
+  },
+  "accepted_baseline_reference": {
+    "path": "/var/tmp/dokapon-reference-check-_ivbenrd/sealed-final",
+    "manifest_sha256_supplied": "1bf1b5feb8ee1d15e1536f0b74d1076f685a666df19f7062ec2efcc4f935dd07",
+    "qualification": "Prior accepted baseline reference; current study does not rerun it."
+  },
+  "required_checks": [
+    "Compare all literal factor vectors and source pin/length facts before code outputs are trusted; assert payload lookalikes never become END/argument tokens.",
+    "Same glyph text must not hide different aliases/control/payload/order; shifted controls and postEND tail distinctions remain explicit. Unsupported sides cannot report completed equality.",
+    "Malformed profile/JSON/duplicate IDs/roles/spans/pins/decoder and foreign CLI flags refuse without stdout; same-source path read-only compare allowed; source files unchanged.",
+    "Streaming source lifecycle handles large source offsets without wholefile memory loading; bounded profile/glyph/windows/expandedtext/report and identity checks happen before stdout.",
+    "Current canonical encoding, parser refusals and existing raw-metadata selective JSON validator policies remain unchanged. Implementer owns focused existing-owner tests/build/vet/gofmt/scoped checks; fullsuite not run by this read-only study."
+  ],
+  "limits": "No Go/source/test/doc/ledger edits, project Python import/execution, protected ISO/canonical registry read/write, emulator/PINE/controller/process/log/settings access, dependency installs/agents, implementation approval or coverage/retirement claims.",
+  "oracle_correction": {
+    "at": "2026-10-20T22:32:03.827365+00:00",
+    "status": "INDEPENDENT_SOURCE_FACT_CORRECTION_BEFORE_ANY_GO_COMPARISON",
+    "original_frozen_directory": "/var/tmp/dokapon-stream-audit-aa3mqviv",
+    "original_expected_sha256": "2e6d58a923d6af0f65d237c4d953f65687ba93550ed9c9e5ac9b3e42802c419a",
+    "corrected_directory": "/var/tmp/dokapon-stream-audit-corrected-9urz_16y",
+    "corrected_expected_sha256": "490129b1847d12f5b46228c1d622c13b13da6b3d8842f92d0a0ae24167d93d6c",
+    "changed_case_only": "registry_id0x100e narrative overlap of label bytes",
+    "reason": "Manual word/offset accounting: B000 at2 consumes bytes4..11; real END remains at12. Old missingEND claim was wrong. No Go or project Python outputs were used.",
+    "retained": "Original pack immutable. All source/profile/glyph bytes and other14 cases identical. Parent explicitly confirmed NO code was written before this correction, only source inspections/design. Corrected oracle pack therefore also predates implementation and every Go comparison."
+  },
+  "final_verification": {
+    "private_files_rehashed": 17,
+    "all_source_pins_unchanged": true,
+    "sources_profile_and_other14_cases_preserved": true,
+    "corrected_pack_precedes_implementation": true,
+    "no_Go_or_project_Python_execution": true
+  }
+}

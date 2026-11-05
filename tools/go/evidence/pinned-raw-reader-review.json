@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-21T16:28:48.653784+00:00",
+  "status": "READ_ONLY_REVIEW_NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "candidate": {
+    "directory": "/var/tmp/dokapon-pinned-raw-dx_pdq9c/review-source",
+    "manifest_sha256": "4b7d3e37d6f4e322a768e67583a4ef03af34d3d5580617978cd1a09c9b69da0f",
+    "members": 567,
+    "all_pins_before_after": "PASS immutable0400singlelinkcontained/ownedcopy"
+  },
+  "baseline": {
+    "directory": "/var/tmp/dokapon-sentinel-map-w_drg1y9/sealed-final",
+    "manifest_sha256": "5110e9784f6ad16f2f9879ed3a713b2ad683ce883167c95fd558dd28af4df13c",
+    "comparison_binary": "Prior independently built accepted sentinel core-final; all39 baseline production files byte-joined to its frozen source"
+  },
+  "owner_review": [
+    {
+      "source": "patch.go:361",
+      "assessment": "Exact raw count/hash/firstEND/endoffset/role values are validated before cloning or substitution. Role positions are unique/even/beforeEND, payload must nil. Existing decoder loop consumes local4801surrogates; no caller bytes/options are mutated."
+    },
+    {
+      "source": "patch.go:695",
+      "assessment": "Every resulting token offset is checked, every surrogate is verified/restored, and result returns blocked_pinned_reader before surrogate-derived readiness/Kinds/Targets analysis. ReadPin is incompatible with authoring/English/native/fixed/positional/opaque/padded policies. Existing encode eligibility and strict validator remain unchanged."
+    },
+    {
+      "source": "inputs.go:58",
+      "assessment": "requiredByDepth reasonably enhances the existing owned-key tracker instead of duplicating raw traversal or changing TextToken JSON. Default nil leaves other callers unchanged. Pin depth5 and role depth7 correspond to typed-only owned objects; explicit zero Word/Offset and ENDoffset0 remain valid while omission refuses."
+    },
+    {
+      "source": "stream_audit.go:142",
+      "assessment": "Explicit pinned_raw requires exact reference/observed keys and no canonical generation. Side-specific spans/pins pass to the same decoder; rawarg joins ordered arguments, rawcontrol stays distinct in token/control sequence. Source and mapping lifecycle/unknowns remain separate and no new binding/write authority appears."
+    },
+    {
+      "source": "text_types.go:36",
+      "assessment": "One TextReadPin fact type is justified shared scanner/audit data. Existing TextToken reused with unchanged wire names. No new function/helper/closure/testfunction/sourcefile/dependency or per-sourcepool handler; explicit read policy stays separate from authoring and file pin types."
+    }
+  ],
+  "oracle_binding": {
+    "source_pack_manifest_sha256": "0b67bb34492c06a43e34a225dd267bd325301659fab0414384e3b7f44e0751d0",
+    "source_pack_members": 32,
+    "portable_manifest_sha256": "20e94234f7c9ac67c18e206eae5a548b64cf26b02f925aab9bb0bee85b7fdab9",
+    "portable_members": 11,
+    "fixture_sha256": "f096954edd0258ad785fcce0e1058995aca3df620e1631277402484344dc1a43",
+    "binding": "Allpackmembers verified,6 portable files byte-identical to capsule; own contained15 original-helper cases replayed. Three complete paired rows match, including separately checked raw_control_words projection. Five original successes include four frozen native sides; their synthetic reference-site packaging does not prove native readers.",
+    "additional_originals": [
+      "0db5315907f8191306e1a60e204a7476fb38c61fec1999568c6d28d88f0d8e48",
+      "122be672e4817a82d4ff29be65d011c5f1903c3070e7fd040a1e54a8726e33cf"
+    ],
+    "additional_original_qualification": "Original selected helper executed on rawcontrol0/rawarg0 atbyte0, then expectations frozen before candidate comparisons. No original main/project module imported."
+  },
+  "checks": [
+    {
+      "command": "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run '^(TestPlanAndCopy|TestPlanRefusals|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$' .",
+      "result": "PASS35.459s, owned TMP/GOTMP,GOMAX2,nice19"
+    },
+    {
+      "command": "core build/vet",
+      "result": "both exit0"
+    },
+    {
+      "command": "contained original source replay",
+      "result": "15/15pass;5success10refuse incl4native sides"
+    },
+    {
+      "command": "independent built CLI probes",
+      "result": "Five complete legacy stdout/stderr/exit captures unchanged;3whole original paired rows and rawcontrol projections exact;11 additional zero/null/role/END/Unicode/required-key cases pass; selected source/profile/glyph/registry bytes/inodes/mtimes preserved"
+    },
+    {
+      "command": "gofmtallGo/scopedwhitespace/POSIXcredentials",
+      "result": "PASS;2positive nonsecret controls,0scopedmatches"
+    }
+  ],
+  "observed_unknown_policy": "An individual null side-pin or null role element reaches controlled side decode error and omits comparison; it never becomes successful interpretation. Entire read_pins:null is a profile refusal. Non-nil empty payloads also remain side errors. Required Word/Offset/end_offset omissions and Unicode aliases refuse before JSON. This preserves explicit unknown facts rather than silently defaulting valid zero annotations.",
+  "accounting": {
+    "production_go_files": 39,
+    "production_go_bytes": 451271,
+    "named_declarations": 41,
+    "production_growth_bytes": 6164,
+    "new_example_bytes": 35004,
+    "test_growth_bytes": 7582,
+    "new_oracle_bytes": 47346
+  },
+  "artifacts": {
+    "root": "/var/tmp/dokapon-pinned-raw-review-ro2d3w5r",
+    "manifest": "/var/tmp/dokapon-pinned-raw-review-ro2d3w5r/artifact-manifest.json",
+    "manifest_sha256": "10e4c13e18e0e3a287c9f5b79add8db7193db5baff9e8127c3e790117fe41853",
+    "members": 746,
+    "checks_sha256": "1a3834e3895e538a925c9ca47743ff0cb0b0998e2e58580b3c2dda51f983f1e3",
+    "cli_checks_sha256": "f3a49b2bdd1ecba613fde39480c76cf5eac515b866a4f7fab5d59c0edd92b638",
+    "contents": "All567reviewedsource members,32original+11portablepackmembers,selected-original zero-role expectations,accepted/currentbinaries,completeCLIcaptures/scripts/logs/diffs/pins"
+  },
+  "limits": [
+    "Focused core checks only; no fullsuite/race/nativefonts replay. Root results are not own evidence. All own jobs terminal.",
+    "18record configurations are source reach, not18scripts or allcohort execution. Other battle/board dialects,event/YBSselection,title/pristine/runtime grammar and canonical/raw authoring remain held. No new NUL mode.",
+    "Read-role assumptions are not runtimeABI/liveness/nativefit/write authority. No protected resources, implementation, approval, coverage/family/milestone/script-retirement or savings claim."
+  ]
+}

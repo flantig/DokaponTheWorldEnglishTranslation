@@ -1,0 +1,304 @@
+{
+  "status": "PASS revised private finite candidate; one MEDIUM finding CLOSED by original-output-preserving correction",
+  "role": "Ordinary independent read-only implementation review; no implementation or acceptance authority",
+  "sealed_at": "2026-10-21T06:11:08.260656+00:00",
+  "scope": "Pinned TrueType source selection and fractional mask primitives through shared styled run/group/cell/native publication path. Candidate is PRIVATE; inherited evidence is historical and no TTF/family/migration/artwork credit is granted here.",
+  "candidate": {
+    "capsule": "/var/tmp/dokapon-ttf-backend-ecll48c9/review-source-lf/manifest.json",
+    "sha256": "f148b8958f511b28acc64b88095b18a27cc612eddad42cb094b53fe7de598684",
+    "members": 484,
+    "all_capsule_and_owned_pins_held": true,
+    "critical_private_source_runtime_pins": 131,
+    "all_critical_pins_match_root_private_candidate": true,
+    "root_other_drift": [],
+    "initial_capsule_sha256": "7bd209f6f4c3647498b2718f48a2f01cb6e658d2d80c3cc8df4bf92b9c43e8cb",
+    "final_delta_paths": [
+      "raster_runs.go",
+      "patch_test.go",
+      "testdata/truetype-raster.zip",
+      "analysis/ttf-backend-reuse-decision.json"
+    ]
+  },
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-inline-icons-6x56rlg_/sealed-final/manifest.json",
+    "sha256": "e8c05238f1fb1fcef2a0142d3bf938e0c7e10385eb49954d7b05d8d68d137b74",
+    "accepted_binary": "/var/tmp/dokapon-inline-icons-6x56rlg_/native",
+    "accepted_binary_sha256": "3466806a0f3cb2073bf6c6c00210c5ab6a591970970524fc14282e0206e41d2c"
+  },
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "status": "CLOSED",
+      "file": "raster_runs.go",
+      "summary": "New TrueType run accepts LF but paints a single RAQM mask; original ImageDraw.text dispatches LF to multiline painting. This silently produces different styled pixels.",
+      "initial_reproduction": {
+        "input": "Pinned NotoExtraBold, literal A\\nB, size/min16, no strokes, center128/64,256x128 cell",
+        "original_RGBA_sha256": "b7dd9db3ad3b6cd70d5804b32bd35137b4534245cbe9518df48cd6cff52409fa",
+        "initial_candidate_RGBA_sha256": "713e8279fe61b9e9a9c3ebf9f45f109cd15e1c672e839a2fc0c2120c9cc3e090",
+        "different_pixels": 199,
+        "different_channels": 595,
+        "private_current_test_overlay_failure_seconds": 2.297,
+        "initial_finding_receipt": {
+          "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/finding-lf.json",
+          "bytes": 2706,
+          "sha256": "76cb08d307a9ed4baab809a69d9a6110ca4843cf3dd957d878402e6166896d06"
+        }
+      },
+      "disposition": "Root enhanced existing TrueType request/position planning to preserve successful original LF output rather than reject LF. Zero tracking splits physical lines with resetX and bbox(A).bottom+4 baseline step before styling; nonzero tracking paintsLF blank but consumes raw LF advance+tracking. Raw whole-run measurement/cursor and fixed temporary canvas remain unchanged. Explicit groups stay separate later composition.",
+      "closure": "Revised existing repository CLI owner and independent CURRENT-source overlay both match all5frozen original wholeRGBA cases (zeroLF, blank/trailingLF, mixed-runLF, positive/negative trackingLF). Independent overlay also checks shifted origins and font/base immutability. No expected arrays repinned from Go."
+    }
+  ],
+  "design_and_safety": [
+    {
+      "location": "raster_types.go RasterFont/TextRequest/TextMask; raster.go composeCells",
+      "result": "One font contract selects pinned atlas or TrueType bytes; conflicting bitmap metadata and unbounded/absent owned font data refuse. Typed request binds text to phase; measured ascent/descent remain face facts. Optional Strokes pointer preserves omitted scalar default versus explicit empty no-stroke TrueType. Omitted metric Background intentionally preserves original pixels, with BackgroundRect requiring paint color."
+    },
+    {
+      "location": "raster_font.go textMasks",
+      "result": "Existing owned FT face/RAQM batch retained: C font copy outlives face, shaper destroyed before face/data/library. RAQM glyph views consumed before clear; FreeType bitmap views consumed before next load. Source calls/bounds/error cleanup inspected. Fractional starts narrow to Cfloat before ceil and ties-away pen rounding; raster bounds, pixel/character/request limits remain explicit."
+    },
+    {
+      "location": "raster_runs.go renderRuns",
+      "result": "TTF source-specific measurement and initial gray/color painting rejoin the SAME morphology/counter/ordered-stroke/resample/area/placement tail. Original fixed-canvas combining-mark crop applies to TTF; native bitmap glyph spills still refuse. LF handling is correctly in run paint planning, not raw getmask2 primitive or post-style Group composition. No second renderer/per-patch handler/helper/function."
+    },
+    {
+      "location": "texture_authoring.go and prior textMasks callers",
+      "result": "Existing bounded readInput, strict typed manifests, pin/size checks and writeNewFile own TTF lifecycle. Font JSON rejects duplicate/null/lone-surrogate inputs; transient TrueTypeData cannot be supplied in JSON. Contacts/weekday adapters use zero-phase typed requests, preserving old outputs. Publication remains new-output-only; actual source/font/profile/payload identities preserved in tests."
+    }
+  ],
+  "verification": {
+    "native_focused": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-tags",
+        "nativefonts",
+        "-count=1",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "."
+      ],
+      "GOMAXPROCS": 2,
+      "package_seconds": 35.155,
+      "wall_seconds": 44.59,
+      "exit": 0
+    },
+    "core_focused": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-count=1",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "."
+      ],
+      "CGO_ENABLED": 0,
+      "GOMAXPROCS": 2,
+      "package_seconds": 27.363,
+      "wall_seconds": 34.083,
+      "exit": 0
+    },
+    "build_vet_hygiene": "Fresh revised nativefonts/core builds/vet, all Go gofmt, scoped whitespace and positive-selfchecked POSIX secret scan PASS.",
+    "extra_current_overlay": {
+      "package_seconds": 24.204,
+      "exit": 0,
+      "cases": "8additional independent Pillow mask/metric cases including BASIC/RAQM, signed/tiny/near1 Cfloat phases, blanks and ligatures;5original LF fullRGBA cases atzero andnegative/nonzero origins, with font/base preservation. Uses CURRENT revised existing CLI owner."
+    },
+    "source_independence": "389original phase/color/style/workspace source-pack members plus21source-only LF members reverified. All123non-JSON artifacts in normalized134member portableZIP bind byte-for-byte to original captures or explicitly qualified old-codec projection;11normalized JSON descriptors remain schema maps. No Go-derived expected pixels.",
+    "actual_packaged_CLI": "Own final native binary uses packaged fonts/noto-condensed-extra-bold.json, exact623368B Noto payload and profiles/textures/help00-turn-order-ttf.json. Repeat dry/apply returns expected wholeTXD624c9f3a... and decodedRGBA731c6fa4...; independently decoded readback matches old projection,0outside approved[121,72,388,70] changed pixels. Five output/input overwrite targets and4strictfont cuts refuse; all original input bytes/inodes/mtimes preserved; non-CGo build explicitly refuses without output.",
+    "legacy": "20complete old operation stdout/stderr/exit captures plus4old HUD/native optical/style/group reports exactly match accepted inline binary; original pixel/refusal/contacts/pair/icon/resize goldens remain passing in focused owners.",
+    "jobs_terminal": true
+  },
+  "build_and_cost_facts": {
+    "build_tag": "nativefonts (plural), cgo, linux",
+    "host": {
+      "Go": "go version go1.26.6-X:nodwarf5 linux/amd64\n",
+      "FreeType": "2.14.3",
+      "libraqm": "0.10.1",
+      "HarfBuzz": "14.1.0",
+      "dynamic_dependencies": " 0x0000000000000001 (NEEDED)             Shared library: [libraqm.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libfreetype.so.6]\n 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]"
+    },
+    "dependency_policy": "Existing native font dependency reused; no new Go module or C helper/function. Default/non-CGo builds preserve explicit native-font refusal.",
+    "named_production_Go_declarations": 40,
+    "production_Go_files": 37,
+    "production_Go_bytes": 403624,
+    "runtime_delta_including_code_font_license_manifest_profile_bytes": 637701,
+    "production_Go_delta_bytes": 7806,
+    "font_license_manifest_profile_delta_bytes": 629895,
+    "tests_growth_bytes": 18532,
+    "new_test_fixture_bytes": 1599445,
+    "reduction_claim": false,
+    "full_changed_file_ledger": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/build-and-cost-facts-final.json",
+      "bytes": 2151,
+      "sha256": "3c9b4e56218db0621726fa613a00ec8f81154210f117e13a740f272d3bf0afc3"
+    }
+  },
+  "limits": [
+    "Focused complete CLI/actual Golden/build/vet checks, not full integrated suite or reviewer race; root race evidence is separate.",
+    "Exact font output depends on calibrated system libraries. Original Pillow vendored RAQM/HarfBuzz versions differ from this host; finite exact vectors do not prove all platforms/fonts/Unicode or arbitrary hostile font safety.",
+    "Native expected TXD is OLD accepted codec projection after independent original renderer. Reviewer prepared that projection separately without new TTF code; it is not an independent native encoder oracle.",
+    "Unsupported style operations, external reconstruction/donors, native layouts/palette aliases, physical rendering/gameplay/ISO placement and complete historical TTF artwork coverage remain separate.",
+    "No family/milestone/retirement promotion or implementation approval. Initial capsule and failure receipts remain immutable/private and superseded only for current-candidate acceptance evidence."
+  ],
+  "contracts": {
+    "analysis/ttf-backend-reuse-decision.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/project/analysis/ttf-backend-reuse-decision.json",
+      "sha256": "0a172a03f111a5e42331eab94ea58772407f0a2dba439af89de385790667db10"
+    },
+    "analysis/ttf-raster-reuse-frontier.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/project/analysis/ttf-raster-reuse-frontier.json",
+      "sha256": "75997a97adffe56207ae9bb8af6cf03df101b3e9edfb620c2d5df885ca6a634f"
+    },
+    "analysis/ttf-styled-prototype-contract.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/project/analysis/ttf-styled-prototype-contract.json",
+      "sha256": "08cb712cbc4c0eeca1e280ee5c24386be71107fccefcdde04c3597d813b2f7e6"
+    },
+    "analysis/ttf-styled-corpus-contract.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/project/analysis/ttf-styled-corpus-contract.json",
+      "sha256": "ba86ef0c998bc3ca0e8eb2bb3ea993db15c467d47da9a6c46abbb6489e0c5f55"
+    },
+    "analysis/ttf-workspace-contract.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/project/analysis/ttf-workspace-contract.json",
+      "sha256": "7a6262e640adfe7582933181aac7d4b16c65a4612dea81e49a581d55cd11af77"
+    }
+  },
+  "private_work": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p",
+  "artifacts": {
+    "pins-before.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/pins-before.json",
+      "bytes": 75770,
+      "sha256": "ee9d6a921f268ad12e8a8ab678e702340d0b7e786d4c60e7b52d10648841aed5"
+    },
+    "pins-revised-before.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/pins-revised-before.json",
+      "bytes": 75923,
+      "sha256": "93ed377c2f28013f800f32e564b7b10e5de0ad6176673504da7c167a29046ec0"
+    },
+    "pins-final.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/pins-final.json",
+      "bytes": 19623,
+      "sha256": "090fb317878fd3367f89289e9572ab64e7195528d8cfa0a6237cd33cad06f799"
+    },
+    "pre-LF-review-receipt.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/pre-LF-review-receipt.json",
+      "bytes": 1659,
+      "sha256": "21f7bc4f559680b91c3c0c001cc2e09cfefc466364f13f3167efd60091781982"
+    },
+    "checks-final.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/checks-final.json",
+      "bytes": 3210,
+      "sha256": "68a6314ce01babed0758a3eb6df479300e5e82ff617ddcd7d83c6f66738ddaba"
+    },
+    "extra-final-check.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/extra-final-check.json",
+      "bytes": 753,
+      "sha256": "81bcc9b3dc579382075c8c140faceea683b38de17946917c4f819f240703df8b"
+    },
+    "hygiene-final.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/hygiene-final.json",
+      "bytes": 869,
+      "sha256": "04ed24197591a0df8bb13d2bab92279c601ce4b14d6cbb6ba89031ea120f5160"
+    },
+    "build-and-cost-facts-final.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/build-and-cost-facts-final.json",
+      "bytes": 2151,
+      "sha256": "3c9b4e56218db0621726fa613a00ec8f81154210f117e13a740f272d3bf0afc3"
+    },
+    "source-bindings-final.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/source-bindings-final.json",
+      "bytes": 62296,
+      "sha256": "0ca02bf22c0dcdf701aa2e27d8fce7935732f50e40ccd8306e1997f8f9f4388a"
+    },
+    "standalone-final.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/standalone-final.json",
+      "bytes": 8188,
+      "sha256": "049e16d4a02ce12ee496a551772dae499d65916138a824c580db0cf18cd63bd3"
+    },
+    "standalone-final.py": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/standalone-final.py",
+      "bytes": 6305,
+      "sha256": "ff5df90736ed897daf5a4b540f5eebe154d612cf5095dcb3ed2714385b1ce340"
+    },
+    "extra-masks.py": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/extra-masks.py",
+      "bytes": 1703,
+      "sha256": "e1d1d9b8813c37c3dbc94e99cd6dc0a9fced69774b317236d791cadeb9096f48"
+    },
+    "extra/mask-cases.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/extra/mask-cases.json",
+      "bytes": 3719,
+      "sha256": "4e96fa10082ece47b3f0ba79a58669608b7f21f008c0c83f51c7aa61c6d36eca"
+    },
+    "extra/provenance.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/extra/provenance.json",
+      "bytes": 431,
+      "sha256": "aff88294273f3b03eb866b8d6c0a9af700c53d8bd7524fc04ec71efc83ff18b9"
+    },
+    "finding-lf.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/finding-lf.json",
+      "bytes": 2706,
+      "sha256": "76cb08d307a9ed4baab809a69d9a6110ca4843cf3dd957d878402e6166896d06"
+    },
+    "control-lead/lf-reference.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/control-lead/lf-reference.json",
+      "bytes": 631,
+      "sha256": "9656163c45a94f0fa869e5f6f220cb1488f287370ea54f4f406cda86430dada9"
+    },
+    "control-lead/lf-original.u8": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/control-lead/lf-original.u8",
+      "bytes": 131072,
+      "sha256": "b7dd9db3ad3b6cd70d5804b32bd35137b4534245cbe9518df48cd6cff52409fa"
+    },
+    "control-lead/lf-candidate.u8": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/control-lead/lf-candidate.u8",
+      "bytes": 131072,
+      "sha256": "713e8279fe61b9e9a9c3ebf9f45f109cd15e1c672e839a2fc0c2120c9cc3e090"
+    },
+    "lf-original-pack/manifest.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/lf-original-pack/manifest.json",
+      "bytes": 2853,
+      "sha256": "6448ec7aae35b1447067e93f5ae793cfae8fce3393bfa3598b2020d357975b76"
+    },
+    "lf-original-pack/facts.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/lf-original-pack/facts.json",
+      "bytes": 10472,
+      "sha256": "4a238266b3130880aa5b01335b3063728df9fb2a4c817e0812470d5aba4d17fd"
+    },
+    "prepare-final-overlay.py": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/prepare-final-overlay.py",
+      "bytes": 3172,
+      "sha256": "b119745527fffc4203d9a94474b05fd38e9335329975cd6f389905180eb7f7d6"
+    },
+    "final-extra-overlay.json": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/final-extra-overlay.json",
+      "bytes": 160,
+      "sha256": "a901f53ca88063c55154dc876de6c698db83a48379e72edd139bc28aa1ec5e25"
+    },
+    "patch-final-extra.go": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/patch-final-extra.go",
+      "bytes": 600113,
+      "sha256": "ce38e2557f67d1010e6486c0246d798c09e111e5d0e6546fed892660601016ca"
+    },
+    "native-final": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/native-final",
+      "bytes": 8041320,
+      "sha256": "46675db97bf244d487017d8663645de518f13af5954e1dfbd1c89fe391f1bdfe"
+    },
+    "core-final": {
+      "path": "/var/tmp/dokapon-truetype-raster-review-jhos2d9p/core-final",
+      "bytes": 8121154,
+      "sha256": "64376d411ebef50fc0652e31aff7ac40156292a9e17e6fefa3234c414e2ec567"
+    }
+  }
+}

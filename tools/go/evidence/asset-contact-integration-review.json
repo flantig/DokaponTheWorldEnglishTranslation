@@ -1,0 +1,72 @@
+{
+  "scope": "Ordinary read-only contact integration review; V2 candidate before pending Astra LF/paint-order fixes",
+  "at_utc": "2026-10-21T03:40:49.277240+00:00",
+  "result": "NEEDS REVISION: two material fidelity findings remain OPEN. Positive old-candidate checks below do not approve pending changes.",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-contact-integration-ul2hqxg_/review-source-v2/review-manifest.json",
+    "manifest_sha256": "0b800cb45d43f2ce3ccb8f4d0b3d80042f5e45077c04c28eda9ed692a06268c0",
+    "members": 202,
+    "binding": "All202 live/capsule member sizes+hashes held at terminal check before root revisions; owned reviewed copy still matches. Live texture_contacts.go changed after terminal check for pending fixes, explicitly outside this review.3 accepted assets additionally pinned. No immutable copy activated with Serena."
+  },
+  "findings": [
+    {
+      "id": "LF-label-layout",
+      "severity": "MEDIUM",
+      "status": "OPEN; root accepted correction pending",
+      "source": "texture_contacts.go label collection/textMasks call",
+      "finding": "Admitted archive/name/texture strings can contain LF. Whole formatted labels currently reach the single-line backend, whereas original ImageDraw splits LF, including blank and trailing lines.",
+      "counterexample": "Astra032/root report archive UI followed by LF and SECOND differs2942 channels; space control matches. This reviewer independently confirms the source-control mismatch but has not reproduced the new pixel counterexample.",
+      "minimal_direction": "Within contactSheets derive original line step from A bbox.bottom+4, split completed labels and retain per-physical-line position and logical-label ink. No font kernel change or new helper is needed."
+    },
+    {
+      "id": "per-item-paint-order",
+      "severity": "MEDIUM",
+      "status": "OPEN; root accepted correction pending",
+      "source": "texture_contacts.go thumbnail loop followed by global mask paint loop",
+      "finding": "All thumbnails are painted before all labels. Original _sheet paints thumbnail then two labels for each item before proceeding. Whole-page clipping permits a prior label to overlap a later item thumbnail, so these orders differ.",
+      "counterexample": "Astra032/root report archive A plus U+0325 repeated16, no LF, seven UI64x40 dark images differs207 channels. This reviewer confirms original/current ordering statically; pixel counterexample not independently reproduced here.",
+      "minimal_direction": "Retain each item thumbnail and physical-label range; shape once, then paint each item thumbnail followed by its labels in source item order."
+    },
+    {
+      "id": "supplement-and-manifest-aliases",
+      "severity": "MEDIUM",
+      "status": "CLOSED on V2",
+      "finding": "Initial supplementary source pin objects were one array depth deeper than canonical key configuration; imported manifests also initially admitted casefold aliases/last-wins pairs.",
+      "resolution": "Existing checkJSON now configures profile pin depths3+4 and source typed depths1/3/5/6/7. Independent Path,long-s size,alias-pair,Archive andPreview refusals pass."
+    },
+    {
+      "id": "shared-preview-work-amplification",
+      "severity": "MEDIUM",
+      "status": "CLOSED on V2",
+      "finding": "Initial rows sharing a preview repeated decompression/hash/decode while expanded input budget charged the member once.",
+      "resolution": "SourceOrdinal/member cache shares encoded bytes/hash,measured geometry/pixel hashes and bounded thumbnails. Independent25-row1MiB PNG probe counts2 decoder calls, validates cached hash/geometry conflicts and matches a full independently rendered24-item page; empty per-row hashes retain no-dedup semantics."
+    },
+    {
+      "id": "dot-member-name",
+      "severity": "LOW",
+      "status": "CLOSED on V2",
+      "finding": "fs.ValidPath accepts the special dot name; initial regular dot member could produce an invalid regular output path. No escape was demonstrated.",
+      "resolution": "Explicit dot-member refusal; independent unused-dot and traversal/duplicate member cases refuse without output."
+    }
+  ],
+  "positive_evidence": {
+    "original_collection_cases": "PASS47 rows and10 completeRGB pages across original11/UI25-reversed/mixed11. Independent bridge uses original CSV/detector facts,one sourceZIP per row and original ordering; every expected pixel hash and CSV source-order/flags/final page link matches. Supplement pagination oracles are postimplementation original-only,before candidate comparison,not precode.",
+    "lifecycle": "PASS deterministic dryrun/no output; dry predicted bundle equals apply/readback; overwrite and source/font/profile aliases refuse. All independent input bytes,inodes,mtimes preserved. Four controlled private overlays alter source,supplement,font or profile immediately before recheck and all refuse without output.",
+    "validation": "PASS11 bounded malformed/cache/profile cutsets,including stale cached encoded/pixel hashes/geometry,canonical aliases and invalid ZIP names. Complete existing CLI owners cover additional frozen refusals.",
+    "build_compatibility": "Core/default two-owner test PASS15.947s; nativefonts two-owner test PASS18.300s. Both native and CGO_ENABLED=0/nativefonts builds+vet pass; non-CGo contacts refuses explicitly with no output. Public13-row/two-page example passes native build. Twenty complete legacy stdout/stderr/exit captures match accepted baseline separately in both builds.",
+    "hygiene": "PASS gofmt,Git+manual scoped whitespace and credential scan with real whitespace synthetic selfcheck. All reviewer jobs terminal."
+  },
+  "design_assessment": {
+    "owners": "Serena live references confirm authorTexture dispatch and shared readInput callers. contactSheets is large but one coherent whole-collection/group/page/inventory lifecycle; splitting solely by length or putting ZIP/font modes into CMB/native cell owners would harm clarity. Existing sampler,PNG normalization,blend,reader,JSON and exclusive publisher remain shared. No new mode framework is justified.",
+    "native_boundary": "One native textMasks owner plus its complementary refusal declaration are justified. Both declarations,header,fonts/licenses and external dependencies must be counted. Native body exactly matches previously reviewed prototype; upstream v0.10.1 header adaptation changes only generated include to explanatory comment. Default/core builds retain standard-library-only operation.",
+    "reader_limits": "Reviewed every live readInput caller: previous roles still pass fixed1/4/16/64MiB limits or prevalidated role sizes. Generic128MiB ceiling serves contacts; existing role bounds remain.",
+    "bounds": "Current fences cover128MiB per ZIP,256MiB combined/expanded inputs,100000rows,256M decoder work,16M cached thumbnail pixels,1M page pixels/256M total page work,128MiB payload/bundle and32MiB report. Cache keys are source/member scoped and input bytes remain immutable during traversal.",
+    "CSV_scope": "Original source-order columns,flags and final-link semantics are verified; adapted preview namespaces/status schema and Go LF CSV convention are not claimed original CSV byte parity."
+  },
+  "private_evidence": {
+    "path": "/var/tmp/dokapon-contact-integration-review-hpfyd0g8/checks-old-candidate.json",
+    "sha256": "8d980e3aa910f7d645f98416a6e76efc6fae4d629b4942eee5a6a4170c8dbf0b",
+    "source_oracle_memberships": "139+191+65 size/hash checks across immutable packs; overlapping membership is not additional corpus coverage. Detailed scripts/outputs/overlays,pins and binaries are hashed privately."
+  },
+  "limits": "This seals old V2 evidence with OPEN findings so root can revise; no pending revision is approved. No full suite,race,UI,ISO/artwork/patch/native blend,retirement,milestone or family credit. Remaining flat90/weekday presentation and full-family assessment stay separate. Native cgo/Linux/FreeType/Raqm deployment/version/licensing costs and arbitrary-font/subpixel portability remain explicit. No production/test/doc/coverage edits or protected resource/historical-main access."
+}

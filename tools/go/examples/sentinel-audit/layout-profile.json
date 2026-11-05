@@ -1,0 +1,57 @@
+{
+  "operation": "elf_layout",
+  "source_size": 6144,
+  "source_sha256": "a1d801f321ba52240efddbf5729b12659cba03b9a0285ea1de06e05fc02d7b20",
+  "evidence": "Manual synthetic sentinel mapping fixture, not native liveness or patchauthority.",
+  "sentinel": {
+    "retail_elf_size": 1920,
+    "loader_vmas": [
+      "0x100140",
+      "0x100144",
+      "0x100150",
+      "0x100154"
+    ],
+    "window_bases": [
+      "0x100100",
+      "0x100120"
+    ],
+    "window_sizes": [
+      "0x100110",
+      "0x100130"
+    ]
+  },
+  "address_ranges": {
+    "firstblobword": {
+      "start": "0x4000000",
+      "end": "0x4000002"
+    },
+    "canonical-stream": {
+      "start": "0x4000010",
+      "end": "0x400001e"
+    },
+    "last-loaded-word": {
+      "start": "0x4000ffe",
+      "end": "0x4001000"
+    },
+    "ordinary-pointer": {
+      "start": "0x100300",
+      "end": "0x100304"
+    },
+    "ordinary-BSS": {
+      "start": "0x100680",
+      "end": "0x100684"
+    },
+    "ordinary-unmapped": {
+      "start": "0x200000",
+      "end": "0x200002"
+    },
+    "ordinary-loadsplit": {
+      "start": "0x10067e",
+      "end": "0x100682"
+    },
+    "trailer-as-ELF": {
+      "start": "0x100700",
+      "end": "0x100702"
+    }
+  }
+}

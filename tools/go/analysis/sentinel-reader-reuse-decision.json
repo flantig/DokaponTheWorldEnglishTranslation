@@ -1,0 +1,69 @@
+{
+  "at": "2026-10-21T15:34:48.110727+00:00",
+  "status": "PRIVATE_IMPLEMENTED_VERIFICATION_PENDING",
+  "serena_session": "2ce76341",
+  "baseline": "/var/tmp/dokapon-fixed-inline-iiom1ld5/sealed-final",
+  "source_frontier": "analysis/sentinel-reader-frontier.json",
+  "source_pack_root_verified": 31,
+  "scope": "Read-only extracted ELF sentinel allocation and complete-window binding; no loader allocation/write/native liveness",
+  "existing_candidates": {
+    "inspect": "Owns ELF/VMA/file and initialized loader/window validation. Enhance elf_layout with explicit external allocation facts; convert interval classification to shared ELFMapping region loop so external bytes use same bounds logic without fake program headers. No new scanner or mapping function.",
+    "references": "Owns strict stored targets/site geometry. Keep pointer and code_immediate LUI/ADDIU semantics; dispatcher LUI/ORI validation belongs to inspect. TargetMapping retains ordinaryELF scope; audit final ObservedMappings and allocationfacts explicitly establish external transport.",
+    "auditStreams": "Owns pinned input lifecycle, bounded decoding and paired/canonical comparison. Enhance bound fullwindow check to permit separately proved sentinel_blob region, publish allocationfacts; unbound/fixed modes refuse sentinel config. No fallback to registry landing metadata.",
+    "Stream": "Existing disc transaction layout requires directory offsets, ZERO end, fit/consumer scopes. Reusing it for read-only extracted transport would introduce irrelevant mandatory fields/mode switches. A narrow SentinelLayout type groups only installedcode/source extent facts.",
+    "ELFMapping": "Reuse same halfopeninterval/FileRange fields; external storage is sentinel_blob, ProgramHeader absent. PT_LOAD/BSS unchanged. New allocationresult groups dispatchrange and loadedinterval plus raw instruction words/maps to avoid conflating recognition and allocation."
+  },
+  "new_functions": 0,
+  "proposed_named_types": [
+    "SentinelLayout (source protocol coordinates)",
+    "SentinelAllocation (observed dispatch/loaded/word facts)"
+  ],
+  "fields": {
+    "sentinel": {
+      "retail_elf_size": "positive bounded original retail EOF, sourceverifiedpadding to sectorboundary",
+      "loader_vmas": "exactly4 sites: bytecountLUIreg5,adjacentORIreg5,countA/countB ADDIUzero->reg14",
+      "window_bases": "exactly2 sites, each reg1LUI/adjacentORI pair",
+      "window_sizes": "exactly2 sites, each reg9LUI/adjacentORI pair"
+    }
+  },
+  "guards": [
+    "Strict owned JSON keys/types/null/aliases/duplicate shapes, no extraneous patch routing",
+    "Whole12instructionwords singlefilebacked and before retailEOF, unique alignedsites",
+    "Fixedrecognizedbase04000000,2copiesagree,nonempty boundedwindow; strict registers/opcodes",
+    "Loaderbytes==twoequalpositivesectorcounts*2048==physicaltrailer; loadedextentwithinwindow",
+    "Retailprefixfullycontains ELFpayload; sectorpaddingzero, physicaltrailerexactbounded",
+    "No dispatchwindow overlap ordinaryPT_LOADmemory; no fabricatedprogramheader",
+    "Completequery intervalsplit at actual loadedend; audit demands wholedeclaredwindowincludingtail inonephysicalmapping",
+    "Allsource/profile/glyph/registrypins lifecycle retained; no outputonrefusal"
+  ],
+  "reach": [
+    "recipe_types.go Recipes optionalread-only field",
+    "image_types.go boundedconfig/facts andInspection",
+    "patch.go inspect intervalowner and plan foreignfieldguard",
+    "main.go profileboundary+optionalreportfacts",
+    "stream_audit_types.go profile/report optionalfacts",
+    "stream_audit.go fullwindowjoin/boundary",
+    "cmb.go planBundle foreignfieldguard",
+    "references.go candidate foreignfieldguard",
+    "patch_test.go existingCLI/refusal owners",
+    "testdata/portableexamples/accounting/README/MIGRATION/ARCHITECTURE/coverageevidence"
+  ],
+  "deferred": [
+    "sourcepool readers",
+    "fixedrecord0length/missingEN policies alreadyhandled independently",
+    "joinedstale/proposals",
+    "runtime/emulator/gameplay",
+    "all410retirement/fullfamilycredit",
+    "arbitrary dispatcherbase/opcode variants"
+  ],
+  "precode_fixture": {
+    "manifest_sha256": "c1054cafe6ef883d5d8c63b605410c35b2a921a7edf19ef561eff73e0702bbb7",
+    "members_root_verified": 36,
+    "oracle": "testdata/sentinel-reader.json",
+    "bundle": "testdata/sentinel-reader.zip"
+  },
+  "new_file_level_types": 2,
+  "local_type": "instructionSite is local to the finite inspect protocol projection; existing reference/pointer types cannot own instruction roles and expected upper bits.",
+  "shared_region_behavior": "Preserves every original PH index and boundary, no coalescing. Uses same interval projection for file_backed/BSS/sentinel_blob; dispatcher-only suffix stays unmapped.",
+  "initialized_loader_distinction": "Existing disc growth may admit from/to loader and directory states with separate consumers/readiness; extracted read-only mapping demands exact present physical trailer and both complete dispatcher pairs. Do not route it through growth or fabricate disc inputs. Common instruction bit facts do not authorize shared transaction semantics."
+}

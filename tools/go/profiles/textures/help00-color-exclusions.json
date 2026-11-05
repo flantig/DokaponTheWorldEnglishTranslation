@@ -1,0 +1,90 @@
+{
+  "source_size": 525564,
+  "source_sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+  "texture": "textures\\help_illust00",
+  "palette_policy": "source",
+  "evidence": "Finite scratch example: original-renderer two-exclusion AND masks on actual source tutorial panels. Native bytes are old accepted codec projection, not historical artwork migration or visual approval.",
+  "render": {
+    "reconstruction": {
+      "erases": [
+        {
+          "id": "flat-lower",
+          "rect": [
+            151,
+            248,
+            354,
+            29
+          ],
+          "method": "flat",
+          "grow": 0,
+          "fill": [
+            244,
+            195,
+            110
+          ],
+          "all": [
+            {
+              "not_near": [
+                244,
+                195,
+                110
+              ],
+              "tol": 16
+            },
+            {
+              "not_near": [
+                49,
+                137,
+                24
+              ],
+              "tol": 10
+            }
+          ]
+        },
+        {
+          "id": "flat-upper",
+          "rect": [
+            153,
+            164,
+            320,
+            26
+          ],
+          "method": "flat",
+          "grow": 0,
+          "fill": [
+            244,
+            195,
+            110
+          ],
+          "all": [
+            {
+              "not_near": [
+                244,
+                195,
+                110
+              ],
+              "tol": 16
+            },
+            {
+              "not_near": [
+                49,
+                137,
+                24
+              ],
+              "tol": 10
+            }
+          ]
+        }
+      ]
+    },
+    "order": [
+      "flat-lower",
+      "flat-upper"
+    ],
+    "permissions": {
+      "path": "../permissions/help00-panels.json",
+      "size": 275,
+      "sha256": "c67e399c235f3940ea822248d5287134a2e996ba5b204744403ee3fc033d0139"
+    }
+  }
+}

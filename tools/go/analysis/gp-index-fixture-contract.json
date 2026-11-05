@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "status": "PRECODE_GP_INDEX_PORTABLE_SOURCE_FIXTURE_NO_IMPLEMENTATION_APPROVAL_CREDIT",
+  "at": "2026-10-21T19:41:55.855365+00:00",
+  "directory": "/var/tmp/dokapon-gp-index-fixture-75az57gw",
+  "portable_fixture": "testdata/gp-index.json",
+  "chronology": "Frozen BEFORE any GP-index Go code/comparison. Accepted616 priorfeatures exist; no candidate outputs/access used.",
+  "scope": "One testcaseJSON with literalELFcarrierhex+42sourcewords, fullmanualtypedgroup/row/query/mappingcorefacts, GP0/highwrap/unknownmetadata/1025points andwire/scan/refusalvariants. No newruntimefolder/profile schema/function framework introduced.",
+  "carrier": {
+    "code_LOAD": {
+      "offset": 256,
+      "vaddr": 1048576,
+      "filesz": 512,
+      "memsz": 512,
+      "program_header": 0
+    },
+    "data_LOAD": {
+      "offset": 1024,
+      "vaddr": 5466880,
+      "filesz": 256,
+      "memsz": 512,
+      "program_header": 1
+    },
+    "reginfo": {
+      "section_index": 1,
+      "file_range": [
+        1408,
+        1432
+      ],
+      "GP_file_offset": 1428
+    },
+    "instruction_file_range": [
+      256,
+      424
+    ],
+    "instruction_count": 42,
+    "supported_rows": 38,
+    "excluded_words": 4,
+    "GPpoint_minus1_file": 1263,
+    "GPpoint_plus1_file": 1265,
+    "GPpoint_plus10_storage": "bss",
+    "GPpoint_plus11_storage": "bss"
+  },
+  "case_counts": {
+    "positive_or_unknown": 13,
+    "refusals": 39,
+    "main_supported_rows": 38,
+    "main_excluded_words": 4,
+    "stress_distinct_points": 1025
+  },
+  "row_wire": [
+    "file_offset",
+    "vma",
+    "word",
+    "opcode",
+    "rs",
+    "rt",
+    "signed_immediate",
+    "kind",
+    "computed_address",
+    "loaded_pointer_target",
+    "matched_queries",
+    "site_mapping",
+    "target_mapping"
+  ],
+  "root_decisions": {
+    "ADDIUrt0": "KnownGPADDIUrt0 computed_address+matchedqueries remain arithmetic-known; kinddiscarded_value explicitly NO retainedvalue/reference. UnknownGP addresses/maps/matchesnull. LWrt0 still effectiveaddress, SWrt0 writeszero. Numericrt field opcode-dependent, no genericGPRname.",
+    "AddressRanges": "Absent or{} accepted; explicitnull refused.",
+    "unknown_metadata": "Returninstructionindexwithnull computed/matches/targetmaps andnonemptymetadata_error. Do notguessGP.",
+    "scan_geometry": "Everyfullword mustreversemapuniquelythroughvalidatedordinaryPT_LOADfilepayload, no holes/alias/split/BSS; bothfileandsiteVMA4aligned.",
+    "cap_and_mapping": "Max1Mscannedwords/32768emittedrows/8querynames128B/64MiBELF+JSON. Existingmapper1024namedranges isnotindexrowcap;1025pointcaseforceschunking/dedup."
+  },
+  "source_pins": [
+    {
+      "contained": "sources/frontier-facts.json",
+      "size": 46188,
+      "sha256": "e0d512e22b19b2ca10d569a2ffbbe6c32de85e260ec78065f11e32e77bcf8bc8"
+    },
+    {
+      "contained": "sources/frontier-manifest.json",
+      "size": 13627,
+      "sha256": "99d803082cd3482a871d9a2aeab3121088c407df505784ca63c9d07c6956a525"
+    },
+    {
+      "contained": "sources/frontier-report.json",
+      "size": 9439,
+      "sha256": "1d70a463bba2b8732730aaa44e96583b650f0c7f6395c9c3339bbcf38ad008ee"
+    }
+  ],
+  "source_manifest": "99d803082cd3482a871d9a2aeab3121088c407df505784ca63c9d07c6956a525",
+  "source_provenance": "Originalpurehelpers/global_loads/Scanner42vectorproof independentlyexecuted inprior83pack; newELF/expectedtypedrows andguards manualbyte/equationprojection. No originalmainor Go invocation.",
+  "unknowns_and_limits": "No liveGP update, actualdereference, loadedpointer,liveness,CFG, allocation/hook/ABI or milestoneclaim. Emitted-rowoverflowcompactrecipe notpre-materialized fullcarrier/hash. No isolated64MiBgiantinput stress claimed. Optionalfieldnamescorechosenrootbindingneededbeforecandidate."
+}

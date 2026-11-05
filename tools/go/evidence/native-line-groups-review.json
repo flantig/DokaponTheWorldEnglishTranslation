@@ -1,0 +1,59 @@
+{
+  "schema": "native-line-groups-ordinary-review-v1",
+  "at": "2026-10-20T19:07:08.262473+00:00",
+  "result": "PASS_SCOPED_NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "freeze": {
+    "path": ".goal/line-groups-work.json",
+    "frozen_at": "2026-10-20T19:05:10.878281+00:00",
+    "pin_count": 73,
+    "before_and_after_mismatches": [],
+    "source_data_pins": {
+      "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+      "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+      "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+      "patch_test.go": "e6c3a65bee6e9b0a4b2d1a0ab7ce9dfbba2c06c08b06b0a78beeac1b7982ba41",
+      "testdata/native-line-groups.json": "74b867b428b3f9a0d6cd682c3a60653fd4caaa6ed6fe7536c59e6b22fbbeea1a",
+      "testdata/native-line-groups.zip": "9a63de05c5b9cea09106b0bbeb2a6dfaba4fd972274a26a760c46547885d285f"
+    }
+  },
+  "baseline": "/var/tmp/dokapon-native-styles-sealed-9fhj72l0",
+  "review": {
+    "ownership": "Serena references and baseline diff confirm existing composeCells owns group fitting/preflight/ordered composition; renderRuns remains the single width-fit/style/raster owner. No added function or alternate rendering path. Group orchestration is a coherent enhancement at this size.",
+    "fit_and_bounds": "raster.go:150-241 validates bounded finite box/leading, 1..16 lines, field conflicts and alignment; common renderRuns guards validate style/minimum/run inputs. Width probes select one quarter-step size, height reduces it to minimum using original leading ratio. Fit box estimates remain separate from approved writes and background painting. Final rerender at exact anchors avoids translated rounding errors.",
+    "composition": "raster.go:278-316 uses the prior uint8 destination for each line in source order. The float and Pillow policies share placement and final Src publication; all lines preflight before canvas creation.",
+    "bounded_work": "renderRuns workspace/disc limits remain; group counts both probe and final direct-disc work against 2^28. Performance at hypothetical maximum profiles was not benchmarked.",
+    "old_behavior": "Group absence becomes a one-element line list; default centered anchor arithmetic, original background handling and byte compositor remain equivalent. Existing single-style/HUD/source-color/resize goldens passed in the focused owner.",
+    "test_coverage": "Eight independent precode raw candidate arrays cover actual two/three/left, width/height fit, minimum estimate overflow, overlapping lines and top alignment. Fourteen refusal vectors check conflicts, bounded geometry, alignment, spill and a late missing glyph with input preservation. Actual help01 uses an independent postimplementation/precomparison canonical oracle."
+  },
+  "checks": {
+    "focused_golden": "PASS: go test -count=1 -p 2 -run ^TestPilotHistoricalGoldenBytes$ .; nice19/GOMAXPROCS2/owned TMPDIR; 11.348s",
+    "oracle_binding": "All eight repository candidates equal frozen primary private arrays; all ten ZIP entries pinned; actual source/expected equal independently pinned private files. Ledger reconstructs 11735 native changes, header/CLUT unchanged, zero raw RGBA changes outside approved mask.",
+    "source_pins": "All73 match before and after",
+    "new_oracle_permutations": 0
+  },
+  "evidence": {
+    "receipt": {
+      "path": "/var/tmp/dokapon-line-groups-review-osgic4xx/final-receipt.json",
+      "sha256": "686a59b73d045dd1987c6c4221cff2198be6484171d7c67e00f2a2a1b15cf159"
+    },
+    "oracle_bindings": {
+      "path": "/var/tmp/dokapon-line-groups-review-osgic4xx/oracle-bindings.json",
+      "sha256": "9baf38ed3091ca116646be3232441b4e075ebcdf04b6f6fd748b0f186522a894"
+    },
+    "contract": {
+      "path": "analysis/native-line-groups-contract.json",
+      "sha256": "af2e5e44a483ae4a55f1fa4d611ea2b1d92f09dac9fcf1d9f82d7c25d26bf3f7"
+    },
+    "actual_oracle_receipt": {
+      "path": "/var/tmp/dokapon-help01-native-5mkk0ej6/receipt.json",
+      "sha256": "91f94dfc2d7c25235aefabd38575df263c5794615dd25e54b9f88831b01475df"
+    }
+  },
+  "limits": [
+    "Full suite, race, legacy227 overlay and mutation campaign deliberately deferred under current user instruction.",
+    "No independent CLI rerun; parent owns current CLI validation.",
+    "No claim covering every historical line operation, icons, TTF, donors, rendering-family completion or ISO/native visual approval.",
+    "No production/test/fixture changes or protected resource/process access."
+  ]
+}

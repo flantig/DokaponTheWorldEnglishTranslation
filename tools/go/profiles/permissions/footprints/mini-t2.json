@@ -1,0 +1,69 @@
+{
+  "allow": [
+    [
+      32,
+      10,
+      189,
+      77
+    ]
+  ],
+  "masks": {
+    "allow": [
+      {
+        "rect": [
+          32,
+          87,
+          189,
+          8
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "alpha": 8
+              }
+            }
+          ]
+        ],
+        "fill": "none",
+        "grow": 0,
+        "components": {
+          "connectivity": 8,
+          "reject": [
+            [
+              {
+                "above": {
+                  "red": 225,
+                  "green": 225,
+                  "blue": 225
+                }
+              }
+            ]
+          ]
+        }
+      },
+      {
+        "rect": [
+          160,
+          87,
+          14,
+          2
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "alpha": 0
+              },
+              "below": {
+                "luminance": 10
+              }
+            }
+          ]
+        ],
+        "fill": "none",
+        "grow": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T01:54:27.904429+00:00",
+  "scope": "ROOT closure of A031-1 repeated TXD indexing; no capability milestone, family promotion, historical retirement, net code reduction or artwork approval.",
+  "finding": {
+    "report": "evidence/astra-audit-031.json",
+    "sha256": "49f88abea1716478c03d636186716a0862176a87582a648b99cb7b907e582a29",
+    "id": "A031-1",
+    "root_disposition": "CLOSED by the verified existing-owner enhancement; frozen audit report describes its own earlier snapshot."
+  },
+  "reuse_decision": "analysis/texture-index-reuse-decision.json",
+  "implementation": "Existing indexTextures records immutable source view; existing texture accepts optional source-bound index; specification and per-member manifest retain their existing index; source-color recursion shares it. Standalone and fresh-artifact decode still parse independently. No global cache or new function.",
+  "contract": "Exact start pointer and slice length bind an internal read-only view. Does not detect in-place mutation; actual private callers keep both bytes and index immutable. Different/new/copied/shifted/shortened views refuse. Capacity alone is not content identity.",
+  "review": {
+    "path": "evidence/texture-index-reuse-review.json",
+    "sha256": "23a8893c94b5efc54eedfa41203a077eede2a8255697da5aa3b4936c34fb5f34",
+    "findings": 0,
+    "pins": 8,
+    "private_artifacts_verified": 9,
+    "scope": "Own focused CLI/Golden/build/vet/format/credential checks; successful replacement/fresh-artifact overlay; five independent parse traces and20complete legacy parity captures. Not Astra approval."
+  },
+  "root_checks": {
+    "checks": [
+      {
+        "label": "build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/dokapon-go",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.256
+      },
+      {
+        "label": "vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.078
+      },
+      {
+        "label": "format",
+        "command": [
+          "gofmt",
+          "-l",
+          "texture.go",
+          "texture_index.go",
+          "texture_types.go",
+          "texture_authoring.go",
+          "texture_manifest.go",
+          "patch_test.go"
+        ],
+        "exit": 0,
+        "seconds": 0.06
+      },
+      {
+        "label": "whitespace",
+        "command": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "texture.go",
+          "texture_index.go",
+          "texture_types.go",
+          "texture_authoring.go",
+          "texture_manifest.go",
+          "patch_test.go",
+          "README.md",
+          "ARCHITECTURE.md",
+          "MIGRATION.md"
+        ],
+        "exit": 0,
+        "seconds": 0.002
+      }
+    ],
+    "credentials": {
+      "positive_selfchecked_patterns": 2,
+      "scoped_files": 10,
+      "candidates": 0
+    },
+    "legacy_parity": {
+      "cases": 20,
+      "scope": "Full stdout/stderr/exit,18original cases plus accepted specification and manifest examples",
+      "result": "PASS"
+    },
+    "native_SYSTEM": {
+      "entries": 11,
+      "decoded_rasters": 86,
+      "complete_report": "IDENTICAL accepted .04 output",
+      "stdout_sha256": "40342919549eee1311585ea454fd7d2202fac17388c6c226c6348717e3ef7189",
+      "limit": "No new independent native pixels/visual/currentmod proof"
+    }
+  },
+  "focused_race": {
+    "command": [
+      "nice",
+      "-n",
+      "19",
+      "go",
+      "test",
+      "-race",
+      "-p",
+      "2",
+      "-run",
+      "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+      "-count=1",
+      "."
+    ],
+    "exit": 0,
+    "seconds": 151.186,
+    "stdout_sha256": "351dbef12a8f49d7f763933f6c717e9ad40ec89fb06904304c14d750e860b8cd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Two focused complete CLI and historical codec/raster golden owners; not full suite"
+  },
+  "repository_matrix": {
+    "cached_vs_fresh_complete_cases": 90,
+    "foreign_views_refused": 18,
+    "empty_contexts_refused": 6,
+    "source_and_index_preservation": "PASS"
+  },
+  "root_performance_probes": [
+    {
+      "kind": "count",
+      "natives": 128,
+      "measurements": [
+        {
+          "label": "before",
+          "calls": 129,
+          "cumulative_allocated_bytes": 19701552,
+          "seconds": 0.0143,
+          "stdout_sha256": "2c7548ac7c42ec965e0164c60f9b5f34f5bd0656bc0503695bc1676fe057c84e"
+        },
+        {
+          "label": "after",
+          "calls": 1,
+          "cumulative_allocated_bytes": 1288944,
+          "seconds": 0.0049,
+          "stdout_sha256": "2c7548ac7c42ec965e0164c60f9b5f34f5bd0656bc0503695bc1676fe057c84e"
+        }
+      ],
+      "complete_stdout": "IDENTICAL"
+    },
+    {
+      "kind": "count",
+      "natives": 256,
+      "measurements": [
+        {
+          "label": "before",
+          "calls": 257,
+          "cumulative_allocated_bytes": 74653808,
+          "seconds": 0.0355,
+          "stdout_sha256": "ec9986a4815f61210583cfcad785b859b6d87aed187e80eb95d1d636fc5cae0d"
+        },
+        {
+          "label": "after",
+          "calls": 1,
+          "cumulative_allocated_bytes": 2127792,
+          "seconds": 0.0109,
+          "stdout_sha256": "ec9986a4815f61210583cfcad785b859b6d87aed187e80eb95d1d636fc5cae0d"
+        }
+      ],
+      "complete_stdout": "IDENTICAL"
+    },
+    {
+      "kind": "count",
+      "natives": 512,
+      "measurements": [
+        {
+          "label": "before",
+          "calls": 513,
+          "cumulative_allocated_bytes": 284013112,
+          "seconds": 0.1291,
+          "stdout_sha256": "f7b0dc6946515e6526ea1a18f2cfb71da8e8056b6573b180da70b0010669908e"
+        },
+        {
+          "label": "after",
+          "calls": 1,
+          "cumulative_allocated_bytes": 3798440,
+          "seconds": 0.0098,
+          "stdout_sha256": "f7b0dc6946515e6526ea1a18f2cfb71da8e8056b6573b180da70b0010669908e"
+        }
+      ],
+      "complete_stdout": "IDENTICAL"
+    },
+    {
+      "kind": "count",
+      "natives": 1024,
+      "measurements": [
+        {
+          "label": "before",
+          "calls": 1025,
+          "cumulative_allocated_bytes": 1138870304,
+          "seconds": 0.5123,
+          "stdout_sha256": "f5fde4e3d9884789371d5c11c9cf0cb1bd9bd35a9e47bade032100be635296f9"
+        },
+        {
+          "label": "after",
+          "calls": 1,
+          "cumulative_allocated_bytes": 7563304,
+          "seconds": 0.0162,
+          "stdout_sha256": "f5fde4e3d9884789371d5c11c9cf0cb1bd9bd35a9e47bade032100be635296f9"
+        }
+      ],
+      "complete_stdout": "IDENTICAL"
+    },
+    {
+      "kind": "valid",
+      "natives": 128,
+      "measurements": [
+        {
+          "label": "before",
+          "calls": 129,
+          "cumulative_allocated_bytes": 134850144,
+          "seconds": 0.0329,
+          "stdout_sha256": "55f5817d261afdb30c8cc6020d62e4fc5fd326bc1df70e4bf2a3b16bd14925c9"
+        },
+        {
+          "label": "after",
+          "calls": 1,
+          "cumulative_allocated_bytes": 111756128,
+          "seconds": 0.0202,
+          "stdout_sha256": "55f5817d261afdb30c8cc6020d62e4fc5fd326bc1df70e4bf2a3b16bd14925c9"
+        }
+      ],
+      "complete_stdout": "IDENTICAL"
+    },
+    {
+      "kind": "valid",
+      "natives": 1024,
+      "measurements": [
+        {
+          "label": "before",
+          "calls": 1025,
+          "cumulative_allocated_bytes": 2294847952,
+          "seconds": 0.7912,
+          "stdout_sha256": "6e19c8421271d9bdd72bb3ae25ad519391eced344c68dfb7903d768a716d0ad3"
+        },
+        {
+          "label": "after",
+          "calls": 1,
+          "cumulative_allocated_bytes": 890553768,
+          "seconds": 0.1852,
+          "stdout_sha256": "6e19c8421271d9bdd72bb3ae25ad519391eced344c68dfb7903d768a716d0ad3"
+        }
+      ],
+      "complete_stdout": "IDENTICAL"
+    }
+  ],
+  "performance_limits": "Private existing-parser instrumentation and bounded synthetic inputs. Allocation figures are cumulative allocated bytes, not peak memory. Complete stdout identical per pair. Successful PNG encode still accounts for substantial allocations; timings are observations, not a general throughput guarantee.",
+  "private_receipts": {
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/final-checks.json": {
+      "sha256": "97eb859ed7a8dfc9f2252aeae15627a2cfd7d78756f511edb885bf6f35540cc8",
+      "bytes": 1817
+    },
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/focused-race.json": {
+      "sha256": "18840babac35f852ecd159ce7ea2a3fb560f4cd6772221775a1f3abc99bfaed0",
+      "bytes": 515
+    },
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/reuse-probes.json": {
+      "sha256": "513279a812caa9fca96c04ecaa033f6cc3ebea9b5e0039c8c332351df890b442",
+      "bytes": 3467
+    },
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/candidate-pins.json": {
+      "sha256": "67dc6ae2501dd654a2964c3dd46c29c192d83c391733b988e1727b38aeb3a62c",
+      "bytes": 762
+    },
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/metrics.json": {
+      "sha256": "99f3e62cb86a348c16b2b390c7da3cc6f2223c5c74e9d603bcd2b22dd186c509",
+      "bytes": 463
+    },
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/instrumented/texture_index.go": {
+      "sha256": "66d0d105d12c88e4606ca5ced069ab0c48d95395d33a91a86dfd6d3e5f198233",
+      "bytes": 3930
+    },
+    "/var/tmp/dokapon-texture-index-reuse-yehi_0q8/instrumented/texture_manifest.go": {
+      "sha256": "1b462d54fa9635c0bc4be239ffcda6b89ead0bbcc1f1dad7a447579be0a2b0ac",
+      "bytes": 11332
+    }
+  },
+  "metrics": {
+    "production": {
+      "files": 33,
+      "bytes": 343880
+    },
+    "named_functions": 35,
+    "new_functions": 0,
+    "runtime": {
+      "files": 120,
+      "bytes": 853637
+    },
+    "accounted_inputs": 205,
+    "production_growth_bytes": 537,
+    "runtime_growth_bytes": 537,
+    "tests_growth_bytes": 2038,
+    "fixture_growth_bytes": 0,
+    "claim": "Repeated parsing work eliminated; not net code reduction or relocation savings. No milestone/family/historical retirement credit."
+  },
+  "UI": "No HTML or UI changes; no new UI screenshot/E2E run required.",
+  "tool_side_effect": "Astra initial Serena activation wrote3unmanifested .serena config files into prior sealed snapshot. ROOT rehashed all414members plus manifest unchanged, removed only those3files and empty directory, then auditor used an owned copy. No source changes.",
+  "limitations": [
+    "Full integrated test/race suite deferred by owner pacing; focused owners only.",
+    "Extracted SYSTEM full output unchanged (11entries86rasters); no new independent86pixel/visual/currentmod/gameplay proof.",
+    "No ISO, canonical registry, protected runtime or shipping access/control.",
+    "Coverage unchanged:5Full9Partial/14;61/84planning milestones;8FullGo20reviewed16partial366outstanding/410."
+  ]
+}

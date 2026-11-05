@@ -1,0 +1,30 @@
+{
+  "operation": "registry_status",
+  "source_size": 6352646,
+  "source_sha256": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6",
+  "evidence": "analysis/registry-status-contract.json; registry, glossary, flow facts only; no installed-content claim",
+  "updated": "2026-10-20",
+  "registry_columns": [
+    "status",
+    "source_pool",
+    "chapter",
+    "tier"
+  ],
+  "registry_inputs": {
+    "glossary": {
+      "path": "../../../../registry/glossary.json",
+      "size": 57123,
+      "sha256": "28f30b9b3713612322b0a527007493aae0fb4765f0a2c4fa3e351ca537b4fed3"
+    },
+    "flow": {
+      "path": "../../../../extracted/milestone-flow.json",
+      "size": 16150,
+      "sha256": "3cd3c74bd9be7e41c644fdf2ac408cfacef50ec477eb53f4b1da3cb2a7fec5b5"
+    },
+    "template": {
+      "path": "registry-status.md.tmpl",
+      "size": 1394,
+      "sha256": "2eb5dc89055ef1bfa9139feb153086ccbbfb63fed0526a5436e7232c39b30b51"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "at": "2026-10-21T20:13:39.237490+00:00",
+  "status": "ROOT_VERIFIED_BINARY_INSPECTION_04",
+  "criterion": {
+    "id": "binary_inspection.04",
+    "requirement": "Provide general GP-relative reference classification/indexing, not only one metadata backfill",
+    "status": "partial",
+    "credit": 0,
+    "evidence": [
+      "evidence/registry-policy-closure.json",
+      "analysis/reusability-coverage.json"
+    ],
+    "detail": "Existing GP machine-field policy does not establish a shared general GP-offset inspector."
+  },
+  "original_contract": [
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "pointer": "small_toolkit/binary_inspection",
+      "contract": "Share deterministic word/instruction encoding, fixed-width decoding and reference indexes. Reports classify raw pointers, adjusted-high/signed-low pairs, GP offsets, branch/fallthrough, and interior references. Existing Go references and historical Scanner/Code/Tracer are reuse candidates, not interchangeable proof levels."
+    }
+  ],
+  "proposed_credit": 1,
+  "awarded_credit": 1,
+  "root_reasoning": "General finite supported GP-base address classification/indexing now shares references/inspect/run beyond one registry metadata update. Source-order facts, instruction classes, unknown/zero metadata, signed wrap, full reverse scan and computed point maps are independently checked against precode fixtures and complete frozen source words. This is the identified bounded .04 duty, not full GPR-use or live register/control-flow inference.",
+  "source_study": {
+    "path": "analysis/gp-index-milestone-study.json",
+    "sha256": "f8eec900938086cb05a5577c921eb4edf929baa51565e3db2980fa9b84138cf9",
+    "manifest": "/var/tmp/dokapon-gp-index-milestone-x39h2qga/manifest.json",
+    "manifest_sha256": "015d7d874187f963e6287e7c0af7f7b71a76de6570698e728c372c5794d6dba7",
+    "root_verified_members": 25
+  },
+  "checks": [
+    "13precodevariants/1480completefacts/39refusals exact acrosscore/native",
+    "Second source-only full683392word oracle:10212rows/RegisterInfo exact inbothbuilds",
+    "8completeexistingaudit+3completeolderreportoutputs exact; source identities preserved",
+    "Own independent ordinary15.569CLI/buildvet,18additionalbounds and all10212wordfacts; finalguarddelta independently verified14.212s/buildvet/17wholecomparisons"
+  ],
+  "remaining_milestones": [
+    {
+      "id": "binary_inspection.05",
+      "requirement": "Classify branch/fallthrough and perform bounded register/CFG reasoning required by original reports",
+      "material_remaining": "OriginalCode.br/succ/reaching_defs/uses_after andTracer boundedregister/valueflow; Scannerbranch_targets/fallthrough. Newmetadata-basedindexdoesnotinterpretliveGPoverwrites, branchdelay/fallthrough, pointerloads, caller/registerABI, orunknownregisterpaths. Otherarithmetic/branchactualGPRuses notindexedaddressforms."
+    },
+    {
+      "id": "binary_inspection.06",
+      "requirement": "Identify interior references and preserve hook/ABI proof boundaries across those forms",
+      "material_remaining": "NamedGPpointquerycanmatchaninterioraddressbutdoesnotcloseallrawunalignedpointers/LUIchains/GP/branch/fallthroughinteriorreferences, executableownership, safehookzone/RA/callerclobber/delay-slotABI proof. Originalfix_inlinecheck_site308-342/zone_safetyclass4andfallthroughremainstronger distinctproof levels."
+    }
+  ],
+  "family_status": "partial4/6",
+  "planning_if_accepted": {
+    "before": 70,
+    "after": 71,
+    "total": 84,
+    "percent": 84.52
+  },
+  "family_coverage_unchanged": {
+    "full": 8,
+    "total": 14,
+    "percent": 57.14
+  },
+  "retirement_delta": 0,
+  "code_reduction_claim": false,
+  "publication_gate": "Met: root final focused15.347/race167.474/core+nativebuildvet/source/legacy checks and fresh targeted review; all2220 artifacts verified.",
+  "root_decision": "Award exactly binary_inspection.04 after source-original criterion assessment and fresh independent behavior/architecture challenge. Family stays Partial4/6; .05 actualbounded CFG/def-use and .06 interior/hook ABI remain open.",
+  "review": {
+    "path": "evidence/gp-index-review.json",
+    "sha256": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba",
+    "root_verified_artifacts": 2220
+  },
+  "candidate_manifest": "/var/tmp/dokapon-gp-index-ojcy9sxb/review-source-final/manifest.json",
+  "candidate_manifest_sha256": "734c46083f6172d432ad9a2e6ac96a3a0549a5d0c0dba593fd074b938d19cdaf",
+  "source_pins": {
+    "main.go": "0049927099611794ddb451ea6fa39bc022252d76833e6fbc62697f1d756ceedb",
+    "references.go": "26a45c4e51547947568fa6c5a504a053a93727cc9c331906df9b65e7d5ea5c83",
+    "reference_types.go": "8491c92026abbefd8d194b246651532ac5cba61365590486caaff37491aa7e50",
+    "patch_test.go": "83a9a7ad6cc03de85f10d038a04add6a8f442da7551ccd1b2530219ad3ae790f",
+    "testdata/gp-index-fixture.zip": "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97",
+    "analysis/gp-index-reuse-frontier.json": "1d70a463bba2b8732730aaa44e96583b650f0c7f6395c9c3339bbcf38ad008ee",
+    "analysis/gp-index-fixture-contract.json": "6be37e3ac0bda5abeb2c14a0433b56e4224327d75f34718e80fa1ce8e62505f9",
+    "analysis/gp-index-milestone-study.json": "f8eec900938086cb05a5577c921eb4edf929baa51565e3db2980fa9b84138cf9",
+    "analysis/gp-index-reuse-decision.json": "a0040ea4abeab66ebf306fb75190d6c659a736413d231fdd0241d354d93dcf3d",
+    "evidence/gp-index-review.json": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T00:11:52.598128+00:00",
+  "scope": "Read-only ordinary review of previewFit exact LINE-count increment; findings, not approval.",
+  "result": "No material findings in reviewed scope",
+  "findings": [],
+  "candidate_pins": {
+    "fit.go": "141385d4023592ff3a9cf019b8042145dcda5b2b9b1f09916241e4c53a0d26ba",
+    "fit_types.go": "c4a4e34b8370bb2a47bb3f666e2c8e7cb86ea8ec33658fb27077c3150a0bb93c",
+    "patch_test.go": "f156a1f85f665d0675e6b0891968bd51d1379e3626ef139292b537e6dc5cd156",
+    "inputs.go": "ac379521f64b9533c5fd37bfd5d61a177d0ed42008f7ae3155a6fa217714176f",
+    "patch.go": "7e53edee53e683d0401ea46048c62fbf9f59b8dcc9b036adb6000ad2ed2a797a",
+    "main.go": "0a3bfd0fdbef00d1513581a3e39160ffb2052b086286c317c9632a90c05cea93",
+    "testdata/fit-line-count.json": "ff7961b54bcab4a5884d41f9b7f616c2b172bc4f908007fa35394af9fbddd98c",
+    "analysis/fit-line-count-contract.json": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc",
+    "analysis/fit-line-count-reuse-decision.json": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714",
+    "analysis/fit-line-count-oracle-erratum.json": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3"
+  },
+  "candidate_pins_before_after": "All10 unchanged",
+  "source_review": {
+    "owners": "Serena reference analysis: run is sole production previewFit caller. previewFit retains consumer constraints/reporting; existing controls owns measurement. Sum(len(page)-1) reuses its page vectors without a second scanner. No added function/type/decoder/dependency.",
+    "lines": {
+      "JSON_boundary": "fit.go:34",
+      "box_validation": "fit.go:60-66",
+      "successful_measurement_diagnostics": "fit.go:152-185",
+      "optional_input_output": "fit_types.go:22,42",
+      "LINE_PAGE_source_facts": "patch.go:461-470"
+    },
+    "semantics": [
+      "Explicit0 is known and serializes0; absent/null leaves both count fields omitted. Unsupported encode or measurement exits before counting.",
+      "Counts leading/consecutive/trailing LINEs; PAGE creates a page without adding LINE. Required count0..4095 and no Wrap are enforced.",
+      "Existing width/height/PAGE/byte diagnostics remain ordered; count mismatch appends last and has row_count_mismatch status precedence. Matching count retains existing overflow status.",
+      "Whole-profile duplicate-key refusal is intentional tightening. New-field ASCII/Unicode case aliases refuse at box depth; old unrelated field casefold policy remains unchanged.",
+      "Existing controls and publisher/source lifecycle remain unchanged; structural count alone is not selectable-row inference or native visual/runtime approval."
+    ]
+  },
+  "independent_checks": {
+    "focused_CLI": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "session": 66653,
+      "seconds": 5.031,
+      "result": "PASS"
+    },
+    "build": {
+      "command": "GOMAXPROCS=2 nice -n 19 go build -p 2 -o /var/tmp/dokapon-fit-line-count-review-emDuLA8Y/dokapon-go .",
+      "result": "PASS",
+      "binary_sha256": "3a88f52a6d218a7accb26f06f737ffb9b6b591b3acdb9409f16016d3e11e6af0"
+    },
+    "vet": "GOMAXPROCS=2 nice -n 19 go vet -p 2 . PASS",
+    "format_whitespace": "gofmt/git diff --check/manual pinned whitespace PASS",
+    "credentials": "Selfchecked real-whitespace pattern on6 pinned Go files: PASS, zero candidates",
+    "literal_oracles": "All17 cases matched independent frozen encoded bytes/width vectors/count/status/ordered diagnostics including4095LINE maximum. Raw-scale fixture erratum applied: existing encoder refuses before exposing bytes; unsupported count remains absent.",
+    "native_oracles": "All3 frozen native registry rows matched independent EN/glyph/font-derived facts: Attack/Defense/Field and Items/Magic/Gear each3LINE including trailing; scaled Weapons/Shields remains unsupported. Native source copies and literal pack inputs preserved byte/inode/mtime.",
+    "legacy_parity": "Both literal and native full stdout/stderr bytes match root PRECODE captures; no old/new JSON projection substituted. Source/registry argument paths adapted to permitted private copies, byte pins unchanged.",
+    "extra_probes": "Leading/consecutive/trailing LINE count; absent/null omission; ASCII alias, Unicode longS alias and duplicate canonical-key refusal.",
+    "full_suite": "Not run; no full-suite claim."
+  },
+  "artifact_receipts": {
+    "work": "/var/tmp/dokapon-fit-line-count-review-emDuLA8Y",
+    "checks": {
+      "path": "/var/tmp/dokapon-fit-line-count-review-emDuLA8Y/checks.json",
+      "sha256": "35e052c89fef1b4900c09fbb3a3c1c3a9bb0801bd6797775896be0ef5bffc77f"
+    },
+    "probes": {
+      "path": "/var/tmp/dokapon-fit-line-count-review-emDuLA8Y/probes.json",
+      "sha256": "61c8e7275ab4dde1d9c15a5f8a70a16a3004fa7268a2414e464cfb43efde7e19"
+    },
+    "probe_source": {
+      "path": "/var/tmp/dokapon-fit-line-count-review-emDuLA8Y/probe.py",
+      "sha256": "862b34092c3a6e4470a6c9361e3b39863ca454c39d43ce80dadb3e816ad07786"
+    }
+  },
+  "limits": [
+    "Declared consumer control topology only; no wrapping/insertion, scale model, physical clipping, option wording/ownership/liveness or family completion inferred.",
+    "Only report and owned private artifacts written; no source/test/docs/accounting or protected resources modified."
+  ]
+}

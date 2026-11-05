@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "audit": "Astra045",
+  "role": "Purely adversarial read-only cadence audit; findings only, no implementation or approval",
+  "started_at_utc": "2026-11-05T04:04:43Z",
+  "next_due_at_utc": "2026-11-05T06:04:43Z",
+  "cadence": {
+    "prior_due": "2026-11-05T04:04:05Z",
+    "actual_start_delay_seconds": 38,
+    "precode_reviews_do_not_reset_cadence": true
+  },
+  "scope": "Accepted694 (actual044 scope) -> accepted700 -> accepted710. Private PARTIAL seven-file codec snapshot729a39e3 reviewed separately, no mutable candidate or later caller edits. Prior044 report independently hash-verified. Report staged only in this private capsule, not LIVE.",
+  "status": "Audit complete; no confirmed accepted710 runtime defect in bounded static review. One prospective maintainability finding; no approval, completion or coverage credit.",
+  "findings": [
+    {
+      "id": "A045-ORDERED-STATE-1",
+      "severity": "LOW",
+      "category": "Readability and invariant ownership, prospective only",
+      "snapshot": "private partial729a39e3, not accepted710",
+      "locations": [
+        "patch.go:128-138",
+        "patch.go:200-238",
+        "patch.go:305-346",
+        "patch.go:453-480"
+      ],
+      "finding": "A single source occurrence is represented in atoms, atomIDs, prefixAtoms, atomWidths, atomIndex and pairedAtoms. The preparation loop appends three slices and populates two maps, marker matching updates a third map, and final expansion must rejoin them. All are keyed by the same monotonic identity. This creates multiple places to update when adding or changing a role, even though no new function was added.",
+      "concrete_static_witness": "At preparation235..237, token, ID and prefix membership must be appended together. At marker matching329..330 the paired role is stored separately by ID. At expansion459..470, ID is mapped back to atom index while order is checked separately. The identity relationship is maintained by control flow rather than represented by one record. No incorrect byte result is asserted.",
+      "minimal_direction": "Consolidate token, ID, prefix membership and paired role into one local occurrence record inside encode; retain only the lookup and wrapper-weight maps required by actual interfaces. One honest private/local type is preferable to six synchronized parallel structures. Do not extract an ordered encoder, wrapper, generic compiler or role framework merely to reduce encode line count. Keep source validation and output validation independent rather than deleting either as apparent duplication.",
+      "root_disposition_received": "Root reports a mutable local sourceAtom consolidation with zero new functions and one local type. Not read or verified by this audit; closure must be established by frozen final review and tests.",
+      "closure_condition": "Final snapshot should show one per-occurrence record, preserved role/order/payload/refusal vectors and old caller parity. Do not mark resolved solely from this reported edit."
+    }
+  ],
+  "prior_findings_followup": [
+    {
+      "id": "A044-DATA-AUTHORITY-1",
+      "assessment": "Closed at the reviewed accepted710 developer-maintenance boundary.",
+      "locations": [
+        "README.md:1651-1667",
+        "patch_test.go:13218-13245",
+        "analysis/flood-global-table-ledger.json:227"
+      ],
+      "evidence": "README names batch-c-panels as authored authority, identifies five flattened derivatives, gives finite prefix replacement/repin/check instructions and says archived Python conversion is one-time lineage, not runtime or maintenance dependency. Existing test owner checks prefix equality and whole source masks. Audit independently parsed all five derivatives and verified each first13 records equal the canonical array. No new resource include/template machinery was added.",
+      "verification_limit": "Static code/document and JSON equality verification; did not rerun Go tests or root negative control."
+    },
+    {
+      "id": "PRM-WIRE-SHADOW-1",
+      "assessment": "Prior accepted raw root/reconstruction guards remain present. No new shadowing defect established by the component/flood additions. No hostile path-swap guarantee inferred."
+    }
+  ],
+  "accepted_changes_challenged": [
+    {
+      "locations": [
+        "raster_mask.go:35-343",
+        "raster_mask_types.go",
+        "texture_authoring.go:551"
+      ],
+      "assessment": "Components extend the existing predicate/group preparation and shared component BFS. Sampling versus topology rectangles remain explicit, reject predicates use the same constructor, finite green-blue uses the existing property table. Main/core/reject masks remain separate data, not a second evaluator. No extra provider dispatcher or recursive DSL found."
+    },
+    {
+      "locations": [
+        "raster_mask.go:345-461",
+        "raster_mask.go:292-317"
+      ],
+      "assessment": "Label-zero mode validates explicit seed presence and refuses size/reject combinations; default foreground refusal remains. Background output uses immutable input false bits, not filtered result, and aggregates disconnected background without another BFS. Empty explicit seeds remain none. Erosion is called after component selection and before final growth/clip, with zero skip and negative convergence inherited from the topology owner."
+    },
+    {
+      "locations": [
+        "raster_mask.go:116-130",
+        "raster.go",
+        "raster_reconstruction.go",
+        "raster_runs.go"
+      ],
+      "assessment": "New erosion gets a separate full-domain16-unit work allowance and component pass80. Existing erase growth/font counters/global original permissions keep actual separate callers and lifecycles. Native permission order and containment remain in composeCells; glyph disc/EDT and donor writes were not forced into the topology function."
+    },
+    {
+      "locations": [
+        "analysis/flood-global-table-ledger.json",
+        "analysis/flood-mask-reuse-decision.json",
+        "profiles/permissions/footprints/mini-g02-g12.json"
+      ],
+      "assessment": "Three complete flat tables replace one obsolete476-byte generic-only t2 input and reuse one g02/g12 datum. That deletion is real but capability growth dominates. Complete four permission contexts/all56 stage fields are not full-artwork or raster-family completion. Remaining PDE/exemplar/donor/field/radial/contour/material/source-art duties remain explicit."
+    }
+  ],
+  "private_codec_challenges_not_acceptance": [
+    {
+      "locations": [
+        "patch.go:128-246",
+        "patch.go:305-346",
+        "patch.go:453-513"
+      ],
+      "assessment": "The frozen ordered path binds exact source occurrence words/payloads, checks source grammar and full output consumption, stages all controls through bounded IDs, and compares output tape before whole no-op alias restoration. INIT versus HL roles are explicit, STATE excludes hl-like, prefix fixed events block emitted content, and body speaker requires emitted LINE/PAGE. No confirmed byte bug found in this static subset. This is not a final implementation verdict."
+    },
+    {
+      "locations": [
+        "wrap.go:15-29",
+        "wrap.go:80-87",
+        "patch.go:435-480"
+      ],
+      "assessment": "Existing wrapPages receives an optional weight map with explicit-zero presence, collision/domain checks and no native advance use. Payloads enter only final assembly, so PAGE/END lookalikes remain data. No duplicated wrapping engine. Future attempts to simplify by flattening payload or treating source prefix offset as pair role would violate the frozen contracts."
+    },
+    {
+      "locations": [
+        "patch.go:168-198",
+        "patch.go:489-512",
+        "patch.go:740-743"
+      ],
+      "assessment": "Private glyph-word facts support complete source/output semantic no-op comparison only after validation. Changed wording uses canonical mapping. No actual canonical glyph alias population is claimed; synthetic aliases establish behavior. Source-byte reconstruction must remain bound to exact caller spans; this snapshot does not yet supply new callers."
+    },
+    {
+      "locations": [
+        "accepted710/patch.go:916",
+        "accepted710/patch.go:1365-1417",
+        "accepted710/patch.go:1642-1656",
+        "accepted710/fit.go:139-151"
+      ],
+      "assessment": "Plan SourceContext still requires stream_append and measured layout; old/new native measurement and strict stream_payload validation are independent guards. Opaque/state serialization must not be routed through ExactControls/guarded_words or a new unproved edit kind. Fit may expose encoded bytes with unknown-width status. Frozen private snapshot has no new caller edits, so no actual end-to-end new authoring claim is established here."
+    },
+    {
+      "assessment": "Frozen manifest explicitly says final verification and callers are pending. Root historical wrapper/partial focused passes and old-held-scale fixture correction are not a final pass. Later75-case pass and local type/caller edits were reported during this audit but were not read, rerun or attributed to the frozen snapshot."
+    }
+  ],
+  "ownership_direction": "encode remains the actual shared narrative source-authoring owner with plan/fit/audit consumers. Its expansion from305 to508 lines is a review signal, not proof a new function is required. Correct the concrete parallel-identity bookkeeping first. Keep controls the sole grammar/payload classifier, wrapPages the layout owner, and callers the resource/write-safety owners. If future responsibilities truly exceed this boundary, justify a new owner by concrete consumers and rejected existing candidates rather than protecting a zero-function metric.",
+  "accounting": {
+    "independently_recomputed_production_and_account_sums": [
+      {
+        "root": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final",
+        "production": {
+          "files": 47,
+          "bytes": 542244,
+          "named_functions": 45
+        },
+        "runtime": {
+          "files": 204,
+          "bytes": 2635757
+        }
+      },
+      {
+        "root": "/var/tmp/dokapon-component-mask-eo_jbpc5/sealed-final",
+        "production": {
+          "files": 47,
+          "bytes": 547352,
+          "named_functions": 45
+        },
+        "runtime": {
+          "files": 204,
+          "bytes": 2640865
+        }
+      },
+      {
+        "root": "/var/tmp/dokapon-flood-mask-uozw1oid/sealed-final",
+        "production": {
+          "files": 47,
+          "bytes": 548925,
+          "named_functions": 45
+        },
+        "runtime": {
+          "files": 206,
+          "bytes": 2649535
+        }
+      }
+    ],
+    "accepted694_to710": {
+      "production_growth_bytes": 6681,
+      "runtime_growth_bytes": 13778,
+      "new_functions": 0,
+      "production_files_added": 0,
+      "runtime_files_net_added": 2
+    },
+    "accepted700_to710": {
+      "production_growth_bytes": 1573,
+      "runtime_growth_bytes": 8670,
+      "deleted_obsolete_runtime_input_bytes": 476,
+      "source_script_retirements": 0,
+      "family_credit": 0
+    },
+    "private_frozen_only": {
+      "production_growth_bytes": 9365,
+      "test_growth_bytes": 1777,
+      "fixture_growth_bytes": 28158,
+      "contract_evidence_bytes": 6658,
+      "new_named_functions": 0,
+      "new_public_types": 0,
+      "note": "Later local sourceAtom/type and caller changes are not included. No relocation/savings claim.",
+      "encode_lines": {
+        "baseline": 305,
+        "private": 508
+      }
+    },
+    "family_and_retirement": "Accepted8/14Full,71/84planning,raster5/6 unchanged. No410-script retirement,9th-family approval or commit/push trigger."
+  },
+  "verification": {
+    "receipt": "checks-receipt.json",
+    "pins": "source-pins.json",
+    "accepted_manifest_metadata": "694/700/710 entries lstat-checked; all regular, no special files encountered or read.",
+    "accepted_content_hashes": "623/628/637 text/code members independently hashed respectively; protected asset bundles and binary artwork/font/executable/fixture members intentionally metadata-only. This audit does NOT claim all accepted content bytes were independently rehashed. Runtime totals independently recomputed from pinned accounting groups; binary item contents not read.",
+    "private_content_hashes": "All7 frozen private files independently matched manifest729a39e3.",
+    "prior_report": "Astra044 report matched d174f31341b075f01f092c9c180eff4b2b10a1e526b0784121d054b2f430995c and copied into capsule.",
+    "Serena": "Prior same-session symbol/reference inspection established encode/controls/wrapPages/plan/validateEdits/fit callers; frozen file reads used for audit body inspection. No live/mutable candidate query used to substitute for frozen source.",
+    "executions": "Only bounded static pin/accounting/JSON checks at nice19. No Go/compiler/tests, original source execution, protected resource/process reads, network or new agent.",
+    "all_owned_jobs_terminal": true
+  },
+  "limitations": [
+    "Read-only audit, not an implementation or approval gate. No fresh runtime verdict from root test receipts.",
+    "No new accepted710 runtime counterexample confirmed; LOW prospective maintainability finding is concrete static evidence, not a claimed functional failure.",
+    "Final codec caller, closed-wire, malformed/resource, race/build/vet and independent review work remains outside the private partial snapshot.",
+    "No LIVE audit/state/cadence file changed; root owns publication and dispositions."
+  ],
+  "finished_at_utc": "2026-11-05T04:11:33.856622+00:00"
+}

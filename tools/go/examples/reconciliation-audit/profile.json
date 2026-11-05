@@ -1,0 +1,168 @@
+{
+  "evidence": "Independent literal current-registry/source/installed/canonical and explicit per-ID review contract. Original encoders/decoder only; review does not override proof/tail/status gates. No mutation, EN rewrite, new origin, fit or runtime claim.",
+  "observed_family": "literal-reconciliation-cohort",
+  "sources": {
+    "reference": {
+      "path": "reference.elf",
+      "size": 4096,
+      "sha256": "448ce02f1421f04fd6d3ad13cffbc5fdd38d76cfa1042cbc129436eaa1eaeb07"
+    },
+    "observed": {
+      "path": "observed.elf",
+      "size": 4096,
+      "sha256": "9db129a06fd4a59854dbd90062ad88050d547a6282aeb0a692a0349d8e4f4021"
+    },
+    "registry": {
+      "path": "registry.json",
+      "size": 2588,
+      "sha256": "eb83e68a98bd4aa2ccfa289d3ee0eefd15f8e8fcff193893e6e24a7303c269b0"
+    },
+    "glyphmap": {
+      "path": "glyphmap.json",
+      "size": 63,
+      "sha256": "e8d0cca72e0a41a997fc61c74f04527be57c4534e68fe5a814abd45efeaa28e5"
+    }
+  },
+  "entries": {
+    "0x100300": {
+      "reference": {
+        "start": "0x400",
+        "end": "0x406"
+      },
+      "observed": {
+        "start": "0x800",
+        "end": "0x806"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "allow",
+        "reason": "Reviewed literal matched cohort"
+      }
+    },
+    "0x100340": {
+      "reference": {
+        "start": "0x440",
+        "end": "0x446"
+      },
+      "observed": {
+        "start": "0x840",
+        "end": "0x846"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "allow",
+        "reason": "Reviewed literal mismatch attention"
+      }
+    },
+    "0x5348c0": {
+      "reference": {
+        "start": "0x480",
+        "end": "0x486"
+      },
+      "observed": {
+        "start": "0x880",
+        "end": "0x886"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "hold",
+        "reason": "Unconfirmed template mechanism; convergence does not clear hold"
+      }
+    },
+    "0x1003c0": {
+      "reference": {
+        "start": "0x4c0",
+        "end": "0x4c6"
+      },
+      "observed": {
+        "start": "0x8c0",
+        "end": "0x8c6"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      }
+    },
+    "0x100400": {
+      "reference": {
+        "start": "0x500",
+        "end": "0x506"
+      },
+      "observed": {
+        "start": "0x900",
+        "end": "0x906"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "allow",
+        "reason": "Reviewed known bytes; status remains unknown"
+      }
+    },
+    "0x100440": {
+      "reference": {
+        "start": "0x540",
+        "end": "0x546"
+      },
+      "observed": {
+        "start": "0x940",
+        "end": "0x946"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "allow",
+        "reason": "Reviewed already recorded cohort"
+      }
+    },
+    "0x100480": {
+      "reference": {
+        "start": "0x580",
+        "end": "0x588"
+      },
+      "observed": {
+        "start": "0x980",
+        "end": "0x98a"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "allow",
+        "reason": "Reviewed exact icon stream; preserve authored PARAM notation"
+      }
+    },
+    "0x1004c0": {
+      "reference": {
+        "start": "0x5c0",
+        "end": "0x5c6"
+      },
+      "observed": {
+        "start": "0x9c0",
+        "end": "0x9c8"
+      },
+      "decoder": "narrative",
+      "canonical": {
+        "wrap": "none"
+      },
+      "review": {
+        "action": "allow",
+        "reason": "Reviewed literal stream; tail gate remains necessary"
+      }
+    }
+  }
+}

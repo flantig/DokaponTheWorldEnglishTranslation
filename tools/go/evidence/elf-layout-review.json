@@ -1,0 +1,139 @@
+{
+  "schema": "elf-layout-ordinary-review-v1",
+  "at": "2026-10-20T21:12:15.296917+00:00",
+  "result": "PASS_NO_OPEN_FINDINGS",
+  "findings": [],
+  "candidate_pins": {
+    "cmb.go": "171eb9d645b879b09b1eca77de4d1505bd90d3774bae158623705feb5c9ddbef",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "32d6ece5c515befb3891849f2e00538b3a54bda3c890bc695303335c36327429",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "013e493e3cc86ca13038e341b4a07ab0f68e6966a4563ce8ed3b999084aab2bf",
+    "patch_test.go": "9d58f3e9e88d68a6ebb9cba8a6724a3ff5a4caa6f9a46e9814ceddba370813ac",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "05d616ad9d418a6a229bf9bf02ab179fc3de9a952b18239fdf07a7b640c645e6",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "8c07ac841f8f3481954747d0f3288f41b9e286429c991a2e5bfbb32069d25108",
+    "registry_authoring.go": "68b21b9eb9532a118156fa00d275da55a4eeddd1296242aba228ee97c6b9abd0",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/elf-layout.json": "fa95da6692c1a036cabe143004628c732f50bb7ea83b4b1ebe2b09305d0aae8b",
+    "testdata/elf-layout.zip": "35f352c7f124def125bb237383979d05f465e57296df8afdb1634bd0ab5869a7"
+  },
+  "candidate_pins_held_before_after": true,
+  "source_contract": {
+    "path": "analysis/elf-layout-contract.json",
+    "sha256": "9b4c182ca8473f32c52731aa551271acaf6a71b38a29831812dc0db10561b6bf"
+  },
+  "reuse_decision": {
+    "path": "analysis/elf-layout-reuse-decision.json",
+    "sha256": "b4cf33dce2d4ea2c0213f431fb1c83e388db6b53703a542540ac31959dbcb20c"
+  },
+  "assessment": [
+    {
+      "area": "Ownership/readability",
+      "result": "Existing inspect owns bounded source facts; dedicated early elf_layout branch is coherent. run shares the existing report read/recheck/JSON lifecycle. Standard debug/elf avoids a duplicate parser. No new functions/helpers/closures/dependencies. ELFMapping keeps optional file ranges and original PH indices explicit; starts/byStart and the two-region loop each have a distinct necessary role.",
+      "source_lines": [
+        "patch.go:1547",
+        "patch.go:1554",
+        "patch.go:1597",
+        "image_types.go:21",
+        "main.go:181"
+      ]
+    },
+    {
+      "area": "Mapping and refusal safety",
+      "result": "LOAD file/memory bounds, Filesz<=Memsz, 32-bit endpoint, alignment/congruence and overlaps refuse. Nonempty LOAD last-byte probe catches a shorter ReaderAt payload. Original header order/indices remain intact while sorted starts drive lookup. Only file_backed pieces carry file offsets; empty LOAD maps nothing. Query count and total pieces are bounded; exclusive end 2^32 is local to this report.",
+      "source_lines": [
+        "patch.go:1571",
+        "patch.go:1579",
+        "patch.go:1596",
+        "patch.go:1613",
+        "patch.go:1634",
+        "patch.go:1653"
+      ]
+    },
+    {
+      "area": "Caller isolation and source preservation",
+      "result": "CLI forbids registry/glyphmap/apply/output for elf_layout, requires source hash/size, rehashes and rechecks source before emitting JSON. New AddressRanges is refused by plan, planBundle, references, authorRegistry and font-only inspect via its exact allowed-profile check. Existing inspection/patch paths are unchanged outside the new early branch and explicit foreign-field guards.",
+      "source_lines": [
+        "main.go:183",
+        "main.go:194",
+        "main.go:220",
+        "patch.go:697",
+        "cmb.go:147",
+        "references.go:23",
+        "registry_authoring.go:51",
+        "patch.go:1663"
+      ]
+    }
+  ],
+  "checks": {
+    "focused_complete_CLI_test": "PASS 4.389s; -count=1 -p 2; no subtest-only invocation",
+    "build": "PASS",
+    "vet": "PASS",
+    "gofmt": "PASS",
+    "scoped_git_whitespace": "PASS",
+    "selfchecked_credentials_scan": "PASS; no hits",
+    "independent_CLI_probes": {
+      "positive": 3,
+      "negative": 9,
+      "result": "PASS",
+      "method": "Independent ELF32 byte construction and byte-by-byte memory classification oracle, preserving original PH indices; explicit native boundary expected rows, not candidate-derived expectations.",
+      "cases": [
+        "shuffled LOADs interspersed with non-LOAD; adjacent BSS-only region; VMA0 and Paddr distinct; nine half-open queries",
+        "header-only inventory without queries",
+        "five coherent LOAD defects: filesz/memsz, align power, align congruence, memory wrap, file bound",
+        "empty query label, stale source pin, unrelated placement, apply/output refusal",
+        "frozen executable file/BSS boundary, BSS/empty-LOAD boundary and sentinel unmapped"
+      ],
+      "input_preservation": "Every probe preserves input bytes/inode/mtime and recipe bytes; refused publication creates no output."
+    }
+  },
+  "frozen_native_binding": {
+    "zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "member_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "bytes": 5087232,
+    "result": "Both program headers match independent struct unpacking; file-backed VMA ends0x539680/file0x439700, BSS ends0x580300; empty LOAD and sentinel map no bytes. Read only, never executed."
+  },
+  "private_evidence": [
+    {
+      "path": "/var/tmp/dokapon-elf-review-YpOy8KR9/probe.py",
+      "sha256": "7dfeddaac913d2b60c7c54217b3f2bde67e1f5d69e5fb5a5dea049bb5e71f4b9"
+    },
+    {
+      "path": "/var/tmp/dokapon-elf-review-YpOy8KR9/probes.json",
+      "sha256": "48d7858e8a9adff7f0512c8d2461442847e1961c5cda8af93bba7f7f180f4d59"
+    },
+    {
+      "path": "/var/tmp/dokapon-elf-review-YpOy8KR9/checks.json",
+      "sha256": "24557c42de2421c9f7ef76922daa32b32e74906e513c77eea719afd435f12c8e"
+    },
+    {
+      "path": "/var/tmp/dokapon-elf-review-YpOy8KR9/initial-pins.json",
+      "sha256": "73fa54db2d7c70c418d1c33b0288667a495212b50bae1934b758e95ecc8a5e7c"
+    }
+  ],
+  "limits": [
+    "Focused review only; no full suite/race/227 corpus or exhaustive malformed-ELF campaign.",
+    "Does not establish runtime loader behavior, unused/safe cave ownership, allocation/growth, GP reachability, ISO translation, fixed CRT0 checks or whole image_layout family completion.",
+    "No production/test/doc edits; no ISO/canonical registry/emulator/PINE/controller/process/settings access. Reviewer supplies findings, not acceptance authority."
+  ]
+}

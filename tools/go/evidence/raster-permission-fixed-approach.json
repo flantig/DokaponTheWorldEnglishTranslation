@@ -1,0 +1,69 @@
+{
+  "schema": "raster06-fixed-permission-astra-addendum-v1",
+  "role": "Separate read-only adversarial follow-up, no implementation or approval authority",
+  "prior_report_immutable": {
+    "path": "/var/tmp/dokapon-raster06-astra-CwezIeyG/report.json",
+    "sha256": "4b6a4f145bad1cdab9db4d6a6266464e325bb5b4a2d1a1aaa12cfe4592fbcb7a",
+    "manifest_sha256": "8a11dd4b55ff6ea96243c198f4ba0518320fef2887dd3844e681ec67372b026e"
+  },
+  "determination": "The new source fact changes the minimum approach: do not add runtime rounded geometry, its schema, or a pure geometry function merely to cover these11 identical fixed permissions. The existing rectangle-union engine can represent the exact source mask with13 rectangles. Treat this as one reusable, source-pinned recipe fact, subject to integrated evidence, while general parameterized rounded geometry remains explicitly unsupported. This supersedes the initial report's conditional grouped-rounded-schema recommendation for this fixed active-use slice only.",
+  "direct_evidence": {
+    "source": "tools/make_batch_c_png.py shape_mask original AST only",
+    "spec": "generated/explainer-specs/batch_c.json",
+    "actual_uses": 11,
+    "keys": "mini_g02 through mini_g12",
+    "distinct_literal_geometries": 1,
+    "shape": {
+      "rrect": [
+        21,
+        116,
+        470,
+        171
+      ],
+      "radius": 10
+    },
+    "source_pixels": 80254,
+    "bounding_box_pixels": 80370,
+    "excluded_corner_pixels": 116,
+    "coalesced_rectangles": 13,
+    "mask_equality": "Exact byte equality on492x288 minimally containing synthetic canvas",
+    "method": "For each native source-mask row assert one contiguous selected span; merge only consecutive equal spans. Reconstruct the full mask with the existing XYWH rectangle-union meaning and compare every byte. All13 rectangles remain inside the original bounding box.",
+    "artifacts": [
+      "check.py",
+      "results.json",
+      "canonical-rectangle-facts.json",
+      "original.mask",
+      "reconstructed.mask"
+    ]
+  },
+  "adversarial_conditions": [
+    {
+      "issue": "Same ends versus narrower tests",
+      "direction": "The observed production declarations all supply the same literal geometry and no dynamic parameter source was found in the bounded spec. Replacing that literal with an exact binary-equivalent recipe preserves this concrete responsibility. It does not replace the historical shape_mask API for arbitrary caller-supplied dimensions/radii. If the accepted retirement contract requires that parameterized authoring API, it remains open; the fixed recipe earns no general rounded support or path retirement by itself. Original helper docstrings advertise more shapes, but offered grammar alone is not evidence every parameterized helper must be implemented now."
+    },
+    {
+      "issue": "One authoritative fact",
+      "direction": "Keep the13 rectangles once in a purpose-grouped source-pinned datum, keyed/associated through existing stable registry identities. Record all11 bindings as references to that fact. Eleven separately maintained rectangle tables would fail the reuse requirement. Source original shape/radius is provenance and a regeneration trigger, not a runtime second interpretation."
+    },
+    {
+      "issue": "Reuse integration is not yet proved",
+      "location": "texture_types.go:6-25; texture_authoring.go:29-45",
+      "direction": "The inspected current TextureProfile and authorTexture decode a self-contained profile and expose no shared permission-table reference. Therefore the frozen13-rectangle table is proof of representability, not proof of11 already integrated reusable profiles. Prefer an existing recipe assembly owner if one exists; this review did not establish such an owner. A canonical datum plus reproducibly generated, non-authoritative flattened outputs can retain one place to edit, but count any generator/adapters/data duplication honestly. Do not create a generic runtime resolver or rounded engine just to avoid this small recipe assembly issue."
+    },
+    {
+      "issue": "Actual combined permissions",
+      "direction": "The13-shape positive union is not each texture's complete allow mask. Existing declarations also include exclusions, dynamic maskfn providers, allow_add flood/rect shapes and fragment includes. They must retain source ordering and remain explicitly held when unsupported. Thirteen consumes13 of64 combined region slots, not one; check each fully expanded supported composition, including all exclusions/additions, against the unchanged aggregate64 cap. Do not increase the cap to conceal expansion."
+    },
+    {
+      "issue": "Exact shape fact versus artist judgment",
+      "direction": "These rectangles mechanically encode a pinned geometric permission bitmap, with zero artistic choices and no source-art mutation. They are appropriate recipe facts. Their provenance must include helper/spec/Pillow identities and full raw mask equality, not a screenshot or visually similar corner. Root must compare the synthetic result against the independently frozen source-worker mask at its actual dimensions and translation before integrating."
+    },
+    {
+      "issue": "Verification and claims",
+      "direction": "Use existing test tables to prove all80254 permitted pixels and116 protected corners, exact full canvas union, combined source stage behavior, native-footprint intersection, old rectangle validation and unchanged input/output on refusal. With zero Go edits, report no new runtime algorithm/function/schema; recipe/evidence bytes still count. Do not claim family9/14, raster6/6, whole source-art completion or historical retirement. General geometry and remaining material contracts remain explicit."
+    }
+  ],
+  "terminal_state": "Addendum complete; only a new owned /var/tmp capsule written. Original report and manifest remain byte-identical. No Go execution, source-worker capsule read, source-art read, candidate implementation read or LIVE write.",
+  "limitations": "This is a finite source-derived mask proof and architecture challenge. Root still owns the actual-dimension oracle comparison, stable-ID recipe integration and full composition evidence. General parameterized geometry is deliberately not proved.",
+  "at": "2026-11-04T23:48:02.913253+00:00"
+}

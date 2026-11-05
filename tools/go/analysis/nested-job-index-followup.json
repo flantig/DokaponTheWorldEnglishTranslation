@@ -1,0 +1,165 @@
+{
+  "at": "2026-10-20T20:10:54.612696+00:00",
+  "decision": "JOB-INDEX remains NOT CLOSED; preserve unsupported nested A000 refusal. Positive callback and input-gate ownership narrows the next proof, but is not a universal reachable-state invariant.",
+  "scope": "Read-only frozen executable study; no native execution, ISO access, Go/tests/profiles or coverage changes.",
+  "elf": {
+    "zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "member_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "vma_delta": "0xfff80"
+  },
+  "positive_facts": [
+    {
+      "owner": "constructor/callback chain",
+      "facts": "28dfe0 installs28f270; scroll constructor28e680 installs28efe0 atobject+48. 28dbd0 saves priorcallback+4c and installs28ee90; wrapper delegates saved callback. These identify inspected input owners rather than treating every indirect call as unknown."
+    },
+    {
+      "owner": "input gate",
+      "facts": "28f270 at28f3b0 and28efe0 at28f120 call28e790 only with flags+14 bit2 set. 28d9b0(cursor,0) clears thatbit; 2fa000 zero-count tail calls it at2fa1d4. Bit4 is a separate gate, not the same enable bit."
+    },
+    {
+      "owner": "input steps",
+      "facts": "28e790 chooses directional/page input and calls28ea60 decrement or28eb40 increment helpers. The inspected helpers use coordinate+1a/+1c, scroll+16/+18, counts+0/+1, visible+2/+3 and limits+4/+5 with scroll8000 and clamp4000 flags. This is boundary-handling logic, not a proved invariant over every caller/state."
+    },
+    {
+      "owner": "Job cursor setup",
+      "facts": "2f5fd0 supplies one column, initial index0 and scrolling setup through28e5d0. 2e08a4 calls2fa000 with listcount;2e08cc and2e08d8 clear vertical coordinate/scroll. Zero-count initialization therefore has a narrower path than previously known; reachable confirm/list-read safety remains unproved."
+    },
+    {
+      "owner": "automated cursor",
+      "facts": "28d550 reads the current index through28ddc0 and emits directional/confirm input through28d170. No direct coordinate store in this inspected helper; this does not prove all input task ownership."
+    },
+    {
+      "owner": "unbounded generic setter",
+      "facts": "28e2d0 starts with division of supplied index by column count, then writes coordinate/scroll fields. It is not an entry-count validator. All aliases/callers and lifecycle invariants must be accounted for before promoting a local normal-input observation to universal bound."
+    }
+  ],
+  "remaining_gaps": [
+    "Prove all reachable nonempty Job confirms have0<=flattened_index<listcount, including scrolling, held/page input, lifecycle/reentry, simultaneous confirm/cancel and any automation/setter aliases.",
+    "For empty listcount prove confirm is unreachable or the initialized fallback read is safe, rather than assuming a list-input bound applies to index0.",
+    "Gender independently remains held because bulk saved-buffer ingress preserves arbitrary function-local bytes without local0/1 normalization; upstream accepted-save provenance is unproved."
+  ],
+  "raw_standard_words": {
+    "0x28e2d0": "0x90880000",
+    "0x28e2d8": "0xa8001b",
+    "0x28f3b4": "0x30420002",
+    "0x28f3c8": "0xc0a39e4",
+    "0x28f124": "0x30420002",
+    "0x28f138": "0xc0a39e4",
+    "0x28d9e4": "0x34630002",
+    "0x28d9f4": "0x3063fffd",
+    "0x2fa1d4": "0xc0a366c",
+    "0x2e08cc": "0xa460001c",
+    "0x2e08d8": "0xa4600018",
+    "0x28e76c": "0xae020048"
+  },
+  "raw_spans": {
+    "cursor-standard-update": {
+      "start": "0x28f270",
+      "end_exclusive": "0x28f9e0",
+      "sha256": "6b81264f0f3c965ff13539613c21628fe44af80a8232ecf4478d7e0dc424b6a0",
+      "disassembly_sha256": "99747abae8199772e63c013c3faa1b3f19f0fc579b4e8f708b9161c0b33a7eaf"
+    },
+    "cursor-scroll-update": {
+      "start": "0x28efe0",
+      "end_exclusive": "0x28f270",
+      "sha256": "152244a91ce03e983c99186855033f956e4b40b97fb14f80d73df8fee937e4cb",
+      "disassembly_sha256": "3a8ab7f028d9c5ad05ea7ccb02a0335287c7ed814853509f93540b41a38b05d2"
+    },
+    "cursor-common-setter": {
+      "start": "0x28e2d0",
+      "end_exclusive": "0x28e5d0",
+      "sha256": "8bb7679263a928e4dc24de52c23ca896654153244efbfc9cff127fe98e153f47",
+      "disassembly_sha256": "9f6f3cb525ca49f452c36d215e21f3182aa671c8f88e85faf6604b2af61c9be2"
+    },
+    "cursor-constructor-scroll": {
+      "start": "0x28e680",
+      "end_exclusive": "0x28e800",
+      "sha256": "e0016cf3f49533759e4d5cc3a32dea3195f6e365f4071cd0a04fffb8a1797caa",
+      "disassembly_sha256": "8303023fe3c969b2d9818e7e9a8bfe8a38c3007bd6e64632b1c5a5145571304c"
+    },
+    "job-widget-full": {
+      "start": "0x2e04b0",
+      "end_exclusive": "0x2e090c",
+      "sha256": "c40dfbbac50fbdbcf9276b55a3bdf9a6ab9dba73c4bf8e89848fe7db3b7c5318",
+      "disassembly_sha256": "b03e8773883dc9220abc54437ed39235a802191d89db9e29a4bac0a5d187087a"
+    },
+    "job-selection-state": {
+      "start": "0x2de904",
+      "end_exclusive": "0x2deb20",
+      "sha256": "e4bb5b351383f018f7336c563d001f5d540f1036c4c886f0c85ba20167fa88ad",
+      "disassembly_sha256": "96cf17f1875538a150698aeeeaccdb278bcc46d8828e5aa6b5283c06939f8413"
+    },
+    "cursor-enabled-update": {
+      "start": "0x28daa0",
+      "end_exclusive": "0x28dbd0",
+      "sha256": "f06066a846da93cc3b60f10486342e548b50827ba6d1d81c7c5fc0f640e5ece5",
+      "disassembly_sha256": "cb94b1646ff806bcb71ce0687fdd24e24e263a47282a776f792bf16e49afdc40"
+    },
+    "cursor-input-steps": {
+      "start": "0x28e790",
+      "end_exclusive": "0x28ee90",
+      "sha256": "9c2c8a84fd4d2a79814756416063551adff6c228ab1148b638e69e6259c4f922",
+      "disassembly_sha256": "dd6c60e6aa3d4b39896c59f28bf73436775c65c5f8202496f208adf25ec91327"
+    },
+    "cursor-constructor-full": {
+      "start": "0x28e680",
+      "end_exclusive": "0x28e790",
+      "sha256": "bd77c42ffc9f40d223d9bfd0be53efc96cba53ff6f8cf96036d174d0de9fd81a",
+      "disassembly_sha256": "ca58a67bb5bbbc95a816d5f775d1c78a539a4a67605de460b2233496f510a366"
+    },
+    "cursor-count-tail": {
+      "start": "0x2fa1a0",
+      "end_exclusive": "0x2fa260",
+      "sha256": "062fd573fd70f7734062feb1d50a9c4d40974658b43381cfbeeb773bb1e5d1c1",
+      "disassembly_sha256": "264abfdabc8b3c261871c64e6278f146533ddc58aa106bfbd7f3e1395647fb2d"
+    },
+    "auto-cursor-callback": {
+      "start": "0x28d550",
+      "end_exclusive": "0x28d8a0",
+      "sha256": "13acc789443b68a1722e0023fe853d6e7ed3484670778e7bb63a0e9d0e844d4d",
+      "disassembly_sha256": "12dd2d269f8a64358bfdb51929c28adffa647a0e95733d9e80ac7d071d43524a"
+    },
+    "job-cursor-object": {
+      "start": "0x2f7940",
+      "end_exclusive": "0x2f7ae0",
+      "sha256": "2d1882872ccdd6de109802d5cf6f97262fdd76865c9780e4a87fc7c10bcbd1c4",
+      "disassembly_sha256": "a88ba03b2ea55273a47ffe64032f769e9af52ea196163cc051a6387dfa326d15"
+    },
+    "cursor-enable-mode": {
+      "start": "0x28d9b0",
+      "end_exclusive": "0x28daa0",
+      "sha256": "7386e0ac5ba358257625c07e066885b1e6db0d87a20801adff451d0bf88c023b",
+      "disassembly_sha256": "811d4fc513a826b8ae264d91c5101870714e0ed0adf65ef50f61d64987eb05d6"
+    },
+    "job-cursor-parameters": {
+      "start": "0x2f5fd0",
+      "end_exclusive": "0x2f6200",
+      "sha256": "29079ea39800623e87d399d75a6dad0e64cee0a8fb902fe53a871a3227a6afc7",
+      "disassembly_sha256": "0e84e8273b711d87a5f5a2d32f5119bc721d62c2e833fc892ddaa601daf3e670"
+    },
+    "auto-cursor-helper": {
+      "start": "0x28d550",
+      "end_exclusive": "0x28d8a0",
+      "sha256": "13acc789443b68a1722e0023fe853d6e7ed3484670778e7bb63a0e9d0e844d4d",
+      "disassembly_sha256": "12dd2d269f8a64358bfdb51929c28adffa647a0e95733d9e80ac7d071d43524a"
+    }
+  },
+  "private_work": "/var/tmp/dokapon-job-index-r54bgdir",
+  "prior_contract": {
+    "path": "analysis/nested-job-producer-contract.json",
+    "sha256": "3df198a33b33bc4e44dc22c319acfe65e1b39c078b923cf17df1de227ad5e42d"
+  },
+  "gender_followup": {
+    "path": "analysis/nested-job-gender-followup.json",
+    "sha256": "7be00330ff5b3ccbb45405200ffd4ffddc45fe25e02ab700ab4bcb1049f771b7"
+  },
+  "disassembler_limit": "Capstone DSP/MSA renderings are not R5900 semantics. No special/unknown opcode is decisive for this bounded conclusion. No interpreter or nominal width model added.",
+  "verification": {
+    "zip_member_exact": true,
+    "span_pairs": 15,
+    "raw_standard_word_assertions": 12,
+    "status": "PASS bounded evidence; NOT universal producer closure"
+  }
+}

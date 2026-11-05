@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T15:08:53.092761+00:00",
+  "status": "BOUNDED_SOURCE_ONLY_FRONTIER_NO_IMPLEMENTATION_OR_APPROVAL",
+  "smallest_shared_responsibility": "Map a declared observed external-stream VMA window to independently pinned physical blob bytes using recognized installed dispatcher bounds AND a separately proved loader/physical allocation. Do not conflate this with ELF PT_LOAD mapping, registry landing metadata, ledger reconstruction, or runtime liveness.",
+  "primary_source_crosswalk": [
+    {
+      "source": "../rework/new_tool/reports/writeback.py26..45,448..461",
+      "actual": "Both shared range helpers read4word low16immediates and return base,base+size from redirect-hook locations4db494/4db4a0. They do NOT validate opcodes/registers/nonempty/32bitoverflow. This is an extraction convention, not complete safe mapping."
+    },
+    {
+      "source": "../grow_sentinel_size_2026-09-09.py86..129",
+      "actual": "Two copies (redirectHook4db490, SUBST4db4d4) haveexplicit base/size LUI+ORI sites. Primary shape/reassemble helpers distinguish ORI unsigned lowhalf from ADDIU signedlow. Strict replacement should additionally require full correct LUI rs bits/nonzero knownroles and copyagreement."
+    },
+    {
+      "source": "../widen_sentinel_window_2026_09_30.py45..70",
+      "actual": "Explicit source warning: window decides WHETHER totranslate; loader allocation may be smaller and offsets beyondbuffer are not safe placement/read claims. This is exactly present in frozen6e1MiBwindow/640KiBpayload."
+    },
+    {
+      "source": "../patch_iso_stream_blob.py128..139,168..207,272..303",
+      "actual": "Blobphysicalstart derives sectoraligned retailEOF; read_current_blob reads full currently allocated bytes from ownobserved directory/preflight state, not reconstructed priorledgers. Write/allocate/sourceISOdirectory duties remain distinct and are NOT executed/migrated here."
+    },
+    {
+      "source": "../build_change_ledger.py522..548,1214..1227",
+      "actual": "Common source-aware iso_any maps in-window target as bloboff+(target-base), else ordinary segment formula. Nested fallbackoutsideknownranges is legacyarithmetic and must not certify unknown sourcepool/ELFmapping. Many specialized battle/board/rawarg readers remain separate."
+    },
+    {
+      "source": "../rework/new_tool/reports/text.py20..70",
+      "actual": "Other shared reports use static SENT_LO/HI/BLOB_OFF + old/newloadedsegment addressprovider; read_words is raw-END scanning. It cannot replace payload-aware bounded controls. Staticmetadata alone does not prove installedwindow."
+    },
+    {
+      "source": "../rework/new_tool/reports/writeback.py659..741",
+      "actual": "Groundtruth resolves observed sites then range-tests targets; it does not trust patch_ref/landing. Explicit stale/undeclared metadata sets are derivedreportfacts, not physicalsourceauthority or canonicalapproval."
+    }
+  ],
+  "native_frozen_evidence": {
+    "ELF_path": "/var/tmp/dokapon-elf-layout-wqrm7am8/SLPM_657.50",
+    "ELF_bytes": 5087232,
+    "ELF_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "word_spans": [
+      {
+        "vma": "0x4db494",
+        "file_offset": 4044052,
+        "word": "0x3c010400",
+        "raw_hex": "0004013c"
+      },
+      {
+        "vma": "0x4db498",
+        "file_offset": 4044056,
+        "word": "0x34210000",
+        "raw_hex": "00002134"
+      },
+      {
+        "vma": "0x4db4a0",
+        "file_offset": 4044064,
+        "word": "0x3c090010",
+        "raw_hex": "1000093c"
+      },
+      {
+        "vma": "0x4db4a4",
+        "file_offset": 4044068,
+        "word": "0x35290000",
+        "raw_hex": "00002935"
+      },
+      {
+        "vma": "0x4db4d4",
+        "file_offset": 4044116,
+        "word": "0x3c010400",
+        "raw_hex": "0004013c"
+      },
+      {
+        "vma": "0x4db4d8",
+        "file_offset": 4044120,
+        "word": "0x34210000",
+        "raw_hex": "00002134"
+      },
+      {
+        "vma": "0x4db4e0",
+        "file_offset": 4044128,
+        "word": "0x3c090010",
+        "raw_hex": "1000093c"
+      },
+      {
+        "vma": "0x4db4e4",
+        "file_offset": 4044132,
+        "word": "0x35290000",
+        "raw_hex": "00002935"
+      },
+      {
+        "vma": "0x399b30",
+        "file_offset": 2726832,
+        "word": "0x3c05000a",
+        "raw_hex": "0a00053c"
+      },
+      {
+        "vma": "0x399b34",
+        "file_offset": 2726836,
+        "word": "0x34a50000",
+        "raw_hex": "0000a534"
+      },
+      {
+        "vma": "0x399b94",
+        "file_offset": 2726932,
+        "word": "0x240e0140",
+        "raw_hex": "40010e24"
+      },
+      {
+        "vma": "0x399c0c",
+        "file_offset": 2727052,
+        "word": "0x240e0140",
+        "raw_hex": "40010e24"
+      }
+    ],
+    "original_helper_dispatch_bounds": [
+      67108864,
+      68157440
+    ],
+    "blob_file_offset": 4431872,
+    "blob_bytes": 655360,
+    "blob_sha256": "9f6a07559b5c7a05eb5fcb6d89d98a42673bcb65ea3c8995c48ca1b066c7efbd",
+    "loader_manual_byte_count": 655360,
+    "loader_manual_sector_count": 320,
+    "physical_mapping_limit": [
+      67108864,
+      67764224
+    ],
+    "qualification": "Window1MiB, physicaltrailer+loader640KiB. Fileloadercoupling is independently raw/sourceequation evidence, not runtimeproof. Actualinstalledhookwords underfrozenELF6e only.",
+    "first_stream_original_helper": {
+      "all_zero_prefix": false,
+      "decode_error": null,
+      "decoded_text": "You can't sell that!!//",
+      "n_tokens": 24,
+      "n_bytes": 48,
+      "raw_hex_head": "00285d0039003f0000002d002b003800"
+    },
+    "helper_window_bug": {
+      "requested_helper_window": 16,
+      "original_consumed_bytes": 48,
+      "extends_beyond_requested_window": true,
+      "qualification": "Original ground_truth_decode_at window is NOT a decode bound; future source-aware reader must use separately bounded window before existing controls."
+    }
+  },
+  "finite_mapping_requirements": [
+    "Pin and recheck complete observed extractedsource/blob identities and independent originalsource/glyph/registry profiles as existingaudit lifecycle. No optionalsource artifact may silently disappear/changehash. For first increment, extracted extended SLPM source already contains boundedblobtrailer; protectedISO/newISO parser not required.",
+    "Read both installed predicate copies from known mapped ELF4Bsites, retain everyword/ordinal/mapping. Requireexact LUI/ORI registershape ($at base,$t1 size in actual6e), agreement, recognized boundedrange and32bit halfopenendpoint; do not reuse strictreferenceTarget ADDIU semantics for ORI or relax code_immediate toaccept ORI generally.",
+    "Dispatch base/size are observedinstructionfacts. Physicalblob origin and loaded/allocatedlength must be separately source-bound. In frozen6e: loaderLUI/ORIbytecount0xa0000 agrees twosectorimmediates0x140*2048 and fulltrailerfile0x43a000..0x4da000. Window is0x100000; largerwindow isvalidbutdoesnotextendpayload.",
+    "Map complete declared [target,target+length), including throughEND plusrequestedtail, onlywhen inside dispatcherwindow AND provedloadedextent AND pinnedphysicalblobfilewindow. Checkalignment/overflow/evenboundedlength/exactfileend and completeReaderAtread; targetpointvalid alone isinsufficient. Refuse/unknown contradictoryloadercopies/truncatedallocation instead of silentlyclaimingcomplete loadedextent.",
+    "Useexistingcontrols on the already bounded bytes. No rawENDword scan, payloadlookalike interpretation, scanuntilfileEND, fixedslot fallback or inferredtext extent. Unknown grammar staysunknown. A declaredpostENDtail remains a separate physicalfact.",
+    "Keep ELF PT_LOAD and externalstream mappings explicitlydistinct: blobtrailer is outside loadedELFprogramheaderpayload and is accessed by an installed translationprotocol. Never invent a programheader or present it asordinaryELFfilebacking.",
+    "Observed references remain strictdeclaredsites, everyreadvalid/convergent beforebind. RegistryID/landing/patch_ref cannot supply target or physicalblobaddress. Missing/divergent/unreadable points areunknown/refusals, not verifiedabsence/staleclaims. This is read-only sourcecontent evidence, not nativeconsumer liveness or wholemod/runtimeapproval."
+  ],
+  "legacy_counterexamples": {
+    "malformed_hooks": "14executedcases freezebadLUI/ADDIU-instead-ORI/crossregister/zero-register/overflow acceptance byoldmaskinghelpers. Newstrictstatusesmanual, not pretendoldrefusals.",
+    "decode_window": "Original ground_truth_decode_at(window16) consumed48Bfirstnativeblobstream. Thewindow bounds rawhead/allzero sampling only. Newdecoder mustreceive boundedwindowitself.",
+    "opaque_END": "Original reports/text read_words stopsatf800inside8Bparam8payload; existingcontrols iscorrectsharedowner, no secondscannerneeded.",
+    "metadata": "Original setequations mark unreadable named-sentinel row stale because itdropsfromgroundtruthIDs. Preserve unknowncoverage separately; provenstale requiresvalid observedoutsidefacts. Fourliteral rows freeze this distinction."
+  },
+  "existing_owner_recommendation": {
+    "inspect": "Reasonable existingowner for recognized sourceallocation/windowfacts and VMA/file/BSS mapping. It already validates initialized loader/window/capacity and directorycoupling. A finite read-only externalwindow query can reasonably enhance mapping responsibility; do not fabricate append/Growthrecipes or requirepatchpermission forreadonlyevidence. Concrete schema not decided.",
+    "references": "Keep exact storedtarget extraction and geometrymapping. It may consume explicit externalmappingfacts for reports without declaringliveness; no fallbackregistrylanding or heuristiccandidate search. SharedreferenceTarget remains strictLUI/ADDIU—thehookORIrange isdifferent installedprotocol ownedbyinspect.",
+    "auditStreams": "Own actual bounded target-to-observedwindow handoff and ordinary/canonicalcomparison with existing lifecycle. ExistingELFonlybind must remainunchangedbydefault; requireexactdeclaredfilewindow externaljoin instead of choosinga sourcepool heuristically.",
+    "controls": "Reuse existing payload-aware narrative/positional decoder; no newcodec/helperjustforsentinel or duplicatedglyphengine.",
+    "not_a_framework": "Start only recognized dispatch+allocation/provedexternalextent. Dynamic sourcepool plugins, universalnativeGS/gameVMemulator, broadmoduleloaders and perhistoricalscript handlers are not justified."
+  },
+  "held_material_forms": [
+    "All other sourcepool/readerselection: old/newELFsegments alreadymap throughinspect/debugelf, customboard/battle/rawargs andfixed/positional readers require explicitindependentcontracts; sentinelwindowdoesnotautodetectgrammar.",
+    "FullinstalledISO9660directory/allocationreconciliation andwrites, launcher/sourceindex provenance, wholeledgerjoins/reviewedregistryupdates. Frozenextractedsourcequeryisnotthewholeinstallation.",
+    "Runtime consumer execution, memoryallocationownership/safeplacement, exhaustivenessofallreferences, canonicalEnglishsuccess, geometryfit or gameplay.",
+    "Sourcegenerationunknown/opaquecontexts remainunknown; externalmapping mustnotgrant newencodersemantics."
+  ],
+  "precode_pack": {
+    "directory": "/var/tmp/dokapon-sentinel-reader-frontier-7phkl0fy",
+    "manifest_sha256": "c8d11381d6bd5f744128da1bd389754c907ff88f887de412c532180a17b66b44",
+    "facts_sha256": "af8e61fbcf2c71a58a4b4763aa2340427b07575eb1c2d79c6c4a342fab6935ba",
+    "members": 31,
+    "native_blob_bytes": 655360,
+    "chronology": "Original-only helper expectations andmanualsafetyvectors frozen before anyfutureGoexternalreader comparison. ExistingGoownerspredate study; no candidate executed or output read. Fullsourcecopies/harness/wordspans/actualblob/firststream retained.",
+    "manual_vs_executed": {
+      "at": "2026-10-21T15:08:53.084302+00:00",
+      "original_helpers_executed": "iso_old, live_sentinel_bounds, ground_truth_read_u32, ground_truth_live_sentinel_bounds, ground_truth_decode_at, reports/text iso_off/read_words; original codec helper dependencies only. No *_main/import/candidate.",
+      "manual_expected": "Strict opcode/register/fullwindow/alignment/overflow/mapping/allocation/metadata decisions are independently literal/source-equation expectations, not false claims that permissive oldhelpers refuse them.",
+      "cases": "14 original range helper cases,8 manual wholewindow joins,2 original rawscanner counterexamples,1manual secondary mismatch,4manual loader guardvectors,4literal metadata rows, actual frozennative8hook+4loader words/blob/first48Bstream.",
+      "jobs": "freeze.py exit0; allownedcommands terminal, no livejobs."
+    },
+    "protected_access": "Only frozen6eextractedELF andfrozena662glyphmap. NoISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth orsharedservices."
+  },
+  "source_pins": {
+    "../rework/new_tool/reports/writeback.py": {
+      "bytes": 34552,
+      "sha256": "3d3f05afab6d9c8ca60e75baa3eb7d0616ffca6569b8300d4d5ea934e6632fde"
+    },
+    "../rework/new_tool/reports/text.py": {
+      "bytes": 30694,
+      "sha256": "bdc640e0ae426aa12f57873d425f57ef643d3f70f3cb0abbe264aaf25ae15030"
+    },
+    "../rework/new_tool/iso_build/addresses.py": {
+      "bytes": 32233,
+      "sha256": "9c165e59aa1cbdd02e40a0bbd557bce5fc5dbe731953682c26144462b3922242"
+    },
+    "../build_change_ledger.py": {
+      "bytes": 102489,
+      "sha256": "43598024c933f89d29c9fd64592674120815f3638c32b988f4b4969733325a5a"
+    },
+    "../patch_iso_stream_blob.py": {
+      "bytes": 27292,
+      "sha256": "cd943f22faee9b6c7bb129e01ad48b98d3d54bf2573d83aaba7769287dfad2e2"
+    },
+    "../grow_sentinel_size_2026-09-09.py": {
+      "bytes": 15509,
+      "sha256": "45bf7856908afa79d836446ec144892be227c36bc1441a2d90802eb9938abba5"
+    },
+    "../widen_sentinel_window_2026_09_30.py": {
+      "bytes": 20175,
+      "sha256": "2960c275fe71d2438360ba7d3d5a25d42dd3f03bdd960d853b2439e61dc77a18"
+    },
+    "../audit_sentinel_ground_truth_2026-09-07.py": {
+      "bytes": 7105,
+      "sha256": "5de09880a60b1a08b287d2b4a45701fa5c678eba50196daba99e11573b3e5fb0"
+    },
+    "../dialog_codec.py": {
+      "bytes": 25964,
+      "sha256": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc"
+    },
+    "../text_encoder.py": {
+      "bytes": 120840,
+      "sha256": "a9d2d5ce4146520ac851807a0ead1e3ba8943c58d40dc23b1ed010e771ab9936"
+    },
+    "patch.go": {
+      "bytes": 96618,
+      "sha256": "e28ffa157ccd389a91d149afeec7934d2f1ca849adeffd3b74dafee9b9e2562e"
+    },
+    "references.go": {
+      "bytes": 22315,
+      "sha256": "e62276a7e71fa16a53c55a4e04bd20931ff4d747b06752b2542ddde026cc311d"
+    },
+    "reference_geometry.go": {
+      "bytes": 2807,
+      "sha256": "4c2c8584cd36925fb4f555e93ccdb986641b0755efe1983b8c13fcec18d8cffa"
+    },
+    "stream_audit.go": {
+      "bytes": 16389,
+      "sha256": "87bc3261dc00d78748ee6c3327a2fcb5ec3277f74d8bc4903b645adede55eb24"
+    },
+    "analysis/migration-roadmap.json": {
+      "bytes": 62594,
+      "sha256": "44c95562a0ff38dd949986bb64db4a33de9d23020ad356c120a19463735fca4b"
+    }
+  },
+  "verification": {
+    "at": "2026-10-21T15:08:53.084302+00:00",
+    "original_helpers_executed": "iso_old, live_sentinel_bounds, ground_truth_read_u32, ground_truth_live_sentinel_bounds, ground_truth_decode_at, reports/text iso_off/read_words; original codec helper dependencies only. No *_main/import/candidate.",
+    "manual_expected": "Strict opcode/register/fullwindow/alignment/overflow/mapping/allocation/metadata decisions are independently literal/source-equation expectations, not false claims that permissive oldhelpers refuse them.",
+    "cases": "14 original range helper cases,8 manual wholewindow joins,2 original rawscanner counterexamples,1manual secondary mismatch,4manual loader guardvectors,4literal metadata rows, actual frozennative8hook+4loader words/blob/first48Bstream.",
+    "jobs": "freeze.py exit0; allownedcommands terminal, no livejobs."
+  },
+  "scope": "Findings/sourceevidence only. No API/code/type/function/schema decision, approval, milestone/familycredit or retirement. Only ownpack andthisnewreport written."
+}

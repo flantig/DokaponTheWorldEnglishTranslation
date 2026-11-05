@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T20:30:58.030627+00:00",
+  "status": "READ_ONLY_PRECODE_CONTRACT_NO_IMPLEMENTATION_OR_COVERAGE_CLAIM",
+  "bounded_contract": "Root-selected registry_add lifecycle: reviewed full-row bodies keyed by stableID in existing RegistryUpdates; minimally jp/en/status/source_pool, EN may be empty, newstatusdrafted, unknown rawmetadata preserved. Numeric normalized batch dedup; new insertion, sameID+exactJP/EN no-op preserving all old fields/status, differingJP/EN conflict. No generic glyph/marker/speaker/fit promise.",
+  "current_owner": "Enhance existing authorRegistry in registry_authoring.go; run already routes it, raw-map Unicode/duplicate-key/source identity and publication are existing owners. No new function/helper/CLI required. Root owns final design/edits.",
+  "Serena": "authorRegistry definition/current run caller inspected; number inspected: lowercase optional0x then base16 ParseUint32.",
+  "source_crawl_projection": [
+    {
+      "path": "tools/add_cluster2_entries.py",
+      "current_sha256": "a03fb900ac42e988c1b553d0fcd212c86bce193aa7735becb62de9b89d93bf3e",
+      "evidence": [
+        "217-218:def norm",
+        "245:text.replace('|', '').replace",
+        "281:sys.exit(f\"FAIL: {e['id']}: jp/en marker metadata mismatch jp_hl={jp_hl} en_hl={en_hl} jp_pb={jp_pb} en_p"
+      ],
+      "shared_candidate": "registry_merge",
+      "exceptions": "Cluster-specific marker conversion and declared batch are facts; shared validation already delegated.",
+      "delegates": [
+        "p34",
+        "p35"
+      ]
+    },
+    {
+      "path": "tools/add_discovered_entries.py",
+      "current_sha256": "ad62b9f5e56ca544b35bb8f98f6ec9fbfa5fd4c03354b27918449b5c382ae9db",
+      "evidence": [
+        "210-211:def norm",
+        "223:text.replace('|', '').replace",
+        "245:sys.exit(f'FAIL: duplicate id(s) WITHIN NEW_ENTRIES itself: {internal_dupes}')"
+      ],
+      "shared_candidate": "registry_merge",
+      "exceptions": null,
+      "delegates": [
+        "p35",
+        "p36"
+      ]
+    },
+    {
+      "path": "tools/add_full_sweep_entries.py",
+      "current_sha256": "ace74fbf6387e2736b941729439694e42523a07cc715128f67672cc367ddd1fe",
+      "evidence": [
+        "105:registry_import.full_sweep_main",
+        "69:text.replace('|', '').replace"
+      ],
+      "shared_candidate": "registry_merge",
+      "exceptions": null,
+      "delegates": [
+        "p58",
+        "p34"
+      ]
+    },
+    {
+      "path": "tools/add_localization_pools_entries.py",
+      "current_sha256": "2422c48b92a66578995bbec5354ef1d65eafa5de62958fa50c5ad69159342836",
+      "evidence": [
+        "65-66:def norm",
+        "75:text.replace('|', '').replace",
+        "97:sys.exit(f'FAIL: batch file missing: {path}')"
+      ],
+      "shared_candidate": "registry_merge",
+      "exceptions": "Cross-pool duplicate drop and reward-line headline policy are authored batch facts.",
+      "delegates": [
+        "p35",
+        "p36"
+      ]
+    }
+  ],
+  "historical_source_facts": {
+    "identity": "registry_import.py34 check_internal_duplicates uses int(id,16). classify_entry110..119 compares normalizedID and ONLY jp/en. Same text with changed note/status/refs/provenance remains already_present; old row untouched. It does not merge metadata. Newsource batch IDs lowercased by callers; no global universal canonical-ID rewrite implied.",
+    "generic_additions": "registry.py172 additions_main requires PRESENCE of7 fields id,jp,en,chapter,status,ref_type,ref_sites; no truthiness/type validation. Its lowercased-string collision checks are weaker than numeric normalization. It appends without sort, backs up and atomically replaces chosenregistry. Not same validator as fullsweep.",
+    "fullsweep": "registry_import843 requires truthy10 fields id,jp,en,chapter,character,tier,status,source_pool,ref_type,discovered_by. Then speakers, markerkinds, apostrophes and glyphs; missing-field validator is NOT formal type/schema validation. New rows sorted with existing rows by numericID; no-op rows preserve original metadata.",
+    "speaker": "Wellformed [spk 0xNNNN] tags, malformed bracketedspk counts, same //pagecount, matching initial per-page speaker IDs caseinsensitively. Source does not prove no midpage tags; leading.match comparisons ignore midpage tags. A stricter positional/prefix-only rule is deliberate scope/change, not legacyparity.",
+    "markers": "check_markers compares ordered HL/PARAM KINDS only, not numericVALUES. Fullsweep alone permits kind mismatch when note contains literal NOT line up 1:1, warning. Generic contract should not acquire this batch-specific escape. Exactvalue validation would be a deliberate strengthening and must not be mislabeled historical behavior.",
+    "glyph": "check_glyphs takes supplied map VALUES, ignores space and strips markup through caller callback. Fullsweep strips speaker,HL/PARAM,raw<0x...>,|,//. Curlyquotes/backtick refused by fullsweep; straight apostrophevalid. Adddiscovered uses own strip and speaker/glyph checks and does NOT invoke shared apostrophe checker. Never assume all14+ callers share one validator.",
+    "real_caller": "add_discovered14 Navi-intro rows, ref_type unknown/code_immediate. Source F0 source-row and shapedrow pinned privately; no canonical registry inspected. New entry permits both human and discoverymetadata at creation, not machine ownership bypass for existing entries.",
+    "playbook": "Schema permits sparse historical metadata and intentionally empty en; fullsweep stronger truthiness is one concrete import policy, not universal schema. Playbook stale sentence says existingIDsrefused, but current classify_entry sameJP/EN no-op is actual source. Allwriters idempotent wording supports no-op.",
+    "all_noop_document": "add_discovered and full_sweep return without write/date change when all incoming rows already present. Current authorRegistry sets explicit Updated on every published snapshot. Row no-op compatibility must not be mislabeled byte/document idempotency if the new lifecycle intentionally refreshes snapshot metadata."
+  },
+  "ownership": {
+    "human": [
+      "jp",
+      "en",
+      "chapter",
+      "character",
+      "event",
+      "tier",
+      "note"
+    ],
+    "machine_existing": [
+      "status",
+      "ref_type",
+      "ref_sites",
+      "preamble_words",
+      "inline_codes",
+      "jp_capacity_u16",
+      "landing_vma",
+      "landing_zone_id",
+      "patch_ref",
+      "discovered_by"
+    ],
+    "discovery_policy": [
+      "source_pool",
+      "mode"
+    ],
+    "existing_rows": "Keep current author en/note allowlist and locked-English guard; machine update allowlist/forward-only statuses unchanged. Import collision is no-op or conflict, never update. No-op does not demote patched/verified statuses even incomingdrafted.",
+    "new_rows": "Creation accepts minimally declared JP/EN/status/source_pool plus optional known or unknown rawmetadata. Newly inserted status mustdrafted; no forging deployed status. Source identity/schema validation does not verify reference topology, glyphs, markers, speaker grammar or native fit."
+  },
+  "design_separate_from_source": {
+    "root_direction": "FINAL ROOT SCOPE: registry_add/import lifecycle reuses RegistryUpdates keyed stableID, no duplicate innerID/new array/recipefield/helper. Required body jp/en/status/source_pool; optional chapter/character/tier/ref metadata per schema. EN may intentionally empty; newstatusdrafted. Preserve unknown rawmetadata. This is a deliberate common lifecycle, not universal historical validator parity.",
+    "normalization": "Reuse number for finite uint32 hex IDs and current duplicate normalized checks; require new/update keysets disjoint if combined operations ever supported. First operation can stand alone. Preserve existing row spelling; root may canonicalize newly inserted key explicitly.",
+    "required_fields": "Root requires four named fields; string JP/EN, EN canempty, source_pool declaration, statusdrafted. Historical fullsweep truthiness10 and additionspresence7 stay separate evidence, not generic rules. Root owns exact type/error-precedence implementation.",
+    "text_validation": "Excluded from genericadd: glyph membership, speaker/page/marker parity and fit. Historical caller policies differ. Retain existing Unicode/duplicate-key checks and defer encoder/fitter duties to shared owners when applicable; do not import dated regex validator pipelines or require glyphmap input for this lifecycle.",
+    "publication": "Retain explicit updated/source_size/source_sha/evidence, dryrun and exclusive new output through current writeNewFile. Historical in-place replace deliberately not copied.",
+    "metadata_deltas": "Report ignored incoming metadata on existing identicaltext optionally, but MUST keep compatibility no-op and all oldmetadata/status.",
+    "ordering": "For add lifecycle sort whole registry by normalized numericID as recurring discovered/localization adders do. Existing update operations preserve their current order."
+  },
+  "precode_vectors": {
+    "path": "/var/tmp/dokapon-registry-insert-amic2iw3/vectors.json",
+    "sha256": "73b7eec2a4f099468a4dcd9bdadf4de47fb444cae9eefedb9b02e3c3cd8c665a",
+    "classification_cases": 5,
+    "presence_truthiness_cases": 6,
+    "text_cases": 12,
+    "source_example": "/var/tmp/dokapon-registry-insert-amic2iw3/actual-source-F0-shaped.json",
+    "source_example_sha256": "9d24e5281014ffe8a5a428fd8937394481c43c96d97874b8ded574c98dfbeeec",
+    "expected": "11 root-selected lifecycle cases: minimal emptyEN insertion, optional+unknown metadata retained, missing fourfields, nondraftnew refusal, normalizedmapduplicates, existing progressed exacttext no-op including metadata deltas, differingtext conflict. Additional source-only historical contrast vectors retain kinds/value/speaker/glyph/required-policy facts and DO NOT become genericadd requirements.",
+    "selected_registry_add_cases": 11
+  },
+  "excluded": [
+    "Discovery scanning/extraction and reference tracing from ELF/ISO",
+    "Batch-specific hardcoded pool/chapter/character/event/note defaults",
+    "Glyph membership, speaker/page parity, markerkind/value/order checks, apostrophe style and native fit as genericadd promises",
+    "Full-sweep note-substring marker bypass",
+    "CSV drafting merge and glossary reconciliation",
+    "Universal import parity, reference payload validation or machine deployment promotion",
+    "In-place canonical registry replacement or automatic historicalmetadata migration"
+  ],
+  "source_pins": {
+    "../rework/new_tool/registry_tools/registry_import.py": {
+      "sha256": "5b43b920efb806d8b09cdec24384f8dc60b930fc6676823d4201454168d7a4a6",
+      "bytes": 49299
+    },
+    "../rework/new_tool/registry_tools/registry.py": {
+      "sha256": "3b4137558b10c7d0483c540c86d096bec99c06e6a6acaaec1bed68f0216bf6c8",
+      "bytes": 61418
+    },
+    "../add_discovered_entries.py": {
+      "sha256": "ad62b9f5e56ca544b35bb8f98f6ec9fbfa5fd4c03354b27918449b5c382ae9db",
+      "bytes": 21178
+    },
+    "../add_full_sweep_entries.py": {
+      "sha256": "ace74fbf6387e2736b941729439694e42523a07cc715128f67672cc367ddd1fe",
+      "bytes": 4340
+    },
+    "../add_cluster2_entries.py": {
+      "sha256": "a03fb900ac42e988c1b553d0fcd212c86bce193aa7735becb62de9b89d93bf3e",
+      "bytes": 20272
+    },
+    "../add_localization_pools_entries.py": {
+      "sha256": "2422c48b92a66578995bbec5354ef1d65eafa5de62958fa50c5ad69159342836",
+      "bytes": 9961
+    },
+    "../../skills/STRING-REGISTRY.md": {
+      "sha256": "12b6d60133524a7475d5b333029cac34711232998bf194217c751ab442f00f58",
+      "bytes": 72828
+    },
+    "analysis/pattern-crawl-iso_registry_reports.json": {
+      "sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+      "bytes": 119708
+    },
+    "analysis/registry-authoring-gap-contract.json": {
+      "sha256": "ccd3ca93f4f97bd2a1eeffbf85dbbf1ccb21218becb251d306c9f07c245d1edc",
+      "bytes": 14914
+    },
+    "analysis/registry-import-readiness.json": {
+      "sha256": "aae14460730349ffc69cd6960e4f35abb6b9c1e88a432a7e6f3603e7c457f75b",
+      "bytes": 19590
+    },
+    "registry_authoring.go": {
+      "sha256": "191eb79ebd0b55a0309424c6d7de627d9e256dbc59e4e48d69988bf099c86488",
+      "bytes": 19946
+    },
+    "registry_types.go": {
+      "sha256": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+      "bytes": 695
+    },
+    "recipe_types.go": {
+      "sha256": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+      "bytes": 5923
+    },
+    "outputs.go": {
+      "sha256": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "bytes": 1760
+    }
+  },
+  "verification": "Only stdlib AST/literal parsing and projected JSON reads, hand-authored source/selected-lifecycle vectors and literal source predicate selfchecks; no projectPython imported/executed, no canonical registry/ISO/emulator/process access, no Go/tests/source edits. JSON/whitespace/credential checks applied. Historical validator contrasts remain scope evidence; no reduction/family/retirement claim.",
+  "source_pin_observations": {
+    "../rework/new_tool/registry_tools/registry_import.py": {
+      "study_sha256": "5b43b920efb806d8b09cdec24384f8dc60b930fc6676823d4201454168d7a4a6",
+      "final_sha256": "5b43b920efb806d8b09cdec24384f8dc60b930fc6676823d4201454168d7a4a6"
+    },
+    "../rework/new_tool/registry_tools/registry.py": {
+      "study_sha256": "3b4137558b10c7d0483c540c86d096bec99c06e6a6acaaec1bed68f0216bf6c8",
+      "final_sha256": "3b4137558b10c7d0483c540c86d096bec99c06e6a6acaaec1bed68f0216bf6c8"
+    },
+    "../add_discovered_entries.py": {
+      "study_sha256": "ad62b9f5e56ca544b35bb8f98f6ec9fbfa5fd4c03354b27918449b5c382ae9db",
+      "final_sha256": "ad62b9f5e56ca544b35bb8f98f6ec9fbfa5fd4c03354b27918449b5c382ae9db"
+    },
+    "../add_full_sweep_entries.py": {
+      "study_sha256": "ace74fbf6387e2736b941729439694e42523a07cc715128f67672cc367ddd1fe",
+      "final_sha256": "ace74fbf6387e2736b941729439694e42523a07cc715128f67672cc367ddd1fe"
+    },
+    "../add_cluster2_entries.py": {
+      "study_sha256": "a03fb900ac42e988c1b553d0fcd212c86bce193aa7735becb62de9b89d93bf3e",
+      "final_sha256": "a03fb900ac42e988c1b553d0fcd212c86bce193aa7735becb62de9b89d93bf3e"
+    },
+    "../add_localization_pools_entries.py": {
+      "study_sha256": "2422c48b92a66578995bbec5354ef1d65eafa5de62958fa50c5ad69159342836",
+      "final_sha256": "2422c48b92a66578995bbec5354ef1d65eafa5de62958fa50c5ad69159342836"
+    },
+    "../../skills/STRING-REGISTRY.md": {
+      "study_sha256": "12b6d60133524a7475d5b333029cac34711232998bf194217c751ab442f00f58",
+      "final_sha256": "12b6d60133524a7475d5b333029cac34711232998bf194217c751ab442f00f58"
+    },
+    "analysis/pattern-crawl-iso_registry_reports.json": {
+      "study_sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+      "final_sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4"
+    },
+    "analysis/registry-authoring-gap-contract.json": {
+      "study_sha256": "ccd3ca93f4f97bd2a1eeffbf85dbbf1ccb21218becb251d306c9f07c245d1edc",
+      "final_sha256": "ccd3ca93f4f97bd2a1eeffbf85dbbf1ccb21218becb251d306c9f07c245d1edc"
+    },
+    "analysis/registry-import-readiness.json": {
+      "study_sha256": "aae14460730349ffc69cd6960e4f35abb6b9c1e88a432a7e6f3603e7c457f75b",
+      "final_sha256": "aae14460730349ffc69cd6960e4f35abb6b9c1e88a432a7e6f3603e7c457f75b"
+    },
+    "registry_authoring.go": {
+      "study_sha256": "191eb79ebd0b55a0309424c6d7de627d9e256dbc59e4e48d69988bf099c86488",
+      "final_sha256": "191eb79ebd0b55a0309424c6d7de627d9e256dbc59e4e48d69988bf099c86488"
+    },
+    "registry_types.go": {
+      "study_sha256": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+      "final_sha256": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c"
+    },
+    "recipe_types.go": {
+      "study_sha256": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+      "final_sha256": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a"
+    },
+    "outputs.go": {
+      "study_sha256": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "final_sha256": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7"
+    }
+  }
+}

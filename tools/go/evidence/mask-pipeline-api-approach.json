@@ -1,0 +1,59 @@
+{
+  "schema": "original-footprint-api-astra-addendum-v1",
+  "role": "Read-only architecture delta before global footprint frontend, no implementation/approval authority; separate from audit044",
+  "started_at_utc": "2026-11-05T00:46:30+00:00",
+  "prior_capsule": {
+    "report": "/var/tmp/dokapon-original-mask-astra-YDZIr8CC/report.json",
+    "report_sha256": "bdd18685b94b16368605d52275ee43a6c3e60752c384345b608960b3edd106f2",
+    "manifest_sha256": "f3b5132d4a66940851b687987489a256da225aa0d0e3f69240027c68365cf983",
+    "members": 6
+  },
+  "assessment": "Enhancing the existing extracted selectRaster to construct a bounded footprint is a coherent responsibility if transformRasterMask remains the single binary-topology owner. The old erase caller supplies one AND group and identity pipeline settings; the new compositor supplies source-normalized original-image footprint facts. Two numerical owners remain sufficient. A300-line mask constructor is not inherently worse than scattering validation/pipeline phases across a650-line compositor, but no line-count target justifies repeated evaluators, source-provider dispatch or arbitrary operation programs.",
+  "specific_findings": [
+    {
+      "id": "FPA-PRESENCE-1",
+      "severity": "HIGH",
+      "counterexample": "Core omitted skips core restriction. Core explicitly[] is an empty OR, therefore an all-false core; its dilation remains false and must clear the footprint. Using len(Core)==0 for both silently grants permissions. Similarly Any[] is false while Any[[]] is true.",
+      "minimal_direction": "Preserve nil-versus-present-empty Core throughout raw decoding and normalized specs; reject CoreGrow without Core, and require a present Core for Fill=core. Do not erase explicit empty Core through omitempty marshaling or list normalization. Require public rect/any/fill/grow and normalize historical default fill=holes/grow1 explicitly, so Go-zero identity is never mistaken for historical defaults. If public empty-string fill is allowed, document it as identity; otherwise use a strict public enum and reserve Go zero only internally."
+    },
+    {
+      "id": "FPA-CLIP-1",
+      "severity": "HIGH",
+      "counterexample": "A source zone disjoint from a footprint clip yields an empty permission mask. Projecting their empty intersection to omitted Clip reverses this to unrestricted permission. Positive-area crop validation cannot silently be reused to discard an empty clipping result.",
+      "minimal_direction": "Represent deny-all intersections explicitly or retain a semantically empty clip; never convert them to no clip. Pin mask layout: prefer crop-local width*height with Rect supplying stride/origin, while Clip/Exclude remain canvas-relative facts. Translate using image.Rect.Min exactly once. Keep clip/exclusion after morphology; preserve absent clip identity and explicit empty exclusions. Test nonzero origins, disjoint/edge-touching intersections, clips partly outside crop and every protected pixel. Any stricter clipping-coordinate domain than Python must be explicit and source-census compatible."
+    },
+    {
+      "id": "FPA-SHADOW-1",
+      "severity": "HIGH",
+      "counterexample": "A new inline masks request can be hidden by duplicate render or reconstruction followed by null. If raw ancestor-shadow detection is currently activated only by Permissions, the new inline form bypasses it; a common validation block after decoded resolution cannot recover overwritten raw members.",
+      "minimal_direction": "Extend the existing raw-request ownership/presence mechanism to the new inline masks path, including aliases and null ancestors, before relying on decoded pointers or duplicate-collapsing maps. Reuse checkJSON rather than add another parser. Test masks-then-null through both ancestor levels, case aliases, masks:null, duplicate group/footprint/predicate keys and opaque icon IDs named masks. Preserve old absent-new-option behavior. This is a prospective boundary finding, not a claim that private candidate code was inspected."
+    },
+    {
+      "id": "FPA-COST-1",
+      "severity": "HIGH",
+      "counterexample": "An unbounded positive old erase Grow must saturate on a finite mask; charging width*height*Grow can overflow or newly reject an old accepted input. Per-group32x33 bounds also do not alone bound total predicate maps, core/background evaluations and all global regions.",
+      "minimal_direction": "A value budget argument plus returned charged work is preferable to a mutable budget pointer or duplicate caller formula. The owner validates all structural/numeric facts, computes an overflow-safe deterministic upper bound before expensive allocation/work, then compares it with the budget. Charge actual bounded implementation complexity, including convergent growth, and include every predicate/core/background/topology pass and necessary clone. If this is planned upper-bound work rather than measured work, name/document it accordingly. Caller adds it only on success. MaxInt64 for the legacy internal caller may disable this new aggregate refusal, but it must not disable intrinsic crop/area/clause validity. Global caller passes remaining budget only after guarding subtraction."
+    },
+    {
+      "id": "FPA-LEGACY-1",
+      "severity": "HIGH",
+      "counterexample": "Moving old erase growth into the new constructor before intersecting allow changes which pixels can seed growth. Reusing footprint negative/zero iteration behavior for erase changes old Grow<=0 identity. Returning a full-canvas mask to an old crop-stride writer corrupts indexing.",
+      "minimal_direction": "Old erase call remains Any:[legacy AND], identity fill/grow/core, followed by initial allow intersection, legacy positive-only growth, final allow intersection and then existing writes. Keep current-image reads, empty-mask method/fill bypass, all-predicate validation and unchanged donor/interpolation logic. New original footprints use the fixed close/fill/core-restriction/minimum/final-grow/clip/exclude sequence and immutable core derivatives. Preserve existing direct-call crop shape and error semantics."
+    },
+    {
+      "id": "FPA-VALIDATION-1",
+      "severity": "MEDIUM",
+      "counterexample": "A single post-resolution block is reusable only if it validates the retained raw loaded/inline object. Typed structs or previously collapsed maps alone cannot detect duplicates and aliases, and a richer RasterReconstruction decoder can accept fields not owned by the resource table.",
+      "minimal_direction": "Keep root resource grammar closed to allow/exclude/allow_add/masks; nested references, erases and order remain forbidden there. Require per-footprint rect/any/fill/grow, close Masks/group/selection/property maps separately and reject null/case aliases/duplicates. Preserve original profile erases/order when loading resources. Referenced permissions conflict with any inline geometry or masks key, including[]. Keep type/default validation authoritative in selectRaster and raw ownership validation in authorTexture, with no second semantic validator."
+    }
+  ],
+  "responsibility_conditions": {
+    "selector": "One selection evaluator per atomic predicate, used for all groups and core. Fixed phase ordering is a meaningful mask-construction contract, not a generic DSL. Shared topology handles binary operations; selector never writes RGBA or acquires resources. Caller chooses original/current raster. Avoid callbacks, provider/module names, operation arrays and read-mode flags.",
+    "compositor": "The SAME outer three stages combine old rectangles and newly computed masks. Count every rectangle and footprint group entry in the combined64 bound; do not charge each returned pixel as a region or forget masks in positive-region validation. Final native footprint and existing text changed-byte leak guard remain unchanged.",
+    "test_scope": "Retain complete legacy erase/font parity as regression evidence, then test all14 generic provider calls from the frozen source scope and their macro/nested/stage facts. Source14 dispatches are not14 complete artworks; the other27 provider calls remain held. Do not reduce the target to only seven convenient textures or only top-level masks. Raw masks and complete orderedRGBA outputs remain necessary.",
+    "accounting": "Two extracted numerical functions are already existing owners at this phase. Two new grouped data types and added constructor/frontend/schema/data are capability growth, not savings. A line-count estimate or function-count freeze cannot excuse duplicated predicate/topology implementations."
+  },
+  "evidence_status": "Root-reported phase1 core/native/build/vet/eight whole parity passes and later source102/fixture freezes were supplied as context, not independently rerun or newly verified by this addendum. No private candidate source, oracle pack, Go execution or protected resources read.",
+  "terminal_state": "Only this new owned /var/tmp addendum capsule written. Prior six-member capsule remains byte-identical. All jobs terminal; no implementation/approval or coverage claim. Audit044 remains due02:02:37UTC.",
+  "finished_at_utc": "2026-11-05T00:48:51.728838+00:00"
+}

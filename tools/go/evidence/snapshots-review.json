@@ -1,0 +1,61 @@
+{
+  "schema": "snapshot-publication-ordinary-review-v1",
+  "at": "2026-10-20T19:19:36.500184+00:00",
+  "result": "PASS_FOCUSED_NO_MATERIAL_CODE_FINDINGS",
+  "findings": [],
+  "freeze": {
+    "frozen_at": "2026-10-20T19:18:33.733575+00:00",
+    "pin_count": 76,
+    "before_and_after_mismatches": [],
+    "owned_frozen_receipt": "/var/tmp/dokapon-snapshots-review-1eymx6sq/freeze-revised.json",
+    "sha256": "98b6693501f8537a5e1afb43cd96c9f86335de1e3b00f0a572d1a9f412494fb8",
+    "selected_pins": {
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "main.go": "b5be77b076ee16544d5f8d18a97a148a74e549e07a5b758c6b83eb53e045dbb1",
+      "texture_authoring.go": "d30636d148412f7e7a2dcbe583d6d95d6a497f7d6bda88a979e460872ba4e39b",
+      "patch_test.go": "6128036e7cd0265ca69db2a41a294e3a0d42a1a13ee104614a9ff2d48d2f5cbe"
+    }
+  },
+  "baseline": "/var/tmp/dokapon-line-groups-sealed-08cd7awd",
+  "review": {
+    "owner": "One justified snapshotArtifacts lifecycle owner: run routes flags, writeNewFile publishes verified opaque streams, patchCopy retains image-edit preflight. No fake patch recipes, alternate writer, dependency or new closure. Shared receipt validation serves listing and restore. The finite operation branches remain readable. Receipt byte I/O now reuses readInput rather than duplicating its bounded regular-file read/close/stability responsibility.",
+    "lifecycle": "Safe fixed per-tag artifact/receipt names, exclusive tag reservation, mandatory revision provenance, receipt-last publication and directory sync; duplicate tags refuse. Preview creates no directory. Failed create may leave reserved state intentionally.",
+    "restore": "Receipt fields, tag/regular-file checks and source identity/size/mtime checks precede a complete payload hash; apply rewinds the same descriptor and creates only a new exclusive output. Hash/size bound streaming catches changed bytes during copy.",
+    "inventory": "Sorted directory entries report absent/invalid/incomplete/size-mismatched state; present-unverified and digest_verified=false accurately disclose that listing does not hash contents.",
+    "publisher": "Mandatory reader/nonnegative bounded size/full SHA256 before file creation; stream size+1 catches short/long input, digest checked before sync, bounded-memory hash readback and inode identity verified. Existing inode-owned failure cleanup and close handling remain. Both old production callers pass matching bytes, length and computed artifact hash.",
+    "limits": "Static final source/store/tag/receipt/payload symlinks are rejected by direct Lstat checks. No claim of hostile same-user concurrent namespace safety or atomic live-filesystem snapshot; no in-place restore."
+  },
+  "checks": {
+    "focused_test": "ok  \tdokapon/tools\t4.626s",
+    "build": "PASS",
+    "independent_CLI": "PASS: exact same9 independent CLI invocations rerun on revised built binary; no new cases.",
+    "existing_tests": "Focused owner also covers old registry/texture publication, invalid/truncated/oversized/digest-mismatched streams, corrupt/missing/symlink payloads and invalid/missing receipts.",
+    "source_pins": "All76 match before/after"
+  },
+  "documentation_note": {
+    "status": "RESOLVED",
+    "path": "analysis/snapshot-reuse-decision.json: reuse_decision.cost",
+    "correction": "Create and restore apply are now accurately described as roughly3 payload passes."
+  },
+  "evidence": {
+    "receipt": "/var/tmp/dokapon-snapshots-review-1eymx6sq/receipt-revised.json",
+    "receipt_sha256": "d9c4a5b331bc5b71c4115f862799b32fa8a322251ff4708039cfff3bba30e7ed",
+    "CLI_details": "/var/tmp/dokapon-snapshots-review-1eymx6sq/revised-cli/cli-probe.json",
+    "CLI_details_sha256": "f7fef5cb9b00c640d83ab4856e8fc0e03afc810190bb95c250738d32cc2d2d06"
+  },
+  "not_checked": [
+    "Full suite/race/227 overlay/mutation campaign deliberately deferred under current user instruction.",
+    "No concurrent namespace mutation/atomic snapshot guarantee; no maximum-store performance benchmark.",
+    "No production/test edits, protected artifacts, ISO/emulator/process access or family/retirement approval."
+  ],
+  "revision": {
+    "only_changed_pins": [
+      "analysis/snapshot-reuse-decision.json",
+      "snapshots.go"
+    ],
+    "reuse": "Receipt reading now uses existing readInput(path,64<<10), adding its size/mtime stability checks while retaining Lstat nonsymlink preflight and strict single-value decoder. No other source/test/helper/function changes.",
+    "prior_reports": "Superseded and preserved in /var/tmp/dokapon-snapshots-review-1eymx6sq/pre-reuse"
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T02:35:52.640651+00:00",
+  "scope": "ROOT accepts only asset_preview_inventory.05 checkerboard comparisons under the frozen14family/84milestone scope. Full410objective and allmaterialfamilyresponsibilities preserved.",
+  "decision": "analysis/asset-comparison-decision.json",
+  "source_contract": "analysis/asset-preview-contract.json",
+  "implementation": "Existing authorTexture owns comparison profile/IO/pair/report/publication. Existing resizeRaster and pixelOver own exact nearest and integer alpha-over; readInput/checkJSON/writeNewFile remain shared. One unavoidable decodePNG is extracted from manifest so channel conversion/work charging is canonical, not duplicated. No per-script handler/CLI/parser/writer/dependency.",
+  "contracts": {
+    "layout": "Common optional XYWH crop, transparent positiveOOB padding, before geometry controls both nearest targets evenforunequalafter. Independently restart8outputpixel checker150/200 perpanel; gap6outputpixels on40gray; topbefore/bottomafter; opaqueRGB PNGtype2. OriginalPNGtransparency/bytes unchanged.",
+    "decoder": "Pillow12.3 Gray16clamp/other16channeltruncation/tRNSpostconversion/hiddenRGB preserved. Valid bounded header attempts chargearea evenpayloaddecodefails; invalidconfig/budgetrefusalcharge0. Manifest retains exactdiagnostics/nativepaths/rawPNGencodedbytes. LegacyGrayfont/nativecandidate decodersemantics unchanged.",
+    "JSON": "Comparison owns completekeys/Unicode/duplicates/aliases andnonNullnumericpolicy; oldcallers defaultnonNullfalse. Rootfieldoperationownership retainsEqualFold, includingUnicode long-s, andrefuseslegacynewpreviewevennull.",
+    "bounds": "Input/crop1Mpx/4096axis; nearestpanel16Mpx/16384axis;combined32Mpx;encodedPNG128MiB. Virtualcropnoinputpaddingallocation. Validatebeforealloc and recheckexact source/candidate/profile bytes beforeexclusivewrite.",
+    "publication": "Dryrunnooutput, deterministicreport. Applynewexclusivefile/readback/hash; existingoutput/source/candidate/profilealiasesrefuse. No ISO/nativepatch/artapproval."
+  },
+  "root_pixels": {
+    "precode_original_full_RGB_and_RGBA_cases": 17,
+    "postimplementation_original_only_capacity_cases": 2,
+    "capacity_timing": "Source-only expectations frozen before candidate execution on thosecases; not precode.",
+    "normal_sizes": [
+      "512\u00b2@3x->1536x3078",
+      "1024x512@3x->3072x3078"
+    ],
+    "old_PNG_conversion_cases": 34,
+    "attempted_budget_rows": 257,
+    "original_invalid_geometry_cases": 5,
+    "new_profile_policy_cases": 25,
+    "owned_JSON_cases": 11,
+    "legacy_null_ownership_keys": 6,
+    "overwrite_targets_per_small_case": 4,
+    "scope": "Completepixels and hashes vsindependentoriginal, notPNGroundtrip asoracle."
+  },
+  "root_checks": {
+    "focused-normal.json": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 20.722,
+      "stdout_sha256": "c242d4c95e9399f2bda560da73b62f1e97d9be507e4020a3e714a3ed4e025f87",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Complete focused CLI and historical Golden owners, not fullsuite."
+    },
+    "focused-race.json": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 163.177,
+      "stdout_sha256": "b41ccd3b37893d97cec83e589e181dded3ff10b374699b15406fe92e5512c47d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Two focused complete CLI/Golden owners; not fullsuite."
+    },
+    "final-cli.json": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 10.976,
+      "stdout_sha256": "1232f31f75d8ebfa96da00b2ea7cd499bcd3ab6f238841f5c4f6849250185f5c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Final compatibility switch/Unicode refusal change plus complete CLI owner; unchanged Golden covered in prior two-owner pass."
+    },
+    "final-cli-race.json": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 53.985,
+      "stdout_sha256": "b1de801d6c72137882cbc881df20058b999711e9bffd4a961f1d59ff83871c3e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "scope": "Final compatibility switch/Unicode refusal change and complete CLI owner only; initial twoowner race separately preserved."
+    },
+    "final-checks.json": [
+      {
+        "label": "build",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-asset-comparison-o1junz4q/dokapon-go",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.22
+      },
+      {
+        "label": "vet",
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "exit": 0,
+        "seconds": 0.07
+      },
+      {
+        "label": "format",
+        "command": [
+          "gofmt",
+          "-l",
+          "raster_png.go",
+          "texture_authoring.go",
+          "texture_manifest.go",
+          "texture_types.go",
+          "inputs.go",
+          "input_types.go",
+          "patch_test.go"
+        ],
+        "exit": 0,
+        "seconds": 0.05
+      }
+    ],
+    "final-parity.json": {
+      "complete_stdout_stderr_exit_cases": 20,
+      "names": [
+        "two-native-inventory",
+        "two-native-alpha",
+        "two-native-beta",
+        "duplicate-name-inventory",
+        "duplicate-name-alpha",
+        "duplicate-name-beta",
+        "zero-width-inventory",
+        "zero-width-alpha",
+        "zero-width-beta",
+        "unsupported-depth-inventory",
+        "unsupported-depth-alpha",
+        "unsupported-depth-beta",
+        "metadata-error-inventory",
+        "metadata-error-alpha",
+        "metadata-error-beta",
+        "duplicate-metadata-error-inventory",
+        "duplicate-metadata-error-alpha",
+        "duplicate-metadata-error-beta",
+        "asset-specification",
+        "asset-manifest"
+      ],
+      "result": "PASS"
+    },
+    "documented-example.json": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "-C",
+        "tools/go",
+        "run",
+        ".",
+        "--source",
+        "examples/asset-comparison/before.png",
+        "--texture-profile",
+        "examples/asset-comparison/profile.json"
+      ],
+      "cwd": "/home/franklinl/Documents/Dokapon World Mod",
+      "exit": 0,
+      "stdout_sha256": "0831b2bc5d2c408bb02ddc9d941ef272e40ce5fbea688efe01f20fa125989063",
+      "original_case": "unequal-small3",
+      "rgba_sha256": "97f591f4708aac40b178a0909b1256125fc7f9f0c9185822d2b9a01badb1f9d6",
+      "width": 27,
+      "height": 24,
+      "applied": false
+    }
+  },
+  "root_SySTEM": "Full extracted11entry86raster report unchanged40342919549eee1311585ea454fd7d2202fac17388c6c226c6348717e3ef7189; noindependent86pixel/visual/currentmodclaim.",
+  "independent_review": {
+    "path": "evidence/asset-comparison-review.json",
+    "sha256": "c89ce5d0fe39e26392b77db7fcb6008d42df58712a5a83517bc7c55edf3598fd",
+    "open_findings": 0,
+    "closed_LOW": "Fieldownershipexpressionsplitintoswitch;EqualFoldUnicodepreserved.",
+    "candidate_pins_verified": 18,
+    "private_artifacts_verified": 24,
+    "verification": "OwninitialCLI+Golden15.877s/finalCLI5.768s/build/vet/hygiene;17frozen+4additionalfullpixelcases;20completelegacycaptures;3deterministicinputdriftrefusals;alljobs terminal. Root ownscredit, no approval authority."
+  },
+  "UI": {
+    "checks": "test-results/architecture-checks.json",
+    "source_sha256": "cc4912ac7bedeebad56f3c84ed485ff0eed2da048398e7019be2994516c32d10",
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "screenshots": [
+      "test-results/architecture-desktop.png",
+      "test-results/architecture-mobile.png"
+    ],
+    "root_visual_inspection": "PASSlabelscontainedandreadable;mobilehorizontaldiagramnavigationexpected. Staticdocumentationonly."
+  },
+  "hygiene": {
+    "at": "2026-10-21T02:35:52.640651+00:00",
+    "whitespace": "PASS15changedtextfiles/manualandgitdiff",
+    "credentials": {
+      "patterns": 2,
+      "positive_selfchecks": true,
+      "scoped_files": 15,
+      "candidates": 0
+    },
+    "UI": "Existing3SVGdiagram2viewportsE2EPASS;rootinspecteddesktop/mobilePNG"
+  },
+  "private_receipts": {
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/focused-normal.json": {
+      "sha256": "8e4b9a64278c66d900f03a8480903163ca02dc1853545f452eabef17d13758ef",
+      "bytes": 484
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/focused-race.json": {
+      "sha256": "f0b6e6b737bf1a329814c370a68dc7600a65342e1422aec30375ddda6912ad5d",
+      "bytes": 487
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/final-cli.json": {
+      "sha256": "8a338190d38e3d67ed8a82c559246fffa3d80197b1155ba12ddfbab57ac7eac8",
+      "bytes": 510
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/final-cli-race.json": {
+      "sha256": "82a8b8728caf2f3e5dbf47489f40c491bdee31712b3fefb43e4b724e9a48b0e8",
+      "bytes": 521
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/final-checks.json": {
+      "sha256": "cb183bacab0a6da2611d523e218cbe8fa057badfd0971450a1e588af56932cdf",
+      "bytes": 741
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/final-parity.json": {
+      "sha256": "ca39896b73ee641f59777c4b37b3b719dcd0530f679d0101d7666ffa9cf2caf4",
+      "bytes": 669
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/parity.json": {
+      "sha256": "4173882c0cb5aaac1536575e155019bae5544a124227244ba408ba4260d92e34",
+      "bytes": 2315
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/documented-example.json": {
+      "sha256": "250585aa7d48a7a4ae15215f3d4f34c2dcd94b731c1569a9616085c3ce692767",
+      "bytes": 570
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/fixture-pin.json": {
+      "sha256": "c1fb84a2f29af20053365d09c7d6ed09ae16d4558f6800e6a1677f13eff8110c",
+      "bytes": 515
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/candidate-pins.json": {
+      "sha256": "620d22201775e46e148ea4bc7485214438eab83d9da20a0451fbe5151ed74131",
+      "bytes": 1758
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/candidate-pins-before-readability.json": {
+      "sha256": "b57742abb83cc26665e51de341a074097c41b8ed7ca426886e7e880b64643720",
+      "bytes": 1758
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/metrics.json": {
+      "sha256": "5ed0961512d4ec6508a26dee0100516c6c9690c75e75bf862cc634822ddfea6b",
+      "bytes": 573
+    },
+    "/var/tmp/dokapon-asset-comparison-o1junz4q/hygiene-final.json": {
+      "sha256": "4740e61822e4fd967552578cfb0619ae7b89dcbda2a7629836eb8943a711f782",
+      "bytes": 305
+    }
+  },
+  "metrics": {
+    "production": {
+      "files": 34,
+      "bytes": 352117
+    },
+    "named_functions": 36,
+    "new_functions": 1,
+    "runtime": {
+      "files": 124,
+      "bytes": 862508
+    },
+    "accounted_inputs": 211,
+    "production_growth_bytes": 6342,
+    "runtime_growth_bytes": 6976,
+    "tests_growth_bytes": 13739,
+    "fixture_growth_bytes": 19578,
+    "example_growth_bytes": 634,
+    "claim": "Capability growth. Existing PNG conversion extracted and shared, not deletion of that behavior. One justified pure decoder owner; no net source reduction, historical retirement or fullfamily promotion."
+  },
+  "coverage": {
+    "milestone": "asset_preview_inventory.05",
+    "asset_preview_inventory": {
+      "verified": 5,
+      "total": 6,
+      "percent": 83.33,
+      "family_status": "partial"
+    },
+    "planning": {
+      "verified": 62,
+      "total": 84,
+      "index_percent": 73.81
+    },
+    "family_counts_unchanged": true,
+    "historical_counts_unchanged": true
+  },
+  "remaining_material_duties": [
+    "Originalflat90/sourcegap4scaled/RGBApair variant.",
+    "Boundedlabelledcontacts:originalfonts/layout/page/order/groups/dedup/linkage andindependentfullfamilyassessment. ExactTTFbackendgap ismaterial; source-only analysis/asset-contact-contract.json isnotGo coverage.",
+    "Allotherfamilygaps/full410accountingobjective; no quota/time shortcut."
+  ],
+  "limits": [
+    "Fullintegratedsuite/gameplaydeferred; initialtwoownerfocusrace andfinalCLIrefresh only.",
+    "Boundedbytechecks do notpromisehostileconcurrentnamespaceatomicity.",
+    "Runtimegrowth6976B isnewcapability,notnetsource reduction. ExtractedPNGcodeisrelocationplusreuse,notdeletion.",
+    "NoISO/canonical/protectedruntimeaccess/control orrealpatchwrite."
+  ],
+  "test_harness_correction": "Common3bundleZIPdriverconsolidation initiallyremovedanexistinglocaldata declaration; rootcorrecteditsfirstassignmenttoadeclaration,thenallfinalnormal/race/buildchecks passed. Initialfailedbuildreceiptretainedprivately."
+}

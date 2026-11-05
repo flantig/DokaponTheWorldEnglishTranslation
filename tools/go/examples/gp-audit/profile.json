@@ -1,0 +1,61 @@
+{
+  "evidence": "Independent literal ELF32LE MIPS GP-relative observed-address and paired-stream equations. GP from unique24B reginfo, signedADDIU rs28 with explicitrt, full mappedwindow incltail. Sharedsite aliases/convergence are declared. No canonical EN, native game, runtimeGP/liveness, patch or fit claim.",
+  "observed_family": "literal-gp-cohort",
+  "sources": {
+    "reference": {
+      "path": "reference.elf",
+      "size": 4096,
+      "sha256": "bf3a152599c83a1feb3bb6377706783d76cc0487927cf17139512a8b2f7996c9"
+    },
+    "observed": {
+      "path": "observed.elf",
+      "size": 4096,
+      "sha256": "1cae72f0c3b198fbf8c9fdf510bc53969399580b08359029146637e9f7f309f2"
+    },
+    "registry": {
+      "path": "registry.json",
+      "size": 858,
+      "sha256": "d9343f36f9a5685b5881b82e88d3228d3f062397c050bbf665d66b8490527204"
+    },
+    "glyphmap": {
+      "path": "glyphmap.json",
+      "size": 27,
+      "sha256": "3dd63bb6574b944134ce67c6928041241ec6f40dba561d1eea07441d54d16be8"
+    }
+  },
+  "entries": {
+    "0x100300": {
+      "reference": {
+        "start": "0x400",
+        "end": "0x406"
+      },
+      "observed": {
+        "start": "0x400",
+        "end": "0x406"
+      },
+      "decoder": "narrative"
+    },
+    "0x100302": {
+      "reference": {
+        "start": "0x400",
+        "end": "0x406"
+      },
+      "observed": {
+        "start": "0x400",
+        "end": "0x406"
+      },
+      "decoder": "narrative"
+    },
+    "0x100700": {
+      "reference": {
+        "start": "0x800",
+        "end": "0x80c"
+      },
+      "observed": {
+        "start": "0x800",
+        "end": "0x80c"
+      },
+      "decoder": "narrative"
+    }
+  }
+}

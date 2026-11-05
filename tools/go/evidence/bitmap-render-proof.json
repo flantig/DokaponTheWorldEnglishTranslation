@@ -1,0 +1,190 @@
+{
+  "at": "2026-10-20T17:19:59.561509+00:00",
+  "status": "VERIFIED finite shared bitmap-cell renderer; overall migration incomplete",
+  "source_data_pins": {
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "patch_test.go": "77e0441f71ed5a669d2db18776155eb1139ac86700222d830f9d52addc205815",
+    "raster.go": "26322386d65c23f3158a2b3373706c7a8d9c2d075095b3cd86ef8ed4dc5e5431",
+    "raster_types.go": "2d76143b31bddb21a31baf0d3b9b7405a8df727352281b6e40fa92e846f1b797",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "8eae718a39843f3930d0d09d6ff9b49df7a085cd39721a70e15611acf2d20e95",
+    "texture_authoring.go": "867bc6fa20db1a885d761a2389b0524d39332c4b7fda3ddb796ef89a8a39de31",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "3da7c804553ba941140db990889ea963cacb70aacc5213ab7e1539438aec04aa",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "9cd41caa39e44f39fd8d497180d34a45c3ff8335e34493e81d7ec82123bb2b91",
+    "testdata/bitmap-render.json": "60b9b69f14ae9abdd654ebcea7ccb5e12d2e8ba5d0c5310ac1c3f4cc999dbed2",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "9a4f2e8e8d7ae38947aaa336525a1c2162f3bfa313bab4c42377bbf74f4e3ad9",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+    "testdata/small-psmt8.zip": "a8e60bcefda173823307e240c34fea3c8d1640c5c5f2c00f36fbb65e6170faaf",
+    "fonts/hud-labels.json": "f1d73ee0e21a4ac60d28fdb05f7546d12a9bc412b5e7e16a22a8a29d082e405f",
+    "fonts/hud-labels.png": "59a6fa8e3a281f120bc4f0cbf42c441ed1ef5607b772b1567ee61b168dcd690a",
+    "profiles/textures/hud-labels.json": "7a4bb976ef6d307da13df1ee1efcd2f56b511e927a2f9170f1f2fd9128543766",
+    "analysis/raster-rendering-prototype-contract.json": "4f0a6b89fbbd8f882ebb85f65d9bcc9a4794c4c938903e235522b0b6d4d0826b",
+    "analysis/bitmap-render-reuse-decision.json": "1e100d57c03a15dcd00ea706bea0d185fc5048e163aa569bfe3cf3c8ba14fcd6"
+  },
+  "root_checks": ".goal/bitmap-render-checks-work.json",
+  "root_checks_sha256": "cdba29c69e479ca37f36ffd8a86ebaa0ec8066ca6ec543e07f9cc3e3ee48b845",
+  "ordinary_review": "evidence/bitmap-render-review.json",
+  "independent_contract": "analysis/raster-rendering-prototype-contract.json",
+  "reuse_decision": "analysis/bitmap-render-reuse-decision.json",
+  "binary": "/var/tmp/dokapon-bitmap-render-p3qv5xau/dokapon-go-render-verified",
+  "binary_sha256": "da92b4c14a3f7f3a6bdee3e11b75d425acadc17cd9582bd35e40e86acb91c496",
+  "oracle": {
+    "source_bundle": "testdata/exact-palette.zip",
+    "source_key": "bitmap-render/win_p-original.txd",
+    "source_sha256": "47a4503368955cf77065e2e25784e600a08863ad8ffa99a050ae350457749874",
+    "expected_bundle": "assets/cmb-members.zip",
+    "expected_key": "GRAPHIC/SYSTEM.CMB/system/win_p.txd",
+    "txd_sha256": "6164eddb823f2d27cef1ea2b63e3940d7be0936db8d4713ee6c80a8943c521b3",
+    "rgba_sha256": "c4b239ea67bf0b21f1d97b2e9c999d66cb70ae55acb9507310e30de3f68569d8",
+    "source_rgba_sha256": "7a8a6d6394a20a11a51794c8796233d7ec474cc895663c29b757bd1278226508",
+    "pixel_offset": 292,
+    "CLUT_offset": 262516,
+    "pixel_sha256": "bb5f7963795ca48a33d7afeb0346eae8af490630538505a38a9633c0ebd6649f",
+    "CLUT_sha256": "ee9fac4f9106e59e08a8da388a6d75eac77bf7fc8d05d2194729bd8d2aab78b1",
+    "changed_bytes": 2361,
+    "allowed_pixels": 2922,
+    "changed_ledger_sha256": "1932ed70b3e40cdbb221ef0dff583da2d3302a2e215541e7ffde4acca300331f",
+    "profile": "profiles/textures/hud-labels.json",
+    "font": "fonts/hud-labels.json",
+    "atlas": "fonts/hud-labels.png",
+    "cells": [
+      {
+        "id": "43",
+        "rgba_sha256": "ab6288f8baa30e386e4e154d017e8501285742fb8826729d936980bdf9b7b133",
+        "alpha_bbox": [
+          4,
+          2,
+          26,
+          16
+        ],
+        "ink_pixels": 114
+      },
+      {
+        "id": "41",
+        "rgba_sha256": "fe92cdccb20db89384af77ae4fad1457dd5f165669afb6a0fc4e8ae5ba64a6ff",
+        "alpha_bbox": [
+          0,
+          2,
+          43,
+          16
+        ],
+        "ink_pixels": 234
+      },
+      {
+        "id": "40",
+        "rgba_sha256": "aac1226f1a935bf72bd82909ec114cabb44aafe9f7a1a56a4238d35fb5f44b2a",
+        "alpha_bbox": [
+          0,
+          2,
+          29,
+          16
+        ],
+        "ink_pixels": 152
+      },
+      {
+        "id": "42",
+        "rgba_sha256": "13af5bcd7f21e56bbb1f45eb91d3fcb9a60339d695ac1f5d04f5362d1aeda7ec",
+        "alpha_bbox": [
+          0,
+          2,
+          29,
+          16
+        ],
+        "ink_pixels": 169
+      },
+      {
+        "id": "44",
+        "rgba_sha256": "5b5b45d4c48f2afab67ba89e20c97c3c7b6fc6d4ab7c60a1f6b5604422dd70dd",
+        "alpha_bbox": [
+          0,
+          2,
+          29,
+          16
+        ],
+        "ink_pixels": 176
+      }
+    ],
+    "provenance": "Frozen preimplementation canonical Python original source -> existing approved wholeTXD; no expected bytes generated by Go."
+  },
+  "verification": {
+    "focused_test_seconds": 6.41,
+    "root_race_seconds": 52.779,
+    "whole_asset_bytes": 263580,
+    "changed_native_bytes": 2361,
+    "allowed_pixels": 2922,
+    "cells": 5,
+    "pure_refusal_vectors": 29,
+    "cli_refusal_vectors": 19,
+    "existing_base_fixture_cases_unchanged": 44,
+    "existing_palette_fixture_cases_unchanged": 35,
+    "existing_zip_entries_contents_unchanged": 14,
+    "new_source_zip_entry_bytes": 263580,
+    "checks": "Full uncached race/vet/build/gofmt, scoped tracked+untracked whitespace, selfchecked POSIX credential scan; all35 frozenpins unchanged.",
+    "independent_race_seconds": 87.289,
+    "independent_input_refusals": 40,
+    "independent_publisher_refusals": 8,
+    "independent_direct_color_refusals": 32,
+    "independent_227_corpus": true,
+    "raw_RGBA_regression_mutant_killed": true
+  },
+  "accounting": {
+    "runtime_without_bundle": {
+      "files": 5,
+      "bytes": 12694
+    },
+    "runtime_with_bundle": {
+      "files": 5,
+      "bytes": 12694
+    },
+    "runtime_and_executed_evidence": {
+      "files": 5,
+      "bytes": 12694
+    },
+    "groups": {
+      "asset_bundle": 0,
+      "executed_evidence_inputs": 0,
+      "go_module": 0,
+      "go_tests": 14487,
+      "pointer_selector": 0,
+      "production_go": 8987,
+      "recipe_tables": 0,
+      "testdata": 87348,
+      "build_entrypoint": 0,
+      "consumer_profiles": 2226,
+      "font_data": 1481
+    },
+    "old_base_records_unchanged": 44,
+    "old_palette_records_unchanged": 35,
+    "old_zip_entries_contents_unchanged": 14,
+    "new_source_entry_bytes": 263580,
+    "new_font_data_files": 2,
+    "production_named_functions": 23
+  },
+  "reuse": "ONE justified pure composeCells owner creates text pixels; authorTexture shares existing PNG loading, codec/mask import and exclusive publisher. Stable cell facts and pinned font atlas/metrics live in separate purpose-grouped files. No handler per label or new writer/dependency/CLI flag.",
+  "limits": [
+    "Only the finite binary grayscale/centered outlined/shaded cell style is implemented. Native AA/font-fit, styled runs, donors, TTF, preview and visual approval remain incomplete.",
+    "Prototype adds capability; combined implementation+data growth is fully charged. Historical scripts remain references; no retirement or net-reduction claim.",
+    "Standalone TXD authoring only; no ISO writes, emulator access or gameplay validation."
+  ],
+  "frozen_snapshot": "/var/tmp/dokapon-bitmap-render-sealed-srzifqyv",
+  "ordinary_review_sha256": "961035497779296f944a5e13f92b5afcf0b9c1f13fab578ff3c89d6864b04b87",
+  "ordinary_review_markdown_sha256": "7cace0f0fa61b29380adbf129394949eb4277ebd1a0801cf69508015f4ad3c93",
+  "root_review_acceptance": "All35 current source/data pins equal independent reviewed pins; all26 private artifact hashes and5 reference hashes verified. Original frozen raster contract supports Partial only; same14 core families."
+}

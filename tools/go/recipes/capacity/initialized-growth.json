@@ -1,0 +1,42 @@
+{
+  "operation": "stream_grow",
+  "source_sha256": "817962e211e7d17fa2d04383c3b698a275ee41e114900743bf1fceca554226c3",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Initialized-source-only 320-to-512-sector growth. Historical guards: grow_stream_capacity_2026_09_30.py; independently reviewed math in analysis/capacity-growth.json. Preserve all existing blob bytes; zero only newly claimed sectors after whole-tree extent and loader-size-site checks. Existing 1 MiB translation window accommodates this target. Heap projection is historical budgeting, not runtime measurement. Exclusive new copies retain the parent; bootstrap and manifest-based restore remain outstanding.",
+  "stream": {
+    "retail_elf_size": 4430000,
+    "elf_record_offset": "0x82a62",
+    "zero_record_offset": "0x8289c",
+    "zero_end": "0x204d9800",
+    "loader_vmas": [
+      "0x399b30",
+      "0x399b34",
+      "0x399b94",
+      "0x399c0c"
+    ],
+    "window_lui_vmas": [
+      "0x4db4a0",
+      "0x4db4e0"
+    ],
+    "window_srl_words": {
+      "0x2f39d8": "0x00084d02",
+      "0x537418": "0x00084d02",
+      "0x4ad078": "0x00011d02",
+      "0x4ad0a0": "0x00011d02",
+      "0x4ad0c8": "0x00011d02",
+      "0x4ad0f0": "0x00011d02",
+      "0x4ad118": "0x00011d02"
+    }
+  },
+  "growth": {
+    "from_sectors": 320,
+    "to_sectors": 512,
+    "loader_range": {
+      "start": "0x399ae0",
+      "end": "0x399c38"
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "audit": "039",
+  "role": "Purely adversarial read-only Astra challenger. Findings and design advice only; no implementation, approval, milestone award or credit authority.",
+  "started_at_utc": "2026-10-21T20:18:19.094515+00:00",
+  "finished_at_utc": "2026-10-21T20:21:07.783193+00:00",
+  "status": "COMPLETE_NO_CONFIRMED_CURRENT_CODE_FINDING",
+  "findings": [],
+  "scope": [
+    {
+      "snapshot": "603",
+      "root": "/var/tmp/dokapon-inline-proposals-70ussz2o/sealed-final",
+      "manifest_sha256": "7e7de0cf5479dbb9e01b8284a6a7159aa01526dff0f309b3cf733bff2b8974ef",
+      "verified_members": 603,
+      "accounting_items_verified": 281,
+      "runtime": {
+        "files": 180,
+        "bytes": 2533593
+      },
+      "production": {
+        "files": 39,
+        "bytes": 459682,
+        "named_functions": 41
+      }
+    },
+    {
+      "snapshot": "616",
+      "root": "/var/tmp/dokapon-structural-audit-s9qdhozq/sealed-final",
+      "manifest_sha256": "97a0957c9c4550c2f84052d027c952df3e0c1d0504d59c6e5eea0235047acc85",
+      "verified_members": 616,
+      "accounting_items_verified": 283,
+      "runtime": {
+        "files": 180,
+        "bytes": 2537288
+      },
+      "production": {
+        "files": 39,
+        "bytes": 463377,
+        "named_functions": 41
+      }
+    },
+    {
+      "snapshot": "626",
+      "root": "/var/tmp/dokapon-gp-index-ojcy9sxb/sealed-final",
+      "manifest_sha256": "c3cfb0f87ddb15ebfebc0dc5d0f1a48b7698adb1dfa04dc3d64ff6b22cef9b5c",
+      "verified_members": 626,
+      "accounting_items_verified": 285,
+      "runtime": {
+        "files": 181,
+        "bytes": 2549244
+      },
+      "production": {
+        "files": 39,
+        "bytes": 474721,
+        "named_functions": 41
+      }
+    }
+  ],
+  "additional_verified_capsules": [
+    {
+      "root": "/var/tmp/dokapon-binary-flow-frontier-ohr8h7cd",
+      "manifest_sha256": "e76acd9540ffd6b6b6c0275dd05142496fb1dfd0bda74606a8047f426d62fe47",
+      "verified_members": 24
+    },
+    {
+      "root": "/var/tmp/dokapon-structural-audit-source-pww81yzu",
+      "manifest_sha256": "697178ecef15dcff75211a7a2ec598779e417da1ce49bfb6d23d52c78bf798e7",
+      "verified_members": 59
+    }
+  ],
+  "artifact_pins": {
+    "AGENTS.md": "b1352d0bf12bf562c935d6c8b902bc935b0cfbc8bc343eb7a9b72a7d846e68c3",
+    "main.go": "0049927099611794ddb451ea6fa39bc022252d76833e6fbc62697f1d756ceedb",
+    "references.go": "26a45c4e51547947568fa6c5a504a053a93727cc9c331906df9b65e7d5ea5c83",
+    "reference_types.go": "8491c92026abbefd8d194b246651532ac5cba61365590486caaff37491aa7e50",
+    "stream_audit.go": "4321493eb41ce981961139fcee9eeb2babd6507af21545248ed35743f5a62399",
+    "stream_audit_types.go": "e2fdc292fa95a84f087c2282197fe5ea91d05e2dd324aec0a99423f2ba0d325d",
+    "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+    "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+    "patch_test.go": "83a9a7ad6cc03de85f10d038a04add6a8f442da7551ccd1b2530219ad3ae790f",
+    "analysis/migration-roadmap.json": "20c0c38adedd5d78d47a1ed369f4cab7735ca5b572314132742d16e1670846fa",
+    "analysis/go-current-input-accounting.json": "d7c70f50be866b5f7b1bf394f82a6b5f8cf9bb087d8976d362521d4517f62841",
+    "analysis/joined-capability-milestone-assessment.json": "860843cc87c8b0c7f974a587d6e507f7a0826ba902245d138715a03d2f2d73f4",
+    "analysis/joined-family-criterion-study.json": "1e859758f1fe9ee24c4496448e7794a558d136beab56feb3e871ecb668fd7583",
+    "analysis/gp-index-milestone-assessment.json": "19c5382bcc661e51aa139af910e1654c4b1b66c47a36f05dbe428b84b822604a",
+    "analysis/gp-index-milestone-study.json": "f8eec900938086cb05a5577c921eb4edf929baa51565e3db2980fa9b84138cf9",
+    "analysis/structural-audit-source-contract.json": "e28af8f3228db1bc889e20862bbd1b26ca23ffbac91b6ac357148338075b93d4",
+    "analysis/gp-index-reuse-decision.json": "a0040ea4abeab66ebf306fb75190d6c659a736413d231fdd0241d354d93dcf3d",
+    "evidence/structural-audit-proof.json": "3dd6896d7ea3d2732d350df6f14dba7d0112ce2664c362a984db5ca4de72764e",
+    "evidence/structural-audit-review.json": "b73c57efaf51139916de78052a07baf0f441e5afdb590dab94501299f32ecba8",
+    "evidence/joined-family-assessment-review.json": "011fe15796281f037341e8c840a449cb3d0817a92b66651abed1723749fd042d",
+    "evidence/joined-workflow-review.json": "c7a4e8daafc132ac3b6cc46f1b8414a09c9b104b4260042459a9a46888e26223",
+    "evidence/gp-index-proof.json": "8fb1f39896d3f22ffcb31ef6feb8d284f163b17906380e2d157231b25b487b72",
+    "evidence/gp-index-review.json": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba",
+    "testdata/structural-audit.json": "af5b65ee08c0db9dc97fc560249db7148ec1bf8561ba5f5f6beba398ed243d48",
+    "testdata/gp-index-fixture.zip": "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97",
+    "evidence/joined-workflow-inputs.zip": "02e1fd6beede145b39049154823082f6215c6c9f081e910e3d0a18f105232c02"
+  },
+  "prospective_source_pins": {
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/binary-flow-source-frontier.json": "5f1a7a3b1ee093720b23d208c82948db09ba0101130b4015f57e340ea51edbbe",
+    "/var/tmp/dokapon-flow-root-replay-6o04msy4/root-verification.json": "5642731368da487198d82b91849356174a74e5be9c06a7e134e3e98acb9a115c"
+  },
+  "checks_receipt": {
+    "path": "/var/tmp/dokapon-astra039-9t6d68ic/checks.json",
+    "sha256": "e0a3479cb3c796bd34dbb85ba38ac642a800e04a09596808355005b2b5e2e2e2"
+  },
+  "measurement": {
+    "production_Go_bytes_delta": 15039,
+    "production_files_delta": 0,
+    "named_function_delta": 0,
+    "new_fact_types": [
+      "GPIndex",
+      "GPInstruction",
+      "StreamAuditStructure"
+    ],
+    "runtime_bytes_delta": 15651,
+    "runtime_files_delta": 1,
+    "tests_bytes_delta": 11627,
+    "classification": "Capability growth, not a net reduction or retirement. Fixture and evidence overhead remains separately charged."
+  },
+  "review_challenges": [
+    {
+      "scope": "Structural projection",
+      "locations": [
+        "stream_audit.go:145",
+        "stream_audit.go:357",
+        "stream_audit.go:410",
+        "stream_audit_types.go:78"
+      ],
+      "result": "No confirmed counterexample. Existing token walk preserves original glyph/HL/ICON/PARAM8 counting, SPACE distinction, trailing-empty trim, nonempty-page indices and declared-reference headerless comparison. Unknown observed/reference sides remain distinct from known empty. Reviewed original reports-text.py326-348,402-422 and permanent25-case/domain/wire/absence tests."
+    },
+    {
+      "scope": "GP classification and mappings",
+      "locations": [
+        "references.go:31",
+        "references.go:70",
+        "references.go:98",
+        "references.go:143",
+        "references.go:206",
+        "main.go:246"
+      ],
+      "result": "No confirmed counterexample. Finite supported GP-base opcode forms are explicit, metadata arithmetic is not live GP, discarded ADDIU and memory/cache/prefetch points are labelled separately. Reverse file uniqueness is a distinct required check from forward VMA mapping. Existing inspect handles target points in deduplicated bounded batches. Missing metadata retains site facts without inventing targets."
+    },
+    {
+      "scope": "Lifecycle and reuse",
+      "locations": [
+        "main.go:132",
+        "main.go:250",
+        "main.go:327",
+        "main.go:348",
+        "reference_geometry.go:71"
+      ],
+      "result": "No confirmed newly duplicated behavior requiring deletion or additional helper. Shared observed/GP recipe identity and read-only guards inspected with callers. Strict declared-target protocol remains distinct from advisory GP indexing. Buffered output bound precedes GP publication. No new function or parser/decoder dependency in reviewed increments."
+    },
+    {
+      "scope": "Claims and coverage",
+      "locations": [
+        "analysis/joined-capability-milestone-assessment.json",
+        "analysis/gp-index-milestone-assessment.json",
+        "analysis/migration-roadmap.json"
+      ],
+      "result": "All84 milestone IDs and exact requirement texts unchanged between603 and626. Original baseline hash2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b verified in flow pack. Full-family claims explicitly concern original bounded responsibilities; source criterion review required missing operational structural facts and those are now emitted by Go. Composed evidence retains identity/ID-set and authored-fit versus installed-stream distinctions. No confirmed narrowed criterion or universal410/retirement/savings assertion found. This audit does not award the recorded8/14 or71/84."
+    }
+  ],
+  "prospective_design_advice_not_current_defects": [
+    {
+      "id": "FLOW-OWNERSHIP",
+      "source": [
+        "sources/migrate_drafted.py:1183",
+        "sources/migrate_drafted.py:1809",
+        "sources/migrate_drafted.py:1827"
+      ],
+      "counterexample": "Two branch paths supply different LUI definitions to one ADDIU, or a later foreign instruction reads a shared LUI result. A flat branch/index listing cannot answer the original refusal checks, even if every transfer word is classified.",
+      "minimal_direction": "Keep finite word/transfer reporting in existing references lifecycle. Before any separate bounded graph-analysis owner, document its inputs, callers, fixed-point/limit and incompleteness contract and why existing owners cannot reasonably own it. Do not append full Code/Tracer state to references just to retain41functions; do not close .05 from a transfer-only increment."
+    },
+    {
+      "id": "FLOW-SEMANTIC-SHARING",
+      "source": [
+        "references.go:149",
+        "sources/fix_inline_copies.py:135",
+        "sources/fix_inline_copies.py:140",
+        "primary/R5900OpcodeImpl.cpp:888"
+      ],
+      "counterexample": "LWC1 rt names an FPR rather than a GPR; merge loads consume old rt; MOVZ with an unknown predicate can preserve incoming rd. A shared flat writes set would incorrectly kill reaching definitions or invent GPR effects.",
+      "minimal_direction": "Share only finite opcode/selector and operand/effect facts that both consumers actually need. Keep bank and may-write/must-write/preservation explicit. Avoid a generic mask/action framework or second memory-opcode switch; use straightforward responsibility-grouped data plus necessary special control rules."
+    },
+    {
+      "id": "FLOW-COMPLETENESS",
+      "source": [
+        "primary/Interpreter.cpp:489",
+        "primary/Interpreter.cpp:532",
+        "oracles/contract-facts.json"
+      ],
+      "counterexample": "BLTZALL not-taken skips its delay word despite writing a link. JALR rd0 writes no link and does not justify a return continuation. An unresolved JR can produce no known reads while analysis remains incomplete.",
+      "minimal_direction": "Keep link, delay execution and continuation as separate facts. Preserve unresolved edges/limits explicitly and do not turn empty use sets into liveness or placement permission. Test these cases against the pinned primary corrections rather than blindly cloning original helper outputs."
+    },
+    {
+      "id": "FLOW-USEFUL-SUPPORT",
+      "source": [
+        "analysis/binary-flow-source-frontier.json",
+        "sources/migrate_drafted.py:1809"
+      ],
+      "counterexample": "Returning unknown for all reaching-def/use queries would remain conservative but would not perform the material original report duty.",
+      "minimal_direction": "Freeze at least one useful positive branch-shared definition/use case and one foreign-use refusal through the eventual public report before claiming .05; also retain unknown edges and limit controls. No schema/API or new function is approved by this advice."
+    }
+  ],
+  "verification": {
+    "performed": "Read-only diffs, connected-code/caller/test/data/source-contract review; independent full-manifest hash/containment and all-accounting-item size/hash/summary checks; exact84-criterion comparison.",
+    "Serena": "Session0c39fa1a on owned /var/tmp/dokapon-astra039-9t6d68ic/source only: references and auditStreams referencing symbols plus referenceTarget body. No immutable project activation.",
+    "own_Go_executions": 0,
+    "prior_execution_evidence": "Pinned parent and ordinary review reports inspected; their focused/race/build/vet/fullfact results are not auditor executions. No claim of independently rerunning2220ordinary artifacts.",
+    "jobs": "All invoked commands terminal; no background test/build job launched."
+  },
+  "limits": [
+    "No fresh Go tests/build/vet/race; no specific material counterexample required a dynamic probe. Full integrated tests/nativefonts race/gameplay remain outside this audit.",
+    "No exhaustive ISA/CFG or universal grammar/path proof. Prospective flow implementation/API is not frozen and was not reviewed as completed code.",
+    "No protected resources, game patch, live implementation/goal/ledger edits, original main/import execution or external service access.",
+    "Source-only flow primary corrections and legacy outputs are distinct authorities. Declared metadata GP, native fit, reachability, hook safety and loaded-pointer claims remain limited as stated."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "operation": "same_length_stream",
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "entries": {
+    "0x488760": {
+      "expected_hex": "07b078006000000807b060006000620008b000f8",
+      "prefix_words": [],
+      "evidence": "tools/patch_yes_no.py: ENTRIES[0], same-length whole stream; preserve white/black and LINE/END"
+    },
+    "0x535908": {
+      "expected_hex": "78006000000860006000620000f8",
+      "prefix_words": [],
+      "evidence": "tools/patch_yes_no.py: ENTRIES[1], corrected live target, same-length whole stream"
+    },
+    "0x5395d8": {
+      "expected_hex": "0028873a650093005f000b0000f8",
+      "prefix_words": [
+        "0x2800"
+      ],
+      "evidence": "tools/patch_scream_eek.py: full bounded stream, header/speaker/END unchanged"
+    },
+    "0x5364c8": {
+      "expected_hex": "25017700850200f8",
+      "prefix_words": [],
+      "evidence": "tools/patch_menu.py: build_edits E1 only, same-length Boy stream; no relocation"
+    }
+  }
+}

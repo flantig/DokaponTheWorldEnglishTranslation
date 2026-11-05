@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:27:40.664044+00:00",
+  "status": "VERIFIED shared registry CSV projection; migration ACTIVE/incomplete",
+  "contract": "Pinned registry plan + ordered columns \u2192 preview receipt or exclusive new CSV; numeric ID order preserves spelling. Exact historical CSV string/newline/quoting bytes and nullable integer/boolean truthiness within declared flat scalar domain.",
+  "owners": [
+    "authorRegistry",
+    "run",
+    "writeNewFile"
+  ],
+  "candidate_pins": {
+    "cmb.go": "a8b7256b54c03b4c560c48e59ab23f759ade47baa3e44799604943850c8400bd",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "cc48b15cee3184141f7e88716b8b6c8b32f78005f1adbdcfc6ad64dcc245e5e7",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "e9b0db2ab992ac53b164acaf170fd89281b3a82aa8b8e30af7a558b8988c990d",
+    "patch_test.go": "8e45eb718728b6e4b38d1731de077b9ea42aba5aa8c05a9afea5a0f30863cbba",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "b5c2517698550e5f45d448433eeff700b714fb2a2ca86292721c5fb94a75a2c9",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "21fc5717bd4f6e88593fa9414ff88f7e15b90adbc47a9b93ee4aa31b79d29be4",
+    "registry_authoring.go": "26c5b976df83a38ce0fb8f43a7e58660a6b6a6ac39cfb72934fc2d3af9fed0bb",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/registry-export.json": "5909ecaf8a8bf038d8e31de903381a5b2e3ffdb2e63148fbb8361f572ad2354c"
+  },
+  "source_contract": {
+    "path": "analysis/registry-export-contract.json",
+    "sha256": "c3312135ce0c89d0445157cb9d43e12763f83be5d2db5185a490ae20536786cf"
+  },
+  "reuse_decision": {
+    "path": "analysis/registry-export-reuse-decision.json",
+    "sha256": "df62055aeb28164601133da6075f3b7b3252203054872589b4adbf7e9f7d02a6"
+  },
+  "review": {
+    "path": "evidence/registry-export-review.json",
+    "sha256": "98c80fdc699ad4f997109fce60146a137aa9065e477ae37b32912d3bbd2cadab",
+    "result": "PASS_NO_OPEN_FINDINGS",
+    "independent_CLI_seconds": 4.368,
+    "independent_cases": 10,
+    "independent_alias_refusals": 15
+  },
+  "checks": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "-count=1",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 35.139713,
+      "log": "/var/tmp/dokapon-registry-export-m131wn1x/check-0.log",
+      "log_sha256": "53116df3f323b24b07532d6b555dc021ddaf54472a95db95d3ea26ac82a5c631"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.073008,
+      "log": "/var/tmp/dokapon-registry-export-m131wn1x/check-1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-registry-export-m131wn1x/dokapon-go",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.213878,
+      "log": "/var/tmp/dokapon-registry-export-m131wn1x/check-2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_receipts": {
+    "/var/tmp/dokapon-registry-export-m131wn1x/fixture-verification.json": "ca51931797f8ea642e9cbb7adeb9ab06d074b7300816aa43f732845aa33ecef1",
+    "/var/tmp/dokapon-registry-export-m131wn1x/checks.json": "69f12c404bc598666b673087d1fdfa6295fab00e28df3f2c2738558d217ddf4e",
+    "/var/tmp/dokapon-registry-export-m131wn1x/canonical-oracle.json": "b810a8d779d8380136cd49052ee13500afe15448b31f343cca709bc4fdd38d4a",
+    "/var/tmp/dokapon-registry-export-m131wn1x/canonical-checks.json": "7a725e371bb8eac195a01e87da34ed03c70eec03be5141f720866fb3bcb200ce",
+    "/var/tmp/dokapon-registry-export-m131wn1x/accounting-checks.json": "49d0ed9c916d63e2cf8618a40c3a9974b0a6964d09e4afb0fb0604a055c7ad47",
+    "/var/tmp/dokapon-registry-export-m131wn1x/hygiene-checks.json": "3772cd3d81e41ba9a6fe700bb10c8ec32f314c2e3c39821ca2e5c3d8a42f1e17"
+  },
+  "canonical_flow": {
+    "rows": 5544,
+    "output_bytes": 3674934,
+    "output_sha256": "f43cd57b8ece85add43fcd9700d90f2a926c2cd218876974e3335fd8beeaa1b3",
+    "source": "Read-only canonical source frozen to owned input copy. Go preview/apply operate only on copy; full independent Python stdlib CSV bytes match."
+  },
+  "recipe": {
+    "path": "recipes/reports/registry-export.json",
+    "sha256": "e8aea3c09f11082042142984605cea634551f53e02f82068fb357bf4aa21c098"
+  },
+  "external_topic": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/skills/STRING-REGISTRY.md",
+    "before_sha256": "c726c021391e4848d39e3023af91ee71a6ccd6b288781c142ab55bcd9f3b05c5",
+    "after_sha256": "498dc180847bd9231e217e3d298fb80da405a0c23f36406abaa0dfd5e1990687"
+  },
+  "accounting": {
+    "path": "analysis/go-current-input-accounting.json",
+    "sha256": "2d7756d9c175fc86fad5deebaa3ae842612edb43b23d9d8bd980cfc2e86e909c",
+    "native_files": 97,
+    "native_bytes": 750233,
+    "production_bytes": 276580,
+    "functions": 29,
+    "production_delta_bytes": 3761,
+    "recipe_delta_bytes": 474,
+    "tests_delta_bytes": 7212,
+    "fixture_delta_bytes": 11231,
+    "tests_bytes": 433455,
+    "new_functions_helpers_closures_types_dependencies_writers": 0,
+    "new_recipe_field": "registry_columns",
+    "claim": "Capability growth, no deletion/relocation/reduction/retirement claimed."
+  },
+  "limits": [
+    "Selected arrays/objects/floats/nonfinite JSON refuse; Pythonrepr coercion and duplicate normalized ID permissiveness are explicitly withdrawn at this typed boundary. Unselected opaque metadata remains ignored.",
+    "Registry plan only; no installed disc content, full STATUS Markdown/glossary/flow, translation/glyph/fit or native/gameplay readiness claim.",
+    "Whole source/CSV64MiB,1..64 unique column names up to256bytes. Existing date/update operations retain their own policy; export does not update source.",
+    "Full integrated suite/race deferred under user pacing; current complete focused CLI race and independent checks cover increment.",
+    "5Full/9Partial/14=35.71% unchanged;410-path historical accounting unchanged."
+  ]
+}

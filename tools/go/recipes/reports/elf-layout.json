@@ -1,0 +1,28 @@
+{
+  "operation": "elf_layout",
+  "source_size": 5087232,
+  "source_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+  "evidence": "analysis/elf-layout-contract.json: frozen executable program headers; read-only mapping, not placement proof",
+  "address_ranges": {
+    "0x4ef500": {
+      "start": "0x4ef500",
+      "end": "0x4ef520"
+    },
+    "initialized-to-bss": {
+      "start": "0x539670",
+      "end": "0x539690"
+    },
+    "bss-to-unmapped": {
+      "start": "0x5802f0",
+      "end": "0x580310"
+    },
+    "unloaded-header": {
+      "start": "0xfff80",
+      "end": "0x100000"
+    },
+    "sentinel-is-not-load": {
+      "start": "0x04000000",
+      "end": "0x04000010"
+    }
+  }
+}

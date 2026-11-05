@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "audit": "042",
+  "role": "Purely adversarial read-only Astra challenger; findings and next-step advice only, no implementation/approval/credit.",
+  "started_at_utc": "2026-11-04T22:01:40+00:00",
+  "finished_at_utc": "2026-11-04T22:03:47.280721+00:00",
+  "status": "COMPLETE_NO_CONFIRMED_ACCEPTED_CODE_FINDING",
+  "findings": [],
+  "checks_receipt": {
+    "path": "/var/tmp/dokapon-astra042-final-8vm5_l2f/checks.json",
+    "sha256": "ea6292946580ce078b62e926fc8f2678a7073d6ad56007e65f18f602c3e84030"
+  },
+  "verified_capsules": [
+    {
+      "path": "/var/tmp/dokapon-register-flow-lfj28b6t/sealed-final/manifest.json",
+      "sha256": "b03466bfe5b2a6b7868e3b7ee5da53a7962864ee3d2191dce08d8a40c8581035",
+      "verified_members": 648
+    },
+    {
+      "path": "/var/tmp/dokapon-instruction-flow-b69ig0qd/sealed-final/manifest.json",
+      "sha256": "962071cfcee9a0778ebf8c5f1bcf579f1d06de9b00694d30cdaf3f60d8e49b0b",
+      "verified_members": 635
+    },
+    {
+      "path": "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl/manifest.json",
+      "sha256": "791f27ec19f60d43bccc072c12b1c40586e5a5dcaa7a3a5a2e980b5755c56d58",
+      "verified_members": 18
+    }
+  ],
+  "artifact_pins": {
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/references.go": "ca525b2f71f77e13e512344a93a7a28680312c6474fcd50fa2c134767b98eca5",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/reference_types.go": "57ec030258490309c0524d58d6efa95780e5c8f465834547eca5655b23516092",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/main.go": "50873e8e5a36e4cc366e4f5fbf94d6129983c9f095456d72de65cb231e7e8e7a",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/patch_test.go": "ca5d8efd0340176616db01b13677c96b6334ec6eb14b1ddb26f5dcfb9103ead0",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/register-flow-final-review.json": "aa01bc08c6df45793da15354d073cfc94646370d2391852c080fc48e62514bd3",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/register-flow-review.json": "d7f7fde3589502c8af4440b360048fc0c642b65d871dea5ed33ee82ab7ff89f4"
+  },
+  "accounting": {
+    "production": {
+      "files": 43,
+      "bytes": 503383,
+      "functions": 42
+    },
+    "delta_from635_bytes": 13458,
+    "new_named_functions": 1,
+    "assessment": "Capability growth, not deletion/retirement. queryRegisterFlow file283lines, function270lines including signature/closing brace. No claim that all283lines form the function."
+  },
+  "accepted_delta_challenges": [
+    {
+      "locations": [
+        "register_flow.go:76-185",
+        "register_flow.go:187-280"
+      ],
+      "assessment": "One graph and one direction-dispatched query loop consume decoded observations. Checked independent entry provenance, normal versus predecessor/outcome delay states, annulled outcomes bypassing delay errors, deterministic entry/query order, query-root reentry, budget-before-fact admission, read/preservation-before-kill and batch bound. No concrete accepted counterexample identified; no new execution performed."
+    },
+    {
+      "locations": [
+        "register_flow.go:178-183",
+        "register_flow.go:204-214",
+        "register_flow.go:247-269"
+      ],
+      "assessment": "RF-UNKNOWN-ROOT-1 fix retains unresolved/unsupported reachable frontiers for nonzero backward results, including roots already known reachable. Forward value kills remain direction-specific. v3 preserves lower-bound site sets while demoting completeness. Excluding known external direct-target cuts is an explicit bounded-model policy, not proof those targets cannot return/reenter the actual program. WholeProgramScopeProven stays false."
+    },
+    {
+      "locations": [
+        "main.go:117-140",
+        "references.go:430-437",
+        "register_flow_types.go:3-40"
+      ],
+      "assessment": "Shared optional canonical-field guard owns sentinel/register_flow routing, and references invokes pure query owner after finite scan. No second decoder, mapping scanner, per-query graph builder or test function introduced. No confirmed new behavioral duplication requiring another helper."
+    }
+  ],
+  "prospective_advice_not_current_defects": [
+    {
+      "id": "CALLER042-OWNERSHIP-KEY",
+      "locations": [
+        "references.go:938-993",
+        "references.go:1000-1008"
+      ],
+      "counterexample": "Entry A owns LUI0x100000/lower0x100010; B owns the same LUI/lower0x100020. Existing full-pair collision keys differ, but B lower0x100020 is a foreign reader of A high-register value. Changing the existing key to LUI alone changes historical collision results, and reusing whole-pair keys misses the foreign reader.",
+      "minimal_direction": "Keep old pair collision semantics/output. Once frozen source cases require it, collect a separately named lower-reader ownership projection in the existing ownership pass rather than create a second registry traversal or ownership engine. Specify duplicate lower ownership, missing owner and drafted/patched/unregistered precedence before implementation."
+    },
+    {
+      "id": "CALLER042-BENIGN-RELATION",
+      "locations": [
+        "reference_types.go:29-33",
+        "references.go:743-755",
+        "references.go:778",
+        "references.go:810-812"
+      ],
+      "counterexample": "A benign exception for (LUI A,use U) does not make (LUI B,use U) benign. Excluded currently suppresses an entire entry and clears sites; Flagged only adds an entry note. Neither expresses pair-specific permitted readers.",
+      "minimal_direction": "Do not overload these flags or parse prose notes into safety policy. Reuse current normalization/ID tables where meanings match; keep actual pinned pair exceptions as explicit purpose-grouped facts and preserve unknown/foreign-reader refusal ordering. No per-script handler or generic policy framework."
+    },
+    {
+      "id": "CALLER042-PAIR-GRAMMAR",
+      "locations": [
+        "reference_geometry.go:67-93",
+        "patch.go:1453-1454",
+        "references.go:619",
+        "references.go:838-848"
+      ],
+      "counterexample": "ORI a0,t0,0xffff constructs a zero-extended low half; ADDIU a0,t0,0xffff subtracts1. Both use destination different from the high-register base and currently fail strict referenceTarget code-pair grammar. Globally accepting them would silently broaden patch.plan as well as reports.",
+      "minimal_direction": "Preserve strict referenceTarget and its callers. Existing references already owns signed ADDIU versus ORI arithmetic in its advisory discovery block; reuse that decision where practical without inheriting its64-word heuristic. For a graph-backed report, use decoded reaching-site words and exact lower-rs matching, and document why any unavoidable separate arithmetic owner is needed before adding it. Do not add a broad relaxed-mode flag to the patch validator."
+    },
+    {
+      "id": "CALLER042-BOUNDARIES",
+      "locations": [
+        "register_flow.go:9-14",
+        "references.go:825-858",
+        "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl/projection-policy.json"
+      ],
+      "counterexample": "A known foreign reader already justifies refusal even when backward completeness is held; known matching LUI sites do not establish absence of other definitions. The old discovery high-half heuristic also cannot substitute for graph results.",
+      "minimal_direction": "Keep queryRegisterFlow pure and registry-free. Put finite caller projection/refusals in existing reporting ownership, preserving lower-bound evidence and explicit holds. Freeze registered-LUI membership, multiple definitions, target equations, own/benign/foreign classifications and exact refusal order independently. Do not award .05 or replace source caller duties from raw graph query counts."
+    },
+    {
+      "id": "CALLER042-CALL-POLICY",
+      "locations": [
+        "register_flow.go:120-149",
+        "register_flow.go:178-183",
+        "analysis/register-flow-source-contract.json"
+      ],
+      "counterexample": "reads_arg cannot safely interpret empty uses at an unresolved JR or an external JAL as argument-unused, nor infer a return continuation merely from a link write.",
+      "minimal_direction": "Keep calls held until actual source cases justify an explicit finite call policy. No speculative ABI clobber summaries, switch-target resolver, Tracer/tag engine or helper chain in this increment."
+    }
+  ],
+  "recommended_next_step": "Finish and pin the running independent source caller study. Freeze the smallest useful read-only caller report and its exact inputs/refusals against the existing owner/strict-grammar boundaries above. Inspect final sources/callers again before any necessary new function. Keep source arithmetic, ownership classifications and graph incompleteness separately observable, then enhance the existing report/test owners without a second ownership engine.",
+  "verification": {
+    "Serena": "Used requested existing22dbd2ba LIVE session without changing project. Located queryRegisterFlow, traced its sole references caller; traced referenceTarget plan/references/test callers.",
+    "performed": "Full648/635/v3-18 manifest containment/hash checks; current connected code review; initial/final ordinary review identity and disposition review; static v3 source projection review; deterministic production file/byte/function accounting.",
+    "own_Go_executions": 0,
+    "not_replayed": "No fresh tests/build/vet/race, no source-oracle execution, no independent rerun of813review artifacts. Their receipts are prior evidence only.",
+    "corrected_check": "Initial receipt attempt mistakenly associated final-review SHA with initial register-flow-review.json. Inspected filenames and corrected to register-flow-final-review.json; both actual pins retained, all capsule checks passed. No code or source drift inferred.",
+    "all_jobs": "All synchronous commands terminal. No subagents or background jobs launched."
+  },
+  "limitations": [
+    "No complete ISA/CFG/ABI proof, native gameplay, hook/cave certification, registry writes or game patch.",
+    "Current next source-only study is evolving and was not read or used as proof. Architecture advice remains prospective until its frozen cases and wire design exist.",
+    "Only allowed source/frozen copies/evidence inspected; protected ISO, canonical registry, emulator/probe/process/auth/settings/log resources untouched.",
+    "8/14Full71/84planningbinary4/6 unchanged; no credit, approval, runtime edit, goal edit or ledger edit."
+  ]
+}

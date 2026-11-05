@@ -1,0 +1,17 @@
+{
+  "operation": "stream_slot",
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Original-source defense label within its exact first-END8B extent, source e907 and expected e0b3. Native source/ref/reader contract: analysis/stream-slot-native-candidate.json. Shared known-control slot planner/copy only; no extra capacity inferred, current double-END source not normalized, no visual approval.",
+  "entries": {
+    "0x535ab0": {
+      "expected_hex": "bc01bd01b70100f8",
+      "encoded_sha256": "f077fcedd1e9fff731a50271efc9c8b1b45cd96fd0566630de93860bfe1dae6d",
+      "evidence": "Original JP defense label -> canonical DF. Three original code pairs retained. Capacity8B, active6B, zero tail2B. Candidate only."
+    }
+  },
+  "output_sha256": "e0b3a22bbdd4f5f8baf10f1e9dc97cf0b1f6ba0b1131c030bbf0866412deb7ae"
+}

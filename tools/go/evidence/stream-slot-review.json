@@ -1,0 +1,300 @@
+{
+  "at": "2026-10-19T21:59:47.837747+00:00",
+  "review": "Independent ordinary read-only review of bounded known-control stream_slot prototype",
+  "status": "No findings; bounded synthetic prototype verified. No actual historical ISO candidate/apply or workflow-family completion credit.",
+  "findings": [],
+  "independence": "Reviewer did not implement prototype or author its design contract. Only two owned evidence reports written in repository. Independent private CLI property/guard generators and one overlay block inserted into existing TestPlanRefusals; no production/test/profile/recipe/fixture changes or extra agents.",
+  "pins": {
+    "main.go": {
+      "sha256": "370691204d1c14cad6eeb2ba1632e7b712305f48806d372e495345bf2ed500f7",
+      "bytes": 29735
+    },
+    "patch.go": {
+      "sha256": "16c9ed965f4a2b2be9892f1c676c901af206fc7d7fe4a1e17b2e5cef5cb6313a",
+      "bytes": 88836
+    },
+    "text_types.go": {
+      "sha256": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "bytes": 2041
+    },
+    "patch_test.go": {
+      "sha256": "93c520d3d15d19224f5f5ed9624aa6c55d076ecfcf055bf33c4f582b882532d0",
+      "bytes": 315044
+    },
+    "recipe_types.go": {
+      "sha256": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+      "bytes": 5777
+    },
+    "analysis/terminated-slot-reuse-decision.json": {
+      "sha256": "ae5ac150701e2e0889531e46d5cdce8e0a23f2338630fe8979b78b5666253c93",
+      "bytes": 3186
+    },
+    "analysis/terminated-slot-reuse-contract.json": {
+      "sha256": "2350f99acf740bdb6b35d825636f6faad35aea8d1f25f061e8f8a8280232cf1f",
+      "bytes": 16893
+    }
+  },
+  "test_pin_history": {
+    "reason": "Root strengthened existing tests while production remained frozen; final current test pin replaces initial pin.",
+    "initial": {
+      "sha256": "9ba094556c9b0555f850ce9cc80fdc60170e3b5c94d5c2a4e500f4ed74ae7235",
+      "bytes": 313820
+    },
+    "final": {
+      "sha256": "93c520d3d15d19224f5f5ed9624aa6c55d076ecfcf055bf33c4f582b882532d0",
+      "bytes": 315044
+    }
+  },
+  "code_quality": {
+    "Serena": "Session8eb4bf25 refreshed controls/current references before conclusions: encode, plan, validateEdits, previewFit, run, wrapPages and existing tests are consumers. Padded is set only in the existing slot-validation owner.",
+    "ownership": "A distinct operation is warranted because same-length streams cannot own zero-filled capacity, fixed fields forbid terminated controls, and append owns allocation/pointers. Existing controls owns termination/allowlist/tokens; validateEdits owns full extent/control comparison; plan owns active encoding pin/padding; existing writer owns transaction safety. No parallel parser, handler, writer or function was added.",
+    "readability": "Padded has an explicit dependency on ExactControls and terminated/no-layout policy. The allowlist executes before token capture. The short structural-offset normalization loop expresses one rule and preserves control order; it does not duplicate a second grammar. Added behavior remains within existing owner responsibilities.",
+    "unchanged": "Existing exact/default/fixed-field modes retain their acceptance policies. verifySource and patchCopy bodies are byte-identical to the immediately preceding sealed baseline. All production function declaration sets are unchanged.",
+    "cost_scope": "New operation tag and one internal scan-policy field are capability growth, not code reduction or existing script retirement."
+  },
+  "contract_checks": {
+    "storage": "Old/New own complete same-sized, aligned bounded slot<=8192bytes. Each active prefix ends at its first END; all remaining bytes must be zero. Active encoded SHA includes END and excludes capacity padding. Planner zero-pads after checking active encoding; validator independently checks both complete slots.",
+    "controls": "Padded requires ExactControls/termination, forbids decode/native layout/positional modes, executes default allowlist before token capture, retains all ordered control words and absolute offsets of every non-LINE/PAGE/END control. Only those three structural offsets are normalized. Unsupported setup/param8/opaque markers cannot be smuggled through exact encoding or END-like payload bytes.",
+    "composition": "Every contributing ordinary table must have identical optional OutputSHA256. Nonempty pin is restricted to word/slot tables, with both orders checked. Existing source/size/glyph pin, mapping, nonoverlap and replan checks remain. All-empty pins retain unbound compatibility; a coherent but wrong pin fails after final output hashing and removes owned output.",
+    "trust_limits": "ExpectedHex proves preimage/storage bound, not native consumer ownership, alias/interior-reference exclusion or visual fit. No historical slot profile was created. Known external-control tokens may be preserved at fixed offsets; this is not new operand or substitution interpretation."
+  },
+  "independent_verification": {
+    "exhaustive_u16_policy_parity": {
+      "words": 65536,
+      "accepted_under_both_existing_DEFAULT_and_Padded": 18461,
+      "comparison": "For every u16word, compare DEFAULT validation of word+END against Padded validation of identical active bytes plus zero tail; acceptance sets exactly equal. This isolates allowlist policy from Old/New token mismatches."
+    },
+    "direct_overlay": {
+      "equal_sized_capacities": [
+        2,
+        8190,
+        8192,
+        8194
+      ],
+      "expected": "First3accepted;8194refused with equalOld/Newlength so cap is independently exercised.",
+      "both_side_mutations": 20,
+      "mutation_classes": [
+        "nonzero tail",
+        "duplicate/missing/swapped END",
+        "END inside unsupported inline-argument-like bytes",
+        "setup/opaque/unknown control",
+        "misplaced HDR",
+        "speaker without boundary"
+      ],
+      "forged_edit_replan_cuts": 8,
+      "forged_fields": [
+        "ID",
+        "offset",
+        "operation",
+        "Old",
+        "New glyph",
+        "New tail",
+        "missing edit",
+        "extra edit"
+      ],
+      "strict_previous_modes": [
+        "same_length_stream",
+        "exact_control_stream",
+        "fixed_field"
+      ],
+      "incompatible_Padded_option_vectors": 6,
+      "result": "PASS fresh final-test overlay0.182s including existing TestPlanRefusals. Inputs unchanged, forged writes create no output."
+    },
+    "real_cli_properties": {
+      "count": 44,
+      "cases": "36seeded complete-image independent slot+word transactions with grow/shrink, forward/reverse and both table orders;8identical-control source/target cases with glyph-only edits (A80A/4001/B992/4800/B000/D800/E000 refuse; existing97FFicon remains accepted at frozen offset).",
+      "assertions": "Exact entire128-byte target including untouched neighbors; correct output digest/report and0600mode; source preserved. Random seed0xF003, explicit independent source/target byte construction."
+    },
+    "real_cli_guard_cases": {
+      "count": 72,
+      "cases": "Both orders \u00d7 preview/apply \u00d718cases: matching/missing/conflicting/malformed/unbound/coherent-wrong output pins; bad source full tail/missing END/hash; missing or padded/END-omitting encoded pin; moved/changed nonbreak control; identical unsupported setup; overlapping typed edits.",
+      "assertions": "Expected accept/refuse, empty stdout/no retained output on failure; source preserved. A coherent wrong digest may preview, then apply refuses after full hashing with owned cleanup, matching the existing writer contract."
+    },
+    "exclusive_destinations": [
+      {
+        "case": "existing",
+        "refused": true,
+        "existing_content_preserved": true,
+        "source_preserved": true
+      },
+      {
+        "case": "symlink",
+        "refused": true,
+        "existing_content_preserved": true,
+        "source_preserved": true
+      }
+    ],
+    "total_independent_CLI_cases": 118,
+    "full_race_final_tests": {
+      "command": "TMPDIR=<ownvar> GOTMPDIR=<ownvar>/gotmp GOMAXPROCS=2 nice -n19 go test -race -count=1 -p2 ./...",
+      "exit_code": 0,
+      "result": "ok  \tdokapon/tools\t24.436s"
+    },
+    "initial_race_qualification": "Initial race23.674s passed against superseded9ba09455tests. Final race above uses93c520d3 after root independently strengthened existing tests. Production pins did not change.",
+    "vet_build_gofmt_scans": {
+      "commands": [
+        {
+          "check": "vet",
+          "argv": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "./..."
+          ],
+          "exit_code": 0
+        },
+        {
+          "check": "build",
+          "argv": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-stream-slot-review-8ds_hizv/final-binary",
+            "."
+          ],
+          "exit_code": 0
+        },
+        {
+          "check": "format",
+          "argv": [
+            "gofmt",
+            "-l",
+            "main.go",
+            "patch.go",
+            "text_types.go",
+            "patch_test.go"
+          ],
+          "exit_code": 0
+        },
+        {
+          "check": "whitespace",
+          "argv": [
+            "git",
+            "diff",
+            "--check",
+            "--",
+            "main.go",
+            "patch.go",
+            "text_types.go",
+            "patch_test.go"
+          ],
+          "exit_code": 0
+        },
+        {
+          "check": "secrets",
+          "argv": [
+            "rg",
+            "-n",
+            "-i",
+            "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key\\s*[:=]\\s*\"[^\" ]{12,}|password\\s*[:=]\\s*\"[^\" ]{8,})",
+            "main.go",
+            "patch.go",
+            "text_types.go",
+            "patch_test.go"
+          ],
+          "exit_code": 1
+        }
+      ],
+      "verifySource_patchCopy_unchanged": true,
+      "production_function_declarations_unchanged": [
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go"
+      ],
+      "pins_unchanged": true
+    },
+    "pins_before_after_unchanged": true,
+    "complete_pin_count": 22,
+    "complete_pin_files": "Private pins-before-final-tests.json and pins-after.json, hashes listed below.",
+    "artifact_pins": {
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/cli_probe.py": {
+        "sha256": "c230d3325a5020b9afcb2fd53b4f6a394e0bb1e19a83d9a702060547e6ec6596",
+        "bytes": 4750
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/cli_guards.py": {
+        "sha256": "e9c38402d81bf803bf68a3a12597f605c875c5a088faa7caf7ec54df3898653b",
+        "bytes": 5540
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/cli-properties.json": {
+        "sha256": "df2cbc9f2f0a597ebec9fe1a3a86b5eabcdbf89928536875888a69266f69ed2a",
+        "bytes": 7033
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/cli-guards.json": {
+        "sha256": "af8e6e5c3bd436d99e05ab5beefede523bd6460711e9b388b0a7a7aad580ed72",
+        "bytes": 15287
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/exclusive-results.json": {
+        "sha256": "285c4babba97576cdcc700cc3e795321782f53f32b34c89c5ae3587ec52272ae",
+        "bytes": 248
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/overlay-block.txt": {
+        "sha256": "791f10ef919816c0ca4e8e0e947e65e461825a2d058ecff75f62a34c02d76b13",
+        "bytes": 4206
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/patch_test.go": {
+        "sha256": "b5a5d4bf5c0864fa8be954924b818616fca8d5b2eca1abf9f99f10ee1f70c61d",
+        "bytes": 319250
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/overlay.json": {
+        "sha256": "4fa684572edfd221b72cde10607a499650760689651625340eeea4d228889187",
+        "bytes": 145
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/overlay.log": {
+        "sha256": "6f4a6f35786524fa8a4d4f5f3dd4eba6d8f094ae8aa3f01ae377f901cfa46c6f",
+        "bytes": 35725
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/race.log": {
+        "sha256": "da7970fee38fd64ef633737a992683c94666e582ffd733135642f64c1f9b6e63",
+        "bytes": 27
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/race-final.log": {
+        "sha256": "0df900814ab428793441097233bf6e0c48aa7136297813617e8aef331d791547",
+        "bytes": 27
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/checks.json": {
+        "sha256": "fa45f1fdba13702968f0762f240e1e60861eba96cf6abcdebdc94e8991bf651c",
+        "bytes": 1686
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/pins-before.json": {
+        "sha256": "c03194d0f00f41a11f847272a10859ad978ea8c8408bca24f5209673b125e28e",
+        "bytes": 2809
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/pins-before-final-tests.json": {
+        "sha256": "4d44da5c24b7eb1a85a6fdac5aec40a404dbb1ed7b59b33c0335eed20a6bcd2a",
+        "bytes": 2809
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/pins-after.json": {
+        "sha256": "4d44da5c24b7eb1a85a6fdac5aec40a404dbb1ed7b59b33c0335eed20a6bcd2a",
+        "bytes": 2809
+      },
+      "/var/tmp/dokapon-stream-slot-review-8ds_hizv/superseded-test-pin.json": {
+        "sha256": "4413664d6669eb5e238485c47ef15a94c035721d81afdfa05a25abe33fa040d9",
+        "bytes": 372
+      }
+    }
+  },
+  "limits": [
+    "No actual ISO apply, native visual/gameplay proof, consumer slot/alias/reference ownership or narration/intro migration closure. Those historical candidates remain held.",
+    "No automatic inverse of arbitrary mixed edits, new setup/param8 operand semantics, new renderer/layout acceptance or family completion claim.",
+    "No broader Python-suite clean claim; existing legacy baseline failures are separate.",
+    "No account/usage stop or external process/emulator/PINE/settings/canonical registry/art action. All checks nice19 with own disk-backed TMPDIR/GOTMPDIR, GoGOMAXPROCS2/-p2."
+  ]
+}

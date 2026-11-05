@@ -1,0 +1,46 @@
+{
+  "source_size": 525564,
+  "source_sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+  "texture": "textures\\help_illust00",
+  "palette_policy": "source",
+  "evidence": "Finite reconstruction example on original tutorial texture. Original renderer pixels; native result is an old accepted codec projection, not historical artwork migration or visual approval.",
+  "render": {
+    "reconstruction": {
+      "erases": [
+        {
+          "id": "erase-rows",
+          "rect": [
+            151,
+            248,
+            354,
+            29
+          ],
+          "method": "rows",
+          "grow": 1,
+          "lum_lt": 180
+        },
+        {
+          "id": "erase-cols",
+          "rect": [
+            153,
+            164,
+            320,
+            26
+          ],
+          "method": "cols",
+          "grow": 1,
+          "lum_lt": 180
+        }
+      ]
+    },
+    "order": [
+      "erase-rows",
+      "erase-cols"
+    ],
+    "permissions": {
+      "path": "../permissions/help00-panels.json",
+      "size": 275,
+      "sha256": "c67e399c235f3940ea822248d5287134a2e996ba5b204744403ee3fc033d0139"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "bundle": "testdata/native-raster.zip",
+  "source_sha256": "fa7530ca32b50cf4823e0dfa7540a966780d85659795c7a60a6feebd7badbca0",
+  "txd_sha256": "24a8d7e0a099448be6c305de2a2acfbfc3d9cc9c5bd816c60fd14ac7cd5855b8",
+  "rgba_sha256": "93b7045690bfa7832aa856e620051e8fe9a3cb8104f5541b30f30821c1d2cb46",
+  "profile": "profiles/textures/mini-g01-rule1.json",
+  "font": "fonts/game-optical.json",
+  "atlas": "fonts/game-optical.png",
+  "layer_origin": [
+    98,
+    217
+  ],
+  "layer_size": [
+    322,
+    35
+  ],
+  "raw_sha256": {
+    "layer": "492a41f103513a224519dd3677140bf08a10fb93460e8f6ce80a236f2e060733",
+    "candidate": "de3640c6ecee5cb9fba6408c7b96c5cdceff55583d6d9a7c1dde9a63d095cedc",
+    "over-dst": "ed5f6e77e59d05ab01a4d66dbb32060a1494693f8d44576b4054f51021326899",
+    "over-src": "da17385bc4d908d982b723c0b6a61710433a2e2f2e08ecd0df8680fe5e45d0c2",
+    "over-out": "6be948667c2b0b32186d6293b8c1e03db9cf17f8783a53ba4eec7e4edb87afc6",
+    "diagonal-atlas": "c3b6d997edbdbb32ac0cd1830c7d3bfe2033d048a4340e5b4105488d0195d637",
+    "diagonal-layer": "844822166f99570bf652a43df9745416fcf49253d4986440110ceb5100948a28",
+    "diagonal-expected": "cb26e494d98d4997ef9300935462a487d74b35f72070b3c5a3ce76430395ef83"
+  },
+  "pixel_offset": 284,
+  "clut_offset": 262508,
+  "clut_sha256": "adacd9b8766fefa1dc6f1471a8702aba7f5cb310ad86b642bbc234bf8a2488b1",
+  "changed_native_bytes": 5371,
+  "allowed_pixels": 6636,
+  "changed_ledger_sha256": "d05c9393e1452897907c64e31041a4bb174ca715c8bd24d054ea3ccfdc70f23b",
+  "provenance": "All expected arrays/TXD from pinned independent canonical Python/primary-source oracles frozen before Go native implementation. PNG wrappers derive only from those immutable arrays, never Go outputs. Production data contains glyphs/metrics, not these test-only word images.",
+  "bundle_sha256": "440ae3f233b4e54175bd53383279e07024dc67bba7e3535458875e820b368dfa",
+  "entries": {
+    "source.txd": "fa7530ca32b50cf4823e0dfa7540a966780d85659795c7a60a6feebd7badbca0",
+    "expected.txd": "24a8d7e0a099448be6c305de2a2acfbfc3d9cc9c5bd816c60fd14ac7cd5855b8",
+    "layer.png": "c6838958a1da03c54d248e644deaab5f2f240f5e3d0b27bfef9607794eaa23f2",
+    "candidate.png": "2a24f085fc872b779f51854586ad035ddda03634826a80dc7eeb97a29d52af73",
+    "over-dst.png": "11f145653ae911b3df8bd33699830f20ccccdf6219a74b890bbb7a9b5c412d73",
+    "over-src.png": "135fc742f5fbb89cdc6bdd28d2e9745e51fc010fbe3f1a5d46768b7f2fca0a86",
+    "over-out.png": "e90540613bb6d882032e756dd9e492eb35f0a537c0596e934e93226f16e157f0",
+    "diagonal-font.json": "959cbf23489f2083d6ea2c5ccd7ab600f2f420e49e3cff55e4166d5216b7339d",
+    "diagonal-cell.json": "5791a8ba2e9019ac0d10663738cd832905108c8dc2e7892b4776c9ed00aad645",
+    "diagonal-atlas.png": "7d338df11fe06667f89ad50368cf123cb3b10d48622e8432cc0ccf9db32e0974",
+    "diagonal-layer.png": "60395c40c68c64262d89b6dc2d8df03238e96789e7d275e714e3e7b934f89a8f",
+    "diagonal-expected.png": "100503d350a781b28ba9e97a9f377bebcd223832086cbd689ab0f92b4ea9f91c",
+    "diagonal-portable.json": "060957f3df306c7c36abf7247f513111070c1c262951d8d231fcff3f666f24d9"
+  },
+  "counter_case": {
+    "oracle": "Original make_explainer_png.GameBitmapFont/text_layer/place using original SciPy4-connected counter fill; synthetic diagonal-open glyph. Original canonical computation only; no Go outputs.",
+    "source_sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "font": "diagonal-font.json",
+    "cell": "diagonal-cell.json",
+    "atlas": "diagonal-atlas.png",
+    "layer": "diagonal-layer.png",
+    "candidate": "diagonal-expected.png",
+    "origin": [
+      117,
+      117
+    ],
+    "size": [
+      22,
+      21
+    ],
+    "raw_layer_sha256": "844822166f99570bf652a43df9745416fcf49253d4986440110ceb5100948a28",
+    "raw_candidate_sha256": "cb26e494d98d4997ef9300935462a487d74b35f72070b3c5a3ce76430395ef83",
+    "geometry": {
+      "cw": 87,
+      "ch": 84,
+      "base": 52,
+      "pad": 30,
+      "tw": 27.0,
+      "cap": 17,
+      "sx": 1.0,
+      "sy": 1.0,
+      "skew": 0.0,
+      "ox": 117,
+      "oy": 117
+    },
+    "entries": {
+      "diagonal-font.json": "959cbf23489f2083d6ea2c5ccd7ab600f2f420e49e3cff55e4166d5216b7339d",
+      "diagonal-cell.json": "5791a8ba2e9019ac0d10663738cd832905108c8dc2e7892b4776c9ed00aad645",
+      "diagonal-atlas.png": "7d338df11fe06667f89ad50368cf123cb3b10d48622e8432cc0ccf9db32e0974",
+      "diagonal-layer.png": "60395c40c68c64262d89b6dc2d8df03238e96789e7d275e714e3e7b934f89a8f",
+      "diagonal-expected.png": "100503d350a781b28ba9e97a9f377bebcd223832086cbd689ab0f92b4ea9f91c"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "source_sha256": "856a011f2db4b93a22b9fb6acd37a93cf66f5630b6ec0c7d2690bb0253fdbbf9",
+  "checks": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "svg_count": 3,
+      "keyboard_focus": true,
+      "horizontal_scroll": false
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "svg_count": 3,
+      "keyboard_focus": true,
+      "horizontal_scroll": true
+    }
+  ],
+  "limits": "Static documentation only; no form behavior applies. No gameplay or Go behavior claim.",
+  "at": "2026-10-20T19:37:15.824582+00:00",
+  "finding": "A028-1",
+  "root_visual_inspection": "PASS both full-page desktop/mobile captures; mobile uses intentional keyboard/horizontal scrolling, no page overflow.",
+  "command": "nice -n 19 env CHROMIUM_EXECUTABLE=<installed Chromium headless shell> python3 test-results/architecture-check.py",
+  "artifacts": {
+    "ARCHITECTURE.md": "659cb3eda690874d3ad1794492b8f5aa1e8a2fab328149aa5494a9267f21bac8",
+    "ARCHITECTURE.html": "856a011f2db4b93a22b9fb6acd37a93cf66f5630b6ec0c7d2690bb0253fdbbf9",
+    "test-results/architecture-check.py": "e86d025da98b195ed6c73c5935f47d50a0f08b9df724a8f3401b3f577f3c211e",
+    "test-results/architecture-desktop.png": "4263a9233b760e2ab765a010de188a718d4e0a9ff364141ee9fabb0ed8ba0109",
+    "test-results/architecture-mobile.png": "dfe4df8c988722113b57e6efc9c820843790594ace19d5c95c6250afd58af3c1"
+  },
+  "initial_attempts": "Default Playwright browser revision not installed; used existing1243 headless shell without installing dependencies. SVGRect has no toJSON; corrected test geometry reads before passing. No production source changes."
+}

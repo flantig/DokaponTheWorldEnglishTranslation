@@ -1,0 +1,151 @@
+{
+  "audit": 36,
+  "at": "2026-10-21T14:32:35.310818+00:00",
+  "role": "Purely adversarial read-only challenger; findings only, no implementation or approval authority",
+  "status": "COMPLETE_NO_CONFIRMED_NEW_FINDING",
+  "scope": {
+    "accepted_snapshot": "/var/tmp/dokapon-source-colour-3wkjepuc/sealed-final",
+    "manifest_sha256": "e3a8de9054da812d3666b42a9a7462bf895a94e5b884b6d5086134518f505412",
+    "members_verified": 532,
+    "previous_snapshot": "/var/tmp/dokapon-mask-selection-arokvmrg/review-source",
+    "previous_audit_sha256": "68380e072c0b46fd7885115d2dfb12a950ff88fcbe67fbd3da9a4a8da6b084b2",
+    "assessment": {
+      "path": "/var/tmp/dokapon-canonical-milestone-xxkcl8et/assessment.json",
+      "sha256": "b03d135375685622849d77a3911a074363d51f577521e10208b8cbe43a403882"
+    },
+    "gap_study": {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/source-aware-roadmap-gap-study.json",
+      "sha256": "c9cb81851c4b52ecd64ce7e8675b3453ae53e764e4843ce15c0c233a1a6a94e1"
+    },
+    "qualification": "Current full snapshot SHA pins and249 accounting size/hash pins verified. Compared source delta to035 and read prior report. Extra assessment14 source pins verified. Fixed-inline99pack is study only and receives no runtime/coverage credit here."
+  },
+  "findings": [],
+  "challenges": [
+    {
+      "locations": [
+        "stream_audit.go:119",
+        "stream_audit.go:152",
+        "stream_audit.go:187",
+        "stream_audit.go:278",
+        "stream_audit.go:306",
+        "stream_audit.go:351"
+      ],
+      "topic": "Third-side duplication, canonical authority and observation independence",
+      "result": "No counterexample established. Existing side/token/comparison loop handles generated canonical side without a second decoder. Registry EN supplies wording, explicit policy supplies wrapping/authoring, pinned declared reference window supplies context; canonical expected buffers are not accepted as inputs. Every observed declared site and complete observed window still binds through references/inspect before publication. Reference-context attribution remains an authored profile fact, not independently reconstructed historical origin; this audit does not expand that authority."
+    },
+    {
+      "locations": [
+        "patch.go:44",
+        "patch.go:126",
+        "patch.go:148",
+        "patch.go:275",
+        "patch.go:307",
+        "patch.go:1241",
+        "fit.go:130"
+      ],
+      "topic": "Prefix copying, policy fallback, redundant validation and write/fit gate changes",
+      "result": "No demonstrated defect. Plain versus markers is explicit, malformed literal {{ never falls back, source prefix words retain ordinal and speaker substitution. Prefix/body split bypasses body pairing only for validated payload-free finite state. Source-token eligibility and generated-prefix decode checks protect different boundaries; deleting either as duplicate would weaken validation. Literal/positional callers retain default options, fit has no source context, and plan retains independent complete native/control/layout gates. No new encoder/helper/function warranted."
+    },
+    {
+      "locations": [
+        "inputs.go:81",
+        "stream_audit.go:38",
+        "patch_test.go:6559",
+        "patch_test.go:6595",
+        "patch_test.go:6654"
+      ],
+      "topic": "Policy null/alias weakening and failure-to-success masking",
+      "result": "Former null-policy finding is closed in accepted source. Field-scoped nonNullByDepth rejects canonical/wrap/budgets/authoring null while preserving old opt-out callers; typed/owned-key checks cover alias/unknown/type cases. Permanent tests require empty stdout on policy/wire refusal and unknown canonical output when generation fails. Readiness, literal, positional and opaque failures are not normalized into success."
+    },
+    {
+      "locations": [
+        "patch_test.go:6274",
+        "patch_test.go:6340",
+        "patch_test.go:13510",
+        "analysis/source-colour-policy-frontier.json",
+        "evidence/source-colour-review.json"
+      ],
+      "topic": "Self-oracle or overbroad source support",
+      "result": "Tests compare complete independent literal/source-derived canonical rows and original whole bytes, preserve old source-context/wrapping/positional fixtures, and retain held scale/opaque/source-body cases. Read pinned separate review receipts rather than counting their executions as own tests. Existing source-backed plain/mixed semantics justify separate finite policy; no arbitrary prefix retry or implicit automatic convention identified."
+    }
+  ],
+  "milestone_challenge": {
+    "status": "NO_CONCRETE_COUNTEREXAMPLE_TO_BOUNDED_CRITERION_ASSESSMENT; not promotion or approval",
+    "requirements_checked": {
+      "registry_reconciliation.04": "Build source-aware canonical expected streams and classify plan-versus-installed differences",
+      "offline_reports.05": "Compare an authored canonical plan with independently read installed content, not two supplied/self windows alone"
+    },
+    "reasoning": "The existing criterion wording supports assessing derived canonical narrative expectations separately from material fixed/sentinel/source-pool readers (.05registry), update proposals (.06registry) and joined reporting (.06offline). Existing canonical comparison/error plus independent original comparison expresses canonical match, original-only, neither and unknown; a new coarse verdict field is not a missing algorithm. Canonical==original and independent tail facts prevent automatic untranslated labels or hidden tail equality. Literal neither/glyph-mismatch root receipt is pinned, but not replayed by036.",
+    "conditions_on_claim": "Any67/84 publication must retain explicit bounded narrative/plain-or-marked context, required known source policy and unknown unsupported generation; both families remainPartial and full families remain6/14. No credit for fixed-inline frontier, opaque/scale semantics, source pools, execution, native fit or joined update/report duties. Reference source selection is declared pinned provenance, not proof of correct historical attribution.",
+    "no_score_mutation": true,
+    "proposed_not_accepted_by_auditor": {
+      "before": 65,
+      "after": 67,
+      "total": 84,
+      "full_families_unchanged": "6/14",
+      "historical_retirements": 0
+    }
+  },
+  "measurements": {
+    "checkpoint_members": 532,
+    "checkpoint_all_sha256_match": true,
+    "accounted_items": 249,
+    "all_accounted_size_and_sha256_match": true,
+    "assessment_source_pins": 14,
+    "all_assessment_sourcepins_match": true,
+    "production_files": 39,
+    "production_bytes": 427367,
+    "named_functions": 41,
+    "runtime_files": 154,
+    "runtime_bytes": 2402999,
+    "production_growth_since035": 8060,
+    "runtime_growth_since035": 22921,
+    "test_growth_since035": 14081,
+    "old_source_context_wrapping_positional_fixtures_unchanged": true,
+    "new_Go_functions": 0,
+    "checks": "Deterministic Python assertions and read-only source/caller/test/contract review. No Go or original runtime execution in036."
+  },
+  "accounting_qualification": "All249 recorded runtime/test/recipe/module/import/adapter/profile/example/input items checked by size/hash. Runtime grew22921B since035:8060B production plus14861B new canonical examples;39Go files and41 declarations unchanged. Test growth14081B separate. No savings or retired historical scripts established.",
+  "evidence": {
+    "own_checks": {
+      "path": "/var/tmp/dokapon-astra036-evidence-3wy7gstp/checks.json",
+      "sha256": "b158efe5488d2c03c907d68b06b57df7d35dbfcf33628da3e07eeedaddb8fc21"
+    },
+    "root_neither_probe": {
+      "path": "/var/tmp/dokapon-source-colour-3wkjepuc/canonical-milestone-probe.json",
+      "sha256": "1451badadbf46a44f56f2432cc1612b0ebfd359224886bfe9086612359fc23a0",
+      "qualification": "Read and pinned supplied receipt; both-binary execution claim belongs to root, not this audit."
+    },
+    "ordinary_review_pins": {
+      "evidence/canonical-audit-review.json": "a09506318a3ce3ce9a74b83425b7243d4c92300591ae1f9558a3a165013ec333",
+      "evidence/source-prologue-review.json": "cf7c8ee598f96a092c7f55a02374a1c1bc9b827ea72587afba7c5f6b0f9b123c",
+      "evidence/source-colour-review.json": "f812e49bb08b7b62b7a73af5fc748a584442ae1746e836d145599f1171c347ca"
+    },
+    "changed_implementation_pins": {
+      "input_types.go": "bcf7b63f984a226e319ed223d88d11b6a370f0be6be5cb37766b1a7711bbc766",
+      "inputs.go": "71bb5de60326a18be69223669c8fffe4c7c649f375ebee0848e591a04c84f383",
+      "patch.go": "e28ffa157ccd389a91d149afeec7934d2f1ca849adeffd3b74dafee9b9e2562e",
+      "stream_audit.go": "87bc3261dc00d78748ee6c3327a2fcb5ec3277f74d8bc4903b645adede55eb24",
+      "stream_audit_types.go": "67f25ac8e124259d9c772df9a27be40aae053aef3f7d29c28d82430307dead64",
+      "text_types.go": "2751a6eff84188ee60e27e6e60ed8675ad0029e81d8f37b7310d0c17feed7eaf"
+    }
+  },
+  "verification": {
+    "performed": [
+      "Read frozen AGENTS, current source/definition/callers, changed tests, decisions/frontiers, prior035 and three ordinary review reports",
+      "Verify532 current member hashes before and after review;249 accounted sizes/hashes;14 milestone source pins; assessment/gap-study/previous-report pins",
+      "Compare all production changes since035 and inspect literal/positional/plan/fit/audit caller boundaries",
+      "Read unchanged exact roadmap criteria and separate remaining milestones; challenge known/unknown/classification and independent observation contracts",
+      "Parse exclusively written report and final own checks artifact"
+    ],
+    "not_performed": [
+      "No redundant full/focused/race/build/vet run in036; existing ordinary/root runtime evidence not represented as own execution",
+      "No fresh dynamic counterexample: none emerged requiring targeted runtime probe",
+      "No full historical source census, independent original Python run or native decode/encoder replay",
+      "No protected ISO/canonical registry/emulator/PINE/controller/process/log/settings/auth access/control",
+      "No implementation, score promotion, live source edits or other-worker artifact changes"
+    ]
+  },
+  "limits": "Bounded static adversarial review with deterministic pin/accounting checks. No confirmed new finding does not imply approval or exhaustive correctness. Source selection/policy is explicit authored evidence; observing stored sites does not prove execution. Broader reader domains, joined reporting, reviewed proposals, full integrated tests and gameplay remain separate obligations.",
+  "terminal_status": "All own commands completed; no running owned job, subagent or pending probe. Only requested live report and owned new private checks artifact written."
+}

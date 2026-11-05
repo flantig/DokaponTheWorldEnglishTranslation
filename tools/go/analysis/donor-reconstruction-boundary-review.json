@@ -1,0 +1,244 @@
+{
+  "schema": "donor-reconstruction-boundary-review-v1",
+  "at": "2026-10-21T06:32:39.520378+00:00",
+  "role": "Bounded read-only precode architecture challenge; recommendation/findings only, no implementation or approval",
+  "recommendation": {
+    "numeric_owner": "One new reconstructRaster is justified. It owns current-pixel mask selection/growth, limited-hole donor selection and straight-RGBA row/column interpolation, mutating only a caller-owned working copy. This is separately testable/changeable numerical behavior, not font layout, image resizing, native encoding or alpha composition.",
+    "interface": "Prefer RasterComposition{Cells,Icons,Reconstruction,Order} as one value argument to composeCells, embedded in BitmapRender beside Font/FontSHA256. Existing JSON cells/icons remain promoted; Order is required only for mixed cells/erase facts. This is a finite two-kind composition contract, not a generic interpreter.",
+    "numeric_contract": "Use one step kernel reconstructRaster(canvas, allowAlpha, erase) over caller-owned mutable working NRGBA. It owns current selection, four-neighbor growth, local current donors and interpolation only. composeCells owns cloning, global permission geometry, ordered dispatch, coarse native bounds and text leak guards. An error result is sufficient unless additional measured output is actually used; no kernel cloning, writer, callbacks or global recipe modes.",
+    "sixth_argument_alternative": "Appending a reconstruction pointer is mechanically smaller initially but makes every caller carry two or three positional empty options. Cells/icons/reconstruction are one image-composition contract, so grouping them is clearer and avoids accumulating arguments. Charge the type/caller/literal edits honestly; no reduction claim."
+  },
+  "existing_owner_rejections": [
+    {
+      "owner": "composeCells, raster.go:21-413",
+      "reason": "Already owns font/cell preflight, fitting, background/underlay, ordered word/icon placement and cell containment. Embedding mask topology and scanline interpolation would couple independently changeable numerical rules to the compositor. Keep clone/orchestration/global containment there and delegate this one kernel."
+    },
+    {
+      "owner": "renderRuns, raster_runs.go:38-530",
+      "reason": "Owns font measurements, masks/color planes and styles. Erase-only images should not require a font or fake cell."
+    },
+    {
+      "owner": "resizeRaster, raster_resize.go",
+      "reason": "Sampling a target lattice with nearest/LANCZOS is distinct from selecting per-line known donors around a hole without changing geometry. Adding allow/mask/reconstruction modes would distort its current API."
+    },
+    {
+      "owner": "texture / pixelOver / inspectRaster",
+      "reason": "Native storage and index policy, two-pixel alpha equations, and readonly advisory statistics cannot reasonably own mutable mask growth plus image-wide interpolation. Reusing their orchestration/arithmetic does not justify unrelated modes."
+    }
+  ],
+  "concrete_design_conditions": [
+    {
+      "topic": "Source ordering",
+      "fact": "All six active rows occur at ops3/5/7 in mini_g02/mini_g12, after text at2/4/6. Erase predicates and donors read CURRENT pixels. All-reconstruct-before-all-text is therefore not a general source-order contract.",
+      "direction": "Addressed by the revised explicit full Order for mixed cells/erase facts. Preserve current-pixel selection/donors at every step; no hoisting or general commutation claim."
+    },
+    {
+      "topic": "Global allow versus reconstruction-only allow",
+      "fact": "Original batch_c build_allow is positive union minus negative union, then allow_add; global protection is a source composition decision, not only an erase selection hint.",
+      "direction": "Addressed in the revised boundary: composeCells owns global permission and per-text changed-byte leak refusal. Preserve union-minus-add then intersection with native bounds, and final outside-permission preservation through source snapping/import."
+    },
+    {
+      "topic": "Exact holes versus <=64 native rectangles",
+      "fact": "A luma-selected/grown hole with exclusions can require far more than64 rectangles; an operation bounding box is not its exact pixel mask.",
+      "direction": "The revised design correctly calls returned native bounds coarse. Keep exact permission checks in composition/kernel and prove importer outside-allow preservation; do not present the rectangle cover as an exact mask. Bound combined cell+erase regions."
+    },
+    {
+      "topic": "Donor-only usability",
+      "fact": "Current authorTexture loads a font for every Render and composeCells requires cells/font metadata.",
+      "direction": "Enhance these existing orchestration/preflight owners so reconstruction-only recipes need no font, atlas, fake glyph or dummy cell. Base/image validation remains mandatory; font loading/validation is conditional on actual cells. The numeric function is itself a useful independent entry point; no separate CLI/writer is needed."
+    },
+    {
+      "topic": "Prepared underlay versus immutable icons",
+      "fact": "Current composeCells uses base for underpixels outside explicit paint and for original icon crops. These roles intentionally diverge once reconstruction is added.",
+      "direction": "Clone once and dispatch the declared order. Underpixels read the current canvas, explicit paint follows the current step, and inline icons read immutable base. Overlapping erase steps are valid; existing cell overlap rules remain scoped to cells."
+    },
+    {
+      "topic": "Mask order and growth topology",
+      "fact": "Original op_erase clips selected current-pixel mask to lim, fills holes if requested, grows synchronously with four neighbors, then clips to lim again. It does not clip after every growth iteration.",
+      "direction": "Implement the frozen subset only: strict current RGB integer luma299/587/114, optional absent-versus-zero threshold, synchronous Manhattan growth, allow union/subtraction/add in original order. Excluded gaps may be crossed during growth before final clipping. Reject/hold other predicate/shape/fill_holes algorithms explicitly rather than approximate them."
+    },
+    {
+      "topic": "Scanline numerics and read scope",
+      "fact": "Donors are the complement of the FINAL limited hole inside the current operation crop, including protected/otherwise disallowed pixels as known donors. Source uses straight RGBA float64 np.interp, endpoint clamp and np.rint ties-even; all-unknown lines remain unchanged.",
+      "direction": "Freeze donor indices/values before writes, interpolate all four channels including alpha0 hidden RGB, preserve numerical evaluation order, and copy only selected hole pixels back. No premultiplication/Over, outside-rect donors, progressive rounded anchors, invented alpha or all-unknown fallback."
+    },
+    {
+      "topic": "Conditional refusals/defaults",
+      "fact": "Frozen source accepts an unknown method when selected hole is empty, but refuses it when nonempty. Clear writes[0,0,0,0], not the binary font transparent-white background.",
+      "direction": "Validate safe geometry/data first, compute the selected hole, then preserve empty-hole no-op before method dispatch. Keep flat/clear/rows/cols finite; unrelated taxonomy remains held. Require meaningful IDs/bounds/colors without pretending new frontend constraints are universal historical refusals."
+    },
+    {
+      "topic": "Resource limits",
+      "fact": "1M pixels and64steps alone do not bound large repeated growth or line work adequately.",
+      "direction": "Use a finite grow bound and an aggregate pixel-work counter, reusing the existing1<<28 budget if appropriate. Validate storage/origin/stride and overflow-safe rectangles; charge selected area/growth/copy work without full-image copies per step when local snapshots suffice."
+    }
+  ],
+  "source_evidence": {
+    "baseline_manifest": "/var/tmp/dokapon-ttf-backend-ecll48c9/sealed-final/manifest.json",
+    "baseline_sha256": "2f557ee0dccaf0d064f471247c539b6f28a01094f94a1d872d03d00c73d79619",
+    "current_owner_pins": {
+      "raster.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster.go",
+        "bytes": 16040,
+        "sha256": "02f185430c4b9d0eb7940ea5d1393e44af35742c8d10630fa2c6f1e9d67e922a"
+      },
+      "raster_runs.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_runs.go",
+        "bytes": 19345,
+        "sha256": "9f1ff15deb097ea413edfb290271026d8cba5d09c8c7c63d3e6932dddabed649"
+      },
+      "raster_types.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_types.go",
+        "bytes": 5106,
+        "sha256": "3d1cd474fe62591117f2f66d86d93be3750f3a199ff4ea0e36f93e9b96d80568"
+      },
+      "raster_resize.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_resize.go",
+        "bytes": 7274,
+        "sha256": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63"
+      },
+      "texture.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture.go",
+        "bytes": 15967,
+        "sha256": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed"
+      },
+      "texture_authoring.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_authoring.go",
+        "bytes": 26781,
+        "sha256": "50c1e0fa9f98a857ff8f4b1a5d4e03db1127952feefcee7a701b53704cc7f669"
+      },
+      "texture_discovery.go": {
+        "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_discovery.go",
+        "bytes": 4573,
+        "sha256": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c"
+      }
+    },
+    "frontier": {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/donor-reconstruction-frontier.json",
+      "sha256": "3cd2b727546001daa989f1280bbf2f1c808ce968004a744350fb5b15d13e08b2",
+      "note": "Historical owner pins inside frontier are pre-TTF observations; current owner pins above were independently refreshed."
+    },
+    "original_pack": {
+      "path": "/var/tmp/dokapon-donor-reconstruction-frontier-7evd4aet",
+      "manifest_sha256": "adc24fae32731f0ab67f3d0f9653d46acf43c1eb6d5c859a89a6104dea302acf",
+      "members": 27,
+      "all_sizes_hashes_verified": true,
+      "facts_sha256": "15c4471cfb81c40be6253110ee3f11832e44393f802b35d2674ef8a113dc3d6f"
+    },
+    "actual_callers": {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/generated/explainer-specs/batch_c.json",
+      "sha256": "df7b92f0696ff2a411cecb46b17380627da790fb9261574e538622214fff6dd1",
+      "rows": [
+        {
+          "texture": "mini_g02",
+          "row_erase_positions_zero_based": [
+            3,
+            5,
+            7
+          ],
+          "prior_text_positions": [
+            2,
+            4,
+            6
+          ],
+          "row_rectangles": [
+            [
+              166,
+              161,
+              56,
+              22
+            ],
+            [
+              290,
+              161,
+              56,
+              22
+            ],
+            [
+              212,
+              198,
+              88,
+              20
+            ]
+          ],
+          "qualification": "The three row rectangles are disjoint. Hoisting is safe only if previous text/hooks cannot alter later selection/donor crops; no numeric/artwork commutation proof performed here."
+        },
+        {
+          "texture": "mini_g12",
+          "row_erase_positions_zero_based": [
+            3,
+            5,
+            7
+          ],
+          "prior_text_positions": [
+            2,
+            4,
+            6
+          ],
+          "row_rectangles": [
+            [
+              166,
+              161,
+              56,
+              22
+            ],
+            [
+              290,
+              161,
+              56,
+              22
+            ],
+            [
+              212,
+              198,
+              88,
+              20
+            ]
+          ],
+          "qualification": "The three row rectangles are disjoint. Hoisting is safe only if previous text/hooks cannot alter later selection/donor crops; no numeric/artwork commutation proof performed here."
+        }
+      ]
+    },
+    "owner_analysis": "Serena symbols/references inspected in owned writable accepted-TTF copy; composeCells sole production caller authorTexture plus current tests, no immutable project activation.",
+    "global_composition_primary": {
+      "path": "/var/tmp/dokapon-donor-reconstruction-frontier-7evd4aet/make_batch_c_png.original.py",
+      "sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149",
+      "lines": {
+        "ordered_dispatch_and_pre_step_snapshot": "223-250",
+        "text_changed_byte_leak_refusal": "251-257",
+        "allow_intersect_native_bounds": "264-271",
+        "restore_before_and_after_source_snap": "273-279"
+      },
+      "finding": "The parent revised per-text guard and final exact permission policy have affirmative original-source support; they are not substitute clipping semantics."
+    }
+  },
+  "scope_limits": [
+    "Static source/fixture/hash analysis only; no Go tests/builds/project execution, historical main, image processing or protected resource access.",
+    "No implementation, source/test/evidence/coverage changes; this new analysis JSON is the sole project write.",
+    "Rows has six observed active uses, columns is provider-proven without an active bounded caller; do not invent migration scope.",
+    "Nine source taxonomy groups remain distinct. This boundary recommendation does not complete reconstruction, raster_rendering.06, any family or historical path retirement."
+  ],
+  "revised_design_disposition": {
+    "status": "Recommended boundary; precode only, implementation and evidence remain unreviewed",
+    "adopted_parent_design": "Unique stable IDs across cells and erase facts; mixed recipes require explicit full Order; donor-only and legacy font-only retain list order. Existing composeCells builds global allow, clones once, dispatches known operation kinds, checks each text step for changed pixels outside permission, and reads prepared underpixels while icons retain immutable-source reads.",
+    "resolved_in_design": [
+      "Explicit interleaving avoids the unsupported all-erases-first transformation.",
+      "Global permission construction and coarse native covers remain separate responsibilities.",
+      "One numerical kernel avoids spreading interpolation into font/layout or native codec owners."
+    ],
+    "remaining_trap_conditions": [
+      "Validate Order as an exact permutation: no omitted, repeated or unknown IDs. Do not apply cell nonoverlap constraints to sequential erase facts.",
+      "Build permission as positive union minus exclusions, then allow_add, then intersection with the coarse approved native region union. allowAlpha is binary permission, not source image alpha; validate matching origin/dimensions/storage.",
+      "For each text step compare post-step bytes against the immediately preceding working canvas, rather than original base. Earlier permitted reconstruction changes must not be attributed to that text step.",
+      "Source-backed outer preservation and an importer roundtrip must establish unchanged pixels outside exact allow, including internal holes. A <=64 rectangular native cover does not represent arbitrary exact permission holes.",
+      "Make font loading and validation conditional on cells; donor-only recipes must not need an empty/fake font or cell.",
+      "Preserve numerical order, current local donors, hidden RGB, no-op-before-method behavior and aggregate work limits described below. No numerical implementation has been reviewed."
+    ]
+  },
+  "verification": {
+    "current_owner_pins": "All seven listed owner files re-read and hashes unchanged at report finalization.",
+    "source_pack": "All 27 member hashes/sizes verified earlier in this bounded static assessment.",
+    "execution": "No tests, builds, numerical image processing, project/historical execution, or protected-resource access. No running jobs.",
+    "implementation_status": "No code candidate exists for this boundary review; source38 numeric cases and further order/leak supplement were reported pending by the parent and are not claimed verified here."
+  }
+}

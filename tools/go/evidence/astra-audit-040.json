@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "audit": "040",
+  "role": "Purely adversarial read-only Astra challenger; no implementation, approval, criterion award or credit.",
+  "started_at_utc": "2026-11-04T20:22:07+00:00",
+  "finished_at_utc": "2026-11-04T20:23:47.417443+00:00",
+  "status": "COMPLETE_NO_CONFIRMED_ACCEPTED_CODE_FINDING",
+  "findings": [],
+  "scope": "Accepted626 connected references/main/test lifecycle; incomplete private instruction types/forms/prefix; frozen precode design and independent projection. Private builder remains unchanged at captured pin, deliberately not treated as a finished build.",
+  "checks_receipt": {
+    "path": "/var/tmp/dokapon-astra040-31sj9g9_/checks.json",
+    "sha256": "1270a945aa209a997c7c9ee3d192c91e4e9c4670fda2a00125ccdaabaa7c1d30"
+  },
+  "prior_audit": {
+    "path": "evidence/astra-audit-039.json",
+    "sha256": "a4287b6f30ce4aa58ee6f045276bc418c7be62b9be58abafc98ac176beb6f4fd",
+    "comparison": "All26 pinned accepted artifacts unchanged, no new accepted runtime delta since039."
+  },
+  "verified_capsules": [
+    {
+      "path": "/var/tmp/dokapon-gp-index-ojcy9sxb/sealed-final/manifest.json",
+      "sha256": "c3cfb0f87ddb15ebfebc0dc5d0f1a48b7698adb1dfa04dc3d64ff6b22cef9b5c",
+      "members_verified": 626
+    },
+    {
+      "path": "/var/tmp/dokapon-instruction-flow-cli-wgz75237/manifest.json",
+      "sha256": "1e62939a9fd4581e43cf38a9dac15e6a86cf9622034a0bf32779dce352a43c0f",
+      "members_verified": 21
+    }
+  ],
+  "private_pins": {
+    "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/instruction_types.go": {
+      "sha256": "fa6169f4ef70ad7abf2fe039d53e9fc075b0062a59eadc3e85423df19fe90e1e",
+      "bytes": 3141,
+      "copy": "/var/tmp/dokapon-astra040-31sj9g9_/instruction_types.go"
+    },
+    "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/instruction_forms.go": {
+      "sha256": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+      "bytes": 1632,
+      "copy": "/var/tmp/dokapon-astra040-31sj9g9_/instruction_forms.go"
+    },
+    "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/reference_types.go": {
+      "sha256": "91c99e55aefae9d41e82d6ad1d12cd225f0545e28aade2f4392fa35559fb62c1",
+      "bytes": 7127,
+      "copy": "/var/tmp/dokapon-astra040-31sj9g9_/reference_types.go"
+    },
+    "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/references.go": {
+      "sha256": "26a45c4e51547947568fa6c5a504a053a93727cc9c331906df9b65e7d5ea5c83",
+      "bytes": 32340,
+      "copy": "/var/tmp/dokapon-astra040-31sj9g9_/references.go"
+    }
+  },
+  "live_pins": {
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/AGENTS.md": "b1352d0bf12bf562c935d6c8b902bc935b0cfbc8bc343eb7a9b72a7d846e68c3",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/.goal/GOAL.md": "5a88466e29a2bee50ac67802b778e2babfba0955538bf587ca0574897cbd2b8e",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/.goal/instruction-flow-work.json": "33195d6d5055801f76b5a83e0075f00e91be7d825ce59b4780f33eaff7ae3327",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/references.go": "26a45c4e51547947568fa6c5a504a053a93727cc9c331906df9b65e7d5ea5c83",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/reference_types.go": "8491c92026abbefd8d194b246651532ac5cba61365590486caaff37491aa7e50",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/main.go": "0049927099611794ddb451ea6fa39bc022252d76833e6fbc62697f1d756ceedb",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/patch_test.go": "83a9a7ad6cc03de85f10d038a04add6a8f442da7551ccd1b2530219ad3ae790f"
+  },
+  "prospective_challenges_not_accepted_defects": [
+    {
+      "id": "FLOW-040-SHARED-FORM-OWNER",
+      "locations": [
+        "references.go:143-159",
+        "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/instruction_forms.go:11-39"
+      ],
+      "counterexample": "Adding LWC1 to one consumer but treating its rt as GPR in the other would create conflicting operand facts. The currently unused table and old switch coexist only because the prototype is incomplete.",
+      "minimal_direction": "Replace the old memory/address opcode switch with the single table. Keep bank and merge-load old-rt semantics there; handle discarded ADDIU rt0 at the consumer. Do not add mask/action dispatch or a second memory opcode list. Deterministic comparison confirms the table currently has exactly the old29 opcode keys."
+    },
+    {
+      "id": "FLOW-040-MODE-SPRAWL",
+      "locations": [
+        "references.go:67-220",
+        "main.go:132-150",
+        "main.go:246-359"
+      ],
+      "counterexample": "Blindly extending every gpIndex condition to include instruction_index would impose GP metadata/point-query handling on instruction rows, or skip the new operation at source/profile rechecks and bounded publication.",
+      "minimal_direction": "Share strict input policy, reverse LOAD proof and word/site construction once. Keep GP target-map batching and instruction delay resolution in separate terminal branches. Use mutually exclusive operation dispatch for actual operation choices. Preserve whole old GP outputs and meaningful refusals; no extra generic mode framework."
+    },
+    {
+      "id": "FLOW-040-TYPE-COST",
+      "locations": [
+        "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/instruction_types.go:3-71",
+        "/var/tmp/dokapon-instruction-flow-b69ig0qd/project/reference_types.go:82"
+      ],
+      "counterexample": "Merging instruction control facts into GPInstruction would add null fields to old GP JSON and falsely imply GP indexing models control. Conversely dropping null versus empty GPR lists would erase unsupported versus known-empty information.",
+      "minimal_direction": "Keep purpose-grouped typed output and shared raw-word prefix. Eight added declarations including the address-form row type and two new files are capability cost, not reduction. Do not generalize them into an ISA framework or claim zero new Go files from the earlier plan. No concrete type consolidation currently removes duplicated behavior without weakening the schema."
+    },
+    {
+      "id": "FLOW-040-UNCOVERED-DELAY",
+      "locations": [
+        "/var/tmp/dokapon-instruction-flow-cli-wgz75237/projection-policy.json:10-15",
+        "patch_test.go:3668-3810"
+      ],
+      "counterexample": "A supported BEQ followed at pc+4 by an unsupported instruction must retain its raw transfer geometry but report selected_delay_unsupported. The70 frozen cases never instantiate that diagnostic.",
+      "minimal_direction": "Extend the existing common CLI case loop with an independently derived literal unsupported-delay case, discontiguous physical versus VMA delay placement, and required schema/row-limit controls. Do not mistake70case parity for these boundary checks; preserve original13GP/39refusal fixture unchanged."
+    },
+    {
+      "id": "FLOW-040-NO-DEFUSE-CREDIT",
+      "locations": [
+        "/var/tmp/dokapon-instruction-flow-cli-wgz75237/sources/sources/sources/migrate_drafted.py:1809-1835"
+      ],
+      "counterexample": "Two reaching LUIs at a join and a foreign later read require positive reaching_defs and uses_after queries. A correct flat list of branch paths cannot produce those original report results.",
+      "minimal_direction": "Keep .05 open. Before a future bounded graph/def-use owner, document query inputs, limit/incompleteness and why existing owners cannot reasonably own that algorithm. Never append Tracer merely to preserve function count or return unknown for every useful query and call the duty supported."
+    }
+  ],
+  "verification": {
+    "Serena": "Manual read; session56de84fe live project references symbol/caller analysis. References called by run, existing CLI test, and auditStreams. No source edits.",
+    "performed": "Full626 and21 member capsule containment/hash checks;26 prior audit artifact comparisons; private file snapshots and hashes; deterministic29opcode equality; connected source and frozen projection static inspection.",
+    "own_Go_executions": 0,
+    "all_jobs": "terminal; synchronous commands only, no workers or background jobs launched"
+  },
+  "limitations": [
+    "No fresh Go test/build/vet/race execution; partial private builder is deliberately unfinished. No approval or completed prototype claim.",
+    "No exhaustive ISA/control-flow proof and no replay of the source golden generator. Hash verification is distinct from semantic proof.",
+    "No protected ISO/registry/emulator/PINE/controller/process/auth/settings/log access; no game patch, operational source execution or external service.",
+    "Accepted8/14Full,71/84checklist and binary4/6 remain unchanged. Frozen source manifests are evidence, not operational dependencies."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-21T14:19:15.970074+00:00",
+  "status": "READ_ONLY_REVIEW_NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "candidate": {
+    "directory": "/var/tmp/dokapon-source-colour-3wkjepuc/review-source",
+    "manifest_sha256": "af719c2a1a38263c71854aacf306770d4d441b4cafa5c56f8eba654f77af2462",
+    "members": 530,
+    "all_pins_before_after": "PASS; immutable originals and owned project match; contained regular single-link0400 originals"
+  },
+  "baseline": {
+    "directory": "/var/tmp/dokapon-source-prologue-kfmx4zb4/sealed-final",
+    "manifest_sha256": "ff4c6a0e16aa5ffacf9207f2327c7d385b58479f415a0fcc0f8bec1ce062c871",
+    "comparison_binary_sha256": "9e3892b0777aec62f02cb0a03dda4dc7808006350c2899165a80b134ff622302"
+  },
+  "review": [
+    {
+      "source": "patch.go:44",
+      "assessment": "One explicit empty/markers/plain choice is justified by distinct original caller intentions. Plain never retries failed markup and rejects any literal {{. Default controls diagnostics and other callers remain unchanged."
+    },
+    {
+      "source": "patch.go:148",
+      "assessment": "Plain proves payload-free, prefix-only colour; icons, body colour, scale and opaque tokens remain refused. Prefix words retain source order and speaker override; prefix/body budget and highlight checks stay separate. Existing controls independently validates the actual copied prefix and generated body. No mutation of decoded caller data was observed."
+    },
+    {
+      "source": "stream_audit.go:38",
+      "assessment": "Authoring stays an optional canonical policy, using existing exact-key/duplicate/scalar/null checks and encoder call. Invalid policy refuses without JSON; failed per-row generation stays unknown. Binding, full input hash/recheck, observation facts and write gates are unchanged."
+    },
+    {
+      "source": "text_types.go:17",
+      "assessment": "Existing encode and auditStreams reasonably own this addition; no new function, type, file, decoder or handler. Shared prefix copying/body validation is reused rather than duplicating a plain encoder. This does not authorize new native write forms."
+    }
+  ],
+  "independent_oracle_binding": {
+    "pack": "/var/tmp/dokapon-source-colour-frontier-byzyw5qs",
+    "manifest_sha256": "021d660c622bc9ddf753cb220fb6a3f693e52455043aff359045d57434558b71",
+    "all_106_members": "PASS",
+    "fixture_join": "50 paired routes, six actual-source/synthetic-wording complete bytes and 25 prior mixed complete byte oracles match original pack. Exactly two original scale/opaque successes are explicitly held as refusals. Native source bytes independently SHA joined.",
+    "extra_cases": "Ten original-AST-only cases frozen before Go probes: seven whole-byte successes, three refusals. Existing Golden owner extended only in private overlay; no new helper/test function. Covers noHDR, three prefix colours including b7ff, empty source body, source speaker ordinal, 1x1 wrapping, explicit PAGE/final pause, LINE boundary and malformed/raw/body-colour refusals.",
+    "extra_original_sha256": "44b00e11bf9e4a602a55ed173a99d875c4ccd0af9cc581c50fcce9d3e31651e3"
+  },
+  "checks": [
+    {
+      "command": "env GOMAXPROCS=2 CGO_ENABLED=0 TMPDIR=<owned>/tmp GOTMPDIR=<owned>/gotmp nice -n 19 go test -count=1 -p 2 -run '^(TestPlanRefusals|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$' .",
+      "result": "PASS25.364s"
+    },
+    {
+      "command": "same environment; go test -count=1 -p 2 -overlay ../overlay.json -run '^TestPilotHistoricalGoldenBytes$' .",
+      "result": "PASS10.554s; ten extra original cases plus existing owner"
+    },
+    {
+      "command": "same environment; go build -p 2 -o ../core .; go vet -p 2 ./...",
+      "result": "both exit0"
+    },
+    {
+      "command": "private cli-probes.py against accepted and independently built core binaries",
+      "result": "three complete stdout/stderr/exit captures identical (plain, bound and canonical audit); four explicit policy variants, seven wire refusal cutsets; all selected input bytes/inodes/mtimes preserved"
+    },
+    {
+      "command": "gofmt -l all Go; changed-Go trailing whitespace; selfchecked POSIX rg credentials",
+      "result": "PASS; two synthetic nonsecret whitespace assignments detected, zero scoped matches"
+    }
+  ],
+  "accounting": {
+    "production_go_files": 39,
+    "production_go_bytes": 427367,
+    "named_declarations": 41,
+    "production_growth_bytes": 1698,
+    "test_growth_bytes": 5057,
+    "new_oracle_bytes": 16448,
+    "new_functions_types_production_files": 0,
+    "interpretation": "Capability growth, no reduction/savings claim."
+  },
+  "artifacts": {
+    "root": "/var/tmp/dokapon-source-colour-review-fzmgahd0",
+    "manifest": "/var/tmp/dokapon-source-colour-review-fzmgahd0/artifact-manifest.json",
+    "manifest_sha256": "5503c7e745b97d29b5d16aa3cceaaaa0bf9d3346343834c69ea178f3f138543c",
+    "members": 712,
+    "checks_sha256": "c0fd20a0b22a300d72e93a10628d1c6a787b3bf5780c3d13411fd3264f699390",
+    "cli_checks_sha256": "172a2bea06993ecc5996d95044aea2aa88982c3767ff455169020b52bd9143c7",
+    "fixture_join_sha256": "197108a7b5a185b352ed3d6dc999e6fcf9dc3b2c1572cb414a630998bbed3488",
+    "contains": "530 reviewed source members, frozen original pack, extra literal source outputs/overlay, accepted/current binaries, complete CLI captures, commands/scripts/logs/pins"
+  },
+  "limits": [
+    "Focused core tests only; no full suite, race or native replay. Root results are separate, not counted as own checks.",
+    "Finite source-colour authoring only; no inferred plain/mixed routing, held opaque/scale support, native physical fit, visual/gameplay proof or new write authority.",
+    "No protected resources accessed; no implementation edits, approval, family/milestone/retirement or savings credit. All own jobs terminal."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-21T00:43:11.870440+00:00",
+  "source_contract": {
+    "path": "analysis/asset-specification-contract.json",
+    "sha256": "2f5f300b9b4cab4a2f5d3d99be35ea2857886748dc76bbb98dd01ad626d14e7c"
+  },
+  "decision": "Enhance authorTexture/indexTextures/texture and existing TextureProfile; no new function, closure, CLI, parser, decoder, image loader, dependency or writer.",
+  "existing_owners": {
+    "authorTexture": "Existing pinned extracted-TXD lifecycle/profile operation/report owner. Add read-only specification join; existing inventory and default authoring remain byte-identical. No separate batch executor.",
+    "indexTextures": "Already owns native order/name discovery shared with texture. Add unexported byName map of allordinals once; retain duplicate names and local metadata errors.",
+    "texture": "Use the shared byName ordinal list instead of repeating name predicate. Preserve selected traversal budget and metadata-error-before-duplicate refusal order. Reuse for decoded geometry/RGBA; existing depth32 rgba reading applies only within new mode.",
+    "checkJSON": "Newmode only: all-object duplicate/ownedalias/closedfield/Unicode scalar validation. No new validator/flag.",
+    "writeNewFile": "Unchanged. New mode forbids apply/output; no output artifact publication."
+  },
+  "callers": "Serena run is sole authorTexture production caller; indexTextures calledbytexture+authorTexture. Existing public function signatures unchanged; tests extended in existing TestCLIDryRunAndApply.",
+  "affected": [
+    "texture_authoring.go",
+    "texture_types.go",
+    "texture_index.go",
+    "texture.go",
+    "patch_test.go",
+    "testdata/asset-specification.zip",
+    "README.md",
+    "ARCHITECTURE.md",
+    "MIGRATION.md",
+    "../../skills/MIGRATION-TOOLS.md",
+    "accounting/coverage/roadmap/evidence"
+  ],
+  "new_types": "TextureSpecification owns authored table facts; TextureSpecificationRow owns exact join/native ordinal/metadata/decoded measurements. Group in existing texture_types.go; no function additions.",
+  "input_contract": {
+    "operation": "specification",
+    "selection": "Separate specifications map keyed stable arbitrary UTF8assetIDs,1..64. Exact unique native texture name required. Reject empty IDs/names, missing/ambiguous source matches and two IDs selecting same texture. Lexicographic ID output order; original native ordinals retained.",
+    "annotations": "kind,description,jp_text,proposed_en,difficulty,screen_hint,notes,archive,entry optionalstrings; omitted/null means empty. These are authored facts, no OCR or native wording/visual approval. archive/entry remain declaredlabels distinctfromverified standalone sourceSHA/size.",
+    "closed_JSON": "Existing checkJSON allObjects:true,text:true; closedroot and spec fields with canonical aliases. Newmodeonly. Oldprofiles containing nonnil specifications refuse instead of ignoring.",
+    "resources": "Existing1MiB profile/64MiBsource and1024native/16384RW bounds; <=64selected rows, aggregate declaredpotentialdecodable area<=2^24pixels. Validper-rasterbounds remain codec-owned. No silent truncation.",
+    "unknowns": "Missing/duplicate joins globalrefusalbeforestdout. Selected metadata/codecunsupported remains row decoded_status unavailable with parsedheader ifknown, decoded_geometry andRGBAhash null, diagnostic. No first-native fallback or defaultgeometry.",
+    "format": "Decoded success reports dimensions/hash plusPSMT4/PSMT8/PSMCT32 from actual calibrated codec; raw header metadata alone cannotclaimdecode support."
+  },
+  "preservation": "18complete oldstdout/stderr/exit captures from accepted3a88binary, includingduplicate+metadataerror priority;2literalRGBAoraclesalreadymatcholdcodec. Further focused/race/build/vet/format/scans/independentreview required.",
+  "milestone_scope": ".03 exact authoredjoin+actualgeometry; mandatory score/tier/flag discovery work remains OPEN .04 and no familyFull. Do not count raw dimensions as detector completion.",
+  "portable_fixture": {
+    "path": "testdata/asset-specification.zip",
+    "bytes": 14020,
+    "sha256": "6e06fbbab7112798168698461a754e3daff8d3bdb060b6d24b8494c2d94cb2c1"
+  },
+  "precode_baseline_records": "/var/tmp/dokapon-asset-specification-neqnq086/precode/legacy-baselines.json",
+  "limits": "No ISO/canonical/protected runtime access/control; newcode capabilitygrowth not reduction/retirement."
+}

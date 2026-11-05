@@ -1,0 +1,81 @@
+{
+  "schema": "raster06-pinned-permission-resource-astra-delta-v1",
+  "role": "Read-only architecture challenge before implementation; no approval authority",
+  "determination": "A single optional pinned permission-table resource is justified by the demonstrated13-rectangle canonical fact shared across distinct profiles. This is a narrow data-acquisition extension of authorTexture, not a geometry or template framework, provided it has exactly one level, a closed rectangle-only grammar, no merging/overrides, and no runtime-generated shapes. No existing font/PNG field can own this resource without conflating unrelated contracts. One new optional resource field is reasonable; no new function, type, decoder framework, recipe language or shape engine is justified.",
+  "primary_boundary_finding": {
+    "location": "raster_types.go:27-41; texture_authoring.go:495-551,609; raster.go:317-367",
+    "direction": "Prefer Permissions *RegistryInput on the EXISTING RasterRender, alongside its font resource binding, rather than RasterReconstruction. Existing comments explicitly separate resource loading from RasterComposition pixel operations. authorTexture resolves the file into Reconstruction.Allow/Exclude/AllowAdd. This preserves the current pure composeCells contract and leaves it unchanged.",
+    "counterexample_to_nested_field": "If a new reference field is added to RasterReconstruction, direct composeCells callers can pass nonnil reference plus valid inline Allow. The unchanged compositor silently ignores the reference and bypasses the authorTexture exclusivity/pin rules. Avoid this state by keeping references outside RasterComposition; otherwise explicitly reject unresolved references in composeCells and acknowledge that the compositor changed."
+  },
+  "required_conditions": [
+    {
+      "topic": "Predecode presence and alias guard",
+      "direction": "The new resource guard cannot remain nested only under render.Reconstruction != nil or render.Permissions != nil. Permissions:null decodes to nil, a case-folded Permissions key may decode successfully, and a missing/null reconstruction otherwise skips the current guard. Inspect the owned raw render object for the new resource field/case aliases, validate its canonical nonnull spelling and owned object even on invalid missing-reconstruction requests, then refuse the missing reconstruction. Keep these checks scoped so old profiles with the new option absent retain their established behavior; opaque icon IDs named permissions remain data. Include canonical-null, case-alias-null, duplicate resource keys, missing reconstruction, reconstruction:null and resource+inline[] probes."
+    },
+    {
+      "topic": "Owned grammar",
+      "direction": "The file root allows ONLY allow/exclude/allow_add. checkJSON fieldsByDepth must close those keys; DisallowUnknownFields decoding into RasterReconstruction alone also accepts erases, so it is insufficient. Require one nonnull object and EOF; reject erases/order/references/metadata even when empty. The main profile resource object must independently close path/size/sha256, require all three, and reject duplicates, aliases, null, malformed Unicode and unknown keys without treating icon IDs as owned field names."
+    },
+    {
+      "topic": "Resolution contract",
+      "direction": "Require Render.Reconstruction for this resource. Inline permission geometry and referenced geometry are mutually exclusive, while profile erases/order remain local. State whether empty inline arrays count as conflicts and test that exact rule; raw-key presence is the clearest strict policy. Reject conflicting input before file access. Resolve relative paths against the original profile directory, validate nonempty path, size1..1MiB and fullSHA256, read using existing bounded regular-file readInput once, require actual byte length and hash equality, then validate/decode those same bytes. Do not reread unverified contents or silently fallback to inline geometry."
+    },
+    {
+      "topic": "Preserve composition",
+      "direction": "Copy only the three arrays into the existing reconstruction; do not replace the whole struct and lose Erases. Existing combined64 count, required positive Allow, rectangle checks, native footprint, text leak refusal and ordered current-canvas reconstruction remain authoritative. No coordinates from source shape/radius enter runtime. Keep table-independent profile SHA based on original bytes; report table SHA only when present, preserving old absent-option reports."
+    },
+    {
+      "topic": "Lifecycle and publication",
+      "direction": "All validation/acquisition must finish before output publication. Existing readInput rejects special inputs and enforces size bounds; existing writeNewFile O_EXCL prevents replacing the table/profile/source at an already occupied destination. Reuse these owners, add no alternate writer or new mutation mechanism. Verify invalid resource paths, output aliases, tampered size/hash, directory/FIFO and missing resources refuse without changed inputs or created output. Do not claim hostile concurrent path-swap protection beyond the existing input contract."
+    },
+    {
+      "topic": "Evidence and reuse",
+      "direction": "Two distinct prototype profiles must resolve the exact same canonical table path and pin, with source-derived full mask and complete output comparisons. Keep one authoritative geometry file; per-profile path/size/hash references are necessary bindings, not duplicated rectangle tables. Account the field, acquisition/validation/report lines, canonical data and profile bindings as runtime growth; tests and oracle evidence separately. Existing tables should cover loaded-versus-inline equality, altered table mismatch, malformed grammar, combined65 refusal, exact64 success where feasible, wrong modes, profile erases retention and old absent-option parity."
+    },
+    {
+      "topic": "Scope",
+      "direction": "The file is a reusable rectangle permission table for this finite image-composition owner, not a registry patch interpreter. Do not accept include chains, arbitrary keys, field inheritance, shape objects, radius, callbacks, per-script names or a generic recipe merge. All11 source declarations remain census facts until individually integrated; no general rounded-rectangle support, raster-family completion or retirement credit follows."
+    }
+  ],
+  "verification_scope": "Read existing RegistryInput, RasterRender/RasterComposition, authorTexture resource/publisher/report flow, checkJSON key closure and writeNewFile exclusivity. No Go execution, implementation, source-worker capsule read, candidate tree read, new410 scan or LIVE/protected write.",
+  "terminal_state": "Delta challenge complete. Only this separate owned capsule written. Earlier report/addendum capsules remain immutable. Root owns design choice and implementation.",
+  "at": "2026-11-04T23:50:05.525235+00:00",
+  "source_pins": [
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/input_types.go",
+      "bytes": 1106,
+      "sha256": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_types.go",
+      "bytes": 5446,
+      "sha256": "8b7433e8482c947584fc170f7cffdd137f0782994928615a160ee5b07f42f748"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_reconstruction_types.go",
+      "bytes": 1464,
+      "sha256": "d0dae1dfb402d89f644bc78fa625ada3ab6d5984fbbf64af168cb85d62b16f68"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_authoring.go",
+      "bytes": 29147,
+      "sha256": "3a0ea9dfa2f7482dde05b80e325296ab7d3561fdd9eff01a79389a31222a537f"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster.go",
+      "bytes": 20648,
+      "sha256": "b6addaf66e84c50e77c280b44f0e9e1505625a958dcd35ce124f1aecaf60ae1b"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/inputs.go",
+      "bytes": 4966,
+      "sha256": "f37e980aebc9e5042bef967fba13956c36a11ea2319ea3a351aa8caa69ba4e8a"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/outputs.go",
+      "bytes": 1760,
+      "sha256": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7"
+    }
+  ],
+  "root_design_response": "Root accepted RasterRender ownership, strict raw-key inline conflict including empty arrays, require Reconstruction, rectangle-only table, and no new type/function. Root awaits independently frozen source pack/pins before implementation."
+}

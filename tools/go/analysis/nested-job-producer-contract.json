@@ -1,0 +1,317 @@
+{
+  "at": "2026-10-19T21:10:41.958516+00:00",
+  "decision": "HELD: list producers narrowed, but selected-index and actor-gender closure still unproved. Do not add A000 support or a new bound/schema/function.",
+  "scope": "Read-only bounded native producer study for registry0x480580,no Go/test/profile/ISO/registry edits or runtime/process/emulator access.",
+  "elf": {
+    "zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "bytes": 5087232,
+    "vma_delta": "0xfff80",
+    "whole_iso_rehashed": false
+  },
+  "candidate": {
+    "registry_id": "0x480580",
+    "template": "0x400212c",
+    "opcode": "A000,type20,low11bits0",
+    "argument": "pointer in t1 loaded at2ded0c from0x473d00+88*job+44*gender",
+    "prior_contract": "analysis/nested-text-expansion-reuse-contract.json",
+    "current_metric_contract": "evidence/native-advance-exception-proof.json",
+    "metric_erratum_preserved": "Use guarded native comma6 at global0x478e5c,never old20/incorrect0x488e5c. This study proves no new fit result or physical geometry."
+  },
+  "proven_progress": {
+    "direct_selector_callers": {
+      "target": "0x2de4d0",
+      "JAL_sites": [
+        "0x2cfcb0",
+        "0x2df1a4"
+      ],
+      "method": "Exact aligned JAL-word scan through extracted ELF,then caller instruction review. No aligned literal0x2de4d0 pointer references were found. This does not prove absence of computed indirect entry."
+    },
+    "first_list": {
+      "span": [
+        "0x2cfc10",
+        "0x2cfcb8"
+      ],
+      "storage": "caller sp+0xc0,21 bytes initially cleared; count s3 passed in t0,list address in t1",
+      "writes": "Loop s4 starts0, calls eligibility293cb0(actor,s4,...), appends s4 only if return nonzero at2cfc50; increments s4 and repeats while s4<21 at2cfc6c.",
+      "result": "Every appended byte is0..20;0<=count<=21,regardless of which eligibility results are true."
+    },
+    "second_list": {
+      "span": [
+        "0x2df0d0",
+        "0x2df1ac"
+      ],
+      "storage": "caller sp+0x220,21 bytes initially cleared; count s4 passed in t0,list address in t1",
+      "writes": "Loop s2 starts0, calls eligibility293cb0(actor,s2,...), appends s2 only if return nonzero at2df114; increments s2 and repeats while s2<21 at2df134.",
+      "result": "Every appended byte is0..20;0<=count<=21."
+    },
+    "selector_sort": {
+      "span": [
+        "0x2de594",
+        "0x2de828"
+      ],
+      "contract": "Copies exactly supplied count into a local word array,then reorders entries by actor-gender-specific job-order field at table+0x1e. Writes back only an entry read from that local array; does not synthesize a new job value. Thus a valid list index preserves the0..20 domain. The sort itself uses unguarded gender-dependent lookup; it does not establish gender bounds."
+    },
+    "widget_input_check": {
+      "span": [
+        "0x2e05c8",
+        "0x2e0604"
+      ],
+      "contract": "Each supplied job byte is checked with slti job,0 and slti job,21; an invalid value loops at2e05e8 rather than reaching normal rendering. This is an additional native list-input assertion,not an index/gender validator."
+    },
+    "cancel_flow": {
+      "selection_state": "At2de918,state0 goes to input loop;state1 goes to list read2dead8.",
+      "confirm_input": "Input flag0x20 at2dea50 selects state1 and refreshes selected index through28dd40. It takes precedence over flag0x40.",
+      "cancel_input": "Only when confirm bit is clear,flag0x40 sets status s3=1 at2deaa4; state remains0 and2deacc->2dee10 exits rather than entering2dead8/A000.",
+      "confirmation_return": "After A000 confirmation call2ded10,return0 sets status2 and exits;nonzero returns to state0. These branches do not validate job/gender before the already-executed substitution.",
+      "qualification": "Traced these explicit branches,including simultaneous confirm/cancel precedence. No claim about asynchronous input task invariants or corrupt saved state."
+    }
+  },
+  "remaining_blockers": [
+    {
+      "id": "JOB-INDEX",
+      "status": "NOT PROVED",
+      "reader": "2deae4 loads s7[selected_index] without checking index against supplied list count.",
+      "producer": "28dd40 obtains the cursor object through279bc0,reads fields+0,+0x16,+0x18,+0x1a,+0x1c,and returns an8-bit flattened selection. Local masks at2de9fc/2dea78 only prove0..255.",
+      "known_setup": "2e0848..08dc counts rendered entries,passes count to2fa000,then clears object+0x18/+0x1c.2fa058 stores byte count atobject+1. These setup facts alone do not prove every subsequent cursor/scroll write is bounded before confirm,especially zero-entry and cancel/reentry cases.",
+      "callback_leads": "28dbd0 installs callback28ee90 over prior callback28efe0;28ee90 callsobject+0x4c indirectly. Initial base constructor28dfe0 stores callback28f270 before later overrides. Ownership of all input/scroll field writes was not closed.",
+      "minimum_next_evidence": "Prove cursor invariant0<=flattened_index<count for every reachable nonempty confirm,or separately prove safe initialized list access when count0. Include scroll/held input,state reentry,simultaneous confirm/cancel and any automated-cursor producer before declaring all arguments within the list domain."
+    },
+    {
+      "id": "ACTOR-GENDER",
+      "status": "NOT PROVED",
+      "reader": "Actor structure base0x56bed0+508*actor; gender byte at+0x175.2de6d8..6f4 builds base;2de904..910 retains address;2decd8 reads unmasked u8 and multiplies it by44.",
+      "known_writer": "368124 writes actor+0x175 from charcreate-record byte6,loaded by lb at36810c. It does not mask/check0..1.",
+      "known_initialization": "367e30..367f60 initializes the four32-byte charcreate records byte6 to0,then writes literal1 to alternating default records. Initialization proves these defaults only.",
+      "scan_limit": "The aligned raw sb immediate0x175 scan found only368124,but this does not establish alias/bulk-copy/save-load/computed-offset writer completeness. Scanning immediate6 in charcreate code finds defaults,not all pointer-adjusted writes.",
+      "minimum_next_evidence": "Trace callers/record ownership of367f60(a0 source records),all subsequent writes to byte6,commit/load paths and valid actor indices. Prove every normal runtime producer yields0/1,including human selection,CPU/defaults,cancel/retry and restored game state,or explicitly exclude and enforce unsupported paths. No current table sample can supply this proof."
+    }
+  ],
+  "domain_conclusion": "Two observed concrete list producers use0..20,a strict subset of the previously enumerated23-job catalog0..22. Therefore that46-slot catalog is a possible conservative superset only after index and gender producers are closed; its sampled completeness is still not runtime-domain proof. This study neither expands nor shrinks an accepted API because no A000 authoring API is introduced.",
+  "reuse_conclusion": "Preserve existing controls/encode/wrapPages refusal of unknown nested substitutions. NumericRange remains integer-only; a pointer/table domain cannot be smuggled into it. Once the remaining producer contract is proved,enhance existing measurement/encoding ownership only if a concrete consumer requires it; no generic variable engine or duplicate state machine.",
+  "native_spans": [
+    {
+      "role": "job-list-caller-one",
+      "start": "0x2cfc10",
+      "end_exclusive": "0x2cfcb8",
+      "bytes": 168,
+      "sha256": "52974000e58e456721e2cfb2934bcba57cf390be41457e601e87c6e9519eeda5",
+      "hex": null
+    },
+    {
+      "role": "job-list-caller-two",
+      "start": "0x2df0d0",
+      "end_exclusive": "0x2df1ac",
+      "bytes": 220,
+      "sha256": "5fe0bd17147d6e7e1e994efdd2cd31ddf67c7a009872a73f31a910e9e6dd143b",
+      "hex": null
+    },
+    {
+      "role": "selector-input",
+      "start": "0x2de4d0",
+      "end_exclusive": "0x2de520",
+      "bytes": 80,
+      "sha256": "11c6f7d9743cf2e60004e3c8723718583cdb07890a0789d9ca1bf86324e99b6b",
+      "hex": "c0f9bd27ffff02249000bfff8000be7f7000b77f2df080006000b67f2db820015000b57f2db060014000b47f2da840013000b37f2da0a0002000b27f2d9800001000b17f0000b07f4001a2af2d800001"
+    },
+    {
+      "role": "selector-sort",
+      "start": "0x2de594",
+      "end_exclusive": "0x2de828",
+      "bytes": 660,
+      "sha256": "3651747d2bef524350daf32babbfca6db0803a011f0ac480f147c2c6641345ce",
+      "hex": null
+    },
+    {
+      "role": "selection-loop",
+      "start": "0x2de904",
+      "end_exclusive": "0x2deb18",
+      "bytes": 532,
+      "sha256": "9482b39d9bf19623def824aad87372232c99b0d874090952ad99d1965312ae6f",
+      "hex": null
+    },
+    {
+      "role": "confirmation-no-excess",
+      "start": "0x2decb0",
+      "end_exclusive": "0x2ded38",
+      "bytes": 136,
+      "sha256": "0f9b673bbb9681990a9ec4c428f45ed6c0159306bd993c70202a775d99cae7d5",
+      "hex": null
+    },
+    {
+      "role": "selector-cancel-return",
+      "start": "0x2dee10",
+      "end_exclusive": "0x2deed8",
+      "bytes": 200,
+      "sha256": "1656ce33e0d96c98398a268f213eed57cdb33965cb5516f390359b1d745e930f",
+      "hex": null
+    },
+    {
+      "role": "widget-job-domain-check",
+      "start": "0x2e05c8",
+      "end_exclusive": "0x2e0604",
+      "bytes": 60,
+      "sha256": "f57d2f003f020ed19bb55dd83f034df9bfd1dcf6e7265970b3764e64c786c4e4",
+      "hex": "1c01a28f3c1c11003f1c030021104300000042903cac02003fac1500000000000000a12afeff20141500a12a0000000000000000faff201000000000"
+    },
+    {
+      "role": "widget-count",
+      "start": "0x2e0848",
+      "end_exclusive": "0x2e08dc",
+      "bytes": 148,
+      "sha256": "694eeb5e30bc1142c55f570a3463d094ba4c3248013f6edd324f7fdd312f3eee",
+      "hex": null
+    },
+    {
+      "role": "selected-index-reader",
+      "start": "0x28dd40",
+      "end_exclusive": "0x28dd84",
+      "bytes": 68,
+      "sha256": "49f78a7ec5dfaaf6f614b02a184ab5117935474d54c8b5e8f87e0c62041c05ba",
+      "hex": "f0ffbd270000bffff0e6090c00000000180046841c00458400004490160043840000bfdf2128c500182085001a0042842110620021104400ff0042300800e0031000bd27"
+    },
+    {
+      "role": "cursor-count-init",
+      "start": "0x2fa058",
+      "end_exclusive": "0x2fa114",
+      "bytes": 188,
+      "sha256": "8d323811f138c1e524cc2d792c586b6096f9743f977771389a1523da64ca131e",
+      "hex": null
+    },
+    {
+      "role": "gender-record-init",
+      "start": "0x367e30",
+      "end_exclusive": "0x367f60",
+      "bytes": 304,
+      "sha256": "b23e9efca41c10a0604edea00c2b570a16626ff858ebcecdc3deaed3062e2979",
+      "hex": null
+    },
+    {
+      "role": "gender-commit",
+      "start": "0x368104",
+      "end_exclusive": "0x368128",
+      "bytes": 36,
+      "sha256": "789da875058d6147fc690dca59e4ac32439c6f2c57a5cc4e5e7ef4f1aa41666e",
+      "hex": "0000838e5700053c06000482d0bea524c011030023104300801002002110a200750144a0"
+    },
+    {
+      "role": "actor-gender-source",
+      "start": "0x2de6d8",
+      "end_exclusive": "0x2de704",
+      "bytes": 44,
+      "sha256": "37f1c212cd5990be1883b8a7d7fea83638fc1c26b3b5b97f6ca5a21fae839a9d",
+      "hex": "c0211e005700033c23209e00d0be632480200400211864002d500000a000a3afa000a38f750169244700033c"
+    },
+    {
+      "role": "actor-gender-pointer",
+      "start": "0x2de904",
+      "end_exclusive": "0x2de914",
+      "bytes": 16,
+      "sha256": "570262af301f0f74b0a666ca7e9d889e86dc93b1d585287beb40e6a15a2ce642",
+      "hex": "a000a28f2d80000075014224b000a2af"
+    },
+    {
+      "role": "cursor-deferred-callback",
+      "start": "0x28ee90",
+      "end_exclusive": "0x28eebc",
+      "bytes": 44,
+      "sha256": "fb66af0845c84f62b43854f15f05e0fe4f3b5fa6b7cdfb94fcfb8d25a1013a66",
+      "hex": "d0ffbd272000bfff1000b17f0000b07f4c00828c09f840002d8880002d804000010002244400021600000000"
+    }
+  ],
+  "input_pins": {
+    "assets/executable-49ab69ac.zip": {
+      "sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+      "bytes": 1556601
+    },
+    "analysis/nested-text-expansion-reuse-contract.json": {
+      "sha256": "cd98b88931a17ef85022c895c92a35139be5c19fabe2459f0f173112c0e0cf6a",
+      "bytes": 19253
+    },
+    "evidence/native-advance-exception-proof.json": {
+      "sha256": "9d0f1c3bd6b2e288a8571898249320aa7fa69fce3f1ec9dcc6640231d5a2f39b",
+      "bytes": 3798
+    },
+    "patch.go": {
+      "sha256": "2c0dd080657a5a14238092f39acedcc32cb7a18b82a45624fa9098e1da0905fd",
+      "bytes": 87372
+    },
+    "recipe_types.go": {
+      "sha256": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+      "bytes": 5777
+    },
+    "fit.go": {
+      "sha256": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "bytes": 7360
+    },
+    "wrap.go": {
+      "sha256": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+      "bytes": 7625
+    },
+    "text_types.go": {
+      "sha256": "2692f874ee7539bdd5a8f11209d4d4f6e1a1f9553f5d6a4e58ed07367b3be45c",
+      "bytes": 1948
+    }
+  },
+  "verification": {
+    "native_assertions": "ZIP/member full hashes and five decisive instruction words asserted;16 source spans SHA-pinned. Prior report0x480580 ABI and current guarded advance proof retained.",
+    "inspection_tool": "Capstone MIPS64 little endian with skipdata. Some R5900 instructions decode as DSP/MSA or bytes; saves/restores and nonstandard arithmetic were not treated as proof of behavior. Ordinary load/store/branch words used for reported domain facts were independently checked by raw instruction fields.",
+    "read_only": "No native function executed,no game/ISO patching,no production or test edits.",
+    "not_run": "No Go/Python suite repeated for this report-only static study;no runtime domain/visual acceptance claimed.",
+    "private_artifacts": "/var/tmp/dokapon-job-producer-dg4m8ix5",
+    "private_disassembly_pins": {
+      "actor-gender-source.txt": "e618ea960ec5de757e4672391fc97ea20a45aefd465f0605594018d73f56e1b9",
+      "caller-2de4d0-0.txt": "53cad84c9afa4dad550d21376075d5341dd1a18dbd105ba679cdd2b8e5770b9f",
+      "caller-2de4d0-1.txt": "6c13b8e8e45a7a06446597d7e93d53da39ae39a22077e944952aeb1d6c5e136d",
+      "charcreate-gender-candidate-0.txt": "0b033ef391717eae9a2cfa122b5fd6d81d3dbca28284846262541c595d365744",
+      "charcreate-gender-candidate-1.txt": "09418c3de68f8a10b224f716716bd1b1f9d5e7597eed24768e447d4d4ca0eae6",
+      "charcreate-gender-candidate-2.txt": "3800ba0fbce4b253f5b65aa6a377930d6fd88a24a5cf58465ad822b6e1e9eff4",
+      "charcreate-gender-candidate-3.txt": "4faf6564818401a29b79ea4d8f0648675230b04f8b4d28a8a9b34ef4cb223048",
+      "charcreate-gender-candidate-4.txt": "ab0566d09b5eb080754e187691b8c23cd39cf9d2b2eb4c1bf99300eba37de98c",
+      "cursor-callback.txt": "0c1de3290d4a8d36e428dc8bc481dbb15906b1c585a71458275fb3afa5550318",
+      "cursor-column-init.txt": "16dd16a71353c0c5d75da4e1d717e4621b75d2b05402ac5fed6a5d12840dd3d9",
+      "cursor-core-setup.txt": "60c473404b26cc42481fce2b68a36e39245d6d7320558aa0ab65f79e0af4cbf3",
+      "cursor-enable.txt": "cb94b1646ff806bcb71ce0687fdd24e24e263a47282a776f792bf16e49afdc40",
+      "cursor-native-constructor.txt": "465a785df375f7f3029dfbcb0f603fcf8cc91dd797d2b7efdf8de4b07cb15c84",
+      "cursor-object-init.txt": "6b95f8ad520cbbe5bbe406142a35b522c85e0c98bb5402850160deaac96e4b1d",
+      "cursor-set.txt": "d39c08cb05331a0bd3fc8d55f3d5f28e37700bce2d8d2deb1efbf8cf7f7cbab1",
+      "cursor-storage-init.txt": "f3ad7420822df0117c80f7229f155e2e0eda6fa8afdd890d3bf2bee430bbfc4c",
+      "gender-commit-prologue.txt": "ac5b9137b0c9816940a484093008b0b3b18eba72a2c105fea96c00f51bab82fd",
+      "gender-init-complete.txt": "76222084b5081aefa736445d426499b14ced73d9be4b10f63bf4d283027457dc",
+      "gender-record-candidate-0.txt": "0c2887a144ee46f1ac119cb4ec70328687c10db57d206889846e544c673f13ad",
+      "gender-record-candidate-1.txt": "6de165dcd1c809497b1db1917ae7ea9fbe0f5e308885b7841c074dcc04dd7eae",
+      "gender-record-candidate-10.txt": "cf9ab04f7ebde4a42e95ef91cb86cc073ac3fcccc86a0803117d5e5ce18c7cb9",
+      "gender-record-candidate-11.txt": "06644b28c0c485bd52b6199d5444f79edcc01b121cfbcc366a38126f9b254789",
+      "gender-record-candidate-12.txt": "72160f025883a9d1f51edbe1ae6b50cf4ccb52163b4f6e5917c1d934ee366d31",
+      "gender-record-candidate-13.txt": "5e32beb12330916b5ca88abc0d24d410ddc39b2dbb69d7375d5cd284b41cf152",
+      "gender-record-candidate-14.txt": "3901b930b3dcafa29669d81947ce588bbc3f5019fa380c9d42a9612cec5b5eb2",
+      "gender-record-candidate-15.txt": "ed5b283390d7eda313477d916e4398e70ac76c6b4ddce32e497950b2d69ca526",
+      "gender-record-candidate-16.txt": "fdf9f84021b6461d126d762419eff498810898c2ccbcfde45cc724cd854f188f",
+      "gender-record-candidate-2.txt": "e516bad03b5f90af7b38c4d766e87fae6209398d93756b8acc12806ba8df3132",
+      "gender-record-candidate-3.txt": "5554a149fea0454b09accb3b2ded22ae5bcdae374ea6b947c0b8873307c615e3",
+      "gender-record-candidate-4.txt": "0eac175009dfaabda36a33ea1128e92b5c39885133c1673998a5ac3a952e1ec6",
+      "gender-record-candidate-5.txt": "82b2d5b1ebf695e97c39445479ebe740551d53ad50982c7ed03cb9f172d5eb46",
+      "gender-record-candidate-6.txt": "ea84d2fc67188229550237f211813788891d97c85ee63380bfc75ed768dd5a42",
+      "gender-record-candidate-7.txt": "11e91977193dab41eca6735c9e73901cfc8e3f346ac3d00fa7dd0c688c1c20f9",
+      "gender-record-candidate-8.txt": "240f57713db8aa622ba53f2a1d13be9ead5ac725ba1dfe52a4a6c9970d42e3e7",
+      "gender-record-candidate-9.txt": "3c16df9fee95f6bd099491c66d5932b9833a3f8b501ee214b5cf2990cff93a3c",
+      "gender-record-write-context.txt": "ff810ca87cb8f4f9940eb5e8e323b0c39173ab068bc343c174fd6358d75b336f",
+      "gender-write.txt": "8236e4f1645e0a08025439781cf432220c5cfba1cce3119945a17a99fa650f16",
+      "job-producer-function.txt": "68c4105acc604c74c32a3d381167916a1c674e8a518ac1184f3bd590d2491697",
+      "job-selection-continuation.txt": "046bc19b835a896f240382a043a5f89baf57451f867fd9fbd5330225e081602b",
+      "list-input-update.txt": "92f566867614ba279ec77120814e2df7a994964808709ad970d8489f4aa003b7",
+      "list-widget-constructor.txt": "6f9a0e644a0e5fbfd7cf915da9dac30c20040ef9e6f04cf47318e73b107cb07b",
+      "selected-index-reader.txt": "29e6cb89141238345a648473b3654704e511ee3abeff74834b662f6eca744958",
+      "selector-context.txt": "9aae3bb7df6002911eff31f142669f461d3aa57703b614bebc85198a1c923558",
+      "selector-tail.txt": "5cde030f7fc1fa742ae352e40b44f556c4ecda77f0eedcb6e3f575398a004068",
+      "widget-count-tail.txt": "d1ef6ffefb61c0f5955a21048c26c022fceaebe97a5680d9dededd209fb7474f"
+    }
+  },
+  "limits": [
+    "Two direct callers plus absence of literal selector pointer are bounded static evidence,not a complete indirect-call proof.",
+    "No guarantee for corrupt memory/save data is invented; normal supported producer invariants themselves remain unclosed.",
+    "Keep nested fitting held;do not claim migration/capability completion from this partial native trace."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T20:11:50.905732+00:00",
+  "role": "Independent ordinary read-only review; findings/advice only, no implementation/approval/credit",
+  "status": "FINAL_REVIEW_COMPLETE_NO_OPEN_FINDINGS",
+  "candidate": {
+    "root": "/var/tmp/dokapon-gp-index-ojcy9sxb/review-source-final",
+    "manifest_sha256": "734c46083f6172d432ad9a2e6ac96a3a0549a5d0c0dba593fd074b938d19cdaf",
+    "members_verified_before_after": 623,
+    "main_sha256": "0049927099611794ddb451ea6fa39bc022252d76833e6fbc62697f1d756ceedb",
+    "changed_from_initial622": [
+      "main.go predicateonly",
+      "MIGRATION.md",
+      "analysis/go-current-input-accounting.json",
+      "analysis/gp-index-reuse-decision.json",
+      "evidence/gp-index-proof.json"
+    ],
+    "added": "analysis/gp-index-milestone-study.json"
+  },
+  "baseline": {
+    "manifest_sha256": "97a0957c9c4550c2f84052d027c952df3e0c1d0504d59c6e5eea0235047acc85",
+    "members_verified": 616,
+    "own_baseline_build": "/var/tmp/dokapon-gp-index-review-k9lvzklk/baseline-core"
+  },
+  "findings": [
+    {
+      "id": "GP-INDEX-REUSE-1",
+      "severity": "LOW",
+      "status": "CLOSED_FINAL_GUARD_DELTA_INDEPENDENTLY_VERIFIED",
+      "file": "main.go:252",
+      "problem": "Layout andGP index repeat the same profilecount/apply/registry/glyph/source-size predicate in adjacent guard clauses. This creates two validation places to change in one shared read-only lifecycle.",
+      "minimal_fix": "One (layout||gpIndex) predicate; retain exact GP/ELF diagnostic choices inside. No helper/state/schema change.",
+      "root_disposition": "Root implemented one sharedpredicateinmain only. Own freshCLI/build/vet and14GP/ELFflag/boundary completecapturecomparisons prove unchangedexactdiagnostics;3more completeoutputs including fullnative index exact."
+    }
+  ],
+  "behavior": "No concrete behavior/safety defect found in reviewed622. Unknown metadata preserves instruction/site facts with null arithmetic/maps/matches; zero GP valid. Signed modulo arithmetic, discarded ADDIUrt0, rawopcode-dependent rt and memory/cache/prefetch points preserved. Reversefile uniqueness distinct from forwardLOAD uniqueness.",
+  "checks": {
+    "focused_complete_CLI": "PASS15.569s; go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .; CGO_ENABLED=0 GOMAXPROCS=2 nice19 ownedTMP/GOTMP",
+    "core_build_vet": "PASS; focused/build/vet43047 and baselinebuild23932 reaped exit0",
+    "source_and_fixture": "83source+7precode+25secondfulloracle manifests/pins verified; ZIP exactly independent1557499B JSON; all42sourcewords bound. Existing CLI13cases1480fullfacts+39refusals pass.",
+    "native_full_oracle": "Own selected-original-AST metadata/rw/arithmetic and rawPH equations over683392words produce all10212rows exactly. Own builtCLI complete GPIndex+RegisterInfo matches frozen independent4d595d1d expected.1298unique points:3112filebacked+7100BSS rows. Frozen extractedsource identity/bytes preserved.",
+    "independent_edges": "18PASS: exact32768rows; adjacent/reversedPH/partialalias/gap; rt0 discarded/load with0xffffffffand2^32endpoint; headerlessmetadataunknown; Unicode128/130B dynamicnames/exacttypedalias/duplicates; sourcehash/foreignoutput guards.",
+    "old_compatibility": "11complete stdout/stderr/exit pairs exact against own accepted616 build:8audits +observed/candidates/layout. Exampleinputidentities preserved.",
+    "hygiene": "All40Go gofmt clean;4changedGo scopedwhitespace and positive-selfchecked POSIX credential scan clean; endpins held.",
+    "final_refresh": "PASS14.212s fresh complete TestCLIDryRunAndApply; corebuild/vet;17targeted wholecapture comparisons;final623pins;gofmt/scopedwhitespace/selfcheckedcredentials. Unchanged corpus joined through exactGo/fixture/runtime identity, not needlessly regenerated."
+  },
+  "architecture": {
+    "owners": "Serena references/run+auditStreams callers and inspect mappings traced in owned writablecopy. GP indexing is a cohesive read-only references responsibility. No extra handler/parser/decoder/helper is needed.",
+    "mapping": "Existing inspect reused for ELF/GP/point maps; reverse-file scan partition is necessary separate geometry, not duplicated forward mapper. Deduplicated1024point batches avoid inheriting a false index row cap.",
+    "growth": "The ~160line GP branch is bounded classification/report assembly. Existing observed/candidate responsibilities and referenceTarget retained; no copied strict pointer decoder or speculative engine. Two fact types organize public instruction/index facts.",
+    "cost": {
+      "production_Go_files": 39,
+      "production_Go_bytes": 474721,
+      "named_declarations": 41,
+      "production_growth_bytes": 11344,
+      "runtime_parent_accounted_files": 181,
+      "runtime_parent_accounted_bytes": 2549244,
+      "new_functions_Go_files": 0,
+      "tests_growth_bytes": 6213,
+      "fixture_ZIP_bytes": 76544,
+      "fixture_raw_JSON_bytes": 1557499,
+      "runtime_growth_bytes": 11956,
+      "duplicate_validation_bytes_removed_from_phase_one": 115
+    },
+    "claims": "Capability growth only; no reduction/retirement/credit.",
+    "source_criterion_advice": "Source study f8eec900... is exactly original secondfulloracle/report.json. Its conditional binary_inspection.04 statement is consistent with material generalGPoffset classification/indexing: constructedADDIU plus broad source-backedmemory/cache/prefetch forms, rawopcodefields, bounded sourceorder/mapping/query/unknown facts. This goes beyond declared-site metadata backfill. It does not establish .05CFG/registerreasoning or .06interior/hook/ABI proof. Root alone owns any milestone decision; this review grants no credit."
+  },
+  "source_oracle_limits": "Precode7pack has no Go execution/outputs. Second fullnative oracle is original-helper/manual equations after candidate source inspection, before case execution; independently replayed, not represented as blind precode oracle. Allsource snapshots preserved.",
+  "not_checked": [
+    "Fullsuite/race/nativefonts build orrace",
+    "CFG/liveGP/registervalueflow/reachability/loadedpointers/patchauthority",
+    "ISO/runtime/gameplay or universalGPR-use classification"
+  ],
+  "artifacts": {
+    "root": "/var/tmp/dokapon-gp-index-review-k9lvzklk",
+    "manifest": "/var/tmp/dokapon-gp-index-review-k9lvzklk/artifact-manifest.json",
+    "sha256": "9b37180f5fb5867c9e0cf3e85f45e38af3455620de678f3709c84e9d20a55ad9",
+    "members": 2220,
+    "initial_manifest_members_reverified": 1499,
+    "final_checks": "/var/tmp/dokapon-gp-index-review-k9lvzklk/final-checks.json",
+    "final_checks_sha256": "fe51a2184add820a27485af5d8294438325004584242b904d533891e0e9913fd",
+    "all_owned_jobs_terminal": true
+  },
+  "phase_one": {
+    "candidate_manifest_sha256": "b7417c540dae376032ab4bb8067143ea8272fbfdd4ea497a0075378bf9bd11a1",
+    "members": 622,
+    "initial_report_sha256": "cc16d6285df95a4acc34038e1dae678d28c9aae758003b3f42b8d10f7d2ddd8d",
+    "initial_report_preserved": "/var/tmp/dokapon-gp-index-review-k9lvzklk/phase-one-report.json",
+    "artifact_manifest": "/var/tmp/dokapon-gp-index-review-k9lvzklk/phase-one-artifact-manifest.json",
+    "artifact_manifest_sha256": "8ab7916824066011250650494d44cfe0296150e659b1c195b49d057e8aaa1d3f",
+    "artifacts": 1499,
+    "all_reverified_unchanged": true,
+    "focused_CLI_seconds": 15.569
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schema": "snapshot-family-assessment-v1",
+  "status": "STATIC_EVIDENCE_ADVICE_NOT_PROMOTION_OR_APPROVAL",
+  "recommendation": "Full is justified for artifact_snapshots under unchanged workflow-families-v1",
+  "current_ledger_status": "partial",
+  "baseline": {
+    "version": "workflow-families-v1",
+    "core_denominator": 14,
+    "rule": "All material responsibilities need verified shared Go support, declarative inputs and preserved guards; usable entry points alone earn no Full credit.",
+    "original_contract": "Create/index/hash immutable snapshots and restore or inventory explicit versions.",
+    "conditional_count_effect": "If the owner adopts this recommendation, current4/14 becomes5/14 (35.71%); this report changes no ledger."
+  },
+  "requirements": [
+    {
+      "duty": "Create immutable versions from explicit artifacts",
+      "finding": "Covered",
+      "reason": "snapshotArtifacts copies a regular source into an exclusively reserved tag/artifact.bin, verifies bytes, publishes receipt last and syncs directories. It never reuses a tag or shares the source inode. Immutable means immutable through this tool, matching the copy-based original duty, not OS write protection.",
+      "source": "snapshots.go:28,63,150,181; outputs.go:20; backup_iso.py:62"
+    },
+    {
+      "duty": "Index recorded versions and retain identity when payload is missing",
+      "finding": "Covered",
+      "reason": "Each tag has a separately persisted receipt; directory enumeration supplies the index. A retained receipt still exposes metadata and payload-missing status after artifact.bin disappears. The tool deletes neither receipts nor tag directories. A separate aggregate git-tracked ledger is a storage/backup format choice, not a missing index operation.",
+      "source": "snapshots.go:73-146,203-225; snapshot_types.go:12; backup_iso.py:7-10,98-109"
+    },
+    {
+      "duty": "Hash artifact bytes and bind size",
+      "finding": "Covered",
+      "reason": "Source prehash and identity/size/mtime checks bind the receipt; streamed publication verifies expected size/digest and hashes destination readback. Both create and restore use these shared paths.",
+      "source": "snapshots.go:150-200; outputs.go:15-61; backup_iso.py:34-39,83"
+    },
+    {
+      "duty": "Restore explicit versions with digest checks before and after copying",
+      "finding": "Covered",
+      "reason": "Explicit tag resolves only fixed payload/receipt names. Receipt and payload are validated, full stored digest is checked before output creation, and the same descriptor is rewound for verified publication/readback. Restoration to a new explicit file preserves the version's bytes while enforcing the recommendation's stronger exclusive-output guard.",
+      "source": "snapshots.go:43-45,85-148,176-200; outputs.go:20-61; backup_iso.py:112-154"
+    },
+    {
+      "duty": "Inventory explicit versions honestly",
+      "finding": "Covered",
+      "reason": "List reports receipts plus missing, incomplete, unsafe and size-mismatched states. Present payloads are explicitly unverified; no historical hash is misrepresented as freshly measured. Legacy cmd_list also reports recorded versions and missing files without rehashing.",
+      "source": "snapshots.go:73-146; backup_iso.py:98-109"
+    },
+    {
+      "duty": "Carry paths, tags, revision, digest, size and provenance",
+      "finding": "Covered",
+      "reason": "SnapshotOptions supplies explicit source/output/store/tag/revision/note. SnapshotReceipt records absolute source, tag, UTC date, full revision, note, size and SHA256. Caller-supplied revision authority is disclosed; automatic git-HEAD discovery and checkout warnings are incidental acquisition/UI choices, not stronger attestation in the original script, whose git lookup could return None.",
+      "source": "snapshot_types.go:3-21; snapshots.go:28-37,67-71,104-120; backup_iso.py:42-49,84-92,135-141"
+    },
+    {
+      "duty": "Preserve originals, avoid overwrite/ambiguous tags and mutable sharing",
+      "finding": "Covered",
+      "reason": "Read-only source handles plus new-inode copies preserve sources. All outputs use O_EXCL, protecting existing original/source/other files and aliases; no in-place restore exists. Duplicate tags refuse rather than selecting an ambiguous latest match. Static final symlink paths refuse. No deletion/retention action is inferred from inventory.",
+      "source": "snapshots.go:43-55,63-65,89-98,150-164; outputs.go:20-35; original core_opportunities/artifact_snapshot/guards"
+    }
+  ],
+  "historical_differences": {
+    "legacy_ledger_import": "Not a missing material duty. backup_iso load_manifest/cmd_list are the old index implementation; Go has an equivalent receipt index, including missing-payload metadata. Automatic ingestion of that legacy JSON is compatibility/migration work. Existing historical records are not thereby claimed migrated or retired.",
+    "workspace_auditing": "The second source row has both artifact_snapshot and evidence_report capabilities. Its snapshot portion inventories known versions/provenance. verify.workspace_isos additionally crawls all workspace ISOs, searches references, assigns project roles, reports inode/link/allocation metadata and groups recorded equal hashes. Those are broader workspace/evidence-report duties, not absent operations on explicit snapshot versions. They remain unimplemented Go reporting breadth and are not counted complete here.",
+    "overwrite_restore_and_duplicate_override": "Historical copy2 may overwrite a chosen working destination and allow duplicate labels. The frozen recommendation explicitly requires exclusive output and resolving duplicate ambiguity. The safer new-output/unique-tag contract fulfills those guards without reproducing unsafe historical permissions."
+  },
+  "verification_basis": {
+    "positive_workflow_evidence": "Existing snapshot proof and ordinary review cover independent31-byte/2MiB create-preview/create/list/restore-preview/restore, exact byte/hash readback, source preservation, duplicate/overwrite/corruption/missing/unsafe receipt and payload refusals, and invalid stream cleanup.",
+    "integrated_checkpoint": "registry-owner-proof records uncached full package race145.271s plus vet/build/format/scans, with current snapshot/writer/input production pins. Current patch_test.go differs afterward only by the reviewed authoring-flow addition; its snapshot test block is byte-identical to that integrated baseline (static cmp).",
+    "Serena": "snapshotArtifacts has one production caller in run; existing shared publisher/input owner references were reviewed. This is a manager with declarative inputs, not merely a copy/hash primitive.",
+    "fresh_execution": "None: static source/JSON/hash/comparison inspection only; no test, Go/Python tool, ISO, registry, emulator or process access."
+  },
+  "missing_material_duties": [],
+  "smallest_required_enhancement": "None identified for this frozen family contract. Do not add ledger-import/workspace-audit machinery merely to earn snapshot credit.",
+  "limits": [
+    "No hostile same-user namespace mutation or atomic live-filesystem snapshot guarantee; legacy copy-based workflow supplied neither.",
+    "No implicit checkout, historical ledger migration, in-place working-file replacement, workspace audit completion, retention/deletion or retirement approval.",
+    "Recommendation rests on requirement crosswalk plus verified end-to-end evidence, not on absence of a bug or a new test run."
+  ],
+  "sha256": {
+    "analysis/reusability-coverage-baseline.json": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+    "analysis/reusability-coverage.json": "4955f24b28adfd8daab54938ec85b2bec92b9e81f93dcb89144111fe5927fb3b",
+    "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+    "../backup_iso.py": "70a102b6ce83d28461541bb194aa2fb904ee38f5021eeaab40e5ab7eb7091be4",
+    "../audit_workspace_isos.py": "b433cccac361f6a00fdd56458b5d48b4ed284e69f538245d2600fe74763c5420",
+    "../rework/new_tool/reports/verify.py": "f09327293483d75e3e848cd7a2f76cef37fc8f8368347d2abed69fe4619d8386",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "3b65c39619b3cda8ce485af1f08137290848d32c38e0d4ae18d04f1e8cae4750",
+    "patch_test.go": "b6abdf78bd0e08f3fff0f2b52c7dd9b658c69dc6d79b20f068db88ac3265e091",
+    "evidence/snapshots-proof.json": "5eafee171e0dd8d6e002ad064114b56ad79c1c355239ba2957c2830d0b857a41",
+    "evidence/snapshots-review.json": "a15fb0ff9b31be975d8aa1c2d077c8bc4d6029e246dd7367e5fa6a899075f2a0",
+    "evidence/registry-owner-proof.json": "22847ecd0741acd1ae09019d4d52ed735cafb7e26f7a540d6ca39613ab2c6a7f",
+    "evidence/authoring-flow-review.json": "6bd18f6203a2b94c09387f3064227da908fa82de48cc8d5c707cb2d472d7aa55"
+  }
+}

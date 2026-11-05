@@ -1,0 +1,807 @@
+{
+  "schema_version": 1,
+  "baseline": "../rework/new_tool/evidence/parity-matrix.json",
+  "baseline_sha256": "bbad75e6e3678d3d3883390cc938d53e30ca25cf80d32db24d1f45881bc778cd",
+  "baseline_count": 410,
+  "default_disposition": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+  "overrides": {
+    "tools/patch_yes_no.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Complete ongoing Go bytepatch effects and meaningful refusals verified; discovered internal legacy launcher now enforces reference-only before execution.",
+      "recipes": [
+        "0x488760",
+        "0x535908"
+      ],
+      "contract": "evidence/same-length-closure.json",
+      "runtime": "Shared same_length_stream operation and recipes/inplace.json; no per-script handler or new functions",
+      "callers": "Generic legacy.main reads the explicit reference-only disposition and refuses both paths before execv; describe remains available. Independent dispatcher/flat/canonical route spies prove six refusals and zero execution. No per-script wrapper or automatic old-argv redirect.",
+      "retained": "Legacy source remains frozenreference; no physical deletion or netsavings credit",
+      "unverified": "No arbitrary external/manual caller or physical deletion claim. Source files remain frozen behavioral references; metadata/ledger responsibilities are separate.",
+      "legacy_run": "reference-only"
+    },
+    "tools/patch_scream_eek.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Complete ongoing Go bytepatch effects and meaningful refusals verified; discovered internal legacy launcher now enforces reference-only before execution.",
+      "recipes": [
+        "0x5395d8"
+      ],
+      "contract": "evidence/same-length-closure.json",
+      "runtime": "Shared same_length_stream operation and recipes/inplace.json; no per-script handler or new functions",
+      "callers": "Generic legacy.main reads the explicit reference-only disposition and refuses both paths before execv; describe remains available. Independent dispatcher/flat/canonical route spies prove six refusals and zero execution. No per-script wrapper or automatic old-argv redirect.",
+      "retained": "Legacy source remains frozenreference; no physical deletion or netsavings credit",
+      "unverified": "No arbitrary external/manual caller or physical deletion claim. Source files remain frozen behavioral references; metadata/ledger responsibilities are separate.",
+      "legacy_run": "reference-only"
+    },
+    "tools/patch_menu.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Complete ongoing Menu effects, meaningful refusals and known callers replaced under the documented pinned staged rebuild. Independent reviews cover all eight intended effects (48 declared / 27 changed bytes), safe Name/Girl placement, full-image containment/source preservation, completed state and private RAM; generic legacy routes refuse before execution.",
+      "recipes": [
+        "0x5364c8",
+        "0x536370",
+        "0x5364c0"
+      ],
+      "unverified": "Physical fit/gameplay and arbitrary manual/external execution remain unverified. Workflow requires bootstrap, default SPACE14 and the 172-event stage before Name/Girl then Boy; no standalone Menu or arbitrary-source support is claimed.",
+      "evidence": [
+        "evidence/menu-labels-checkpoint.json",
+        "evidence/menu-boy-checkpoint.json",
+        "analysis/menu-effect-obligations.json",
+        "evidence/menu-closure.json"
+      ],
+      "legacy_run": "reference-only",
+      "contract": "evidence/menu-closure.json",
+      "runtime": "Existing stream_append and same_length_stream operations, separate menu-labels/menu-boy recipes and existing generic reference-only policy; no per-script handler or new function.",
+      "callers": "Canonical, flat and dispatcher legacy routes refuse reference-only before execv; describe and unconverted behavior retained. Existing test loop expanded; no silent legacy argv redirect.",
+      "retained": "Historical source remains a frozen behavioral reference; no physical deletion or net savings credit."
+    },
+    "tools/apply_rename_pool_writeback_gap_2026-09-09.py": {
+      "status": "reviewed completed historical state transition; replay compatibility preserved",
+      "coverage": "Field representation reference only; all100 pristine-image edits independently reviewed and verified through whole-image containment; registry writeback remains outstanding",
+      "recipes": "All100 chapter rename-pool IDs, 0x457e10..0x458440 step0x10",
+      "unverified": "No Go recovery CLI/API parity; existing dynamic Python historical replay paths remain. Generic ongoing registry writes still require separate migration.",
+      "disposition": "evidence/historical-fixed-field-repairs.json"
+    },
+    "tools/apply_nicknames_writeback_gap_2026-09-09.py": {
+      "status": "reviewed completed historical state transition; replay compatibility preserved",
+      "coverage": "Exact60 inline field representation; golden/source/adversarial review and whole-image containment verified, two no-ops and separator preserved",
+      "recipes": "All60 nickname IDs, excluding separator0x4eeec0 and including two no-ops",
+      "unverified": "No Go recovery CLI/API parity; existing dynamic Python historical replay paths remain. Generic ongoing registry writes still require separate migration.",
+      "disposition": "evidence/historical-fixed-field-repairs.json"
+    },
+    "tools/migrate_unregistered_2026_09_30.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Read-only1813-ID/2112-site family and all1813 codec encodings match historical bytes. Corrected source24 proof95entries retained separately. After separatelyverified nativeF00324->14, currentliteral172 table has freshsource/codec/control/font/native14/ref/consumer reviews, new375effect fullimageoracle/done203NOOP/privateRAM/posthash. All77 formernative24refusals now covered by thisdifferent actualsource14 transition; no source24 waiver, physicalfit or wholepathclosure.",
+      "unverified": "Complete migration/caller changes, discovery beyondalignedraw words, consumer-specificgeometry andARG/position layout, bootstrap/growth, ELFlanding andregistry updates remain outstanding. Necessaryeffects/refusals/callers matter; legacyargv spelling alone isnot a requirement.",
+      "evidence": [
+        "evidence/pointer-family-facts.json",
+        "evidence/pointer-selector-checks.json",
+        "evidence/pointer-selector-report.json",
+        "evidence/pointer-selector-apply-refusals.json",
+        "evidence/stream-append-checks.json",
+        "evidence/stream-append-current-dry-run.json",
+        "evidence/stream-append-synthetic-run.json",
+        "evidence/raw-codec-checks.json",
+        "evidence/envelope-checks.json",
+        "evidence/envelope-synthetic-run.json",
+        "analysis/source-envelope-profile.json",
+        "evidence/source-origin-review.json",
+        "evidence/source-origin-checks.json",
+        "evidence/source-origin-isolated-run.json",
+        "evidence/expanded-events-review.json",
+        "evidence/expanded-events-checks.json",
+        "evidence/expanded-events-isolated-run.json",
+        "evidence/full-scene-review.json",
+        "evidence/full-scene-checks.json",
+        "evidence/full-scene-isolated-run.json",
+        "evidence/full-scene-checkpoint.json",
+        "evidence/native14-events-checkpoint.json"
+      ]
+    },
+    "tools/grow_stream_capacity_2026_09_30.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Parameterized initialized320\u2192512 growth onexclusivecopy; allsourceblobpreserved, reclaimedtailzeroed, bothdirectoryendians+4loaderwords; boundedwhole-tree/path-tableoverlap andstalesizeguards; partial/done states/refusals verified. Full4243259392Bactualcopycomparison passes.",
+      "unverified": "Historical160\u2192320 predecessor/callermigration, manifestbackuprestoreafterlateredits, runtimeheap/gameplay andallresponsibilityparity notsealed. Newcopyretains exactparent; nolegacyretirement claimed.",
+      "evidence": [
+        "evidence/capacity-checks.json",
+        "evidence/capacity-reviews.json",
+        "evidence/capacity-isolated-run.json",
+        "analysis/capacity-growth.json"
+      ]
+    },
+    "tools/build_stage2_trampolines.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Clean89word loader body+guardedStStopcleanup represented bydocumentedwordtemplates/7namedfixups;3inactivepayloadblocks396B independentlyreviewed/frozen andverified onexclusivepristinecopy over4243259392B. Genericguarded_words composeswithtext through existingplanner/writer. Directdialogue/SUBST/three nameplate adapters also represented and installed in bounded pristinebootstrap; global memcpy makes twoolder monster adapters unnecessary oncheckedroutes.",
+      "unverified": "Other builder variants/policies/callers andcomplete responsibility disposition notsealed. Core bootstrap and narrow RAM heapload nowverified; notfullgameplay/ENfamily migration.",
+      "evidence": [
+        "evidence/word-checks.json",
+        "evidence/word-reviews.json",
+        "evidence/word-isolated-run.json",
+        "analysis/bootstrap-contracts.json"
+      ]
+    },
+    "tools/patch_iso_stream_blob.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Pristine n0\u2192320 disc reservation via shared ISO tree/path guards, expected-old padding/tail, dual-endian record updates, completed-content preservation; composition with3inactive word blocks verified on exclusive copy over4243259392B.",
+      "unverified": "Generic blob overwrite/shrink, manifest backup/restore, caller migration and all responsibility parity remain. Disc allocation does not certify loader/consumer/window readiness or complete bootstrap.",
+      "evidence": [
+        "evidence/allocation-checks.json",
+        "evidence/allocation-reviews.json",
+        "evidence/allocation-current-dry-run.json",
+        "evidence/allocation-isolated-run.json"
+      ]
+    },
+    "tools/apply_stage2_hooks.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Two primary hook activations plus source-pinned clean-loader prerequisite and direct dialogue body installed on exclusive rebuilt image; complete old/delay guards and full-image comparison.",
+      "unverified": "All historical source variants, per-tool policy/refusal/caller migration and complete responsibility parity are not sealed. Narrow coldboot RAM proves residency/loading, not all consumer execution/gameplay.",
+      "evidence": [
+        "evidence/bootstrap-checks.json",
+        "evidence/bootstrap-reviews.json",
+        "evidence/bootstrap-isolated-run.json",
+        "evidence/bootstrap-runtime-probe2.json"
+      ]
+    },
+    "tools/apply_nameplate_hooks.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Shared substitution and three adapters/entry routes installed with preserved a1 in duplicate paths, complete displaced/delay guards and source/copy/RAM evidence.",
+      "unverified": "All historical source variants, per-tool policy/refusal/caller migration and complete responsibility parity are not sealed. Narrow coldboot RAM proves residency/loading, not all consumer execution/gameplay.",
+      "evidence": [
+        "evidence/bootstrap-checks.json",
+        "evidence/bootstrap-reviews.json",
+        "evidence/bootstrap-isolated-run.json",
+        "evidence/bootstrap-runtime-probe2.json"
+      ]
+    },
+    "tools/fix_helper_entry_translate_2026_09_30.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "All five helper entries/stubs share one7wordprefix in Go recipe; actualSRLfieldfixups and displaced prologues verified, including global memcpy route for preserved monster names.",
+      "unverified": "All historical source variants, per-tool policy/refusal/caller migration and complete responsibility parity are not sealed. Narrow coldboot RAM proves residency/loading, not all consumer execution/gameplay.",
+      "evidence": [
+        "evidence/bootstrap-checks.json",
+        "evidence/bootstrap-reviews.json",
+        "evidence/bootstrap-isolated-run.json",
+        "evidence/bootstrap-runtime-probe2.json"
+      ]
+    },
+    "tools/fix_strcat_translate_2026_09_30.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Complete20word u16strcat body with twoR5900short-loop NOP delays and shift20 installed/independently frozen, source/copy/RAM guards.",
+      "unverified": "All historical source variants, per-tool policy/refusal/caller migration and complete responsibility parity are not sealed. Narrow coldboot RAM proves residency/loading, not all consumer execution/gameplay.",
+      "evidence": [
+        "evidence/bootstrap-checks.json",
+        "evidence/bootstrap-reviews.json",
+        "evidence/bootstrap-isolated-run.json",
+        "evidence/bootstrap-runtime-probe2.json"
+      ]
+    },
+    "tools/fix_param_translate_2026_09_30.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Complete9word parameter translator/prologue installed after preserving three pristine JP names; no erroneous later-state M/F relocation applied.",
+      "unverified": "All historical source variants, per-tool policy/refusal/caller migration and complete responsibility parity are not sealed. Narrow coldboot RAM proves residency/loading, not all consumer execution/gameplay.",
+      "evidence": [
+        "evidence/bootstrap-checks.json",
+        "evidence/bootstrap-reviews.json",
+        "evidence/bootstrap-isolated-run.json",
+        "evidence/bootstrap-runtime-probe2.json"
+      ]
+    },
+    "tools/fix_space_width_2026_09_30.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Default native SPACE24->14 at all8 historical sites via existing guarded_words/two shared blocks/one named value. Two fresh ordinary reviews, complete4.24GB independent oracle (8changed/32declared), completed-state8observedNew intents and private176word/6JP/posthash proof.",
+      "runtime": "recipes/layout/space-width.json; byte-identical existing Go runner, no new functions/schema/dependencies",
+      "contract": "evidence/space-width-checkpoint.json",
+      "unverified": "Custom --value float policy, JP keyboard/label visual impact, caller/interface closure and full historical-path disposition. Original replay remains available; no legacy_run retirement flag or full-path credit."
+    },
+    "tools/registry_writeback_controller_pointer_fixes_2026-09-07.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Complete historical machine-field effects and meaningful guards verified by frozen-original nonnoop Go oracles, two fresh independent full-policy reviews, complete actualsnapshot byte/semantic/numeric containment, source preservation and completedstate replay. Known old mutation routes are explicitly reference-only.",
+      "legacy_run": "reference-only",
+      "recipes": [
+        "recipes/registry/controller.json"
+      ],
+      "evidence": [
+        "analysis/registry-policy-contracts.json",
+        "evidence/registry-policy-go-checks.json",
+        "evidence/registry-policy-full-python.json",
+        "evidence/registry-policy-copy-proof.json",
+        "evidence/registry-policy-closure.json"
+      ],
+      "unverified": "Old implicit canonical overwrite/localtoday/argv interfaces are retired in favor of explicit pinnedsource/date/newoutput. registry_io85imports and four other policies remain Python. Currentcanonicaltargetfields alreadydone; synthetic nonnoop cases prove backfill effects. Full Python retains69known failures; no ISO/gameplay claim.",
+      "contract": "evidence/registry-policy-closure.json",
+      "runtime": "Unchanged shared registry_merge operation in existing run; separate purpose-grouped recipe table, no per-policy Go handler or new function.",
+      "callers": "Existing lookup execution-disposition gate shared by generic legacy and all six metadata context routes; controller/GP direct helper bodies and datedwrappers refuse old execution with failclosedfallback. Canonical/flat/rework/topdispatcher/default/apply routes checked. Describe and four unconverted policies retained.",
+      "retained": "Original source remains hash-pinned in baseline fixtures. Current dated wrappers document disabled historical usage; no physical legacy file deletion or net-savings credit."
+    },
+    "tools/backfill_gp_relative_refs_2026-09-07.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Complete historical machine-field effects and meaningful guards verified by frozen-original nonnoop Go oracles, two fresh independent full-policy reviews, complete actualsnapshot byte/semantic/numeric containment, source preservation and completedstate replay. Known old mutation routes are explicitly reference-only.",
+      "legacy_run": "reference-only",
+      "recipes": [
+        "recipes/registry/gp.json"
+      ],
+      "evidence": [
+        "analysis/registry-policy-contracts.json",
+        "evidence/registry-policy-go-checks.json",
+        "evidence/registry-policy-full-python.json",
+        "evidence/registry-policy-copy-proof.json",
+        "evidence/registry-policy-closure.json"
+      ],
+      "unverified": "Old implicit canonical overwrite/localtoday/argv interfaces are retired in favor of explicit pinnedsource/date/newoutput. registry_io85imports and four other policies remain Python. Currentcanonicaltargetfields alreadydone; synthetic nonnoop cases prove backfill effects. Full Python retains69known failures; no ISO/gameplay claim.",
+      "contract": "evidence/registry-policy-closure.json",
+      "runtime": "Unchanged shared registry_merge operation in existing run; separate purpose-grouped recipe table, no per-policy Go handler or new function.",
+      "callers": "Existing lookup execution-disposition gate shared by generic legacy and all six metadata context routes; controller/GP direct helper bodies and datedwrappers refuse old execution with failclosedfallback. Canonical/flat/rework/topdispatcher/default/apply routes checked. Describe and four unconverted policies retained.",
+      "retained": "Original source remains hash-pinned in baseline fixtures. Current dated wrappers document disabled historical usage; no physical legacy file deletion or net-savings credit."
+    },
+    "tools/merge_misc_labels_gap_refs.py": {
+      "status": "reviewed completed/superseded historical state transition; execution retired",
+      "coverage": "Fixed dated190rowreport selected180resolvedcorrections; all180currentref_type/ref_sites exact.10unresolvedrows were not mutationduties.",
+      "legacy_run": "reference-only",
+      "contract": "analysis/report-policy-retirement-contracts.json",
+      "unverified": "No generic registry_io/discovery/reportgeneration/othermetadata retirement, fullGo implementation, externalmanual caller or freshinstructioncorrectness claim.",
+      "disposition": "evidence/report-policy-closure.json",
+      "runtime": "No Go handler/table/schema/function added. Existing central reference-only factory/legacygate; frozen original/report evidence preserved.",
+      "callers": "Directhelpers/factories/metadataCLI/topdispatcher/datedwrappermain/freshCLI/canonical-flat-reworkaliases/genericlegacy are reference-only, including arbitraryreport API. Missingdisposition fallback still refuses. Describe and activecanonical markup/yesno preserved; inheritedflatmarkuperror OPEN."
+    },
+    "tools/apply_pool_b_gameplay_ref_correction.py": {
+      "status": "reviewed completed/superseded historical state transition; execution retired",
+      "coverage": "Fixed dated1238rowreport completed or superseded:1227exact,9laterreference corrections,1order-only,1correctedID/ref47e262\u219247e2c0/pointer4d014c. Stale replay explicitlyretired, not Go implementation.",
+      "legacy_run": "reference-only",
+      "contract": "analysis/report-policy-retirement-contracts.json",
+      "unverified": "No generic registry_io/discovery/reportgeneration/othermetadata retirement, fullGo implementation, externalmanual caller or freshinstructioncorrectness claim.",
+      "disposition": "evidence/report-policy-closure.json",
+      "runtime": "No Go handler/table/schema/function added. Existing central reference-only factory/legacygate; frozen original/report evidence preserved.",
+      "callers": "Directhelpers/factories/metadataCLI/topdispatcher/datedwrappermain/freshCLI/canonical-flat-reworkaliases/genericlegacy are reference-only, including arbitraryreport API. Missingdisposition fallback still refuses. Describe and activecanonical markup/yesno preserved; inheritedflatmarkuperror OPEN."
+    },
+    "tools/fix_yes_no_registry.py": {
+      "status": "reviewed completed historical one-time human correction; execution retired",
+      "coverage": "Both intended Japanese/English/note corrections match pinned canonical registry; old0x535906 has already become0x535908. Original replay refuses before write. Historical disposition, not Go human-field implementation.",
+      "legacy_run": "reference-only",
+      "contract": "analysis/yesno-retirement-contracts.json",
+      "unverified": "No generic registry IO/discovery/report/human-authoring/dynamic-markup closure, physical legacy deletion, manual external invocation prevention or new Go implementation.",
+      "disposition": "evidence/yesno-closure.json",
+      "runtime": "Existing shared reference-only factory/legacy gate. Obsolete mutation body, reference reader/runtime JSON and retired wrapper exports removed; original facts remain in existing frozen fixtures.",
+      "callers": "Direct helper, metadata factories/frontend/top dispatcher, dated wrapper main/fresh CLI and six canonical/flat/rework namespaces refuse before user inputs. Generic legacy run refuses; describe remains. Missing-disposition fallback still refuses. Dynamic markup/readiness and generic human authoring remain active."
+    },
+    "tools/tag_midcontent_markup_shape_2026-09-08.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Source decoder, markup readiness and generated metadata verified; native exclusive snapshot/date interface replaces retired Python mutation.",
+      "runtime": "Existing controls/run and recipes/registry/markup.json; no per-script handler or new functions.",
+      "unverified": "No legacy helper API/overwrite/coercion compatibility, external callers or gameplay claim. Eligible English is string/null; actual snapshot has no eligible rows.",
+      "legacy_run": "reference-only",
+      "contract": "evidence/markup-retirement-closure.json",
+      "callers": "All six factory namespaces and dated wrapper share reference-only refusal through existing legacy disposition; describe remains available."
+    },
+    "tools/audit_markup_shapes_2026-09-08c.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Combined native text_shapes report replaces ongoing summary behavior; Python helpers removed and all known wrapper/factory/dispatcher routes refuse reference-only execution.",
+      "runtime": "Existing run/controls with separate reports/text-shapes.json recipe.",
+      "legacy_run": "reference-only",
+      "contract": "evidence/text-shape-retirement-closure.json"
+    },
+    "tools/audit_midcontent_icon_pen0_2026-09-08.py": {
+      "status": "fully migrated to Go under reviewed safety and interface redesign",
+      "coverage": "Combined native text_shapes report replaces ongoing summary behavior; Python helpers removed and all known wrapper/factory/dispatcher routes refuse reference-only execution.",
+      "runtime": "Existing run/controls with separate reports/text-shapes.json recipe.",
+      "legacy_run": "reference-only",
+      "contract": "evidence/text-shape-retirement-closure.json"
+    },
+    "tools/migrate_item_village_event_messages_2026-09-09.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Shared source-context wrapping matches69canonical original-policy outputs. One of this fourteen-entry family,0x47ce80, has source14 numeric1..10/window/control/reference review and exclusive-copy/full-image proof. Its reviewed13x3 layout intentionally replaces the old22x3 policy; wording stays canonical.",
+      "runtime": "Existing encode/controls/plan/verifySource/patchCopy plus one pure wrapPages algorithm and recipes/initialized/native14/formatted-events.json. No per-ID handler.",
+      "unverified": "Other thirteen entries, arbitrary argument formats/domains, full caller/reference/CFG closure, metadata/report/authoring ownership and historical-path replacement remain outstanding. No all-game/reentrant, gameplay, shipping or physical ink-fit claim.",
+      "evidence": [
+        "evidence/formatted-events-checkpoint.json",
+        "evidence/append-composition-checkpoint.json",
+        "evidence/stale-authoring-retirement-checkpoint.json"
+      ],
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed 2026-09-09 authoring replay only; all69original candidates already patched,17canonicalwordings superseded. Direct dated main and existing generic legacy gate refuse; canonical registry remains sole wording source. No arbitrary reauthoring or broader consumer proof.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_item_village_event_messages_2026-09-09.py"
+    },
+    "tools/migrate_board_event_ui_labels_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "coverage": "No full Go migration credit; original native consumer/domain/reference/geometry and other duties remain outstanding.",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed 2026-09-09 authoring replay only; all69original candidates already patched,17canonicalwordings superseded. Direct dated main and existing generic legacy gate refuse; canonical registry remains sole wording source. No arbitrary reauthoring or broader consumer proof.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_board_event_ui_labels_2026-09-09.py",
+      "evidence": [
+        "evidence/stale-authoring-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_village_chief_event_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "coverage": "No full Go migration credit; original native consumer/domain/reference/geometry and other duties remain outstanding.",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed 2026-09-09 authoring replay only; all69original candidates already patched,17canonicalwordings superseded. Direct dated main and existing generic legacy gate refuse; canonical registry remains sole wording source. No arbitrary reauthoring or broader consumer proof.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_village_chief_event_2026-09-09.py",
+      "evidence": [
+        "evidence/stale-authoring-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_board_event_battle_status_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed dated executor only:129 authoring IDs,12 writebacks,45 heldback-note duties. Canonical revisions/reference corrections and one superseded F104 note remain authoritative.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_board_event_battle_status_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-authoring-batch-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_no_markup_yet_batch_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed dated executor only:26 preflight authors plus6 later-selected writebacks; current canonical revisions and one reference correction remain authoritative.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_no_markup_yet_batch_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-authoring-batch-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_no_markup_yet_batch2_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed dated executor only:32 authors plus2 taller-window holdouts. Later canonical metadata does not establish native window/height proof.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_no_markup_yet_batch2_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-authoring-batch-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_battle_status_messages_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed stale executor only:15authors and3odd-highlight holdback notes; canonical wording revisions and later holdout decisions remain authoritative.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_battle_status_messages_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_battle_status_messages3_pen0_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed stale executor only:9pen0 authors,1window holdback and7reverify-only IDs. Whole-registry shared-LUI guard, control domains and native geometry remain unresolved.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_battle_status_messages3_pen0_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_odd_hl_count_fix_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Superseded fixed proposal only:3odd-highlight authors; historical ledger is dry_run=true, not proof of application. Later no-markup-batch2 wording/notes remain authoritative.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_odd_hl_count_fix_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_vocab_regions_cities_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed stale executor only:3plain migrations and8writebacks. Current dynamic drafted predicate matches0, not the historical11; no native pointer/geometry credit.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_vocab_regions_cities_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_prologue_flagged_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed stale executor only:14authors,4specific correction notes and conditional excluded0x4595f0 note. PARAM8800 at0x459800 is a player name, not a numeric debt amount.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_prologue_flagged_2026-09-08.py",
+      "evidence": [
+        "evidence/fixed-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_charcreate_gap_2026-09-07d.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Obsolete replay before remediation: two targets and one JP-only duty. Later 07f restores payloads; historical ledgers show Weak reusing the old intro slot. Current wording and the later 07e JP fix remain authoritative.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_charcreate_gap_2026-09-07d.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_charcreate_gap_2026-09-07f_remediation.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed remediation replay: two targets overlap 07d. Historical evidence records 180 restored bytes at fresh slots after a collision during a whole-blob rebuild. There is no initial drafted guard; current native safety is unproved.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_charcreate_gap_2026-09-07f_remediation.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_openquestions_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: two highlight authors, two positional authors, and four migrations with multiple reference sites. Notation and notes are retained; broader encoder, reference, metadata and report contracts remain open.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_openquestions_2026-09-08.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_prologue_and_shifted_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: nine prologue notation updates and twelve shifted metadata duties. The shifted rows never rewrote English; native shift, prologue and control-flow contracts remain open.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_prologue_and_shifted_2026-09-08.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_singleton_stragglers_shop_church_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: 17 migrations, 11 writebacks, and two held-back notes. Later restoration of the live 0x47e770 fall-through supersedes the original claim that its site was dead.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_singleton_stragglers_shop_church_2026-09-09.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_vocab_status_memory_card_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: 11 migrations, 16 clean writebacks, one English correction, one asymmetric writeback, and one held-back note. The historical 0x2c0a54 site was later corrected to 0x2c0a50; its current functional connection is unproved here. Later centering remains authoritative.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_vocab_status_memory_card_2026-09-09.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_weekly_bonus_battle_dark_prank_worldevent_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: 31 migrations, three writebacks, and 40 held-back notes across 74 IDs. This pass did not apply the held-back proposals. Pixel, control, title, alias and native contracts remain open.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_weekly_bonus_battle_dark_prank_worldevent_2026-09-09.py",
+      "evidence": [
+        "evidence/seven-replay-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_item_village_event_messages2_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: 28 authors, 11 writebacks and three holds. Old47e262 was corrected to47e2c0; the PARAM8 and whole-registry shared-LUI duties remain open. Retirement does not certify those consumers.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_item_village_event_messages2_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_prologue_eventnotif_castle_nameplate_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed mixed pass: 30 duties include payloads, writebacks, held notes and five terrain metadata rows. Old534c76 was corrected to534c80. Anomaly534cba remains drafted; its root cause and five sibling flows are unresolved. Missing historical report citation is not replaced by a runtime claim.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_prologue_eventnotif_castle_nameplate_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_vocab_shop_verbs_misc_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed replay: 14 plain migrations, six writebacks and held535938. The held entry remains drafted with unknown/no refs; no translation or application credit. Historical pointer overrides and later Give false-TIFF correction remain separate facts.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_vocab_shop_verbs_misc_2026-09-09.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_charcreate_gap_2026-09-07e.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed charcreate follow-up: one authored target and two historical collision warnings. Name-echo geometry, current native consumers, full-blob preservation, loader and report obligations remain open; historical collision warnings are not current-image diagnoses.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_charcreate_gap_2026-09-07e.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_markup_batch_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed markup pass: 124 clean and 14 highlight-wrap entries. Source writes machine fields only. Later Magic Ward relocation and three suffix-table in-place repairs are authoritative; no old English or landing is replayed. Native/global/layout/report duties remain open.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_markup_batch_2026-09-08.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_midcontent_markup_30_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed positional pass: 30 selected entries, 26 migrations and four held notes within that selection. Held proposals were later superseded by openquestions, not applied here. Current wrapping and twin-LUI correction are authoritative; controls/global aliases/native duties remain open.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_midcontent_markup_30_2026-09-08.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_settings_screen_pen0_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed settings-screen pass: two streams have independent absolute pen positions despite duplicated JP. Historical shortening and complete notes remain canonical; absolute position, font/pixel, consumer and report obligations are not supplied by ordinary wrapping.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_settings_screen_pen0_2026-09-08.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/reword_settings_option_help_2026-09-08.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "Fixed settings-help rewording: nine entries, bounded historical row budgets and a replay guard. Current canonical wording/metadata are retained; actual popup geometry, opaque controls, complete consumer and report duties remain open.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/reword_settings_option_help_2026-09-08.py",
+      "evidence": [
+        "evidence/fixed-history-retirement-checkpoint.json"
+      ]
+    },
+    "tools/migrate_controls_screen_pen0_2026-09-09.py": {
+      "status": "not migrated to Go; responsibility/effects/guards/callers retained in referenced baseline",
+      "legacy_run": "reference-only",
+      "retired_execution": "One fixed Controls-screen authoring pass; current canonical wording/three refsites,126-byte ledger stream and full appended note preserved. The reviewed Go source14 template supports byte reconstruction and scoped references, not historical runtime/geometry/canonical-writeback/loader/report closure. Old4-byte alignment and unaligned0x4035024 landing are historical, not valid new Go16-byte output aliases.",
+      "source_history": "git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/migrate_controls_screen_pen0_2026-09-09.py",
+      "evidence": [
+        "evidence/positional-labels-checkpoint.json",
+        "evidence/ui-template-retirement-checkpoint.json"
+      ]
+    },
+    "tools/discover_misc_labels_gap_refs.py": {
+      "status": "partial behavior or reference evidence only",
+      "legacy_run": "reference-only",
+      "coverage": "Shared Go read-only scan/index/padding resolution and advisory content reports verified against original functions; historical executor retired, not full-path compatibility.",
+      "runtime": "Existing references owner and recipes/reports/references/misc-labels-gaps.json; existing registry_merge owns separately reviewed machine-plan writes. No per-script handler/writer.",
+      "evidence": [
+        "evidence/reference-discovery-checkpoint.json",
+        "evidence/reference-retirement-checkpoint.json"
+      ],
+      "callers": "458-file audited/bridge AST scan found no module imports; shared legacy gate plus direct stub must refuse before I/O. Dated report readers and report files remain unchanged. Unknown computed/manual/external callers remain unverified.",
+      "retained": "Exact original in Git a55731d544b10fbf2d97945d5399a7529c0883cc; historical dated report bytes retained for artifact readers. No report overwrite/regeneration.",
+      "unverified": "No old console/full-report byte equivalence, automatic candidate authorization, livecanonical writeback, native liveness/CFG/exhaustiveness or full-path credit. Historical one-off prose/header/discrepancy findings remain source/report evidence, not new runtime claims."
+    },
+    "tools/discover_prologue_gap_refs.py": {
+      "status": "partial behavior or reference evidence only",
+      "legacy_run": "reference-only",
+      "coverage": "Shared Go read-only scan/index/padding resolution and advisory content reports verified against original functions; historical executor retired, not full-path compatibility.",
+      "runtime": "Existing references owner and recipes/reports/references/prologue-gaps.json; existing registry_merge owns separately reviewed machine-plan writes. No per-script handler/writer.",
+      "evidence": [
+        "evidence/reference-discovery-checkpoint.json",
+        "evidence/reference-retirement-checkpoint.json"
+      ],
+      "callers": "458-file audited/bridge AST scan found no module imports; shared legacy gate plus direct stub must refuse before I/O. Dated report readers and report files remain unchanged. Unknown computed/manual/external callers remain unverified.",
+      "retained": "Exact original in Git a55731d544b10fbf2d97945d5399a7529c0883cc; historical dated report bytes retained for artifact readers. No report overwrite/regeneration.",
+      "unverified": "No old console/full-report byte equivalence, automatic candidate authorization, livecanonical writeback, native liveness/CFG/exhaustiveness or full-path credit. Historical one-off prose/header/discrepancy findings remain source/report evidence, not new runtime claims."
+    },
+    "tools/reconcile_battle_system_vocab_refs.py": {
+      "status": "partial behavior or reference evidence only",
+      "legacy_run": "reference-only",
+      "coverage": "Shared Go read-only scan/index/padding resolution and advisory content reports verified against original functions; historical executor retired, not full-path compatibility.",
+      "runtime": "Existing references owner and recipes/reports/references/battle-vocabulary.json; existing registry_merge owns separately reviewed machine-plan writes. No per-script handler/writer.",
+      "evidence": [
+        "evidence/reference-discovery-checkpoint.json",
+        "evidence/reference-retirement-checkpoint.json"
+      ],
+      "callers": "458-file audited/bridge AST scan found no module imports; shared legacy gate plus direct stub must refuse before I/O. Dated report readers and report files remain unchanged. Unknown computed/manual/external callers remain unverified.",
+      "retained": "Exact original in Git a55731d544b10fbf2d97945d5399a7529c0883cc; historical dated report bytes retained for artifact readers. No report overwrite/regeneration.",
+      "unverified": "No old console/full-report byte equivalence, automatic candidate authorization, livecanonical writeback, native liveness/CFG/exhaustiveness or full-path credit. Historical one-off prose/header/discrepancy findings remain source/report evidence, not new runtime claims."
+    },
+    "tools/reconcile_help_events_misc_labels_refs.py": {
+      "status": "partial behavior or reference evidence only",
+      "legacy_run": "reference-only",
+      "coverage": "Shared Go read-only scan/index/padding resolution and advisory content reports verified against original functions; historical executor retired, not full-path compatibility.",
+      "runtime": "Existing references owner and recipes/reports/references/help-misc-labels.json; existing registry_merge owns separately reviewed machine-plan writes. No per-script handler/writer.",
+      "evidence": [
+        "evidence/reference-discovery-checkpoint.json",
+        "evidence/reference-retirement-checkpoint.json"
+      ],
+      "callers": "458-file audited/bridge AST scan found no module imports; shared legacy gate plus direct stub must refuse before I/O. Dated report readers and report files remain unchanged. Unknown computed/manual/external callers remain unverified.",
+      "retained": "Exact original in Git a55731d544b10fbf2d97945d5399a7529c0883cc; historical dated report bytes retained for artifact readers. No report overwrite/regeneration.",
+      "unverified": "No old console/full-report byte equivalence, automatic candidate authorization, livecanonical writeback, native liveness/CFG/exhaustiveness or full-path credit. Historical one-off prose/header/discrepancy findings remain source/report evidence, not new runtime claims."
+    },
+    "tools/fix_twin_lui_2026_09_30.py": {
+      "status": "reviewed completed/superseded historical state transition; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/native-pointer-retirement-checkpoint.json",
+      "native_state": "All11 canonical twin targets and repair notes retained."
+    },
+    "tools/fix_twin_fallthrough_2026_09_30.py": {
+      "status": "reviewed completed/superseded historical state transition; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/native-pointer-retirement-checkpoint.json",
+      "native_state": "Paid correction retained; old26ed64 vanilla restoration superseded by canonical459bc0 sibling at4042040."
+    },
+    "tools/fix_tiff_false_ref_2026_09_30.py": {
+      "status": "reviewed completed/superseded historical state transition; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/native-pointer-retirement-checkpoint.json",
+      "native_state": "TIFF restored pair and real pointer retained; false reference removed."
+    },
+    "tools/apply_controller_pointer_fixes_2026-09-07.py": {
+      "status": "reviewed completed/superseded historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/three-native-writer-retirement-checkpoint.json",
+      "historical_disposition": "Completed historical correction: four exact current words are new, dated applied record; no native or whole-path Go replacement credit."
+    },
+    "tools/apply_mage_pointer_fix.py": {
+      "status": "reviewed completed/superseded historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/three-native-writer-retirement-checkpoint.json",
+      "historical_disposition": "Completed historical correction: two exact current words are new, dated applied record; no native or whole-path Go replacement credit."
+    },
+    "tools/apply_hero_hang_probe.py": {
+      "status": "reviewed completed/superseded historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/three-native-writer-retirement-checkpoint.json",
+      "historical_disposition": "Historical single-shot diagnostic superseded explicitly by v2. Current bytes remain OLD, never claim current applied/new. v2/v3/v4 executors, payload/history and eight reader tools retained."
+    },
+    "tools/patch_menu2.py": {
+      "status": "reviewed completed/superseded historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/menu2-retirement-proof.json",
+      "historical_disposition": "Eight exact current image sites match completed menu2 edits, except two streams now match dated F051 New Game successor; later F051 scratch/readback and current canonical entries retained. No native or whole-path Go replacement credit. Original executor is preserved at Git a55731d544b10fbf2d97945d5399a7529c0883cc."
+    },
+    "tools/apply_cmdpending_flag_reset_fix.py": {
+      "status": "reviewed completed/superseded historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/loader-retirement-proof.json",
+      "historical_disposition": "The cleanup injection remains installed, but its 16-byte flag-reset stub was superseded in place by the guarded StStop successor. Static current capture proves exact successor bytes; the dated target path and read-only --verify utility are retired with the old executor. Original source remains at Git a55731d544b10fbf2d97945d5399a7529c0883cc."
+    },
+    "tools/apply_cinematic2_ststop_fix.py": {
+      "status": "reviewed completed/superseded historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/loader-retirement-proof.json",
+      "historical_disposition": "The current mapped-code capture contains the exact guarded StStop stub and 24-byte body with the reserved tail word zero. This is a completed historical write path, not a claim that the post-application hang is solved or that Go replaces the whole loader workflow. The dated target path and read-only --verify utility are retired; original source remains at Git a55731d544b10fbf2d97945d5399a7529c0883cc."
+    },
+    "tools/migrate_charcreate_gap_2026-09-07c.py": {
+      "status": "reviewed historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/exploratory-executors-retirement-proof.json",
+      "historical_disposition": "The c pass was blocked before apply. Its dry run now checks stale original addresses; later e/f passes own the two current registry sites. No c ledger exists. Preserve the original at Git a55731d544b10fbf2d97945d5399a7529c0883cc and the later e/f evidence; this is no Go or full-path credit."
+    },
+    "tools/migrate_remaining_backlog_exploratory.py": {
+      "status": "reviewed historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/exploratory-executors-retirement-proof.json",
+      "historical_disposition": "The completed exploratory run has a surviving 624-entry ledger. The old executor can write a disposable ISO unconditionally and its rerun can duplicate allocations. Preserve the ledger and original at Git a55731d544b10fbf2d97945d5399a7529c0883cc; no current image or Go equivalence is claimed."
+    },
+    "tools/patch_maximal_coverage_exploratory.py": {
+      "status": "reviewed historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/exploratory-executors-retirement-proof.json",
+      "historical_disposition": "The corrected exploratory direct patch has a surviving 344-record ledger. Its dry run can overwrite the disposable destination before the apply check; the ledger does not contain all written bytes. Preserve the ledger, bug history and original at Git a55731d544b10fbf2d97945d5399a7529c0883cc; no Go equivalence is claimed."
+    },
+    "tools/migrate_final_maximal_exploratory.py": {
+      "status": "reviewed historical workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/exploratory-executors-retirement-proof.json",
+      "historical_disposition": "The completed final exploratory pass has a surviving 933-entry ledger read by later tools. Preserve that ledger, the independent trampoline builder API, eight content-quality flags and the original at Git a55731d544b10fbf2d97945d5399a7529c0883cc. Only this executor is retired; no current image or Go equivalence is claimed."
+    },
+    "tools/bulk_stream_migrate_exploratory.py": {
+      "status": "reviewed historical exploratory workflow; execution retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/bulk-stream-explorer-retirement-proof.json",
+      "historical_disposition": "The unreviewed 2026-09-04 bulk explorer wrote a disposable image, ledger and run log; its default rerun overwrites those artifacts and is not a production migration route. The exact original remains at Git a55731d544b10fbf2d97945d5399a7529c0883cc. Preserve the surviving ledger and log because later scripts cite them. The disposable image is absent. No Go, current-image, native-safety or whole-path migration credit is claimed."
+    },
+    "tools/patch_font_glyph.py": {
+      "status": "reviewed completed historical executor; destructive entry point retired",
+      "legacy_run": "reference-only",
+      "contract": "evidence/font-executor-retirement-proof.json",
+      "historical_disposition": "The completed apostrophe patch is retained in pinned current-mod font/executable artifacts and the verified isolated build. Ten historical helpers were removed; existing main refuses before I/O. Exact FONT_PAYLOAD_OFF remains for three layout-test imports. Original source is retained at Git a55731d544b10fbf2d97945d5399a7529c0883cc:tools/patch_font_glyph.py. This withdraws the historical executor; it does not replace arbitrary glyph design or claim full-path Go parity.",
+      "verification_state": "VERIFIED narrow withdrawal: independent final-source review and focused test pass; broad rerun 4041 passed/68 failed from separately classified existing fixture/snapshot debt."
+    },
+    "tools/build_registry_csv.py": {
+      "status": "partial behavior or reference evidence only",
+      "coverage": "Shared Go offline registry CSV projection verified: all entries regardless status, numeric ID sorting with original ID spelling, ordered columns, historical UTF-8/quoting/CRLF and embedded CR/LF bytes. Independent canonical 5544-row output matches exactly (3674934 bytes) within the declared flat scalar domain.",
+      "runtime": "Existing authorRegistry with registry_export, ordered RegistryColumns and recipes/reports/registry-export.json; run/writeNewFile retain shared preview and exclusive publication. No per-script function, helper, handler, writer or dependency.",
+      "evidence": [
+        "evidence/registry-export-proof.json",
+        "evidence/registry-export-review.json",
+        "analysis/registry-export-contract.json"
+      ],
+      "callers": "Original build_registry_csv.py remains delegated to Python reports.registry.export_csv. Shared Python report-registry csv route remains unchanged. Historical README/HANDOFF references are caller leads, not proven migrated callers. No launcher redirect or legacy_run restriction.",
+      "retained": "Historical launcher, shared provider, tests and compatibility behavior remain; no file deletion, retirement or savings credit.",
+      "unverified": "Complete historical-path/caller closure is not claimed. Selected arrays/objects/floats/nonfinite and duplicate normalized IDs deliberately refuse instead of all historical coercions/permissiveness; old overwrite/partial-header/default-path/CLI behavior is not reproduced. Registry plan only; no disc-truth, status/glossary/flow, translation/glyph/fit or native/gameplay proof."
+    }
+  },
+  "fully_migrated_historical_paths": 8,
+  "partial_or_reference_paths": 16,
+  "other_paths": 366,
+  "verified_recipe_cases": 164,
+  "not_equivalent": [
+    "recipe count != script count",
+    "Python verified counts != Go verified counts",
+    "directory move != reduction"
+  ],
+  "evidence": [
+    "evidence/fixed-fields-run.json",
+    "../rework/registry_prototype/evidence/",
+    "evidence/rename-pool-checks.json",
+    "evidence/rename-pool-run.json",
+    "evidence/nicknames-checks.json",
+    "evidence/nicknames-run.json",
+    "evidence/astra-audit-001.md",
+    "evidence/composition-checks.json",
+    "evidence/composition-run.json",
+    "evidence/historical-fixed-field-repairs.json",
+    "evidence/pointer-selector-checks.json",
+    "evidence/pointer-selector-apply-refusals.json",
+    "evidence/page-codec-checks.json",
+    "evidence/page-codec-reference-profile.json",
+    "evidence/stream-append-checks.json",
+    "evidence/stream-append-synthetic-run.json",
+    "evidence/raw-codec-checks.json",
+    "evidence/envelope-checks.json",
+    "evidence/envelope-synthetic-run.json",
+    "analysis/source-envelope-profile.json",
+    "evidence/capacity-checks.json",
+    "evidence/capacity-isolated-run.json",
+    "evidence/word-checks.json",
+    "evidence/word-isolated-run.json",
+    "evidence/allocation-checks.json",
+    "evidence/allocation-isolated-run.json",
+    "evidence/bootstrap-checks.json",
+    "evidence/bootstrap-isolated-run.json",
+    "evidence/bootstrap-runtime-probe2.json",
+    "evidence/same-length-closure.json",
+    "evidence/derived-preimages-checks.json",
+    "evidence/derived-preimages-proof-status.json",
+    "evidence/source-origin-review.json",
+    "evidence/source-origin-checks.json",
+    "evidence/source-origin-isolated-run.json",
+    "evidence/expanded-events-review.json",
+    "evidence/expanded-events-checks.json",
+    "evidence/expanded-events-isolated-run.json",
+    "evidence/full-scene-review.json",
+    "evidence/full-scene-checks.json",
+    "evidence/full-scene-isolated-run.json",
+    "evidence/full-scene-checkpoint.json",
+    "evidence/native-space-checkpoint.json",
+    "evidence/space-width-checkpoint.json",
+    "evidence/astra-audit-006.md",
+    "evidence/native14-events-checkpoint.json",
+    "evidence/menu-closure.json",
+    "evidence/registry-policy-closure.json",
+    "evidence/markup-retirement-closure.json",
+    "evidence/text-shape-retirement-closure.json",
+    "evidence/exploratory-executors-retirement-proof.json"
+  ],
+  "explicit_reviewed_historical_dispositions": 20,
+  "capabilities": [
+    "same_length_stream and fixed_field through shared functions",
+    "separate JSON tables compose into one guarded output",
+    "global ID/pin/overlap checks and exact writer target/Old/profile binding",
+    "pointer_check derives exact pinned family scope from canonical registry; verification-only",
+    "source verifier reuses plan and binds complete proposed Old/New bytes",
+    "PAGE/raw/PARAM and verified speaker boundaries via existingcodec;1813canonical encodingsmatchhistorical",
+    "source-pinned initializedappend withdefault exactcontrols orsource-envelope layout, protectedboundarycontext andsameguardedtransaction",
+    "initialized stream_grow uses shared sourceinspector/planner/verifier/copy: sectortransition, fulltree/path-tablemetadata guards, actualtailpreimage, partial/done states",
+    "guarded_words compiles documented32bittemplates/namedfieldfixups throughsameguardedplanner/copy;3inactivepristinesourcecodeblocks verified",
+    "stream_allocate reuses same ISO walk/guarded transaction forpristine disc-only reservation; preservesallocatedcontent, composesretailELFcode/text whileprotectinginspectedmetadata",
+    "One-levelWordBlocks+bitfieldLSBreuse fivehelperprefixes; atomic35entryconsumer/bootstrap table preserves6JPspans andactivatesreviewedroutes. Isolatedsourcepassesinitializedappendpreflight; privateRAMheap loadverified.",
+    "Optional bounded source JP derivation/inferred header inexistingappend;9IDonlyentries onGo-rebuiltsource pass exclusivecopy/fullcontainment/done replan/privateRAM, sourcefontcheckedfresh",
+    "Explicit preserved JP source sentinel and frozen preimage, validated struct pointer fields, paired encoded-copy/read bounds and durable external END reservation via existingappend/validator;11combinedentries applied withfullcontainment/doneNOOP.",
+    "Combined105-ID profile (104opcode40events plusBigfoot), exactfresh native123uses,121pointers,58additionalboundedtableextents;94newrows withbyteidenticalGo executable, exclusivecopy/fulloracle/doneNOOP verified. ExplicitIDs exclude unusedtablemembers.",
+    "DefaultnativeSPACE24->14 viaexistingguarded_words/twoblocks/onenamedvalue; actualsource14 literal172 append follows throughbyteidenticalexistingGo runner with freshreviews/newwholeimageoracle/done/RAMproof. No newfunction/schema/dependency.",
+    "Shared source token decode/readiness and registry_markup metadata; separate pinned recipe, explicit date, raw-value preservation and exclusive verified output.",
+    "Source-context reference wrapping/pagination with final-byte/copy pins and occurrence-ordered bounded7000numeric measurement; one trap-count source14 isolated-copy pilot, no whole-path retirement.",
+    "Same-source append tables compose using per-table scopes/context/budgets and one allocation, old-read reservation and raw-reference index; global duplicate/overlap and exclusive-copy verification remain shared."
+  ],
+  "verified_read_only_pointer_words": 2112,
+  "verified_initialized_append_fixture_cases": 2,
+  "verified_initialized_idempotent_entries": 172,
+  "verified_initialized_growth_transitions": 1,
+  "verified_inactive_word_blocks": 3,
+  "verified_pristine_disc_reservations": 1,
+  "verified_core_bootstrap_transitions": 1,
+  "verified_preserved_JP_seed_streams": 6,
+  "verified_initialized_rebuilt_append_entries": 172,
+  "verified_recipe_cases_scope": "164 original-image cases; initialized/synthetic append entries counted separately, never as script credits",
+  "verified_initialized_done_pointer_sites": 202,
+  "current_initialized_recipe_entries": 172,
+  "current_native_space_advance": 14,
+  "current_native_relative_width_refusals_retained": 0,
+  "verified_initialized_counts_scope": "Current172 count now binds native14-events-checkpoint.json, actualsourcefd446/outputab770, fresh375effects/fullimageoracle/done203NOOP/private172EN+6JP+pad+377words/posthash. Earlier172core24/95core24 proofs retain their ownidentities and scope.",
+  "native_space_correction": "evidence/native-space-correction.json",
+  "caller_closure_resolution": "evidence/legacy-bridge-closure.json",
+  "current_initialized_verified_entries": 172,
+  "current_initialized_done_pointer_sites": 202,
+  "verified_native_space_default_word_sites": 8,
+  "verified_native_space_default_output_sha256": "fd446934870a64be96572a4632a24c9892fa065542e6675f5341fb2e3d5f672c",
+  "previous_native24_relative_width_refusals": 77,
+  "current_initialized_verified_source_sha256": "fd446934870a64be96572a4632a24c9892fa065542e6675f5341fb2e3d5f672c",
+  "current_initialized_verified_output_sha256": "ab770afb4d018ecd660732d2a6747352a596b332d6b7391b48dc90e2efa0abae",
+  "current_native_relative_width_refusals_scope": "Currentexplicit172table onactualnative14source only; notbroaderfamily eligibility orphysicalfit.",
+  "previous_native24_refusal_disposition": "All77native24refusals preserved as counterevidence. Separatelyreviewed defaultF003 changes actualnativeSPACE24to14; current172 source14 copy/RAMproof nowcomplete. No native24 guardwaiver or claimthose77fitcore24.",
+  "verified_registry_metadata_policy_paths": 3,
+  "verified_registry_metadata_ID_owners": 13,
+  "verified_registry_metadata_scope": "Controller/GP13fixed owners; Markup dynamically derives drafted single nonstruct-site metadata from pinned source/glyphmap. Three whole paths; zero current Markup rows is not dynamicproof."
+}

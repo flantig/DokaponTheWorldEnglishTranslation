@@ -1,0 +1,1979 @@
+{
+  "status": "Original-only precode component-selection study. No implementation/schema/APIchosen.",
+  "ancestry": {
+    "manifest": "/var/tmp/dokapon-original-permission-source-jdo2V5Rg/manifest.json",
+    "sha256": "4c6e945eeb8643ece9597941c0dd20f28bf1947b308cc2b3ad862fbb2ef16222"
+  },
+  "counts": {
+    "actual_component_provider_calls": 6,
+    "actual_component_literal_records": 4,
+    "actual_fixture_inputs": 2,
+    "actual_component_results": 12,
+    "separate_actual_g03_calls": 1,
+    "separate_actual_g03_results": 2,
+    "small_manual_mask_cases": 16,
+    "original_refusal_observations": 8
+  },
+  "source_providers": [
+    {
+      "provider": "batch_c_card_art:art_components",
+      "class": "original_components8_seeded",
+      "source_behavior": "8connected original nonpanel components selected by explicit seeds, optional4neighbor grow",
+      "calls": 3,
+      "textures": [
+        "mini_g02",
+        "mini_g08",
+        "mini_g12"
+      ],
+      "exact_literal_records": 2,
+      "payload_records_without_dispatch_stage_key_value": 2,
+      "payload_qualification": "Drops maskfn/minus dispatch metadata and key VALUE only. win_allow still reads required key, though its value never affects output. This is not general semantic deduplication of arbitrary ignored nested art parameters.",
+      "source_pin": {
+        "source": "tools/batch_c_card_art.py",
+        "function": "art_components",
+        "lines": [
+          111,
+          128
+        ],
+        "source_sha256": "7afbc8f9127651ee283c53c0a3fcb1ca7342617dae8655f1eb49bd9420c26569",
+        "static_same_module_callers": []
+      },
+      "records": [
+        {
+          "document": "batch_c.json",
+          "texture": "mini_g02",
+          "path": "$/textures/0/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              55,
+              116,
+              410,
+              50
+            ],
+            "seeds": [
+              [
+                85,
+                140
+              ],
+              [
+                430,
+                140
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        {
+          "document": "batch_c.json",
+          "texture": "mini_g08",
+          "path": "$/textures/6/allow/2",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              145,
+              160,
+              80,
+              53
+            ],
+            "seeds": [
+              [
+                187,
+                170
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        {
+          "document": "batch_c.json",
+          "texture": "mini_g12",
+          "path": "$/textures/10/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              55,
+              116,
+              410,
+              50
+            ],
+            "seeds": [
+              [
+                85,
+                140
+              ],
+              [
+                430,
+                140
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        }
+      ]
+    },
+    {
+      "provider": "batch_c_card_art:g03_bursts",
+      "class": "original_fixed_RGB_OR_dilate",
+      "source_behavior": "hardcoded pink OR white RGB tests, default4neighbor dilation",
+      "calls": 1,
+      "textures": [
+        "mini_g03"
+      ],
+      "exact_literal_records": 1,
+      "payload_records_without_dispatch_stage_key_value": 1,
+      "payload_qualification": "Drops maskfn/minus dispatch metadata and key VALUE only. win_allow still reads required key, though its value never affects output. This is not general semantic deduplication of arbitrary ignored nested art parameters.",
+      "source_pin": {
+        "source": "tools/batch_c_card_art.py",
+        "function": "g03_bursts",
+        "lines": [
+          96,
+          108
+        ],
+        "source_sha256": "7afbc8f9127651ee283c53c0a3fcb1ca7342617dae8655f1eb49bd9420c26569",
+        "static_same_module_callers": []
+      },
+      "records": [
+        {
+          "document": "batch_c.json",
+          "texture": "mini_g03",
+          "path": "$/textures/1/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:g03_bursts",
+          "shape": {
+            "maskfn": "batch_c_card_art:g03_bursts",
+            "in": [
+              100,
+              150,
+              320,
+              135
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        }
+      ]
+    },
+    {
+      "provider": "batch_c_logo_art:remnants",
+      "class": "original_components8_white_exclusion",
+      "source_behavior": "8connected original opaque/noncream components; reject every component touching a white pixel",
+      "calls": 3,
+      "textures": [
+        "mini_g02",
+        "mini_g12",
+        "mini_t2"
+      ],
+      "exact_literal_records": 2,
+      "payload_records_without_dispatch_stage_key_value": 2,
+      "payload_qualification": "Drops maskfn/minus dispatch metadata and key VALUE only. win_allow still reads required key, though its value never affects output. This is not general semantic deduplication of arbitrary ignored nested art parameters.",
+      "source_pin": {
+        "source": "tools/batch_c_logo_art.py",
+        "function": "remnants",
+        "lines": [
+          204,
+          219
+        ],
+        "source_sha256": "2056df4848a0b949faff55efcdc8d5daea6fbffaebf4779680f7959e6aa79cba",
+        "static_same_module_callers": [
+          "clear_mask"
+        ]
+      },
+      "records": [
+        {
+          "document": "batch_c.json",
+          "texture": "mini_g02",
+          "path": "$/fragments/mini_g02_logo/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              168,
+              80,
+              168,
+              5
+            ],
+            "bg": "cream",
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        {
+          "document": "batch_c.json",
+          "texture": "mini_g12",
+          "path": "$/fragments/mini_g12_logo/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              168,
+              80,
+              168,
+              5
+            ],
+            "bg": "cream",
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        {
+          "document": "batch_c.json",
+          "texture": "mini_t2",
+          "path": "$/textures/11/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              32,
+              87,
+              189,
+              8
+            ],
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        }
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "components-A",
+      "raw": "components-A.rgba",
+      "shape": [
+        512,
+        512,
+        4
+      ],
+      "bytes": 1048576,
+      "sha256": "ff78ce556259d3b0df99d2288688ba46c87bcb9b8a383d004a08ac0747600506",
+      "construction": "Literal deterministic assignments in freeze-source.py. No RNG, sourceart or candidate values. Source seeds/threshold/cropgeometry remain unchanged."
+    },
+    {
+      "id": "components-B",
+      "raw": "components-B.rgba",
+      "shape": [
+        512,
+        512,
+        4
+      ],
+      "bytes": 1048576,
+      "sha256": "3e035b9bb88fdcc21fe1ffca6a7ba80633c3e0651862a4bcca3c4ae140cbe59a",
+      "construction": "Literal deterministic assignments in freeze-source.py. No RNG, sourceart or candidate values. Source seeds/threshold/cropgeometry remain unchanged."
+    }
+  ],
+  "expected_actual": {
+    "components-A": {
+      "actual/00": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g02",
+          "path": "$/textures/0/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              55,
+              116,
+              410,
+              50
+            ],
+            "seeds": [
+              [
+                85,
+                140
+              ],
+              [
+                430,
+                140
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/1fa803da87477f1dc035403144dbd3031e14447f1d41bad46dd4bdf00b7cbd0d.mask",
+        "sha256": "1fa803da87477f1dc035403144dbd3031e14447f1d41bad46dd4bdf00b7cbd0d",
+        "selected_pixels": 375,
+        "source_original_unchanged": true
+      },
+      "actual/01": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g08",
+          "path": "$/textures/6/allow/2",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              145,
+              160,
+              80,
+              53
+            ],
+            "seeds": [
+              [
+                187,
+                170
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/e4fafb907546770c5e5191cdecfa783143d111f0101ee7ea7102d6d01fe2d791.mask",
+        "sha256": "e4fafb907546770c5e5191cdecfa783143d111f0101ee7ea7102d6d01fe2d791",
+        "selected_pixels": 48,
+        "source_original_unchanged": true
+      },
+      "actual/02": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g12",
+          "path": "$/textures/10/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              55,
+              116,
+              410,
+              50
+            ],
+            "seeds": [
+              [
+                85,
+                140
+              ],
+              [
+                430,
+                140
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/1fa803da87477f1dc035403144dbd3031e14447f1d41bad46dd4bdf00b7cbd0d.mask",
+        "sha256": "1fa803da87477f1dc035403144dbd3031e14447f1d41bad46dd4bdf00b7cbd0d",
+        "selected_pixels": 375,
+        "source_original_unchanged": true
+      },
+      "actual/03": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g02",
+          "path": "$/fragments/mini_g02_logo/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              168,
+              80,
+              168,
+              5
+            ],
+            "bg": "cream",
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        "expected_mask": "blobs/940c745cc57ea9d2fb5dc706f061475d46979b5652d0546cd330b32e275eb84b.mask",
+        "sha256": "940c745cc57ea9d2fb5dc706f061475d46979b5652d0546cd330b32e275eb84b",
+        "selected_pixels": 22,
+        "source_original_unchanged": true
+      },
+      "actual/04": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g12",
+          "path": "$/fragments/mini_g12_logo/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              168,
+              80,
+              168,
+              5
+            ],
+            "bg": "cream",
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        "expected_mask": "blobs/940c745cc57ea9d2fb5dc706f061475d46979b5652d0546cd330b32e275eb84b.mask",
+        "sha256": "940c745cc57ea9d2fb5dc706f061475d46979b5652d0546cd330b32e275eb84b",
+        "selected_pixels": 22,
+        "source_original_unchanged": true
+      },
+      "actual/05": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_t2",
+          "path": "$/textures/11/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              32,
+              87,
+              189,
+              8
+            ],
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        "expected_mask": "blobs/a090bbd94e0f87fbe59c3b69fd09c309931b7a74d361700299a98972c4bbc855.mask",
+        "sha256": "a090bbd94e0f87fbe59c3b69fd09c309931b7a74d361700299a98972c4bbc855",
+        "selected_pixels": 16,
+        "source_original_unchanged": true
+      },
+      "actual/06": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g03",
+          "path": "$/textures/1/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:g03_bursts",
+          "shape": {
+            "maskfn": "batch_c_card_art:g03_bursts",
+            "in": [
+              100,
+              150,
+              320,
+              135
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/e4fceb70fe75b3f11dd348e94c40fa0429edf363a956b7359ce56e96715f1ead.mask",
+        "sha256": "e4fceb70fe75b3f11dd348e94c40fa0429edf363a956b7359ce56e96715f1ead",
+        "selected_pixels": 21,
+        "source_original_unchanged": true
+      }
+    },
+    "components-B": {
+      "actual/00": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g02",
+          "path": "$/textures/0/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              55,
+              116,
+              410,
+              50
+            ],
+            "seeds": [
+              [
+                85,
+                140
+              ],
+              [
+                430,
+                140
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/06661bce52fcd32fb899e1dc89b06eb1c34f9ff70b2634b8c6f6b0818793dd6f.mask",
+        "sha256": "06661bce52fcd32fb899e1dc89b06eb1c34f9ff70b2634b8c6f6b0818793dd6f",
+        "selected_pixels": 413,
+        "source_original_unchanged": true
+      },
+      "actual/01": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g08",
+          "path": "$/textures/6/allow/2",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              145,
+              160,
+              80,
+              53
+            ],
+            "seeds": [
+              [
+                187,
+                170
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/9950d34b5c58044b630cccadcf25c2594159179ce6d80f8a1773dd8d37eafd8a.mask",
+        "sha256": "9950d34b5c58044b630cccadcf25c2594159179ce6d80f8a1773dd8d37eafd8a",
+        "selected_pixels": 63,
+        "source_original_unchanged": true
+      },
+      "actual/02": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g12",
+          "path": "$/textures/10/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:art_components",
+          "shape": {
+            "maskfn": "batch_c_card_art:art_components",
+            "in": [
+              55,
+              116,
+              410,
+              50
+            ],
+            "seeds": [
+              [
+                85,
+                140
+              ],
+              [
+                430,
+                140
+              ]
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/06661bce52fcd32fb899e1dc89b06eb1c34f9ff70b2634b8c6f6b0818793dd6f.mask",
+        "sha256": "06661bce52fcd32fb899e1dc89b06eb1c34f9ff70b2634b8c6f6b0818793dd6f",
+        "selected_pixels": 413,
+        "source_original_unchanged": true
+      },
+      "actual/03": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g02",
+          "path": "$/fragments/mini_g02_logo/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              168,
+              80,
+              168,
+              5
+            ],
+            "bg": "cream",
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        "expected_mask": "blobs/7fc5b1b0b43cb6b2eb540228c8d2ac5864a2da82afb458cb2f2ab6596e50a4a0.mask",
+        "sha256": "7fc5b1b0b43cb6b2eb540228c8d2ac5864a2da82afb458cb2f2ab6596e50a4a0",
+        "selected_pixels": 25,
+        "source_original_unchanged": true
+      },
+      "actual/04": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g12",
+          "path": "$/fragments/mini_g12_logo/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              168,
+              80,
+              168,
+              5
+            ],
+            "bg": "cream",
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        "expected_mask": "blobs/7fc5b1b0b43cb6b2eb540228c8d2ac5864a2da82afb458cb2f2ab6596e50a4a0.mask",
+        "sha256": "7fc5b1b0b43cb6b2eb540228c8d2ac5864a2da82afb458cb2f2ab6596e50a4a0",
+        "selected_pixels": 25,
+        "source_original_unchanged": true
+      },
+      "actual/05": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_t2",
+          "path": "$/textures/11/allow/1",
+          "stage": "positive_union",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_logo_art:remnants",
+          "shape": {
+            "in": [
+              32,
+              87,
+              189,
+              8
+            ],
+            "maskfn": "batch_c_logo_art:remnants"
+          }
+        },
+        "expected_mask": "blobs/cbded3bbac144f791a23e021e30da85d5187375fef3cf564a6de67214192c170.mask",
+        "sha256": "cbded3bbac144f791a23e021e30da85d5187375fef3cf564a6de67214192c170",
+        "selected_pixels": 19,
+        "source_original_unchanged": true
+      },
+      "actual/06": {
+        "source_record": {
+          "document": "batch_c.json",
+          "texture": "mini_g03",
+          "path": "$/textures/1/allow/1",
+          "stage": "subtract",
+          "shape_kind": "maskfn",
+          "maskfn": "batch_c_card_art:g03_bursts",
+          "shape": {
+            "maskfn": "batch_c_card_art:g03_bursts",
+            "in": [
+              100,
+              150,
+              320,
+              135
+            ],
+            "grow": 1,
+            "minus": true
+          }
+        },
+        "expected_mask": "blobs/6fcbb05a8a270177acedc97a606412c7cde94180265521163687347a80325cdb.mask",
+        "sha256": "6fcbb05a8a270177acedc97a606412c7cde94180265521163687347a80325cdb",
+        "selected_pixels": 37,
+        "source_original_unchanged": true
+      }
+    }
+  },
+  "small_source_cases": [
+    {
+      "id": "left-of-crop-wrap",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            0,
+            2
+          ]
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          3,
+          2
+        ]
+      ],
+      "equation": "Source subtracts croporigin then uses NumPyindexing; localindices within[-dimension,-1] wrap rather than rejecting out-of-crop/globalnegative seeds.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/69a3ad6e5d51a98dbe0baaa4bec440be3c9d168660726711daa14b422b9d412c.rgba",
+      "original_sha256": "69a3ad6e5d51a98dbe0baaa4bec440be3c9d168660726711daa14b422b9d412c",
+      "expected_mask": "blobs/9bfe056baf09bf0a17aaac0b6aa320b24120dc848ed92c390c74f687886e1340.mask",
+      "mask_sha256": "9bfe056baf09bf0a17aaac0b6aa320b24120dc848ed92c390c74f687886e1340",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "negative-global-wrap",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            -1,
+            2
+          ]
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          2,
+          2
+        ]
+      ],
+      "equation": "Source subtracts croporigin then uses NumPyindexing; localindices within[-dimension,-1] wrap rather than rejecting out-of-crop/globalnegative seeds.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/f89cf5b1ec39aca430471ceb0bf920ee7fd5b5b6bcbaa757dfd1239655be2030.rgba",
+      "original_sha256": "f89cf5b1ec39aca430471ceb0bf920ee7fd5b5b6bcbaa757dfd1239655be2030",
+      "expected_mask": "blobs/3c93f9e6dbcb702e278bf2d9972632eab0a5c8435bc81c07a329f0fb3e0b1871.mask",
+      "mask_sha256": "3c93f9e6dbcb702e278bf2d9972632eab0a5c8435bc81c07a329f0fb3e0b1871",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "above-crop-wrap",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            2,
+            0
+          ]
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          2,
+          3
+        ]
+      ],
+      "equation": "Source subtracts croporigin then uses NumPyindexing; localindices within[-dimension,-1] wrap rather than rejecting out-of-crop/globalnegative seeds.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/b75db092302ba6f5468fb09fa2877c5e9bc9e5998bb67e20d539149a068ffa70.rgba",
+      "original_sha256": "b75db092302ba6f5468fb09fa2877c5e9bc9e5998bb67e20d539149a068ffa70",
+      "expected_mask": "blobs/99f94b29ae5db3b554d7037e6f6d7c4b41b92ff389fe85e6002a4d22b384a0cf.mask",
+      "mask_sha256": "99f94b29ae5db3b554d7037e6f6d7c4b41b92ff389fe85e6002a4d22b384a0cf",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "multiple-and-duplicate-seeds",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "seeds": [
+          [
+            0,
+            0
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          0,
+          0
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "equation": "Unionforeground seedcomponents; duplicatesidempotent, emptylist yields empty source mask withoutrefusal.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/efb74231a47554018922eaf01a4b47ad663f77358f47f5265e5d2acb967d6d02.rgba",
+      "original_sha256": "efb74231a47554018922eaf01a4b47ad663f77358f47f5265e5d2acb967d6d02",
+      "expected_mask": "blobs/4bc5d9e0d48cb71a91736c3d383242f0a9fc2adf68e962581bed139a1204f562.mask",
+      "mask_sha256": "4bc5d9e0d48cb71a91736c3d383242f0a9fc2adf68e962581bed139a1204f562",
+      "selected_pixels": 2,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "empty-seeds",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "seeds": [],
+        "grow": 1
+      },
+      "manual_ones": [],
+      "equation": "Unionforeground seedcomponents; duplicatesidempotent, emptylist yields empty source mask withoutrefusal.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/efb74231a47554018922eaf01a4b47ad663f77358f47f5265e5d2acb967d6d02.rgba",
+      "original_sha256": "efb74231a47554018922eaf01a4b47ad663f77358f47f5265e5d2acb967d6d02",
+      "expected_mask": "blobs/61126de1b795b976f3ac878f48e88fa77a87d7308ba57c7642b9e1068403a496.mask",
+      "mask_sha256": "61126de1b795b976f3ac878f48e88fa77a87d7308ba57c7642b9e1068403a496",
+      "selected_pixels": 0,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "panel-inclusive-cube-alpha-independent",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          0,
+          0,
+          8,
+          3
+        ],
+        "seeds": [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ]
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "equation": "Panel=R238..250 ANDG187..203 ANDB100..120 inclusively. Nonpanelcomplement selected independent ofalpha; exactedgevalues remainpanel.",
+      "shape": [
+        3,
+        8,
+        4
+      ],
+      "original_raw": "inputs/0b92925039da2ab078c8529e974d46ea771aaa058397789936a9bbc5295d6bf3.rgba",
+      "original_sha256": "0b92925039da2ab078c8529e974d46ea771aaa058397789936a9bbc5295d6bf3",
+      "expected_mask": "blobs/bf6533e0af71e1e7847a43743d1164d7faece2271327fa349689d63a389be8a2.mask",
+      "mask_sha256": "bf6533e0af71e1e7847a43743d1164d7faece2271327fa349689d63a389be8a2",
+      "selected_pixels": 6,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "art-fullcanvas-grow-1",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "seeds": [
+          [
+            3,
+            3
+          ]
+        ],
+        "grow": 1
+      },
+      "manual_ones": [
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "equation": "Art8labelincrop ->seedunion ->embed ->default4growthonwholecanvas onlyifGrow>0. Cropedgecanexpandoutside; zeroANDnegativegrowthskipcall.",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "original_raw": "inputs/438b44e52094cb231953fb964f4585738a65cc99c2b4d919806ef0c7d363700e.rgba",
+      "original_sha256": "438b44e52094cb231953fb964f4585738a65cc99c2b4d919806ef0c7d363700e",
+      "expected_mask": "blobs/0739863e490599f26dbad7538dca7f8864e143353c337e44779d29730ca4f098.mask",
+      "mask_sha256": "0739863e490599f26dbad7538dca7f8864e143353c337e44779d29730ca4f098",
+      "selected_pixels": 5,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "art-fullcanvas-grow-0",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "seeds": [
+          [
+            3,
+            3
+          ]
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          3,
+          3
+        ]
+      ],
+      "equation": "Art8labelincrop ->seedunion ->embed ->default4growthonwholecanvas onlyifGrow>0. Cropedgecanexpandoutside; zeroANDnegativegrowthskipcall.",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "original_raw": "inputs/438b44e52094cb231953fb964f4585738a65cc99c2b4d919806ef0c7d363700e.rgba",
+      "original_sha256": "438b44e52094cb231953fb964f4585738a65cc99c2b4d919806ef0c7d363700e",
+      "expected_mask": "blobs/621b9c533a45e30703fdbe5e6495fb774cefd9d872e924c5e042bfdd3dee2843.mask",
+      "mask_sha256": "621b9c533a45e30703fdbe5e6495fb774cefd9d872e924c5e042bfdd3dee2843",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "art-fullcanvas-grow--1",
+      "provider": "art_components",
+      "spec": {
+        "in": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "seeds": [
+          [
+            3,
+            3
+          ]
+        ],
+        "grow": -1
+      },
+      "manual_ones": [
+        [
+          3,
+          3
+        ]
+      ],
+      "equation": "Art8labelincrop ->seedunion ->embed ->default4growthonwholecanvas onlyifGrow>0. Cropedgecanexpandoutside; zeroANDnegativegrowthskipcall.",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "original_raw": "inputs/438b44e52094cb231953fb964f4585738a65cc99c2b4d919806ef0c7d363700e.rgba",
+      "original_sha256": "438b44e52094cb231953fb964f4585738a65cc99c2b4d919806ef0c7d363700e",
+      "expected_mask": "blobs/621b9c533a45e30703fdbe5e6495fb774cefd9d872e924c5e042bfdd3dee2843.mask",
+      "mask_sha256": "621b9c533a45e30703fdbe5e6495fb774cefd9d872e924c5e042bfdd3dee2843",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "remnant-alpha-white-tag-8",
+      "provider": "remnants",
+      "spec": {
+        "in": [
+          0,
+          0,
+          5,
+          5
+        ]
+      },
+      "manual_ones": [
+        [
+          1,
+          1
+        ],
+        [
+          4,
+          0
+        ]
+      ],
+      "equation": "Foregroundalpha>8. White=minRGB>225 ANDforeground, so excludedwhitealpha8doesnotreject neighboringcomponent; alpha9joinsdiagonallyand rejectswhole8component.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/ce9393a3ce39f1b532c478fec603d75551968080c7a655969f2eb8a8cff3d258.rgba",
+      "original_sha256": "ce9393a3ce39f1b532c478fec603d75551968080c7a655969f2eb8a8cff3d258",
+      "expected_mask": "blobs/fddc2622851257ffbe9adf37912a543959f4b751d70b368384a24b12ae3487f4.mask",
+      "mask_sha256": "fddc2622851257ffbe9adf37912a543959f4b751d70b368384a24b12ae3487f4",
+      "selected_pixels": 2,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "remnant-alpha-white-tag-9",
+      "provider": "remnants",
+      "spec": {
+        "in": [
+          0,
+          0,
+          5,
+          5
+        ]
+      },
+      "manual_ones": [
+        [
+          4,
+          0
+        ]
+      ],
+      "equation": "Foregroundalpha>8. White=minRGB>225 ANDforeground, so excludedwhitealpha8doesnotreject neighboringcomponent; alpha9joinsdiagonallyand rejectswhole8component.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/c62fc28f66cb386ce3a66bc71f709386d633cc8cb5d4cae772e16b4960ea8d18.rgba",
+      "original_sha256": "c62fc28f66cb386ce3a66bc71f709386d633cc8cb5d4cae772e16b4960ea8d18",
+      "expected_mask": "blobs/2ed830d513c254f39d1c6617a3e3336dc6e4431ed18e9811a06011f8924a907f.mask",
+      "mask_sha256": "2ed830d513c254f39d1c6617a3e3336dc6e4431ed18e9811a06011f8924a907f",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "cream-notnear12-hidden-RGB",
+      "provider": "remnants",
+      "spec": {
+        "in": [
+          0,
+          0,
+          6,
+          3
+        ],
+        "bg": "cream"
+      },
+      "manual_ones": [
+        [
+          2,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "equation": "Cream foregroundMaxRGBdistance>12, alphaignored. Distance12isnotforeground,13is. White225doesnotmeettagthreshold>225.",
+      "shape": [
+        3,
+        6,
+        4
+      ],
+      "original_raw": "inputs/2ce9a0a158c1a6c4687c1d61cf9ce4c7af13008860a0de11a8b1b6d302a2ed0b.rgba",
+      "original_sha256": "2ce9a0a158c1a6c4687c1d61cf9ce4c7af13008860a0de11a8b1b6d302a2ed0b",
+      "expected_mask": "blobs/111ad6cd6ccada9d00fa94dfc4d02ccf61edbf794c6e0368a68ff81fa803bcc1.mask",
+      "mask_sha256": "111ad6cd6ccada9d00fa94dfc4d02ccf61edbf794c6e0368a68ff81fa803bcc1",
+      "selected_pixels": 2,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "remnant-component-wide-diagonal-rejection",
+      "provider": "remnants",
+      "spec": {
+        "in": [
+          0,
+          0,
+          5,
+          5
+        ],
+        "grow": 99
+      },
+      "manual_ones": [
+        [
+          4,
+          0
+        ]
+      ],
+      "equation": "One8component containing anywhiteforegroundpixel isremovedinfull, notjustwhitepixels. Source ignores suppliedgrowfield; no morphology follows rejection.",
+      "shape": [
+        5,
+        5,
+        4
+      ],
+      "original_raw": "inputs/0ecde3924df677042b098a19455d0a14dd717d2114eb6b97f16c0152302cf641.rgba",
+      "original_sha256": "0ecde3924df677042b098a19455d0a14dd717d2114eb6b97f16c0152302cf641",
+      "expected_mask": "blobs/2ed830d513c254f39d1c6617a3e3336dc6e4431ed18e9811a06011f8924a907f.mask",
+      "mask_sha256": "2ed830d513c254f39d1c6617a3e3336dc6e4431ed18e9811a06011f8924a907f",
+      "selected_pixels": 1,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "g03-strict-pink-white-boundaries",
+      "provider": "g03_bursts",
+      "spec": {
+        "in": [
+          0,
+          0,
+          47,
+          5
+        ],
+        "grow": 1
+      },
+      "manual_ones": [
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          11,
+          2
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          22,
+          2
+        ],
+        [
+          21,
+          2
+        ],
+        [
+          23,
+          2
+        ],
+        [
+          22,
+          1
+        ],
+        [
+          22,
+          3
+        ],
+        [
+          30,
+          2
+        ],
+        [
+          29,
+          2
+        ],
+        [
+          31,
+          2
+        ],
+        [
+          30,
+          1
+        ],
+        [
+          30,
+          3
+        ]
+      ],
+      "equation": "Pink:R>235 ANDabs(G-B)<28 ANDG<240; white:R>225 ANDG>225 ANDB>215. Alphaignored. Separatedsamples avoidcrossgrowthhiding thresholdties.",
+      "shape": [
+        5,
+        47,
+        4
+      ],
+      "original_raw": "inputs/a4a73b2122abf5c919e6c6022e6bc2bb9f9a4bdaf8823952f69f27765cb88ed6.rgba",
+      "original_sha256": "a4a73b2122abf5c919e6c6022e6bc2bb9f9a4bdaf8823952f69f27765cb88ed6",
+      "expected_mask": "blobs/b4cfb71fdf5948e73500394a08d40704455d439bffc02a43b7730504e59d43f0.mask",
+      "mask_sha256": "b4cfb71fdf5948e73500394a08d40704455d439bffc02a43b7730504e59d43f0",
+      "selected_pixels": 20,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "g03-grow-until-stable-0",
+      "provider": "g03_bursts",
+      "spec": {
+        "in": [
+          3,
+          3,
+          1,
+          1
+        ],
+        "grow": 0
+      },
+      "manual_ones": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "equation": "g03unconditionallypassesiterations toSciPy; zeroORnegativeiteratesdefault4dilationuntilstable, yieldingwholecanvaswhenanyforegroundexists.",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "original_raw": "inputs/0fe5e757a8db565cdb33321eed04074e0fd00a1b45224ba4e793c17c9fed050d.rgba",
+      "original_sha256": "0fe5e757a8db565cdb33321eed04074e0fd00a1b45224ba4e793c17c9fed050d",
+      "expected_mask": "blobs/46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06.mask",
+      "mask_sha256": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+      "selected_pixels": 49,
+      "manual_fullmask_equals_original_helper": true
+    },
+    {
+      "id": "g03-grow-until-stable--1",
+      "provider": "g03_bursts",
+      "spec": {
+        "in": [
+          3,
+          3,
+          1,
+          1
+        ],
+        "grow": -1
+      },
+      "manual_ones": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "equation": "g03unconditionallypassesiterations toSciPy; zeroORnegativeiteratesdefault4dilationuntilstable, yieldingwholecanvaswhenanyforegroundexists.",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "original_raw": "inputs/0fe5e757a8db565cdb33321eed04074e0fd00a1b45224ba4e793c17c9fed050d.rgba",
+      "original_sha256": "0fe5e757a8db565cdb33321eed04074e0fd00a1b45224ba4e793c17c9fed050d",
+      "expected_mask": "blobs/46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06.mask",
+      "mask_sha256": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+      "selected_pixels": 49,
+      "manual_fullmask_equals_original_helper": true
+    }
+  ],
+  "source_refusal_observations": [
+    {
+      "id": "panel-seed",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "SystemExit",
+      "message": "art_components: seed (1, 1) is on the panel",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "right-of-crop",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            4,
+            2
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "IndexError",
+      "message": "index 3 is out of bounds for axis 1 with size 3",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "below-crop",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            2,
+            4
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "IndexError",
+      "message": "index 3 is out of bounds for axis 0 with size 3",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "too-negative-local",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            -3,
+            2
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "IndexError",
+      "message": "index -4 is out of bounds for axis 1 with size 3",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "missing-seeds",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "KeyError",
+      "message": "'seeds'",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "bad-seed-arity",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            2
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "ValueError",
+      "message": "not enough values to unpack (expected 2, got 1)",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "fractional-seed",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            2.5,
+            2
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "IndexError",
+      "message": "only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    },
+    {
+      "id": "valid-then-background",
+      "source_spec": {
+        "in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "seeds": [
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "original_shape": [
+        5,
+        5,
+        4
+      ],
+      "original_rgba_hex": "f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff00000000f4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36efff4c36eff",
+      "outcome": "SystemExit",
+      "message": "art_components: seed (1, 1) is on the panel",
+      "original_unchanged": true,
+      "qualification": "Unmodified sourcehelper observation, not selected futurepublic validation/refusal policy."
+    }
+  ],
+  "source_equations": [
+    "Art foreground=NOT(R238..250 ANDG187..203 ANDB100..120), alphaignored; label8localcrop; unionforegroundlabelofeachglobal(seed-croporigin) throughNumPyindex; v0refuses; embedthenwholecanvascrossgrowthonlyifGrow>0.",
+    "Remnantsforeground=notNear(CREAM,toldefault12)whenbgcream, otherwisealpha>default8; white=minRGB>225 ANDforeground; label8crop; rejectEVERYcomponent meetingwhite; embedonly, nogrowth.",
+    "g03originalRGBpredicatepinkORwhiteincrop ->embed ->wholecanvasdefaultcrossdilation withsourceiterations, includinguntilstableforGrow<=0."
+  ],
+  "seed_boundaries": "Emptylist succeeds empty; repeated/multipleseeds union. Out-of-crop positiveindicesraise, boundednegativeindiceswrap; negativeglobalcoordinatescanalsowrapaftercroporiginsubtraction. Source validseedprecondition isnot a canvas/crop bounds guard. Earlier validseeds do not suppress a laterbackground refusal.",
+  "shared_contract_assessment": "Meaningful common duty is8connectedcomponent labeling plus component selection by foregroundseed-inclusion or tag-containing-component rejection. Keep default4currentgrow/fill/minimum behavior unchanged; connectivity, aggregation/policy, cropdomain and growthorder are separate facts. Existing parent-described selectRaster scalar evaluator and transformRasterMask topology owner are reuse candidates, no mutableGo read/execution or newfunction/APIchoice.",
+  "scalar_assessment": "Currentnineproperties can express panelcube complement, alpha/creamforeground and whiteRGBtag exactly. g03pink requiresabs(G-B)<28, a green-minus-blue relation not directly amongnineproperties; boundedsimpleexistingpropertyclauses do not provide that plane without finitevalueenumeration. Whitebranchalreadyexpressible. Fullcanvasgrowthdomain also remainsseparate; no newscalarfield/schema chosen.",
+  "limits_and_holds": "Sourcehelpers have no validated seed/count/crop/workcaps. Keep sourceexceptionandPythonnegativeindexbehavior distinct from futureboundedpublicrefusals. No actual art, sourcepipeline, permissionstage or migrationcredit inferred from12syntheticactualrecord results. Otheroriginalproviders, dynamicacquisition/fontcoverage/radial/flood/morphology remainheld.",
+  "protected_scope": "No game/artwork/registry/processes, candidateGo/output, LIVE writes or new410crawl. OnlyAST-isolatedoriginalpurehelpers+NumPy/SciPy on syntheticarrays."
+}

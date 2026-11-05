@@ -1,0 +1,149 @@
+{
+  "all_owned_jobs_terminal": true,
+  "allowed_live_write": "evidence/permission-resource-review.json only",
+  "at": "2026-11-05T00:02:28.745547+00:00",
+  "candidate_pins": [
+    {
+      "kind": "candidate",
+      "manifest": "/var/tmp/dokapon-rounded-permission-jtbvggtz/review-source-manifest.json",
+      "members_verified": 670,
+      "sha256": "906950e3286c6bcf89e0803122e5ab5eef94a58c6d88367b77502d73826b8a94"
+    },
+    {
+      "kind": "baseline",
+      "manifest": "/var/tmp/dokapon-reference-owners-ov77euwr/sealed-final/manifest.json",
+      "members_verified": 665,
+      "sha256": "721bb5bda8ddc38f6526957a3a75b41ba424c72599e5a0150df1288bbf0fe605"
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestPlanAndCopy|TestCLIDryRunAndApply)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 28.06189203262329
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-permissions-review-5axbih2u/dokapon-core",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.230790376663208
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.3716926574707031
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-permissions-review-5axbih2u/dokapon-nativefonts",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 2.126946210861206
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.7663731575012207
+    }
+  ],
+  "connected_owner_review": {
+    "remaining_scope": "Initial connected wire finding halts further Go probes until root supplies corrected freeze. No final correctness or approval claim.",
+    "reuse": "No production function/type/kernel added. Existing owner acquires rectangle facts, existing compositor validates geometry/count/native intersection/step order. Fixed table is data; no parametric implementation or11artprofile completion follows.",
+    "serena_session": "e392a2e9",
+    "traced": "authorTexture sole runtimecaller main.run; RasterRender existing TextureProfile binding; composeCells runtimecaller authorTexture and existing focused/golden tests. RegistryInput/readInput shared input contracts reused."
+  },
+  "documentation": [
+    {
+      "closure": "Corrected text accurately explains the shared resource, relative path, exact size/hash,1MiB cap, local erases and inline/resource exclusivity; no Go/data change.",
+      "id": "PRM-DOC-1",
+      "initial_file": "README.md",
+      "initial_line": 165,
+      "problem": "The linked help00 reconstruction profile is now external-resource based, but text still said all permission arrays were inline.",
+      "receipt": "/var/tmp/dokapon-rounded-permission-jtbvggtz/readme-review-delta.json",
+      "status": "CLOSED_DOC_ONLY_DELTA_VERIFIED",
+      "verified_corrected_sha256": "e9beb215962c570bccd02f8ccdc0bb9c88c2c73119db4a1b280df5d635804c93"
+    }
+  ],
+  "findings": [
+    {
+      "counterexamples": [
+        "A valid pinned source/profile with render:{permissions:null} followed by render:null exits0 and publishes1188B modeexport_png.",
+        "A valid pinned source/profile with render:{permissions:{path:missing.json,size:1,sha256:64zeroes}} followed by render:null does the same."
+      ],
+      "disposition": "Root accepted the finding and is preparing a separate frozen correction; this reviewer made no runtime edits.",
+      "evidence": [
+        "/var/tmp/dokapon-permissions-review-5axbih2u/shadow-probe.py",
+        "/var/tmp/dokapon-permissions-review-5axbih2u/shadow-probe-results.json",
+        "/var/tmp/dokapon-permissions-review-5axbih2u/shadow-probes"
+      ],
+      "file": "texture_authoring.go",
+      "id": "PRM-WIRE-SHADOW-1",
+      "if_skipped": "An invalid authored permission request silently changes the requested operation into PNG export; apply can publish that artifact instead of refusing.",
+      "line": 167,
+      "problem": "Raw resource validation only executes when the final decoded profile.Render pointer is nonnil. The JSON decoder accepts duplicate root render keys and later null discards the earlier object. As a result the new resource/null/path checks are skipped and a successful export report is published.",
+      "severity": "must_fix",
+      "smallest_fix": "Use the existing checkJSON on root render ownership/duplicates before field-map or decoded-pointer decisions, and inspect raw render permission alias/null keys independently of the final Render pointer. Extend the existing CLI table with shadow/null/alias cases, including apply output absence. No new helper is needed.",
+      "title": "A later null render hides an authored permission request"
+    }
+  ],
+  "kind": "independent-read-only-permission-resource-review",
+  "limitations": [
+    "No full suite, race, native-font race or gameplay performed by reviewer.",
+    "No protected original/shipping/custom-art ISO, canonical registry, owner emulator/probe/processes/auth/settings/logs accessed.",
+    "No goldens rewritten from candidate outputs; existing focused tests exercised frozen source/native goldens.",
+    "Review provides findings, no approval, patch authority, family completion or retirement credit."
+  ],
+  "own_checks": {
+    "all_owned_jobs_terminal": true,
+    "both_invalid_requests_unexpectedly_succeeded": true,
+    "concrete_bypass_probes": 2,
+    "core_build": "PASS",
+    "core_vet": "PASS",
+    "focused_tests": "TestPlanAndCopy+TestCLIDryRunAndApply PASS28.061892032s",
+    "nativefonts_build": "PASS",
+    "nativefonts_vet": "PASS"
+  },
+  "reviewer": "/root/reference_owner_review",
+  "schema_version": 1,
+  "status": "INITIAL_REVIEW_COMPLETE_WITH_ACCEPTED_MUST_FIX_PRM-WIRE-SHADOW-1",
+  "what_this_change_does": "Adds one pinned file binding on the existing raster render owner, loads shared rectangle facts in authorTexture, and reuses the unchanged compositor/native publisher. Two help00 profiles share one canonical permission table; the13rectangle source mask is separate finite data, not a general rounded-shape engine.",
+  "workspace": "/var/tmp/dokapon-permissions-review-5axbih2u"
+}

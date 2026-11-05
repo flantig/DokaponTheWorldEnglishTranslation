@@ -1,0 +1,240 @@
+{
+  "at": "2026-10-19T22:01:46.635537+00:00",
+  "status": "VERIFIED bounded known-control terminated-slot prototype",
+  "scope": "Typed stream_slot reuses existing plan, controls, validateEdits, encode, verifySource and patchCopy. Full preimage defines extent, activeencoding hash beforepadding, zeroonlytailafterEND, existingdefaultcontrolallowlist andfixednon-breaktokenoffsets. Optional targetpins explicitlymatch acrossword/slottables.",
+  "source_pins": {
+    "main.go": "370691204d1c14cad6eeb2ba1632e7b712305f48806d372e495345bf2ed500f7",
+    "registry_types.go": "712fe46a00253bed5ff78af3b093e76b38fe93e475ca1be568f80b8e70983514",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "801eaf5f72a27f3de9ef41766125746988fbd34741318fa78636cdb6c58f0bb9",
+    "patch.go": "16c9ed965f4a2b2be9892f1c676c901af206fc7d7fe4a1e17b2e5cef5cb6313a",
+    "patch_test.go": "93c520d3d15d19224f5f5ed9624aa6c55d076ecfcf055bf33c4f582b882532d0",
+    "recipe_types.go": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+    "cmb.go": "b8d73a682c796152766212bb59f5a4f661c4c17904808a0f7f47300067972006",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "181805a0b36c986b3081a298fde03bbf99c77c9ded8527912f0fb10ac980a5be",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+    "texture_authoring.go": "76e9d9b340da6d9b64ac373005aa11f58d5758a7a8fef3e5b37c33af8754bd95",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9"
+  },
+  "evidence_pins": {
+    ".goal/stream-slot-checks-work.json": {
+      "sha256": "dd9593bb9f2514c1da8f58921957be4f1e76a7c1ae6a902db8e322b62e1e6b25",
+      "bytes": 4549
+    },
+    "evidence/stream-slot-review.json": {
+      "sha256": "0da1e365bfe2076644b1f66057153b5124e470e57652c3bfabd2baed5a5ba1ef",
+      "bytes": 14331
+    },
+    "analysis/terminated-slot-reuse-contract.json": {
+      "sha256": "2350f99acf740bdb6b35d825636f6faad35aea8d1f25f061e8f8a8280232cf1f",
+      "bytes": 16893
+    },
+    "analysis/terminated-slot-reuse-decision.json": {
+      "sha256": "ae5ac150701e2e0889531e46d5cdce8e0a23f2338630fe8979b78b5666253c93",
+      "bytes": 3186
+    },
+    "/var/tmp/dokapon-stream-slot-checks-ad1icq67/accounting-before.json": {
+      "sha256": "bfc5cb8ca01b41079c594b12b28e0323c9cf391e67b4af30780bf509bd604b71",
+      "bytes": 26892
+    },
+    "/var/tmp/dokapon-stream-slot-checks-ad1icq67/accounting-delta.json": {
+      "sha256": "d19036e55a2e1ebcf5e4ec42345f9dad6631639f229ebc2b3a4b072b14faf389",
+      "bytes": 1392
+    },
+    "/var/tmp/dokapon-stream-slot-checks-ad1icq67/independent-cli-results.json": {
+      "sha256": "1a312465ef2477bf43d2bba07548e61b41acd3e41791a65d24baf4d5d062a664",
+      "bytes": 175862
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-stream-slot-sealed-l9v0ozy9",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 33.26,
+      "output": "ok  \tdokapon/tools\t27.097s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.339,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-stream-slot-checks-ad1icq67/dokapon-go-slot",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.11,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "patch_test.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.063,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "main.go",
+        "patch.go",
+        "text_types.go",
+        "patch_test.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.003,
+      "output": ""
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key\\s*[:=]\\s*\"[^\" ]{12,}|password\\s*[:=]\\s*\"[^\" ]{8,})",
+        "main.go",
+        "patch.go",
+        "text_types.go",
+        "patch_test.go"
+      ],
+      "exit_code": 1,
+      "seconds": 0.019,
+      "output": ""
+    }
+  ],
+  "independent_review": "evidence/stream-slot-review.json",
+  "root_cli_cases": 96,
+  "reviewer_cli_cases": 118,
+  "exhaustive_control_word_parity": 65536,
+  "accounting": {
+    "at": "2026-10-19T21:56:48.017738+00:00",
+    "before_accounting": {
+      "path": "/var/tmp/dokapon-stream-slot-checks-ad1icq67/accounting-before.json",
+      "sha256": "bfc5cb8ca01b41079c594b12b28e0323c9cf391e67b4af30780bf509bd604b71"
+    },
+    "after_accounting_sha256": "d6d6e245fec603518ede7b24024601b26c815764b02374605ffdc3f4c9e8d26f",
+    "group_deltas": {
+      "asset_bundle": {
+        "bytes": 0,
+        "files": 0
+      },
+      "executed_evidence_inputs": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_module": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_tests": {
+        "bytes": 11238,
+        "files": 0
+      },
+      "pointer_selector": {
+        "bytes": 0,
+        "files": 0
+      },
+      "production_go": {
+        "bytes": 1356,
+        "files": 0
+      },
+      "recipe_tables": {
+        "bytes": 0,
+        "files": 0
+      },
+      "testdata": {
+        "bytes": 0,
+        "files": 0
+      },
+      "build_entrypoint": {
+        "bytes": 0,
+        "files": 0
+      },
+      "consumer_profiles": {
+        "bytes": 0,
+        "files": 0
+      }
+    },
+    "production_named_functions": 21,
+    "production_files": 18,
+    "production_line_delta": 26,
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "bytes": 632657,
+        "files": 75
+      },
+      "runtime_with_bundle": {
+        "bytes": 11945747,
+        "files": 78
+      },
+      "runtime_and_executed_evidence": {
+        "bytes": 12483766,
+        "files": 98
+      }
+    }
+  },
+  "limits": [
+    "Synthetic source/consumer only; no historicalnativeownership, actualISOapplication, ABI/visualfit or familyclosure.",
+    "Default/exact/plain modes remainstrict; no setup/opaqueparam8authoring or arbitraryline/pagecountchanges.",
+    "No newfunction/type/CLIflag/writer/dependency/JSONfield. One internalPadded scanfield and one reusableoperation. Growth1356productionB/26lines+11238testB, no savings/retirementclaim."
+  ]
+}

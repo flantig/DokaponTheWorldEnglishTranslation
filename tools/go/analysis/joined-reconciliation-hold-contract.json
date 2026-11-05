@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T17:23:49.355237+00:00",
+  "status": "SOURCE_HOLD_CONTRACT_NO_IMPLEMENTATION_APPROVAL_CREDIT",
+  "finding": "Prior17cases contain schematic facts, not existing registry keys/API. Original hold authority is literal policy/constants and external review rationale. Absence of a registry hold key is never approval.",
+  "exact_source_facts": [
+    {
+      "source": "apply_drafted_writeback_gap_2026-09-08.py",
+      "constants": [
+        {
+          "line": 63,
+          "keys": [
+            "PATCH_REF"
+          ],
+          "value": "already-migrated pre-2026-09-08 (2026-09-04/05 bulk exploratory sentinel-streaming pass), registry write-back gap - resolved via systematic audit 2026-09-08 (tools/audit_drafted_writeback_gap_2026-09-08.py), same bookkeeping-gap class as 0x4f0250/0x4f0220/0x5345c6/the 64-entry patched_diverged triage"
+        },
+        {
+          "line": 84,
+          "keys": [
+            "HARD_EXCLUDE_IDS"
+          ],
+          "value": [
+            "0x535aa0"
+          ]
+        },
+        {
+          "line": 92,
+          "keys": [
+            "HARD_EXCLUDE_IDS |="
+          ],
+          "value": [
+            "0x532ed0"
+          ]
+        },
+        {
+          "line": 103,
+          "keys": [
+            "HARD_EXCLUDE_IDS |="
+          ],
+          "value": [
+            "0x534884",
+            "0x5348a2",
+            "0x5348da",
+            "0x53490e",
+            "0x53492a",
+            "0x53494a",
+            "0x53496a"
+          ]
+        }
+      ],
+      "registry_e_get_keys": [
+        "en",
+        "ref_sites",
+        "ref_type",
+        "status"
+      ],
+      "parses_note": false
+    },
+    {
+      "source": "apply_writeback_gap_70_2026-09-08.py",
+      "constants": [
+        {
+          "line": 68,
+          "keys": [
+            "C1_CHAPTERS"
+          ],
+          "value": [
+            "battle-status-messages-1",
+            "battle-status-messages-2",
+            "battle-status-messages-3",
+            "character-nameplate",
+            "terrain-commands",
+            "vocab-jobs"
+          ]
+        },
+        {
+          "line": 71,
+          "keys": [
+            "C2_CHAPTERS"
+          ],
+          "value": [
+            "battle-status-labels",
+            "battle-status-messages-1",
+            "battle-status-messages-3",
+            "menu",
+            "monster-bestiary",
+            "vocab-jobs"
+          ]
+        },
+        {
+          "line": 74,
+          "keys": [
+            "PATCH_REF_C1"
+          ],
+          "value": "already-migrated (pre-existing multi-ref-site sentinel content), registry write-back gap - found by the 2026-09-08 extended-autoplay bulk-probe session, resolved via systematic per-site re-audit 2026-09-08 (tools/audit_writeback_gap_70_2026-09-08b.py) - EVERY ref_site independently live-value-confirmed to resolve to the SAME sentinel target with content matching registered en; same bookkeeping-gap class as 0x4f0250/0x4f0220/0x5345c6"
+        },
+        {
+          "line": 81,
+          "keys": [
+            "PATCH_REF_C2"
+          ],
+          "value": "already-migrated (pre-existing in-place EN content, no sentinel relocation), registry write-back gap - found by the 2026-09-08 extended-autoplay bulk-probe session, resolved via systematic re-audit 2026-09-08 (tools/audit_writeback_gap_70_2026-09-08b.py)"
+        }
+      ],
+      "registry_e_get_keys": [
+        "chapter",
+        "en",
+        "ref_sites",
+        "ref_type",
+        "status"
+      ],
+      "parses_note": false
+    }
+  ],
+  "literal_HARD_EXCLUDE_IDS": [
+    "0x532ed0",
+    "0x534884",
+    "0x5348a2",
+    "0x5348da",
+    "0x53490e",
+    "0x53492a",
+    "0x53494a",
+    "0x53496a",
+    "0x535aa0"
+  ],
+  "critical_unlisted_hold": "0x5348c0(s-3) is NOT in HARD_EXCLUDE_IDS: source comment101 says old multisite gate excluded it separately. Modern convergence support cannot silently erase that template editorial hold.",
+  "source_lines": {
+    "single_pass": "status127; hard exclusion129; ref_type132..136; no/multisite137..142; source resolution143..158; content165; keep_old_en178..188; machine changes214..218",
+    "multi_pass": "C1/C2 chapter constants68..72; drafted in build_candidates; collision and same-address gates; cardinality214..218; EN notation protection220..233; machine changes261..275"
+  },
+  "manual_to_actual": [
+    {
+      "manual_names": [
+        "editorial_hold",
+        "deadref"
+      ],
+      "actual": "No such registry keys. HARD_EXCLUDE_IDS+comments73..104; note quoted as rationale but NEVER parsed.",
+      "owner": "Explicit current-pin review data."
+    },
+    {
+      "manual_names": [
+        "selected_by_review"
+      ],
+      "actual": "No boolean key. status==drafted plus HARD_EXCLUDE_IDS; other pass C1_CHAPTERS/C2_CHAPTERS and count guards.",
+      "owner": "ObservedFamily/Entries selects factual rows; review data independently gates suggestions."
+    },
+    {
+      "manual_names": [
+        "current_status"
+      ],
+      "actual": "Registry status. Both originals select only drafted.",
+      "owner": "Missing/null/unknown status not inferred safe; retain higher status."
+    },
+    {
+      "manual_names": [
+        "current_landing",
+        "current_patch_ref",
+        "current_en",
+        "current_jp"
+      ],
+      "actual": "Registry landing_vma,patch_ref,en,jp.",
+      "owner": "Current before-values; first two machine-owned, EN/JP human-owned."
+    },
+    {
+      "manual_names": [
+        "source_identity_equal"
+      ],
+      "actual": "Derived lifecycle fact; originals re-audit fresh rather than trust stale JSON.",
+      "owner": "Existing pin/recheck computation, never caller bool."
+    },
+    {
+      "manual_names": [
+        "all_sites_valid",
+        "targets_convergent",
+        "full_window_bound",
+        "observed_target"
+      ],
+      "actual": "Derived observed words/resolve/decode/all-sites-same-target, not landing assertion.",
+      "owner": "Existing observed-reference/mapper/audit facts."
+    },
+    {
+      "manual_names": [
+        "canonical_generation_known",
+        "canonical_stream_equal",
+        "argument_order_equal",
+        "payloads_equal"
+      ],
+      "actual": "Encoding output/error and exact comparisons, writeback569..626/700..723.",
+      "owner": "Existing canonical policy/comparison; never input bool."
+    },
+    {
+      "manual_names": [
+        "desired_machine_patch_ref"
+      ],
+      "actual": "PATCH_REF/PATCH_REF_C1/PATCH_REF_C2 source constants, not registry key.",
+      "owner": "Only explicit approved attribution may change patch_ref; otherwise leave unchanged. Do not reuse Evidence/reason as origin. Prior no-attribution case held its specific three-field proposal, not a universal ban on other suggestions."
+    },
+    {
+      "manual_names": [
+        "rendered_projection",
+        "icon_markup"
+      ],
+      "actual": "Derived fresh_en and ICON text detection; keep_old_en185 and232..233.",
+      "owner": "EN never rewritten now; formatting discrepancy is attention only."
+    }
+  ],
+  "minimum_recipe_recommendation": {
+    "placement": "Reuse existing StreamAuditProfile.Entries stable-ID table for optional per-entry review decision+reason, rather than a new selector/map/framework. A separate table is equivalent only if its keys are checked against exact selected IDs. Production names/types remain root decision.",
+    "value": "Closed allow/hold plus nonempty review reason/provenance. Missing/null/unrecognized/unreviewed cannot allow. Hold or unknown retains factual row and emits no machine candidate.",
+    "necessary_not_sufficient": "Explicit allow still requires all computed current source/canonical/site/window/status proofs. Never accept those proof booleans from recipe input.",
+    "default": "Fail closed: no automatic ObservedFamily-wide allow. Extra IDs/normalized duplicates/JSON ambiguity refuse using existing owned validation.",
+    "source_binding": "The pinned profile/source/registry identities bind scope. Historical hold IDs are evidence leads, not permanent assertions about arbitrary future images; lifting holds requires explicit review for current pins. Do not parse notes by regex.",
+    "human_machine": "EN always unchanged. Suggest only owned machine fields; preserve progressed status. patch_ref needs explicit attribution data or remains unchanged/omitted; reason/Evidence is not migration origin.",
+    "cost": "No new function/mode-flag framework justified; existing audit row loop can attach review/hold/candidate reasons; authorRegistry stays separate publisher.",
+    "qualification": "Conceptual recipe semantics only, not a new production API. Prior17manual scenario booleans must never become accepted proof-input fields."
+  },
+  "examples": {
+    "directory": "/var/tmp/dokapon-joined-hold-contract-mro3_k1m",
+    "count": 10,
+    "review": "conceptual-review-data.json",
+    "boundaries": "semantic-examples.json"
+  },
+  "source_pins": [
+    {
+      "source": "/var/tmp/dokapon-joined-reconciliation-frontier-f3ridxqh/sources/apply_drafted_writeback_gap_2026-09-08.py",
+      "contained": "sources/apply_drafted_writeback_gap_2026-09-08.py",
+      "size": 11082,
+      "sha256": "52201980cf8b721bed505e7b3d32863087591406483ccf6de51b8e38a30781c9"
+    },
+    {
+      "source": "/var/tmp/dokapon-joined-reconciliation-frontier-f3ridxqh/sources/apply_writeback_gap_70_2026-09-08.py",
+      "contained": "sources/apply_writeback_gap_70_2026-09-08.py",
+      "size": 14414,
+      "sha256": "80a0a58407b5ed4f71de95fb3ceb7bacf5dbc5834bc3865f081f77bd4e3c882e"
+    },
+    {
+      "source": "stream_audit_types.go",
+      "contained": "stream_audit_types.go",
+      "size": 4201,
+      "sha256": "fab068d88e6e5e29788c11f3fdd2bfc19d6dd1629ed2d84b2e38a944efa4b861"
+    }
+  ],
+  "validation": "Static AST constants/registry-key projection and hash checks only; no source imports/mains/Go/protected inputs. No approval or milestone credit. All jobs terminal.",
+  "pack": {
+    "directory": "/var/tmp/dokapon-joined-hold-contract-mro3_k1m",
+    "manifest_sha256": "ddbd6b8d96c1c21647fbeca9894b72bd1028fdf10b5e53060ef72f1fef12c391",
+    "members": 7,
+    "member_bytes": 42698
+  }
+}

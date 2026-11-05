@@ -1,0 +1,16 @@
+{
+  "operation": "same_length_stream",
+  "source_sha256": "81be8fce4ef2a1df995a1d6f06e4230349c1215d77d8dd656195a48d9e0d4bb0",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "entries": {
+    "0x5364c8": {
+      "expected_hex": "25017700850200f8",
+      "prefix_words": [],
+      "evidence": "tools/patch_menu.py: build_edits E1 only, same-length Boy stream; no relocation"
+    }
+  },
+  "evidence": "Separate same-length Boy stage on verified Name/Girl output81be8fce. Current8B JP completepreimage at5364c8, canonical EN and actual original8B behavior. Reuses same_length_stream unchanged. No append composition, new functions or registry writes; Name/Girl relocation remains separate. Exact whole source pin, completeOld/New, fresh independent reviews and exclusivecopy proof required; no physicalfit/gameplay/fullMenucallerclosure claim."
+}

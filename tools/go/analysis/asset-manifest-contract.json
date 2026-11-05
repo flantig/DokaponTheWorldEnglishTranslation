@@ -1,0 +1,208 @@
+{
+  "kind": "PRECODE asset batch manifest and exact advisory discovery source/oracle contract",
+  "scope": "Read-only contract/oracles only. No implementation or family/milestone approval. Accepted.03 snapshot is separate from pending.04.",
+  "baseline": {
+    "snapshot": "/var/tmp/dokapon-asset-specification-neqnq086/sealed-final",
+    "members": 404,
+    "manifest_sha256": "90e36d0d52cc96f889861cf8065479a38c861424a660ad6a0ef5a4c29a920e86"
+  },
+  "source_pins_before_candidate_output": {
+    "../explainer_scan.py": {
+      "bytes": 13716,
+      "sha256": "48ec5c0acb8989071e6f0f487005ee8b2f620677d167431c08f8afea49b87f28"
+    },
+    "cmb.go": {
+      "bytes": 11616,
+      "sha256": "7b6fdbf9c1f49509f6f7222100202b92983a4c1eb007c6cd3a764eadb0b09049"
+    },
+    "texture_authoring.go": {
+      "bytes": 14823,
+      "sha256": "f9335d6fcc244a21830805519b56423c1317dd76f5751ebd9bc099c04efca8b6"
+    },
+    "texture_index.go": {
+      "bytes": 3863,
+      "sha256": "f608d8fdc32178d233c1a3fe91162afd7ebd0b46bbd2d4d9ea5c6b5fd27d77db"
+    },
+    "texture.go": {
+      "bytes": 15618,
+      "sha256": "e1f207763ecf08be0706e473ab8e2af6ec8322e089549b4a79b44ba414c6c961"
+    },
+    "texture_types.go": {
+      "bytes": 5626,
+      "sha256": "7f09043b1306a023cd71fc06a59fc4bfac44c8a62ec50497f08c9bae29613bb2"
+    },
+    "analysis/asset-specification-contract.json": {
+      "bytes": 13941,
+      "sha256": "2f5f300b9b4cab4a2f5d3d99be35ea2857886748dc76bbb98dd01ad626d14e7c"
+    },
+    "analysis/migration-roadmap.json": {
+      "bytes": 57118,
+      "sha256": "22e84357c0be4cb5d12176a736cfac71f2d718684e63b4020aa202ad03def628"
+    }
+  },
+  "primary_source_and_execution": {
+    "source": "../explainer_scan.py",
+    "spans": {
+      "tier_and_regex": "36..49",
+      "score": "138..175",
+      "flag_wrapper": "178..193",
+      "sheets": "221..247",
+      "CSV_flag_conditions": "251..283"
+    },
+    "method": "Parsed original AST. Executed ONLY original score/tier/_score_safe definitions and original MODEL/ICONS/HINT assignments, with ROOT pointing at private literal PNGs. Flag evaluation executed only original nested IF AST, without cmd_csv loader/writer. No project module import, main, ISO/artwork or Go/candidate execution.",
+    "versions": {
+      "Python": "3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]",
+      "Pillow": "12.3.0",
+      "NumPy": "2.4.6"
+    },
+    "primary_selected_source_sha256": "7ea8c4881be545304989685bb27ee2e91f90d6b4c01d1c127da95b044b2d2364"
+  },
+  "score_contract": {
+    "six_counter_order": [
+      "glyph_clusters",
+      "cluster_fraction",
+      "glyph_tiles",
+      "dominant_color_fraction",
+      "opaque_fraction",
+      "text_line_rows"
+    ],
+    "luminance": "Integer floor (299R+587G+114B)/1000; int32 original arithmetic. Ignore source alpha for luminance itself.",
+    "opacity": "A>128, strictly. Hidden RGB at A0/A128 remains in source RGBA hash but never contributes to opacity/edges/dark/light/flat.",
+    "extent": "Original computes H=floor(h/8)*8,W=floor(w/8)*8 then crops lum/op. Successful six-counter domain is positive dimensions>=8 and both multiples8; smaller/odd cases have the bugs documented below.",
+    "strong_edges": "Horizontal neighboring luminance absolute difference>90 and BOTH opaque. Append one false column at image right. An edge across two8px tiles belongs to the tile containing its left pixel. No vertical edge test.",
+    "tile_statistics": "For every8x8tile, edge count et; opaque fraction ot; dark fraction dk=(lum<90 AND opaque)/64; light fraction lt=(lum>150 AND opaque)/64. Strict boundaries matter.",
+    "glyph_tile": "et>=6 AND dk>.05 AND dk<.7 AND lt>.15 AND ot>.5.",
+    "cluster": "Glyph tile whose inclusive3x3 neighborhood has>=3glyph tiles. Self counts, so two OTHER glyph tiles suffice; diagonal neighbors count. Out-of-image neighbors are false. Cluster fraction=cluster count/max(1,count of ALL tiles with ot>.5), not divided by glyph count.",
+    "text_line_rows": "For each tile row, find longest consecutive run of glyph tiles. Count row if run>=8. Gaps reset run; clusters are not used for this statistic.",
+    "flat_fraction": "On successful domain, select ORIGINAL RGB at opaque mask; quantize each channel by floor(/8), key=(R//8)*1024+(G//8)*32+(B//8). Max bucket count/total opaque pixels, or0 if no opaque pixels. Do not use exact RGBA uniqueness, palette indices or all pixels.",
+    "opaque_fraction": "Mean of cropped opacity mask. Fractions are IEEE float64 division results; do not round to percentages or tolerance buckets."
+  },
+  "source_bugs_and_deliberate_dispositions": [
+    {
+      "case": "Positive width/height>=8 but either not multiple8",
+      "original": "op is cropped, but flat indexes a[...,:3] without cropping a. Boolean mask dimensions differ, so NumPy raises IndexError. _score_safe returns[-1,0,0,0,0,0]. Odd9x8,8x9,17x17 are frozen with exact error messages. Earlier tile computations are not a successful complete score.",
+      "new_contract": "Decoded geometry and exact RGBA hash remain valid. Scores null/unavailable with diagnostic; keep path tier and name-hint/ui-folder reasons based on decoded pixels. This is deliberate source-bug handling, not successful cropped6counter parity."
+    },
+    {
+      "case": "Either dimension<8",
+      "original": "Early score return is three fields[0,0,0]. _score_safe preserves this malformed tuple; later cmd_csv and cmd_sheets index d[5] and can fail, even before tier guard because evaluation order reads d[5] first.",
+      "new_contract": "Scores null/unavailable with diagnostic. Never fabricate six zero counters or call it original parity. Decoded pixels still permit path/name reasons."
+    },
+    {
+      "case": "Invalid PNG/read/decode exception",
+      "original": "_score_safe swallows exception and returns[-1,0,0,0,0,0].",
+      "new_contract": "Undecoded pixels have no score and no flag reasons, even when path/hint matches. Preserve explicit diagnostic/error status and any raw source identity."
+    }
+  ],
+  "classification_contract": {
+    "tier": "entry.lower() followed by original anchored MODEL regex first, ICONS second, otherwise ui. Backslashes are literal separators. Forward slashes are not silently normalized. Regex branches are prefixes, not semantic directory validation; preserve their actual boundary behavior.",
+    "MODEL_pattern": "^(battle\\\\(player|monster|bg|weapon|shield|textures\\\\(player|monster))|field\\\\(fp|map)|event\\\\(npc|evtkao|bg|race\\\\rm))",
+    "ICONS_pattern": "^textures\\\\win_(pl|wep|mon)\\\\",
+    "HINT": "Unanchored search in entry + space + native texture name, original re.I pattern: help|tut|rule|setumei|guide|illust|title|logo|news|kojityu|mini_|card_|casino|prize|sale|button|panel|ready|start|gameset|survive|wanted|jikai|food_t|f_title|op_p|win_. No OCR or screen-context proof.",
+    "ordered_reasons": [
+      "Decoded pixels AND tier ui/icons => ui-folder.",
+      "Decoded pixels AND measured text_line_rows>=1 AND model => detector-text-lines.",
+      "Decoded pixels AND measured clusters>=40 AND dominant_color_fraction>=.3 AND ui => detector-glyphs.",
+      "Decoded pixels AND HINT(entry + space + texture) => name-hint."
+    ],
+    "flagged": "bool ordered reasons nonempty; original CSV serializes int0/1 and joins reasons with+. New structured bool/list is a new report shape, not CSV byte parity.",
+    "Unicode_gotchas": "Python re.I matchesASCIIkeywords against İ/ı,ſ,K variants. Python entry.lower expands U0130 to i+combiningdot, so textures\\WİN_MON is ui rather than icons; raw HINT still matches win_. A Go lowercaser that drops the combining dot changes tier. Frozen primary24branch cases plus25real-PNG cases bind this distinction.",
+    "unknown_scores": "Decoded unmeasurable image may have ui-folder/name-hint reasons while statistical reasons remain unavailable. Nil/undecodable image has zero reasons. Tier remains path-derived advisory metadata."
+  },
+  "batch_manifest_contract": {
+    "source": "Extracted regular CMB, streamed through ReaderAt+full source hashes/rechecks; no ISO fallback. Reuse existing cmbIndex bounds/name/overlap/indexSHA authority, enhanced to retain original index ordinal order.",
+    "ordering": "Original CMB index order first, native dictionary order within entry. Never sort rows by physical member payload offsets, map iteration or filename. Stable annotation IDs remain links, not a replacement for source order.",
+    "entry_accounting": "Every selected CMB entry has a record, including raw PNG, valid multi-native TXD, malformed TXD, empty dictionary, nontexture, duplicate native names and local metadata errors. PNG signature is checked before TXD parsing. Report member source spans/length/hash, native ordinal/name/raw header, real decode or error/unknown, output preview links/hashes, decoded RGBA hash, annotation links, discovery facts and diagnostics separately.",
+    "codec_authority": "indexTextures and texture remain sole native parser/codec. Duplicate native names remain in index but exact selector decode must not choose one; both rows unknown with ambiguity diagnostics. One unsupported/local-metadata-error native must not erase a valid sibling. No old guessed linear PSMCT32, no first-native fallback.",
+    "source_vs_pixels": "Raw member SHA and output PNG SHA differ from decoded raw RGBA SHA. A valid decoded odd PNG has true9x8geometry/RGBA SHA but unavailable detector scores. Empty/nontexture/error does not invent pixel dimensions or successful flags.",
+    "publication": "Root selected one deterministic ZIP of previews+manifest, exclusive writeNewFile and dry-run no output. No overwrites or partial directory. Source/profile identity checks precede publish; archive labels are declared provenance, not a verified ISO location.",
+    "resource_decision": "Root bounds: source<=1GiB streamed;<=100000CMB records, existing64MiB per-native input/1Mpx raster guards, total attempt/work budget2^28, ZIP<=128MiB. Budget rows must remain explicit unavailable/unknown, never silently truncate source accounting. This study does not measure real910MB BATTLE or claim full-corpus throughput."
+  },
+  "existing_owner_analysis": {
+    "Serena": "cmbIndex body inspected; accepted prior symbol/caller work establishes authorTexture/indexTextures/texture boundaries. Source snapshot pins are documentary before-code facts, not current candidate runtime approval.",
+    "cmbIndex": "Owns index validation and exact spans. Enhance with original-order metadata; do not duplicate parser or change planBundle physical guards.",
+    "authorTexture": "Owns profile/read-only selection and dispatch. Existing single-asset lifecycle cannot reasonably absorb streaming many-member traversal, member-status fanout and bundle assembly without unrelated sprawl.",
+    "texture_index_and_codec": "Own structure/pixel semantics; cannot reasonably own tile discovery, CMB blobs, source lifecycle, PNG preview naming/publication.",
+    "generatePalette": "Mutates/normalizes/quantizes; discovery must measure original unchanged RGBA. A report-mode flag here would mix incompatible duties.",
+    "render_resize": "Painting/resampling are unrelated to unchanged-pixel tile statistics; do not add detector modes to renderRuns/composeCells/resizeRaster.",
+    "root_precode_decision": "analysis/asset-manifest-reuse-decision.json justifies two cohesive functions: pure inspectRaster for measurements+classification together, and manifestTextures for streaming archive lifecycle+preview ZIP. Existing writer, native codec, PNG stdlib and CMB parser reused. Worker implements no functions."
+  },
+  "precode_oracle_packs": {
+    "primary_pixels": {
+      "directory": "/var/tmp/dokapon-asset-manifest-contract-9ycx5wzu",
+      "members": 73,
+      "manifest_sha256": "d948a7a40a8e2cc5507ebd8ac1b88dad4a91c3722e2f1b08041b40b24c87f1d2",
+      "scores_sha256": "3f84dd013243bac23892f3c3005cb63b3434f542c91853b84e5cd63ae3b09c31",
+      "flags_sha256": "ba0b58f84d624bf84db0d41a350976474680b4718b3fd37fc7ea5146515df870",
+      "counts": "33PNG/raw cases:28hand-checked successful6counter vectors,3odd exceptions,2sub8three-tuples; plus invalidPNG wrapper.24branch/tier/Unicode vectors are source semantics, not productionAPI score-injection tests."
+    },
+    "real_pixel_flags": {
+      "directory": "/var/tmp/dokapon-asset-manifest-contract-realflags-d3iz9c7_",
+      "manifest_sha256": "b2410e747208ca56621936ff2991c1d3b505652dd16bd8d3465ef0b4bc4b4b35",
+      "facts_sha256": "c96eaf30f2507674c8038e764ff41e28994f405ab49e9833e2ea96ab5d8bfa6c",
+      "counts": "25flag/tier rows reference actual PNGs and complete source score or deliberate unavailable domain.3new pixel cases:clusters39=[39,.975,39,.4875,1,4];flat-at.3=[40,1,40,.3,1,5];below.3=[40,1,40,767/2560,1,5].",
+      "threshold_construction": "64x40black/white glyph grid gives40glyphs. Remove first8tile=>39clusters. For flat threshold retain40glyphs but use gray0/16dark and192/208light, counts768/768/512/512 versus767/767/513/513; all colors stay across source dark/light/edge thresholds."
+    },
+    "CMB": {
+      "directory": "/var/tmp/dokapon-asset-manifest-contract-cmb-v2cpe1ug",
+      "manifest_sha256": "e6a1e5456076a00ea35f6a7c34282110fdc1968be2ea06ce34f1e0b7cb254a0b",
+      "facts_sha256": "e68c45f68b884de01508580eda6da856566ca56b61fb55b681af8aeda3fa98e0",
+      "source_bytes": 14380,
+      "source_sha256": "48da2046a004465451c8052a80ed53b395579cebbc5602c88e471a5ce8bdbd49",
+      "index_bytes": 800,
+      "index_sha256": "6a119a1c0e50e161a7a93d7d14f6624085110f2d72267362a8c3e1421838214e",
+      "index_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "physical_order": [
+        4,
+        1,
+        7,
+        0,
+        6,
+        3,
+        8,
+        2,
+        5
+      ],
+      "expected_counts": {
+        "entry_records": 9,
+        "native_rows": 8,
+        "decoded_native_rasters": 4,
+        "decoded_raw_PNGs": 2,
+        "successful_six_counter_rasters": 5,
+        "unavailable_detector_rasters": 1,
+        "unknown_native_rasters": 4
+      },
+      "refusal_variants": [
+        "case-insensitive duplicate member",
+        "overlapping member spans",
+        "member extent overrun",
+        "invalid indexbase"
+      ],
+      "provenance": "Two-native/malformedmetadata/duplicate/depth16 fixtures reuse prior immutable precode .03pack5b3cc234. RawPNG pixels bind primary pack; noGo-generated expected data."
+    }
+  },
+  "verification": {
+    "status": "PASS",
+    "all_frozen_member_hashes_and_sizes": 95,
+    "CMB_record_spans_names_payload_hashes_and_physical_order": "PASS bystdlibstruct, everymember equals frozen standalone bytes; nonoverlap validated",
+    "pixel_RGBA_and_PNG_equivalence": "Every33primaryPNG was loaded toRGBA and exactlymatched its frozenraw bytes before seal;28manual score comparisons PASS.3new pixel cases manual+originalscore PASS.",
+    "static": "JSON parses; scoped gitdiffcheck required before terminal.",
+    "execution_limits": "Only explicitly allowed originalASTpure functions/conditions ran on private literals. No productionGo, whole projectPython, sourceartwork, ISO/canonical/protectedruntime or emulator resources."
+  },
+  "remaining_limits": [
+    ".04requires candidate complete member/pixel/source/output checks and independent review; this source study grants no credit.",
+    "Scores and path hints are advisory discovery, not OCR, translation, actual screen usage, native liveness or calibrated visual approval.",
+    "Remaining.05checkerboard/crop beforeafter and.06labelled contactsheets remain separate even after.04.",
+    "No source/test/fixture/docs/coverage/goal edits beyond this assigned analysis JSON; private fixture data is analysis overhead, not code reduction."
+  ]
+}

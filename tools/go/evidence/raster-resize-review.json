@@ -1,0 +1,206 @@
+{
+  "at": "2026-10-20T17:33:20.700548+00:00",
+  "status": "PASS for finite shared resizer foundation; no open material findings",
+  "scope": "Read-only ordinary source, behavior and reuse review. Only assigned evidence JSON/MD and owned private scratch written; no source/test/fixture/ISO/art/emulator mutations.",
+  "candidate": {
+    "frozen_at": "2026-10-20T17:30:05.369335+00:00",
+    "baseline": "/var/tmp/dokapon-bitmap-render-sealed-srzifqyv",
+    "source_data_pin_count": 43,
+    "all_pins_held": true,
+    "source_pins": "/var/tmp/dokapon-raster-resize-review-9dac0cry/source-pins.json",
+    "source_pins_sha256": "61f269d8647228181a8e2e3dcd71d9cbb98ad42c385260d14dbf86929f9509b1",
+    "key_pins": {
+      "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+      "patch_test.go": "ca608aa6d810791f46d05223a6f00ee56ade0b93f2ec907cb0d3774977d7cb90",
+      "licenses/Pillow.txt": "15181e7363dca9aed78b79bebebc7fde7f1814b8bd311ea3b87ae8ccadfc185b",
+      "testdata/raster-resampling.zip": "1ff4ba495241d12e72f4c3d09f5e841a1aa86bfea739bea38e9db69ce4bf9a61"
+    }
+  },
+  "findings": [],
+  "ownership": {
+    "serena_session": "d7f95853",
+    "references": [
+      "raster_resize.go:9",
+      "raster_resize.go:14",
+      "raster_resize.go:19",
+      "raster_resize.go:31",
+      "raster_resize.go:38",
+      "raster_resize.go:64",
+      "raster_resize.go:112",
+      "patch_test.go:6036"
+    ],
+    "decision": "ONE new pure numerical owner is justified by actual Gray24x24\u219277x77 glyph and NRGBA1397x137\u21921285x137 word stages. composeCells owns layout/composition/containment, texture native storage, generatePalette clustering, authorTexture I/O, and previewFit/glyphMaps encoded measurement; none reasonably owns separable numerical reconstruction.",
+    "readability": "One channel-count/pass loop shares coefficients/convolution across Gray/NRGBA. Guards precede allocations; source/destination/intermediate limited. No helper/closure family, configurable filters, dependency, writer, schema or CLI added. Existing test owner extended without new test functions."
+  },
+  "source_and_oracle_binding": {
+    "primary_contract": "analysis/raster-resampling-reuse-contract.json",
+    "primary_contract_sha256": "86c7331eed4417ad669183effb01f81902ef71dcda7932fa66fe48d60f6dbefe",
+    "before_code_decision": "analysis/native-raster-reuse-decision.json",
+    "decision_sha256": "24413cf3cc56b63701d6d6bd5a54921e8937cff5933810163b5c908020c75134",
+    "rebind": {
+      "primary_sources_rebound": [
+        {
+          "name": "Pillow-Resample.c",
+          "sha256": "808c212d03289b9ab70fad67168da1b14ed8dd74f1607c7a7278c50cbc1ae0ab",
+          "bytes": 32578
+        },
+        {
+          "name": "Pillow-Convert.c",
+          "sha256": "2befb53f832dd8a780a33b6ba417f63cbb44e3dbcdbbdc6b908c720a64ac03b9",
+          "bytes": 47982
+        },
+        {
+          "name": "Pillow-AlphaComposite.c",
+          "sha256": "0063c136b8bb2be51e2fb76fac222a7ae96b438f3c09706834862d9c1ac62c93",
+          "bytes": 2679
+        },
+        {
+          "name": "Pillow-ImagingUtils.h",
+          "sha256": "3309f7beaa812dddbec474e9e12d4c5b22590a889e68d9ef5d56d99cbb6dc59c",
+          "bytes": 1155
+        },
+        {
+          "name": "Pillow-Image.py",
+          "sha256": "04af3f2db7ffdd61e829fa7aa8f5481d394a0a4129a8fd8aa5b13908928fcd6d",
+          "bytes": 153786
+        },
+        {
+          "name": "Pillow-LICENSE",
+          "sha256": "15181e7363dca9aed78b79bebebc7fde7f1814b8bd311ea3b87ae8ccadfc185b",
+          "bytes": 1457
+        },
+        {
+          "name": "Scipy-ni_morphology.c",
+          "sha256": "bfa7dc38badf2efdf4d9deca015e92bbc1dc947a12bd869afec5b17352e60d0a",
+          "bytes": 42415
+        },
+        {
+          "name": "Scipy-morphology.py",
+          "sha256": "f50c9d18a4d32d9e4894d03813794e184efcf6145c47458d10024c53bb172e44",
+          "bytes": 100970
+        },
+        {
+          "name": "Scipy-ni_filters.c",
+          "sha256": "e698ae4e27d161707e3eb4e58cb18c6186032acd52b4cefcb095d2ae6f3af63a",
+          "bytes": 44619
+        },
+        {
+          "name": "Scipy-LICENSE",
+          "sha256": "221e59f5e910fd7f94e44f0dac77436a11338c285c6346232e4a850a50da0e94",
+          "bytes": 1531
+        },
+        {
+          "name": "OpenCV-morph.simd.hpp",
+          "sha256": "45447fa1c503657151be2fb476e079f9bdd0bb7b16269433b3eaffb2066e65f1",
+          "bytes": 31869
+        },
+        {
+          "name": "OpenCV-morph.dispatch.cpp",
+          "sha256": "1e9ba3cdfbd38bcb9d8800e365bc212f4fea60775c2b177a89261784b10c8402",
+          "bytes": 51287
+        },
+        {
+          "name": "OpenCV-LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        {
+          "name": "NumPy-loops_utils.h.src",
+          "sha256": "ed85d5b99f0b457cb7a316bf8c4acb884034bbbb81a89c5cedb62be80bf7c4f8",
+          "bytes": 8001
+        },
+        {
+          "name": "NumPy-LICENSE",
+          "sha256": "1be1df33863f97a7bc1c4d67980bd6c69c9a6fef0a5ee76e6ad6cb91e56e8491",
+          "bytes": 1543
+        }
+      ],
+      "pillow_notice_exact": "15181e7363dca9aed78b79bebebc7fde7f1814b8bd311ea3b87ae8ccadfc185b",
+      "portable_bundle_exact": "1ff4ba495241d12e72f4c3d09f5e841a1aa86bfea739bea38e9db69ce4bf9a61",
+      "old_production_go_files_unchanged": 21,
+      "old_testdata_files_unchanged": 40,
+      "test_function_set_unchanged": true,
+      "new_owner": "resizeRaster only; currently test references, no production font caller",
+      "primary_contract_sha256": "86c7331eed4417ad669183effb01f81902ef71dcda7932fa66fe48d60f6dbefe"
+    },
+    "primary_tables": {
+      "coeff-24-77.json": "1bc1bf17beaf6e43a970cad58418589848a9900ec6d6542be875df43b7d394a7",
+      "coeff-1397-1285.json": "dd6538b27d9776915121961c129cbc05e5892ea27a83d374bdd709168d9c87ba"
+    },
+    "independence": "134 portable PNG/JSON vectors were frozen from primary-source/Pillow comparison before Go outputs. No expected pixel or coefficient pins were generated or repinned from Go."
+  },
+  "numerical_results": {
+    "all_pixel_vectors": 134,
+    "actual_resize_stages": 23,
+    "adversarial_seeded_axis_stride_vectors": 111,
+    "coefficient_instrumentation": "Private overlay instruments the CURRENT Go coefficient block and compares starts and every signed Q22 integer against independent tables:24\u219277 has77 rows/432 entries;1397\u21921285 has1285 rows/8371 entries. All exactly equal.",
+    "covered": "Gray/NRGBA mode and fresh output; source subimage origin/stride/padding and immutability; identity before premultiplication/hiddenRGB; skipped unchanged axes; ordinary H\u2192V and tall V\u2192H; finite support/boundary normalization/signed Q22 rounding; byte clipping after each axis; rounded MULDIV255 premultiplication; floor unpremultiplication, with final alpha0/255 retaining already-filtered RGB.",
+    "refusals": "All15 current direct-API cutsets reject nil outputs: nil/typed nil/unsupported/empty, source+output dimensions/area, negative/short/overflow stride, short pixels, crossed intermediate allocation.",
+    "mutation_results": [
+      {
+        "mutation": "tall-H-first",
+        "result": "KILLED by pixel oracle",
+        "first_failure_vector": "axis_and_tall_vectors/tall-gray"
+      },
+      {
+        "mutation": "alpha-zero-cleared",
+        "result": "KILLED by pixel oracle",
+        "first_failure_vector": "vectors/rgba-hidden"
+      },
+      {
+        "mutation": "no-premultiply",
+        "result": "KILLED by pixel oracle",
+        "first_failure_vector": "vectors/rgba-hidden"
+      },
+      {
+        "mutation": "no-axis-clipping",
+        "result": "KILLED by pixel oracle",
+        "first_failure_vector": "vectors/gray-impulse"
+      }
+    ],
+    "mutation_limit": "The clipping mutant removes per-pass saturation before byte conversion; a separate full floating/fused implementation was not built."
+  },
+  "required_verification": {
+    "race": {
+      "exit": 0,
+      "package_seconds": 86.983,
+      "command": "nice -n19 env GOMAXPROCS=2 TMPDIR=<owned>/tmp GOTMPDIR=<owned>/tmp go test -race -count=1 -p2 -overlay=<CURRENT testfile plus227 corpus block> ./..."
+    },
+    "legacy_corpus": "All227 accepted; fullRGBA, byte-identical noop, independent sample-edit artifact and source preservation all true.",
+    "prior_bitmap_workflow": "Existing standalone five-cell original\u2192approved CLI, rawRGBA/cell semantics, source/font/profile preservation, refusal/publisher tests ran unchanged in full suite. No redundant CLI replay required.",
+    "other_checks": "Independent vet/build/gofmt/git whitespace PASS; manual whitespace all pinned text; selfchecked POSIX credentials API/password/AKIA/privatekey and token/secret scans no matches. Detailed commands/times in private checks.json.",
+    "source_regression": "All old production Go files and prior testdata files byte-identical to accepted bitmap baseline; test function set unchanged.",
+    "root_receipt_sha256": "468b4290e1712401a93945caca7170daef932b8dfad341f87e5f516652ba2863"
+  },
+  "limits": [
+    "Foundation is currently test-referenced only; native-font metrics/run/stroke/area integration remains unimplemented. No renderer-family or migration credit.",
+    "Exact coefficient/pixel matches substantiate selected dimensions and134 vectors on this Go/platform. They are not exhaustive proof for every bounded dimension, libm implementation or platform.",
+    "Only full-image Gray/NRGBA LANCZOS under the explicit resource bounds; arbitrary crop/filter/color models, TTF, visual acceptance and historical retirement remain outside scope.",
+    "No savings, ISO placement, original/shipping/custom-art modification or runtime/emulator approval."
+  ],
+  "private_artifacts": {
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/source-pins.json": "61f269d8647228181a8e2e3dcd71d9cbb98ad42c385260d14dbf86929f9509b1",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/race.log": "6b0220857d4fa0722596ec1d0574d2a635dd44e0164dd016bbf2a2a53fa7ace6",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/checks.json": "584b1cd2341bdf3c194ec53110ff35142fb9cad73cb2454de3f1d08d6df97915",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/overlay.json": "cbda934315570a2693b427f45e8152a29e64bcc10ef449d2c33b4747f659bef9",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/patch_test.go": "13591a637e8aa59dc1288e4e1e0819d8edb2998f55cdb56b8face455fb07107e",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/corpus-results.json": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/rebind.json": "fd1dd865bbaefb6d7611378ae1eefcd06ab499c27a044ffaba876aa853fa673f",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/probes.json": "f492b5f8b47c276abca3eb8b4e1d789bc16b3a32c35845d41279236da312be15",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/probe.py": "22fa35bb8dc871120d7c05b9b214f562446a184790fcb302ce5d72fd75456c3b",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/coefficients.go": "83d4fc81d7253a21243a92a46117a95df731ceb2d6f659453e313bc802f4498f",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/coefficients-overlay.json": "b4743ac0d625e6921af9dedb5c515a842629bc53bf7e8acf7a94fc1cd06c5dbf",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/coefficients.log": "722e4987aa41975f193119c8013d358184679ea4cdbe265702c58635245ac255",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/coeff-24-77.json": "f5ee010f0d1428fc65aabf950e5365b02f7311d5d7e05cfcccf582c834ec77e3",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/coeff-1397-1285.json": "d7e69aceccdd554cf7a7f1f070cf3f865d8d1d9114957a2dee63c9df8c47d644",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/tall-H-first.go": "c19f2dee06eaa5ad0f03b8da0804ebdd2c7f068d60735bdc5e9e0552ed5f60ce",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/tall-H-first.log": "0c4a3ce6e320c7ddb52a2a41cb6109f755f6c361cd2684151a6b4ca7d8a4440e",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/alpha-zero-cleared.go": "d0be73432166674eb34fa1a78c748bf2022d0e6f3ffbdcaf65a6dae1bada519b",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/alpha-zero-cleared.log": "06f99003eba599e19648bcffe00ed8bc9c79edd7860ca4f4b7978ed55b085de7",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/no-premultiply.go": "83a72922f720191fe0a890d3e43b010c24b3bbf028710378c4180adcc340d9bd",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/no-premultiply.log": "06f99003eba599e19648bcffe00ed8bc9c79edd7860ca4f4b7978ed55b085de7",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/no-axis-clipping.go": "b0bf94e6f9d5e99e9234f46f9694410a9bf49b71760ba57b366ec6a534b933fc",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/no-axis-clipping.log": "e1dd10a4565386c265b7fa865d9c9413ee23bf6385ad08cc33317d4bf16ef8d9",
+    "/var/tmp/dokapon-raster-resize-review-9dac0cry/dokapon-go": "7ea80ab1f486350ba54a844c65302dcd787f79828c930ccacddb9029d2cab054"
+  }
+}

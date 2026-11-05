@@ -1,0 +1,326 @@
+{
+  "schema": "gp-reader-proof-v1",
+  "at": "2026-10-21T17:14:02.299861+00:00",
+  "status": "VERIFIED_GP_RELATIVE_READ_ONLY_EXTENSION",
+  "owners": [
+    "inspect",
+    "normalizeReference",
+    "referenceTarget",
+    "references",
+    "plan"
+  ],
+  "contract": "Existing bounded ELF owner reads one unique aligned uncompressed24B MIPS register-info record; GP value atbyte20 is a filefact, including validzero, not runtime register proof. Geometry uses existingaddiu_vma/reg and obtainsGP only frominspection. Shared target interpreter validates ADDIU/rs28/rt and signed16 arithmetic modulo32bits; ordinarytargetmapper remainsseparate. GPmetadata errors retainreadable instructionwords and unknown targets. GPpointer-check/streamwrite support remainsrefused; no landing/IDfallback.",
+  "new_functions": 0,
+  "new_methods_closures_testfunctions_GoFiles": 0,
+  "new_type": "ELFRegisterInfo groups provenance/value/error for shared inspector/report; reasoning inanalysis/gp-reader-reuse-decision.json.",
+  "source_evidence": {
+    "assessment": "analysis/material-reader-gap-assessment.json",
+    "decision": "analysis/gp-reader-reuse-decision.json",
+    "source_manifest_sha256": "5f09d020c5898ba107bfe35b1f0e4c90187bed092abc26964b7763a5b9479089",
+    "source_members_root_verified_before_code": 46,
+    "source_bytes": 690461,
+    "root_original_replay": {
+      "outcome": "PASS",
+      "native_reginfo_count": 1,
+      "native_reginfo_bytes": 24,
+      "native_gp": 5467120,
+      "native_ids": 9,
+      "native_site_records": 10,
+      "unique_native_instructions": 9,
+      "original_metadata_cases": 7,
+      "manual_instruction_vectors": 8,
+      "limits": "Source-only corpus; no Go/runtime output or originalmain/import execution."
+    },
+    "portable_manifest_sha256": "1fe7aaeadb5a33357b105e6234d49492c9c6ca5ec0fa793f59184065e1b24b9e",
+    "portable_members_root_verified_before_code": 14,
+    "portable_bytes": 121436,
+    "oracle": "testdata/gp-audit.json",
+    "oracle_sha256": "6cdd68a8e93187bef8c1dada63a957fcfc4e2c99f92919db186ba2f75204ab17",
+    "source_safety_gaps": "Original derive_gp firstwins/ignoresclass+size are explicitly unsafe acceptance gaps; new metadata/instruction/binding guards deliberately stricter, not blanket oldacceptance parity.",
+    "additional_native_streams_source": {
+      "manifest_sha256": "951cbd370d09dd7a2d2e8fd7ec407aa57807be6a3be81f86fcdce4b9b43dd5fa",
+      "members_root_verified": 17,
+      "bytes": 144073,
+      "root_original_replay": {
+        "outcome": "PASS",
+        "unique_GP_target_bodies": 8,
+        "source_decoder_positive_spans": 8,
+        "truncated_or_missing_END_refusals": 16,
+        "HDR_bodies": 1,
+        "headerless_bodies": 7,
+        "combined_positional_body": 1,
+        "no_Go_output": true
+      },
+      "chronology": "Independent originals AFTERprototypeexists, BEFOREcandidatecomparison ontheseNEWbodies; precode targetfacts unchanged. This supplement root-only verified, not includedinordinaryrevieworiginal584scope.",
+      "manifest_path": "/var/tmp/dokapon-gp-native-streams-wls_6a8g/manifest.json"
+    },
+    "source_manifest_path": "/var/tmp/dokapon-material-reader-gap-zc9xr4we/manifest.json",
+    "portable_manifest_path": "/var/tmp/dokapon-gp-audit-packaging-f1yeo5hc/manifest.json"
+  },
+  "verification": {
+    "phase1_four_focused_owners_seconds": 25.292,
+    "phase1_four_owners_race_seconds": 291.049,
+    "phase1_capsule_sha256": "97009a5d354e2d30999110446d00426ead6c3dd686337e7d7d03f7a08d443d45",
+    "final_CLI_owner_seconds": 19.05,
+    "final_CLI_race": {
+      "status": "PASS",
+      "seconds": 176.025,
+      "log_sha256": "b295cca0ef4b3bf2f5aaee607cdfda2bb2688b52d2cb14838cb5d049244ad1a1",
+      "scope": "FinalCLIowner afterreportcaveatfix; phase1four-ownerrace291.049s retained separately, not fullsuite/nativefontsrace."
+    },
+    "root_QA": {
+      "path": "/var/tmp/dokapon-gp-reader-wnw7d8ab/final-checks.json",
+      "sha256": "8991a6752e525cd8c9edbf3a61f25b69c3b89726c9ad7d40be1f24a66c215b63",
+      "status": "PASS",
+      "core_nativefonts_build_vet": true,
+      "gofmt_scoped_hygiene_credentials": true,
+      "CLI_captures": 14,
+      "old_complete_CLI_unchanged": 6,
+      "new_literal_rows": 3,
+      "repinned_refusals": 14,
+      "instruction_vectors": 8,
+      "extra_guards": "ZeroGP/physicalshortmetadata/6foreigngeometry/3partial-wordretention/GPpointercheckrefusal/caveatstrings"
+    },
+    "native": {
+      "at": "2026-10-21T17:05:27.236059+00:00",
+      "status": "PASS",
+      "native_ids": 9,
+      "site_records": 10,
+      "unique_instructions": 9,
+      "metadata_source_index": 7,
+      "metadata_file_range": [
+        4429656,
+        4429680
+      ],
+      "GP": 5467120,
+      "source_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+      "all_source_equation_targets_words_word_mappings_exact": true,
+      "all_target_points_file_backed": true,
+      "wrong_landing_ignored": true,
+      "core_nativefonts_full_CLI_identical": true,
+      "input_identity_preserved": true,
+      "scope": "Raw address construction only, not fullstream reads, runtimeGP/liveness or displayownership. Shared Male/Female site and NumberPlayers nullcheck remain explicit sourcequalifications.",
+      "final_limits_caveat_present": true,
+      "all_other_report_fields_equal_phase1": true,
+      "final_stdout_sha256": "03470deb1f3c2ed8fcf57b4d09e58d40a039daa9588686481da130c63013a17d"
+    },
+    "review": {
+      "status": "LOW_GP_LIMITS_1_CLOSED_NO_OTHER_FINDINGS",
+      "path": "evidence/gp-reader-review.json",
+      "sha256": "fdfdd837357caf313cbc9d15e491f7c00aec01e7d8835e10a183fa4bbffe6cb7",
+      "artifacts_root_verified": 1432,
+      "candidate_pins_root_verified": 584,
+      "artifact_manifest_sha256": "7881ea0d890e7109d2eba7a5e9580d13ac229545b8c44f4db44b913cd2876d3d"
+    },
+    "final_capsule": {
+      "at": "2026-10-21T17:06:07.082146+00:00",
+      "scope": "PrivateGP read-onlyextension; no runtimeGP/displayownership/patch authority/criterioncredit",
+      "members": 584,
+      "manifest": "/var/tmp/dokapon-gp-reader-wnw7d8ab/review-source-final/manifest.json",
+      "manifest_sha256": "b4f0a745a6063b128ad137166a7edd140e89f6bf8bcbd3d42287ecb05ba748ed",
+      "new": [
+        "analysis/gp-reader-reuse-decision.json",
+        "testdata/gp-audit.json",
+        "examples/gp-audit/glyphmap.json",
+        "examples/gp-audit/observed.elf",
+        "examples/gp-audit/profile.json",
+        "examples/gp-audit/reference.elf",
+        "examples/gp-audit/registry.json"
+      ],
+      "production_files": 39,
+      "production_bytes": 454811,
+      "named_declarations": 41,
+      "production_growth_bytes": 3540,
+      "runtime": {
+        "files": 175,
+        "bytes": 2512602
+      },
+      "runtime_growth_bytes": 14278,
+      "new_example_bytes": 10738,
+      "test_growth_bytes": 4495,
+      "new_oracle_bytes": 64662,
+      "modified_fixture_delta_bytes": 0,
+      "accounted_inputs": 275,
+      "new_functions": 0,
+      "new_Go_files": 0,
+      "phase1_scope_retained": "584originalcapsule/firstfourfocusedowners25.292s/race291.049s; LOWGP-LIMITS-1fixedafterrace, onlyreferencesreportcaveat+CLIassert, no arithmetic/metadata change"
+    },
+    "full_suite_gameplay": "Deferred by owner; no full/nativefonts-race claim.",
+    "additional_native_streams": {
+      "at": "2026-10-21T17:11:04.690965+00:00",
+      "status": "PASS",
+      "native_ids": 9,
+      "sites": 10,
+      "unique_bodies": 8,
+      "original_full_tokens_SHA_and_bound_whole_windows_exact": true,
+      "core_nativefonts_full_CLI_identical": true,
+      "bounded_decode_refusals": [
+        {
+          "id": "0x539510",
+          "name": "truncated-final-word",
+          "bytes": 27,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x539510",
+          "name": "removed-END",
+          "bytes": 26,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x539520",
+          "name": "truncated-final-word",
+          "bytes": 17,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x539520",
+          "name": "removed-END",
+          "bytes": 16,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x539540",
+          "name": "truncated-final-word",
+          "bytes": 27,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x539540",
+          "name": "removed-END",
+          "bytes": 26,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x539550",
+          "name": "truncated-final-word",
+          "bytes": 31,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x539550",
+          "name": "removed-END",
+          "bytes": 30,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x539580",
+          "name": "truncated-final-word",
+          "bytes": 27,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x539580",
+          "name": "removed-END",
+          "bytes": 26,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x539594",
+          "name": "truncated-final-word",
+          "bytes": 15,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x539594",
+          "name": "removed-END",
+          "bytes": 14,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x5395a0",
+          "name": "truncated-final-word",
+          "bytes": 29,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x5395a0",
+          "name": "removed-END",
+          "bytes": 28,
+          "status": "controlled_decode_unknown_no_comparison"
+        },
+        {
+          "id": "0x5395f0",
+          "name": "truncated-final-word",
+          "bytes": 21,
+          "status": "invalid_odd_or_empty_window_refused_before_decode"
+        },
+        {
+          "id": "0x5395f0",
+          "name": "removed-END",
+          "bytes": 20,
+          "status": "controlled_decode_unknown_no_comparison"
+        }
+      ],
+      "source_manifest_sha256": "951cbd370d09dd7a2d2e8fd7ec407aa57807be6a3be81f86fcdce4b9b43dd5fa",
+      "no_new_code": true,
+      "scope": "StoredGPconstruction+exact boundedobservedstreams; installedselfcomparison, no pristine/canonical/runtime/displayownership. Original16exceptions project to8invalid-window globalrefusals and8controlled decodeunknowns withreferenceintact, not identical processerror semantics."
+    },
+    "native_stream_artifacts": {
+      "profile": "/var/tmp/dokapon-gp-reader-wnw7d8ab/native-stream-profile.json",
+      "profile_sha256": "9c9defbca3a2612bcfe2f3a0ee06eaf775b6059a5041f376d0fa035b32213fe7",
+      "verification": "/var/tmp/dokapon-gp-reader-wnw7d8ab/native-stream-verification.json",
+      "verification_sha256": "8849860ec37400cd9fad5a867af0489e1a6a31938f35ea1e26f8b84005c4b327"
+    }
+  },
+  "metrics": {
+    "at": "2026-10-21T17:06:07.082146+00:00",
+    "scope": "PrivateGP read-onlyextension; no runtimeGP/displayownership/patch authority/criterioncredit",
+    "members": 584,
+    "manifest": "/var/tmp/dokapon-gp-reader-wnw7d8ab/review-source-final/manifest.json",
+    "manifest_sha256": "b4f0a745a6063b128ad137166a7edd140e89f6bf8bcbd3d42287ecb05ba748ed",
+    "new": [
+      "analysis/gp-reader-reuse-decision.json",
+      "testdata/gp-audit.json",
+      "examples/gp-audit/glyphmap.json",
+      "examples/gp-audit/observed.elf",
+      "examples/gp-audit/profile.json",
+      "examples/gp-audit/reference.elf",
+      "examples/gp-audit/registry.json"
+    ],
+    "production_files": 39,
+    "production_bytes": 454811,
+    "named_declarations": 41,
+    "production_growth_bytes": 3540,
+    "runtime": {
+      "files": 175,
+      "bytes": 2512602
+    },
+    "runtime_growth_bytes": 14278,
+    "new_example_bytes": 10738,
+    "test_growth_bytes": 4495,
+    "new_oracle_bytes": 64662,
+    "modified_fixture_delta_bytes": 0,
+    "accounted_inputs": 275,
+    "new_functions": 0,
+    "new_Go_files": 0,
+    "phase1_scope_retained": "584originalcapsule/firstfourfocusedowners25.292s/race291.049s; LOWGP-LIMITS-1fixedafterrace, onlyreferencesreportcaveat+CLIassert, no arithmetic/metadata change"
+  },
+  "source_pins": {
+    "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+    "reference_types.go": "bc875239f48d1e9bad521dc2f6b3bb4034cd6edc4a99d26e07f30a7b101dc5da",
+    "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+    "references.go": "aba5f851c72e893d4a70167e62506e0bc9eb0de76cfed6127ca9e9aeb0dbc1c5",
+    "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+    "patch_test.go": "200a76b4012fa30e2652a4d293dd14a92ca92e4562a885f7529ca9e4154ea51e",
+    "README.md": "fd7baba454906a7c56f52359af6585b402f6b2d931d5b94ea4ed8c93db535e4b",
+    "MIGRATION.md": "4bca54c4c71a2481e28f3f4f4e82f6afe9bba93c6f11318d311b1861b68c0a13",
+    "ARCHITECTURE.md": "cc66520aef23767d1ef976006a7f29eb7f79a62a46633b7b8af361261cebef00",
+    "analysis/gp-reader-reuse-decision.json": "a142290a7a206ebaeb292d3bd4eeca0e13ce631005c25e41c3c382ffe0d2fa6d",
+    "testdata/gp-audit.json": "6cdd68a8e93187bef8c1dada63a957fcfc4e2c99f92919db186ba2f75204ab17",
+    "examples/gp-audit/glyphmap.json": "3dd63bb6574b944134ce67c6928041241ec6f40dba561d1eea07441d54d16be8",
+    "examples/gp-audit/observed.elf": "1cae72f0c3b198fbf8c9fdf510bc53969399580b08359029146637e9f7f309f2",
+    "examples/gp-audit/profile.json": "5f982371bac2f41724a1b5cae0400b7b69b90900e2eeb5e5db356513fd725bcc",
+    "examples/gp-audit/reference.elf": "bf3a152599c83a1feb3bb6377706783d76cc0487927cf17139512a8b2f7996c9",
+    "examples/gp-audit/registry.json": "d9343f36f9a5685b5881b82e88d3228d3f062397c050bbf665d66b8490527204"
+  },
+  "coverage": {
+    "full_families": "6/14 unchanged",
+    "planning": "67/84 unchanged",
+    "new_credit": 0,
+    "script_retirements": 0,
+    "reduction_claim": false,
+    "limits": "Finite materialreader capability growth; .05rootassessment remainsseparate. Native addressconstruction matches are not fullnativebody/runtime/displayownership."
+  },
+  "protected_scope": "Frozen extracted/synthetic/source inputs/newownedoutputs only; no protected ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control or actual gamepatch."
+}

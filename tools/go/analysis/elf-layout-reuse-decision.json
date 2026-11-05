@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-20T21:04:59.347578+00:00",
+  "status": "IMPLEMENTED and independently reviewed: existing owners enhanced, no new function/helper/closure",
+  "responsibility": "Shared read-only ELF32 little-endian MIPS PT_LOAD mapping with file-backed/BSS/unmapped query spans",
+  "existing_candidates": {
+    "inspect": "Existing read-only source facts owner; early dedicated operation can own program-header semantics and report mappings without changing fixed-delta patch paths.",
+    "run": "Enhance existing bounded read/pinned source/recheck/JSON branch used by references; no standalone CLI or repeated report writer.",
+    "isoFileExtent": "Already owns ISO directory/name mapping; retained unchanged. This increment takes standalone ELF input.",
+    "references": "Owns reference candidates, not ELF segment mapping; consume existing run lifecycle without adding report modes to reference heuristics.",
+    "AddressRange": "Reuse half-open start/end data; named ranges require one purpose-named Recipes map. Do not overload patch Entries/ReadBytes or reference scan schema.",
+    "TestCLIDryRunAndApply": "Enhance existing CLI test body, independent vector fixture, no new test/helper/closure."
+  },
+  "new_functions": [],
+  "schema_cost": "One Recipes.AddressRanges field; Inspection segment/mapping fields plus domain mapping result type using standard-library program headers. No dependency, writer, allocator, patch mode or parser helper.",
+  "safety": "Read-only reports never approve cave/landing safety or execute patch writes. Overlapping LOAD memory mappings refuse; initialized payload, BSS and unmapped are distinct. Fixed-delta transaction policies unchanged. Explicit bounds on source, headers, ranges and output rows.",
+  "affected_owners": [
+    "inspect (ELF facts/mapping)",
+    "run (shared bounded read/report lifecycle)",
+    "Recipes/Inspection/ELFMapping (data contracts)",
+    "plan/planBundle/references/authorRegistry (reject unrelated new range field)",
+    "TestCLIDryRunAndApply (extend existing verification)",
+    "README/MIGRATION/ARCHITECTURE/coverage/accounting (capabilities/costs)"
+  ],
+  "notes": "Reject unrelated address_ranges at every existing recipe owner, including planBundle fast path. Use slices.Sort on numeric segment starts and named keys; no sorting closures/helpers. Program header table remains in original order; query pieces bind original header indexes.",
+  "source_contract": "analysis/elf-layout-contract.json",
+  "source_contract_sha256": "9b4c182ca8473f32c52731aa551271acaf6a71b38a29831812dc0db10561b6bf",
+  "test_correction": "First focused run exposed declared SourceSize exceeding available ReaderAt LOAD payload. inspect now reads the last initialized byte per nonempty LOAD; regression preserved."
+}

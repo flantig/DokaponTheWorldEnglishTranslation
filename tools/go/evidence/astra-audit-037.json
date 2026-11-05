@@ -1,0 +1,195 @@
+{
+  "audit": 37,
+  "started_at": "2026-10-21T16:28:33.423639+00:00",
+  "completed_at": "2026-10-21T16:32:25.485576+00:00",
+  "role": "Purely adversarial read-only challenger, no implementation or approval authority",
+  "status": "COMPLETE_NO_CONFIRMED_NEW_FINDING",
+  "scope": {
+    "start_utc": "2026-10-21T16:28:33.423639+00:00",
+    "snapshots": [
+      {
+        "path": "/var/tmp/dokapon-source-colour-3wkjepuc/sealed-final",
+        "manifest_sha256": "e3a8de9054da812d3666b42a9a7462bf895a94e5b884b6d5086134518f505412",
+        "members": 532,
+        "all_sha_match": true,
+        "accounted_pins": 249,
+        "runtime": {
+          "files": 154,
+          "bytes": 2402999
+        },
+        "production": {
+          "files": 39,
+          "bytes": 427367
+        },
+        "all_accounted_size_hash_match": true
+      },
+      {
+        "path": "/var/tmp/dokapon-sentinel-map-w_drg1y9/sealed-final",
+        "manifest_sha256": "5110e9784f6ad16f2f9879ed3a713b2ad683ce883167c95fd558dd28af4df13c",
+        "members": 558,
+        "all_sha_match": true,
+        "accounted_pins": 263,
+        "runtime": {
+          "files": 165,
+          "bytes": 2457156
+        },
+        "production": {
+          "files": 39,
+          "bytes": 445107
+        },
+        "all_accounted_size_hash_match": true
+      },
+      {
+        "path": "/var/tmp/dokapon-pinned-raw-dx_pdq9c/review-source",
+        "manifest_sha256": "4b7d3e37d6f4e322a768e67583a4ef03af34d3d5580617978cd1a09c9b69da0f",
+        "members": 567,
+        "all_sha_match": true,
+        "accounted_pins": 269,
+        "runtime": {
+          "files": 170,
+          "bytes": 2498324
+        },
+        "production": {
+          "files": 39,
+          "bytes": 451271
+        },
+        "all_accounted_size_hash_match": true
+      }
+    ],
+    "source_binding_manifest_sha256": "1a2749a70e9e8b968f24c6815342287204d391b9f7a652216fc1f0fc572e3cc7",
+    "source_binding_members": 567,
+    "source_binding_to_frozen_size_hash_match": true,
+    "original_raw_pack_manifest_sha256": "0b67bb34492c06a43e34a225dd267bd325301659fab0414384e3b7f44e0751d0",
+    "original_raw_pack_verified_members": 32
+  },
+  "findings": [],
+  "reviewed_increments": [
+    {
+      "increment": "Accepted fixed inline16 reader/literal encoding",
+      "locations": [
+        "patch.go:117",
+        "patch.go:197",
+        "patch.go:415",
+        "reference_geometry.go:13",
+        "references.go:112",
+        "stream_audit.go:231",
+        "stream_audit.go:433"
+      ],
+      "challenge": "Conflating zero padding with END, duplicating glyph encoding, fabricated pointer binding, weakening old literal/positional callers",
+      "result": "No concrete counterexample. Nonterminated text now takes the existing rune loop literally, with controls still rejected; fixed decode enforces exact8word windows and never treats zero as END. Inline geometry covers four rawu32 field words without targets; source and observed complete windows map independently. Intentional empty wording is distinguished from absent/null. Dedicated pointer/sentinel routes remain separate. No new reader function or fake pointer owner."
+    },
+    {
+      "increment": "Accepted sentinel physical mapping",
+      "locations": [
+        "patch.go:1695",
+        "patch.go:1750",
+        "patch.go:1783",
+        "patch.go:1803",
+        "patch.go:1811",
+        "stream_audit.go:420",
+        "main.go:113"
+      ],
+      "challenge": "Self-backed instruction proof, invented file backing for dispatch-only capacity, duplicated projector, write authority from report flags",
+      "result": "No concrete counterexample. Recursive existing inspect call omits Sentinel and validates instruction words through PT_LOAD only. Installed opcode/register/count copies, physical sector trailer, padding and nonoverlap bound the loaded mapping. Unified interval projection retains PT_LOAD and BSS boundaries while adding only loaded sentinel extent. Sentinel flags are explicitly refused on transaction/report-incompatible routes. No dispatch-unloaded capacity mapping or executable/liveness claim found."
+    },
+    {
+      "increment": "Private pinned raw roles",
+      "locations": [
+        "patch.go:361",
+        "patch.go:380",
+        "patch.go:391",
+        "patch.go:409",
+        "patch.go:695",
+        "stream_audit.go:142",
+        "stream_audit.go:298",
+        "inputs.go:58"
+      ],
+      "challenge": "New function/type overhead, mutable shared buffer, role mismatch, token skipping, canonical/native-policy bypass, required zero-valued wire keys",
+      "result": "No confirmed defect. TextReadPin groups finite source identity/count/END/role facts; reuses TextToken rather than another role type. Whole-span identity and first/finalEND checks precede local cloning; offsets/values/kinds/payload/duplicates validated before decode. Tokens restore original roles before report comparisons, exact count/offset guards retain no-skipped-word invariant, and readiness blocks source authoring. Raw pins require explicit decoder, both exact side names and no canonical generation. Shared checkJSON requiredByDepth preserves explicit0 Word/Offset without changing old nil-default callers."
+    }
+  ],
+  "rejected_leads": [
+    {
+      "topic": "Replace surrogate rewrite/restore with direct raw-role classification",
+      "locations": [
+        "patch.go:409",
+        "patch.go:552",
+        "patch.go:699"
+      ],
+      "initial_challenge": "The local byte clone,0x4801 rewrite, normal decode and restoration add representation conversion and verification work; direct role dispatch initially looked smaller.",
+      "source_evidence": "Verified frozen32-member pack /var/tmp/dokapon-sourcepool-reader-frontier-qu2bz49t, manifest0b67bb34...; sources/build_change_ledger.py:883..937 explicitly specifies this same surrogate decode-and-restore behavior.",
+      "disposition": "Not an actionable finding. Direct role dispatch must also preserve the context-sensitive leading-state rules and PAGE/next-speaker shortcut; simply using rawarg/rawcontrol kinds can alter how later unannotated words are decoded. No behavior-preserving reduction demonstrated. Fewer lines alone do not justify replacing the source-bound mechanism. No implementation attempted."
+    }
+  ],
+  "test_and_contract_review": {
+    "private_fixture_population": {
+      "paired_rows": 3,
+      "source_refusals": 10,
+      "policy_vectors": 14,
+      "profile_vectors": 4
+    },
+    "permanent_tests": "Existing TestCLIDryRunAndApply fixture loop extended; complete row/token/factor comparisons plus immutable bytes/policy, blocked encode,1/4096word limits, policy mutations, option conflicts and required/null/alias/duplicate wire cases. Existing functions/tables retained, no new test function.",
+    "original_scope": "Pinned raw helper has5 positive source cases/10 refusals; four native sides are packaged into synthetic ELF/pointer ownership wrappers with explicit coordinate provenance. This proves exact stream grammar fixtures, not native reference discovery or runtime ABI.",
+    "accepted_reviews": "Read fixed-inline and sentinel ordinary review reports; sentinel storage-guard readability issue is already closed in accepted snapshot. Their runtime checks remain attributed evidence, not own executions. Private ordinary raw review is concurrent and not inspected or interfered with."
+  },
+  "measurements": {
+    "since036_to_accepted": {
+      "production_growth_bytes": 17740,
+      "runtime_growth_bytes": 54157,
+      "test_growth_bytes": 20775
+    },
+    "accepted_to_private": {
+      "production_growth_bytes": 6164,
+      "new_example_bytes": 35004,
+      "runtime_growth_bytes": 41168,
+      "test_growth_bytes": 7582
+    },
+    "current_private": {
+      "production_files": 39,
+      "production_bytes": 451271,
+      "named_functions": 41,
+      "runtime_files": 170,
+      "runtime_bytes": 2498324,
+      "accounted_inputs": 269
+    },
+    "new_Go_functions": 0,
+    "new_Go_files": 0,
+    "qualification": "Production, module, imports, adapters, recipes and examples charged via verified accounting. Test/fixture/evidence overhead separate; no savings, historical deletion or retirement inferred from source organization or supported-case counts."
+  },
+  "coverage": "6/14 full families and67/84 planning remain unchanged by fixed/sentinel/private raw increments. Both relevant families remainPartial. No private raw, NUL frontier, event/YBS outer-reader, runtime vararg-authoring, unverified battle/board cohort or full historical-path credit.",
+  "verification": {
+    "performed": [
+      "Verify532prior/558accepted/567private full member hashes before inspection and at finalization",
+      "Verify249/263/269 recorded accounting item sizes/hashes",
+      "Verify567 frozen members agree with review-source-bindings sizes/hashes; hash binding file itself without accessing mutable project pointers",
+      "Verify original32-member raw source pack pins and inspect selected helper source only, no imports/mains/execution",
+      "Review production deltas, connected callers, source decisions/contracts, fixture provenance and permanent changed tests",
+      "Parse own checks and exclusively created report; all own commands terminal"
+    ],
+    "not_performed": [
+      "No full/focused/race/build/vet replay: static review produced no material functional counterexample requiring a targeted probe; concurrent ordinary review left undisturbed",
+      "No original renderer/helper runtime execution, exhaustive input fuzzing or whole historical census",
+      "No protected ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control",
+      "No candidate/live implementation edits, score changes, promotion or approvals"
+    ]
+  },
+  "artifacts": {
+    "own_checks": {
+      "path": "/var/tmp/dokapon-astra037-evidence-nui7r8dn/checks.json",
+      "sha256": "fb95dfb5a69556f9d445b8fe6fbcc9e3072b0b895ee6d4a412d5384644378e11"
+    },
+    "raw_source_helper_sha256": "43598024c933f89d29c9fd64592674120815f3638c32b988f4b4969733325a5a",
+    "raw_candidate_pins": {
+      "patch.go": "2cd0af4978069bdf9fc1795f0572b323c50deb822c32d7fe099c42a22bb7c435",
+      "inputs.go": "1d31376672f059f73aec0e7048dab810e6264527e70e427a77ce79a73126541a",
+      "input_types.go": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf",
+      "stream_audit.go": "b167e3ae5a8105453ee7c992779bd608f470ff568a989b4bf6f8efc9254500e8",
+      "stream_audit_types.go": "fab068d88e6e5e29788c11f3fdd2bfc19d6dd1629ed2d84b2e38a944efa4b861",
+      "text_types.go": "a7b04b016529ae7b6307c18aeb9c7e62b906873abafed6eeeebfd5131292f71f",
+      "patch_test.go": "cc479ed6cde52cdf7f96db35c24131e939ee23ff27233ddf55e0fb426e1d0659",
+      "testdata/pinned-raw-audit.json": "f096954edd0258ad785fcce0e1058995aca3df620e1631277402484344dc1a43"
+    }
+  },
+  "limits": "No confirmed finding is not approval or exhaustive correctness. Bounded read-only facts remain distinct from independently proven runtime ABI/liveness, write authority, complete source-pool coverage and migration completion. All named-function counts are production named declarations, not a claim about test size or complexity.",
+  "terminal_status": "All own jobs terminal. Wrote only requested cadence report and new owned private checks artifact. No subagent or other-worker control."
+}

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T03:56:46.812834+00:00",
+  "scope": "Verified contact inventory integration only; asset_preview_inventory.06 still open for weekday/flat90 pairs and original full-family assessment.",
+  "decision": "analysis/asset-contact-integration-decision.json",
+  "source_contracts": [
+    "analysis/asset-contact-contract.json",
+    "analysis/asset-font-backend-contract.json",
+    "analysis/asset-contact-pagination-contract.json",
+    "analysis/asset-contact-label-order-contract.json"
+  ],
+  "implementation": {
+    "shared_owners": [
+      "authorTexture",
+      "contactSheets",
+      "textMasks",
+      "decodePNG",
+      "resizeRaster",
+      "pixelOver",
+      "readInput",
+      "checkJSON",
+      "writeNewFile"
+    ],
+    "new_functions": "2 logical responsibility owners,3 source declarations because textMasks has complementary build-tag refusal. No new Cfunction/testfunction/closure. Existing RegistryInput reused. Final LF/order correction enhances contactSheets only.",
+    "build": "Optional nativefonts && cgo && linux links installed FreeType2.14.3/Raqm0.10.1/HarfBuzz14.1.0. Default/noCGO supports prior tools and actionable contacts refusal. Not arbitraryfont/libraryportability proof.",
+    "facts": "profiles/previews/inventory-layout.json; exactDejaVu font759720B fullpin; notices and native header counted."
+  },
+  "contracts": [
+    "Source order retained before per-group dedup and archive/index stable sorting; UI duplicates retained.",
+    "Legacy SHA1(rawRGBA)[:12] key intentionally ignores geometry. Missing/empty declared hash never dedups. Integrity uses separate fullSHA256.",
+    "Later groups may overwrite a shared preview link; CSV duplicate propagation uses firstlinked pixel key in source order.",
+    "Canonical field ownership and source declarations validated before rendering. Cache measurement by sourceordinal/member, thumbnail on firstuse; row policies independentlychecked.",
+    "Format whole logical captions before LF split; blank/trailing lines and perlogical ink retained; A.bottom+4 spacing. Fontshaping chunks4096; painting each thumbnail then own captions preserves later-item occlusion. Wholepage clip.",
+    "Sources/font/profile exact byte rechecks before one exclusive outputZIP. Dry/apply predictedZIP hash identical; no input overwrites. Failed/unavailable rows retained, suppliedscorefacts not remeasured."
+  ],
+  "root_checks": {
+    "unique_original_scenarios": 9,
+    "rows": 59,
+    "whole_RGB_pages": 16,
+    "font_vectors": 56,
+    "thumbnail_vectors": 4,
+    "profile_source_refusals": "21profile +24source base cases, plus existingstrictunknown/null compatibility guards; disabled-font publication refusal preserved.",
+    "native_CLI": "PASS9.347s",
+    "native_CLI_race": "PASS97.409s",
+    "actual_TestPilotHistoricalGoldenBytes_race": "PASS110.842s",
+    "core_CLI": "PASS16.852s wall",
+    "build_vet": "Native and default pass; reviewer also CGO_ENABLED=0 with nativefonts tag.",
+    "selection_correction": "Root initial combined regex named nonexistent TestGoldenPlans: count those runs CLI-only. Actual TestPilotHistoricalGoldenBytes separately executed with race; no broad or nonexistent-test credit.",
+    "four_Astra_original_replays": "PASSfullRGB; all68 immutable probes preserved.",
+    "gofmt_whitespace_credentials": "PASS2patterns/2positive selfchecks; no hardcodedsecret found in scopedchangedfiles.",
+    "documented_example": "Projectroot go -C tools/go run -tags nativefonts command PASS13rows2pages,appliedfalse,bundle80dd4584edbeefd5ac945881a1892d576df1163e45a56f25ba94accdd50276cd.",
+    "architecture": "Playwright1440x900/390x844 keyboard/ARIA/scroll/textcontainment PASS3SVGs; rootviewedbothscreenshots. MissingdefaultChromium1234 setupfailure preserved; installed1243used,noinstall."
+  },
+  "independent_review": {
+    "prior": "evidence/asset-contact-integration-review.json",
+    "prior_sha256": "5aec8da06f33b2c9ccc2a187ae70b762d543a5f73a92ce3f3ebfa55a989188d3",
+    "final": "evidence/asset-contact-integration-final-review.json",
+    "final_sha256": "f1b90aaaf51cc9924eb87c3c917e343cf5b2d53f0e42ea4f8ee60dfa69a7a132",
+    "private_artifacts_root_verified": 27,
+    "scope": "Prior fullintegration positivechecks+fresh delta closure. BothAstra findings and localtypeclarity closed; no approvalauthority. See reports for own commands,20legacycaptureparity/sourcepreservation/cache/11cutsets/4inputdrifts.",
+    "additional_pixels": "4frozenAstra+3newindependentcompleteRGBpages incl4848lines; postimplementationexpectations frozen before candidate on newcollections."
+  },
+  "metrics": {
+    "production": {
+      "files": 37,
+      "bytes": 386187
+    },
+    "named_functions": 39,
+    "new_source_declarations": 3,
+    "new_logical_owners": 2,
+    "runtime": {
+      "files": 134,
+      "bytes": 1696016
+    },
+    "accounted_inputs": 222,
+    "production_growth_bytes": 34070,
+    "runtime_growth_bytes": 833508,
+    "tests_growth_bytes": 19427,
+    "fixture_growth_bytes": 954792,
+    "font_header_layout_notices_examples_growth_bytes": 799438,
+    "claim": "Capability growth, not reduction.2 new logical responsibility owners;3 declarations include mutually exclusive textMasks refusal. Native dependencies external (FreeType/Raqm/HarfBuzz); exactfont759720B counted. No script retirement or milestone/family promotion."
+  },
+  "coverage": {
+    "core_families_full": 5,
+    "core_families_partial": 9,
+    "core_families_total": 14,
+    "planning_milestones": {
+      "verified": 62,
+      "total": 84,
+      "claim": "planningindex only,unchanged"
+    },
+    "historical_410": "8FullGo/20reviewed/16partial/366outstanding,unchanged",
+    "increment_credit": "No .06/fullfamily/retirement promotion yet."
+  },
+  "private_receipts": {
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-fixture-integration.json": {
+      "bytes": 1007,
+      "sha256": "4021736b3e48948b006a495d1baaad759fac09cc57c8538f8162a525eeebd3c7"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/hygiene-labels-final.json": {
+      "bytes": 713,
+      "sha256": "0078135db8d37ce2df86463e76382609d5a225005447cfcfac3b5d66335f3159"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/metrics-labels-final.json": {
+      "bytes": 707,
+      "sha256": "4487133876128b07b15dd66d376e5d42fd3dedf26c56600cb0b3f4b4abcc3c01"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-cli.log": {
+      "bytes": 26,
+      "sha256": "5b428bb8f5ecfb0a5aa0fe41fa657006d56b8f51190ae58e7795026cf826f913"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-race.log": {
+      "bytes": 27,
+      "sha256": "b02e5e8ae39799f511c1f1b3dcb1a6dc6098c5f4e31821736091c908e64b1867"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-golden-race.log": {
+      "bytes": 28,
+      "sha256": "c01c3f0b2766c33cf6669dbc7df2f6f54cc85d8a3b8c2e9cf459ed6c6dd4ef52"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-checks.json": {
+      "bytes": 1396,
+      "sha256": "64ded386f6fb304b67589d1507492ff39f56bc80a304fc1e9c31cc9e70ced501"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/readme-example-final.json": {
+      "bytes": 32979,
+      "sha256": "a0398f07ea51bd79e5f0a58bd61082d8f59f3709e7688bc84e583b0781c3b1ef"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/readme-example-final.err": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/architecture-check-installed.log": {
+      "bytes": 440,
+      "sha256": "12ddb1f4baffb000784788cb9e8cfb1462a85abed7c2a1af1a77898eab618495"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/astra032-root-fix-replay.json": {
+      "bytes": 1221,
+      "sha256": "c4bfea80c242ee789bc8dadd0e73c6470fdc15452fc6bba949388255e59e4c37"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-check-0.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-check-1.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-check-2.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-check-3.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/var/tmp/dokapon-contact-integration-ul2hqxg_/labels-final-check-4.log": {
+      "bytes": 27,
+      "sha256": "24db9d4d66068c7b8f250baa65893ba7f89bc5c7df93774347f8f6b1d002f07f"
+    }
+  },
+  "remaining_material_duties": [
+    "Captioned weekday pair exactAileron10BASIC/maskedRGBpaste/crop/wholecanvasnearest1x3x",
+    "Flat90/sourcegap4scaled/unequalcroppad/RGBA PNGtype6 variant",
+    "Originalfullfamilyassessment and scopedbehavior closure"
+  ],
+  "limits": "No ISO/canonicalregistry/emulator/PINE/controller/process/log/settings access/control. No actualpatchwrites,source-art/gameplay/fullsuite/fullmigrationclaim. Frozenfixtures/extracteddata only. Native dependency/version boundary explicit."
+}

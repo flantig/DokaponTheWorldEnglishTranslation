@@ -1,0 +1,107 @@
+{
+  "kind": "read-only-reference-owner-architecture-preflight",
+  "role": "Adversarial architecture advice only, no implementation or approval. Separate approach review, not audit043; does not reset two-hour audit cadence.",
+  "started_at_utc": "2026-11-04T22:16:30+00:00",
+  "finished_at_utc": "2026-11-04T22:18:11.563153+00:00",
+  "status": "CONDITIONAL_ARCHITECTURE_RECOMMENDATION_WITH_REQUIRED_PRECODE_GAPS",
+  "checks_receipt": {
+    "path": "/var/tmp/dokapon-owner-approach-9rw7qytj/checks.json",
+    "sha256": "795d3fc9abdcdf1f5155747f10a3200a57649ffdb8083bff03ab237b5ea7a1ee"
+  },
+  "source_capsule": {
+    "source_manifest": "/var/tmp/dokapon-register-caller-gap-LpXbmD92/manifest.json",
+    "sha256": "a37ce28f171c12c32ac3d769cbefb0bd697a1025abe819468b9b6c2dd7c89394",
+    "members_verified": 28,
+    "pins": {
+      "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/register-flow-caller-gap-study.json": "02126753e19bb1f58cd96d049615fb8947b6432036f5ddb598bfe5f6f11027c0",
+      "/home/franklinl/Documents/Dokapon World Mod/tools/go/references.go": "ca525b2f71f77e13e512344a93a7a28680312c6474fcd50fa2c134767b98eca5",
+      "/home/franklinl/Documents/Dokapon World Mod/tools/go/reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+      "/home/franklinl/Documents/Dokapon World Mod/tools/go/main.go": "50873e8e5a36e4cc366e4f5fbf94d6129983c9f095456d72de65cb231e7e8e7a",
+      "/home/franklinl/Documents/Dokapon World Mod/tools/go/register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+      "/var/tmp/dokapon-reference-owners-ov77euwr/project/references.go": "42834de053af7195b45006b3561971619ff01b8cd3c9f39d080dea69728cb418"
+    }
+  },
+  "confirmed_current_code_findings": [],
+  "recommended_boundary": {
+    "choice": "Extract one cohesive finite index producer from existing references indexed branch; keep reporting lifecycle and registry association in references. This recommendation is conditional on proceeding with the existing-reference-report integration; root still owns the pending user design choice.",
+    "move": "Move existing reverse LOAD partition, shared word/site walk, single finite opcode decode, local delay annotations and GP-specific projection/point mapping as one implementation. Existing indexed public routes and new registry flow route consume it. Do not copy the decoder or recursively call references. Move behavior verbatim first, then demonstrate old full-output/refusal parity.",
+    "keep": "references retains source/recipe/registry/glyph validation and report construction, optional query planning, queryRegisterFlow invocation and ownership/policy join. queryRegisterFlow remains pure and registry-free. main retains strict optional-route parsing/rechecks/buffered publication.",
+    "types": "Existing ReferenceReport and InstructionIndex/GPIndex may carry producer outputs; prefer existing types over a wrapper/result hierarchy. Pass only existing validated scan/operation/pin facts the producer needs; do not give it registry policy or a relaxed-patch flag. Exact signature is not approved here.",
+    "new_function_justification": "references can already perform either route, but sharing the same finite producer between its terminal indexed route and later registry ownership route without extraction requires duplication, handler recursion or deeply mixed phase/mode state. The now-concrete second consumer makes one extracted index responsibility reasonable. inspect is mapping-only, referenceTarget strict patch arithmetic, queryRegisterFlow decoded-state analysis; none reasonably owns byte decoding. No new helper/test function or additional graph owner justified."
+  },
+  "required_precode_gaps": [
+    {
+      "id": "OWNER-QUERY-PLAN",
+      "locations": [
+        "register_flow.go:16-17",
+        "references.go:431-438"
+      ],
+      "counterexample": "Registered LUI A is prequeried, but definitions before its lower instruction include distinct LUI B. A one-call implementation cannot discover B then query its uses without rebuilding the graph or having included B in advance. Silently ignoring B readers falsely suggests the reader set is closed.",
+      "direction": "Before the single graph call, deterministically deduplicate definitions queries for each selected lower/base register and use queries for all selected LUI candidates in the bounded scan, including registered candidates. Preserve64-query cap and explicit oversize refusal/hold. Every reaching LUI must have a matching actual query result or produce missing-uses held status. Non-LUI definitions and multiple LUIs remain their own refusals."
+    },
+    {
+      "id": "OWNER-POLICY-VS-REAL-CFG",
+      "locations": [
+        "/var/tmp/dokapon-register-caller-gap-LpXbmD92/caller-policy-corpus.json",
+        "analysis/register-flow-caller-gap-study.json:corpus_and_verification"
+      ],
+      "counterexample": "Some18 policy cases intentionally inject combined definition/use tuples that no supplied raw graph establishes. Serializing their definitions_complete=true into the public request would turn a caller-policy test into untrusted proof.",
+      "direction": "Freeze public API fields without any injected graph facts/completeness or arbitrary saved-report acceptance. Keep manual policy-order tests distinct from actual pinned ELF/entry graph tests. Independently derive realizable end-to-end goldens; record any policy case that remains unit-only rather than claiming18 full graph-backed equivalents."
+    },
+    {
+      "id": "OWNER-KEYS-AND-WAIVERS",
+      "locations": [
+        "references.go:938-993",
+        "reference_types.go:29-33"
+      ],
+      "counterexample": "Full code/LUI/lower collision identity and lower-reader owner identity differ. Matching a reader PC alone cannot authorize a benign pair for a different LUI. Unbound historical SHIP_PRE snippets cannot waive unknowns.",
+      "direction": "Extend the same siteOwner collection with a distinct lower-reader projection, preserving existing full-pair/memory keys and absent-option outputs. Put exact benign tuples under stable IDs with source/byte bindings. Freeze duplicate lower-owner handling and drafted/patched precedence. Do not overload Excluded/Flagged/OmitIDs or activate unbound historical waivers."
+    },
+    {
+      "id": "OWNER-ARITHMETIC-GRAMMAR",
+      "locations": [
+        "reference_geometry.go:88-93",
+        "references.go:838-848",
+        "/var/tmp/dokapon-reference-owners-ov77euwr/project/references.go:227-234"
+      ],
+      "counterexample": "ORI and ADDIU with immediate0xffff produce different targets; differing lower RT/RS is valid observed flow but invalid canonical same-register patch grammar. Strict referenceTarget is called by patch.plan.",
+      "direction": "Keep canonical validator unchanged. ORI finite effects belong in existing shared decoder; inspected99byte private delta does that without new functions/types. Compute graph-backed observed target equations from actual upper/lower words and base-RS dependency, retaining signed-add versus zero-extended OR and modulo32. Reuse existing arithmetic owner where practical without importing its64-word heuristic. Do not force a generic decoder or widen patch grammar to share two arithmetic expressions."
+    },
+    {
+      "id": "OWNER-LIFECYCLE",
+      "locations": [
+        "main.go:117-140",
+        "main.go:339-382",
+        "references.go:44-80"
+      ],
+      "counterexample": "An optional reference_candidates flow branch added only after registry parsing would bypass the stronger indexed/observed recipe identity rechecks and bounded-buffer publication if those predicates remain unchanged. A saved or raced input could be described by mismatched provenance.",
+      "direction": "Extend existing strict optional request policy and shared recheck/buffered lifecycle for the new additive request, including every consumed source/recipe/registry/glyph input as appropriate. Validate canonical/null/alias/duplicate keys, bounded source/entries/queries/output and forbid writes/composition. Preserve legacy absent-option outputs/refusals; no duplicate runner."
+    },
+    {
+      "id": "OWNER-REPORT-CONTRACT",
+      "locations": [
+        "analysis/register-flow-caller-gap-study.json:numbered_criterion_crosswalk",
+        "register_flow.go:210-214"
+      ],
+      "counterexample": "A known foreign reader justifies refusal even alongside unknown backward facts. Early site_plan refusal order is different from full audit diagnostics, so one success/first-error flag cannot represent both honestly.",
+      "direction": "Choose and freeze one bounded report behavior now, preferably full ordered diagnostic facts with explicit held/completeness fields. Preserve other-defs, registered absent-or-multiple, target, sorted reader and limit ordering from frozen source where applicable. Do not claim site_plan equivalence or .05 completion; reads_arg/Tracer consumers remain explicit gaps."
+    }
+  ],
+  "phase_plan": [
+    "Finish independent ORI prerequisites and freeze the chosen additive API plus realizable end-to-end fixtures and scope/query budgets. Await the pending design choice before dependent route work.",
+    "Extract the finite producer as a move-only refactor, keeping graph invocation/report policy outside it; verify exact existing index, GP and reference-report outputs and refusals before adding caller behavior.",
+    "Enhance existing registry ownership collection, plan one bounded query batch, and join actual results into the chosen ordered read-only report. Extend current CLI fixture loop; verify unknown/foreign/benign/arithmetic/ownership/lifecycle controls and old absent-option parity. Charge relocation separately from added capability."
+  ],
+  "verification": {
+    "Serena": "Used existing22dbd2ba LIVE session; references callers inspected. Existing queryRegisterFlow/referenceTarget ownership and callers inspected in immediately preceding pinned audit042; current targeted boundaries reread.",
+    "performed": "28member source manifest hash/size/containment verification, exact live study pin, current/private relevant source hashes, static private ORI diff, source policy and current owner inspection.",
+    "own_Go_executions": 0,
+    "jobs": "All synchronous commands terminal; no background jobs or new agents."
+  },
+  "limitations": [
+    "No owner API/implementation exists to verify; recommendations are not approval. Pending user route choice remains root responsibility.",
+    "No fresh Go tests/build/vet/race; parent focused ORI result is not auditor execution.",
+    "No protected ISO/registry/emulator/probe/process/auth/settings/log access; no runtime/goal/ledger edits. Audit042 preserved.",
+    "No saved-report trust path, function-count approval, migration credit or .05 closure follows from this review."
+  ]
+}

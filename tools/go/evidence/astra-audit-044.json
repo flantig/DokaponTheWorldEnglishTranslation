@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "audit": "044",
+  "role": "Purely adversarial read-only Astra challenger; no implementation/approval authority or positivity requirement",
+  "started_at_utc": "2026-11-05T02:04:05+00:00",
+  "next_due_at_utc": "2026-11-05T04:04:05+00:00",
+  "cadence": "Audit043 started00:02:37UTC, so044 was due02:02:37UTC. Actual start is88seconds late; parent reported waiting for the prior ordinary reviewer to terminate under the two-worker cap. Separate preflights did not reset cadence.",
+  "status": "COMPLETE_ONE_LOW_MAINTENANCE_FINDING_NO_NEW_CONFIRMED_ACCEPTED_RUNTIME_DEFECT",
+  "scope": "Accepted665 ->677 ->694 versus actual prior043. Frozen component695 inspected only as prospective reuse evidence. Parent published700 during this audit;700 was neither rebased into scope nor independently reverified here.",
+  "findings": [
+    {
+      "id": "A044-DATA-AUTHORITY-1",
+      "severity": "LOW",
+      "category": "Developer maintenance contract, not incorrect current masks or duplicate numerical algorithms",
+      "snapshot": "accepted694",
+      "locations": [
+        "profiles/permissions/batch-c-panels.json:2",
+        "profiles/permissions/footprints/mini_g04.json:2",
+        "profiles/permissions/footprints/mini_g09.json:2",
+        "profiles/permissions/footprints/mini_g11.json:2",
+        "README.md:1601",
+        "README.md:1635",
+        "analysis/mask-pipeline-reuse-decision.json:20",
+        "evidence/mask-pipeline-proof.json:745"
+      ],
+      "finding": "The shared13-rectangle panel fact is repeated as the first13 allow records in three flattened asset tables, while documentation calls both the standalone panel and the seven asset tables canonical/reusable data without stating their edit/regeneration relationship. A maintainer cannot tell from the documented table contract which file is authored authority, which files are generated runtime inputs, and which prior source evidence merely records the original conversion.",
+      "reproducible_evidence": "Parse the four listed JSON files: each of mini_g04/g09/g11 allow[:13] equals batch-c-panels allow byte-for-value, yielding39 repeated rectangle records. Editing the standalone panel table alone does not change these three runtime arrays. The audit independently traced the pinned prepare-canonical-footprints.py to the immutable wire projection and its prior single source-mask-rectangle-equivalence input, so this is generated flattening, not three independently authored geometry algorithms.",
+      "minimal_direction": "Document one authoritative fixed-geometry fact and identify the three asset tables as flattened derivatives, with the finite regeneration/update-and-repin contract. Extend the existing canonical-table verification loop to check that this shared portion remains equal, or explicitly document an approved source revision that intentionally changes it. Do not introduce recursive resource includes, a template language, a new runtime helper or an operational Python dependency solely to eliminate13 small rectangles. If existing obsolete duplicate facts become unused after clarifying ownership, delete them rather than maintain another authority.",
+      "accounting": "39 copied rectangle records are already charged in runtime bytes. No automatic byte-saving claim follows from documenting ownership or generation; measure any later deletion or adapter cost. Pinned one-time Python conversion is evidence lineage, not current Go runtime dependency.",
+      "disposition": "ROOT_OWNED_PENDING"
+    }
+  ],
+  "prior_findings_followup": [
+    {
+      "id": "PRM-WIRE-SHADOW-1",
+      "prior": "Audit043 retained the ordinary reviewer's known unpublished670 shadowed-render defect.",
+      "current": "Accepted677 texture_authoring.go:46-60 validates the raw root before duplicate-collapsing map use, then checks owned render resource spelling/null without depending on the decoded Render pointer. Accepted694 adds reconstruction alias coverage and shared post-resolution mask validation. The concrete duplicate render then null path no longer bypasses the raw check.",
+      "evidence": "Pinned permission-resource-final-review.json SHA8d533afdae0d176ec57e0e0635b041c17b2c43462a166f9459e3694a6545f759 and proof record24shadow probes/old whole-report parity. Audit independently inspected the accepted correction; did not rerun its Go probes.",
+      "assessment": "Closed in accepted lineage for the reviewed raw-root shadowing condition; no general hostile concurrent input-path guarantee inferred."
+    }
+  ],
+  "accepted_code_challenges": [
+    {
+      "locations": [
+        "raster_mask.go:33-284",
+        "raster_reconstruction.go:28-52",
+        "raster.go:368-379"
+      ],
+      "assessment": "selectRaster has actual current-erase and immutable-original permission consumers, one scalar/color predicate compiler and fixed footprint phases. Current/base choice stays with callers; old erase applies permission before positive growth and again afterward, retains empty-mask method/fill bypass and donor writes. Main/core use the same evaluator, OR/AND identities and independent tolerance atoms. No second predicate engine, provider dispatch or recursive expression evaluator identified. The constructor's size reflects a coherent binary-mask responsibility; it is not evidence for another helper by itself."
+    },
+    {
+      "locations": [
+        "raster_mask.go:289-416",
+        "raster_runs.go:386-400",
+        "raster_reconstruction.go:41-46"
+      ],
+      "assessment": "One immutable binary topology owner now serves erase dilation, font fill-holes and footprint close/core/minimum/growth. Existing font threshold>127 and counter complement are retained; glyph disc/EDT styling remains separate. Reviewed saturation handling, false crop exterior, erosion first-ring accounting, core immutability, zero/negative source normalization and shared minimum component walk. No new accepted numerical counterexample confirmed in this bounded static review."
+    },
+    {
+      "locations": [
+        "raster.go:317-391",
+        "texture_authoring.go:46-60",
+        "texture_authoring.go:187-225",
+        "texture_authoring.go:525-562"
+      ],
+      "assessment": "Global permissions share the existing positive/subtract/add loop and final native footprint. Referenced and inline geometry conflict rather than merge, one bounded pinned resource is loaded through existing acquisition, and one raw mask validator runs after inline/resource resolution. RasterRender owns the file binding outside pure RasterComposition. The richer decode type is preceded by closed resource keys, preventing nested references or local erase facts in the resource. No new resource resolver, writer or per-script mode was introduced."
+    },
+    {
+      "locations": [
+        "analysis/mask-pipeline-reuse-decision.json",
+        "evidence/mask-pipeline-proof.json",
+        "profiles/permissions/footprints/mini_g04.json"
+      ],
+      "assessment": "The removed contained footprint is justified by identical base predicates/topology with a narrower final clip, so union absorption is exact set algebra rather than a similarity score. This local removal is not net code reduction. Other generated table copies have the distinct maintenance concern listed inA044-DATA-AUTHORITY-1."
+    }
+  ],
+  "prospective695_not_accepted_findings": [
+    {
+      "locations": [
+        "raster_mask.go:40-68",
+        "raster_mask.go:94-205",
+        "raster_mask.go:338-433",
+        "raster_mask_types.go"
+      ],
+      "assessment": "Frozen695 extends the SAME component BFS for minimum size, seed membership and tag veto; no new function or second labeling traversal. Connectivity8 is confined to component filtering, morphology/fill remain4. Present-empty Seeds is deliberately allocated nonnil, all seeds validate against foreground, reject bits are read only on component members, and SampleRect limits predicate evaluation while Rect remains topology/output extent. Full-domain charging includes the third predicate role and bounded component work. Finite green-blue joins the existing property table; no arbitrary math operator."
+    },
+    {
+      "assessment": "The proposed data/type/function accounting is net capability growth: one cohesive filter type, no new production file/function. Its full-context proofs must continue to identify held flood behavior, especially background seed label0 selecting all background and erosion after selection. The six component calls and separate g03 call cannot establish whole-artwork, all41provider or raster-family completion. No695 implementation approval or700 acceptance is supplied by this audit."
+    }
+  ],
+  "accounting": {
+    "accepted665": {
+      "production_go_files": 45,
+      "production_go_bytes": 525164,
+      "named_functions": 43,
+      "runtime_files": 193,
+      "runtime_bytes": 2604317
+    },
+    "accepted677": {
+      "production_go_files": 45,
+      "production_go_bytes": 527998,
+      "named_functions": 43,
+      "runtime_files": 195,
+      "runtime_bytes": 2607715
+    },
+    "accepted694": {
+      "production_go_files": 47,
+      "production_go_bytes": 542244,
+      "named_functions": 45,
+      "runtime_files": 204,
+      "runtime_bytes": 2635757
+    },
+    "independent665to694delta": {
+      "production_go_bytes": 17080,
+      "runtime_bytes": 31440,
+      "new_named_functions": [
+        "selectRaster",
+        "transformRasterMask"
+      ]
+    },
+    "independent677to694delta": {
+      "production_go_bytes": 14246,
+      "runtime_bytes": 28042
+    },
+    "prospective695": {
+      "production_go_files": 47,
+      "production_go_bytes": 547352,
+      "named_functions": 45,
+      "Go_growth_over694": 5108,
+      "accepted_by_this_audit": false
+    },
+    "reported_separate_test_and_fixture_overhead": {
+      "677_test_growth": 9860,
+      "677_fixture_growth": 734,
+      "694_test_growth": 19437,
+      "694_fixture_growth": 157572
+    },
+    "assessment": "Independently rehashed/summed all193/195/204 runtime items and counted production functions/files. Accepted accounting charges Go/imports/config/data/adapters together and lists tests/fixtures separately. Two numerical owner extractions are relocation plus capability growth, not net reduction. No retirement or milestone credit claimed.",
+    "coverage": "Accepted665/677/694 roadmap totals all remain8/14Full57.14%,71/84planning84.52%; raster5/6 andbinary4/6 remain partial. Planning explicitly does not measure script migration. Source14genericprovider records/19nested footprints and seven tables are not14families or complete artworks."
+  },
+  "checks_receipt": {
+    "path": "/var/tmp/dokapon-astra044-BlTF6QuX/checks.json",
+    "sha256": "920de86aed15d79f7c4d2df56e5945fcfd2fa1a67da1949a352ef7f53274671c"
+  },
+  "verification": {
+    "snapshots": "All665+677+694 accepted and695prospective manifest identities and regular members checked with containment/lstat before read. All members were regular; no FIFO/device/socket bytes read.",
+    "runtime_items": "193+195+204 runtime item size/hash pins and total sums independently verified. Prior043 report identity checked.",
+    "lineage": "Pinned root artifact manifest, canonical-table generator, wire-projection manifest and its projection program inspected read-only. Three repeated panel arrays independently compared to the standalone table. No converter executed.",
+    "Serena": "Session86d8031d inspected accepted selectRaster/transformRasterMask production/test references and authorTexture boundary before root's later700 publication. Code review used frozen694 bodies; no postpublicationLIVE reinterpretation or rebase.",
+    "own_Go_executions": 0,
+    "own_source_oracle_executions": 0,
+    "not_replayed": "No new tests/build/vet/race, source numeric replay, actual artwork or full historical crawl. Accepted ordinary-review/root test receipts are prior evidence, not this audit's own executions. Did not reverify all872ordinary-review artifacts,821permission-review artifacts or new700 sources.",
+    "all_jobs": "All auditor commands synchronous and terminal; no background jobs or child agents launched."
+  },
+  "limitations": [
+    "Only permittedLIVEwrite evidence/astra-audit-044.json; .goal/nativegoal/cadence/disposition updates remain root-owned.",
+    "No protected ISO/art, canonical registry, emulator/PINE/process/auth/settings/log access or mutation.",
+    "One low maintenance finding; no new confirmed accepted694 runtime correctness defect. This does not certify the whole codebase, full raster source behavior, gameplay or patch safety.",
+    "No publication/implementation approval, new coverage, migration completion or retirement claim."
+  ],
+  "finished_at_utc": "2026-11-05T02:11:10.267026+00:00"
+}

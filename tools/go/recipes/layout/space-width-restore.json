@@ -1,0 +1,62 @@
+{
+  "operation": "guarded_words",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "source_sha256": "fd446934870a64be96572a4632a24c9892fa065542e6675f5341fb2e3d5f672c",
+  "output_sha256": "329f93e9225599385a48b71d8165a9467c2028067f684dcb72934ba3a90adaa2",
+  "evidence": "Explicit F003 word-only reversal: restore all eight documented native SPACE24 instructions from exact fd446934 SPACE14 stage to its known329f93e9 predecessor. Existing guarded_words planner/copy/output hash are reused. Original forward proof evidence/space-width-checkpoint.json preserves byte/context/ABI scope; no automatic mixed rollback, registry change or visual/gameplay approval.",
+  "word_blocks": {
+    "space_v0": {
+      "words": [
+        {
+          "hex": "0x3c0241c0",
+          "assembly": "lui $v0, hi(original native SPACE24)"
+        }
+      ]
+    },
+    "space_v1": {
+      "words": [
+        {
+          "hex": "0x3c0341c0",
+          "assembly": "lui $v1, hi(original native SPACE24)"
+        }
+      ]
+    }
+  },
+  "entries": {
+    "0x2a2b4c": {
+      "expected_hex": "6041023c",
+      "use": "space_v0"
+    },
+    "0x2a2de4": {
+      "expected_hex": "6041023c",
+      "use": "space_v0"
+    },
+    "0x2a3a3c": {
+      "expected_hex": "6041023c",
+      "use": "space_v0"
+    },
+    "0x2a3c04": {
+      "expected_hex": "6041023c",
+      "use": "space_v0"
+    },
+    "0x2a3d50": {
+      "expected_hex": "6041023c",
+      "use": "space_v0"
+    },
+    "0x2a5270": {
+      "expected_hex": "6041023c",
+      "use": "space_v0"
+    },
+    "0x2a54ac": {
+      "expected_hex": "6041033c",
+      "use": "space_v1"
+    },
+    "0x2a5630": {
+      "expected_hex": "6041033c",
+      "use": "space_v1"
+    }
+  }
+}

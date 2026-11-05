@@ -1,0 +1,90 @@
+{
+  "entries": [
+    {
+      "id": "0x1000",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x1800"
+        },
+        {
+          "pointer_vma": "0x1804"
+        }
+      ]
+    },
+    {
+      "id": "0x1002",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "struct_table_field",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x180c",
+          "struct_vma": "0x1808",
+          "field_offset": "0x4"
+        }
+      ]
+    },
+    {
+      "id": "0x1003",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x1810",
+          "addiu_vma": "0x1814",
+          "reg": "$a0"
+        }
+      ]
+    },
+    {
+      "id": "0x1004",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x1818"
+        }
+      ]
+    },
+    {
+      "id": "0x1007",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x1824"
+        }
+      ]
+    },
+    {
+      "id": "0x100b",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x1828"
+        }
+      ]
+    },
+    {
+      "id": "0x2001",
+      "patch_ref": "reference-bound-example",
+      "en": "fixture",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x181c",
+          "addiu_vma": "0x1820",
+          "reg": "$t0"
+        }
+      ]
+    }
+  ]
+}

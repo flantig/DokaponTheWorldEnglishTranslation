@@ -1,0 +1,317 @@
+{
+  "schema": "reconstruction-interleaving-contract-v1",
+  "at": "2026-10-21T06:32:17.205996+00:00",
+  "status": "Original-only integration supplement; no code/schema or approval",
+  "chronology": "ExistingTTFprototype andfrozen38kernelcases exist; thisNEWoriginalintegrationreference frozenbeforecandidateexecution on thisNEWcase. NoGo/candidate executedbyworker.",
+  "purpose": "Bind sourceordered text/erase interleaving and changed-BYTE allowguards. Reconstruction mustnotbehoistedbeforetext when laterselection/donors dependonnewtext. Existing38kernelpack remainsimmutable.",
+  "source": {
+    "renderer": "make_explainer_png.py",
+    "renderer_sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "driver": "make_batch_c_png.py",
+    "driver_sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149",
+    "functions": "run_ops223..257;op_erase151..220/build_allow120..140; originalop_text/text_layer/composite.",
+    "font": "NotoSans-CondensedExtraBold.ttf,623368B,e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197; originalRAQM/default4xsupersample",
+    "license": "CorrectNoto2.015SILOFL1.1/2022notice frozen."
+  },
+  "input": {
+    "canvas": [
+      128,
+      80
+    ],
+    "literal_base": "base.png",
+    "allow_spec": {
+      "ops": [],
+      "allow": [
+        {
+          "rect": [
+            12,
+            16,
+            104,
+            48
+          ]
+        }
+      ]
+    },
+    "text": {
+      "op": "text",
+      "font": "ExtraBold",
+      "text": "MMMM",
+      "px": 10,
+      "min_px": 10,
+      "max_w": 100,
+      "at": [
+        64,
+        36
+      ],
+      "align": "center",
+      "color": "ink",
+      "tracking": 0,
+      "strokes": []
+    },
+    "erase": {
+      "op": "erase",
+      "rect": [
+        20,
+        20,
+        88,
+        36
+      ],
+      "mask": {
+        "lum_lt": 200
+      },
+      "grow": 1,
+      "method": "rows"
+    },
+    "colors": {
+      "ink": [
+        7,
+        5,
+        4,
+        255
+      ]
+    },
+    "ordered_ops": [
+      "text",
+      "erase"
+    ],
+    "wrong_hoisted_counterexample_ops": [
+      "erase",
+      "text"
+    ]
+  },
+  "method": "Originalselectedrenderer+originalselectedrun_ops/op_erase/build_allow; additivecapturesonly. Everypositivewholeoutput matcheduninstrumentedoriginal. No originalmodulemain/projectimports, no sourcechanges.",
+  "observations": {
+    "positive_pipeline": {
+      "order": [
+        "text",
+        "rows"
+      ],
+      "text_after_RGBA_sha256": "7fdb21cc502cef319bdf9df3e5cbd0cd851cb9580ab662ee00e1eac068e5546b",
+      "final_RGBA_sha256": "66e234db06ad442a42ccf7c738acda197eb29d7b12a6f714957b7c9ccbdc145d",
+      "later_selected_hole_pixels": 326,
+      "changed_pixels": 279
+    },
+    "wrong_hoisting_counterexample": {
+      "order": [
+        "rows",
+        "text"
+      ],
+      "final_RGBA_sha256": "7fdb21cc502cef319bdf9df3e5cbd0cd851cb9580ab662ee00e1eac068e5546b",
+      "selected_hole_pixels": 0,
+      "equals_text_only": true,
+      "diff_channels_vs_ordered": 777,
+      "diff_pixels_vs_ordered": 295,
+      "qualification": "Bothorderings areindependentoriginalfunction programs; reversedoneisintentionalcounterexample, notclaimednormativeordering."
+    },
+    "leak_refusal": {
+      "excluded_xy": [
+        47,
+        32
+      ],
+      "refusal": {
+        "outcome": "SystemExit",
+        "message": "literal-interleave: text 'M' leaks 1 px outside allow, e.g. [(47, 32)]"
+      },
+      "fails_after_text_before_reconstruction": true,
+      "source_partial_buffer_equals_text_after": true,
+      "qualification": "Originalinmemorybuffer ispartiallymutated onfailure; nooutputpublication occurs in thisharness. Do notcopyunsafe partialpublication intoGo."
+    },
+    "byte_guard_positive": {
+      "excluded_xy": [
+        59,
+        34
+      ],
+      "raw_alpha": 0.0625,
+      "before_rgba": [
+        231,
+        232,
+        240,
+        255
+      ],
+      "after_rgba": [
+        231,
+        232,
+        240,
+        255
+      ],
+      "outcome": "success",
+      "whole_output_equals_text_after": true
+    },
+    "base_immutable": true
+  },
+  "guard_semantics": [
+    "Originalrun_ops snapshotscurrentimage immediatelybeforeeachtext/lines; raiseswhen(a!=before).any(axis=2)&~allow. Itdoesnotuse rawfloatfontalpha asallowguard.",
+    "Excludingchangedpixel[47,32] failsbeforethereconstructionoperation. Sourceerrorstringusesfirsttextcharacter: literal-interleave: text M leaks1pixel. Exactliteral string isfrozeninfacts; nofabricatedgenericrefusal.",
+    "Excludingpixel[59,34] withrawA0.0625 succeedsbecausefinalRGBAbytesareunchanged. Thispositivecontrolseparatesguardpolicies; oldnativecellstrictfloat containment isnotredefinedorrelaxedbythissourcecontract.",
+    "ReconstructionalsoselectsfromCURRENTimage; sourceoriginalbase staysimmutable foricons/donorpoliciesthatspecificallyreadit. Do notreplaceallsourcecontextswithsamecurrentbuffer.",
+    "Originalinmemorybuffercontainscompletedtextafterleakerror; thisisdiagnostic-sourcefact, notpermissionforpartialGooutputpublication. Existingexclusivepublisher muststillnotpublishexceptions."
+  ],
+  "pack": {
+    "directory": "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk",
+    "members": 39,
+    "member_bytes": 1284190,
+    "manifest_sha256": "c9c251ef4e6bc3e82e29920d0c57b3541cdffe4a966cfd797a6aea8ac69fff08",
+    "facts_sha256": "c81e8e696a8857c2e7e8119024d04beab7ce178d68bada60b1913190ef0a4789",
+    "harness_sha256": "cf368f06316d4df5f565ca32f0ed116efdc3cb25e69b9a93529cbe1ddea348b5",
+    "arrays": {
+      "base": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "base.u8",
+        "sha256": "cc81c7be60ce27f4161f6deea3893d818bb044a82a47b44ab9bc9ee56da115bc"
+      },
+      "text-after": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "text-after.u8",
+        "sha256": "7fdb21cc502cef319bdf9df3e5cbd0cd851cb9580ab662ee00e1eac068e5546b"
+      },
+      "ordered-final": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "ordered-final.u8",
+        "sha256": "66e234db06ad442a42ccf7c738acda197eb29d7b12a6f714957b7c9ccbdc145d"
+      },
+      "wrong-hoisted-final": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "wrong-hoisted-final.u8",
+        "sha256": "7fdb21cc502cef319bdf9df3e5cbd0cd851cb9580ab662ee00e1eac068e5546b"
+      },
+      "allow": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "allow.u8",
+        "sha256": "6be086481806cb985005731dc33c819eee9de74f1c68b31f8b15d0af640f9a62"
+      },
+      "leak-allow": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "leak-allow.u8",
+        "sha256": "da8809c33efb0d54086ed7be4123909099bde493b6b6b3049d728dbb5b0dcdad"
+      },
+      "leak-partial-text": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "leak-partial-text.u8",
+        "sha256": "7fdb21cc502cef319bdf9df3e5cbd0cd851cb9580ab662ee00e1eac068e5546b"
+      },
+      "text-raw-layer": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "f32le",
+        "raw": "text-raw-layer.f32le",
+        "sha256": "e1e7bfb8a2615b37e61e782e591ce52c1e9b97ce4274af991bd8e4c2bf74fde1"
+      },
+      "raw-only-exclusion-allow": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "raw-only-exclusion-allow.u8",
+        "sha256": "bb81fbd8974f67637bdf86be2467f55c35c8e75fa8e4f33cdc0c1d1a0ff46d23"
+      },
+      "ordered-erase0-current": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "ordered-erase0-current.u8",
+        "sha256": "7fdb21cc502cef319bdf9df3e5cbd0cd851cb9580ab662ee00e1eac068e5546b"
+      },
+      "ordered-erase0-selected": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "ordered-erase0-selected.u8",
+        "sha256": "36967cf3cb85a69ca9e657b25f7a4aec83dfad6a04b8be6dfe25d0865dc676a6"
+      },
+      "ordered-erase0-hole": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "ordered-erase0-hole.u8",
+        "sha256": "578bb080e1f39a01399ea08295d98ffadde842f5ec90d2a59007599ff9e529db"
+      },
+      "wrong-hoisted-erase0-current": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "dtype": "u8",
+        "raw": "wrong-hoisted-erase0-current.u8",
+        "sha256": "cc81c7be60ce27f4161f6deea3893d818bb044a82a47b44ab9bc9ee56da115bc"
+      },
+      "wrong-hoisted-erase0-selected": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "wrong-hoisted-erase0-selected.u8",
+        "sha256": "84ff92691f909a05b224e1c56abb4864f01b4f8e3c854e4bb4c7baf1d3f6d652"
+      },
+      "wrong-hoisted-erase0-hole": {
+        "shape": [
+          80,
+          128
+        ],
+        "dtype": "u8",
+        "raw": "wrong-hoisted-erase0-hole.u8",
+        "sha256": "84ff92691f909a05b224e1c56abb4864f01b4f8e3c854e4bb4c7baf1d3f6d652"
+      }
+    },
+    "contents": "Completebase/text-after/final/wronghoistedRGBA+PNGs, actualcurrent/selected/holemasks foreacheraseordering, approved/leak/raw-onlyexclusionmasks, sourcefloatlayer anddiagnosticpartialbuffer; exactfont/license/source/selecteddefinitions."
+  },
+  "verification": {
+    "manifest": "All39sizes/SHAverified",
+    "raw_PNG_pairs": 14,
+    "float": "Fullsourcefloatlayerfinite",
+    "reference_instrumented": "Ordered/reversed/text-only eachcompletecandidatebyteequalwithuninstrumentedoriginal",
+    "source_base": "Hashunchangedthroughallprograms",
+    "scope": "NoGo/candidate/projectmodule/historicalmain/ISO/canonical/protectedruntime, no priorpack/source/code/test/fixture/coverage/goalchanges."
+  },
+  "limits": [
+    "Literal128x80panel example, notactualart/ISO/nativeencoderorpaletteprojection.",
+    "NewexpectationsfollowexistingTTFprototypebutpredatecandidatecomparisononthisNEWcase.",
+    "Originalbatch_c byteguardandoldnativecellrawalphaguard aredistinct positivecontracts; rootowns explicitpipelinepolicy andimplementation/readability decision.",
+    "No schema/function/architectureapproval ormilestone/familycredit."
+  ]
+}

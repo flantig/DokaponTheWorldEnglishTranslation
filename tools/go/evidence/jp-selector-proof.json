@@ -1,0 +1,419 @@
+{
+  "at": "2026-10-20T14:13:06.268394+00:00",
+  "status": "VERIFIED shared canonical JP selector and actual isolated typed text restoration; no new function/writer",
+  "source_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "181805a0b36c986b3081a298fde03bbf99c77c9ded8527912f0fb10ac980a5be",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+    "texture_authoring.go": "76e9d9b340da6d9b64ac373005aa11f58d5758a7a8fef3e5b37c33af8754bd95",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "61d56d0523a68ef0f69ec3845fb160fba4bcea52a4ac35bc7e17c3fd2d5e614d",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "recipes/text/native-slots/defense-label-restore.json": "efac3610657c288b70a7128366d4624d69bd04883bb7de2e180f0e2179d13790",
+    "testdata/defense-label-restore.json": "c21486c65b3d9f7021d487284897e8a24fb0665de13d1c4095d4597f57975f54",
+    "testdata/runtime-tables.json": "1331cc57ce1216b6f1c893e98b897630cae76a441942aea4064aa7f0262c2b22"
+  },
+  "evidence_pins": {
+    ".goal/jp-selector-checks-work.json": {
+      "sha256": "2c024c093a54b58564442bdc8746ae31e7b13929719a5e33aa3baaab25fad769",
+      "bytes": 5617
+    },
+    "analysis/native-slot-jp-selection-decision.json": {
+      "sha256": "256527a211af37910fa54af1d903831f2b88847ad6edc3f311e0a5486f8bcd71",
+      "bytes": 2806
+    },
+    "analysis/stream-slot-native-candidate.json": {
+      "sha256": "5c6aaa9a17254e6c2a27882d29a004ec56457152ebc5e0c38b21bc0c48ec0f92",
+      "bytes": 25832
+    },
+    "evidence/jp-selector-review-a.json": {
+      "sha256": "77b1852009639f647ccfe69ce3f568fd6d785c04d710a01c77700a915eb3fa78",
+      "bytes": 20097
+    },
+    "evidence/jp-selector-review-b.json": {
+      "sha256": "ed2a30de7064b4a63ecca74a45966bff4122a6a9a18e54057f32f4ba308b7136",
+      "bytes": 32264
+    },
+    "evidence/jp-selector-preflight-oracle.json": {
+      "sha256": "72aa6089460d7c71c1dfc8bf86f31efbca6f685670f2e11f6512214f4db6cb6e",
+      "bytes": 951
+    },
+    "evidence/jp-selector-root-preview.json": {
+      "sha256": "363d76965971fa4be5eaebc2725bfa9f80725c92fb7905bb8dd90cbe60155bcb",
+      "bytes": 1154
+    },
+    "evidence/jp-selector-isolated-run.json": {
+      "sha256": "1c36d27b7e2029365aa834428a6b6097ec3637a85e346d5f9db6bc677aef3ca8",
+      "bytes": 5995
+    },
+    "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/accounting-before.json": {
+      "sha256": "420d1d3b63e96ad39993060f61b931a0c141a14eedb8e8d78069a2fe156d0d4b",
+      "bytes": 27323
+    },
+    "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/accounting-delta.json": {
+      "sha256": "86e0cd4ea3ade4c383bf71d8aeb657dfb75e1f0098a344611cef643c4af41e21",
+      "bytes": 1368
+    },
+    "/var/tmp/dokapon-jp-selector-sealed-buw9_qpy/manifest.json": {
+      "sha256": "5c02322ea55bf9a5e0573f718bc10aa9a5c94c0c38a88475de77b341c09fc5bd",
+      "bytes": 14693
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-jp-selector-sealed-buw9_qpy",
+  "frozen_snapshot_files": 137,
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 22.501,
+      "output": "ok  \tdokapon/tools\t19.108s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.215,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-jp-selector-checks-8ni4a33g/dokapon-go-jp",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.71,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.037,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "recipes/text/native-slots/defense-label-restore.json",
+        "testdata/defense-label-restore.json",
+        "testdata/runtime-tables.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.001,
+      "output": ""
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key\\s*[:=]\\s*\"[^\" ]{12,}|password\\s*[:=]\\s*\"[^\" ]{8,})",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "recipes/text/native-slots/defense-label-restore.json",
+        "testdata/defense-label-restore.json",
+        "testdata/runtime-tables.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.011,
+      "output": ""
+    }
+  ],
+  "precopy_root_virtual": {
+    "at": "2026-10-20T14:01:07.516753+00:00",
+    "status": "PASS root fresh whole-source/whole-original/virtual-inverse and everybyteequality; no output yet",
+    "source": "/var/tmp/dokapon-go-native-slot-b1p8h77l/native-defense-df.iso",
+    "source_sha256": "e0b3a22bbdd4f5f8baf10f1e9dc97cf0b1f6ba0b1131c030bbf0866412deb7ae",
+    "original": "/home/franklinl/Documents/Dokapon World Mod/iso/original/original.iso",
+    "original_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "virtual_inverse_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "whole_compared_bytes": 4243259392,
+    "declared_bytes": 8,
+    "changed_bytes": 7,
+    "outside_changes": 0,
+    "every_virtual_byte_equals_original": true,
+    "input_stats_unchanged": true,
+    "metadata_snapshots_and_originals_match": true,
+    "planned_new_output": "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/restored-original.iso",
+    "seconds": 29.251
+  },
+  "actual_copy": {
+    "at": "2026-10-20T14:12:25.991957+00:00",
+    "status": "PASS actual isolated canonical JP restoration; all image bytes equal original, containment/readback/source preservation verified",
+    "source": "/var/tmp/dokapon-go-native-slot-b1p8h77l/native-defense-df.iso",
+    "source_sha256": "e0b3a22bbdd4f5f8baf10f1e9dc97cf0b1f6ba0b1131c030bbf0866412deb7ae",
+    "output": "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/restored-original.iso",
+    "output_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "original": "/home/franklinl/Documents/Dokapon World Mod/iso/original/original.iso",
+    "original_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "whole_compared_bytes": 4243259392,
+    "every_output_byte_equals_original": true,
+    "declared_edits": 1,
+    "declared_bytes": 8,
+    "changed_bytes": 7,
+    "outside_changes": 0,
+    "source_and_original_identity_preserved": true,
+    "metadata_and_code_data_preserved": true,
+    "native13code_spans_unchanged": true,
+    "slot_readback": "bc01bd01b70100f8",
+    "neighborhood_72B_sha256": "4c0e0e92f85aee74696a6a2ad1d847db9f43c0c0394ce601eea43eaf7297ae08",
+    "output_mode": "0o600",
+    "command": [
+      "/var/tmp/dokapon-jp-selector-checks-8ni4a33g/dokapon-go-jp",
+      "--source",
+      "/var/tmp/dokapon-go-native-slot-b1p8h77l/native-defense-df.iso",
+      "--registry",
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/registry.json",
+      "--glyphmap",
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/glyphmap.json",
+      "--recipes",
+      "recipes/text/native-slots/defense-label-restore.json",
+      "--apply",
+      "--output",
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/restored-original.iso"
+    ],
+    "apply_seconds": 29.143,
+    "postcheck_seconds": 26.43,
+    "review_pins": {
+      "evidence/jp-selector-review-a.json": "77b1852009639f647ccfe69ce3f568fd6d785c04d710a01c77700a915eb3fa78",
+      "evidence/jp-selector-review-b.json": "ed2a30de7064b4a63ecca74a45966bff4122a6a9a18e54057f32f4ba308b7136"
+    },
+    "code_data_metadata_pins": {
+      "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+      "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+      "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+      "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+      "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+      "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+      "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+      "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+      "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+      "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "texture.go": "181805a0b36c986b3081a298fde03bbf99c77c9ded8527912f0fb10ac980a5be",
+      "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+      "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+      "texture_authoring.go": "76e9d9b340da6d9b64ac373005aa11f58d5758a7a8fef3e5b37c33af8754bd95",
+      "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+      "patch_test.go": "61d56d0523a68ef0f69ec3845fb160fba4bcea52a4ac35bc7e17c3fd2d5e614d",
+      "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+      "recipes/text/native-slots/defense-label-restore.json": "efac3610657c288b70a7128366d4624d69bd04883bb7de2e180f0e2179d13790",
+      "testdata/defense-label-restore.json": "c21486c65b3d9f7021d487284897e8a24fb0665de13d1c4095d4597f57975f54",
+      "testdata/runtime-tables.json": "1331cc57ce1216b6f1c893e98b897630cae76a441942aea4064aa7f0262c2b22",
+      "/var/tmp/dokapon-jp-selector-checks-8ni4a33g/dokapon-go-jp": "3cc4bed33b0aa51b0f7713ab5a2600e606ab9997469cca2abe1d56ab7d5194ee",
+      "../../registry/string-registry.json": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6",
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/registry.json": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6",
+      "../../extracted/glyphmap.json": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/glyphmap.json": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d"
+    },
+    "artifacts": {
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/apply-gates.json": {
+        "sha256": "0a882bf99309e4bf305a65b0635442169dba3e2f51601858155003d7138a13cf",
+        "bytes": 3467
+      },
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/apply.stdout.json": {
+        "sha256": "d5442136984e35144f1ed9dc66f76f50153bb4b0f450d1c9cdf8073ed3c7eddd",
+        "bytes": 573
+      },
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/apply.stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/root-preview.json": {
+        "sha256": "01260730cd67ebbb3117ca80805603effe524e2773b4ce11c3b13de0cf36579c",
+        "bytes": 401
+      },
+      "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/apply-and-verify.py": {
+        "sha256": "5f8a3a003c5a33d091879783d778159ee56915b881ebec4d05f572a24d05902d",
+        "bytes": 6577
+      }
+    },
+    "limits": [
+      "Original-stage isolated text restoration only; shipping/canonical inputs read-only.",
+      "Native alias proof bounded; no visual/gameplay/all-CFG claim.",
+      "No automatic mixed rollback, historical script retirement or family promotion from this proof alone."
+    ]
+  },
+  "accounting": {
+    "at": "2026-10-20T14:09:49.553605+00:00",
+    "baseline_accounting": "/var/tmp/dokapon-go-native-slot-restore-azi_95qj/accounting-before.json",
+    "baseline_sha256": "420d1d3b63e96ad39993060f61b931a0c141a14eedb8e8d78069a2fe156d0d4b",
+    "group_deltas": {
+      "asset_bundle": {
+        "files": 0,
+        "bytes": 0
+      },
+      "executed_evidence_inputs": {
+        "files": 0,
+        "bytes": 0
+      },
+      "go_module": {
+        "files": 0,
+        "bytes": 0
+      },
+      "go_tests": {
+        "files": 0,
+        "bytes": 2505
+      },
+      "pointer_selector": {
+        "files": 0,
+        "bytes": 0
+      },
+      "production_go": {
+        "files": 0,
+        "bytes": 891
+      },
+      "recipe_tables": {
+        "files": 1,
+        "bytes": 1100
+      },
+      "testdata": {
+        "files": 1,
+        "bytes": 875
+      },
+      "build_entrypoint": {
+        "files": 0,
+        "bytes": 0
+      },
+      "consumer_profiles": {
+        "files": 0,
+        "bytes": 0
+      }
+    },
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "bytes": 635691,
+        "files": 77
+      },
+      "runtime_with_bundle": {
+        "bytes": 11948781,
+        "files": 80
+      },
+      "runtime_and_executed_evidence": {
+        "bytes": 12486800,
+        "files": 100
+      }
+    },
+    "production_named_functions": 21,
+    "no_new_named_function": true,
+    "claim": "Capability growth; no scoped or whole-source reduction/retirement/family promotion."
+  },
+  "reuse": "Existing RegistryEntry rawJP metadata/Recipes selector, plan/encode/controls/validateEdits/verifySource/patchCopy and direct domain/CLI refusal owners. No duplicated canonical runtime wording or new namedfunction/handler/writer/dependency.",
+  "limits": [
+    "Standard Go JSON string decoding remains; lone surrogate escapes become U+FFFD. Current pinned glyph map cannot encode it and selected bytes require an exact reviewed encoding hash. No strict Unicode scalar validation claim.",
+    "One native original-stage typed text restoration; 18/290B mixed CLI cases synthetic, not historical145-active-word narration replay.",
+    "No automatic arbitrary inversion, native visual/gameplay/all-alias proof, retirement, family promotion or code-reduction claim from this proof alone.",
+    "Broad legacy Python remains4041pass/68classifiedfail; no broad-clean claim."
+  ],
+  "runtime_manifest_containment": {
+    "prior": "/var/tmp/dokapon-jp-selector-checks-8ni4a33g/runtime-tables-before.json",
+    "prior_sha256": "cfc40787acba294ac325972576e93cff33b1c3d9a123d6ecd0996d23610dc7cc",
+    "all_50_prior_rows_unchanged": true,
+    "only_added": [
+      "recipes/text/native-slots/defense-label-restore.json"
+    ],
+    "current": "testdata/runtime-tables.json",
+    "current_sha256": "1331cc57ce1216b6f1c893e98b897630cae76a441942aea4064aa7f0262c2b22"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "kind": "pre-Go-register-flow-public-semantic-source-oracle-v2",
+  "status": "Source-only mechanical unreleased placement revision, no Go implementation/approval/credit",
+  "capsule": {
+    "path": "/var/tmp/dokapon-register-flow-cli-v2-1QaQWVor",
+    "manifest_sha256": "6017daa9e4686715bf525fa8d104db5145eb33ee2f4351db039840be7996f8a5",
+    "member_count": 9,
+    "total_bytes": 361769
+  },
+  "fixture": {
+    "raw_path": "/var/tmp/dokapon-register-flow-cli-v2-1QaQWVor/testdata/register-flow.json",
+    "raw_sha256": "886e7e131c43cae92b4c12c381518c8d7874c9350a92f0ef3bb6856e2e6c0239",
+    "raw_size": 247805,
+    "zip_path": "/var/tmp/dokapon-register-flow-cli-v2-1QaQWVor/testdata/register-flow-fixture.zip",
+    "zip_sha256": "d49e3ae9f9bbbab89f10666070240920b3875c8d8b113a82744a070a8179d33d",
+    "zip_size": 7830,
+    "member": "register-flow.json"
+  },
+  "policy": {
+    "status": "PRE_GRAPH_GO_MECHANICAL_PLACEMENT_REVISION2",
+    "input_placement": "Top-level recipe register_flow optional nonnull object, allowed only for instruction_index. references remains file_range-only.",
+    "output_placement": "instruction_index.register_flow unchanged",
+    "source": "Initial17member source projection preserved unchanged by pin. No source semantics, graph algorithm or decoder added.",
+    "revision_reason": "Graph entry/query assumptions are a separate responsibility from sourceword scan selection. Top-level grouping preserves existing ReferenceScan closed-field validation, including shadowed duplicate reference objects, without custom parsers or widening older recipe grammars. API is unreleased and no graph Go exists; only profile placement changes, semantic outputs/facts unchanged.",
+    "expected_scopes": "22 cases explicitly tagged register_flow_semantic_group_only; one full_instruction_index_baseline_no_queries. Compare whole semantic group exactly. Independent complete raw/header/word-count assertions copied byte-identically.",
+    "counts": {
+      "carrier_cases": 23,
+      "semantic_batches": 22,
+      "semantic_queries": 44,
+      "locally_complete_queries": 25,
+      "schema_refusals": 18,
+      "full_baseline_only_cases": 1,
+      "profiles_moved_including_root_fixture": 41
+    },
+    "refusals": "Existing18 schema refusal profiles mechanically rebased to top-level register_flow. Same invalid spec/query/null/proof mutations, no stale nested valid-location profile. No new cases/semantics/error text.",
+    "provenance": {
+      "v1_manifest_sha256": "214591ed5e04433badd90d7f7d8fd0feb505caa5db645db539b1183a6e31cf8d",
+      "v1_ZIP_sha256": "20b04ea5262affc179531f7471e39a508fa2d56b5599b8e22d5413a77e761bd7",
+      "v2_design_sha256": "952d28e8274fd9964a55889fd96b2dd818716eb6a8931785767f1dc4f7a5c13c"
+    },
+    "limitations": "No candidate execution, Go/runtime/test edits, full new instruction rows, program closure, ABI return policy, patch authority, .05/.06 or reduction credit."
+  },
+  "verification": {
+    "status": "PASS_MECHANICAL_SOURCE_PROJECTION_V2",
+    "at": "2026-11-04T21:24:10.296558+00:00",
+    "v1_17members_unchanged_verified_before_after": true,
+    "v1_ZIP_unchanged": true,
+    "cases": 23,
+    "semantic_batches": 22,
+    "queries": 44,
+    "locally_complete_queries": 25,
+    "schema_refusals": 18,
+    "all23_expected_core_canonical_bytes_identical": true,
+    "all_carriers_and_source_assertions_identical": true,
+    "baseline_profile_identical": true,
+    "all_valid_references_file_range_only": true,
+    "deterministic_ZIP_rewrite_byte_identical": true,
+    "Go_candidate_graph_execution": 0,
+    "runtime_test_functions_added_or_edited": 0,
+    "all_owned_jobs_terminal": true
+  }
+}

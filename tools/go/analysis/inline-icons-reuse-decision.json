@@ -1,0 +1,112 @@
+{
+  "at": "2026-10-21T00:24:33.034786+00:00",
+  "contract_sha256": "acf635da2cb2e9255990696de86810aa741915f13905b5753517a4b2b37cbd74",
+  "decision": "Enhance existing renderRuns, composeCells, authorTexture and their existing types; zero new functions, loaders, decoders, resizers, handlers or CLI.",
+  "candidates": {
+    "renderRuns": "Owns fitted per-run advances, glyph cursor and final two-stage rounded geometry. Fixed source-sized icons are runs; pass declared icon map explicitly.",
+    "composeCells": "Owns base-original identity, preflight whole-cell masks and ordered per-line composition. Source-rectangle and full destination containment, exact copy after each line belong here. Refactor same per-pixel float equations to line-major iteration so each icon copy happens before the next line; no second compositor.",
+    "authorTexture": "Owns pinned source decode, immutable base, image/font input and publication. Pass shared BitmapRender.Icons map; no extra asset loader.",
+    "resizeRaster": "Intentionally not called for icons: original RGBA copies remain original size. Reconstruction/BICUBIC/donor algorithms held.",
+    "pixelOver": "Keep existing word composition; icons use draw.Src to replace even transparent hidden RGB, not alpha blend."
+  },
+  "reach": [
+    "raster_types.go",
+    "raster_runs.go",
+    "raster.go",
+    "texture_authoring.go",
+    "every composeCells/renderRuns call in patch_test.go",
+    "existing native golden and CLI test blocks",
+    "testdata/inline-icons.zip",
+    "README/ARCHITECTURE/MIGRATION and matching playbook/accounting/evidence"
+  ],
+  "data_contract": {
+    "BitmapRender.Icons": "map[string][]int; one shared named same-sheet original source x,y,w,h per recipe. No separate provider or historical handler.",
+    "BitmapRun.Icon": "Alternative to nonempty Text/Fill. Text/Fill omit when empty; old valid text unchanged.",
+    "BitmapRunLayout.IconGap": "optional *float64, nil default2; explicit0 meaningful. Finite0..64.",
+    "BitmapLayer.Icons": "Internal typed source-rectangle + destination-point placement; a new struct groups actual handoff facts, no function.",
+    "same_sheet": "Full source and target rectangles validated, including alpha0 bytes. Keep cell masks disjoint, permit ordered overlap within line/group.",
+    "tracking_discrepancy": "Preserve original measure width (subtract final tracking only if text characters exist) versus text_layer width (always subtract final tracking) for icon-only nonzero tracking. Separate local fitWidth, not an artificial refusal or silent normalization."
+  },
+  "precode_proof": {
+    "literal_pack_manifest": "f19111bfeaa80b45d867a95157fceee997ce7737964939671bd017b7d42df944",
+    "inline_geometry_manifest": "e2efb81737019c4934485d65936d627461affbad97222a8ce5dbf2abd058d365",
+    "original_python_reference_vectors": 11,
+    "reference_manifest_sha256": "0e204a138ffb9d4b5e13fc47681bceebd9095343ced91c94e1766e41db4d0f5b",
+    "native_reference_manifest_sha256": "26aaeeaca67db780385f3db8c3156c9bee3d8861204535585eeacd3f7a13d146",
+    "native_raw_sha256": "aadce87f130b652b8c9ab501b5757978a78b57cc5c66fb162ebd046d569a1c9c",
+    "native_txd_sha256": "848674056354a177f4467c74865524b816ce53720f4c7f99e212203b69f4ce7c",
+    "native_codec_projection": "Expected PNG from frozen original Python first; accepted old Go codec performs unchanged palette projection. No new Go output used.",
+    "legacy_stdout_baselines": [
+      {
+        "name": "scalar",
+        "args": [
+          "--texture-profile",
+          "/home/franklinl/Documents/Dokapon World Mod/tools/go/profiles/textures/mini-g01-rule1.json",
+          "--source",
+          "/tmp/dokapon-donor-composition-2s2_i91s/precode/scalar.txd"
+        ],
+        "exit": 0,
+        "stdout_sha256": "9cef255bb854c03cdadeeefe5a31ca690531b4627d11b16eac393e40ee31f8c1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "style",
+        "args": [
+          "--texture-profile",
+          "/home/franklinl/Documents/Dokapon World Mod/tools/go/profiles/textures/help00-turn-order.json",
+          "--source",
+          "/tmp/dokapon-donor-composition-2s2_i91s/precode/style.txd"
+        ],
+        "exit": 0,
+        "stdout_sha256": "6af3c709f17ea81a2f92583d4affbf64d328ac77ceea41be3d6f7275be1e0864",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "group",
+        "args": [
+          "--texture-profile",
+          "/home/franklinl/Documents/Dokapon World Mod/tools/go/profiles/textures/help01-command-order.json",
+          "--source",
+          "/tmp/dokapon-donor-composition-2s2_i91s/precode/group.txd"
+        ],
+        "exit": 0,
+        "stdout_sha256": "ac88a7a2d129685c7d5e30c3d6522890478bb2cc48a01dbfc2756de8802469b6",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "harness_failures": "Before Go implementation: corrected measure arity, removed source palette policy from export-only request, tuple-converted direct source metadata probe. Incomplete precode packs retained; source/algorithms unchanged."
+  },
+  "fixture": {
+    "path": "/tmp/dokapon-donor-composition-2s2_i91s/precode/inline-icons.zip",
+    "bytes": 310582,
+    "sha256": "2d108a77cce0bcf52488b67b688db168921e3a80fcf65a14307b64d4122e11a8",
+    "members": {
+      "compressed.raw": "a64835a69db28f12c84f075e4b78e7d4b28100fc0922194fc5f17580a4551ad2",
+      "fixed-size.raw": "3662e3adaea06a1424ed8613c634d4657f2535a8242813b49d6f04b3d77f724d",
+      "group-overlap.raw": "7b3588db4d8ebc99ac8fce22606c1761e11aefcae64f0fb303fe2131c1d008e1",
+      "icon-first.raw": "bbb1cf5dfd05c54be2fcd396efd8850c2c4b84bc13127b5050d972cd65645b02",
+      "icon-last.raw": "81e8d3c98d974e4b23820e5a9a5307892e681aa0ff8d26cd49bd7cb1d2a7c130",
+      "mixed.raw": "8b06206828a09570dddc57f7dcf410eb55d1b0d00123dc7168c58c07d9b85bf7",
+      "negative-tracking.raw": "303cbd224856b358d8b53f909871152d552953cd13634fe1659da6f1238995f2",
+      "only-icon.raw": "f3b42b63c532eb8f46f3b432cf76a10a962f5da4d827608f81e1ae4b5e54ef95",
+      "pattern-base.png": "ac7449099ef834dcca62cfd3004859a6b7ecbec8b525b23cd0995cbc281f61ac",
+      "repeat-icon.raw": "62c78543ff7123dc58680d8d3efe78695f453b48d2d6acaea06aedacd23bd195",
+      "tracked.raw": "0c5fffbbd1ae7345376985ba09aeade751cbce7a54aa8f9431b0c108a3ce6642",
+      "zero-gap.raw": "02a9117f8a522f032f0c00308feff17624ff29540837f940c192cb1f832f5187",
+      "native/profile.json": "101eb52c3a0cccdeb05bb3c07c69fed8f9f8ccb3437d414e63441cbc668ac51e",
+      "native/source.txd": "4b88155c620bc94c56d55d827dbe0f30a725c95c9c03094a1bbf4d739ef590a0",
+      "native/base.png": "63c08d93fd3bea75cffc1150a3fdee379dfa24f771581608fc11a0f91bf15002",
+      "native/expected.raw": "aadce87f130b652b8c9ab501b5757978a78b57cc5c66fb162ebd046d569a1c9c",
+      "native/expected.txd": "848674056354a177f4467c74865524b816ce53720f4c7f99e212203b69f4ce7c",
+      "vectors.json": "c7b4d9170910f5a1120964b909ac68b6fb52f5ac7e919f05777e463ab81a07c7"
+    },
+    "planned_testdata_path": "testdata/inline-icons.zip"
+  },
+  "limits": [
+    "No external donor, dynamic mask, exemplar or BICUBIC implementation.",
+    "Reference GameOptical cases do not reproduce existing eight TTF-art operations or claim visual approval.",
+    "No family/historical path promotion, savings or completion claim.",
+    "No ISO/canonical/protected runtime operations."
+  ],
+  "implementation_status": "WIP saved privately; reviewed source restored while user-requested14-area percentage roadmap is prepared. No icon capability accepted."
+}

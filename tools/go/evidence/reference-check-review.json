@@ -1,0 +1,145 @@
+{
+  "schema": "reference-check-ordinary-review-v1",
+  "at": "2026-10-20T22:18:42.716474+00:00",
+  "result": "PASS_NO_OPEN_FINDINGS",
+  "findings": [],
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "69e778f7f445b80c0f30c5903017728123f9e46bd078847ea9a3ffb41e59a477",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "5d388738600889b77d006abc2197116256d78eb969c7b657c60befa6bd90a427",
+    "patch_test.go": "b590630bd3a04432bd512fa3f8c6da44bac70b15e04718d8eb5d709f5d4aa309",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "recipes/reports/code-references.json": "8cefec1e1e60a0ea142954692412646fd559a7b99f9b0b9f04e9590658e55fe7",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+    "registry_authoring.go": "be6104b83f8e47703de6e12551875236ba7c14db15930c0b5c09f850fd99fc1f",
+    "registry_types.go": "987f9f47f023432232a0547bfc3a487f848fc67c4c3cf3ba3432da68f5725434",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "testdata/reference-check.json": "69be7fc89b464f9b1c84eb66f7fce32dc801abb29ae1870027a5a968198a6cf0",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "all30pins_held_before_after": true,
+  "source_contract": {
+    "path": "analysis/registry-disc-audit-contract.json",
+    "sha256": "9bff0fb24e66c29c823b7f2067379b9666dc410e0e9457c56be507aa267b2c9d"
+  },
+  "precode_expected_facts": {
+    "path": "/var/tmp/dokapon-registry-disc-audit-nhirt83g/expected-facts.json",
+    "sha256": "a3e5d167c6cbbdbb9116d22104333f4047268c9a32160fb625258ad31606c3e1",
+    "qualification": "Literal5ID/8word facts independently frozen before implementation; checked hash and public fixture references."
+  },
+  "assessment": [
+    {
+      "area": "Exact declared word semantics",
+      "result": "Data pointer and aligned struct equation guards share word emission with strict LUI/ADDIU code pairs. Known nonzero register, LUI<ADDIU, no mixed unused fields, alignment/mapping/source bounds, duplicates/overlaps/shared LUI and scope are enforced. Integer signed-low high carry and32-bit wrap produce complete expected instruction words; observed source bytes checked separately by existing verifier.",
+      "lines": [
+        "patch.go:892",
+        "patch.go:912",
+        "patch.go:916",
+        "patch.go:927",
+        "patch.go:934",
+        "patch.go:950"
+      ]
+    },
+    {
+      "area": "Write safety",
+      "result": "Code physical guards use existing guarded_words exactly; generic validateEdits retains its writable machine-word contract. verifySource replans exact table edits and rejects forged bytes. patchCopy gates ANY pointer_check table before verification/output, including either composition order. New planner emits same bytes only; no writer/validator relaxation.",
+      "lines": [
+        "patch.go:938",
+        "patch.go:1489",
+        "patch.go:1543",
+        "patch.go:2135",
+        "patch.go:2169"
+      ]
+    },
+    {
+      "area": "Reuse/readability",
+      "result": "Enhancing same plan branch is coherent. The small repeated shape checks versus stream_append serve separate expected-word versus observed-state responsibilities. Append additionally owns consumer ranges, current-state decoding and relocation/payload context. Hoisting these guards further would require modes/state without eliminating a duplicate decoder or writer; no new function/helper/type/schema/dependency needed and no further centralization recommended for this change.",
+      "lines": [
+        "patch.go:910",
+        "patch.go:1273",
+        "patch.go:1280",
+        "patch.go:1313"
+      ]
+    },
+    {
+      "area": "Compatibility and scope",
+      "result": "Both previous data-only pointer profiles retain exact source bytes/hashes. Independent same-data full stdout matches accepted old binary exactly. Strict new shape refusals for formerly ignored mixed fields are deliberate. Physical scope projection binds expected words and VMAs, not full registry-document identity, site discovery, payload text or observed-target reconciliation."
+    }
+  ],
+  "verification": {
+    "focused_complete_CLI": "PASS4.336s -count=1 -p2",
+    "private_current_test_overlay": "PASS4.307s completeCLI with directforgededit/replan/tablegate assertions",
+    "build_vet_gofmt_scoped_whitespace_selfchecked_credentials": "PASS",
+    "independent_synthetic_CLI": {
+      "cases": 9,
+      "carry_wrap_targets": 9,
+      "other_cases": "Mixedcode/data/zero-offsetstruct positive; shared-upper, below-mappedstruct, missinglower, wrongencoding, outside-source andapply refusals; old/new puredata stdout exact.",
+      "source_identity": "All source/registry/glyph/profile bytes/inodes/mtimes preserved; no forbidden output created."
+    },
+    "native_private_copy_binding": {
+      "cases": 2,
+      "selected_IDs": 4,
+      "physical_words": 18,
+      "source_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+      "registry_copy_sha256": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6",
+      "glyph_copy_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+      "method": "Read only supplied private copies; independently unpack full opcodes/registerfields, reconstructsigned-low target, sort physical guards and recompute scopes, then compare wholeCLI rows.",
+      "qualification": "These native expected-facts were prepared after implementation but before candidate execution, unlike the separate5IDprecode oracles."
+    },
+    "unchanged_data_profiles": [
+      "analysis/current-pointer-checks.json",
+      "analysis/pointer-checks.json"
+    ],
+    "old_binary_sha256": "1d057ec27ca0ed1b497b890576a2a49d6037325e7e951f6129246aa61f264a43",
+    "baseline_manifest_sha256": "d408fc92038fc9379845954bf0a2e901e5a80e3f3834509af424487186276927"
+  },
+  "private_evidence": [
+    {
+      "path": "/var/tmp/dokapon-reference-review-PsCCpFDO/probe.py",
+      "sha256": "afbf3e1aaad2541c1e5b660c696c0e5c1293f55dd6666f4510903aca4a29403e"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-review-PsCCpFDO/probes.json",
+      "sha256": "3062710b8c12c7c9486b9779c61badbc878de7a4db725f83a31780b8905ed828"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-review-PsCCpFDO/checks.json",
+      "sha256": "c953534b9ed7f44ddde7aeaea3a22af7063a321288c8e5cf077b50ec5dbaeff9"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-review-PsCCpFDO/initial-pins.json",
+      "sha256": "226c2a00ef919b78fc976d81764b02186b5173ec4c3d37ea768448ac44800c2e"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-review-PsCCpFDO/overlay.json",
+      "sha256": "3d9b4b37b8ca109faf7ccea58bb6379c5ddbfe147d7af489cf5900b94519fead"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-review-PsCCpFDO/patch-overlay_test.go",
+      "sha256": "f0b1fd00bc10d7dd48fe9b4f57a80d8dfe02a97bbc21f48ef07c2577ed4d3095"
+    }
+  ],
+  "limits": [
+    "Focused tests/probes only; no fullsuite/race/exhaustive malformed input campaign.",
+    "Declared expected physical-word check only; no complete reference/site discovery, payload/argument fidelity, observed-target divergence classification, registry identity/reconciliation, runtime liveness, family/script promotion or approval.",
+    "Only assigned evidence and private scratch written; no production/test/ledger edits, canonical source/ISO/nativeexecution/emulator/PINE/controller/process/log/settings/control access."
+  ]
+}

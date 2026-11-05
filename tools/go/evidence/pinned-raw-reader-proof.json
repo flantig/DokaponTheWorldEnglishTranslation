@@ -1,0 +1,164 @@
+{
+  "schema": "pinned-raw-reader-proof-v1",
+  "at": "2026-10-21T16:30:21.128883+00:00",
+  "status": "VERIFIED_BOUNDED_PINNED_RAW_READER",
+  "contract": "Existing controls validates original span/count/hash/firstEND/explicit relative-byte END and exact one-word role coordinates/values, uses a local4801 surrogate copy through the common decoder, verifies one token per word/all offsets and restores original roles before summaries. Result readiness is blocked_pinned_reader; authoring/native/othergrammar contexts refused. Existing audit owns side pins, bounded windows, actual reference binding and ordered comparisons; pinned_raw requires both exact side keys with no canonical generation. checkJSON existing key tracking enforces explicit scoped fields, including zero-valued tokenWord/Offset; no global token JSON changes. No pool handler, duplicate decoder or rawcontrol report field.",
+  "owners": [
+    "controls",
+    "auditStreams",
+    "checkJSON"
+  ],
+  "new_functions": 0,
+  "new_closures_or_test_functions": 0,
+  "new_Go_files": 0,
+  "new_file_level_types": 1,
+  "type_reason": "TextReadPin groups span/END/word-role contract shared by scanner/audit; TextToken reused for roles. EndOffset pointer distinguishes absent/null from explicitzero. Existing authoring policy/file pin types own different contracts.",
+  "source_evidence": {
+    "frontier": "analysis/sourcepool-reader-frontier.json",
+    "decision": "analysis/pinned-raw-reuse-decision.json",
+    "source_pack_manifest": "0b67bb34492c06a43e34a225dd267bd325301659fab0414384e3b7f44e0751d0",
+    "source_members_root_verified": 32,
+    "original_helper_root_replay_cases": 15,
+    "original_positive_spans": 5,
+    "source_refusals": 10,
+    "qualification": "Nine source-refusals directly projected to scanner; unapproved source-side label corresponds to explicit profile side-key ownership, not identical exception behavior. Existing helper18record/36side configs/3callnodes is pattern reach, not18script/fullcohort coverage. Native source bytes/glyphmap genuine frozen6e/a662; portable ELF/reference ownership synthetic.",
+    "portable_precode_manifest": "20e94234f7c9ac67c18e206eae5a548b64cf26b02f925aab9bb0bee85b7fdab9",
+    "portable_members_root_verified_before_Go_changes": 11,
+    "oracle": "testdata/pinned-raw-audit.json",
+    "oracle_sha256": "f096954edd0258ad785fcce0e1058995aca3df620e1631277402484344dc1a43",
+    "paired_records": 3,
+    "additional_oracle_projection": "raw_control_words is independently verified from existing rawcontrol tokens; no redundant public field added."
+  },
+  "title_assumption_correction": {
+    "report": "analysis/nul-label-reader-frontier.json",
+    "report_sha256": "58b500c769ef4d44b08b9053b8ada04be67cb2e00dc84e51ff8ee79433b8114e",
+    "manifest_sha256": "a5708b92e82a02a39dd9d034dd2f5e0fdab25f32c62414339dba806ba3a27cc7",
+    "members_root_verified": 37,
+    "own_original_shared_decoder_replay_cases": 27,
+    "own_original_jp_stream_replay_native_spans": 20,
+    "table_rows": 50,
+    "distinct_current_targets": 10,
+    "finding": "Frozen modified source titles use internal zeroSPACE and ENDf800; noNULmode justified by stale declaration. Pristine grammar/runtime selector remain unknown. No criterionclosure or code extension."
+  },
+  "verification": {
+    "focused_owners": [
+      "TestPlanAndCopy",
+      "TestPlanRefusals",
+      "TestCLIDryRunAndApply",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "focused_seconds": 33.324,
+    "race": {
+      "status": "PASS",
+      "seconds": 347.151,
+      "scope": "Four focused owners, default CGO1; not fullsuite/nativefonts race",
+      "log_sha256": "5a9ba5932ad527fc1254714d06edeec207a229b5c9fe23430e6eacc1042b9022"
+    },
+    "root_QA": {
+      "path": "/var/tmp/dokapon-pinned-raw-dx_pdq9c/final-checks.json",
+      "sha256": "97701ce5b2b6f4b38f28e851477069c25ef210be61adc8d806f6cfc061db4b5d",
+      "status": "PASS",
+      "core_nativefonts_build_vet": true,
+      "all40Go_gofmt": true,
+      "scoped_credentials": "Two positive-selfchecked patterns, zero matches",
+      "packaged_CLI_captures": 12,
+      "all3new_public_rows_exact": true,
+      "legacy_complete_CLI_unchanged": [
+        "stream-audit",
+        "reference-bound-audit",
+        "canonical-audit",
+        "fixed-audit",
+        "sentinel-audit"
+      ]
+    },
+    "policy_vectors": 14,
+    "profile_vectors": 4,
+    "API_policy_guards": 14,
+    "wire_cuts": 13,
+    "positive_word_bounds": [
+      1,
+      4096
+    ],
+    "explicit_zero_JSON_field_presence": true,
+    "caller_bytes_and_policy_unchanged": true,
+    "source_authoring_refused": true,
+    "review": {
+      "status": "PASS_NO_MATERIAL_FINDINGS",
+      "path": "evidence/pinned-raw-reader-review.json",
+      "sha256": "b13e296859edecf71ad7ff3aaba58b309aef21036316d0de0fcc34055f1d5306",
+      "artifacts_root_verified": 746,
+      "source_pins_root_verified": 567,
+      "artifact_manifest_sha256": "10e4c13e18e0e3a287c9f5b79add8db7193db5baff9e8127c3e790117fe41853",
+      "nested_null_behavior": "Null individual side pin or role element yields controlled per-side error/unknown comparison; never success. Whole read_pins:null is a global refusal."
+    },
+    "source_capsule": {
+      "members": 567,
+      "manifest_sha256": "4b7d3e37d6f4e322a768e67583a4ef03af34d3d5580617978cd1a09c9b69da0f"
+    },
+    "UI": "HTML unchanged; accepted source-matching desktop/mobile receipt retained, no new UI feature",
+    "full_suite_gameplay": "Deferred by owner"
+  },
+  "metrics": {
+    "at": "2026-10-21T16:20:20.172525+00:00",
+    "scope": "Private pinned raw reader candidate; independent original-helper role/span corpus, synthetic pointerbindings; no canonical/runtime/family/retirement credit. TitleNULassumptioncorrected/held, no newmode.",
+    "members": 567,
+    "manifest": "/var/tmp/dokapon-pinned-raw-dx_pdq9c/review-source/manifest.json",
+    "manifest_sha256": "4b7d3e37d6f4e322a768e67583a4ef03af34d3d5580617978cd1a09c9b69da0f",
+    "new": [
+      "analysis/sourcepool-reader-frontier.json",
+      "analysis/pinned-raw-reuse-decision.json",
+      "analysis/nul-label-reader-frontier.json",
+      "testdata/pinned-raw-audit.json",
+      "examples/pinned-raw-audit/glyphmap.json",
+      "examples/pinned-raw-audit/observed.elf",
+      "examples/pinned-raw-audit/profile.json",
+      "examples/pinned-raw-audit/reference.elf",
+      "examples/pinned-raw-audit/registry.json"
+    ],
+    "runtime": {
+      "files": 170,
+      "bytes": 2498324
+    },
+    "accounted_inputs": 269,
+    "production_files": 39,
+    "production_bytes": 451271,
+    "production_growth_bytes": 6164,
+    "new_example_bytes": 35004,
+    "runtime_growth_bytes": 41168,
+    "test_growth_bytes": 7582,
+    "new_oracle_bytes": 47346,
+    "changed_existing_oracle_bytes": 0,
+    "new_functions": 0,
+    "new_production_files": 0
+  },
+  "source_pins": {
+    "input_types.go": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf",
+    "inputs.go": "1d31376672f059f73aec0e7048dab810e6264527e70e427a77ce79a73126541a",
+    "patch.go": "2cd0af4978069bdf9fc1795f0572b323c50deb822c32d7fe099c42a22bb7c435",
+    "patch_test.go": "cc479ed6cde52cdf7f96db35c24131e939ee23ff27233ddf55e0fb426e1d0659",
+    "stream_audit.go": "b167e3ae5a8105453ee7c992779bd608f470ff568a989b4bf6f8efc9254500e8",
+    "stream_audit_types.go": "fab068d88e6e5e29788c11f3fdd2bfc19d6dd1629ed2d84b2e38a944efa4b861",
+    "text_types.go": "a7b04b016529ae7b6307c18aeb9c7e62b906873abafed6eeeebfd5131292f71f",
+    "analysis/sourcepool-reader-frontier.json": "2883b26a276548777e777204fc891d200b9a50fd2bad1bb0b1a2dfea0e820d01",
+    "analysis/pinned-raw-reuse-decision.json": "c9f2952f095327bd42f5089997ece67f10add7aaa8054614e9839ea37f3991ec",
+    "analysis/nul-label-reader-frontier.json": "58b500c769ef4d44b08b9053b8ada04be67cb2e00dc84e51ff8ee79433b8114e",
+    "testdata/pinned-raw-audit.json": "f096954edd0258ad785fcce0e1058995aca3df620e1631277402484344dc1a43",
+    "examples/pinned-raw-audit/glyphmap.json": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+    "examples/pinned-raw-audit/observed.elf": "ebf192ea5975cda9163a3666f166b5ffb3bcb0e8e8f5e7a4808e91701e8829d4",
+    "examples/pinned-raw-audit/profile.json": "31dc7033e5a52b546e81e0baafc7d0f495cd4701fb0efbe325afab51373dcd9e",
+    "examples/pinned-raw-audit/reference.elf": "e346f44b6f89669305b8a6061b52e3761f0ab510b509806b3466ae01ed22b696",
+    "examples/pinned-raw-audit/registry.json": "86fb088773cee5ef2d68af7c7fcc54eddcff321cdff1d9eeaa645523e63320f1",
+    "README.md": "8fc796bc5d5c4668c0d5365b51301b6f4d26be98bd18406e6450fe923d748786",
+    "MIGRATION.md": "5af3b59762bab4247d5803e3f653ba957da5bd64cea7d08d31246564f14a19cc",
+    "ARCHITECTURE.md": "2f1ab866ba327fe75ecde86621ae93c85d94dab6da0130c2466c4af3922c2287"
+  },
+  "coverage": {
+    "full_families": "6/14 unchanged",
+    "planning": "67/84 unchanged",
+    "new_credit": 0,
+    "script_retirements": 0,
+    "reduction_claim": false,
+    "remaining": "Other raw battle/board compatibility cohorts and event/script source selection remain under study; pristine title grammar unproved. Joined reconciliation/proposals separate. No full410 migration claim."
+  },
+  "protected_scope": "Only frozen extracted/synthetic inputs and owned scratch outputs. No protected ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control or actualgamepatchwrites."
+}

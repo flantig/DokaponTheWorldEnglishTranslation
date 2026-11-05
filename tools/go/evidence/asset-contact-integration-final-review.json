@@ -1,0 +1,71 @@
+{
+  "scope": "Fresh ordinary read-only delta closure: contacts LF layout and original per-item paint order",
+  "at_utc": "2026-10-21T03:55:30.911542+00:00",
+  "result": "Both material fidelity findings CLOSED on the pinned revision; no open finding in this reviewed delta. Findings only, not approval.",
+  "prior_review": {
+    "path": "evidence/asset-contact-integration-review.json",
+    "sha256": "5aec8da06f33b2c9ccc2a187ae70b762d543a5f73a92ce3f3ebfa55a989188d3",
+    "status": "Unchanged historical V2 report with OPEN findings; positive old-candidate receipts preserved."
+  },
+  "candidate": {
+    "V2_manifest": "/var/tmp/dokapon-contact-integration-ul2hqxg_/review-source-v2/review-manifest.json",
+    "V2_manifest_sha256": "0b800cb45d43f2ce3ccb8f4d0b3d80042f5e45077c04c28eda9ed692a06268c0",
+    "final_delta_pins": {
+      "texture_contacts.go": "42e7380206a9470757e4f6d42e17941773f63e8407d926f11ebb548e9e9e75c8",
+      "patch_test.go": "20fbc7c7e53f1f92d79842abdfe636dcf44e10a7460004657fe27fb932cd9707",
+      "testdata/asset-contacts.zip": "2e88987488bce0cdb2e7371b3f494b13076c5d80df8988d0ba3cd1f697dc32e4",
+      "analysis/asset-contact-label-order-contract.json": "d1b4af34f2646bd6e1e878956385043bc5e7f23c3c1ef1fe21be6607943b875a"
+    },
+    "binding": "Only texture_contacts.go,patch_test.go,testdata/asset-contacts.zip changed among V2 members;199 other members unchanged. New label-order contract pinned separately. The previously pinned3 accepted assets support actual Golden execution."
+  },
+  "closures": [
+    {
+      "id": "A032-1 / LF-label-layout",
+      "status": "CLOSED",
+      "evidence": "Own final candidate reproduces both frozen control/newline Astra complete RGB pages exactly. Additional independent Pillow blank/trailing-LF and CRLF+bidi pages match;4,848 physical lines cross4096 shaping batches and match a complete original-provider page. Fresh existing CLI owner verifies four source-only LF scenarios and quoted LF CSV fields.",
+      "mechanism": "Bootstrap A supplies bbox.bottom+4 line step; split full formatted captions on LF; physical lines retain original logical caption color/position,including blanks/trailing lines."
+    },
+    {
+      "id": "A032-2 / per-item-paint-order",
+      "status": "CLOSED",
+      "evidence": "Own final candidate matches frozen dark-tall-1 and seven-row dark-tall-7 original RGB pages,including the prior207-channel mismatch. Fresh existing CLI owner includes independent combining control/occlusion scenarios.",
+      "mechanism": "Each placement retains thumbnail and contiguous mask range. Shaping is batched,while painting now follows item thumbnail→that item captions→next item with whole-page clipping."
+    },
+    {
+      "id": "placement-type-readability",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "evidence": "Local placement type replaces two repeated anonymous struct declarations without changing the tested ordering or mask indexing. No new function/file/backend."
+    }
+  ],
+  "independent_verification": {
+    "pixel_replay": "PASS4 complete frozen Astra RGB pages plus3 additional independent Pillow pages. Additional expected bytes frozen after implementation,before their Go execution; not precode. All68 Astra artifacts rehashed.",
+    "unchanged_behavior": "Three old collection complete stdout/stderr/exit results are byte-identical to V2 (47rows/10whole-page source cases). Final CLI additionally covers all59rows/16wholeRGBpages across9 source scenarios. No full-family inference.",
+    "source_oracles": "All63 new source-supplement members rehashed. Every normalized fixture full RGB hash and selected CSV value independently joins source facts/original CSV. Literal manifest/detector/CSV/sheetmap bytes are unchanged from the provider. All188 prior ZIP entry contents preserved;42 entries appended.",
+    "focused_tests": "Own final native CLI PASS9.434s; CGO_ENABLED=0 with nativefonts tag CLI PASS6.076s; actual TestPilotHistoricalGoldenBytes PASS9.905s. Both final builds and vets pass. No nonexistent test name or full-suite/race claim.",
+    "hygiene": "Final pins held;gofmt,scoped Git/manual whitespace and credential scan with actual-whitespace synthetic selfcheck pass. All own jobs terminal."
+  },
+  "static_assessment": "The runtime change is confined to existing contactSheets. Native font kernel,PNG conversion,sampling,group/dedup/linkage,input validation/cache and publication owners remain unchanged. Plan/shape/paint phases are readable; one local placement type clarifies shared state. Chunking retains bounded backend batches and preserves line order. Existing native dependency/build-tag costs and limitations from the earlier review remain.",
+  "oracle_references": [
+    {
+      "path": "evidence/astra-audit-032.json",
+      "sha256": "918b7ebe3ecef2eb7153777b0b8f40a5e78b8974b7afbe2801035a3368792f64",
+      "status": "Immutable historical findings remain OPEN there; this report supplies fresh independent closure evidence."
+    },
+    {
+      "path": "/var/tmp/dokapon-astra032-probe-3r96wtt7/probe-seal.json",
+      "sha256": "e0d256c02c88fdb7ad740cd837447fd474229833394320cc2a25051f4042ceb9"
+    },
+    {
+      "path": "/var/tmp/dokapon-contact-label-order-m2r1gcr5/manifest.json",
+      "sha256": "42205a4772d7a80b7314fe24146069caf166edc1925d60daf023a950fdbcaa7f",
+      "timing": "Source-only postimplementation expectations frozen before candidate comparison on six new collections."
+    }
+  ],
+  "private_receipt": {
+    "path": "/var/tmp/dokapon-contact-final-review-6xn319tu/checks-final.json",
+    "sha256": "e6f595f030c352cf2d92f70af0d261702e031c8a488beaccc77fa804f61fe4dd",
+    "details": "Hashes focused command logs,binaries,all detailed source joins/replay scripts/results and additional whole-page expected bytes."
+  },
+  "scope_limits": "Delta closure only. No approval,milestone/family/retirement/artwork/ISO/native-blend credit. Remaining weekday/flat90 pair variants and full-family assessment stay open. No arbitrary-font/subpixel/host-library portability proof beyond measured finite inputs. No production/test/fixture/doc/coverage edits or protected-resource/historical-main access by reviewer."
+}

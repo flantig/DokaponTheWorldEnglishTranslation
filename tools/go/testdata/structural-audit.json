@@ -1,0 +1,2177 @@
+{
+  "schema_version": 1,
+  "qualification": "Independent ORIGINAL-selected decoders/rendered_pages plus manual source-equation projection. Frozen BEFORE structural Go implementation/comparison. No candidate execution. Raw inputs are literal synthetic streams with shared glyphmap, not native calibration.",
+  "glyphmap": {
+    "0": " ",
+    "1": "A",
+    "2": "B",
+    "3": "J",
+    "4": " "
+  },
+  "source_corpus_sha256": "b8ee01c70e3d18ebb44aed5cf2d2882ba1ad9e463fef2e115c0a7622d987c751",
+  "refusals": [
+    {
+      "name": "zero-line-limit",
+      "decoder": "narrative",
+      "line_limit": 0
+    },
+    {
+      "name": "negative-line-limit",
+      "decoder": "narrative",
+      "line_limit": -1
+    },
+    {
+      "name": "above-bound-line-limit",
+      "decoder": "narrative",
+      "line_limit": 4097
+    },
+    {
+      "name": "fixed16-projection-not-source-grammar",
+      "decoder": "fixed16",
+      "line_limit": 1
+    },
+    {
+      "name": "pinned-raw-projection-not-source-ABI",
+      "decoder": "pinned_raw",
+      "line_limit": 1
+    }
+  ],
+  "rows": [
+    {
+      "name": "HDR-five-over-four",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "002801000008010000080100000801000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 4,
+      "expected_structure": {
+        "line_limit": 4,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [
+          0
+        ],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 12,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 14,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 16,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 18,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 20,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 22,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HDR-four-at-four",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "0028010000080100000801000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 4,
+      "expected_structure": {
+        "line_limit": 4,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 12,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 14,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 16,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 18,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HDR-trailing-empty-lines-trim",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "002801000008010000080100000801000008000800f8",
+      "decoder": "narrative",
+      "line_limit": 4,
+      "expected_structure": {
+        "line_limit": 4,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 12,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 14,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 16,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 18,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 20,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 22,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HDR-empty-space-only",
+      "ref_hex": "002800f8",
+      "observed_hex": "0028000000080000000800f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            0
+          ]
+        ],
+        "observed_pages": [
+          [
+            0
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 10,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 12,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HDR-leading-empty-lines-retained",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "0028000800080100000800f8",
+      "decoder": "narrative",
+      "line_limit": 2,
+      "expected_structure": {
+        "line_limit": 2,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [
+          0
+        ],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 10,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 12,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HDR-empty-page-filtered-indices",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "002800100100001001000008010000080100000801000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 4,
+      "expected_structure": {
+        "line_limit": 4,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [
+          1
+        ],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "page",
+            "Word": 4096,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "page",
+            "Word": 4096,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 12,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 14,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 16,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 18,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 20,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 22,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 24,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 26,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 28,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "headerless-JP3-observed2-no-growth",
+      "ref_hex": "0100000801000008010000f8",
+      "observed_hex": "01000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 10,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 12,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "headerless-JP1-observed2-growth",
+      "ref_hex": "010000f8",
+      "observed_hex": "01000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": true
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "headerless-JP2-observed2-no-growth",
+      "ref_hex": "01000008010000f8",
+      "observed_hex": "01000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1,
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "headerless-JP-unknown-observed2",
+      "ref_hex": "0100",
+      "observed_hex": "01000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": null,
+        "observed_pages": [
+          [
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": null
+      },
+      "original_reference": {
+        "tokens": null,
+        "source_error": "error: unpack_from requires a buffer of at least 4 bytes for unpacking 2 bytes at offset 2 (actual buffer size is 2)",
+        "consumed_bytes": null,
+        "trailing_bytes": null
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "headerless-JP-empty-observed2-false",
+      "ref_hex": "00000008000000f8",
+      "observed_hex": "01000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            0
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "observed-missing-END-unknown",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "00280100",
+      "decoder": "narrative",
+      "line_limit": 4,
+      "expected_structure": {
+        "line_limit": 4,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": null,
+        "observed_has_hdr": null,
+        "observed_over_limit_pages": null,
+        "headerless_line_growth_advisory": null
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": null,
+        "source_error": "error: unpack_from requires a buffer of at least 6 bytes for unpacking 2 bytes at offset 4 (actual buffer size is 4)",
+        "consumed_bytes": null,
+        "trailing_bytes": null
+      }
+    },
+    {
+      "name": "HDR-observed-known-JP-unknown",
+      "ref_hex": "0100",
+      "observed_hex": "002801000008010000080100000801000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 4,
+      "expected_structure": {
+        "line_limit": 4,
+        "reference_pages": null,
+        "observed_pages": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [
+          0
+        ],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": null,
+        "source_error": "error: unpack_from requires a buffer of at least 4 bytes for unpacking 2 bytes at offset 2 (actual buffer size is 2)",
+        "consumed_bytes": null,
+        "trailing_bytes": null
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 12,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 14,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 16,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 18,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 20,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 22,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "space-word0-versus-nonzero-space-glyph",
+      "ref_hex": "010000f8",
+      "observed_hex": "00000008040000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            0,
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": true
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HL-icon-param8-payloadlookalikes-count-one-each",
+      "ref_hex": "0028010000f8",
+      "observed_hex": "002801b000a000b000f800280008001000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            3
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "hl",
+            "Word": 45057,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "icon",
+            "Word": 40960,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "param8",
+            "Word": 45056,
+            "Offset": 6,
+            "Payload": "APgAKAAIABA="
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 16,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 18,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "PAGE-speaker-trailing-empty-page",
+      "ref_hex": "010000f8",
+      "observed_hex": "010000100038000800f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1
+          ],
+          [
+            0
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "page",
+            "Word": 4096,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14336,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 8,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 10,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "headerless-leading-setup-speaker-pen-not-visible",
+      "ref_hex": "010000f8",
+      "observed_hex": "014098390148010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "setup",
+            "Word": 16385,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "speaker",
+            "Word": 14744,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "pen0",
+            "Word": 18433,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 8,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 10,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "HDR-reference-unreadable-independent-false-advisory",
+      "ref_hex": "070000f8",
+      "observed_hex": "01400028010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": null,
+        "observed_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": null,
+        "source_error": "ValueError: decode_structured: unrecognized word 0x0007 at offset 0x0 (stream started 0x0) - not HDR/END/PAGE/LINE/SPACE/known control range, and not a valid non-empty glyphmap entry",
+        "consumed_bytes": null,
+        "trailing_bytes": null
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "setup",
+            "Word": 16385,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "PAGE-empty-pages-retained-no-comparison-visible",
+      "ref_hex": "001000f8",
+      "observed_hex": "00100008001000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ],
+        "observed_pages": [
+          [
+            0
+          ],
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "page",
+            "Word": 4096,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "page",
+            "Word": 4096,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "page",
+            "Word": 4096,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 6,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 8,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "post-END-tail-excluded-from-structure",
+      "ref_hex": "010000f8",
+      "observed_hex": "0028010000f800080100",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 4
+      }
+    },
+    {
+      "name": "max-line-limit-4096",
+      "ref_hex": "010000f8",
+      "observed_hex": "002801000008010000080100000801000008010000f8",
+      "decoder": "narrative",
+      "line_limit": 4096,
+      "expected_structure": {
+        "line_limit": 4096,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "observed_has_hdr": true,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hdr",
+            "Word": 10240,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 10,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 12,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 14,
+            "Payload": null
+          },
+          {
+            "Kind": "line",
+            "Word": 2048,
+            "Offset": 16,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 18,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 20,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 22,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "positional-standalone-B000-is-HL",
+      "ref_hex": "010000f8",
+      "observed_hex": "00b0010000f8",
+      "decoder": "positional",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            2
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hl",
+            "Word": 45056,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 4,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 6,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "positional-colour-pen-space-alias",
+      "ref_hex": "010000f8",
+      "observed_hex": "00b001d800000400010000f8",
+      "decoder": "positional",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": [
+          [
+            3
+          ]
+        ],
+        "observed_has_hdr": false,
+        "observed_over_limit_pages": [],
+        "headerless_line_growth_advisory": false
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": [
+          {
+            "Kind": "hl",
+            "Word": 45056,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "pen0",
+            "Word": 55297,
+            "Offset": 2,
+            "Payload": null
+          },
+          {
+            "Kind": "space",
+            "Word": 0,
+            "Offset": 4,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 4,
+            "Offset": 6,
+            "Payload": null
+          },
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 8,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 10,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 12,
+        "trailing_bytes": 0
+      }
+    },
+    {
+      "name": "narrative-same-B000-shortbytes-unknown",
+      "ref_hex": "010000f8",
+      "observed_hex": "00b0010000f8",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": null,
+        "observed_has_hdr": null,
+        "observed_over_limit_pages": null,
+        "headerless_line_growth_advisory": null
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": null,
+        "source_error": "error: unpack_from requires a buffer of at least 12 bytes for unpacking 2 bytes at offset 10 (actual buffer size is 6)",
+        "consumed_bytes": null,
+        "trailing_bytes": null
+      }
+    },
+    {
+      "name": "truncated-opaque-payload-unknown",
+      "ref_hex": "010000f8",
+      "observed_hex": "00b001000200",
+      "decoder": "narrative",
+      "line_limit": 1,
+      "expected_structure": {
+        "line_limit": 1,
+        "reference_pages": [
+          [
+            1
+          ]
+        ],
+        "observed_pages": null,
+        "observed_has_hdr": null,
+        "observed_over_limit_pages": null,
+        "headerless_line_growth_advisory": null
+      },
+      "original_reference": {
+        "tokens": [
+          {
+            "Kind": "glyph",
+            "Word": 1,
+            "Offset": 0,
+            "Payload": null
+          },
+          {
+            "Kind": "end",
+            "Word": 63488,
+            "Offset": 2,
+            "Payload": null
+          }
+        ],
+        "source_error": null,
+        "consumed_bytes": 4,
+        "trailing_bytes": 0
+      },
+      "original_observed": {
+        "tokens": null,
+        "source_error": "error: unpack_from requires a buffer of at least 12 bytes for unpacking 2 bytes at offset 10 (actual buffer size is 6)",
+        "consumed_bytes": null,
+        "trailing_bytes": null
+      }
+    }
+  ]
+}

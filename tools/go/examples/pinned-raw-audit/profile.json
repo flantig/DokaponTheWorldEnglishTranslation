@@ -1,0 +1,205 @@
+{
+  "evidence": "Synthetic ELF and observed pointer ownership containing exact original-helper raw spans. Independently projected paired comparisons; no canonical generation, original native refs, liveness, fit or writeback authority. Source native side bytes retain original SHA pins; source coordinate translation explicit in packaging receipt.",
+  "observed_family": "synthetic-pinned-raw-cohort",
+  "sources": {
+    "reference": {
+      "path": "reference.elf",
+      "size": 4096,
+      "sha256": "e346f44b6f89669305b8a6061b52e3761f0ab510b509806b3466ae01ed22b696"
+    },
+    "observed": {
+      "path": "observed.elf",
+      "size": 4096,
+      "sha256": "ebf192ea5975cda9163a3666f166b5ffb3bcb0e8e8f5e7a4808e91701e8829d4"
+    },
+    "registry": {
+      "path": "registry.json",
+      "size": 772,
+      "sha256": "86fb088773cee5ef2d68af7c7fcc54eddcff321cdff1d9eeaa645523e63320f1"
+    },
+    "glyphmap": {
+      "path": "glyphmap.json",
+      "size": 20646,
+      "sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d"
+    }
+  },
+  "entries": {
+    "0x100300": {
+      "reference": {
+        "start": "0x400",
+        "end": "0x410"
+      },
+      "observed": {
+        "start": "0x400",
+        "end": "0x410"
+      },
+      "decoder": "pinned_raw",
+      "read_pins": {
+        "reference": {
+          "words": 8,
+          "end_offset": 14,
+          "sha256": "17df15214ecefd32985f3ae8173a2c47f3a098d6bae2f61f73da42f3155a6809",
+          "roles": [
+            {
+              "Kind": "rawarg",
+              "Word": 20480,
+              "Offset": 4,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 45056,
+              "Offset": 6,
+              "Payload": null
+            },
+            {
+              "Kind": "rawcontrol",
+              "Word": 6144,
+              "Offset": 10,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 55296,
+              "Offset": 12,
+              "Payload": null
+            }
+          ]
+        },
+        "observed": {
+          "words": 8,
+          "end_offset": 14,
+          "sha256": "17df15214ecefd32985f3ae8173a2c47f3a098d6bae2f61f73da42f3155a6809",
+          "roles": [
+            {
+              "Kind": "rawarg",
+              "Word": 20480,
+              "Offset": 4,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 45056,
+              "Offset": 6,
+              "Payload": null
+            },
+            {
+              "Kind": "rawcontrol",
+              "Word": 6144,
+              "Offset": 10,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 55296,
+              "Offset": 12,
+              "Payload": null
+            }
+          ]
+        }
+      }
+    },
+    "0x100340": {
+      "reference": {
+        "start": "0x440",
+        "end": "0x462"
+      },
+      "observed": {
+        "start": "0x440",
+        "end": "0x464"
+      },
+      "decoder": "pinned_raw",
+      "read_pins": {
+        "reference": {
+          "words": 17,
+          "end_offset": 32,
+          "sha256": "594dc1ae96c971020f126d4fec048fe56e39f1174e63fa8ee73517432fbdb7e3",
+          "roles": [
+            {
+              "Kind": "rawarg",
+              "Word": 22526,
+              "Offset": 24,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 20480,
+              "Offset": 30,
+              "Payload": null
+            }
+          ]
+        },
+        "observed": {
+          "words": 18,
+          "end_offset": 34,
+          "sha256": "8ec8cb699cc6aaf13bc4ff1a9cc84c1c740f46f29275282048899c68905cd359",
+          "roles": [
+            {
+              "Kind": "rawarg",
+              "Word": 22526,
+              "Offset": 26,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 20480,
+              "Offset": 32,
+              "Payload": null
+            }
+          ]
+        }
+      }
+    },
+    "0x100380": {
+      "reference": {
+        "start": "0x480",
+        "end": "0x4a0"
+      },
+      "observed": {
+        "start": "0x480",
+        "end": "0x4a4"
+      },
+      "decoder": "pinned_raw",
+      "read_pins": {
+        "reference": {
+          "words": 16,
+          "end_offset": 30,
+          "sha256": "1b07b92a9a55f964588fe589231be2df28199304b1aab3eec3b3b28b917f57aa",
+          "roles": [
+            {
+              "Kind": "rawarg",
+              "Word": 22526,
+              "Offset": 22,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 20480,
+              "Offset": 28,
+              "Payload": null
+            }
+          ]
+        },
+        "observed": {
+          "words": 18,
+          "end_offset": 34,
+          "sha256": "f62bde038227e18dafad8f9194a068cdb57fc861904a44128cbd9096ad3b90d5",
+          "roles": [
+            {
+              "Kind": "rawarg",
+              "Word": 22526,
+              "Offset": 26,
+              "Payload": null
+            },
+            {
+              "Kind": "rawarg",
+              "Word": 20480,
+              "Offset": 32,
+              "Payload": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}

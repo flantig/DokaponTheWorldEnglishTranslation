@@ -1,0 +1,235 @@
+{
+  "schema": "reconstruction-native-contract-v1",
+  "status": "ORIGINAL_SOURCE_AND_OLD_CODEC_ONLY",
+  "root_verification": {
+    "at": "2026-10-21T06:55:36.356808+00:00",
+    "sha256": "1fc8751a5f42731d1f4e78b0582316bda331ac9559d62a1d66e7863638e7f58e",
+    "bytes": 350493,
+    "members": 177,
+    "vectors": 45,
+    "previous_43_inputs_and_all_original_pixels_unchanged": true,
+    "root_verified_native_source_members": 54,
+    "root_verified_icon_source_members": 15,
+    "old_codec_projection_only": true
+  },
+  "native_source_manifest": {
+    "path": "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/manifest.json",
+    "sha256": "a502a2d5e04c098ce4c7a4c4ec53b8ec2029b05e75128fe1a317be29654cc247"
+  },
+  "receipt": {
+    "at": "2026-10-21T06:52:51.781331+00:00",
+    "qualification": "Whole native TXD is an OLD ACCEPTED CODEC source-policy projection after independent original renderer pixels; NOT an independent native encoder oracle or new Go reconstruction execution. New finite synthetic panel, not historical artwork migration.",
+    "source_identity_before": {
+      "dev": 35,
+      "ino": 93547823,
+      "size": 525564,
+      "mtime_ns": 1792565365895760673,
+      "sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e"
+    },
+    "source_identity_after": {
+      "dev": 35,
+      "ino": 93547823,
+      "size": 525564,
+      "mtime_ns": 1792565365895760673,
+      "sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e"
+    },
+    "source_preserved": true,
+    "old_binary_preserved": true,
+    "commands": [
+      {
+        "name": "import-dry",
+        "args": [
+          "nice",
+          "-n",
+          "19",
+          "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+          "--source",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/original.txd",
+          "--texture-profile",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/import-profile.json"
+        ],
+        "exit": 0
+      },
+      {
+        "name": "import-apply",
+        "args": [
+          "nice",
+          "-n",
+          "19",
+          "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+          "--source",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/original.txd",
+          "--texture-profile",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/import-profile.json",
+          "--apply",
+          "--output",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/expected-native.txd"
+        ],
+        "exit": 0
+      },
+      {
+        "name": "import-overwrite",
+        "args": [
+          "nice",
+          "-n",
+          "19",
+          "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+          "--source",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/original.txd",
+          "--texture-profile",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/import-profile.json",
+          "--apply",
+          "--output",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/expected-native.txd"
+        ],
+        "exit": 1
+      },
+      {
+        "name": "readback",
+        "args": [
+          "nice",
+          "-n",
+          "19",
+          "/var/tmp/dokapon-ttf-backend-ecll48c9/native-lf",
+          "--source",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/expected-native.txd",
+          "--texture-profile",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/readback-profile.json",
+          "--apply",
+          "--output",
+          "/var/tmp/dokapon-donor-native-oracle-9zz4oxvn/expected-native-decoded.png"
+        ],
+        "exit": 0
+      }
+    ],
+    "native_header": {
+      "width": 1024,
+      "height": 512,
+      "depth": 8,
+      "version": 1,
+      "pixel_offset": 212,
+      "pixel_bytes": 524288
+    },
+    "raw_renderer_changed_pixels": 8378,
+    "projected_decoded_changed_pixels": 8260,
+    "projected_decoded_changed_channels": 24758,
+    "decoded_changed_outside_exact_allow": 0,
+    "projected_vs_raw_different_pixels": 3091,
+    "native_changed_bytes": 8260,
+    "native_pixel_changes_outside_exact_allow": 0,
+    "native_pixel_changes_outside_raw_changed": 0,
+    "native_changes_outside_pixel_payload": 0,
+    "native_ledger_scope": "PSMT8 addresses derived from OLD accepted texture.go walk; full mapping bijective; all nonpixel bytes including CLUT and headers unchanged.",
+    "output_pins": {
+      "original.txd": {
+        "bytes": 525564,
+        "sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e"
+      },
+      "original.raw": {
+        "bytes": 2097152,
+        "sha256": "b565cbc6f0c6b9bdad0d53dea396ab8f4240330a8dd2da0008e2e3a3870494ea"
+      },
+      "original-final.png": {
+        "bytes": 113454,
+        "sha256": "a04b6d1d315c401ff469dba06f35252010e085980f45f6c271a841728dca2ce2"
+      },
+      "original-final.raw": {
+        "bytes": 2097152,
+        "sha256": "89b219dca2a2323726758236419a4d016f53cdc2011d5733c1533725a7a33219"
+      },
+      "allow.raw": {
+        "bytes": 524288,
+        "sha256": "c4980c5a021c37eabd33960b1b9df7448b0eb4b44066a4a14fdaeef730cf7de2"
+      },
+      "original-recipe.json": {
+        "bytes": 1072,
+        "sha256": "ffc96c2f3b2677b7e93fb37d7cbab0b275469bd235bad1a4b527b1646f3a96c8"
+      },
+      "expected-native.txd": {
+        "bytes": 525564,
+        "sha256": "5245d6bb533f0f5173d28251f74d5dddbc83a63e99a5f7bcf213dd5f58e8cd0b"
+      },
+      "expected-native-decoded.png": {
+        "bytes": 105336,
+        "sha256": "5d74ff0618150cd61de56ed7845b524bd0765a378e5d5432d2254b5d19d37afe"
+      },
+      "expected-native-decoded.raw": {
+        "bytes": 2097152,
+        "sha256": "794329ff40074e07597fcb158a4a9d6363721e8ab9f1b73f14ecc9c603cc19c1"
+      },
+      "native-byte-ledger.json": {
+        "bytes": 347356,
+        "sha256": "59d7f2d666a29831794370e1426d5c1853fd5a2c0ab52d9e3f018c68e2094c59"
+      }
+    },
+    "limits": [
+      "No new candidate/project/historical main execution.",
+      "Old codec export/import/readback only; no font, independent encoder, visual approval, ISO or protected runtime resource access."
+    ]
+  },
+  "composition": {
+    "reconstruction": {
+      "allow": [
+        [
+          151,
+          248,
+          354,
+          29
+        ],
+        [
+          153,
+          164,
+          320,
+          26
+        ]
+      ],
+      "exclude": [
+        [
+          210,
+          251,
+          7,
+          22
+        ]
+      ],
+      "allow_add": [
+        [
+          213,
+          256,
+          3,
+          4
+        ]
+      ],
+      "erases": [
+        {
+          "id": "erase-rows",
+          "rect": [
+            151,
+            248,
+            354,
+            29
+          ],
+          "method": "rows",
+          "grow": 1,
+          "lum_lt": 180
+        },
+        {
+          "id": "erase-cols",
+          "rect": [
+            153,
+            164,
+            320,
+            26
+          ],
+          "method": "cols",
+          "grow": 1,
+          "lum_lt": 180
+        }
+      ]
+    },
+    "order": [
+      "erase-rows",
+      "erase-cols"
+    ]
+  },
+  "limits": "No candidate results or migration coverage. Original renderer pixels; native expected bytes are OLD accepted source-policy codec projection, not independent encoder, actual historical recipe retirement or visual approval."
+}

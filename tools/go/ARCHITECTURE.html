@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dokapon Go runner — architecture</title>
+    <style>
+      * {
+        box-sizing:border-box;
+      }
+      body {
+        margin:0;
+        background:#f4f1e8;
+        color:#1f2933;
+        font:16px/1.55 system-ui,sans-serif;
+      }
+      main {
+        max-width:1120px;
+        margin:auto;
+        padding:28px 20px 60px;
+      }
+      h1 {
+        font-size:2rem;
+        line-height:1.2;
+        margin:0 0 10px;
+      }
+      h2 {
+        font-size:1.4rem;
+        margin:36px 0 12px;
+      }
+      p {
+        max-width:90ch;
+      }
+      a {
+        color:#164b78;
+      }
+      a:focus-visible,.diagram:focus-visible {
+        outline:3px solid #b64d13;
+        outline-offset:4px;
+      }
+      .tag {
+        font:13px ui-monospace,monospace;
+        letter-spacing:.08em;
+        text-transform:uppercase;
+        color:#5b6266;
+      }
+      .caveat {
+        border-left:4px solid #a66317;
+        padding:12px 18px;
+        background:#fff5de;
+      }
+      .legend {
+        display:flex;
+        flex-wrap:wrap;
+        gap:18px;
+      }
+      .key {
+        display:inline-block;
+        width:16px;
+        height:16px;
+        border:1.5px solid #53616a;
+        vertical-align:middle;
+        margin-right:6px;
+      }
+      .data rect,.key.data {
+        fill:#e3edf4;
+        background:#e3edf4;
+      }
+      .logic rect,.key.logic {
+        fill:#fffdf7;
+        background:#fffdf7;
+      }
+      .note rect,.key.note {
+        fill:#fff1cf;
+        background:#fff1cf;
+      }
+      .diagram {
+        overflow-x:auto;
+        border:1px solid #b9b6ac;
+        background:#fffefa;
+        border-radius:9px;
+        padding:8px;
+        margin:12px 0;
+      }
+      svg {
+        display:block;
+        width:100%;
+        min-width:880px;
+        height:auto;
+      }
+      svg text {
+        font:16px system-ui,sans-serif;
+        fill:#1f2933;
+      }
+      svg rect {
+        stroke:#53616a;
+        stroke-width:1.4;
+      }
+      .edge {
+        stroke:#36454f;
+        stroke-width:1.6;
+        fill:none;
+        marker-end:var(--arrow);
+      }
+      svg .label {
+        font-size:14px;
+        fill:#4a5055;
+      }
+      code {
+        font-size:.92em;
+      }
+      footer {
+        margin-top:36px;
+        border-top:1px solid #b9b6ac;
+        padding-top:16px;
+      }
+      @media(max-width:600px) {
+        main {
+          padding:20px 12px 36px;
+        }
+        h1 {
+          font-size:1.65rem;
+        }
+        .diagram {
+          padding:4px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="tag">Dokapon World Mod / tools/go</p>
+      <h1>The Go runner, at a glance</h1>
+      <p>A single <code>package main</code> CLI: reviewed JSON tables supply patch facts, the registry supplies canonical English, and shared Go logic plans and validates changes. Scoped operations can be enhanced without reproducing every historical script.</p>
+      <p class="caveat">
+        <strong>14 scoped toolkit areas · 6/14 full family contracts. Historical paths: 8 full Go · 20 reviewed · 16 partial · 366 outstanding / 410.</strong> The <a href="evidence/registry-owner-proof.json">integrated Go checkpoint passes</a>; see the <a href="analysis/reusability-coverage.md">14-area owner map and limits</a>. Historical retirements and recipe entry counts are not full Go migration or gameplay proof.</p>
+      <nav aria-label="Diagram sections">
+        <a href="#components">Components</a> · <a href="#safety">Dry run / apply</a> · <a href="#reports">Registry / reports</a> · <a href="ARCHITECTURE.md">Source notes</a>
+      </nav>
+      <p class="legend">
+        <span>
+          <span class="key data"></span>Input data</span>
+        <span>
+          <span class="key logic"></span>Existing Go responsibility</span>
+        <span>
+          <span class="key note"></span>Read-only result / safety note</span>
+        <span>→ Call or labelled data/control flow</span>
+      </p>
+      <p>On narrow screens, scroll each diagram horizontally. Boxes describe existing responsibilities, not separate executables or proposed packages.</p>
+      <h2 id="components">1. Components and contracts</h2>
+      <div class="diagram" role="region" aria-label="Components and data; horizontally scrollable on small screens" tabindex="0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 925" role="img" aria-labelledby="components-title components-desc">
+          <title id="components-title">Current shared Go toolkit owners</title>
+          <desc id="components-desc">run routes shared image, registry, reference, fit, texture, snapshot and stream-audit owners. Image transactions retain patchCopy. CMB manifests retain all entry statuses and reuse the texture codec and advisory pixel measurements. Registry, texture and snapshot outputs share the streaming publisher. Paired stream audits reuse controls and checkJSON, optionally encode pinned canonical wording, recheck all sources, and publish read-only facts.</desc>
+          <defs><marker id="components-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#36454f"/></marker></defs>
+          <g style="--arrow:url(#components-arrow)">
+            <path class="edge" d="M175 100 V122 H500 V145"/>
+            <path class="edge" d="M500 100 V145"/>
+            <path class="edge" d="M825 100 V122 H500 V145"/>
+            <path class="edge" d="M500 225 V245 H175 V285"/>
+            <path class="edge" d="M500 225 V285"/>
+            <path class="edge" d="M500 225 V245 H825 V285"/>
+            <path class="edge" d="M300 185 H9 V440 H175 V465"/>
+            <path class="edge" d="M500 225 V255 H337 V440 H500 V465"/>
+            <path class="edge" d="M700 185 H991 V440 H825 V465"/>
+            <path class="edge" d="M500 390 V420 H661 V800 H500 V820"/>
+            <path class="edge" d="M500 625 V820"/>
+            <path class="edge" d="M825 570 V860 H700"/>
+            <path class="edge" d="M300 185 H9 V625 H175 V650"/>
+            <g class="data"><rect x="20" y="20" width="310" height="80" rx="7"/><text x="32" y="45">
+              <tspan x="32" dy="0">Reviewed recipes / profiles</tspan>
+              <tspan x="32" dy="21">IDs, bounds, pins and style facts</tspan>
+            </text></g>
+            <g class="data"><rect x="345" y="20" width="310" height="80" rx="7"/><text x="357" y="45">
+              <tspan x="357" dy="0">Registry / glyph / font data</tspan>
+              <tspan x="357" dy="21">Selected operation inputs only</tspan>
+            </text></g>
+            <g class="data"><rect x="670" y="20" width="310" height="80" rx="7"/><text x="682" y="45">
+              <tspan x="682" dy="0">Explicit source / output paths</tspan>
+              <tspan x="682" dy="21">Source is always read-only</tspan>
+            </text></g>
+            <g class="logic"><rect x="300" y="145" width="400" height="80" rx="7"/><text x="312" y="170">
+              <tspan x="312" dy="0">main.go: main → run</tspan>
+              <tspan x="312" dy="21">Select command and validate inputs</tspan>
+            </text></g>
+            <g class="logic"><rect x="20" y="285" width="310" height="105" rx="7"/><text x="32" y="310">
+              <tspan x="32" dy="0">Image transactions</tspan>
+              <tspan x="32" dy="21">plan / encode / controls / inspect</tspan>
+              <tspan x="32" dy="21">verifySource / patchCopy</tspan>
+              <tspan x="32" dy="21">Guarded image copies + readback</tspan>
+            </text></g>
+            <g class="logic"><rect x="345" y="285" width="310" height="105" rx="7"/><text x="357" y="310">
+              <tspan x="357" dy="0">Registry document operations</tspan>
+              <tspan x="357" dy="21">authorRegistry</tspan>
+              <tspan x="357" dy="21">Draft additions / field policy</tspan>
+              <tspan x="357" dy="21">Read-only source-derived reports</tspan>
+            </text></g>
+            <g class="note"><rect x="670" y="285" width="310" height="105" rx="7"/><text x="682" y="310">
+              <tspan x="682" dy="0">Reference reports</tspan>
+              <tspan x="682" dy="21">references: candidates / observed</tspan>
+              <tspan x="682" dy="21">Heuristic / declared-site facts</tspan>
+              <tspan x="682" dy="21">Read-only JSON; no patch authority</tspan>
+            </text></g>
+            <g class="note"><rect x="20" y="465" width="310" height="105" rx="7"/><text x="32" y="490">
+              <tspan x="32" dy="0">Text fit previews</tspan>
+              <tspan x="32" dy="21">previewFit / wrapPages / controls</tspan>
+              <tspan x="32" dy="21">Separate consumer profiles</tspan>
+              <tspan x="32" dy="21">Read-only geometry diagnostics</tspan>
+            </text></g>
+            <g class="logic"><rect x="345" y="465" width="310" height="181" rx="7"/><text x="357" y="490">
+              <tspan x="357" dy="0">Textures / specs / comparisons</tspan>
+              <tspan x="357" dy="21">authorTexture / indexTextures</tspan>
+              <tspan x="357" dy="21">manifestTextures → cmbIndex</tspan>
+              <tspan x="357" dy="21">inspectRaster: discovery leads</tspan>
+              <tspan x="357" dy="21">composeCells → renderRuns</tspan>
+              <tspan x="357" dy="21">resizeRaster / decodePNG / texture</tspan>
+              <tspan x="357" dy="21">reconstructRaster / generatePalette</tspan>
+              <tspan x="357" dy="21">contactSheets → textMasks</tspan>
+            </text></g>
+            <g class="logic"><rect x="670" y="465" width="310" height="105" rx="7"/><text x="682" y="490">
+              <tspan x="682" dy="0">Artifact snapshot lifecycle</tspan>
+              <tspan x="682" dy="21">snapshotArtifacts</tspan>
+              <tspan x="682" dy="21">create / list / restore to NEW output</tspan>
+              <tspan x="682" dy="21">readInput for bounded receipts</tspan>
+            </text></g>
+            <g class="note"><rect x="20" y="650" width="310" height="160" rx="7"/><text x="32" y="675">
+              <tspan x="32" dy="0">Paired stream audits</tspan>
+              <tspan x="32" dy="21">auditStreams → text core</tspan>
+              <tspan x="32" dy="21">Pinned reference + observed files</tspan>
+              <tspan x="32" dy="21">JSON validation: checkJSON</tspan>
+              <tspan x="32" dy="21">Read-only facts + source rechecks</tspan>
+              <tspan x="32" dy="21">Optional family + registry pin</tspan>
+            </text></g>
+            <g class="logic"><rect x="300" y="820" width="400" height="80" rx="7"/><text x="312" y="845">
+              <tspan x="312" dy="0">Shared publisher: writeNewFile</tspan>
+              <tspan x="312" dy="21">Streaming size + digest + readback + inode</tspan>
+              <tspan x="312" dy="21">Registry / texture / snapshot outputs</tspan>
+            </text></g>
+          </g>
+        </svg>
+      </div>
+      <p>
+        <code>recipe_types.go</code> defines Recipes / Recipe / Stream / Layout / Growth. <code>registry_types.go</code> defines Registry / RegistryEntry / RegistryOptions. Reference contracts live in <code>reference_types.go</code>; shared site geometry and target rules live in <code>reference_geometry.go</code>; paired stream-audit contracts live in <code>stream_audit_types.go</code>. Shared pinned inputs and JSON validation policy live in <code>input_types.go</code> and <code>inputs.go</code>. Font/run/group contracts live in <code>raster_types.go</code>; permission and erase facts in <code>raster_reconstruction_types.go</code>; snapshot contracts in <code>snapshot_types.go</code>. Data stays separate from Go behavior.</p>
+      <p>Recipe selection accepts one file or immediate <code>*.json</code> files in filename order; it does not recurse. Inputs come from CLI paths. Canonical examples, relative to the repository root: <code>registry/string-registry.json</code> and <code>extracted/glyphmap.json</code>.</p>
+      <h2 id="safety">2. Image safety path</h2>
+      <div class="diagram" role="region" aria-label="Image dry run versus apply; horizontally scrollable on small screens" tabindex="0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 905" role="img" aria-labelledby="safety-title safety-desc">
+          <title id="safety-title">Image dry run versus apply</title>
+          <desc id="safety-desc">Dry runs verify and report without an output. Apply verifies, creates an exclusive copy, checks copy identity, guards bytes, writes, syncs, reads back, and hashes. Errors clean up only the owned output inode.</desc>
+          <defs>
+            <marker id="safety-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <path d="M0 0 L8 4 L0 8 Z" fill="#36454f"/>
+            </marker>
+          </defs>
+          <g style="--arrow:url(#safety-arrow)">
+            <g class="logic">
+              <rect x="260" y="15" width="480" height="80" rx="7"/>
+              <text x="276" y="44">
+                <tspan x="276" dy="0">run: load recipes, source, registry, glyphmap</tspan>
+                <tspan x="276" dy="22">plan: validate pins/profile; build and validate edits</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M500 95 V135"/>
+            <g class="logic">
+              <rect x="335" y="135" width="330" height="55" rx="7"/>
+              <text x="351" y="164">
+                <tspan x="351" dy="0">--apply?</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M335 162 H215 V230"/>
+            <text class="label" x="50" y="201">no: dry run</text>
+            <g class="logic">
+              <rect x="20" y="230" width="390" height="100" rx="7"/>
+              <text x="36" y="259">
+                <tspan x="36" dy="0">verifySource</tspan>
+                <tspan x="36" dy="22">fresh plan equals all edit identities</tspan>
+                <tspan x="36" dy="22">full source SHA-256; inspect old/new</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M665 162 H770 V230"/>
+            <text class="label" x="720" y="201">yes: output required</text>
+            <g class="logic">
+              <rect x="555" y="230" width="425" height="100" rx="7"/>
+              <text x="571" y="259">
+                <tspan x="571" dy="0">patchCopy: refuse pointer_check</tspan>
+                <tspan x="571" dy="22">verifySource: replan, pin, inspect</tspan>
+                <tspan x="571" dy="22">create new output: O_EXCL, 0600</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M770 330 V370"/>
+            <g class="logic">
+              <rect x="555" y="370" width="425" height="80" rx="7"/>
+              <text x="571" y="399">
+                <tspan x="571" dy="0">Copy source → output</tspan>
+                <tspan x="571" dy="22">verify copied size + source SHA-256</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M770 450 V490"/>
+            <g class="logic">
+              <rect x="555" y="490" width="425" height="80" rx="7"/>
+              <text x="571" y="519">
+                <tspan x="571" dy="0">inspect copy before writes</tspan>
+                <tspan x="571" dy="22">refuse unexpected old/new bytes</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M770 570 V610"/>
+            <g class="logic">
+              <rect x="555" y="610" width="425" height="80" rx="7"/>
+              <text x="571" y="639">
+                <tspan x="571" dy="0">Write Edit.New at Edit.Offset; Sync</tspan>
+                <tspan x="571" dy="22">inspect: every edit is already patched</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M770 690 V730"/>
+            <g class="logic">
+              <rect x="555" y="730" width="425" height="55" rx="7"/>
+              <text x="571" y="759">
+                <tspan x="571" dy="0">Hash output; return digest</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M215 330 V850 H330"/>
+            <path class="edge" d="M770 785 V850 H670"/>
+            <g class="logic">
+              <rect x="330" y="820" width="340" height="60" rx="7"/>
+              <text x="346" y="849">
+                <tspan x="346" dy="0">run → JSON report on stdout</tspan>
+              </text>
+            </g>
+            <g class="note">
+              <rect x="20" y="440" width="440" height="140" rx="7"/>
+              <text x="36" y="469">
+                <tspan x="36" dy="0">On any error after output creation:</tspan>
+                <tspan x="36" dy="22">close target; remove only the inode</tspan>
+                <tspan x="36" dy="22">created by this call. Source stays</tspan>
+                <tspan x="36" dy="22">read-only; existing outputs refused.</tspan>
+              </text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p>Example image operations: <code>same_length_stream</code>, <code>exact_control_stream</code>, <code>fixed_field</code>, <code>pointer_check</code>, <code>stream_append</code>, <code>stream_grow</code>, <code>stream_allocate</code>, <code>guarded_words</code>. Native-profile inspection applies where required; simple fields do not need every native-profile check.</p>
+      <p>
+        <strong>External requirement:</strong> real-image applications also require two fresh independent reviews and an independent whole-image containment comparison. Those checks are not performed by <code>patchCopy</code>. Compatible append tables share allocation in filename, then numeric registry-ID order; different source pins require separate transactions.</p>
+      <h2 id="reports">3. Registry updates and read-only reports</h2>
+      <div class="diagram" role="region" aria-label="Registry and report branches; horizontally scrollable on small screens" tabindex="0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1020" role="img" aria-labelledby="reports-title reports-desc">
+          <title id="reports-title">Registry and report branches</title>
+          <desc id="reports-desc">Reference candidates, strict observed declared-site facts and text shapes are read-only. Shared reference geometry serves expected planning, append and observed reports; observed target decoding is shared by append and reports, while inspect maps ELF words and target points. A separate stream-audit profile pins reference, observed and glyphmap sources. auditStreams reads declared file windows through the existing controls decoder, rechecks complete source identities and emits comparison facts. Optional observed-family binding reuses references and inspect to require every declared site to agree with one target and the complete explicit observed window to map there. An optional canonical policy derives a third side from pinned registry English through existing controls and encode. Binding failure emits no JSON. Registry documents and audit inputs share checkJSON validation; registry operations can create a new output without image patchCopy.</desc>
+          <defs>
+            <marker id="reports-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <path d="M0 0 L8 4 L0 8 Z" fill="#36454f"/>
+            </marker>
+          </defs>
+          <g style="--arrow:url(#reports-arrow)">
+            <g class="logic">
+              <rect x="300" y="15" width="400" height="60" rx="7"/>
+              <text x="316" y="44">
+                <tspan x="316" dy="0">run: select reviewed table or audit profile</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M500 75 V105 H180 V145"/>
+            <path class="edge" d="M300 45 H9 V625 H500 V650"/>
+            <path class="edge" d="M500 75 V145"/>
+            <path class="edge" d="M500 75 V105 H820 V145"/>
+            <g class="logic">
+              <rect x="20" y="145" width="310" height="120" rx="7"/>
+              <text x="36" y="174">
+                <tspan x="36" dy="0">references.go: references</tspan>
+                <tspan x="36" dy="22">reference_candidates</tspan>
+                <tspan x="36" dy="22">reference_observed</tspan>
+                <tspan x="36" dy="22">Search / declared-site facts</tspan>
+              </text>
+            </g>
+            <g class="logic">
+              <rect x="350" y="145" width="300" height="120" rx="7"/>
+              <text x="366" y="174">
+                <tspan x="366" dy="0">text_shapes</tspan>
+                <tspan x="366" dy="22">pinned image + registry + glyphmap</tspan>
+                <tspan x="366" dy="22">controls → shape/cluster report</tspan>
+                <tspan x="366" dy="22">apply refused</tspan>
+              </text>
+            </g>
+            <g class="logic">
+              <rect x="670" y="145" width="310" height="120" rx="7"/>
+              <text x="686" y="174">
+                <tspan x="686" dy="0">authorRegistry: document updates</tspan>
+                <tspan x="686" dy="22">merge: pinned registry as source</tspan>
+                <tspan x="686" dy="22">markup: image + registry + glyphs</tspan>
+                <tspan x="686" dy="22">derive updates with controls</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M180 265 V325"/>
+            <g class="note">
+              <rect x="20" y="325" width="310" height="100" rx="7"/>
+              <text x="36" y="354">
+                <tspan x="36" dy="0">Candidates stay advisory</tspan>
+                <tspan x="36" dy="22">Observed words + target maps</tspan>
+                <tspan x="36" dy="22">No fallback / patch authority</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M500 265 V325"/>
+            <g class="note">
+              <rect x="350" y="325" width="300" height="100" rx="7"/>
+              <text x="366" y="354">
+                <tspan x="366" dy="0">stdout only</tspan>
+                <tspan x="366" dy="22">no registry mutation</tspan>
+                <tspan x="366" dy="22">decode failures reported</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M820 265 V325"/>
+            <g class="logic">
+              <rect x="670" y="325" width="310" height="100" rx="7"/>
+              <text x="686" y="354">
+                <tspan x="686" dy="0">Validate human / machine policy</tspan>
+                <tspan x="686" dy="22">preserve raw human metadata</tspan>
+                <tspan x="686" dy="22">no backward status transition</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M820 425 V475"/>
+            <g class="logic">
+              <rect x="670" y="475" width="310" height="120" rx="7"/>
+              <text x="686" y="504">
+                <tspan x="686" dy="0">Dry run → stdout summary/hash</tspan>
+                <tspan x="686" dy="22">Apply → new exclusive registry file</tspan>
+                <tspan x="686" dy="22">Sync + exact byte readback</tspan>
+                <tspan x="686" dy="22">owned-inode cleanup on failure</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M330 205 H337 V455 H175 V475"/>
+            <g class="logic">
+              <rect x="20" y="475" width="630" height="120" rx="7"/>
+              <text x="36" y="504">
+                <tspan x="36" dy="0">Shared rules: reference_geometry.go</tspan>
+                <tspan x="36" dy="22">normalizeReference: pointer_check / append / references</tspan>
+                <tspan x="36" dy="22">referenceTarget: append / references</tspan>
+                <tspan x="36" dy="22">inspect: observed ELF word / target-point maps</tspan>
+              </text>
+            </g>
+            <g class="data">
+              <rect x="20" y="650" width="310" height="140" rx="7"/>
+              <text x="36" y="679">
+                <tspan x="36" dy="0">Stream audit profile + glyphmap</tspan>
+                <tspan x="36" dy="22">Reference + observed file pins</tspan>
+                <tspan x="36" dy="22">Explicit half-open FILE windows</tspan>
+                <tspan x="36" dy="22">Narrative / positional decoder</tspan>
+                <tspan x="36" dy="22">Optional family + registry pin</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M330 710 H350"/>
+            <g class="logic">
+              <rect x="350" y="650" width="300" height="120" rx="7"/>
+              <text x="366" y="679">
+                <tspan x="366" dy="0">stream_audit.go: auditStreams</tspan>
+                <tspan x="366" dy="22">readInput / ReaderAt windows</tspan>
+                <tspan x="366" dy="22">controls / encode: shared text</tspan>
+                <tspan x="366" dy="22">Full source hashes + rechecks</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M650 710 H670"/>
+            <g class="note">
+              <rect x="670" y="650" width="310" height="120" rx="7"/>
+              <text x="686" y="679">
+                <tspan x="686" dy="0">Read-only comparison JSON</tspan>
+                <tspan x="686" dy="22">Span bytes / through-END bytes</tspan>
+                <tspan x="686" dy="22">Controls / arguments / payloads</tspan>
+                <tspan x="686" dy="22">Semantic unknown on decode fail</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M650 710 H661 V910 H670"/>
+            <path class="edge" d="M825 840 V770"/>
+            <g class="logic">
+              <rect x="670" y="840" width="310" height="140" rx="7"/>
+              <text x="686" y="869">
+                <tspan x="686" dy="0">Optional observed_family binding</tspan>
+                <tspan x="686" dy="22">references: every site / one target</tspan>
+                <tspan x="686" dy="22">inspect: full window, including tail</tspan>
+                <tspan x="686" dy="22">Exact IDs + explicit file range</tspan>
+                <tspan x="686" dy="22">No fallback; failure → no JSON</tspan>
+              </text>
+            </g>
+            <path class="edge" d="M500 770 V840"/>
+            <path class="edge" d="M980 205 H991 V1000 H337 V892 H350"/>
+            <g class="logic">
+              <rect x="350" y="840" width="300" height="105" rx="7"/>
+              <text x="366" y="869">
+                <tspan x="366" dy="0">Shared JSON validation</tspan>
+                <tspan x="366" dy="22">inputs.go: checkJSON</tspan>
+                <tspan x="366" dy="22">Registry + audit input ownership</tspan>
+                <tspan x="366" dy="22">Selective / whole-object policy</tspan>
+              </text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p>PNG comparisons share <code>decodePNG</code> with manifest discovery, then use <code>resizeRaster</code> and <code>pixelOver</code> for padded crops, nearest scaling and checkerboard pairs. <code>authorTexture</code> rechecks pinned inputs before the existing exclusive publisher. The same comparison path reads <a href="profiles/previews/pair-layouts.json">separate layout facts</a>: flat pairs crop/pad unequal inputs and scale their source-space gap; weekday pairs use <code>textMasks</code> before whole-page nearest scaling. The narrow <code>rgbaPNG.Opaque</code> encoder hook retains flat RGBA headers. The original family contract is verified. Explicit detector status keeps eligible failed measurements in pages while absent detector records remain separate; <a href="evidence/asset-contact-score-policy-proof.json">final proof and compatibility limits</a>.</p>
+      <p>Inline icons use the existing fitted run path. <code>renderRuns</code> reserves fixed-size slots from a shared recipe icon map; <code>composeCells</code> checks complete source and target rectangles, then copies immutable original RGBA after each line. Later text can cover earlier icons. The <a href="evidence/inline-icons-proof.json">original pixel proof</a> is scoped to native optical fonts; <a href="evidence/truetype-raster-proof.json">pinned TrueType authoring</a> now shares this same path and native font backend. Implicit LF lines paint before shared styling. Finite masked reconstruction shares <code>RasterComposition</code>, <code>composeCells</code> and the native importer. <code>reconstructRaster</code> owns current-pixel erase application and local straight-RGBA row/column interpolation. <code>selectRaster</code> shares pixel predicates with original permission footprints; <code>transformRasterMask</code> shares four-connected topology with erases and font counters. The existing component traversal also shares minimum size, foreground seed membership and whole-component tag veto with explicit four/eight connectivity. The label-zero seed policy selects immutable input background, including disconnected regions, and source erosion follows the selected union within its crop before growth. Existing foreground refusals remain the default. <code>SampleRect</code> limits initial predicates while <code>Rect</code> bounds topology and output; morphology stays four-connected. The compositor retains original/current image choice and one allow/subtract/add loop; separate permission tables carry asset facts. Mixed steps require explicit order; text and donors read current pixels while icons retain original source pixels. Other donor algorithms and source-art duties remain open. The shared mask pipeline adds two justified numerical functions, with no full-family or historical retirement credit.</p>
+      <p>Pinned manifest bundles join in <code>contactSheets</code> before group-local duplicate removal and sorting. Cached previews share <code>decodePNG</code>, <code>resizeRaster</code> and <code>pixelOver</code>. The optional Linux/CGO <code>nativefonts</code> build supplies whole-label <code>textMasks</code> through FreeType/Raqm; other builds refuse labelled contacts while preserving existing tools. Grid facts live in <a href="profiles/previews/inventory-layout.json">one layout table</a>. Each thumbnail paints before its own multiline labels, preserving later-item occlusion. All source, font and profile pins are rechecked before <code>writeNewFile</code> publishes one ZIP. Font/header/notices and example data are capability costs, not code reduction or retirement.</p>
+      <p>Registry document policy belongs to <code>authorRegistry</code>, separate from routing and image <code>patchCopy</code>. Reviewed human or machine field allowlists preserve unrelated metadata; draft additions refuse content conflicts and preserve identical existing rows. Apply creates a new file. Registry and stream-audit inputs reuse <code>checkJSON</code>; registry metadata keeps its selective ownership policy, while complete audit profiles and glyphmaps validate every object. Reference discovery uses an advisory glyph projection: its high-half heuristic does not prove register liveness, reachability, or exhaustive references.</p>
+      <p><code>reference_observed</code> reports each declared registry site and its observed words through <code>references</code>; it requires a pinned ELF and registry, without candidate search or a glyphmap. <code>normalizeReference</code> shares geometry across expected pointer planning, append and the strict report. <code>referenceTarget</code> shares observed opcode/register checks and target reconstruction across append and the report. Expected planning remains separate from observed reads. The existing <code>inspect</code> ELF mapper classifies complete four-byte site words and one-byte target points. Multiple targets stay visible; missing, malformed or unmapped sites never fall back to the registry ID. A decoded target can be BSS or unmapped, and a mapped point does not establish readable stream contents, liveness or patch authority. <code>reference_candidates</code> retains its separate advisory heuristic.</p>
+      <p><code>--stream-audit-profile</code> selects the separate read-only <code>auditStreams</code> lifecycle and forbids other workflow inputs. The profile pins both source files and the glyphmap; <code>readInput</code> reads bounded JSON inputs, while binary sources use bounded <code>ReaderAt</code> windows and complete streaming hash/identity rechecks before stdout. The existing <code>controls</code> decoder preserves opaque payload boundaries. Explicit decoder style is required; no new decoder or handler per patch is added. Exact span equality, through-END equality and semantic comparisons remain distinct. Raw span facts remain known when decoding fails; semantic comparisons become unknown. Plain paired facts do not generate canonical wording, approve placement or prove gameplay.</p>
+      <p>Optional <code>observed_family</code> adds a fourth pinned source, <code>registry</code>, to the same lifecycle. <code>auditStreams</code> reuses <code>references</code> with <code>reference_observed</code> and the <code>inspect</code> ELF mapper; no new function, type or decoder is added. The selected family must exactly match the normalized audit IDs. Every declared site must be valid, with at least one site and one shared target per ID. The complete observed window, including bytes after END, must map as one file-backed span at that target and exactly match the explicit file range. Missing, divergent, BSS or unmapped bindings fail before JSON publication, without an ID fallback. Successful reports retain <code>observed_references</code> and full <code>observed_mappings</code>. The observed ELF and registry are bounded at 64 MiB each; the reference source can still stream larger files.</p>
+      <p>The <a href="examples/reference-bound-audit/profile.json">reference-bound audit example</a> uses five runtime files totaling 7,762 bytes. Plain three-input audits keep their existing byte-comparison behavior. The separate native source-only self-comparison covers three short labels (DF, MG and HP), eight sites and sixteen words; it proves no English wording, sentinel handling, liveness or fit. Stored registry references do not establish live runtime consumers.</p>
+      <p>An entry can add an explicit canonical no-wrap or character-budget policy to the same bound lifecycle. Pinned registry English and the original window feed existing <code>controls</code> readiness and <code>encode</code>; the resulting third stream shares the scanner and comparison loop. Generated spans are buffer offsets. Unsupported generation keeps independent observations and omits canonical comparison; the original status still describes reference versus observed. Strict declared sites, full-window mapping and input rechecks remain mandatory. The <a href="examples/canonical-audit/profile.json">canonical audit example</a> does not establish native fit, whole-ledger parity or gameplay.</p>
+      <p>Existing <code>encode</code> preserves a proven payload-free leading setup/non-scale pen prefix in source order. It reuses <code>controls</code> for the source prefix and strict generated body, keeping prefix words outside the character budget. Headerless setup is supported for expected-stream generation; colour, opaque payloads, native fit and complete append/write validation remain separate. This adds no function, type or mode flag.</p>
+      <footer>
+        <strong>Where to extend:</strong> start with the <a href="analysis/reusability-coverage.md">14-area owner map</a>. Add reviewed facts to existing purpose-grouped recipe tables keyed by registry ID. Enhance the existing planner, encoder, scanner, inspector, validator, wrapper, or document owner when shared behavior needs a change; avoid a handler per historical script. See <a href="ARCHITECTURE.md">source-linked architecture notes</a>, <a href="MIGRATION.md">migration evidence</a>, and <a href="AGENTS.md">safety requirements</a>.</footer>
+    </main>
+  </body>
+</html>

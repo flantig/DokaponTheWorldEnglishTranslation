@@ -1,0 +1,100 @@
+{
+  "kind": "READ_ONLY_PRECODE_ARCHITECTURE_CHALLENGE",
+  "scope": "Accepted 700 and frozen original flood55. No candidate implementation reviewed; not approval, coverage credit, or cadence audit.",
+  "inspection_checkpoint_utc": "2026-11-05T02:15:48Z",
+  "cadence_unchanged_next_due_utc": "2026-11-05T04:04:05Z",
+  "determination": "Existing transformRasterMask components traversal and existing selectRaster phase orchestration are the smallest coherent owners. Add the explicit label-zero seed interpretation and one erosion phase without new functions/types. The revised refusal of background-policy minimum/reject combinations is smaller and better grounded than implementing aggregate background criteria.",
+  "revised_proposal_received": "BackgroundSeed label-zero requires explicit Seeds, refuses nonzero MinimumSize and nonnil Reject including explicit empty. Foreground-only defaults unchanged. Mixed seed union uses immutable component input. Rect is the domain; source flood uses source crop for both Rect and SampleRect.",
+  "conditions": [
+    {
+      "id": "FLOOD-INPUT-LABEL",
+      "severity": "HIGH if violated",
+      "locations": [
+        "raster_mask.go:359",
+        "raster_mask.go:389",
+        "raster_mask.go:395"
+      ],
+      "risk": "Computing background from filtered result converts rejected/unseeded foreground into label zero. Starting a background BFS wrongly limits it to one connected area.",
+      "minimal_direction": "Validate every seed first; latch whether any seed addresses false in the immutable input; keep existing foreground BFS; after it add only original false pixels if latched. No background labels, counts, veto scan, or second BFS. Empty explicit seeds select none. Original all-false input with background seed selects the full Rect.",
+      "witness": "disconnected-label-zero selects both disconnected strips (20 pixels); immutable-label-zero-composition excludes a discarded foreground pixel that complement-of-result incorrectly includes."
+    },
+    {
+      "id": "FLOOD-CRITERIA-REFUSAL",
+      "severity": "MEDIUM if violated",
+      "locations": [
+        "raster_mask.go:52",
+        "raster_mask.go:343",
+        "raster_mask_types.go:8",
+        "raster_mask_types.go:20"
+      ],
+      "risk": "Generic background minimum/veto semantics expand the API beyond the source duty; len-only rejection checks lose explicit empty presence.",
+      "minimal_direction": "Adopt the revised narrow refusal: label-zero requires Seeds != nil, MinimumSize == 0, Reject == nil. Validate this in the constructor before predicate allocation and in the raw transform. Reject unknown policy values and any nonempty policy on non-components kinds. Use nil checks for Reject, not len. Keep ordinary foreground minimum/veto semantics unchanged. Explain that presence changes seed interpretation even when every supplied seed happens to be foreground."
+    },
+    {
+      "id": "FLOOD-PHASE-AND-DOMAIN",
+      "severity": "HIGH if violated",
+      "locations": [
+        "raster_mask.go:254",
+        "raster_mask.go:289",
+        "raster_mask.go:302",
+        "raster_mask_types.go:26",
+        "sources/make_batch_c_png.py:93"
+      ],
+      "risk": "Seed lookup before hole filling, erosion before component selection, erosion per component, or changed crop exterior produces different masks.",
+      "minimal_direction": "Keep source order: strict integer luminance threshold, four-connected hole filling, four-connected label lookup, selected union, four-neighbor erosion within crop, then embedding. Add Erode after the shared component/minimum phase and before Grow/Clip. Erode 0 skips; negative invokes existing convergent kernel. Background refers to input of component phase after earlier topology, not raw pixels. Rect includes zero padding outside SampleRect; document this and project actual flood with Rect=SampleRect=source crop. Do not change original/current image lifecycle.",
+      "witness": "seed-evaluated-after-fill selects 25 pixels including dark center; union-before-erode yields 9 versus 0 when eroded separately; erode0 gives25, erode1 gives9, erode-1 gives0."
+    },
+    {
+      "id": "FLOOD-WORK-AND-WIRE",
+      "severity": "MEDIUM if violated",
+      "locations": [
+        "raster_mask.go:116",
+        "raster_mask.go:126",
+        "texture_authoring.go:551"
+      ],
+      "risk": "An erosion pass can be omitted from the existing authoritative work charge, or new keys can bypass strict raw validation.",
+      "minimal_direction": "Charge the new full-Rect bounded erosion pass before allocations, even when another morphology phase is present; account for the one label-zero addition scan within a justified component allowance. Keep one formula in selectRaster. No work proportional to numeric iteration magnitude or seed count times full area. Add erode and background_seed to the existing scoped canonical closed grammar and refuse null/case aliases/duplicates through the same inline/shared path. Validation must run even for empty mask/empty seeds. Preserve existing limits and absence output parity."
+    },
+    {
+      "id": "FLOOD-OWNER-BOUNDARY",
+      "severity": "architectural constraint",
+      "locations": [
+        "raster_mask.go:339",
+        "raster.go",
+        "raster_reconstruction.go",
+        "raster_runs.go",
+        "texture_authoring.go"
+      ],
+      "risk": "A provider-specific flood handler or another label/fill engine would duplicate existing numeric contracts; pushing label interpretation into resource loading or permission stages would split ownership.",
+      "minimal_direction": "The component owner already has membership, immutable input and seed validation; extend it. selectRaster already owns fixed mask phases; extend it with erosion. composeCells retains original image selection and three permission stages. authorTexture remains resource/grammar owner. renderRuns disc/EDT and reconstruction donor writes are unrelated and should not own flood. Use named backgroundSelected boolean and separate guard clauses, not coupled mode expressions."
+    },
+    {
+      "id": "FLOOD-SCOPE-AND-FACTS",
+      "severity": "claim boundary",
+      "locations": [
+        "source-facts.json:actual_records"
+      ],
+      "risk": "Six source calls are only three literal records across two textures, and synthetic whole-mask parity does not migrate real artwork or finish the raster family.",
+      "minimal_direction": "Reuse stable purpose facts without six independent copied policies. Fixed binary masks cannot replace this image-dependent threshold/label pipeline across originals. Verify all 12 exact actual masks and all 56 existing global stage fields without omitting flood, plus old font/current reconstruction whole outputs. Mixed seeds are typed composition tests, not historical multi-seed flood parity. Continue holding unimplemented external-art/provider/family requirements."
+    }
+  ],
+  "owner_inspection": "Serena session86d8031d confirmed RasterComponentFilter and transform references from selectRaster/reconstructRaster/renderRuns; selectRaster references in composeCells and reconstructRaster. Frozen accepted700 six runtime files independently matched seal; source55 all regular members independently matched seal. Live Serena observations supplemented by frozen file reads, not used as oracle.",
+  "independent_checks": {
+    "count": 8,
+    "passed": 8,
+    "original_AST_vs_literal_masks": 6,
+    "proposed_composition_witnesses": 2,
+    "script": "check.py",
+    "receipt": "checks.json",
+    "candidate_Go_executed": false,
+    "source_import_side_effects": "Only AST-selected pure lum and shape_mask executed, no original module import/main. Tiny synthetic RGBA only. Inputs verified unchanged."
+  },
+  "minimal_alternative": "If the explicit label-zero rule is rejected, hold flood as unsupported. Do not quietly refuse its source background seeds, select a connected background region, or replace dynamic semantics with one fixed mask. A separate public flood mode/function is unnecessary given the existing numerical owner.",
+  "verification_limits": [
+    "No implementation, Go tests/build/lint, artwork or protected resource execution performed. This is a precode review.",
+    "No accepted700 runtime defect established. Findings are concrete implementation risks and review conditions.",
+    "Background min/veto witnesses were deliberately not added after parent narrowed those combinations to refusals."
+  ],
+  "jobs": "All owned synchronous checks terminal; no child agents, Go jobs or background processes started.",
+  "finished_at_utc": "2026-11-05T02:18:30.339480+00:00"
+}

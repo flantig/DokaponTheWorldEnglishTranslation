@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T01:51:52.435384+00:00",
+  "scope": "Read-only ordinary review of A031-1 prepared TextureIndex reuse; findings/advice, not Astra approval or metric/retirement credit.",
+  "result": "No material findings in reviewed scope",
+  "findings": [],
+  "candidate_pins": {
+    "texture.go": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed",
+    "texture_index.go": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65",
+    "texture_types.go": "fdfc0bbe4973d60406004509ee1124061089a42267887162b76a78eba0377b79",
+    "texture_authoring.go": "a47757dd9f11dccacf6597ee0148d806351781eaa0cd9c2e666c696576939d0d",
+    "texture_manifest.go": "4246536cb6fc04015088f74dd51ad1db541594204cd611ced07a5c9d3c421a47",
+    "patch_test.go": "9f52fb420d71ed5929ab1b31453514e270f7206c58428a259bbb8bc2888baa39",
+    "analysis/texture-index-reuse-decision.json": "a97ddeb8d77ff21cd57af3f341a4450ae3b794d9c59535c79c0a21c7c60f89ec",
+    "analysis/migration-roadmap.json": "467cdbaf15eff9ef3c4e6fdde15db5111dc03253e0e51941f348af4db94e8b2b"
+  },
+  "candidate_pins_before_after": "All8 held; includes pre-bookkeeping roadmap version.",
+  "contract_assessment": {
+    "trust_model": "Prepared index is an internal validated immutable view, not a cryptographic or mutable-file cache. Exact backing start+length is checked after unchanged bounds/policy guards. Equal-content copies, shifted/shortened views, empty contexts and new artifact buffers refuse. Equal start+length with restricted capacity is the same content view and correctly accepts.",
+    "actual_callers": "Serena/source references establish production callers: existing specification passes the index already made from its pinned source; manifest retains only each successfully parsed member index with that member buffer; source-color default recursion reuses current index once and terminates. Default/render calls and fresh artifact verification retain nil/fresh parsing. Neither source nor parsed metadata is mutated by those callers.",
+    "lifetime_and_mutability": "The unexported source slice keeps backing bytes alive during use. Manifest allocates a new member byte slice and resets context per entry; no shared pool/global cache crosses members. Edited artifact storage is separately cloned; parsed source/index remain unchanged. In-place content/index mutation or forged same-package contexts are outside this explicit contract and are not detected; any future buffer pooling/mutable caller must reparse or establish a new ownership contract.",
+    "refusal_order": "Unchanged dimension/selector/policy guards run first. Prepared context validation then precedes selected traversal; per-entry metadata and cumulative chunk checks retain original order before duplicate-count failure. No fallback reparsing for foreign context.",
+    "reuse_and_readability": "Small enhancement to the existing parser/codec and live callers, without new function/helper/parser/cache global. An extra explicit internal argument is justified by the existing ownership boundary; required preparse for all callers or per-native hashes would spread responsibilities or preserve repeated work.",
+    "callsite_verification": "After inverse gofmt AST rewrite removes newly explicit final nil arguments, old/current patch_test diff is exactly the new30-line cached/fresh/foreign-view test block; existing test semantics otherwise unchanged.",
+    "source_lines": {
+      "view_validation": "texture.go:19-43",
+      "shared_parser_view": "texture_index.go:21; texture_types.go:56",
+      "source_leaf": "texture.go:264",
+      "specification": "texture_authoring.go:180",
+      "member_context": "texture_manifest.go:84-95,202"
+    }
+  },
+  "independent_verification": {
+    "focused_CLI_and_Golden": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$ .",
+      "session": 27223,
+      "seconds": 15.43,
+      "result": "PASS"
+    },
+    "build": {
+      "command": "GOMAXPROCS=2 nice -n 19 go build -p 2 -o /var/tmp/dokapon-texture-index-reuse-review-npxWNl36/dokapon-go .",
+      "result": "PASS",
+      "binary_sha256": "060256afbf7a1dcc25f3097b27b70bbe328af0db22b974aa9844353c356df5f3"
+    },
+    "vet": "GOMAXPROCS=2 nice -n 19 go vet -p 2 . PASS",
+    "format_whitespace": "PASS gofmt, git diff --check and manual pinned Go/JSON",
+    "credentials": "PASS selfchecked real-whitespace pattern; zero candidates in6pinnedGo files",
+    "repository_context_matrix": "Complete focused CLI passes90cached/fresh cases (6source variants\u00d73selectors\u00d75policies),18foreign views and6empty contexts, with full raster/artifact/error and source/index comparisons. Existing Golden verifies native/palette/source-color artifact and readback invariants. Most matrix source/exact export cases intentionally exercise early refusals; private replacement tests below exercise successful imports too.",
+    "private_API_overlay": {
+      "result": "PASS4.847s",
+      "meaningful_cases": "Existing test owner privately extended only: successful default/source/exact/quantize replacement cached/fresh parity; actual changed exact/quantize artifacts; fresh decode of every returned artifact; original prepared index refuses artifact buffer; source preservation; same view with reduced capacity accepts. Repository untouched."
+    },
+    "parser_trace": {
+      "method": "Independent before/current private source overlays add one stderr marker at existing indexTextures entry, no helper/global or production instrumentation. Five bounded paired executions compare complete outputs after removing only marker lines.",
+      "cases": [
+        {
+          "name": "count-manifest128",
+          "exit": 0,
+          "before_parses": 129,
+          "current_parses": 1,
+          "stdout_sha256": "2c7548ac7c42ec965e0164c60f9b5f34f5bd0656bc0503695bc1676fe057c84e",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_profile_identity_preserved": true
+        },
+        {
+          "name": "valid-manifest128",
+          "exit": 0,
+          "before_parses": 129,
+          "current_parses": 1,
+          "stdout_sha256": "55f5817d261afdb30c8cc6020d62e4fc5fd326bc1df70e4bf2a3b16bd14925c9",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_profile_identity_preserved": true
+        },
+        {
+          "name": "specification64",
+          "exit": 0,
+          "before_parses": 65,
+          "current_parses": 1,
+          "stdout_sha256": "e916f92af1083f598704b1256c85f09ef465f27e9c11e0ac32a75d77690e23c5",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_profile_identity_preserved": true
+        },
+        {
+          "name": "standalone",
+          "exit": 0,
+          "before_parses": 1,
+          "current_parses": 1,
+          "stdout_sha256": "880942d04ba676ea79dfb765ee5b3e2f73b96673b185c34c1a620c1c389dc374",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_profile_identity_preserved": true
+        },
+        {
+          "name": "source-color-leaf",
+          "exit": 0,
+          "before_parses": 2,
+          "current_parses": 1,
+          "stdout_sha256": "97722bb59641ea7e4f44dc08c1ca963485fb77262745d9f121209d99a46167c6",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "source_profile_identity_preserved": true
+        }
+      ],
+      "interpretation": "Manifest/spec repeated indexing is removed. Standalone parsing remains fresh and source-color recursion shares the one index. These are measured call counts, not memory or throughput estimates."
+    },
+    "complete_ordinary_CLI_parity": {
+      "cases": 20,
+      "details": "Accepted baseline-go vs current whole stdout/stderr/exit identical for18historical native metadata/duplicate selector cases plus128-invalid/128-valid-native manifests. Source/profile identities preserved.",
+      "source": "probes.json"
+    },
+    "full_suite_race": "Not run by reviewer; root focused race is separate evidence."
+  },
+  "limits": [
+    "Same pointer+length does not detect in-place source/index mutation; safe use depends on the audited private immutable callers. This is deliberate and documented, not cryptographic cache validation.",
+    "No independent claim about peak memory. Root cumulative-allocation/time stress figures are not remeasured or relabelled here; bounded reviewer traces establish parse-count reduction only.",
+    "No new milestone/family/retirement credit or modification to immutable Astra report. Root owns finding closure and accounting.",
+    "No source/test/docs/coverage/goal edits; only assigned report and owned private artifacts. No ISO/canonical or protected runtime/process access."
+  ],
+  "artifacts": {
+    "work": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36",
+    "checks": {
+      "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/checks.json",
+      "sha256": "cb55bad9784e9af7a5b47ae0cbe98bf7b3ce31e3c9b67d2813b2204cec4ebd4b"
+    },
+    "detailed": {
+      "probes.json": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/probes.json",
+        "sha256": "07b9d178bad5b103ddf6585369790fec5ff7ac8e164ed809eac6ebd3e0ef985f"
+      },
+      "probes.py": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/probes.py",
+        "sha256": "fe15ea3aaa268cab1b07930f6f5b838a054214d3ae355effb8ec80bfa2e1c838"
+      },
+      "prepare-overlays.py": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/prepare-overlays.py",
+        "sha256": "2b9e04e11a4265583148ffde10a460beb6b3d15a981ea1ace4d2aa1da222660b"
+      },
+      "current-overlay.json": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/current-overlay.json",
+        "sha256": "bc841d9bfd1693e963353714936c917a6c6b545315cad639b4af9edc198b2518"
+      },
+      "before-overlay.json": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/before-overlay.json",
+        "sha256": "4364172f4d3be6becd801b5b1e878e3cb130aa425010f925cb17e693f3cbba8c"
+      },
+      "api-overlay.json": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/api-overlay.json",
+        "sha256": "aafe16283facac76afe468c4f9502bb767d8b6794f705f8c723c3e8565555e69"
+      },
+      "private-patch_test.go": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/private-patch_test.go",
+        "sha256": "4c02e077534e70a73e6a31eb63dd7faf84212f526d866d2e6533d39ac1b04484"
+      },
+      "test-callsite-delta.diff": {
+        "path": "/var/tmp/dokapon-texture-index-reuse-review-npxWNl36/test-callsite-delta.diff",
+        "sha256": "e6c3fb3378f33514f82c6ab85bad797cd88bc99f7bf6e77d9602ed35563d18eb"
+      }
+    }
+  }
+}

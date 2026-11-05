@@ -1,0 +1,244 @@
+{
+  "provenance": "Independent precode manual ELF fields/interval arithmetic; schema-only projection from expected.json, no candidate output used.",
+  "contract": "analysis/elf-layout-contract.json",
+  "bundle": "testdata/elf-layout.zip",
+  "bundle_sha256": "35f352c7f124def125bb237383979d05f465e57296df8afdb1634bd0ab5869a7",
+  "fixture": "multi-load-bss.elf",
+  "files": {
+    "multi-load-bss.elf": "079e84436600f2333fc8dab82f5e186763adef32ace17776524edffd567ef43f",
+    "filesz-over-memsz.elf": "640599dee565044858a2bd03ac8fe04ed1e3069c1829d20ade758d022c78b5b9",
+    "payload-beyond-EOF.elf": "68ae44d4a0c5cc3f1bf453d04688ef93580b04ea0fc610451f973d28983a3900",
+    "memory-wrap32.elf": "f8703e75d1e90002276bbb77f82cc09e96283feb13fd1a285176501008b0f979",
+    "invalid-align.elf": "720dba35d6727add1ff45a797d5a83ce8c1ecd11e4a8f15f06aadaa1c918863b",
+    "noncongruent-align.elf": "7c12c1594e4e70d774f449110fc8f662a81dd8182f789564db6539ec1e049f21",
+    "overlap-memory.elf": "99d3dbb031ba80c46d3924a7fe79fe84718155a06e28821e4553fef76fd99a58",
+    "truncated-PH.elf": "fb8cce8b2fe1228f9ae9957b31ebcb11303fc1b4e9ca2c4fa77311ca059931f9"
+  },
+  "input_ranges": {
+    "one-file-byte": {
+      "start": "0x1000",
+      "end": "0x1001"
+    },
+    "file-bss-split": {
+      "start": "0x1018",
+      "end": "0x1028"
+    },
+    "hole-bridge": {
+      "start": "0x1038",
+      "end": "0x3008"
+    },
+    "bss-only": {
+      "start": "0x4000",
+      "end": "0x4020"
+    },
+    "empty-load-is-unmapped": {
+      "start": "0x5000",
+      "end": "0x5001"
+    },
+    "last-32bit-range": {
+      "start": "0xfffffff0",
+      "end": "0x100000000"
+    },
+    "sentinel-is-not-load": {
+      "start": "0x04000000",
+      "end": "0x04000004"
+    }
+  },
+  "expected_ranges": {
+    "one-file-byte": [
+      {
+        "vma_range": [
+          4096,
+          4097
+        ],
+        "storage": "file_backed",
+        "program_header": 0,
+        "file_range": [
+          256,
+          257
+        ]
+      }
+    ],
+    "file-bss-split": [
+      {
+        "vma_range": [
+          4120,
+          4128
+        ],
+        "storage": "file_backed",
+        "program_header": 0,
+        "file_range": [
+          280,
+          288
+        ]
+      },
+      {
+        "vma_range": [
+          4128,
+          4136
+        ],
+        "storage": "bss",
+        "program_header": 0
+      }
+    ],
+    "hole-bridge": [
+      {
+        "vma_range": [
+          4152,
+          4160
+        ],
+        "storage": "bss",
+        "program_header": 0
+      },
+      {
+        "vma_range": [
+          4160,
+          12288
+        ],
+        "storage": "unmapped"
+      },
+      {
+        "vma_range": [
+          12288,
+          12296
+        ],
+        "storage": "file_backed",
+        "program_header": 1,
+        "file_range": [
+          512,
+          520
+        ]
+      }
+    ],
+    "bss-only": [
+      {
+        "vma_range": [
+          16384,
+          16416
+        ],
+        "storage": "bss",
+        "program_header": 2
+      }
+    ],
+    "empty-load-is-unmapped": [
+      {
+        "vma_range": [
+          20480,
+          20481
+        ],
+        "storage": "unmapped"
+      }
+    ],
+    "last-32bit-range": [
+      {
+        "vma_range": [
+          4294967280,
+          4294967288
+        ],
+        "storage": "file_backed",
+        "program_header": 4,
+        "file_range": [
+          528,
+          536
+        ]
+      },
+      {
+        "vma_range": [
+          4294967288,
+          4294967296
+        ],
+        "storage": "bss",
+        "program_header": 4
+      }
+    ],
+    "sentinel-is-not-load": [
+      {
+        "vma_range": [
+          67108864,
+          67108868
+        ],
+        "storage": "unmapped"
+      }
+    ]
+  },
+  "program_headers": [
+    {
+      "Type": 1,
+      "Off": 256,
+      "Vaddr": 4096,
+      "Paddr": 4096,
+      "Filesz": 32,
+      "Memsz": 64,
+      "Flags": 5,
+      "Align": 256
+    },
+    {
+      "Type": 1,
+      "Off": 512,
+      "Vaddr": 12288,
+      "Paddr": 12288,
+      "Filesz": 16,
+      "Memsz": 16,
+      "Flags": 6,
+      "Align": 256
+    },
+    {
+      "Type": 1,
+      "Off": 528,
+      "Vaddr": 16384,
+      "Paddr": 16384,
+      "Filesz": 0,
+      "Memsz": 32,
+      "Flags": 6,
+      "Align": 16
+    },
+    {
+      "Type": 1,
+      "Off": 544,
+      "Vaddr": 20480,
+      "Paddr": 20480,
+      "Filesz": 0,
+      "Memsz": 0,
+      "Flags": 6,
+      "Align": 1
+    },
+    {
+      "Type": 1,
+      "Off": 528,
+      "Vaddr": 4294967280,
+      "Paddr": 4294967280,
+      "Filesz": 8,
+      "Memsz": 16,
+      "Flags": 6,
+      "Align": 16
+    }
+  ],
+  "entry_point": 4096,
+  "invalid_files": [
+    "filesz-over-memsz.elf",
+    "payload-beyond-EOF.elf",
+    "memory-wrap32.elf",
+    "invalid-align.elf",
+    "noncongruent-align.elf",
+    "overlap-memory.elf",
+    "truncated-PH.elf"
+  ],
+  "invalid_ranges": [
+    {
+      "start": "0x1000",
+      "end": "0x1000"
+    },
+    {
+      "start": "0x1001",
+      "end": "0x1000"
+    },
+    {
+      "start": "0x100000000",
+      "end": "0x100000001"
+    },
+    {
+      "start": "0xfffffff0",
+      "end": "0x100000001"
+    }
+  ]
+}

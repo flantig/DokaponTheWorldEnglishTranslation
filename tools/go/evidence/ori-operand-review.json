@@ -1,0 +1,228 @@
+{
+  "review_kind": "Independent narrow read-only ORI finite operand prerequisite review",
+  "start_utc": "2026-11-04T22:42:12.944416+00:00",
+  "end_utc": "2026-11-04T22:45:01.955965+00:00",
+  "status": "NO_CONFIRMED_FINDINGS_WITHIN_NARROW_ORI_SCOPE",
+  "authority": "Findings only. No implementation, approval, coverage/milestone, reduction or retirement award. Planned owner API is not implemented in this candidate.",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-reference-owners-ov77euwr/ori-review-source-manifest.json",
+    "sha256": "6967f2760a4bdb85281f7817551b8d97a05b641a13bbd5313f4f2044591562bb",
+    "bindings": 646,
+    "status": "PASS"
+  },
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/sealed-final/manifest.json",
+    "sha256": "b03466bfe5b2a6b7868e3b7ee5da53a7962864ee3d2191dce08d8a40c8581035",
+    "bindings": 648,
+    "status": "PASS"
+  },
+  "source_pack": {
+    "manifest": "/var/tmp/dokapon-register-caller-gap-LpXbmD92/manifest.json",
+    "sha256": "a37ce28f171c12c32ac3d769cbefb0bd697a1025abe819468b9b6c2dd7c89394",
+    "bindings": 28,
+    "status": "PASS"
+  },
+  "findings": [],
+  "source_assessment": "Frozen R5900OpcodeImpl.cpp ORI zero-extends imm16 and ORs sourceRS into destinationRT low64 on execution. The new report models explicit GPRoperand roles on normal completion and low32 destination facts, not arithmetic values or physical CPU read events. Conservative RSread whenRT0 matches the accepted discarded-ADDIU role contract. GPR0 exclusion remains shared postprocessing.",
+  "change_assessment": "Only the existing references.go commonLUIoperand case gains ORI (opcode0x0d), adding RSread and RTmay/must destination. Operator precedence preserves LUIrs0 restriction. No new helper/type/dependency or decoder/graph copy. All other production source bindings match accepted648.",
+  "guard_assessment": "ORI remains absent from28entry GPaddress-form table; GPskip happens before the finite operand switch. Strict referenceTarget is byteidentical and still accepts exact LUI/ADDIU pairs only. Existing CLIloop now directly asserts ORI pair refusal; the fresh focused test passed it. main, graph, canonicalparser/types and referenceTarget are unchanged.",
+  "verification": {
+    "commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-ori-review-j_njahqm/core",
+          "."
+        ],
+        "start": "2026-11-04T22:42:26.830885+00:00",
+        "end": "2026-11-04T22:42:30.605686+00:00",
+        "seconds": 3.774714628001675,
+        "exit": 0,
+        "log": "check-0.log"
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^TestCLIDryRunAndApply$",
+          "."
+        ],
+        "start": "2026-11-04T22:42:30.606064+00:00",
+        "end": "2026-11-04T22:43:21.983951+00:00",
+        "seconds": 51.37790271200356,
+        "exit": 0,
+        "log": "check-1.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T22:43:21.984302+00:00",
+        "end": "2026-11-04T22:43:23.169532+00:00",
+        "seconds": 1.1852410020073876,
+        "exit": 0,
+        "log": "check-2.log"
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-ori-review-j_njahqm/native",
+          "."
+        ],
+        "start": "2026-11-04T22:43:23.169826+00:00",
+        "end": "2026-11-04T22:43:28.351949+00:00",
+        "seconds": 5.182132921006996,
+        "exit": 0,
+        "log": "check-3.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T22:43:28.353049+00:00",
+        "end": "2026-11-04T22:43:30.113806+00:00",
+        "seconds": 1.7607638730114559,
+        "exit": 0,
+        "log": "check-4.log"
+      }
+    ],
+    "focused_test_reported_seconds": 32.41,
+    "focused_subprocess_wall_seconds": 51.37790271200356,
+    "extra_probe": {
+      "start": "2026-11-04T22:43:46.289889+00:00",
+      "end": "2026-11-04T22:43:47.034882+00:00",
+      "seconds": 0.7449960960075259,
+      "status": "PASS",
+      "ORI_operand_rows": 4096,
+      "LUI_rows": 128,
+      "LUI_reservedRS_rows": 124,
+      "core_native_whole_output_equal": true,
+      "GP_all4224words_no_rows_and_whole_baseline_parity": true,
+      "old_audit_whole_output_parities": [
+        "stream-audit",
+        "reference-bound-audit",
+        "canonical-audit",
+        "fixed-audit",
+        "pinned-raw-audit",
+        "gp-audit",
+        "reconciliation-audit",
+        "sentinel-audit"
+      ],
+      "source_preserved": true,
+      "scope": "explicit operand sets, not physical CPU read events or computed ORI values",
+      "all_owned_jobs": "terminal synchronous only"
+    },
+    "identities_and_source": {
+      "at": "2026-11-04T22:45:01.586485+00:00",
+      "snapshots": [
+        {
+          "manifest": "/var/tmp/dokapon-reference-owners-ov77euwr/ori-review-source-manifest.json",
+          "sha256": "6967f2760a4bdb85281f7817551b8d97a05b641a13bbd5313f4f2044591562bb",
+          "bindings": 646,
+          "status": "PASS"
+        },
+        {
+          "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/sealed-final/manifest.json",
+          "sha256": "b03466bfe5b2a6b7868e3b7ee5da53a7962864ee3d2191dce08d8a40c8581035",
+          "bindings": 648,
+          "status": "PASS"
+        },
+        {
+          "manifest": "/var/tmp/dokapon-register-caller-gap-LpXbmD92/manifest.json",
+          "sha256": "a37ce28f171c12c32ac3d769cbefb0bd697a1025abe819468b9b6c2dd7c89394",
+          "bindings": 28,
+          "status": "PASS"
+        }
+      ],
+      "private_copy_all646bindings_unchanged": true,
+      "sourcefacts_sha256": "edfedd6cba61b3e468d202ce2acb075a7622e3e8e2e688b63354aa93da0d24ce",
+      "manual_fixture_sha256": "dac82f6f43363306713c21bb1e3b1bf3afa3a24472047a8e04b796e23abb1c53",
+      "ZIP_exact_precode_raw": true,
+      "independently_checked_manual_rows": 23,
+      "independently_checked_manual_queries": 8,
+      "ORI_numeric_equations": "PASS bitwiseOR and signed-add counterexamples, sourcefacts only; no Go value computation claim",
+      "unchanged_owners": [
+        "instruction_forms.go",
+        "reference_geometry.go",
+        "register_flow.go",
+        "register_flow_types.go",
+        "main.go",
+        "instruction_types.go",
+        "reference_types.go",
+        "recipe_types.go"
+      ],
+      "all_owned_jobs": "terminal"
+    },
+    "gofmt": "All production Go plus patch_test.go clean",
+    "strict_pair_test": "Existing TestCLIDryRunAndApply assertion passes for ori-same-register canonical pair refusal."
+  },
+  "serena": {
+    "session": "5bc5c99f",
+    "project": "/var/tmp/dokapon-ori-review-j_njahqm/project",
+    "references_callers": [
+      "main.go/run",
+      "stream_audit.go/auditStreams",
+      "patch_test.go/TestCLIDryRunAndApply"
+    ],
+    "connected_geometry_and_existing_tests_read": true
+  },
+  "code_sha256": {
+    "references.go": "42834de053af7195b45006b3561971619ff01b8cd3c9f39d080dea69728cb418",
+    "patch_test.go": "6e9b72fc15b5b306fe5412bfc5994c675a2d5df6010c64daed885ec4b6aac733",
+    "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+    "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+    "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+    "main.go": "50873e8e5a36e4cc366e4f5fbf94d6129983c9f095456d72de65cb231e7e8e7a",
+    "testdata/instruction-ori-fixture.zip": "31d9cdd7193258d89335722b50bab448d8906cc6c35a4cea4e04d82ad71076e7"
+  },
+  "measurement": {
+    "production_go_files": 43,
+    "production_go_bytes": 503482,
+    "named_production_functions": 42,
+    "production_growth": 99,
+    "new_functions": 0,
+    "new_types": 0,
+    "test_source_growth": 556,
+    "fixture_zip_bytes": 2679,
+    "claim": "Capability growth, no reduction/retirement or completed ownership behavior."
+  },
+  "binaries": {
+    "core": "714356a908529c93d1a41bba8fde34ee5d89cefe19b16e4d87d2057f1b97f389",
+    "native": "713eecbd766af0d9b696d1f86b8f6744c83d6b0047cff694efae16153ad37962",
+    "baseline": "9851caf4e0565338b8b1a4915e1bfc97edb9a5c811b67f01ca48c918ddb567a1"
+  },
+  "artifacts": {
+    "directory": "/var/tmp/dokapon-ori-review-j_njahqm",
+    "manifest": "/var/tmp/dokapon-ori-review-j_njahqm/artifact-manifest.json",
+    "sha256": "e48cdb82ff380366451772450b482bef7b5360556d64012dc51036712df866b9",
+    "members": 724
+  },
+  "all_owned_jobs": "terminal. Sequential check session44825reaped exit0; synthetic4224row and parity/source/format checks synchronous exit0. No parallel heavy reviewer jobs.",
+  "writes": "Owned private copy/scripts/raw outputs and NEW LIVE evidence/ori-operand-review.json only. Candidate/baseline/live runtime/source contracts unchanged.",
+  "not_checked": "Fresh race, full suite, nativefonts race, gameplay/runtime, hostile concurrent input replacement, arithmetic value propagation or planned owner API. Root race169.483s is separately owned evidence, not reviewer execution.",
+  "risk": "ORI support remains a finite explicit-operand prerequisite. It does not extend strict patch grammar, compute GP offsets or prove owner routing, runtime execution or whole-program closure."
+}

@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-17T10:29:20.782240+00:00",
+  "source_pins": {
+    "tools/dialog_codec.py": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc",
+    "tools/text_encoder.py": "a793987932438aaedb7085e81519aae8461eeb2ae356b65384a9491157e8da16",
+    "tools/rework/new_tool/registry_tools/registry.py": "618cb6b34ba68ec74851a2b586da98826c42d93d803ce1b2a25b2eb92c7737f9"
+  },
+  "chunks": [
+    "0000",
+    "0100",
+    "0008",
+    "0010",
+    "0028",
+    "0138",
+    "0140",
+    "01b0",
+    "08b0",
+    "0070",
+    "01b8",
+    "00e8",
+    "00b0002800f800b00048",
+    "0048002800f800b00048",
+    "00d8002800f800b00048"
+  ],
+  "prefixes": [
+    "",
+    "0100"
+  ],
+  "max_length": 3,
+  "english_patterns": 13,
+  "case_order": "prefix,length,itertools.product last index varies fastest, English patterns in existing Go test",
+  "accepted_streams": 6246,
+  "refused_streams": 986,
+  "analysis_cases": 81198,
+  "sha256": "fef71b8f54753d0390bf78968b45ba2e2d5f199c757c1e993c554b3965c4386c",
+  "buckets": {
+    "ready_as_is": 25613,
+    "no_markup_yet": 5775,
+    "needs_hl_backfill_mechanical": 1799,
+    "marker_count_mismatch": 2332,
+    "existing_markup_order_or_value_mismatch": 6919,
+    "blocked_param8_semantics_unresolved": 20874,
+    "blocked_midstream_setup": 8931,
+    "blocked_true_pen0_position": 8931,
+    "needs_hl_backfill_translator_judgment": 24
+  },
+  "examples": {
+    "ready_as_is": {
+      "hex": "00f8",
+      "en": "",
+      "readiness": "ready_as_is",
+      "kinds": [],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "no_markup_yet": {
+      "hex": "00f8",
+      "en": "{{bogus}}",
+      "readiness": "no_markup_yet",
+      "kinds": [],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "needs_hl_backfill_mechanical": {
+      "hex": "00f8",
+      "en": "{{HL:0xb001}}",
+      "readiness": "needs_hl_backfill_mechanical",
+      "kinds": [],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "marker_count_mismatch": {
+      "hex": "00f8",
+      "en": "{{ICON:0xa000}}",
+      "readiness": "marker_count_mismatch",
+      "kinds": [],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "existing_markup_order_or_value_mismatch": {
+      "hex": "01b000f8",
+      "en": "{{HL:0xffff}}",
+      "readiness": "existing_markup_order_or_value_mismatch",
+      "kinds": [],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "blocked_param8_semantics_unresolved": {
+      "hex": "00b0002800f800b0004800f8",
+      "en": "",
+      "readiness": "blocked_param8_semantics_unresolved",
+      "kinds": [],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "blocked_midstream_setup": {
+      "hex": "0000014000f8",
+      "en": "",
+      "readiness": "blocked_midstream_setup",
+      "kinds": [
+        "setup"
+      ],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    },
+    "blocked_true_pen0_position": {
+      "hex": "000001b800f8",
+      "en": "",
+      "readiness": "blocked_true_pen0_position",
+      "kinds": [
+        "pen0"
+      ],
+      "n_target_tokens": 1,
+      "n_clusters": 1
+    },
+    "needs_hl_backfill_translator_judgment": {
+      "hex": "010001b0000001b000f8",
+      "en": "{{HL:0xb001}}",
+      "readiness": "needs_hl_backfill_translator_judgment",
+      "kinds": [
+        "hl"
+      ],
+      "n_target_tokens": 0,
+      "n_clusters": 0
+    }
+  },
+  "scope": "Actual Python decoder, jp_prologue, classifier and cluster summary; synthetic byte buffers; no actual image or registry writes."
+}

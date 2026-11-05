@@ -1,0 +1,47 @@
+{
+  "operation": "reference_candidates",
+  "source_sha256": "37a9a0c7a761cfd6c7b127b79bcfdacefe833d6ac0baf1f296edc7a481d93f8c",
+  "source_size": 5085184,
+  "iso_elf_offset": "0x0",
+  "elf_vma_delta": "0xfff80",
+  "scope_sha256": "7ca467370b3b8a11a92cd2406c623cec80804bf164ae3335483766a06dea616e",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Read-only original ELF capture37a9a0c7 from fully hashed pristine ISOe9074e32; current canonical7ca46737/glypha662eb2f. Candidate high-half matching is not liveness/CFG/whole-reference proof and never authorizes writes. Historical pure-function comparison and independent review required; no path-retirement credit.",
+  "references": {
+    "file_range": {
+      "start": "0x80",
+      "end": "0x439700"
+    },
+    "pointer_min_vma": "0x457000",
+    "skip_words": 8,
+    "decode_words": 400,
+    "queries": {
+      "battle_system": {
+        "source_pool": "battle_system",
+        "content_range": {
+          "start": "0x457bc0",
+          "end": "0x459eb8"
+        },
+        "decode_target": true,
+        "struct_rows": [
+          {
+            "start": "0x457e10",
+            "end": "0x458450",
+            "stride": 16
+          }
+        ]
+      },
+      "system_vocabulary": {
+        "source_pool": "system_vocabulary",
+        "content_range": {
+          "start": "0x531900",
+          "end": "0x535c00"
+        },
+        "decode_target": true,
+        "excluded": {
+          "0x5323ee": "Shares pointer0x46df7c with canonical0x5323f0; keep unknown pending deduplication."
+        }
+      }
+    }
+  }
+}

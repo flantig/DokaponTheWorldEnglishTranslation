@@ -1,0 +1,197 @@
+{
+  "at": "2026-10-19T21:43:38.947299+00:00",
+  "status": "VERIFIED explicit word reversal through existing guarded planner and copy writer",
+  "scope": "One reviewed guarded_words table may declare existing optional output_sha256. Source pin, explicit preimages/target words and expected whole-output pin define the reverse case. No function, type, flag, operation or writer added.",
+  "code_data_pins": {
+    "main.go": "1d9de0b1a746fb835a2e708af6b1e541e5c3a154ed6a06b3be4a6682587fbc64",
+    "registry_types.go": "712fe46a00253bed5ff78af3b093e76b38fe93e475ca1be568f80b8e70983514",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "2692f874ee7539bdd5a8f11209d4d4f6e1a1f9553f5d6a4e58ed07367b3be45c",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "801eaf5f72a27f3de9ef41766125746988fbd34741318fa78636cdb6c58f0bb9",
+    "patch.go": "4754d5ac5cee97f79d7d77b97c2647ab2541e76d8e13e56ecbf39a17d3ef669b",
+    "patch_test.go": "5f5ee831739ffd8bb90a5761f611d67f18e3d4873dacaa6a2686b46e949af2eb",
+    "recipe_types.go": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+    "cmb.go": "b8d73a682c796152766212bb59f5a4f661c4c17904808a0f7f47300067972006",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "181805a0b36c986b3081a298fde03bbf99c77c9ded8527912f0fb10ac980a5be",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+    "texture_authoring.go": "76e9d9b340da6d9b64ac373005aa11f58d5758a7a8fef3e5b37c33af8754bd95",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "recipes/layout/space-width-restore.json": "1c596c1619b66fd032dbcf16b3da6c71af18c7fd9c4ad1474f936ce5e05b0b64",
+    "testdata/space-width-restore.json": "10839327515943f8d033f115872b981d812b83c261412da2c8340fb1a9531b08",
+    "testdata/runtime-tables.json": "f4374ece15b7a9e146a448c08b2dd35ee69b1f0b426b3b9bf3fcb980928c3508"
+  },
+  "evidence_pins": {
+    ".goal/reverse-word-checks-work.json": {
+      "sha256": "1e53d215db25281977084643c00fb0bce2c2d87f286e7b76e3b48b47d316871a",
+      "bytes": 3463
+    },
+    "evidence/reverse-word-review-a.json": {
+      "sha256": "be560ca8428e00fed52b00f3a833e5e8eebfed7bef64f378df5228eb2bea8d50",
+      "bytes": 14001
+    },
+    "evidence/reverse-word-review-b.json": {
+      "sha256": "a9f0fb9ab3e3441fb7ca4024a7e7e8237981251ab3f17057b52dc330f432f76a",
+      "bytes": 17702
+    },
+    "evidence/reverse-word-preflight-oracle.json": {
+      "sha256": "188f9147f13f625a3f8477000ce11bb5108877dcb6cecb6c297b4f13dff8a523",
+      "bytes": 1655
+    },
+    "evidence/reverse-word-isolated-run.json": {
+      "sha256": "9415ee6d4d1d4b5e81c832a052bd6bcca20aa51727ea18f3ea4568551784780b",
+      "bytes": 7568
+    },
+    "analysis/reverse-word-pin-decision.json": {
+      "sha256": "dbc5094234f407f95c060f3a1075bbe0247aaa5d294b6c98b2856d06897e02c1",
+      "bytes": 2341
+    },
+    "analysis/reverse-workflow-reuse-contract.json": {
+      "sha256": "c06b4e0b144ae7750b1ea61d14734b4dd352597e6adbc60bc84dc17ef21d4c74",
+      "bytes": 4743
+    },
+    "analysis/go-current-input-accounting.json": {
+      "sha256": "bfc5cb8ca01b41079c594b12b28e0323c9cf391e67b4af30780bf509bd604b71",
+      "bytes": 26892
+    },
+    "/var/tmp/dokapon-go-space-restore-auherzgp/accounting-before.json": {
+      "sha256": "0b252f6aa39a3734e34fa127379f9ebc7dcd58ec115e8974c43b42780495754d",
+      "bytes": 26449
+    },
+    "/var/tmp/dokapon-go-space-restore-auherzgp/accounting-delta.json": {
+      "sha256": "5b0d5efa7ba30e430fba3705a184d550171bfc30e223d0da0fe921b41c54e3f0",
+      "bytes": 1075
+    }
+  },
+  "frozen_current_snapshot": "/var/tmp/dokapon-reverse-word-sealed-43k6p8ko",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 24.588,
+      "output": "ok  \tdokapon/tools\t20.570s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.236,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-reverse-word-checks-rvb1a8ls/dokapon-go-reverse",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.89,
+      "output": ""
+    }
+  ],
+  "independent_reviews": [
+    "evidence/reverse-word-review-a.json",
+    "evidence/reverse-word-review-b.json"
+  ],
+  "independent_cli_guard_cases": 75,
+  "actual_scratch_reverse": {
+    "source": "/var/tmp/dokapon-go-space-width-proof-s95gxt3w/space-14.iso",
+    "source_sha256": "fd446934870a64be96572a4632a24c9892fa065542e6675f5341fb2e3d5f672c",
+    "expected_output_sha256": "329f93e9225599385a48b71d8165a9467c2028067f684dcb72934ba3a90adaa2",
+    "output": "/var/tmp/dokapon-go-space-restore-auherzgp/restored-space24.iso",
+    "output_sha256": "329f93e9225599385a48b71d8165a9467c2028067f684dcb72934ba3a90adaa2",
+    "whole_compared_bytes": 4243259392,
+    "changed_bytes": 8,
+    "declared_spans": 8,
+    "declared_bytes": 32,
+    "outside_span_changes": 0,
+    "every_output_byte_equals_predecessor": true,
+    "source_and_predecessor_preserved": true
+  },
+  "accounting": {
+    "before_accounting_sha256": "0b252f6aa39a3734e34fa127379f9ebc7dcd58ec115e8974c43b42780495754d",
+    "after_accounting_sha256": "bfc5cb8ca01b41079c594b12b28e0323c9cf391e67b4af30780bf509bd604b71",
+    "groups": {
+      "asset_bundle": {
+        "bytes": 0,
+        "files": 0
+      },
+      "executed_evidence_inputs": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_module": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_tests": {
+        "bytes": 4699,
+        "files": 0
+      },
+      "pointer_selector": {
+        "bytes": 0,
+        "files": 0
+      },
+      "production_go": {
+        "bytes": 344,
+        "files": 0
+      },
+      "recipe_tables": {
+        "bytes": 1822,
+        "files": 1
+      },
+      "testdata": {
+        "bytes": 1470,
+        "files": 1
+      },
+      "build_entrypoint": {
+        "bytes": 0,
+        "files": 0
+      },
+      "consumer_profiles": {
+        "bytes": 0,
+        "files": 0
+      }
+    },
+    "runtime_before": {
+      "bytes": 629135,
+      "files": 74
+    },
+    "runtime_after": {
+      "bytes": 631301,
+      "files": 75
+    },
+    "production_go_files": 18,
+    "production_named_functions": 21
+  },
+  "limits": [
+    "Not automatic inversion of arbitrary edits or mixed/coupled registry/allocation transactions.",
+    "Preview validates source/preimages and reports the expected pin; complete target digest is enforced on apply. This exact case also has three independent complete virtual-image oracles.",
+    "No visual/gameplay approval, broad Python clean claim, retirement, source reduction or automatic family-coverage credit."
+  ]
+}

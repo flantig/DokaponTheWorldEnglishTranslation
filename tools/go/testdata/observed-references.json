@@ -1,0 +1,553 @@
+{
+  "qualification": "Independent precode9file pack/12sourcepins, schema-only fixture assembly before any new observed-reference CLI output. Expectedwords/targets/mappings/manualinvalidcases are from frozenliteral facts.",
+  "source_hex": "7f454c460101010000000000000000000200080001000000001000003400000000000000000000003400200001000000000000000100000000010000c00f0000c00f00000002000020020000060000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccf07f4600cccccccccccccccccccccccccccccccc00804600cccccccccccccccc4700083ccccccccccccccccc108008254700043c0090842400001f3c0080ff2780100000c01100000080460080100000cccccccc84100000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "source_sha256": "cea1e5f8cfdacaa29072bf1c8fefed4d5de1707c0f263ffddb4701fd1b995ab6",
+  "registry": {
+    "entries": [
+      {
+        "id": "0x467ff0",
+        "en": "A",
+        "patch_ref": "observed-example",
+        "ref_type": "pointer_array",
+        "ref_sites": [
+          {
+            "pointer_vma": "0x1010"
+          }
+        ],
+        "landing_vma": "0x4007ff0"
+      },
+      {
+        "id": "0x468000",
+        "en": "B",
+        "patch_ref": "observed-example",
+        "ref_type": "struct_table_field",
+        "ref_sites": [
+          {
+            "pointer_vma": "0x1024",
+            "struct_vma": "0x1020",
+            "field_offset": "0x4"
+          }
+        ],
+        "landing_vma": "0x4008000"
+      },
+      {
+        "id": "0x468010",
+        "en": "C",
+        "patch_ref": "observed-example",
+        "ref_type": "code_immediate",
+        "ref_sites": [
+          {
+            "lui_vma": "0x1030",
+            "addiu_vma": "0x103c",
+            "reg": "$t0"
+          }
+        ],
+        "landing_vma": "0x4008010"
+      },
+      {
+        "id": "0x469000",
+        "en": "D",
+        "patch_ref": "observed-example",
+        "ref_type": "code_immediate",
+        "ref_sites": [
+          {
+            "lui_vma": "0x1040",
+            "addiu_vma": "0x1044",
+            "reg": "$a0"
+          }
+        ],
+        "landing_vma": "0x4009000"
+      },
+      {
+        "id": "0xffff8000",
+        "en": "E",
+        "patch_ref": "observed-example",
+        "ref_type": "code_immediate",
+        "ref_sites": [
+          {
+            "lui_vma": "0x1048",
+            "addiu_vma": "0x104c",
+            "reg": "$ra"
+          }
+        ],
+        "landing_vma": "0x400fff0"
+      },
+      {
+        "id": "0x3000",
+        "patch_ref": "observed-example",
+        "ref_type": "pointer_array",
+        "ref_sites": [
+          {
+            "pointer_vma": "0x1050"
+          },
+          {
+            "pointer_vma": "0x1054"
+          },
+          {
+            "pointer_vma": "0x1058"
+          },
+          {
+            "pointer_vma": "0x105c"
+          }
+        ]
+      },
+      {
+        "id": "0x4000",
+        "patch_ref": "observed-example",
+        "ref_type": "struct_table_field",
+        "ref_sites": [
+          {
+            "pointer_vma": "0x1064",
+            "struct_vma": "0x1060",
+            "field_offset": "0x4"
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "mapping": {
+      "PT_LOAD_index": 0,
+      "file_offset": 256,
+      "VMA": 4032,
+      "filesz": 512,
+      "memsz": 544,
+      "file_backed_VMA": [
+        4032,
+        4544
+      ],
+      "bss_VMA": [
+        4544,
+        4576
+      ]
+    },
+    "entries_literal": [
+      {
+        "id": "0x467ff0",
+        "sites": [
+          {
+            "site_vmas": [
+              4112
+            ],
+            "words": [
+              4620272
+            ],
+            "target": 4620272,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              336
+            ],
+            "target_mapping": {
+              "storage": "unmapped"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "divergent": false,
+        "unique_targets_source_order": [
+          4620272
+        ]
+      },
+      {
+        "id": "0x468000",
+        "sites": [
+          {
+            "site_vmas": [
+              4132
+            ],
+            "words": [
+              4620288
+            ],
+            "target": 4620288,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              356
+            ],
+            "target_mapping": {
+              "storage": "unmapped"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "divergent": false,
+        "unique_targets_source_order": [
+          4620288
+        ]
+      },
+      {
+        "id": "0x468010",
+        "sites": [
+          {
+            "site_vmas": [
+              4144,
+              4156
+            ],
+            "words": [
+              1007157319,
+              621314064
+            ],
+            "target": 4620304,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              368,
+              380
+            ],
+            "target_mapping": {
+              "storage": "unmapped"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "divergent": false,
+        "unique_targets_source_order": [
+          4620304
+        ]
+      },
+      {
+        "id": "0x469000",
+        "sites": [
+          {
+            "site_vmas": [
+              4160,
+              4164
+            ],
+            "words": [
+              1006895175,
+              612667392
+            ],
+            "target": 4624384,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              384,
+              388
+            ],
+            "target_mapping": {
+              "storage": "unmapped"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "divergent": false,
+        "unique_targets_source_order": [
+          4624384
+        ]
+      },
+      {
+        "id": "0xffff8000",
+        "sites": [
+          {
+            "site_vmas": [
+              4168,
+              4172
+            ],
+            "words": [
+              1008664576,
+              671055872
+            ],
+            "target": 4294934528,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              392,
+              396
+            ],
+            "target_mapping": {
+              "storage": "unmapped"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "divergent": false,
+        "unique_targets_source_order": [
+          4294934528
+        ]
+      },
+      {
+        "id": "0x3000",
+        "sites": [
+          {
+            "site_vmas": [
+              4176
+            ],
+            "words": [
+              4224
+            ],
+            "target": 4224,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              400
+            ],
+            "target_mapping": {
+              "storage": "file_backed",
+              "file_offset": 448
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          },
+          {
+            "site_vmas": [
+              4180
+            ],
+            "words": [
+              4544
+            ],
+            "target": 4544,
+            "site_ordinal": 1,
+            "site_status": "file_backed",
+            "file_offsets": [
+              404
+            ],
+            "target_mapping": {
+              "storage": "bss"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          },
+          {
+            "site_vmas": [
+              4184
+            ],
+            "words": [
+              4620288
+            ],
+            "target": 4620288,
+            "site_ordinal": 2,
+            "site_status": "file_backed",
+            "file_offsets": [
+              408
+            ],
+            "target_mapping": {
+              "storage": "unmapped"
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          },
+          {
+            "site_vmas": [
+              4188
+            ],
+            "words": [
+              4224
+            ],
+            "target": 4224,
+            "site_ordinal": 3,
+            "site_status": "file_backed",
+            "file_offsets": [
+              412
+            ],
+            "target_mapping": {
+              "storage": "file_backed",
+              "file_offset": 448
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "unique_targets_source_order": [
+          4224,
+          4544,
+          4620288
+        ],
+        "divergent": true
+      },
+      {
+        "id": "0x4000",
+        "sites": [
+          {
+            "site_vmas": [
+              4196
+            ],
+            "words": [
+              4228
+            ],
+            "target": 4228,
+            "site_ordinal": 0,
+            "site_status": "file_backed",
+            "file_offsets": [
+              420
+            ],
+            "target_mapping": {
+              "storage": "file_backed",
+              "file_offset": 452
+            },
+            "target_status": "decoded_declared_word_fact",
+            "qualification": "Target mapping classifies ONE address byte, not stream extent/readiness or liveness."
+          }
+        ],
+        "divergent": false,
+        "unique_targets_source_order": [
+          4228
+        ]
+      }
+    ],
+    "qualification": "Source-order per-site facts retained, including4sites/3targets for0x3000; no target chosen as canonical, no fallback ID, no payload decode."
+  },
+  "invalid": [
+    {
+      "name": "fake-LUI-opcode",
+      "id": "0x468010",
+      "site_vma": 4144,
+      "observed_word": 872939591,
+      "target": null,
+      "status": "unsupported_opcode",
+      "replacement_hex_le": "47000834",
+      "file_offset": 368
+    },
+    {
+      "name": "fake-LUI-nonzero-rs",
+      "id": "0x468010",
+      "site_vma": 4144,
+      "observed_word": 1023934535,
+      "target": null,
+      "status": "unsupported_opcode_or_register",
+      "replacement_hex_le": "4700083d",
+      "file_offset": 368
+    },
+    {
+      "name": "ORI-low-instead-of-ADDIU",
+      "id": "0x468010",
+      "site_vma": 4156,
+      "observed_word": 889749520,
+      "target": null,
+      "status": "unsupported_opcode",
+      "replacement_hex_le": "10800835",
+      "file_offset": 380
+    },
+    {
+      "name": "ADDIU-cross-source-reg",
+      "id": "0x468010",
+      "site_vma": 4156,
+      "observed_word": 623411216,
+      "target": null,
+      "status": "unsupported_register",
+      "replacement_hex_le": "10802825",
+      "file_offset": 380
+    },
+    {
+      "name": "ADDIU-cross-dest-reg",
+      "id": "0x468010",
+      "site_vma": 4156,
+      "observed_word": 621379600,
+      "target": null,
+      "status": "unsupported_register",
+      "replacement_hex_le": "10800925",
+      "file_offset": 380
+    },
+    {
+      "name": "missing-pair-field",
+      "id": "0x468010",
+      "site": {
+        "lui_vma": "0x1030",
+        "reg": "$t0"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "zero-register",
+      "id": "0x468010",
+      "site": {
+        "lui_vma": "0x1030",
+        "addiu_vma": "0x103c",
+        "reg": "$zero"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "unknown-register",
+      "id": "0x468010",
+      "site": {
+        "lui_vma": "0x1030",
+        "addiu_vma": "0x103c",
+        "reg": "$t32"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "reversed-pair",
+      "site": {
+        "lui_vma": "0x103c",
+        "addiu_vma": "0x1030",
+        "reg": "$t0"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "misaligned-site",
+      "site": {
+        "pointer_vma": "0x1011"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "BSS-site",
+      "site": {
+        "pointer_vma": "0x11c0"
+      },
+      "site_mapping": "bss",
+      "target": null,
+      "status": "site_not_file_backed"
+    },
+    {
+      "name": "unmapped-site",
+      "site": {
+        "pointer_vma": "0x11e0"
+      },
+      "site_mapping": "unmapped",
+      "target": null,
+      "status": "site_not_file_backed"
+    },
+    {
+      "name": "struct-coordinate-mismatch",
+      "site": {
+        "pointer_vma": "0x1064",
+        "struct_vma": "0x1060",
+        "field_offset": "0x8"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "struct-addition-overflow",
+      "site": {
+        "pointer_vma": "0x0",
+        "struct_vma": "0xfffffffc",
+        "field_offset": "0x4"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "data-code-mixed-fields",
+      "site": {
+        "pointer_vma": "0x1010",
+        "lui_vma": "0x1030",
+        "addiu_vma": "0x103c",
+        "reg": "$t0"
+      },
+      "target": null,
+      "status": "invalid_site"
+    },
+    {
+      "name": "unsupported-ref-type-or-no-sites",
+      "ref_type": "gp_relative",
+      "ref_sites": [],
+      "target": null,
+      "status": "unsupported_ref_type_or_no_declared_sites"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "audit": "038",
+  "role": "Purely adversarial read-only challenger; no implementation or approval authority",
+  "started_at_utc": "2026-10-21T18:29:20.627621+00:00",
+  "finished_at_utc": "2026-10-21T18:32:45.874162+00:00",
+  "status": "COMPLETE_NO_CONFIRMED_FINDING",
+  "findings": [],
+  "snapshots": [
+    {
+      "label": "raw569",
+      "root": "/var/tmp/dokapon-pinned-raw-dx_pdq9c/sealed-final",
+      "manifest_sha256": "90344bba9467f610a207146d15ce671a2675e87ddd48152d27ed1a1643c507e1",
+      "verified_members": 569,
+      "verified_accounting_items": 269,
+      "production_files": 39,
+      "production_bytes": 451271,
+      "named_function_declarations": 41,
+      "runtime_summary": {
+        "files": 170,
+        "bytes": 2498324
+      }
+    },
+    {
+      "label": "gp586",
+      "root": "/var/tmp/dokapon-gp-reader-wnw7d8ab/sealed-final",
+      "manifest_sha256": "f314c7282957a8c88c25ae528f291dc109b7f610b7a71757865e2ec80ecb55b8",
+      "verified_members": 586,
+      "verified_accounting_items": 275,
+      "production_files": 39,
+      "production_bytes": 454811,
+      "named_function_declarations": 41,
+      "runtime_summary": {
+        "files": 170,
+        "bytes": 2498324
+      }
+    },
+    {
+      "label": "joined599",
+      "root": "/var/tmp/dokapon-joined-reconcile-4jijo3hf/sealed-final",
+      "manifest_sha256": "1d31a65474b9911ac3b5f96d0bb776e9e210e8afd9992da143a75e9c77cdd35a",
+      "verified_members": 599,
+      "verified_accounting_items": 281,
+      "production_files": 39,
+      "production_bytes": 459159,
+      "named_function_declarations": 41,
+      "runtime_summary": {
+        "files": 180,
+        "bytes": 2531734
+      }
+    },
+    {
+      "label": "inline603",
+      "root": "/var/tmp/dokapon-inline-proposals-70ussz2o/sealed-final",
+      "manifest_sha256": "7e7de0cf5479dbb9e01b8284a6a7159aa01526dff0f309b3cf733bff2b8974ef",
+      "verified_members": 603,
+      "verified_accounting_items": 281,
+      "production_files": 39,
+      "production_bytes": 459682,
+      "named_function_declarations": 41,
+      "runtime_summary": {
+        "files": 180,
+        "bytes": 2533593
+      }
+    }
+  ],
+  "reviewed_artifact_pins": {
+    "evidence/astra-audit-037.json": "21768e2a10e7f435bf745dc2710aa70831ef3157e27a8bd5197940dd9d0959ac",
+    "evidence/inline-reconciliation-review.json": "24a4a676d5aafb378f8967527d6b820a9f46f31e2b317b085d47ffc5ebaefe52",
+    "analysis/material-reader-milestone-assessment.json": "78229c649f9bd9481a53773006115ce1599298965c088090e36ef13b32865188",
+    "analysis/joined-report-remaining-duties.json": "0b4d735fa900cc4531e55c574398eac85f05d34a51083917301019e106b070c8",
+    "analysis/go-current-input-accounting.json": "45ad65c44291f7c743fbcb7e8ba68fa5610126286dcf456fe2bb5e0c782f2434",
+    "stream_audit.go": "c674a2e4bb6b53e3307bce91f501c6f9f0e45fb2276536354dd6e4745d161825",
+    "stream_audit_types.go": "87af8dbf2faf196b31716f254af2972a75103ad67f111a60f8b1d9d7d271adc1",
+    "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
+    "references.go": "aba5f851c72e893d4a70167e62506e0bc9eb0de76cfed6127ca9e9aeb0dbc1c5",
+    "patch.go": "942f76bf79ca8b41ea4530adf191940edbabb0cd9c9f957af52c8d3d4f8ced42",
+    "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda"
+  },
+  "verification_receipt": {
+    "path": "/var/tmp/dokapon-astra038-hagpeci2/checks.json",
+    "sha256": "006b4c7965d6204cf924301d1c6829ede53c4e6a670a928dc8e6c703da192169"
+  },
+  "scope": [
+    "Accepted frozen 603 and raw569/GP586/joined599 checkpoint deltas; source contracts, callers, permanent tests and fixture expectations.",
+    "GP register metadata parsing, absent/invalid/zero GP distinctions, signed ADDIU target calculation, reference geometry and write-planner refusals.",
+    "Reviewed reconciliation status/canonical/source-window/review gates, opaque registry fields, null semantics, inline mapped-field landing and raw pointer_vma key presence including empty/null.",
+    "Material-reader milestone criterion and remaining joined workflow duties; complete runtime/accounting cost, not line-count savings."
+  ],
+  "challenge_results": [
+    {
+      "area": "GP reader",
+      "result": "No confirmed counterexample in scoped static review. Existing shared geometry/target owners are enhanced; metadata failure remains explicit, GP write-planner boundary remains closed. Caller and permanent signed-math/refusal cases inspected."
+    },
+    {
+      "area": "Reconciliation",
+      "result": "No confirmed counterexample. Suggestions remain gated by explicit review, eligible status, known exact canonical bytes, zero tail and complete source binding; patched matching rows explicitly retain landing-reconciliation caveat."
+    },
+    {
+      "area": "Inline raw key presence",
+      "result": "Prior ordinary-review LOW is closed in current source by raw map key-presence fact. Empty/null keys hold reviewed suggestions, while default read behavior is retained. Current permanent tests and independently pinned review evidence inspected; no new dynamic probe run."
+    },
+    {
+      "area": "Reuse and costs",
+      "result": "No new function declaration across reviewed increments: 41 throughout. Production grows 8411 bytes from569 to603; current runtime180 files2533593 bytes is capability cost. No concrete duplicated behavior requiring a new parallel owner or removable helper established."
+    },
+    {
+      "area": "Claims",
+      "result": "Material-reader single planning credit does not assert Full family or universal410 migration. Joined workflow evidence remains an open duty outside accepted603. Historical GP aggregate-summary staleness was corrected in599; current all-group item arithmetic and pins match."
+    }
+  ],
+  "measured_delta_569_to_603": {
+    "production_go_bytes": 8411,
+    "production_files": 0,
+    "named_functions": 0,
+    "runtime_bytes": 35269,
+    "runtime_files": 10
+  },
+  "limits": [
+    "Static adversarial review plus independent deterministic full-manifest/accounting checks; no fresh build, vet, full test, focused Go test, race or gameplay run by this auditor. Parent and ordinary-review executions are pinned evidence, not auditor executions.",
+    "No claim of exhaustive input coverage, runtime GP validity, native rendering/fit, live ownership, or historical-script retirement.",
+    "Excluded pending composed workflow outside603, protected resources and live code. Read-only original source contracts were inspected only as frozen contained material.",
+    "No source modifications and no new helpers/tests/functions. No job remains running."
+  ],
+  "owned_jobs": "All commands terminal; no background jobs launched."
+}

@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-20T17:24:26.116507+00:00",
+  "status": "CANDIDATE resizer implemented; independent Go golden comparisons pending",
+  "work": "/var/tmp/dokapon-native-raster-gpb2y498",
+  "accepted_baseline": "/var/tmp/dokapon-bitmap-render-sealed-srzifqyv",
+  "serena_session": "e97a7438",
+  "existing_candidates": {
+    "composeCells": "Already owns binary glyph layout, shading/outline and cell composition/containment. Hundreds of numerical filter/premultiplication steps would mix independent scaling mathematics into that responsibility. Enhance it later only for shared native-font orchestration.",
+    "texture": "Native storage/index/CLUT/containment; no pixel scaling responsibility.",
+    "generatePalette": "Color normalization/clustering, not spatial reconstruction.",
+    "authorTexture": "Pinned input/output orchestration; no numerical kernel.",
+    "previewFit/glyphMaps": "Encoded native measurement/mapping, not RGBA/Gray resampling.",
+    "tests": "Enhance existing TestPilotHistoricalGoldenBytes for independently frozen numerical stage fixtures; no new test function or closure."
+  },
+  "unavoidable_function": "ONE pure resizeRaster owner shared by Gray glyph coverage and NRGBA word layers, fixed full-image Pillow12.3 LANCZOS. No scaling helpers/closures/policy flags/dependencies/writers/CLI. Only needed actual native-font stages, verified before integration.",
+  "contract_to_preserve": [
+    "Identity copies before RGBA premultiplication to retain hidden RGB.",
+    "22-bit coefficient quantization and clipping between axes; skip unchanged axes.",
+    "Rare tall-input shrinking condition uses vertical then horizontal, otherwise horizontal then vertical.",
+    "RGBA premultiply once and floor-unpremultiply once; preserve source bytes and support shifted bounds.",
+    "Bounded source/output dimensions, explicit unsupported source types; no arbitrary crop/filter API."
+  ],
+  "next_action": "Read sealed primary-source/fixture contract and adversarial ownership feedback before implementing; production native-font caller remains incomplete until end-to-end integration. No coverage promotion or accepted-accounting change from unused foundation alone.",
+  "before_pins": {
+    "patch_test.go": "77e0441f71ed5a669d2db18776155eb1139ac86700222d830f9d52addc205815",
+    "raster.go": "26322386d65c23f3158a2b3373706c7a8d9c2d075095b3cd86ef8ed4dc5e5431",
+    "raster_types.go": "2d76143b31bddb21a31baf0d3b9b7405a8df727352281b6e40fa92e846f1b797",
+    "texture_authoring.go": "867bc6fa20db1a885d761a2389b0524d39332c4b7fda3ddb796ef89a8a39de31",
+    "texture_types.go": "3da7c804553ba941140db990889ea963cacb70aacc5213ab7e1539438aec04aa",
+    "analysis/go-current-input-accounting.json": "b50b0d763051b7c88fc6f8c05f55ee46340a1704cfb65b828c27c7c61f1ddb05",
+    "analysis/reusability-coverage.json": "cef73f03fce7fac1ad3500d606c5b1c9ccb74ab637dfc03993f7db66626221f9",
+    "evidence/reusability-coverage-checks.json": "57147ea035d76f556c0843ee2428f88c9218049a2f415bce269eb923d2d721a5"
+  },
+  "read_only_design_challenge": {
+    "reviewer": "/root/exact_palette_review",
+    "result": "ONE owner justified by actual Gray glyph scaling and NRGBA word scaling; no helper family/dependency/configurable filter.",
+    "accepted_invariants": [
+      "Validate source, destination and both pass allocations before allocation; explicit4096 dimension/1Mpixels workspace limit.",
+      "Gray/NRGBA only, nonnil, honor source origin/stride, fresh output at origin zero.",
+      "Identity clone before premultiply; unchanged axes skipped; rare tall-image V-first branch.",
+      "Preserve signed22bit rounding, coefficient evaluation order and byte clipping; int64 accumulators.",
+      "Independent Python/C proof does not establish Go math.Sin parity; Go golden comparisons required."
+    ],
+    "remaining_source_question": "Resolved against pinned Convert.c: alpha0/255 copies alreadyfiltered premultiplied RGB; other alpha values floor-unpremultiply."
+  },
+  "primary_contract": "analysis/raster-resampling-reuse-contract.json"
+}

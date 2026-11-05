@@ -1,0 +1,644 @@
+{
+  "audit": 31,
+  "at": "2026-10-21T01:40:10.050795+00:00",
+  "role": "Purely adversarial read-only challenger; findings only, no implementation or approval authority.",
+  "what_this_change_does": "Adds exact LINE-count fit constraints, reference-bound stream audit composition, authored asset joins, and ordered streamed CMB discovery manifests. This audit covers the frozen accepted snapshot only; ongoing presentation milestone .05 and live fixes are excluded.",
+  "snapshot": "/var/tmp/dokapon-asset-manifest-4u27nsrn/sealed-final",
+  "manifest_sha256": "1fb1cf3f2c06257e00ee0897a51be835a95c8c471b80aa83ccaf7dafddbc270e",
+  "previous_snapshot": "/var/tmp/dokapon-observed-reference-mly_qel2/sealed-final",
+  "previous_manifest_sha256": "76062d4be7328412ded56c52293408aa55128813c48394d15418b6bddeb6d13f",
+  "findings": [
+    {
+      "id": "A031-1",
+      "severity": "MEDIUM",
+      "group": "Should fix",
+      "status": "OPEN in immutable reviewed snapshot",
+      "title": "Batch discovery reparses the whole TXD once per native texture",
+      "locations": [
+        "texture_manifest.go:88",
+        "texture_manifest.go:200",
+        "texture.go:33",
+        "texture_index.go:23",
+        "texture_authoring.go:140",
+        "texture_authoring.go:180"
+      ],
+      "what_this_is": "The manifest already obtains a validated ordered TextureIndex for each CMB member, then requests a read-only decode for every native. The shared texture function constructs the entire index again for every request. Specification measurements have the same repeated work with a smaller 64-selection limit.",
+      "problem": "For N native records, one manifest performs N+1 full dictionary index traversals and constructs N+1 byName maps and native metadata slices. Existing pixel-work accounting does not charge this repeated structural work; zero-dimension or unsupported natives still repeat it. The new byName map shortens selection only after each full reparse.",
+      "counterexample": {
+        "invalid_native_fixture": "count-1024.cmb",
+        "source_bytes": 168060,
+        "native_records": 1024,
+        "decoded_rasters": 0,
+        "index_calls": 1025,
+        "total_allocated_bytes": 1140904040,
+        "seconds": 0.524,
+        "valid_native_fixture": "valid-1024.cmb",
+        "valid_source_bytes": 1679484,
+        "valid_native_records": 1024,
+        "valid_decoded_rasters": 1024,
+        "valid_index_calls": 1025,
+        "valid_total_allocated_bytes": 2295261664,
+        "valid_seconds": 0.777,
+        "valid_single_raster_RGBA_sha256": "6e53a1fa560e9d3b7b1bcf0ad68af8e9528a4c19bc7dddef8993248bb7702ade"
+      },
+      "measurement_qualification": "TotalAlloc is cumulative Go allocation, NOT peak resident memory. Valid-case totals include PNG encoding and pixels; the zero-dimension cohort isolates repeated parsing from pixel/PNG work. Timing is a single modest local run, not a throughput guarantee. No exhaustion or data corruption is claimed.",
+      "scaling": [
+        {
+          "natives": 128,
+          "exit": 0,
+          "seconds": 0.014,
+          "stderr": "AUDIT031 calls=129 allocated=19665424\n",
+          "output_bytes": 131818,
+          "source_bytes": 21116,
+          "rows": 128,
+          "diagnostics": [
+            "unsupported raster dimensions"
+          ]
+        },
+        {
+          "natives": 256,
+          "exit": 0,
+          "seconds": 0.056,
+          "stderr": "AUDIT031 calls=257 allocated=74579744\n",
+          "output_bytes": 262378,
+          "source_bytes": 42108,
+          "rows": 256,
+          "diagnostics": [
+            "unsupported raster dimensions"
+          ]
+        },
+        {
+          "natives": 512,
+          "exit": 0,
+          "seconds": 0.142,
+          "stderr": "AUDIT031 calls=513 allocated=284309656\n",
+          "output_bytes": 523498,
+          "source_bytes": 84092,
+          "rows": 512,
+          "diagnostics": [
+            "unsupported raster dimensions"
+          ]
+        },
+        {
+          "natives": 1024,
+          "exit": 0,
+          "seconds": 0.524,
+          "stderr": "AUDIT031 calls=1025 allocated=1140904040\n",
+          "output_bytes": 1045765,
+          "source_bytes": 168060,
+          "rows": 1024,
+          "diagnostics": [
+            "unsupported raster dimensions"
+          ]
+        }
+      ],
+      "minimal_fix": "Enhance the existing texture owner to reuse the already validated, source-bound TextureIndex for batch/specification decode. Keep standalone callers validating their own exact bytes; fresh artifact readback must reparse modified bytes. Preserve duplicate selector and metadata-error precedence, chunk bounds, source association and byte-preservation checks. Do not add a second parser, per-native handler, global cache or general framework.",
+      "if_skipped": "Large admitted dictionaries repeatedly allocate and traverse unrelated native metadata. For the 1024-record invalid cohort, a 168 KB input causes over 1 GB of allocation without decoding a single pixel; the 100000-row batch ceiling allows this overhead to repeat across members.",
+      "reproduction": {
+        "private_directory": "/var/tmp/dokapon-astra-031-ie07i4tq",
+        "commands": [
+          [
+            "env",
+            "GOMAXPROCS=2",
+            "TMPDIR=/var/tmp/dokapon-astra-031-ie07i4tq/tmp",
+            "nice",
+            "-n",
+            "19",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+            "--source",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-128.cmb",
+            "--texture-profile",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-128.json"
+          ],
+          [
+            "env",
+            "GOMAXPROCS=2",
+            "TMPDIR=/var/tmp/dokapon-astra-031-ie07i4tq/tmp",
+            "nice",
+            "-n",
+            "19",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+            "--source",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-256.cmb",
+            "--texture-profile",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-256.json"
+          ],
+          [
+            "env",
+            "GOMAXPROCS=2",
+            "TMPDIR=/var/tmp/dokapon-astra-031-ie07i4tq/tmp",
+            "nice",
+            "-n",
+            "19",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+            "--source",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-512.cmb",
+            "--texture-profile",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-512.json"
+          ],
+          [
+            "env",
+            "GOMAXPROCS=2",
+            "TMPDIR=/var/tmp/dokapon-astra-031-ie07i4tq/tmp",
+            "nice",
+            "-n",
+            "19",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+            "--source",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-1024.cmb",
+            "--texture-profile",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/count-1024.json"
+          ],
+          [
+            "env",
+            "GOMAXPROCS=2",
+            "TMPDIR=/var/tmp/dokapon-astra-031-ie07i4tq/tmp",
+            "nice",
+            "-n",
+            "19",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+            "--source",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/valid-128.cmb",
+            "--texture-profile",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/valid-128.json"
+          ],
+          [
+            "env",
+            "GOMAXPROCS=2",
+            "TMPDIR=/var/tmp/dokapon-astra-031-ie07i4tq/tmp",
+            "nice",
+            "-n",
+            "19",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+            "--source",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/valid-1024.cmb",
+            "--texture-profile",
+            "/var/tmp/dokapon-astra-031-ie07i4tq/valid-1024.json"
+          ]
+        ],
+        "instrumentation": "Only private texture_index.go adds a package counter increment at indexTextures entry. Only private texture_manifest.go imports runtime and records the counter plus MemStats.TotalAlloc on stderr immediately before normal output encoding. Both instrumented source files are preserved and hashed below. Production source was never changed.",
+        "read_only_contract": "All probe invocations are dry-run manifest commands with no --apply or --output. They exercise texture(data, native.Name, nil, nil, policy): nil replacement and nil rectangles. Invalid zero-dimension cases fail before any pixel decode. Valid native records are byte copies of the first native (alpha) in the frozen examples/asset-specification/source.txd, changing only fixed-width names plus required dictionary/CMB counts/extents.",
+        "uninstrumented_crosscheck": "Both 1024-record inputs were rerun with a fresh unmodified frozen-source binary. Complete stdout bytes equal instrumented stdout exactly; stderr is empty. The valid cohort decodes every 16x16 raster with the same frozen source pixel hash.",
+        "extra_files": "Exact source CMBs and hash-pinned profiles for every size, unmodified/instrumented binaries, both instrumented source files and structured receipts are retained and hashed below."
+      },
+      "root_status": "Root acknowledged the reproduced lead and described a possible existing-owner enhancement. No live implementation or closure was inspected or credited by this audit."
+    }
+  ],
+  "comparison_to030": {
+    "production_files": [
+      31,
+      33
+    ],
+    "production_bytes": [
+      313749,
+      343343
+    ],
+    "production_growth_bytes": 29594,
+    "named_functions": [
+      33,
+      35
+    ],
+    "runtime_files": [
+      109,
+      120
+    ],
+    "runtime_bytes": [
+      796740,
+      853100
+    ],
+    "runtime_growth_bytes": 56360,
+    "runtime_growth_components": {
+      "production_go": 29594,
+      "audit_examples": 26766
+    },
+    "test_bytes": [
+      480074,
+      523180
+    ],
+    "test_growth_bytes": 43106,
+    "testdata_bytes": [
+      7726732,
+      7913810
+    ],
+    "testdata_growth_bytes": 187078,
+    "distinction": ".04-only proof growth (19453 production +14991 examples =34444 runtime) uses the later .03 baseline; it is not the complete audit030-to031 delta. No net reduction or historical retirement follows from either growth number."
+  },
+  "accounting_and_completion": {
+    "accounted_inputs_verified": 205,
+    "previous_accounted_inputs_verified": 190,
+    "production": {
+      "files": 33,
+      "bytes": 343343,
+      "named_functions": 35
+    },
+    "runtime_without_bundle": {
+      "files": 120,
+      "bytes": 853100
+    },
+    "milestone_index": {
+      "proven": 61,
+      "total": 84,
+      "percentage": 72.62,
+      "meaning": "Equal-weight planning milestones only; no effort/time/reuse/script-completion interpretation."
+    },
+    "core_families": {
+      "full": 5,
+      "partial": 9,
+      "total": 14
+    },
+    "asset_preview_inventory": {
+      "proven_milestones": 4,
+      "total": 6,
+      "family_status": "partial"
+    },
+    "historical": {
+      "baseline": 410,
+      "full_Go": 8,
+      "explicit_reviewed_dispositions": 20,
+      "partial_or_reference": 16,
+      "other": 366
+    },
+    "unsupported_claim_found": false
+  },
+  "scope_challenges": [
+    {
+      "location": "analysis/asset-manifest-reuse-decision.json; texture_discovery.go:19; texture_manifest.go:24",
+      "result": "The two new named functions have distinct actual responsibilities. Existing palette generation mutates colors and rendering changes pixels; neither can reasonably own unchanged-pixel statistics. Single-TXD authoring and streamed multi-member assembly have different source lifecycles. No unnecessary function was established, but the batch still fails to reuse its validated index (A031-1)."
+    },
+    {
+      "location": "texture_discovery.go:21; texture_discovery.go:79; texture_discovery.go:118",
+      "result": "Static challenge covered explicit Python dotted-I lower/IGNORECASE differences, strict edge/opacity/fraction thresholds, self-inclusive neighborhood, row runs, and source-error unknown-score handling. No second functional counterexample established; independent 33+3 score and 34 PNG oracle claims were read, not rerun in full."
+    },
+    {
+      "location": "texture_manifest.go:143; texture_manifest.go:180; texture_manifest.go:220",
+      "result": "Pillow12.3 gray16/tRNS compatibility is a finite documented normalization, while raw encoded PNG exports remain unchanged. No new decoder/helper or unsupported claim of PNG-spec-correct semantics. General PNG/APNG/color-management behavior was not independently exhaustively exercised."
+    },
+    {
+      "location": "texture_manifest.go:43; texture_manifest.go:242; texture_manifest.go:262; outputs.go:15",
+      "result": "Exact authored joins refuse missing or ambiguous matches before publication. Full source hash/stat/path identity and profile byte recheck precede existing exclusive output/readback writer. Own 9-entry example dry/apply/overwrite probes preserve bytes and deterministic bundle; no hostile namespace or concurrent mutation claim."
+    },
+    {
+      "location": "fit.go:163; fit_types.go:23; analysis/fit-line-count-contract.json:109",
+      "result": "Exact LINE count reuses measured Shape.LineWidths and sums per-page len-1; trailing/empty lines remain counted and PAGE contributes no LINE. Unknown measurements stay unknown, wrap+count refuses, and mismatch status keeps other diagnostics. Null/absent constraints deliberately remain unconstrained per contract; no separate token scanner."
+    },
+    {
+      "location": "stream_audit.go:211; stream_audit.go:223; stream_audit.go:249",
+      "result": "Reference-bound audits compose existing references and inspect owners, require matching IDs and every declared site readable/convergent, then demand one complete file-backed mapping equal to the declared observed window. Recorded reference values remain distinguished from executed/live consumers. No new resolver or loose first-target fallback identified."
+    },
+    {
+      "location": "analysis/migration-roadmap.json; analysis/reusability-coverage.json; evidence/asset-manifest-proof.json",
+      "result": "Roadmap arithmetic and 292 scoped pins match frozen content. The ordinary manifest review binds 15 current candidate pins; its pre-promotion roadmap pin is explicitly different and disclosed. All three proof contracts and its review hash match. Milestone accounting does not promote a family or retire historical scripts."
+    }
+  ],
+  "verification": {
+    "current_manifest_members": 414,
+    "previous_manifest_members": 373,
+    "manifest_hashes_verified": true,
+    "source_bindings": {
+      "count": 413,
+      "exact_alias_record": true,
+      "live_comparison": false
+    },
+    "coverage_pins": 292,
+    "accounting": {
+      "current": {
+        "items": 205,
+        "groups": {
+          "asset_bundle": {
+            "files": 3,
+            "bytes": 11313090
+          },
+          "executed_evidence_inputs": {
+            "files": 20,
+            "bytes": 538019
+          },
+          "go_module": {
+            "files": 1,
+            "bytes": 30
+          },
+          "go_tests": {
+            "files": 1,
+            "bytes": 523180
+          },
+          "pointer_selector": {
+            "files": 4,
+            "bytes": 10121
+          },
+          "production_go": {
+            "files": 33,
+            "bytes": 343343
+          },
+          "recipe_tables": {
+            "files": 52,
+            "bytes": 419065
+          },
+          "testdata": {
+            "files": 61,
+            "bytes": 7913810
+          },
+          "build_entrypoint": {
+            "files": 1,
+            "bytes": 1155
+          },
+          "consumer_profiles": {
+            "files": 10,
+            "bytes": 20984
+          },
+          "font_data": {
+            "files": 4,
+            "bytes": 22937
+          },
+          "third_party_notices": {
+            "files": 1,
+            "bytes": 1457
+          },
+          "report_templates": {
+            "files": 1,
+            "bytes": 1394
+          },
+          "audit_examples": {
+            "files": 13,
+            "bytes": 32614
+          }
+        },
+        "runtime_without_bundle": {
+          "files": 120,
+          "bytes": 853100
+        },
+        "named_functions": 35
+      },
+      "previous": {
+        "items": 190,
+        "groups": {
+          "asset_bundle": {
+            "files": 3,
+            "bytes": 11313090
+          },
+          "executed_evidence_inputs": {
+            "files": 20,
+            "bytes": 538019
+          },
+          "go_module": {
+            "files": 1,
+            "bytes": 30
+          },
+          "go_tests": {
+            "files": 1,
+            "bytes": 480074
+          },
+          "pointer_selector": {
+            "files": 4,
+            "bytes": 10121
+          },
+          "production_go": {
+            "files": 31,
+            "bytes": 313749
+          },
+          "recipe_tables": {
+            "files": 52,
+            "bytes": 419065
+          },
+          "testdata": {
+            "files": 57,
+            "bytes": 7726732
+          },
+          "build_entrypoint": {
+            "files": 1,
+            "bytes": 1155
+          },
+          "consumer_profiles": {
+            "files": 10,
+            "bytes": 20984
+          },
+          "font_data": {
+            "files": 4,
+            "bytes": 22937
+          },
+          "third_party_notices": {
+            "files": 1,
+            "bytes": 1457
+          },
+          "report_templates": {
+            "files": 1,
+            "bytes": 1394
+          },
+          "audit_examples": {
+            "files": 4,
+            "bytes": 5848
+          }
+        },
+        "runtime_without_bundle": {
+          "files": 109,
+          "bytes": 796740
+        },
+        "named_functions": 33
+      }
+    },
+    "ordinary_review_current_pins": 15,
+    "ordinary_review_disclosed_pre_promotion_pin": "analysis/migration-roadmap.json",
+    "proof_contract_and_review_bindings": 4,
+    "private_unmodified_build": "PASS: GOMAXPROCS=2 TMPDIR=<owned>/tmp nice -n 19 go build -p 2 -o <owned>/frozen .",
+    "private_unmodified_vet": "PASS: GOMAXPROCS=2 TMPDIR=<owned>/tmp nice -n 19 go vet -p 2 .",
+    "format": "PASS: gofmt -l *.go, empty output on all34 byte-identical private Go files.",
+    "focused_dynamic_checks": [
+      {
+        "case": "1024 unmodified binary vs instrumentation",
+        "exit": 0,
+        "complete_stdout_identical": true,
+        "seconds": 0.514,
+        "stdout_sha256": "f5fde4e3d9884789371d5c11c9cf0cb1bd9bd35a9e47bade032100be635296f9"
+      },
+      {
+        "case": "dry",
+        "exit": 0,
+        "stdout_sha256": "a8d1fabb4fa087e09c03472fed5af5a3b5d9b710af0b9c30c7f90669ffc97cde",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "case": "apply",
+        "exit": 0,
+        "stdout_sha256": "4d6446b988d35b51693e3dfddd78bdddb836725c16c5e9f10dc54ac5ba976ee1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "case": "overwrite",
+        "exit": 1,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "a252b4b3f77d75f05b3680e548e0920c4fba72d558f675862bc0fd4544a0c282"
+      },
+      {
+        "source_profile_bytes_preserved": true,
+        "dry_apply_manifest_bundle_same": true,
+        "example_entries": 9
+      }
+    ],
+    "valid_probe_checks": [
+      {
+        "natives": 128,
+        "program": "instrumented",
+        "seconds": 0.031,
+        "stderr": "AUDIT031 calls=129 allocated=134170792\n",
+        "source_bytes": 210044,
+        "rows": 128,
+        "decoded": 128,
+        "rgba_sha256": "6e53a1fa560e9d3b7b1bcf0ad68af8e9528a4c19bc7dddef8993248bb7702ade",
+        "stdout_sha256": "55f5817d261afdb30c8cc6020d62e4fc5fd326bc1df70e4bf2a3b16bd14925c9"
+      },
+      {
+        "natives": 1024,
+        "program": "instrumented",
+        "seconds": 0.777,
+        "stderr": "AUDIT031 calls=1025 allocated=2295261664\n",
+        "source_bytes": 1679484,
+        "rows": 1024,
+        "decoded": 1024,
+        "rgba_sha256": "6e53a1fa560e9d3b7b1bcf0ad68af8e9528a4c19bc7dddef8993248bb7702ade",
+        "stdout_sha256": "6e19c8421271d9bdd72bb3ae25ad519391eced344c68dfb7903d768a716d0ad3"
+      },
+      {
+        "natives": 1024,
+        "program": "frozen",
+        "seconds": 0.783,
+        "stderr": "",
+        "source_bytes": 1679484,
+        "rows": 1024,
+        "decoded": 1024,
+        "rgba_sha256": "6e53a1fa560e9d3b7b1bcf0ad68af8e9528a4c19bc7dddef8993248bb7702ade",
+        "stdout_sha256": "6e19c8421271d9bdd72bb3ae25ad519391eced344c68dfb7903d768a716d0ad3"
+      }
+    ],
+    "credential_scan": {
+      "files": 94,
+      "scope": "Frozen Go sources/tests, module, JSON recipes/examples; high-confidence credential literals only",
+      "matched_files": [],
+      "positive_selfcheck": true
+    },
+    "final_recheck": {
+      "manifest_members": 414,
+      "byte_identical_private_Go_files": 34,
+      "all_match": true,
+      "unmanifested_serena_exists": false
+    },
+    "Serena": "Isolated session70c25535; read-only symbols/references for inspectRaster, manifestTextures, indexTextures and texture on private copied Go sources. Full-call references corroborated source grep; no edits through Serena.",
+    "tool_side_effect_incident": "Initial Serena activation was mistakenly aimed at the immutable snapshot and created unmanifested .serena project configuration. Auditor immediately disclosed it. Root removed only those generated files/directory and reported a complete414-member rehash. Auditor subsequently used owned private copy only, and independently rehashed all414 manifest members at completion; .serena is absent. No manifest-member change occurred."
+  },
+  "private_artifacts": {
+    "verification.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/verification.json",
+      "bytes": 8186,
+      "sha256": "713453dffc6f2f4affa76776ad0d175c42315a521e06cf9131bba9a288211c6d"
+    },
+    "parse-probe.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/parse-probe.json",
+      "bytes": 1050,
+      "sha256": "f923778d2bffbaefdc9a7aeb4edae03d71e98db05283a39d58f9e13bb49404d1"
+    },
+    "valid-parse-probe.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/valid-parse-probe.json",
+      "bytes": 1106,
+      "sha256": "1bc41ed79be1eeca3535a933a34d2cecec66b29fc5a75d097814356e6fd6c483"
+    },
+    "dynamic-checks.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/dynamic-checks.json",
+      "bytes": 1022,
+      "sha256": "ae38c0982d9030bf71bf8404d5d432f8ebfc575dd6e59cb2e4a3c63a313a5ca6"
+    },
+    "texture_index.go.instrumented": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/texture_index.go.instrumented",
+      "bytes": 3916,
+      "sha256": "34a4ecc0880ff614c12c432653f80f477c1d215edec25a06db338fecd8ee1292"
+    },
+    "texture_manifest.go.instrumented": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/texture_manifest.go.instrumented",
+      "bytes": 11266,
+      "sha256": "75f3828fb4105eb765bcea5315f70aee602070069f59953153fed2d70fe3214a"
+    },
+    "instrumented": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/instrumented",
+      "bytes": 7902120,
+      "sha256": "d5e352c4cc4f55a7621048f2e9ed7271c3db05a4b32e929f0aaec571347743e2"
+    },
+    "frozen": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/frozen",
+      "bytes": 7894971,
+      "sha256": "49b52e9d3936d7bde35abb497600ec0cfab9d6a0b3331de749ed8ac98ac44484"
+    },
+    "example.zip": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/example.zip",
+      "bytes": 16939,
+      "sha256": "e1739415f0fb4f53040fbb160cfd90916c308c401aa1759d8a63f54f5ea597e4"
+    },
+    "count-128.cmb": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-128.cmb",
+      "bytes": 21116,
+      "sha256": "58addfdcab965e2109e69962739f6167d925daf22b7f265eb34308d6aef03d9c"
+    },
+    "count-128.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-128.json",
+      "bytes": 285,
+      "sha256": "48f7f6f615c6b8c8d295077fe8c93ec221c4a18e8ad7410e6637371eecb9c4fa"
+    },
+    "count-256.cmb": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-256.cmb",
+      "bytes": 42108,
+      "sha256": "b5e7172a75d01149c77f122828bbb1f2f5f0b7fd920536ef6ce45023b390d8e6"
+    },
+    "count-256.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-256.json",
+      "bytes": 285,
+      "sha256": "d96d0a3308de47302ab6f5fa53339d471ff4add9eeef7b313d79e641fa87c861"
+    },
+    "count-512.cmb": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-512.cmb",
+      "bytes": 84092,
+      "sha256": "c46e0683c435ae993e873534a5bdfcfc2cd14b4dad0a6e89674cd17282576e85"
+    },
+    "count-512.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-512.json",
+      "bytes": 285,
+      "sha256": "bfde3d7ea1107730ce38b3d008a75879b3276907ab3103fb98702af02be0e564"
+    },
+    "count-1024.cmb": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-1024.cmb",
+      "bytes": 168060,
+      "sha256": "bde834beba367244721411dcb9c24537456e43266f75c6aa2708e7f81ad7b98c"
+    },
+    "count-1024.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/count-1024.json",
+      "bytes": 286,
+      "sha256": "f0420d6ecad15e0b508bafb3d75672fd9ab16324589139253829e17b7f3e1588"
+    },
+    "valid-128.cmb": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/valid-128.cmb",
+      "bytes": 210044,
+      "sha256": "6aebb86cf58bf662c740623d8e253b68cadc4331f65f321a1f529d0d99db75b7"
+    },
+    "valid-128.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/valid-128.json",
+      "bytes": 292,
+      "sha256": "14869f1eb77dcb14d69b24fc48ca7b0542f1bed48052e458dce0df81acf75680"
+    },
+    "valid-1024.cmb": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/valid-1024.cmb",
+      "bytes": 1679484,
+      "sha256": "6a91926b5cbbfe9a776d5a6b3199e71f503a5e60ac86e3094857af5ea0d5872f"
+    },
+    "valid-1024.json": {
+      "path": "/var/tmp/dokapon-astra-031-ie07i4tq/valid-1024.json",
+      "bytes": 293,
+      "sha256": "07dcd7ba0e3aa296f7ec886cc84c9f3dc18d17962840907330d9c00aba9c7aa2"
+    }
+  },
+  "limits": [
+    "No complete Go suite/race/benchmark rerun. Own build/vet/format, bounded dry-run stress counterexamples and one public example lifecycle only; root and ordinary-review suites remain separately attributed.",
+    "No full native corpus, all historical callers, every possible PNG/layout variant or throughput/peak-memory sandbox claim.",
+    "No ISO read/write, canonical registry access/write, emulator/PINE/controller/process/log/settings access/control, UI screenshots or gameplay conclusion.",
+    "No source/test/docs/coverage/goal implementation edits. Active .05 work and any root response to A031-1 are outside this immutable audit."
+  ],
+  "owned_job_status": "Terminal: all owned build, vet and probe subprocesses exited; no outstanding exec sessions or subagents.",
+  "writes": [
+    "evidence/astra-audit-031.json",
+    "/var/tmp/dokapon-astra-031-ie07i4tq/**"
+  ],
+  "conclusion": "One reproducible MEDIUM repeated-parsing/allocation finding remains OPEN in the frozen snapshot. Report is a challenge, not implementation, release approval or family-completion authority."
+}

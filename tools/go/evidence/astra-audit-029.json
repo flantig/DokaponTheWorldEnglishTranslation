@@ -1,0 +1,179 @@
+{
+  "audit": 29,
+  "at": "2026-10-20T21:32:03.328531+00:00",
+  "role": "Adversarial read-only challenger; no implementation or approval authority",
+  "snapshot": "/var/tmp/dokapon-registry-export-m131wn1x/sealed-current",
+  "manifest_sha256": "3e3b93a8482123e819e6ae596ac3baf60a6bf995d3fad987296a1c2ba5cef480",
+  "previous_snapshot": "/var/tmp/dokapon-astra028-gm5ohfri/source",
+  "previous_manifest_sha256": "d434779d6d97a59f75d32c1899378caff624e9b918030d90a1d40279088830a5",
+  "source_pins": {
+    "cmb.go": "a8b7256b54c03b4c560c48e59ab23f759ade47baa3e44799604943850c8400bd",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "cc48b15cee3184141f7e88716b8b6c8b32f78005f1adbdcfc6ad64dcc245e5e7",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "e9b0db2ab992ac53b164acaf170fd89281b3a82aa8b8e30af7a558b8988c990d",
+    "patch_test.go": "8e45eb718728b6e4b38d1731de077b9ea42aba5aa8c05a9afea5a0f30863cbba",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "b5c2517698550e5f45d448433eeff700b714fb2a2ca86292721c5fb94a75a2c9",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "21fc5717bd4f6e88593fa9414ff88f7e15b90adbc47a9b93ee4aa31b79d29be4",
+    "registry_authoring.go": "26c5b976df83a38ce0fb8f43a7e58660a6b6a6ac39cfb72934fc2d3af9fed0bb",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "findings": [],
+  "conclusion": "No reproducible new functional defect or concrete unnecessary helper/split established by this bounded static audit. This is not a correctness or integration approval.",
+  "comparison_to028": {
+    "production_files": [
+      26,
+      27
+    ],
+    "production_bytes": [
+      259491,
+      276580
+    ],
+    "production_growth_bytes": 17089,
+    "named_functions": [
+      28,
+      29
+    ],
+    "runtime_without_bundle_files": [
+      94,
+      97
+    ],
+    "runtime_without_bundle_bytes": [
+      731954,
+      750233
+    ],
+    "runtime_growth_bytes": 18279,
+    "test_bytes": [
+      397870,
+      433455
+    ],
+    "test_growth_bytes": 35585,
+    "historical_retirement": false,
+    "net_reduction_claim": false,
+    "changed_go": [
+      "cmb.go",
+      "image_types.go",
+      "main.go",
+      "patch.go",
+      "patch_test.go",
+      "recipe_types.go",
+      "references.go",
+      "registry_authoring.go",
+      "texture.go",
+      "texture_authoring.go",
+      "texture_index.go",
+      "texture_types.go"
+    ]
+  },
+  "scope_challenges": [
+    {
+      "location": "texture_index.go:13; texture.go:32; texture_authoring.go:89",
+      "result": "One shared structural parser owns names/extents and five header facts. Codec retains selected-raster validation; inventory explicitly leaves codec support unevaluated. New function has two actual callers; no second parser identified."
+    },
+    {
+      "location": "registry_authoring.go:28-73,122-225,466-646",
+      "result": "Mode guard density and 650-line owner warrant continued scrutiny, but new addition and scalar export paths reuse source, normalized-ID, Unicode and publication responsibility. No additional framework or split is justified by file size alone. Exact CSV CR/LF quoting is deliberately not delegated to incompatible Go CSV CRLF behavior."
+    },
+    {
+      "location": "patch.go:1551-1660; main.go:181-232",
+      "result": "ELF path delegates header parsing to debug/elf and keeps half-open file/BSS/gap mapping in inspect. No safe-cave, initialized-data ownership or runtime availability inference is supported."
+    },
+    {
+      "location": "recipe_types.go:37; cmb.go:147; references.go:23; patch.go:697; registry_authoring.go:57",
+      "result": "New purpose fields are isolated from unrelated owners. Repeated exclusion checks are a maintenance cost, but the audited delta does not establish an omission or justify a generic schema framework."
+    },
+    {
+      "location": "ARCHITECTURE.md:151-157",
+      "result": "Prior audit028 stale run-owned registry guidance is corrected. Coverage stays 5 Full / 9 Partial / 14; fourteen narrow available entrypoints do not imply Full parity."
+    }
+  ],
+  "verification": {
+    "current_manifest_entries_verified": 332,
+    "prior_manifest_entries_verified": 175,
+    "accounting_items_verified": 174,
+    "changed_go": [
+      "cmb.go",
+      "image_types.go",
+      "main.go",
+      "patch.go",
+      "patch_test.go",
+      "recipe_types.go",
+      "references.go",
+      "registry_authoring.go",
+      "texture.go",
+      "texture_authoring.go",
+      "texture_index.go",
+      "texture_types.go"
+    ],
+    "source_pins": {
+      "cmb.go": "a8b7256b54c03b4c560c48e59ab23f759ade47baa3e44799604943850c8400bd",
+      "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+      "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+      "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+      "main.go": "cc48b15cee3184141f7e88716b8b6c8b32f78005f1adbdcfc6ad64dcc245e5e7",
+      "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "patch.go": "e9b0db2ab992ac53b164acaf170fd89281b3a82aa8b8e30af7a558b8988c990d",
+      "patch_test.go": "8e45eb718728b6e4b38d1731de077b9ea42aba5aa8c05a9afea5a0f30863cbba",
+      "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+      "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+      "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+      "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+      "recipe_types.go": "b5c2517698550e5f45d448433eeff700b714fb2a2ca86292721c5fb94a75a2c9",
+      "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+      "references.go": "21fc5717bd4f6e88593fa9414ff88f7e15b90adbc47a9b93ee4aa31b79d29be4",
+      "registry_authoring.go": "26c5b976df83a38ce0fb8f43a7e58660a6b6a6ac39cfb72934fc2d3af9fed0bb",
+      "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+      "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+      "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+      "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+      "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+      "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+      "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+      "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+      "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+    },
+    "credential_scan": {
+      "scope": "all frozen Go source, high confidence key/token/private-key patterns; no credential values printed",
+      "matches": 0
+    },
+    "source_worktree_equals_snapshot": true
+  },
+  "private_receipts": {
+    "path": "/var/tmp/dokapon-astra029-r_4kyzg3/static-receipt.json",
+    "sha256": "cf2960e5cbe683d22b31b602e0a79a65d22fe10ffb7983e75ea51d271f01558a"
+  },
+  "unverified_limits": [
+    "Static source and connected test/contract inspection, not exhaustive semantic execution.",
+    "No build, vet, test, race or dynamic probe rerun by this auditor; root supplied focused receipts remain separately attributed.",
+    "No independent replay of canonical 5544-row oracle; protected canonical registry was not accessed.",
+    "Full integrated suite intentionally deferred under user pacing; no gameplay, real-image, visual or historical retirement conclusions.",
+    "No ISO, emulator, PINE, controller, logs, settings or project Python execution."
+  ],
+  "writes": [
+    "evidence/astra-audit-029.json",
+    "evidence/astra-audit-029.md"
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "masks": {
+    "allow": [
+      {
+        "rect": [
+          37,
+          59,
+          203,
+          56
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "alpha": 30
+              },
+              "below": {
+                "luminance": 110
+              }
+            }
+          ],
+          [
+            {
+              "above": {
+                "blue-red": -8,
+                "alpha": 150,
+                "luminance": 100
+              }
+            }
+          ]
+        ],
+        "fill": "core",
+        "grow": 1,
+        "core": [
+          [
+            {
+              "above": {
+                "blue-red": -8,
+                "alpha": 150,
+                "luminance": 100
+              }
+            }
+          ]
+        ],
+        "core_grow": 9,
+        "exclude": [
+          [
+            28,
+            79,
+            24,
+            18
+          ]
+        ],
+        "clip": [
+          37,
+          59,
+          203,
+          56
+        ]
+      },
+      {
+        "rect": [
+          37,
+          59,
+          203,
+          56
+        ],
+        "any": [
+          [
+            {
+              "below": {
+                "alpha": 1
+              }
+            }
+          ]
+        ],
+        "fill": "none",
+        "grow": 0
+      },
+      {
+        "rect": [
+          36,
+          27,
+          34,
+          33
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "red-blue": 60,
+                "alpha": 100
+              }
+            }
+          ],
+          [
+            {
+              "above": {
+                "alpha": 100
+              },
+              "below": {
+                "luminance": 110
+              }
+            }
+          ]
+        ],
+        "fill": "holes",
+        "grow": 1,
+        "exclude": [
+          [
+            36,
+            37,
+            1,
+            3
+          ],
+          [
+            36,
+            43,
+            1,
+            2
+          ],
+          [
+            69,
+            41,
+            1,
+            4
+          ]
+        ],
+        "clip": [
+          36,
+          27,
+          34,
+          33
+        ]
+      }
+    ]
+  }
+}

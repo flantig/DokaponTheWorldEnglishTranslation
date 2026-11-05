@@ -1,0 +1,2687 @@
+{
+  "at": "2026-10-20T15:27:29.914497+00:00",
+  "status": "PASS",
+  "findings": [],
+  "verdict": "Ship the bounded five-layout standalone RGBA increment. No native visual/blend/ISO/art/family approval.",
+  "scope": "Fresh ordinary independent read-only implementation review. Repository writes limited to evidence/direct-layouts-review.json and .md. Earlier review/study reports preserved; no production/test/fixture/art/ISO/canonical-registry edit.",
+  "baseline": "/var/tmp/dokapon-direct-rgba-sealed-jubitcy5",
+  "work": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn",
+  "source_data_pins": {
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "patch_test.go": "3ee0bf253086791b4b6daf429333ebd87302fb1e78f43deb418c793a7274dc6d",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/textures.json": "d70b5534dbe496713b9f25d403f0eb2c6cdcb90e7ee3a287a47f396b46052217",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "3190ff9a3453874e217ab974c94506ebc9c8f0b2ecf6c635871aad211ed46a8a",
+    "texture_authoring.go": "486b0ea81f020e947e3a9533ab76964be931c96584c78ebf57076f2af8a36848",
+    "texture_types.go": "814ed3a0ce83f60d5d0339a6428255c48c9f3bcf41ab16737da17afa857841ec",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "source_data_pins_stable_at_end": true,
+  "independent_pins_equal_published_root25pins": true,
+  "production_changes": [
+    "texture.go",
+    "texture_authoring.go",
+    "texture_types.go"
+  ],
+  "no_new_named_functions_closures_types_arguments_schema_policy_writers_dependencies": true,
+  "prior17base_and6exact_oracle_data_unchanged": true,
+  "past_report_pins": {
+    "evidence/exact-palette-review.json": "f7dd3ad2b4b1904377935d22a16e945f1cd65e69cd754f2d8bcfbb57123ec160",
+    "evidence/multipage-psmt4-review.json": "2d56beb21341c47e777a390760e7200a2ff1f44606764aa56f0ce6a84d9aaca4",
+    "analysis/texture-color-policy-design-review.json": "6db8a9223cec412f430ba4b4c336c8723ceb9eb869271836442795130f869908",
+    "evidence/direct-rgba-review.json": "b58e2c5faf899b2d4c0cf5cf894f5acb7576848228730f8f655213b9e1296a12",
+    "analysis/texture-small-indexed-contract.json": "c0b2a75e58ee671b3c6a6e89d595cac9644ac1a4dfa148e8f560cc9663bdc464"
+  },
+  "callers": {
+    "Serena_session": "d7f95853",
+    "texture": [
+      "authorTexture",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "authorTexture": [
+      "run"
+    ],
+    "references": "35currenttest-owner calls and sole production authorTexture call. Existing five-argument API unchanged. Only texture.go gains codec behavior; authorTexture limits and PixelPolicy comment describe finite layouts."
+  },
+  "contract_review": {
+    "finite_pair_guard": "Exact sixTEX0values with version0 for512square/256x512/512x256, version2 for256square/128x16/16square. Common TW/TH binds serializeddimensions; RF0504/paletteBase0/TEX1LOW0/CLUTbits remain strict. Default requires old512square TEX0 and correspondingversion0, so every new mode needs explicitrgba even when source is null or monochrome.",
+    "native_pages": "Directallocation usesceil(w/64)*ceil(h/32)*2048. Native64x32pagewords independently rebound;16square reserves2048words and minimumTBW1 despite256logicalwords,128x16 reserves4096despite2048logicalwords. ExactTEX0allowlist prevents these formulas becoming generic dimension acceptance.",
+    "storage": "Version0 raw pixelSTRUCT only. Version2 direct exactly one80Bheader+rawpixels, infoPixels exactpayload/infoPalette0; indexed two-header case explicitly excludesdepth32. Existingpacketarray sliced to1 before any packet-byte access and directTRXREG usesfullw,h. Negative unused palette offset exists only as an unused integer descriptor; no directCLUT read/validation occurs.",
+    "indexed_preservation": "Indexeddepth8 width%128/height%64 guards and finitePSMT4modes remain unchanged; their accepted widths>=128 make commonmax(1,width/64) behavior-identical. Indexedpacketarray retains two descriptors and half dimensions. All227preserve/old17base/exactfixtures verify no indexed behavior drift.",
+    "pixels_masks": "Existinglinear directwalk/currentraw preservation/nativealpha0..128/nearesttiesup/hiddenRGB/clone/rectangle refusal remain unchanged. Every new mode independently passes all256candidatealpha PNG imports and sourcealpha129/255 refusals. Outside-mask candidate differences refuse even when they encode unchanged bytes; inside succeeds as complete no-op.",
+    "reuse": "One existingparser/finite modeguard/pixelwalk/alpha/mask/writer owns allsixdirectmodes. Existingpacket loop reused with finite count/dimensions; no newcodec, generalGSframework, helper, option or writer.",
+    "load": "Bounded standalone CLI. Partialpage16square loops256logicalpixels, not wholeallocation; no invented/filling/overreading reserved pageholes."
+  },
+  "native_storage_verification": {
+    "status": "PASS",
+    "storage_contract_sha256": "70124576a4b45c640184367bb39647bc04c26680082639005e95078a6e59ee02",
+    "prior_contract_sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85",
+    "native_spans": 20,
+    "primary_sources": 8,
+    "native_page_words": {
+      "0x516a1c": 64,
+      "0x516a9c": 32
+    },
+    "prior_instruction_words": 14,
+    "selected_modes": [
+      {
+        "mode": "v0_256x512",
+        "source_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+        "dictionary_native_count": 1,
+        "unselected_sibling_count": 0,
+        "dimensions": [
+          256,
+          512
+        ],
+        "header_count": 0,
+        "pixel_struct_bytes": 524288,
+        "palette_bytes": 0,
+        "allocation_words": 131072,
+        "logical_words": 131072,
+        "rgba_sha256": "2367c32fb90104c3e0d768eec3813e851f559a0c6ed42dd6a0d7199f8b9d20a8",
+        "two_edit_TXD_sha256": "a1a2c27f503f2870f242df66bf5d29419ef4b1e3901a6ef4421faec2e4b9f24e",
+        "two_edit_RGBA_sha256": "d9a6cff14da5a4cb5a5a7ec7a9d58c0684e9dbc60347ee9aaf25d9fedb95885b",
+        "changed_offsets": [
+          216,
+          217,
+          218,
+          219,
+          524500,
+          524501,
+          524502
+        ],
+        "exact_source_fixture_RW_native_PNG_oracle_binding": true
+      },
+      {
+        "mode": "v2_256x256",
+        "source_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+        "dictionary_native_count": 1,
+        "unselected_sibling_count": 0,
+        "dimensions": [
+          256,
+          256
+        ],
+        "header_count": 1,
+        "pixel_struct_bytes": 262224,
+        "palette_bytes": 0,
+        "allocation_words": 65536,
+        "logical_words": 65536,
+        "rgba_sha256": "bddc99c27e69afef5082681b55ffec49371073ea1d6484316536259a95aeafa0",
+        "two_edit_TXD_sha256": "811f05f56f088bcf6c662dd9b0d24330318223cccaed1662478a17d8245e59a8",
+        "two_edit_RGBA_sha256": "cdbb51b3abf2e08c88ad593354228018e794a98e4d1a376eb0c047b69d25fa6c",
+        "changed_offsets": [
+          296,
+          297,
+          298,
+          299,
+          262436,
+          262437,
+          262438
+        ],
+        "exact_source_fixture_RW_native_PNG_oracle_binding": true
+      },
+      {
+        "mode": "v0_512x256",
+        "source_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+        "dictionary_native_count": 1,
+        "unselected_sibling_count": 0,
+        "dimensions": [
+          512,
+          256
+        ],
+        "header_count": 0,
+        "pixel_struct_bytes": 524288,
+        "palette_bytes": 0,
+        "allocation_words": 131072,
+        "logical_words": 131072,
+        "rgba_sha256": "abbbeff6510a5cf666a7b7976519d1af19236ad2d18ee3cb1104b6486bbe71e0",
+        "two_edit_TXD_sha256": "6502945cc9627b05f868cc962b708a1096868110c1bfb22097403ad8c28ee76f",
+        "two_edit_RGBA_sha256": "88c3844d94a1c1baf39ff260552fc81adcbf9ccef5fe20d36812fb83f18abf70",
+        "changed_offsets": [
+          212,
+          213,
+          214,
+          215,
+          524496,
+          524497,
+          524498,
+          524499
+        ],
+        "exact_source_fixture_RW_native_PNG_oracle_binding": true
+      },
+      {
+        "mode": "v2_128x16",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "dictionary_native_count": 114,
+        "unselected_sibling_count": 113,
+        "dimensions": [
+          128,
+          16
+        ],
+        "header_count": 1,
+        "pixel_struct_bytes": 8272,
+        "palette_bytes": 0,
+        "allocation_words": 4096,
+        "logical_words": 2048,
+        "rgba_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+        "two_edit_TXD_sha256": "8989ecac122c8fcc6fff0b888695c0b732753cc8e565c5e98f5b2645136003de",
+        "two_edit_RGBA_sha256": "fb86550fa179071ac56a5e79fa7a6552747d24ee3776fff21154b6fa8a8fb60a",
+        "changed_offsets": [
+          71468,
+          71469,
+          71470,
+          71471,
+          79656,
+          79657,
+          79658
+        ],
+        "exact_source_fixture_RW_native_PNG_oracle_binding": true
+      },
+      {
+        "mode": "v2_16x16",
+        "source_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+        "dictionary_native_count": 1,
+        "unselected_sibling_count": 0,
+        "dimensions": [
+          16,
+          16
+        ],
+        "header_count": 1,
+        "pixel_struct_bytes": 1104,
+        "palette_bytes": 0,
+        "allocation_words": 2048,
+        "logical_words": 256,
+        "rgba_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+        "two_edit_TXD_sha256": "f6e12bc88c84bb878abdae11f96a9abeb021dab265be91bb2532f1084d3d660b",
+        "two_edit_RGBA_sha256": "7e70298a7544370fc747e57905f206cc9c279acef6c9820b26b80d65c37ba8e0",
+        "changed_offsets": [
+          300,
+          301,
+          302,
+          303,
+          1320,
+          1321,
+          1322
+        ],
+        "exact_source_fixture_RW_native_PNG_oracle_binding": true
+      }
+    ]
+  },
+  "oracle_pins": {
+    "storage_contract": {
+      "path": "analysis/direct-layout-storage-contract.json",
+      "sha256": "70124576a4b45c640184367bb39647bc04c26680082639005e95078a6e59ee02"
+    },
+    "prior_native_contract": {
+      "path": "analysis/colored-direct-native-contract.json",
+      "sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85"
+    },
+    "beforecode_decision": {
+      "path": "analysis/direct-layouts-reuse-decision.json",
+      "sha256": "5296fc448d93064f80621c05debedbf4f4b41fef378617384a44e83751db898f"
+    },
+    "preserve_corpus": {
+      "path": "/var/tmp/dokapon-complete-texture-parity-g_1eyz4s/oracle.json",
+      "sha256": "6b08f10d1af8ff1f1edbf434710a89332ec1a99ec05b68fd5f77381c147c13c8",
+      "accepted": 227,
+      "held": 0,
+      "complete_RGBA_noop_TXD_onepixel_TXD_and_RGBA": true,
+      "source_preserved": true,
+      "harness": "Privateoverlay injects correctedall-accepted227block intoCURRENT existingTestPilotHistoricalGoldenBytes. No older testfileoverwrite/newtestfunction/source edit."
+    }
+  },
+  "verification": {
+    "race": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "-overlay",
+        "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/overlay.json",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 70.76443989399922,
+      "stdout": "ok  \tdokapon/tools\t67.369s\n",
+      "stderr": ""
+    },
+    "checks": {
+      "checks": [
+        {
+          "name": "vet",
+          "command": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "./..."
+          ],
+          "exit_code": 0,
+          "seconds": 0.06432170100015355,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "build",
+          "command": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/dokapon-go",
+            "."
+          ],
+          "exit_code": 0,
+          "seconds": 0.22577355100020213,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "format",
+          "command": [
+            "gofmt",
+            "-l",
+            "main.go",
+            "registry_types.go",
+            "image_types.go",
+            "text_types.go",
+            "wrap.go",
+            "reference_types.go",
+            "references.go",
+            "patch.go",
+            "recipe_types.go",
+            "cmb.go",
+            "glyphs.go",
+            "fit_types.go",
+            "fit.go",
+            "texture.go",
+            "inputs.go",
+            "texture_types.go",
+            "texture_authoring.go",
+            "outputs.go",
+            "patch_test.go"
+          ],
+          "exit_code": 0,
+          "seconds": 0.0394452860000456,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "whitespace",
+          "command": [
+            "git",
+            "diff",
+            "--check",
+            "--",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_types.go",
+            "patch_test.go",
+            "testdata/textures.json",
+            "testdata/direct-layouts.zip"
+          ],
+          "exit_code": 0,
+          "seconds": 0.0019438959998296923,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "credentials",
+          "command": [
+            "rg",
+            "-n",
+            "-i",
+            "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_types.go",
+            "patch_test.go",
+            "testdata/textures.json"
+          ],
+          "exit_code": 1,
+          "seconds": 0.011212536000130058,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "credential_pattern_selfcheck": {
+        "exit_code": 0,
+        "matches": 2,
+        "input": "api_key = \"synthetic_nonsecret_example\"\npassword\t:\t\"synthetic_nonsecret_example\"\n"
+      }
+    },
+    "observed21actual_direct_instance_CLI_corpus": [
+      {
+        "instance": 0,
+        "archive": "EVENT",
+        "entry": "event\\npc\\npc_18_.txd",
+        "texture": "NPC_18_0",
+        "mode": "v0_512x512",
+        "source_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+        "rgba_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 1,
+        "archive": "SYSTEM",
+        "entry": "system\\font.txd",
+        "texture": "font2",
+        "mode": "v0_512x512",
+        "source_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+        "rgba_sha256": "10fc786dc51b2602b9a4886b8fe0bd3ea25481cc565b2324eee97ffcde3f2bb9",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 2,
+        "archive": "SYSTEM",
+        "entry": "system\\font.txd",
+        "texture": "font1",
+        "mode": "v0_512x512",
+        "source_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+        "rgba_sha256": "0fbbac456c549277ea9775a278cb63cdf76f3c8b4279140b18e74fc655ad9d30",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 3,
+        "archive": "SYSTEM",
+        "entry": "system\\font.txd",
+        "texture": "font0",
+        "mode": "v0_512x512",
+        "source_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+        "rgba_sha256": "e834cb277959176057b6dac71261aa852c1828d512ffbd17c0844b86caf5f5f9",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 4,
+        "archive": "SYSTEM",
+        "entry": "system\\icon_p.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\icon_p",
+        "mode": "v0_256x512",
+        "source_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+        "rgba_sha256": "2367c32fb90104c3e0d768eec3813e851f559a0c6ed42dd6a0d7199f8b9d20a8",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 5,
+        "archive": "SYSTEM",
+        "entry": "system\\multitap.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\multitap",
+        "mode": "v2_256x256",
+        "source_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+        "rgba_sha256": "bddc99c27e69afef5082681b55ffec49371073ea1d6484316536259a95aeafa0",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 6,
+        "archive": "SYSTEM",
+        "entry": "system\\rw.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\rw",
+        "mode": "v0_512x256",
+        "source_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+        "rgba_sha256": "abbbeff6510a5cf666a7b7976519d1af19236ad2d18ee3cb1104b6486bbe71e0",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 7,
+        "archive": "SYSTEM",
+        "entry": "system\\tycoon.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\tycoon",
+        "mode": "v2_256x256",
+        "source_sha256": "7bfbe22b9cd842557978fe0869a009a6d4796224b24253de830fcf82abcbecb6",
+        "rgba_sha256": "c897bf7054edca904d4c5d372ca73ad5867b99bfd0fd8a224dfaeaf17eb7d7a4",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 8,
+        "archive": "FIELD",
+        "entry": "field\\map\\main\\field_map.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "rgba_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 9,
+        "archive": "FIELD",
+        "entry": "field\\map\\main\\field_map_free.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "rgba_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 10,
+        "archive": "FIELD",
+        "entry": "field\\map\\main\\field_map_mu.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "rgba_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 11,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_1.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 12,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_1.txd",
+        "texture": "street",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 13,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_2.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 14,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_2.txd",
+        "texture": "street",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 15,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_3.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 16,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_3.txd",
+        "texture": "street",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 17,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_4.txd",
+        "texture": "streetI",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 18,
+        "archive": "FIELD",
+        "entry": "field\\map\\sub\\stage2\\st2_4.txd",
+        "texture": "street",
+        "mode": "v2_128x16",
+        "source_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+        "rgba_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 19,
+        "archive": "BATTLE",
+        "entry": "battle\\shield\\null.txd",
+        "texture": "Y:\\Graphic\\battle\\shield\\null",
+        "mode": "v2_16x16",
+        "source_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+        "rgba_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      },
+      {
+        "instance": 20,
+        "archive": "BATTLE",
+        "entry": "battle\\weapon\\null.txd",
+        "texture": "Y:\\Graphic\\battle\\weapon\\null",
+        "mode": "v2_16x16",
+        "source_sha256": "d1b7c09d79f7325c8da89757c86ef6d4a5c41255f0bcb939d8601abe36e5b8d7",
+        "rgba_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+        "whole_TXD_noop": true,
+        "actual_export_import_input_identity": true
+      }
+    ],
+    "five_actual_mode_edit_alpha_mask_workflows": [
+      {
+        "mode": "v0_256x512",
+        "dimensions": [
+          256,
+          512
+        ],
+        "dictionary_native_count": 1,
+        "unselected_siblings": 0,
+        "export_preview_apply": true,
+        "operations": [
+          {
+            "operation": "two_edits",
+            "TXD_sha256": "a1a2c27f503f2870f242df66bf5d29419ef4b1e3901a6ef4421faec2e4b9f24e",
+            "RGBA_sha256": "d9a6cff14da5a4cb5a5a7ec7a9d58c0684e9dbc60347ee9aaf25d9fedb95885b",
+            "changed_bytes": 7,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          },
+          {
+            "operation": "all256alphas",
+            "TXD_sha256": "4992b27476b1fab794f8fc12304e3541a4ce217dd00809247bd89e7dff655515",
+            "RGBA_sha256": "e4521e4bf64212c2d37ecf4398e308f4d67be97132b32d067b5da72ca779fa21",
+            "changed_bytes": 1023,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          }
+        ],
+        "same_rounded_byte_outside_refusal_inside_noop": true
+      },
+      {
+        "mode": "v2_256x256",
+        "dimensions": [
+          256,
+          256
+        ],
+        "dictionary_native_count": 1,
+        "unselected_siblings": 0,
+        "export_preview_apply": true,
+        "operations": [
+          {
+            "operation": "two_edits",
+            "TXD_sha256": "811f05f56f088bcf6c662dd9b0d24330318223cccaed1662478a17d8245e59a8",
+            "RGBA_sha256": "cdbb51b3abf2e08c88ad593354228018e794a98e4d1a376eb0c047b69d25fa6c",
+            "changed_bytes": 7,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          },
+          {
+            "operation": "all256alphas",
+            "TXD_sha256": "9e79f4193a742e4222ea58b714ef1fd388a15c5c19a535b307cf8084d2baec98",
+            "RGBA_sha256": "c567ac37c668bd84e64d43782c88ed273335a3db003c267913866571c2f22026",
+            "changed_bytes": 1023,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          }
+        ],
+        "same_rounded_byte_outside_refusal_inside_noop": true
+      },
+      {
+        "mode": "v0_512x256",
+        "dimensions": [
+          512,
+          256
+        ],
+        "dictionary_native_count": 1,
+        "unselected_siblings": 0,
+        "export_preview_apply": true,
+        "operations": [
+          {
+            "operation": "two_edits",
+            "TXD_sha256": "6502945cc9627b05f868cc962b708a1096868110c1bfb22097403ad8c28ee76f",
+            "RGBA_sha256": "88c3844d94a1c1baf39ff260552fc81adcbf9ccef5fe20d36812fb83f18abf70",
+            "changed_bytes": 8,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          },
+          {
+            "operation": "all256alphas",
+            "TXD_sha256": "a74fb0ae334b8557e0441f602499f3de8008197562b91e9afd5019923e659282",
+            "RGBA_sha256": "3cc53368e1daa1f4f1c6f6c33e69843fec8cd6c897e640ebb5aed3c3fb54c4ad",
+            "changed_bytes": 1023,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          }
+        ],
+        "same_rounded_byte_outside_refusal_inside_noop": true
+      },
+      {
+        "mode": "v2_128x16",
+        "dimensions": [
+          128,
+          16
+        ],
+        "dictionary_native_count": 114,
+        "unselected_siblings": 113,
+        "export_preview_apply": true,
+        "operations": [
+          {
+            "operation": "two_edits",
+            "TXD_sha256": "8989ecac122c8fcc6fff0b888695c0b732753cc8e565c5e98f5b2645136003de",
+            "RGBA_sha256": "fb86550fa179071ac56a5e79fa7a6552747d24ee3776fff21154b6fa8a8fb60a",
+            "changed_bytes": 7,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          },
+          {
+            "operation": "all256alphas",
+            "TXD_sha256": "aa867c0d895c314f8a938cc69da51b67d9979b604f4b985f4e9c94c23fd81538",
+            "RGBA_sha256": "2793bc788656282c7f4e9b535b2a308ff43c1e098d4cb24e65e7f5b63a3b306f",
+            "changed_bytes": 1023,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          }
+        ],
+        "same_rounded_byte_outside_refusal_inside_noop": true
+      },
+      {
+        "mode": "v2_16x16",
+        "dimensions": [
+          16,
+          16
+        ],
+        "dictionary_native_count": 1,
+        "unselected_siblings": 0,
+        "export_preview_apply": true,
+        "operations": [
+          {
+            "operation": "two_edits",
+            "TXD_sha256": "f6e12bc88c84bb878abdae11f96a9abeb021dab265be91bb2532f1084d3d660b",
+            "RGBA_sha256": "7e70298a7544370fc747e57905f206cc9c279acef6c9820b26b80d65c37ba8e0",
+            "changed_bytes": 7,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          },
+          {
+            "operation": "all256alphas",
+            "TXD_sha256": "520d07ec0041acae33a3977ab9fefd11fc7d12be95e987fd0e116b509e24ee8b",
+            "RGBA_sha256": "b05acd89383954d7b53c03ec1b7d8c0c10b136c6519f5304e07ce2df7f9b0ed7",
+            "changed_bytes": 1023,
+            "whole_member_exact_expected": true,
+            "outside_selected_pixel_bytes": 0,
+            "headers_and_all_siblings_unchanged": true,
+            "preview_apply_readback_overwrite_input_identity": true
+          }
+        ],
+        "same_rounded_byte_outside_refusal_inside_noop": true
+      }
+    ],
+    "coherent189codec_profile_refusals": [
+      {
+        "mode": "v0_256x512",
+        "case": "version1",
+        "kind": "field_guard",
+        "source_sha256": "9b1e40e8b4d6d1e51b40e3429c2bd6480231b4c04baf542a4c5207c3e83829ec",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "version_pair",
+        "kind": "field_guard",
+        "source_sha256": "661635b53774205cdb8b9cdb28ee9ca5e086d51fec1d8d8be2209f84a2b48a58",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "width",
+        "kind": "field_guard",
+        "source_sha256": "23a2770dce74e0df6848d6b70f89dcf6b22820d954329c97b2305ced95666977",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX1LOW",
+        "kind": "field_guard",
+        "source_sha256": "35d4b9e83bcc46d9fe6e9e0726e145bf8a18f03613ef21777e0a9d6b87238f99",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "palettebase",
+        "kind": "field_guard",
+        "source_sha256": "ebf734eff684ff62519a01db3b3cd30b1d0c152d0d75bb732799bbe3dc9b9aa9",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "paletteinfo",
+        "kind": "field_guard",
+        "source_sha256": "8139e9df1492de9e3b42fd5042d586763e59bae420532d7281f18db9a6913d34",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "sourcealpha129",
+        "kind": "field_guard",
+        "source_sha256": "5f43dbba27db7fb0f12e73554a6e9eb5d5774d50efb3b14fb76e69c7fa443c59",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "sourcealpha255",
+        "kind": "field_guard",
+        "source_sha256": "43db6f11fd41370ee26256ba8d4ac79a059a341f1039142012fccc21d97689d9",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "pixelinfo_minus1",
+        "kind": "field_guard",
+        "source_sha256": "58c40aadbc1aa22df0fcb44648c612cf770bb5504912d7a7f5d511880da0f3b3",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "allocation_minus1",
+        "kind": "field_guard",
+        "source_sha256": "128323e20ca215e17334e95cdf1322786e97295d0834c65fd9bc5db14ede9bbf",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "allocation_plus1",
+        "kind": "field_guard",
+        "source_sha256": "729cbf204344c1eeacc6c821f7d7c660f7d3f6d9cf5f982c5e002c3a09fdb420",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "pixel_STRUCT_outofbounds",
+        "kind": "field_guard",
+        "source_sha256": "fc68c61078f840ccac602d9c85eb07e9f845979440430d8aa8914f00c9a6751c",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit0",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "10ef05ad0058c802792fd38aba18a21cab8e68d5d3f730d83aa3890a74c079e5",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit14",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "990003fd996d6f2a05fc2f2280ed99dd51126896b9d9d9e2d554ea81b1d5d02c",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit20",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "b768b4c96c6796088d909fe314e0c184a2dd021f3789fcabe36866b27216d39b",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit26",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "5a0bcd7d8f314bb82a8819c667d69c1c525276dfe1d6b37f027acddf90145fb3",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit30",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "cb383ed020dd733a207f270e39d64ddbed5db57967e63b75eedaf3ca12f3095f",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit34",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "54e8255c5b7ed3fe706e5ccf7386b45f52f8c69559845677c231f6702d75a554",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit35",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "aa15ab64d418d8ad3684b9bfe231be2a62be307f8a85ad6ae654f28d868e5aea",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit37",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "dd4fdbade3f24fbf4cd9f265c7d47b0f09977a61ff8de55a4bc2c74be9ec9b4f",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit51",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "6bb480ce3facfb457c3bd4c5392829ba6969b425ce0abdc37cac577eff736158",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit55",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "75d3e80988d3b58656184e8a2018833ceee3d03aeca290f143bc85f04c87db2f",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit56",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "7767268e00a6770d97e00bb7702d58a31bd1b1893e9c0f87826fba21589b4ae1",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "TEX0_bit61",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "6c78a7112cb29f9dfa91b5e7ada5f5495ebc42ed29d9dec95c2b6606a5a8a304",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "extra_header",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "a55e93702772a18743a59cbb737ea70b57df5c3fbbcdc469c7fd5acad83917f8",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "coherent_v2_wrong_version_pair",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "a17f1618d120b226dac53b7ed5b2e818c30b4a7208025fdd2e3b9dd5176f1a4a",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "palette_payload",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "f50550eb8e359a021d069157916c8284d6cd7bb68f5a0a862fcd30f27420ceee",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "missing_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "case": "null_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "version1",
+        "kind": "field_guard",
+        "source_sha256": "ded036ab86fdf22b2d4a519adbdb5874d96faa3f4424f2ebf5c3cd1a8f013fca",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "version_pair",
+        "kind": "field_guard",
+        "source_sha256": "5bca5879432073f6eb53aefe7690acd56df5331a146dfab8ecc62995b5a58113",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "width",
+        "kind": "field_guard",
+        "source_sha256": "ea0b74d316f539627c08b23cbb5ccea1dc23748c5a306f5a80be95fbc0237c34",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX1LOW",
+        "kind": "field_guard",
+        "source_sha256": "9d96650d55e2c8e33a15efbcff13d7370e54c5dac8fe4f239f8ebb2beb24807f",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "palettebase",
+        "kind": "field_guard",
+        "source_sha256": "f8f615ff9d05234c9f8869543b6c1d66ce26cd6f7f4616673b27119e0d7ef189",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "paletteinfo",
+        "kind": "field_guard",
+        "source_sha256": "a6161f77ba9a50e8dee521f03217b539728aac25e7f511ec790c2f774b02f624",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "sourcealpha129",
+        "kind": "field_guard",
+        "source_sha256": "97bef7b6de3053bb9941378068ba816afe2b3b3c6e2f30de8cc93544c4002f8d",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "sourcealpha255",
+        "kind": "field_guard",
+        "source_sha256": "1f511fac4d0f6c5b0c90dea580ba21e35d37bf9a91afab101893a371b5804fa6",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "pixelinfo_minus1",
+        "kind": "field_guard",
+        "source_sha256": "be673654624b4ed63e43c542a65d9f81888ba3de9cad65181b682ffff9bfa338",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "allocation_minus1",
+        "kind": "field_guard",
+        "source_sha256": "84171a4306cc33e7c2c75d106c425123a8187030e26a5a11a1c0f7e3298f4dec",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "allocation_plus1",
+        "kind": "field_guard",
+        "source_sha256": "cce2806cbd81df814d840330dcd901d51625bac8e30970266fff256e34341832",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "pixel_STRUCT_outofbounds",
+        "kind": "field_guard",
+        "source_sha256": "23d3906686743e76c35d1fa289ff62d3fc94a26efd965c41342e6d90f9ea54c8",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit0",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "110c019dcee47201c781bd61765e4f4ade81c03f2d9c8b7ab74037a2fe051337",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit14",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "e48e0a5c46d52ce90c68119874dee463677eb790ceae0dccb410c6b3feba8b78",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit20",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "4a60a143cfff72e6d95a2b3697eccfdc91a209d176f3983e72765ec3d1129e40",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit26",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "7faf485f8d2f3a4bdace5dc9ed4962f981558886d9d3a8673e8b13d3bc88e355",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit30",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "ba4735ee2d3b4f420356f81e33e8a6ccaa26d2fc7b79d16304dee2a1c5093f7c",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit34",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "a5eb682befd2b156bf2edd5df10b2cf36c81ff85375fac0950dc6e346b3b7953",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit35",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "83dfd165cf56cb5353cbf4b712111c2466e710713ea068336782520b0c5048f1",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit37",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "e1230e44431e4881e0e9376a879e7c1a202eea80ac9758d116bc54033eb12082",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit51",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "19e9a8120ff177e7ba7cca941cb3e9678e512b0884c51a0053a94ff60c11b248",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit55",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "bbc7cc8e4b1708403510af973ebcfd69194a84db26738656c1dae2ffa9bf53b6",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit56",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "db26ac7e535e44bc46e762f93a11f9adc83b8dba7b8ef434cb68f1cc2fedef3e",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "TEX0_bit61",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "f818145752c08bd06473de7182c316a99ad3cbe33af3c333fb40f829bf0872ca",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word0",
+        "kind": "single_packet_guard",
+        "source_sha256": "fcb3de1a6864b4402232ef328678eb3f5d12e6c5b6f7808f77df70d8418dace8",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word1",
+        "kind": "single_packet_guard",
+        "source_sha256": "cafaf4e90bd0e3b5e3c4340882dd40be11a78351d312f6a5931d0cf0b034451c",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word2",
+        "kind": "single_packet_guard",
+        "source_sha256": "0a6bf11bc482d81e7f62fa24e5d21501a66c28a38d46ebc184a612381a8f978b",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word3",
+        "kind": "single_packet_guard",
+        "source_sha256": "a5c14ba2717e34765a065c038fdc024ce98cf6192e76c8ae8fdd85fe07ba954a",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word4",
+        "kind": "single_packet_guard",
+        "source_sha256": "78e94d203ec541f2affbfaa5c544a108a00ae50326919c57971a06d1c20e622f",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word5",
+        "kind": "single_packet_guard",
+        "source_sha256": "6f68bb969a2ca8e9cc5be51a3a37c2f8199ca995e8e821ca22a470152d7943ff",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word6",
+        "kind": "single_packet_guard",
+        "source_sha256": "fc81761dd7e712dded8e9f6f6652af7eda54961ba1a83d58a8a9810ac0ddfbea",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word7",
+        "kind": "single_packet_guard",
+        "source_sha256": "c23930fe454746422d1b47db61d370a1946c7bee9fb7b4a54fec4ea62d973c6a",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word8",
+        "kind": "single_packet_guard",
+        "source_sha256": "003122b265be8ea824076c8fd2fefd512dbe786589c715b0d92e7c19aaa8156c",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "packet_word9",
+        "kind": "single_packet_guard",
+        "source_sha256": "6a2b3bf134008f84d9aa17e9a0e13b85eda062a6c685049db6ca6142403b8fea",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "indexed_halfsize_TRXREG",
+        "kind": "direct_packet_dimensions",
+        "source_sha256": "774b10c37290ea1299ff0cf678dc46bf987e2f090ceb6ce87ccc26082c100a54",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "zero_header",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "4c2da481bbce01f9bb25bdde624fcfe638db09b9f6a3b1bc4ec1166f6e69835f",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "two_headers_fake_empty_CLUT",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "ae729d86976967b69fe5764ba7999e65d19ea4f9919236024c58dffa33845299",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "two_headers_paletteinfo0",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "d92f69cee2bd943314ba3415db2f8b0964b0b0f2284f875cb30519282306103d",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "palette_payload",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "0265ccdccf6212ffdfbf8f4da76e2b99ed0b4635510a040933efb7ff8d56fa7e",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "header_after_raw",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "1f83d5797e63170c1dac217408fe0074c8f1a8836593d338f2aaeae7f897186a",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xd8"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "wrong_version_coherent_raw",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "eaf045c5503159aa32bc84eff407c4657d9551f4d21d804ab559eeed89c1fcc4",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "missing_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "case": "null_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "version1",
+        "kind": "field_guard",
+        "source_sha256": "54067c37d5da1973ab1e784d855a286e338c9f4d391b4dc49da4af8350b4a4dc",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "version_pair",
+        "kind": "field_guard",
+        "source_sha256": "9985da0552f7a6b24211eeff676a976c5d898cd28350c0e3e772197966105153",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "width",
+        "kind": "field_guard",
+        "source_sha256": "6df70b8e442b072b7625007138ac18395a543c85724018e5568813a08bac14ff",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX1LOW",
+        "kind": "field_guard",
+        "source_sha256": "f57d369e469439485e6abeca446d0e1cf24ae9de3a64f1b837e436dc133867b7",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "palettebase",
+        "kind": "field_guard",
+        "source_sha256": "3f1e0de6282af64503bd4f04a45f56288d1a37157cd6c4085dd9a6daa6b87217",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "paletteinfo",
+        "kind": "field_guard",
+        "source_sha256": "fe2f93bbbd8319c7975e6d0c6565852035744193c6053e8d6eaa41627fa7e62c",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "sourcealpha129",
+        "kind": "field_guard",
+        "source_sha256": "6fe6e34f6ff1a6f9fc4b68e649d4c9e4bdec6bd64968c79944c643a0d62b0ce5",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "sourcealpha255",
+        "kind": "field_guard",
+        "source_sha256": "7527869567453cef3aa0330529f57ff056e32c788e8f136d80823956d01a8bfd",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "pixelinfo_minus1",
+        "kind": "field_guard",
+        "source_sha256": "8b049688a80c9aa82dbff6fa1689834a5457c859507e0776ffc47003f714057f",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "allocation_minus1",
+        "kind": "field_guard",
+        "source_sha256": "264be69de9360370f869e463aee05b70ce78437cbadf0f0afd6c8fd55a921483",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "allocation_plus1",
+        "kind": "field_guard",
+        "source_sha256": "7b076f86dbd0e2bfa02957dcfac115549e8882f2e0d0e13b956f2b0cc011b025",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "pixel_STRUCT_outofbounds",
+        "kind": "field_guard",
+        "source_sha256": "11aafae73465338f81e27b4ba73ee7c6342d242f256097f934de7a5e578292a5",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit0",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "f45cc415816633f28ad8e75b9f68a53d914f5b499bfde1d6ddadf2d3f7658f09",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit14",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "94705f13331efda07ed72784ff0ca9ec782783e9f9907962f0a28d48db2c9c49",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit20",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "d184b59aac7552f6f57b0417bc965fe82e1254e99ecf1406a5073614739605ce",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit26",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "ae16dc67a0349924ffcb956542887cadbcee0244610f13d124b061ac2fec8234",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit30",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "179f4b2459685e87686ac722a688e99618d55bcc04936c81f7ea2fc5fd8e638e",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit34",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "6df281538824aca0d0ac618b49273b33c958fa2953b8ac8fbdbbe0d2ef463a15",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit35",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "47f6860c0ea51b8e70a12b0532b654e60ab264fafb15823d75e07e5634bcafab",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit37",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "d8fb6c64c560b2e7a4b1a48985732ce92251d069f700b4361d3e480cda850496",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit51",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "4f62938eaf75cededdb8d9112268047084fda98cd5bf2d6015da46d14b17e0e2",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit55",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "b520afbcc1e3c5a78c1b20794ba446a81016e63986e804a3280a824dea0e9994",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit56",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "b2a44109f5123fc9dcd22c01e06a2754994a7c80a399c84ea99c63836e7a8977",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "TEX0_bit61",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "9b1b8d176710ec0eb1d3c807591f3727bb4649500c38665f7841957f731f45cb",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "extra_header",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "e262dc6f9aa4cbebe976b2e3d3edd68d009586f03bca8b06c76fbaeace175fde",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "coherent_v2_wrong_version_pair",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "c4ed7d7584754d68e72c17e9259536f98db37d799cb58815253cb6cec99016a7",
+        "refused": true,
+        "diagnostic": "unsupported headerless direct version"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "palette_payload",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "1e0b2cd0fa6d8fd72f7f8d7eaec213642cfc16f84ba4977e37eb3be99d367f3f",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "missing_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "case": "null_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "version1",
+        "kind": "field_guard",
+        "source_sha256": "dc843fb62c3a041e7f562f4045a5c740cdcbb963fb2c67aa12996525b09a5dd5",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "version_pair",
+        "kind": "field_guard",
+        "source_sha256": "5aa1d5560670aa7b3eabf50ad4da957a874d2e11765c2295214a9d813d4b922f",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "width",
+        "kind": "field_guard",
+        "source_sha256": "48d161136da4c50e7c55d8c7a5c3f8d34ddbdc243acee2faf5d96949ccb0d1d0",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX1LOW",
+        "kind": "field_guard",
+        "source_sha256": "5c729625d3ee9aeb7c55a308359a5d45adaf1ce57b8711e311932176101ca055",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "palettebase",
+        "kind": "field_guard",
+        "source_sha256": "baa1de3603927bba325899a3756f8c3c3c2f3190ba565d4c1d6aac4fa9dc00a1",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "paletteinfo",
+        "kind": "field_guard",
+        "source_sha256": "2ad29462177d6165589ac02fe7955a8459a714e28219286c138f178c78f13295",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "sourcealpha129",
+        "kind": "field_guard",
+        "source_sha256": "45c7b8e15237f3721552ab597bbb9539e9f093aaaf345c52b44a35bfb10fc4af",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "sourcealpha255",
+        "kind": "field_guard",
+        "source_sha256": "286a3d336d30de59064c3f52e85eeac2de67dcf8f3a75ec1efa5374433a06102",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "pixelinfo_minus1",
+        "kind": "field_guard",
+        "source_sha256": "77cd7b7b15680125110a73f1d181e63621cc909d994eb6381aa6d7abe0b68bed",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "allocation_minus1",
+        "kind": "field_guard",
+        "source_sha256": "7b1c98f6b916f873a3a8574f9bc1a197037e07493b727840015a8dedd7d0e825",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "allocation_plus1",
+        "kind": "field_guard",
+        "source_sha256": "f06dd32e4bdaded1eba303cc37ae5d68ab816a56c5c756d01df660aeac693ad7",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "pixel_STRUCT_outofbounds",
+        "kind": "field_guard",
+        "source_sha256": "2c978af2028a2915ae84f06cf499a1fb2f9c7fb8d026b69348ce34bf03215419",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit0",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "994523c05e67ef6126d07274a762b673ada68b59c0aaaf015c73b811ef215a01",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit14",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "07faa9323b0bdbbc60ac740cb14f7c72a34a5b127c259b881016129ffbac592f",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit20",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "645ed4cddbefe8e6007182e04d2e202590e0020f7c6250bc46939432a1c85d11",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit26",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "357df91eb2693e79293462bc61f3901930a2d1e9ec7c952dc48c56893e40696d",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit30",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "9cea24b8437b4786f499f269b8e69189c1877e5b723770e36304596977573555",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit34",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "b721fbb7c2f7d2030f4fb5fb2ffaeaf2d8a9a2a9ab01434c4ddb53bcc5c6128e",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit35",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "2ef50f8b733ad715b85062c075d70873fb2087cc1ae82eb1b6fef5e3a066bee5",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit37",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "48a186ad79e13806093760321c03a76fa2701dccf7049a0759d9cbd2f56ce9aa",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit51",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "8dd0de86a7bb783316ede94e5ebdc23f6ffd7b1f8764257cee750a4eecd9293d",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit55",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "ff59834baf723070a8279755dc2f34a6e47336a666cb7dc47f56e43e29ec6cf8",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit56",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "b0993e01b8309c2ccbfc9b6772516c0296e5db0c029d86faf99598c3ff653251",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "TEX0_bit61",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "db347b4ff1aa28daf8fa49350616c30f128e146dedd9b73da315e888b020b8e7",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "logical_count_allocation",
+        "kind": "partial_page_allocation_guard",
+        "source_sha256": "3117b4ca93837393d688f045ee0ac52a8bbd9ed48e4bde88a581e6258b41ee4b",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word0",
+        "kind": "single_packet_guard",
+        "source_sha256": "fb02010481caf69f07c0102e89a7da1d1a430787afd555dac3d211244dd9b47c",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word1",
+        "kind": "single_packet_guard",
+        "source_sha256": "3a0c4255d6d6144dd4b407ae0c9ce246c05a01d7ab67f00d3b7bbc68045dd181",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word2",
+        "kind": "single_packet_guard",
+        "source_sha256": "d3279c4f73818d34f190af14e9cdb567ef474fd1ca6eae0d14eee48a2277048d",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word3",
+        "kind": "single_packet_guard",
+        "source_sha256": "c3fd9455eb933bb06bfa7b7504911d31cb581714447e1ef7c3b361fe55bd77ee",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word4",
+        "kind": "single_packet_guard",
+        "source_sha256": "3fbea10d5c54773270e442adb68dcc4784ec3f688e9ef069c5aeac8219efb189",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word5",
+        "kind": "single_packet_guard",
+        "source_sha256": "3f85a6275c74338e739aad617ee3786894da779847e88f8db8a29a45326b2879",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word6",
+        "kind": "single_packet_guard",
+        "source_sha256": "3019cae9b8b854189b45224431a7b43eabd09d2cdefa20e4b159f9749a04273a",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word7",
+        "kind": "single_packet_guard",
+        "source_sha256": "41701be87de6b93093c8b67083979c5aaf8bc83f3a53ce12dea2b130157337a1",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word8",
+        "kind": "single_packet_guard",
+        "source_sha256": "5f6e557f13c8e35f5e9c9e66c0e97eb436bbe1d28b4eab6b715e28baf12069f5",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "packet_word9",
+        "kind": "single_packet_guard",
+        "source_sha256": "786fb7a534e743348598431beca565d25e8c9957f1ad9d7547d7281b09574aee",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "indexed_halfsize_TRXREG",
+        "kind": "direct_packet_dimensions",
+        "source_sha256": "413813a30a9c6ea0baf658ab9523ca0c7dd1df402f3a8a43a803ffefad70fafc",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "zero_header",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "0c9f91af2442f2acc36dfdd8e2fda023230d7471137d3f660ce1a16c74789d0e",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "two_headers_fake_empty_CLUT",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "d92d48b1f0af798a3d20487293ac10fe57079eba1f35ab331174ec1e0f05196e",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "two_headers_paletteinfo0",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "ce07a8806402df226531225ad819f0c17bc2fd9f9826f35b44c97e48aab0d699",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "palette_payload",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "8e41e4f88cb4f1943179af0f67642c9950b3e0f8b79b6cb1586b712b4e2fc6e9",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "header_after_raw",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "1772b42c7c2b0e9a3ccc5c3b7503e494cd024a660364a3c450ef0c35a49dc6a2",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0x116dc"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "wrong_version_coherent_raw",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "ef187e66bbc4581b4ddecb791d8f5ea727f453b62a8e54f8443034dd1f9303ab",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "missing_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "case": "null_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "version1",
+        "kind": "field_guard",
+        "source_sha256": "8b4eb57a821463e050c471c986b2917449133e002d7d59d7fcc9479ed92ad336",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "version_pair",
+        "kind": "field_guard",
+        "source_sha256": "eed033fffa0ab357fda220ab2ae7b2381d81788fabe8585f21b82e4ab777aa1b",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "width",
+        "kind": "field_guard",
+        "source_sha256": "7bad5ab55f3c0ead32425b76588e8b642ebc94a56a5aae0f39cf4ae867738baa",
+        "refused": true,
+        "diagnostic": "unsupported TEX0 buffer size or CLUT mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX1LOW",
+        "kind": "field_guard",
+        "source_sha256": "f10f4d6014953ef045c4584e440eda1ababe6fc983ef6940e36cef039fdaa6e8",
+        "refused": true,
+        "diagnostic": "unsupported native TEX1LOW sampling/mipmap mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "palettebase",
+        "kind": "field_guard",
+        "source_sha256": "491d3791b9e70132e2b9d4718a0828de13c1ae81553a85f6edc6e0d9d072e9e5",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "paletteinfo",
+        "kind": "field_guard",
+        "source_sha256": "09d2092c6a36c60c85533658ec7ac64476b9e656e30025be39fc3bea6f1ae1ef",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "sourcealpha129",
+        "kind": "field_guard",
+        "source_sha256": "1473b7c415cdb00b36377a6504412bb3e754ed852bedf9fa00128b581eda3597",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "sourcealpha255",
+        "kind": "field_guard",
+        "source_sha256": "85afe57135c47373b384ba646d29648462fb85675650e26221ee0f34243535b6",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "pixelinfo_minus1",
+        "kind": "field_guard",
+        "source_sha256": "6821b12fe1e12b3689c54c2c7ad49db66375489a5a44e201a62d9f1308a6ca3b",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "allocation_minus1",
+        "kind": "field_guard",
+        "source_sha256": "0f198b5e221857d8a2a2ffbddf285b36ddc758e655ecb9f019bebef65b63f0d3",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "allocation_plus1",
+        "kind": "field_guard",
+        "source_sha256": "363c82873cb5a2bd2b8a87950e9dea560d20832654d1b91eb695b586bca0ac72",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "pixel_STRUCT_outofbounds",
+        "kind": "field_guard",
+        "source_sha256": "ff9e48e60f992549b7c5c4fdce82ba0a0d055d1a5e6239c8fae1f2a763263fe8",
+        "refused": true,
+        "diagnostic": "RW chunk exceeds its parent"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit0",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "ee4fa71e31e4f2c80ba4eb3b966be86119da36151466860b929494bea38af28b",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit14",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "f00403d429ecc36e9a3bf2189cb53904630917102c1ac2729f4b870287922d8a",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit20",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "58d3e3cbf10280df56e7b35a8993969a505e46526cc1c624bb6a43e43a73ee08",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit26",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "cff68efdb4e27fda3738c840ce11ac2d85e46ac5de405a7cb069bd60d8fccea6",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit30",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "31e1121e1d141aeb67b05ec0a1bc35a5ae76ddebe899d5b26684e26fc90be95e",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit34",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "f5ef358b84de3093f32f930e1b5f98253d2bd9a58f2bdb4653d50bf240c3ca92",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit35",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "610fa23b2a5963dae024e51bbeceefbdb80294a82e17dd647f4915e1bdf63d71",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit37",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "16205f01a450a350579cdf7006fec7edafbacc45c4dd54cea824453bb41fcd70",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit51",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "88ff6dc24c2690bdf9c933992048af5eb964af8b66a9e7462cdb43aeb795b1a9",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit55",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "a1020b7908e59670a3847ac96c9b75698666bfc82f3134e4554cafa6ac174664",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit56",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "98755321b14892dac4893ae5205810adff94804547642ee446946d75fb42b2ca",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "TEX0_bit61",
+        "kind": "finite_TEX0_guard",
+        "source_sha256": "e2665f33e9c6a1022d19fb9f70d85fb290f6e8bb00240a123ec27dee13c9a4c5",
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "logical_count_allocation",
+        "kind": "partial_page_allocation_guard",
+        "source_sha256": "bffa9d98e8c0b98322cf524c0b0e0222116287c6a0a20f476651c298fac0f39f",
+        "refused": true,
+        "diagnostic": "unsupported native GS allocation footprint"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word0",
+        "kind": "single_packet_guard",
+        "source_sha256": "94634e3bf64bf9b4e1ad917957231948ec778805bc09d2bfdbffc603ebce9052",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word1",
+        "kind": "single_packet_guard",
+        "source_sha256": "53dfe8d74efe5c602005beb1da1755d0490ecd9887cd4a83ef94073edd0f156f",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word2",
+        "kind": "single_packet_guard",
+        "source_sha256": "6ba1be2157ace976f523be396973ab7720d8128d878ab4a0b84b835795d5ad24",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word3",
+        "kind": "single_packet_guard",
+        "source_sha256": "4af5688f3f569d8df1463edabef150aa9b1cab284f4d93a835f4deb07eff7dca",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word4",
+        "kind": "single_packet_guard",
+        "source_sha256": "9ae1f766aa8ca684cec3c244c0150bdc06ae4f755ae6b5fdf4f3a67fc26bd108",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word5",
+        "kind": "single_packet_guard",
+        "source_sha256": "bbd172d024b72b56538a377c0a57c3a3fd02873897795391a6a663ac0800f13d",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word6",
+        "kind": "single_packet_guard",
+        "source_sha256": "b5c66f0a5eb2866b13b5b7d77aecfa1746f33b3eba7595c4dac4334e2de841ee",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word7",
+        "kind": "single_packet_guard",
+        "source_sha256": "e47cbc2539b13c5a6d9590260b1f2e451ba5d03d75ca3d290b74589b2b926a5b",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word8",
+        "kind": "single_packet_guard",
+        "source_sha256": "bde8c525041448898d83652d0d23b042d5c9f49fe7ea32b08444c1151e22c420",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "packet_word9",
+        "kind": "single_packet_guard",
+        "source_sha256": "94a1bdc4c90fa3ce9e50f1657a38b880abf4e73c631bd934383b0628469b030b",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "indexed_halfsize_TRXREG",
+        "kind": "direct_packet_dimensions",
+        "source_sha256": "f1f7f9b9a254ee4bf4d4746be5137c32bddc55c44ce80f75c67a2dd9d33d6c94",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "zero_header",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "8646087b03592b056a33ea2e5d42451847e3b2c66af3061b4cb542f10a2e4f92",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "two_headers_fake_empty_CLUT",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "6da2245ad93100117d0c237a6d0d0eafc1e72efbf2c77c3331806d3b03c04941",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "two_headers_paletteinfo0",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "1fa90e14fb6fff495d8763983213ac460537e343d16945545ebdd5e471ce7ce5",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "palette_payload",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "05ffa90866fb9aa260a87a3814921912b780321873255414fc036fb8903bbbb5",
+        "refused": true,
+        "diagnostic": "unsupported standard/headerless raster storage"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "header_after_raw",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "554507172086d7ea7c635f68ca5bedf17244245333ea7e97de944a53399eb2b6",
+        "refused": true,
+        "diagnostic": "unsupported GS upload packet at 0xdc"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "wrong_version_coherent_raw",
+        "kind": "coherent_storage_extents",
+        "source_sha256": "f86e90e70129ced76f59977aefee3b60ccb027fc75558e9eb6867f0937006dc2",
+        "refused": true,
+        "diagnostic": "unsupported standard direct version"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "missing_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "case": "null_rgba",
+        "refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      }
+    ],
+    "extra25finite_TBW_IMAGE_adjacent_refusals": [
+      {
+        "mode": "v0_256x512",
+        "wrong_TBW": 0,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "wrong_TBW": 1,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "wrong_TBW": 2,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_256x512",
+        "wrong_TBW": 16,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "wrong_TBW": 0,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "wrong_TBW": 1,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "wrong_TBW": 2,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "wrong_TBW": 16,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_256x256",
+        "zero_IMAGE_count": true,
+        "refused": true
+      },
+      {
+        "mode": "v0_512x256",
+        "wrong_TBW": 0,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "wrong_TBW": 1,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "wrong_TBW": 2,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v0_512x256",
+        "wrong_TBW": 16,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "wrong_TBW": 0,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "wrong_TBW": 1,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "wrong_TBW": 4,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_128x16",
+        "zero_IMAGE_count": true,
+        "refused": true
+      },
+      {
+        "mode": "v2_16x16",
+        "wrong_TBW": 0,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "wrong_TBW": 2,
+        "refused": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "mode": "v2_16x16",
+        "zero_IMAGE_count": true,
+        "refused": true
+      },
+      {
+        "shape": [
+          64,
+          64
+        ],
+        "coherent_RW_metadata_storage_packet_dimensions": true,
+        "version": 2,
+        "refused_by_finite_pair_guard": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "shape": [
+          128,
+          128
+        ],
+        "coherent_RW_metadata_storage_packet_dimensions": true,
+        "version": 2,
+        "refused_by_finite_pair_guard": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "shape": [
+          256,
+          128
+        ],
+        "coherent_RW_metadata_storage_packet_dimensions": true,
+        "version": 2,
+        "refused_by_finite_pair_guard": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "shape": [
+          128,
+          256
+        ],
+        "coherent_RW_metadata_storage_packet_dimensions": true,
+        "version": 2,
+        "refused_by_finite_pair_guard": true,
+        "diagnostic": "unsupported direct raster mode"
+      },
+      {
+        "shape": [
+          512,
+          512
+        ],
+        "coherent_RW_metadata_storage_packet_dimensions": true,
+        "version": 2,
+        "refused_by_finite_pair_guard": true,
+        "diagnostic": "unsupported headerless direct version"
+      }
+    ],
+    "publisher30refusals": [
+      {
+        "mode": "v0_256x512",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_256x512/source.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_256x512",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_256x512/all256alphas.png",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_256x512",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_256x512/all256alphas.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_256x512",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_256x512/linked.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_256x512",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_256x512",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_256x512",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_256x512/missing/output.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_256x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_256x256/source.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_256x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_256x256/all256alphas.png",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_256x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_256x256/all256alphas.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_256x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_256x256/linked.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_256x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_256x256",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_256x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_256x256/missing/output.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_512x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_512x256/source.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_512x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_512x256/all256alphas.png",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_512x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_512x256/all256alphas.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_512x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_512x256/linked.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_512x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_512x256",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v0_512x256",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v0_512x256/missing/output.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_128x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_128x16/source.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_128x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_128x16/all256alphas.png",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_128x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_128x16/all256alphas.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_128x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_128x16/linked.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_128x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_128x16",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_128x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_128x16/missing/output.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_16x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_16x16/source.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_16x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_16x16/all256alphas.png",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_16x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_16x16/all256alphas.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_16x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_16x16/linked.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_16x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_16x16",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "mode": "v2_16x16",
+        "output": "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/cli-v2_16x16/missing/output.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      }
+    ],
+    "field_map_containment_count": "114totalnative textures includingselectedstreetI =113unselectedsiblings. Wholemember expected-output comparison preserves every sibling/header byte; do not call this114siblings.",
+    "permanent_tests": "Uncached fullrace includescurrent22basegoldens and6exactpalettecases, prior227corpus overlay, canonical9modeCLI cohort (sixRGBA+threeold), per-new-mode metadata mutations and10GSwordmutations onall3standarddirectmodes. Existingdefaultfont/sourcealpha/mask/PSMT4/exactrefusals remain.",
+    "identity_stats": "Actualstandalone source/PNG/output checks comparedevice,inode,size,mtime_ns,ctime_ns,mode andcompleteSHA; reads may updateatime. Outputpermissions checked to be ownerread/write with no bitsoutside0644.",
+    "execution": "Go nice19,GOMAXPROCS2/-p2 andowned /var/tmp TMPDIR/GOTMPDIR. Other substantial verification scripts nice19.",
+    "artifacts": {
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/patch_test.go": {
+        "sha256": "8558feea01f460466c89fef2d63d195dc55d9f1f1c914818646ae747b2d708a4",
+        "bytes": 336361
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/overlay.json": {
+        "sha256": "ea208699a99c244e174d88b1ed6904df0b928e43786da566b8be5cbf7e7c290c",
+        "bytes": 148
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/source-pins.json": {
+        "sha256": "ddbd0c8fd843be803a631c693837ba288bc70ed8322e8bff10905b02f72a017c",
+        "bytes": 2208
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/corpus-results.json": {
+        "sha256": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02",
+        "bytes": 76145
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/race.json": {
+        "sha256": "e609b07e473358846564d31082b1a6a52ab735e2682898463f3a5f15154c6675",
+        "bytes": 332
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/native-storage-checks.json": {
+        "sha256": "ee5646183134b596a9097b5599fa034678243717fa2b54b26b2c12bbaa73a271",
+        "bytes": 4866
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/dokapon-go": {
+        "sha256": "deccd708796a253cefab4c9f04db837bcc40536efacde92bd4c62819d0682bbb",
+        "bytes": 5244140
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/checks.json": {
+        "sha256": "d25644c006c6cf26b3296e24a9354c5e8aad3d38db7f0ffd59ebf84e2bb0f539",
+        "bytes": 2333
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/observed21-cli-results.json": {
+        "sha256": "581e197b22ea97bd7f0509540e9279b20e576d23b0decb76bf481ae7df4d6baa",
+        "bytes": 8523
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/five-mode-cli-results.json": {
+        "sha256": "30d9f625264f61722d1009674a415cc8a9381cd4b40281087f3cbb973ab36472",
+        "bytes": 5995
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/coherent-refusal-results.json": {
+        "sha256": "11e915339ae2ce84356359d2c23bde2299aafb87f0fc99d283273ac0b90d29b2",
+        "bytes": 48523
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/extra-finite-refusals.json": {
+        "sha256": "96e3213947569e8687adf20487506e3e4a14f15a0c0f308a6d1dd5796a66368c",
+        "bytes": 3529
+      },
+      "/var/tmp/dokapon-direct-layouts-review-qptpvqkn/publisher-refusals.json": {
+        "sha256": "bb26511d7fdee09f6d6fcfd9749e8900ff432b67ae770ab17a836dd69aaec48e",
+        "bytes": 5891
+      }
+    }
+  },
+  "limits": [
+    "Observed21directinstances acrosssixfiniteformats are an actual-source corpus, not allpossiblePSMCT32layouts or texture-family completion. No arbitrarydimensions,version/mipmap,TFX/TCC/CLUT-mode broadening.",
+    "Static normalregistered/defaultcache transport/base/nativeaddress cancellation and projectPNG authoring alpha convention only. No actualdraw/residency/visual/blendproof. Partialpageholes/out-of-bounds sampling/filteredges/arbitraryCLAMP state orindirectcallbacks remain unproved.",
+    "No wholeISO/CMB alias/placement/art/shipping approval, legacyforce-policy relaxation, emulator/PINE/controller/process/log/settings access orprotectedISO/canonicalwrite.",
+    "No historicalretirement/source-savings/migrationcompletion claim. Rootowns subsequentdocumentation/accounting; reviewedcode/test/data pins remain frozen."
+  ]
+}

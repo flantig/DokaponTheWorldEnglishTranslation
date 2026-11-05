@@ -1,0 +1,798 @@
+{
+  "at": "2026-10-20T18:30:59.957207+00:00",
+  "status": "READ-ONLY SOURCE-COLOR contract; independent precode oracles, no implementation/approval",
+  "scope": "6minfrom18:26:45UTC,onlyownedanalysis/source-color-reuse-contract.json/.md/privatefixtures. NoGo/test/fixture/canonical/protected/emulatorchanges.",
+  "Serena": "texture18..376+44test/2authorTexturecalls,generatePalette14..191,authorTexture17..204inspectedfirst. ExistingE.snap687..700 andps2_tex.quantize_to_palette365..396sourcechecked.",
+  "pins": {
+    "/home/franklinl/Documents/Dokapon World Mod/tools/make_explainer_png.py": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/ps2_tex.py": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture.go": "8eae718a39843f3930d0d09d6ff9b49df7a085cd39721a70e15611acf2d20e95",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_authoring.go": "a2a4362952b23be121b4ed27b798993c7cdfe9f3bf031f5e251c810865d6e968",
+    "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb"
+  },
+  "private": {
+    "directory": "/var/tmp/dokapon-source-color-kzrrcn18",
+    "facts_sha256": "73a6be8f9b0d6e23c7a4cbe2b439eec5bc3751fce26c4819ef30219ade46507a",
+    "vectors_path": "/var/tmp/dokapon-source-color-kzrrcn18/vectors.json",
+    "vectors_sha256": "c2c7927402ee7cf5209e6c1c8fe37c52530e6311a6e401c85c2921a1cebf7520"
+  },
+  "actual": {
+    "source_SHA256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+    "source_geometry": [
+      1024,
+      512
+    ],
+    "rect": [
+      124,
+      84,
+      385,
+      26
+    ],
+    "raw_RGBA_sha256": "7ec01c929418c1356ea96cef98a0d28c955f667866a8249a67dc71e44c0d5f81",
+    "raw_PNG_sha256": "6e28bfb97992084f7d3580169aa3ebd2068b63c424c59492c7d19aff937f248e",
+    "snapped_RGBA_sha256": "f76131018a6a64b379f112e55fc44a4a845f52822932db7ac88770ea160fc9ac",
+    "expected_TXD_sha256": "416ef06c662757f68ef9255c596d6b2bfd75d7a5b7d7d6be98c52b84f0cff6ac",
+    "expected_pixel_sha256": "e2edd77c6f1b3e9707b168d6d476613d7ca679c03bbe3888caaad05590f09248",
+    "CLUT_unchanged": true,
+    "changed_native_bytes": 6420,
+    "outside_raw_changes": 0,
+    "mask_sha256": "364d183593bb7a13d7577fe6c796d93f561c96625bd37cf726afd5d46fcf1616",
+    "selected_pixel": {
+      "xy": [
+        364,
+        99
+      ],
+      "candidate": [
+        154,
+        147,
+        69,
+        255
+      ],
+      "snapped": [
+        152,
+        167,
+        70,
+        255
+      ],
+      "original_index": 65,
+      "expected_index": 127,
+      "index108": [
+        166,
+        132,
+        75,
+        255
+      ],
+      "index127": [
+        152,
+        167,
+        70,
+        255
+      ]
+    }
+  },
+  "vectors": {
+    "positive": [
+      {
+        "id": "lex-tie",
+        "palette": [
+          [
+            166,
+            132,
+            75,
+            255
+          ],
+          [
+            152,
+            167,
+            70,
+            255
+          ]
+        ],
+        "original_indices": [
+          0,
+          1
+        ],
+        "original_RGBA": [
+          [
+            166,
+            132,
+            75,
+            255
+          ],
+          [
+            152,
+            167,
+            70,
+            255
+          ]
+        ],
+        "candidate_RGBA": [
+          [
+            154,
+            147,
+            69,
+            255
+          ],
+          [
+            152,
+            167,
+            70,
+            255
+          ]
+        ],
+        "changed_mask": [
+          true,
+          false
+        ],
+        "sorted_unique_source_RGBA": [
+          [
+            152,
+            167,
+            70,
+            255
+          ],
+          [
+            166,
+            132,
+            75,
+            255
+          ]
+        ],
+        "source_distances": [
+          [
+            405,
+            405
+          ],
+          [
+            0,
+            1446
+          ]
+        ],
+        "snapped_RGBA": [
+          [
+            152,
+            167,
+            70,
+            255
+          ],
+          [
+            152,
+            167,
+            70,
+            255
+          ]
+        ],
+        "expected_indices": [
+          1,
+          1
+        ],
+        "default_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "unused-exact-excluded",
+        "palette": [
+          [
+            100,
+            100,
+            100,
+            255
+          ],
+          [
+            0,
+            0,
+            0,
+            255
+          ],
+          [
+            200,
+            200,
+            200,
+            255
+          ]
+        ],
+        "original_indices": [
+          1,
+          2
+        ],
+        "original_RGBA": [
+          [
+            0,
+            0,
+            0,
+            255
+          ],
+          [
+            200,
+            200,
+            200,
+            255
+          ]
+        ],
+        "candidate_RGBA": [
+          [
+            100,
+            100,
+            100,
+            255
+          ],
+          [
+            200,
+            200,
+            200,
+            255
+          ]
+        ],
+        "changed_mask": [
+          true,
+          false
+        ],
+        "sorted_unique_source_RGBA": [
+          [
+            0,
+            0,
+            0,
+            255
+          ],
+          [
+            200,
+            200,
+            200,
+            255
+          ]
+        ],
+        "source_distances": [
+          [
+            30000,
+            30000
+          ],
+          [
+            120000,
+            0
+          ]
+        ],
+        "snapped_RGBA": [
+          [
+            0,
+            0,
+            0,
+            255
+          ],
+          [
+            200,
+            200,
+            200,
+            255
+          ]
+        ],
+        "expected_indices": [
+          1,
+          2
+        ],
+        "default_indices": [
+          0,
+          2
+        ]
+      },
+      {
+        "id": "transparent-hidden",
+        "palette": [
+          [
+            200,
+            7,
+            9,
+            0
+          ],
+          [
+            1,
+            200,
+            5,
+            0
+          ]
+        ],
+        "original_indices": [
+          0,
+          1
+        ],
+        "original_RGBA": [
+          [
+            200,
+            7,
+            9,
+            0
+          ],
+          [
+            1,
+            200,
+            5,
+            0
+          ]
+        ],
+        "candidate_RGBA": [
+          [
+            100,
+            100,
+            100,
+            0
+          ],
+          [
+            1,
+            200,
+            5,
+            0
+          ]
+        ],
+        "changed_mask": [
+          true,
+          false
+        ],
+        "sorted_unique_source_RGBA": [
+          [
+            1,
+            200,
+            5,
+            0
+          ],
+          [
+            200,
+            7,
+            9,
+            0
+          ]
+        ],
+        "source_distances": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "snapped_RGBA": [
+          [
+            1,
+            200,
+            5,
+            0
+          ],
+          [
+            1,
+            200,
+            5,
+            0
+          ]
+        ],
+        "expected_indices": [
+          0,
+          1
+        ],
+        "default_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "alpha-weight",
+        "palette": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            255,
+            255,
+            255,
+            0
+          ]
+        ],
+        "original_indices": [
+          0,
+          1
+        ],
+        "original_RGBA": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            255,
+            255,
+            255,
+            0
+          ]
+        ],
+        "candidate_RGBA": [
+          [
+            128,
+            128,
+            128,
+            1
+          ],
+          [
+            255,
+            255,
+            255,
+            0
+          ]
+        ],
+        "changed_mask": [
+          true,
+          false
+        ],
+        "sorted_unique_source_RGBA": [
+          [
+            0,
+            0,
+            0,
+            2
+          ],
+          [
+            255,
+            255,
+            255,
+            0
+          ]
+        ],
+        "source_distances": [
+          [
+            195,
+            3
+          ],
+          [
+            12,
+            0
+          ]
+        ],
+        "snapped_RGBA": [
+          [
+            255,
+            255,
+            255,
+            0
+          ],
+          [
+            255,
+            255,
+            255,
+            0
+          ]
+        ],
+        "expected_indices": [
+          1,
+          1
+        ],
+        "default_indices": [
+          1,
+          1
+        ]
+      },
+      {
+        "id": "duplicate-index",
+        "palette": [
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            200,
+            210,
+            220,
+            255
+          ]
+        ],
+        "original_indices": [
+          1,
+          2,
+          1
+        ],
+        "original_RGBA": [
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            200,
+            210,
+            220,
+            255
+          ],
+          [
+            20,
+            30,
+            40,
+            255
+          ]
+        ],
+        "candidate_RGBA": [
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            21,
+            30,
+            40,
+            255
+          ]
+        ],
+        "changed_mask": [
+          false,
+          true,
+          true
+        ],
+        "sorted_unique_source_RGBA": [
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            200,
+            210,
+            220,
+            255
+          ]
+        ],
+        "source_distances": [
+          [
+            0,
+            97200
+          ],
+          [
+            0,
+            97200
+          ],
+          [
+            1,
+            96841
+          ]
+        ],
+        "snapped_RGBA": [
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            20,
+            30,
+            40,
+            255
+          ],
+          [
+            20,
+            30,
+            40,
+            255
+          ]
+        ],
+        "expected_indices": [
+          1,
+          0,
+          1
+        ],
+        "default_indices": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "integer-floor",
+        "palette": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            12,
+            0,
+            0,
+            1
+          ]
+        ],
+        "original_indices": [
+          0,
+          1
+        ],
+        "original_RGBA": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            12,
+            0,
+            0,
+            1
+          ]
+        ],
+        "candidate_RGBA": [
+          [
+            6,
+            0,
+            0,
+            1
+          ],
+          [
+            12,
+            0,
+            0,
+            1
+          ]
+        ],
+        "changed_mask": [
+          true,
+          false
+        ],
+        "sorted_unique_source_RGBA": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            12,
+            0,
+            0,
+            1
+          ]
+        ],
+        "source_distances": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "snapped_RGBA": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            12,
+            0,
+            0,
+            1
+          ]
+        ],
+        "expected_indices": [
+          0,
+          1
+        ],
+        "default_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "4097-raw-success",
+        "geometry": [
+          65,
+          65
+        ],
+        "raw_distinct_colors": 4097,
+        "source_colors": [
+          [
+            0,
+            0,
+            0,
+            255
+          ],
+          [
+            255,
+            255,
+            255,
+            255
+          ]
+        ],
+        "original_indices": "alternating0,1rowmajor",
+        "expected": "SUCCESS allindices0",
+        "raw_png": "/var/tmp/dokapon-source-color-kzrrcn18/4097-raw.png",
+        "raw_png_sha256": "4cbe173d3505d0bd1bbf94f33e5291e11d2e1eb7fc1d3207caf159d89cdaeda1",
+        "source_png": "/var/tmp/dokapon-source-color-kzrrcn18/4097-source.png",
+        "source_png_sha256": "8aa705dbb363251bc233108554528956357291e5c9a2a37e6e24a93235749a6e",
+        "snapped_png_sha256": "be0bbb700baea73e14e4cbb846a9bb4f7cca8ca17a262735a5bf6da134a015de",
+        "expected_indices_sha256": "31ef6078ab23831e391f325a13ff93e59f98a4d57889897f5249e9efaa84c672",
+        "expected_indices_path": "/var/tmp/dokapon-source-color-kzrrcn18/4097-expected-indices.bin",
+        "qualification": "CanonicalE.snap+quantizerequalsindependentallblackprojection;sourcecache4096storagecapmustfallthroughuncached,notrefuse. DefaultunsnappedGoquantizer4096refusalremains."
+      }
+    ],
+    "negative": [
+      {
+        "id": "outside-projection-noop-refuses",
+        "original_RGBA": [
+          20,
+          30,
+          40,
+          255
+        ],
+        "raw_candidate_RGBA": [
+          21,
+          30,
+          40,
+          255
+        ],
+        "approved_mask": false,
+        "source_projected_RGBA": [
+          20,
+          30,
+          40,
+          255
+        ],
+        "expected": "Refusebeforeprojection;rawoutsideeditcannotbehiddensnappingbacktooriginal."
+      }
+    ],
+    "limits": {
+      "distinct_changed_raw_colors": "No source-stage refusal;cache storage may cap4096",
+      "4097_distinct_raw_colors_collapsing_to_one_source_color": "SUCCESS;sourcecachemaycapstorage4096thenuncachedsearch;nativequantizercacheguardunchanged",
+      "source_bytes_max": 67108864,
+      "source_pixels_max": 1048576
+    }
+  },
+  "contract": {
+    "source_pool": "UniqueDISPLAYRGBAcolorsactuallypresentinORIGINALdecodedSELECTEDraster,lexicographicR,G,B,Aascending. NotallCLUTentries,nocandidatecolors,nosiblings. TransparenthiddenRGBpreserved;nativealpha>128stilldecodedusingexistingdisplayconvention,rawCLUTunchanged.",
+    "distance": "Allinteger,int64reference:NOfloat32.distance=((dr\u00b2+dg\u00b2+db\u00b2)*min(sourceA,candidateA))//255+3*(sourceA-candidateA)\u00b2. SourcecandidateRGBAalreadyuint8aftercallerfloatcompositingrounding. FirststrictminimuminlexRGBApoolwins. Noalphanearestresnap/noRGBnormalization.",
+    "processing": "Leaveunchangedrawpixelsalone. Validaterawcandidateoutsideapprovedmaskbeforeprojection. Source-projectchangedrawcolor,thenrecompareprojectedRGBAtooriginal. IfequalkeepORIGINALindex,includingduplicates. IfdifferentuseEXISTINGpaletteorder-distancequantizerunchanged.",
+    "two_stages": "Do notreplaceexistingquantizerwithexactcolor->indexlookup:zeroalpha/lowalphafloortiescanselectadifferentRGBA/indexevenwithanexactmatchlater. Sourceandpalettepoolstiebreakindifferentorders.",
+    "cache": "Source-stagecachemaystore4096rawRGBAkeys,thenuncachedsearchwithoutrefusal. LegacyE.snaphasnorawunique-colorlimit;nativequantizerreceivessnappedsourcepool<=256/16colorssoitsdefault4096guardstaysunchanged."
+  },
+  "owner": {
+    "preferred": "Enhanceexistingtexturewithsourcepolicy;onecontrolledempty-policydecodeafterindexedpreflightformslexsourcepool. Oneexistingper-color scorelooprunoverorderedstages(sourcepoolthenpalette),avoidingduplicateddistanceformula/newfunction. Rawoutsidecheckfirst;beforeeachstagecheckpixel==originalandretainoriginalindex.",
+    "placement": "Do source-pooldecodeafterdepth/storage/selectorboundsvalidationandbeforecandidatewalk. Noartifact/CLUTwritesduringleaf. Allnewquantizationstaysinsamepixelowner. Costoneboundedextraselecteddecode+O(pixels)poolscan,<=256displaycolorsindexed.",
+    "workflow": "authorTextureacceptspalette_policy sourceforPNG+rectanglesORRender,retainsPNG/renderexclusivityandPixelPolicyconflict. ItsinternalRenderbase-decodeusesemptypreservepolicyforSource;finalimportusesSource. Sourceexportnilreplacementrefuses;exact/quantizewholePNG-onlyguardsstayunchanged. Reportpolicy sourceexplicitly.",
+    "alternatives": "generatePaletteownsnewpalettegeneration,notselectedsource/CLUT/duplicateindex/maskpolicy;addingsourceargsspreadsresponsibility. composeCellsprojectionwouldmissPNGcallersandrequireduplicatedpolicy. AuthorTextureprojectionwouldmixnumericpixelmappingwithI/O/pinsandneedunnecessarynewpipeline.",
+    "preserve": "Defaultpaletteorderties,exact/quantize>256semantics,directrgba/monochromeguards,GSformats/layouts,rawCLUT/sharedpaletteownership,publisher/sourcepinsunchanged. No native/ISOapprovalfrompolicy."
+  },
+  "finite_refusals": [
+    "unknownpolicy",
+    "sourcewithoutcandidate/export",
+    "sourceon32bitdirect",
+    "sourcewithPixelPolicy",
+    "rawoutside-maskeditthatwouldprojectback",
+    "unmatchedsource/selector/malformednativegeometry/storage",
+    "source64MB/pixels1M/candidatebounds4096andallcurrentguards"
+  ],
+  "verification": "SixsmallindependentscalarRGBA/snap+canonicalpreserveindexvectors+4097rawcolorSUCCESS;actualRAW7ec01c92/SNAPf7613101/TXD416ef06cexactandCLUTunchanged6420nativebytes;mask/outsidechecks;source/pin/JSON/whitespace/credentialscheckedbeforeseal. NoGooutputisexpectedoracle.",
+  "limits": "Thisclosesthereallexsourcecolorcallercontract,nofamilypromotion/generalcolorframework. Recursivedecodecostandcacheboundsmustbereviewed/testedafterimplementation.",
+  "correction": "Initialraw4096refusalsuggestionwasincompatiblewithlegacytwo-stagebehavior;replacedwithboundedcache-storage/uncachedfallbackandindependent4097SUCCESSoracle."
+}

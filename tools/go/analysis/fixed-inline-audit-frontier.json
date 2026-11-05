@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T14:23:19.836918+00:00",
+  "status": "SOURCE_ONLY_PRECODE_FRONTIER_NOT_IMPLEMENTATION_OR_APPROVAL",
+  "bounded_responsibility": "Read exactly one inline16B/eight-u16 plain-glyph field from independent source and observed windows; generate canonical EN literal glyph bytes, capacity-check and zero-pad to16B; report exact canonical/original/neither/unknown without dereferencing inline text or walking to END.",
+  "original_owners_and_callers": [
+    {
+      "source": "../rework/new_tool/registry_tools/registry.py973..1145",
+      "owner": "fixed_field_decode/fixed_field_writeback_main",
+      "fact": "Shared nickname/rename implementation.160 historical selected rows across two policies is source caller scope, not fresh observed coverage. Canonical bytes are independently encode_label(EN)+zero-pad. Canonical equality wins before original equality."
+    },
+    {
+      "source": "../apply_nicknames_writeback_gap_2026-09-09.py97..104",
+      "fact": "Delegates original decoder unknown_none=False and shared main nicknames;60 expected candidates, sparse addresses allowed. Source docs note2fields already equal original/EN, directly motivating canonical-before-original precedence."
+    },
+    {
+      "source": "../apply_rename_pool_writeback_gap_2026-09-09.py91..98",
+      "fact": "Delegates decoder unknown_none=True and shared main rename-pool;100expected candidates, sorted numeric IDs contiguous16B is this policy-specific guard. Introductory old stream-decoding prose is superseded by normative body/raw fixed-word check; no per-record END."
+    },
+    {
+      "source": "../rework/new_tool/registry_tools/registry.py902..919,946..967",
+      "fact": "Modern writeback_context/writeback_main route both policies to same implementation with supplied registry/original/observed paths. This study imports/executes none of these mains/context builders."
+    }
+  ],
+  "exact_contract": {
+    "geometry": "Original inline form is ref_type struct_table_field, exactlyone site, struct_vma==entry ID, field_offset0, stride0x10, no pointer_vma. These are inline glyph words, NOT addresses. Current pointer-family struct reference semantics are different and cannot be impersonated.",
+    "source_validation": "All8sourcewords examined regardless of any zero encountered. Every nonzero word must have no recognized control tag and have a nonempty decimal-key glyphmap entry. Known END/LINE/PAGE/HDR/speaker? classify_word treats speaker outside helper ranges as unclassified but absent sourceglyphmap=>badglyph; setup/HL/icon/pen/param8 control words hold. Unknown unclassified words also hold, not guessed.",
+    "zero_and_termination": "0 always decodes as literal SPACE, independently of glyphmap0. Trailingzero pad is indistinguishable from authored trailing spaces. No trimming, no null termination, no f800 required or allowed as field data. Reading stops at16B and never examines adjacent record END.",
+    "wording": "Original encode_label treats EN characters literally, splits only ASCII spaces and emits zero for each interword space; leading/trailing/repeated spaces survive. Empty string encodes0bytes and validly pads to16zero bytes. Eightglyphs accepted; nine exceed16B. Missing/null/nonstring EN are not equivalent to intentional empty: original missing/null raises, futuretyped report should explicitly refuse/unknown rather than coerce toempty.",
+    "literal_metacharacters": "Actual pinned a662 contains < at35, > at36 and / at22. Thus <A> and A//B are valid original fixed glyph strings. Current Go encode(Terminated:false) rejects angle brackets and // as markup; this is a real owner gap, not a malformed original input to discard. Fixedliteral authoring must avoid narrative control interpretation. No new schema is decided here.",
+    "capacity_and_padding": "Compare length of actualencodedbytes, not source display length; reject>16B; append exactly16-len(encoded)zero bytes. Empty and8spaces yield identical allzero record; equality is raw-byte based. Source EN length wrappers/counts must not reject valid0byte fields accidentally.",
+    "comparison_order": "After valid original field and successful canonical generation: observed==canonical first =>alreadycorrect, even if original==canonical. Else observed==original =>unpatched; else investigate/neither. The original diagnostic decoder may emit ? for unknown observed words; that is never verified equality.",
+    "diagnostic_variants": "unknown_none=False uses gm.get(word,?) thenjoin; missing=>?, present empty=>no displayedchar, presentNone=>TypeError. True converts missing/None=>? but empty stilldrops. Original source safety check rejects empty/missing/null entries before this diagnostic stage. Do not use lossy diagnostic text as equality or silently validate bad glyphs.",
+    "bounds": "Original helper short reads raise struct.error; source lacks comprehensive checked ranges/alignment and malformedhex may raise. A reusable Go reader must explicitly validate exact16B halfopen span, alignment/range/filebacking/overflow, complete read and sibling isolation before projection. Never accept truncation or scan nextrecord. Bounds are semantic guards, not a new universal font/reader calibration.",
+    "ordering_and_batch": "Original numeric ID sorting for rename contiguity; nickname gaps are valid. Status drafted/no midcontent tag and historical60/100 counts select original writeback batch. Generic read-only audit must use explicit selected ownership rather than hardcode those counts or infer metadata tag absence means plain. Apply/status/patchref/landing changes are outside this task."
+  },
+  "alias_contract": {
+    "source": "Original dialog_codec.load_rev setdefault chooses first JSON insertion for duplicate rune, not lowestindex universally. Actual a662 hasonly hyphen at20/42 inascendingorder, selecting20 matches current glyphMaps lowestindex.",
+    "frozen_counterexamples": [
+      {
+        "name": "ascending",
+        "gm": {
+          "1": "A",
+          "5": "A"
+        },
+        "original_load_rev": {
+          "A": 1
+        },
+        "rows": [
+          {
+            "en": "A",
+            "hex": "0100"
+          },
+          {
+            "en": "B",
+            "error_type": "EncodeError",
+            "error": "encode_label: character 'B' has no glyphmap entry"
+          }
+        ]
+      },
+      {
+        "name": "reversed",
+        "gm": {
+          "5": "A",
+          "1": "A"
+        },
+        "original_load_rev": {
+          "A": 5
+        },
+        "rows": [
+          {
+            "en": "A",
+            "hex": "0500"
+          },
+          {
+            "en": "B",
+            "error_type": "EncodeError",
+            "error": "encode_label: character 'B' has no glyphmap entry"
+          }
+        ]
+      },
+      {
+        "name": "hex-decimal-conflict",
+        "gm": {
+          "1": "A",
+          "0x1": "B"
+        },
+        "original_load_rev": {
+          "A": 1,
+          "B": 1
+        },
+        "rows": [
+          {
+            "en": "A",
+            "hex": "0100"
+          },
+          {
+            "en": "B",
+            "hex": "0100"
+          }
+        ]
+      }
+    ],
+    "future_guard": "Do not introduce a duplicate glyph decoder/map. Reuse existing glyphMaps and its conflicting decimal/hex alias refusal. Preserve actualpinnedmap parity; if arbitrary reversed-order duplicate-rune parity is claimed, the first-vs-lowest difference requires explicit policy/evidence. No silent glyphmapcanonicalization claim."
+  },
+  "precode_evidence": {
+    "directory": "/var/tmp/dokapon-fixed-inline-frontier-mg_sh_s0",
+    "manifest_sha256": "bb7bc5d0952dd19549388e463d0b0ffe3c7b6b78789e0e3286219fe9c26ddb7c",
+    "facts_sha256": "38b0be8483d44dd7cdc8cbb9de3ddca3aa3c54578a7728a1e718f1826a1ec619",
+    "members": 99,
+    "cases": 30,
+    "counts": {
+      "canonical": 14,
+      "original_only": 1,
+      "neither": 2,
+      "capacity": 1,
+      "source_invalid": 8,
+      "encoding_unavailable": 2,
+      "bounds_failure": 2
+    },
+    "independence": "Original selected fixed_field_decode/classify_word/load_rev/encode_label functions only. No main, project module import, Go/candidate, protected ISO/canonical registry or runtime resource. Whole-output canonical16B padding/classification are independently literal/source-equation projections, not a claimed original-main replay.",
+    "timing": "Frozen original helpers and independently literal classifications before any future Go comparison/implementation of fixed-inline audit; existing stream tool predates study. No *_main is invoked. Helper-only files on blocked rows are explicitly not accepted canonical expectations.",
+    "complete16B": "canonical outputs retained for reachable comparable rows; blocked rows helper-only encodings named explicitly and are NOT accepted canonical row expectations. Source/observed completebytes, shortreadcases and adjacent32B records retained.",
+    "metadata_vectors": 8,
+    "original_main": "NOT executed. Metadata dispositions and whole-row safety comparisons are independentliteral/source-equation expectations. Original helpers produced encoded/decoded byte/string/error results; this distinction is explicit in facts and verification.",
+    "actual_source_scope": "Only frozen glyphmapa662 used for actual glyph membership/aliases. Allfieldbytes/ENfixtures synthetic. No native field population or originalISO/canonicalregistry was read."
+  },
+  "existing_owner_recommendation": {
+    "auditStreams": "Reasonable common owner for independent source handles/pins, raw range comparison, registry-wording/canonical side, reports/rechecks. Add finite fixedrecord reader only after schema decision; preserve old narrative/positional bytes/refusals and bound pointer behavior.",
+    "controls_and_encode": "Existing controls can reasonably own bounded fixed-word decode/validation; existing encode already owns fixedliteral generation but needs literalmetacharacter semantics isolated from narrative parsing. Do not duplicate glyph walking or make a second string encoder. No new function justified by current study.",
+    "references_and_inspect": "Reuse mapping for actual inline window ownership. Do NOT call reference_observed with fake pointer_vma/target to satisfy existingaudit preconditions. Current references consumes pointerdata/strictcode; an inline shape needs explicit coordinate contract, root decision.",
+    "plan_authorRegistry": "Do not generate fake edits for a readonly audit or ask metadata writer to own native readers. Existing writeback may later consume reviewed evidence but this task neither writes nor proposes automatic status upgrades.",
+    "deliberate_limit": "This establishes one material fixed16B form. Otherstrides/offsets/terminated slots, sentinelHook externalmappings/sourcepools, runtimefit and reviewed update joins remain separate."
+  },
+  "future_required_checks": [
+    "All30cases with proper expected comparison availability; emptyENdistinctfrommissing/null; exact8/9glyphcap, spaces, literal<>// andnonterminatednoEND semantics.",
+    "No source field terminates atzero; eightwordsourcevalidation and unknown/controlholds; adjacentrecordEND neverconsulted; shortsource/observedrefuse beforeoutput.",
+    "Canonical==original classifiedcorrect, unknown diagnostic? never success; deterministic IDordering and inlinevs pointer ownership refusals.",
+    "Default narrative/mixed/sourceprefix/canonical/large-stream reports and allwritevalidators unchanged; sourceidentity rechecks/emptyfield publication safeguards.",
+    "No broad reciprocal alias parity beyond provenpinnedmap or finitepolicy; preserve existing duplicateJSON/Unicode/glyph conflict guards."
+  ],
+  "verification": {
+    "at": "2026-10-21T14:23:19.829666+00:00",
+    "cases": 30,
+    "counts": {
+      "canonical": 14,
+      "original_only": 1,
+      "neither": 2,
+      "capacity": 1,
+      "source_invalid": 8,
+      "encoding_unavailable": 2,
+      "bounds_failure": 2
+    },
+    "original_executed": "fixed_field_decode, classify_word, load_rev and encode_label only; AST-selected original definitions, no main/import",
+    "independent_literal": "raw16B canonical padding/classification and metadata held cases checked from source equations, not represented as original-main output",
+    "checked": "All complete canonical outputs exactly16B; source/observed raw hashes and classification literal expectations checked;8thword/adjacentrecord cases prove bounded reading; actualglyph aliasfacts independently pinned",
+    "jobs": "freeze.py exit0; all commands terminal; no live handles"
+  },
+  "source_pins": {
+    "../rework/new_tool/registry_tools/registry.py": {
+      "bytes": 61418,
+      "sha256": "3b4137558b10c7d0483c540c86d096bec99c06e6a6acaaec1bed68f0216bf6c8"
+    },
+    "../apply_nicknames_writeback_gap_2026-09-09.py": {
+      "bytes": 5530,
+      "sha256": "f7e625b9750e76ce27366f56fbab4b5df866e328af5029ab517802544fec0a55"
+    },
+    "../apply_rename_pool_writeback_gap_2026-09-09.py": {
+      "bytes": 5121,
+      "sha256": "fa3d159f57f4c15531cf7ffafa50f31d1d095372b507c492ea168159907a353a"
+    },
+    "../dialog_codec.py": {
+      "bytes": 25964,
+      "sha256": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc"
+    },
+    "../text_encoder.py": {
+      "bytes": 120840,
+      "sha256": "a9d2d5ce4146520ac851807a0ead1e3ba8943c58d40dc23b1ed010e771ab9936"
+    },
+    "patch.go": {
+      "bytes": 96618,
+      "sha256": "e28ffa157ccd389a91d149afeec7934d2f1ca849adeffd3b74dafee9b9e2562e"
+    },
+    "text_types.go": {
+      "bytes": 2252,
+      "sha256": "2751a6eff84188ee60e27e6e60ed8675ad0029e81d8f37b7310d0c17feed7eaf"
+    },
+    "glyphs.go": {
+      "bytes": 1342,
+      "sha256": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933"
+    },
+    "reference_geometry.go": {
+      "bytes": 2807,
+      "sha256": "4c2c8584cd36925fb4f555e93ccdb986641b0755efe1983b8c13fcec18d8cffa"
+    },
+    "stream_audit.go": {
+      "bytes": 16389,
+      "sha256": "87bc3261dc00d78748ee6c3327a2fcb5ec3277f74d8bc4903b645adede55eb24"
+    },
+    "stream_audit_types.go": {
+      "bytes": 3802,
+      "sha256": "67f25ac8e124259d9c772df9a27be40aae053aef3f7d29c28d82430307dead64"
+    },
+    "analysis/source-aware-roadmap-gap-study.json": {
+      "bytes": 14945,
+      "sha256": "c9cb81851c4b52ecd64ce7e8675b3453ae53e764e4843ce15c0c233a1a6a94e1"
+    }
+  },
+  "limits": "Study only; no API/schema/code/function decision, no Go/candidate/build/testexecution, no migration/family/milestone credit or approval. Allownedjobs terminal."
+}

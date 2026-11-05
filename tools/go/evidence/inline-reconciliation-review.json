@@ -1,0 +1,164 @@
+{
+  "schema": "ordinary-read-only-review-v1",
+  "scope": "Reviewed inline16 advisory status/field-landing proposals through existing shared audit owner",
+  "outcome": "One LOW source-policy admission mismatch reproduced in initial601 and independently closed in final601; no open finding",
+  "candidate": {
+    "final_path": "/var/tmp/dokapon-inline-proposals-70ussz2o/review-source-final",
+    "final_manifest_sha256": "58dcbba1af6ae5beb602f9e58214cbdf19ba351d08bb5c1a63fb55cd248f6f7e",
+    "members": 601,
+    "all_sizes_SHA256_containment_singlelink_verified": true,
+    "all_final_pins_held_after_checks": true,
+    "initial_manifest_sha256": "094049582d040a3d676b17aba2cc1543f5619e3bc239ce67d9d53208376c3b6c",
+    "exact_final_delta": [
+      "stream_audit.go",
+      "patch_test.go",
+      "README.md",
+      "analysis/inline-reconciliation-reuse-decision.json",
+      "analysis/go-current-input-accounting.json"
+    ],
+    "source_pins": {
+      "stream_audit.go": {
+        "bytes": 27063,
+        "sha256": "c674a2e4bb6b53e3307bce91f501c6f9f0e45fb2276536354dd6e4745d161825"
+      },
+      "patch_test.go": {
+        "bytes": 677923,
+        "sha256": "30deb70a8ada9f5a5296b8986e675c16fea9f3c8ac146d6fc60b334d07af51f3"
+      },
+      "testdata/fixed-inline-audit.json": {
+        "bytes": 147867,
+        "sha256": "6658f908134bf5f51469ee83e8b2ad072aea6f33a81731b689429da6fdf868f1"
+      },
+      "examples/fixed-audit/profile.json": {
+        "bytes": 9542,
+        "sha256": "35249dc8bdd2ca18adaf0082e448001f755c57c7673a424f567c1a105457e8dc"
+      },
+      "examples/fixed-audit/registry.json": {
+        "bytes": 8815,
+        "sha256": "c7f1defc3edb6a9421e0873a59033e3303f0ac76811914df8430693275b57472"
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "INLINE-POINTER-PRESENCE-1",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "source_contract": "Original registry-tools.py:1058 excludes raw pointer_vma key presence, including empty/null.",
+      "initial_reproduction": "Repinned reviewed exact inline field with pointer_vma empty string produced a statuspatched+fieldID proposal, unlike original policy. No actual target was fabricated; bounded advisory refusal mismatch.",
+      "fix_by_root": "Existing selected raw registry projection retains ref_sites maps; normalized-ID fact records pointer_vma key presence. Existing reconciliation loop emits inline_pointer_key_present held reason. references/normalizeReference unchanged.",
+      "closure": "Final actual CLI empty/null/escaped-key/normalized-ID cases retain known canonical facts but are held without machine fields. Four corresponding unreviewed full captures remain identical to initial read output. Nonempty pointer remains global refusal.",
+      "initial_receipt_sha256": "94351af85be9a7838914b7710ec355b48885c5cd7d722e6ba4c9168ae7d8b6fd"
+    }
+  ],
+  "connected_owner_review": [
+    {
+      "source": "stream_audit.go:399-486",
+      "result": "Existing inline path requires one struct field with object==ID,offset0,stride16, no interpreted pointer, four raw words, and complete16B mappings in both source files. Proposal landing reuses proved ranges start; it never reads a glyph word as an address."
+    },
+    {
+      "source": "stream_audit.go:241-251/530-539",
+      "result": "New pointer-key fact is derived from selected pinned raw entries and keyed by normalized numeric ID, not accepted as a caller boolean. It only gates reviewed inline proposals; legacy read semantics remain unchanged."
+    },
+    {
+      "source": "stream_audit.go:498-542",
+      "result": "Common explicit review/current drafted status/known exact canonical bytes/zero tail/full binding gates remain shared with pointer streams. Held/unknown rows emit no candidate fields; already-patched rows retain landing-not-reconciled attention."
+    },
+    {
+      "source": "stream_audit.go:29/542",
+      "result": "GoDoc and output Limits explicitly distinguish inline field location from pointer target. Machine proposals contain status and field landing only, no EN/JP/note or inferred patch_ref. Read-only proposals do not authorize publication/native fit/runtime use."
+    },
+    {
+      "source": "stream_audit.go:564-604",
+      "result": "Source/profile/glyph identity rechecks and bounded buffered emission remain after proposal computation. No new CLI, decoder, publisher, function, helper, type or Go file. Existing audit owner is a coherent place for these source-derived gates."
+    }
+  ],
+  "source_provenance": {
+    "inline_package": {
+      "path": "/var/tmp/dokapon-inline-reconcile-packaging-4thtxe28",
+      "members": 16,
+      "manifest_sha256": "dec60a6be859ab80bc1be167ab0c152de4c4c24bd697e6d1f0e58efb0365ac83",
+      "all_verified": true
+    },
+    "remaining_duties_pack": {
+      "path": "/var/tmp/dokapon-joined-report-remaining-agqr4i5e",
+      "members": 17,
+      "manifest_sha256": "565b089d230a6a6a94406ae5bf03f36d3d9c243cc00656ad0dc961ad1f47277e",
+      "all_verified": true
+    },
+    "source_policy": "registry-tools.py:1003-1145, especially geometry1058, plain source words1072-1095, fresh literal EN+padding1097-1119, machine fields1137-1145",
+    "independent_checks": "All28prior full byte/token/factor/binding rows unchanged before adding reconciliation. Rehashed56raw16B fields, manually encoded known literal EN with zero padding and lowest hyphen alias20, independently projected all28 decisions:2proposed/25held/1unchanged. Human registry fields unchanged.",
+    "qualification": "Source equations/manual projections and prior original-helper corpus; original ISO-writing main never executed. Dated60/100cohort/count/contiguity filters are reviewed scope facts, not recreated per-script handlers. Source PATCH_REF attribution is deliberately not inferred or proposed."
+  },
+  "verification": {
+    "phase1": {
+      "focused_complete_CLI": "PASS18.984s",
+      "core_build_vet": "PASS",
+      "hygiene": "PASS",
+      "unreviewed_complete_old_new_stdout_stderr_exit_parities": 7,
+      "reviewed_pointer_report": "All non-Limits fields identical",
+      "whole_inline_oracle_rows": 28,
+      "additional_field_edges": 7,
+      "source_control_or_pointer_shaped_word": "Held; no fabricated target",
+      "all601initialpins_held": true
+    },
+    "final": {
+      "focused_complete_CLI": "PASS14.050s",
+      "core_build": "PASS",
+      "core_vet": "PASS",
+      "gofmt_all_Go": "PASS",
+      "scoped_whitespace": "PASS",
+      "scoped_POSIX_credentials": "PASS with synthetic nonsecret positive selfcheck",
+      "complete_initial_final_example_captures": 8,
+      "pointer_presence_cases": 5,
+      "complete_unreviewed_initial_final_counterexample_parities": 4,
+      "input_bytes_inode_mtime_preserved": true,
+      "empty_literal_case": "Allzero8word observed field legitimately proposes its nonzero field location, not a null pointer",
+      "all601finalpins_held": true
+    },
+    "execution": "nice19,GOMAXPROCS2,CGO_ENABLED0,go -p 2,owned TMPDIR/GOTMPDIR",
+    "all_owned_jobs_terminal": true,
+    "not_run": [
+      "Full suite",
+      "Race",
+      "Native-font replay",
+      "UI/gameplay"
+    ],
+    "harness_notes": [
+      "First source-check harness assumed comparison existed for every known canonical buffer; observed decode failures correctly leave comparison null. Corrected harness preserves this unknown.",
+      "Source oracle labels some refusals unsupported; comparison asserts actual nonempty error and null comparison while normalizing only that generic diagnostic label. Actual output retained."
+    ]
+  },
+  "cost_check": {
+    "production_Go_files": 39,
+    "production_Go_bytes": 459682,
+    "named_function_declarations": 41,
+    "net_production_growth_vs_accepted_pointer_increment": 523,
+    "new_functions_types_Go_runtime_files": 0,
+    "frozen_runtime_accounting": "180files2533593B; net1859B=523Go+1336profiledata. Tests/oracle overhead separate; no savings claim."
+  },
+  "limits": [
+    "Finite generic reviewed inline proposal capability, not complete dated cohort or original writeback CLI parity.",
+    "No mutation, attribution invention, native-fit/display/runtime authority, .06/full-family credit, script retirement or reduction claim.",
+    "Exact literal/padding equality does not permit overwriting human EN/JP/note; downstream publisher must independently recheck pins and field ownership.",
+    "No protected ISO/canonical registry/emulator/PINE/process/settings/auth access or control. Root race/native results are separate receipts, not reviewer-run claims."
+  ],
+  "artifacts": {
+    "phase1": {
+      "directory": "/var/tmp/dokapon-inline-reconcile-review-h082mge1",
+      "manifest": "/var/tmp/dokapon-inline-reconcile-review-h082mge1/phase1-artifact-manifest.json",
+      "sha256": "d927115a6a7821769f95f232f86ca47b999f7d32f9c64e35a095d7a78f53559b",
+      "members": 859,
+      "all_members_reverified_during_final_copy": true
+    },
+    "final": {
+      "directory": "/var/tmp/dokapon-inline-reconcile-final-review-ff25gg8n",
+      "manifest": "/var/tmp/dokapon-inline-reconcile-final-review-ff25gg8n/artifact-manifest.json",
+      "sha256": "0af3c8a487a46859d0df941cf7d99ffbec73dd50f15a026ca91d6ad7fa768099",
+      "members": 727,
+      "checks_sha256": "585051a9ab9b14017c2390609235d4191cb03099807c18a63fcba94e07db3d20",
+      "CLI_checks_sha256": "9076d99afa0d8567c6f440ace5e18fa51ada195ee82eb2e190cf06f200bdfa6d"
+    }
+  },
+  "authority": "Findings only; root owns fixes and acceptance."
+}

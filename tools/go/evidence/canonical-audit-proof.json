@@ -1,0 +1,279 @@
+{
+  "schema": "canonical-audit-proof-v1",
+  "at": "2026-10-21T13:27:45.821723+00:00",
+  "status": "VERIFIED_FINITE_CANONICAL_SOURCE_CONTEXT_AUDIT",
+  "owners": [
+    "auditStreams",
+    "checkJSON",
+    "controls",
+    "encode",
+    "glyphMaps",
+    "references",
+    "inspect"
+  ],
+  "new_functions": 0,
+  "new_production_files": 0,
+  "contract": "Pinned normalized registry EN plus separately pinned original source context and explicit none/characters policy form the generated canonical side. Same scanner/comparison loop; independently observed sites/full-window mapping and input rechecks still gate buffered read-only publication. No expected-byte runtime input, prefix retry, implicit layout or writeback. Original status/comparison independent; failed generation or observed decode leaves canonical comparison absent. Generated spans are buffer offsets. Null policies/fields refuse via existing shared JSON ownership scanner.",
+  "source_frontier": "analysis/canonical-audit-reuse-frontier.json",
+  "reuse_decision": "analysis/canonical-audit-reuse-decision.json",
+  "source_only_pack": {
+    "path": "/var/tmp/dokapon-canonical-audit-frontier-corrected-0u2_8mq3",
+    "manifest_sha256": "3dab36a3fb68ea908430097a87537a4821856b7f0879318cadebe3ea0d819e80",
+    "members": 30,
+    "root_verified": true
+  },
+  "oracle": {
+    "path": "testdata/canonical-audit.json",
+    "sha256": "2c379ce58fb02e8784cfea167087eb72b9fc184d6a74e40af8783e3f2fb61230",
+    "rows": 11,
+    "binding_refusals": 2,
+    "provenance": "Frozen manual literal arrays and source contract facts, stdlib word packing/projection/factors; no Go-derived expectations. This increment does not claim original renderer execution or native independent encoder.",
+    "policy_refusals": 10,
+    "wire_refusals": 10,
+    "wording_context_variants": 7,
+    "whole_old_report_parity": true
+  },
+  "verification": {
+    "core_focused_package_seconds": 25.051,
+    "root_checks": {
+      "at": "2026-10-21T13:18:24.265933+00:00",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "core-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-canonical-audit-snq910tn/core-final",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 1.936
+        },
+        {
+          "name": "core-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.526
+        },
+        {
+          "name": "native-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-o",
+            "/var/tmp/dokapon-canonical-audit-snq910tn/native-final",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 3.22
+        },
+        {
+          "name": "native-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 1.096
+        },
+        {
+          "name": "gofmt",
+          "args": [
+            "gofmt",
+            "-l",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "input_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "raster.go",
+            "raster_font.go",
+            "raster_font_disabled.go",
+            "raster_png.go",
+            "raster_reconstruction.go",
+            "raster_reconstruction_types.go",
+            "raster_resize.go",
+            "raster_runs.go",
+            "raster_types.go",
+            "recipe_types.go",
+            "reference_geometry.go",
+            "reference_types.go",
+            "references.go",
+            "registry_authoring.go",
+            "registry_types.go",
+            "snapshot_types.go",
+            "snapshots.go",
+            "stream_audit.go",
+            "stream_audit_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_contacts.go",
+            "texture_discovery.go",
+            "texture_index.go",
+            "texture_manifest.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go"
+          ],
+          "exit": 0,
+          "wall_seconds": 0.132
+        },
+        {
+          "name": "core-final-canonical-cli",
+          "rows": 11,
+          "status": "PASS"
+        },
+        {
+          "name": "native-final-canonical-cli",
+          "rows": 11,
+          "status": "PASS"
+        },
+        {
+          "name": "complete-old-CLI-parity-stream-audit",
+          "status": "PASS"
+        },
+        {
+          "name": "complete-old-CLI-parity-reference-bound-audit",
+          "status": "PASS"
+        }
+      ],
+      "hygiene_files": 49,
+      "production_files": 39,
+      "production_bytes": 423647,
+      "named_declarations": 41,
+      "new_functions": 0,
+      "new_production_files": 0,
+      "test_growth_bytes": 6148,
+      "new_example_bytes": 14861,
+      "new_oracle_bytes": 63279,
+      "limits": "Focused core tests and race separately tracked; native build/vet and actualCLI checked. Fullsuite/gameplay deferred, no protected resources or game patch."
+    },
+    "race": {
+      "status": "PASS",
+      "package_seconds": 299.577,
+      "path": "/var/tmp/dokapon-canonical-audit-snq910tn/null-fixed-race.log",
+      "sha256": "5337d29012e244bfa8e4cfa6bc4b521c48e26223dbed612c9ae2266131450da7"
+    },
+    "ordinary_review": {
+      "path": "evidence/canonical-audit-review.json",
+      "sha256": "a09506318a3ce3ce9a74b83425b7243d4c92300591ae1f9558a3a165013ec333",
+      "root_verified_artifact_members": 172,
+      "extra_CLI_probes": 12,
+      "null_finding": "CLOSED independently; no oldcaller spill"
+    },
+    "UI": {
+      "status": "PASS",
+      "source_sha256": "980433c609948af0502fefccba93527b11fa52ee309f306f1d89d80d25b14bb6",
+      "checks": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "status": "PASS",
+          "svg_count": 3,
+          "keyboard_focus": true,
+          "horizontal_scroll": true
+        }
+      ],
+      "limits": "Static documentation only; no form behavior applies. No gameplay or Go behavior claim."
+    },
+    "UI_screenshots_root_viewed": true,
+    "full_integrated_suite_gameplay": "DEFERRED_BY_OWNER",
+    "source_capsule": {
+      "path": "/var/tmp/dokapon-canonical-audit-snq910tn/review-source-nullfixed",
+      "manifest_sha256": "e9083a815e098dccc190605dc5267ccd2d65490a397cd418b744b67b8e50d776",
+      "members": 520
+    }
+  },
+  "metrics": {
+    "at": "2026-10-21T13:18:48.812987+00:00",
+    "scope": "Private canonical candidate, source-frozen finite narrative contract, no fullfamily/retirement credit",
+    "members": 520,
+    "manifest": "/var/tmp/dokapon-canonical-audit-snq910tn/review-source-nullfixed/manifest.json",
+    "manifest_sha256": "e9083a815e098dccc190605dc5267ccd2d65490a397cd418b744b67b8e50d776",
+    "new": [
+      "analysis/canonical-audit-reuse-frontier.json",
+      "analysis/canonical-audit-reuse-decision.json",
+      "testdata/canonical-audit.json",
+      "examples/canonical-audit/glyphmap.json",
+      "examples/canonical-audit/observed.elf",
+      "examples/canonical-audit/profile.json",
+      "examples/canonical-audit/reference.elf",
+      "examples/canonical-audit/registry.json"
+    ],
+    "runtime": {
+      "files": 154,
+      "bytes": 2399279
+    },
+    "accounted_inputs": 247,
+    "production_files": 39,
+    "production_bytes": 423647,
+    "production_growth_bytes": 4340,
+    "runtime_growth_bytes": 19201,
+    "test_growth_bytes": 6148,
+    "new_oracle_bytes": 63279,
+    "new_functions": 0,
+    "new_production_files": 0
+  },
+  "coverage": {
+    "full_families": "6/14",
+    "planning": "65/84",
+    "new_credit": 0,
+    "historical_retirements": 0,
+    "reduction_claim": false,
+    "remaining": "Broader source-context/setup/opaque/explicit prefix conventions, native/fixed/sentinel reader forms, joined reconciliation/proposals and gameplay remain separate."
+  },
+  "source_pins": {
+    "input_types.go": "bcf7b63f984a226e319ed223d88d11b6a370f0be6be5cb37766b1a7711bbc766",
+    "inputs.go": "71bb5de60326a18be69223669c8fffe4c7c649f375ebee0848e591a04c84f383",
+    "stream_audit.go": "35854496777e85fb29536b0e90da94a33d808b63512bdfeee7a25593c171b34d",
+    "stream_audit_types.go": "5044ab855092c6d0e2f4d464473d3b8e23e7b6b0e1232cfcd47ac70319a5e756",
+    "patch_test.go": "90f3b9a503ad9ddffae18c03bd189f6571ecd4199486c6dd32dadf089bb60545",
+    "testdata/canonical-audit.json": "2c379ce58fb02e8784cfea167087eb72b9fc184d6a74e40af8783e3f2fb61230",
+    "analysis/canonical-audit-reuse-frontier.json": "8799b46a715fa24dbfab8f7504dd6994ff07c1e159a1cab9027684deee1e66b1",
+    "analysis/canonical-audit-reuse-decision.json": "adf395608c7f88a6fdb25576d4f6e215bf963022629b75ee3d49fd54dcab5b1f",
+    "examples/canonical-audit/glyphmap.json": "f24db040e2e9615a32b068d8d60d0e6b9fc2e8aa271d2ed77bb438ddccaf1f38",
+    "examples/canonical-audit/observed.elf": "b75b6a472f10ecaef86abd16a895f8747f27395ec14a26471ee12159894bbe77",
+    "examples/canonical-audit/profile.json": "8899c91f2a2cf3effc3d98c7531e4992d36d933fd394d0408395876601dc483c",
+    "examples/canonical-audit/reference.elf": "0f6f4d864584637c3eb856a8bd58f0fb90ac0df022366b5350ec72e8aa22972a",
+    "examples/canonical-audit/registry.json": "83b1b59a5cd1c6ca37a8f544548d78630311e5e4355f291bd4f3a0115dfc81fb"
+  },
+  "protected_scope": "Frozen/synthetic sources and new owned outputs only; no ISO/canonical registry/emulator/PINE/controller/process/log/settings/auth access/control; no actual game patch."
+}

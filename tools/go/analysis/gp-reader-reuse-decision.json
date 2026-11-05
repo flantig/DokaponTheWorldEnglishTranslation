@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-21T16:51:30.199493+00:00",
+  "status": "EXISTING_OWNERS_ENHANCED_ZERO_NEW_FUNCTIONS",
+  "existing_owners": {
+    "inspect": "Already opens a bounded ELF via debug/elf and proves mappings; add optional unique24B ELF register-info observation here, without a new parser/function or operation flag. Invalid/missing/ambiguous metadata remains an unknown GP fact and must not break non-GP outputs.",
+    "normalizeReference": "Reuse existing addiu_vma/reg fields for gp_relative single-instruction geometry; reject foreign data/LUI/struct coordinates.",
+    "referenceTarget": "Enhance existing one-word interpretation for a nonzero destination register plus an internally observed GP value; require ADDIU opcode, rs28 and declared rt. Signed imm16 arithmetic wraps32bits as existing code pairs do.",
+    "references": "Join independently mapped raw instruction words with inspect-owned register-info facts; preserve partial errors, duplicates/shared sites and ordinary target mappings. Only GP-selected reports publish GPmetadata.",
+    "plan": "Preserve existing GP write refusals explicitly; pointer_check must not start accepting new normalized geometry. stream paths already restrict reference types.",
+    "tests": "Extend existing CLI example/oracle loop and existing refusal/vector owners, no new testfunctions. Independent portable literals and original source/native facts frozen before candidate execution."
+  },
+  "new_functions": 0,
+  "new_methods_or_closures": 0,
+  "new_Go_files": 0,
+  "new_type_proposal": {
+    "name": "ELFRegisterInfo",
+    "purpose": "Groups optional section index, exact bounded metadata bytes/global pointer or explicit error; shared inspect/reference reporting fact. A GPvalue alone would hide its source, while independent parallel fields would scatter the contract.",
+    "considered": [
+      "Inspection retains combined inspection outcomes; adding optional grouped metadata is its responsibility.",
+      "ELFMapping describes VMA projection, not ELF section metadata; do not mix domains.",
+      "RegistryInput is file identity and cannot own observed register info.",
+      "ReferenceGeometry owns normalized instruction coordinates and the internally joined GP value, not ELF parsing."
+    ]
+  },
+  "trust_boundary": "Read-only ELFmetadata/address-construction facts, not actual runtimeGP/register liveness/displayownership. Missing/duplicate/size/compression/bounds/shape/refusal checks stay explicit. No landing/ID fallback.",
+  "source_manifest": "5f09d020c5898ba107bfe35b1f0e4c90187bed092abc26964b7763a5b9479089",
+  "precode_source_root_verification": "/var/tmp/dokapon-gp-reader-wnw7d8ab/root-source-verification.json",
+  "portable_pack_status": "Rootverified14members andownliteralchecks BEFOREGoedits",
+  "portable_manifest_sha256": "1fe7aaeadb5a33357b105e6234d49492c9c6ca5ec0fa793f59184065e1b24b9e",
+  "new_type_actual": "ELFRegisterInfo groups section index/range, known-or-unknown GP and error; Geometry receives observedGP only after inspect proof."
+}

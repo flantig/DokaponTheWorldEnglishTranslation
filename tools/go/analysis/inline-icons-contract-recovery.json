@@ -1,0 +1,336 @@
+{
+  "schema": "inline-icons-contract-recovery-v1",
+  "at": "2026-10-21T04:54:50.783018+00:00",
+  "status": "Read-only source/oracle recovery; no implementation, execution or acceptance",
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-contact-score-fix-uws1ri10/sealed-final/manifest.json",
+    "sha256": "bf076814c93adce78489c9adff9531fb1a57bf223db7f17a8298d7283e9b16c3",
+    "owner_source_hashes": {
+      "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+      "raster_runs.go": "8aa06ad8942f75162b06667d2329a5b851ccb8ccd44d8c20b1bf184a5ae1f146",
+      "raster_types.go": "0a678f3da3f3214ae558fe1bd94ef39834b3365c86e2004acc01cda4d7814193",
+      "texture_authoring.go": "fd76ae20df86d029020860ebee590b47dfe9a4cb3f39048f6c90318e90865c34"
+    },
+    "note": "Current owner lookup/source pins describe inspected pre-icon baseline; root is independently implementing. No assertion of later candidate immutability."
+  },
+  "recommendation": "Recover equations and frozen expected bytes, not the incomplete stale diff. Enhance existing renderRuns for icon advance/placement and composeCells for immutable same-sheet replacement after each line. No new function, loader, decoder, resizer or workflow is needed.",
+  "actual_source_scope": {
+    "provider": "../make_explainer_png.py",
+    "recipes": "../../generated/explainer-specs/batch_b_tutorial.json",
+    "observed_use": "Prior bounded source census found8 inline-icon operations across4textures; real examples include help_illust00 basics arrow and two-line bain/crystal explanations. These use ExtraBold TTF. A native bitmap run integration is shared capability, not parity for all8 complete TTF artworks.",
+    "spans": {
+      "advance_cursor": "350..400",
+      "icon_pixel_positions": "479..487",
+      "two_stage_origin": "491..548",
+      "measure": "552..565",
+      "replacement": "568..574",
+      "single_text_order": "590..603",
+      "group_fit_and_line_order": "608..634"
+    },
+    "data_boundary": "Current typed icon run is an explicit declarative alternative to Text/Fill. Original {@name} parsing and original TTF glyph rendering are separate duties; do not fabricate their completion."
+  },
+  "equations_and_order": [
+    "SS=4. Text tracking is tracking*4. Icon advance=(sourceWidth+2*gap)*4/ScaleX; icon cursor=currentSSCursor+gap*4/ScaleX. Neither advance nor original copy width/height scales with fitted text size.",
+    "Default gap2 on both sides; explicit0 is different from omitted. Text pixels may be horizontally scaled; the icon remains source-sized. Do not run icons through resizeRaster or pixelOver.",
+    "measure sums text getlength+tracking*characterCount and icon advances, then subtracts one tracking only when any text characters exist. text_layer always subtracts final tracking from its canvas/alignment width. Preserve separate fit versus rendered width for icon-only nonzero tracking.",
+    "Nonzero tracking draws characters with a continuous global cursor, including offsets before/after icon runs. Zero tracking draws each text run as a whole at that run cursor. Icons themselves add no tracking or glyph-character count.",
+    "First round word geo.ox/oy ties-to-even after left/center alignment; then iconLeft=geo.ox+iconCursorSS*ScaleX/4, iconCenterY=geo.oy+(base*ScaleY-cap*ScaleY/2)/4. Destination is roundEven(iconLeft),roundEven(iconCenterY-iconHeight/2). Combining these two roundings or translating a previously rounded probe can change a pixel.",
+    "Original op_lines: fit common size using measure and leading/height; rerender each final anchor; composite text, optional texture-fill, then copy this line icons in run order. The next line composites over previous icon bytes. Never defer all icons until the group finishes.",
+    "Replacement reads immutable original source RGBA and writes all4channels, including alpha0 hiddenRGB. Use exact source replacement, not alphaOver, current canvas donor reads or coverage-only masking. Repeated donors remain original even if earlier cells/lines painted their coordinates."
+  ],
+  "integration_gotchas": [
+    {
+      "priority": "required",
+      "owner": "composeCells",
+      "fact": "Current compositor is pixel-major then line-major. Refactor to initialize background once, then compose one entire line and its copies before next line. Keep exact float32 arithmetic and per-line uint8 rounding order. Existing binary-cell branch must retain its own semantics."
+    },
+    {
+      "priority": "required",
+      "owner": "composeCells",
+      "fact": "Validate complete source rectangle against full immutable base, not against approved target cell. Donors legitimately lie outside target cell. Validate complete destination against approved cell and full image, not fit box, word ink or alpha footprint. Transparent bytes can change hiddenRGB and count for containment."
+    },
+    {
+      "priority": "required",
+      "owner": "composeCells",
+      "fact": "Source and destination are sheet-relative; add base.Rect.Min exactly once for shifted-origin images. Destination may lie outside the text layer Rect because icons are independent placements; preflight it separately. Preserve base/atlas/source immutability and failure-before-publication."
+    },
+    {
+      "priority": "required",
+      "owner": "composeCells group",
+      "fact": "Group fitting must use original measure width, including icon-only discrepancy. Fixed-width icons do not shrink with text; at min size width estimate can remain over budget under existing policy, while complete actual destination still must fit approved cell. Rerender final anchors instead of shifting rounded probes."
+    },
+    {
+      "priority": "required",
+      "owner": "renderRuns",
+      "fact": "Unknown icon, malformed rectangle, Text/Fill conflict, nonfinite/negative gap, dimension/coordinate overflow and unsupported fontless mode must refuse. Existing run/character/work bounds must not become unbounded icon-copy loops."
+    },
+    {
+      "priority": "required",
+      "owner": "composeCells",
+      "fact": "Different approved cells remain disjoint; intentional line/icon overlap within one group is ordered and permitted. A blanket no-overlap rule would lose the real group-overlap contract."
+    },
+    {
+      "priority": "scope",
+      "owner": "authorTexture/texture",
+      "fact": "Raw composition versus source-color snap/native palette projection are separate stages. Do not promise donor native index identity or palette mutation authority solely because copied rawRGBA is exact."
+    }
+  ],
+  "stale_wip": {
+    "path": "/tmp/dokapon-donor-composition-2s2_i91s/wip-inline-icons/proposed.patch",
+    "bytes": 5412,
+    "sha256": "23c62cb694e1e12094cb66b054042589d938aa58d7993260bd668266d2b42ea2",
+    "changed_files": [
+      "raster_types.go",
+      "raster_runs.go"
+    ],
+    "findings": [
+      "Not a complete integration: missing composeCells preflight/per-line copy, authorTexture icon handoff and affected callers/tests.",
+      "Patch offsets are stale relative to accepted source; do not blindly apply. One surplus literal plus remains in a source comment.",
+      "Useful preserved decisions: typed placements, optional gap, source-sized advance, separate fitWidth/renderWidth and second ties-even placement."
+    ],
+    "acceptance": "No stale implementation or prior proposed source is accepted by this report."
+  },
+  "frozen_oracles": {
+    "path": "/tmp/dokapon-donor-composition-2s2_i91s/precode/inline-icons.zip",
+    "bytes": 310582,
+    "sha256": "2d108a77cce0bcf52488b67b688db168921e3a80fcf65a14307b64d4122e11a8",
+    "members": 18,
+    "all18_member_hashes_verified_against_old_decision": true,
+    "fullRGBAcases": [
+      {
+        "name": "mixed",
+        "raw": "mixed.raw",
+        "sha256": "8b06206828a09570dddc57f7dcf410eb55d1b0d00123dc7168c58c07d9b85bf7",
+        "destinations": [
+          [
+            18,
+            15
+          ]
+        ],
+        "source_measure_width": 16.5,
+        "source_render_width": 16.5
+      },
+      {
+        "name": "tracked",
+        "raw": "tracked.raw",
+        "sha256": "0c5fffbbd1ae7345376985ba09aeade751cbce7a54aa8f9431b0c108a3ce6642",
+        "destinations": [
+          [
+            18,
+            15
+          ]
+        ],
+        "source_measure_width": 17.0,
+        "source_render_width": 17.0
+      },
+      {
+        "name": "negative-tracking",
+        "raw": "negative-tracking.raw",
+        "sha256": "303cbd224856b358d8b53f909871152d552953cd13634fe1659da6f1238995f2",
+        "destinations": [
+          [
+            48,
+            31
+          ]
+        ],
+        "source_measure_width": 26.75,
+        "source_render_width": 26.75
+      },
+      {
+        "name": "fixed-size",
+        "raw": "fixed-size.raw",
+        "sha256": "3662e3adaea06a1424ed8613c634d4657f2535a8242813b49d6f04b3d77f724d",
+        "destinations": [
+          [
+            48,
+            31
+          ]
+        ],
+        "source_measure_width": 37.5,
+        "source_render_width": 37.5
+      },
+      {
+        "name": "compressed",
+        "raw": "compressed.raw",
+        "sha256": "a64835a69db28f12c84f075e4b78e7d4b28100fc0922194fc5f17580a4551ad2",
+        "destinations": [
+          [
+            48,
+            31
+          ]
+        ],
+        "source_measure_width": 21.75,
+        "source_render_width": 21.75
+      },
+      {
+        "name": "zero-gap",
+        "raw": "zero-gap.raw",
+        "sha256": "02a9117f8a522f032f0c00308feff17624ff29540837f940c192cb1f832f5187",
+        "destinations": [
+          [
+            22,
+            23
+          ]
+        ],
+        "source_measure_width": 23.0,
+        "source_render_width": 23.0
+      },
+      {
+        "name": "icon-first",
+        "raw": "icon-first.raw",
+        "sha256": "bbb1cf5dfd05c54be2fcd396efd8850c2c4b84bc13127b5050d972cd65645b02",
+        "destinations": [
+          [
+            12,
+            23
+          ]
+        ],
+        "source_measure_width": 27.5,
+        "source_render_width": 27.5
+      },
+      {
+        "name": "icon-last",
+        "raw": "icon-last.raw",
+        "sha256": "81e8d3c98d974e4b23820e5a9a5307892e681aa0ff8d26cd49bd7cb1d2a7c130",
+        "destinations": [
+          [
+            34,
+            23
+          ]
+        ],
+        "source_measure_width": 27.5,
+        "source_render_width": 27.5
+      },
+      {
+        "name": "only-icon",
+        "raw": "only-icon.raw",
+        "sha256": "f3b42b63c532eb8f46f3b432cf76a10a962f5da4d827608f81e1ae4b5e54ef95",
+        "destinations": [
+          [
+            12,
+            23
+          ]
+        ],
+        "source_measure_width": 6.0,
+        "source_render_width": 5.5
+      },
+      {
+        "name": "repeat-icon",
+        "raw": "repeat-icon.raw",
+        "sha256": "62c78543ff7123dc58680d8d3efe78695f453b48d2d6acaea06aedacd23bd195",
+        "destinations": [
+          [
+            44,
+            31
+          ],
+          [
+            50,
+            31
+          ]
+        ],
+        "source_measure_width": 33.0,
+        "source_render_width": 33.0
+      },
+      {
+        "name": "group-overlap",
+        "raw": "group-overlap.raw",
+        "sha256": "7b3588db4d8ebc99ac8fce22606c1761e11aefcae64f0fb303fe2131c1d008e1",
+        "destinations": null,
+        "source_measure_width": null,
+        "source_render_width": null
+      }
+    ],
+    "provenance": "Unmodified frozen original Python renderer; source font raw ELF/atlas/glyph facts injected via its existing data cache. No Go candidate output consumed. Generated BEFORE Go icon implementation.",
+    "geometry_fixture": "The literal Em24/A13/B28 arithmetic fixture is distinct from original Game font full-pixel vectors. Do not mix expected15/16 destinations from the literal arithmetic with original Game font mixed18 destination.",
+    "literal_two_rounds": {
+      "at": [
+        10.25,
+        10
+      ],
+      "iconSSCursor": 49,
+      "word_origin": [
+        3,
+        0
+      ],
+      "correct_destination": [
+        15,
+        9
+      ],
+      "incorrect_single_round_destination_x": 16
+    },
+    "icon_only": "Frozen positive tracking0.5 gives measure6, rendered5.5; this newer explicit compatibility decision supersedes earlier study suggestion to HOLD icon-only. Existing decision records preservation, not an artificial refusal.",
+    "native": {
+      "profile": "native/profile.json",
+      "source": "native/source.txd",
+      "base": "native/base.png",
+      "expected_rgba": "native/expected.raw",
+      "expected_txd": "native/expected.txd",
+      "facts": {
+        "profile": "profile.json",
+        "source": "../group.txd",
+        "source_sha256": "4b88155c620bc94c56d55d827dbe0f30a725c95c9c03094a1bbf4d739ef590a0",
+        "expected_raw_sha256": "aadce87f130b652b8c9ab501b5757978a78b57cc5c66fb162ebd046d569a1c9c",
+        "expected_txd_sha256": "848674056354a177f4467c74865524b816ce53720f4c7f99e212203b69f4ce7c",
+        "icon_destinations": [
+          [
+            305,
+            187
+          ]
+        ],
+        "reported_width": 129.0,
+        "provenance": "Original frozen Python renderer first; existing accepted Go codec projects independent PNG to native source palette. No new Go icon code/output consumed. Standalone native input; not TTF-art or visual approval."
+      }
+    },
+    "native_provenance_limit": "Raw native reference generated by original Python renderer. Expected wholeTXD then projected by OLD accepted Go codec before new icon code. Therefore independent renderer oracle and old-codec reuse evidence, not an independently derived native encoder oracle. Standalone source/reference is not8TTFart parity or visual/gameplay approval."
+  },
+  "verification_requirements_for_root": [
+    "Compare all11 wholeRGBA vectors and selected native raw/wholeTXD reference with provenance qualified; preserve prior scalar/style/group complete stdout/stderr/exit bytes.",
+    "Exercise source outside targetcell, destinationspill evenalpha0, unknown/conflictingrun, malformed source rectangles, shifted origins, gapnil versus0, repeats and group-overlap ordering.",
+    "Ensure fitting and scale preserve original-size icon bytes and only-icon measured/rendered width discrepancy. Add any missing focused tests through existing owners; no need new engine.",
+    "Preserve current binary/native text goldens, source/font/atlas bytes, strict candidate containment and publisher guards. Fresh independent review remains root responsibility."
+  ],
+  "source_pins": {
+    "analysis/inline-icons-reuse-decision.json": {
+      "bytes": 7664,
+      "sha256": "7220f120359530fe540098a00a80d1f18d47f7022d35257de23fd222ed5bc656"
+    },
+    "analysis/donor-composition-contract.json": {
+      "bytes": 18244,
+      "sha256": "acf635da2cb2e9255990696de86810aa741915f13905b5753517a4b2b37cbd74"
+    },
+    "../make_explainer_png.py": {
+      "bytes": 31970,
+      "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3"
+    },
+    "../../generated/explainer-specs/batch_b_tutorial.json": {
+      "bytes": 54590,
+      "sha256": "1992b7a37a7d24fea92d6b0bddcf239ade252728e8be02ec172049342334f6d4"
+    },
+    "raster.go": {
+      "bytes": 15079,
+      "sha256": "f3c5e2bc6fc6000e5ccac9f79c04e63040c9a6901e34e185481dc6ee28032efe"
+    },
+    "raster_runs.go": {
+      "bytes": 15670,
+      "sha256": "deeb1f8270fd9bb3e885e32b71307afb3792c665c2b4eff0ba4939f5149e65e2"
+    },
+    "raster_types.go": {
+      "bytes": 4373,
+      "sha256": "93743de1e8bc49d791d516b94cc2398c161efe459fd0b884ff77f1e6036c9842"
+    },
+    "texture_authoring.go": {
+      "bytes": 25302,
+      "sha256": "86ba4a6c80abb5d6a24da0c8b8652b05821287ea3d13b3978814223571827f8e"
+    },
+    "fonts/game-optical.json": {
+      "bytes": 12248,
+      "sha256": "0675957298f6d1a6468f3c11cc7c9e4587026fe5faab59c5998832e32af226f6"
+    }
+  },
+  "limits": [
+    "No Go/candidate/projectPython/historicalmain execution, no production/test/fixture/coverage changes.",
+    "No protected ISO/canonical/runtime/PINE/controller/process/log/settings access or artwork approval.",
+    "No raster family/.04 completion, historical8TTF operation migration, or code-reduction claim.",
+    "External donors/reconstruction/exemplar/BICUBIC/texture-fill remain separate material responsibilities; copying same-sheet icons does not complete them."
+  ]
+}

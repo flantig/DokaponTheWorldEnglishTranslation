@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T19:34:37.113608+00:00",
+  "status": "ROOT_VERIFIED_TWO_ORIGINAL_FAMILIES_COMPLETE",
+  "baseline_manifest": "/var/tmp/dokapon-inline-proposals-70ussz2o/sealed-final/manifest.json",
+  "baseline_sha256": "7e7de0cf5479dbb9e01b8284a6a7159aa01526dff0f309b3cf733bff2b8974ef",
+  "source_criterion_study": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/joined-family-criterion-study.json",
+    "sha256": "1e859758f1fe9ee24c4496448e7794a558d136beab56feb3e871ecb668fd7583"
+  },
+  "families": [
+    {
+      "id": "registry_reconciliation",
+      "original_contracts": [
+        "Compare canonical plan with independently read on-disc bytes/references and propose differences. Report before mutating."
+      ],
+      "accepted_status": "partial",
+      "milestones": [
+        {
+          "id": "registry_reconciliation.01",
+          "requirement": "Select normalized registry IDs/families with pinned source and explicit ownership",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/observed-reference-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.02",
+          "requirement": "Independently read declared site words/targets/mappings and retain divergence/errors",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/observed-reference-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.03",
+          "requirement": "Compare selected complete streams, controls, ordered arguments and payloads without normalization hiding differences",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/stream-audit-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.04",
+          "requirement": "Build source-aware canonical expected streams and classify plan-versus-installed differences",
+          "prior_credit": 1,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "../rework/new_tool/reports/writeback.py:569-626",
+            "analysis/canonical-audit-reuse-frontier.json",
+            "analysis/canonical-audit-reuse-decision.json",
+            "testdata/canonical-audit.json",
+            "examples/canonical-audit/profile.json",
+            "evidence/canonical-audit-proof.json",
+            "evidence/canonical-audit-review.json",
+            "analysis/source-prologue-frontier.json",
+            "analysis/source-prologue-reuse-decision.json",
+            "testdata/source-prologues.json",
+            "evidence/source-prologue-proof.json",
+            "evidence/source-prologue-review.json",
+            "analysis/source-colour-policy-frontier.json",
+            "analysis/source-colour-reuse-decision.json",
+            "testdata/source-colours.json",
+            "evidence/source-colour-proof.json",
+            "evidence/source-colour-review.json",
+            "analysis/canonical-comparison-milestone-assessment.json",
+            "analysis/source-aware-roadmap-gap-study.json",
+            "evidence/astra-audit-036.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.05",
+          "requirement": "Cover material fixed-field/sentinel/source-pool/reader forms under explicit bounds and unknowns",
+          "prior_credit": 1,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "../rework/new_tool/registry_tools/registry.py:981-1145",
+            "analysis/fixed-inline-audit-frontier.json",
+            "analysis/fixed-inline-reuse-decision.json",
+            "analysis/fixed-inline-oracle-packaging.json",
+            "testdata/fixed-inline-audit.json",
+            "examples/fixed-audit/glyphmap.json",
+            "examples/fixed-audit/observed.elf",
+            "examples/fixed-audit/profile.json",
+            "examples/fixed-audit/reference.elf",
+            "examples/fixed-audit/registry.json",
+            "evidence/fixed-inline-audit-proof.json",
+            "evidence/fixed-inline-audit-review.json",
+            "analysis/sentinel-reader-frontier.json",
+            "analysis/sentinel-reader-reuse-decision.json",
+            "testdata/sentinel-reader.json",
+            "testdata/sentinel-reader.zip",
+            "examples/sentinel-audit/profile.json",
+            "examples/sentinel-audit/layout-profile.json",
+            "evidence/sentinel-reader-proof.json",
+            "evidence/sentinel-reader-review.json",
+            "analysis/sourcepool-reader-frontier.json",
+            "analysis/pinned-raw-reuse-decision.json",
+            "analysis/nul-label-reader-frontier.json",
+            "testdata/pinned-raw-audit.json",
+            "examples/pinned-raw-audit/profile.json",
+            "evidence/pinned-raw-reader-proof.json",
+            "evidence/pinned-raw-reader-review.json",
+            "analysis/raw-reader-compatibility-frontier.json",
+            "evidence/raw-reader-compatibility-proof.json",
+            "evidence/raw-reader-compatibility-review.json",
+            "evidence/astra-audit-037.json",
+            "analysis/event-reader-selection-frontier.json",
+            "analysis/material-reader-gap-assessment.json",
+            "evidence/event-reader-composition-proof.json",
+            "evidence/event-reader-composition-review.json",
+            "analysis/gp-reader-reuse-decision.json",
+            "testdata/gp-audit.json",
+            "examples/gp-audit/profile.json",
+            "evidence/gp-reader-proof.json",
+            "evidence/gp-reader-review.json",
+            "analysis/material-reader-milestone-assessment.json",
+            "evidence/material-reader-milestone-review.json"
+          ]
+        },
+        {
+          "id": "registry_reconciliation.06",
+          "requirement": "Propose evidence-bound differences for reviewed human/machine updates before any mutation",
+          "prior_credit": 0,
+          "evidence": [
+            "evidence/registry-policy-closure.json",
+            "analysis/pattern-crawl-iso_registry_reports.json",
+            "evidence/joined-reconciliation-proof.json",
+            "evidence/joined-reconciliation-review.json",
+            "evidence/inline-reconciliation-proof.json",
+            "evidence/inline-reconciliation-review.json"
+          ]
+        }
+      ],
+      "root_decision": "All six frozen material responsibilities verified through shared Go owners, explicit declarative inputs and meaningful unknowns; Full under the original bounded contract."
+    },
+    {
+      "id": "offline_reports",
+      "original_contracts": [
+        "Derived exports, progress/structural checks and byte/registry audits from explicit inputs."
+      ],
+      "accepted_status": "partial",
+      "milestones": [
+        {
+          "id": "offline_reports.01",
+          "requirement": "Project explicit registry data to deterministic derived exports",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/registry-export-proof.json",
+            "evidence/registry-export-review.json"
+          ]
+        },
+        {
+          "id": "offline_reports.02",
+          "requirement": "Derive progress/status/glossary/flow facts with pinned presentation",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/registry-status-proof.json",
+            "evidence/registry-status-review.json"
+          ]
+        },
+        {
+          "id": "offline_reports.03",
+          "requirement": "Report supported native text shapes/fit/reference structures with explicit evidence",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/fit-line-count-proof.json",
+            "evidence/observed-reference-proof.json"
+          ]
+        },
+        {
+          "id": "offline_reports.04",
+          "requirement": "Audit complete selected bytes/controls/arguments/payloads and declared observed-site bindings",
+          "prior_credit": 1,
+          "evidence": [
+            "evidence/stream-audit-proof.json",
+            "evidence/reference-bound-audit-proof.json"
+          ]
+        },
+        {
+          "id": "offline_reports.05",
+          "requirement": "Compare an authored canonical plan with independently read installed content, not two supplied/self windows alone",
+          "prior_credit": 1,
+          "evidence": [
+            "analysis/reusability-coverage.json",
+            "../rework/new_tool/reports/writeback.py:629-760",
+            "analysis/canonical-audit-reuse-frontier.json",
+            "analysis/canonical-audit-reuse-decision.json",
+            "testdata/canonical-audit.json",
+            "examples/canonical-audit/profile.json",
+            "evidence/canonical-audit-proof.json",
+            "evidence/canonical-audit-review.json",
+            "analysis/source-prologue-frontier.json",
+            "analysis/source-prologue-reuse-decision.json",
+            "testdata/source-prologues.json",
+            "evidence/source-prologue-proof.json",
+            "evidence/source-prologue-review.json",
+            "analysis/source-colour-policy-frontier.json",
+            "analysis/source-colour-reuse-decision.json",
+            "testdata/source-colours.json",
+            "evidence/source-colour-proof.json",
+            "evidence/source-colour-review.json",
+            "analysis/canonical-comparison-milestone-assessment.json",
+            "analysis/source-aware-roadmap-gap-study.json",
+            "evidence/astra-audit-036.json"
+          ]
+        },
+        {
+          "id": "offline_reports.06",
+          "requirement": "Join registry/byte/structural audit facts with source identities, coverage/unknown diagnostics and derived export/progress evidence",
+          "prior_credit": 0,
+          "evidence": [
+            "analysis/pattern-crawl-iso_registry_reports.json",
+            "../rework/new_tool/reports/text.py:130-166",
+            "../rework/new_tool/reports/text.py:366-433"
+          ]
+        }
+      ],
+      "root_decision": "All six frozen material responsibilities verified through shared Go owners, explicit declarative inputs and meaningful unknowns; Full under the original bounded contract."
+    }
+  ],
+  "requirements_not_added": [
+    "No generic human EN rewriting, inference from note prose, automatic patch_ref attribution or one monolithic join engine.",
+    "No full410 migration/native physical fit/runtime selector or game execution claim."
+  ],
+  "proposed_credit": 2,
+  "full_family_promotions": [
+    "registry_reconciliation",
+    "offline_reports"
+  ],
+  "source_candidate_manifest": "/var/tmp/dokapon-structural-audit-s9qdhozq/review-source-final/manifest.json",
+  "source_candidate_sha256": "e13e6cf904f58d8a479bedc84bafb4b6666bdde8d0cd3794c375534a5d515edd",
+  "verification_crosswalk": {
+    "reader_comparison_milestones": "Accepted .01-.05 evidence remains source-pinned; eight complete old example reports and aggregate baseline output remain byte-exact when structure is not requested.",
+    "proposal_milestone": "Accepted pointer+inline machine suggestions retain source identities, current status, editorial holds, canonical/unknown factors and fullsite/window mappings; canonical human wording and attribution are not automatically rewritten.",
+    "offline_milestone": "Four existing Go commands emit audit+operational structural rows, authored fit, deterministic CSV and fullregistry/glossary/flow/template status. Common role hashes and actual selected-ID coverage are independently checked; foreign registry and subset controls demonstrate why both are needed.",
+    "structural_semantics": "25precode-original cases44known6unknown source sides and5domain7wire guards; headerless JP3/observed2 false,JP1/observed2 true,knownempty false,unknown null; filtered overflow indices and payload/space aliases covered.",
+    "publication_boundary": "Existing registry_merge accepts3machinefield updates in previewonly; injecting EN refuses. No output registry or game patches.",
+    "review_boundary": "Ordinary workflow c7a4e8... closes alias contamination, earlier headerless verifier LOW is historical OPEN pending current fresh review. No credit based on a stale frozen finding state."
+  },
+  "arithmetic_if_accepted": {
+    "planning_before": 68,
+    "planning_after": 70,
+    "milestone_denominator": 84,
+    "planning_percent_after": 83.33,
+    "full_core_before": 6,
+    "full_core_after": 8,
+    "core_total": 14,
+    "full_core_percent_after": 57.14,
+    "core_partial_after": 6,
+    "expanded_full_after": 8,
+    "expanded_total": 17,
+    "expanded_percent_after": 47.06,
+    "optional_runtime_unchanged": true,
+    "script_retirement_delta": 0,
+    "implementation_reduction_claim": false
+  },
+  "limits": [
+    "Full applies to the finite original shared family contract with declared source policies and explicit unknowns, not support for every grammar/dataset/historical script.",
+    "Authored-fit encoded hashes differ from canonical/installed stream encodings in this fixture; native physical fit, live reader execution and gameplay remain unproved.",
+    "Registry bookkeeping unchanged means no status promotion, not all landing metadata reconciled.",
+    "Independent sources, exact expected bytes, source/stat/hash rechecks, validation refusals and field-owned publication remain required.",
+    "Complete integrated test/race and nativefonts race deferred by owner; focused increment verification is not a full-suite claim."
+  ],
+  "awarded_credit": 2,
+  "root_decision": "Award registry_reconciliation.06 and offline_reports.06; promote exactly these two original bounded workflow families after independent source challenge and fresh behavior review. No baseline expansion, historical retirement or reduction claim.",
+  "reviews": {
+    "source": {
+      "path": "evidence/joined-family-assessment-review.json",
+      "sha256": "011fe15796281f037341e8c840a449cb3d0817a92b66651abed1723749fd042d",
+      "root_verified_artifacts": 36
+    },
+    "behavior": {
+      "path": "evidence/structural-audit-review.json",
+      "sha256": "b73c57efaf51139916de78052a07baf0f441e5afdb590dab94501299f32ecba8",
+      "root_verified_artifacts": 1568
+    }
+  },
+  "metrics": {
+    "runtime": {
+      "files": 180,
+      "bytes": 2537288
+    },
+    "production_go": {
+      "files": 39,
+      "bytes": 463377,
+      "named_functions": 41
+    },
+    "runtime_growth_bytes": 3695,
+    "production_growth_bytes": 3695,
+    "new_functions": 0,
+    "new_types": 1,
+    "new_runtime_files": 0,
+    "tests_growth_bytes": 5414,
+    "new_test_fixture_bytes": 49605,
+    "executed_evidence_bundle_bytes": 84113,
+    "historical_script_retirements": 0,
+    "coverage_credit": 0,
+    "test_fixture_metadata_removed_bytes": 28480
+  },
+  "source_pins": {
+    "stream_audit.go": "4321493eb41ce981961139fcee9eeb2babd6507af21545248ed35743f5a62399",
+    "stream_audit_types.go": "e2fdc292fa95a84f087c2282197fe5ea91d05e2dd324aec0a99423f2ba0d325d",
+    "patch_test.go": "76f029da7914bd1963e5996416e1d5a97b663b7febf19ba52dfcfa3d1d4f3c43",
+    "testdata/structural-audit.json": "af5b65ee08c0db9dc97fc560249db7148ec1bf8561ba5f5f6beba398ed243d48",
+    "analysis/joined-family-criterion-study.json": "1e859758f1fe9ee24c4496448e7794a558d136beab56feb3e871ecb668fd7583",
+    "evidence/structural-audit-review.json": "b73c57efaf51139916de78052a07baf0f441e5afdb590dab94501299f32ecba8",
+    "evidence/joined-family-assessment-review.json": "011fe15796281f037341e8c840a449cb3d0817a92b66651abed1723749fd042d",
+    "evidence/joined-workflow-review.json": "c7a4e8daafc132ac3b6cc46f1b8414a09c9b104b4260042459a9a46888e26223"
+  }
+}

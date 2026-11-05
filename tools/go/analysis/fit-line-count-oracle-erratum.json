@@ -1,0 +1,8 @@
+{
+  "source_contract_sha256": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc",
+  "sealed_pack_preserved": true,
+  "affected_case": "unsupported-scale",
+  "correction": "Raw proposed e864 stream is not accepted encoding. Existing encode validates controls before returning; Bytes0, encoded fields absent, unsupported encoding diagnostic. LineBreaks remains absent. Other16-small-case baseline comparisons differ only on this one. Candidate behavior unchanged.",
+  "source": "patch.go encode264..271 -> controls500..509; previewFit encode failure guard",
+  "independent_confirmation": "texture_contract_recovery source review + all16 frozen legacy rows; no candidate use to redefine behavior."
+}

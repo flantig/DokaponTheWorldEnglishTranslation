@@ -1,0 +1,155 @@
+{
+  "schema": "original-permission-mask-astra-preflight-v1",
+  "role": "Read-only adversarial architecture challenge, no implementation or approval authority; not cadenceaudit044",
+  "started_at_utc": "2026-11-05T00:15:50+00:00",
+  "accepted_manifest": {
+    "path": "/var/tmp/dokapon-rounded-permission-jtbvggtz/sealed-final/manifest.json",
+    "sha256": "6dbc9fa5d8c67fbc087413bb4d256fa2ab8dbf99875fdb16285da69161813d97",
+    "scope": "Manifest identity and selected inspected source member identities only, not a new full677 replay"
+  },
+  "determination": "Two small pure numerical owners are now justified by concrete existing and proposed consumers, subject to frozen source contracts. Extract predicate selection from reconstructRaster for current-erase and original-permission use. Extract boolean topology shared by existing erase growth, existing font-counter flood and the new original-footprint pipeline. This is preferable to duplicating predicates/growth, adding a mask-only reconstruction mode, or forcing font masks through RGBA/permission recipes. Do not choose final public API or all offered modes before active source census and independent oracle freeze.",
+  "owner_and_caller_analysis": [
+    {
+      "owner": "reconstructRaster",
+      "locations": "raster_reconstruction.go:15-128; raster.go:398",
+      "contract": "Sole production caller composeCells. Existing current-pixel selection/AND and four-neighbor growth precede independently meaningful flat/clear/row/column writes. It cannot reasonably own global original permissions or service font counters without fake modes, unwanted RGBA mutation or losing source-read ownership. Extract the shared numerical portions; retain operation bounds, initial/final permission clipping, empty-selection method/fill bypass, donor selection and writing here."
+    },
+    {
+      "owner": "renderRuns",
+      "locations": "raster_runs.go:386-415; raster.go:228,264",
+      "contract": "Concrete existing second topology consumer: flood four-connected boundary pixels with coverage<=127. The complement equals binary_fill_holes(coverage>127). Font caller builds its boolean coverage mask and invokes shared topology directly, preserving counter=(strokes present AND alpha<=127 AND filled mask). Do not route fonts through pixel selectors or permissions. Existing discs/EDT at131-149 and glyph styling remain separate."
+    },
+    {
+      "owner": "composeCells",
+      "locations": "raster.go:317-367,398,504-514",
+      "contract": "Owns immutable original, one working clone, three global stages, native-footprint intersection and text leak enforcement. Enhance this existing assembly owner for the fixed footprint/background/core phase sequence and combine returned masks at the current stage. It must not contain a second pixel-predicate evaluator or another BFS. No per-provider handler, callback/import loader or recursive mask interpreter."
+    },
+    {
+      "owner": "authorTexture/RasterRender",
+      "contract": "Existing bounded pinned acquisition, raw owned-object checks and publication. Own new recipe data validation/binding if required; do not put image morphology here or reinterpret fixed permission resources as an open shape language."
+    },
+    {
+      "owner": "resizeRaster/pixelOver/inspectRaster",
+      "contract": "Resampling, two-pixel composition and advisory image measurements do not reasonably own predicate selection or topology. No component owner found in inspectRaster. Reusing those functions through modes would conflate responsibilities."
+    }
+  ],
+  "minimal_boundary": {
+    "predicate_owner": "Reads supplied straight-RGBA pixels and crop, returns a fresh binary selection, validates finite closed predicate facts before pixel iteration. Caller chooses current canvas versus immutable base, so no original/current flag is needed. Existing AND caller stays AND. New compositor can OR a bounded list of AND groups in ordinary visible control flow; empty OR and empty AND retain distinct identities. No recursive boolean AST.",
+    "topology_owner": "Accepts binary mask/dimensions and one finite, named topology operation with bounded parameters. Keep morphology/fill/component processing independent of RGBA, font thresholds, source identities and publication. A small mutually exclusive operation switch is justified by this common binary domain; arbitrary ordered operation programs/callbacks are not. Existing callers own source-specific zero-iteration interpretation and phase ordering. Only implement source-proven operations; a second pure numerical owner is justified by actual font+erase reuse, not prospective future consumers.",
+    "assembly": "Existing reconstructRaster clips before growth and afterward. Existing composeCells assembles original footprint phases and global stages; renderRuns owns coverage threshold and counter styling. Fixed pipeline calls to the topology owner need no third per-provider coordinator merely for organization.",
+    "migration_order": "First move existing selector/growth/font-flood behavior with old complete-byte regression evidence, no new source semantics. Then add only frozen source-required predicates/topology using those same owners. Record extraction as relocation and charge all new code/types/schema/data/imports/adapters; tests/evidence separately."
+  },
+  "findings_and_conditions": [
+    {
+      "id": "OMP-READ-ORDER",
+      "severity": "HIGH",
+      "locations": "raster_reconstruction.go:51-128; batch_c_logo_art.py:111-136; make_batch_c_png.py:120-140",
+      "finding": "A shared algorithm does not imply a shared image lifecycle or clipping order. Erase predicates read the current canvas, seed inside allow, grow across forbidden gaps, then clip again. Footprints read immutable original crop, run topology, embed, clip/exclude, and only later participate in global union/subtract/add and native intersection.",
+      "direction": "Keep those decisions at the existing callers. Freeze prefix-mutation, excluded-gap crossing, outside-crop donors and post-topology clip witnesses. A helper that always clips each iteration, always uses original, or always applies global allow before selection changes behavior."
+    },
+    {
+      "id": "OMP-CORE-ALIAS",
+      "severity": "HIGH",
+      "locations": "batch_c_logo_art.py:119-125",
+      "finding": "Source evaluates original core for both filled-core union and later dilation restriction. Filling a cached core in place and then dilating that modified core expands permissions. Independent original-only9x9 hollow-ring witness produces40 correct pixels versus49 for the mutated-core shortcut, with center forbidden versus allowed.",
+      "direction": "Keep core immutable or use independent derived masks. Freeze raw masks for fill='core', subsequent original-core restriction, and empty core. Shared topology's input mutation/ownership contract must be explicit; numerical purity must not hide slice aliasing."
+    },
+    {
+      "id": "OMP-ZERO-TOPOLOGY",
+      "severity": "HIGH",
+      "locations": "batch_c_logo_art.py:117-130; make_explainer_png.py:260-271; raster_reconstruction.go:100-118",
+      "finding": "Zero iteration has different source meanings: final footprint grow0 skips dilation; old erase grow<=0 is no-op; core_grow0 calls SciPy dilation until stable. Source close0 skips, while negative truthy close/grow may invoke SciPy convergence semantics. One universal iterations<=0 rule is wrong.",
+      "direction": "Normalize these semantics explicitly at the caller or refuse unsupported domains with clear typed-subset qualification. Bound convergence by finite pixel additions/removals, not unbounded loops. Closing is dilation N then erosion N, not N alternating closing passes. Preserve border_value0 and default cross structuring element."
+    },
+    {
+      "id": "OMP-PREDICATE-MATH",
+      "severity": "HIGH",
+      "locations": "batch_c_logo_art.py:139-188; make_explainer_png.py:222-257; raster_reconstruction.go:28-98",
+      "finding": "_tests is OR-of-AND, with empty list false and empty dictionary true. Current erase clauses are AND with empty extras identity true. near uses tol, far uses independent ftol; the old RasterSelection Tol shared by Near/NotNear cannot directly represent a differing source pair. Channel differences are signed; integer luma is compared with untruncated finite float thresholds.",
+      "direction": "Normalize near and far into separate AND atoms using existing tolerance semantics. Preserve inclusive near versus strict far and RGB-only distance despite alpha changes. Freeze equality/nextafter thresholds, signed -255..255 differences, negative tolerance, repeated predicates and contradictory clauses. Validate all facts even if an earlier clause selects nothing; retain old empty-mask bypass only for method/fill validation."
+    },
+    {
+      "id": "OMP-TOPOLOGY-DETAIL",
+      "severity": "HIGH",
+      "finding": "Fill holes, component size and core restriction are not interchangeable forms of dilation. Border-reachable background, diagonal connectivity, operation order and component equality thresholds change permissions.",
+      "direction": "Freeze four-connected foreground labels and four-connected background flood; border-touching/open versus diagonal-only holes; allfalse/alltrue and1xN/Nx1; core fill plus core restriction; min_size equality and fractional thresholds if admitted; min_size before final growth; close at crop borders; holes spanning multiple components; clipping after final growth. Font extraction must independently preserve coverage127/128, diagonal counters, edge-connected counters, empty masks and whole styled outputs, including outline rim and nearest-color tie behavior left outside the topology owner."
+    },
+    {
+      "id": "OMP-BOUNDS",
+      "severity": "HIGH",
+      "finding": "The existing erase estimate and64 global-region cap do not bound arbitrary new group/threshold/core/background/morphology work. Per-group limits alone permit multiplicative growth.",
+      "direction": "Cap total groups, total clauses, total compiled checks and total masks across a composition. Account predicate pixel visits, core/background work, each topology pass and repeated allocations with overflow-safe arithmetic before work. Both existing font and erase workspaces are bounded4096-per-axis/1Mi pixels; preserve accepted near-limit behavior on extraction. Queue each vertex a bounded number of times, including convergence cases, and reuse owned scratch where safe. Test exact bounds, one-over refusals, no output and unchanged input. No new dependency is justified for four-neighbor operations."
+    }
+  ],
+  "threshold_map_tradeoff": {
+    "direction": "Two finite Above/Below maps can be a readable data table if the actual source census requires several scalar properties. Use a closed exact property whitelist such as only the proven channel/alpha/saturation/luminance/signed-difference names. Compile once per clause in deterministic property order into existing numeric checks; no per-pixel map allocation/lookup, eval or expression strings. If only one or two new properties prove material, explicit fields are probably smaller.",
+    "legacy_contract": "Retain current flat RasterSelection fields and their wire behavior. Legacy thresholds plus new map thresholds remain conjunctive; normalization must not overwrite one with another. Finite float64 thresholds compare against signed integer property values, with integer299/587/114 luma and strict comparison directions. Reject unknown/case aliases/duplicates/null/nonfinite values in owned maps. Source numeric facts remain separate stable recipe data; do not port every offered property solely because it exists in _tests.",
+    "scope": "Recommendation conditional on frozen active-property census; no final schema selected by this review."
+  },
+  "static_fact_alternative": {
+    "assessment": "Unlike the fixed rounded rectangle, this pipeline is a function of original pixels. A pinned per-image mask can preserve one immutable artwork instance, but does not implement material predicate/topology behavior for other valid source pixels. It is a legitimate reviewed fixed-art disposition only with explicit source identity, exact output equality and accepted scope; not an automatic substitute for original authoring responsibility.",
+    "concrete_limit": "Independent17x17 alpha checkerboard selected by the original footprint helper yields144 isolated allowed pixels. Direct positive-union rectangle coalescing needs144 rectangles, exceeding the current64 total-region cap. This is a limit of direct positive-union/coalescing, not a proven lower bound for every possible three-stage Boolean rectangle representation. Do not raise limits or invent mask resources merely to hide algorithmic scope without reviewing the new artifact contract.",
+    "next": "If exact accepted original assets produce reusable compact masks, compare the complete source identities and required responsibilities before choosing data disposition. This review opened no actual artwork and cannot establish that alternative for the active7-texture group. New-font/external-art E providers remain distinct and outside this subset."
+  },
+  "source_oracle_requirements": [
+    "Pin original selected functions and transitive lum/rect helpers, exact NumPy/SciPy versions and relevant connectivity/default behavior. Source-worker raw expected outputs must freeze before Go changes and remain separate from these small independent adversarial witnesses.",
+    "Record actual dispatches versus repeated footprint/background subcalls and distinct recipe/property/topology combinations.14directprovider dispatches and19footprint invocations are not completed artifacts or different algorithms; do not turn these provisional root-supplied counts into coverage credit.",
+    "Keep complete binary masks and completeRGBA compositions, original/current prefix counterexamples, source refusals and typed-domain deviations explicit. Never derive expectations from candidate masks or merely similar visual output.",
+    "Extend existing Golden/CLI tests and old font/reconstruction fixtures. Preserve old inputs and absent-option reports. Full native-font styled-byte parity is needed when font flood moves; scoped focused checks do not become fullsuite/gameplay claims."
+  ],
+  "verification": "Serena session86d8031d located reconstructRaster sole production caller, composeCells production/test callers, renderRuns and authorTexture. Read existing fill flood and growth loops plus frozen original source. Independent small source-only witnesses PASS7 checks (corealias40vs49, zero coregrowth, independenttol, emptyOR, sign/floatboundaries, checkerboard). No Go/candidate execution or source-worker mutable pack read.",
+  "terminal_state": "Read-only preflight complete. Only this owned /var/tmp capsule written; no LIVE changes, new dependency, new production function/type, source-art/protected access, full-family credit or retirement claim. All synchronous jobs terminal. Cadence043 next02:02:37UTC unchanged.",
+  "source_pins": [
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_reconstruction.go",
+      "bytes": 6905,
+      "sha256": "a7494aaf2382828545258c8d2c77d61d8fe4eb3a11ef0265bdfa7fd5d41a2772"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_reconstruction_types.go",
+      "bytes": 1464,
+      "sha256": "d0dae1dfb402d89f644bc78fa625ada3ab6d5984fbbf64af168cb85d62b16f68"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster.go",
+      "bytes": 20648,
+      "sha256": "b6addaf66e84c50e77c280b44f0e9e1505625a958dcd35ce124f1aecaf60ae1b"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_runs.go",
+      "bytes": 19345,
+      "sha256": "9f1ff15deb097ea413edfb290271026d8cba5d09c8c7c63d3e6932dddabed649"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_types.go",
+      "bytes": 5588,
+      "sha256": "20a11dd5735a9f7105022b3696aaa32fc97998e7f1f7d7f6045dce71f6cdf0b9"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_authoring.go",
+      "bytes": 31839,
+      "sha256": "af6f93c0fc7d559a6f71b332421337d7e1db5bc83ab8abee98f6cb79cbc9b52d"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/raster-remaining-source-study.json",
+      "bytes": 42662,
+      "sha256": "5a96e15ebfb9a295b9649f0dd6d7d2aad96986bd6c73733a2c361fcaa3973165"
+    },
+    {
+      "path": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/sources/batch_c_logo_art.py",
+      "bytes": 28285,
+      "sha256": "2056df4848a0b949faff55efcdc8d5daea6fbffaebf4779680f7959e6aa79cba"
+    },
+    {
+      "path": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/sources/make_explainer_png.py",
+      "bytes": 31970,
+      "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3"
+    },
+    {
+      "path": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/sources/make_batch_c_png.py",
+      "bytes": 13499,
+      "sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149"
+    }
+  ],
+  "finished_at_utc": "2026-11-05T00:22:21.997653+00:00"
+}

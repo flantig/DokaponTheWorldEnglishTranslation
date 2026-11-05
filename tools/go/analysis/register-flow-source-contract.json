@@ -1,0 +1,156 @@
+{
+  "kind": "source-only-bounded-register-flow-contract",
+  "status": "PRECODE_SOURCE_EXPECTATIONS_ONLY_NO_GO_IMPLEMENTATION_OR_CREDIT",
+  "scope": "Useful bounded low32 GPR may-definition and value-dependency-use queries. No full Tracer, interprocedural value/tag engine, hooks, cave certification or patch application.",
+  "observations_not_oracle": "original-helper-observations.json independently replays only isolated original Code/rw AST with injected literal byte contexts. Original constructors, module imports/main, ELF-host state reads and Go execution are absent. Corrected manual-query-facts.json is manually enumerated from frozen Python and pinned primary source, never derived from candidate Go or its output.",
+  "input_evidence": [
+    {
+      "manifest": "/var/tmp/dokapon-binary-flow-frontier-ohr8h7cd/manifest.json",
+      "sha256": "e76acd9540ffd6b6b6c0275dd05142496fb1dfd0bda74606a8047f426d62fe47",
+      "verified_members": 24
+    },
+    {
+      "manifest": "/var/tmp/dokapon-instruction-flow-portable-final-gw064m8p/manifest.json",
+      "sha256": "7f3cea4353cb4c4d834af387f5df7602571c0da914a4117fce6a29a0bdd29827",
+      "verified_members": 99
+    }
+  ],
+  "candidate_exclusion": "Read only /var/tmp/dokapon-instruction-flow-b69ig0qd/precode-design.json finite observation schema. Did not execute or inspect candidate Go implementation for expected semantics. Serena inspected LIVE existing-owner symbol metadata and references, containing lifecycle/caller excerpts, for responsibility analysis only. Frozen accepted source bodies supplied ownership context.",
+  "query_contract": {
+    "reaching_defs": "BEFORE the queried instruction reads. Return conservative possible latest writing sites for requested low32 register slice plus incoming-entry facts. The queried instruction's own write is excluded, unless a prior loop iteration reaches it. Explicit definite full-low32 writes stop backward traversal; conditional/partial writes add site and retain earlier incoming definitions.",
+    "uses_after": "AFTER the selected instruction executes in the specified normal or predecessor-delay context. Inspect future site's explicit GPR reads and incoming-preservation dependencies BEFORE applying that site's kill. Include a query PC revisited through a loop. Stop a tracked incoming value only at a proved definite full-low32 overwrite without preservation dependency. An immediate read/write instruction counts as use before it kills.",
+    "dependencies": "Consumers include incoming-preservation dependencies (old MOVZ/MOVN rd or merge-load rt), not only explicit source operand reads. Site sets deduplicate physical PCs while graph visitation distinguishes execution contexts. Alias source/destination and repeated operand indexes do not duplicate uses. This is conservative may provenance, not equality-sensitive constant propagation or exact bit expressions.",
+    "width": "Only bits0..31, normal completion, finite supported instruction semantics. Destination sets alone do not prove a 128bit EE GPR kill. For conditional/merge destinations, gpr_must_write_on_normal_completion is not sufficient: incoming-preservation dependencies prohibit treating it as a full incoming-value kill. Upper64, lane/HI/LO/SA/COP and exception dependencies are outside this contract.",
+    "zero": "Mutable-register query about GPR0 returns no definitions/entry or value-dependency uses. It is an architectural immutable constant, not a mutable graph value.",
+    "entry_context": "Normal entry and execution as a specific predecessor's delay instruction are distinct graph states. A physical PC may be both. Public future query representation must retain this distinction or conservatively union all explicitly reachable contexts. Never decide delay semantics solely from bytes at pc-4.",
+    "scope": "Entry offsets in raw-contexts.json are explicit synthetic assertions. All locally complete results are CONDITIONAL on the supplied bounded entry model and no unmodeled in-scope predecessor. An ELF file range, call target index or callers-as-function-start heuristic does not prove this assertion for an arbitrary program. Whole-program scope proof is false for every fixture.",
+    "completeness": "Known fact sets and incompleteness reasons are separate. Empty known uses at JR/external edge is not a safe-use proof. Missing input/predecessor coverage, unknown instructions/transfers and exhausted limits preserve explicit unknown. Relevant uncertainty may coexist with known positive facts. A known foreign reader independently justifies refusal; successful relocation requires complete suitable evidence plus other caller guards.",
+    "direction_locality": "A definite tracked-value kill can make later unresolved exits irrelevant to that uses_after query. Downstream unresolved exits do not erase already established backward local definitions under the explicitly bounded entry assertion. They do prevent inferring global no-reentry or actual program boundary closure.",
+    "reachability": "Queries in unreachable states must be explicitly refused/unknown under declared entries, never treated as complete empty result. Unsupported instructions terminate trusted local traversal; cannot invent reachable normal successors through them. Expected reason classes are semantic obligations; future wire spellings are not fixed.",
+    "loops_and_limits": "Use finite state visitation or bounded dataflow fixedpoint. Cycles alone are not limits. Report work_limit if an unseen relevant state cannot be admitted. Original source limits4000 backward/3000 forward and reads_arg800 are software budgets, not CPU facts. Raw fixture limits count admitted non-root execution states; no fact is reported from a state refused by budget. Exact full sets apply only after complete local traversal; first-neighbor budget1 cases freeze empty known subset plus explicit work_limit. Result ordering should be deterministic physical-PC order, reasons stable/deduplicated."
+  },
+  "graph_transfer_contract": {
+    "ordinary": "Known supported normal instruction proceeds to pc+4 modulo32 only for ordinary execution context. When executing as delay, continuation belongs to controlling transfer and outcome.",
+    "normal_branch": "Read condition/link at branch before executing delay. Both possible outcomes execute the complete known delay instruction, then respectively target or pc+8. Recognized static condition facts from finite input may eliminate impossible outcome; no inferred runtime register values.",
+    "likely_branch": "Taken executes delay then target. Not-taken annuls delay and goes pc+8. Linked likely branch is still conditional; RA link and return are separate facts. Frozen primary Interpreter.cpp489-515 writes link before predicate, including not-taken path.",
+    "direct_jump": "Execute valid delay then target. J/JAL target computed using high PC+4 region. Branch targets signed16<<2 plus PC+4, all mod32. External target stays explicit out-of-scope edge, not no edge or fallthrough.",
+    "indirect": "Capture JR/JALR target register preinstruction. Execute valid delay then unresolved target; no fake successor or automatic PC+8. JALR rd0 has no link. JR ra is not a CPU-proven function exit. For rs==rd JALR, link write must not replace the already captured target.",
+    "delay_validation": "Require uniquely mapped full aligned supported word by VMA across selected input, not physical file adjacency. Missing/unsupported/control delay is held explicitly; do not silently complete the control edge. Normal entry to the same physical word remains distinct.",
+    "unknown_external": "First pure core does not require arbitrary interprocedural traversal or ABI policy to answer useful local questions. Raw direct external links remain external; unknown register targets remain unresolved. Do not fabricate call return or program closure. Other known local facts and paths remain reportable.",
+    "exceptions": "Normal-completion only. Does not claim absence of memory exceptions/traps/interrupts, or full runtime CFG closure. Explicit trap/unsupported effects stay unknown rather than ordinary empty-effect success."
+  },
+  "source_caller_crosswalk": [
+    {
+      "source": "migrate_drafted.py",
+      "lines": "517-536",
+      "owner": "Code.reaching_defs",
+      "obligation": "Query read BEFORE instruction. Emit def/call/entry/limit. Original writes() incorrectly treats conditional MOVZ/MOVN as definite kill; corrected facts must preserve old-destination provenance."
+    },
+    {
+      "source": "migrate_drafted.py",
+      "lines": "538-557",
+      "owner": "Code.uses_after",
+      "obligation": "Query value AFTER instruction, read before kill, revisit same PC via cycles. Original implementation drops JR/external paths and does not track preserved old rd; empty result is not safety proof."
+    },
+    {
+      "source": "migrate_drafted.py",
+      "lines": "1183-1190",
+      "owner": "reference planner",
+      "obligation": "Subtract own sites and BENIGN_LUI_USE pairs; any foreign reader or limit refuses shared-LUI change. SHIP_PRE and delay-slot twin exceptions are historical software exceptions, not graph semantics. Unknown completeness must also refuse certification."
+    },
+    {
+      "source": "migrate_drafted.py",
+      "lines": "1809-1826",
+      "owner": "drafted immediate audit",
+      "obligation": "Enumerate all reaching LUI definitions and other/entry/call/limit facts. Require registered LUI membership, diagnose multiple branch-shared LUIs, verify all constructed ADDIU/ORI targets, zero-padding exception. Graph facts alone do not own these registry/byte/target rules."
+    },
+    {
+      "source": "migrate_drafted.py",
+      "lines": "1827-1835",
+      "owner": "drafted immediate audit",
+      "obligation": "For every reaching LUI, inspect later readers. Exclude own/benign; identify drafted/patched/unregistered owner and report use-scan limit. New positive case fixes own={0x100020}, foreign={0x100024}; classifications are caller policy."
+    },
+    {
+      "source": "migrate_drafted.py",
+      "lines": "596-601",
+      "owner": "Code.reads_arg",
+      "obligation": "Immediate target instruction read first, then uses_after with800 budget if not killed. Original bool(nonempty) treats limit as true but empty unresolved exit as false. Sound replacement needs unknown propagation and explicit call policy before interprocedural claims."
+    },
+    {
+      "source": "migrate_drafted.py",
+      "lines": "618-864",
+      "owner": "Tracer",
+      "obligation": "Memory/stack/pointer/block tags, call summaries, stores/returns/lost/deep, address construction and argument propagation remain separate. This bounded low32 query core does not replace it."
+    },
+    {
+      "source": "zone_safety.py",
+      "lines": "261-346,606-618",
+      "owner": "Scanner",
+      "obligation": "Nonlocal branch entry and local fallthrough are separate cave hazards. Existing safe excludes fallthrough. Not replaced by register-flow facts."
+    },
+    {
+      "source": "fix_inline_copies.py",
+      "lines": "109-152,187-201,308-342",
+      "owner": "rw and hook liveness",
+      "obligation": "Operand decoding recognizes old conditional/merge dependencies; hook clobber, RA preservation, interior-entry and call liveness duties remain .06. No hook certification from this corpus."
+    }
+  ],
+  "reuse_assessment": {
+    "Serena": {
+      "session": "a2770712",
+      "project": "dokapon-go-tools",
+      "operations": "find_symbol metadata and find_referencing_symbols for references,inspect,referenceTarget. Existing source bodies used from pinned accepted copies; no candidate semantics copied.",
+      "references_callers": "run/main.go304; auditStreams/stream_audit.go477; existing TestCLIDryRunAndApply",
+      "inspect_callers": "plan,verifySource,patchCopy,previewFit,run,references,auditStreams and existing tests",
+      "referenceTarget_callers": "plan,references,existing TestCLIDryRunAndApply"
+    },
+    "references": "Retain as read-only profile/source guard, shared source-word scan/finite observation and report integration owner. Can reasonably accept bounded query inputs and invoke one pure analysis owner. Embedding mutable adjacency maps, predecessor-delay states, worklists and two direction-specific query algorithms into this reporting lifecycle would mix independent invariants and repeat graph construction per query. Pure bounded graph analysis is a cohesive new responsibility, not a second scanner or a second references implementation.",
+    "inspect": "Retain existing ELF unique/reverse/full-word mapping. Its callers include patch/write validation and fit. Adding register graph state would couple mapping validation to unrelated runtime instruction queries. Cannot reasonably own def-use just because it supplies mapped bytes.",
+    "referenceTarget": "Strict one/two-word declared reference reconstruction used by planner and reports. It can only accept known exact geometry/words and return one target. Conditional graph state, unknown exits, liveness and work budgets do not fit its single arithmetic contract; mode flags would weaken established refusal boundaries.",
+    "other_existing": "Code/Tracer are historical Python evidence, not Go runtime owners. Existing planner may consume refusal results and facts but must not acquire a duplicate decoder or full mutable Tracer. Existing TestCLIDryRunAndApply remains reasonable fixture-loop owner; no new test function needed for wire replay.",
+    "conclusion": "A separate pure bounded graph/query owner is justified by actual caller duties and predecessor-delay state invariants, using existing finite observations, not rereading ELF or redecoding opcodes. No function is added/implemented here. Future implementer must inspect actual then-current owners/callers and preserve shared source mapping/finite facts. Avoid wrapper chains, per-script handlers, per-query graph rebuilds and speculative call/tag frameworks.",
+    "review": "This is source contract and reuse reasoning, not Astra review, implementation approval, criterion award or ordinary review. Owner should have Astra examine actual compact graph approach before implementation per live preferences."
+  },
+  "positive_cases": {
+    "shared_LUI": "shared-lui-foreign-use-killed: defs of t0 before0x100020={0x100008,0x100018}. Both high halves0x53 and ADDIU16 construct0x530010. Later value-dependency uses after either LUI={0x100020,0x100024}, complete within asserted scope because0x100028 overwrites t0 before unknown JR. With only0x100020 owned and no benign exception,0x100024 is foreign and refusal follows. Multiple defs remain branch-shared audit finding even when targets agree.",
+    "loop": "loop-preserved-value-fixedpoint: self-loop+4/+8 does not mutate t0. Backward before kill+12 reaches LUI+0; forward after LUI has complete empty use set because all finite exits kill and infinite looping path adds no use. Loop alone is not unknown.",
+    "conditional_merge": "Conditional MOVZ/MOVN and LWL fixtures freeze both earlier LUI and may-writing conditional/partial site. Forward use includes preservation site and later consumer. Source Code's old definite-kill behavior is retained only in original observations.",
+    "delay_context": "normal-entry-at-physical-delay-word explicitly enters+4 both normally and as J+0 delay. Normal entry uses t0 at+8 then kills+12; J delay goes+20 JR and no+8 use is established. A single physical-PC graph cannot satisfy both."
+  },
+  "remaining_05_duties": [
+    "Implement and independently review actual bounded graph/query behavior; source fixtures alone earn no .05 credit.",
+    "Define strict request/query/entry/budget/schema and integrate existing source pins, mapping/finite observations, deterministic report lifecycle, supported/refusal fixtures and boundary controls. These API-independent facts do not preapprove wire policy.",
+    "Establish provenance for real bounded function entries/predecessor closure. Explicit synthetic entries cannot be silently generalized to arbitrary ELF scan regions.",
+    "Preserve caller pair arithmetic, registered-LUI membership, multiple-definition diagnostics, foreign-owner classifications, benign-use and shipped exceptions, exact refusal ordering and byte guards. Pure graph results alone do not migrate those caller responsibilities.",
+    "Historical returning-call behavior needs explicit selected software policy or independently justified summaries. ARGS/CALLER_SAVED/link semantics are pinned separately; absent such extension, call-sensitive cases remain held and cannot count as migrated parity.",
+    "Switch-table target recovery and validation are separate finite extensions. Unknown indirect edges remain unknown until explicit evidence, never guessed.",
+    "Tracer pointer/address/stack/block propagation, external call read/store/ret/lost/deep, reads_arg unknown propagation and exceptional widths remain unimplemented duties if required by complete original-family criterion. No full Tracer/framework append is authorized by this source task.",
+    "Full .06 hook/interior-entry/RA-save/clobber proof and allocation/cave safety remain outside this increment. No complete-family, retirement or code-reduction award follows from capability growth."
+  ],
+  "fixture_storage": "Raw word arrays, explicit entry offsets, query tuples and manual expected site/reason sets are self-contained. Existing12 ELF carriers/materializer are reused by immutable external pin; new graph variants need no redundant ELF copies. Future API projection can use existing carrier materializer after its own precode schema freeze.",
+  "verification_scope": "Pinned123source members; parsed all owned JSON/Python; ran isolated original AST observations; checked literal corpus/source counterexamples. No Go tests/build/vet or candidate execution, because no Go code changed and this worker was expressly source-only. No protected ISO/registry/game/emulator/PINE/controller/process/auth/settings/log resource accessed.",
+  "capsule": {
+    "path": "/var/tmp/dokapon-register-flow-source-bB7GvrQ1",
+    "manifest_sha256": "92c5dd9195fb0263544c011cc25475f2443384462bf94a0aa3e0aab5690c2077",
+    "member_count": 16,
+    "total_bytes": 498060
+  },
+  "verification": {
+    "status": "PASS_SOURCE_ONLY",
+    "time_utc": "2026-11-04T20:45:03.505960+00:00",
+    "source_members_verified": 123,
+    "contexts": 19,
+    "unchanged_original_contexts": 12,
+    "new_minimal_variants": 7,
+    "manual_queries": 38,
+    "manual_complete_queries": 21,
+    "original_observation_queries": 38,
+    "literal_self_checks": 11,
+    "original_module_imports_or_main_or_constructors": 0,
+    "Go_candidate_executions": 0,
+    "new_Go_code": false,
+    "all_owned_jobs_terminal": true,
+    "independent_final_literal_checks": 11,
+    "owned_JSON_AST_whitespace_credentials": "PASS"
+  }
+}

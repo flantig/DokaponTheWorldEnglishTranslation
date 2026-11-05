@@ -1,0 +1,228 @@
+{
+  "schema": "ttf-workspace-contract-v1",
+  "at": "2026-10-21T05:39:07.591771+00:00",
+  "status": "Confirmed original source behavior, not a presumed Go defect or approval",
+  "chronology": "ExistingTTFprivateprototype exists; original-onlyNEWstress expectedoutputs frozen before candidate on thisNEWcase. NoGo/candidate executed.",
+  "finding": "Original TTF text_layer clips glyph ink to its fixed advance/ascender/descender/pad temporary canvas. This positive source case proves clipping independently. It does not relax final approved-cell containment or native bitmap workspace policy.",
+  "input": {
+    "op": "text",
+    "text": "Á́́́́́́́́́́́́́́́",
+    "font": "ExtraBold",
+    "px": 16,
+    "min_px": 16,
+    "max_w": 400,
+    "at": [
+      256,
+      256
+    ],
+    "align": "center",
+    "color": "ink",
+    "tracking": 0,
+    "strokes": []
+  },
+  "text_description": "A followed by16U+0301 COMBININGACUTEACCENT;17runes within existing128rune styled bound.",
+  "source": {
+    "provider": "../make_explainer_png.py",
+    "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "temporary": "350..400: cw=int(tw+2pad),ch=int(asc+desc+2pad); zeroL/RGBAimages, Draw.text clips whenpainting.",
+    "downstream": "491..548 originalplace quantize/area/position;577..587 composite;590..603 originalop_text.",
+    "font": "NotoSans-CondensedExtraBold.ttf",
+    "font_sha256": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197",
+    "license": "ExactNoto2.015 SILOFL1.1 +2022NotoProjectnotice copiedcorrectly from priorprimarylicensepack.",
+    "font_pixels": 64,
+    "getmetrics": [
+      69,
+      19
+    ],
+    "advance": 38.140625,
+    "full_bbox_ls": [
+      0,
+      -266,
+      39,
+      0
+    ]
+  },
+  "proof": {
+    "temporary": {
+      "cw": 94,
+      "ch": 144,
+      "base": 97,
+      "pad": 28,
+      "tw": 38.140625,
+      "cap": 46,
+      "sx": 1.0,
+      "sy": 1.0,
+      "skew": 0.0,
+      "ox": 244,
+      "oy": 238
+    },
+    "fullmask_shape": [
+      266,
+      39
+    ],
+    "fullmask_bearing_ls": [
+      0,
+      -266
+    ],
+    "fullmask_origin_in_temp": [
+      28,
+      -169
+    ],
+    "positive_fullmask_pixels": 2826,
+    "positive_pixels_outside_temp": 1381,
+    "outside_edges": {
+      "left": 0,
+      "right": 0,
+      "top": 1381,
+      "bottom": 0
+    },
+    "manual_intersection_equals_source_glyph_plane": true,
+    "reference_uninstrumented_equals_instrumented_candidate": true,
+    "qualification": "Fullmask from originalPillow samefont/size/start0/anchorls. Placeatpad/base+maskbearing, intersect94x144. Exactintersection equals originalcapturedLplane; discarded1381pixels are actualpositivecoverage, not only oversizedemptybbox."
+  },
+  "final_containment": {
+    "approved_rect_xywh": [
+      0,
+      0,
+      512,
+      512
+    ],
+    "raw_alpha_bbox_half_open": [
+      251,
+      238,
+      261,
+      263
+    ],
+    "positive_pixels": 133,
+    "changed_pixels": 132,
+    "whole_candidate_RGBA_sha256": "6731e6f5816df8cef2e763cebed41f2db080a067b7b1d4e4255c5c5df69b02e1",
+    "strict_cell_rule": "Finalwordrawfloatalpha andcompleteiconrects still must fit approvedcell. This originaltemporarycrop does not authorize finalcellspill, hidingoutofmaskpixels or changingnativebitmapstrictworkspace refusal."
+  },
+  "pack": {
+    "directory": "/var/tmp/dokapon-ttf-workspace-tel48ba2",
+    "members": 24,
+    "member_bytes": 7400407,
+    "manifest_sha256": "722c32673823aabadacb89b2fda6eab959e219550910f6fd53ba06ebc88f7ae2",
+    "facts_sha256": "1dbf02930819a228c4f36cd2852e2cd20a0b10d41bad7c2dacadc2089426f847",
+    "harness_sha256": "860a52f9fb2a82286667b6426f179d4fe433f0c3d73d18727f3eec4d685677d1",
+    "arrays": {
+      "full-mask": {
+        "path": "full-mask.u8",
+        "shape": [
+          266,
+          39
+        ],
+        "bytes": 10374,
+        "dtype": "u8",
+        "sha256": "159fe4cf34937ccf87f2d3504bff38b01562198128db7611f97ae35b4a101977"
+      },
+      "clipped-mask-reconstructed": {
+        "path": "clipped-mask-reconstructed.u8",
+        "shape": [
+          144,
+          94
+        ],
+        "bytes": 13536,
+        "dtype": "u8",
+        "sha256": "262c1d863980b0aa67249c7f3430bc4f1f550adc1476b7ad0caf0a701ba5e276"
+      },
+      "source-glyph4x": {
+        "path": "source-glyph4x.u8",
+        "shape": [
+          144,
+          94
+        ],
+        "bytes": 13536,
+        "dtype": "u8",
+        "sha256": "262c1d863980b0aa67249c7f3430bc4f1f550adc1476b7ad0caf0a701ba5e276"
+      },
+      "source-color4x": {
+        "path": "source-color4x.u8",
+        "shape": [
+          144,
+          94,
+          4
+        ],
+        "bytes": 54144,
+        "dtype": "u8",
+        "sha256": "8b580f26ec47690f82f2a872636877973767540c289e4ec5b1204e1ce90188b6"
+      },
+      "styled4x": {
+        "path": "styled4x.f32le",
+        "shape": [
+          144,
+          94,
+          4
+        ],
+        "bytes": 216576,
+        "dtype": "f32le",
+        "sha256": "2bb7a1016aec2c5d754011406823e044af30d20e473c44c1f07e57bd91e9c959"
+      },
+      "quantized4x": {
+        "path": "quantized4x.u8",
+        "shape": [
+          144,
+          94,
+          4
+        ],
+        "bytes": 54144,
+        "dtype": "u8",
+        "sha256": "010a4445872769bf82f0e55116b7fc3bd83c7b9b41691cb8f322c9616f61a70e"
+      },
+      "word-area": {
+        "path": "word-area.f32le",
+        "shape": [
+          36,
+          24,
+          4
+        ],
+        "bytes": 13824,
+        "dtype": "f32le",
+        "sha256": "669b9b31765401751c64460d8f3193ef8b88adb1b402415fde35ccb04215ee28"
+      },
+      "placed-layer": {
+        "path": "placed-layer.f32le",
+        "shape": [
+          512,
+          512,
+          4
+        ],
+        "bytes": 4194304,
+        "dtype": "f32le",
+        "sha256": "fb0a248099da28959bf630c5ef5cf282522003eb7cfd08b44faf3f3d5fbcccab"
+      },
+      "candidate": {
+        "path": "candidate.u8",
+        "shape": [
+          512,
+          512,
+          4
+        ],
+        "bytes": 1048576,
+        "dtype": "u8",
+        "sha256": "6731e6f5816df8cef2e763cebed41f2db080a067b7b1d4e4255c5c5df69b02e1"
+      }
+    },
+    "contents": "Fullmask/rawPNG/bearing, independently clippedmask, actualsourceglyph/color4xplanes, styled4xfloat/preareaquantizedRGBA, postareawordfloat/fullplacedfloat, completecandidate/basePNG+raw, exactfont/license/source and selecteddefinitions."
+  },
+  "documentation_direction": "Document the finite TTF backend as matching original Draw.text temporary-workspace crop before shared styles/downsample. Keep native bitmap behavior/source-specific refusals explicit, and final approved-cell constraints common. Do not advertise allfontink preserved merely because maskbounds are valid.",
+  "verification": {
+    "manifest": "24of24size/SHAverified",
+    "source_font": "Pinned originalsource/font hashes unchanged",
+    "stages": "Fullu8PNG/raw equality; allfloatstages finite",
+    "independentchecks": "Exactfullmaskintersection equalscapturedsourceglyph; uninstrumentedoriginal equalsinstrumented completecandidate",
+    "versions": {
+      "pil": "12.3.0",
+      "freetype2": "2.14.3",
+      "raqm": "0.10.5",
+      "harfbuzz": "14.2.1",
+      "fribidi": "1.0.16"
+    },
+    "not_run": "NoGo/candidate/projectmodule/historicalmain/nativeencoder/ISO/canonical/protectedruntime execution or access."
+  },
+  "limits": [
+    "Onepositive originalstresscase, not broadfont/Unicode correctness or implementationapproval.",
+    "Existing24/114packs andsourcecontracts unchanged; no production/test/fixture/coverage/goalwrites.",
+    "No .05/family/retirementclaim; rootowns candidatecomparison, docs, policy andfreshreview."
+  ]
+}

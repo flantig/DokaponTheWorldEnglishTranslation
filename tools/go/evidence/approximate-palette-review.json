@@ -1,0 +1,1014 @@
+{
+  "at": "2026-10-20T16:27:55.609330+00:00",
+  "status": "PASS ordinary read-only approximate-palette implementation/behavior/DRY review; finite standalone artifact bounds",
+  "findings": [],
+  "verdict": "No material defect or missing required behavior reproduced. Parent owns acceptance; no fullfamily/retirement/art/ISO approval.",
+  "scope": "Only evidence/approximate-palette-review.json/.md written in repository. Scripts, currenttest227overlay, mutatedGooverlays, PNG/TXD/readback outputs private under ownedvarTMP. No production/test/fixture/art/ISO/canonical edits, ISO reads, owneremulator/PINE/process/log/settings access. One pinned originalBATTLECMB selectedmember read narrowly for source equality.",
+  "baseline": "/var/tmp/dokapon-grouped-psmt8-sealed-x73kvab8",
+  "work": "/var/tmp/dokapon-approximate-palette-review-b_pseeo0",
+  "source_data_pins": {
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "patch_test.go": "a66a92e84a5e86a7122e42f0e37223b96eb4418864bec834cf4a611d027e209a",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "ff419b20bbf0bfa8aa9def7c07d804022432f8be800e72265e8b2395e2107e14",
+    "texture_authoring.go": "d75c64784c382175905d89dcc012f49f7127019c1ee6d03ce68ea3b8632db16e",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "ab4705cc089c4a54669e05c1ba606af18675d6fa56175a2a1abd743bec436145",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "067a0f8064411ae5ef1741a1c4872dcc9cad34de7d7ef95c1a62c0e61f3ed92e",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "05a32b18476a297c262a63fc8c4699c16d3b1a6594a7676bcab988d94f819817",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+    "testdata/small-psmt8.zip": "3f5ff123f1f05924e0e11dd95bee3f451270d679973b9cde75d9b248a0cd77bf",
+    "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
+    "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838"
+  },
+  "source_data_pins_stable_at_end": true,
+  "independent_pins_equal_root29pins": true,
+  "production_review": {
+    "delta_bytes": 5593,
+    "new_named_functions": [
+      "generatePalette(candidate image.Image, policy string) (*image.NRGBA, []color.NRGBA, map[color.NRGBA]byte, error) "
+    ],
+    "one_new_file": "texture_palette.go",
+    "no_new_dependencies_arguments_schema_writer_or_option_framework": true,
+    "justification": "Existingtexture remains calibratedTXD/parser/GSstorage/mask/writewalk owner. NewgeneratePalette absorbs the oldexact normalization/histogram/packedRGBA sort and owns independent median-cut/Lloyd numerical rules. authorTexture remains input/profile/report/publisher boundary; existingpreserve nearest search has different metric/rawCLUT/duplicateindex/cache contract and cannot own centroidgeneration without mixing/changing responsibilities. One shared numerical owner is justified; no duplicatedexact engine or helper family. This is capabilitygrowth, not reduction.",
+    "readability": "Straight normalization/exactfallback, finite box state/cached immutable score, stable packedchannel+ordinal sort, weightedcentroids and8updates+finalassignment. Cache avoids recomputing unchangedbox variance and count; stable ordinal fits32bits under1Mpixel bound. Emptyboxes cannot arise afterclampedcut. NewlocalpaletteBox groups numerical state only.",
+    "policy_boundaries": "Explicit palette_policy quantize shares exact at<=256 and approximates onlyabove256. SamefifthrasterPolicy argument. Wholecandidate,zerorectangles,currentlycalibratedstandard8bit only; exact remains strict. Pixelpolicy conflict/unknownvalues/wrongfield/noPNG refuse. No force-headerless/resize/4bitrepalette/nativegeometry widening.",
+    "unchanged": "Default preserve rawCLUTalpha/duplicateindices/nearestmetric/4096cache, direct32/fontguards, PSMT4/headerless/GSmetadata/packet/CSM1/walk/masks/sourceclone/publisher stay with priorowners. Texturecode diff changes palettepolicy dispatch and sharedowner integration only.",
+    "callers": "Serena d7f95853: generatePalette soleproduction reference texture; texture soleproduction caller authorTexture plus36test references. authorTexture solecaller run as before."
+  },
+  "numerical_contract": {
+    "reference_pins": {
+      "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
+      "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838",
+      "analysis/texture-codec-remaining-contract.json": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30",
+      "../cmb_tex_patch.py": "5a9aa60826293f65108ee4424246fa0f373e1f6d97526f93f87da31e6040f849",
+      "../ps2_tex.py": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733",
+      "/var/tmp/dokapon-complete-texture-parity-g_1eyz4s/oracle.json": "6b08f10d1af8ff1f1edbf434710a89332ec1a99ec05b68fd5f77381c147c13c8"
+    },
+    "checked": "Freshcanonical originalquantize_new_palette rerun on all7actualfixture PNGs; noGo outputs used as expectedbytes. Fullmember/CLUT/linearindices/swizzledpixels/RGBA/ledger/outside frozenpins allmatch. Existingreal1513colorGoku reused originalPNG/source;6newsynthPNGs appended toexistingZIP.",
+    "variance": "Mean/variance over uniqueRGBA unweighted; maximumchannelvariance times totalboxpixelcount. Firstargmaxchannel chosen beforefrequency multiplication; firststrictgreaterbox wins. Cachedboxscores refer to immutablememberlists.",
+    "median": "Stablechannel sort preserves previousmemberorder on ties; cumulativefrequency leftsearch half then+1, clamp1..n-1; removechosenbox and appendleft/right at end.",
+    "Lloyd": "Float64 countweightedmeans; exactly8assign/updatepasses, firstminimum unweightedRGBA squareddistance; emptycentroidsretainvalues. Reassign aftereighthupdate before rounding.",
+    "rounding_alpha": "Python-compatible math.RoundToEven forcentroidRGB andalpha; alpha thenintegerPS2resnap. Authoredalpha normalizes integernearesttiesup. TransparentRGBzero/reservedfirstindex;roundedduplicatecentroidslots notcollapsed; unusedslotszero. Assignments useunroundedcentroids.",
+    "float_limits": "Verified7frozen cases plus6independentseededcases andguaranteed4097distinct normalizedRGBA case. This is not exhaustive cross-languagefloat64 reduction/near-tie proof or everypossiblehistogram guarantee. Integerchannel*frequency sums stayexact within1Mpixel bound; variance/distance rounding remains floatingpoint. Explicit float64 square conversions preserve scalarrounding; source/test evidence defines observed parity.",
+    "resources": "Existing64MiBTXD/16MiBPNG/1Mpixel/4096dimension/64rectangle limits unchanged. Histogram and palettebox/point structures boundedbyuniqueinputcolors<=pixels;nearestsearch streams256centroids, noU\u00d7256distance array. Preserve4096candidatecache ceiling is not applied to quantize (4097test passes). Localoffline authoring load, noqueue/service scalability claim."
+  },
+  "independent_reference_verification": {
+    "reference_source_pins_match": true,
+    "old42base_26exact_rows_unchanged": true,
+    "old8ZIPentries_unchanged": true,
+    "new6PNGentries_only": true,
+    "source_original_selected_member_equal": true,
+    "NumPy": "2.4.6",
+    "cases": [
+      {
+        "name": "real_goku",
+        "PNG_sha256": "087d483594d6c9807a25224e076eb069259973eb2fa9df8b9d1c5ef60b4a47bb",
+        "method": "mediancut+kmeans",
+        "full_TXD_sha256": "116090852fc91d1c3ea5b42daaa8ebfbc4803972b88552da305a6c662cb57323",
+        "CLUT_sha256": "437630b79550d2e9f2c56677dc4003032e42ad0c1aa2324036cca8789335c903",
+        "linear_indices_sha256": "bd8812d381b660f84a061f6f9dbc003839e6866609cad583c9418ee053ca72e6",
+        "pixels_sha256": "647ce1567224cd27964f049e83fb4d41b9cc3fdfbf614f12b118226311c3cb3a",
+        "RGBA_sha256": "4b870408ec7cf93c27a03040c5a32eaabe68ba9303b7f97587906f75f18662fe",
+        "ledger_sha256": "d5a234cef59c1158c489ee63ea9691fc780745e7db192aedf848473a04dccc32",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33490,
+        "frozen_trace_rebound": true
+      },
+      {
+        "name": "unique_variance_frequency",
+        "PNG_sha256": "ef04bd9eaf1f46e2132fefd56777ed51e4137cd2611c4385479cdc59bc4d59c9",
+        "method": "mediancut+kmeans",
+        "full_TXD_sha256": "66b321767c534c5e33ed31bb3b796bb587973c20504044cc3c7d315ad100260a",
+        "CLUT_sha256": "8d241e074cbbaae02b620d78cbd6f2eebffe98392163d8d2147c7cc84dc3b30a",
+        "linear_indices_sha256": "687939f0b5a4b0d4377e8efcdd66d6eac942ec8da98ffebba53d4597a95200f7",
+        "pixels_sha256": "733d082b3c84ca75d669eda58824d8eb86e6cf1230ea7dcd64aa0b93e37c5d39",
+        "RGBA_sha256": "1737f442e714ab2c912ac9474539618be4f74aec41b4f05ae307aa5195865546",
+        "ledger_sha256": "8747e7ce3c7e6c54fced95c7e03a075c40e6003e954953a2da83cf17e018a6ba",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33387,
+        "frozen_trace_rebound": true
+      },
+      {
+        "name": "stable_channel_box_ties",
+        "PNG_sha256": "0b52097c1c3a254eea3045b12822fd04c96a1f6edbe8e5e2e30868f8411b9f69",
+        "method": "mediancut+kmeans",
+        "full_TXD_sha256": "177fc0632ec596bcbeac080ae3763037ba9ac20dffff278d38455374f0ebc909",
+        "CLUT_sha256": "9eddbf12f9a72e1ad280f4e09a200b1bf2aaffa947507311c06a951ac1b437f5",
+        "linear_indices_sha256": "b73623c775c0fc48b7b9d130ceaf03606827e5c01d7472892d97b84053ba483c",
+        "pixels_sha256": "cfbbf979d4ee0a5fa24fe96136eebf8433eaca14d070efa88a263b177ca270b7",
+        "RGBA_sha256": "ea9822f78389954a5e0cc5aa632fd81050891a82a4a01ca55e738772bed5dde1",
+        "ledger_sha256": "02ef7f1d2cb09d232570718986914c691aba44d9ac552ec1511ac1744a3cfe34",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33412,
+        "frozen_trace_rebound": true
+      },
+      {
+        "name": "rounding_257_boundary",
+        "PNG_sha256": "f07d6e5fa386ecacf12f2a5ec74b215f48a6584d47ab3102900eecd79f5e6f39",
+        "method": "mediancut+kmeans",
+        "full_TXD_sha256": "e39a386328562895fcf4dcc2808ebe5cc93ccda8c694f2f8b8641a6155b764a4",
+        "CLUT_sha256": "5cf10bdf366e0c3b2c0043f5909bce4e99be51a2d4cfaed97ca8454391a9d7ea",
+        "linear_indices_sha256": "938a233810ca5a6023e935f2149c225a24f5389d1a7b416d18489839842b9508",
+        "pixels_sha256": "c3e050e529bbbd85c68c19f1e2f5e5d685536e22ad2079d76d3f2ea1fe47f037",
+        "RGBA_sha256": "e1d6f76eda4b12baa24206f14cfabab54fb8505e48ccc8b4b816ebaad0c1b668",
+        "ledger_sha256": "522ebc3945b3aac7fef66cbbcc59324a54b54280e88b39570c9d9f98ed175957",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33425,
+        "frozen_trace_rebound": true
+      },
+      {
+        "name": "transparent_odd_alpha",
+        "PNG_sha256": "5eeb12e3b405a638fa5402c37212da638eebd0b4c9f81bf2c6dc041d3514a23f",
+        "method": "mediancut+kmeans",
+        "full_TXD_sha256": "94d5a57ae121a9962031338387cdfb0924faaeb92ffb1e84fcefbe51a20877d7",
+        "CLUT_sha256": "5219cf82dc52e345ea03863fadf76a5904af9026dae3efe3b4ad984e9d508d7a",
+        "linear_indices_sha256": "f6687113f9f0352d28344e719750e92659cb7aa493f05ea8d6c78fcfe71c506e",
+        "pixels_sha256": "76353274e67f4770cd21711f27d0b63683996334ad09449e9e20ef582c1c6fd1",
+        "RGBA_sha256": "339821c741ad6a44d166d498bb6316757a504917c76b7483949fb151c63c75c4",
+        "ledger_sha256": "deaea19478ab358001a80f4bfd12a9f023d786cd64af1a65ffa02b39fbba09d4",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33645,
+        "frozen_trace_rebound": true
+      },
+      {
+        "name": "lloyd_eight_iterations",
+        "PNG_sha256": "1d3e8ca0f261fc400498e9986f17d8f11a8a4f7805747e344c15f9af3c8b61ff",
+        "method": "mediancut+kmeans",
+        "full_TXD_sha256": "e8182051e9731a23ec030baa08d7f3778c05de6d8e8a48554b86f9a6fe2a1376",
+        "CLUT_sha256": "da188c8a7de9644a34c26fdc2b0b2ef5e56f40906d1899742e685e027b028575",
+        "linear_indices_sha256": "41ee55aef8f54d4906787bc5d8d7ec4e0158d6ba61a8169d9fb06769a7794ba5",
+        "pixels_sha256": "f268822a4e05c26cbb99aa63ff359e55e05b27c563c1aea094e8ecc3f709f952",
+        "RGBA_sha256": "b3a9140aca7fa8eaa42840145425f7edf9cf94ddece717d273692860b3955958",
+        "ledger_sha256": "3b14cff21c421dc4f37242c21486535898df45c299f7febdc6e295e0c7ee9755",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33609,
+        "frozen_trace_rebound": true
+      },
+      {
+        "name": "exact_256_boundary",
+        "PNG_sha256": "c142f83107e8f6a81cb7b84c17abdae0c9b362262512e34867caed7a14575c12",
+        "method": "exact",
+        "full_TXD_sha256": "f902187c838d426f47d85b52a21ad9238588fcd75567c51ac6848de5c7f520c7",
+        "CLUT_sha256": "539daf4d77795947b88c08d8602f2d07394305231fe0a27ff7cdbd514123134d",
+        "linear_indices_sha256": "e11360251d1173650cdcd20f111d8f1ca2e412f572e8b36a4dc067121c1799b8",
+        "pixels_sha256": "7df02ca880273aeaac3bf4c06cb52104103e19b5a5397bbcc2bad9b112e1b52a",
+        "RGBA_sha256": "33368dabc5822fb2b14ff7e2cac31e5eb291ee2735489ba649e798c619ee3f99",
+        "ledger_sha256": "57515af33dff1b2f66ffc525c701b1be7061dcd05db15dd4e20300929464e366",
+        "outside_sha256": "431e7ac825802b8dce4c0f71c803d2a2ed0cfb9cdb865b5eb6d250001356d99e",
+        "changed_bytes": 33480,
+        "frozen_trace_rebound": true
+      }
+    ]
+  },
+  "verification": {
+    "race": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "env",
+        "GOMAXPROCS=2",
+        "TMPDIR=/var/tmp/dokapon-approximate-palette-review-b_pseeo0/tmp",
+        "GOTMPDIR=/var/tmp/dokapon-approximate-palette-review-b_pseeo0/tmp",
+        "go",
+        "test",
+        "-count=1",
+        "-race",
+        "-p",
+        "2",
+        "-overlay",
+        "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/overlay.json",
+        "./..."
+      ],
+      "exit_code": 0,
+      "Go_seconds": 85.365,
+      "output": "ok  \tdokapon/tools\t85.365s\n",
+      "corpus": {
+        "accepted": 227,
+        "fullRGBA_noopwholeTXD_onepixelwholeTXD_RGBA_sourcepreservation": true,
+        "overlay": "227block inserted into CURRENT existingTestPilotHistoricalGoldenBytes only; sameemptyfifthpolicy, nooldheldflags or oldtestfileoverwrite."
+      }
+    },
+    "checks": {
+      "checks": [
+        {
+          "name": "vet",
+          "command": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "./..."
+          ],
+          "exit_code": 0,
+          "seconds": 0.2406734209998831,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "build",
+          "command": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/dokapon-go",
+            "."
+          ],
+          "exit_code": 0,
+          "seconds": 1.1032209990007686,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "format",
+          "command": [
+            "gofmt",
+            "-l",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "recipe_types.go",
+            "reference_types.go",
+            "references.go",
+            "registry_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go"
+          ],
+          "exit_code": 0,
+          "seconds": 0.04702730300050462,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "whitespace",
+          "command": [
+            "git",
+            "diff",
+            "--check",
+            "--",
+            "texture.go",
+            "patch_test.go",
+            "testdata/textures.json",
+            "testdata/exact-palette.zip",
+            "texture_palette.go",
+            "texture_authoring.go",
+            "texture_types.go"
+          ],
+          "exit_code": 0,
+          "seconds": 0.0021448229999805335,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "credentials",
+          "command": [
+            "rg",
+            "-n",
+            "-i",
+            "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "recipe_types.go",
+            "reference_types.go",
+            "references.go",
+            "registry_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go",
+            "go.mod",
+            "testdata/textures.json",
+            "analysis/approximate-palette-reuse-contract.json",
+            "analysis/approximate-palette-reuse-decision.json"
+          ],
+          "exit_code": 1,
+          "seconds": 0.01681954599916935,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "credential_pattern_selfcheck": {
+        "exit_code": 0,
+        "matches": 2,
+        "input": "api_key = \"synthetic_nonsecret_example\"\npassword\t:\t\"synthetic_nonsecret_example\"\n"
+      }
+    },
+    "supplemental_token_secret_scan": {
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(access[_-]?token|auth[_-]?token|token|secret)[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}",
+        "cmb.go",
+        "fit.go",
+        "fit_types.go",
+        "glyphs.go",
+        "image_types.go",
+        "inputs.go",
+        "main.go",
+        "outputs.go",
+        "patch.go",
+        "patch_test.go",
+        "recipe_types.go",
+        "reference_types.go",
+        "references.go",
+        "registry_types.go",
+        "text_types.go",
+        "texture.go",
+        "texture_authoring.go",
+        "texture_palette.go",
+        "texture_types.go",
+        "wrap.go",
+        "go.mod",
+        "testdata/textures.json",
+        "analysis/approximate-palette-reuse-contract.json",
+        "analysis/approximate-palette-reuse-decision.json"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "",
+      "synthetic_selfcheck_matches": 4
+    },
+    "actual7CLI": [
+      {
+        "name": "real_goku",
+        "PNG_sha256": "087d483594d6c9807a25224e076eb069259973eb2fa9df8b9d1c5ef60b4a47bb",
+        "full_TXD_sha256": "116090852fc91d1c3ea5b42daaa8ebfbc4803972b88552da305a6c662cb57323",
+        "RGBA_sha256": "4b870408ec7cf93c27a03040c5a32eaabe68ba9303b7f97587906f75f18662fe",
+        "CLUT_sha256": "437630b79550d2e9f2c56677dc4003032e42ad0c1aa2324036cca8789335c903",
+        "pixels_sha256": "647ce1567224cd27964f049e83fb4d41b9cc3fdfbf614f12b118226311c3cb3a",
+        "ledger_sha256": "d5a234cef59c1158c489ee63ea9691fc780745e7db192aedf848473a04dccc32",
+        "changed_bytes": 33490,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      },
+      {
+        "name": "unique_variance_frequency",
+        "PNG_sha256": "ef04bd9eaf1f46e2132fefd56777ed51e4137cd2611c4385479cdc59bc4d59c9",
+        "full_TXD_sha256": "66b321767c534c5e33ed31bb3b796bb587973c20504044cc3c7d315ad100260a",
+        "RGBA_sha256": "1737f442e714ab2c912ac9474539618be4f74aec41b4f05ae307aa5195865546",
+        "CLUT_sha256": "8d241e074cbbaae02b620d78cbd6f2eebffe98392163d8d2147c7cc84dc3b30a",
+        "pixels_sha256": "733d082b3c84ca75d669eda58824d8eb86e6cf1230ea7dcd64aa0b93e37c5d39",
+        "ledger_sha256": "8747e7ce3c7e6c54fced95c7e03a075c40e6003e954953a2da83cf17e018a6ba",
+        "changed_bytes": 33387,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      },
+      {
+        "name": "stable_channel_box_ties",
+        "PNG_sha256": "0b52097c1c3a254eea3045b12822fd04c96a1f6edbe8e5e2e30868f8411b9f69",
+        "full_TXD_sha256": "177fc0632ec596bcbeac080ae3763037ba9ac20dffff278d38455374f0ebc909",
+        "RGBA_sha256": "ea9822f78389954a5e0cc5aa632fd81050891a82a4a01ca55e738772bed5dde1",
+        "CLUT_sha256": "9eddbf12f9a72e1ad280f4e09a200b1bf2aaffa947507311c06a951ac1b437f5",
+        "pixels_sha256": "cfbbf979d4ee0a5fa24fe96136eebf8433eaca14d070efa88a263b177ca270b7",
+        "ledger_sha256": "02ef7f1d2cb09d232570718986914c691aba44d9ac552ec1511ac1744a3cfe34",
+        "changed_bytes": 33412,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      },
+      {
+        "name": "rounding_257_boundary",
+        "PNG_sha256": "f07d6e5fa386ecacf12f2a5ec74b215f48a6584d47ab3102900eecd79f5e6f39",
+        "full_TXD_sha256": "e39a386328562895fcf4dcc2808ebe5cc93ccda8c694f2f8b8641a6155b764a4",
+        "RGBA_sha256": "e1d6f76eda4b12baa24206f14cfabab54fb8505e48ccc8b4b816ebaad0c1b668",
+        "CLUT_sha256": "5cf10bdf366e0c3b2c0043f5909bce4e99be51a2d4cfaed97ca8454391a9d7ea",
+        "pixels_sha256": "c3e050e529bbbd85c68c19f1e2f5e5d685536e22ad2079d76d3f2ea1fe47f037",
+        "ledger_sha256": "522ebc3945b3aac7fef66cbbcc59324a54b54280e88b39570c9d9f98ed175957",
+        "changed_bytes": 33425,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      },
+      {
+        "name": "transparent_odd_alpha",
+        "PNG_sha256": "5eeb12e3b405a638fa5402c37212da638eebd0b4c9f81bf2c6dc041d3514a23f",
+        "full_TXD_sha256": "94d5a57ae121a9962031338387cdfb0924faaeb92ffb1e84fcefbe51a20877d7",
+        "RGBA_sha256": "339821c741ad6a44d166d498bb6316757a504917c76b7483949fb151c63c75c4",
+        "CLUT_sha256": "5219cf82dc52e345ea03863fadf76a5904af9026dae3efe3b4ad984e9d508d7a",
+        "pixels_sha256": "76353274e67f4770cd21711f27d0b63683996334ad09449e9e20ef582c1c6fd1",
+        "ledger_sha256": "deaea19478ab358001a80f4bfd12a9f023d786cd64af1a65ffa02b39fbba09d4",
+        "changed_bytes": 33645,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      },
+      {
+        "name": "lloyd_eight_iterations",
+        "PNG_sha256": "1d3e8ca0f261fc400498e9986f17d8f11a8a4f7805747e344c15f9af3c8b61ff",
+        "full_TXD_sha256": "e8182051e9731a23ec030baa08d7f3778c05de6d8e8a48554b86f9a6fe2a1376",
+        "RGBA_sha256": "b3a9140aca7fa8eaa42840145425f7edf9cf94ddece717d273692860b3955958",
+        "CLUT_sha256": "da188c8a7de9644a34c26fdc2b0b2ef5e56f40906d1899742e685e027b028575",
+        "pixels_sha256": "f268822a4e05c26cbb99aa63ff359e55e05b27c563c1aea094e8ecc3f709f952",
+        "ledger_sha256": "3b14cff21c421dc4f37242c21486535898df45c299f7febdc6e295e0c7ee9755",
+        "changed_bytes": 33609,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      },
+      {
+        "name": "exact_256_boundary",
+        "PNG_sha256": "c142f83107e8f6a81cb7b84c17abdae0c9b362262512e34867caed7a14575c12",
+        "full_TXD_sha256": "f902187c838d426f47d85b52a21ad9238588fcd75567c51ac6848de5c7f520c7",
+        "RGBA_sha256": "33368dabc5822fb2b14ff7e2cac31e5eb291ee2735489ba649e798c619ee3f99",
+        "CLUT_sha256": "539daf4d77795947b88c08d8602f2d07394305231fe0a27ff7cdbd514123134d",
+        "pixels_sha256": "7df02ca880273aeaac3bf4c06cb52104103e19b5a5397bbcc2bad9b112e1b52a",
+        "ledger_sha256": "57515af33dff1b2f66ffc525c701b1be7061dcd05db15dd4e20300929464e366",
+        "changed_bytes": 33480,
+        "outside_changes": 0,
+        "source_identity_stats_preserved": true,
+        "preview_apply_readback_samePNG_idempotence_preserve_decoded_noop": true,
+        "explicit_exact_strict_or_exact_fallback_verified": true,
+        "profile_publisher_refusals": [
+          "noPNG",
+          "rectangles",
+          "wrongfield",
+          "conflict",
+          "unknown",
+          "unknownfield",
+          "wrong_source_pin",
+          "wrong_PNG_pin",
+          "wrong_source_size",
+          "source_output",
+          "PNG_output",
+          "profile_output",
+          "symlink_output",
+          "preview_output",
+          "apply_no_output"
+        ]
+      }
+    ],
+    "private_shifted_bounds": {
+      "exit_code": 0,
+      "Go_seconds": 3.197,
+      "output": "ok  \tdokapon/tools\t3.197s\n",
+      "cases": "All7candidate images copied into shiftedbounds(7,-11)..(263,117), directtextureAPI fullTXD/RGBAfrozenhashes/sourceandcandidatebytes preserved. Fouruniform shifted16square NRGBA vectors authoredalpha0/1/127/255 check transparency/normalization/exactfallback/unusedzeros. Existingtestowner/privateoverlay only."
+    },
+    "seven_private_numerical_mutants": [
+      {
+        "name": "seven_Lloyd_updates",
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.69s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.27s)\n        patch_test.go:5976: exact palette oracle differs forgoku/014_Goku.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.690s\nFAIL\n"
+      },
+      {
+        "name": "last_distance_tie",
+        "command": [
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec",
+          "-overlay",
+          "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_distance_tie-overlay.json",
+          "./..."
+        ],
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "seconds": 4.939830287999939,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.91s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.48s)\n        patch_test.go:5976: exact palette oracle differs forquantize/transparent_odd_alpha.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.916s\nFAIL\n"
+      },
+      {
+        "name": "last_box_score_tie",
+        "command": [
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec",
+          "-overlay",
+          "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_box_score_tie-overlay.json",
+          "./..."
+        ],
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "seconds": 4.883575165000366,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.82s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.39s)\n        patch_test.go:5976: exact palette oracle differs forquantize/unique_variance_frequency.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.822s\nFAIL\n"
+      },
+      {
+        "name": "round_ties_up",
+        "command": [
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec",
+          "-overlay",
+          "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/round_ties_up-overlay.json",
+          "./..."
+        ],
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "seconds": 4.814888560000327,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.67s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.26s)\n        patch_test.go:5976: exact palette oracle differs forgoku/014_Goku.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.672s\nFAIL\n"
+      },
+      {
+        "name": "rounded_final_assignment",
+        "command": [
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec",
+          "-overlay",
+          "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/rounded_final_assignment-overlay.json",
+          "./..."
+        ],
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "seconds": 4.824533312999847,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.75s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.32s)\n        patch_test.go:5976: exact palette oracle differs forgoku/014_Goku.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.750s\nFAIL\n"
+      },
+      {
+        "name": "weighted_unique_variance",
+        "command": [
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec",
+          "-overlay",
+          "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/weighted_unique_variance-overlay.json",
+          "./..."
+        ],
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "seconds": 4.480083788999764,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.60s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.19s)\n        patch_test.go:5976: exact palette oracle differs forgoku/014_Goku.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.607s\nFAIL\n"
+      },
+      {
+        "name": "zero_empty_centroids",
+        "command": [
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec",
+          "-overlay",
+          "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/zero_empty_centroids-overlay.json",
+          "./..."
+        ],
+        "exit_code": 1,
+        "killed_by_frozen_oracle": true,
+        "seconds": 4.560393580000891,
+        "output": "--- FAIL: TestPilotHistoricalGoldenBytes (2.63s)\n    --- FAIL: TestPilotHistoricalGoldenBytes/fixed-palette_texture_codec (2.21s)\n        patch_test.go:5976: exact palette oracle differs forgoku/014_Goku.png (quantize): <nil>\nFAIL\nFAIL\tdokapon/tools\t2.637s\nFAIL\n"
+      }
+    ],
+    "additional_format_and_seeded_guards": {
+      "nonstandard_old_mode_quantize_refusals": [
+        "nohdr8",
+        "std4-low-nibble",
+        "std4-high-nibble",
+        "std4-both-nibbles",
+        "raw32-font2",
+        "raw32-font1",
+        "raw32-font0",
+        "std4-multipage-two_corners",
+        "std4-multipage-all_corners",
+        "std4-multipage-page_boundary",
+        "std4-multipage-shared_byte",
+        "raw32-rgba-npc18",
+        "raw32-rgba-v0_256x512",
+        "raw32-rgba-v2_256x256",
+        "raw32-rgba-v0_512x256",
+        "raw32-rgba-v2_128x16",
+        "raw32-rgba-v2_16x16"
+      ],
+      "additional_synthetic_canonical_comparisons": [
+        {
+          "seed": 31,
+          "method": "mediancut+kmeans",
+          "wholeTXD_sha256": "3e2e22306b2ee547030e30403486d587e8d23804990a29e864d97cf3dfbde877",
+          "RGBA_sha256": "fc33b7c4623e232a62ceb311cb1eb6864afece0676e05e2343f6ccb9361cfee7",
+          "canonical_reference_match": true,
+          "generated_color_rows": 4097,
+          "distinct_input_RGBA": 4093,
+          "distinct_normalized_RGBA": 3512
+        },
+        {
+          "seed": 1,
+          "method": "exact",
+          "wholeTXD_sha256": "9cccf2e39f9bd26eb79bc888c7362744ee41e85ca1477a98cf69b57dbf26ec95",
+          "RGBA_sha256": "569316117e18d8ad7427247260cee1fb1b83beda3214b59c6f9296c775252bb3",
+          "canonical_reference_match": true,
+          "generated_color_rows": 257,
+          "distinct_input_RGBA": 257,
+          "distinct_normalized_RGBA": 227
+        },
+        {
+          "seed": 2,
+          "method": "mediancut+kmeans",
+          "wholeTXD_sha256": "42fad2e0cb6f28750900fb13cbeb1dbfaf71784549a57442beeee30fb9075b6b",
+          "RGBA_sha256": "29e1876fa3736564a2136a6785a3c3610895078ba0e59401a6ab72018a634ef8",
+          "canonical_reference_match": true,
+          "generated_color_rows": 513,
+          "distinct_input_RGBA": 513,
+          "distinct_normalized_RGBA": 451
+        },
+        {
+          "seed": 3,
+          "method": "mediancut+kmeans",
+          "wholeTXD_sha256": "e64941471e4299c884fca71cebbdfdf46fa3f6ccf06b983529f5982c37769352",
+          "RGBA_sha256": "4bcb0472e44f35b10e331b216d6f7ff87583e76a5ab5e3d127705bdce3be781e",
+          "canonical_reference_match": true,
+          "generated_color_rows": 769,
+          "distinct_input_RGBA": 769,
+          "distinct_normalized_RGBA": 643
+        },
+        {
+          "seed": 4,
+          "method": "mediancut+kmeans",
+          "wholeTXD_sha256": "ccb76989225a4c96b8cd32fb16e01dacc40cf7a22afeb4ef310ddb7157c52762",
+          "RGBA_sha256": "10ef93dda7485e4458a045de90d69d10b2f9d183f13048dd02023245d80b5e08",
+          "canonical_reference_match": true,
+          "generated_color_rows": 1021,
+          "distinct_input_RGBA": 1021,
+          "distinct_normalized_RGBA": 865
+        },
+        {
+          "seed": 5,
+          "method": "mediancut+kmeans",
+          "wholeTXD_sha256": "0e04eb0939c461d53e85b295cbc27b837c80d1ce223d5ce7504f2c53a2eae4fe",
+          "RGBA_sha256": "02f7d04706d181b383a12009aa6f406d90c236eabcc9738d4a5dc332be3b23b1",
+          "canonical_reference_match": true,
+          "generated_color_rows": 327,
+          "distinct_input_RGBA": 327,
+          "distinct_normalized_RGBA": 276
+        }
+      ]
+    },
+    "guaranteed4097normalizedRGBA_case": {
+      "distinct_normalized_RGBA": 4097,
+      "method": "mediancut+kmeans",
+      "wholeTXD_sha256": "7c03b85eaecc36ed6e518f12637fe44132b1613f4980a44ea203ce202380a0c4",
+      "RGBA_sha256": "7a293d0cc69f973e0dbf9ce5743b044d88c523a92ac3504360ce4610ac8c5d17",
+      "canonical_reference_match": true,
+      "preserve4096cache_limit_not_applied": true
+    },
+    "permanent_tests": "Current42base+33palette rows, includingold26exact rows unchanged plus7quantize rows. Existingexactcases also checkquantizefallback equality. Oldformatrefusal loop nowchecks bothpolicies; allotherfullsuite tests remain current. No newtestfunction.",
+    "publisher_and_identity": "All7preview/apply/reportnamespace/readback/fullhash/CLUT/pixel/changedledger/payloadcomplement checked. Sameoriginalcandidate reapply quantize is byteidempotent; decodedPNG defaultpreserve import is wholeartifactnoop. Exact refuses6overfull andmatches256fallback. All7overwrite/source/PNG/profile/symlink/previewoutput/applymissingoutput guards pass. EachCLIcall preserves inputdev/inode/mode/size/mtimeNS/SHA (atime excluded). SourceTXDhasone selectednative andno unselectedsiblings; entiremetadata/packet/rest equality checked.",
+    "private_harness_note": "Initialnonstandardformatguard demanded the laterpalette-policy error forcolored32, but existingdirectfontmode guard alreadyrefusedit earlier. Assertion accepts either documentedformat refusal; no newacceptedinput or productdefect.",
+    "execution": "nice19; GOMAXPROCS2/-p2 forGo; ownedvarTMP; no delegatedagents. Mutations were privateGooverlay files only. Expectedmutant testfailures are validationwitnesses, not failures of frozenproductiontests.",
+    "artifacts": {
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/checks.json": {
+        "bytes": 2907,
+        "sha256": "a0b5bb430cc004438d125129967c4fdb731ebd34f46692998fab29fd5ef11f9a"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/checks.py": {
+        "bytes": 1605,
+        "sha256": "cf6150b5a2ff4763a67e4dc9cc02afb40c5c566b3c27bd688008ac93b2d37d03"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/cli.json": {
+        "bytes": 8275,
+        "sha256": "e825fdfb58a457047b9f0186259332f5b5fe734babd494d84b4a33824d331fd2"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/cli.py": {
+        "bytes": 3906,
+        "sha256": "731ad995dbba13745ed7e55834746e567b340ae22e369bec96387b931809ad56"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/corpus-results.json": {
+        "bytes": 76145,
+        "sha256": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/dense.json": {
+        "bytes": 328,
+        "sha256": "da69dc45b508cb2746169abdf9107ee144a7f967f6cc8ee369d6ee9830e2981b"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/dense.py": {
+        "bytes": 1433,
+        "sha256": "593980d3739710dc19371e4f66f5369c7509db2d8f46064f6d0f3488ded08c60"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/dokapon-go": {
+        "bytes": 5260356,
+        "sha256": "4ab2b6b54d6be04f1fcfd3b43eca9d061279b006bd7da51fd962d295df528b57"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/guards.json": {
+        "bytes": 2924,
+        "sha256": "8b3293277e44abda09115387355e2df00b74eb0344f6179d3a5b983a6cbf5b24"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/guards.py": {
+        "bytes": 2467,
+        "sha256": "bbe8aa6457ed2ac1dc79ae135ca3c0e6b8a46e39dd66c3a9d044645977208842"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_box_score_tie-overlay.json": {
+        "bytes": 166,
+        "sha256": "5f5285561195f708a2998e3b2bb6846dbac824d23cbfd055ce2e119b98d414da"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_box_score_tie.go": {
+        "bytes": 6244,
+        "sha256": "277be2e0fe324c72a88f14a934caa1bbc668064e41c431611770005da6197459"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_box_score_tie.log": {
+        "bytes": 283,
+        "sha256": "50971381f842d621ee2523ad1d103b12abc242c203300aa70e60a1f384da97bf"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_distance_tie-overlay.json": {
+        "bytes": 165,
+        "sha256": "0ce08f73e72e9b466fe393cde278ba016061f70dc1247bc5e281fdb0de29e4f1"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_distance_tie.go": {
+        "bytes": 6244,
+        "sha256": "20c0237eca34859cfb349200bd1ec6e1ff41c43f2c2c42abcbb285cc7afe9246"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/last_distance_tie.log": {
+        "bytes": 279,
+        "sha256": "ab2bf9175081a66578c8c8c0c2ddfe2042cddd88c216ee5b1d7bf00470973174"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/more-mutants.py": {
+        "bytes": 2119,
+        "sha256": "12f013dbaa9abf13cca5d709eab3620d9488babb8ec94361da114bd0624b9297"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/mutants.json": {
+        "bytes": 4764,
+        "sha256": "4479aaedb049147190e85c9cfa20610c4baccb6a61d9ad614c836727fec2e64e"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/mutants.py": {
+        "bytes": 1716,
+        "sha256": "b1e86f0b8df8fb59d37c7afc43298d8308725bca347e371ca666dc31a7163b66"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/overlay.json": {
+        "bytes": 153,
+        "sha256": "47fbffa8e1c0bc21c6a7695cdadf7cc34b53a3091b578788a30f39f32d635faf"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/patch_test.go": {
+        "bytes": 337613,
+        "sha256": "27fd2c621bcf592dcdf5e6f480cbb3c20027dc46ad495d1facf902f902e2a2b4"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/race.log": {
+        "bytes": 27,
+        "sha256": "93383192ef5de927ecd7279e9a6529923e4054e344f7d1eae4145e1f0b265c82"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/reference.json": {
+        "bytes": 6414,
+        "sha256": "480c098e120febccff59b1574bd5f3474feb506fc3f6a89a364c43d70c6f4356"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/reference.py": {
+        "bytes": 3131,
+        "sha256": "218247bca1842ae52cbe4629a27678c4af7dff98186e0dda297049ebd37b37b2"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/round_ties_up-overlay.json": {
+        "bytes": 161,
+        "sha256": "70532c2d560fe6fd2a7a9e36fae8cda9547352e8b9519a7cb776855238b53e2a"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/round_ties_up.go": {
+        "bytes": 6219,
+        "sha256": "3db6d1d2e5d1ee3f50abbde39dee05b3ae64d105349b961c24a79c4241614e0b"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/round_ties_up.log": {
+        "bytes": 262,
+        "sha256": "6bf05003c7d865a766fe26151ede2ab93f5add8cae2be57bc889ceccf821fdba"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/rounded_final_assignment-overlay.json": {
+        "bytes": 172,
+        "sha256": "ec61b73e42f8370fd192fb9bfa2b744c2a7cf20fda0b783d72e0d6d2e53a13b3"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/rounded_final_assignment.go": {
+        "bytes": 6429,
+        "sha256": "50bd0d22df2624596d0b89cb6d9f79e0c94f55e06c250366d858b4e43e8db024"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/rounded_final_assignment.log": {
+        "bytes": 262,
+        "sha256": "c58c8beabe907e877a235beaaac3629e5f154c0716b973ff51c91b94f48fdcb4"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/seven-mutant.log": {
+        "bytes": 262,
+        "sha256": "893646b60fc7b0af19202fd8cf52c543384f6f74b3250702314a6d4e928aabb7"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/seven-overlay.json": {
+        "bytes": 160,
+        "sha256": "d7bf8250c52dcbf23be5117474dc717b399d3c2371238810ad23c1138144eabb"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/seven-passes.go": {
+        "bytes": 6243,
+        "sha256": "1154767a366ecbca38aff7c46351ac2d3aa7c854e387a7a600bc8adb6997eb85"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/shifted-overlay.json": {
+        "bytes": 155,
+        "sha256": "6d55fc0f9c5a8db404a6f1a332b5b177e6a591ab0d956a8f232e5b2efbde25c4"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/shifted-test.go": {
+        "bytes": 337266,
+        "sha256": "63a7898257ce2632fa047e6ec6e09a6cc7203cdbdcce7c9eabbe2f561a8c0c90"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/shifted.log": {
+        "bytes": 26,
+        "sha256": "f6f479cc3832c3757f907ca2c65883927fbf81b80919e28224cf919b286cfbb8"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/source-pins.json": {
+        "bytes": 2642,
+        "sha256": "c8bda5ab847a097ee3da1ec3473ffcf6436f1e0a2c6ab1924767f56a5a2ecc3d"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/token-scan.json": {
+        "bytes": 789,
+        "sha256": "22199e7f075ab5b911c59f312a58d61f67e445a4e9b82b48cea94e6e161b1fef"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/weighted_unique_variance-overlay.json": {
+        "bytes": 172,
+        "sha256": "537d28e2f880b5a1faa3aa249ddba87673daf8e90af7d0cf8e4d02e35b3df2d4"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/weighted_unique_variance.go": {
+        "bytes": 6241,
+        "sha256": "cef4418b22e44dd939a2a1dbe7456d19cb9a8a235d53f6350c2297dde05b7717"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/weighted_unique_variance.log": {
+        "bytes": 262,
+        "sha256": "9197bf282851e48bdfa250820f574f42090d4932d92533995ee2babd15594ca5"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/zero_empty_centroids-overlay.json": {
+        "bytes": 168,
+        "sha256": "84a81226f0f722b9857996fe9a4fd0f51fa783fbcb4eba039c62eeaa06062252"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/zero_empty_centroids.go": {
+        "bytes": 6292,
+        "sha256": "9f3a81c909cada0431c5e063715b017e42a147d23686050245133ffb29116ba5"
+      },
+      "/var/tmp/dokapon-approximate-palette-review-b_pseeo0/zero_empty_centroids.log": {
+        "bytes": 262,
+        "sha256": "cb0d51b370fc53203907c7e653226549a66f2ba4101d467719d0e18fc8e7f776"
+      }
+    }
+  },
+  "prior_reports_immutable": {
+    "evidence/exact-palette-review.json": "f7dd3ad2b4b1904377935d22a16e945f1cd65e69cd754f2d8bcfbb57123ec160",
+    "evidence/multipage-psmt4-review.json": "2d56beb21341c47e777a390760e7200a2ff1f44606764aa56f0ce6a84d9aaca4",
+    "analysis/texture-color-policy-design-review.json": "6db8a9223cec412f430ba4b4c336c8723ceb9eb869271836442795130f869908",
+    "evidence/direct-rgba-review.json": "b58e2c5faf899b2d4c0cf5cf894f5acb7576848228730f8f655213b9e1296a12",
+    "analysis/texture-small-indexed-contract.json": "c0b2a75e58ee671b3c6a6e89d595cac9644ac1a4dfa148e8f560cc9663bdc464",
+    "evidence/direct-layouts-review.json": "376f491adbb1026adab3072040f018f96f482e1c7fd8eddd75f056e6485c718d",
+    "evidence/small-psmt8-review.json": "fe918cf6ed84c34de88ef462c306b4078c0a9c653b1c558356ebe80bedfb9738",
+    "evidence/small-psmt8-review.md": "bcacace9e51090e4f6d6e603436dcd1308672f0046b2e1909092b3c2455e96b1",
+    "analysis/remaining-psmt4-frontier.json": "2553d18dafac1bbedb9dde89eeed49b7b8d363bd942ca7fd96063ce6f8b2ea3f",
+    "analysis/remaining-psmt4-frontier.md": "a3e99679f1c09c41780142302c9aa3578dc9fc9d87b422f057e15a7aed1f992c",
+    "evidence/grouped-psmt8-review.json": "9432af43b9013d32eac4d0645e8db95e44261449e131ab0e24e0f1d8702efb53",
+    "evidence/grouped-psmt8-review.md": "3034be0b8b2c646c6ec6a3ffd2fe1dd6e5d05b0f6fcd0412c5f2f7a5983f70d8"
+  },
+  "limits": [
+    "No exhaustive arbitraryfloatinghistogram oralltexturefamily acceptance.",
+    "Texturefamily remainsPARTIAL. Parentidentified separate preexisting128x64/128x256 fullpage CLUT-Y calibration gaps; no guardchange or nextincrement approval in this review.",
+    "No below16crop/padding/new4bit/resize/forceheaderless semantics.",
+    "No nativeblend/visual/gameplay/art/ISOCLUTownership/alias-sharing/application approval.",
+    "No originalcallerretirement/workflowpromotion/savings claim; legacyISOrepalette publication responsibilities remain separate."
+  ]
+}

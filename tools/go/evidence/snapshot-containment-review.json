@@ -1,0 +1,69 @@
+{
+  "schema": "snapshot-containment-ordinary-review-v1",
+  "at": "2026-10-20T20:58:11.933977+00:00",
+  "result": "PASS: no candidate containment or collision findings",
+  "findings": [],
+  "candidate": {
+    "snapshot": "/var/tmp/dokapon-registry-add-d6htxqeq/sealed-current",
+    "manifest_sha256": "6ef53fcd9d798a9205c663b8536b057de182b633460c743b44e4bd9175b1367c",
+    "stored_members": 318,
+    "physical_files_including_manifest": 319,
+    "descriptor": "/var/tmp/dokapon-registry-add-d6htxqeq/snapshot-containment-candidate.json",
+    "descriptor_sha256": "4ee1d471db3acd4d70633ddd3f445241fe85f563e6839c77ab89d1c0069ef5a9"
+  },
+  "checks": {
+    "all_318_member_hashes_match": true,
+    "normalized_relative_names_no_parent_absolute_backslash_or_NUL": true,
+    "resolved_inside_snapshot": true,
+    "duplicate_JSON_keys": 0,
+    "symlinks": 0,
+    "inode_aliases": 0,
+    "casefold_collisions": 0,
+    "nonregular_or_multilink_members": 0,
+    "unexpected_files": 0,
+    "bound_current_source_members": 317,
+    "source_hash_mismatches": 0,
+    "accounting_items_bound": 169,
+    "current_Go_files_bound": 28,
+    "current_registry_add_candidate_pins_bound": 29,
+    "generated_source_aliases_member_is_not_a_source_file": true
+  },
+  "external_aliases": [
+    {
+      "member": "external/skills/MIGRATION-TOOLS.md",
+      "source": "/home/franklinl/Documents/Dokapon World Mod/skills/MIGRATION-TOOLS.md",
+      "sha256": "e0a0c0204a7b96fc156f1e676878694be42d153973c3004cf5ef26fd124ea2c1",
+      "binding": "Current source, recovered copy, legacy record hash and contained member agree; canonical source remains unchanged against the pinned legacy/recovery hash."
+    },
+    {
+      "member": "external/skills/STRING-REGISTRY.md",
+      "source": "/home/franklinl/Documents/Dokapon World Mod/skills/STRING-REGISTRY.md",
+      "sha256": "c726c021391e4848d39e3023af91ee71a6ccd6b288781c142ab55bcd9f3b05c5",
+      "binding": "Current source and member match the documented registry_add after-hash, not its historical before-hash.",
+      "update_evidence": "evidence/registry-add-proof.json",
+      "update_evidence_sha256": "500215129a69ef4b32d41b87e64fb5fc6bf76f298f61cf6c5d59d6b5ee8aad27"
+    }
+  ],
+  "recovery": {
+    "disclosure": "evidence/snapshot-path-recovery.json",
+    "disclosure_sha256": "39ea34fcfc8806cb34cf75efbc374d32a3b87a4ba7b27e22a256836eb6cb5c0e",
+    "legacy_manifest": "/var/tmp/dokapon-texture-inventory-2_6km32x/sealed-delta/manifest.json",
+    "legacy_manifest_sha256": "f344c3b3e30bb8a0dc52580588829d9b549d21b8a69cea748da4377ef094f5f4",
+    "sole_unsafe_record": "../../skills/MIGRATION-TOOLS.md",
+    "recovered_copy": "/var/tmp/dokapon-registry-add-d6htxqeq/legacy-path-recovery/MIGRATION-TOOLS.md",
+    "recovered_copy_sha256": "e0a0c0204a7b96fc156f1e676878694be42d153973c3004cf5ef26fd124ea2c1",
+    "removed_escaped_path_not_resolved_opened_or_stated_by_reviewer": true,
+    "qualification": "Legacy manifest bytes and unsafe key string were inspected without replaying that key. Creation/removal identity and cleanup history are attributed to the pinned disclosure; a deleted target was not independently reconstructed."
+  },
+  "private_evidence": {
+    "audit_program": "/var/tmp/dokapon-containment-review-Lu8C6L/check.py",
+    "audit_program_sha256": "f044d62e4d1d7e0971d809802023724cb12fcd8131283e79ceb74c0aa876fc8d",
+    "detailed_receipt": "/var/tmp/dokapon-containment-review-Lu8C6L/checks.json",
+    "detailed_receipt_sha256": "8f366a671ee38fc59d404352e3cd2a317c82f6fb6cce695d330ec23e42be9073"
+  },
+  "scope_limits": [
+    "Binds the exact 318-member candidate manifest above. Subsequent report/bookkeeping changes or a final manifest containing this review require separate guarded sealing; this review does not attest its own future manifest hash.",
+    "Static artifact/source hash inspection only; no Go tests or runtime tools executed, no production/doc/test changes, no ISO/canonical registry/emulator/process access.",
+    "Containment is an observed frozen-filesystem property; no guarantee against later hostile namespace mutation."
+  ]
+}

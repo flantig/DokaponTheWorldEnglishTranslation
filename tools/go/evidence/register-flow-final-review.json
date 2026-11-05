@@ -1,0 +1,357 @@
+{
+  "review_kind": "Fresh independent read-only delta review of corrected bounded register-flow candidate",
+  "start_utc": "2026-11-04T21:52:25.073497+00:00",
+  "end_utc": "2026-11-04T21:56:08.494675+00:00",
+  "status": "RF_UNKNOWN_ROOT_1_CLOSED_ON_REVIEWED_CANDIDATE_NO_NEW_CONFIRMED_FINDINGS",
+  "authority": "Finding disposition only. No implementation, approval, publication, milestone/coverage, reduction or retirement award.",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/final-review-source-manifest.json",
+    "sha256": "4d800a2366a065d7a9a2b94fff8a53642de3983328e6fbee1d0d3d1aec7aa313",
+    "bindings": 644,
+    "status": "PASS"
+  },
+  "initial_candidate": {
+    "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/review-source-manifest.json",
+    "sha256": "7ef6e957b744b26ed0b8cc07917ff0e9b3a6a26dbd4a3c9d495f547ddce8b50e",
+    "bindings": 636,
+    "status": "PASS"
+  },
+  "source_v3": {
+    "manifest": "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl/manifest.json",
+    "sha256": "791f27ec19f60d43bccc072c12b1c40586e5a5dcaa7a3a5a2e980b5755c56d58",
+    "bindings": 18,
+    "status": "PASS"
+  },
+  "source_v2": {
+    "manifest": "/var/tmp/dokapon-register-flow-cli-v2-1QaQWVor/manifest.json",
+    "sha256": "6017daa9e4686715bf525fa8d104db5145eb33ee2f4351db039840be7996f8a5",
+    "bindings": 9,
+    "status": "PASS"
+  },
+  "initial_review": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/register-flow-review.json",
+    "sha256": "d7f7fde3589502c8af4440b360048fc0c642b65d871dea5ed33ee82ab7ff89f4",
+    "artifact_manifest": "/var/tmp/dokapon-register-review-18p58u82/artifact-manifest.json",
+    "artifact_manifest_sha256": "fd77a179304e89201bd0dab3969d328a1d2bfa1f4dd14920c8d1c15553c5c773",
+    "all668members_reverified": true
+  },
+  "finding_disposition": [
+    {
+      "id": "RF-UNKNOWN-ROOT-1",
+      "status": "CLOSED_ON_THIS_CANDIDATE",
+      "file": "register_flow.go",
+      "lines": [
+        204,
+        214
+      ],
+      "reason": "Nonzero reaching_defs with reachable roots now retains all reachable unknownFrontiers except known external direct targets. It keeps lower-bound fact/entry sets and conservatively holds completeness. Both exact original synthetic failures now return the expected unsupported_instruction/unresolved_indirect_exit reason in both builds.",
+      "independent_controls": "Forward uses stop at a definite low32 overwrite before a later unresolved JR, preserving complete known use sites. Backward defs before the same read remain held by that later frontier. Known external direct-target cuts do not globally hold backward queries. Reachable GPR0 remains immutable completeempty.",
+      "limits": "The global backward frontier rule can conservatively hold unrelated or kill-shielded paths. README and v3 source policy state this boundary; no unknown target or predecessor is synthesized."
+    }
+  ],
+  "new_findings": [],
+  "shared_canonical_guard_review": {
+    "file": "main.go",
+    "lines": [
+      117,
+      140
+    ],
+    "assessment": "One shared switch selects fixed sentinel/register_flow policy, canonical key, allowed operation and legacy route wording; existing checkJSON owns closed keys/duplicates/null/Unicode. No new helper or duplicate runner.",
+    "checks": "Valid sentinel whole output and canonical/null/wrongmode errors identical to initial636binary in both final builds.37additional register-flow malformed/null/alias/duplicate/shadow/required/limit profiles refuse without stdout in both builds."
+  },
+  "source_contract_review": {
+    "delta": {
+      "status": "PASS",
+      "original_query_facts": 44,
+      "reason_set_changes": 13,
+      "completeness_demotions": 12,
+      "all_lower_bound_fact_entry_and_input_fields_unchanged": true,
+      "changes": [
+        [
+          "register-flow-straight-def-use",
+          "straight-before-kill",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-straight-def-use",
+          "straight-rd-before",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-diamond-two-defs",
+          "diamond-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-loop-join-limit",
+          "loop-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-loop-join-limit",
+          "loop-rd-limit",
+          [
+            "work_limit"
+          ],
+          [
+            "unresolved_indirect_exit",
+            "work_limit"
+          ]
+        ],
+        [
+          "register-flow-likely-link-annul-counterexample",
+          "likely-link-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-conditional-write-not-definite-kill",
+          "conditional-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-shared-lui-foreign-use-killed",
+          "shared-rd-positive",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-loop-preserved-value-fixedpoint",
+          "loop-fixedpoint-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-movn-preserves-old-destination",
+          "movn-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-merge-load-preserves-old-destination",
+          "merge-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-movz-source-destination-alias",
+          "alias-rd",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ],
+        [
+          "register-flow-false-likely-annuls-unsupported-physical-delay",
+          "false-likely-rd-before-consumer",
+          [],
+          [
+            "unresolved_indirect_exit"
+          ]
+        ]
+      ]
+    },
+    "v3_cases": 26,
+    "v3_queries": 48,
+    "v3_declared_complete": 14,
+    "assessment": "All44original lower-bound fact/entry sets and input fields retained.13reason sets changed,12complete results demoted. New3carrier4query equations preserve JRtargetcapture before delaywrite and distinguish forward old-value kill from backward unknown reentry. Manual data tables are separate from the Go graph. No full-family or .05 claim follows from these finite counts.",
+    "source_generator": "Read for dependencies/manual assertions only, not executed by this reviewer, because its publication tail writes a LIVE source report. Root replay remains separately owned evidence."
+  },
+  "checks": {
+    "commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-register-final-review-2eycipt9/core",
+          "."
+        ],
+        "start": "2026-11-04T21:52:39.769251+00:00",
+        "end": "2026-11-04T21:52:41.422517+00:00",
+        "seconds": 1.653273538002395,
+        "exit": 0,
+        "log": "check-0.log"
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^TestCLIDryRunAndApply$",
+          "."
+        ],
+        "start": "2026-11-04T21:52:41.422674+00:00",
+        "end": "2026-11-04T21:53:04.835076+00:00",
+        "seconds": 23.412409640004626,
+        "exit": 0,
+        "log": "check-1.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T21:53:04.835302+00:00",
+        "end": "2026-11-04T21:53:05.181897+00:00",
+        "seconds": 0.34660186400287785,
+        "exit": 0,
+        "log": "check-2.log"
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-register-final-review-2eycipt9/native",
+          "."
+        ],
+        "start": "2026-11-04T21:53:05.182098+00:00",
+        "end": "2026-11-04T21:53:07.258642+00:00",
+        "seconds": 2.0765522069996223,
+        "exit": 0,
+        "log": "check-3.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T21:53:07.258839+00:00",
+        "end": "2026-11-04T21:53:08.013738+00:00",
+        "seconds": 0.7549066659994423,
+        "exit": 0,
+        "log": "check-4.log"
+      }
+    ],
+    "focused_test_reported_seconds": 14.976,
+    "delta_probes": {
+      "start": "2026-11-04T21:54:23.959533+00:00",
+      "end": "2026-11-04T21:54:24.229752+00:00",
+      "seconds": 0.27022175599995535,
+      "status": "PASS",
+      "independent_semantic_queries": 8,
+      "new_wire_refusals": 37,
+      "sentinel_guard_refusals": 3,
+      "all_owned_jobs": "terminal synchronous only"
+    },
+    "gofmt": "All production Go and patch_test.go clean",
+    "identities": {
+      "at": "2026-11-04T21:56:08.167639+00:00",
+      "snapshots": [
+        {
+          "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/final-review-source-manifest.json",
+          "sha256": "4d800a2366a065d7a9a2b94fff8a53642de3983328e6fbee1d0d3d1aec7aa313",
+          "bindings": 644,
+          "status": "PASS"
+        },
+        {
+          "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/review-source-manifest.json",
+          "sha256": "7ef6e957b744b26ed0b8cc07917ff0e9b3a6a26dbd4a3c9d495f547ddce8b50e",
+          "bindings": 636,
+          "status": "PASS"
+        },
+        {
+          "manifest": "/var/tmp/dokapon-register-flow-cli-v3-e3AvRYbl/manifest.json",
+          "sha256": "791f27ec19f60d43bccc072c12b1c40586e5a5dcaa7a3a5a2e980b5755c56d58",
+          "bindings": 18,
+          "status": "PASS"
+        },
+        {
+          "manifest": "/var/tmp/dokapon-register-flow-cli-v2-1QaQWVor/manifest.json",
+          "sha256": "6017daa9e4686715bf525fa8d104db5145eb33ee2f4351db039840be7996f8a5",
+          "bindings": 9,
+          "status": "PASS"
+        }
+      ],
+      "prior_review_and_all668_artifact_bindings_unchanged": true,
+      "private_copy_all644_candidate_bindings_unchanged": true,
+      "v3_cases": 26,
+      "v3_queries": 48,
+      "v3_declared_complete": 14,
+      "all_owned_jobs": "terminal"
+    }
+  },
+  "serena": {
+    "session": "5bc5c99f",
+    "private_project": "/var/tmp/dokapon-register-final-review-2eycipt9/project",
+    "queryRegisterFlow_callers": [
+      "references.go/references"
+    ],
+    "prior_full_connected_review_retained": true
+  },
+  "scope": "One-user local read-only, finite supported low32 normal-completion model. Delta review of unknown-frontier fix, both exact repros, definite-kill/zero/external-cut controls, shared optional canonical guard and source conditional-completeness correction. Reused immutable initial review for unchanged algorithm portions.",
+  "code_sha256": {
+    "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
+    "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+    "main.go": "50873e8e5a36e4cc366e4f5fbf94d6129983c9f095456d72de65cb231e7e8e7a",
+    "references.go": "ca525b2f71f77e13e512344a93a7a28680312c6474fcd50fa2c134767b98eca5",
+    "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+    "recipe_types.go": "650f5e67ce425b695b34ee0410913744343387478da45482afb621c3cbe40b79",
+    "patch_test.go": "ca5d8efd0340176616db01b13677c96b6334ec6eb14b1ddb26f5dcfb9103ead0",
+    "testdata/register-flow-fixture.zip": "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2"
+  },
+  "source_measurement": {
+    "production_go_files": 43,
+    "production_go_bytes": 503383,
+    "named_production_functions": 42,
+    "claim": "Capability growth, no reduction/retirement or coverage awarded."
+  },
+  "binaries": {
+    "core": "9851caf4e0565338b8b1a4915e1bfc97edb9a5c811b67f01ca48c918ddb567a1",
+    "native": "d0610ec724625e74882afd406908ae48670bb3f5320572128a7e5d6283766c48",
+    "initial": "f3dfdb0e670397fdaac8129acaca07f411ef0190a81401879b21a046fdcef07b"
+  },
+  "artifacts": {
+    "directory": "/var/tmp/dokapon-register-final-review-2eycipt9",
+    "manifest": "/var/tmp/dokapon-register-final-review-2eycipt9/artifact-manifest.json",
+    "sha256": "cd3e8f3e09b563003b3696babb4793ea9d373949f05e8fafc8bc24df17791adf",
+    "members": 813
+  },
+  "all_owned_jobs": "terminal. Owned sequential check session71234reaped exit0; all delta/identity/format probes synchronous exit0. No concurrent heavy jobs within this reviewer.",
+  "writes": "Owned private copy/scripts/raw outputs and NEW LIVE evidence/register-flow-final-review.json only. Candidate, initial review, prior artifacts and live runtime unchanged.",
+  "not_checked": "Full suite, fresh race, nativefonts race, gameplay/runtime, hostile concurrent input replacement or general instruction/graph completeness. Root race session97711was running when task assigned and is not claimed passed or reviewer-executed.",
+  "risk": "Results remain conditional on asserted normal entries and the finite supported low32 model. Complete local results do not establish whole-program scope, ABI, hook safety or native execution."
+}

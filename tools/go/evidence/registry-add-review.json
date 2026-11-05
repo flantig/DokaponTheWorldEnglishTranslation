@@ -1,0 +1,59 @@
+{
+  "schema": "registry-add-ordinary-review-v1",
+  "at": "2026-10-20T20:44:12.492497+00:00",
+  "result": "NO_OPEN_MATERIAL_FINDINGS",
+  "findings": [],
+  "closed_findings": [
+    {
+      "severity": "MEDIUM",
+      "problem": "Initial drafted-status validation ran before existing-ID classification: identical JP/EN with incoming patched status falsely refused instead of preserving existing metadata. Changed existing wording also hit the new-row status error rather than text conflict.",
+      "initial_reproducer": "/var/tmp/dokapon-registry-add-review-5N8r4b/existing-status/result.json",
+      "reproducer_sha256": "44975b486646c1deda3a477ba6c3117ff3cd69ecca316ea75e986a9a4645a860",
+      "resolution": "Drafted applies only after the existing-row matching/conflict branch. Common required string fields and nonempty source_pool validation remain. Public fixture now has two explicitly post-review regression vectors; independent final probe also accepts an arbitrary ignored existing status string and verifies conflict precedence.",
+      "status": "CLOSED on final pins"
+    }
+  ],
+  "candidate": {
+    "pins": ".goal/registry-add-work.json candidate_pins",
+    "count": 29,
+    "final_pin_mismatches_before_after": [],
+    "selected_sha256": {
+      "main.go": "1ecdd7ef108b33ba47753534e67b18b43f1648369172183e0773cb3dd2e15536",
+      "registry_authoring.go": "0901daf23e9dd640b70de116f205891486a0741d16ecf9e32f87d6dbbcedd50a",
+      "patch_test.go": "bc3199e5c8d543b6c46c2a48c951c42af6d95831e87c4ba8fa8adc69e329b1d8",
+      "testdata/registry-add.json": "9c5a7d0c09edf85bec6c13d22bc69306d8dbe1606d928d61ee4746ecc8217649"
+    },
+    "contract_sha256": "404bc6ae2fdbe715863359adabaa3120268ec6c8c92d65ed7dcd2b4f5634e7bb",
+    "reuse_decision_sha256": "4f6f2511117dab8854ec71cf231b97f2b6966284b691993c784ab0e7f6b8229c",
+    "private_freeze": "/var/tmp/dokapon-registry-add-review-5N8r4b/final-freeze.json",
+    "private_freeze_sha256": "c4aa67854013adf676832a70952a40db9e51abf089197f3a65ced0e7a3896de4"
+  },
+  "assessment": {
+    "scope": "Generic reviewed draft addition lifecycle is clearly separated from differing historical fullsweep/additions/discovered validators. It does not claim glyph/speaker/marker/fit/reference readiness or universal import parity.",
+    "reuse": "Existing authorRegistry owns normalized index, source pins, ambiguity/Unicode checks, raw metadata, field policy and publication. Adding a short insertion/classification path here is coherent; no new function/helper/closure/type/recipe field/dependency/writer. Existing-operation encoder/field policies remain, with no new sorting outside registry_add.",
+    "existing_operations": "Main routing adds the operation to existing capture and dispatch. Final switch is at the same position and has the same five cases as the prior OR condition. Inverse static edits reproduce initial main/registry hashes exactly. Author/merge/derived/report branches retain their field ownership, source lifetime, publication and order. Two author-table diagnostic prefixes now identify the operation name; refusal conditions remain the same.",
+    "input_and_identity": "Exactly six top-level fields; uint32 hex IDs reuse number, normalized aliases reject, body id is forbidden, four fields require strings, source_pool nonempty, new rows drafted. Existing exact JP/EN retains all metadata/status and old ID spelling; changed text conflicts.",
+    "encoding_and_order": "RawMessage keeps unknown metadata, large numbers, numeric lexemes and nested opaque duplicate keys. Common scanner rejects ambiguous rewritten root/batch/row keys and invalid selected text surrogates before repair. Some-new batches sort whole registry numerically; existing operation order is preserved. All-present batches copy exact original bytes/date.",
+    "report_and_safety": "Added/already-present arrays are explicit and deterministic; output hash matches preview/apply bytes, all-present updated reports original metadata. New-file-only publication retains source/readback/overwrite guards; no partial batch publication occurs."
+  },
+  "checks": {
+    "focused_complete_CLI": "PASS final4.188s; initial4.048s superseded",
+    "build": "PASS final",
+    "independent_CLI": "PASS9 invocations: exact-byte all-present preview/copy with ignored non-draft metadata; mixed insert at uint32 boundaries0/ffffffff and full numeric ordering; all-present replay with changed requested date; existing text conflict before new-status policy; new non-draft refusal; normalized batch duplicate refusal; overwrite preserves prior output. Source bytes/inode/size/mtime preserved, raw large numbers/numeric lexeme/duplicate opaque members retained.",
+    "public_fixture": "13 cases:11 precode lifecycle vectors plus2 disclosed post-review counterexamples; complete existing CLI owner also covers Unicode/duplicate-key/schema/source/write refusals.",
+    "pins": "All29 final Go/testfixture pins held before/after"
+  },
+  "evidence": {
+    "receipt": "/var/tmp/dokapon-registry-add-review-5N8r4b/final-receipt.json",
+    "receipt_sha256": "48d0c41f959bc085b623fa28b723557add0ba5cc0a0f3582aa146cb648388235",
+    "probe": "/var/tmp/dokapon-registry-add-review-5N8r4b/probe-final.json",
+    "probe_sha256": "0f09c8190b9339d25cef1ed4c33172b1fbd26b930882c3fc80ab2d7df72ebeae",
+    "delta": "/var/tmp/dokapon-registry-add-review-5N8r4b/delta.json",
+    "delta_sha256": "6930fa8ca2abf58b6d48f79f8c302592837e45b7f3bf4c67ae0c23a25044e19b"
+  },
+  "limits": [
+    "No full suite/race/mutation campaign repeated; parent owns focused race/vet/style checks.",
+    "No ISO/canonical registry/emulator/process access or production/test/docs edits.",
+    "No full-family, historical retirement, text readiness or implementation approval."
+  ]
+}

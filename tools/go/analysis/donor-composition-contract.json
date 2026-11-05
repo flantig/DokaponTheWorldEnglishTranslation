@@ -1,0 +1,278 @@
+{
+  "kind": "PRECODE read-only donor composition responsibility study; source/primitive facts, no artwork or implementation approval",
+  "scope": "Existing410 baseline asset/render subset, not a new whole-corpus crawl. The frozen assigned crawl covers141records with13asset.render primary sources. Three actual donor classes selected; no handler per sheet.",
+  "source_pins": {
+    "analysis/pattern-crawl-assets_runtime_tests.json": {
+      "bytes": 106351,
+      "sha256": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3"
+    },
+    "raster.go": {
+      "bytes": 13710,
+      "sha256": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8"
+    },
+    "raster_types.go": {
+      "bytes": 3470,
+      "sha256": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa"
+    },
+    "raster_resize.go": {
+      "bytes": 4515,
+      "sha256": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab"
+    },
+    "texture_authoring.go": {
+      "bytes": 9499,
+      "sha256": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf"
+    },
+    "texture_types.go": {
+      "bytes": 1930,
+      "sha256": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7"
+    },
+    "../make_explainer_png.py": {
+      "bytes": 31970,
+      "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3"
+    },
+    "../make_batch_c_png.py": {
+      "bytes": 13499,
+      "sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149"
+    },
+    "../batch_c_prize_art.py": {
+      "bytes": 3462,
+      "sha256": "dd342b1ee97a055ff81c789236d0defd5fe347623103b85790f0c01a3f49101b"
+    },
+    "../batch_e_art.py": {
+      "bytes": 62400,
+      "sha256": "529d2fa2fbb8a64cc3960c24c078ea194b8166ddbca6df51cc1cc125d40ca55d"
+    },
+    "../make_rank4_png.py": {
+      "bytes": 3955,
+      "sha256": "4cfba02562eaf992834c45379246ee493c1db198f052443e3f3453b9690a8095"
+    },
+    "../../generated/explainer-specs/batch_b_tutorial.json": {
+      "bytes": 54590,
+      "sha256": "1992b7a37a7d24fea92d6b0bddcf239ade252728e8be02ec172049342334f6d4"
+    },
+    "../../generated/explainer-specs/batch_c_parts/prize.json": {
+      "bytes": 13721,
+      "sha256": "a0e6745547d48cbfb295c4073da2f86d14aaaedd37182620465301f4b7ed65ad"
+    },
+    "../../generated/explainer-specs/batch_e.json": {
+      "bytes": 42902,
+      "sha256": "cefaa19d90b8f706cfcdbf4671064311c08dba7593ec989c58b94b4bf9157d24"
+    },
+    "../../generated/explainer-specs/batch_e_parts/title_small_line.png": {
+      "bytes": 7559,
+      "sha256": "d8aedb4b336bb7aa9ddfb7241230706c3981eea99577669a124f4044d700e50a"
+    }
+  },
+  "existing_owners": {
+    "Serena": "composeCells body+production authorTexture caller and existing tests inspected; resizeRaster symbol/body, glyph/native renderRuns source inspected. No project execution.",
+    "composeCells": "raster.go:19..362 owns clone, per-cell preflight, native per-line composition, approved rectangles, immutable base, ordered line quantization; currently requires font+atlas and supports text only.",
+    "renderRuns": "raster_runs.go:33 onwards owns mixed-color run widths/cursors/quarterfit and rounded geometry; currently text runs only, returns BitmapLayer without donor placement facts.",
+    "authorTexture": "texture_authoring.go:17..242 already owns recipe-relative pinned inputs, bounded PNG decode, source texture decode, composeCells call194 and existing texture candidate/containment/palette/publication path.",
+    "resizeRaster": "raster_resize.go:13..146 supports fixed full-image Pillow LANCZOS Gray/NRGBA with premultiplied filtering. It does NOT support BICUBIC or derived-donor masks.",
+    "pixelOver": "Existing exact Pillow blend owner is appropriate for text but donor replacement must not call it."
+  },
+  "actual_cases": [
+    {
+      "class": "Inline original-pixel icons in text groups",
+      "provider": [
+        "../make_explainer_png.py:350..405 text_layer reserves icon cursor/advance",
+        "../make_explainer_png.py:479..487 converts icon positions after rounded placement",
+        "../make_explainer_png.py:550..575 measure and paste_icons",
+        "../make_explainer_png.py:590..603,627..634 composite/texture-fill then icon copy per line"
+      ],
+      "recipe": "../../generated/explainer-specs/batch_b_tutorial.json has8operations containing inline {@...} across4textures. help_illust00 operation9: The basics: [Item or Magic {@arr} Move {@arr} Battle]!, source arr[284,116,18,10], lines box[125,110,384,22], px15,min10,ExtraBold. operation11 copies bain[165,196,22,22] and crystal[260,195,16,22] in a2line group box[125,192,384,44], leading21.",
+      "input_identity": "Immutable ORIGINAL source RGBA from the selected exported texture, not the current work image. Current source PNG hashes were not claimed/read from an ISO. Recipe and provider files pinned above.",
+      "semantics": "No resize or blend: int(round(left)),int(round(centerY-height/2)); assign complete original RGBA rectangle after each line text composition and optional texture_fill. Transparent donor pixels overwrite base including hiddenRGB. Later line text may paint over an earlier icon.",
+      "missing_shared_behavior": "Current native text run measurement cannot reserve an icon run and return its placement to composeCells; compositor cannot copy original source pixels after a line. This is a concrete common responsibility, not genericcopy solely because provider has an unused mode.",
+      "hold": "Selected actual recipes use TTF ExtraBold; supporting native bitmap icons does not establish exact output parity for these8complete TTF operations. TTF renderer and literal icon marker parsing remain distinct responsibilities."
+    },
+    {
+      "class": "Cross-PNG sibling parchment donors",
+      "provider": "../batch_c_prize_art.py:48..93 title_mask and rebuild, called by make_batch_c_png.run_ops hook path230..234 and final snap/allow restoration260..280.",
+      "recipe": "../../generated/explainer-specs/batch_c_parts/prize.json contains11actual prize0..prize10 rebuild hooks. prize0 declares rect[100,41,312,50],self prize0,dil8,siblings prize0..prize10, then styled TTF title.",
+      "input_identity": "Each sibling ORIGINAL exported PNG is read from --src-dir/environment at runtime. Historical provider has no file SHA pins; this study has not established current sibling PNG identities. A future shared loader must bind each source explicitly rather than inherit environment lookup.",
+      "semantics": "title_mask selects yellow fill with R within8 of255,Gwithin12of209,B<30,row<100; retain connected components size>=6 then EDTdistance<=dil. hole=selfmask&allow. For each other sibling compute clean=~titlemask; stable sort descending clean&hole pixel count, ties retain declared sibling order. take=todo&clean; exact RGBA replacement at SAME coordinates; later donors fill only remaining todo. If todo remains, seeded exemplar reconstruction in core_donor default[150,41,216,50] withP5/core2/seed1. Driver source-color snaps to target source palette and restores all outside allow.",
+      "missing_shared_behavior": "Pinned external raster acquisition and masked exact replacement can reuse authorTexture/composeCells. Dynamic title masks, stable donor selection and exemplar fallback are separate material algorithms and remain held; a crop/paste primitive alone does not complete11scrolls."
+    },
+    {
+      "class": "Cross-PNG cropped brand segments with different resampling",
+      "provider": "../batch_e_art.py:1320..1370 reuse_layer and1391..1418 brand_logo2.",
+      "recipe": "../../generated/explainer-specs/batch_e.json has3brand_logo2 hooks: title,allmap_1,allmap_2. title segments columns[0,90] at[10,47] scale2.7 and[92,170] at[267,83] scale2.95; sticker7, extrusion[2,3], explicit colors.",
+      "source_asset": {
+        "path": "../../generated/explainer-specs/batch_e_parts/title_small_line.png",
+        "dimensions": [
+          170,
+          30
+        ],
+        "bytes": 7559,
+        "sha256": "d8aedb4b336bb7aa9ddfb7241230706c3981eea99577669a124f4044d700e50a"
+      },
+      "semantics": "Clear alpha unless minRGB<140 OR maxRGB-minRGB>60. Crop selected full-height columns. Target dimensions round(sourceSize*scale*4), minimum1; precompute RGB*alpha float then clip/truncate to uint8. BICUBIC separately filters RGB-premultiplied image and alpha Gray; positions round(at*4), clip to supersampled canvas. Merge alpha by maximum but ADD premultiplied RGB across segments, then divide by max(alpha,1e-6),clip. Morphological sticker/extrusion and Layer.paint/down/put follow. This is not ordinary alphaOver, Pillow RGBA resize, or existing LANCZOS.",
+      "hold": "No new BICUBIC/framework recommended this increment. Source PNG identity is established, but no independent whole-hook artwork oracle or target original source identity is claimed. Existing resizer must not be silently substituted."
+    }
+  ],
+  "provider_only_copy_contract": {
+    "source": "../make_explainer_png.py:715..729",
+    "facts": "copy src[x,y,w,h] reads immutable orig only if from=orig; defaultwork snapshots whole current image before crop. Destination[x,y] replaces exactRGBA; destination[x,y,w,h] tiles source crop to fill and truncates final tile. No resize/blend. Whole op order matters; final declared rect mask restores outside original before/after source-color snap. make_batch_c_png delegates other ops through1opgeneric render but supplies currentPNG asorig, so copied orig in that delegated mode is current operation input, not batchinitialorig.",
+    "qualification": "Bounded recursively loaded current generated/explainer-specs JSONs contained zero op=copy. This is provider responsibility/source evidence, not proof of an active selected copy recipe or reason to prioritize a genericcopy mode ahead of inlineicons."
+  },
+  "inline_geometry_contract": {
+    "independence": "Literal arithmetic oracle from primary text_layer/place/paste_icons equations; no project/Pillow/Go execution, no glyph mask or full styled-layer parity claim.",
+    "fixed_inputs": {
+      "SS": 4,
+      "font": {
+        "Em": 24,
+        "Ascent": 24,
+        "Descent": 0,
+        "CapHeight": 24,
+        "supersample_A_advance_at_size6": 13,
+        "supersample_B_advance_at_size6": 28
+      },
+      "size": 6,
+      "sx": 1,
+      "sy": 1,
+      "stroke": 0,
+      "shadow": null,
+      "skew": 0,
+      "align": "left",
+      "at": [
+        10.25,
+        10
+      ],
+      "icon": {
+        "source_rect_xywh": [
+          1,
+          0,
+          2,
+          2
+        ],
+        "gap": 2,
+        "source": "immutable original RGBA, not work/current canvas"
+      },
+      "runs": [
+        "A",
+        "ICON",
+        "B"
+      ]
+    },
+    "mixed_zero_tracking": {
+      "tracking": 0,
+      "run_advances_SS": [
+        13,
+        24,
+        28
+      ],
+      "tw_SS": 65,
+      "reported_width": 16.25,
+      "pad_SS": 28,
+      "asc_SS": 24,
+      "desc_SS": 0,
+      "cap_SS": 24,
+      "base_SS": 52,
+      "cw_SS": 121,
+      "ch_SS": 80,
+      "geo_origin": [
+        3,
+        0
+      ],
+      "icon_cursor_SS": 49,
+      "icon_left_float": 15.25,
+      "icon_center_y_float": 10,
+      "copy_destination_xy": [
+        15,
+        9
+      ],
+      "copy_dimensions": [
+        2,
+        2
+      ],
+      "B_cursor_SS": 65,
+      "note": "Origin rounding precedes icon rounding: dx=round(geo.ox+(pad+13+gap*4)/4). Computing round(anchorX+13/4+gap) instead gives16 for10.25 and is WRONG; correct15."
+    },
+    "mixed_positive_tracking": {
+      "tracking": 0.5,
+      "trk_SS": 2,
+      "run_advances_SS": [
+        15,
+        24,
+        30
+      ],
+      "tw_SS": 67,
+      "reported_width": 16.75,
+      "cw_SS": 123,
+      "geo_origin": [
+        3,
+        0
+      ],
+      "icon_cursor_SS": 51,
+      "icon_left_float": 15.75,
+      "copy_destination_xy": [
+        16,
+        9
+      ],
+      "B_cursor_SS": 67,
+      "measure_and_text_layer_agree": true
+    },
+    "icon_only_tracking_caveat": {
+      "runs": [
+        "ICON"
+      ],
+      "tracking": 0.5,
+      "trk_SS": 2,
+      "measure_width": 6,
+      "text_layer_width": 5.5,
+      "reason": "measure subtracts tracking only when total text-character n>0; text_layer unconditionally tw=sum(adv)-trk. Icons contribute no text characters. This is an actual provider discrepancy, not a new policy to silently correct.",
+      "active_recipe_evidence": "Bounded batch_b8inline ops are mixed text; no icon-only operation selected/proven. Keep only-icon nonzero tracking held/refused in next finite extension unless deliberate compatibility decision."
+    },
+    "placement_equations": [
+      "Icon advance SS=(sourceWidth+2*gap)*SS/sx, independent of text size; reserve fixed source-pixel width plus gaps.",
+      "Icon cursor=xx+gap*SS/sx; increment xx by whole icon advance; zero tracking keeps per-text-run native draw reset, positive tracking advances continuous globalcursor.",
+      "After place sets rounded geo.ox/oy: icon_left=geo.ox+cursor*sx/SS, icon_centerY=geo.oy+(base*sy-cap*sy/2)/SS.",
+      "Copy destination=(round(icon_left),round(icon_centerY-iconHeight/2)), Python ties-to-even. Copy source full RGBA unchanged, no scaling or alpha blend.",
+      "op_lines composites each text line, applies optional from_orig fill, THEN copies that line icons; next line composition sees prior icons. Do not defer all icons to end of group."
+    ],
+    "source_spans": {
+      "measure": "../make_explainer_png.py:550..565",
+      "text_layer": "../make_explainer_png.py:350..405,479..487",
+      "place": "../make_explainer_png.py:490..545",
+      "paste_icons": "../make_explainer_png.py:568..575",
+      "perline_order": "../make_explainer_png.py:627..634"
+    }
+  },
+  "smallest_useful_next_direction": {
+    "recommendation": "Prioritize inline original-source icons as part of existing run/group composition. Enhance renderRuns measurement/cursor geometry and existing BitmapLayer placement facts; composeCells copies original exact RGBA immediately after each individual text line. Existing authorTexture already owns the base source decode, so same-sheet icons require no new donor loader or PNG asset.",
+    "no_new_function": "Existing renderRuns reasonably owns fixed icon width/gap and placement alongside text; composeCells reasonably owns ordered replacement and containment alongside line composition. No new image composer/CLI/blend helper or donor engine required. Do not force generic crop/reconstruction modes into renderRuns.",
+    "containment": "Preflight complete source rectangle and complete destination rectangle inside source image/approved cell; transparent donor pixels may change hiddenRGB, so alpha-only ink containment is insufficient. Preserve base/atlas immutability, resource bounds, duplicate identities and existing text cells. Failure must precede candidate publication. Historical final clipping/restoration is not silently accepted as strict spill success.",
+    "metric_constraints": "Use original pixel dimensions for icon width/height; gap2 on both sides, not font-size scaling. Root decides finite schema and validation after source study. Onlyicon nonzero tracking discrepancy stays explicit; do not silently normalize it.",
+    "codec_handoff": "Raw candidate donor bytes and final indexed source-color snap/native palette projection are distinct oracles. Existing texture/source policy performs projection; copying a donor does not authorize palette mutation or claim source index preservation for new colors.",
+    "root_precode_scope_decision": "Root selected active inline icons, not genericcopy/external reconstruction: enhance existing BitmapRun/BitmapRender shared icon rectangle lookup/BitmapLayer plus renderRuns and composeCells; pass the icons map explicitly and update every existing caller. Font remains required, with no dummy font/pure-paste mode, loader, decoder, resizer or new function. Optional gap nil defaults2; explicit0 must remain expressible. Root will freeze its formal reuse decision before implementation. Preserve exact per-pixel float operation order if changing composition iteration, then copy original RGBA via source replacement after each word/line. Old native goldens and complete legacy byte parity remain required verification, not established by this study."
+  },
+  "independent_precode_artifacts": {
+    "literal_pack": {
+      "directory": "/var/tmp/dokapon-donor-composition-contract-uje4k6q5",
+      "manifest_sha256": "f19111bfeaa80b45d867a95157fceee997ce7737964939671bd017b7d42df944",
+      "literal_oracles_sha256": "c142630bb3e55bf1d5454f198cdde61fcfff9e9b0386e0ff5661d84b972bd530",
+      "cases": 6,
+      "members": 32,
+      "scope": "All inputs/expected pixels listed literally before project execution. External crop+replacement/mask, work-overlap snapshot, work→orig versus work→work, tile remainder. No rendered text or resampler output inferred."
+    },
+    "inline_geometry_pack": {
+      "directory": "/var/tmp/dokapon-donor-composition-contract-inline-5gjubhci",
+      "manifest_sha256": "e2efb81737019c4934485d65936d627461affbad97222a8ce5dbf2abd058d365",
+      "facts_sha256": "4de2c5d208705c99fc73060df911e9418c0dd57330ae029f053095620be7602d",
+      "scope": "Declared metric arithmetic fixture, not actual Game font atlas/ink or TTF parity. It freezes mixed-text icon geometry and2stage rounding, positive tracking, and icon-only measurement discrepancy."
+    },
+    "verification": {
+      "manifest_member_hashes": "PASS both packs",
+      "literal_RGBA_PNG_roundtrip": "PASS15PNGs independently parsed IDAT/filter0/CRC and matched raw literal bytes",
+      "JSON_parse": "PASS",
+      "project_execution": "NONE; stdlib JSON/AST/source/PNG serialization only"
+    }
+  },
+  "limits": [
+    "No Go/project Python imports, executions, implementation or dependency changes.",
+    "No protected ISO/runtime/canonical registry access, source/art modifications or output-art approval.",
+    "No raster family promotion, retirement or broad410CLI completion claim.",
+    "Dynamic masks, exemplar/reconstruction, BICUBIC, TTF, donor index/native palette ownership remain distinct explicit gaps."
+  ]
+}

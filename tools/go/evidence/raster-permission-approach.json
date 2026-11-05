@@ -1,0 +1,162 @@
+{
+  "schema": "raster06-rounded-permission-astra-preflight-v1",
+  "role": "Read-only adversarial approach challenge, not implementation or approval; separate from scheduled audit043",
+  "accepted_manifest": {
+    "path": "/var/tmp/dokapon-reference-owners-ov77euwr/sealed-final/manifest.json",
+    "expected_sha256": "721bb5bda8ddc38f6526957a3a75b41ba424c72599e5a0150df1288bbf0fe605",
+    "verification_scope": "Manifest file hash only; did not independently reverify all665 members"
+  },
+  "inspection": {
+    "serena_session": "86d8031d",
+    "symbol_references": "composeCells: sole production caller authorTexture at texture_authoring.go609, existing TestCLIDryRunAndApply and TestPilotHistoricalGoldenBytes test callers. reconstructRaster: sole caller composeCells at raster.go398. RasterReconstruction: RasterComposition field and existing test literals. renderRuns inspected existing disc loop separately.",
+    "source_scope": "Accepted four analysis reports, pinned make_batch_c_png.py shape_mask/build_allow, batch_c spec11 rounded declarations, installed Pillow ImageDraw.py rounded_rectangle implementation. No mutable source-worker pack, root candidate tree, Go execution, new410 scan, source-art images or protected resources read."
+  },
+  "recommendation": {
+    "minimum_boundary": "Enhance composeCells' existing global permission stage once. It retains the fixed positive union, exclusion, allow_add and final native-footprint intersection. Rounded geometry must feed the SAME binary allow image consumed by reconstruction and text leak validation, with no second mask engine or per-script dispatch.",
+    "wire": "Keep Allow/Exclude/AllowAdd [][]int and their old four-integer validation exactly. Prefer one optional typed rounded-permission object grouped into allow/exclude/allow_add slices of named rectangle/radius facts. That mirrors the existing three stages without a new per-record stage enum, fifth tuple slot or custom JSON union decoder. Avoid separate shape-engine modes, radius arrays aligned by index, or changing old arrays to object-only values. Exact names remain a root implementation decision after frozen source evidence.",
+    "geometry_owner": "No new function is justified merely to iterate shape declarations or set stage values: enhance the current loop. If faithful Pillow rasterization requires a substantial independent integer ellipse/pieslice scan conversion algorithm, one pure geometry function is justified to own ONLY that numerical decision, called by this existing loop for all stages. Document the existing rejected owners before adding it. It must not own composition/order, JSON, recipe IDs, donors, masks from source pixels, publication, dependencies or anticipated future shapes.",
+    "rejected_owners": [
+      "reconstructRaster selects/grows current-pixel holes and reconstructs current donors; putting global geometry there would miss text-only permission enforcement and duplicate work per erase.",
+      "renderRuns glyph-disc loop uses dx*dx+dy*dy <= r*r+r and X-then-Y EDT ordering; it is font morphology, not Pillow inclusive pieslice coverage. A shared name or radius does not establish shared behavior.",
+      "resizeRaster samples images, pixelOver combines two pixels, and authorTexture validates/acquires/publishes. None reasonably owns independent Pillow geometry."
+    ]
+  },
+  "findings": [
+    {
+      "id": "R06-GEOMETRY-1",
+      "severity": "HIGH",
+      "location": "tools/make_batch_c_png.py:69-72,114-117; Pillow ImageDraw.py rounded_rectangle",
+      "finding": "A continuous circular-corner test, even evaluated at16 supersample centers, is not source-equal. Frozen original helper counterexamples: 6x6 radius3 pixel(2,0) and2x2 radius0.25 pixel(0,0) are forbidden by Pillow but allowed by the recorded continuous-circle calculation.",
+      "minimal_direction": "Use the frozen Pillow raster contract or explicitly limit/refuse unsupported numeric domains. Source equality requires inclusive endpoints x*4,y*4,(x+w)*4-1,(y+h)*4-1; Pillow diameter clamp and joined-corner branches; ties-to-even endpoint rounding where accepted; exact ellipse/pieslice fill; min over all16 subpixels. Radius-zero, overlarge radius and full_x/full_y/circle paths need independent original expectations. Do not treat the six tutorial paint operations as permission evidence.",
+      "evidence": "counterexample.py and counterexample-results.json; this demonstrates the named approximation fails, not that every possible analytical formulation fails"
+    },
+    {
+      "id": "R06-BOUNDS-1",
+      "severity": "HIGH",
+      "location": "raster.go:44-47,319-339,342-356",
+      "finding": "Existing image cap is1Mi native pixels and64 permission records; erase work accounting ignores permission rasterization. A naive full-canvas4x temporary for each of64 regions adds up to1,073,741,824 supersample visits, beyond the existing1<<28 operation budget, even with no erases.",
+      "minimal_direction": "Before allocation or raster work, count old and rounded regions together, require at least one positive region of either kind, and charge actual bounded geometry work plus existing work using int64. Validate dimensions/origin and finite radius before multiplying by4. Reject overflow and excessive aggregate work; reuse one bounded scratch buffer or evaluate bounded shape-local coverage rather than allocate64 whole masks. Add an exact-at-limit pass and one-over-limit refusal with unchanged input/output. Existing rectangle-only boundary cases must retain their accepted behavior."
+    },
+    {
+      "id": "R06-ORDER-1",
+      "severity": "HIGH",
+      "location": "raster.go:342-367,398,504-514; tools/make_batch_c_png.py:120-140",
+      "finding": "Grouping all old rectangles first and all rounded shapes second changes source semantics. An exclusion must remove prior permissions regardless of shape kind; allow_add must restore them afterward. The final native intersection and text changed-byte refusal remain mandatory.",
+      "minimal_direction": "Outer loop remains the existing three stages; within each stage process flat and rounded regions into the same binary image. Freeze mixed overlap tests including rounded positive/rect exclusion, rect positive/rounded exclusion, allow_add resurrection, stage-order invariance within a union, and restore outside native footprint remaining forbidden. Include text-only and mixed ordered erase/text tests plus nonzero image.Rect.Min. Original/current donor selection and immutable icon-source reads remain unchanged."
+    },
+    {
+      "id": "R06-WIRE-1",
+      "severity": "MEDIUM",
+      "location": "raster_reconstruction_types.go:3-9; texture_authoring.go:174-208",
+      "finding": "Adding typed nested permission facts creates new owned JSON object levels. Decoder tags alone do not preserve canonical-key and duplicate/null validation. Changing len(r)==4 to tolerate a fifth anonymous element obscures the radius contract and changes a legacy malformed-input refusal.",
+      "minimal_direction": "Extend existing authorTexture owned-object checks for the new outer object and each shape; reject unknown, case aliases, duplicate/null, malformed rectangles and unsupported radius domains before output. Distinguish absent radius(default source8) from explicit zero if omission is supported; alternatively require explicit radius and document that typed subset. Keep dynamic icon IDs exempt at their existing data boundary. Old flat arrays, empty/nil rules and unrelated modes get regression coverage."
+    },
+    {
+      "id": "R06-CREDIT-1",
+      "severity": "HIGH",
+      "location": "analysis/donor-reconstruction-frontier.json remaining_material_duties; analysis/reconstruction-mask-frontier.json active_vs_offered_and_held",
+      "finding": "The11 batch_c rounded allow declarations inspected are identical rectangle[21,116,470,171]/radius10 facts, not11 different numerical contracts or11 completed historical paths. This finite shape capability cannot change raster5/6 to6/6 or overall8/14 to9/14.",
+      "minimal_direction": "Keep PDE variants, exemplar/progressive clone, dynamic original-pixel providers and morphology/flood, family provenance/estimation, radial reconstruction, contour/pictogram/source-art and material transforms explicit. Count runtime implementation plus types/schema/adapters/recipes as growth unless historical responsibility deletion is demonstrated. Separate tests/evidence overhead. Keep prize fragment duplication separate from invocation counts and tutorial paintops."
+    }
+  ],
+  "source_freeze_requirements": [
+    "Pin original helper and spec bytes, Pillow ImageDraw.py and compiled imaging implementation/version, NumPy version, and harness selection. The local Pillow version12.3.0 is observed current evidence, not a claim about a historical environment.",
+    "Freeze raw binary masks and complete original-only RGBA composition outputs before candidate code. Record rectangle/radius/default and exact branch domain for active declarations; do not derive expected masks from a Go implementation or only image appearance.",
+    "Cover zero/default/positive/fractional/huge radius according to chosen public domain; thin1xN/Nx1/1x1 rectangles, odd/even diameter, joined corners/full ellipse, all4 edges, offsets and translation, native canvas edges. Negative/fractional coordinates, invalid extents, unknown fields and nonfinite numeric inputs can be clean typed refusals but must not be mislabeled original parity.",
+    "Keep source geometric allows independent of pixels and immutable original pixel-derived providers distinct from current erase selection; no arbitrary module:function loader. Freeze same RGB with different alpha and current-prefix cases only where relevant to composite coverage.",
+    "Use existing TestPilotHistoricalGoldenBytes and TestCLIDryRunAndApply tables. Verify complete output bytes, input preservation, outside-permission hidden RGBA, clean failure before publish, focused core/native builds/vet/gofmt and scoped credentials. No new test helper or test function merely for this slice."
+  ],
+  "reach": [
+    "raster_reconstruction_types.go",
+    "raster.go composeCells",
+    "texture_authoring.go authorTexture owned JSON guard",
+    "patch_test.go existing tables",
+    "purpose-grouped stable-ID recipe facts and portable example if added",
+    "proof/accounting/current scope documentation"
+  ],
+  "terminal_state": "Read-only preflight complete. Report and source-only counterexamples written exclusively under own /var/tmp. No implementation, approval, new dependency, Go execution, protected writes, coverage credit or retirement claim. Scheduled audit due00:01:40UTC remains unchanged.",
+  "limitations": "Did not inspect the concurrently mutable source-worker oracle pack or candidate implementation. Did not run Go tests/build/vet because no Go changes were made and task forbade Go execution. This report challenges an approach, not a finished patch.",
+  "at": "2026-11-04T23:46:09.746050+00:00",
+  "source_pins": [
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/AGENTS.md",
+      "bytes": 5164,
+      "sha256": "b1352d0bf12bf562c935d6c8b902bc935b0cfbc8bc343eb7a9b72a7d846e68c3"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/.goal/GOAL.md",
+      "bytes": 7795,
+      "sha256": "f6dbaf4662ab7d5dd1078bb0cff9b178a937b28964ae6cce2aabb53639e05482"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster.go",
+      "bytes": 20648,
+      "sha256": "b6addaf66e84c50e77c280b44f0e9e1505625a958dcd35ce124f1aecaf60ae1b"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_reconstruction.go",
+      "bytes": 6905,
+      "sha256": "a7494aaf2382828545258c8d2c77d61d8fe4eb3a11ef0265bdfa7fd5d41a2772"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_reconstruction_types.go",
+      "bytes": 1464,
+      "sha256": "d0dae1dfb402d89f644bc78fa625ada3ab6d5984fbbf64af168cb85d62b16f68"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_runs.go",
+      "bytes": 19345,
+      "sha256": "9f1ff15deb097ea413edfb290271026d8cba5d09c8c7c63d3e6932dddabed649"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/texture_authoring.go",
+      "bytes": 29147,
+      "sha256": "3a0ea9dfa2f7482dde05b80e325296ab7d3561fdd9eff01a79389a31222a537f"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/raster_types.go",
+      "bytes": 5446,
+      "sha256": "8b7433e8482c947584fc170f7cffdd137f0782994928615a160ee5b07f42f748"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/donor-reconstruction-frontier.json",
+      "bytes": 22124,
+      "sha256": "3cd2b727546001daa989f1280bbf2f1c808ce968004a744350fb5b15d13e08b2"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/reconstruction-mask-frontier.json",
+      "bytes": 36512,
+      "sha256": "4f7fe1694e9fa90fa13a837971c4cd1051f95fd6e7c53f174bba5d394cd7890c"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/donor-reconstruction-boundary-review.json",
+      "bytes": 16483,
+      "sha256": "55b9cf650d06ce15bece4b2aeda072a789d92831893877b017b9e96c60f323fc"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/reconstruction-mask-reuse-decision.json",
+      "bytes": 3268,
+      "sha256": "276d1a1db94431bf67972e6bb540329e783405f9accb47ead14e3d1dd497e053"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/tools/make_batch_c_png.py",
+      "bytes": 13499,
+      "sha256": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149"
+    },
+    {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/generated/explainer-specs/batch_c.json",
+      "bytes": 103036,
+      "sha256": "df7b92f0696ff2a411cecb46b17380627da790fb9261574e538622214fff6dd1"
+    },
+    {
+      "path": "/home/franklinl/.local/lib/python3.14/site-packages/PIL/ImageDraw.py",
+      "bytes": 35419,
+      "sha256": "e83a5fc1f270e69f243e6cbcdd5cc548e997199aab276fa19a67ded591bb3c9a"
+    },
+    {
+      "path": "/var/tmp/dokapon-reference-owners-ov77euwr/sealed-final/manifest.json",
+      "bytes": 72869,
+      "sha256": "721bb5bda8ddc38f6526957a3a75b41ba424c72599e5a0150df1288bbf0fe605"
+    }
+  ]
+}

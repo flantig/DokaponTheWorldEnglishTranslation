@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T22:50:32.041111+00:00",
+  "status": "VERIFIED shared paired stream audit; full migration ACTIVE/incomplete",
+  "contract": "Read-only explicit bounded file-window comparison. Shared decoder chosen explicitly; raw complete span/first difference, through-END bytes, glyph words/text, positioned controls/offset-free sequence, decoded argument words and opaque payloads remain separate. Decode failure makes semantic comparisons null, never a fallback success.",
+  "owners": [
+    "auditStreams",
+    "controls",
+    "glyphMaps",
+    "readInput",
+    "checkJSON",
+    "run"
+  ],
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "input_types.go": "9321fcb6f8c72ec87816ef008d9f51844208284b49abaa0d167ce7c0586437c6",
+    "inputs.go": "1c1580c143bde91ae965fd7c50acdca8e9b771f5125ba10740070981585dfd28",
+    "main.go": "d0b0170edef1b8a34ec7b7ecf173cb65e939f7a67657bbd7c29f43bdb5d4e416",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "5d388738600889b77d006abc2197116256d78eb969c7b657c60befa6bd90a427",
+    "patch_test.go": "167c84d19b0250987f1e5fac89274f668dfa11669d5b66068a6fb2922ded4d0a",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+    "registry_authoring.go": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41",
+    "registry_types.go": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "stream_audit.go": "d2a29c23ea5f1c26300ce259358507d30783752b8ad54f6a59830de7fdb7055f",
+    "stream_audit_types.go": "30f107b0c504f3aa1adadd96107ab63ed73803da5f91846373852a3765542072",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/stream-audit.json": "7ee553f100ce4e5d37fa969745102b1681644f7a54788ed5c883aa5fb9bca89e",
+    "examples/stream-audit/glyphmap.json": "2bea13f1edda47972ee5f2b117854077b172deda6c9fff871f9fc0aecd4ae8d8",
+    "examples/stream-audit/observed.bin": "e2c04d69bdd7d0d52e9f19f8a39e0f78f31b4748399eb2ef49ab4aa956238228",
+    "examples/stream-audit/profile.json": "99ee88a917d7d7df8f2add7fbccdd481c98b185cb79b9496d87eaecce2ec62d9",
+    "examples/stream-audit/reference.bin": "7b9a05677e13b551f0c24fe31961e936bb5e3999a4c8488f9db8c254883ebba2"
+  },
+  "source_and_review_pins": {
+    "analysis/stream-audit-contract.json": "354b847422e7dd456a38d52de9bf83a0158c9d3ce951a9705ec2c4e774167857",
+    "analysis/stream-audit-native-contract.json": "025c37a8857af847ac69556fabc7a022b8b4bcc1221fccdb19ef2d596990533f",
+    "analysis/stream-audit-reuse-decision.json": "ae1f0489911c19b7e01a7867ef7e6bf639f5a1bbd55f35c8abdd55d1c2182321",
+    "analysis/go-current-input-accounting.json": "1a8edcd16bd53f300d93b9e2c6ad55d979b4b0ebe5f751aad45579b640b2cdc6",
+    "evidence/stream-audit-review.json": "04df93a8ea43066ab20bd0cfebc29489de41cf68513fa90951ee8a23b9cdb6f0",
+    "evidence/stream-audit-architecture-checks.json": "89a4745a8d70f77ed85b972f71559841f3c32935262131d875a09873d2838ee8"
+  },
+  "reuse": "One justified paired input/report lifecycle owner; existing registry ambiguity scanner extracted once for real registry+audit callers. Existing RegistryInput and checkedJSON moved to shared input_types by usage. No second decoder/encoder/writer/mapper/helper/dependency. Precode candidates/reasons retained in reuse decision and immutable private before-final copy.",
+  "review": {
+    "path": "evidence/stream-audit-review.json",
+    "sha256": "04df93a8ea43066ab20bd0cfebc29489de41cf68513fa90951ee8a23b9cdb6f0",
+    "open_findings": 0,
+    "closed_finding": "MEDIUM STREAM-PROFILE-1: exact typed JSON names now reject Go ASCII/Unicodecasefold aliases via existing shared validator policy; dynamic maps/legacy selective ownership unchanged.",
+    "independence": "Ordinary read-only36candidate review, not approval; later metadata/root snapshot verified separately."
+  },
+  "checks": {
+    "build": {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-stream-audit-f416_b7m/dokapon-go",
+        "./..."
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "vet": {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "public_example": {
+      "command": [
+        "/var/tmp/dokapon-stream-audit-f416_b7m/dokapon-go",
+        "--stream-audit-profile",
+        "examples/stream-audit/profile.json"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "report_sha256": "3811f442572790802bd51ad2c627f216cf03bfe31a7653db2f7f5c40f7f2d621",
+      "rows": 14,
+      "all_literal_factors_and_tokens_match": true,
+      "note": "Expected empty omitempty collections/strings omitted only; failed message text normalized to independent unsupported marker.",
+      "after_alias_fix": true
+    },
+    "race": {
+      "command": "go test -p 2 -race -run ^Test(CLIDryRunAndApply|PlanRefusals|Controls|GlyphMaps) -count=1 ./...",
+      "result": "PASS dokapon/tools 35.282s after alias fix",
+      "session": 29068,
+      "full_suite": false
+    },
+    "at": "2026-10-20T22:47:21.559662+00:00",
+    "prior_before_alias_fix": {
+      "build": {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-stream-audit-f416_b7m/dokapon-go",
+          "./..."
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "vet": {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "public_example": {
+        "command": [
+          "/var/tmp/dokapon-stream-audit-f416_b7m/dokapon-go",
+          "--stream-audit-profile",
+          "examples/stream-audit/profile.json"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "report_sha256": "3811f442572790802bd51ad2c627f216cf03bfe31a7653db2f7f5c40f7f2d621",
+        "rows": 14,
+        "all_literal_factors_and_tokens_match": true,
+        "note": "Expected empty omitempty collections/strings omitted only; failed message text normalized to independent unsupported marker.",
+        "after_alias_fix": true
+      },
+      "race": {
+        "command": "go test -p 2 -race -run ^Test(CLIDryRunAndApply|PlanRefusals|Controls|GlyphMaps) -count=1 ./...",
+        "result": "PASS dokapon/tools 31.272s",
+        "session": 32679,
+        "full_suite": false
+      },
+      "at": "2026-10-20T22:44:02.576106+00:00"
+    },
+    "binary_sha256": "22656beea70aa2ed543a3b56eb3cc5166b6a7a2a2dcca4f20f1270142bbdba5f"
+  },
+  "precode_vectors": {
+    "source_contract": "analysis/stream-audit-contract.json",
+    "verified_pack_files": 17,
+    "verified_baseline_source_files": 19,
+    "literal_report_rows": 14,
+    "additional_odd_extent": "refuses as malformed explicit window",
+    "oracle_correction": "One overlapping grammar oracle corrected independently before code/Go output, original immutable pack retained; corrected source/profile/glyph pins unchanged.",
+    "test_setup_failure": "Initial new test nil-map assignment panic fixed in fixture-mutation setup; later full CLI and race passes supersede it, recorded in work state."
+  },
+  "native_facts": {
+    "status": "PASS",
+    "at": "2026-10-20T22:47:59.803812+00:00",
+    "source_contract_sha256": "025c37a8857af847ac69556fabc7a022b8b4bcc1221fccdb19ef2d596990533f",
+    "profile_sha256": "ee0a4f384be5c0be5e71ed4d02ecb802bc19756e74e977652f5119a04c4be395",
+    "expected_sha256": "ddb73b75b957afb4fdc56c4a1882a9c4ec36bac8ea2a78d6c83307048484904a",
+    "report_sha256": "fdbb9cb943dd98b563bd0d514af3bd7b518893ccbbde45ddb80aaec1dfdcc079",
+    "rows": 3,
+    "full_token_glyph_control_argument_and_raw_factors_match": true,
+    "all_input_bytes_identity_mtime_preserved": true,
+    "limits": "Frozen extracted ELF only. DF/MG intentionally compares different labels, not a mod regression. JP source is not sentinel/live EN. No native runtime/wholemod/fullreference/encoding/placement claim."
+  },
+  "public_example": {
+    "profile": "examples/stream-audit/profile.json",
+    "files": 4,
+    "runtime_bytes": 5848,
+    "independent_literal_match": true,
+    "output_sha256": "3811f442572790802bd51ad2c627f216cf03bfe31a7653db2f7f5c40f7f2d621"
+  },
+  "private_receipts": {
+    "/var/tmp/dokapon-stream-audit-f416_b7m/schema-bridge-verification.json": {
+      "bytes": 525,
+      "sha256": "179ca0d80761352cf47ce58610f556751c8c37ebb0fb83236bf2dca194a7aa53"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/checks.json": {
+      "bytes": 2640,
+      "sha256": "3caa62d7d4baf3f264a05133ccf434dc4e7b5c5cbf9ada3becd498379f69f0c4"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/hygiene-checks.json": {
+      "bytes": 1514,
+      "sha256": "a9f0b69c26d4b4d5483922268392b1b3a7eb6a1797fca415ca1bea9cba00531f"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/accounting-checks.json": {
+      "bytes": 638,
+      "sha256": "e6616fbe7f68c89808bdb1e2ddeddf9888cf357c1a788a895f625ba0fdb54860"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/native-checks.json": {
+      "bytes": 772,
+      "sha256": "46d49500d5a09fc38c517a295dd2f4a9cd8348c6198b223fe06e212502616cdc"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/native-report.json": {
+      "bytes": 10210,
+      "sha256": "fdbb9cb943dd98b563bd0d514af3bd7b518893ccbbde45ddb80aaec1dfdcc079"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/example-report-final.json": {
+      "bytes": 65470,
+      "sha256": "3811f442572790802bd51ad2c627f216cf03bfe31a7653db2f7f5c40f7f2d621"
+    },
+    "/var/tmp/dokapon-stream-audit-f416_b7m/reuse-decision-before-final.json": {
+      "bytes": 4442,
+      "sha256": "154d3602831732e47803a97460cbd41c7fcb7453e4971094df8c7f83d1e9b02d"
+    }
+  },
+  "accounting": {
+    "status": "ROOT_ACCOUNTING_PASS",
+    "functions": 31,
+    "production_go": {
+      "files": 30,
+      "bytes": 302492
+    },
+    "delta_bytes": {
+      "production_go": 13711,
+      "audit_examples": 5848,
+      "go_tests": 13116,
+      "testdata": 64761
+    },
+    "runtime_before": {
+      "files": 100,
+      "bytes": 765481
+    },
+    "runtime_after": {
+      "files": 107,
+      "bytes": 785040
+    },
+    "test_bytes": 464132,
+    "total_accounted_inputs": 187,
+    "claim": "Capability growth: validator extraction/type moves are not savings. All4public runnable example files counted runtime; independent fixture/tests separate. No retirement or coverage promotion."
+  },
+  "diagram": {
+    "evidence": "evidence/stream-audit-architecture-checks.json",
+    "sha256": "89a4745a8d70f77ed85b972f71559841f3c32935262131d875a09873d2838ee8",
+    "breakpoints": [
+      "1440x900",
+      "390x844"
+    ],
+    "existing_Playwright_and_both_visual_inspections": "PASS; private existing-script extension, no new UI functions/dependencies"
+  },
+  "coverage": {
+    "full_core_families": 5,
+    "partial_core_families": 9,
+    "core_total": 14,
+    "percent_full": 35.71,
+    "historical_full": 8,
+    "reviewed_historical": 20,
+    "partial_historical": 16,
+    "outstanding_historical": 366,
+    "historical_total": 410,
+    "new_family_or_retirement_credit": false
+  },
+  "limits": [
+    "No source-selected live-reference resolution, canonical EN policy, registry/ledger/disc truth, argument producer/type/substitution/native-fit or gameplay proof.",
+    "IDs label declared windows; even successful comparisons do not prove those windows are reached by the game. NativeJP source case is not sentinel live translated content. DF/MG intentionally compares different labels.",
+    "Per-window/glyph expansion/report caps are resource guards, not hostile concurrent file namespace or CPU/memory sandbox guarantees.",
+    "Full integrated Go suite/race deferred to integrated toolkit checkpoint; focused current CLI and affected tests/race plus independent probes only.",
+    "No ISO reads/writes or canonical registry writes, protected emulator/PINE/controller/process/log/settings access/control. Only pinned existing private extracted ELF/registry/glyphs and owned fixtures used.",
+    "Production+13711B plus all4exampleinputs5848B =19559B runtime capability growth. Validator/type relocation not savings; tests/fixture growth separate."
+  ]
+}

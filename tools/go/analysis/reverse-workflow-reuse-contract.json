@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-19",
+  "kind": "readonly-design-probe",
+  "coverage_family": {
+    "id": "guarded_transactions",
+    "core_complete": 2,
+    "core_total": 14,
+    "score": "14.3%",
+    "reason_for_partial": "No verified reverse/revert workflow evidence"
+  },
+  "recommendation": {
+    "reuse": ["plan", "verifySource", "patchCopy", "validateEdits", "run"],
+    "operation": "guarded_words",
+    "new_operation_required": false,
+    "new_function_or_helper_required": false,
+    "new_cli_flag_required": false,
+    "reverse_recipe_contract": {
+      "source_sha256": "exact reviewed forward output SHA-256",
+      "source_size": "same regular whole-image size",
+      "entries": "same stable IDs and VMAs as the reviewed edits",
+      "expected_hex": "exact forward New bytes, serving as reverse preimages",
+      "words": "independently reviewed original machine words and assembly notes",
+      "output_sha256": "known forward source SHA-256; require exact full-image restoration"
+    },
+    "implementation_delta_if_authorized": "Permit and validate existing OutputSHA256 for guarded_words in current plan/run guards; patchCopy already checks the final digest. Keep initial scope to one guarded_words table."
+  },
+  "existing_contract": {
+    "plan": "source/glyph pins, explicit expected bytes, word alignment, target words, table composition and validateEdits bounds/overlap",
+    "verifySource": "regular file/type and size; replan; exact edit ID/offset/operation/Old/New comparison; full source hash; source-state inspection",
+    "patchCopy": "exclusive new output; pre-copy source verification and copy hash; pre-write pending state; sync; readback state; full output digest; optional output SHA enforcement",
+    "limitations": [
+      "OutputSHA256 is rejected for guarded_words by plan and run even though patchCopy can enforce it.",
+      "guarded_words checks exact bytes/alignment and nonempty assembly descriptions, not instruction semantics, references, consumers, control flow or ABI.",
+      "A word-only reverse cannot undo coupled stream, pointer, allocation, registry or multi-component changes."
+    ]
+  },
+  "serena_symbols_and_callers": {
+    "symbols": {
+      "plan": "patch.go:672",
+      "validateEdits": "patch.go:1424",
+      "verifySource": "patch.go:1929",
+      "patchCopy": "patch.go:1976",
+      "run": "main.go:25",
+      "TestPlanAndCopy": "patch_test.go:250",
+      "TestCLIDryRunAndApply": "patch_test.go:3301"
+    },
+    "call_graph": [
+      "run -> plan",
+      "run dry-run -> verifySource -> plan",
+      "run apply -> patchCopy -> verifySource -> plan",
+      "plan and planBundle -> validateEdits"
+    ],
+    "relevant_existing_tests": ["TestPlanAndCopy", "TestCLIDryRunAndApply", "TestPlanRefusals", "TestUnexpectedAndShortImage", "TestMisalignedTargetAndWriterBoundary"]
+  },
+  "example_pin_pair": {
+    "forward_recipe": "recipes/layout/space-width.json",
+    "forward_source_sha256": "329f93e9225599385a48b71d8165a9467c2028067f684dcb72934ba3a90adaa2",
+    "forward_output_sha256": "fd446934870a64be96572a4632a24c9892fa065542e6675f5341fb2e3d5f672c",
+    "meaning": "Illustrative known source/output pin pair only; not reverse proof or approval."
+  },
+  "source_sha256": {
+    "patch.go": "2c0dd080657a5a14238092f39acedcc32cb7a18b82a45624fa9098e1da0905fd",
+    "main.go": "ed0484c67d510d05d268085bd388b1f00a61877fd38b819ec6e9fff65ac0dd72",
+    "recipe_types.go": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+    "patch_test.go": "a064e3d5073df9594efd3875f37998fadf8e678a5cdbabbd76045cc77455b84a",
+    "recipes/layout/space-width.json": "21771cc0a45b409b87dfad2401b0fd1e3944cb91830a19cd09e16102eec00951"
+  },
+  "test_extension": {
+    "TestPlanAndCopy": "Explicit reverse recipe fixture; success byte-equals original source; reject wrong source hash, wrong preimage, unexpected out-of-recipe bytes and wrong output digest; source remains unchanged.",
+    "TestCLIDryRunAndApply": "Dry-run writes nothing; apply writes exclusive new output and reports hashes; refuse existing output and wrong source hash; source unchanged.",
+    "independent_recipe_data": "Encode expected reverse Old/New bytes directly; never derive reverse by inverting arbitrary Edit values."
+  },
+  "semantic_guard_requirement": "Only claim reverse for word-only edits whose reference/ABI/consumer invariants are independently reviewed and retained in existing applicable checks. Assembly notes alone are not semantic validation.",
+  "scope_limit": "Does not support general rollback of mixed transactions or close guarded_transactions coverage gap.",
+  "work_done": "Read-only inspection; no tests run; no Go/test/recipe/registry/ISO/emulator/process writes or actions."
+}

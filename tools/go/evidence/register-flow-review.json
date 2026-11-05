@@ -1,0 +1,226 @@
+{
+  "review_kind": "Independent ordinary read-only review of initial bounded register-flow candidate",
+  "start_utc": "2026-11-04T21:38:35.350203+00:00",
+  "end_utc": "2026-11-04T21:42:50.058998+00:00",
+  "status": "ONE_CONFIRMED_MUST_FIX_FINDING_INITIAL_CANDIDATE",
+  "authority": "Findings only. No implementation, approval, publication, migration coverage or criterion award.",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-register-flow-lfj28b6t/review-source-manifest.json",
+    "sha256": "7ef6e957b744b26ed0b8cc07917ff0e9b3a6a26dbd4a3c9d495f547ddce8b50e",
+    "bindings": 636,
+    "status": "PASS"
+  },
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-instruction-flow-b69ig0qd/sealed-final/manifest.json",
+    "sha256": "962071cfcee9a0778ebf8c5f1bcf579f1d06de9b00694d30cdaf3f60d8e49b0b",
+    "bindings": 635,
+    "status": "PASS"
+  },
+  "precode_source_fixture": {
+    "manifest": "/var/tmp/dokapon-register-flow-cli-v2-1QaQWVor/manifest.json",
+    "sha256": "6017daa9e4686715bf525fa8d104db5145eb33ee2f4351db039840be7996f8a5",
+    "bindings": 9,
+    "status": "PASS"
+  },
+  "code_sha256": {
+    "register_flow.go": "4e35a09c477bbacfa598e6e4d122484b0f074d8ad7e80e6a7efe65d3362664a1",
+    "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+    "references.go": "ca525b2f71f77e13e512344a93a7a28680312c6474fcd50fa2c134767b98eca5",
+    "main.go": "4e7a823a66dceb48abac6359b1255e7a67e7f13747aa505d7f9456de42a4a1fb",
+    "recipe_types.go": "650f5e67ce425b695b34ee0410913744343387478da45482afb621c3cbe40b79",
+    "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+    "patch_test.go": "25a3d981db3c15958595b2a1a1a5c80a70ecc36c095ee4dd9ee14f06d37195ec"
+  },
+  "scope": "Finite low32 reaching-definitions/uses-after analysis on the existing index, asserted entries, pending delay contexts, conservative unknowns, input grammar and resource limits. One-user local read-only tool. No protected resources.",
+  "serena": {
+    "session": "5bc5c99f",
+    "project": "/var/tmp/dokapon-register-review-18p58u82/project",
+    "queryRegisterFlow_callers": [
+      "references.go/references"
+    ],
+    "shared_checkJSON_callers_traced": true
+  },
+  "findings": [
+    {
+      "id": "RF-UNKNOWN-ROOT-1",
+      "severity": "MUST_FIX",
+      "title": "Reachable query roots discard other reachable unknown frontiers and falsely report complete definitions",
+      "file": "register_flow.go",
+      "lines": [
+        177,
+        182,
+        204,
+        209,
+        213,
+        217
+      ],
+      "what": "Graph construction records reachable unknown frontiers in blockedReasons. Those reasons are retained only when no graph root reaches the query.",
+      "problem": "A known path reaches the query while another reachable path stops at an unmodeled instruction or unresolved indirect jump. The unknown path can carry an unmodeled predecessor or delay-slot definition into the same selected query. Existing code returns complete_within_asserted_scope=true with no reasons and omits that uncertainty.",
+      "repros": [
+        {
+          "source": "unknown.elf",
+          "profile": "unknown-profile.json",
+          "script": "repro-unknown.py",
+          "entry_vma": "0x10000",
+          "query": "reaching_defs register8 at0x10010 normal max100",
+          "words": [
+            "0x10220003",
+            "0x0",
+            "0xe8000000",
+            "0x0",
+            "0x8d030000",
+            "0x8c080000"
+          ],
+          "actual": {
+            "known_fact_sites": [],
+            "incoming_entry_sites": [
+              65536
+            ],
+            "complete_within_asserted_scope": true,
+            "incomplete_reasons": []
+          },
+          "expected": "Retain known provenance and mark incomplete unsupported_instruction. Reserved primary0x3a at0x10008 is actually unsupported in the decoded index.",
+          "outputs": [
+            "unknown-core.json",
+            "unknown-native.json"
+          ]
+        },
+        {
+          "source": "indirect.elf",
+          "profile": "indirect-profile.json",
+          "script": "probe-indirect.py",
+          "entry_vma": "0x10000",
+          "query": "reaching_defs register8 at0x10010 normal max100",
+          "words": [
+            "0x10220003",
+            "0x0",
+            "0x01000008",
+            "0x24080001",
+            "0x8d030000",
+            "0x8c080000"
+          ],
+          "actual": {
+            "known_fact_sites": [],
+            "incoming_entry_sites": [
+              65536
+            ],
+            "complete_within_asserted_scope": true,
+            "incomplete_reasons": []
+          },
+          "expected": "Mark incomplete unresolved_indirect_exit without inventing an edge. Oldr8==0x10010 makes JRcapturethe selectedtarget before delayADDIU at0x1000c definesr8. The known branch path alone cannot establish complete definitions.",
+          "outputs": [
+            "indirect-core.json",
+            "indirect-native.json"
+          ]
+        }
+      ],
+      "smallest_fix": "For nonzero reaching_defs with reachable roots, retain reachable unknown frontier reasons except known out_of_scope_direct_target. A conservative held result is sufficient; do not synthesize targets, add another graph or infer call returns. Preserve uses-after value traversal so a definite kill shields later unknown effects. Document any conservative over-holding.",
+      "if_skipped": "Downstream consumers can mistake a partial definition list for a complete local answer, particularly around foreign readers or alternate unknown control paths.",
+      "owner_disposition": "Root accepted both repros as one finding and plans conservative frontier propagation plus permanent regressions and a source-oracle correction. Implementation and revised goldens were not reviewed in this initial report.",
+      "review_correction": "The first promptly sent message named0xffffffff as unknown; that is actually a modeled SD. Before publication the reviewer corrected it to0xe8000000, reran both builds, verified actual unsupported operand status, and notified root. Current retained repros use the corrected word."
+    }
+  ],
+  "verification": {
+    "checks": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-register-review-18p58u82/core",
+          "."
+        ],
+        "start": "2026-11-04T21:39:03.406086+00:00",
+        "end": "2026-11-04T21:39:04.813174+00:00",
+        "seconds": 1.407092901004944,
+        "exit": 0,
+        "log": "check-0.log"
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^TestCLIDryRunAndApply$",
+          "."
+        ],
+        "start": "2026-11-04T21:39:04.813325+00:00",
+        "end": "2026-11-04T21:39:26.619242+00:00",
+        "seconds": 21.805925353997736,
+        "exit": 0,
+        "log": "check-1.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T21:39:26.619434+00:00",
+        "end": "2026-11-04T21:39:26.967424+00:00",
+        "seconds": 0.3480056539992802,
+        "exit": 0,
+        "log": "check-2.log"
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-register-review-18p58u82/native",
+          "."
+        ],
+        "start": "2026-11-04T21:39:26.967707+00:00",
+        "end": "2026-11-04T21:39:28.980375+00:00",
+        "seconds": 2.012675980993663,
+        "exit": 0,
+        "log": "check-3.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T21:39:28.980577+00:00",
+        "end": "2026-11-04T21:39:29.726152+00:00",
+        "seconds": 0.7455837839952437,
+        "exit": 0,
+        "log": "check-4.log"
+      }
+    ],
+    "focused_test_reported_seconds": 14.132,
+    "source_goldens": "Existing focused CLI test exercised frozen23contexts44queryfacts plus prior index fixtures and parser regressions. A passing old oracle does not disprove the new counterexamples.",
+    "additional_repros": "Both exact synthetic failures executed in core and native. Inputs retained and all636candidate copy bindings unchanged.",
+    "all_owned_jobs": "terminal. Owned session7447reaped exit0; repros and manifest checks synchronous and exited0."
+  },
+  "reuse_and_readability": "One pure graph/query owner is justified by execution-context/worklist invariants and has one reference-owner caller. It consumes the existing decoder and mapping lifecycle, builds one graph per batch, keeps predecessor-specific delays, and preserves source-scoped unknowns. No concrete duplicate handler/new helper or additional readability finding was established. Correctness finding takes precedence over growth claims.",
+  "binaries": {
+    "core": "f3dfdb0e670397fdaac8129acaca07f411ef0190a81401879b21a046fdcef07b",
+    "native": "c8cf4c5b98df081f93329eb9df65dc581a555307e2ef6f5b3acf161267deab7d"
+  },
+  "artifacts": {
+    "directory": "/var/tmp/dokapon-register-review-18p58u82",
+    "manifest": "/var/tmp/dokapon-register-review-18p58u82/artifact-manifest.json",
+    "sha256": "fd77a179304e89201bd0dab3969d328a1d2bfa1f4dd14920c8d1c15553c5c773",
+    "members": 668
+  },
+  "writes": "Owned private copy/scripts/outputs/evidence only; no candidate, baseline or live runtime source edits. New LIVE evidence/register-flow-review.json is the only live write.",
+  "not_checked": "Full suite, fresh race, nativefonts race, gameplay/runtime, full R5900 semantics, hostile concurrent input replacement, final fixed candidate or corrected source oracle. No extra probing after owner requested this initial report.",
+  "risk": "Initial candidate has false complete reaching-def results. Whole-program scope remains unproved independently; a scope disclaimer does not repair the missing reachable-frontier reason."
+}

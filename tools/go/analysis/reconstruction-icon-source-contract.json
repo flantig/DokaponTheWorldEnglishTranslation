@@ -1,0 +1,247 @@
+{
+  "schema": "reconstruction-icon-source-contract-v1",
+  "at": "2026-10-21T06:55:08.115310+00:00",
+  "status": "Original-only positive source fixture; no implementation or approval",
+  "chronology": "Existingprivatereconstructioncandidate exists; thisNEWsource-onlycase frozenbeforeanycandidateexecution onthiscase. Workerreadnocandidateoutput/Goexecution.",
+  "finding": "After a reconstruction step changes the source crop, original text/icon composition still copies immutable originalRGBA. Reading icons from the currentcanvas is observablywrong.",
+  "program": {
+    "literal_canvas": [
+      128,
+      80
+    ],
+    "original_source": "/tmp/dokapon-donor-composition-2s2_i91s/precode/reference-inputs/renderer.py",
+    "font_source": "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/NotoSans-CondensedExtraBold.ttf",
+    "font_sha256": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197",
+    "global_allow_union_xywh": [
+      [
+        3,
+        2,
+        3,
+        3
+      ],
+      [
+        12,
+        16,
+        104,
+        48
+      ]
+    ],
+    "ordered_steps": [
+      {
+        "id": "erase-donor-source",
+        "operation": {
+          "op": "erase",
+          "rect": [
+            3,
+            2,
+            3,
+            3
+          ],
+          "mask": "all",
+          "method": "flat",
+          "color": "flat"
+        },
+        "approved_step_rect": [
+          3,
+          2,
+          3,
+          3
+        ]
+      },
+      {
+        "id": "text-with-original-icon",
+        "operation": {
+          "op": "text",
+          "font": "ExtraBold",
+          "text": "Use {@mark} now",
+          "px": 10,
+          "min_px": 10,
+          "max_w": 100,
+          "at": [
+            64,
+            36
+          ],
+          "align": "center",
+          "color": "ink",
+          "tracking": 0,
+          "strokes": []
+        },
+        "approved_step_rect": [
+          12,
+          16,
+          104,
+          48
+        ],
+        "cell_relative_anchor": [
+          52,
+          20
+        ]
+      }
+    ],
+    "icons": {
+      "mark": [
+        3,
+        2,
+        3,
+        3
+      ]
+    },
+    "color_map": {
+      "ink": [
+        7,
+        5,
+        4,
+        255
+      ],
+      "flat": [
+        90,
+        80,
+        70,
+        17
+      ]
+    },
+    "source_semantics": "ReconstructionerasesCURRENTdonorregion; text/iconstepstillreadsimmutableoriginalRGBA. Globalallowandsteprects distinctfacts; schemaonlysemanticbridge, notGoapproval."
+  },
+  "source_contract": {
+    "renderer": "/tmp/dokapon-donor-composition-2s2_i91s/precode/reference-inputs/renderer.py",
+    "renderer_sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "driver": "Original make_batch_c.run_ops passes oo=_orig=orig to mx.op_text after erase. make_explainer.paste_icons568..574 reads o[_orig] andcopiesallRGBA.",
+    "font": "Existing exactNotoCondensedExtraBold at10pxsource/40pxsupersample, RAQMdefault; pinnedfontdata reused bypath+SHA inpackdependencyfacts.",
+    "mask": "Globalallow isunion ofdonor[3,2,3,3] andtarget[12,16,104,48]. Eachstepapprovalfacts separate; no genericexpandedrect silentlyrewritesotherpixels."
+  },
+  "positive": {
+    "after_erase_donor_RGBA": [
+      90,
+      80,
+      70,
+      17
+    ],
+    "icon_destination": [
+      61,
+      35
+    ],
+    "icon_copy_dimensions": [
+      3,
+      3
+    ],
+    "final_icon_equals_all_original_donor_bytes": true,
+    "original_base_unchanged": true,
+    "outside_allow_unchanged": true,
+    "whole_RGBA_sha256": "6c1299431175da1d7d549bd4dffafc38222e7273e0f8c4bdf4e976002b37d222"
+  },
+  "counterexample": {
+    "method": "Sameoriginalfunctions calledwithafter-erasecurrentimage astheincorrectorigargument fortextstep; no candidatekernel.",
+    "wrong_icon_equals_changed_donor": true,
+    "whole_RGBA_sha256": "c7e582dbfc7f66f78a6c0ba1176b5870700ae06a157700bdfa445618d74d3d24",
+    "different_pixels": 9,
+    "different_channels": 36,
+    "interpretation": "All9iconpixels/36channels differ, including alpha0 hiddenRGB andpartialalpha. Normaltextglyphpixels areunchangedbetweenthetwoprograms."
+  },
+  "pack": {
+    "directory": "/var/tmp/dokapon-reconstruction-icon-source-59thntd1",
+    "members": 15,
+    "member_bytes": 191591,
+    "manifest_sha256": "c85322010fc4cad2fc93b4ca2fa37551855c8e875c6239c9a2c38612568bb4f8",
+    "facts_sha256": "7a274faeb46a25f9349eb7990b87f96f7e7fe9fba9cf5aefa4a242d67be27394",
+    "harness_sha256": "2e9ff57734e481a14de431b9c2c030b29e458bdcacfb0ecfaead77dcad78fc80",
+    "arrays": {
+      "base": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "raw": "base.rgba",
+        "sha256": "bc98b51db6d881156f3a3ec721105b225cfc342d41f94c245fea638d3f807ffe"
+      },
+      "donor-original": {
+        "shape": [
+          3,
+          3,
+          4
+        ],
+        "raw": "donor-original.rgba",
+        "sha256": "28593e06ac07efbf4d2c36a29681d3343f4f5c9e5557e5e785fa7dfcdb44548d"
+      },
+      "after-erase": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "raw": "after-erase.rgba",
+        "sha256": "a70c8b3d65b628a7ecd673ebad772cae3494c8b9c7555ad8312d899d259b6dfd"
+      },
+      "final-immutable-original": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "raw": "final-immutable-original.rgba",
+        "sha256": "6c1299431175da1d7d549bd4dffafc38222e7273e0f8c4bdf4e976002b37d222"
+      },
+      "wrong-current-source": {
+        "shape": [
+          80,
+          128,
+          4
+        ],
+        "raw": "wrong-current-source.rgba",
+        "sha256": "c7e582dbfc7f66f78a6c0ba1176b5870700ae06a157700bdfa445618d74d3d24"
+      },
+      "allow": {
+        "shape": [
+          80,
+          128
+        ],
+        "raw": "allow.mask",
+        "sha256": "73b686bd788cdbe77f20c91a5eed5a60cdb47639548a31a65658c8b93b009084"
+      }
+    },
+    "reused_dependency_pins": {
+      "/tmp/dokapon-donor-composition-2s2_i91s/precode/reference-inputs/renderer.py": {
+        "bytes": 31970,
+        "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3"
+      },
+      "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/NotoSans-CondensedExtraBold.ttf": {
+        "bytes": 623368,
+        "sha256": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197"
+      },
+      "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/Noto-OFL-1.1.txt": {
+        "bytes": 4396,
+        "sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a"
+      },
+      "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/selected-original-definitions.py": {
+        "bytes": 26152,
+        "sha256": "0b3aa43b77983cb4e6c79275f8986585d1c77b0cf9e910d24322764b77bc0a42"
+      },
+      "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/instrumented-original-definitions.py": {
+        "bytes": 26635,
+        "sha256": "5b2d84de4131610ea13575e8e533dad7eb1956b0786b61de08394294fe07a793"
+      },
+      "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/selected-batch-definitions.py": {
+        "bytes": 6965,
+        "sha256": "b24aeb29f91c636dce11dbbfe865f030106476b88bb4571e3d43b4f5d4c98aaf"
+      },
+      "/var/tmp/dokapon-reconstruction-interleave-dxm8mylk/instrumented-batch-definitions.py": {
+        "bytes": 7058,
+        "sha256": "a692956c73ff18011aa7cfaf27fa49dfdc2d517fc31c6bd9713af3783a09954c"
+      }
+    },
+    "contents": "CompleteoriginalRGBA/base, original3x3donor, aftererase, positivefinal, wrongreferencecounterexample, allowmask (PNG+raw), semanticcell/orderedstepinput normalization, receipt/harness. No duplicatedfontdata."
+  },
+  "verification": {
+    "members": "15of15size/SHAverified",
+    "whole_raw_PNG": "6of6fullPNG/rawpairs verified",
+    "dependency_pins": "All7reusedsource/font/license/ASTdefinitionpins verified",
+    "independence": "Bothpositiveandwrongreferencewholeoutputs byteequal uninstrumentedoriginal versusadditivecaptures. Onlyoriginalselecteddefinitions executed, nohelper/oraclefunction introduced.",
+    "limits": "NoGo/candidateoutputread/projectmodule/historicalmain/protectedresources, no priorpack/source/test/fixture/coverage/goalchanges."
+  },
+  "limitations": [
+    "Literal128x80case, notactualart/nativeTXD/English/visualapproval.",
+    "Thisprovesimmutableiconreadsemantics ininterleavedpipeline; itdoesnotauthorizeexternalsources/newloaders ornewformatclaims.",
+    "Current-buffer reconstructiondonors andimmutable-original iconpixels aredifferent declaredsourcepolicies; no blanketreadmode normalization.",
+    "No architecture/schema/functionapproval,milestone/familycredit orhistoricalretirement."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "operation": "guarded_words",
+  "source_sha256": "329f93e9225599385a48b71d8165a9467c2028067f684dcb72934ba3a90adaa2",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "evidence": "Default F003 native SPACE24 to14 at all eight historical measurement/substitution/centering/draw sites. Historical fix_space_width_2026_09_30.py SHA689722378ff19aba5bdce64d5641dff487887b294f9edab6e8e95c9e0879caad. Exact source hash and full old instructions refuse unexpected or mixed sources; done recheck needs an explicit new source pin. Changes JP glyph0 padding too: visual keyboard/JP-label validation remains open. New scratch outputs only; no gameplay or complete historical-path claim.",
+  "values": {
+    "space_hi": "0x4160"
+  },
+  "word_blocks": {
+    "space_v0": {
+      "words": [
+        {
+          "hex": "0x3c020000",
+          "assembly": "lui $v0, hi(native SPACE advance)"
+        }
+      ],
+      "fixups": {
+        "0x0": {
+          "value": "space_hi",
+          "shift": 0,
+          "bits": 16
+        }
+      }
+    },
+    "space_v1": {
+      "words": [
+        {
+          "hex": "0x3c030000",
+          "assembly": "lui $v1, hi(native SPACE advance)"
+        }
+      ],
+      "fixups": {
+        "0x0": {
+          "value": "space_hi",
+          "shift": 0,
+          "bits": 16
+        }
+      }
+    }
+  },
+  "entries": {
+    "0x2a2b4c": {
+      "expected_hex": "c041023c",
+      "use": "space_v0"
+    },
+    "0x2a2de4": {
+      "expected_hex": "c041023c",
+      "use": "space_v0"
+    },
+    "0x2a3a3c": {
+      "expected_hex": "c041023c",
+      "use": "space_v0"
+    },
+    "0x2a3c04": {
+      "expected_hex": "c041023c",
+      "use": "space_v0"
+    },
+    "0x2a3d50": {
+      "expected_hex": "c041023c",
+      "use": "space_v0"
+    },
+    "0x2a5270": {
+      "expected_hex": "c041023c",
+      "use": "space_v0"
+    },
+    "0x2a54ac": {
+      "expected_hex": "c041033c",
+      "use": "space_v1"
+    },
+    "0x2a5630": {
+      "expected_hex": "c041033c",
+      "use": "space_v1"
+    }
+  }
+}

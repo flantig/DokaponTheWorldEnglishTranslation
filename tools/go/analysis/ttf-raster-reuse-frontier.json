@@ -1,0 +1,225 @@
+{
+  "schema": "ttf-raster-reuse-frontier-v1",
+  "at": "2026-10-21T05:09:09.307007+00:00",
+  "status": "SOURCE-ONLY NEXT-FRONTIER STUDY; no implementation, verification approval or milestone credit",
+  "scope": "raster_rendering.05: pinned TTF source through same styled layout, numerical layer/containment and authorTexture publication. Existing .04 icon review remains separate. No whole410 recrawl or genericfont framework.",
+  "recommendation": "Enhance existing textMasks for font metrics and exact fractional-start coverage; enhance existing renderRuns for TTF shaping/measure and initial coverage/color planes. Keep its common stroke/EDT/area/placement pipeline, composeCells common group/containment/composition and authorTexture pinned-input publication. Zero new functions appears reasonable; no second TTF engine or per-script renderer.",
+  "existing_owner_analysis": {
+    "Serena": "Live textMasks body inspected; CGo referencing-symbol lookup failed no package metadata, so bounded rg found actual callsites. renderRuns/composeCells symbols and callers inspected in prior inline recovery. No immutable project activation or candidate execution.",
+    "textMasks": "raster_font.go26..186 already owns bounded fontbytes, FT face/size, BASIC/RAQM shaping,26.6 advances, bbox/anchorallocation and two-passgraymask rasterization. It can reasonably expose additional same-fontmetrics and per-request start; maintain existing contact callers semantics.",
+    "renderRuns": "Already owns sizefit, run advances/cursor, coverage/colorimages, orderedstrokes, EDT colors, supersample transforms, areaaverage and ties-even finalorigin. A finite font-source branch can supply TTF primitives before shared style code, instead of duplicating full style rendering.",
+    "composeCells": "Common clone/backgroundpaint/cell masks/groups/final per-line composition and icon handling. Validate font-source-specific requirements while retaining common full-image and cell protections. No need to give contacts special styledlayout mode.",
+    "authorTexture": "Read/validate pinned fontmanifest, load TTF bytes with readInput, retain in existing input recheck lifecycle and hand off to existing composeCells. No hostfont lookup or new CLI.",
+    "not_equivalent": "Current native glyphatlas resize and integer Advances do not reproduce TTF hinting/RAQM widths. Contact integer-anchor textMasks proves useful engine foundation, not styled fractional-start or Noto equivalence."
+  },
+  "actual_font_sources": {
+    "provider": "../make_explainer_png.py:168..184",
+    "selection": "font_path passes literal .ttf name unchanged; otherwise /usr/share/fonts/google-noto/NotoSans-Condensed<Name>.ttf; Regular/empty uses NotoSans-Condensed.ttf. get_font caches(name,round(px*4)); defaultExtraBold; ImageFont.truetype defaultRAQM when available. Do not preserve hostsearch as provenance: newmanifest must pin supplied font bytes.",
+    "pinned_fonts": [
+      {
+        "path": "/usr/share/fonts/google-noto/NotoSans-CondensedExtraBold.ttf",
+        "name": [
+          "Noto Sans",
+          "Condensed ExtraBold"
+        ],
+        "bytes": 623368,
+        "sha256": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197"
+      },
+      {
+        "path": "/usr/share/fonts/google-noto/NotoSans-CondensedBold.ttf",
+        "name": [
+          "Noto Sans",
+          "Condensed Bold"
+        ],
+        "bytes": 627132,
+        "sha256": "d2b9ba877a743185a4123c6a82bf22e8b5c1d79bf7c6227d8f1df1857f71159e"
+      },
+      {
+        "path": "/usr/share/fonts/google-noto/NotoSans-CondensedBlack.ttf",
+        "name": [
+          "Noto Sans",
+          "Condensed Black"
+        ],
+        "bytes": 638760,
+        "sha256": "279ce2b4aae61db0ad8edd5fcca51786628f41f5f7e0d9f0bbf4ca5315f6a4bf"
+      },
+      {
+        "path": "/usr/share/fonts/google-noto/NotoSans-CondensedBlackItalic.ttf",
+        "name": [
+          "Noto Sans",
+          "Condensed Black Italic"
+        ],
+        "bytes": 656628,
+        "sha256": "064c121007728da7cf7fad229f23dfb06c201238b229137b190ae7707244d0dd"
+      }
+    ],
+    "bounded_recipe_counts": {
+      "batch_b_tutorial": "61ExtraBold,16Bold,6Black,4BlackItalic text/lines operations",
+      "batch_c": "57ExtraBold,11Black text/lines operations",
+      "qualification": "Originaldata counts are repeated-use leads, not migration credit or proof alltheir styles are currently supported."
+    },
+    "license": {
+      "identity": "Exactfontname metadata: Copyright2022 The Noto Project Authors, Version2.015; ttfautohint(v1.8.4.7-5d5b), SIL OFL1.1.",
+      "primary_url": "https://raw.githubusercontent.com/notofonts/latin-greek-cyrillic/main/OFL.txt",
+      "supplement": {
+        "directory": "/var/tmp/dokapon-ttf-raster-license-4bznx7i6",
+        "members": 2,
+        "manifest_sha256": "3785e5594f9f16f872af19a9f7f400d367f7a4ea3320d5118393253a3eba20ca",
+        "facts_sha256": "5f0e05bbc3ed8c25c282df247c5433ee2ab3eb2e56e0e04b3b9a6d04d88a0103"
+      },
+      "gotcha": "Pixel pack Noto-OFL.txt mistakenly names a copied installedgoogle-noto-fonts-common Apache2license. Sealed bytes preserved, explicitly NOT authority for these exactfonts. Supplemental OFL1.1 notice matches fontname0/13/14 and governs intended font reuse. Retain bothfontcopyright and correctnotice in future distribution; count fontdata/licensedependencies separately."
+    }
+  },
+  "source_contract": [
+    "Requested px is quarter-fit by0.25; actual FreeType pixel size=Python round(px*4), so quartersteps select integer4x font sizes. Use fresh hinted masks at each size, not resized rasteratlas.",
+    "getmetrics gives integer ascender/descender at selectedfontsize; cap=-font.getbbox(H,anchor=ls).top. Source canvas base=pad+asc, ch=asc+desc+2pad, cw=int(sumadv-tracking+2pad). Noto ExtraBold24 hasasc26/desc8/cap18; at77 has83/23/cap55. Native Em-based scaling cannot substitute.",
+    "measure uses whole font.getlength(text) perrun, even when tracking nonzero; text_layer advances percharacter getlength(character)+tracking when tracking!=0, otherwise draws/shapes whole run. Thus measure and actual cursor can differ undertracking duekerning. Preserve source perrunfit measurement separately from trackedrendercursor; do not silently use summednativeglyphwidths for both.",
+    "Zero tracking whole run retains RAQM kerning, ligatures, combining marks and script shaping. Nonzero tracking source intentionally calls Draw.text separately for each Unicodecharacter; do not reinterpret it as properclustertracking or globalshaping plusspacing. Preserve Unicode data, defaultbidi and .notdef; no ASCII restriction/normalization.",
+    "ImageDraw separates integer coordinate using truncation towardzero and signedfraction; getmask2 receives start narrowed to Cfloat. _imagingft width/height+=ceil(start); first pass findsbitmapleft/top; second origin=Cround((-left+startX)*64),Cround((-top-startY)*64); glyphpositions use PIXEL(v)=((v+32)&-64)>>6. This is not ties-even or FT_Set_Transform subpixelhinting. Source bboxls/ascender bearing and actualbitmapextents must not be conflated.",
+    "Supersampled glyphcoverage and straightRGBA colorcanvas are independently drawn in original text_layer. The existing common orderedstroke/EDTnearest-color/quantization/LANCZOS/area pipeline follows these initial planes; do not reimplement it forTTF.",
+    "Original .05 samecontract can cover current fixed ScaleX/tracking/stroke/sourcecolor/cellgroup/icon layout responsibilities. Shadow,gradient,extrusion,sy/skew/rotation,from_orig texturefill and reconstruction are still material remaining raster .06 decisions, not implicitly implemented by accepting a TTF."
+  ],
+  "critical_color_plane_contract": {
+    "source": "make_explainer_png.py:376..400 dc.text ontoRGBA; Pillow12.3 Draw.c916..919 -> ImagingFill2; Paste.c445..500 fill_mask_L",
+    "equation": "For opaque fill underLmask m, Graycoverage=BLEND(m,oldcoverage,255). RGBAchannelA=BLEND(m,oldA,255). For RGB andm!=0, integer channel_mask=255-(255-m)*(1-(255-oldA)/255): oldA==0 uses255/fullfillRGB, otherwise usesm. Mask0 retains bytes. BLEND is Pillow roundedDIV255. This is not general straightalphaOver.",
+    "counterexample": "ExtraBold24 A at(8,40),anchorls, transparentcanvas: redfirstpixel(12,22)=(255,0,0,122); blueidenticalglyphthen=(133,0,122,186). ExistingpixelOver final-layer equation would yield differentRGB.",
+    "owner": "Existing renderRuns initial TTF colorplane paint loop can own this branch beside native glyphpainting. Keep pixelOver unchanged for actual finalPillowalphaComposite consumers; no new blendfunction required for this one coherent initial-plane duty.",
+    "frozen_supplement": {
+      "directory": "/var/tmp/dokapon-ttf-raster-color-1okft4k2",
+      "members": 5,
+      "manifest_sha256": "bf7192f32ce55d4035964a230d2423cbcee76aa6bb84bfa2e15f0dcbb76f2f7f",
+      "facts_sha256": "403c5906c071d184cedfb9afc45be0d5182b183cf0d7eaa873d07cabfda7d66f"
+    }
+  },
+  "minimal_data_and_API_direction": [
+    "Extend existing fontmanifest/BitmapFont with a mutuallyexclusive pinnedTTF source using existing RegistryInput artifact fields; native PNG/glyph/Em contract remains. Exactpublicfield names are rootdecision. No standalone TTF CLI, dynamic familyname lookup or dummyatlas.",
+    "Retain one textMasks backend. A typed per-labelrequest with Text and finite Start[2]fractional coordinates (or equivalentexplicit alignedrequest data) and existing TextMask with Ascender/Descender can carry genuine backendfacts. Bearing stays documented; cap can be requestedH bbox/bearing minusascender. Do not turn fontbackend into stroke/layout/compositor.",
+    "Oldcontact callers request zerostart and keepallbytes; styledTTF requests carry actual run/charfraction. Store unrounded26.6 Advance, not roundedint. Existingresultbounds remainmeaningful. Empty/whitespace masks withnonzeroadvance are valid.",
+    "renderRuns fits from TTFgetlength at each integer4x size, shapes wholeruns orpercharacters accordingtosource, places exactglyphmask into commonplanes, then rejoins sharednative stylepipeline. Groupfitting, iconfixedsizes and finalroundedanchors remainexisting owners.",
+    "Maintain perfont/perbatch cached work only when meaningful; cachekey includesfontsize,text,layout and fractionalstart. Current native runecache cannot be reused as TTF whole-run shapingcache. Bounded rasterization duringfit may be acceptable first; measure actualcost rather than add speculative metrics-only modes.",
+    "Fontbyte pin/read/recheck belongs in authorTexture; transient in-memorybytes can be passed through existingfontcontext. composeCells fontvalidation becomes source-specific while commonimage/cell protections stayshared. Native/default builds must still work/refuseTTFexplicitly without fallbackfonts.",
+    "Planningcost only: roughly80–160backend/typedrequest lines plus60–120font-source/initialplanes lines across existingowners, caller updates andfontdata/notices; exactsize unknown before implementation. No new function appears necessary, but do not force an unreadable second renderer into the existing tail merely to preservecount."
+  ],
+  "smallest_real_prototype": {
+    "source": "batch_b_tutorial help_illust00 operation8",
+    "recipe": "lines box[125,84,384,26], Each day, everyone takes {g:1 turn} in order.,px19,min10,ExtraBold,center,ink; noextra stroke/rotation/shadow needed.",
+    "next_oracle": "Beforeimplementation freeze original4x coverage/colorplanes, getlength/quarterfit/fontmetrics, postarea floatword and placedlayer for this realmixedcolor operation on literalpanel; then complete approved-cell candidate/nativeprojection if selectedstandalonesource is alreadypinned. Do not infer it from contactlabels or newGooutputs.",
+    "qualification": "This study freezes backend primitives/counterexamples, not an actualTTF fullcell/nativewholeTXD approval. Its complete sourceart and masks must still be independently bound beforeproduction."
+  },
+  "frozen_original_only_fixtures": [
+    {
+      "directory": "/var/tmp/dokapon-ttf-raster-frontier-ueix1tp4",
+      "members": 220,
+      "manifest_sha256": "a478d615402ba30c145369b04a420e20a3ba2a02d5d397ac0d16991c14fbb3f5",
+      "facts_sha256": "a3a82f8e9b1d3edef03c51c89f18e957d390652c9320912462891bbfd6cc5899"
+    },
+    {
+      "directory": "/var/tmp/dokapon-ttf-raster-license-4bznx7i6",
+      "members": 2,
+      "manifest_sha256": "3785e5594f9f16f872af19a9f7f400d367f7a4ea3320d5118393253a3eba20ca",
+      "facts_sha256": "5f0e05bbc3ed8c25c282df247c5433ee2ab3eb2e56e0e04b3b9a6d04d88a0103"
+    },
+    {
+      "directory": "/var/tmp/dokapon-ttf-raster-color-1okft4k2",
+      "members": 5,
+      "manifest_sha256": "bf7192f32ce55d4035964a230d2423cbcee76aa6bb84bfa2e15f0dcbb76f2f7f",
+      "facts_sha256": "403c5906c071d184cedfb9afc45be0d5182b183cf0d7eaa873d07cabfda7d66f"
+    }
+  ],
+  "numerical_examples": {
+    "NotoExtraBold24_AV": {
+      "whole": 27.6875,
+      "sum_characters": 28.046875
+    },
+    "NotoExtraBold24_To": {
+      "whole": 23.390625,
+      "sum_characters": 24.59375
+    },
+    "NotoExtraBold24_A_combining_acute": {
+      "whole": 14.296875,
+      "sum_characters": 28.546875
+    },
+    "fractional_start": "AV phase.125 addszeroallocationcolumn butsameplacedpixels as0; phase.49218749aliases.5 afterCfloat andchangesplacedpixels. Fullrawmask andwholecoverage/RGBAimage hashes freezeactual results, not onlygeometry."
+  },
+  "required_evidence_and_refusals": [
+    "Prove systemFT/Raqm backend Noto masks/advances/bboxls/start phases againstoriginalPillow12.3 references. Existing contactproof uses finiteDejaVu/Aileronroles and does not close Noto or arbitraryversions.",
+    "Compare sourcefullwordfloat andcompletecells for actualmixedcolor sourceop, allsharedstyles/groupfit/icons andoldbinary/native/contact/weekday outputs. Freeze semantic measure-vs-render differences ratherthan normalize.",
+    "Reject conflictingfont sources, missing/hashdrifted/oversizedfont, malformedfont/unsupportedbitmapmode, nonfinitephases, resourceoverflow, invalidstyles and actualcellspills. KeepvalidUnicode/blankmasks/negativebearings, no hostfallback.",
+    "Existing FT_LOAD_DEFAULT bbox/raster and RAQM default no-explicit-loadflag chain must remain. Original default RAQM/HarfBuzz14.2.1 vsinstalledbackend14.1/RAQM0.10.1 versiongap needsfinite parity, not presumed equivalence ordependencyupgrade.",
+    "Source/license/backend/runtimecosts, fixtures andanalysisoverhead remainaccounted; no .05/family/retirementclaim from passing tinyglyphs."
+  ],
+  "primary_source_pins": {
+    "Pillow12.3_imagingft": {
+      "path": "/var/tmp/dokapon-asset-font-contract-0du86obg/_imagingft.c",
+      "sha256": "ac833fac38fb87d53b82e49327395ee0952134e09869df2ae206b74dd90d0a20",
+      "references": "getmetrics1544/1558; bbox580..750; start/render877..1043"
+    },
+    "previous_backend_contract": "analysis/asset-font-backend-contract.json",
+    "newprimary": "Draw.c/Paste.c frozen in colorpack; OFL1.1 frozen in licensesupplement; originalImageFont/ImageDraw frozen in pixelpack"
+  },
+  "source_pins": {
+    "analysis/migration-roadmap.json": {
+      "bytes": 58305,
+      "sha256": "8c8678a788491ab8c601d701567dbd66f811c98182db778ff29d057be772b0e2"
+    },
+    "analysis/donor-composition-contract.json": {
+      "bytes": 18244,
+      "sha256": "acf635da2cb2e9255990696de86810aa741915f13905b5753517a4b2b37cbd74"
+    },
+    "analysis/inline-icons-contract-recovery.json": {
+      "bytes": 16326,
+      "sha256": "e92a93d8244a7b58f0c64bd4015f9af7ffcd8119b87e5951cd23bcb531174384"
+    },
+    "analysis/asset-font-backend-contract.json": {
+      "bytes": 18495,
+      "sha256": "a26e50772a7aad8bf4dcbbebd2e96352870f896299917313651dbe179f021e3c"
+    },
+    "raster_font.go": {
+      "bytes": 6933,
+      "sha256": "3fd492a89cf1600d484c7fdb05b2a2e0014d1e21f80f9594f0856968106c5896"
+    },
+    "raster_font_disabled.go": {
+      "bytes": 372,
+      "sha256": "ffd85d200cbc3b38f77fce3b8e1a78a79f520f2d75782acf11417ce9fd2fd500"
+    },
+    "raster_types.go": {
+      "bytes": 4373,
+      "sha256": "93743de1e8bc49d791d516b94cc2398c161efe459fd0b884ff77f1e6036c9842"
+    },
+    "raster_runs.go": {
+      "bytes": 15670,
+      "sha256": "deeb1f8270fd9bb3e885e32b71307afb3792c665c2b4eff0ba4939f5149e65e2"
+    },
+    "raster.go": {
+      "bytes": 15079,
+      "sha256": "f3c5e2bc6fc6000e5ccac9f79c04e63040c9a6901e34e185481dc6ee28032efe"
+    },
+    "texture_authoring.go": {
+      "bytes": 25302,
+      "sha256": "86ba4a6c80abb5d6a24da0c8b8652b05821287ea3d13b3978814223571827f8e"
+    },
+    "../make_explainer_png.py": {
+      "bytes": 31970,
+      "sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3"
+    },
+    "../../generated/explainer-specs/batch_b_tutorial.json": {
+      "bytes": 54590,
+      "sha256": "1992b7a37a7d24fea92d6b0bddcf239ade252728e8be02ec172049342334f6d4"
+    },
+    "../../generated/explainer-specs/batch_c.json": {
+      "bytes": 103036,
+      "sha256": "df7b92f0696ff2a411cecb46b17380627da790fb9261574e538622214fff6dd1"
+    }
+  },
+  "verification": {
+    "packs": "All227manifest members rehashed across220+2+5packs; originalsandboxPillowonly; completeGraymask andRGBAPNG hashes recorded.",
+    "limits": "NoGo/candidate/projectmodule/historicalmain/ISO/canonical/protectedruntime execution/access; no source/test/fixture/coverage writes. Sourcefrontierreport only; iconimplementation/review untouched.",
+    "versions": {
+      "pil": "12.3.0",
+      "freetype2": "2.14.3",
+      "raqm": "0.10.5",
+      "harfbuzz": "14.2.1",
+      "fribidi": "1.0.16"
+    }
+  }
+}

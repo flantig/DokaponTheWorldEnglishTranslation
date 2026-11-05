@@ -1,0 +1,527 @@
+{
+  "at": "2026-10-20T14:46:30.727270+00:00",
+  "status": "VERIFIED existing PSMT4 branch handles only native128x32/TBW2 and512x512/TBW8 modes; same loop/writer",
+  "source_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "e5881c449cf67839c01d4e0a4e7b12d094259eba417a4658d4ba98dd54a7a2f7",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "be288d46c2a58c5525ec725b75db4d17ac51f6067978bfe47f22a9b68f65838e",
+    "texture_authoring.go": "609189626728f85617f12f4c3735fa73a2c44d64bb5cbf0105c23be660fccc0b",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "778d7446f08807e96e224b55aebd43efd1428d9a5503287d9b6846b9ffa804dd",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "aad4b7cbe04d57b27908030d8db645a5cc173dd2dfde2cb50c935d8afe7a33ae",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54"
+  },
+  "evidence_pins": {
+    ".goal/multipage-psmt4-checks-work.json": {
+      "sha256": "b23f848af2c1baf4e629be3cb7ef25a85bbb8ab8b97dc23f9ce8394abf83f7b7",
+      "bytes": 5596
+    },
+    "analysis/multipage-psmt4-reuse-decision.json": {
+      "sha256": "937909e67eb7210d84838c959e237782e8d72a0224dc249362407aaefb3da514",
+      "bytes": 1444
+    },
+    "analysis/multipage-psmt4-native-contract.json": {
+      "sha256": "7b8392c79d7c65faff8356e581c8154a9952ee79d3455537184e76acad65ac08",
+      "bytes": 35747
+    },
+    "evidence/multipage-psmt4-review.json": {
+      "sha256": "2d56beb21341c47e777a390760e7200a2ff1f44606764aa56f0ce6a84d9aaca4",
+      "bytes": 20214
+    },
+    "/var/tmp/dokapon-multipage-psmt4-4rrxki69/accounting-before.json": {
+      "sha256": "1984ce9a0993c0108fa7231701f446bd9e47bf1a3e8da145222b7dfe6db49248",
+      "bytes": 28214
+    },
+    "/var/tmp/dokapon-multipage-psmt4-4rrxki69/accounting-delta.json": {
+      "sha256": "0a32a9d2d2c898cfc09ee2fce2856894281b0b941d62c7e4b19f6537a0861e22",
+      "bytes": 1275
+    },
+    "/var/tmp/dokapon-multipage-psmt4-sealed-6o58oewe/manifest.json": {
+      "sha256": "9add3f996f7c4a1d075093b5fee797daa6297de125670a7b7da82bd48b8ad240",
+      "bytes": 14774
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-multipage-psmt4-sealed-6o58oewe",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 25.61,
+      "output": "ok  \tdokapon/tools\t22.482s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.196,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-multipage-psmt4-4rrxki69/dokapon-go-multipage",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.723,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.039,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json",
+        "testdata/multipage-psmt4.zip",
+        "testdata/exact-palette.zip"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002,
+      "output": ""
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go",
+        "patch_test.go",
+        "go.mod",
+        "testdata/textures.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.011,
+      "output": ""
+    }
+  ],
+  "ordinary_review": "evidence/multipage-psmt4-review.json",
+  "ordinary_review_sha256": "2d56beb21341c47e777a390760e7200a2ff1f44606764aa56f0ce6a84d9aaca4",
+  "corpus": {
+    "cases": 227,
+    "accepted": 227,
+    "held": 0,
+    "full_RGBA_noop_TXD_onepixel_TXD_RGBA_source_preserved": true,
+    "receipt": "/var/tmp/dokapon-multipage-psmt4-review-xadxdv2c/corpus-results.json",
+    "sha256": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02"
+  },
+  "independent_native_codec": {
+    "status": "PASS",
+    "contract_sha256": "7b8392c79d7c65faff8356e581c8154a9952ee79d3455537184e76acad65ac08",
+    "native_spans": 16,
+    "critical_words": 15,
+    "primary_sources": 4,
+    "actual_member_source_fixture_metadata_packets_pixels_clut_padding": true,
+    "mapping_pairs": 262144,
+    "mapping_sha256": "b1fe51ae07786e576a744bf03b1adc52087610cd52263343313d4237af12b6b7",
+    "scalar_GS_table_join_equals_width_based_formula": true,
+    "bijection": true,
+    "old4096_map_unchanged": true,
+    "five_ramp_hashes": [
+      "b93af93b64575edb07baf153adc4db78e07375db18f777e6477a44f9cb023d9f",
+      "1313cea550bb835de8c05d298af9459e313eef713102270260b77cb55b2e39a0",
+      "c83d3c8ae395ce05e4fba95351896052e102e48f5cab63c232be4736ebd92c4d",
+      "af8a00e9628dc3059dad96255f934dae25fc047596a7f609c4ed943edb61eb93",
+      "928106d8a8fd1d072e238217cfbd0652315f542c67cd114a94ff3f32f723d114"
+    ],
+    "mutation_oracles": [
+      {
+        "label": "two_corners",
+        "changed_offsets": [
+          300,
+          131371
+        ],
+        "txd_sha256": "c2a46230e6065d8a55f52fe14a8daa4b14248a6800fcc013bf98d0197d8e903f",
+        "rgba_sha256": "32bb4d2ad671fcaf2d660e76c4b4679ca15f8604460ddceae52506324638ffc3"
+      },
+      {
+        "label": "all_corners",
+        "changed_offsets": [
+          300,
+          811,
+          130860,
+          131371
+        ],
+        "txd_sha256": "846b46b8c47997d7d404195266cc0476a7db4656db8d772a50db43cd0f868685",
+        "rgba_sha256": "1f199e219f5c295abd1d1a5fde6e6426bb491e39b0aea3981e6b12f531b2853f"
+      },
+      {
+        "label": "page_boundary",
+        "changed_offsets": [
+          32683,
+          32684,
+          33195,
+          33196
+        ],
+        "txd_sha256": "93d494f67bd6d8b0e58aac361855bc4b4448dfebf18f8e0280257f401ee218e0",
+        "rgba_sha256": "7a6d03db8a9cf855352d3f5298226e1f5f995341f56d4fbb2eb21e598a5860c4"
+      },
+      {
+        "label": "shared_byte",
+        "changed_offsets": [
+          300
+        ],
+        "txd_sha256": "daff2edf0c287af29cc2deb551b00dc540f90fdd8685fe2a823874be3583381e",
+        "rgba_sha256": "ba67311cfcecfebec2dbc34bb75a98524b120c2c7d954564a0b88cc31fa09697"
+      }
+    ],
+    "relocation_bases_rechecked": [
+      0,
+      32,
+      1024,
+      15840
+    ],
+    "selected_source_scope": "Original BATTLE selected member read and compared byte-for-byte; no whole-CMB/ISO digest claimed."
+  },
+  "actual_standalone": [
+    {
+      "operation": "export_preview_apply",
+      "rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+      "status": "PASS"
+    },
+    {
+      "operation": "noop",
+      "txd_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+      "changed_offsets": [],
+      "outside_pixels": 0,
+      "raw_clut_packets_padding_metadata_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "two_corners",
+      "txd_sha256": "c2a46230e6065d8a55f52fe14a8daa4b14248a6800fcc013bf98d0197d8e903f",
+      "rgba_sha256": "32bb4d2ad671fcaf2d660e76c4b4679ca15f8604460ddceae52506324638ffc3",
+      "changed_offsets": [
+        300,
+        131371
+      ],
+      "outside_pixels": 0,
+      "raw_clut_packets_padding_metadata_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "all_corners",
+      "txd_sha256": "846b46b8c47997d7d404195266cc0476a7db4656db8d772a50db43cd0f868685",
+      "rgba_sha256": "1f199e219f5c295abd1d1a5fde6e6426bb491e39b0aea3981e6b12f531b2853f",
+      "changed_offsets": [
+        300,
+        811,
+        130860,
+        131371
+      ],
+      "outside_pixels": 0,
+      "raw_clut_packets_padding_metadata_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "page_boundary",
+      "txd_sha256": "93d494f67bd6d8b0e58aac361855bc4b4448dfebf18f8e0280257f401ee218e0",
+      "rgba_sha256": "7a6d03db8a9cf855352d3f5298226e1f5f995341f56d4fbb2eb21e598a5860c4",
+      "changed_offsets": [
+        32683,
+        32684,
+        33195,
+        33196
+      ],
+      "outside_pixels": 0,
+      "raw_clut_packets_padding_metadata_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "shared_byte",
+      "txd_sha256": "daff2edf0c287af29cc2deb551b00dc540f90fdd8685fe2a823874be3583381e",
+      "rgba_sha256": "ba67311cfcecfebec2dbc34bb75a98524b120c2c7d954564a0b88cc31fa09697",
+      "changed_offsets": [
+        300
+      ],
+      "outside_pixels": 0,
+      "raw_clut_packets_padding_metadata_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "candidate_alpha",
+      "txd_sha256": "ba483750f0245a8edc8ffa6797024519df317fe931db8d4205385b1c0014a062",
+      "rgba_sha256": "0d4480c62011953319e183b68548acfc40d7fab19b195edcb492cf2a8930d597",
+      "changed_offsets": [
+        300
+      ],
+      "outside_pixels": 0,
+      "raw_clut_packets_padding_metadata_unchanged": true,
+      "preview_apply_overwrite_readback_input_identity": true,
+      "status": "PASS"
+    },
+    {
+      "operation": "4bit_exact_palette_refusal",
+      "diagnostic": "exact palette policy requires calibrated standard PSMT8",
+      "status": "PASS"
+    }
+  ],
+  "adversarial": [
+    {
+      "shape": [
+        64,
+        32
+      ],
+      "coherent_chunk_extents_TEX0_dimensions_TBW_stream_sizes_packets": true,
+      "pixel_bytes": 1024,
+      "palette_base_blocks": 32,
+      "footprint_words": 4096,
+      "refused_by_finite_shape_guard": true
+    },
+    {
+      "shape": [
+        128,
+        64
+      ],
+      "coherent_chunk_extents_TEX0_dimensions_TBW_stream_sizes_packets": true,
+      "pixel_bytes": 4096,
+      "palette_base_blocks": 32,
+      "footprint_words": 4096,
+      "refused_by_finite_shape_guard": true
+    },
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "coherent_chunk_extents_TEX0_dimensions_TBW_stream_sizes_packets": true,
+      "pixel_bytes": 32768,
+      "palette_base_blocks": 128,
+      "footprint_words": 10240,
+      "refused_by_finite_shape_guard": true
+    },
+    {
+      "shape": [
+        512,
+        256
+      ],
+      "coherent_chunk_extents_TEX0_dimensions_TBW_stream_sizes_packets": true,
+      "pixel_bytes": 65536,
+      "palette_base_blocks": 256,
+      "footprint_words": 18432,
+      "refused_by_finite_shape_guard": true
+    },
+    {
+      "shape": [
+        256,
+        512
+      ],
+      "coherent_chunk_extents_TEX0_dimensions_TBW_stream_sizes_packets": true,
+      "pixel_bytes": 65536,
+      "palette_base_blocks": 256,
+      "footprint_words": 18432,
+      "refused_by_finite_shape_guard": true
+    },
+    {
+      "shape": [
+        1024,
+        512
+      ],
+      "coherent_chunk_extents_TEX0_dimensions_TBW_stream_sizes_packets": true,
+      "pixel_bytes": 262144,
+      "palette_base_blocks": 1024,
+      "footprint_words": 67584,
+      "refused_by_finite_shape_guard": true
+    },
+    {
+      "mode": "headerless4",
+      "coherent_storage_extents": true,
+      "refused": true
+    },
+    {
+      "mode": "duplicate_palette",
+      "export_png_import_whole_TXD_exact": true,
+      "raw_CLUT_duplicate_indices_preserved": true
+    },
+    {
+      "mode": "raw_alpha_ff",
+      "export_png_import_whole_TXD_exact": true,
+      "raw_CLUT_duplicate_indices_preserved": true
+    },
+    {
+      "mode": "duplicate_and_raw_alpha",
+      "export_png_import_whole_TXD_exact": true,
+      "raw_CLUT_duplicate_indices_preserved": true
+    }
+  ],
+  "golden_containment": "All12priorcases/6exactpalettecases semantically unchanged; exactly4newactualPSMT4mutationcases+5rampRGBAoracles andtest-onlyZIP. Runtime table manifest unchanged.",
+  "accounting": {
+    "before": "/var/tmp/dokapon-multipage-psmt4-4rrxki69/accounting-before.json",
+    "before_sha256": "1984ce9a0993c0108fa7231701f446bd9e47bf1a3e8da145222b7dfe6db49248",
+    "group_deltas": {
+      "asset_bundle": {
+        "bytes": 0,
+        "files": 0
+      },
+      "executed_evidence_inputs": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_module": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_tests": {
+        "bytes": 2594,
+        "files": 0
+      },
+      "pointer_selector": {
+        "bytes": 0,
+        "files": 0
+      },
+      "production_go": {
+        "bytes": 88,
+        "files": 0
+      },
+      "recipe_tables": {
+        "bytes": 0,
+        "files": 0
+      },
+      "testdata": {
+        "bytes": 30391,
+        "files": 1
+      },
+      "build_entrypoint": {
+        "bytes": 0,
+        "files": 0
+      },
+      "consumer_profiles": {
+        "bytes": 0,
+        "files": 0
+      }
+    },
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "bytes": 638380,
+        "files": 77
+      },
+      "runtime_with_bundle": {
+        "bytes": 11951470,
+        "files": 80
+      },
+      "runtime_and_executed_evidence": {
+        "bytes": 12489489,
+        "files": 100
+      }
+    },
+    "production_named_functions": 21,
+    "claim": "Finite nativecodec capability growth; no newfunction or reduction/retirement/familyclosure."
+  },
+  "reuse": "Existing depth4 geometry/footprint choice, width-based column/row/bank expression and same palette/mask/current-artifact nibble update/quantization/publication path. No newfunction/table/flag/schema/signature/writer/dependency.",
+  "limits": [
+    "Only two calibrated PSMT4 shapes. Other geometries/headerless4/extra sampling fields remain refused; exactpalette remains standard8bit only.",
+    "No original legacy non-village apply permission, ISO/CMB alias ownership, artwork/visual/gameplay or arbitrary callback/runtime-state proof.",
+    "No family promotion/retirement/source reduction; production grows88B, tests2594B, fixtures30391B separately.",
+    "Broader Python baseline4041/68 remainsqualified."
+  ]
+}

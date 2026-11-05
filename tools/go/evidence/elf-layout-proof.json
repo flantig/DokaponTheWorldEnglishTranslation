@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:13:23.816152+00:00",
+  "status": "VERIFIED bounded read-only ELF32 MIPS mapping increment; migration ACTIVE/incomplete",
+  "contract": "One source-pinned standalone ELF; optional named half-open VMA queries split into file_backed/BSS/unmapped. Standard-library program headers retain original order/index. Only initialized pieces carry file ranges.",
+  "shared_owners": [
+    "inspect",
+    "run"
+  ],
+  "source_contract": {
+    "path": "analysis/elf-layout-contract.json",
+    "sha256": "9b4c182ca8473f32c52731aa551271acaf6a71b38a29831812dc0db10561b6bf"
+  },
+  "reuse_decision": {
+    "path": "analysis/elf-layout-reuse-decision.json",
+    "sha256": "c408b10594f7a2bd13afad9369ca8edc894a2ac186c1ed0ebf0d81554493d6dc"
+  },
+  "candidate_pins": {
+    "cmb.go": "171eb9d645b879b09b1eca77de4d1505bd90d3774bae158623705feb5c9ddbef",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "32d6ece5c515befb3891849f2e00538b3a54bda3c890bc695303335c36327429",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "013e493e3cc86ca13038e341b4a07ab0f68e6966a4563ce8ed3b999084aab2bf",
+    "patch_test.go": "9d58f3e9e88d68a6ebb9cba8a6724a3ff5a4caa6f9a46e9814ceddba370813ac",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "05d616ad9d418a6a229bf9bf02ab179fc3de9a952b18239fdf07a7b640c645e6",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "8c07ac841f8f3481954747d0f3288f41b9e286429c991a2e5bfbb32069d25108",
+    "registry_authoring.go": "68b21b9eb9532a118156fa00d275da55a4eeddd1296242aba228ee97c6b9abd0",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "testdata/elf-layout.json": "fa95da6692c1a036cabe143004628c732f50bb7ea83b4b1ebe2b09305d0aae8b",
+    "testdata/elf-layout.zip": "35f352c7f124def125bb237383979d05f465e57296df8afdb1634bd0ab5869a7"
+  },
+  "recipe": {
+    "path": "recipes/reports/elf-layout.json",
+    "sha256": "ff3825fa0adab1b1659714a88aea9d879778e6d6e39ee9c9181038b186119bff"
+  },
+  "review": {
+    "path": "evidence/elf-layout-review.json",
+    "sha256": "23e6e82d2be4b9501dec47a227949a1b6cd2fcc8d4a4cd480e76acf4a8160386",
+    "findings": [],
+    "independent_complete_CLI_seconds": 4.389,
+    "independent_probes": 12
+  },
+  "root_verification": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-p",
+        "2",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "-count=1",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 35.103464,
+      "log": "/var/tmp/dokapon-elf-layout-wqrm7am8/check-0.log",
+      "log_sha256": "0c8634f056863fea35f3ed5ff79486c6016716c1a4bfcc91f5581f20c9256633"
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.073125,
+      "log": "/var/tmp/dokapon-elf-layout-wqrm7am8/check-1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-elf-layout-wqrm7am8/dokapon-go",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.20184,
+      "log": "/var/tmp/dokapon-elf-layout-wqrm7am8/check-2.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_receipts": {
+    "/var/tmp/dokapon-elf-layout-wqrm7am8/fixture-source-verification.json": "8b3c5ae13fd457bbfeb0f6c776034e564de0724666ca54c462a6d1d8caddc456",
+    "/var/tmp/dokapon-elf-layout-wqrm7am8/native-checks.json": "adcfdad36a2c6ea18e4c3f1ecc7f468ef2b35597dde7058335f23748f7979519",
+    "/var/tmp/dokapon-elf-layout-wqrm7am8/hygiene-accounting.json": "2cbba8bef1ba797e7b48ecceb8bbb1092a634f0a9e80b8784f70ea154b6406c0",
+    "/var/tmp/dokapon-elf-layout-wqrm7am8/checks.json": "697c1bbcd0a729fd025b9342867ebeecc89fdd6d071a3db927826828d79ef6f9"
+  },
+  "native_flow": "Frozen5,087,232-byte ZIP member verified against complete headers, five manually expected initialized/BSS/hole/sentinel queries and source bytes/inode/mtime preservation. No ISO access.",
+  "accounting": {
+    "path": "analysis/go-current-input-accounting.json",
+    "sha256": "a7fd860841ace1e33665f36f361948a9cd3b78b28f17d3b640cf718c4e13ba08",
+    "native_files": 96,
+    "native_bytes": 745998,
+    "production_files": 27,
+    "production_bytes": 272819,
+    "named_functions": 29,
+    "production_delta_bytes": 6842,
+    "recipe_delta_bytes": 716,
+    "test_delta_bytes": 7164,
+    "fixture_delta_bytes": 7267,
+    "test_bytes": 426243,
+    "new_functions_helpers_closures_dependencies_writers": 0,
+    "new_domain_types": [
+      "ELFMapping"
+    ],
+    "new_recipe_fields": [
+      "address_ranges"
+    ],
+    "nature": "Capability growth, no net code reduction/relocation/savings or historical retirement claimed."
+  },
+  "limits": [
+    "Source and header/query/output bounds are deliberate. Overlapping LOAD memory intervals refuse; this is not general overlapping-ELF support.",
+    "ELF32 little-endian MIPS ET_EXEC only; stdlib section-header parse failures also refuse. Zero-sized LOAD remains metadata but maps no bytes.",
+    "No safe-cave/landing, exhaustive references, GP extraction, startup heap proof, ISO translation, allocation, native execution, gameplay or shipping authorization.",
+    "Existing fixed-delta patch contracts unchanged. New report fields are rejected by existing other recipe owners.",
+    "Full integrated suite/race deferred under user pacing. Current focused CLI race35.103s and ordinary independent verification cover this increment.",
+    "Family coverage remains5Full/9Partial/14=35.71%;410-path historical accounting unchanged."
+  ]
+}

@@ -1,0 +1,929 @@
+{
+  "bundle": "testdata/native-line-groups.zip",
+  "bundle_sha256": "9a63de05c5b9cea09106b0bbeb2a6dfaba4fd972274a26a760c46547885d285f",
+  "entries": {
+    "actual-two/candidate.raw": "5eba477c7cb84750dd7bef60ee3567d162536ab8dc3ff33c73f5d63f7b835d3c",
+    "actual-three-min/candidate.raw": "91cd9820326c90501e79986fe72dd77839892ba0c86510deeec6773b6b780cc9",
+    "actual-left/candidate.raw": "f8479bdc69771714e1c1b9bab5e1a8e8c431bf753f1d440d46c84d41ece9ce41",
+    "height-fit/candidate.raw": "913e8bef27ea5745d97c22310cae3f8742f234f1fb04a2981cd180c97d0f31b4",
+    "width-fit/candidate.raw": "321d2be6c96fd42504a7f39df10c9ae0004c1be251185cc41a86f5d1348863ff",
+    "minimum-height-stop/candidate.raw": "f845df9c2b6f49919270e6d70b84bd426b4289fd93807dc8547016fb22b42a85",
+    "overlapping-lines/candidate.raw": "2790ef2c7be035647bc41010e4a260e06d93c1c33c2125b67b4e0964960999f4",
+    "top-alignment/candidate.raw": "4f031162033435ad88f63c52c509bbfb2715d360495618835a8b0fc57b64c63e",
+    "actual-native/source.txd": "4b88155c620bc94c56d55d827dbe0f30a725c95c9c03094a1bbf4d739ef590a0",
+    "actual-native/expected.txd": "6dcabbb1ba17881920df534400ede91d8c979f80806c0195304fee29e0127800"
+  },
+  "provenance": "Independent original op_lines/measure/text_layer/composite, frozen before implementation. Canonical9 vectors retained; icon vector held because source-crop icons are not glyph runs. Native group cases below are metric-only adapters, not Go-derived expected pixels.",
+  "cases": [
+    {
+      "cell": {
+        "id": "actual-two",
+        "rect": [
+          125,
+          166,
+          384,
+          54
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          166,
+          384,
+          54
+        ],
+        "layout": {
+          "size": 18,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            0,
+            0,
+            384,
+            54
+          ],
+          "lines": [
+            [
+              {
+                "text": "Cards decide who goes ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "first",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Then choose one of ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "four commands",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 25,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "actual-two/candidate.raw",
+      "rgba_sha256": "5eba477c7cb84750dd7bef60ee3567d162536ab8dc3ff33c73f5d63f7b835d3c",
+      "size": 18
+    },
+    {
+      "cell": {
+        "id": "actual-three-min",
+        "rect": [
+          125,
+          125,
+          380,
+          72
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          125,
+          380,
+          72
+        ],
+        "layout": {
+          "size": 16.5,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            0,
+            0,
+            380,
+            72
+          ],
+          "lines": [
+            [
+              {
+                "text": "Your village earns ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "tribute",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": " each turn.",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "It may heal you or give ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "Specialties",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Other villages heal you ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "for a fee",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 20,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "actual-three-min/candidate.raw",
+      "rgba_sha256": "91cd9820326c90501e79986fe72dd77839892ba0c86510deeec6773b6b780cc9",
+      "size": 16.5
+    },
+    {
+      "cell": {
+        "id": "actual-left",
+        "rect": [
+          180,
+          310,
+          326,
+          28
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          182,
+          310,
+          324,
+          28
+        ],
+        "layout": {
+          "size": 20,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "left"
+        },
+        "group": {
+          "box": [
+            2,
+            0,
+            324,
+            28
+          ],
+          "lines": [
+            [
+              {
+                "text": "panels give you ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "Items",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": " and ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "Magic",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": "!",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 0,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "actual-left/candidate.raw",
+      "rgba_sha256": "f8479bdc69771714e1c1b9bab5e1a8e8c431bf753f1d440d46c84d41ece9ce41",
+      "size": 16.75
+    },
+    {
+      "cell": {
+        "id": "height-fit",
+        "rect": [
+          125,
+          166,
+          384,
+          47
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          166,
+          384,
+          47
+        ],
+        "layout": {
+          "size": 18,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            0,
+            0,
+            384,
+            47
+          ],
+          "lines": [
+            [
+              {
+                "text": "Cards decide who goes ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "first",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Then choose one of ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "four commands",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 25,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "height-fit/candidate.raw",
+      "rgba_sha256": "913e8bef27ea5745d97c22310cae3f8742f234f1fb04a2981cd180c97d0f31b4",
+      "size": 16.75
+    },
+    {
+      "cell": {
+        "id": "width-fit",
+        "rect": [
+          123,
+          166,
+          352,
+          54
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          166,
+          350,
+          54
+        ],
+        "layout": {
+          "size": 18,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            2,
+            0,
+            350,
+            54
+          ],
+          "lines": [
+            [
+              {
+                "text": "Cards decide who goes ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "first",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Then choose one of ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "four commands",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 25,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "width-fit/candidate.raw",
+      "rgba_sha256": "321d2be6c96fd42504a7f39df10c9ae0004c1be251185cc41a86f5d1348863ff",
+      "size": 16.75
+    },
+    {
+      "cell": {
+        "id": "minimum-height-stop",
+        "rect": [
+          125,
+          166,
+          384,
+          45
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          166,
+          384,
+          45
+        ],
+        "layout": {
+          "size": 18,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            0,
+            0,
+            384,
+            45
+          ],
+          "lines": [
+            [
+              {
+                "text": "Cards decide who goes ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "first",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Then choose one of ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "four commands",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 25,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "minimum-height-stop/candidate.raw",
+      "rgba_sha256": "f845df9c2b6f49919270e6d70b84bd426b4289fd93807dc8547016fb22b42a85",
+      "size": 16.5
+    },
+    {
+      "cell": {
+        "id": "overlapping-lines",
+        "rect": [
+          125,
+          166,
+          384,
+          54
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          166,
+          384,
+          54
+        ],
+        "layout": {
+          "size": 18,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            0,
+            0,
+            384,
+            54
+          ],
+          "lines": [
+            [
+              {
+                "text": "Cards decide who goes ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "first",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Then choose one of ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "four commands",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 8,
+          "vertical_align": "middle"
+        }
+      },
+      "candidate": "overlapping-lines/candidate.raw",
+      "rgba_sha256": "2790ef2c7be035647bc41010e4a260e06d93c1c33c2125b67b4e0964960999f4",
+      "size": 18
+    },
+    {
+      "cell": {
+        "id": "top-alignment",
+        "rect": [
+          125,
+          166,
+          384,
+          54
+        ],
+        "background": [
+          244,
+          195,
+          110,
+          255
+        ],
+        "background_rect": [
+          125,
+          166,
+          384,
+          54
+        ],
+        "layout": {
+          "size": 18,
+          "min_size": 16.5,
+          "scale_x": 0.97,
+          "tracking": -0.25,
+          "strokes": [
+            {
+              "radius": 0.6,
+              "source": "glyph"
+            }
+          ],
+          "composite": "float",
+          "align": "center"
+        },
+        "group": {
+          "box": [
+            0,
+            0,
+            384,
+            54
+          ],
+          "lines": [
+            [
+              {
+                "text": "Cards decide who goes ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "first",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ],
+            [
+              {
+                "text": "Then choose one of ",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              },
+              {
+                "text": "four commands",
+                "fill": [
+                  49,
+                  137,
+                  24,
+                  255
+                ]
+              },
+              {
+                "text": ".",
+                "fill": [
+                  7,
+                  5,
+                  4,
+                  255
+                ]
+              }
+            ]
+          ],
+          "leading": 25,
+          "vertical_align": "top"
+        }
+      },
+      "candidate": "top-alignment/candidate.raw",
+      "rgba_sha256": "4f031162033435ad88f63c52c509bbfb2715d360495618835a8b0fc57b64c63e",
+      "size": 18
+    }
+  ],
+  "actual": {
+    "source": "actual-native/source.txd",
+    "expected": "actual-native/expected.txd",
+    "profile": "profiles/textures/help01-command-order.json",
+    "texture": "textures\\help_illust01",
+    "raw_sha256": "9f2d4bc0b8ab37bd03b5c2d081b03d11612dfee897ad7332aeef8646fd374058",
+    "rgba_sha256": "13e2e8837ec9f2fa2b2dfec2f189f26d94445b417f30b217537d1fbbf80f8e29",
+    "native_changes": 11735,
+    "receipt": "/var/tmp/dokapon-help01-native-5mkk0ej6/receipt.json",
+    "receipt_sha256": "91f94dfc2d7c25235aefabd38575df263c5794615dd25e54b9f88831b01475df",
+    "provenance": "Independent ORIGINAL Python oracle generated AFTER parent Group implementation and BEFORE any Go comparison; no Go source inspected, no Go output consumed or executed. Single actual operation on ORIGINAL extracted source, not full translated sheet/native visual/ISO approval."
+  }
+}

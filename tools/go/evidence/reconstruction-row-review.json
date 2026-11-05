@@ -1,0 +1,249 @@
+{
+  "schema": "reconstruction-row-review-v1",
+  "sealed_at": "2026-10-21T07:19:49.809864+00:00",
+  "role": "Independent ordinary read-only code/behavior review; findings only, no implementation or approval",
+  "status": "No open findings in reviewed fixed finite scope; two reproduced initial findings closed by current-code replays",
+  "candidate": {
+    "path": "/var/tmp/dokapon-row-reconstruction-dawakf88/review-source-fixed",
+    "manifest_sha256": "decb5181acd53e75dc81ebd10d862aa020974277dd77d34eb761fbfd1470ff9b",
+    "members": 498,
+    "all_pins_held_before_after": true,
+    "full_pin_receipt": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/pins-final.json",
+    "baseline": "/var/tmp/dokapon-ttf-backend-ecll48c9/sealed-final",
+    "baseline_manifest_sha256": "2f557ee0dccaf0d064f471247c539b6f28a01094f94a1d872d03d00c73d79619",
+    "initial_manifest_sha256": "8c55582d9041e068215507b70e444e8c8a5d007f1c68c46f6185f4642781a5ee",
+    "fixed_delta": [
+      "raster.go",
+      "texture_authoring.go",
+      "patch_test.go"
+    ]
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "MEDIUM",
+      "status": "CLOSED",
+      "location": "texture_authoring.go:174-193",
+      "initial_problem": "Both lum_lt:180 and LUM_LT:0 were accepted. Last-value decoding silently changed whole TXD5245d6bb… to b64ba88a…, bypassing the intended duplicate-owned-key guard. Unicode eraſes and Reconstruction aliases also succeeded.",
+      "minimal_fix_reviewed": "Existing checkJSON checks canonical aliases separately on owned root/render/reconstruction/erase objects; dynamic icon IDs stay data. Legacy text-only scanner policy unchanged.",
+      "initial_reproduction": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/wire-probes.json",
+      "final_reproduction": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/fixed-wire-probes.json",
+      "closure": "All10 independent alias probes now refuse with no stdout; canonical donor output still5245d6bb…, and unused dynamic icon IDs ERASES/LUM_LT/Reconstruction preserve complete old TTF output624c9f3a…."
+    },
+    {
+      "id": "R2",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "location": "raster.go:365-378",
+      "initial_problem": "Default order appended into a caller-supplied zero-length slice with spare capacity, changing external backing sentinel to clear after a successful composition. This violated API input preservation; ordinary decoded JSON had no such spare-capacity dependency.",
+      "minimal_fix_reviewed": "Allocate fresh storage only while building default order; explicit order remains read-only.",
+      "initial_reproduction": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/order-probe.json",
+      "final_reproduction": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/fixed-extra-test.json",
+      "closure": "The exact backing-sentinel counterexample now passes in CURRENT existing Golden owner, together with8 original-only numerical API cases at2 origins."
+    }
+  ],
+  "code_assessment": {
+    "owner_boundary": "One new reconstructRaster is justified by independent current-pixel selection/growth and donor interpolation. composeCells retains clone, permission algebra, exact changed-byte text guards, font preflight, stable-ID ordering and coarse native covers. No duplicate font engine, writer, codec, helper or per-patch executor was added.",
+    "kernel": "Reviewed strict RGB integer luma, combined thresholds/near selection, initial permission clipping, synchronous4-neighbor growth then final clipping, local CURRENT donor complement, straightRGBA including hiddenRGB, float64 multiply/add then ties-even, endpoint/all-unknown handling, and empty-hole return before method/fill dispatch. Frontier expansion visits each crop pixel at most once; large Grow cannot force repeated full-mask copies.",
+    "composition": "Explicit mixed Order is an exact permutation of unique cell/erase IDs. Donor-only requires no font. Permission is union-minus-exclusions-plus-add then intersected with native covers. Text compares final bytes against the current pre-step canvas, underpixels read current canvas and inline icons read immutable base. Existing cells retain nonoverlap checks; erases can overlap.",
+    "bounds_and_errors": "Dimensions<=1Mpx, region/step counts<=64, overflow-safe relative rectangle checks and aggregate crop work budget reviewed. Error discards the private working clone. Exclusive output lifecycle and source/profile rechecks remain in existing authorTexture/writeNewFile path.",
+    "readability": "Finite method switch and one shared row/column interpolation loop are coherent. The per-object alias checks avoid depth-based restrictions on dynamic IDs. No further concrete duplication or unnecessary function finding."
+  },
+  "verification": {
+    "current_focused": [
+      {
+        "name": "native-focused",
+        "cmd": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-tags",
+          "nativefonts",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 41.564
+      },
+      {
+        "name": "core-focused",
+        "cmd": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-count=1",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/gotmp",
+          "CGO_ENABLED": "0"
+        },
+        "exit": 0,
+        "wall_seconds": 31.493
+      },
+      {
+        "name": "native-build",
+        "cmd": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/native",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 2.057
+      },
+      {
+        "name": "core-build",
+        "cmd": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/core",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/gotmp",
+          "CGO_ENABLED": "0"
+        },
+        "exit": 0,
+        "wall_seconds": 1.281
+      },
+      {
+        "name": "native-vet",
+        "cmd": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/gotmp"
+        },
+        "exit": 0,
+        "wall_seconds": 0.375
+      },
+      {
+        "name": "core-vet",
+        "cmd": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/tmp",
+          "GOTMPDIR": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/gotmp",
+          "CGO_ENABLED": "0"
+        },
+        "exit": 0,
+        "wall_seconds": 0.346
+      }
+    ],
+    "independent_extra_API": {
+      "args": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-overlay",
+        "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/fixed-extra-overlay.json",
+        "-count=1",
+        "-p",
+        "2",
+        "-run",
+        "^TestPilotHistoricalGoldenBytes$",
+        "."
+      ],
+      "exit": 0,
+      "wall_seconds": 16.15819150400057,
+      "cases": 8,
+      "origins": 2,
+      "input_backing_counterexample": "included against CURRENT code/test owner",
+      "source_vectors_sha256": "262971cc25280221c8fd20cf6858e0f9fde736b400b4a800aaf8878a13fddd70"
+    },
+    "extra_source_expectations": "8 original-only finite vectors frozen before candidate execution (SHA262971cc25280221c8fd20cf6858e0f9fde736b400b4a800aaf8878a13fddd70), testing selector intersection, RGBA near with alpha ignored, negative/zero/positive growth, excluded known donors and overlapping clear-prefix/current reads; zero and shifted padded origins.",
+    "source_binding": "Verified original512-member numeric,39-member interleaving and15-member immutable-icon packs. All129 non-JSON portable ZIP artifacts bind byte-for-byte to those frozen originals or the explicitly qualified OLD accepted codec projection; normalized JSON is a schema bridge.",
+    "fixture_bindings": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/fixture-bindings.json",
+    "standalone": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/fixed-standalone.json",
+    "native_oracle": "Built core donor CLI whole output matches5245d6bb533f0f5173d28251f74d5dddbc83a63e99a5f7bcf213dd5f58e8cd0b. Existing CLI owner checks all8260 changed native bytes and decoded whole output794329ff…; exact outside-allow decoded changes0. Expected native bytes are OLD accepted codec projection after original renderer, not independent encoding.",
+    "hygiene": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/hygiene.json",
+    "initial_receipts": "Initial passing focused/build/vet receipts and both failing independent counterexamples retained separately in private artifacts; they are superseded for current-source acceptance.",
+    "jobs": "All terminal; no race/full-suite run by this reviewer."
+  },
+  "costs": {
+    "production_files": 39,
+    "production_bytes": 417383,
+    "baseline_production_bytes": 403624,
+    "delta_production_bytes": 13759,
+    "named_declarations": 41,
+    "fixture_bytes": 350493,
+    "test_delta_bytes": 21101,
+    "new_profile_bytes": 1365
+  },
+  "private_artifacts": {
+    "root": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1",
+    "manifest": "/var/tmp/dokapon-reconstruction-row-review-1bbku_w1/artifact-manifest.json",
+    "members": 146,
+    "manifest_sha256": "67d2fad8a54206b3d9d61cb49fcdad2de719e55db3221b07632157d837aeb0d8"
+  },
+  "limits": [
+    "Finite flat/clear/rows/cols and declared rectangle permissions only; other donor taxonomy algorithms remain held.",
+    "Existing valid Go image storage and caller-owned mutable kernel canvas are assumptions; composeCells constructs the kernel canvas/mask. No claim of hardening arbitrary forged image structs.",
+    "Original-only8extra cases supplement finite repository goldens, not exhaustive floating-point or all historical caller coverage.",
+    "No new artwork, .06/full-family/migration/retirement/ISO/gameplay approval. No protected resources or historical main executed.",
+    "No full integrated suite or race duplicated; focused verification follows current user pacing. No savings claim; code/types/profile growth is charged separately from tests/fixtures."
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-21T15:46:07.620020+00:00",
+  "status": "READ_ONLY_REVIEW_NO_OPEN_FINDINGS",
+  "candidate": {
+    "directory": "/var/tmp/dokapon-sentinel-map-w_drg1y9/review-source-final",
+    "manifest_sha256": "e48744196e56c80d1d55b1767d2f537ef669f3753aa46ce7732e71849ad0fafa",
+    "members": 556,
+    "all_pins_before_after": "PASS immutable0400singlelink capsule+ownedcopy"
+  },
+  "baseline": {
+    "directory": "/var/tmp/dokapon-fixed-inline-iiom1ld5/sealed-final",
+    "manifest_sha256": "dd81bcdfd843748e0757e0295e709189f1c0e65134c13863ba1589a238350ec1"
+  },
+  "findings": [
+    {
+      "id": "SENTINEL-READABILITY-1",
+      "severity": "LOW",
+      "status": "CLOSED_ROOT_FIX_INDEPENDENTLY_VERIFIED",
+      "source": "stream_audit.go:406",
+      "issue": "One compound guard mixes mapping cardinality, conditional storage policy and exact file-range equality. This obscures the new distinction between ordinary file backing and separately proved sentinel transport.",
+      "minimal_direction": "Use a cardinality guard, switch Storage (sentinel_blob requires allocation facts), then the exact FileRange guard. No helper/type needed.",
+      "behavior": "No incorrect acceptance observed; root has accepted the readability change, not yet implemented in this reviewed capsule.",
+      "final_source": "stream_audit.go:406",
+      "closure": "Root separated cardinality, explicit storage switch with independently verified sentinel requirement, and exact file-window validation. Only code delta is this guard; own final completeCLI owner, build/vet/hygiene and affectedCLI probes pass. No reviewer implementation."
+    }
+  ],
+  "owner_review": [
+    "inspect is the existing ELF/initialized-protocol owner; one Sentinel=nil recursion proves12 ordinary PT_LOAD-only words before extension. Exact role/register/opcode and positive signed-sector checks bind dispatcher, loader and physical trailer. Full dispatch/BSS overlap refuses.",
+    "One ELFMapping interval projector preserves original PH indices/boundaries, no coalescing or fake header. Loaded-only region uses sentinel_blob; suffix of larger dispatch remains unmapped.",
+    "auditStreams retains exact fullwindow join and lifecycle. references/referenceTarget stay ordinary ELF and strict ADDIU; raw target mappings do not silently become external mappings. Unknown decoding/canonical results stay unknown; no new write route.",
+    "Two config/result types are justified separate trust contracts; local instructionSite groups finite role facts rather than creating a generic engine. No new functions/files/dependencies; existing Stream would import unrelated disc/write/consumer prerequisites.",
+    "Strict raw-key/null/alias/length rules are scoped to new owned data. API transaction/inspection/reference foreign guards remain explicit. Retail EOF is declared pinned-layout input, not discovered canonical provenance."
+  ],
+  "oracles": {
+    "source_frontier_manifest_sha256": "c8d11381d6bd5f744128da1bd389754c907ff88f887de412c532180a17b66b44",
+    "source_frontier_members": 31,
+    "source_fixture_manifest_sha256": "c1054cafe6ef883d5d8c63b605410c35b2a921a7edf19ef561eff73e0702bbb7",
+    "source_fixture_members": 36,
+    "qualification": "Independent precode source-equation/manual safety oracles, not claims permissive historical helpers reject malformed cases. Original main/runtime not executed. Candidate fixture and ZIP retain source member pins."
+  },
+  "own_checks": [
+    "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run '^(TestPlanAndCopy|TestPlanRefusals|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$' . PASS29.394s",
+    "Core build/vet/gofmt/changed whitespace/positive-selfchecked POSIX credentials PASS",
+    "Four complete legacy audit stdout/stderr/exit captures identical against own previously accepted inline binary; ordinary ELF complete output also identical with2PH split/BSS/gaps/odd/max32bitend queries",
+    "Synthetic canonical sentinel stream and separate ordinary-unmapped target vs actual external mapping PASS; coherent pointer word crossing2PH refuses;8 additional Unicode/null/duplicate-decoded-key cuts refuse without JSON",
+    "Native frozen6e ELF re-read by own stdlibstruct parsing before Go: all12 raw words/maps,640KiB loaded vs1MiB dispatch and split-loaded-end query exact. Frozen source bytes/inode/mtime and synthetic input identities preserved",
+    "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run '^TestCLIDryRunAndApply$' . PASS17.172s against final556",
+    "Fresh final core build/vet/gofmt/scoped whitespace and positive-selfchecked POSIX credentials PASS",
+    "Finalbinary:four complete legacy captures, coherent2PH/BSS/gap/odd/maxend ordinary-mapper parity, synthetic canonical externaljoin, splitpointer refusal,eight independentwirecuts and identities allPASS. Unchanged native/sourcepack proofs retained from initial independent checks; no redundant broad native replay."
+  ],
+  "accounting": {
+    "production_go_files": 39,
+    "production_go_bytes": 445107,
+    "named_declarations": 41,
+    "production_growth_bytes": 11012,
+    "new_example_bytes": 11076,
+    "test_growth_bytes": 12480,
+    "new_oracle_bytes": 57035
+  },
+  "artifacts": {
+    "root": "/var/tmp/dokapon-sentinel-reader-review-h52fwtf6",
+    "manifest": "/var/tmp/dokapon-sentinel-reader-review-h52fwtf6/artifact-manifest-final.json",
+    "manifest_sha256": "7a83d856ae1f54d06f7842ada9e2d5ec8b9b67d70608c811b7f1124f45c52c50",
+    "members": 1355,
+    "checks_sha256": "a9275c126138e15c063350f0e21a062f285f325ecaceb6ac0b8940fde3b0b55c",
+    "cli_checks_sha256": "d818a51893be1fe562e4da5cc795f0045f44b0360fd70d1831799048cebddced",
+    "contents": "Initial+final556sourcecapsules, initialOPENreport/717memberchain, both originalsourcepacks, nativeexpected/rawinput, accepted+initial+finalbinaries, allcapturedoutputs/scripts/logs/diffs/pins"
+  },
+  "limits": [
+    "Final556 reviewed; initial four-owner/core/native-facts evidence preserved separately. Root check/race results are not own evidence.",
+    "Focused core checks only; no fullsuite/race/nativefonts replay, runtime or protected resources. No ISO/registry/emulator/process/settings access/control.",
+    "No implementation/approval, milestone/family/script-retirement/reduction credit. All own jobs terminal."
+  ],
+  "history": {
+    "initial_review_sha256": "2046fb76109a286a4190eb73efd783d7e54f174496f057a8ee439a1d953ffa78",
+    "initial_candidate_manifest_sha256": "cc523f99d19ceb70e2933fb713f5030498b06801c8547df7578e40d6b1c64e74",
+    "initial_artifact_manifest_sha256": "9d1dca94947b8902e43525ead977c9cf956c1ec666b1e29f01df31d87a6baff8",
+    "initial_artifacts_preserved_and_reverified": 717,
+    "delta": "Only stream_audit.go cardinality/storage/range guards+342B, plus announced current-accounting JSON refresh. All other source/test/fixture/doc pins equal initial556."
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "status": "READ_ONLY_FINAL_DELTA_AND_ORIGINAL_FAMILY_ASSESSMENT_COMPLETE_FINDINGS_NOT_APPROVAL",
+  "candidate_manifest": "/var/tmp/dokapon-textcodec-jjf7t07t/review-source-2/manifest.json",
+  "candidate_sha256": "e6ab60617f433836547053b7e35ab3ab1f94309fb4bd8f99364a9a6eb53cf14d",
+  "baseline_manifest": "/var/tmp/dokapon-flood-mask-uozw1oid/sealed-final/manifest.json",
+  "baseline_sha256": "8d653becef60dac2a707e6ef8ece6ffe69f6a779ccb26acf4ee2ecc253b3df4f",
+  "findings": [],
+  "A045-ORDERED-STATE-1": {
+    "disposition": "CLOSED_IN_REVIEWED_FROZEN_CODE",
+    "evidence": [
+      "patch.go128..136 local sourceAtom embeds TextToken/id/boundary/prefix/paired",
+      "patch.go245..246 preparation assigns wrapperweight/index and appends one occurrence record",
+      "patch.go338..344 markerrole updates record.paired",
+      "patch.go487..496 finalexpansion indexesrecord, checks ordinal andspeakerseparator, appends exactword+fullpayload"
+    ],
+    "reason": "Oldparallel atomIDs/prefixAtoms/pairedAtoms structures are absent. OnlyatomIndex andatomWidths maps remain for actual expansion/layout interfaces. No new function, one local type. Source andoutput validation remain separate."
+  },
+  "actual_verification": {
+    "frozen_candidate_members_verified": 713,
+    "baseline_members_verified": 710,
+    "source_regular_members_verified": {
+      "source97": 97,
+      "placement10": 10,
+      "roles9": 9
+    },
+    "source_special_files_read": 0,
+    "focused_test_command": "GOMAXPROCS=2 TMPDIR=<newowned> GOCACHE=<previousowned>/gocache nice -n19 go test-p2 -count=1 -run 'TestPlanAndCopy|TestPlanRefusals|TestPilotHistoricalGoldenBytes|TestCLIDryRunAndApply' -v ./...",
+    "focused_result": "PASS ok dokapon/tools31.963s",
+    "build_core": "PASS go build-p2 . ->ownbinary",
+    "vet_core": "PASS go vet-p2 ./...",
+    "build_nativefonts": "PASS go build-p2 -tagsnativefonts . ->ownbinary",
+    "vet_nativefonts": "PASS go vet-p2 -tagsnativefonts ./...",
+    "gofmt_changed_Go": "PASS emptygofmt-l output",
+    "runtime_credential_pattern_scan": "No matches in changedruntimeGo",
+    "ordered_fixture_cases": 111,
+    "positive": 83,
+    "refusal": 28,
+    "positive_changed_wholebytes": 49,
+    "positive_whole_noop": 34,
+    "new_named_functions": [],
+    "duplicate_prefix_probe_result": "PASS exactcounterexample ANDnoEnglishoverride ->nilbytes+duplicateprefixerror",
+    "own_probe_source_change": "Only one shortinsertion intoexistingGoldenfunctioninnewownedcopy. All47productionGofiles byte-identicaltofrozennew713; frozenfilesnevermodified.",
+    "old107cases_unchanged": true,
+    "all713_frozen_files_sha_verified": true,
+    "initial15closurepins_unchanged": true,
+    "frozen_changedGo_gofmt": "PASS no output",
+    "initial_focused_ownedcopy_all713_pins_unchanged_before_independent_probe": true,
+    "final_ownedcopy_all47_production_Go_match_frozen": true,
+    "final_ownedcopy_test_only_intentional_probe_insertion": true
+  },
+  "code_review": {
+    "source_preparation": "Aligned source coordinates normalize toorigin, bounded<=8192physicalbytes, exact word+8Bparam8 shapes, one physicallyconsumed END; re-decodealltokens andContentStart before source isauthoring authority. ReadPin/PositionalLabels remainoutsideordered narrativeauthoring. Newguardrejectsduplicateprefixspeakersbeforeanyoverride; laterbodyLINE/PAGEspeakerhandlingisunchanged.",
+    "staging_and_lexer": "Peroccurrence IDs0801..27FF excludeLINE0800/PAGE1000, allcanonicalglyph/sourceword collisions; boundedexhaustionrefuses. Entireopaque8Bstaysoutsidewrapping/highlight scans. STATE excludesHLscale,INIT onlysource-prefix persistentHL, explicitHLpairrolesnotinferredbyoffset.",
+    "layout_and_final_validation": "wrapPages nilweights retainoldpath; weightsincludeexplicit0 forstate/anchors and1forarguments. Orderednativewrap/true-stateautomaticwrap refuseunknownmetrics. Afterlayout eachoccurrence mustsurviveexactlyonce,inorder; body speaker retainsits actualprecedingLINE/PAGEkind. Finaldecompilecomparesactualcontrolword+payloadtape andgrammar/physicalEND.",
+    "whole_alias_fixedpoint": "Exactsourcewords returnedonlyaftercompletevalidoutputtape andentiretoken-structure/glyphtext equivalence. Changedwording remainscanonicalreversemap. This is1:1synonymidentity, not multirunetokenization.",
+    "actual_callers": "Existingplan forwardsrecipeAuthoring withSourceContext/preimage/newhash/bytebounds;guardedwholecopytest checks exactplannededits andoutside/sourcepreservation. Tenplanner/safetyrefusals guardcontext/pins/physicalEND/unknownnativecontrols. previewFit bindsboundedselectedELF source and publishesencodedhex/hash separatelyfromunsupportednative metrics. auditStreamscanonicalorderedroute executesall107source-policyvectors, verifies independentpinnedwindows andrefusals.",
+    "old_defaults": "Oldgolden/CLI/source-context cohorts passfocusedtests. Default/plain/markers/LabelRuns/read-pin/strictwriters remainseparate; no rawcontrol or Edit escapeadded.",
+    "quality": "A045localrecordfindingandTCduplicateprefixguardfindingareclosedinthefinalfrozenbranch. Noadditionalconfirmedfindinginboundedfinaldelta review. No newfunction/framework justified."
+  },
+  "original_six_milestone_assessment": [
+    {
+      "id": "text_codec.01",
+      "original_requirement": "Share source glyph maps and typed word/token representation",
+      "assessment": "Priorproven support retained by unchangedglyphMaps/TextToken owners; newprivateglyphText facts supportwholealiases withoutpublicreportexpansion."
+    },
+    {
+      "id": "text_codec.02",
+      "original_requirement": "Encode supported authored ordinary markup and bounded fixed fields",
+      "assessment": "Priorproven ordinary/fixed/positional support preserved; focusedoldgoldens pass. Newordered policy isexplicitopt-in."
+    },
+    {
+      "id": "text_codec.03",
+      "original_requirement": "Decode explicit narrative/positional/fixed-reader forms with bounded termination",
+      "assessment": "Priorproven decoderstyles/bounds retained. Neworderedsource isre-decoded throughsamecontrols; raw pinnedreader neverbecomesauthoring permission."
+    },
+    {
+      "id": "text_codec.04",
+      "original_requirement": "Preserve exact semantic-control/ordered argument/opaque payload observations and refusal boundaries",
+      "assessment": "Priorproven observations preserved; whole8Bopaque payloads, original writerbugobservations andunknownE000/readABI refusals remainseparate."
+    },
+    {
+      "id": "text_codec.05",
+      "original_requirement": "Author/re-encode remaining setup/pen/opaque grammar while preserving unknown arguments",
+      "assessment": "Evidence supports completion of ESTABLISHEDmaterialfiniteoriginalcodec duty conditionedonrootrequiredpostguardQA/raceandpublication: same-order scale/plainprefix plus explicitbodysetup/truepen/HLroles andorderedword+full8Bopaque authoring underchangedwording. Not merely decoder observations or noops. Allrecognizedordinarysource token families are handled, ratherthan perchapterhandlers.",
+      "concrete_guard_closure": "Duplicateprefixspeakerfindingclosedwithindependentniloutputreplay and4core/real-auditrefusals."
+    },
+    {
+      "id": "text_codec.06",
+      "original_requirement": "Perform source-context-preserving roundtrips across material mixed control sequences",
+      "assessment": "Evidence supports completion of ESTABLISHEDmaterialfiniteoriginalcodec duty conditionedonrootrequiredpostguardQA/raceandpublication: wholecontroltape,implicitHDR/speakers, prefix/contentbarriers,payloadlookalikes,repeatedsamecodes,finalpauses,LINE/PAGEspeaker anchors,explicitroles and1:1aliases checkedacrossnewchanged/noopindependentliterals atoffsets0/6; sourcecompiledlayoutcasesandactualaudit/fit/plan paths areexercised.",
+      "concrete_guard_closure": "Duplicateprefixspeakerfindingclosedwithindependentniloutputreplay and4core/real-auditrefusals."
+    }
+  ],
+  "family_determination": {
+    "result": "YES: originaltext_codec.05and.06canbeproven undertheUNCHANGEDsixmilestone/sourcecrosswalkscope, conditionedonrootrequiredpostguardQA/race/acceptanceandpublication. Theconcretecodecduplicateprefixguardgapisclosed. NootherESTABLISHEDMATERIALoriginalcodec duty remainsidentifiedinthispinnedcohort. Thisisanindependenttechnicalassessment, notapproval/familymutation/9of14claim. Acceptedcountsandall410retirementsremainrootownedandunchangedbythisreview.",
+    "scope_basis": [
+      "analysis/migration-roadmap.json text_codec requirements/crosswalk",
+      "analysis/reusability-coverage.json text_codec originalcontract vsconsumer_layout originalcontract",
+      "source97/current-codec-ledger.json andclosure-matrix.json",
+      "source97sources/dialog_codec.py/text_encoder.py plusactualpinnedwriter/callers",
+      "independentplacement10/roles9specifications andchangedpositivecallers"
+    ],
+    "native_unknowns": "Unknownnativepayload/position/scale fitandpositiveopaqueimagepatchremainheldbyconsumer_layout/ABIandguardedwriteadmissibility, notmissingcodecserialization. Source-boundproducerpreservesunknownvaluesandoutputs usefulcanonicalbytes/auditfacts. Positiveorderedmeasurableplan+guardedcopyand10safetyrefusalsexerciserealcallerboundaries. Forcingopaquewritethroughstrictguardswouldweakenanotherfamily, notprove.05/.06.",
+    "E000": "ExactnarrativeE000isintentionallyUNCLASSIFIEDintheORIGINALdialog_codec.py65..66/283..285: itreadsaseparate8Bvarargslot, notinline8Bstreampayload. Thepinnedoriginalwriter/callercohortdoesnotestablishamaterialsuccessfulE000authoringcontract. Existingpositionalword-onlyUIE000isadifferentexplicitgrammaralreadyhandled. UnknownABI/reader/writeholdremains; nodutydisposition, grammarguess, perwordrawescapeor410callerwaiveriscreated. Evidenceofamaterialsuccessfuloriginalcallerwouldreopenassessment.",
+    "multi_rune_aliases": "Forwardsourceglyphmapcancontainmulti-runealiasstrings; reverseauthoringandoriginalencode_labelareper-character. Exactorderedwhole-nooprestorationcovers1:1sourceword synonyms withsametokenstructure, notonewordtomultipleEnglishrunes. No successfulmaterialone-to-manyauthoringcallerestablishedinpermitted97/10/9cohort. Canonicalmapnotread; noabsenceorallaliascoverageclaim. Preservedecode-only/unsupportedauthoringboundaryratherthaninventframeworkorwaivematerialrequirements.",
+    "other_boundaries": "Unanchored body speakers outsideactualLINE/PAGEsourcecohort, arbitrary unknownnarrative/readABIwords andinventedpayloadgrammar remainexplicitunsupporteddomains, not silentlysuccessful authoring.",
+    "historical_accounting": "All410historicalduties/retirements remainunchanged. Toolkitmilestone assessment isnot every-script retirement or whole-game rendering proof; noobjective/denominator changed."
+  },
+  "oracle_independence": "Source97/placement10/roles9manifests arehash-verified andpredatethecandidate. Theykeepmanualwholeliterals, originaldecodergrammarobservations andsourcewriterbugs/refusals separate. CandidatepositivebodySTATE/roles areexplicitnewauthoredplacementfacts, notbugwriterparity orpayloadmeaning inference. Twocharacterwrapwholeliterals aredeclaredmanualcontracts.",
+  "limitations": [
+    "Freshbounded2-5minute finaldelta reviewpluspriorfrozeninitialreview; notexhaustivehost/sourcecrawl.",
+    "Ownfocused4ownerstestandcore/nativebuildvetPASS. Noownfullsuite/race/nativefontsfocusedrun; rootrequiredQA/race/publicationremainseparateconditions.",
+    "NoISO/canonicalregistry/canonicalglyphmap/emulator/runtimeABI/renderingorprotectedinputsinspected.",
+    "Originalcrosswalkcontractsarepreservedinroadmap/reusability/source97; no410recrawl orhistoricalretirementmutation.",
+    "Sourcealiases/accounting/publication-onlymetadatarepinspendingoutsidefrozenoperationaldelta; nottreatedascandidateoperationaltruth."
+  ],
+  "all_owned_jobs_terminal": true,
+  "frozen_or_LIVE_writes": 0,
+  "protected_reads": 0,
+  "approval_authority": false,
+  "at": "2026-11-05T04:37:12.177242+00:00",
+  "initial_finding_preserved": {
+    "manifest": "/var/tmp/dokapon-textcodec-independent-review-e765UpNz/sealed-initial/manifest.json",
+    "sha256": "b7a43c30a54150f18fac65283fbcfe50de92fbb4eb96cb925de5e6c7de41ab18",
+    "report_sha256": "e0e48bfd400d1e9caac23031d8eda898cc1d285ad8b7cf652e1d8ac824a63f03",
+    "unchanged_all15members_verified": true
+  },
+  "closed_findings": [
+    {
+      "id": "TC-ORDERED-DUPLICATE-PREFIX-SPEAKER-1",
+      "disposition": "CLOSED_IN_NEW_FROZEN713",
+      "exact_delta": "OnlyproductionGochangeis3line seenSpeakerduplicateprefixguardbeforeoverrideinexistingpatch.go233branch",
+      "independent_repro": "Original002801380238010000f8 withEnglish[spk0x3803]A andwithEnglishA bothreturnnilbytes/error duplicate ordered source prefix speaker. ExistingGoldenownerprobe logs exactresult.",
+      "regression_coverage": "Allold107fixturesunchanged;4newcoreandactualauditnegativecases with/withoutoverrideat0/6.111total83positive28refusal.",
+      "fix_scope": "Oneoccurrenceowner/localtypeunchanged;bodyLINE/PAGEspeakers,othercallers/writer/layoutguardsunchanged."
+    }
+  ],
+  "metadata_correction": "Clarifies inherited initial-review all713-ownedcopy flag: it applied before initialprobe. Finalownedcopy deliberately adds only independentprobe toexistingtestfunction; allfrozen713wereverifiedandall47productionGoremainbyte-identical. No code/finding/test/scope result changed; previoussealed-final10preserved."
+}

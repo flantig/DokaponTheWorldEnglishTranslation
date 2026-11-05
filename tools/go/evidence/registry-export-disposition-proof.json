@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:35:37.797576+00:00",
+  "status": "VERIFIED one partial historical CSV responsibility credit; no full migration/retirement",
+  "path": "tools/build_registry_csv.py",
+  "disposition": {
+    "path": "analysis/registry-export-disposition.json",
+    "sha256": "05c629fec58af08013fd983a392f41b1d1762aab0e2240ee9fb9fb7221894023"
+  },
+  "source_and_effects": "Historical/provider/caller study and exact5,544-row CSV evidence support scoped typed flat projection. Legacy CLI/provider/defaults/overwrite/coercion compatibility and callers remain unchanged, so only partial status is warranted.",
+  "ledger": {
+    "path": "evidence/go-coverage.json",
+    "before_sha256": "19fd11d489d34255eba12a63b019a82d8049cd72ba4ce871ddf0e26b71e1a183",
+    "after_sha256": "c73d8ef04876a3f657679eb6a4875aba7c384e43f2b21b7c713af2dcfcffd40c",
+    "metadata_delta_bytes": 1732,
+    "legacy_execution_policy_changed": false
+  },
+  "counts": {
+    "full": 8,
+    "reviewed_historical": 20,
+    "partial": 16,
+    "outstanding": 366,
+    "total": 410
+  },
+  "verification": {
+    "private_receipt": "/var/tmp/dokapon-registry-export-m131wn1x/ledger-checks.json",
+    "sha256": "e827ca7c17591ef4429090edbc7f839442b992b1355dd88f8aa3e8479ec09259",
+    "410_unique_baseline_paths": true,
+    "all_410_legacy_run_projections_unchanged": true,
+    "actual_consumer": "Unchanged legacy.lookup AST on synthetic roots/targets, before/after metadata: CSV available for lookup, prior reference-only target still refused. No main or target execution."
+  },
+  "family_score": "5Full/9Partial/14=35.71% unchanged",
+  "code_change": false,
+  "limits": "Historical source/provider/launcher retained. No Go function, Python implementation, runtime test or caller redirect change. No full-suite/build rerun for metadata-only disposition; accepted Go code pins unchanged."
+}

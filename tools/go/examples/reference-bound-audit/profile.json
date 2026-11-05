@@ -1,0 +1,105 @@
+{
+  "evidence": "Independent literal byte/declared reference/full-window binding facts; no liveness/canonical EN claim",
+  "observed_family": "reference-bound-example",
+  "sources": {
+    "reference": {
+      "path": "reference.elf",
+      "size": 512,
+      "sha256": "8b2ba58f775863e51e5b668ce98639c54371aaaa7b2f7186d16c1583adff5408"
+    },
+    "observed": {
+      "path": "observed.elf",
+      "size": 3072,
+      "sha256": "34ea0f2ee2e63cd33198921c055d7ddd4fd59eff970606e39aedef31393a576d"
+    },
+    "glyphmap": {
+      "path": "glyphmap.json",
+      "size": 63,
+      "sha256": "2bea13f1edda47972ee5f2b117854077b172deda6c9fff871f9fc0aecd4ae8d8"
+    },
+    "registry": {
+      "path": "registry.json",
+      "size": 1811,
+      "sha256": "4b7dcf2eaa1843105ac353a01d9037759428127d433e38df4d15d86f940a9b7d"
+    }
+  },
+  "entries": {
+    "0x1000": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "decoder": "narrative"
+    },
+    "0x1002": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x1e0",
+        "end": "0x204"
+      },
+      "decoder": "narrative"
+    },
+    "0x1003": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x240",
+        "end": "0x264"
+      },
+      "decoder": "narrative"
+    },
+    "0x1004": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x2a0",
+        "end": "0x2c4"
+      },
+      "decoder": "narrative"
+    },
+    "0x1007": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x3c0",
+        "end": "0x3e6"
+      },
+      "decoder": "narrative"
+    },
+    "0x100b": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x540",
+        "end": "0x562"
+      },
+      "decoder": "narrative"
+    },
+    "0x2001": {
+      "reference": {
+        "start": "0x120",
+        "end": "0x144"
+      },
+      "observed": {
+        "start": "0x800",
+        "end": "0x824"
+      },
+      "decoder": "narrative"
+    }
+  }
+}

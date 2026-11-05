@@ -1,0 +1,80 @@
+{
+  "review": "asset_preview_inventory.05 checker comparison; ordinary independent read-only review",
+  "reviewed_at_utc": "2026-10-21T02:31:29.423440+00:00",
+  "result": "No open findings. LOW readability recommendation reproduced and closed on final18 pins.",
+  "candidate_pins": {
+    "raster_png.go": "ed008a4bc4acaff06eb6b695d3cf74790b30455873a336889242e31c0042095a",
+    "texture_authoring.go": "45514c9bd6be464c581e2956998721e3740a32b4136e4eefae2ee7e57f2ee62d",
+    "texture_manifest.go": "7a9a7c818f20bc986bff976505b2e955c815de944e960bdbbf2bdf7d385aa920",
+    "texture_types.go": "c2086e1ec1bd653dadc7d92985f17446e0dd34a9bea3db199950059cb81e7b48",
+    "inputs.go": "99cf7cf996375db848623cd2de63cc0473bc3c6729b64b5b55c9721ca8f1794d",
+    "input_types.go": "a0b464d1e17310044642ee9fae92acf85ac43e3eed6c46616867b06512e96799",
+    "patch_test.go": "8b45ad979493ac5e60c2cd0b542b932c96a53539d50baa734e0a44a2bf6cbf0c",
+    "testdata/asset-comparison.zip": "361cc648a60133352d67ee748c945ef5818f069439d8889253afb4ac5b7834f1",
+    "examples/asset-comparison/before.png": "31f40962bba92efbc214e15b65effb06aaa523067d0e5f0251321b80a8a30e4b",
+    "examples/asset-comparison/after.png": "aea22791efa216a819c9fcfcb2d76be25d51e48dadd77b5d6d621d4f3620b829",
+    "examples/asset-comparison/profile.json": "ca101fa072bb5abcf08c61c5634b1d06fc5f06a07a3fe0ff4d283897c17e1a08",
+    "analysis/asset-comparison-decision.json": "a5c804100d12ea1e2ef63903ee58b273f5ca5b0b2075c2758dcc2972c0a40096",
+    "analysis/asset-preview-contract.json": "9ca3fc5786bc8f86ed56837e36c50e5a82c639f0ba38c7c655b933958bab8b96",
+    "analysis/migration-roadmap.json": "467cdbaf15eff9ef3c4e6fdde15db5111dc03253e0e51941f348af4db94e8b2b",
+    "README.md": "f7efca0f5a98db4eb6502989ec019d554cf8f51cea3aa80ea37487f3f4e5f2d6",
+    "ARCHITECTURE.md": "3caf1c53b8e784959eeccd0e0078ed11c7dd1e13a4a1786738c9a803ad8330b4",
+    "ARCHITECTURE.html": "cc4912ac7bedeebad56f3c84ed485ff0eed2da048398e7019be2994516c32d10",
+    "test-results/architecture-check.py": "484b9cb67b1f1022576faa5bc8f0ed9ad93fedb0c050b35aea566a1fa75cfd3e"
+  },
+  "baseline": {
+    "path": "/var/tmp/dokapon-preview-resample-qvxtwlpn/sealed-final",
+    "manifest_sha256": "00426ba5240a77022ce6c31fbdbccc4e237bb65b5a2010b9c489f8f3e070d74f"
+  },
+  "findings": [
+    {
+      "id": "comparison-field-guard-readability",
+      "severity": "LOW",
+      "status": "CLOSED",
+      "original_source": "texture_authoring.go:44",
+      "finding": "Root-field compatibility used a mixed &&/|| expression for two separate operation boundaries. Behavior was correct; separate guards make ownership easier to maintain.",
+      "resolution": "Final expressionless switch separates archive/index_sha256 and preview guards and preserves EqualFold, including Unicode long-s. Only this guard and the existing six-key CLI refusal table changed;16 other pins are identical.",
+      "verification": "Own refreshed complete CLI PASS5.768s and six standalone null ownership refusals, including index_ſha256."
+    }
+  ],
+  "ownership_and_contract": {
+    "decoder": "Serena references confirm decodePNG serves manifestTextures and two comparison decodes plus existing tests. Extraction is justified: native RW/index, palette, sampler, format-neutral reader and CMB executor cannot reasonably own this shared pure PNG normalization without unrelated modes or duplicate conversion. No other new function/closure.",
+    "shared_behavior": "Comparison reuses resizeRaster nearest, pixelOver, readInput, checkJSON and exclusive writeNewFile. Manifest retains native decoding, raw encoded PNG previews, failed-payload work charges, row diagnostics and global chunk-bounds failures. New nonNull defaults false for prior callers.",
+    "pixel_contract": "Common padded crop, independent resize to before-controlled geometry, output-space checker8 at150/200 reset per panel, gap6 on40gray, exact integer source-over and opaque type2 RGB PNG match original source. Decoder retains prior Pillow Gray16/tRNS/high-channel/hidden-RGB normalization.",
+    "limits": "Reviewed64-bit arithmetic is bounded before allocation:1M input/crop pixels,16M pixels and16384axis per panel,32M combined canvas,128MiB encoded PNG. Virtual OOB crop adds no source-padding allocation. Source/candidate/profile exact-byte rechecks precede exclusive publication."
+  },
+  "verification": {
+    "focused": "Own initial complete CLI+HistoricalGolden PASS15.877s; final complete CLI PASS5.768s. Golden re-use is justified by exact final delta limited to field guard and six-key refusal table; decoder/raster/native paths unchanged.",
+    "existing_regressions": "Focused owners include17 original checker outputs,two512x512/1024x512@3x capacity cases,all34 PNG type/conversion cases,257 attempted-work budget fixture and prior codec/raster goldens. No full-suite or race claim.",
+    "independent_pixels": "PASS17 frozen complete standalone RGB/RGBA outputs and4 additional Pillow cases covering unequal dimensions,2-to7 nearest,negative/OOB crop,checker phase and edge alpha. Extra expected RGBA files were written before Go comparison.",
+    "lifecycle": "PASS deterministic dryrun/no output,apply/readback,type2 RGB,overwrite and source/candidate/profile output aliases refused; source bytes/inode/mtime preserved. Three private current-initial-source overlays deterministically changed source,candidate or profile immediately before recheck: all refused before output. Final delta leaves that path byte-identical.",
+    "compatibility": "PASS20 complete stdout/stderr/exit comparisons against accepted immediate baseline, including duplicate/metadata error precedence and successful specification/manifest examples; repeated on final binary.",
+    "JSON": "PASS additional Unicode alias,nested numeric null,repeated preview,null crop refusals; quoted null/escaped text accepted. Final six-key ASCII/Unicode ownership refusals independently checked.",
+    "build_vet_hygiene": "PASS own initial/final build,vet,gofmt,Git+manual scoped whitespace and selfchecked credential scan.",
+    "pins": "All18 pins verified initially and terminally; final16 unchanged plus explicit two-file delta. All reviewer jobs terminal."
+  },
+  "oracle_lineage": [
+    {
+      "path": "analysis/asset-preview-contract.json",
+      "sha256": "9ca3fc5786bc8f86ed56837e36c50e5a82c639f0ba38c7c655b933958bab8b96",
+      "kind": "precode source contract"
+    },
+    {
+      "path": "/var/tmp/dokapon-asset-preview-contract-3ym5x3v2/manifest.json",
+      "sha256": "6a2b53daf9f50b5f1c40d06d596e6607eebc3729069ea590b3e96491bea39e1d",
+      "kind": "17 original-only precode pixel cases; all member sizes/hashes rebound"
+    },
+    {
+      "path": "/var/tmp/dokapon-comparison-capacity-9rop5cmz/manifest.json",
+      "sha256": "8e68810f14bda5a789c2bf4118b93e6535500cadf1d2e84b929ac30c9e50af57",
+      "kind": "two original-only normal capacity cases frozen after implementation before candidate execution; all members rebound"
+    }
+  ],
+  "private_evidence": {
+    "path": "/var/tmp/dokapon-asset-comparison-review-qS9Ws6JD/checks-final.json",
+    "sha256": "ed9adb21f1f0964da1e1329247bba82db1b0a129b03232236b54681e7bb69654",
+    "details": "Command results and hashes of all detailed probes,controlled drift overlay,pin/hygiene receipts and binaries. Initial receipt preserved. First private parity script used wrong public example filenames; explicit success assertion rejected equal errors; corrected to source.txd/source.cmb and reran all probes; no candidate change."
+  },
+  "milestone_advice": "Positive source/pixel/publication evidence satisfies the frozen checker/crop/nearest/pair .05 requirements. Root owns any credit. Flat90/source-scaled gap4 variant and labelled sheets/grouping/dedup .06 remain separate material duties.",
+  "scope_limits": "No full suite,race,UI audit,.06/full-family,retirement,native blend,artwork,patch or ISO approval. No source/test/fixture/doc edits or protected resource access. No hostile concurrent namespace guarantee is inferred from bounded byte rechecks."
+}

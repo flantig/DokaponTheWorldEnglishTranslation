@@ -1,0 +1,240 @@
+{
+  "at": "2026-10-21T20:13:39.237490+00:00",
+  "status": "ROOT_VERIFIED_GP_INDEX",
+  "baseline_manifest": "/var/tmp/dokapon-structural-audit-s9qdhozq/sealed-final/manifest.json",
+  "baseline_manifest_sha256": "97a0957c9c4550c2f84052d027c952df3e0c1d0504d59c6e5eea0235047acc85",
+  "source_pins": {
+    "analysis/gp-index-reuse-frontier.json": "1d70a463bba2b8732730aaa44e96583b650f0c7f6395c9c3339bbcf38ad008ee",
+    "analysis/gp-index-fixture-contract.json": "6be37e3ac0bda5abeb2c14a0433b56e4224327d75f34718e80fa1ce8e62505f9",
+    "analysis/gp-index-reuse-decision.json": "a0040ea4abeab66ebf306fb75190d6c659a736413d231fdd0241d354d93dcf3d",
+    "analysis/go-current-input-accounting.json": "d7c70f50be866b5f7b1bf394f82a6b5f8cf9bb087d8976d362521d4517f62841",
+    "examples/gp-audit/index-profile.json": "06143479be48d2282855f67fe2a2c070cf1abe94fc6a165fb0c9a1a224d350fd",
+    "testdata/gp-index-fixture.zip": "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97",
+    "analysis/gp-index-milestone-study.json": "f8eec900938086cb05a5577c921eb4edf929baa51565e3db2980fa9b84138cf9",
+    "evidence/gp-index-review.json": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba",
+    "analysis/gp-index-milestone-assessment.json": "19c5382bcc661e51aa139af910e1654c4b1b66c47a36f05dbe428b84b822604a"
+  },
+  "metrics": {
+    "production_before": 463377,
+    "production_after": 474721,
+    "production_growth": 11344,
+    "runtime_before": {
+      "files": 180,
+      "bytes": 2537288
+    },
+    "runtime_after": {
+      "files": 181,
+      "bytes": 2549244
+    },
+    "runtime_growth": 11956,
+    "test_source_growth": 6213,
+    "fixture_growth": 76544,
+    "fixture_uncompressed_original_JSON_bytes": 1557499,
+    "new_named_functions": 0,
+    "production_Go_files": 39,
+    "named_production_functions": 41,
+    "new_fact_types": 2,
+    "new_runtime_example_files": 1,
+    "retired_scripts": 0,
+    "new_family_credit": 0
+  },
+  "root_artifact_manifest": "/var/tmp/dokapon-gp-index-ojcy9sxb/root-artifact-manifest.json",
+  "root_artifact_manifest_sha256": "cdd90daba31a4a031a68a78e0015549cd1893236b3b66b6cbda1cbb620115c08",
+  "checks": {
+    "focused_test_seconds": 14.721,
+    "focused_race_seconds": 170.216,
+    "core_native_build_vet_format_hygiene": "PASS",
+    "CLI": {
+      "at": "2026-10-21T19:55:40.393498+00:00",
+      "status": "PASS_GP_CORE_NATIVE_COMPLETE_CLI_SOURCE_AND_LEGACY_PARITY",
+      "positive_cases": [
+        "GP536bf0-42word-full-index",
+        "GPzero-known-valid",
+        "GPhigh-wrap-known",
+        "no-query-map-absent",
+        "empty-query-map-known-empty",
+        "moved-unique-reginfo-positive",
+        "missing-reginfo-GPunknown",
+        "duplicate-reginfo-GPunknown",
+        "reginfo-size20-GPunknown",
+        "compressed-reginfo-GPunknown",
+        "out-of-file-reginfo-GPunknown",
+        "COP12-rsbits28-not-GPRbase",
+        "1025-distinct-point-mappings-no-inherited-cap"
+      ],
+      "complete_independent_fixture_rows": 1480,
+      "refusals": [
+        "aliased-file-disjoint-VMA",
+        "overlapping-memory-LOADS",
+        "split-full-word-two-LOADS",
+        "BSS-not-file-scan",
+        "misaligned-mapped-VMA",
+        "unmapped-physical-scan",
+        "unaligned-file-scan",
+        "empty-word-range",
+        "out-of-file-word-range",
+        "null-References",
+        "null-AddressRanges",
+        "missing-References",
+        "extra-skipwords",
+        "extra-pointermin",
+        "extra-decodewords",
+        "extra-registry-query",
+        "patch-Entries",
+        "registry-proof-pin",
+        "glyph-proof-pin",
+        "expected-GP-proof",
+        "source-size-cap",
+        "query-empty-name",
+        "query-name129B",
+        "query-count9",
+        "null-query-value",
+        "empty-query-range",
+        "reversed-query",
+        "query-end-beyond32bit",
+        "query-start-at-2pow32",
+        "null-query-start",
+        "null-query-end",
+        "null-file-range",
+        "null-file-start",
+        "null-file-end",
+        "ASCII-alias-References",
+        "Unicode-alias-reference-longS",
+        "ASCII-alias-file-range",
+        "duplicate-source-size",
+        "emitted-row-budget32769"
+      ],
+      "whole_existing_example_parity": [
+        "stream-audit",
+        "reference-bound-audit",
+        "canonical-audit",
+        "fixed-audit",
+        "pinned-raw-audit",
+        "gp-audit",
+        "reconciliation-audit",
+        "sentinel-audit"
+      ],
+      "frozen_native_scan_words": 683392,
+      "frozen_native_supported_rows": 10212,
+      "frozen_native_opcode_counts": {
+        "09": 907,
+        "1e": 110,
+        "1f": 1,
+        "20": 96,
+        "21": 252,
+        "23": 4417,
+        "24": 535,
+        "25": 135,
+        "27": 28,
+        "28": 246,
+        "29": 121,
+        "2b": 2173,
+        "31": 611,
+        "37": 441,
+        "39": 25,
+        "3f": 114
+      },
+      "input_identities_preserved": 105,
+      "core_native_complete_stdout_stderr_identical": true,
+      "full_suite_gameplay_live_GP_loaded_pointers": "not checked or claimed"
+    },
+    "example_compatibility": {
+      "at": "2026-10-21T19:57:37.704316+00:00",
+      "status": "PASS_MANUAL_EXAMPLE_AND_THREE_COMPLETE_OLD_REPORT_OUTPUTS",
+      "example_rows": 3,
+      "independent_equations_before_execution": {
+        "GP": 1049856,
+        "file_offsets": [
+          512,
+          516,
+          520
+        ],
+        "VMAs": [
+          1048832,
+          1048836,
+          1048840
+        ],
+        "words": [
+          663092736,
+          663093760,
+          662831616
+        ],
+        "signed_immediates": [
+          -512,
+          512,
+          512
+        ],
+        "computed_addresses": [
+          1049344,
+          1050368,
+          1050368
+        ]
+      },
+      "whole_stdout_stderr_parity": [
+        "reference_observed",
+        "reference_candidates",
+        "elf_layout"
+      ],
+      "input_identities_preserved": 4
+    }
+  },
+  "limitations": "Full suite/nativefonts race/gameplay deferred by owner pacing. No live GP, loaded pointers, CFG, code reachability, arbitrary safe placement, patch writes or historical retirements. Production growth is capability cost; separate fixture compression is not implementation reduction.",
+  "coverage": "binary_inspection.04 proven;71/84planning84.52%;8/14Full unchanged. No .05/.06 credit, script retirement or reduction.",
+  "harness_correction": "First extra legacy candidate parity request omitted mandatory selection ID/source-pool/chapter; accepted616 baseline refused as designed. Added explicit ID range and reran all three old reports in fresh directory. Production unchanged.",
+  "pin_lifecycle": "Immutable622/623 review snapshots retain their declared accepted616 ledger state. Current flat coverage/check pins are refreshed during final publication; historical nested pins remain immutable.",
+  "final_guard_delta": {
+    "removed_duplicated_bytes": 115,
+    "production_main_sha256": "0049927099611794ddb451ea6fa39bc022252d76833e6fbc62697f1d756ceedb",
+    "root_verification": {
+      "at": "2026-10-21T20:09:36.424050+00:00",
+      "status": "FINAL_GUARD_DELTA_ROOT_ALL_FOCUSED_CHECKS_PASS",
+      "results": [
+        {
+          "name": "focused",
+          "exit": 0,
+          "output": "ok  \tdokapon/tools\t15.347s"
+        },
+        {
+          "name": "focused-race",
+          "exit": 0,
+          "output": "ok  \tdokapon/tools\t167.474s"
+        },
+        {
+          "name": "build-checks.py",
+          "exit": 0
+        },
+        {
+          "name": "verify-cli.py",
+          "exit": 0
+        },
+        {
+          "name": "verify-example-compat.py",
+          "exit": 0
+        }
+      ],
+      "scope": "Guard-only consolidation; full suite/nativefonts race/gameplay deferred."
+    },
+    "focused_seconds": 15.347,
+    "race_seconds": 167.474
+  },
+  "second_independent_full_source_oracle": {
+    "at": "2026-10-21T19:59:12.676620+00:00",
+    "status": "PASS_SECOND_INDEPENDENT_SOURCE_ORACLE_FULL10212ROWS_BOTH_BUILDS",
+    "source_manifest": "/var/tmp/dokapon-gp-index-milestone-x39h2qga/manifest.json",
+    "source_manifest_sha256": "015d7d874187f963e6287e7c0af7f7b71a76de6570698e728c372c5794d6dba7",
+    "source_members_verified": 25,
+    "expected_file_sha256": "4d595d1de7239b505f2bbb5f048e78d633495ab073b27e415a6a816d28b2737d",
+    "whole_index_and_register_info_exact": true,
+    "rows": 10212,
+    "source_words": 683392,
+    "coverage": "No award before ordinaryreview/finalrootassessment"
+  },
+  "final_root_artifact_manifest": "/var/tmp/dokapon-gp-index-ojcy9sxb/final-root-artifact-manifest.json",
+  "final_root_artifact_manifest_sha256": "be9cbec25cf991f52a5a29d0d3e3dcb7d8cbffe0b80593e9b141b188d3ea8c60",
+  "review": {
+    "path": "evidence/gp-index-review.json",
+    "sha256": "91839039771feeeae5974af87dd6837b4f2bd5ead01b8d03660fc71896312eba",
+    "root_verified_artifacts": 2220
+  },
+  "root_milestone_assessment": "analysis/gp-index-milestone-assessment.json"
+}

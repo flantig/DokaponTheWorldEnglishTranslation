@@ -1,0 +1,63 @@
+{
+  "contract_sha256": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc",
+  "decision": "Enhance previewFit, FitBox, FitRow; no new function/type/scanner/CLI/dependency.",
+  "existing_candidates": {
+    "previewFit": "Owns selected consumer constraints, native control measurement and ordered diagnostics; run is sole production caller.",
+    "controls": "Already returns exact LINE-derived page row vectors. Reuse sum(len(page)-1); do not reparse markup.",
+    "checkJSON": "Reuse allObjects duplicate refusal and new-field aliases at depth3; no validator addition.",
+    "wrapPages": "Not changed; exact menu separator contracts forbid wrapping instead of silently changing choices."
+  },
+  "reach": [
+    "fit.go",
+    "fit_types.go",
+    "patch_test.go existing read-only authoring fit block",
+    "testdata/fit-line-count.json independent literal facts",
+    "README.md",
+    "ARCHITECTURE.md",
+    "MIGRATION.md",
+    "../../skills/MIGRATION-TOOLS.md",
+    "analysis and evidence accounting"
+  ],
+  "compatibility": "Old unambiguous valid profiles complete-byte parity. Deliberately reject all duplicate profile object keys and ASCII/Unicode aliases of required_line_breaks. Null/absent means legacy.",
+  "precode_raw_refusals": {
+    "duplicate-count": "{\"boxes\":{\"menu\":{\"required_line_breaks\":0,\"required_line_breaks\":1}}}",
+    "ascii-alias": "{\"boxes\":{\"menu\":{\"REQUIRED_LINE_BREAKS\":1}}}",
+    "unicode-alias": "{\"boxes\":{\"menu\":{\"required_line_breakſ\":1}}}",
+    "unrelated-root-duplicate": "{\"source_size\":12,\"source_size\":24}"
+  },
+  "legacy_baselines": [
+    {
+      "name": "literal",
+      "args": [
+        "--fit-profile",
+        "/var/tmp/dokapon-fit-line-count-p1p46j4_/precode/literal-legacy-profile.json",
+        "--source",
+        "/var/tmp/dokapon-fit-line-count-contract-9hp4zcf8/font-source.bin",
+        "--registry",
+        "/var/tmp/dokapon-fit-line-count-contract-9hp4zcf8/registry.json",
+        "--glyphmap",
+        "/var/tmp/dokapon-fit-line-count-contract-9hp4zcf8/glyphmap.json"
+      ],
+      "exit": 0,
+      "stdout_sha256": "f92d0283d34ff423aa519f8d11cd9b16c0e66d25e8594286c5823da9940c321a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "native",
+      "args": [
+        "--fit-profile",
+        "/var/tmp/dokapon-fit-line-count-p1p46j4_/precode/native-legacy-profile.json",
+        "--source",
+        "/var/tmp/dokapon-elf-layout-wqrm7am8/SLPM_657.50",
+        "--registry",
+        "/var/tmp/dokapon-registry-status-2cdaggda/canonical/registry.json",
+        "--glyphmap",
+        "/var/tmp/dokapon-reference-check-_ivbenrd/native/glyphmap.json"
+      ],
+      "exit": 0,
+      "stdout_sha256": "af7d5583a0ef9c9c37d86851b2b99eafe74707ed82beb1dc58af6a085fa4400e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Structural LINE count only; not native selectable row inference or physical/scaled fitting. No coverage promotion."
+}

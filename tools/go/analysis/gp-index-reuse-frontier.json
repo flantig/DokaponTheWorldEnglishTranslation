@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "status": "SOURCE_ONLY_GP_INDEX_FRONTIER_NO_IMPLEMENTATION_APPROVAL_CREDIT",
+  "directory": "/var/tmp/dokapon-gp-index-frontier-h5jnmfb2",
+  "criterion": "binary_inspection.04 generalGP-relativeclassification/indexing beyond declaredboundmetadata backfill; .05 CFG/registerreasoning and.06interior/hookproof remain separate.",
+  "original_requirement": "Share deterministic word/instruction encoding, fixed-width decoding and reference indexes. Reports classify raw pointers, adjusted-high/signed-low pairs, GP offsets, branch/fallthrough, and interior references.",
+  "finding": "Existing sharedobserver derivesELFGP onlyfor declaredsites; candidate scanner indexesrawpointers/LUIpairs butnot generalGPuses. Actualoriginalproviders require constructedADDIUaddress AND globalLW/SW effective-slot indexing. No newfunction necessary: existingreferences can reasonably own boundedread-only typedindex output andexistinginspect owns uniqueGPmetadata/mappings. Do notfake registryIDs/glyphs ormix thisindex with liveness/patchauthority.",
+  "source_matrix": [
+    {
+      "source": "text-native.py447-450,471-475",
+      "duty": "SignedADDIUrs28 address; helperarithmeticitself blind, callerchecks opcode/rs. rt isdeclaredsourcegeometryinbound observer; generalindexmustreportactualrt."
+    },
+    {
+      "source": "relocate_gp_relative.py124-139,225-258",
+      "duty": "ELFreginfoGP, signed16reach and modulo32reassembly; strict op9/rs28/expectedrt guard. Reusecurrentinspect strongeruniqueness/size/boundschecks, notfirstmatch/hardcodedoffset."
+    },
+    {
+      "source": "migrate_drafted.py1025-1045,1625-1631",
+      "duty": "GeneralLWgp effective-slot index EXACTqueriedslot; actualsecondpassloads globaltablebase and reseedstrace. Classifiedslot != loadedpointertarget/valueflow."
+    },
+    {
+      "source": "migrate_drafted.py840-845",
+      "duty": "SWgp globalstore effective-slot usedtotracktablebases. Onlyconditionaltraceprovesstoredvalue; standaloneindexcannot."
+    },
+    {
+      "source": "fix_inline_copies.py109-146,346;zone_safety.py76-77",
+      "duty": "Finiteoriginal memoryopcode read/write/baseGP classifications beyondLW/SW. Othermemory/coprocessor/cache/pref classes requireopcode-specific labels; sourceGPRrw alonecannotprovetextpointer oraccesswidth."
+    },
+    {
+      "source": "zone_safety.py132-208,222-259",
+      "duty": "Legacyhighhalf64wordcandidatechains and4096wordGPinit leads aredistinctassumptions, notfullGPconstantpropagation/liveness."
+    }
+  ],
+  "minimum_existing_owner_route": {
+    "owner": "references",
+    "reuse": "Existingboundedwordscan/query/report responsibilities, existinginspect forELFmetadataandmapping; referenceTarget remainsstrictdeclaredsiteprotocolreader. A separateoperation in sameowner mayavoid fake registry/glyphdependency, but schema/flagdecision belongsroot.",
+    "semantic_kinds": [
+      "ADDIUrsGP constructedaddress (destzero explicitdiscarded)",
+      "Source-backedmemory read/write EFFECTIVEADDRESS (not loadedpointer)",
+      "OtherGPbaseopcode/unknown separatelytagged orheld, not signedADDIU"
+    ],
+    "requirements": [
+      "Fullrawinstruction/sitecoordinate/opcode/rs/rt/imm/signedoffset/observedmetadataGP; preserve0GPvalid.",
+      "Halfopenquery includesinteriorbyteaddresses; index allsourceorderfullwords in declaredboundedrange. Not exhaustivecode/data classification.",
+      "ReuseELFmapping forsite4B andtargetbyte; BSS/unmappedcomputedaddressretainedwithoutfiledecode/liveness claim.",
+      "No actualpointerdereference, tracer/CFG/hookallocation or patchauthority frommatch. MetadataGP isnot measuredruntimeGP.",
+      "Scopeallmaterialsource-backedGPmemoryclasses explicitly; ADDIUonlyincrement isusefulbutdoesnotbyitselfcloseoriginalglobal_loads/store duty."
+    ],
+    "new_functions_recommended": 0
+  },
+  "corpus": {
+    "file": "facts.json",
+    "word_vectors": 42,
+    "original_pure_helpers": [
+      "zone_safety.py::sext16",
+      "zone_safety.py::immediate_address",
+      "fix_inline_copies.py::rw",
+      "text-native.py::label_gp_target",
+      "relocate_gp_relative.py::derive_gp"
+    ],
+    "original_global_loads_queries": 5,
+    "original_Scanner_counterexample": true,
+    "native_census_source_pin": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "guard_cases": 12,
+    "qualification": "No productiongeneratorframework/newGoAPI/testprofile/runtimefolder proposed. Facts executableoriginalwherequalified, otherrows manualequations."
+  },
+  "source_pins": [
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/../zone_safety.py",
+      "contained": "sources/zone_safety.py",
+      "size": 53653,
+      "sha256": "690fdbe1eadda6b2ecd732126a59ae79a0debf6903783fae35cdd46a3d9384bb"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/../migrate_drafted_2026_09_30.py",
+      "contained": "sources/migrate_drafted.py",
+      "size": 106911,
+      "sha256": "a35c8078bde4bab8ca978f22d5c9a843551ba523b8fff806f37ccc0edf005bdf"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/../fix_inline_copies_2026_09_30.py",
+      "contained": "sources/fix_inline_copies.py",
+      "size": 26944,
+      "sha256": "b969e2197cd8aad4243d82e055084080ad7059d11ea12adc5a249bc9b486893c"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/../relocate_gp_relative.py",
+      "contained": "sources/relocate_gp_relative.py",
+      "size": 15906,
+      "sha256": "971ae79033cfba6fb07772b1281d63082db7e7233421b5d3f042427f0c85f134"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/../rework/new_tool/text_tools/native.py",
+      "contained": "sources/text-native.py",
+      "size": 45548,
+      "sha256": "b7e4d397bd381254ace63e952df87ed07289e3d2f698afcdb925d8459fa0523c"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/references.go",
+      "contained": "sources/references.go",
+      "size": 24406,
+      "sha256": "aba5f851c72e893d4a70167e62506e0bc9eb0de76cfed6127ca9e9aeb0dbc1c5"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/reference_geometry.go",
+      "contained": "sources/reference_geometry.go",
+      "size": 4165,
+      "sha256": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/reference_types.go",
+      "contained": "sources/reference_types.go",
+      "size": 5753,
+      "sha256": "bc875239f48d1e9bad521dc2f6b3bb4034cd6edc4a99d26e07f30a7b101dc5da"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/pattern-crawl-text_binary.json",
+      "contained": "sources/pattern-crawl.json",
+      "size": 111214,
+      "sha256": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707"
+    },
+    {
+      "source": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/migration-roadmap.json",
+      "contained": "sources/roadmap.json",
+      "size": 68872,
+      "sha256": "cea24480ea857ae5d1cf91a450742957850190ecf881a300e087949d2a58aefe"
+    },
+    {
+      "source": "/var/tmp/dokapon-material-reader-gap-zc9xr4we/sources/frozen-original-backfill_gp.py",
+      "contained": "sources/prior-frozen-original-backfill_gp.py",
+      "size": 4492,
+      "sha256": "46fb24f57bb7dd1db2c6751045f87910e9985a3b79f6457202183234c93d15fe",
+      "qualification": "Prior46pack independent pre-GP metadata/sourceproof; originalinputs immutable."
+    },
+    {
+      "source": "/var/tmp/dokapon-material-reader-gap-zc9xr4we/gp-facts.json",
+      "contained": "sources/prior-gp-facts.json",
+      "size": 16244,
+      "sha256": "b0e293618ae60b86dc93304c3551a291e56221c30cf5f4e737cce9de600bbad9",
+      "qualification": "Prior46pack independent pre-GP metadata/sourceproof; originalinputs immutable."
+    },
+    {
+      "source": "/var/tmp/dokapon-material-reader-gap-zc9xr4we/gp/native-elf-header.bin",
+      "contained": "sources/prior-native-elf-header.bin",
+      "size": 52,
+      "sha256": "f6eaec4dd24863006ce2f41e253bd68e6d8097f1063dad1d9e4f644db26b955b",
+      "qualification": "Prior46pack independent pre-GP metadata/sourceproof; originalinputs immutable."
+    },
+    {
+      "source": "/var/tmp/dokapon-material-reader-gap-zc9xr4we/gp/native-reginfo.bin",
+      "contained": "sources/prior-native-reginfo.bin",
+      "size": 24,
+      "sha256": "0fb48ca07a2a3b8f1c20807f2fd30acecdc7db113590ae17439aa8618d893cc7",
+      "qualification": "Prior46pack independent pre-GP metadata/sourceproof; originalinputs immutable."
+    },
+    {
+      "source": "/var/tmp/dokapon-material-reader-gap-zc9xr4we/gp/native-section-table.bin",
+      "contained": "sources/prior-native-section-table.bin",
+      "size": 320,
+      "sha256": "138473687bd513920db1927ad75d28fbe329a260cd59a6a04ebe37a43ee4c296",
+      "qualification": "Prior46pack independent pre-GP metadata/sourceproof; originalinputs immutable."
+    }
+  ],
+  "prior_metadata_proof_manifest": "5f09d020c5898ba107bfe35b1f0e4c90187bed092abc26964b7763a5b9479089",
+  "Serena": "Live sessionf8136960 references symbolandmain/auditcallers inspected; no immutableprojectactivation.",
+  "verification": "Originalpurehelper/global_loads/Scanner executions plusmanualinvariantchecks inownedtemp only. No Go/candidate/main/import/protectedresources. Allownedjobs terminal."
+}

@@ -1,0 +1,1117 @@
+{
+  "reference_source_sha256": "aa2854bd9298142c5f5ff29ed71c96208c685cb96db3336607a0f3ea2787ffcc",
+  "reference_text_encoder_sha256": "a793987932438aaedb7085e81519aae8461eeb2ae356b65384a9491157e8da16",
+  "glyphs": {
+    "0": " ",
+    "1": "A",
+    "2": "B",
+    "3": ""
+  },
+  "word_kinds": [
+    {
+      "start": 0,
+      "end": 0,
+      "kind": "space"
+    },
+    {
+      "start": 1,
+      "end": 2047,
+      "kind": "unclassified"
+    },
+    {
+      "start": 2048,
+      "end": 2048,
+      "kind": "line"
+    },
+    {
+      "start": 2049,
+      "end": 4095,
+      "kind": "unclassified"
+    },
+    {
+      "start": 4096,
+      "end": 4096,
+      "kind": "page"
+    },
+    {
+      "start": 4097,
+      "end": 10239,
+      "kind": "unclassified"
+    },
+    {
+      "start": 10240,
+      "end": 10240,
+      "kind": "hdr"
+    },
+    {
+      "start": 10241,
+      "end": 16383,
+      "kind": "unclassified"
+    },
+    {
+      "start": 16384,
+      "end": 18431,
+      "kind": "setup"
+    },
+    {
+      "start": 18432,
+      "end": 18432,
+      "kind": "param8"
+    },
+    {
+      "start": 18433,
+      "end": 20479,
+      "kind": "pen0"
+    },
+    {
+      "start": 20480,
+      "end": 26623,
+      "kind": "unclassified"
+    },
+    {
+      "start": 26624,
+      "end": 38911,
+      "kind": "icon"
+    },
+    {
+      "start": 38912,
+      "end": 40959,
+      "kind": "unclassified"
+    },
+    {
+      "start": 40960,
+      "end": 43007,
+      "kind": "icon"
+    },
+    {
+      "start": 43008,
+      "end": 45055,
+      "kind": "setup"
+    },
+    {
+      "start": 45056,
+      "end": 45056,
+      "kind": "param8"
+    },
+    {
+      "start": 45057,
+      "end": 47103,
+      "kind": "hl"
+    },
+    {
+      "start": 47104,
+      "end": 55295,
+      "kind": "pen0"
+    },
+    {
+      "start": 55296,
+      "end": 55296,
+      "kind": "param8"
+    },
+    {
+      "start": 55297,
+      "end": 57343,
+      "kind": "pen0"
+    },
+    {
+      "start": 57344,
+      "end": 57344,
+      "kind": "unclassified"
+    },
+    {
+      "start": 57345,
+      "end": 61439,
+      "kind": "pen0"
+    },
+    {
+      "start": 61440,
+      "end": 63487,
+      "kind": "unclassified"
+    },
+    {
+      "start": 63488,
+      "end": 63488,
+      "kind": "end"
+    },
+    {
+      "start": 63489,
+      "end": 65535,
+      "kind": "unclassified"
+    }
+  ],
+  "cases": [
+    {
+      "name": "empty",
+      "chunks": [
+        {
+          "hex": "",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 0,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 2 bytes for unpacking 2 bytes at offset 0 (actual buffer size is 0)"
+    },
+    {
+      "name": "header_not_first",
+      "chunks": [
+        {
+          "hex": "0140002801b0010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 10,
+      "error": false,
+      "token_count": 5,
+      "token_sha256": "610727cd48ac0acf0ba5d9389c56b4751177fec765b1fa9eeb9e005e5d594d45",
+      "content_start": 3,
+      "preview": [
+        {
+          "kind": "setup",
+          "word": "0x4001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "hdr",
+          "word": "0x2800",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "hl",
+          "word": "0xb001",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 6,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 8,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "headerless",
+      "chunks": [
+        {
+          "hex": "0140010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 6,
+      "error": false,
+      "token_count": 3,
+      "token_sha256": "64736c98103cce721d99256eb9ec6be7e40989a7299aaf963577a8e6d61379e7",
+      "content_start": 1,
+      "preview": [
+        {
+          "kind": "setup",
+          "word": "0x4001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 4,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "header_required",
+      "chunks": [
+        {
+          "hex": "0140010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 6,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: no HDR 0x2800 in the leading control run at 0x0 (first word 0x4001, prologue consumed 1 word(s))"
+    },
+    {
+      "name": "hdr_end",
+      "chunks": [
+        {
+          "hex": "002800f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 4,
+      "error": false,
+      "token_count": 2,
+      "token_sha256": "28ca5608cbf81a4ae33eca3bbc88b458004566a86c2d0238b07130c9af6c4f65",
+      "content_start": 1,
+      "preview": [
+        {
+          "kind": "hdr",
+          "word": "0x2800",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 2,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "bare_speaker",
+      "chunks": [
+        {
+          "hex": "01000138010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "49d8d78047db9738c8c5eeeb6de8270c846e8a414934b3d812dfe10698709601",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "speaker",
+          "word": "0x3801",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 6,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "line_speaker",
+      "chunks": [
+        {
+          "hex": "010000080138010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 10,
+      "error": false,
+      "token_count": 5,
+      "token_sha256": "791fda305029e8d478d8128dbeccb1c1fcc04a03b07610fbbb7c678d730505e8",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "line",
+          "word": "0x0800",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "speaker",
+          "word": "0x3801",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 6,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 8,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "page_speaker",
+      "chunks": [
+        {
+          "hex": "0028010000100138010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 12,
+      "error": false,
+      "token_count": 6,
+      "token_sha256": "f4abb4563d57ceeb3c003322621d5570653acf25e9540fc362c5dc5bdd607ae2",
+      "content_start": 1,
+      "preview": [
+        {
+          "kind": "hdr",
+          "word": "0x2800",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "page",
+          "word": "0x1000",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "speaker",
+          "word": "0x3801",
+          "offset": 6,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 8,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 10,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "page_without_speaker",
+      "chunks": [
+        {
+          "hex": "01000010020000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "af570d8c232714ffb49cb0a35706133a293999590b213106fd904e4e8ec7baef",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "page",
+          "word": "0x1000",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0002",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 6,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "page_truncated",
+      "chunks": [
+        {
+          "hex": "01000010",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 4,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 6 bytes for unpacking 2 bytes at offset 4 (actual buffer size is 4)"
+    },
+    {
+      "name": "no_end",
+      "chunks": [
+        {
+          "hex": "0100",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 2,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 4 bytes for unpacking 2 bytes at offset 2 (actual buffer size is 2)"
+    },
+    {
+      "name": "empty_glyph",
+      "chunks": [
+        {
+          "hex": "030000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 4,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: unrecognized word 0x0003 at offset 0x0 (stream started 0x0) - not HDR/END/PAGE/LINE/SPACE/known control range, and not a valid non-empty glyphmap entry"
+    },
+    {
+      "name": "unknown_dispatch",
+      "chunks": [
+        {
+          "hex": "009800f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 4,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: unrecognized word 0x9800 at offset 0x0 (stream started 0x0) - not HDR/END/PAGE/LINE/SPACE/known control range, and not a valid non-empty glyphmap entry"
+    },
+    {
+      "name": "repeated_hdr",
+      "chunks": [
+        {
+          "hex": "00280028010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 8,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: unrecognized word 0x2800 at offset 0x2 (stream started 0x0) - not HDR/END/PAGE/LINE/SPACE/known control range, and not a valid non-empty glyphmap entry"
+    },
+    {
+      "name": "repeated_speaker",
+      "chunks": [
+        {
+          "hex": "01380238010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "8f1f95e85771bcb987b1f83103950e930959f5477b420703bf79b0ba7bb28972",
+      "content_start": 2,
+      "preview": [
+        {
+          "kind": "speaker",
+          "word": "0x3801",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "speaker",
+          "word": "0x3802",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 6,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "midstream_setup",
+      "chunks": [
+        {
+          "hex": "01000140010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "7785113f509e5a52b9a0e29da38ff3bbbbf684b1b1cf53ab04b9225ea97fa0a0",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "setup",
+          "word": "0x4001",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 6,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "hdr_after_icon",
+      "chunks": [
+        {
+          "hex": "00a0002800f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 6,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: unrecognized word 0x2800 at offset 0x2 (stream started 0x0) - not HDR/END/PAGE/LINE/SPACE/known control range, and not a valid non-empty glyphmap entry"
+    },
+    {
+      "name": "header_only",
+      "chunks": [
+        {
+          "hex": "0028",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 2,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 4 bytes for unpacking 2 bytes at offset 2 (actual buffer size is 2)"
+    },
+    {
+      "name": "known_unclassified_glyph",
+      "chunks": [
+        {
+          "hex": "009800f8",
+          "repeat": 1
+        }
+      ],
+      "glyphs": {
+        "0": " ",
+        "1": "A",
+        "2": "B",
+        "3": "",
+        "38912": "X"
+      },
+      "bytes": 4,
+      "error": false,
+      "token_count": 2,
+      "token_sha256": "407085ed86d26384376b54751268eb15e07a5a8880d93abef0d6e4d34d562321",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "glyph",
+          "word": "0x9800",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 2,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "repeated_hdr_known_glyph",
+      "chunks": [
+        {
+          "hex": "00280028010000f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "glyphs": {
+        "0": " ",
+        "1": "A",
+        "2": "B",
+        "3": "",
+        "10240": "X"
+      },
+      "bytes": 8,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "b2884c5fe536b869c7a74d5c9fd8885870bcbbb18e2a36cf331c4e5c6008e2f6",
+      "content_start": 1,
+      "preview": [
+        {
+          "kind": "hdr",
+          "word": "0x2800",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x2800",
+          "offset": 2,
+          "payload_hex": ""
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 4,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 6,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "odd_tail_after_end",
+      "chunks": [
+        {
+          "hex": "00f8ff",
+          "repeat": 1
+        }
+      ],
+      "bytes": 3,
+      "error": false,
+      "token_count": 1,
+      "token_sha256": "a11a579784f7c9c6d52d8c54e8fa61dd2d3ada4cf4533039291f3f65272cf196",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 0,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "odd_truncated_word",
+      "chunks": [
+        {
+          "hex": "0100ff",
+          "repeat": 1
+        }
+      ],
+      "bytes": 3,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 4 bytes for unpacking 2 bytes at offset 2 (actual buffer size is 3)"
+    },
+    {
+      "name": "end_ignores_bad_tail",
+      "chunks": [
+        {
+          "hex": "00f80098ff",
+          "repeat": 1
+        }
+      ],
+      "bytes": 5,
+      "error": false,
+      "token_count": 1,
+      "token_sha256": "a11a579784f7c9c6d52d8c54e8fa61dd2d3ada4cf4533039291f3f65272cf196",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 0,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "opaque_param8",
+      "chunks": [
+        {
+          "hex": "010000b000f8009800b000e0020000f8",
+          "repeat": 1
+        }
+      ],
+      "bytes": 16,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "ae2f3c0dcfa0a355bb82957af5c5566c320f47830d22b5ebbd3ad3475bd7f731",
+      "content_start": 0,
+      "preview": [
+        {
+          "kind": "glyph",
+          "word": "0x0001",
+          "offset": 0,
+          "payload_hex": ""
+        },
+        {
+          "kind": "param8",
+          "word": "0xb000",
+          "offset": 2,
+          "payload_hex": "00f8009800b000e0"
+        },
+        {
+          "kind": "glyph",
+          "word": "0x0002",
+          "offset": 12,
+          "payload_hex": ""
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 14,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "three_param8_words",
+      "chunks": [
+        {
+          "hex": "004800f8009800b000e000d800f8009800b000e000b000f8009800b000e000f8",
+          "repeat": 1
+        }
+      ],
+      "bytes": 32,
+      "error": false,
+      "token_count": 4,
+      "token_sha256": "49ba8544f8a5d75aedeeac944cac03fea0853210e9f87071fa26c21f43e05021",
+      "content_start": 3,
+      "preview": [
+        {
+          "kind": "param8",
+          "word": "0x4800",
+          "offset": 0,
+          "payload_hex": "00f8009800b000e0"
+        },
+        {
+          "kind": "param8",
+          "word": "0xd800",
+          "offset": 10,
+          "payload_hex": "00f8009800b000e0"
+        },
+        {
+          "kind": "param8",
+          "word": "0xb000",
+          "offset": 20,
+          "payload_hex": "00f8009800b000e0"
+        },
+        {
+          "kind": "end",
+          "word": "0xf800",
+          "offset": 30,
+          "payload_hex": ""
+        }
+      ]
+    },
+    {
+      "name": "truncated_payload",
+      "chunks": [
+        {
+          "hex": "010000b000f8ff",
+          "repeat": 1
+        }
+      ],
+      "bytes": 7,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 14 bytes for unpacking 2 bytes at offset 12 (actual buffer size is 7)"
+    },
+    {
+      "name": "payload_without_end",
+      "chunks": [
+        {
+          "hex": "00b000f8009800b000e0",
+          "repeat": 1
+        }
+      ],
+      "bytes": 10,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 12 bytes for unpacking 2 bytes at offset 10 (actual buffer size is 10)"
+    },
+    {
+      "name": "short_payload_end_is_not_terminator",
+      "chunks": [
+        {
+          "hex": "00b000f8",
+          "repeat": 1
+        }
+      ],
+      "bytes": 4,
+      "error": true,
+      "error_type": "error",
+      "error_detail": "unpack_from requires a buffer of at least 12 bytes for unpacking 2 bytes at offset 10 (actual buffer size is 4)"
+    },
+    {
+      "name": "leading_limit",
+      "chunks": [
+        {
+          "hex": "01b0",
+          "repeat": 4096
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8194,
+      "error": false,
+      "token_count": 4097,
+      "token_sha256": "4a9d2f4adc5eef48dbad12e7839e4d87ee0b5beebdbf6f36898e7593c645aeaa",
+      "content_start": 4096
+    },
+    {
+      "name": "past_leading_limit",
+      "chunks": [
+        {
+          "hex": "01b0",
+          "repeat": 4097
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8196,
+      "error": false,
+      "token_count": 4098,
+      "token_sha256": "5ea89cb45507c83b5805f94bfe05175c6cfbbe171df75f5ec13593de7b54e139",
+      "content_start": 4097
+    },
+    {
+      "name": "glyph_body_limit",
+      "chunks": [
+        {
+          "hex": "0100",
+          "repeat": 4095
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8192,
+      "error": false,
+      "token_count": 4096,
+      "token_sha256": "ca43179626f9dd6c4669338eccd902e5245d9074377c65e0c20ed282861cb803",
+      "content_start": 0
+    },
+    {
+      "name": "glyph_body_over_limit",
+      "chunks": [
+        {
+          "hex": "0100",
+          "repeat": 4096
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 8194,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: no END found within 4096 words of 0x0"
+    },
+    {
+      "name": "page_pair_limit",
+      "chunks": [
+        {
+          "hex": "00100138",
+          "repeat": 4095
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 16382,
+      "error": false,
+      "token_count": 8191,
+      "token_sha256": "457245bcab88bbb15440db35748f3af1cdff783abc0fb4517614c7de9a6453bc",
+      "content_start": 0
+    },
+    {
+      "name": "page_pair_over_limit",
+      "chunks": [
+        {
+          "hex": "00100138",
+          "repeat": 4096
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 16386,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: no END found within 4096 words of 0x0"
+    },
+    {
+      "name": "param_body_limit",
+      "chunks": [
+        {
+          "hex": "00b000f8009800b000e0",
+          "repeat": 4095
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 40952,
+      "error": false,
+      "token_count": 4096,
+      "token_sha256": "0c751db096b16a23520dec68d757ed4d4de61f6ccc80ca2e0ddbdf232f5d316b",
+      "content_start": 4095
+    },
+    {
+      "name": "full_maximum_read_envelope",
+      "chunks": [
+        {
+          "hex": "01b0",
+          "repeat": 4096
+        },
+        {
+          "hex": "00b000f8009800b000e0",
+          "repeat": 4095
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 49144,
+      "error": false,
+      "token_count": 8192,
+      "token_sha256": "248d3bd0909fe66ad3a5453fae4c218096ae29862cf4cf49879a4e86c29e4e07",
+      "content_start": 8191
+    },
+    {
+      "name": "full_body_over_limit",
+      "chunks": [
+        {
+          "hex": "01b0",
+          "repeat": 4096
+        },
+        {
+          "hex": "00b000f8009800b000e0",
+          "repeat": 4096
+        },
+        {
+          "hex": "00f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": false,
+      "bytes": 49154,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: no END found within 4096 words of 0x0"
+    },
+    {
+      "name": "HDR_at_last_leading_token",
+      "chunks": [
+        {
+          "hex": "01b0",
+          "repeat": 4095
+        },
+        {
+          "hex": "002800f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 8194,
+      "error": false,
+      "token_count": 4097,
+      "token_sha256": "37be158e95da859c43e5b3a0e2ce53c3715255e1ce1f0052984aea29662f1d0f",
+      "content_start": 4096
+    },
+    {
+      "name": "HDR_past_leading_limit",
+      "chunks": [
+        {
+          "hex": "01b0",
+          "repeat": 4096
+        },
+        {
+          "hex": "002800f8",
+          "repeat": 1
+        }
+      ],
+      "require_hdr": true,
+      "bytes": 8196,
+      "error": true,
+      "error_type": "ValueError",
+      "error_detail": "decode_structured: no HDR 0x2800 in the leading control run at 0x0 (first word 0xb001, prologue consumed 4096 word(s))"
+    }
+  ]
+}

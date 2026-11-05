@@ -1,0 +1,257 @@
+{
+  "at": "2026-10-19T22:14:14.876036+00:00",
+  "status": "VERIFIED original-stage source-bound DF slot authoring through shared Go engine",
+  "source_data_pins": {
+    "main.go": "370691204d1c14cad6eeb2ba1632e7b712305f48806d372e495345bf2ed500f7",
+    "registry_types.go": "712fe46a00253bed5ff78af3b093e76b38fe93e475ca1be568f80b8e70983514",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "801eaf5f72a27f3de9ef41766125746988fbd34741318fa78636cdb6c58f0bb9",
+    "patch.go": "16c9ed965f4a2b2be9892f1c676c901af206fc7d7fe4a1e17b2e5cef5cb6313a",
+    "patch_test.go": "93c520d3d15d19224f5f5ed9624aa6c55d076ecfcf055bf33c4f582b882532d0",
+    "recipe_types.go": "21d5313b1d14f6f35bdb5d8bf0d01639a5dc9d060e0743784850953bab07975d",
+    "cmb.go": "b8d73a682c796152766212bb59f5a4f661c4c17904808a0f7f47300067972006",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "181805a0b36c986b3081a298fde03bbf99c77c9ded8527912f0fb10ac980a5be",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+    "texture_authoring.go": "76e9d9b340da6d9b64ac373005aa11f58d5758a7a8fef3e5b37c33af8754bd95",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "recipes/text/native-slots/defense-label.json": "c3a7990025c469afc271a9c05b44ae0c6766ce3e77424942391831c6a0ef2d50",
+    "testdata/defense-label.json": "68c4630d64e97476df6a71d2f559351a2d3e0d8909590e2165e0d1c11c3fb9ac",
+    "testdata/runtime-tables.json": "cfc40787acba294ac325972576e93cff33b1c3d9a123d6ecd0996d23610dc7cc"
+  },
+  "evidence_pins": {
+    "evidence/stream-slot-proof.json": {
+      "sha256": "eaf674790b29d751b729d4e154916aff02238220b629dcd7aacd1509fd784746",
+      "bytes": 7731
+    },
+    "analysis/stream-slot-native-candidate.json": {
+      "sha256": "5c6aaa9a17254e6c2a27882d29a004ec56457152ebc5e0c38b21bc0c48ec0f92",
+      "bytes": 25832
+    },
+    "evidence/native-slot-review-a.json": {
+      "sha256": "09e37012973a916e965e85d89c65354f1e1e8ef7e4134b142f8f2ea2eabec674",
+      "bytes": 21340
+    },
+    "evidence/native-slot-review-b.json": {
+      "sha256": "74fe9f51814105d35d36ce649259c97f25dca83152b9ab9c99c6327f082d6db8",
+      "bytes": 17410
+    },
+    "evidence/native-slot-isolated-run.json": {
+      "sha256": "f7b9bae2905677a426f19dad93a3db5d51ebca58bcfbd84180b114f488e5bad4",
+      "bytes": 5496
+    },
+    ".goal/native-slot-checks-work.json": {
+      "sha256": "b197b9051d8b1672e451f6befc9cfcee09c6c06d6212ae54bd74eeecc8239cf3",
+      "bytes": 5492
+    },
+    "/var/tmp/dokapon-go-native-slot-b1p8h77l/accounting-before.json": {
+      "sha256": "d6d6e245fec603518ede7b24024601b26c815764b02374605ffdc3f4c9e8d26f",
+      "bytes": 27008
+    },
+    "/var/tmp/dokapon-go-native-slot-b1p8h77l/accounting-delta.json": {
+      "sha256": "7047b0278f8924bf5213920b59794e6492b8e10aa060f0de336eb08709866ee0",
+      "bytes": 1157
+    }
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-native-slot-sealed-4q9mx78s",
+  "checks": [
+    {
+      "name": "race",
+      "command": [
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 28.267,
+      "output": "ok  \tdokapon/tools\t27.532s\n"
+    },
+    {
+      "name": "vet",
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 0.152,
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-go-native-slot-b1p8h77l/build-check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.342,
+      "output": ""
+    },
+    {
+      "name": "format",
+      "command": [
+        "gofmt",
+        "-l",
+        "main.go",
+        "registry_types.go",
+        "image_types.go",
+        "text_types.go",
+        "wrap.go",
+        "reference_types.go",
+        "references.go",
+        "patch.go",
+        "patch_test.go",
+        "recipe_types.go",
+        "cmb.go",
+        "glyphs.go",
+        "fit_types.go",
+        "fit.go",
+        "texture.go",
+        "inputs.go",
+        "texture_types.go",
+        "texture_authoring.go",
+        "outputs.go"
+      ],
+      "exit_code": 0,
+      "seconds": 0.07,
+      "output": ""
+    },
+    {
+      "name": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "recipes/text/native-slots/defense-label.json",
+        "testdata/defense-label.json",
+        "testdata/runtime-tables.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002,
+      "output": ""
+    },
+    {
+      "name": "credentials",
+      "command": [
+        "rg",
+        "-n",
+        "-i",
+        "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key\\s*[:=]\\s*\"[^\" ]{12,}|password\\s*[:=]\\s*\"[^\" ]{8,})",
+        "recipes/text/native-slots/defense-label.json",
+        "testdata/defense-label.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.011,
+      "output": ""
+    }
+  ],
+  "precopy_root_virtual": {
+    "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "virtual_output_sha256": "e0b3a22bbdd4f5f8baf10f1e9dc97cf0b1f6ba0b1131c030bbf0866412deb7ae",
+    "whole_bytes": 4243259392,
+    "changed_bytes": 7,
+    "declared_bytes": 8,
+    "outside_changes": 0,
+    "source_stats_preserved": true,
+    "seconds": 37.255
+  },
+  "actual_copy": {
+    "source": "/home/franklinl/Documents/Dokapon World Mod/iso/original/original.iso",
+    "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+    "output": "/var/tmp/dokapon-go-native-slot-b1p8h77l/native-defense-df.iso",
+    "output_sha256": "e0b3a22bbdd4f5f8baf10f1e9dc97cf0b1f6ba0b1131c030bbf0866412deb7ae",
+    "whole_compared_bytes": 4243259392,
+    "declared_edits": 1,
+    "declared_bytes": 8,
+    "changed_bytes": 7,
+    "outside_changes": 0,
+    "source_stats_unchanged": true,
+    "source_and_metadata_preserved": true,
+    "native13code_spans_unchanged": true
+  },
+  "runtime_manifest_containment": "Prior49pins fromword-sealedf437manifest match; exactlyone nativeDFpin added. Aonlycheckedcurrent50; historicaldiffisroot/B verification,notattributedtoA.",
+  "accounting": {
+    "before_accounting_sha256": "d6d6e245fec603518ede7b24024601b26c815764b02374605ffdc3f4c9e8d26f",
+    "after_accounting_sha256": "420d1d3b63e96ad39993060f61b931a0c141a14eedb8e8d78069a2fe156d0d4b",
+    "group_deltas": {
+      "asset_bundle": {
+        "bytes": 0,
+        "files": 0
+      },
+      "executed_evidence_inputs": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_module": {
+        "bytes": 0,
+        "files": 0
+      },
+      "go_tests": {
+        "bytes": 0,
+        "files": 0
+      },
+      "pointer_selector": {
+        "bytes": 0,
+        "files": 0
+      },
+      "production_go": {
+        "bytes": 0,
+        "files": 0
+      },
+      "recipe_tables": {
+        "bytes": 1043,
+        "files": 1
+      },
+      "testdata": {
+        "bytes": 845,
+        "files": 1
+      },
+      "build_entrypoint": {
+        "bytes": 0,
+        "files": 0
+      },
+      "consumer_profiles": {
+        "bytes": 0,
+        "files": 0
+      }
+    },
+    "runtime_totals": {
+      "runtime_without_bundle": {
+        "bytes": 633700,
+        "files": 76
+      },
+      "runtime_with_bundle": {
+        "bytes": 11946790,
+        "files": 79
+      },
+      "runtime_and_executed_evidence": {
+        "bytes": 12484809,
+        "files": 99
+      }
+    }
+  },
+  "limits": [
+    "Originalnativefield8Bonly; current49abdoubleENDfieldexcluded.",
+    "Observednativecallers/aliasesbounded; no exhaustiveCFG, ABIofnewcode, visual/gameplay approval.",
+    "No JPselector/restoration yet, originalmixedrecoveryfamilyclosure orhistoricalretirementcredit."
+  ]
+}

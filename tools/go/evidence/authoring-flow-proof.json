@@ -1,0 +1,83 @@
+{
+  "at": "2026-10-20T19:44:31.381310+00:00",
+  "status": "VERIFIED scoped authoring handoff through existing owners",
+  "scope": "Synthetic two-wording existing-ID authorRegistry -> previewFit -> stream_slot plan/dry-run/patchCopy; no new preparation API, encoder or writer.",
+  "reuse_decision": "Existing read-only authoring-fit case in TestCLIDryRunAndApply already owns native font/profile/registry setup and CLI helpers. Extend it with ordinary registry_author -> fit -> stream_slot CLI flow. No preparation API/helper/handler or encoding implementation: consume existing FitRow encoded hash and strict planner/publisher.",
+  "Serena_session": "321e7af4",
+  "production_go_pins": {
+    "main.go": "3b65c39619b3cda8ce485af1f08137290848d32c38e0d4ae18d04f1e8cae4750",
+    "registry_types.go": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "623d83e75e5efef1b9c44392ae11cd1845e58ae08d962fee437c3b5b2a8d26b8",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "6e99ec60c6c34b9964522ee65324e686bf52165fe9c1ba19fd904e119ada6d69",
+    "texture_authoring.go": "d30636d148412f7e7a2dcbe583d6d95d6a497f7d6bda88a979e460872ba4e39b",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "registry_authoring.go": "191eb79ebd0b55a0309424c6d7de627d9e256dbc59e4e48d69988bf099c86488"
+  },
+  "test_sha256": "b6abdf78bd0e08f3fff0f2b52c7dd9b658c69dc6d79b20f068db88ac3265e091",
+  "previous_integrated_proof": "evidence/registry-owner-proof.json",
+  "previous_integrated_proof_sha256": "22847ecd0741acd1ae09019d4d52ed735cafb7e26f7a540d6ca39613ab2c6a7f",
+  "baseline_snapshot": "/var/tmp/dokapon-registry-owner-sealed-go0ii1x8",
+  "baseline_manifest_sha256": "dbd752b997db448d0f1780f0091292c9c30a613fe5e4aa5112697930cee75afb",
+  "root_checks": "/var/tmp/dokapon-authoring-flow-58wh_tpq/checks.json",
+  "root_checks_sha256": "d42379365a0eaa748697818542ca092f59443bf1028491828a3b147845a48191",
+  "ordinary_review": "evidence/authoring-flow-review.json",
+  "ordinary_review_sha256": "6bd18f6203a2b94c09387f3064227da908fa82de48cc8d5c707cb2d472d7aa55",
+  "cases": [
+    {
+      "en": "B",
+      "expected_encoded_hex": "020000f8",
+      "native_fixture_width": 28
+    },
+    {
+      "en": "A A",
+      "expected_encoded_hex": "01000000010000f8",
+      "native_fixture_width": 40
+    }
+  ],
+  "invariants": [
+    "Fit hash generated and independently checked against literal bytes before reused as recipe pin.",
+    "Canonical English exists only in registry; same encoder/scanner reused by fit and patch.",
+    "Whole ELF equals independent expected copy with only the explicitly owned16-byte span changed and padded.",
+    "Wrong well-formed encoded hash, source hash and existing output refuse; invalid fresh output remains absent.",
+    "Synthetic registry/font/glyph/source inputs unchanged; unrelated metadata present."
+  ],
+  "costs": {
+    "runtime_bytes_changed": 0,
+    "runtime_total_bytes": 731954,
+    "runtime_total_files": 94,
+    "test_bytes_added": 5345,
+    "new_functions": 0,
+    "new_helpers_or_closures": 0,
+    "capability_or_historical_credit": false
+  },
+  "initial_draft_corrections": [
+    "Compare compact JSON metadata rather than presentation whitespace.",
+    "Isolate flow files in its own TempDir.",
+    "Fixture retaining old LINE correctly refused changed controls; final plain slot uses matching source-control contract. No production policy relaxed."
+  ],
+  "limits": [
+    "Not a generic prepare/apply pipeline or native slot/capacity/consumer proof.",
+    "A wrapped preview or source-context encoding cannot be assumed identical to a literal slot; strict planner refuses differences.",
+    "Only focused complete CLI owner executed after test-only addition; no new full-suite/race/227/mutation campaign.",
+    "No protected ISO/canonical registry writes or gameplay/emulator access."
+  ]
+}

@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:32:32.893134+00:00",
+  "status": "READ_ONLY_PROPOSED_PARTIAL_DISPOSITION_NOT_APPLIED",
+  "target": "tools/build_registry_csv.py",
+  "recommendation": "One historical path gains partial responsibility credit from accepted shared CSV projection, with legacy execution available and no full migration, retirement, deletion or family promotion.",
+  "proposed_override": {
+    "status": "partial behavior or reference evidence only",
+    "coverage": "Shared Go offline registry CSV projection verified: all entries regardless status, numeric ID sorting with original ID spelling, ordered columns, historical UTF-8/quoting/CRLF and embedded CR/LF bytes. Independent canonical 5544-row output matches exactly (3674934 bytes) within the declared flat scalar domain.",
+    "runtime": "Existing authorRegistry with registry_export, ordered RegistryColumns and recipes/reports/registry-export.json; run/writeNewFile retain shared preview and exclusive publication. No per-script function, helper, handler, writer or dependency.",
+    "evidence": [
+      "evidence/registry-export-proof.json",
+      "evidence/registry-export-review.json",
+      "analysis/registry-export-contract.json"
+    ],
+    "callers": "Original build_registry_csv.py remains delegated to Python reports.registry.export_csv. Shared Python report-registry csv route remains unchanged. Historical README/HANDOFF references are caller leads, not proven migrated callers. No launcher redirect or legacy_run restriction.",
+    "retained": "Historical launcher, shared provider, tests and compatibility behavior remain; no file deletion, retirement or savings credit.",
+    "unverified": "Complete historical-path/caller closure is not claimed. Selected arrays/objects/floats/nonfinite and duplicate normalized IDs deliberately refuse instead of all historical coercions/permissiveness; old overwrite/partial-header/default-path/CLI behavior is not reproduced. Registry plan only; no disc-truth, status/glossary/flow, translation/glyph/fit or native/gameplay proof."
+  },
+  "baseline": {
+    "path": "../rework/new_tool/evidence/parity-matrix.json",
+    "sha256": "bbad75e6e3678d3d3883390cc938d53e30ca25cf80d32db24d1f45881bc778cd",
+    "count": 410,
+    "unique_paths": 410,
+    "independent_audit_path_count": 410,
+    "independent_audit_set_equal": true,
+    "target_occurrences": 1,
+    "row_private_path": "/var/tmp/dokapon-csv-disposition-1w4em54g/baseline-target-row.json",
+    "audit_pins": {
+      "tools/rework/audits/part-1.md": "a887477277bfe00506644314cfdcc973eb3856e7557db65b239380f544e64ad0",
+      "tools/rework/audits/part-2.md": "54a6ba1a43b4b360aec31902b6f882c28287b552560d26011e1767c0f2e9cbd3",
+      "tools/rework/audits/part-3.md": "780898b28c594df2f026c0dd942d123f0d71b6528d8a0db63143a8cb2bd6c818"
+    },
+    "important_distinction": "Frozen baseline row replacement-verified/full_parity_verified records Python-to-shared-Python parity. It is not Go credit. Go ledger currently has no target override and uses default outstanding."
+  },
+  "count_effect": {
+    "before": {
+      "full_Go": 8,
+      "reviewed_historical": 20,
+      "partial": 15,
+      "outstanding": 367,
+      "total": 410
+    },
+    "proposed_after": {
+      "full_Go": 8,
+      "reviewed_historical": 20,
+      "partial": 16,
+      "outstanding": 366,
+      "total": 410
+    },
+    "family_score_before_after": "5 Full/9 Partial of14 unchanged (35.71%); historical row credit is not family completion."
+  },
+  "execution_policy": {
+    "consumer": "../rework/new_tool/maintenance/legacy.py:lookup19..44, main47..78",
+    "rule": "Only legacy_run is interpreted for execution. Missing key allows original execution; any present value other than reference-only raises unsupported disposition, while reference-only refuses. status/coverage/runtime/evidence/callers fields are not execution gates. Therefore omit legacy_run completely; do not invent allowed/run/partial values.",
+    "proposed_target_before_after": {
+      "before": "legacy_run absent; original launcher remains available",
+      "after": "legacy_run absent; original launcher remains available"
+    },
+    "projection_equal": true,
+    "proof_limit": "Static AST/source and deterministic data projection; legacy.main/os.execv and old scripts were NOT executed. Existing compatibility test source7955..7982 independently documents malformed-policy refusal and empty-override original execution with mocked execv; no new runtime test claimed.",
+    "unchanged_projection": {
+      "private_path": "/var/tmp/dokapon-csv-disposition-1w4em54g/legacy-execution-projection.json",
+      "sha256": "854345837f0c7ca9ba3bd5cf4ff08cc4b7ea7019b717f6b467936d5135b28032",
+      "restricted_rows": 57,
+      "target_key_absent": true
+    }
+  },
+  "source_and_callers": {
+    "launcher": "tools/build_registry_csv.py main delegates _reports.export_csv(globals()); COLUMNS is independent list of provider columns. Current source SHA matches exact frozen baseline.",
+    "provider": "tools/rework/new_tool/reports/registry.py export_csv157..174; legacy defaults and overwrite/header-before-sort remain in Python. Provider and its test SHA match frozen runtime-compatibility receipt.",
+    "explicit_shared_python_route": "tools/rework/new_tool/__main__.py42..43 dispatches report-registry to reports.registry.main; registry.main csv branch calls export_csv explicit=True. This is a retained actual source route, not migrated Go caller.",
+    "textual_leads": [
+      {
+        "path": "docs/HANDOFF.md",
+        "line": 87,
+        "reference": "build_registry_csv.py"
+      },
+      {
+        "path": "docs/HANDOFF.md",
+        "line": 200,
+        "reference": "tools/build_registry_csv.py"
+      },
+      {
+        "path": "tools/README.md",
+        "line": 8,
+        "reference": "build_registry_csv.py"
+      }
+    ],
+    "qualification": "README/HANDOFF references are historical leads. No computed/manual/external caller closure inferred; no automatic argv redirection proposed."
+  },
+  "accepted_positive_evidence": {
+    "proof_sha256": "42b19209ad774825c853143f215162f921d074b897b0a0cade07e975a0e88935",
+    "review_sha256": "98c80fdc699ad4f997109fce60146a137aa9065e477ae37b32912d3bbd2cadab",
+    "candidate_pins_verified": 29,
+    "canonical_flow": {
+      "rows": 5544,
+      "output_bytes": 3674934,
+      "output_sha256": "f43cd57b8ece85add43fcd9700d90f2a926c2cd218876974e3335fd8beeaa1b3",
+      "source": "Read-only canonical source frozen to owned input copy. Go preview/apply operate only on copy; full independent Python stdlib CSV bytes match."
+    },
+    "checks": [
+      {
+        "command": [
+          "go",
+          "test",
+          "-race",
+          "-p",
+          "2",
+          "-run",
+          "^TestCLIDryRunAndApply$",
+          "-count=1",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 35.139713,
+        "log_sha256": "53116df3f323b24b07532d6b555dc021ddaf54472a95db95d3ea26ac82a5c631"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.073008,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-registry-export-m131wn1x/dokapon-go",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.213878,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "independent_review_summary": {
+      "focused_complete_TestCLIDryRunAndApply": "PASS 4.368s; -count=1 -p 2",
+      "build": "PASS",
+      "vet": "PASS",
+      "gofmt": "PASS",
+      "scoped_git_whitespace": "PASS",
+      "selfchecked_credentials_scan": "PASS; no hits",
+      "independent_probes": {
+        "positive_byte_oracles": 3,
+        "typed_or_pin_refusals": 7,
+        "per_positive": "Preview and apply output hash/whole bytes match independently frozen Python stdlib csv.writer expectation; five overwrite/source/profile/symlink/hardlink aliases refuse with empty stdout.",
+        "inputs": "All source/profile bytes and source inode/mtime preserved.",
+        "positive_cases": [
+          "Unusual Unicode/comma/quote/CRLF column names; NUL, NBSP, emoji, combining text, embedded CR/LF, literal backslash-dot, leading whitespace, formula text, true/false/zero/large negative integer; numeric ID order and source spelling",
+          "Single selected empty/null/NUL column including required single-empty-cell quoting",
+          "Unselected opaque nested duplicate keys and lone surrogate remain unread metadata"
+        ],
+        "refusals": [
+          "0.0",
+          "1e2",
+          "empty list",
+          "empty object",
+          "selected lone surrogate",
+          "normalized duplicate ID",
+          "stale source hash"
+        ]
+      }
+    },
+    "qualification": "Receipts and pinned outputs reviewed by hash only; canonical registry was not opened, copied or re-exported in this follow-up. No Go or project Python executed."
+  },
+  "deliberate_changes_and_holds": [
+    "Selected arrays/objects/floats/nonfinite JSON refuse; Pythonrepr coercion and duplicate normalized ID permissiveness are explicitly withdrawn at this typed boundary. Unselected opaque metadata remains ignored.",
+    "Registry plan only; no installed disc content, full STATUS Markdown/glossary/flow, translation/glyph/fit or native/gameplay readiness claim.",
+    "Whole source/CSV64MiB,1..64 unique column names up to256bytes. Existing date/update operations retain their own policy; export does not update source.",
+    "Full integrated suite/race deferred under user pacing; current complete focused CLI race and independent checks cover increment.",
+    "5Full/9Partial/14=35.71% unchanged;410-path historical accounting unchanged.",
+    "Go requires bounded explicitly pinned input, normalized unique IDs and exclusive new output; historical overwrite/partial-header/default paths remain available only via unchanged Python launcher. These deliberate changes and unclosed callers require partial disposition, not full historical-path parity.",
+    "No status-summary Markdown/glossary/flow or disc-truth ledger responsibility credit. No authoring-ready or installed/native content inference from registry projections."
+  ],
+  "required_checks_before_applying": [
+    "Recheck baseline SHA/count/unique410 and exact target occurrence; override key must be present only once and not already exist.",
+    "Recheck historical launcher/provider/test SHA against frozen row and accepted proof/review/current candidate pins.",
+    "Insert only proposed descriptive override with NO legacy_run key; compare entire existing legacy_run projection before/after exactly.",
+    "Recompute historical counts to8 fullGo/20 reviewedHistorical/16 partial/366 outstanding=410; no Full/family promotion, deletion or savings.",
+    "Verify ledger schema/JSON/unique keys, all new evidence links and digest pins; existing source/launcher/runtime unchanged. A data-only update does not require running game/protected resources or full suite."
+  ],
+  "source_slices": [
+    {
+      "path": "../build_registry_csv.py",
+      "symbol": "main",
+      "lines": [
+        40,
+        41
+      ],
+      "private_slice": "/var/tmp/dokapon-csv-disposition-1w4em54g/build_registry_csv-main.txt",
+      "slice_sha256": "72dfb06cc53385fa4b323acc135983aab6faf54eb6409dcffe79cc18113ae995"
+    },
+    {
+      "path": "../rework/new_tool/reports/registry.py",
+      "symbol": "export_csv",
+      "lines": [
+        157,
+        174
+      ],
+      "private_slice": "/var/tmp/dokapon-csv-disposition-1w4em54g/registry-export_csv.txt",
+      "slice_sha256": "1d67d4b2f944ff2fbb84f7c2f124babfa4ed5cd660999af6893eee16fa0a2056"
+    },
+    {
+      "path": "../rework/new_tool/reports/registry.py",
+      "symbol": "main",
+      "lines": [
+        294,
+        311
+      ],
+      "private_slice": "/var/tmp/dokapon-csv-disposition-1w4em54g/registry-main.txt",
+      "slice_sha256": "421d06a47f9f4260bc73d6f6f0dee9545193313081f389570d049a2a3a0ea2e5"
+    },
+    {
+      "path": "../rework/new_tool/maintenance/legacy.py",
+      "symbol": "lookup",
+      "lines": [
+        18,
+        44
+      ],
+      "private_slice": "/var/tmp/dokapon-csv-disposition-1w4em54g/legacy-lookup.txt",
+      "slice_sha256": "70028870d1eb7ff055dcc77ff91113575210428aff15ff2a639e12af387b0855"
+    },
+    {
+      "path": "../rework/new_tool/maintenance/legacy.py",
+      "symbol": "main",
+      "lines": [
+        47,
+        69
+      ],
+      "private_slice": "/var/tmp/dokapon-csv-disposition-1w4em54g/legacy-main.txt",
+      "slice_sha256": "7292b27575daa26448ce4dec8dc608ea9b42a99d657f59cb0a21190d0ae1afb9"
+    }
+  ],
+  "source_pins": {
+    "evidence/go-coverage.json": {
+      "sha256": "19fd11d489d34255eba12a63b019a82d8049cd72ba4ce871ddf0e26b71e1a183",
+      "bytes": 65753
+    },
+    "../rework/new_tool/evidence/parity-matrix.json": {
+      "sha256": "bbad75e6e3678d3d3883390cc938d53e30ca25cf80d32db24d1f45881bc778cd",
+      "bytes": 2478533
+    },
+    "../build_registry_csv.py": {
+      "sha256": "2e70eb95d24d8e44156d6e759b6f0eb4a0fd29e16ed0bd7d3ad1c9fba32dfcf3",
+      "bytes": 1628
+    },
+    "../rework/new_tool/reports/registry.py": {
+      "sha256": "851b8086227e3463b827c6664191c88ae7a0d73331c73810c443c215be56694a",
+      "bytes": 14082
+    },
+    "../rework/new_tool/reports/test_registry_reports.py": {
+      "sha256": "e5035b206b95515589010ed86dcdb71c7d3d3b6e09f72212295261d0f0b0691b",
+      "bytes": 16986
+    },
+    "../rework/new_tool/maintenance/legacy.py": {
+      "sha256": "4cb5c36d610e69be32581bd4eb46bed7aac8f2306fb438c762c73c679e302a48",
+      "bytes": 3485
+    },
+    "../rework/new_tool/maintenance/test_compatibility.py": {
+      "sha256": "f26f16ea3c2fc7a54e9221741906e46e0e777836684e8e7ea9d5590fd23d5788",
+      "bytes": 468610
+    },
+    "../rework/new_tool/maintenance/parity.py": {
+      "sha256": "7ee4c12cc84328b8812db38a951cd44f80817ee946d94dae7b25dbdf548e5a0f",
+      "bytes": 33167
+    },
+    "../rework/new_tool/__main__.py": {
+      "sha256": "4800a30cd698fccc6b0f12d2554a0f48bcd9b0c9ac4f102d37cfcea93831b577",
+      "bytes": 2537
+    },
+    "../README.md": {
+      "sha256": "783773ba5d8c573d64b355f2f4c6c5426c64b5051a1fb17bac899e827ca1fd4d",
+      "bytes": 3436
+    },
+    "../../docs/HANDOFF.md": {
+      "sha256": "03e51e7efbc026e9a55e5e97a1f4ccd6626e7e7422730d41b849df403e3d21da",
+      "bytes": 132438
+    },
+    "MIGRATION.md": {
+      "sha256": "fbca9c3f591c45a2617f7118248d2ea7d797e8681ac40164b0db6d8b737d2afd",
+      "bytes": 116688
+    },
+    "evidence/registry-export-proof.json": {
+      "sha256": "42b19209ad774825c853143f215162f921d074b897b0a0cade07e975a0e88935",
+      "bytes": 7883
+    },
+    "evidence/registry-export-review.json": {
+      "sha256": "98c80fdc699ad4f997109fce60146a137aa9065e477ae37b32912d3bbd2cadab",
+      "bytes": 7961
+    },
+    "analysis/registry-export-contract.json": {
+      "sha256": "c3312135ce0c89d0445157cb9d43e12763f83be5d2db5185a490ae20536786cf",
+      "bytes": 18621
+    },
+    "recipes/reports/registry-export.json": {
+      "sha256": "e8aea3c09f11082042142984605cea634551f53e02f82068fb357bf4aa21c098",
+      "bytes": 474
+    }
+  },
+  "private_directory": "/var/tmp/dokapon-csv-disposition-1w4em54g",
+  "verification": "Independent audit-table extraction + baseline equality/uniqueness, current source/provider/test pins, all29 accepted candidate pins, source-contract/reuse/recipe/review/private-receipt pins, static consumer AST and identical legacy execution projection, proposed count arithmetic, JSON/whitespace/credential-pattern checks. No ledger/Go/Python/test/doc edits or project code execution.",
+  "scope": "Recommendation only; parent owns disposition decision and ledger changes.",
+  "private_files": {
+    "baseline-paths.json": {
+      "bytes": 18281,
+      "sha256": "892eec1baed2f222227d33c5f3660105d318586c60b60dbc213c0db9e270ce3f"
+    },
+    "baseline-target-row.json": {
+      "bytes": 6822,
+      "sha256": "d8a5daeb86d356e6d52a66b0d004423102012476c6311067025bd9a6d19e9787"
+    },
+    "build_registry_csv-main.txt": {
+      "bytes": 54,
+      "sha256": "72dfb06cc53385fa4b323acc135983aab6faf54eb6409dcffe79cc18113ae995"
+    },
+    "legacy-execution-projection.json": {
+      "bytes": 3856,
+      "sha256": "854345837f0c7ca9ba3bd5cf4ff08cc4b7ea7019b717f6b467936d5135b28032"
+    },
+    "legacy-lookup.txt": {
+      "bytes": 1736,
+      "sha256": "70028870d1eb7ff055dcc77ff91113575210428aff15ff2a639e12af387b0855"
+    },
+    "legacy-main.txt": {
+      "bytes": 1208,
+      "sha256": "7292b27575daa26448ce4dec8dc608ea9b42a99d657f59cb0a21190d0ae1afb9"
+    },
+    "registry-export_csv.txt": {
+      "bytes": 840,
+      "sha256": "1d67d4b2f944ff2fbb84f7c2f124babfa4ed5cd660999af6893eee16fa0a2056"
+    },
+    "registry-main.txt": {
+      "bytes": 1036,
+      "sha256": "421d06a47f9f4260bc73d6f6f0dee9545193313081f389570d049a2a3a0ea2e5"
+    }
+  }
+}

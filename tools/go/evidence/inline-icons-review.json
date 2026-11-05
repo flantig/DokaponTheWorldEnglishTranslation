@@ -1,0 +1,222 @@
+{
+  "status": "PASS within reviewed finite scope; no new finding",
+  "role": "Ordinary read-only independent review; findings/advice, not approval",
+  "sealed_at": "2026-10-21T05:07:35.334019+00:00",
+  "scope": "Shared native metric inline icon geometry and per-line immutable fullRGBA replacement in existing renderRuns/composeCells/authorTexture. No family/migration/retirement/TTF-artwork credit.",
+  "candidate": {
+    "capsule": "/var/tmp/dokapon-inline-icons-6x56rlg_/review-source/review-manifest.json",
+    "sha256": "f51f48d175dede31f3e4920e03ceb742c19a26dc82761dab43cc4d3366804b79",
+    "members": 474,
+    "all_capsule_and_owned_copy_members_held": true,
+    "critical_live_pins_count": 126,
+    "all_critical_live_pins_held": true,
+    "other_live_capsule_drift": [],
+    "production": {
+      "raster.go": {
+        "bytes": 15079,
+        "sha256": "f3c5e2bc6fc6000e5ccac9f79c04e63040c9a6901e34e185481dc6ee28032efe"
+      },
+      "raster_runs.go": {
+        "bytes": 15670,
+        "sha256": "deeb1f8270fd9bb3e885e32b71307afb3792c665c2b4eff0ba4939f5149e65e2"
+      },
+      "raster_types.go": {
+        "bytes": 4373,
+        "sha256": "93743de1e8bc49d791d516b94cc2398c161efe459fd0b884ff77f1e6036c9842"
+      },
+      "texture_authoring.go": {
+        "bytes": 25302,
+        "sha256": "86ba4a6c80abb5d6a24da0c8b8652b05821287ea3d13b3978814223571827f8e"
+      }
+    },
+    "test": {
+      "bytes": 578840,
+      "sha256": "d7680623ca365ab9523570e334c76032afd2e83de33d24f36251bfc3ac8ad20c"
+    },
+    "fixture": {
+      "bytes": 313846,
+      "sha256": "e569d9722466d9763af09aa9b3ada3548dff5615188efb7b4189339f9e66fba4"
+    }
+  },
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-contact-score-fix-uws1ri10/sealed-final/manifest.json",
+    "sha256": "bf076814c93adce78489c9adff9531fb1a57bf223db7f17a8298d7283e9b16c3",
+    "binary": "/var/tmp/dokapon-contact-score-review-2a_je_ub/native",
+    "binary_sha256": "3f4897fc7aa98fbee65873327a3eeb4ed06f5517672ef653f5f8531c49a2d3bf"
+  },
+  "contracts": {
+    "analysis/inline-icons-current-reuse-decision.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/project/analysis/inline-icons-current-reuse-decision.json",
+      "sha256": "f12c61346b93fe83eae5eadcf6d81292b6b590cc3edbe809f14a0dee3722ef9b"
+    },
+    "analysis/inline-icons-contract-recovery.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/project/analysis/inline-icons-contract-recovery.json",
+      "sha256": "e92a93d8244a7b58f0c64bd4015f9af7ffcd8119b87e5951cd23bcb531174384"
+    },
+    "analysis/inline-icons-bridge-correction.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/project/analysis/inline-icons-bridge-correction.json",
+      "sha256": "42a15bd4f8927a8b077d31e6e4084cdc4073133aa91980f98bd005245e027b6e"
+    }
+  },
+  "findings": [],
+  "assessment": [
+    {
+      "lines": "raster_runs.go:64-73,144-151,173-198,232-239,416-425",
+      "result": "Source-sized advance/gap are independent of fitted text scale; icon-only fit and rendered width preserve the explicit original discrepancy. Origin and icon position use separate ties-even rounding. Unknown/conflicting runs and finite gap bounds refuse. Icons add no glyph count/tracking. Optical stroke/resampling algorithms remain shared."
+    },
+    {
+      "lines": "raster.go:38-50,240-246,297-346; raster_types.go:87-97",
+      "result": "Complete source rectangles validated against immutable base and complete targets against approved cells, including transparent bytes. Separate placements allow targets outside text-layer ink. Per-line compositor retains one float/Pillow math implementation, then draw.Src copies original RGBA before next line. Other cells cannot mutate donors because reads use base, not canvas."
+    },
+    {
+      "lines": "texture_authoring.go:548; raster.go:195,231; affected patch_test.go calls",
+      "result": "One production IO caller forwards authored icons; group probe/final render share the map, prior text callers pass nil. Serena references and focused builds cover affected calls. Typed placement belongs with BitmapLayer; no loader/writer/parser/helper/function added."
+    },
+    {
+      "result": "Bounded declarations/runs/cells/lines, source/base workspace and disjoint approved-cell guards keep copy work finite. This fits existing geometry/composition responsibilities. No per-artwork handler or engine; explicit per-line order is clearer than duplicating the compositor."
+    }
+  ],
+  "verification": {
+    "native_focused": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-tags",
+        "nativefonts",
+        "-count=1",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "."
+      ],
+      "GOMAXPROCS": 2,
+      "package_seconds": 30.819,
+      "wall_seconds": 36.724,
+      "exit": 0
+    },
+    "core_focused": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-count=1",
+        "-p",
+        "2",
+        "-run",
+        "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "."
+      ],
+      "GOMAXPROCS": 2,
+      "CGO_ENABLED": 0,
+      "package_seconds": 22.646,
+      "wall_seconds": 28.095,
+      "exit": 0
+    },
+    "build_vet_hygiene": "Own native/core builds/vet, all Go gofmt, scoped whitespace and selfchecked POSIX credentials PASS.",
+    "frozen_oracles": "18 original ZIP members verified. Normalized fixture changes3 group Fill arrays to black plus explanatory bridge metadata in vectors.json;17 other contents and11 complete expected RGBA arrays unchanged. Original default/black replay receipt and all pins verified. Current Golden matches all11 completeRGBA cases, placements, default2/explicit0 gap, shifted bases, refusals and prior optical/style/group/binary goldens.",
+    "independent_extra_originals": "Three new original-only AST-definition cases frozen before Go: icon-only fit/render split at nonzero tracking; fractional gap/compression; two disjoint cells copying the same immutable donor after first cell paints its source. PRIVATE current Golden overlay PASS14.924s, fullRGBA/input preservation with padded stride at zero and negative/nonzero origin. No historical main/project module executed.",
+    "standalone": "Native fixture dry/apply produces exact frozen expected wholeTXD84867405..., repeat dry deterministic;5existing output/source/profile/font/atlas targets refuse; all input bytes/inodes/mtimes preserved.4 additional null/conflict/overflow cuts refuse without output.",
+    "compatibility": "20 complete old operation stdout/stderr/exit captures match accepted score binary. Four additional old HUD/binary, native optical, style and line-group profiles succeed with identical complete stdout/stderr/exit. Prior pixel/refusal fixtures pass focused owners.",
+    "jobs_terminal": true
+  },
+  "limits": [
+    "Focused CLI/actual Golden/build/vet only; no full suite or reviewer race. Root owns its separate race receipt.",
+    "Expected raw native candidate comes from original Python renderer. Expected native TXD is an OLD accepted Go codec projection, not an independently encoded native oracle; no new encoder/alpha/index claim follows.",
+    "The8 actual historical inline-icon operations used TTF artwork. Native metric support and explicit Icon runs do not prove those8 complete TTF artworks or original literal-marker parser migration.",
+    "External donors/reconstruction/BICUBIC/exemplars/texture-fill and broader raster-family obligations remain outside scope; no ISO/visual/gameplay/artwork or retirement approval.",
+    "Two safe external/skills capsule aliases have no same-relative live path; capsule bytes verified. Other disclosed documentation changes are not re-reviewed implementation changes."
+  ],
+  "setup_notes": [
+    "First private overlay generator assumed one iconProfile declaration; current CLI+Golden have2. It stopped before Go could read an overlay; corrected to final Golden insertion. Reviewer setup, not candidate failure.",
+    "Final fixture normalization check initially omitted explanatory normalized_bridge_correction metadata; updated comparison to account for that harmless string and reverified only3 source Fill arrays differ. No expected pixels repinned."
+  ],
+  "private_work": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj",
+  "artifacts": {
+    "pins-before.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/pins-before.json",
+      "bytes": 74195,
+      "sha256": "fc623b220ff3ebb2c143b49c6a1e8569dbf5a4bf2f7657bb5c228f6e402edf37"
+    },
+    "pins-final.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/pins-final.json",
+      "bytes": 19566,
+      "sha256": "80d2ca3ca3ac6ff4e2180441aa08526dd0175741a579cb914ca2b5c7ec34b8a0"
+    },
+    "checks.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/checks.json",
+      "bytes": 3156,
+      "sha256": "f02f4d9c9b75a38d84b1b45a33d6c14a3d449cc1a4504b7ad2c414901ad52747"
+    },
+    "hygiene.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/hygiene.json",
+      "bytes": 552,
+      "sha256": "d59b5cc49ac54ffd1f10c0f9bcdce1efecf6def62ff8d8067253d28d30490872"
+    },
+    "extra-original.py": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/extra-original.py",
+      "bytes": 3448,
+      "sha256": "7a2f9445d304a0838a04ddeac77a16a9c3c76ce6bb5e11b29003a1bdb3f8dffc"
+    },
+    "extra/cases.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/extra/cases.json",
+      "bytes": 4247,
+      "sha256": "66f926953aaf89f19bd60c27df82b2385940eae1cf9232d2868d86e99cec41ac"
+    },
+    "extra/oracle-pins.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/extra/oracle-pins.json",
+      "bytes": 1966,
+      "sha256": "2654f76760ac999b5b7ded24e98f7e607ea4d962c92f947901f3e45f135d22ed"
+    },
+    "prepare-edge-overlay.py": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/prepare-edge-overlay.py",
+      "bytes": 2138,
+      "sha256": "2378511d0da553397199524875a6e10dc0fffc57deb79220f4fc0a5cc902a6f8"
+    },
+    "edge-overlay.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/edge-overlay.json",
+      "bytes": 156,
+      "sha256": "c40ec0f02468910884d049f47d1e6ce766b511104f91c9da4d4e9769f79e1a46"
+    },
+    "edge-check.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/edge-check.json",
+      "bytes": 700,
+      "sha256": "810968de7350382a4d6d714c234c606ced12f1bd3abe68fb9cb36279d3ccf18f"
+    },
+    "patch-private-edges.go": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/patch-private-edges.go",
+      "bytes": 580549,
+      "sha256": "2469a3493e18f7a5a7cb09c3d4f893d15b7bb033bbaec92f81fdd9573db60022"
+    },
+    "standalone.py": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/standalone.py",
+      "bytes": 4091,
+      "sha256": "78b79d8453df0394fc30ed11a4671ae9c62d7f00cc8edc2ae2281a74ec08583e"
+    },
+    "standalone.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/standalone.json",
+      "bytes": 6620,
+      "sha256": "bd88497a9c1189f026fda2069045269e557e4df5dc2a0392eea1d3f38e7172b3"
+    },
+    "four-old-text-complete-parity.json": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/four-old-text-complete-parity.json",
+      "bytes": 1513,
+      "sha256": "08b4f8dec01915f8f989bf3743110d3bcd3b78009e24f603c217fe58580271fd"
+    },
+    "native": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/native",
+      "bytes": 8014408,
+      "sha256": "f21986d694fb61b47755713e2ff14db15c49e9f449ea5024511438193e941153"
+    },
+    "core": {
+      "path": "/var/tmp/dokapon-inline-icons-review-jd3mk_rj/core",
+      "bytes": 8094147,
+      "sha256": "3725c8662c9b9a9a7df9b498d90ca76762b04e7886a603aac9e633f0e9c833af"
+    }
+  }
+}

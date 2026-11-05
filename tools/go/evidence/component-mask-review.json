@@ -1,0 +1,169 @@
+{
+  "all_owned_jobs_terminal": true,
+  "allowed_live_write": "evidence/component-mask-review.json only",
+  "at": "2026-11-05T02:03:01.868501+00:00",
+  "commands": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestPlanAndCopy|TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 40.16910672187805
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-component-review-87zj67es/dokapon-core",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.23899412155151367
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.3850274085998535
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-component-review-87zj67es/dokapon-nativefonts",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 2.2621474266052246
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.8233664035797119
+    }
+  ],
+  "connected_review": {
+    "JSON": "The existing one mask validator handles inline and loaded resources. Component objects use depth4; separate raw reject-selector validation correctly avoids the depth7collision with main scalar property maps. Required/canonical/duplicate/null/unknown properties and ancestor shadows were challenged with valid positive controls and no-output apply refusals.",
+    "claims": "This is a bounded component/g03 capability increment. Background-seed label0flood/post-selection erosion and complete global permission contexts remain held. No four-context coverage, art workflow, fullfamily, retirement or reduction claim follows.",
+    "owners": "selectRaster remains the shared original/current pixel constructor. transformRasterMask reuses its existing minimum-component BFS for combined size/seed/tag criteria. Current erase, compositor, font and morphology callers retain their defaults. RasterComponentFilter is one cohesive data type; no new function, labeler, handler or topology implementation was added.",
+    "readability_reuse": "The shared role compiler and one component walk own their respective decisions. Validation remains guard clauses; component state is reset per traversal. Sampling and seed conversion are in the numerical constructor, without compositor read-mode flags or per-provider adapters.",
+    "semantics": "Seed coordinates are checked inside SampleRect and then against foreground at the component phase. Absent seeds retain all components, explicit empty seeds retain none, repeated seeds union, tags veto entire foreground components, and background tags alone do not veto. Sampling gates initial main/core/tag masks while Rect charges and bounds topology/output. Connectivity affects only component traversal; later growth, close, fill, erosion and font counter logic remain four-connected.",
+    "serena_session": "e392a2e9"
+  },
+  "findings": [],
+  "kind": "independent-read-only-component-mask-review",
+  "limitations": [
+    "Focused checks are not the full suite; root finalQA/race evidence is separate and not claimed here.",
+    "No native-font race, gameplay or visual/artwork approval.",
+    "No protected original/shipping/custom-art ISO, canonical registry, owner emulator/probe/processes/auth/settings/logs accessed.",
+    "Only private external testdriver/scripts and the authorized new evidence report were written; no runtime/candidate edits.",
+    "Held global flood/context/source-art duties remain outside this review.",
+    "Review grants no implementation, approval, patch or migration coverage authority."
+  ],
+  "numeric_method": {
+    "component_cases": 13356,
+    "harness": "A private external main driver compiles exact copied numerical source/types. No candidate or live runtime source file was changed.",
+    "old_topology_and_scalar_cases": 14195,
+    "reference": "Independent set-based foreground graph traversal computes component membership, size, seed intersection and tagveto before invoking Go. All request/result lengths are checked. Input foreground/reject/seed arrays remain unchanged; successful output masks do not alias foreground or rejection inputs.",
+    "special_cases": "Canvas-relative SampleRect/seeds with nonzero image origin, alpha<1 sampling leak prevention, eight-neighbor component selection followed by four-neighbor growth, nil versus empty seed lists, later invalid seeds, repeated32seed boundary, background rejection tags, minimum-size fractions, exact charged1305budget accepted and1304refused."
+  },
+  "own_checks": {
+    "32_repeated_foreground_seeds_positive_33_refusal": true,
+    "actual_nativefonts_build": "PASS",
+    "actual_nativefonts_vet": "PASS",
+    "all_owned_jobs_terminal": true,
+    "complex_inline_and_shared_component_programs_match_frozen_native_golden": true,
+    "component_numeric_reference": {
+      "all_assertions_passed": true,
+      "all_owned_jobs_terminal": true,
+      "cases": 13356,
+      "method": "Independent set-based foreground graph reference for membership/size/seeds/tagveto; expected outputs generated before driver execution.",
+      "request_sha256": "fc852a35c687987b557f3f929fa5a58c8120ba86f06fcd17afb689a534125095"
+    },
+    "core_build": "PASS",
+    "core_vet": "PASS",
+    "empty_seeds_and_always_true_tag_each_produce_unchanged_native_source": true,
+    "focused_tests": "TestPlanAndCopy+TestCLIDryRunAndApply+TestPilotHistoricalGoldenBytes PASS40.169106722s",
+    "frozen_primary_vectors": "Existing focused/golden suite checks30newcomponent/g03/manual vectors plus179preceding pipeline vectors without rewriting expectedbytes.",
+    "gofmt_scoped_Go": "PASS",
+    "independent_CLI_probes": 47,
+    "invalid_requests_empty_stdout_no_apply_output": true,
+    "old_topology_and_scalar_numeric_reference": {
+      "all_assertions_passed": true,
+      "all_owned_jobs_terminal": true,
+      "cases": 14195,
+      "identity_and_clip_cases": 5,
+      "request_sha256": "430e0c5c10303f265ae29e5110c91562cd28c7b9175c529eafb4dc28b8330606",
+      "scalar_cases": 160,
+      "topology_cases": 14030
+    },
+    "source_bytes_preserved": true,
+    "whole_baseline_reports_or_refusals": 8,
+    "whole_parity_details": "Core and nativefonts each compare complete reconstruction, color-exclusion, bitmap-text and TrueType reports or the unchanged core TrueType-disabled refusal. Prior review binaries were verified against accepted694production Go/module/embedded layout data."
+  },
+  "pins": [
+    {
+      "kind": "candidate",
+      "manifest": "/var/tmp/dokapon-component-mask-eo_jbpc5/review-source-manifest.json",
+      "members_verified": 695,
+      "sha256": "fce1e0d41d7aca6ae9be234be2fecf4df491bf0e698496b6e7b7913156d38c42"
+    },
+    {
+      "kind": "baseline",
+      "manifest": "/var/tmp/dokapon-mask-pipeline-j_248fr1/sealed-final/manifest.json",
+      "members_verified": 694,
+      "sha256": "e50dcf4c780d7a4a037e406d234b4347a0a158d6d837b45e357f0d873057f5da"
+    },
+    {
+      "kind": "component projection",
+      "manifest": "/var/tmp/dokapon-component-wire-projection-AIJkVO0d/manifest.json",
+      "members_verified": 50,
+      "sha256": "4cf760c73f87b57fc006eeff271522d7af2645a86c610b0da278034b4c0b7d6f"
+    },
+    {
+      "kind": "primary component source",
+      "manifest": "/var/tmp/dokapon-component-permission-source-AHrdkqz2/manifest.json",
+      "members_verified": 47,
+      "sha256": "20d69dc6930d9801a4c128db504322833772f02c96300763ddc6dafe2385d207"
+    },
+    {
+      "kind": "held global contexts",
+      "manifest": "/var/tmp/dokapon-component-global-stages-aKJmlrhz/manifest.json",
+      "members_verified": 53,
+      "sha256": "bae488bad73d006b0a7ab6c7d0010f95acc0cee5646c93321db8be7a0634a6ee"
+    }
+  ],
+  "reviewer": "/root/reference_owner_review",
+  "schema_version": 1,
+  "status": "REVIEW_COMPLETE_NO_CONFIRMED_FINDINGS",
+  "what_this_change_does": "Extends the existing component traversal with explicit4or8neighbor membership, foreground seed selection and whole-component tag veto. The existing footprint compiler adds optional sampling bounds and the source-proven green-blue scalar property; topology/output bounds and legacy morphology/font defaults remain separate.",
+  "workspace": "/var/tmp/dokapon-component-review-87zj67es"
+}

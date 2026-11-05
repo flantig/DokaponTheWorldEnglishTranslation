@@ -1,0 +1,29 @@
+{
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "operation": "guarded_words",
+  "entries": {
+    "0x3499b0": {
+      "expected_hex": "4800053c",
+      "words": [
+        {
+          "hex": "0x3c050048",
+          "assembly": "lui $a1, 0x0048; source area label high half"
+        }
+      ]
+    },
+    "0x3499b8": {
+      "expected_hex": "10bea524",
+      "words": [
+        {
+          "hex": "0x24a5be10",
+          "assembly": "addiu $a1, $a1, -0x41f0; source area label low half"
+        }
+      ]
+    }
+  },
+  "evidence": "Original area label consumer pair remains at 0x47be10; no-op guarded words; source-image pin."
+}

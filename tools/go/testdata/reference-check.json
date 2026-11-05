@@ -1,0 +1,264 @@
+{
+  "contract_sha256": "9bff0fb24e66c29c823b7f2067379b9666dc410e0e9457c56be507aa267b2c9d",
+  "provenance": "Independent pre-implementation literal5ID/8word source and expected physical-word oracles. Schema-only bridge; no Go output.",
+  "registry": {
+    "entries": [
+      {
+        "id": "0x467ff0",
+        "en": "A",
+        "patch_ref": "audit-example",
+        "ref_type": "pointer_array",
+        "ref_sites": [
+          {
+            "pointer_vma": "0x1010"
+          }
+        ],
+        "landing_vma": "0x4007ff0"
+      },
+      {
+        "id": "0x468000",
+        "en": "B",
+        "patch_ref": "audit-example",
+        "ref_type": "struct_table_field",
+        "ref_sites": [
+          {
+            "pointer_vma": "0x1024",
+            "struct_vma": "0x1020",
+            "field_offset": "0x4"
+          }
+        ],
+        "landing_vma": "0x4008000"
+      },
+      {
+        "id": "0x468010",
+        "en": "C",
+        "patch_ref": "audit-example",
+        "ref_type": "code_immediate",
+        "ref_sites": [
+          {
+            "lui_vma": "0x1030",
+            "addiu_vma": "0x103c",
+            "reg": "$t0"
+          }
+        ],
+        "landing_vma": "0x4008010"
+      },
+      {
+        "id": "0x469000",
+        "en": "D",
+        "patch_ref": "audit-example",
+        "ref_type": "code_immediate",
+        "ref_sites": [
+          {
+            "lui_vma": "0x1040",
+            "addiu_vma": "0x1044",
+            "reg": "$a0"
+          }
+        ],
+        "landing_vma": "0x4009000"
+      },
+      {
+        "id": "0xffff8000",
+        "en": "E",
+        "patch_ref": "audit-example",
+        "ref_type": "code_immediate",
+        "ref_sites": [
+          {
+            "lui_vma": "0x1048",
+            "addiu_vma": "0x104c",
+            "reg": "$ra"
+          }
+        ],
+        "landing_vma": "0x400fff0"
+      }
+    ]
+  },
+  "mapping": {
+    "iso_elf_offset": "0x40",
+    "elf_vma_delta": "0x1000",
+    "source_size": 512
+  },
+  "cases": [
+    {
+      "name": "id",
+      "source_hex": "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccf07f4600cccccccccccccccccccccccccccccccc00804600cccccccccccccccc4700083ccccccccccccccccc108008254700043c0090842400001f3c0080ff27cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "source_sha256": "e06abafb80d6ff602e6e2102318467338efece8c4f9e74b749e3de6cce5f359d",
+      "scope_sha256": "d8c610c72dc3b8f0af3efe3e11586bcac30b3a54a961b555b94c3b7addda434b",
+      "pointer_state": "",
+      "expected": [
+        {
+          "registry_id": "0x467ff0",
+          "operation": "pointer_check",
+          "offset": 80,
+          "old_hex": "f07f4600",
+          "new_hex": "f07f4600"
+        },
+        {
+          "registry_id": "0x468000",
+          "operation": "pointer_check",
+          "offset": 100,
+          "old_hex": "00804600",
+          "new_hex": "00804600"
+        },
+        {
+          "registry_id": "0x468010",
+          "operation": "guarded_words",
+          "offset": 112,
+          "old_hex": "4700083c",
+          "new_hex": "4700083c"
+        },
+        {
+          "registry_id": "0x468010",
+          "operation": "guarded_words",
+          "offset": 124,
+          "old_hex": "10800825",
+          "new_hex": "10800825"
+        },
+        {
+          "registry_id": "0x469000",
+          "operation": "guarded_words",
+          "offset": 128,
+          "old_hex": "4700043c",
+          "new_hex": "4700043c"
+        },
+        {
+          "registry_id": "0x469000",
+          "operation": "guarded_words",
+          "offset": 132,
+          "old_hex": "00908424",
+          "new_hex": "00908424"
+        },
+        {
+          "registry_id": "0xffff8000",
+          "operation": "guarded_words",
+          "offset": 136,
+          "old_hex": "00001f3c",
+          "new_hex": "00001f3c"
+        },
+        {
+          "registry_id": "0xffff8000",
+          "operation": "guarded_words",
+          "offset": 140,
+          "old_hex": "0080ff27",
+          "new_hex": "0080ff27"
+        }
+      ]
+    },
+    {
+      "name": "landing",
+      "source_hex": "ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccf07f0004cccccccccccccccccccccccccccccccc00800004cccccccccccccccc0104083ccccccccccccccccc108008250104043c0090842401041f3cf0ffff27cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "source_sha256": "2ed66391d049d7e48b30802eb1033b802b92025f2d86de2197984fbfd2691e0c",
+      "scope_sha256": "8bab6c64845cfc29c0df9edf48054f873b1ae99cda50b7cb129f789fa066e2a3",
+      "pointer_state": "registry_landing",
+      "expected": [
+        {
+          "registry_id": "0x467ff0",
+          "operation": "pointer_check",
+          "offset": 80,
+          "old_hex": "f07f0004",
+          "new_hex": "f07f0004"
+        },
+        {
+          "registry_id": "0x468000",
+          "operation": "pointer_check",
+          "offset": 100,
+          "old_hex": "00800004",
+          "new_hex": "00800004"
+        },
+        {
+          "registry_id": "0x468010",
+          "operation": "guarded_words",
+          "offset": 112,
+          "old_hex": "0104083c",
+          "new_hex": "0104083c"
+        },
+        {
+          "registry_id": "0x468010",
+          "operation": "guarded_words",
+          "offset": 124,
+          "old_hex": "10800825",
+          "new_hex": "10800825"
+        },
+        {
+          "registry_id": "0x469000",
+          "operation": "guarded_words",
+          "offset": 128,
+          "old_hex": "0104043c",
+          "new_hex": "0104043c"
+        },
+        {
+          "registry_id": "0x469000",
+          "operation": "guarded_words",
+          "offset": 132,
+          "old_hex": "00908424",
+          "new_hex": "00908424"
+        },
+        {
+          "registry_id": "0xffff8000",
+          "operation": "guarded_words",
+          "offset": 136,
+          "old_hex": "01041f3c",
+          "new_hex": "01041f3c"
+        },
+        {
+          "registry_id": "0xffff8000",
+          "operation": "guarded_words",
+          "offset": 140,
+          "old_hex": "f0ffff27",
+          "new_hex": "f0ffff27"
+        }
+      ]
+    }
+  ],
+  "byte_mutations": [
+    {
+      "name": "changed-data-target",
+      "mode": "id",
+      "offset": 80,
+      "replacement_hex": "00804600",
+      "expected": "fail closed unexpected source guard, never fallback to ID"
+    },
+    {
+      "name": "ORI-instead-of-ADDIU",
+      "mode": "id",
+      "offset": 124,
+      "replacement_hex": "10800835",
+      "expected": "fail closed exact word mismatch; ORI unsupported, even if a low-positive example reconstructs same numeric address"
+    },
+    {
+      "name": "wrong-destination-register",
+      "mode": "id",
+      "offset": 124,
+      "replacement_hex": "10800925",
+      "expected": "fail closed rt!=declared"
+    },
+    {
+      "name": "wrong-source-register",
+      "mode": "id",
+      "offset": 124,
+      "replacement_hex": "10802825",
+      "expected": "fail closed rs!=declared"
+    },
+    {
+      "name": "unadjusted-high-negative-low",
+      "mode": "id",
+      "offset": 112,
+      "replacement_hex": "4600083c",
+      "expected": "fail closed high half omits signed-low carry"
+    },
+    {
+      "name": "partial-pair-target",
+      "mode": "landing",
+      "offset": 112,
+      "replacement_hex": "4700083c",
+      "expected": "fail closed one word still original, not completed"
+    },
+    {
+      "name": "unselected-neighbor-change",
+      "mode": "id",
+      "offset": 68,
+      "replacement_hex": "12345678",
+      "expected": "full-source pin fails before success even though declared physical guards are unchanged"
+    }
+  ]
+}

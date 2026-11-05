@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-21T01:59:02.610478+00:00",
+  "scope": "Shared nearest resampling foundation for full .05 checker comparison; no .05 completion or family promotion from this subincrement.",
+  "Serena": "LiveGo session321e7af4 inspected resizeRaster body/signature and all four reference sites (renderRuns twice, Golden test twice), pixelOver and callers, authorTexture and existing source/oracle contracts.",
+  "existing_owners": {
+    "resizeRaster": "Enhance existing sole resampler with explicit lanczos/nearest and optional relative logical crop only for nearest. No new function/helper/filter framework. Keep actual old LANCZOS algorithm and all bounds/refusals unchanged for explicit lanczos callers.",
+    "renderRuns": "Two existing calls now explicitly select lanczos and no viewport; no other behavior change.",
+    "TestPilotHistoricalGoldenBytes": "Enhance existing134vector ZIP-driven test with another10original-only vectors, complete RGBA/crop/hiddenRGB/source/padding/Gray checks, pinned finite sweep digest, larger real presentation geometry and refusal tables; no new testfunction/closure.",
+    "pixelOver": "Unchanged; later comparison assembly reuses already-verified exact alpha owner.",
+    "authorTexture_and_PNG": "Later .05 orchestration/normalization still open; this increment adds no profile/CLI operation or codec. Do not claim checker/contact coverage."
+  },
+  "numerical_contract": "Pillow12.3 full logical-image nearest uses separately initialized binary64 step*.5 and sequential +=step for each axis. Copy straight Gray/NRGBA bytes; no premultiplication, rational center formula, per-pixel multiplication, clamp or epsilon. Logical crop/padding occurs before resize; viewport coordinates are relative to source image content origin regardless source Rect.Min.",
+  "bounds": {
+    "source": "Existing1Mpx/4096 axis and storage validation remain.",
+    "lanczos": "Existing1Mpx/4096 output/intermediate limits and no viewport; unchanged.",
+    "nearest": "Up to16Mpx output,16384 peraxis; finite1Mpx/4096 logical crop with coordinates within\u00b12^30. No padded crop allocation. Supports actual512\u00b2@3x and1024x512@3x panels and12288wide nearest reference. Pair canvas budget remains later caller responsibility."
+  },
+  "before_code_new_functions": 0,
+  "fixture": {
+    "path": "testdata/raster-nearest.zip",
+    "sha256": "65a3505a9e8388527cccc6e78d25da9f77be5e07f4230e370581fca7a7a2e665",
+    "bytes": 7656,
+    "vectors": 10,
+    "origin": "Frozen original-only Pillow pack with full raw expected pixel hashes and finite sweep digest; no Go candidate expected output."
+  },
+  "affected": [
+    "raster_resize.go",
+    "raster_runs.go",
+    "patch_test.go",
+    "analysis/go-current-input-accounting.json",
+    "analysis/reusability-coverage.json",
+    "analysis/reusability-coverage.md",
+    "evidence/reusability-coverage-checks.json",
+    "README.md",
+    "ARCHITECTURE.md",
+    "MIGRATION.md",
+    "testdata/raster-nearest.zip",
+    "analysis/preview-resample-decision.json",
+    "evidence/preview-resample-proof.json",
+    "evidence/preview-resample-review.json",
+    "accounting/docs/playbook"
+  ]
+}

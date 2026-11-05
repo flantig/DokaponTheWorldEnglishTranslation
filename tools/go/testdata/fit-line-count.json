@@ -1,0 +1,452 @@
+{
+  "cases": [
+    {
+      "name": "zero-required",
+      "en": "A",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 0
+      },
+      "encoded_hex": "010000f8",
+      "bytes": 4,
+      "line_widths_by_page": [
+        [
+          13
+        ]
+      ],
+      "max_line_width": 13,
+      "max_lines_per_page": 1,
+      "line_breaks": 0,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "empty-zero",
+      "en": "",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 0
+      },
+      "encoded_hex": "00f8",
+      "bytes": 2,
+      "line_widths_by_page": [
+        [
+          0
+        ]
+      ],
+      "max_line_width": 0,
+      "max_lines_per_page": 1,
+      "line_breaks": 0,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "one-exact",
+      "en": "A|B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 1
+      },
+      "encoded_hex": "01000008020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13,
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 2,
+      "line_breaks": 1,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "too-few",
+      "en": "A|B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 2
+      },
+      "encoded_hex": "01000008020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13,
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 2,
+      "line_breaks": 1,
+      "status": "row_count_mismatch",
+      "diagnostic_kinds_in_order": [
+        "line_count"
+      ]
+    },
+    {
+      "name": "too-many",
+      "en": "A|B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 0
+      },
+      "encoded_hex": "01000008020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13,
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 2,
+      "line_breaks": 1,
+      "status": "row_count_mismatch",
+      "diagnostic_kinds_in_order": [
+        "line_count"
+      ]
+    },
+    {
+      "name": "trailing-line",
+      "en": "A|",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 1
+      },
+      "encoded_hex": "0100000800f8",
+      "bytes": 6,
+      "line_widths_by_page": [
+        [
+          13,
+          0
+        ]
+      ],
+      "max_line_width": 13,
+      "max_lines_per_page": 2,
+      "line_breaks": 1,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "three-including-trailing",
+      "en": "A|B|C|",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 3
+      },
+      "encoded_hex": "01000008020000080300000800f8",
+      "bytes": 14,
+      "line_widths_by_page": [
+        [
+          13,
+          28,
+          22,
+          0
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 4,
+      "line_breaks": 3,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "page-not-line",
+      "en": "A//B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": true,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 0
+      },
+      "encoded_hex": "01000010020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13
+        ],
+        [
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 1,
+      "line_breaks": 0,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "page-cannot-satisfy-line",
+      "en": "A//B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": true,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 1
+      },
+      "encoded_hex": "01000010020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13
+        ],
+        [
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 1,
+      "line_breaks": 0,
+      "status": "row_count_mismatch",
+      "diagnostic_kinds_in_order": [
+        "line_count"
+      ]
+    },
+    {
+      "name": "lines-sum-over-pages",
+      "en": "A|B//C|A",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": true,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 2
+      },
+      "encoded_hex": "010000080200001003000008010000f8",
+      "bytes": 16,
+      "line_widths_by_page": [
+        [
+          13,
+          28
+        ],
+        [
+          22,
+          13
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 2,
+      "line_breaks": 2,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "page-refusal-retained",
+      "en": "A//B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 0
+      },
+      "encoded_hex": "01000010020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13
+        ],
+        [
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 1,
+      "line_breaks": 0,
+      "status": "overflow",
+      "diagnostic_kinds_in_order": [
+        "page"
+      ]
+    },
+    {
+      "name": "width-count-combined",
+      "en": "ABBB|B",
+      "box": {
+        "max_width": 30,
+        "max_lines": 1,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "max_bytes": 10,
+        "required_line_breaks": 0
+      },
+      "encoded_hex": "01000200020002000008020000f8",
+      "bytes": 14,
+      "line_widths_by_page": [
+        [
+          97,
+          28
+        ]
+      ],
+      "max_line_width": 97,
+      "max_lines_per_page": 2,
+      "line_breaks": 1,
+      "status": "row_count_mismatch",
+      "diagnostic_kinds_in_order": [
+        "width",
+        "height",
+        "bytes",
+        "line_count"
+      ]
+    },
+    {
+      "name": "width-only-count-matches",
+      "en": "A|B",
+      "box": {
+        "max_width": 20,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 1
+      },
+      "encoded_hex": "01000008020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13,
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 2,
+      "line_breaks": 1,
+      "status": "overflow",
+      "diagnostic_kinds_in_order": [
+        "width"
+      ]
+    },
+    {
+      "name": "legacy-absent-field",
+      "en": "A|B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only."
+      },
+      "encoded_hex": "01000008020000f8",
+      "bytes": 8,
+      "line_widths_by_page": [
+        [
+          13,
+          28
+        ]
+      ],
+      "max_line_width": 28,
+      "max_lines_per_page": 2,
+      "line_breaks": null,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": []
+    },
+    {
+      "name": "unsupported-scale",
+      "en": "<e864>A|B",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 1
+      },
+      "encoded_hex": null,
+      "bytes": 0,
+      "line_widths_by_page": null,
+      "max_line_width": 0,
+      "max_lines_per_page": 0,
+      "line_breaks": null,
+      "status": "unsupported",
+      "diagnostic_kinds_in_order": [
+        "encoding"
+      ]
+    },
+    {
+      "name": "missing-glyph",
+      "en": "Z|A",
+      "box": {
+        "max_width": 200,
+        "max_lines": 8,
+        "allow_pages": false,
+        "evidence": "Independent literal synthetic structural LINE-count vector; declared units only.",
+        "required_line_breaks": 1
+      },
+      "encoded_hex": null,
+      "bytes": 0,
+      "line_widths_by_page": null,
+      "max_line_width": 0,
+      "max_lines_per_page": 0,
+      "line_breaks": null,
+      "status": "unsupported",
+      "diagnostic_kinds_in_order": [
+        "encoding"
+      ]
+    },
+    {
+      "name": "maximum-count",
+      "box": {
+        "max_width": 200,
+        "max_lines": 4096,
+        "allow_pages": false,
+        "required_line_breaks": 4095,
+        "evidence": "Independent maximum LINE-count vector; declared units only."
+      },
+      "bytes": 8192,
+      "max_line_width": 0,
+      "max_lines_per_page": 4096,
+      "line_breaks": 4095,
+      "status": "within_profile",
+      "diagnostic_kinds_in_order": [],
+      "repeat_line_breaks": 4095
+    }
+  ],
+  "profile_refusals": [
+    {
+      "name": "wrap-exact-conflict",
+      "required_line_breaks": 0,
+      "wrap": true,
+      "outcome": "profile_error_before_rows_or_JSON"
+    },
+    {
+      "name": "negative-count",
+      "required_line_breaks": -1,
+      "outcome": "profile_error_before_rows_or_JSON"
+    },
+    {
+      "name": "limit-count",
+      "required_line_breaks": 4096,
+      "outcome": "profile_error_before_rows_or_JSON"
+    },
+    {
+      "name": "fraction-count",
+      "required_line_breaks": 1.5,
+      "outcome": "profile_JSON_type_error"
+    },
+    {
+      "name": "string-count",
+      "required_line_breaks": "1",
+      "outcome": "profile_JSON_type_error"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-20T22:08:06.338106+00:00",
+  "status": "VERIFIED existing-owner enhancement; independent review no open findings",
+  "responsibility": "Extend existing exact canonical reference guard to data arrays, declared struct fields and strict LUI/ADDIU pairs. This is fail-closed exact-word audit, not observed-target discovery/content reconciliation.",
+  "serena": "plan, controls, references and callers inspected; plan called by run/verifySource and existing tests; run report applies verifySource; patchCopy refuses any pointer_check table before writing.",
+  "existing_candidates": {
+    "plan": "Already owns canonical selector, expected target, data scopes and both instruction/data reference behavior in append. Enhance pointer_check branch with one mutually-exclusive site-kind switch and one physical word emission loop.",
+    "validateEdits": "Retain existing checks unchanged. Data guards remain pointer_check; instruction guards reuse existing guarded_words, exactly as stream_append already emits codewords.",
+    "verifySource/inspect": "Retain full replan identity/word/hash/source/overlap/bounds checks, no second live reader or comparison function.",
+    "patchCopy": "Existing table-operation gate refuses apply even though codeword edits are internally guarded_words. Tests must exercise this mixed-kind case and composition refusal.",
+    "references": "Candidate heuristic/glyph-only matching is a different responsibility, not a safe exact audit. Do not add modes or claim its content_ok as exact proof.",
+    "controls": "Already owns full tokens/payload when future content audit is implemented; no raw argument-word scanner now.",
+    "TestCLIDryRunAndApply": "Extend existing table loop with independent literal source/expected physicalguard/scope vectors; no helper or test function."
+  },
+  "new_functions_helpers_closures_types_schema_fields_dependencies": 0,
+  "scope_projection": "Existing sorted sequence (LE32 expected physical word,LE32 site VMA) retained, preserving old data recipe hashes. New codewords pin full opcode/register/immediate and both physical sites.",
+  "guards": "Data vs code field shape, struct coordinate equation/alignment, register nonzero/known, LUI<ADDIU, all sites mapped/aligned/bounded, duplicated/overlapping words refused, scope exact, complete source pin. Canonical landing retains sentinel/alignment rule.",
+  "intentional_refusal_tightening": "Reject mixed unused struct/code fields on data pointers that previous narrow pointer checker ignored. Valid old data scope output unchanged.",
+  "limits": [
+    "No functions/types/configuration added solely for this capability.",
+    "No fallback ID interpretation, new code forms, runtime proof, text payload decoding, landing-allocation proof, exhaustive references, full family or historical credit.",
+    "No ISO/canonical registry reads/writes or emulator/PINE/controller/process/log/settings access."
+  ],
+  "shared_append_boundary": "Independent reviewer found limited repeated shape guards reasonable: pointer_check derives exact expected words, while append reads observed targets and owns consumer ranges, current install state and relocation. Further sharing here would introduce extra modes/hoisted state. No duplicated reader/writer/relocation helper was added."
+}

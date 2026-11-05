@@ -1,0 +1,327 @@
+{
+  "qualification": "Original-only59memberpacke5caaa60 verified before Go comparison; original executed24synthetic+4actualsource cases. Held original successes explicitly refuse; opaque originalpayload-drop success not targetequivalence. Nativeglyph object exactly reuses pinned existing source-context fixture/a662 source.",
+  "groups": [
+    {
+      "glyphmap": {
+        "0": " ",
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "J"
+      },
+      "cases": [
+        {
+          "name": "hdr-leading-setup",
+          "en": "A",
+          "source_hex": "002801400400001000f8",
+          "expected_hex": "002801400100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "hdr-leading-two-setups",
+          "en": "A|B",
+          "source_hex": "002801400aa80400001000f8",
+          "expected_hex": "002801400aa8010000080200001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "headerless-setup",
+          "en": "A",
+          "source_hex": "01400400001000f8",
+          "expected_hex": "01400100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "setup-before-HDR",
+          "en": "A",
+          "source_hex": "0aa800280400001000f8",
+          "expected_hex": "0aa800280100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "setup-speaker-HDR",
+          "en": "[spk 0x3801]A",
+          "source_hex": "0aa8983900280400001000f8",
+          "expected_hex": "0aa8013800280100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-table-pen",
+          "en": "A",
+          "source_hex": "002817480400001000f8",
+          "expected_hex": "002817480100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-X-Y-pen",
+          "en": "A",
+          "source_hex": "002801b801c001c801d00400001000f8",
+          "expected_hex": "002801b801c001c801d00100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-object-pen",
+          "en": "A",
+          "source_hex": "002801e00400001000f8",
+          "expected_hex": "002801e00100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-scale-held",
+          "en": "A",
+          "source_hex": "00285ae80400001000f8",
+          "expected_hex": "00285ae80100001000f8",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-colour-plain",
+          "en": "A",
+          "source_hex": "002807b00400001000f8",
+          "expected_hex": "002807b00100001000f8",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "colour-before-HDR",
+          "en": "A",
+          "source_hex": "07b000280400001000f8",
+          "expected_hex": "07b000280100001000f8",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "actual-source-documented-order",
+          "en": "A",
+          "source_hex": "0aa807b0983900280400001000f8",
+          "expected_hex": "0aa807b0983900280100001000f8",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "source-trailing-pause-duplicate",
+          "en": "A//",
+          "source_hex": "002801400400001000f8",
+          "expected_hex": "0028014001000010001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "source-whitespace-boundary",
+          "en": " A | B ",
+          "source_hex": "0028014000000400001000f8",
+          "expected_hex": "00280140010000080200001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "source-first-LINE-boundary",
+          "en": "A",
+          "source_hex": "0028014000080400001000f8",
+          "expected_hex": "002801400100001000f8",
+          "status": "accept",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "character-wrap",
+          "en": "AA BB",
+          "source_hex": "002801400400001000f8",
+          "expected_hex": "0028014001000100000802000200001000f8",
+          "status": "accept",
+          "columns": 2,
+          "rows": 2,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "body-setup-refused",
+          "en": "A",
+          "source_hex": "002804000140001000f8",
+          "expected_hex": "",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "refuse",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "body-pen-refused",
+          "en": "A",
+          "source_hex": "0028040001b8001000f8",
+          "expected_hex": "",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "refuse",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "body-colour-refused",
+          "en": "A",
+          "source_hex": "0028040001b0040008b0001000f8",
+          "expected_hex": "",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "refuse",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-opaque-original-bug",
+          "en": "A",
+          "source_hex": "00280048111100f8007034120400001000f8",
+          "expected_hex": "002800480100001000f8",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "body-opaque-refused",
+          "en": "A",
+          "source_hex": "002804000048111100f800703412001000f8",
+          "expected_hex": "",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "refuse",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "plain-path-markup-refused",
+          "en": "{{HL:0xb007}}A",
+          "source_hex": "002807b00400001000f8",
+          "expected_hex": "",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "refuse",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "leading-icon-held",
+          "en": "A",
+          "source_hex": "002800700400001000f8",
+          "expected_hex": "002800700100001000f8",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "success",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        },
+        {
+          "name": "duplicate-HDR-refused",
+          "en": "A",
+          "source_hex": "002800280400001000f8",
+          "expected_hex": "",
+          "status": "refuse",
+          "columns": 0,
+          "rows": 0,
+          "original_status": "refuse",
+          "origin": "original AST-selected decode_structured + encode_entry_from_elf executed on literal synthetic source; not native art or Go output"
+        }
+      ],
+      "expected_accepted": 12,
+      "expected_refused": 12,
+      "expected_canonical": 0
+    },
+    {
+      "glyphmap_fixture": "source-context-oracle.json",
+      "cases": [
+        {
+          "name": "native-0x4ef2e0",
+          "en": "A",
+          "source_hex": "0aa80140002807b08b3b6d00880078005f00870035017700680072001f001f001f001d0000108c3b2500f400b400fe00dc001f00eb001f00da002000d700f4002600a3003601a700000837017700380174003901680092006e001e0000083a013b013c0173003d013e013f011f001f001f001d00001000f8",
+          "expected_hex": "0aa80140002807b08b3b4500001000f8",
+          "status": "refuse",
+          "original_status": "success",
+          "origin": "Actual frozen extracted stream + original-executed synthetic A wording, not registry translation"
+        },
+        {
+          "name": "native-0x4ef360",
+          "en": "A",
+          "source_hex": "8d3b0aa80140002807b06d007700400178001e0072007100810041016a0060004001a3006a006e001d0000108e3b4201860043016400730044011701770040011f001f001f000008f400b400fe00dc00450140011d0000108f3b460147017300870045017700810072001e000008270148017800490177003a014a018100730066001e0000084b016a0060004c0135018b004d019a006a00710060007d006a006e001d000010903b6a0064006a006d007700f400b400fe00dc004501400174001e0000083a014e0173004f0196005001a60084009200710060006e007700a3006b001f001f001f001d00001000f8",
+          "expected_hex": "8d3b0aa80140002807b04500001000f8",
+          "status": "refuse",
+          "original_status": "success",
+          "origin": "Actual frozen extracted stream + original-executed synthetic A wording, not registry translation"
+        },
+        {
+          "name": "native-0x4ef500",
+          "en": "A",
+          "source_hex": "8d3a1c001c001c00590037001c001c001c0000003c003300310032003e00170000f8",
+          "expected_hex": "8d3a450000f8",
+          "status": "accept",
+          "original_status": "success",
+          "origin": "Actual frozen extracted stream + original-executed synthetic A wording, not registry translation"
+        },
+        {
+          "name": "native-0x458f20",
+          "en": "A",
+          "source_hex": "0140b00180007100fd0192006e00d100dc00bb00be0020007800000832014a020b020c028b004b021701a30065007d006c008c000b00001000f8",
+          "expected_hex": "01404500001000f8",
+          "status": "accept",
+          "original_status": "success",
+          "origin": "Actual frozen extracted stream + original-executed synthetic A wording, not registry translation"
+        }
+      ],
+      "expected_accepted": 2,
+      "expected_refused": 2,
+      "expected_canonical": 0
+    }
+  ]
+}

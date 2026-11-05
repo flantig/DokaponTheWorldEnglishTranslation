@@ -1,0 +1,66 @@
+{
+  "at": "2026-10-20T18:15:41.296297+00:00",
+  "status": "READ-ONLY DESIGN FINDINGS; no implementation or approval",
+  "scope": "Bounded design challenge; no source/test/fixture/protected/emulator access or suite reruns. Independent style oracle work remains owned by texture_contract_recovery.",
+  "baseline": "/var/tmp/dokapon-native-text-sealed-k665qxfz",
+  "Serena": "d7f95853 renderRuns symbol/current caller contract inspected.",
+  "recommendation": {
+    "owner": "Enhance existing renderRuns for tracking/ordered stroke generation, existing composeCells for containment/background/composition. No new functions/dependencies/writer/CLI.",
+    "layer": "Prefer ONE BitmapLayer{Rect image.Rectangle, Pix []float32} straightRGBA plus existing origin return. Final float32 area output is authoritative; do not cache duplicate NRGBA+float arrays. Keep existing intermediate byte quantization before Pillow word resize unchanged.",
+    "composition": "Explicit cell/recipe Composite default pillow, opt-in float. It belongs with background/caller composition, not shared font or stroke representation. Existing four direct calls may be updated together; preserve old byte layer/TXD assertions alongside independent raw float32 assertions.",
+    "pillow": "Per pixel ties-even quantize layer RGBA, then existing pixelOver, preserving existing Janky/HUD outputs.",
+    "float": "Keep final area float32 through canonical composite: al=A/255, ba=backgroundA/255, oa=al+ba*(1-al), rgb=(C*al+backgroundC*ba*(1-al))/oa when oa>0; alpha=oa*255; mutate only when al>0; final clip/rint. Current backgrounds are opaque, but preserve source evaluation/float32 rounding rather than algebraically reassociate without proof.",
+    "containment": "Same containment owner and geometry, policy-specific observable alpha: raw float A>0 forfloat, rounded byte A>0 foroldPillow. Tiny positive alpha can round0 yet affect a float-composited opaque byte destination. Preserve hidden RGB through quantization; do not normalize sub-half-alpha RGB."
+  },
+  "concrete_findings": [
+    {
+      "finding": "Rounded layer parity does not prove original113 op_text caller parity.",
+      "source": "make_explainer_png.py:578..600 retains float32 layer until composite/rint; Janky draw_runs rounds toRGBA then Pillow alpha_composite.",
+      "direction": "Use the single float layer + explicit caller composition above. Worker confirmed it captures fullfloat/u8/stages and will quantify divergence; do not claim113 completed callers from four rounded representatives."
+    },
+    {
+      "finding": "Black is an algorithm role in original code, not merely an RGB equality.",
+      "source": "make_explainer_png.py:443..457 checks original c==black symbol and presence of glyph stroke.",
+      "direction": "Preserve that role explicitly or restrict/document exact selected cohort normalization. Source enum glyph/color plus black RGB-equality special casing can misclassify literal black or a named black palette entry with different RGB. A real black source role is smaller than inventing a separate boolean flag if those cases must be distinguishable."
+    },
+    {
+      "finding": "Current early counter skip must change for black+glyph.",
+      "source": "make_explainer_png.py:441..457,476..477.",
+      "direction": "Counters use gm>127 and four-connectivity. Black+glyph uses binary gm>=128 source, fixed r8 inner rim (roundToEven1.875*4), then black counters become Boolean inner-rim alpha; glyph counters get0. After ordered strokes and fill, clear all channels on counters outside inner rim. Retain diagonal regression. Nonblack halo+glyph still clears counters; do not reuse unconditional current continue for every counter."
+    },
+    {
+      "finding": "Tracking changes cursor association as well as width.",
+      "source": "make_explainer_png.py:360..400,552..567.",
+      "direction": "Measure each run as sum glyph advances, THEN add4*Tracking*runeCount; sum runs then subtract ONE final4*Tracking. Nonzero tracking draws continuous xx across runs, each character increment followed by tracking; zero retains per-run reset. Test exact0 vs tiny nonzero and both observed signs; validate positive used-glyph advance*scale+4*Tracking at fitted scale."
+    },
+    {
+      "finding": "Stroke0 is a layer, not absence of a stroke.",
+      "source": "make_explainer_png.py:450..460 and current renderRuns normalization contract.",
+      "direction": "Preserve legacy scalarStroke0 as zero-radius glyph layer when no new list is supplied; it can change alpha compared with no layer. Reject scalar!=0 with new list, reject glyph Fill/unknown source/invalid numeric colors instead of ignoring data. Keep ordered layers; never sort by radius."
+    },
+    {
+      "finding": "Radius15 brute-force work is materially larger despite1M workspace cap.",
+      "source": "749 integer taps at r15 under d2<=r*r+r; up to two layers can exceed1.5b tap visits per1M-pixel word, before inner-rim work.",
+      "direction": "Measure all four actual maximum word shapes before accepting latency. Constant-color layers need max coverage only, not nearest-color search. Precompute bounded disk offsets once per normalized layer in existing owner if useful, preserving XthenY tie order. No premature new resampling/morphology engine. Consider source-specific observed caps (glyph up to1px, color up to3.75px) or a documented work bound if broad caps expose unacceptable cases."
+    }
+  ],
+  "validation_directions": [
+    "MinSize omitted/zero keeps6; explicit positive quarter-step within supported floor and requested Size, finite bounded Tracking/Size/ScaleX/radii/anchors. Worker must bind actual min_px values; do not silently broaden below6 without an actual contract.",
+    "Cap ordered list at2; validate logical radius limit as well as rounded support radius (a radius15 check alone admits values above3.75). Keep old scalar radius2 acceptance unchanged.",
+    "Color source requires four integer channels0..255 and opaque alpha; original over helper ignores color alpha, so refuse unsupported alpha rather than silently ignore it. Glyph source has no color payload.",
+    "Build pad from max logical stroke radius, preserving Python operation order/truncation. MinSize/fitting does not imply width necessarily fits at minimum; original caller can stop there and containment remains separately enforced.",
+    "Use switches/clear guards for source and composition decisions; normalize legacy scalar into same layer loop once. Avoid duplicating the old pixel-font path or palette/writer responsibility."
+  ],
+  "limits": [
+    "Design only; no new code approved, no full renderer/family/113-instance or migration credit.",
+    "Four actual style groups and independent float/composition proof are still being frozen by another worker. No generated Go expectations or duplicate oracle work."
+  ],
+  "source_pins": {
+    "raster_runs.go": "c6867ff123af886d2cdf9602e8a126cc7424a25979aee6b62ab6b64eba7f6e78",
+    "raster.go": "8b79bb1bf1a0427016572eed5a96dec32d7e0b725ba619f39ac6d41f7b457426",
+    "raster_types.go": "53471b0f96e03c2c6f5561454212ba0aa09eb91e4f164fb7dd032402e632aec7",
+    "../make_explainer_png.py": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "../make_junky_card_png.py": "240c31f139fda4a034a54685c692c1d0d1f3902b6ee90a730ff48d088fbf8a41",
+    "analysis/native-raster-integration-contract.json": "59ff55eb3a17965ac1bd8283377cdb931f3d6902fed06e530628940dde27e337"
+  }
+}

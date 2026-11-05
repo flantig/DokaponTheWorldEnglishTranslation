@@ -1,0 +1,145 @@
+{
+  "schema": "ordinary-read-only-review-v1",
+  "scope": "Finite advisory pointer-stream registry reconciliation; implementation challenge only",
+  "outcome": "No open material finding in reviewed scope",
+  "candidate": {
+    "path": "/var/tmp/dokapon-joined-reconcile-4jijo3hf/review-source",
+    "manifest_sha256": "b657b0602c7b607faa8fb897340d9d92b560022ff926f40e4169365b830a9b63",
+    "members": 597,
+    "all_sizes_SHA256_containment_singlelink_verified": true,
+    "all_pins_held_after_checks": true,
+    "Go_pins": {
+      "stream_audit.go": {
+        "bytes": 26540,
+        "sha256": "83b617c5a96a153b581bad6854b6679f4fda1e3323e285845fb12129763e1afd"
+      },
+      "stream_audit_types.go": {
+        "bytes": 5187,
+        "sha256": "87af8dbf2faf196b31716f254af2972a75103ad67f111a60f8b1d9d7d271adc1"
+      },
+      "patch_test.go": {
+        "bytes": 676957,
+        "sha256": "179409890ad22a6ded39a6163012599e79a64f1a0925afeb3c7747ed3ac75e69"
+      }
+    },
+    "decision_baseline_manifest_sha256": "931151b9553be432421afea3858a5212652bfbdc80863e9edf2a5aae90fea37a"
+  },
+  "findings": [],
+  "contract_review": [
+    {
+      "source": "stream_audit.go:145",
+      "result": "Review action is closed allow/hold with nonblank reason and bound family. Missing reviews produce held decisions once any review enables the join. All absent preserves old report shape."
+    },
+    {
+      "source": "stream_audit.go:209-243",
+      "result": "Current status is read from freshly pinned registry bytes. Selected owned status aliases/duplicates refuse; null/missing/nonstrings remain unknown; progressed or unrecognized statuses are held. Nested opaque metadata keeps its prior policy."
+    },
+    {
+      "source": "stream_audit.go:493-537",
+      "result": "Proposals attach only after existing complete all-site convergence/window checks. Canonical comparison must be known and exact, observed trailing length knownzero, status drafted, review allow. No caller-supplied proof bools; only status=patched and actual observed target are proposed. Unknown/held rows have no machine fields."
+    },
+    {
+      "source": "stream_audit.go:527-539",
+      "result": "Already-patched rows say unchanged only for status promotion and retain landing-not-reconciled attention. Inline fields are held with explicit unreviewed machine-policy reason instead of inventing a pointer."
+    },
+    {
+      "source": "stream_audit.go:562-602",
+      "result": "Existing full source rehash/stat/path identity plus profile/glyph readback still precede buffered JSON emission; final64MiB encoded bound remains. CLI remains read-only; authorRegistry and native writers are unchanged."
+    },
+    {
+      "source": "stream_audit_types.go:22-38",
+      "result": "Two usage-grouped fact types separate caller review intent from computed results. Existing auditStreams owns this evidence join and checkJSON owns raw-key validation. No new function/helper/closure/CLI/Go file or duplicate decoder/writer is required."
+    }
+  ],
+  "precode_challenge_disposition": {
+    "patched_metadata_ambiguity": "Addressed by explicit already_patched_landing_not_reconciled reason and Limits; independently reproduced with stale landing0xdeadbeef.",
+    "inline_pointer_fabrication": "Addressed by unconditional inline held policy, covered in complete existing CLI owner.",
+    "beforeimage": "Pinned whole registry plus stable ID and observed target are sufficient for this advisory report. Later publication still requires independent source/pin/field-policy checks."
+  },
+  "independent_evidence": {
+    "portable_source_pack": {
+      "path": "/var/tmp/dokapon-reconciliation-audit-packaging-rthu09zx",
+      "manifest_sha256": "adf47a6c67499ccdab004639105a82cf755b1dfaaab01867427b38f54480d3df",
+      "members": 16,
+      "all_pins_verified": true,
+      "selected_original_replay": "PASS8original canonical/token cases,2proposed/5held/1unchanged,5strict profile refusals; no Go execution or originalmain/import execution"
+    },
+    "hold_source_pack": {
+      "path": "/var/tmp/dokapon-joined-hold-contract-mro3_k1m",
+      "manifest_sha256": "ddbd6b8d96c1c21647fbeca9894b72bd1028fdf10b5e53060ef72f1fef12c391",
+      "members": 7,
+      "all_pins_verified": true
+    },
+    "oracle_join": "All8 complete original rows match actual built CLI, after omitting empty summary arrays and applying only the disclosed patched attention reason requested before implementation. No byte/token/binding/proposal facts repinned from Go.",
+    "additional_CLI_cases": 11,
+    "extra_case_details": [
+      "false/array/null status held",
+      "drafted-with-trailing-space held",
+      "patched+stale landing yields no proposal and explicit attention",
+      "fake declared landing ignored in favor of actual target; human metadata untouched",
+      "normalized numeric ID spelling accepted",
+      "Unicode long-S status alias refuses before JSON",
+      "Unicode-whitespace-only review reason refuses",
+      "allreview absent omits reconciliation",
+      "stale registry pin refuses before JSON"
+    ],
+    "legacy_complete_stdout_stderr_exit_parity": {
+      "count": 7,
+      "examples": [
+        "stream-audit",
+        "reference-bound-audit",
+        "canonical-audit",
+        "fixed-audit",
+        "pinned-raw-audit",
+        "sentinel-audit",
+        "gp-audit"
+      ],
+      "comparison_binary": "Own prior independent accepted build, joined to all39 accepted production Go source bytes"
+    },
+    "input_preservation": "All exercised source/profile/registry bytes,inode,mtime preserved. No human/patch_ref proposal fields."
+  },
+  "verification": {
+    "focused_test": "TestCLIDryRunAndApply count1 -p 2 PASS14.325s",
+    "core_build": "PASS",
+    "core_vet": "PASS",
+    "gofmt_all_Go": "PASS",
+    "scoped_whitespace": "PASS",
+    "scoped_POSIX_credentials": "PASS; synthetic nonsecret positive selfcheck",
+    "commands": "nice19,GOMAXPROCS2,CGO_ENABLED0,owned TMPDIR/GOTMPDIR",
+    "Serena": "Own writable checkout only; auditStreams reference resolves to main.go/run:45",
+    "all_owned_jobs_terminal": true,
+    "not_run": [
+      "Full suite",
+      "Race",
+      "Native-font replay",
+      "UI/gameplay tests"
+    ],
+    "harness_note": "One extra probe changed patch_ref and thereby removed a selected family member; existing exact-family guard correctly refused. Corrected probe preserves family selection while changing human/opaque metadata. Initial probe log retained."
+  },
+  "cost_check": {
+    "production_Go_files": 39,
+    "production_Go_bytes": 459159,
+    "named_function_declarations": 41,
+    "growth_production_bytes": 4348,
+    "new_functions": 0,
+    "new_fact_types": 2,
+    "example_bytes_per_frozen_accounting": 14784,
+    "runtime_growth_per_frozen_accounting": 19132,
+    "test_oracle_overhead": "Separate6047B tests/62614B fixture per candidate accounting; no reduction claim"
+  },
+  "limits": [
+    "Advisory installed-byte bookkeeping only; exact canonical matches do not establish native fit, runtime/display ownership, safe patching or editorial approval.",
+    "Explicit allow is current-pin review data; historical holds are not cleared by convergence or matching bytes alone.",
+    "Inline fixed-field machine proposals are intentionally held and remain a material next responsibility. No .06 completion, milestone/family promotion, retirement, savings or universal cohort claim.",
+    "No protected ISO/canonical registry/emulator/PINE/process/settings/auth access or modification. Root race/native receipts are separate, not reviewer-run claims."
+  ],
+  "artifacts": {
+    "directory": "/var/tmp/dokapon-joined-reconcile-review-20u21yj2",
+    "manifest": "/var/tmp/dokapon-joined-reconcile-review-20u21yj2/artifact-manifest.json",
+    "manifest_sha256": "46f53d7948c7546251738356c194fa109a127b66b479df9137cbc39b3669f539",
+    "members": 846,
+    "checks_sha256": "36261126fe41b06c35c07814f3b6741f3987613e23064c80a99a40a9f567b809",
+    "CLI_checks_sha256": "2f1031b02fa5c8df3e3d6495228e4f74358c6574f632742fe9bbbe47b0a6acbf"
+  },
+  "authority": "Findings only; root owns fixes and acceptance."
+}

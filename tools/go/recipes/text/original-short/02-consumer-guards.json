@@ -1,0 +1,173 @@
+{
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "operation": "guarded_words",
+  "entries": {
+    "0x2b3250": {
+      "expected_hex": "5300053c",
+      "words": [
+        {
+          "hex": "0x3c050053",
+          "assembly": "lui $a1, 0x0053; original 0x5363a0 high half"
+        }
+      ]
+    },
+    "0x2b325c": {
+      "expected_hex": "a063a524",
+      "words": [
+        {
+          "hex": "0x24a563a0",
+          "assembly": "addiu $a1, $a1, 25504; original 0x5363a0 low half"
+        }
+      ]
+    },
+    "0x2bb598": {
+      "expected_hex": "5300163c",
+      "words": [
+        {
+          "hex": "0x3c160053",
+          "assembly": "lui $s6, 0x0053; original 0x535ab8 high half"
+        }
+      ]
+    },
+    "0x2bb59c": {
+      "expected_hex": "b85ad626",
+      "words": [
+        {
+          "hex": "0x26d65ab8",
+          "assembly": "addiu $s6, $s6, 23224; original 0x535ab8 low half"
+        }
+      ]
+    },
+    "0x2cca10": {
+      "expected_hex": "5300123c",
+      "words": [
+        {
+          "hex": "0x3c120053",
+          "assembly": "lui $s2, 0x0053; original 0x535ab8 high half"
+        }
+      ]
+    },
+    "0x2cca18": {
+      "expected_hex": "b85a5226",
+      "words": [
+        {
+          "hex": "0x26525ab8",
+          "assembly": "addiu $s2, $s2, 23224; original 0x535ab8 low half"
+        }
+      ]
+    },
+    "0x2d0748": {
+      "expected_hex": "5300133c",
+      "words": [
+        {
+          "hex": "0x3c130053",
+          "assembly": "lui $s3, 0x0053; original 0x535ab8 high half"
+        }
+      ]
+    },
+    "0x2d0750": {
+      "expected_hex": "b85a7326",
+      "words": [
+        {
+          "hex": "0x26735ab8",
+          "assembly": "addiu $s3, $s3, 23224; original 0x535ab8 low half"
+        }
+      ]
+    },
+    "0x2e8a30": {
+      "expected_hex": "5300113c",
+      "words": [
+        {
+          "hex": "0x3c110053",
+          "assembly": "lui $s1, 0x0053; original 0x534c80 high half"
+        }
+      ]
+    },
+    "0x2e8a38": {
+      "expected_hex": "804c3126",
+      "words": [
+        {
+          "hex": "0x26314c80",
+          "assembly": "addiu $s1, $s1, 19584; original 0x534c80 low half"
+        }
+      ]
+    },
+    "0x305ec0": {
+      "expected_hex": "48000a3c",
+      "words": [
+        {
+          "hex": "0x3c0a0048",
+          "assembly": "lui $t2, 0x0048; original 0x479580 high half"
+        }
+      ]
+    },
+    "0x305ee0": {
+      "expected_hex": "80954a25",
+      "words": [
+        {
+          "hex": "0x254a9580",
+          "assembly": "addiu $t2, $t2, -27264; original 0x479580 low half"
+        }
+      ]
+    },
+    "0x356f84": {
+      "expected_hex": "5300063c",
+      "words": [
+        {
+          "hex": "0x3c060053",
+          "assembly": "lui $a2, 0x0053; original 0x534c80 high half"
+        }
+      ]
+    },
+    "0x356f94": {
+      "expected_hex": "804cc624",
+      "words": [
+        {
+          "hex": "0x24c64c80",
+          "assembly": "addiu $a2, $a2, 19584; original 0x534c80 low half"
+        }
+      ]
+    },
+    "0x357230": {
+      "expected_hex": "5300063c",
+      "words": [
+        {
+          "hex": "0x3c060053",
+          "assembly": "lui $a2, 0x0053; original 0x534c80 high half"
+        }
+      ]
+    },
+    "0x357240": {
+      "expected_hex": "804cc624",
+      "words": [
+        {
+          "hex": "0x24c64c80",
+          "assembly": "addiu $a2, $a2, 19584; original 0x534c80 low half"
+        }
+      ]
+    },
+    "0x36b178": {
+      "expected_hex": "4f00053c",
+      "words": [
+        {
+          "hex": "0x3c05004f",
+          "assembly": "lui $a1, 0x004f; original 0x4ef1b0 high half"
+        }
+      ]
+    },
+    "0x36b184": {
+      "expected_hex": "b0f1a524",
+      "words": [
+        {
+          "hex": "0x24a5f1b0",
+          "assembly": "addiu $a1, $a1, -3664; original 0x4ef1b0 low half"
+        }
+      ]
+    }
+  },
+  "evidence": "Original in-place short-label consumers: all machine words are no-op guards and each LUI/addiu pair builds its target registry ID."
+}

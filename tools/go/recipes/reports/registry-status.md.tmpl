@@ -1,0 +1,51 @@
+# Registry progress
+
+Generated: {{.generated}}. Derived from pinned registry, glossary and milestone-flow inputs. This describes the registry plan, not installed game content. Regenerate this file; do not edit its counts.
+
+## Coverage
+
+| Metric | Count |
+|---|---|
+| Registry entries | {{.registry_entries}} |
+| Flow steps | {{.flow_steps}} |
+| Unique exact flow VMA spellings | {{.flow_unique_vmas}} |
+| Empty English | {{len .empty_en_ids}} |
+| Missing chapter/character/event | {{len .missing_tag_ids}} |
+
+### Empty English IDs (source order)
+{{range .empty_en_ids}}
+- {{.}}{{else}}
+None.{{end}}
+
+### Missing-tag IDs (source order)
+{{range .missing_tag_ids}}
+- {{.}}{{else}}
+None.{{end}}
+{{range $field := .group_order}}
+## By {{$field}}
+
+| Value | Count |
+|---|---|{{range index $.groups $field}}
+| {{.Display}} | {{.Count}} |{{end}}
+{{end}}
+## Unrecognized statuses
+
+Unknown labels and JSON null remain visible; they are not silently dropped.
+
+| Value | Count |
+|---|---|{{range .unknown_statuses}}
+| {{.Display}} | {{.Count}} |{{end}}
+
+## Glossary
+
+| Metric | Value |
+|---|---|
+| Schema version | {{.glossary_schema_display}} |
+| Entries | {{.glossary_entries}} |
+| Open todos | {{.glossary_open_todos}} |
+
+All provenance buckets are shown, including labels the historical view omitted.
+
+| Provenance | Count |
+|---|---|{{range .glossary_provenance}}
+| {{.Display}} | {{.Count}} |{{end}}

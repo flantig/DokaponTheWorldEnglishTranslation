@@ -1,0 +1,100 @@
+{
+  "at": "2026-10-19T20:14:35.442881+00:00",
+  "status": "VERIFIED narrow registry_author transaction",
+  "checks": {
+    "at": "2026-10-19T20:14:35.441377+00:00",
+    "status": "PASS registryincrement",
+    "race": {
+      "root": "go test -race -count=1 -p2 ./... PASS18.183s",
+      "independent": "PASS18.121s"
+    },
+    "other_checks": "go vet -p2 ./..., go build -p2 -o /var/tmp/dokapon-go-registry-author ., gofmt-l empty and scopedgitdiffwhitespace PASS; scoped credential/JSON checks PASS",
+    "source_pins": {
+      "main.go": "8e612920f2aa705283be7e9d43c93b3d3f2c64ea82ee4f1ff5f072e222b9c019",
+      "registry_types.go": "712fe46a00253bed5ff78af3b093e76b38fe93e475ca1be568f80b8e70983514",
+      "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+      "text_types.go": "2692f874ee7539bdd5a8f11209d4d4f6e1a1f9553f5d6a4e58ed07367b3be45c",
+      "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+      "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+      "references.go": "801eaf5f72a27f3de9ef41766125746988fbd34741318fa78636cdb6c58f0bb9",
+      "patch.go": "556acfa1db6e1e5046f26be478281546e6906e259908ac0461e38786c86dfac5",
+      "patch_test.go": "54b1e4f46889e5fa145bd80197be216ba01c3a077adb011e7c40a9a7c790a6f8",
+      "recipe_types.go": "0fc17c7c708cd6889c985cea687aac7507ab397df4c9c9ff50a00a23fea14c0e",
+      "cmb.go": "b8d73a682c796152766212bb59f5a4f661c4c17904808a0f7f47300067972006",
+      "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+      "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+      "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+      "texture.go": "34a2bf40cf6d864ae7402cf67301c69d07dafb7ad8732d3ebe253a18253548ad",
+      "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+      "texture_types.go": "7eb838650374492ed1cc976720fb4d5f719a6a17e6c5ff4b1f4f362c2675a463",
+      "texture_authoring.go": "1153c91e9115d84ab66f1f0b8adaf70609e3dd6b28d97ca6f068b4c68cbd2173",
+      "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+      "evidence/registry-authoring-demo-input.json": "f477cc7895da8c927f1d11c24854f4d41d66bce4455b3e8847b7ff4af54e18ac",
+      "analysis/registry-author-reuse-decision.json": "82c7b5c55dbeb0f681863b0561494c19e73a1fddf51d37259faf7ad2009c8dce"
+    },
+    "binary": {
+      "path": "/var/tmp/dokapon-go-registry-author",
+      "sha256": "9edeea95257bcb6fdbad53adf84f25da6233daa9630a553920de4254ff48f8b6"
+    },
+    "accounting": {
+      "runtime_and_executed_evidence": {
+        "bytes": 12478000,
+        "files": 96
+      },
+      "runtime_with_bundle": {
+        "bytes": 11939981,
+        "files": 76
+      },
+      "runtime_without_bundle": {
+        "bytes": 626891,
+        "files": 73
+      }
+    },
+    "limits": "Registry-specificverification only. SeparateOPENtexturemetadata defects6c6f3fbc pendingcorrection; noassetvalidation/ISOapply/nativevisualclaim."
+  },
+  "evidence": {
+    "analysis/registry-authoring-reuse-contract.json": "8d40f217ea3774157cf733e05bcdb687da1eeacc7a007dcfd43f9106e7c20918",
+    "analysis/registry-author-reuse-decision.json": "82c7b5c55dbeb0f681863b0561494c19e73a1fddf51d37259faf7ad2009c8dce",
+    "evidence/registry-author-review.json": "75ed02e55f8b76c3d6ee80709a9e535d91251bf9355eb2a54294cd37bd85e5f2",
+    "evidence/registry-author-review-final.json": "6bb75015f89b9f652c37e408dd962208bcfabce559008296d755a188332b92ac",
+    "evidence/registry-author-checks.json": "f221391223b45b256d30f11c4e99caf37baebccd906f44dc526817a3bfa9f7df",
+    "evidence/registry-authoring-demo-input.json": "f477cc7895da8c927f1d11c24854f4d41d66bce4455b3e8847b7ff4af54e18ac",
+    "evidence/registry-authoring-demo-preview.json": "8b2c48ce8e5d2118caac396e3c6d38b54cd6caabdb84d750adf317a0a8b5de2e",
+    "evidence/registry-authoring-demo-actual.json": "1885fa1d87f4aff360d9d023b883a1998e04d78b7481cafd16bd8adf17de73a1",
+    "evidence/registry-authoring-job-fit-report.json": "61215e4203f79acc62eb67181ba8cf5dda929c18471b87fb911c4a3090426c90",
+    ".goal/registry-authoring-demo-work.json": "a60313a2eb50cd02495660d930f83b34a7aaff58e5e6059cff2967182bf49760",
+    "analysis/go-current-input-accounting.json": "49d53d77a46bf01b19ae51b5cef5d417dc4052352b3460c3b43d8bcefde67508"
+  },
+  "actual": {
+    "at": "2026-10-19T20:11:48.938778+00:00",
+    "state": "VERIFIED actual isolated JSONcopy; canonical unchanged",
+    "source": "../../registry/string-registry.json",
+    "source_sha256": "b9d9e9a4200f40205118960af79293bb0f123d8063427ef11d2c21b5e8a060a6",
+    "profile": "evidence/registry-authoring-demo-input.json",
+    "profile_sha256": "f477cc7895da8c927f1d11c24854f4d41d66bce4455b3e8847b7ff4af54e18ac",
+    "work": "/var/tmp/dokapon-go-registry-authoring-jywgbel7",
+    "output": "/var/tmp/dokapon-go-registry-authoring-jywgbel7/authored-registry.json",
+    "limits": "Synthetic noncanonical draftEN/note test data; noproducttranslationproposal orISOwrites.",
+    "finished_at": "2026-10-19T20:14:35.375888+00:00",
+    "output_sha256": "83183dbe3713f609a953d39b37c0d9553e78782e5383e99614b535b9fdd7e1a7",
+    "output_bytes": 6352714,
+    "output_mode": "0600",
+    "source_preserved": true,
+    "expected_only_fields_and_date": true,
+    "entries": 5544,
+    "same_entry_order": true,
+    "existing_output_refused": true,
+    "fit_consumer_entries_unchanged": 27,
+    "binary_sha256": "9edeea95257bcb6fdbad53adf84f25da6233daa9630a553920de4254ff48f8b6",
+    "review": "evidence/registry-author-review-final.json",
+    "review_sha256": "6bb75015f89b9f652c37e408dd962208bcfabce559008296d755a188332b92ac"
+  },
+  "reuse": "Existingregistrytransaction/parser/IDindex/RawMessageencoder/exclusivewriter, no newfunction/schema/dependency; separateauthorallowlistandlockedtruth guards. Samequotedwalk validatesrewrittenkeys/newtext/selectedoldEN withouttouchingopaquevalues.",
+  "scope_refinement": "SyntheticEnglish/note request is executed evidence, not activeproductrecipe or translationproposal; plannedrecipes/registry/authoring.json was not created.",
+  "limits": [
+    "Canonicalregistry/ISOs untouched; no canonicalpromotion orfullhuman_main/85caller retirement.",
+    "OnlyknownunlockedEnglish andnotes, no newrows/JP/lockedEnglishfork.",
+    "Fitinterop27 unchangedrows doesnotprovegeometryfordraftheader/sourceslots/refs/nativevisual.",
+    "Texturemetadata parserholes remainOPENin separate scope; actualbytecorpus proofs remainfrozen."
+  ]
+}

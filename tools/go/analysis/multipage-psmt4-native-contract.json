@@ -1,0 +1,899 @@
+{
+  "at": "2026-10-20T14:29:53.537676+00:00",
+  "input_pins": {
+    "texture.go": {
+      "bytes": 14055,
+      "sha256": "f88318c9f0068f7c1268aeaa94eab08299b6a4abed0a1a4f2068b2f880db9319"
+    },
+    "texture_authoring.go": {
+      "bytes": 4901,
+      "sha256": "609189626728f85617f12f4c3735fa73a2c44d64bb5cbf0105c23be660fccc0b"
+    },
+    "texture_types.go": {
+      "bytes": 714,
+      "sha256": "be288d46c2a58c5525ec725b75db4d17ac51f6067978bfe47f22a9b68f65838e"
+    },
+    "../ps2_tex.py": {
+      "bytes": 19197,
+      "sha256": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733"
+    },
+    "../cmb_tex_patch.py": {
+      "bytes": 27188,
+      "sha256": "5a9aa60826293f65108ee4424246fa0f373e1f6d97526f93f87da31e6040f849"
+    },
+    "../test_psmt4_roundtrip.py": {
+      "bytes": 2912,
+      "sha256": "17c860b6e4701ad21c46a6f627bff9e3d14b68ac2d2e1bf9cdef8fe540435c12"
+    },
+    "testdata/psmt4-nibble-map.bin": {
+      "bytes": 8192,
+      "sha256": "15930ab5e4dbe3bbef41d0957e004db043d95e437c0c0135cc0d9d035ce12cec"
+    },
+    "analysis/clut-loader-binding-contract.json": {
+      "bytes": 19818,
+      "sha256": "1b74c2d0b44e999b3e46f75f320e851fa3b48dcb5007bdea2c159873b400f678"
+    },
+    "analysis/exact-palette-native-binding.json": {
+      "bytes": 27256,
+      "sha256": "691ede548757aaec7bda1b34dbba4c3bc479ddebfa2f5d9fa65b5978a4471d17"
+    }
+  },
+  "actual_source": {
+    "kind": "selected_actual_texture",
+    "archive": "BATTLE",
+    "entry": "battle\\textures\\vs_sen.txd",
+    "member_offset": 897136346,
+    "member_bytes": 131588,
+    "member_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+    "texture": "Y:\\Graphic\\battle\\textures\\vs_s",
+    "width": 512,
+    "height": 512,
+    "depth": 4,
+    "metadata_offset": 144,
+    "metadata_hex": "00020000000200000400000004450200000042650600002000020000000000000040000004004000004000000400400050000200b000000000880000c00f0000",
+    "raster_format": "0x4504",
+    "native_version": 2,
+    "tex0": "0x2000000665420000",
+    "tbw": 8,
+    "palette_base_blocks": 512,
+    "tex1_low": "0x0",
+    "pixel_bytes_info": 131152,
+    "palette_bytes_info": 176,
+    "footprint_words": 34816,
+    "pixel_struct_bytes": 131328,
+    "layout": "std",
+    "pixel_offset": 300,
+    "pixel_sha256": "bb5df9d64e85336c2e5227a9237669f4ba097c1a694e9822ef6f51fecbd97266",
+    "palette_offset": 131452,
+    "palette_sha256": "3b317328717b6ff080ada1691f2000c43fa85a8a1285747ac6e3839b0caf714d",
+    "linear_indices_sha256": "4cd97a0d4d248d45d52a05994f9f258387f39672ef67c4dbeafa61b1e542131e",
+    "decoded_rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+    "pixel_packet_hex": "03000000000000100e0000000000000000000000000000005100000000000000000100000001000052000000000000000000000000000000530000000000000000200000000000080000000000000000",
+    "palette_packet_hex": "03000000000000100e0000000000000000000000000000005100000000000000080000000300000052000000000000000000000000000000530000000000000006000000000000080000000000000000",
+    "roundtrip_exact": true,
+    "mapping_entries": 262144,
+    "mapping_u32_pair_sha256": "b1fe51ae07786e576a744bf03b1adc52087610cd52263343313d4237af12b6b7",
+    "mapping_bijective": true,
+    "two_corner_edit_txd_sha256": "c2a46230e6065d8a55f52fe14a8daa4b14248a6800fcc013bf98d0197d8e903f",
+    "two_corner_changed_offsets": [
+      300,
+      131371
+    ]
+  },
+  "TEX0_fields": {
+    "TBP0": 0,
+    "TBW": 8,
+    "PSM": 20,
+    "TW": 9,
+    "TH": 9,
+    "TCC": 1,
+    "TFX": 0,
+    "CBP": 0,
+    "CPSM": 0,
+    "CSM": 0,
+    "CSA": 0,
+    "CLD": 1
+  },
+  "mapping_formula": {
+    "column": "((x&7)<<1)|((x&8)>>3)|(x&^15)",
+    "row": "(y&1)*w | (y&^3)*(w/2)",
+    "bank": "(((y>>1)^(y>>2))&1)<<3",
+    "byte_offset": "(column|row)^bank",
+    "shift": "(y&2)*2",
+    "scope": "exact128x32 and exact512x512 standardPSMT4 only; formula is not the acceptance guard"
+  },
+  "mapping_oracle": {
+    "entries": 262144,
+    "mapping_pair_format": "little-endianu32(byte_offset),u32(shift), row-major logicalcoordinates",
+    "mapping_pair_sha256": "b1fe51ae07786e576a744bf03b1adc52087610cd52263343313d4237af12b6b7",
+    "matches_existing_GS_table_join": true,
+    "bijective_nibble_keys_min_max": [
+      0,
+      262143
+    ],
+    "all4096_village_mapping_bytes_unchanged": true,
+    "village_mapping_sha256": "15930ab5e4dbe3bbef41d0957e004db043d95e437c0c0135cc0d9d035ce12cec",
+    "sampled_RGBA_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+    "source_CLUT_roundtrip_exact": true,
+    "source_CLUT_unique_displayed_colors": 16,
+    "source_RGBA_to_PNG_to_existing_quantizer_to_original_bytes": true,
+    "source_noop_TXD_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+    "palette_raw_hex": "000000060000001600000020000000300000003b0000004a0000006000000072000000807a7a7a097a7a7a1c7a7a7a327a7a7a4c7a7a7a637a7a7a7cffffff00",
+    "five_physical_nibble_digit_ramps": [
+      {
+        "pass": 0,
+        "physical_nibble_value": "(physicalNibbleKey >> 0) &15",
+        "pixel_payload_sha256": "582fb55951835f7450c72314d460c7e69763596c9f735fc62df5ba22aec9ffef",
+        "decoded_RGBA_sha256": "b93af93b64575edb07baf153adc4db78e07375db18f777e6477a44f9cb023d9f",
+        "linear_indices_sha256": "18fad0951e288820acd9f324a9617bbac898719f2afacdacaa001b56249c0f8b"
+      },
+      {
+        "pass": 1,
+        "physical_nibble_value": "(physicalNibbleKey >> 4) &15",
+        "pixel_payload_sha256": "d0633daa7b50ce7accd7972d51dae46879ca2d8d990789e145866f7cb296fe5d",
+        "decoded_RGBA_sha256": "1313cea550bb835de8c05d298af9459e313eef713102270260b77cb55b2e39a0",
+        "linear_indices_sha256": "8d847bd23db1354cf77256d13f71fc35d27275896e1c22caa7b9d1f50ea885b4"
+      },
+      {
+        "pass": 2,
+        "physical_nibble_value": "(physicalNibbleKey >> 8) &15",
+        "pixel_payload_sha256": "faaf497d36c15b6cdacda92c3415854912b160836c56473334ed3185e428f64b",
+        "decoded_RGBA_sha256": "c83d3c8ae395ce05e4fba95351896052e102e48f5cab63c232be4736ebd92c4d",
+        "linear_indices_sha256": "4732bbda438efe198a20694c14304209a696ee42a75d16a8472ed51f90dacba3"
+      },
+      {
+        "pass": 3,
+        "physical_nibble_value": "(physicalNibbleKey >> 12) &15",
+        "pixel_payload_sha256": "f29b05d8643e5cee2f836859d15be00d35369a0acb709e1e4600b3fce1c3127b",
+        "decoded_RGBA_sha256": "af8a00e9628dc3059dad96255f934dae25fc047596a7f609c4ed943edb61eb93",
+        "linear_indices_sha256": "aeb6fbbe7c60cf6c86e03fb828562f385fc7a961f0de14392f438bb8881d49e4"
+      },
+      {
+        "pass": 4,
+        "physical_nibble_value": "(physicalNibbleKey >> 16) &15",
+        "pixel_payload_sha256": "575b63b43cddf68877dc742a3687253d3d37a5e6cdcc0296b77306d71329ad5f",
+        "decoded_RGBA_sha256": "928106d8a8fd1d072e238217cfbd0652315f542c67cd114a94ff3f32f723d114",
+        "linear_indices_sha256": "28085600d4658e963742a347444c53e44635511e9b24a89ab25d3993fc726d19"
+      }
+    ],
+    "ramp_reason": "Five4-bit digit passes distinguish all18bits of262144physicalnibblekeys. The16actual source palette RGBA tuples are unique, so independent decodedRGBA SHA goldens can validate existing Go walk without a2MB mapping fixture or mirrored test formula."
+  },
+  "mutation_oracles": [
+    {
+      "label": "two_corners",
+      "selected": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "linear_offset": 0,
+          "pixel_byte_offset": 0,
+          "TXD_byte_offset": 300,
+          "shift": 0,
+          "old_index": 15,
+          "new_index": 0,
+          "old_palette_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ]
+        },
+        {
+          "xy": [
+            511,
+            511
+          ],
+          "linear_offset": 262143,
+          "pixel_byte_offset": 131071,
+          "TXD_byte_offset": 131371,
+          "shift": 4,
+          "old_index": 15,
+          "new_index": 0,
+          "old_palette_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ]
+        }
+      ],
+      "changed_TXD_offsets": [
+        300,
+        131371
+      ],
+      "TXD_sha256": "c2a46230e6065d8a55f52fe14a8daa4b14248a6800fcc013bf98d0197d8e903f",
+      "linear_sha256": "d4cfa99ce36b04dfa32ce6bf72360695ebade3843723ae23723be3625ee1f4be",
+      "decoded_RGBA_sha256": "32bb4d2ad671fcaf2d660e76c4b4679ca15f8604460ddceae52506324638ffc3",
+      "native_pixel_sha256": "64f59a9315ce448711b3f1d26e397b42f5913fb9ea4707e714a5dc44b5e49c22",
+      "outside_pixel_changes": 0,
+      "palette_and_CD_padding_unchanged": true
+    },
+    {
+      "label": "all_corners",
+      "selected": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "linear_offset": 0,
+          "pixel_byte_offset": 0,
+          "TXD_byte_offset": 300,
+          "shift": 0,
+          "old_index": 15,
+          "new_index": 0,
+          "old_palette_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ]
+        },
+        {
+          "xy": [
+            511,
+            0
+          ],
+          "linear_offset": 511,
+          "pixel_byte_offset": 511,
+          "TXD_byte_offset": 811,
+          "shift": 0,
+          "old_index": 6,
+          "new_index": 7,
+          "old_palette_RGBA": [
+            0,
+            0,
+            0,
+            192
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            228
+          ]
+        },
+        {
+          "xy": [
+            0,
+            511
+          ],
+          "linear_offset": 261632,
+          "pixel_byte_offset": 130560,
+          "TXD_byte_offset": 130860,
+          "shift": 4,
+          "old_index": 15,
+          "new_index": 0,
+          "old_palette_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ]
+        },
+        {
+          "xy": [
+            511,
+            511
+          ],
+          "linear_offset": 262143,
+          "pixel_byte_offset": 131071,
+          "TXD_byte_offset": 131371,
+          "shift": 4,
+          "old_index": 15,
+          "new_index": 0,
+          "old_palette_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ]
+        }
+      ],
+      "changed_TXD_offsets": [
+        300,
+        811,
+        130860,
+        131371
+      ],
+      "TXD_sha256": "846b46b8c47997d7d404195266cc0476a7db4656db8d772a50db43cd0f868685",
+      "linear_sha256": "48a01bc938ab0fe4b44fc133c0255a5f1bdc5b38a480ca0928d3ffc31586ce13",
+      "decoded_RGBA_sha256": "1f199e219f5c295abd1d1a5fde6e6426bb491e39b0aea3981e6b12f531b2853f",
+      "native_pixel_sha256": "f1072abf8b819babfefdf1fbbfa1d7fd13da7291c66244e5672fcf31c4fe541c",
+      "outside_pixel_changes": 0,
+      "palette_and_CD_padding_unchanged": true
+    },
+    {
+      "label": "page_boundary",
+      "selected": [
+        {
+          "xy": [
+            127,
+            127
+          ],
+          "linear_offset": 65151,
+          "pixel_byte_offset": 32383,
+          "TXD_byte_offset": 32683,
+          "shift": 4,
+          "old_index": 2,
+          "new_index": 3,
+          "old_palette_RGBA": [
+            0,
+            0,
+            0,
+            64
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            96
+          ]
+        },
+        {
+          "xy": [
+            128,
+            127
+          ],
+          "linear_offset": 65152,
+          "pixel_byte_offset": 32384,
+          "TXD_byte_offset": 32684,
+          "shift": 4,
+          "old_index": 2,
+          "new_index": 3,
+          "old_palette_RGBA": [
+            0,
+            0,
+            0,
+            64
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            96
+          ]
+        },
+        {
+          "xy": [
+            127,
+            128
+          ],
+          "linear_offset": 65663,
+          "pixel_byte_offset": 32895,
+          "TXD_byte_offset": 33195,
+          "shift": 0,
+          "old_index": 9,
+          "new_index": 10,
+          "old_palette_RGBA": [
+            122,
+            122,
+            122,
+            18
+          ],
+          "new_palette_RGBA": [
+            122,
+            122,
+            122,
+            56
+          ]
+        },
+        {
+          "xy": [
+            128,
+            128
+          ],
+          "linear_offset": 65664,
+          "pixel_byte_offset": 32896,
+          "TXD_byte_offset": 33196,
+          "shift": 0,
+          "old_index": 12,
+          "new_index": 13,
+          "old_palette_RGBA": [
+            122,
+            122,
+            122,
+            152
+          ],
+          "new_palette_RGBA": [
+            122,
+            122,
+            122,
+            198
+          ]
+        }
+      ],
+      "changed_TXD_offsets": [
+        32683,
+        32684,
+        33195,
+        33196
+      ],
+      "TXD_sha256": "93d494f67bd6d8b0e58aac361855bc4b4448dfebf18f8e0280257f401ee218e0",
+      "linear_sha256": "b721637d00be2ed22985c6f28af5ce2bd67f9531662d54cbdf6ba6c3fbd5abe6",
+      "decoded_RGBA_sha256": "7a6d03db8a9cf855352d3f5298226e1f5f995341f56d4fbb2eb21e598a5860c4",
+      "native_pixel_sha256": "31d90f9c9c4775d2690b84c2f359f6e08edd495940c1c38ed1f8e8b734d8e117",
+      "outside_pixel_changes": 0,
+      "palette_and_CD_padding_unchanged": true
+    },
+    {
+      "label": "shared_byte",
+      "selected": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "linear_offset": 0,
+          "pixel_byte_offset": 0,
+          "TXD_byte_offset": 300,
+          "shift": 0,
+          "old_index": 15,
+          "new_index": 0,
+          "old_palette_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ]
+        },
+        {
+          "xy": [
+            4,
+            2
+          ],
+          "linear_offset": 1028,
+          "pixel_byte_offset": 0,
+          "TXD_byte_offset": 300,
+          "shift": 4,
+          "old_index": 0,
+          "new_index": 1,
+          "old_palette_RGBA": [
+            0,
+            0,
+            0,
+            12
+          ],
+          "new_palette_RGBA": [
+            0,
+            0,
+            0,
+            44
+          ]
+        }
+      ],
+      "changed_TXD_offsets": [
+        300
+      ],
+      "TXD_sha256": "daff2edf0c287af29cc2deb551b00dc540f90fdd8685fe2a823874be3583381e",
+      "linear_sha256": "d563db0bb338b43b88716aadb95c7ae8dec02dc473d471caf5aef603d5a84de6",
+      "decoded_RGBA_sha256": "ba67311cfcecfebec2dbc34bb75a98524b120c2c7d954564a0b88cc31fa09697",
+      "native_pixel_sha256": "c01b0247f9f8e9109ae3597231f40e4af902edf44f6cbb5edb88d7322397877d",
+      "outside_pixel_changes": 0,
+      "palette_and_CD_padding_unchanged": true
+    }
+  ],
+  "native_provenance": {
+    "source_zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "elf_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "elf_bytes": 5087232,
+    "mapping": "PT_LOAD file offset0x80 maps to VMA0x100000; cited code/data file offsets=VMA-0xfff80. Empty symtab/strtab: semantic labels below are analyst names, not recovered symbol names."
+  },
+  "all12_native_spans_rebound": [
+    {
+      "name": "native_texture_read",
+      "start_vma": "0x217488",
+      "end_vma_exclusive": "0x2176b8",
+      "file_offset": 1144072,
+      "sha256": "2919dca0f6fcf35868c34ab4ea749b9514c95827c922f607d0ef828c9f9cfd3f",
+      "matched": true
+    },
+    {
+      "name": "native_raster_read",
+      "start_vma": "0x217050",
+      "end_vma_exclusive": "0x217394",
+      "file_offset": 1142992,
+      "sha256": "4a3657b9579bd9f2370038bc62f0596610d2f9126a4b6106a9bbbb2475dfdfe0",
+      "matched": true
+    },
+    {
+      "name": "device_registration",
+      "start_vma": "0x219708",
+      "end_vma_exclusive": "0x2197cc",
+      "file_offset": 1152904,
+      "sha256": "f3ed0134feb8047822fd8a785451124450da05736e3f95558a20373a2719b70a",
+      "matched": true
+    },
+    {
+      "name": "default_relocation_and_TEX0",
+      "start_vma": "0x2284c0",
+      "end_vma_exclusive": "0x228760",
+      "file_offset": 1213760,
+      "sha256": "00cc2316ef7a6d70a5be4c8e5220997b672cb89b53aea412db37d3224b91a504",
+      "matched": true
+    },
+    {
+      "name": "uploader_relocation",
+      "start_vma": "0x2270b0",
+      "end_vma_exclusive": "0x227270",
+      "file_offset": 1208624,
+      "sha256": "3408f810aef6bf7c713afee07f9f1a62ac7cbf826bcc935505cfa2fa3cf107bb",
+      "matched": true
+    },
+    {
+      "name": "nonzero_palette_packet",
+      "start_vma": "0x2145a0",
+      "end_vma_exclusive": "0x21477c",
+      "file_offset": 1132064,
+      "sha256": "bf0c524cc7ded17797d6a0c301403741b4079fde0669b7dec24cf0decb7aa29c",
+      "matched": true
+    },
+    {
+      "name": "PSMT8_pixel_BITBLTBUF",
+      "start_vma": "0x214410",
+      "end_vma_exclusive": "0x214520",
+      "file_offset": 1131664,
+      "sha256": "6fa28aeee44ccd99c56c8cd415c0981ab4fd1e179e6824efce8c22d39877e59c",
+      "matched": true
+    },
+    {
+      "name": "PSMT8_palette_position",
+      "start_vma": "0x213a50",
+      "end_vma_exclusive": "0x213b7c",
+      "file_offset": 1129168,
+      "sha256": "728cb57c2e3a10133205546858b6559eba8651c4bec0824bdbaf6df381476d05",
+      "matched": true
+    },
+    {
+      "name": "allocation",
+      "start_vma": "0x2138bc",
+      "end_vma_exclusive": "0x213a1c",
+      "file_offset": 1128764,
+      "sha256": "428167e246196d2e22bd20bc0a547f29ad183cec5c56eab018267e8e0107ad82",
+      "matched": true
+    },
+    {
+      "name": "second_residency_path",
+      "start_vma": "0x228c34",
+      "end_vma_exclusive": "0x228ce0",
+      "file_offset": 1215668,
+      "sha256": "557ad21a918807a65e945e2eb9890beffaad7f8ecb64394126217cedef7fefcd",
+      "matched": true
+    },
+    {
+      "name": "device_callback_table",
+      "start_vma": "0x455e10",
+      "end_vma_exclusive": "0x455ef0",
+      "file_offset": 3497616,
+      "sha256": "19e496f64927760ddf39dcb336c87a6ae8f6c17d849cc2b249eac03f1446c5c8",
+      "matched": true
+    },
+    {
+      "name": "default_cache_data",
+      "start_vma": "0x456200",
+      "end_vma_exclusive": "0x456240",
+      "file_offset": 3498624,
+      "sha256": "6a0fc71ba56715c4c117fc2afa03dd0236e7a2179df121697afbe079bb575d2c",
+      "matched": true
+    }
+  ],
+  "additional_PSMT4_spans": [
+    {
+      "name": "PSMT4_CPSM_branch",
+      "start_vma": "0x213b7c",
+      "end_vma_exclusive": "0x213cc4",
+      "file_offset": 1129468,
+      "sha256": "0db92ecc707277011689875032b390e68ca437624989322515d2ec673de38564",
+      "bytes": 328
+    },
+    {
+      "name": "PSMT4_upload_BITBLTBUF",
+      "start_vma": "0x21445c",
+      "end_vma_exclusive": "0x2144b8",
+      "file_offset": 1131740,
+      "sha256": "87410bd82989830550296647ef6ffdc58442a2e60023dd89e5781fc468561ec9",
+      "bytes": 92
+    },
+    {
+      "name": "zero_position_CLUT_BITBLTBUF",
+      "start_vma": "0x2146d4",
+      "end_vma_exclusive": "0x21477c",
+      "file_offset": 1132372,
+      "sha256": "e109ac5c07e9b8aadfbc131650a93356403cfe763874acea6b2aef5dea5a6db8",
+      "bytes": 168
+    },
+    {
+      "name": "two_transfer_uploader",
+      "start_vma": "0x2271c8",
+      "end_vma_exclusive": "0x227268",
+      "file_offset": 1208904,
+      "sha256": "aef2c4abeaee169d3dd88f167e88a526df5551d18e02a2767ff6eded8843640f",
+      "bytes": 160
+    }
+  ],
+  "primary_sources_rebound": [
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/R5900OpcodeTables.cpp",
+      "sha256": "80562704233e7d7f68d54878f4cf00cad2f63d1ba8362b76ea09634c5093ec1f",
+      "bytes": 31265,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-R5900OpcodeTables.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/MMI.cpp",
+      "sha256": "5b5a045dfbf896bc470d8aed658dfc492a07a5b74859a0d7832b2969f539159a",
+      "bytes": 41508,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-MMI.cpp",
+      "matched": true
+    },
+    {
+      "path": "/var/tmp/dokapon-clut-position-study-ageeqz2p/librw-ps2raster.cpp",
+      "url": "https://raw.githubusercontent.com/aap/librw/18532c2e13efbc1aa43f0b00b4459831f9414de0/src/ps2/ps2raster.cpp",
+      "sha256": "5977d560a7eeb88e4dbefc597c0506731fb3264ff8facd6fab8d7d46056a007e",
+      "matched": true
+    },
+    {
+      "path": "/var/tmp/dokapon-clut-position-study-ageeqz2p/gs_gp.h",
+      "url": "https://raw.githubusercontent.com/ps2dev/ps2sdk/329e2bb43287e16af16c4dde1c614e2662c24468/common/include/gs_gp.h",
+      "sha256": "3e93c3d7a16028bbae8894c07423964b263328b44a0c43bab3ec92c725b778a4",
+      "matched": true
+    }
+  ],
+  "legacy_BT16_matches_primary_blockmap_PSMCT16": true,
+  "critical_instruction_words": {
+    "0x213b80": "0x24030014",
+    "0x213ba0": "0x34420004",
+    "0x213ba4": "0x31cc2",
+    "0x213ba8": "0x3063000f",
+    "0x213bac": "0x14640044",
+    "0x214478": "0x54440010",
+    "0x214494": "0x3084003e",
+    "0x21449c": "0x413f8",
+    "0x2144a0": "0x651825",
+    "0x2144a4": "0x423fc",
+    "0x2144b4": "0x465025",
+    "0x21465c": "0x1040001d",
+    "0x2146dc": "0x9e240010",
+    "0x2271e8": "0x45102d",
+    "0x227228": "0x45102d"
+  },
+  "relocations": [
+    {
+      "base_blocks": 0,
+      "pixel_BITBLTBUF": "0x204000002040000",
+      "CLUT_BITBLTBUF": "0x1020000010000",
+      "sampled_TEX0": "0x2000400665420000",
+      "sampled_TBP0": 0,
+      "sampled_CBP": 512,
+      "pixel_words_inclusive": [
+        0,
+        32767
+      ],
+      "CLUT_reserved_page_words_inclusive": [
+        32768,
+        34815
+      ]
+    },
+    {
+      "base_blocks": 32,
+      "pixel_BITBLTBUF": "0x204002002040000",
+      "CLUT_BITBLTBUF": "0x1022000010000",
+      "sampled_TEX0": "0x2000440665420020",
+      "sampled_TBP0": 32,
+      "sampled_CBP": 544,
+      "pixel_words_inclusive": [
+        2048,
+        34815
+      ],
+      "CLUT_reserved_page_words_inclusive": [
+        34816,
+        36863
+      ]
+    },
+    {
+      "base_blocks": 1024,
+      "pixel_BITBLTBUF": "0x204040002040000",
+      "CLUT_BITBLTBUF": "0x1060000010000",
+      "sampled_TEX0": "0x2000c00665420400",
+      "sampled_TBP0": 1024,
+      "sampled_CBP": 1536,
+      "pixel_words_inclusive": [
+        65536,
+        98303
+      ],
+      "CLUT_reserved_page_words_inclusive": [
+        98304,
+        100351
+      ]
+    },
+    {
+      "base_blocks": 15840,
+      "pixel_BITBLTBUF": "0x2043de002040000",
+      "CLUT_BITBLTBUF": "0x13fe000010000",
+      "sampled_TEX0": "0x2007fc0665423de0",
+      "sampled_TBP0": 15840,
+      "sampled_CBP": 16352,
+      "pixel_words_inclusive": [
+        1013760,
+        1046527
+      ],
+      "CLUT_reserved_page_words_inclusive": [
+        1046528,
+        1048575
+      ]
+    }
+  ],
+  "scratch": "/var/tmp/dokapon-multipage-psmt4-contract-rbkvnW",
+  "pins_stable": true,
+  "status": "FINITE NATIVE CONTRACT ESTABLISHED; safe same-codec enhancement candidate after implementation tests/review, no implementation or approval here",
+  "scope": "Only this JSON and companionMD written in repository. Bounded oneactual512-squarePSMT4/native-span study; no wholecorpus rerun, production/test/source/art/registry/ISOwrites or actualISO/emulator/PINE/process/log/settings access. Commands nice19 and owned varTMP.",
+  "Serena": {
+    "session": "935d6008",
+    "current_owner": "texture(data, selector, replacement, rectangles, palettePolicy) in texture.go",
+    "real_callers": [
+      "authorTexture in texture_authoring.go",
+      "TestPilotHistoricalGoldenBytes in patch_test.go"
+    ],
+    "publisher_owner": "authorTexture -> readInput/texture/writeNewFile, existing run dispatch",
+    "reuse_decision": "Enhance existing depth4 geometry/footprint selection and pixelwalk column/row terms. Existing standard parser, packet loop, logical16-entryCLUT/32CDpadding handling, quantizer, mask, artifact-nibble readmodifywrite, standalone publisher and tests remain owners. No newhelper/function/framework/schema/policyflag or asset-namehandler."
+  },
+  "original_caller_contract": {
+    "source": "../test_psmt4_roundtrip.py",
+    "facts": "CASES names BATTLE battle\\textures\\vs_sen.txd512square plus five village plates. Uses Target(read_only=True); tests TEX0PMS/TBW, decode->encode, CLUTroundtrip and PNG->build_new_pixels byteidentity. cmdTarget still restricts non-readonly4bit patch to VERIFIED_4BIT villageentry. This historical write refusal is not removed by a native byte-codec study.",
+    "present_inputs": "Exact source member remains in extracted originalBATTLE.CMB at offset897136346/131588B, SHA35e995b0. Absent from current assets/cmb-members.zip. Frozen72544c15already records mapping and two-corner output; this study rebinds those facts and supplies independent direct-address, PNG/noop and native binding checks.",
+    "asset_fixture_scope": "Use pinned source/member through existing fixture/golden mechanism or temporary overlay, and charge any added permanent fixture separately. Do not append it to runtime asset catalog merely to obtain a test or infer named ISO placement."
+  },
+  "native_binding": {
+    "inherited_chain": "Rebound exact executableZIP/member and all12source spans from clut-loader-binding-contract. Device registration key4->creation212fe0/key26->reader217488 and defaultcache initialized1 are unchanged. Native reader, raw-v2read, two-transfer uploader and ordinary cache binder are the same already established chain as exact-palette-native-binding; no assumption based solely on a library name.",
+    "new_depth4_branch": "0x213b7c recognizes PSMT4;0x213ba0 sets swizzleflag4.0x213ba4..0x213bac extractsCPSM and enters special-coordinate logic onlyifCPSM2. ActualCPSM0 therefore bypasses it, leaving paletteTRXPOS0; no nonzero-position shared transfer. PixelBITBLTBUF0x214480..0x2144b4 usesPSMCT16.",
+    "pixel_upload": {
+      "PSM": "PSMCT16",
+      "DPSM": 2,
+      "DBW": 4,
+      "DBP_relative_blocks": 0,
+      "TRXPOS": [
+        0,
+        0
+      ],
+      "TRXREG": [
+        256,
+        256
+      ],
+      "payload_bytes": 131072,
+      "IMAGE_qwords": 8192,
+      "stream_bytes_with80Bheader": 131152,
+      "stream_qwords": 8197,
+      "unrelocated_BITBLTBUF": "0x204000002040000"
+    },
+    "sample": {
+      "PSM": "PSMT4",
+      "TBW": 8,
+      "pages_per_row": 4,
+      "page_dimensions_texels": [
+        128,
+        128
+      ],
+      "page_count": 16,
+      "TEX0": "0x2000000665420000",
+      "CPSM": 0,
+      "CSM": 0,
+      "CSA": 0,
+      "CLD": 1
+    },
+    "palette_upload": {
+      "PSM": "PSMCT32",
+      "DPSM": 0,
+      "DBW": 1,
+      "DBP_relative_blocks": 512,
+      "TRXPOS": [
+        0,
+        0
+      ],
+      "TRXREG": [
+        8,
+        3
+      ],
+      "payload_bytes": 96,
+      "logical_entries": 16,
+      "color_bytes": 64,
+      "padding_bytes": 32,
+      "padding_hex_byte": "cd",
+      "IMAGE_qwords": 6,
+      "stream_bytes_with80Bheader": 176,
+      "stream_qwords": 11,
+      "unrelocated_BITBLTBUF": "0x1020000010000",
+      "qualification": "Same calibrated8x3PSMCT32/16entryCLUT policy as existing village mode. Third uploaded row is32CDpadding, not eight extra colors. Do not describe its24uploadedwords as necessarily contiguous linearVRAMwords; only existing16colorCSM1 semantics and nativebasebinding are claimed."
+    },
+    "payload_route": "Version2 reads exact pixelSize131152 andpaletteSize176 into createdpixelPacketPointer andpalettePointer-0x50, verifies returnedcounts. Neither native reader nor uploader reorders pixels/colors. Native packet references preserve source bytes. Both upload BITBLTBUF values receive same Bblock relocation at0x2271e8/0x227228; cachebinder sets sampledTBP0=B andCBP=B+512 from serializedpaletteOffset. Content changes do not select geometry/branch policy.",
+    "allocation": "PSMT4sample pages128square:4x4=16pages; PSMCT16upload pages64square:256/64=4pagesperrow,4rows=16pages.131072pixelB=32768words=512GSblocks. CLUToffset512blocks=32768words begins immediately after pixelpages. Serializedallocation34816words=17pages=16pixelpages+one2048wordCLUTpage. Palette16colors+padding fit that nextpage, so no pixel overlap. Header80B belongs to hosttransferstorage, not extraVRAMpixels.",
+    "same_cache_binding": "The normal residency record supplies uploaderbaseWords. Its TEX0 rebind equationCBP=((baseWords>>6)+extension.paletteOffset)&0x3fff therefore matches CLUTuploadDBP=B+512. Four nonwrapping legal bases includingmax15840 verified. Current unrelated runtimecallbacks/streamcallbacks/setters and actualdraw histories remain unproved."
+  },
+  "address_derivation": {
+    "source_tables": "ps2_tex._BT16/_CT16/_CT4 at lines187..209 and _psmt4_map at212..277. Primary librw blockmap_PSMCT16 has exactly the same32entries and documents shared PSMCT16/PSMT4 blocklayout; matched hash is recorded. Primary source corroborates hardware table/layout, while actual game MIPS establishes DBP/DBW/TBW binding.",
+    "upload_equation": "uw=256,uh=256,dbw4. GSbyte=((v>>6)*4+(u>>6))*8192+BT16[(v>>3)&7][(u>>4)&3]*256+((v>>1)&3)*64+CT16[v&1][u&15]*2. That address and nextbyte map back to (v*256+u)*2 and+1 in the source stream.",
+    "sample_equation": "c=(y>>2)&3. GSnibble=((y>>7)*4+(x>>7))*16384+BT16[(y>>4)&7][(x>>5)&3]*512+(c>>1)*256+CT4[c&1][y&3][x&31]. Invert uploadGSbyte for GSnibble>>1, retain shift=(GSnibble&1)*4.",
+    "simplification": "Same4pages-per-row makes sample and upload page indices align. The fixed block/column composition collapses to recorded column/row/bank formula, with width-based high row/column placement. It matches all262144source-table pairs exactly and the preexistingb1fe51ae mappingdigest. For128x32, x&^15=x&0x70 and row=(y&1)*128|(y&^3)*64 exactly reduces to oldshifts; all4096oldmappingentries match frozen8192Bfixture15930ab5.",
+    "formula_scope": "This proves only two explicitly selected modes. Formula algebra is not permission to accept other dimensions or arbitraryTBW. Keep a finite mutually-exclusive geometry/metadata switch and the existing bijection guard."
+  },
+  "minimum_future_change_scope": [
+    "texture.go existing depth4 branch: keep common version2/RF0x4504/PSMT4/CLD1 checks; select only(128x32,paletteBase28,footprint2048) or(512x512,paletteBase512,footprint34816). GlobalTBW/TW/TH/CPSM/CSM/CSA/TEX1/packet/extents guards remain. No merewidthrelaxation.",
+    "Keep existing pixelBytes=count/2,16entryCLUT,96Bupload/32CDpadding,8x3palettepacket andY0 handling. Native512-square upload dimensionw/2,h/2 naturally yields256square; IMAGEcount8192 is below existing0x7fff bound.",
+    "Replace only existing depth4 columnmask and rowplacement with width-based equivalents, retaining named intermediates and bank/shift. Keep write from currentartifactbyte so simultaneous low/high nibble edits survive. Preserve default fixedpalette and exactpalette-is8bit-only policy.",
+    "authorTexture may update reported limits/documentation only as needed. No new flag/schema/handler/helper/writer. Enhance existing historicalGolden and standaloneCLI subtests; fixture source is currently absent from runtimeZIP.",
+    "Use independent fullRGBA/noop/CLUT and selectededitgoldens below plus five physical-nibble digit-ramp RGBAhashes. These five passes distinguish all18addressbits without storing a2MB map fixture or putting the same formula in the test. Existing128x32 goldens/4096map and all227preserve-mode cases must remain unchanged."
+  ],
+  "required_refusal_cases": [
+    "Adjacent unproved dimensions must stillrefuse:64x32,128x64,256x256,512x256,256x512,1024x512. Matching a guessedformula is not nativecalibration. Noheaderless4bit acceptance.",
+    "For512square mutate TBW8to4/6/10, PSM0x14, RF0x4504, version2, TW9/TH9, CLD1, CPSM0/CSM1/CSA0, TEX1LOW0; unsupportedfield changes refuse niloutputs and preserveinput.",
+    "PaletteBase512mustnotaccept511/513/28; footprint34816mustnotaccept34815/34817 or32768; exact131152pixelstream/176palettestream andfullstructextent mustmatch.",
+    "Mutate either80B packet setup/opcode/destination/dimensions/IMAGEcount/TRXDIR, or32CDpadding; remain strict. PixelIMAGEcount8192 andpalette6 specifically pinned.",
+    "Existing selector uniqueness, chunkextent/UTF8/profile/source/PNG pins, rectanglemask invalid/outside refusers, exclusivepublication, sourcepreservation and8bit exactpolicy4bit refusal remain.",
+    "This byteartifact study does not authorize old non-village4bitshipping/forceflags, ISOapply or alteredart."
+  ],
+  "verification": {
+    "study_checks": "PASS oneactualsource fullmember/metadata/packets/CLUT pins; all262144direct-vs-table addresses andbijection; completeRGBAhash; byteexactindex/CLUT roundtrip; in-memory PNG/defaultquantizer/noop; frozenoldtwo-corneroracle; all-corner/page-boundary/shared-byte mutation containment; existing4096village mapfixture;5syntheticdigitramps; native12+4boundedspan/primary/instruction/relocationchecks.",
+    "no_overclaim": "This is not a Go implementation pass. No Go tests/build/lint or full227corpus rerun were performed. Parent may change Go concurrently; currentGo pins are a documentary snapshot, not a rejection of reviewedlater versions.",
+    "minor_initial_attempt": "First preliminary inline study did not parse because of an else512 typo; corrected before reading/writing facts. No source or output artifact was modified by that failed attempt.",
+    "checks_remaining_for_implementation": "Fullrootrace/vet/build/gofmt/scopedscans, permanentgoldens/refusalCLI tests, existingdefault227regression and independentreview. No native visual or ISOplacement claim."
+  },
+  "residual_gaps": [
+    "No remaining native upload/page-row/CBP binding blocker identified for this finite512square mode on normalregisteredv2/defaultcache route. Existing source-table and independentbitformula oracles now tied to actual native DBW/TBW/base/counts.",
+    "Source helper column tables remain the existinghistorical calibratedimplementation, not a newhardwarevisual proof. All262144comparisons establish exact existingcodec behavior; native path analysis establishes transport/sample parameters. Actual appearance/runtime selection/art approval remain separate.",
+    "Othergeometries, arbitraryruntimecallbacks/streamtype4, all indirectmode changes and ISO/CMB aliasownership are not proved. Do not infer broadmode orfamily completion."
+  ],
+  "coverage": {
+    "core_denominator": 14,
+    "core_complete": 3,
+    "texture_family": "partial",
+    "promotion_or_retirement_credit": 0,
+    "core_percent": 21.43,
+    "expanded_complete": 3,
+    "expanded_denominator": 17,
+    "expanded_percent": 17.65,
+    "basis": "Current score predates this study: guardedfamily reassessment841d24a9, actualJP0a165f24, rootchecks99a16d. This study grants no additional score; texture remains partial."
+  },
+  "study_script": {
+    "path": "/var/tmp/dokapon-multipage-psmt4-contract-rbkvnW/study.py",
+    "sha256": "74d531109df7e6179ffa242af3108985905521e949f389dc5f14da161aa60999"
+  }
+}

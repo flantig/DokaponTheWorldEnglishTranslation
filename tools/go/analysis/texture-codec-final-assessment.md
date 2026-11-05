@@ -1,0 +1,9 @@
+Recommend **FULL for texture_codec under the unchanged frozen contract**. All seven material duties have verified shared Go owners: bounded native parsing; PSMT4; standard PSMT8; distinct headerless PSMT8; direct32 font/color; exact/approximate palettes; and meaningful unsupported-format refusals. No remaining material codec gap was reproduced.
+
+The contract is pinned at [baseline:199](reusability-coverage-baseline.json) and [original crawl:54](pattern-crawl-assets_runtime_tests.json). Approximate proof cb0ee0b9 and fullpage proof33801728 close the two gaps identified by f0cde477. Their historical PARTIAL reports remain correct for their earlier sources and are unchanged. Detailed seven-row source/owner/evidence crosswalk and full hashes are in JSON.
+
+Below16 remains an affirmative legacy refusal: ps2_tex.py:147 and explainer_scan.py:73 reject it; all124 historical records have unsupported status and blank PNG. The actual8×8 strictparse/index refusals were rechecked. This boundary is established by positive refusal contracts, not by absence of an authoring caller.
+
+Current29pins match the accepted fullpage snapshot. Fresh full suites already pass, so none were repeated. One focused positive256×64 BossUGB export/noop check resolved a representative-evidence question; canonicalRGBA, historicalSHA1prefix81b72ba4bed4, nativeGS joins and Go bytes match. Two newfullpage representatives do not mean299 separate exports were tested.
+
+This recommendation changes no score or family JSON. Rendering, TTF/resize, preview/inventory orchestration, placement, native visual behavior, artwork, ISO ownership and legacy retirement remain separate duties or limitations under the original crawl:64/75/90/104. FULL here does not mean every possible PS2 layout or floating histogram was exhaustively proved.

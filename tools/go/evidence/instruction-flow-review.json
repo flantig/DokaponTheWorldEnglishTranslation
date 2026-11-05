@@ -1,0 +1,308 @@
+{
+  "review_kind": "fresh independent ordinary read-only code review",
+  "start_utc": "2026-11-04T20:35:43.434474+00:00",
+  "end_utc": "2026-11-04T20:39:31.311495+00:00",
+  "status": "NO_CONFIRMED_FINDINGS_WITHIN_REVIEWED_SCOPE",
+  "authority": "Findings only. No implementation, approval, publication, milestone award, reduction or retirement authority.",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-instruction-flow-b69ig0qd/review-source/manifest.json",
+    "sha256": "98d97042f1b5a36452cf2b408fc359854360126b7161a9fac96ff89507775166",
+    "bound_members": 632
+  },
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-gp-index-ojcy9sxb/sealed-final/manifest.json",
+    "sha256": "c3cfb0f87ddb15ebfebc0dc5d0f1a48b7698adb1dfa04dc3d64ff6b22cef9b5c"
+  },
+  "source_inputs_verified": [
+    {
+      "kind": "manifest-and-members",
+      "path": "/var/tmp/dokapon-gp-index-ojcy9sxb/sealed-final/manifest.json",
+      "sha256": "c3cfb0f87ddb15ebfebc0dc5d0f1a48b7698adb1dfa04dc3d64ff6b22cef9b5c",
+      "members": 626,
+      "status": "PASS"
+    },
+    {
+      "kind": "manifest-and-members",
+      "path": "/var/tmp/dokapon-instruction-flow-b69ig0qd/review-source/manifest.json",
+      "sha256": "98d97042f1b5a36452cf2b408fc359854360126b7161a9fac96ff89507775166",
+      "members": 632,
+      "status": "PASS"
+    },
+    {
+      "kind": "manifest-and-members",
+      "path": "/var/tmp/dokapon-instruction-flow-mapping-605ash3_/manifest.json",
+      "sha256": "54429044ce255a08b9a0df5276245b62db616aab69520802f1e2f6568f80836c",
+      "members": 19,
+      "status": "PASS"
+    },
+    {
+      "kind": "manifest-and-members",
+      "path": "/var/tmp/dokapon-instruction-flow-cli-wgz75237/manifest.json",
+      "sha256": "1e62939a9fd4581e43cf38a9dac15e6a86cf9622034a0bf32779dce352a43c0f",
+      "members": 21,
+      "status": "PASS"
+    },
+    {
+      "kind": "manifest-and-members",
+      "path": "/var/tmp/dokapon-binary-flow-frontier-ohr8h7cd/manifest.json",
+      "sha256": "e76acd9540ffd6b6b6c0275dd05142496fb1dfd0bda74606a8047f426d62fe47",
+      "members": 24,
+      "status": "PASS"
+    }
+  ],
+  "scope": "One-user local read-only finite instruction/operand/local-transfer report, at most32768selected words and64MiBsource/output. Synthetic or frozen sources only. Connected run, references, inspect, auditStreams, checkJSON, instruction types/form table and existing CLI fixture loop were examined.",
+  "serena": {
+    "session": "5bc5c99f",
+    "project": "/var/tmp/dokapon-instruction-flow-b69ig0qd/project",
+    "references_callers": [
+      "main.go/run",
+      "stream_audit.go/auditStreams",
+      "patch_test.go/TestCLIDryRunAndApply"
+    ],
+    "instructionAddressForms_callers": [
+      "references.go/references shared scan"
+    ]
+  },
+  "findings": [],
+  "review_observations": [
+    "Both GP and instruction indexes use the same reverse LOAD/source-word walk and28-entry address-form table. Terminal point-query maps and selected-VMA delay membership have distinct contracts and remain separate.",
+    "Unsupported selectors retain raw words, null GPR sets and null ordinary next. Explicit empty operand sets remain distinct from unknown. Other register banks are not GPR indexes.",
+    "MOVZ/MOVN conditional destinations and incoming destination dependencies match the frozen R5900 semantics for tested zero and alias cases. Must-write describes destination-on-normal-completion, not a whole128-bit kill.",
+    "Direct/control arithmetic wraps at32bits; link is not a return edge. Exact selected VMA lookup preserves reordered/disjoint/wrap mappings. Delay errors retain raw alternatives and are not CFG proof.",
+    "The existing strict profile parser, read-only dispatcher, input rechecks and buffered JSON publication are reused.42additional malformed/null/alias/duplicate/extra-field profiles refuse without stdout in both builds.",
+    "No concrete DRY/readability defect was established. Decoder growth remains finite and switch-based; this does not justify adding CFG/def-use traversal to references.",
+    "Staged coverage/ledger files intentionally retain accepted626 accounting. No finding is inferred merely from staging. No binary_inspection.05 or full-family completion follows from this increment."
+  ],
+  "checks": {
+    "focused": [
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^TestCLIDryRunAndApply$",
+          "."
+        ],
+        "start": "2026-11-04T20:36:04.832875+00:00",
+        "end": "2026-11-04T20:36:27.814837+00:00",
+        "seconds": 22.98196921098861,
+        "exit": 0,
+        "log": "check-0.log"
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-instruction-review-xt8aw8bh/core",
+          "."
+        ],
+        "start": "2026-11-04T20:36:27.815033+00:00",
+        "end": "2026-11-04T20:36:29.193439+00:00",
+        "seconds": 1.3784131439897465,
+        "exit": 0,
+        "log": "check-1.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T20:36:29.193623+00:00",
+        "end": "2026-11-04T20:36:29.546574+00:00",
+        "seconds": 0.3529575400025351,
+        "exit": 0,
+        "log": "check-2.log"
+      }
+    ],
+    "native_and_baseline_builds": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-instruction-review-xt8aw8bh/native",
+          "."
+        ],
+        "start": "2026-11-04T20:37:48.629471+00:00",
+        "end": "2026-11-04T20:37:50.684184+00:00",
+        "seconds": 2.054718305997085,
+        "exit": 0,
+        "log": "native-check-0.log"
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "start": "2026-11-04T20:37:50.684356+00:00",
+        "end": "2026-11-04T20:37:51.423257+00:00",
+        "seconds": 0.73891332000494,
+        "exit": 0,
+        "log": "native-check-1.log"
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-instruction-review-xt8aw8bh/baseline",
+          "."
+        ],
+        "start": "2026-11-04T20:37:51.423452+00:00",
+        "end": "2026-11-04T20:37:52.779144+00:00",
+        "seconds": 1.3557009529904462,
+        "exit": 0,
+        "log": "native-check-2.log"
+      }
+    ],
+    "additional_probe": {
+      "start": "2026-11-04T20:37:48.521548+00:00",
+      "end": "2026-11-04T20:37:48.529392+00:00",
+      "seconds": 0.007856053009163588,
+      "vectors": 381,
+      "status": "PASS",
+      "source_preserved": true,
+      "scope": "synthetic finite selector/alias/bank facts only; no full decoder, graph, runtime or credit"
+    },
+    "final_checks": {
+      "start": "2026-11-04T20:38:48.331187+00:00",
+      "end": "2026-11-04T20:38:48.852953+00:00",
+      "seconds": 0.5217715140024666,
+      "status": "PASS",
+      "wire_refusals": 42,
+      "all_owned_jobs": "terminal synchronous only"
+    },
+    "whole_old_audit_outputs": [
+      {
+        "kind": "whole-old-audit-output",
+        "example": "stream-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "3811f442572790802bd51ad2c627f216cf03bfe31a7653db2f7f5c40f7f2d621",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "reference-bound-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "629a3fbcd0c85b4d65bf1844788ddf5de74d2987b52126f5ad7a755acfa31f0e",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "canonical-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "af5423dab7e8f89166351930e67db3ea2bef421892d57e96080bdc63820da35f",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "fixed-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "e108831c03b481f1fd2eab5b28b82f2de6ec94d311b9927f22b29bd68fe36703",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "pinned-raw-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "a058d1f23cc7bd27e24c72eb833d34722faa5ebb4f151d752fd127fad228ad7b",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "gp-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "8547338ec64a841d5c16657c63734abf7b545451af28483cecccc6561af50811",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "reconciliation-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "a72826beea4a755e0cbbb46bdf43b69ba1a948f6227bf59ff5757b363b0f3b62",
+        "status": "PASS"
+      },
+      {
+        "kind": "whole-old-audit-output",
+        "example": "sentinel-audit",
+        "builds": [
+          "baseline",
+          "core",
+          "native"
+        ],
+        "sha256": "d914d0a6073db513dbd6176e87ca687706fb075262c0a191abcd9a95de58f3d7",
+        "status": "PASS"
+      }
+    ],
+    "gofmt": "changed Go source clean"
+  },
+  "source_measurement": {
+    "production_go_files": 41,
+    "production_go_bytes": 489925,
+    "named_production_functions": 41,
+    "claim": "Capability growth. No reduction or retirement measured or awarded by this review."
+  },
+  "binaries": {
+    "core": "43bdffdd40fe983043d6a95f8d4b37fabcd5db6205af125b891945a0ff3ca1e7",
+    "native": "5f6f86ef193c04c39ea30f67cea80c219fa41b362b225c78d3e37ed1785f71d7",
+    "baseline": "2b3e393a3cf8eee4bfbc9257a298da1f4136b5563caa056068546bc6f02ee081"
+  },
+  "artifacts": {
+    "directory": "/var/tmp/dokapon-instruction-review-xt8aw8bh",
+    "manifest": "/var/tmp/dokapon-instruction-review-xt8aw8bh/artifact-manifest.json",
+    "sha256": "33b92e6249e1b6273a404e034372f155fe644d406dde97aa10fb19f02b4cee15",
+    "members": 110
+  },
+  "writes": "Owned /var/tmp review artifacts and this LIVE evidence file only. Candidate Go and accepted baseline were not edited; all supplied snapshot bindings reverified.",
+  "all_owned_jobs": "terminal. PTY sessions31691and11052reaped with exit0; remaining probes synchronous and exited0.",
+  "not_checked": "Full suite, fresh race run, nativefonts race, runtime/emulator/gameplay, actual CFG/reaching-def/use/liveness, general R5900 completeness, hostile concurrent input replacement and protected resources. Root race PASS is a separate receipt and is not claimed as reviewer execution.",
+  "risk": "Finite supported-selector facts and tests are not a complete decoder or graph proof. Missing/unsupported/control delay errors and unknown exits must remain explicit in future consumers."
+}

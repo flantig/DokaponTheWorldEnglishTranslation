@@ -1,0 +1,154 @@
+{
+  "status": "PASS in finite reviewed scope; no new finding",
+  "role": "Ordinary read-only independent review; findings/advice, not implementation or approval",
+  "sealed_at": "2026-10-21T04:44:53.144751+00:00",
+  "scope": "CONTACT SCORE POLICY: evaluated-unavailable versus missing detector result; existing contactSheets owner only. No family/migration/retirement or artwork approval.",
+  "candidate": {
+    "capsule": "/var/tmp/dokapon-contact-score-fix-uws1ri10/review-source/review-manifest.json",
+    "sha256": "7b653e002d0380aaa7480e293ff3eb9290f635be024471e426c6c55c8ed54279",
+    "members": 467,
+    "all_members_held": true,
+    "critical_live_source_runtime_count": 125,
+    "all_critical_live_pins_held": true,
+    "other_live_drift": [],
+    "reviewed_code": {
+      "texture_contacts.go": {
+        "bytes": 23604,
+        "sha256": "4b08bf6413d493d07dbe2b77c0ceceb632553e7e78989cd160aae3c289bdac71"
+      },
+      "texture_types.go": {
+        "bytes": 8394,
+        "sha256": "ded10e8d3cdc9ce35077e2d7298f905dc7f78a412e27e1655118f12a0378b6e6"
+      },
+      "patch_test.go": {
+        "bytes": 569118,
+        "sha256": "12d1beeae38ae11f5f63a3fe5c84ab547d8a9895a1f8208797775d113689a541"
+      },
+      "testdata/asset-contacts.zip": {
+        "bytes": 995102,
+        "sha256": "ab408bdbd0a0a9f30defd3b76af3b9d0159a9b92196dfca924f43df5b1d7492f"
+      }
+    }
+  },
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-pair-variants-jcbjiy4p/sealed-final/manifest.json",
+    "sha256": "03c47899d8aee685a523258df9055a8e580d998141118e4378c0040cb775274a",
+    "binary": "/var/tmp/dokapon-pair-variants-review-dpm9xw85/native",
+    "binary_sha256": "7823bb6068cea57912279d0b1fe3e7c72a1de77dc56fa2f1aaa75bc52806bfc2"
+  },
+  "source_evidence": {
+    "decision": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/project/analysis/asset-contact-score-policy-decision.json",
+      "sha256": "f2de8332f249a4e0dce6154add42626954f8721767832326402c0f7cbba5af7a"
+    },
+    "original_only_pack": "/var/tmp/dokapon-contact-score-status-e5tlj2kr",
+    "source_manifest_sha256": "fe6f7fc567917cf266ec705bb3692264203d50546cb4515428d9903140e7d685",
+    "source_members_verified": 30,
+    "facts_sha256": "b264c5e1b010b7459f0e0a056d9be841f0a7f9f78367b4ef01d6b40738201b99",
+    "timing": "Original-only score-status oracles frozen before candidate execution on new collections; existing contacts implementation predated them. Not labelled precode for contacts."
+  },
+  "findings": [],
+  "assessment": [
+    {
+      "lines": "texture_contacts.go:244-259,275-293",
+      "result": "Explicit discovery status, not Score pointer presence, now owns detector-presence semantics. Status/score consistency still refuses contradictory imports. UI/icons evaluated failures remain eligible; model nil-score path is safe and name-hint/EVENT selection remains independent."
+    },
+    {
+      "lines": "texture_contacts.go:385-391,478-481; texture_types.go:106-114",
+      "result": "Negative fallback is presentation only: original -1 glyph/0line appears in labels and CSV for evaluated unavailable preview rows. No negative measured score or fabricated native Header is introduced; not_evaluated stays nil/blank and missing image rows remain blank."
+    },
+    {
+      "lines": "texture_contacts.go:445-476",
+      "result": "Existing source-order link propagation retained: missing-detector row with declared equal pixel hash can inherit duplicate-page link; absent hash stays blank. Source records without a raster remain represented. Source decoder, renderer, writer and inspectRaster are unchanged."
+    },
+    {
+      "result": "The small cohesive enhancement fits existing contactSheets responsibility. New status switch and nil-safe local detectedText are clearer than conflating nil with detector absence; no function/helper/dependency growth is needed."
+    }
+  ],
+  "checks": {
+    "native_complete_CLI": {
+      "command": "GOMAXPROCS=2 nice -n 19 go test -tags nativefonts -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "package_seconds": 17.971,
+      "wall_seconds": 23.999,
+      "exit": 0
+    },
+    "core_complete_CLI": {
+      "command": "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run ^TestCLIDryRunAndApply$ .",
+      "package_seconds": 17.349,
+      "wall_seconds": 22.755,
+      "exit": 0
+    },
+    "build_vet": "Own native and CGO_ENABLED=0 builds and vet PASS; commands/environment in checks.json.",
+    "hygiene": "All Go gofmt, scoped whitespace and selfchecked POSIX credential scan PASS.",
+    "original_positive_control": "Independent bridge built from pinned original source rows/CSV/detector facts, not Go inspectRaster. Four complete RGB pages byte-match frozen raw originals; missing-detector control has zero pages. Dry/apply bundle hash, repeat determinism, contained ZIP members, exclusive output and source/font/profile bytes/inodes/mtimes verified.",
+    "source_bridge_views": "Headerless first row remains header:null, decoded_geometry:[9,8], CSV depth0; other source-authored headers retained. Status decoded, ZIP-relative paths and LF CSV are explicit new views, not all historical serialization parity. Scores remain null in JSON: evaluated failure unavailable; missing record not_evaluated.",
+    "extra_edges": "Independent7-row matrix covers unavailable UI, missing-detector duplicate link with hash, missing-detector nohash blank, unavailable model/nohint nogroup, missing-detector EVENT/hint skipped, missing decoded image and missing raster record. Literal CSV/status/page expectations pass; all input identities preserved.",
+    "refusals": "5 independently generated contradictory/unknown status-score combinations refuse with empty stdout and no output, including a negative sentinel supplied as a scored record.",
+    "old_behavior": "20 complete legacy stdout/stderr/exit captures and39 complete prior checker/flat/weekday captures match accepted pair binary; success public examples resolve. Existing focused native CLI independently checks11scenarios64rows20wholepages plus pair and capacity fixtures.",
+    "jobs_terminal": true
+  },
+  "setup_correction": {
+    "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/attempt1-fixture-error/disposition.json",
+    "detail": "Initial private no-group model control incorrectly used EVENT/event\\bg, which correctly qualifies for D. Corrected intended control to BATTLE/battle\\player. No production failure/fix; original4page+missingcontrol outputs already passed and first attempt retained."
+  },
+  "limits": [
+    "No full suite, race or independent Golden run in this review; root owns those separate receipts. Focused complete CLI/build/vet only.",
+    "Odd9x8 source fixture proves original successful six-field failure policy. Sub8 original incomplete-tuple pipeline bugs are not claimed as successful legacy outputs.",
+    "Native text results apply to current Linux CGO libraries and finite pinned font/cases; no cross-platform or arbitrary-font equivalence claim.",
+    "No complete historical CSV/JSON/CLI spelling parity, native archive/placement/visual verification or broader family promotion follows from these synthetic literal-source collections.",
+    "The reproduced nil-score eligibility gap is corrected in the reviewed finite semantics; this does not establish every possible detector/consumer behavior."
+  ],
+  "private_work": "/var/tmp/dokapon-contact-score-review-2a_je_ub",
+  "artifacts": {
+    "pins-before.json": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/pins-before.json",
+      "bytes": 73061,
+      "sha256": "db7bc3943372a5476cbfab57f2ec64dba8368aa0137507046a3264d0aae8caae"
+    },
+    "pins-final.json": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/pins-final.json",
+      "bytes": 18694,
+      "sha256": "100a10c66510a06e2f1772fd9c2960ec11a50f1d1b6afb0d00f1c147d277be19"
+    },
+    "checks.json": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/checks.json",
+      "bytes": 3067,
+      "sha256": "5fbe94b78a37695a1fd70ee6bac13556e8abd430be2baa8e0046b628806dbd92"
+    },
+    "probes.py": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/probes.py",
+      "bytes": 10962,
+      "sha256": "84062809ccf9ef86ddb50d3a55e46bb68a573a5f5173f4c5432180ae6690eb16"
+    },
+    "probes.json": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/probes.json",
+      "bytes": 13039,
+      "sha256": "2c8bb6c9849a754736e9dc3a94693e96ae557518d32d5731873aeebdffcdf8af"
+    },
+    "hygiene.json": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/hygiene.json",
+      "bytes": 480,
+      "sha256": "a6048ed5c3250064a67b0076102f9a70ad44ebaeadb33766ffcd6c5762f18e11"
+    },
+    "attempt1-fixture-error/disposition.json": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/attempt1-fixture-error/disposition.json",
+      "bytes": 451,
+      "sha256": "ed67ac49bb8934ca581f85d346d2c51272637270c3500c79b62604c9ecebed40"
+    },
+    "attempt1-fixture-error/probes-initial.py": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/attempt1-fixture-error/probes-initial.py",
+      "bytes": 10892,
+      "sha256": "e9d5402ac106d5f78b605c20aaf532c6411279fa9eb4e56784db1c5a0eaa18db"
+    },
+    "native": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/native",
+      "bytes": 8007560,
+      "sha256": "3f4897fc7aa98fbee65873327a3eeb4ed06f5517672ef653f5f8531c49a2d3bf"
+    },
+    "core": {
+      "path": "/var/tmp/dokapon-contact-score-review-2a_je_ub/core",
+      "bytes": 8086917,
+      "sha256": "194c48e95b74619e83827310cd567a9738cdeb201ba2a60235c7e532e8929935"
+    }
+  }
+}

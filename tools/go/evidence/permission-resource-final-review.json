@@ -1,0 +1,163 @@
+{
+  "all_owned_jobs_terminal": true,
+  "allowed_live_write": "evidence/permission-resource-final-review.json only",
+  "at": "2026-11-05T00:09:45.650411+00:00",
+  "candidate_and_source_pins": [
+    {
+      "kind": "candidate",
+      "manifest": "/var/tmp/dokapon-rounded-permission-jtbvggtz/final-review-source-manifest.json",
+      "members_verified": 671,
+      "sha256": "3a884b5e567e58075a9edb0aee1cea53f5b90642718ed74cc9ddf4f7f3ab0dfb"
+    },
+    {
+      "kind": "precode source",
+      "manifest": "/var/tmp/dokapon-raster06-source-vNHIU7Ur/manifest.json",
+      "members_verified": 67,
+      "sha256": "976326c4deb9193e2e0c5ecdd513fff468bf66571773447257dfe198e535bc14"
+    },
+    {
+      "kind": "precode roadmap",
+      "manifest": "/var/tmp/dokapon-raster06-roadmap-CK1nhclE/manifest.json",
+      "members_verified": 7,
+      "sha256": "59437ab8797970e903d3d2a5f03ca2af4c5acdf059806af9baacec10ddb89727"
+    }
+  ],
+  "closed_findings": [
+    {
+      "file": "texture_authoring.go",
+      "fix": "Existing root checkJSON now validates canonical render ownership and duplicate keys before the raw-field map and decoded Render pointer are used. Raw permissions key/null validation runs independently of that pointer.",
+      "id": "PRM-WIRE-SHADOW-1",
+      "line": 47,
+      "proof": "Both exact historical bypass requests now refuse with empty stdout and no apply output. Twelve additional root duplicate/case/escaped-render variants across null/real resources and authoring/inventory also refuse. Canonical null, missing reconstruction, Unicode resource alias and nested duplicate/null requests refuse.",
+      "source_unchanged": true,
+      "status": "CLOSED"
+    },
+    {
+      "file": "README.md",
+      "id": "PRM-DOC-1",
+      "line": 165,
+      "proof": "The final frozen README correctly describes resource-versus-inline exclusivity, relative path, exact size/SHA1MiB cap and local erases.",
+      "sha256": "e9beb215962c570bccd02f8ccdc0bb9c88c2c73119db4a1b280df5d635804c93",
+      "status": "CLOSED"
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-run",
+        "^(TestPlanAndCopy|TestCLIDryRunAndApply)$",
+        "-count=1",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 30.006738424301147
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-permissions-final-review-8l84ck4t/dokapon-core",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.24599337577819824
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.40668225288391113
+    },
+    {
+      "command": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-permissions-final-review-8l84ck4t/dokapon-nativefonts",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 2.2988686561584473
+    },
+    {
+      "command": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "./..."
+      ],
+      "exit": 0,
+      "seconds": 0.8279135227203369
+    }
+  ],
+  "findings": [],
+  "initial_review_preserved": {
+    "artifact_sha256": "9380f00bac0795ba14e87983b5d27ec66cb06bf978256f6bf4c1d2614a45317d",
+    "artifacts": "/var/tmp/dokapon-permissions-review-5axbih2u/artifact-manifest.json",
+    "report": "/home/franklinl/Documents/Dokapon World Mod/tools/go/evidence/permission-resource-review.json",
+    "sha256": "0ec6987b4e7f8b5c59d2af4bcc8f08963b24a3c18d053170a3d43086772a3f14"
+  },
+  "kind": "independent-read-only-permission-resource-final-review",
+  "limitations": [
+    "Focused checks are not the full suite. Root race results are separate and not claimed here.",
+    "No native-font race, gameplay or visual/artwork approval.",
+    "No hostile atomic filesystem replacement guarantee; known FIFO refusal uses existing shared readInput guards.",
+    "No protected original/shipping/custom-art ISO, canonical registry, owner emulator/probe/processes/auth/settings/logs accessed.",
+    "Review supplies findings and closure evidence only, no approval, patch authority or migration coverage credit."
+  ],
+  "own_checks": {
+    "actual_nativefonts_build": "PASS",
+    "actual_nativefonts_vet": "PASS",
+    "all_owned_jobs_terminal": true,
+    "core_build": "PASS",
+    "core_nativefonts_whole_reports_equal": true,
+    "core_vet": "PASS",
+    "fixed_mask": {
+      "permitted_pixels": 80254,
+      "rectangles": 13,
+      "sha256": "e20ea6eb649851a641193bdd99d206b71b9899e957222aab9cc86ebdd76d733b"
+    },
+    "fixed_mask_equals_independent_source_and_ZIP": true,
+    "focused_tests": "TestPlanAndCopy andTestCLIDryRunAndApply PASS30.006738424s",
+    "gofmt_scoped_files": "PASS",
+    "independent_CLI_probes": 36,
+    "inline_empty_geometry_conflicts_refuse": true,
+    "loaded_file_1MiB_positive_plus1_refusal": true,
+    "loaded_region_64_positive_65_refusal": true,
+    "old_parity_binary_production_Go_module_and_embed_data_equal_accepted665": true,
+    "source_bytes_preserved": true,
+    "two_inline_absent_option_whole_stdout_parities": true,
+    "two_shared_artifacts_exact_preexisting_native_goldens": true
+  },
+  "owner_review": {
+    "accounting": "Fixed13rectangle data exactly represents80254source mask pixels. It does not implement a general rounded-rectangle primitive, integrate11art profiles, or establish full raster.06/family/retirement/reduction credit.",
+    "callers": "authorTexture runtimecaller main.run; RasterRender existing TextureProfile binding; composeCells runtimecaller authorTexture plus established focused/golden test owners. All acquisition and guard changes stay in the existing resource owner.",
+    "ordering_and_safety": "Every new resource and wire refusal happens before composition/publication. Loaded geometry still passes existing64region count, native rectangle intersection, pixel containment, text leak and ordered-step checks. Root duplicates/case aliases now refuse intentionally; valid absent-option reports remain byte identical in the two independent native cases.",
+    "reuse": "No production function/type/helper added. RegistryInput, readInput, checkJSON, composeCells and native publisher are reused. Loaded permission facts only replace inline geometry after exclusive-form validation; there is no recursive include, local erase loading, override or merge engine.",
+    "serena_session": "e392a2e9"
+  },
+  "reviewer": "/root/reference_owner_review",
+  "schema_version": 1,
+  "status": "PRM-WIRE-SHADOW-1_CLOSED_NO_NEW_CONFIRMED_FINDINGS",
+  "what_this_change_does": "Loads shared fixed rectangle facts through the existing RasterRender resource owner and authorTexture acquisition/guard/report path. The compositor, native kernel, source masks, local erase operations and exclusive publisher remain unchanged.",
+  "workspace": "/var/tmp/dokapon-permissions-final-review-8l84ck4t"
+}

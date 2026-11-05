@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-21T16:40:11.107619+00:00",
+  "status": "READ_ONLY_REVIEW_NO_MATERIAL_FINDINGS",
+  "findings": [],
+  "candidate": {
+    "directory": "/var/tmp/dokapon-raw-compatibility-data-88etrxn9/review-source-final",
+    "manifest_sha256": "6ed816bd8911127a6e359b55b94c5c91761aa07e190eeaddf35caebd62449bb5",
+    "members": 571,
+    "all_pins_before_after": "PASS immutable0400singlelinkcontained+ownedcopy"
+  },
+  "baseline": {
+    "directory": "/var/tmp/dokapon-pinned-raw-dx_pdq9c/sealed-final",
+    "manifest_sha256": "90344bba9467f610a207146d15ce671a2675e87ddd48152d27ed1a1643c507e1"
+  },
+  "change_scope": "All39 production Go files and all runtime bytes held. Only executable Go delta is1179B in existing TestCLIDryRunAndApply; fixture appends315908B of source-normalized data. Other changed members are accounting/frontier/Astra evidence, not runtime capability.",
+  "review": [
+    {
+      "source": "patch_test.go:6406",
+      "assessment": "The data-driven33specimen loop is useful finite regression evidence for the already accepted shared decoder. It asserts complete token serialization, blocked_pinned_reader, original span preservation and policy preservation. No new function/helper/closure/testowner is needed."
+    },
+    {
+      "source": "testdata/pinned-raw-audit.json:compatibility_cases",
+      "assessment": "All33specimens are uniquely named and joined in source order to original span bytes, fullSHA/count/end/roles policy and every normalized token field. Existing fixture keys/values remain identical; prior positive/refusal coverage is retained."
+    },
+    {
+      "source": "analysis/raw-reader-compatibility-frontier.json",
+      "assessment": "Only source-supported kind labels change:45 matrix4800 pen0\u2192rawarg and6 status069 B000/D800 param8/null\u2192rawarg. Words, offsets and payloads are unchanged. The remaining cohorts preserve tokenkind parity. No new parser or global inline8 reinterpretation was introduced."
+    }
+  ],
+  "oracles": {
+    "source_pack_manifest_sha256": "53afdd50fcd889c169157632d74c57826e241073e093b749a2f49adf98c44e8c",
+    "source_pack_members": 42,
+    "source_pack_bytes": 777827,
+    "fixture_sha256": "31375539c2046c0fbe8e8f7ba5b0515bef12107138496766c9d312a21255bf2e",
+    "positive_scope": "31frozen native sides+2literal EN shape cases; matrix/069 literal EN are not native landings.",
+    "independent_checks": "All42pack pins verified,33fullpolicy/token joins, original selected helper replay33positives+21originalrefusals and genuine inline8 payload counterexample PASS. No original main/module import.",
+    "qualification": "The21original refusals are original replay facts, not proof the generic decoder reproduces every cohort-specific ID/count/caller/coordinate restriction or historical acceptance set."
+  },
+  "checks": [
+    {
+      "command": "CGO_ENABLED=0 GOMAXPROCS=2 nice -n 19 go test -count=1 -p 2 -run '^TestCLIDryRunAndApply$' .",
+      "result": "PASS14.935s; ownedTMP/GOTMP,GOMAX2,nice19"
+    },
+    {
+      "command": "core build/vet",
+      "result": "both exit0"
+    },
+    {
+      "command": "sourcepack verify.py in contained owned copy",
+      "result": "33original/sharedcontract pairs,21originalrefusals,genuineinline8 PASS"
+    },
+    {
+      "command": "independent verify-oracles.py",
+      "result": "33unique complete joins,only documented label normalizations,all old fixture fields unchanged PASS"
+    },
+    {
+      "command": "gofmtallGo/scopedwhitespace/POSIXcredentials",
+      "result": "PASS;2positive nonsecretcontrols,0matches"
+    }
+  ],
+  "accounting": {
+    "production_go_files": 39,
+    "production_go_bytes": 451271,
+    "named_declarations": 41,
+    "production_runtime_growth": 0,
+    "test_growth_bytes": 1179,
+    "fixture_growth_bytes": 315908
+  },
+  "artifacts": {
+    "root": "/var/tmp/dokapon-raw-compat-review-7a7_opw1",
+    "manifest": "/var/tmp/dokapon-raw-compat-review-7a7_opw1/artifact-manifest.json",
+    "manifest_sha256": "5ed04efefadcacbe6ff84b722d2bcd107aef57d1b0434fa652841bc1006b2b37",
+    "members": 629,
+    "checks_sha256": "5e62b5d737ce603203e77a96c03400153621399f4e8955d8b1cc6b574d6eff26",
+    "oracle_join_sha256": "251e1b85f551ff6a22e810d606ccef4de52036799141c2ca1c11fdedea2fea30",
+    "contents": "All571reviewedmembers,42originalpackmembers,fullsourcejoin/replay scripts+logs,pins,diff,ownedbuild"
+  },
+  "limits": [
+    "Test/data-only finite compatibility evidence, not production capability growth or caller/ABI/runtime/write/formatting/reader-selection completeness. No criterion/family/script-retirement/reduction credit or approval.",
+    "Focused completeCLI/corebuild/vet only; no fullsuite/race/native replay. Root runs not counted as own.",
+    "No protected resources or implementation edits. All own jobs terminal."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-20T21:20:23.854156+00:00",
+  "status": "DESIGN before implementation",
+  "responsibility": "Ordered flat registry CSV projection; JSON preview/publication receipt, exclusive new output on apply. Not disc truth or full glossary/flow STATUS report.",
+  "existing_candidates": {
+    "authorRegistry": "Already owns source-pinned raw JSON entries, normalized IDs, key ambiguity/Unicode guards and exclusive derived output lifecycle. Enhance it with CSV serialization, share existing publisher/receipt instead of new report function.",
+    "run": "Extend existing registry dispatch and raw recipe retention.",
+    "writeNewFile": "Existing verified exclusive publisher used unchanged; no formatter-specific writer.",
+    "encoding/csv.Writer": "Considered official installed Go implementation. UseCRLF modifies embedded newlines/drops CR; default quoting also differs for leading whitespace/backslash-dot. Exact historical CSV requires a small in-owner comma/quote/CRLF loop, not another parser or helper.",
+    "Recipe.Values/RegistryUpdates": "Unordered or mutation-specific fields cannot reasonably represent ordered projection columns; one RegistryColumns []string field is a direct data contract.",
+    "TestCLIDryRunAndApply": "Extend existing body and closures with independent precode fixtures; no new helper/test/closure."
+  },
+  "new_functions_helpers_closures_types_dependencies_writers": 0,
+  "affected_owners": [
+    "Recipes field",
+    "run dispatch/raw recipe",
+    "authorRegistry profile/scalar validation/Unicode/serialization/shared publication",
+    "plan/planBundle/references foreign-field guards; inspect strict font/layout schemas",
+    "existing CLI test/fixtures",
+    "README/MIGRATION/ARCHITECTURE/coverage/accounting"
+  ],
+  "domain": "Selected strings/null/missing and JSON integers/booleans; preserve historical false/integer0 empty-cell and true True spelling. Arbitrary-precision integers, source spelling of IDs and numeric row order. Selected floats/arrays/objects refuse explicitly; unselected opaque metadata ignored. Columns are unique ordered names in separate recipe data."
+}

@@ -1,0 +1,41 @@
+{
+  "status": "PRECODE_ISOLATED_FEASIBILITY_PROBE",
+  "at": "2026-10-21T02:45:36.499010+00:00",
+  "work_directory": "/var/tmp/dokapon-font-prototype-vsbilnix",
+  "contract": "analysis/asset-font-backend-contract.json",
+  "original_members_verified": 191,
+  "original_manifest_sha256": "d80b893022bb516a4fb14efb7f5eacef6215e02646c4ebc21add911b22d64bf6",
+  "inspected": {
+    "Serena_session": "321e7af4",
+    "symbols": [
+      "renderRuns",
+      "composeCells",
+      "manifestTextures",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "references": {
+      "composeCells": "authorTexture + existing CLI/Golden tests",
+      "manifestTextures": "authorTexture manifest dispatch",
+      "renderRuns": "composeCells + Golden tests"
+    }
+  },
+  "reuse_decision": {
+    "renderRuns": "Native bitmap atlas, optical4x and fixed metrics cannot express contextual TrueType shaping/hinting. Adding fontbackend mode would mix unrelated design decisions. Preserve existing pipeline.",
+    "composeCells": "Reuse composition when coverage exists; does not own font parsing/shaping.",
+    "manifestTextures": "Retains grouping/order/page/link/publication; not an appropriate native font engine owner.",
+    "resizeRaster_pixelOver": "Retain existing scaling/tint owners.",
+    "new_boundary": "One textMasks function: pinned font bytes+size+layout+label list -> Gray masks/bearings/advances. No per-font/script helper functions; C API directly through cgo, no new C function.",
+    "test_owner": "Existing TestPilotHistoricalGoldenBytes body enhanced in isolated harness; keep same existing test function, no new test function/closure."
+  },
+  "scope": [
+    "Only owned /var/tmp prototype and this decision/state; production unchanged",
+    "Installed FreeType+Raqm runtime linked with pinned public header; no installs",
+    "No Python runtime bridge, hostfont search, per-label assets or Unicode narrowing",
+    "Before production design must pass original vectors and build/runtime portability assessment"
+  ],
+  "sources": [
+    "https://freetype.org/freetype2/docs/reference/ft2-sizing_and_scaling.html#ft_request_size",
+    "frozen Pillow12.3 _imagingft.c + Raqm/HB source in verified private pack"
+  ],
+  "limitations": "Prototype feasibility only, no migration credit, production integration, current-mod or gameplay proof."
+}

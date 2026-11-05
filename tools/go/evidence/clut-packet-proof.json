@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-19T21:28:36.414468+00:00",
+  "status": "VERIFIED shared native CLUT upload position support",
+  "change": "Existing standard packet loop derives destinationY64 only for validated128x128PSMT8/TBW2/paletteBase64 mode. Other calibrated uploads still requireY0, pixel positions always0. Exact setup/register/count/direction/footprint/metadata/mask/quantization guards preserved. No newfunction/schema/handler/asset-nameexception or writer.",
+  "evidence": {
+    "analysis/clut-loader-binding-contract.json": "1b74c2d0b44e999b3e46f75f320e851fa3b48dcb5007bdea2c159873b400f678",
+    "analysis/clut-packet-reuse-decision.json": "4feef1423cdae8207df128e294e1f1be88f1b9091caff36edbe39cdd8fa4ae7f",
+    "evidence/clut-packet-review.json": "500499e99056fb9dd85c2397c81f649e4f76f4c16fc70152f39855340cffa211",
+    "evidence/clut-packet-review.md": "b15872e1c0f9d9b5d77f24b8a6ef1b1c8deb234cdac6164af9896326a45047c9",
+    "evidence/clut-packet-checks.json": "76f0273512741703762b0b378a49291d43c8b97fd5a338fa0875cac83665c6e8",
+    "testdata/textures.json": "5de2ece5986fabd873f478cf0d42b9f860c9c7271956ade5456e60e129fc743d",
+    "analysis/go-current-input-accounting.json": "0b252f6aa39a3734e34fa127379f9ebc7dcd58ec115e8974c43b42780495754d"
+  },
+  "native_basis": "Pinned current ELF member and12native spans reverified by root/reviewer. Registered v2/default-cache loader reuses pixel BITBLTBUF;CLUT(0,64) addresses exactly sampledCBP=base+64 without palette/index reordering.",
+  "verification": {
+    "root_race": "PASS20.940s",
+    "independent_race": "PASS22.264s",
+    "vet_build_gofmt_scoped": "PASS root and independent",
+    "fresh_corpus": {
+      "cases": 227,
+      "accepted": 227,
+      "held": 0,
+      "oracle_sha256": "6b08f10d1af8ff1f1edbf434710a89332ec1a99ec05b68fd5f77381c147c13c8",
+      "checks": "EveryRGBA/noopTXD/onepixelTXD+readback vs frozen independent Python oracle; inputs preserved. Fresh overlays use current tests."
+    },
+    "permanent_goldens": {
+      "cases": 12,
+      "old10unchanged": true,
+      "new_cases": 2,
+      "new_edit_changed_bytes_each": 1,
+      "new_packet_mutations": 24
+    },
+    "root_actual_CLI": {
+      "positive": 10,
+      "malformed": 32,
+      "overwrite": 2,
+      "source_preservation": true
+    },
+    "independent_CLI": {
+      "positive": 8,
+      "malformed": 70,
+      "direct_malformed": 35,
+      "source_profile_preservation": true
+    }
+  },
+  "cost": {
+    "production_bytes_added": 228,
+    "production_lines_added": 5,
+    "test_bytes_added": 514,
+    "fixture_bytes_added": 1385,
+    "new_named_functions": 0,
+    "new_runtime_recipe_or_profile_files": 0,
+    "current_native_files": 74,
+    "current_native_bytes": 629135,
+    "with3ZIP_files": 77,
+    "with3ZIP_bytes": 11942225,
+    "including20executed_inputs_files": 97,
+    "including20executed_inputs_bytes": 12480244,
+    "qualification": "Capability growth, no net reduction claim. Tests/fixtures/evidence/history separate."
+  },
+  "coverage": "All227surveyed changed-asset rasters supported; broader texture-codec family remains partial. Workflow-family metric remains2/14=14.3%; no script path/visual/gameplay/retirement credit.",
+  "limits": [
+    "Static normal native v2/cache binding only; no arbitrary callbacks/runtime reconfiguration/all-indirect-callgraph claim.",
+    "Other layouts, colored direct atlases, palette replacement and mipmaps remain outside calibrated support.",
+    "No actual ISO writes or owner-art/registry/emulator/process changes; standalone synthetic artifacts only.",
+    "Historical225/2proofs remain exact historical outputs, not retroactively relabeled. Broad legacy Python suite remains failed; no new clean-suite claim."
+  ]
+}

@@ -1,0 +1,467 @@
+{
+  "schema": "ttf-styled-prototype-contract-v1",
+  "status": "ORIGINAL-ONLY source/pixel oracle; no implementation or approval",
+  "at": "2026-10-21T05:14:41.242875+00:00",
+  "source_target": {
+    "provider": "../make_explainer_png.py",
+    "provider_sha256": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "spec": "../../generated/explainer-specs/batch_b_tutorial.json",
+    "spec_sha256": "1992b7a37a7d24fea92d6b0bddcf239ade252728e8be02ec172049342334f6d4",
+    "texture": "help_illust00",
+    "operation_index_zero_based": 8,
+    "operation": {
+      "op": "lines",
+      "box": [
+        125,
+        84,
+        384,
+        26
+      ],
+      "lines": [
+        "Each day, everyone takes {g:1 turn} in order."
+      ],
+      "px": 19,
+      "font": "ExtraBold",
+      "align": "center",
+      "color": "ink",
+      "min_px": 10,
+      "valign": "middle"
+    },
+    "authored_colors": {
+      "cream": [
+        254,
+        230,
+        154
+      ],
+      "panel": [
+        244,
+        195,
+        110
+      ],
+      "black": [
+        0,
+        0,
+        0
+      ],
+      "white": [
+        255,
+        255,
+        255
+      ],
+      "g": [
+        49,
+        137,
+        24
+      ],
+      "r": [
+        209,
+        31,
+        31
+      ],
+      "b": [
+        18,
+        54,
+        173
+      ],
+      "p": [
+        147,
+        74,
+        213
+      ],
+      "stamp": [
+        214,
+        0,
+        0
+      ],
+      "stamp_fill": [
+        253,
+        207,
+        92
+      ],
+      "atk": [
+        253,
+        0,
+        0
+      ],
+      "def": [
+        2,
+        125,
+        253
+      ],
+      "ink": [
+        7,
+        5,
+        4
+      ],
+      "pill": [
+        255,
+        240,
+        190
+      ]
+    },
+    "resolved_runs": [
+      {
+        "text": "Each day, everyone takes ",
+        "fill": [
+          7,
+          5,
+          4,
+          255
+        ],
+        "getlength": 835.1875,
+        "separate_character_getlength": 838.453125
+      },
+      {
+        "text": "1 turn",
+        "fill": [
+          49,
+          137,
+          24,
+          255
+        ],
+        "getlength": 196.4375,
+        "separate_character_getlength": 196.4375
+      },
+      {
+        "text": " in order.",
+        "fill": [
+          7,
+          5,
+          4,
+          255
+        ],
+        "getlength": 285.671875,
+        "separate_character_getlength": 294.9375
+      }
+    ],
+    "ownership": "Actual authored operation and color map retained exactly. Private normalized-input.json is a semantic bridge, not final Go TTF schema. No white/default-color substitution."
+  },
+  "font": {
+    "filename": "NotoSans-CondensedExtraBold.ttf",
+    "bytes": 623368,
+    "sha256": "e8411ed0b4635955dcaf8a237930c14f391fb1cd248544131a7dda138e71e197",
+    "name": [
+      "Noto Sans",
+      "Condensed ExtraBold"
+    ],
+    "version": "2.015; ttfautohint(v1.8.4.7-5d5b)",
+    "license": "SIL Open Font License1.1; Copyright2022 The Noto Project Authors",
+    "license_file": "Noto-OFL-1.1.txt",
+    "license_sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+    "primary_license_url": "https://raw.githubusercontent.com/notofonts/latin-greek-cyrillic/main/OFL.txt",
+    "source_selection": "Original get_font ExtraBold -> NotoSans-CondensedExtraBold.ttf, ImageFont.truetype default RAQM in frozen environment. Private FONT_DIR redirected to identical pinned copy; no dynamic hostfont fallback.",
+    "notices": "Correct primary OFL from prior license supplement, not unrelated installed common-package Apache2notice."
+  },
+  "literal_input": {
+    "canvas": [
+      512,
+      512
+    ],
+    "base_rgba": [
+      244,
+      195,
+      110,
+      255
+    ],
+    "sourcefitbox": [
+      125,
+      84,
+      384,
+      26
+    ],
+    "approved_parent_xywh": [
+      121,
+      72,
+      388,
+      70
+    ],
+    "qualification": "Literal panel, not actual sourceart/native-placement or visual approval. Parent allowedrect from exactsource texturedata; fitbox is not used as silentclip."
+  },
+  "independent_method": {
+    "selection": "AST-select original imports/assignments/classes/functions; exclude module main and project imports. Execute original definitions and original op_lines on literal panel. No ISO/art/projectmain/Go/candidate execution.",
+    "instrumentation": [
+      "measure: assign originalreturnexpression tovalue, append trace, returnunchangedvalue",
+      "text_layer: immediatelybeforeoriginalreturn copy gm/cm/out/geo/adv/metrics",
+      "place: immediatelybeforeoriginalreturn copy postarea small/fullplaced/quantizedimage/geo"
+    ],
+    "source_preserved": "Unmodified original source plus selected AST and separate instrumented AST frozen. No original computation/rounding expression changed; captures copy arrays/return values only.",
+    "crosscheck": "Uninstrumented and instrumented selected-original runs produce identical complete candidate RGBA bytes. No native renderer or Go output supplies any expectedpixel.",
+    "capture_timing": "Expected stages frozen at 2026-10-21T05:13:15.897073+00:00; root requested before TTF candidate. Worker never executed a candidate. Existing native/icon implementation and its acceptance are separate.",
+    "boundary": "Entire512²input is literal opaque panel; no claim of actual help00 source artwork, native texture layout/placement, or wholeTXD encoder oracle."
+  },
+  "fit_and_geometry": {
+    "requested_px": 19,
+    "min_px": 10,
+    "chosen_px": 19,
+    "measure_trace": [
+      {
+        "px": 19,
+        "width": 329.32421875,
+        "runs": [
+          [
+            "Each day, everyone takes ",
+            [
+              7,
+              5,
+              4,
+              255
+            ]
+          ],
+          [
+            "1 turn",
+            [
+              49,
+              137,
+              24,
+              255
+            ]
+          ],
+          [
+            " in order.",
+            [
+              7,
+              5,
+              4,
+              255
+            ]
+          ]
+        ]
+      }
+    ],
+    "reason": "Only requested19 tested: measured329.32421875<=declared384 and defaultleading23.75*1<=height26+.01, so original fits without shrinking. Quarterstep loop semantics are preserved, but this actual case is not a shrink-path oracle.",
+    "font": {
+      "actual_font_pixels": 76,
+      "getmetrics": [
+        82,
+        23
+      ],
+      "getbbox_H_ls": [
+        0,
+        -55,
+        49,
+        0
+      ],
+      "font_name": [
+        "Noto Sans",
+        "Condensed ExtraBold"
+      ],
+      "runs": [
+        {
+          "text": "Each day, everyone takes ",
+          "fill": [
+            7,
+            5,
+            4,
+            255
+          ],
+          "getlength": 835.1875,
+          "separate_character_getlength": 838.453125
+        },
+        {
+          "text": "1 turn",
+          "fill": [
+            49,
+            137,
+            24,
+            255
+          ],
+          "getlength": 196.4375,
+          "separate_character_getlength": 196.4375
+        },
+        {
+          "text": " in order.",
+          "fill": [
+            7,
+            5,
+            4,
+            255
+          ],
+          "getlength": 285.671875,
+          "separate_character_getlength": 294.9375
+        }
+      ]
+    },
+    "run_advances_supersample": [
+      835.1875,
+      196.4375,
+      285.671875
+    ],
+    "geometry": {
+      "cw": 1373,
+      "ch": 161,
+      "base": 110,
+      "pad": 28,
+      "tw": 1317.296875,
+      "cap": 55,
+      "sx": 1.0,
+      "sy": 1.0,
+      "skew": 0.0,
+      "ox": 145,
+      "oy": 76
+    },
+    "area_word_shape": [
+      41,
+      344,
+      4
+    ],
+    "canvas_shape": [
+      512,
+      512,
+      4
+    ],
+    "source_alignment": "Original one-line group center anchor(317,97), defaultleading23.75, valignmiddle, cap-centered placement. Rounded word origin(145,76), not bodyRect origin."
+  },
+  "stage_oracles": {
+    "glyph4x": {
+      "path": "glyph4x.u8",
+      "shape": [
+        161,
+        1373
+      ],
+      "dtype": "u8",
+      "bytes": 221053,
+      "sha256": "32f355ab810b456d0cba77e109240deb405ce0892b9d0b4160e83fb0e99b73d1"
+    },
+    "color4x": {
+      "path": "color4x.u8",
+      "shape": [
+        161,
+        1373,
+        4
+      ],
+      "dtype": "u8",
+      "bytes": 884212,
+      "sha256": "1d45a20eb645ea2b60908e8e5c63233b795a07b6611adb3c2a122e7d386e8445"
+    },
+    "styled4x": {
+      "path": "styled4x.f32le",
+      "shape": [
+        161,
+        1373,
+        4
+      ],
+      "dtype": "f32le",
+      "bytes": 3536848,
+      "sha256": "8474f36a4c0e7d2df6bf072bc877b2be25b999f91f0fbdd1fdd005c5b541e12b"
+    },
+    "quantized4x": {
+      "path": "quantized4x.u8",
+      "shape": [
+        161,
+        1373,
+        4
+      ],
+      "dtype": "u8",
+      "bytes": 884212,
+      "sha256": "a1ad491b8c27f2e65c6abda8754ec6da8761761e45fb9ac6ec79d486215b3486"
+    },
+    "word-area": {
+      "path": "word-area.f32le",
+      "shape": [
+        41,
+        344,
+        4
+      ],
+      "dtype": "f32le",
+      "bytes": 225664,
+      "sha256": "d200d5d9afc48fdd93787bc2e75389e545edc370e955df3f091c3e9ba43afaba"
+    },
+    "placed-layer": {
+      "path": "placed-layer.f32le",
+      "shape": [
+        512,
+        512,
+        4
+      ],
+      "dtype": "f32le",
+      "bytes": 4194304,
+      "sha256": "83209363be34b1470a3b39daeee0c25e930703a0c330125b9596d173bcd60fe0"
+    },
+    "candidate": {
+      "path": "candidate.u8",
+      "shape": [
+        512,
+        512,
+        4
+      ],
+      "dtype": "u8",
+      "bytes": 1048576,
+      "sha256": "57167614da0568ecceb77504c427c803e33ed2fae9e44b19f22cad41c938c2f6"
+    },
+    "changed_bbox": [
+      153,
+      88,
+      481,
+      108
+    ],
+    "raw_alpha_bbox": [
+      153,
+      88,
+      481,
+      108
+    ]
+  },
+  "containment": {
+    "approved_parent_xywh": [
+      121,
+      72,
+      388,
+      70
+    ],
+    "source_fit_box_xywh": [
+      125,
+      84,
+      384,
+      26
+    ],
+    "changed_pixels": 2766,
+    "raw_alpha_positive_pixels": 2783,
+    "changed_bbox_half_open": [
+      153,
+      88,
+      481,
+      108
+    ],
+    "raw_alpha_bbox_half_open": [
+      153,
+      88,
+      481,
+      108
+    ],
+    "all_changes_and_raw_alpha_inside_parent": true,
+    "gotcha": "Positive raw-alpha2783 versus changed2766 differ due final rounding. Do not replace raw float containment with changedbyte bounds or pretend FitBox is the approved mask. Here both raw and changed bounds happen to fit original op box as well.",
+    "preservation": "Original literal-base raw/PNG frozen; immutable source copy supplied to op_lines. No sourcefont/source/spec mutations."
+  },
+  "pack": {
+    "directory": "/var/tmp/dokapon-ttf-styled-prototype-q_dm0a2m",
+    "members": 24,
+    "member_bytes": 13086967,
+    "manifest_sha256": "68b63efb5f355a3104feb3e8b618e1a1e19f778693269454a02767dc594e9d2f",
+    "facts_sha256": "56353f3c2d76a88d4c5ff31f0bad8e923dc7455ae6c9407b4ec9e543f3b0b4d3",
+    "harness_sha256": "4d3072809c8b780312f28bbf079cfa9be9892400a6462212fd6c19b47d55203f",
+    "contents": "Exact source operation/colors, original and instrumented definitions, exact font/OFL, literalbase, glyphL/colorRGBA4x raw+PNG, styled4xfloat, preareaquantizedRGBA, postareafloatword, fullplacedfloatlayer, candidateRGBA+PNG, approvedmask and facts. Float arrays tightlypacked little-endianIEEEfloat32, H/W/channel order."
+  },
+  "existing_owner_handoff": "Use this source-bound expected data to extend existing textMasks and renderRuns font-source branch; common style/composition/group/containment/publication owners stay shared. New runtime field names are root-owned; normalized-input.json carries actual facts, not an instruction to copy proposed schema.",
+  "verification": {
+    "all_member_hashes": "24/24 verified",
+    "source_pins": "All5 facts source pins unchanged",
+    "raw_PNG_equality": "Allu8 stagePNGs andcandidate reopened againstfull rawbytes",
+    "float_arrays": "Shapes/bytes/SHA recorded; all finitefloat32 verified",
+    "instrumentation_parity": "Complete uninstrumented/instrumented candidatebyteequal",
+    "output_color_mode": "Literal candidate RGBA PNG and fullraw retained; no palette/source snap performed",
+    "versions": {
+      "pil": "12.3.0",
+      "freetype2": "2.14.3",
+      "raqm": "0.10.5",
+      "harfbuzz": "14.2.1",
+      "fribidi": "1.0.16"
+    },
+    "not_run": "NoGo/backend/projectmodule/historicalmain/nativeTXD conversion or protectedresource access byworker."
+  },
+  "limits": [
+    "One realop8 mixedcolorTTF case; notall fonts/styles/Unicode/tracking/quartershrink proof. Earlier frontend glyph/phase/counterexample pack remains separate.",
+    "No native fullTXD/nativepalette/codecapproval; no actualartwork visual/English/fit approval or gameplacement claim.",
+    "No production/test/fixture/coverage/goal changes; no rasterfamily or .05 milestone credit.",
+    "Source/licensedata plus runtime/backend costs must be measured if adopted; opaque per-word assets are testoracles, not proposedproductionwordtransport."
+  ]
+}

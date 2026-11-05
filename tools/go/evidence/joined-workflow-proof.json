@@ -1,0 +1,551 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-21T19:13:59.464286+00:00",
+  "status": "ROOT_VERIFIED_COMPOSED_EXISTING_GO_REPORTS",
+  "original_source_input_manifest": "/var/tmp/dokapon-joined-workflow-input-etz_dwaq/manifest.json",
+  "source_input_sha256": "f3dca2b3a747e9fd10eff177a0eecb3178a961cd928337b5cee2bff35d579938",
+  "portable_bundle": "evidence/joined-workflow-inputs.zip",
+  "portable_bundle_sha256": "02e1fd6beede145b39049154823082f6215c6c9f081e910e3d0a18f105232c02",
+  "bundle_physical_bytes": 84113,
+  "bundle_uncompressed_source_member_bytes": 286586,
+  "original_workflow_review": {
+    "path": "evidence/joined-workflow-review.json",
+    "sha256": "c7a4e8daafc132ac3b6cc46f1b8414a09c9b104b4260042459a9a46888e26223",
+    "artifacts_root_verified": 194,
+    "qualification": "Prior review: aliasclosed, headerlessverifierLOWopen and operationalstructuralGogapexplicit. Newincrementaddressesboth; freshclosurepending."
+  },
+  "actual_new_Go_workflow": {
+    "at": "2026-10-21T19:12:27.095182+00:00",
+    "status": "PASS_FOUR_REPORTS_AND_REVIEWED_PUBLISHER_PREVIEW",
+    "coverage": {
+      "registry_entries": 11,
+      "selected_IDs": 10,
+      "unselected_IDs": [
+        "0x100580"
+      ],
+      "processed_rows": 10,
+      "observed_decode_known": 9,
+      "observed_decode_unknown": 1,
+      "canonical_generation_known": 10,
+      "canonical_observed_comparison_known": 9,
+      "proposed": 3,
+      "held": 6,
+      "unchanged": 1,
+      "all_declared_sites": 11,
+      "all_selected_windows_bound": 10,
+      "fit_within_profile": 8,
+      "fit_overflow": 1,
+      "fit_unsupported": 1
+    },
+    "source_links": {
+      "audit_observed_equal_fit_source": {
+        "path": "observed.elf",
+        "size": 4096,
+        "sha256": "495f71dd26add17a93eead7d1a742a02fcafb517c6784daa4af5fa9a13525a01"
+      },
+      "audit_registry_equal_fit_registry_equal_status_and_csv_source": {
+        "path": "registry.json",
+        "size": 3527,
+        "sha256": "ef9945f48735594a64920f7528b060ea6ccea663bb793c1c7066fe6a8c7c1fcf"
+      },
+      "audit_glyph_equal_fit_glyph": {
+        "path": "glyphmap.json",
+        "size": 63,
+        "sha256": "e8d0cca72e0a41a997fc61c74f04527be57c4534e68fe5a814abd45efeaa28e5"
+      },
+      "reference_separate": {
+        "path": "reference.elf",
+        "size": 4096,
+        "sha256": "b6cc2bbe89bbe186aee805bde7f5d19463e83545418c427058ca3be19e2f896f"
+      }
+    },
+    "source_qualified_structural_attention": [
+      {
+        "registry_id": "0x100300",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050368
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "allow",
+            "reason": "Reviewed literal matched cohort"
+          },
+          "status": "proposed",
+          "reasons": [],
+          "proposed_machine_fields": {
+            "landing_vma": "0x100700",
+            "status": "patched"
+          }
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x100340",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050432
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "allow",
+            "reason": "Reviewed literal mismatch attention"
+          },
+          "status": "held",
+          "reasons": [
+            "canonical_mismatch"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x1003c0",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050560
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": null,
+          "status": "held",
+          "reasons": [
+            "review_missing"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x100400",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050624
+        ],
+        "reconciliation": {
+          "current_status": null,
+          "review": {
+            "action": "allow",
+            "reason": "Reviewed known bytes; status remains unknown"
+          },
+          "status": "held",
+          "reasons": [
+            "status_unknown"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x100440",
+        "registry_declared_landing_present": true,
+        "registry_declared_landing": "0x100840",
+        "actual_observed_targets": [
+          1050688
+        ],
+        "reconciliation": {
+          "current_status": "patched",
+          "review": {
+            "action": "allow",
+            "reason": "Reviewed already recorded cohort"
+          },
+          "status": "unchanged",
+          "reasons": [
+            "already_patched_landing_not_reconciled"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x100480",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050752
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "allow",
+            "reason": "Reviewed exact icon stream; preserve authored PARAM notation"
+          },
+          "status": "proposed",
+          "reasons": [],
+          "proposed_machine_fields": {
+            "landing_vma": "0x100880",
+            "status": "patched"
+          }
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              2
+            ]
+          ],
+          "observed_pages": [
+            [
+              3
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "unsupported",
+        "fit_encoded_sha256": "df24af729d99dabba4866342354111b3c865b3cd7d10dfc68b54b31c4aa3f757",
+        "canonical_stream_sha256": "c39eb16bcc08944bc982e0171ee0bf4a1abf8d56458069281ef3e2c19824a264",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x1004c0",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050816
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "allow",
+            "reason": "Reviewed literal stream; tail gate remains necessary"
+          },
+          "status": "held",
+          "reasons": [
+            "trailing_bytes"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x100500",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1049856
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "allow",
+            "reason": "Independent declared workflow fixture; no native fit or mutation authority"
+          },
+          "status": "held",
+          "reasons": [
+            "canonical_unknown",
+            "trailing_bytes"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": false,
+        "observed_decode_known": false,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": null,
+          "observed_has_hdr": null,
+          "observed_over_limit_pages": null,
+          "headerless_line_growth_advisory": null
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x100540",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1049920
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "allow",
+            "reason": "Independent declared workflow fixture; no native fit or mutation authority"
+          },
+          "status": "proposed",
+          "reasons": [],
+          "proposed_machine_fields": {
+            "landing_vma": "0x100540",
+            "status": "patched"
+          }
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [
+            0
+          ],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "overflow",
+        "fit_encoded_sha256": "8095d10c76a15086c1d2fefc39e1b60ab12c90de2091b02cdf609ef40c995542",
+        "canonical_stream_sha256": "cf1f7bfd0815f03fd3ad34a9a45ec0e296ff2082e7292abf2c18efae41fa1374",
+        "installed_stream_fit_proven": false
+      },
+      {
+        "registry_id": "0x5348c0",
+        "registry_declared_landing_present": false,
+        "registry_declared_landing": null,
+        "actual_observed_targets": [
+          1050496
+        ],
+        "reconciliation": {
+          "current_status": "drafted",
+          "review": {
+            "action": "hold",
+            "reason": "Unconfirmed template mechanism; convergence does not clear hold"
+          },
+          "status": "held",
+          "reasons": [
+            "review_hold"
+          ]
+        },
+        "canonical_generated": true,
+        "canonical_comparison_known": true,
+        "observed_decode_known": true,
+        "structural": {
+          "line_limit": 4,
+          "reference_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_pages": [
+            [
+              1
+            ]
+          ],
+          "observed_has_hdr": true,
+          "observed_over_limit_pages": [],
+          "headerless_line_growth_advisory": false
+        },
+        "authored_fit_status": "within_profile",
+        "fit_encoded_sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+        "canonical_stream_sha256": "a9b6819f3fd08e131268b329b0819953358dfb876d6ed59007bebc69bc20d3c1",
+        "installed_stream_fit_proven": false
+      }
+    ],
+    "negative_controls": [
+      {
+        "case": "actual-foreign-registry-fit",
+        "join_allowed": false,
+        "actual_registry_sha256": "c5bc6eb133c8f10f7d7111bc106b864efe97dff5af60765d36838873a3a0c98f",
+        "required_registry_sha256": "ef9945f48735594a64920f7528b060ea6ccea663bb793c1c7066fe6a8c7c1fcf",
+        "same_IDs_do_not_allow_join": true
+      },
+      {
+        "case": "actual-shared-identities-but-subset-fit",
+        "join_as_full_coverage_allowed": false,
+        "missing_fit_ids": [
+          "0x100340",
+          "0x1003c0",
+          "0x100400",
+          "0x100440",
+          "0x100480",
+          "0x1004c0",
+          "0x100500",
+          "0x100540",
+          "0x5348c0"
+        ]
+      },
+      {
+        "case": "actual-machine-publisher-human-field-refusal",
+        "exit": 1,
+        "no_JSON": true
+      }
+    ],
+    "publisher_preview": {
+      "updates": 3,
+      "applied": false,
+      "source_sha256": "ef9945f48735594a64920f7528b060ea6ccea663bb793c1c7066fe6a8c7c1fcf",
+      "predicted_output_sha256": "35f0d55b60e4d3ef428b2127e2f0a18446405c6c939f7d1176284337964ff216",
+      "human_fields_untouched": true,
+      "patch_ref_untouched": true
+    },
+    "derived_outputs": {
+      "CSV_bytes_exact": true,
+      "CSV_sha256": "610a24d2762c52cd6a2719c913a8122ad444aa94d05850ab0a3593dc9bf72693",
+      "Markdown_sha256": "17f7a80168c280fd188050632fcba2dcf58ad79a9c5736deecd3ff2fdf646bda"
+    },
+    "input_identities_preserved": 11,
+    "implementation_growth": "Scoped existing audit enhancement; see candidate accounting",
+    "new_functions": 0,
+    "new_runtime_files": 0,
+    "coverage_credit": 0,
+    "limits": "Synthetic declared sources/budgets and authoredEN fit only. Allfit hashes differfromauditcanonical dueHDR; no installed/nativefit/runtime/gameplay/patchauthority. CSV/status areplans notinstalledsuccess. Newowned CSV/Markdown only; registrywriter previewonly, no sourcewrite. Fullsuite deferred; no codechange."
+  },
+  "run_directory": "/var/tmp/dokapon-structural-audit-s9qdhozq/workflow",
+  "CLI_execution": "/var/tmp/dokapon-structural-audit-s9qdhozq/workflow/CLI-execution.json",
+  "operational_boundary": "Four existing Go commands emit audit/structure, authoredfit, CSV andfullstatus. Python only checks independentoriginalexpectedfacts/counterexamples. No operational Python required by README commands. Match pinnedinputroles and selected-IDcoverage before combining reports.",
+  "new_generic_join_engine": false,
+  "new_functions": 0,
+  "coverage_credit": 0,
+  "limits": "StatusCSVcounts areplan projections; authoredfit encoded hashes differfromauditcanonical; noinstalled/nativefit/gameplay or publicationauthority. OnlynewownedCSV/MD; registrymergepreviewnotapplied.",
+  "current_review": {
+    "path": "evidence/structural-audit-review.json",
+    "sha256": "b73c57efaf51139916de78052a07baf0f441e5afdb590dab94501299f32ecba8",
+    "artifacts_root_verified": 1568
+  }
+}

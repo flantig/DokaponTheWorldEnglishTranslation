@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-20T16:32:59.996599+00:00",
+  "status": "DESIGN before implementation",
+  "work": "/var/tmp/dokapon-fullpage-tbw2-nebgzryt",
+  "baseline_snapshot": "/var/tmp/dokapon-approximate-palette-sealed-wedh3uum",
+  "serena_session": "e97a7438",
+  "native_and_authoring_contract": "analysis/texture-codec-coverage-reassessment.json",
+  "contract_sha256": "f0cde47737b4406a14f1738b7d08a09cd11ca83a19a9ac1909926fabad64ac33",
+  "existing_owners": "texture still owns native packet positions; generatePalette and authorTexture need no change. Serena identifies sole production texture caller authorTexture; existing golden and standalone CLI test owners suffice.",
+  "reuse_decision": "Enhance the existing standard128square packet-position rule to the finite128x64/128x128/128x256 set, deriving Y from guarded paletteBaseBlocks. Same parser, full-page metadata/base/footprint/storage/CSM1/map/writer. No new function/type/argument/policy/import/runtime bundle. Unknown128x512 geometry is not inferred.",
+  "tests": "Two actual source/read/noop/four-corner/palette-oracle rows; two exact PNGs in existing ZIP; source e01 reused unchanged. Existing packet-negative and CLI harnesses. Match existing full-page metadata flag allowances: do not apply stricter partial-mode mutation expectations to previously allowed TBP/TCC/TFX bits.",
+  "before_pins": {
+    "texture.go": "ff419b20bbf0bfa8aa9def7c07d804022432f8be800e72265e8b2395e2107e14",
+    "patch_test.go": "a66a92e84a5e86a7122e42f0e37223b96eb4418864bec834cf4a611d027e209a",
+    "testdata/textures.json": "067a0f8064411ae5ef1741a1c4872dcc9cad34de7d7ef95c1a62c0e61f3ed92e",
+    "testdata/small-psmt8.zip": "3f5ff123f1f05924e0e11dd95bee3f451270d679973b9cde75d9b248a0cd77bf",
+    "analysis/go-current-input-accounting.json": "946182a88bdad5a08485484c98afd985cc60e573313cb0d392677178fe73c66b",
+    "analysis/reusability-coverage.json": "89dd1b3038731c753743bde9d3145132c2b82b6bc29f129942b0e4acc221e3be",
+    "analysis/reusability-coverage.md": "7b61000c8f711a4f576502126efb54fffa3bc05239e34cad089a22fed597aea3",
+    "evidence/reusability-coverage-checks.json": "cd8e3a7e60168da7246005c2b214f0f9879b773f73947db8ff8aa667208d39fa"
+  }
+}

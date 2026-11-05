@@ -1,0 +1,168 @@
+{
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "iso_elf_offset": "0x9f800",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "operation": "guarded_words",
+  "evidence": "Inert loader payload foundation, not bootstrap completion: clean89word loader plus guardedStStop cleanup. References build_stage2_trampolines.py cleanfunction, apply_cmdpending_flag_reset_fix.py, apply_cinematic2_ststop_fix.py, analysis/bootstrap-contracts.json. Originaldeadzonepreimages source-bound; preserve separatelyownedtail and bothactivationinjections. No loader/redirect activation or disc allocation in this table. Values reproduce the separately source-bound currentloader; runtime semantic suitability of changedvalues requires review.",
+  "values": {
+    "allocation": "0xa0000",
+    "lsn": "0x9b3",
+    "sectors": "0x140",
+    "retry": "0x8"
+  },
+  "entries": {
+    "0x36bd64": {
+      "expected_hex": "000000000000000000000000000000000000000000000000",
+      "words": [
+        {"hex": "0x10400003", "assembly": "beq $v0, $zero, 0x36bd74"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x0c0458f4", "assembly": "jal 0x1163d0 (StStop)"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x080e670d", "assembly": "j 0x399c34"},
+        {"hex": "0xdfb10010", "assembly": "ld $s1, 0x10($sp)"}
+      ]
+    },
+    "0x399ae0": {
+      "expected_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "words": [
+        {"hex": "0x3c080042", "assembly": "lui $t0, 0x0042"},
+        {"hex": "0x35087798", "assembly": "ori $t0, $t0, 0x7798"},
+        {"hex": "0x8d090000", "assembly": "lw $t1, 0($t0)"},
+        {"hex": "0x15200052", "assembly": "bne $t1, $zero, RELOC"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x27bdffd0", "assembly": "addiu $sp, $sp, -0x30"},
+        {"hex": "0xffb10010", "assembly": "sd $s1, 0x10($sp)"},
+        {"hex": "0xffb70018", "assembly": "sd $s7, 0x18($sp)"},
+        {"hex": "0x3c040051", "assembly": "lui $a0, 0x51"},
+        {"hex": "0x24847940", "assembly": "addiu $a0, $a0, 0x7940"},
+        {"hex": "0x0c04d0e0", "assembly": "jal 0x134380"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x3c040002", "assembly": "lui $a0, 0x0002"},
+        {"hex": "0x34848010", "assembly": "ori $a0, $a0, 0x8010"},
+        {"hex": "0x0c0486a6", "assembly": "jal 0x121a98"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x10400042", "assembly": "beq $v0, $zero, CLEANUP"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0xafa20020", "assembly": "sw $v0, 0x20($sp)"},
+        {"hex": "0x27a40000", "assembly": "addiu $a0, $sp, 0x00"},
+        {"hex": "0x3c050000", "assembly": "lui $a1, hi(allocation)"},
+        {"hex": "0x34a50000", "assembly": "ori $a1, $a1, lo(allocation)"},
+        {"hex": "0x0c041892", "assembly": "jal 0x106248"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x240affff", "assembly": "addiu $t2, $zero, -1"},
+        {"hex": "0x104a0039", "assembly": "beq $v0, $t2, CLEANUP"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0xafa2000c", "assembly": "sw $v0, 0x0c($sp)"},
+        {"hex": "0x8fa30020", "assembly": "lw $v1, 0x20($sp)"},
+        {"hex": "0x2463000f", "assembly": "addiu $v1, $v1, 0xf"},
+        {"hex": "0x240bfff0", "assembly": "addiu $t3, $zero, -0x10"},
+        {"hex": "0x006b3024", "assembly": "and $a2, $v1, $t3"},
+        {"hex": "0x24040050", "assembly": "addiu $a0, $zero, 0x50"},
+        {"hex": "0x24050005", "assembly": "addiu $a1, $zero, 5"},
+        {"hex": "0x0c0458c2", "assembly": "jal 0x116308"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x0000b825", "assembly": "or $s7, $zero, $zero"},
+        {"hex": "0xafa00004", "assembly": "sw $zero, 0x04($sp)"},
+        {"hex": "0x3c040000", "assembly": "lui $a0, hi(lsn)"},
+        {"hex": "0x34840000", "assembly": "ori $a0, $a0, lo(lsn)"},
+        {"hex": "0x27a50004", "assembly": "addiu $a1, $sp, 0x04"},
+        {"hex": "0x0c0458ce", "assembly": "jal 0x116338"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0xafa00024", "assembly": "sw $zero, 0x24($sp)"},
+        {"hex": "0x8fad0024", "assembly": "lw $t5, 0x24($sp)"},
+        {"hex": "0x240e0000", "assembly": "addiu $t6, $zero, sectors"},
+        {"hex": "0x01cd7023", "assembly": "subu $t6, $t6, $t5"},
+        {"hex": "0x240f0010", "assembly": "addiu $t7, $zero, CHUNK_SECTOR_COUNT"},
+        {"hex": "0x01cf082b", "assembly": "sltu $at, $t6, $t7"},
+        {"hex": "0x10200002", "assembly": "beq $at, $zero, USE_FULL_CHUNK"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x01c07825", "assembly": "or $t7, $t6, $zero"},
+        {"hex": "0xafaf0028", "assembly": "sw $t7, 0x28($sp)"},
+        {"hex": "0x24110000", "assembly": "addiu $s1, $zero, retry"},
+        {"hex": "0x8fb8000c", "assembly": "lw $t8, 0x0c($sp)"},
+        {"hex": "0x8fad0024", "assembly": "lw $t5, 0x24($sp)"},
+        {"hex": "0x000dcac0", "assembly": "sll $t9, $t5, 0xb"},
+        {"hex": "0x03192821", "assembly": "addu $a1, $t8, $t9"},
+        {"hex": "0x8fa40028", "assembly": "lw $a0, 0x28($sp)"},
+        {"hex": "0x24060001", "assembly": "addiu $a2, $zero, 1"},
+        {"hex": "0x27a70008", "assembly": "addiu $a3, $sp, 0x08"},
+        {"hex": "0x0c045902", "assembly": "jal 0x116408"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x8fac0008", "assembly": "lw $t4, 0x08($sp)"},
+        {"hex": "0x11800006", "assembly": "beq $t4, $zero, CD2_CHUNK_OK"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x2631ffff", "assembly": "addiu $s1, $s1, -1"},
+        {"hex": "0x1620fff2", "assembly": "bne $s1, $zero, CD2_RETRY"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x080e670b", "assembly": "j CLEANUP"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x8fad0024", "assembly": "lw $t5, 0x24($sp)"},
+        {"hex": "0x8faf0028", "assembly": "lw $t7, 0x28($sp)"},
+        {"hex": "0x01af6821", "assembly": "addu $t5, $t5, $t7"},
+        {"hex": "0xafad0024", "assembly": "sw $t5, 0x24($sp)"},
+        {"hex": "0x240e0000", "assembly": "addiu $t6, $zero, sectors"},
+        {"hex": "0x01ae082b", "assembly": "sltu $at, $t5, $t6"},
+        {"hex": "0x1420ffde", "assembly": "bne $at, $zero, CHUNK_LOOP"},
+        {"hex": "0x00000000", "assembly": "nop"},
+        {"hex": "0x3c080042", "assembly": "lui $t0, 0x0042"},
+        {"hex": "0x35087798", "assembly": "ori $t0, $t0, 0x7798"},
+        {"hex": "0x8fa9000c", "assembly": "lw $t1, 0x0c($sp)"},
+        {"hex": "0xad090000", "assembly": "sw $t1, 0($t0)"},
+        {"hex": "0x080e6734", "assembly": "j 0x399cd0 (guarded StStop cleanup)"},
+        {"hex": "0xdfb70018", "assembly": "ld $s7, 0x18($sp)"},
+        {"hex": "0x27bd0030", "assembly": "addiu $sp, $sp, 0x30"},
+        {"hex": "0x3c020034", "assembly": "lui $v0, 0x34"},
+        {"hex": "0x080a813a", "assembly": "j 0x2a04e8"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ],
+      "fixups": {
+        "0x50": {
+          "value": "allocation",
+          "shift": 16,
+          "bits": 16
+        },
+        "0x54": {
+          "value": "allocation",
+          "shift": 0,
+          "bits": 16
+        },
+        "0x98": {
+          "value": "lsn",
+          "shift": 16,
+          "bits": 16
+        },
+        "0x9c": {
+          "value": "lsn",
+          "shift": 0,
+          "bits": 16
+        },
+        "0xb4": {
+          "value": "sectors",
+          "shift": 0,
+          "bits": 16
+        },
+        "0xd4": {
+          "value": "retry",
+          "shift": 0,
+          "bits": 16
+        },
+        "0x12c": {
+          "value": "sectors",
+          "shift": 0,
+          "bits": 16
+        }
+      }
+    },
+    "0x399cd0": {
+      "expected_hex": "00000000000000000000000000000000",
+      "words": [
+        {"hex": "0x3c02003a", "assembly": "lui $v0, 0x3a"},
+        {"hex": "0x8c429eb8", "assembly": "lw $v0, -0x6148($v0)"},
+        {"hex": "0x080daf59", "assembly": "j 0x36bd64"},
+        {"hex": "0x00000000", "assembly": "nop"}
+      ]
+    }
+  }
+}

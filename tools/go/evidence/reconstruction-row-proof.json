@@ -1,0 +1,444 @@
+{
+  "schema": "reconstruction-row-proof-v1",
+  "at": "2026-10-21T07:21:55.389499+00:00",
+  "status": "VERIFIED_FINITE_RECONSTRUCTION_PRIMITIVE",
+  "shared_implementation": {
+    "owners": [
+      "composeCells",
+      "reconstructRaster",
+      "authorTexture",
+      "texture",
+      "writeNewFile"
+    ],
+    "new_functions": 1,
+    "reuse_decision": "analysis/reconstruction-row-reuse-decision.json",
+    "responsibilities": "Composition owns one working clone, permission geometry and order; numerical kernel owns current-pixel selection, four-neighbor growth and local straight-RGBA interpolation. Existing font/render/import/publisher stay shared. Separate profile facts, not per-script handlers.",
+    "contracts": [
+      "Mixed text/erase requires an exact permutation of unique IDs.",
+      "Text and interpolation donors read current canvas; icon crops read immutable original.",
+      "Positive allow union minus exclusions then additions; all text steps preserve final bytes outside exact allow. Native rectangles are coarse guards.",
+      "No font load for donor-only compositions.",
+      "Empty selection bypasses method/fill validation; zero-donor lines stay unchanged; interpolation clamps and rounds ties to even.",
+      "Canonical owned JSON keys; dynamic icon map IDs remain data. Default order uses owned storage."
+    ]
+  },
+  "original_fidelity": {
+    "portable_fixture": "testdata/reconstruction-rows.zip",
+    "fixture_sha256": "1fc8751a5f42731d1f4e78b0582316bda331ac9559d62a1d66e7863638e7f58e",
+    "members": 177,
+    "vectors": 45,
+    "whole_success_outputs": 41,
+    "refusals": 4,
+    "shifted_padded_origins": true,
+    "source_inputs_and_recipes_preserved": true,
+    "native_output_sha256": "5245d6bb533f0f5173d28251f74d5dddbc83a63e99a5f7bcf213dd5f58e8cd0b",
+    "native_decoded_rgba_sha256": "794329ff40074e07597fcb158a4a9d6363721e8ab9f1b73f14ecc9c603cc19c1",
+    "native_changed_bytes": 8260,
+    "native_changes_outside_exact_allow": 0,
+    "qualification": "Expected pixels are original-only captures frozen before candidate execution. Native bytes are OLD accepted codec source-policy projection, not independent encoder, historical recipe retirement or visual approval."
+  },
+  "verification": {
+    "root_focused_checks": {
+      "at": "2026-10-21T07:14:27.086411+00:00",
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "fixed-native-selection",
+          "args": [
+            "go",
+            "list",
+            "-tags",
+            "nativefonts",
+            "-f",
+            "{{.GoFiles}} {{.CgoFiles}}",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.032,
+          "log": "fixed-native-selection.log"
+        },
+        {
+          "name": "fixed-native-focused",
+          "args": [
+            "go",
+            "test",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-run",
+            "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+            "-count=1",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 45.795,
+          "log": "fixed-native-focused.log"
+        },
+        {
+          "name": "fixed-native-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "-o",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/native-fixed",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 2.068,
+          "log": "fixed-native-build.log"
+        },
+        {
+          "name": "fixed-native-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "-tags",
+            "nativefonts",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.415,
+          "log": "fixed-native-vet.log"
+        },
+        {
+          "name": "fixed-core-focused",
+          "args": [
+            "go",
+            "test",
+            "-p",
+            "2",
+            "-run",
+            "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+            "-count=1",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 29.919,
+          "log": "fixed-core-focused.log"
+        },
+        {
+          "name": "fixed-core-build",
+          "args": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/core-fixed",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 1.316,
+          "log": "fixed-core-build.log"
+        },
+        {
+          "name": "fixed-core-vet",
+          "args": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "."
+          ],
+          "exit": 0,
+          "wall_seconds": 0.365,
+          "log": "fixed-core-vet.log"
+        },
+        {
+          "name": "fixed-gofmt",
+          "args": [
+            "gofmt",
+            "-l",
+            "cmb.go",
+            "fit.go",
+            "fit_types.go",
+            "glyphs.go",
+            "image_types.go",
+            "input_types.go",
+            "inputs.go",
+            "main.go",
+            "outputs.go",
+            "patch.go",
+            "patch_test.go",
+            "raster.go",
+            "raster_font.go",
+            "raster_font_disabled.go",
+            "raster_png.go",
+            "raster_reconstruction.go",
+            "raster_reconstruction_types.go",
+            "raster_resize.go",
+            "raster_runs.go",
+            "raster_types.go",
+            "recipe_types.go",
+            "reference_geometry.go",
+            "reference_types.go",
+            "references.go",
+            "registry_authoring.go",
+            "registry_types.go",
+            "snapshot_types.go",
+            "snapshots.go",
+            "stream_audit.go",
+            "stream_audit_types.go",
+            "text_types.go",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_contacts.go",
+            "texture_discovery.go",
+            "texture_index.go",
+            "texture_manifest.go",
+            "texture_palette.go",
+            "texture_types.go",
+            "wrap.go"
+          ],
+          "exit": 0,
+          "wall_seconds": 0.114,
+          "log": "fixed-gofmt.log"
+        },
+        {
+          "name": "packaged-native-fixed-dry",
+          "args": [
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/native-fixed",
+            "--source",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-native-fixed-apply",
+          "args": [
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/native-fixed",
+            "--source",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/native-fixed.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-native-fixed-overwrite",
+          "args": [
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/native-fixed",
+            "--source",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/native-fixed.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        },
+        {
+          "name": "packaged-core-fixed-dry",
+          "args": [
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/core-fixed",
+            "--source",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-core-fixed-apply",
+          "args": [
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/core-fixed",
+            "--source",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/core-fixed.txd"
+          ],
+          "exit": 0,
+          "expected_success": true
+        },
+        {
+          "name": "packaged-core-fixed-overwrite",
+          "args": [
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/core-fixed",
+            "--source",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd",
+            "--texture-profile",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json",
+            "--apply",
+            "--output",
+            "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/core-fixed.txd"
+          ],
+          "exit": 1,
+          "expected_success": false
+        }
+      ],
+      "packaged_cli_input_identity": {
+        "/var/tmp/dokapon-row-reconstruction-dawakf88/packaged-cli-fixed/original.txd": {
+          "bytes": 525564,
+          "sha256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+          "dev": 35,
+          "ino": 93564758,
+          "mtime_ns": 1792566866691446933
+        },
+        "/var/tmp/dokapon-row-reconstruction-dawakf88/project/profiles/textures/help00-reconstruction.json": {
+          "bytes": 1365,
+          "sha256": "6672541ec265ce5173af70f510637cf982b2a6f0e01103b65fe74056445de6b3",
+          "dev": 35,
+          "ino": 93548786,
+          "mtime_ns": 1792565797277173749
+        }
+      },
+      "hygiene": {
+        "gofmt_go_files": 40,
+        "whitespace_and_positive_selfchecked_credentials": 42,
+        "all_candidate_JSON": 374
+      },
+      "native_selection": "[cmb.go fit.go fit_types.go glyphs.go image_types.go input_types.go inputs.go main.go outputs.go patch.go raster.go raster_png.go raster_reconstruction.go raster_reconstruction_types.go raster_resize.go raster_runs.go raster_types.go recipe_types.go reference_geometry.go reference_types.go references.go registry_authoring.go registry_types.go snapshot_types.go snapshots.go stream_audit.go stream_audit_types.go text_types.go texture.go texture_authoring.go texture_contacts.go texture_discovery.go texture_index.go texture_manifest.go texture_palette.go texture_types.go wrap.go] [raster_font.go]",
+      "production": {
+        "files": 39,
+        "bytes": 417383,
+        "named_declarations": 41,
+        "growth_bytes": 13759,
+        "new_files": [
+          "raster_reconstruction_types.go",
+          "raster_reconstruction.go"
+        ],
+        "changed_go": [
+          "patch_test.go",
+          "raster.go",
+          "raster_types.go",
+          "texture_authoring.go",
+          "texture_types.go"
+        ]
+      },
+      "test_growth_bytes": 21101,
+      "new_profile_bytes": 1365,
+      "new_fixture_bytes": 350493,
+      "limits": "Focused actualCLI/Golden/native race separately tracked. Native oracle is old accepted codec projection. No fullsuite/gameplay/ISOaccess or actualgamepatch."
+    },
+    "structured_cli_refusals": 27,
+    "strict_wire_cuts": 12,
+    "both_refusal_modes": [
+      "dry",
+      "apply"
+    ],
+    "overwrite_guards": 2,
+    "pure_api_guards": 29,
+    "mixed_identity_order_guards": 2,
+    "extra_regressions": [
+      "default Order caller backing preservation",
+      "canonical-vs-dynamic icon identity positive",
+      "all independent review aliases rejected"
+    ],
+    "initial_candidate_race": {
+      "status": "PASS",
+      "package_seconds": 428.33,
+      "scope": "Before two independent review fixes; does not verify revised source."
+    },
+    "revised_race": {
+      "status": "PASS",
+      "package_seconds": 406.188,
+      "log": "/var/tmp/dokapon-row-reconstruction-dawakf88/fixed-native-race.log",
+      "sha256": "50e087f4a1319df7a9d23464cc549b664f55da8c40132ec32627a6ec62581586",
+      "scope": "Focused native TestCLIDryRunAndApply and TestPilotHistoricalGoldenBytes on exact revised code."
+    },
+    "review": "evidence/reconstruction-row-review.json",
+    "full_integrated_suite_and_gameplay": "DEFERRED_BY_OWNER",
+    "independent_review": {
+      "path": "evidence/reconstruction-row-review.json",
+      "sha256": "e3ff8c302672f146c74a9218b4927954c7be1e2d678e857b9c94bbe0f73387bd",
+      "artifact_members_root_verified": 146,
+      "findings": "R1 MEDIUM canonical aliases and R2 LOW caller backing storage independently CLOSED; original counterexamples retained."
+    }
+  },
+  "metrics": {
+    "production": {
+      "files": 39,
+      "bytes": 417383,
+      "named_declarations": 41,
+      "growth_bytes": 13759,
+      "new_files": [
+        "raster_reconstruction_types.go",
+        "raster_reconstruction.go"
+      ],
+      "changed_go": [
+        "patch_test.go",
+        "raster.go",
+        "raster_types.go",
+        "texture_authoring.go",
+        "texture_types.go"
+      ]
+    },
+    "runtime": {
+      "files": 148,
+      "bytes": 2375964
+    },
+    "accounted_inputs": 239,
+    "production_growth_bytes": 13759,
+    "runtime_growth_bytes": 15124,
+    "test_growth_bytes": 21101,
+    "fixture_growth_bytes": 350493,
+    "new_functions": 1,
+    "retired_historical_paths": 0,
+    "coverage_credit": 0,
+    "reduction_claim": false
+  },
+  "source_pins": {
+    "raster_reconstruction.go": "70acc028089e3aa3df3614129c0ae9529eb03c514d490de0d72f20ea205fdb72",
+    "raster_reconstruction_types.go": "6e2d9493482d0c892fac7b909f0566fe93a2c16d7e959b677b7d8241cf0d7703",
+    "raster.go": "8a5ca201f70a8180d6ddab56105d1338f7ebcf6ba3f484ca68a62bb14406f813",
+    "raster_types.go": "8b7433e8482c947584fc170f7cffdd137f0782994928615a160ee5b07f42f748",
+    "texture_authoring.go": "b097c6d552e3a82edaba606b55f35ca63f4fba32efa811a6da84c31798b6a419",
+    "texture_types.go": "723db520fa02a67a3728368e728a009d6c3953597a22702fb2efb18f9a1bd40e",
+    "patch_test.go": "8be718ff494dbe6f349b51e38dad6fce91c2534d8aacc039003da7e3af6e4c11",
+    "profiles/textures/help00-reconstruction.json": "6672541ec265ce5173af70f510637cf982b2a6f0e01103b65fe74056445de6b3",
+    "testdata/reconstruction-rows.zip": "1fc8751a5f42731d1f4e78b0582316bda331ac9559d62a1d66e7863638e7f58e",
+    "analysis/reconstruction-row-reuse-decision.json": "91a27de7c6b286a63069e9630c03609d6b1b4a8e14dfa57c794a428afe70cfef",
+    "analysis/reconstruction-row-corpus-contract.json": "ea0ed9259aa04c5dbe73ee3ef461b77d3e9fad5d933e705c822a18711806cd43",
+    "analysis/reconstruction-interleaving-contract.json": "d461241f689c65360782ba145b1728515aa88bca55e2997348476d184aeb55dd",
+    "analysis/donor-reconstruction-boundary-review.json": "55b9cf650d06ce15bece4b2aeda072a789d92831893877b017b9e96c60f323fc",
+    "analysis/reconstruction-icon-source-contract.json": "b902a24756696350a3085eda7ba6b02f7752cafd3b531074c49d2c31c95d74f8",
+    "analysis/reconstruction-native-contract.json": "299d44039cb93a3ae79c0821dd7b23c1dc1ba756dd121eb41b04bf8a3efdf82a"
+  },
+  "source_capsule": {
+    "path": "/var/tmp/dokapon-row-reconstruction-dawakf88/review-source-fixed",
+    "manifest_sha256": "decb5181acd53e75dc81ebd10d862aa020974277dd77d34eb761fbfd1470ff9b",
+    "members": 498,
+    "independent_contained_readonly_single_link_copies": true
+  },
+  "root_artifacts": {
+    "checks": {
+      "path": "/var/tmp/dokapon-row-reconstruction-dawakf88/fixed-final-checks.json",
+      "bytes": 8662,
+      "sha256": "915a7d7ac5de9e6a35d81cd243738a99511cb7b28c72aa73dfa869eff97a9e62"
+    },
+    "architecture": {
+      "path": "/var/tmp/dokapon-row-reconstruction-dawakf88/project/test-results/architecture-checks.json",
+      "sha256": "d46ba0c88164a4644f8efe5788b3f48983f44a6c297f371ee4a4506835e294db",
+      "root_viewed_both_images": true
+    }
+  },
+  "coverage": {
+    "core_full_families": "6/14=42.86%",
+    "planning_index": "65/84=77.38%",
+    "raster_milestones": "5/6",
+    "raster_rendering.06_credit": 0,
+    "historical_dispositions_unchanged": true,
+    "limits": "Row/column primitive does not close remaining PDE, exemplar, plate, radial/contour, material, morphology or source-art geometry decisions. No reduction or retirement claim."
+  },
+  "protected_scope": "No ISO/canonical registry/emulator/PINE/controller/process/log/settings access or control. Standalone frozen/synthetic inputs; new owned outputs only."
+}

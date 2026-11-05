@@ -1,0 +1,200 @@
+{
+  "created_at": "2026-10-19T16:23:57.051771+00:00",
+  "scope": "Capability-first Go tooling design from a complete410-current-source discovery pass. User explicitly rejects migrating every historical script. This is a design and evidence map, not implemented tooling or retirement approval.",
+  "evidence_sha256": {
+    "analysis/pattern-crawl-text_binary.json": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+    "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+    "analysis/pattern-crawl-assets_runtime_tests.json": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+    "analysis/pattern-crawl-historical-refusals.json": "c1fe15f5de3ffd8089d15e30386f78228cae464fcef4f64c5e40ff512cadd02d",
+    "analysis/pattern-crawl-global-ast.json": "aa6dfc4219fd506588725b9ec3e7d407c35dae17a9fed90135efaf6c83a5d118",
+    "analysis/pattern-crawl-verification.json": "2aa8939a636c707cb2f769f22471eafa48850c673cc0b1331971ddf1ef041abe"
+  },
+  "coverage": {
+    "current_paths": 410,
+    "disjoint_shards": [
+      120,
+      149,
+      141
+    ],
+    "missing": 0,
+    "duplicates": 0,
+    "current_source_hashes_verified": 410,
+    "additional_historical_refusal_followup": {
+      "count": 23,
+      "pin_matches": 15,
+      "pin_mismatches_capability_reference_only": 8,
+      "new_core_family_found": false
+    },
+    "static_cross_file_candidates": {
+      "all": 162,
+      "exact_AST": 113,
+      "parameterized_AST": 49,
+      "meaning": "Ranked static review leads, including whole functions and nonoverlapping blocks; not semantic equivalence or projected savings."
+    }
+  },
+  "toolkit_interface": "Keep one Go program with a small set of operation families; share existing parsers/codecs/planner/writer. CLI operations need not become separate binaries, packages or handlers per historical script.",
+  "capabilities": [
+    {
+      "name": "text and consumer layout",
+      "shared_engine": "Decode/encode source grammar, load native font/space metrics, measure text and bounded substitutions, apply permitted word/line/page layout, report overflow. Reuse encode, controls, wrapPages and inspect.",
+      "data": "Canonical English by registry ID; proven box/callsite profile; width, row/page policy, chosen scale, expansion domain, copy/stride bounds and explicit exceptional controls.",
+      "examples": [
+        "Paged dialogue",
+        "Item/help/job descriptions",
+        "Scaled equipment/name fields"
+      ],
+      "remaining_gap": "Independent authoring preview; measured-width wrapping; scale and positioned/substituted geometry. Current character-budget wrapping and target-pinned replay are not a complete authoring tool."
+    },
+    {
+      "name": "guarded binary and image patching",
+      "shared_engine": "Plan guarded byte/word edits, validate ranges/overlap, allocate capacity, update typed references, create exclusive copies and verify readback. Reuse plan, inspect, validateEdits, verifySource, patchCopy, isoFileExtent and existing word templates/fixups.",
+      "data": "Old/new words, stable IDs, pointer sites, source stages, approved reservations, hook templates and ABI/precondition evidence.",
+      "examples": [
+        "Text relocation",
+        "Font-space/consumer adjustments",
+        "Hook/probe installation"
+      ],
+      "remaining_gap": "Consumer ABI, signed-high/low pairs, shared-LUI liveness, copy bounds and cave/landing safety remain distinct proof obligations, not generic address search."
+    },
+    {
+      "name": "asset authoring and packaging",
+      "shared_engine": "PS2 texture/index/palette codecs, bounded raster/font rendering or reconstruction, named CMB/ISO replacement through existing planBundle and writer.",
+      "data": "Sheet/spec masks, font choices, label content, palette/alpha rules, target member names and source/target hashes.",
+      "examples": [
+        "Font sheets",
+        "Relettered UI textures",
+        "Sprite exports/previews"
+      ],
+      "remaining_gap": "Current Go covers pinned replacement transport, not all semantic texture/raster authoring."
+    },
+    {
+      "name": "registry import and reconciliation",
+      "shared_engine": "Resolve canonical IDs, import/merge fields under explicit human/machine ownership, detect conflicts, reconcile installed bytes and record guarded metadata updates.",
+      "data": "English, glossary, explicit canonical-ID repairs, batch selectors and provenance.",
+      "examples": [
+        "Discovery/import batches",
+        "Machine-reference writeback",
+        "Wording/metadata reconciliation"
+      ],
+      "remaining_gap": "Port only current needed behavior. Dated repair batches are provenance/data, not separate reusable commands."
+    },
+    {
+      "name": "offline inspection and verification",
+      "shared_engine": "Reuse format and reference parsers to inspect, compare source/target bytes, measure layout, audit typed references and produce evidence/diffs.",
+      "data": "Selectors, expected states, comparison semantics and review reports.",
+      "examples": [
+        "Exact-control audit",
+        "Pointer/ELF/ISO checks",
+        "Candidate and whole-image comparisons"
+      ],
+      "remaining_gap": "A heuristic xref or markup-stripped display comparison cannot prove exact semantic controls, liveness or physical fit."
+    },
+    {
+      "name": "owned runtime probing",
+      "shared_engine": "Owned session lifecycle, PINE reads/input, capture and typed scenario comparison. Reuse existing ownership-aware implementations rather than copying global teardown.",
+      "data": "Scenario steps, addresses, expected values, screenshots and fault conditions.",
+      "examples": [
+        "Text/box scenario verification",
+        "Capture sessions",
+        "Memory comparison probes"
+      ],
+      "remaining_gap": "Optional supporting domain until needed for active authoring validation.39 source paths contain app-wide kill commands; retain PID/starttime/ISO ownership instead."
+    }
+  ],
+  "engine_vs_data_rules": [
+    "A wording, address, texture name, approved scale or box-specific limit is data when the same algorithm and ownership contract apply.",
+    "Independent codecs, consumer line/copy semantics, ABI/liveness analysis, source identity and output ownership remain explicit responsibilities.",
+    "Tests preserve important contracts; one old test file or diagnostic output format is not a new tool requirement.",
+    "No new function when an existing function can reasonably own the behavior. Document reuse/callers before an unavoidable new boundary; fewer function names alone do not establish readability.",
+    "Generate encoded target hashes/measurements as evidence rather than requiring authors to hand-maintain duplicated derived facts. Do not weaken strict apply checks for authoring."
+  ],
+  "first_implementation": {
+    "task": "Prove a small independent read-only text-fitting preview using existing native metrics and codec functions before choosing its final CLI/schema seam.",
+    "must_work_without": [
+      "approved encoded target hash",
+      "patch destination/landing selection",
+      "complete pointer set or free allocation space"
+    ],
+    "outputs": [
+      "Actual encoded bytes/hash and byte count",
+      "Measured native widths and line/page information",
+      "Selected profile/scale and unresolved substitutions or geometry",
+      "Specific overflow/control/unsupported diagnostics"
+    ],
+    "safety": "No writable edits or apply path from preview. Source/font/profile identity and control semantics remain checked; strict plan/verifySource/patchCopy stay unchanged.",
+    "scope_sequence": [
+      "Synthetic proof for one known plain consumer, with changed English and source preservation.",
+      "Measured wrapping and profile rules across paged dialogue versus no-PAGE descriptions.",
+      "Scale/center/nested substitution support only after the corresponding measurement/consumer contract is proven."
+    ],
+    "acceptance": "Demonstrate recurring use cases through the same shared implementation and purpose-grouped profile/recipe data; then remove actually superseded implementations after caller/behavior review. Do not resume one-script-at-a-time migration.",
+    "not_implemented_yet": false,
+    "implemented_evidence": "evidence/fit-prototype-proof.json"
+  },
+  "accounting": {
+    "existing_native_runtime_files": 55,
+    "existing_native_runtime_bytes": 568228,
+    "production_code_changed_in_this_discovery_pass": false,
+    "net_reduction_claim": false,
+    "new_files_are_analysis_only": true,
+    "unchanged_accounting_pins_including_tests_and_fixtures": 97
+  },
+  "limits": [
+    "All410 current bodies were statically crawled; dynamic callbacks and runtime consumer behavior are not exhaustively proved.",
+    "Historical bodies with mismatching pins are capability references, not exact byte oracles.",
+    "Six capability areas are a design map, not a claim all six are implemented or each requires a new tool.",
+    "No ISO writes, registry updates, emulator/PINE use, new gameplay proof or deletion authorization in this pass."
+  ],
+  "latest_user_direction": {
+    "at": "2026-10-20T18:59:52.244084+00:00",
+    "goal": "A reasonable, human-readable reusable toolkit for all14 core responsibilities; enhance each existing owner later as more cases arise. Exhaustive historical-script or workflow-family coverage is not a prerequisite for a usable toolset.",
+    "verification": "Focused changed-behavior tests during development; full integrated/race suite towards the end. Preserve source/write safety.",
+    "acceptance": [
+      "A meaningful ordinary workflow and explicit inputs/outputs for each core responsibility.",
+      "Existing owner and clear data-versus-behavior extension path; no14 separate handlers or speculative interfaces.",
+      "Explicit unsupported cases fail clearly; no claim that breadth implies full coverage.",
+      "Integrated workflow verification before final toolkit completion."
+    ],
+    "next": "Use the verified14-area baseline and existing-owner map for future concrete mod cases. Enhance data/owners where behavior requires it; do not recreate historical CLIs or chase exhaustive coverage."
+  },
+  "latest_architecture_review": {
+    "reviewer": "exact_palette_review",
+    "scope": "Read-only current source/Serena assessment; not behavior verification or coverage promotion",
+    "scoped_entrypoints": 14,
+    "core_responsibilities": 14,
+    "missing_workflow": null,
+    "next_changes": [],
+    "readability_finding": "Resolved: registry document policy extracted into authorRegistry, preserving the mapped482-line body and behavior. run737\u2192258lines is relocation with568B boundary overhead.",
+    "snapshot_evidence": "evidence/snapshots-proof.json",
+    "integrated_verification": "evidence/registry-owner-proof.json",
+    "registry_owner": "authorRegistry",
+    "adversarial_review": "evidence/astra-audit-028.json",
+    "root_disposition": "A028-1 current notes/HTML corrected and checked at two widths; review found no demonstrated need for additional runtime abstraction."
+  },
+  "integrated_baseline": {
+    "at": "2026-10-20T19:30:32.185012+00:00",
+    "source_of_truth": "analysis/reusability-coverage.json",
+    "proof": "evidence/registry-owner-proof.json",
+    "core_scoped_entrypoints": 14,
+    "verification": "Complete uncached Go race suite/build/vet/format/scans PASS; explicit data/owner extension paths.",
+    "limits": "Availability, not100% reuse/full-family/historical completion. Existing legacy gaps and historical references remain recorded.",
+    "core_full_families": 5,
+    "family_completion_proof": "evidence/snapshot-family-proof.json"
+  },
+  "latest_responsibility_audit": {
+    "report": "evidence/toolkit-responsibility-audit.json",
+    "sha256": "b6b91a31e3b59255ca490e44ad2d0894751a38c32c81d3939209921bdb733079",
+    "current_paths": 410,
+    "unchanged_study_hashes": 406,
+    "current_source_drifts_reviewed": 4,
+    "routing_only_not_migrated_script_count": true,
+    "original_unknown_rows_retained": 132,
+    "next": "Use original per-row exceptions/unknowns and current workflow gaps before choosing another enhancement; no additional core family found in bounded refresh.",
+    "taxonomy_correction": "RAM savestate capture routes to optional runtime platform; source/study conditions retained.",
+    "taxonomy_corrections": [
+      "RAM snapshot capture belongs to optional runtime platform, not asset preview.",
+      "binary.consumer candidate group also routes to guarded transactions/instruction inspection; applicability comes from individual row contracts."
+    ],
+    "review": "evidence/toolkit-responsibility-review.json"
+  }
+}

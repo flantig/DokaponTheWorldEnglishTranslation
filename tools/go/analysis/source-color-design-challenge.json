@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-20T18:29:24.131640+00:00",
+  "status": "READ-ONLY DESIGN FINDINGS; no implementation approval",
+  "scope": "Bounded source-color tie design only. No source/test/fixture/protected writes, no suite reruns or duplicate worker oracle generation.",
+  "ownership_recommendation": {
+    "self_call": "One controlled default-export selfcall is a reasonable enhancement of existing texture. Call only after outer source-policy format/storage/rectangle preflight, with literal nil replacement, nil rectangles and empty policy. The inner call cannot enter source handling; no writer is reachable. Document depth exactly one. This reuses all current GS walks/address/CLUT/decode rules and is clearer than wrapping the full codec in an outer mode loop.",
+    "owner": "Keep source eligible-color gathering and two-stage selection in texture; no per-patch handler, new decoder/helper, policy in renderer, source-file change or alternate writer. authorTexture initial render-base export uses empty policy; final masked import uses source.",
+    "cost": "One bounded extra calibrated decode/sourceRGBA buffer under existing1M pixel/64MB member limits; no copied address expression or native writer."
+  },
+  "concrete_findings": [
+    {
+      "finding": "Proposed float32 E.snap distance is incorrect.",
+      "evidence": "make_explainer_png.py687..699 casts both source colors and candidate colors to np.int64; distance uses integer //255. ps2_tex.py365..390 does the same.",
+      "direction": "Retain existing Go integer metric: RGB squared sum*min(alpha)/255 with floor, plus3*alphaDifferenceSquared; first strict minimum. No float32 here."
+    },
+    {
+      "finding": "SourceRGBA\u2192first exact palette index skips a required second decision.",
+      "evidence": "E.snap first chooses lexicographically first used-sourceRGBA minimum; ps2_tex.quantize_to_palette then independently keeps unchanged pixels or chooses first FULL native-palette distance minimum.",
+      "direction": "Gather only distinct decoded source colors, lex-sort RGBA (packedR-high/G/B/A supports slices.Sort without a comparator closure), snap candidate to selectedRGBA, then use existing full-palette/native-order nearest path. Do not replace the second search with exact-color index lookup.",
+      "counterexamples": "At alpha0, RGB is ignored. At nonzero alpha, integer floor can also make distinct RGB entries distance0. Therefore a nonidentical earlier native entry can beat the first exact-color index."
+    },
+    {
+      "finding": "Preserving duplicate indices requires a second equality check after source snapping.",
+      "direction": "An originally changed candidate can snap back to its own originalRGBA. In that case retain that pixel original native index, including duplicate/raw-alpha aliases; do not cache one canonical index for every occurrence of the snapped color."
+    },
+    {
+      "finding": "Snapping must not hide edits outside approved rectangles.",
+      "direction": "Run the existing raw-candidate difference/outside-mask guard BEFORE replacing candidate with snappedRGBA. Otherwise an off-mask change that snaps back becomes an accepted no-op, weakening current API containment."
+    },
+    {
+      "finding": "Do not accidentally inherit the default4096 unique-unsnapped-candidate refusal.",
+      "direction": "Preserve default behavior exactly. Source snapping can receive up to bounded image capacity unique candidates in original E.snap. Native-stage cache after snapping has at most16/256 source colors; a raw-candidate cache is optional and must not silently add unsupported refusal semantics. A bounded uncached source-color search is simpler until actual work is measured."
+    }
+  ],
+  "minimal_flow": [
+    "Reject source export/no replacement; reject direct32 and unsupported formats before selfcall. Preserve all existing calibrated4/8/headerless/packet/storage guards; do not infer a new native layout from this policy. Worker must bind which existing indexed modes receive explicit support.",
+    "After all ordinary validation, decode unchanged source once through empty-policy texture; collect unique full-source decodedRGBA, including hidden RGB, excluding CLUT entries never used by any source pixel. No premultiply/cleanup.",
+    "For each raw candidate change, check approved mask; choose lex-first integer-distance sourceRGBA; re-check equality to original pixel for duplicate-index preservation; otherwise run existing full native-palette integer nearest selection. Existing pixel/nibble/alpha/CLUT writer stays shared.",
+    "Keep the weighted-nearest arithmetic in one readable existing quantizer path where reasonable (e.g. two candidate sets/stages), rather than two independently maintained metric formulas or a second GS walk. Do not build a generic palette engine.",
+    "authorTexture allowlists source separately from whole-palette exact/quantize: source permits PNG or Render with derived/explicit masks, requires actual import, conflicts with pixel_policy rgba, and never regenerates CLUT. Preserve default/report policy fields."
+  ],
+  "needed_independent_vectors": [
+    "Actual opaque tie405 lex-source\u2192native expected index127 versus default native-order108.",
+    "Unused CLUT color closer than every used source color; eligibility uses full source image rather than whole CLUT or edit rectangle.",
+    "Changed candidate snaps back to originalRGBA at duplicate index: original byte/nibble must remain unchanged.",
+    "Transparent hidden-RGB and low/nonopaque-alpha distance0 cases require FULL native-stage search after source snap. Include duplicate entries/raw alpha aliases.",
+    "Off-mask candidate change that snaps back must still refuse; source/candidate/CLUT/headers/siblings remain preserved; source export/direct/conflicts refuse.",
+    "More than4096 candidate colors under bounded image capacity, deterministic cache/order behavior, source-policy no-op and default-policy unchanged."
+  ],
+  "limits": [
+    "This policy reproduces two-stage E.snap plus existing quantizer, not merely lexicographic palette order. Under transparent/low-alpha ties, final decodedRGBA need not equal selected intermediate sourceRGBA because the native second stage can choose a different distance0 entry.",
+    "No code approval, native-format/family promotion, reduction, visual/gameplay/ISO/retirement claim. Worker independently freezes semantics/oracles before edits."
+  ],
+  "source_pins": {
+    "texture.go": "8eae718a39843f3930d0d09d6ff9b49df7a085cd39721a70e15611acf2d20e95",
+    "texture_authoring.go": "a2a4362952b23be121b4ed27b798993c7cdfe9f3bf031f5e251c810865d6e968",
+    "../make_explainer_png.py": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+    "../ps2_tex.py": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733"
+  },
+  "Serena": "d7f95853 texture symbol/body and current policy/nearest loop inspected."
+}

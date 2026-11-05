@@ -1,0 +1,122 @@
+{
+  "schema": "source-colour-proof-v1",
+  "at": "2026-10-21T14:20:27.384981+00:00",
+  "status": "VERIFIED_FINITE_EXPLICIT_SOURCE_COLOUR",
+  "contract": "Explicit plain source authoring preserves leading colour as persistent source state; empty/markers preserves old positional markup semantics. No literal {{ permitted in plain; bodyHL/icons/payloads/scale refuse. Existing source decoder/prefix validator/body wrapper/strict validator reused; caller context/global readiness/plan/write validation unchanged. Source-copy b001..b7ff distinct from authoredmarker b001..b009. No fallback.",
+  "owners": [
+    "encode",
+    "auditStreams",
+    "controls",
+    "wrapPages"
+  ],
+  "new_functions": 0,
+  "new_production_types": 0,
+  "new_production_files": 0,
+  "new_semantic_input": "Existing TextEncodeOptions.SourceAuthoring and StreamAuditPolicy.authoring; bounded empty/markers/plain choice preserves original explicitly distinct caller contracts.",
+  "source_original": {
+    "report": "analysis/source-colour-policy-frontier.json",
+    "reuse_decision": "analysis/source-colour-reuse-decision.json",
+    "pack": "/var/tmp/dokapon-source-colour-frontier-byzyw5qs",
+    "manifest_sha256": "021d660c622bc9ddf753cb220fb6a3f693e52455043aff359045d57434558b71",
+    "members_root_verified": 106,
+    "synthetic_original_paired_routes": 50,
+    "synthetic_supported": 11,
+    "synthetic_refused": 39,
+    "actual_frozen_source_synthetic_wording_supported": 6,
+    "old_canonical_mixed_original_reexecuted_exact": 25,
+    "limits": "Two original leading scale/opaque successes intentionally remain held refusals; actual extracts plus synthetic wording do not prove canonical translation/gameplay."
+  },
+  "verification": {
+    "focused_tests": [
+      "TestPlanRefusals",
+      "TestCLIDryRunAndApply",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "focused_package_seconds": 25.217,
+    "race": {
+      "status": "PASS",
+      "package_seconds": 285.757,
+      "path": "/var/tmp/dokapon-source-colour-3wkjepuc/focused-race.log",
+      "sha256": "dcf60876c79313ff1be1d97299868488400fcad33128f15f2c077c99dc443073"
+    },
+    "root_QA": {
+      "path": "/var/tmp/dokapon-source-colour-3wkjepuc/final-checks.json",
+      "sha256": "55d6099764f0afe2ce845b413cf1537c990c6711648990ffe17f1a35c1dd0d26",
+      "status": "PASS"
+    },
+    "new_CLI_variants": 6,
+    "new_API_guards": 7,
+    "new_wire_refusals": 4,
+    "new_policy_refusals": 1,
+    "caller_context_source_immutable": true,
+    "complete_old_CLI_parity": [
+      "stream-audit",
+      "reference-bound-audit",
+      "canonical-audit"
+    ],
+    "UI": "HTML and UI source unchanged; previous accepted source-matching1440x900/390x844 Playwright keyboard/ARIA/containment receipt retained; no new UI feature.",
+    "ordinary_review": {
+      "path": "evidence/source-colour-review.json",
+      "sha256": "f812e49bb08b7b62b7a73af5fc748a584442ae1746e836d145599f1171c347ca",
+      "root_verified_artifact_members": 712,
+      "extra_original_API_cases": 10
+    },
+    "full_suite_gameplay": "DEFERRED_BY_OWNER",
+    "new_packaged_CLI": {
+      "path": "/var/tmp/dokapon-source-colour-3wkjepuc/packaged-colour-cli.json",
+      "sha256": "4dfeede4ab6c5ab7859700657586af1da83ac11b5b890523669c56fbc8dce59d",
+      "status": "PASS",
+      "captures": 12
+    },
+    "source_capsule": {
+      "path": "/var/tmp/dokapon-source-colour-3wkjepuc/review-source",
+      "manifest_sha256": "af719c2a1a38263c71854aacf306770d4d441b4cafa5c56f8eba654f77af2462",
+      "members": 530
+    }
+  },
+  "metrics": {
+    "at": "2026-10-21T14:12:04.809057+00:00",
+    "scope": "Private sourcecolour candidate, original-executed finite explicit plain-versus-marker authoring contract, no fullfamily/retirement credit",
+    "members": 530,
+    "manifest": "/var/tmp/dokapon-source-colour-3wkjepuc/review-source/manifest.json",
+    "manifest_sha256": "af719c2a1a38263c71854aacf306770d4d441b4cafa5c56f8eba654f77af2462",
+    "new": [
+      "analysis/source-colour-policy-frontier.json",
+      "analysis/source-colour-reuse-decision.json",
+      "testdata/source-colours.json"
+    ],
+    "runtime": {
+      "files": 154,
+      "bytes": 2402999
+    },
+    "accounted_inputs": 249,
+    "production_files": 39,
+    "production_bytes": 427367,
+    "production_growth_bytes": 1698,
+    "runtime_growth_bytes": 1698,
+    "test_growth_bytes": 5057,
+    "new_oracle_bytes": 16448,
+    "changed_existing_oracle_bytes": 0,
+    "new_functions": 0,
+    "new_production_files": 0
+  },
+  "source_pins": {
+    "patch.go": "e28ffa157ccd389a91d149afeec7934d2f1ca849adeffd3b74dafee9b9e2562e",
+    "patch_test.go": "63f3e586f0805522aee05bacc4e6fdbe0e4a9e0c06b6d77580f21e851aafd562",
+    "text_types.go": "2751a6eff84188ee60e27e6e60ed8675ad0029e81d8f37b7310d0c17feed7eaf",
+    "stream_audit.go": "87bc3261dc00d78748ee6c3327a2fcb5ec3277f74d8bc4903b645adede55eb24",
+    "stream_audit_types.go": "67f25ac8e124259d9c772df9a27be40aae053aef3f7d29c28d82430307dead64",
+    "testdata/source-colours.json": "dbcb0012df0821129be2fc20f964b1e4eb03c4583972652532f78439e31a8ea6",
+    "analysis/source-colour-policy-frontier.json": "3cd4e3e27d73eb1df8e45ff2993acb8b60964a2880cbed94e748e229d0441099",
+    "analysis/source-colour-reuse-decision.json": "5c09fbb123ba728eddff28056c4a55899151bc86512c579249111c99ed99a7c2"
+  },
+  "coverage": {
+    "full_families": "6/14",
+    "planning_at_review": "65/84",
+    "credit": 0,
+    "historical_retirements": 0,
+    "reduction_claim": false,
+    "milestone_assessment": "Separate source-backed audit of original criterion is pending; reader/sourceforms and joined proposals remain independent requirements."
+  },
+  "protected_scope": "No protected ISO/canonicalregistry/emulator/PINE/controller/process/log/settings/auth access/control; frozen/synthetic inputs and new owned outputs only. No actual game patch."
+}

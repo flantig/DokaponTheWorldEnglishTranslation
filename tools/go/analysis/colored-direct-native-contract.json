@@ -1,0 +1,3350 @@
+{
+  "at": "2026-10-20T14:48:25.622688+00:00",
+  "input_pins": {
+    "texture.go": {
+      "bytes": 14143,
+      "sha256": "e5881c449cf67839c01d4e0a4e7b12d094259eba417a4658d4ba98dd54a7a2f7"
+    },
+    "texture_authoring.go": {
+      "bytes": 4901,
+      "sha256": "609189626728f85617f12f4c3735fa73a2c44d64bb5cbf0105c23be660fccc0b"
+    },
+    "texture_types.go": {
+      "bytes": 714,
+      "sha256": "be288d46c2a58c5525ec725b75db4d17ac51f6067978bfe47f22a9b68f65838e"
+    },
+    "../explainer_scan.py": {
+      "bytes": 13716,
+      "sha256": "48ec5c0acb8989071e6f0f487005ee8b2f620677d167431c08f8afea49b87f28"
+    },
+    "../ps2_tex.py": {
+      "bytes": 19197,
+      "sha256": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733"
+    },
+    "analysis/clut-loader-binding-contract.json": {
+      "bytes": 19818,
+      "sha256": "1b74c2d0b44e999b3e46f75f320e851fa3b48dcb5007bdea2c159873b400f678"
+    },
+    "analysis/texture-codec-remaining-contract.json": {
+      "bytes": 70045,
+      "sha256": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30"
+    }
+  },
+  "source_contract_sha256": "72544c15cb6da4136b70cc3e12e5d745a316ac3bbcd279e017bbcd9ab30b0b30",
+  "instances": [
+    {
+      "archive": "EVENT",
+      "entry": "event\\npc\\npc_18_.txd",
+      "texture": "NPC_18_0",
+      "mode": "v0_512x512",
+      "member_offset": 33467083,
+      "member_bytes": 1048816,
+      "member_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+      "metadata_offset": 124,
+      "metadata_hex": "000200000002000020000000040500000000026406000000000000000000000000400000040040000040000004004000000010000000000000000400c00f0000",
+      "pixel_offset": 200,
+      "pixel_bytes": 1048576,
+      "pixel_raw_sha256": "801a2ba9756e05d79e144b7e4d23b6ad1ebebad10e3adeab008329292972153d",
+      "decoded_RGBA_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+      "colored_pixels": 84543,
+      "hidden_nonzero_RGB_pixels": 151614,
+      "RGB_exceeds_premultiplied_bound_pixels": 2355,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            239,
+            55
+          ],
+          "TXD_offset": 113796,
+          "native_RGBA": [
+            244,
+            243,
+            243,
+            128
+          ],
+          "native_word": "0x80f3f3f4",
+          "display_RGBA": [
+            244,
+            243,
+            243,
+            255
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 200,
+          "native_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "native_word": "0xffffff",
+          "display_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            233,
+            47
+          ],
+          "TXD_offset": 97388,
+          "native_RGBA": [
+            255,
+            255,
+            255,
+            2
+          ],
+          "native_word": "0x2ffffff",
+          "display_RGBA": [
+            255,
+            255,
+            255,
+            4
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\font.txd",
+      "texture": "font2",
+      "mode": "v0_512x512",
+      "member_offset": 528144,
+      "member_bytes": 3146368,
+      "member_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+      "metadata_offset": 124,
+      "metadata_hex": "000200000002000020000000040500000000026406000000000000000000000000400000040040000040000004004000000010000000000000000400c00f0000",
+      "pixel_offset": 200,
+      "pixel_bytes": 1048576,
+      "pixel_raw_sha256": "2cc51d7b69f8ce21ac477176cdadc8aede46484a47e91c69b53248bbd9510a04",
+      "decoded_RGBA_sha256": "10fc786dc51b2602b9a4886b8fe0bd3ea25481cc565b2324eee97ffcde3f2bb9",
+      "colored_pixels": 0,
+      "hidden_nonzero_RGB_pixels": 0,
+      "RGB_exceeds_premultiplied_bound_pixels": 39475,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            5,
+            1
+          ],
+          "TXD_offset": 2268,
+          "native_RGBA": [
+            86,
+            86,
+            86,
+            43
+          ],
+          "native_word": "0x2b565656",
+          "display_RGBA": [
+            86,
+            86,
+            86,
+            86
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\font.txd",
+      "texture": "font1",
+      "mode": "v0_512x512",
+      "member_offset": 528144,
+      "member_bytes": 3146368,
+      "member_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+      "metadata_offset": 1048900,
+      "metadata_hex": "000200000002000020000000040500000000026406000000000000000000000000400000040040000040000004004000000010000000000000000400c00f0000",
+      "pixel_offset": 1048976,
+      "pixel_bytes": 1048576,
+      "pixel_raw_sha256": "d17b2a6a4c33ff3b9015dfea47509e3713737df985e2153416b3862109ccfe63",
+      "decoded_RGBA_sha256": "0fbbac456c549277ea9775a278cb63cdf76f3c8b4279140b18e74fc655ad9d30",
+      "colored_pixels": 0,
+      "hidden_nonzero_RGB_pixels": 0,
+      "RGB_exceeds_premultiplied_bound_pixels": 71890,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            11,
+            1
+          ],
+          "TXD_offset": 1051068,
+          "native_RGBA": [
+            86,
+            86,
+            86,
+            43
+          ],
+          "native_word": "0x2b565656",
+          "display_RGBA": [
+            86,
+            86,
+            86,
+            86
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\font.txd",
+      "texture": "font0",
+      "mode": "v0_512x512",
+      "member_offset": 528144,
+      "member_bytes": 3146368,
+      "member_sha256": "a89480b34b293ed74ebd4b9760c68f949e3adcbbfb1071e482047763a9eea877",
+      "metadata_offset": 2097676,
+      "metadata_hex": "000200000002000020000000040500000000026406000000000000000000000000400000040040000040000004004000000010000000000000000400c00f0000",
+      "pixel_offset": 2097752,
+      "pixel_bytes": 1048576,
+      "pixel_raw_sha256": "22749152df256fce1ac6abf706fb14711c55e433887c331933c5bc2ac917779a",
+      "decoded_RGBA_sha256": "e834cb277959176057b6dac71261aa852c1828d512ffbd17c0844b86caf5f5f9",
+      "colored_pixels": 0,
+      "hidden_nonzero_RGB_pixels": 0,
+      "RGB_exceeds_premultiplied_bound_pixels": 51542,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            313,
+            0
+          ],
+          "TXD_offset": 2099004,
+          "native_RGBA": [
+            24,
+            24,
+            24,
+            12
+          ],
+          "native_word": "0xc181818",
+          "display_RGBA": [
+            24,
+            24,
+            24,
+            24
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\icon_p.txd",
+      "texture": "Y:\\Graphic\\SYSTEM\\icon_p",
+      "mode": "v0_256x512",
+      "member_offset": 3674512,
+      "member_bytes": 524544,
+      "member_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+      "metadata_offset": 140,
+      "metadata_hex": "000100000002000020000000040500000000016006000000000000000000000000400000040040000040000004004000000008000000000000000200c00f0000",
+      "pixel_offset": 216,
+      "pixel_bytes": 524288,
+      "pixel_raw_sha256": "544afc404b2dff12f998463afe4366b1b76e3b1c0bb47707ac95ecfaf697e700",
+      "decoded_RGBA_sha256": "2367c32fb90104c3e0d768eec3813e851f559a0c6ed42dd6a0d7199f8b9d20a8",
+      "colored_pixels": 39888,
+      "hidden_nonzero_RGB_pixels": 55371,
+      "RGB_exceeds_premultiplied_bound_pixels": 2057,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            38,
+            1
+          ],
+          "TXD_offset": 1392,
+          "native_RGBA": [
+            8,
+            0,
+            0,
+            128
+          ],
+          "native_word": "0x80000008",
+          "display_RGBA": [
+            8,
+            0,
+            0,
+            255
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 216,
+          "native_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "native_word": "0xffffff",
+          "display_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            175,
+            49
+          ],
+          "TXD_offset": 51092,
+          "native_RGBA": [
+            66,
+            66,
+            66,
+            12
+          ],
+          "native_word": "0xc424242",
+          "display_RGBA": [
+            66,
+            66,
+            66,
+            24
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\multitap.txd",
+      "texture": "Y:\\Graphic\\SYSTEM\\multitap",
+      "mode": "v2_256x256",
+      "member_offset": 4331568,
+      "member_bytes": 262480,
+      "member_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+      "metadata_offset": 140,
+      "metadata_hex": "000100000001000020000000040502000000012006000000000000000000000000400000040040000040000004004000500004000000000000000100c00f0000",
+      "pixel_offset": 296,
+      "pixel_bytes": 262144,
+      "pixel_raw_sha256": "21b413164cfae178fa90607284e6189dad1eadb3800e86fc24c24e7c3ab572e7",
+      "decoded_RGBA_sha256": "bddc99c27e69afef5082681b55ffec49371073ea1d6484316536259a95aeafa0",
+      "colored_pixels": 8865,
+      "hidden_nonzero_RGB_pixels": 56776,
+      "RGB_exceeds_premultiplied_bound_pixels": 778,
+      "raw_alpha_max": 103,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            168,
+            7
+          ],
+          "TXD_offset": 8136,
+          "native_RGBA": [
+            255,
+            255,
+            254,
+            0
+          ],
+          "native_word": "0xfeffff",
+          "display_RGBA": [
+            255,
+            255,
+            254,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 296,
+          "native_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "native_word": "0xffffff",
+          "display_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            168,
+            12
+          ],
+          "TXD_offset": 13256,
+          "native_RGBA": [
+            246,
+            244,
+            243,
+            4
+          ],
+          "native_word": "0x4f3f4f6",
+          "display_RGBA": [
+            246,
+            244,
+            243,
+            8
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\rw.txd",
+      "texture": "Y:\\Graphic\\SYSTEM\\rw",
+      "mode": "v0_512x256",
+      "member_offset": 4594048,
+      "member_bytes": 524540,
+      "member_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+      "metadata_offset": 136,
+      "metadata_hex": "000200000001000020000000040500000000022406000000000000000000000000400000040040000040000004004000000008000000000000000200c00f0000",
+      "pixel_offset": 212,
+      "pixel_bytes": 524288,
+      "pixel_raw_sha256": "7366bc8ae7e72842243ac8143bf51a70b5902f8a0c11bd73d9cd7e0d487a9f24",
+      "decoded_RGBA_sha256": "abbbeff6510a5cf666a7b7976519d1af19236ad2d18ee3cb1104b6486bbe71e0",
+      "colored_pixels": 8466,
+      "hidden_nonzero_RGB_pixels": 0,
+      "RGB_exceeds_premultiplied_bound_pixels": 0,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            206,
+            103
+          ],
+          "TXD_offset": 211980,
+          "native_RGBA": [
+            241,
+            242,
+            243,
+            128
+          ],
+          "native_word": "0x80f3f2f1",
+          "display_RGBA": [
+            241,
+            242,
+            243,
+            255
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "SYSTEM",
+      "entry": "system\\tycoon.txd",
+      "texture": "Y:\\Graphic\\SYSTEM\\tycoon",
+      "mode": "v2_256x256",
+      "member_offset": 5644152,
+      "member_bytes": 262480,
+      "member_sha256": "7bfbe22b9cd842557978fe0869a009a6d4796224b24253de830fcf82abcbecb6",
+      "metadata_offset": 140,
+      "metadata_hex": "000100000001000020000000040502000000012006000000000000000000000000400000040040000040000004004000500004000000000000000100c00f0000",
+      "pixel_offset": 296,
+      "pixel_bytes": 262144,
+      "pixel_raw_sha256": "1f294a8b7e351672ab9e6c7b8f7a7d44062b455bf87ef6ed0d8eaaf97168be94",
+      "decoded_RGBA_sha256": "c897bf7054edca904d4c5d372ca73ad5867b99bfd0fd8a224dfaeaf17eb7d7a4",
+      "colored_pixels": 4511,
+      "hidden_nonzero_RGB_pixels": 0,
+      "RGB_exceeds_premultiplied_bound_pixels": 0,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            151,
+            42
+          ],
+          "TXD_offset": 43908,
+          "native_RGBA": [
+            240,
+            239,
+            240,
+            128
+          ],
+          "native_word": "0x80f0eff0",
+          "display_RGBA": [
+            240,
+            239,
+            240,
+            255
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\main\\field_map.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 199685084,
+      "member_bytes": 1317136,
+      "member_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "metadata_offset": 71312,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 71468,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "a8ef8b7e15d963319d89dd2a8ddac7725953c1dd45a93cc7d0be7b897baa25e9",
+      "decoded_RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 160,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ],
+          "native_word": "0x224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ],
+          "native_word": "0x224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            27,
+            4
+          ],
+          "TXD_offset": 73624,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            35
+          ],
+          "native_word": "0x23224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            70
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\main\\field_map_free.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 204935231,
+      "member_bytes": 1317136,
+      "member_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "metadata_offset": 71312,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 71468,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "a8ef8b7e15d963319d89dd2a8ddac7725953c1dd45a93cc7d0be7b897baa25e9",
+      "decoded_RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 160,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ],
+          "native_word": "0x224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ],
+          "native_word": "0x224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            27,
+            4
+          ],
+          "TXD_offset": 73624,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            35
+          ],
+          "native_word": "0x23224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            70
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\main\\field_map_mu.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 210185546,
+      "member_bytes": 1317136,
+      "member_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "metadata_offset": 71312,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 71468,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "a8ef8b7e15d963319d89dd2a8ddac7725953c1dd45a93cc7d0be7b897baa25e9",
+      "decoded_RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 160,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ],
+          "native_word": "0x224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ],
+          "native_word": "0x224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            27,
+            4
+          ],
+          "TXD_offset": 73624,
+          "native_RGBA": [
+            81,
+            66,
+            34,
+            35
+          ],
+          "native_word": "0x23224251",
+          "display_RGBA": [
+            81,
+            66,
+            34,
+            70
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_1.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 223191338,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 85704,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 85860,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "ffc07896385d817ebd1dce832cf3fe5833a3ffacd349298b6585b9e41e35ad66",
+      "decoded_RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 320,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            7,
+            0
+          ],
+          "TXD_offset": 85888,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            63
+          ],
+          "native_word": "0x3f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            126
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_1.txd",
+      "texture": "street",
+      "mode": "v2_128x16",
+      "member_offset": 223191338,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 94172,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 94328,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "cdfa73e5af7e175bef793b318365cbebf4580d78756cf6b457b29685bce23831",
+      "decoded_RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 412,
+      "RGB_exceeds_premultiplied_bound_pixels": 206,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            1,
+            1
+          ],
+          "TXD_offset": 94844,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            31
+          ],
+          "native_word": "0x1f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            62
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_2.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 224577518,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 85704,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 85860,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "ffc07896385d817ebd1dce832cf3fe5833a3ffacd349298b6585b9e41e35ad66",
+      "decoded_RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 320,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            7,
+            0
+          ],
+          "TXD_offset": 85888,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            63
+          ],
+          "native_word": "0x3f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            126
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_2.txd",
+      "texture": "street",
+      "mode": "v2_128x16",
+      "member_offset": 224577518,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 94172,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 94328,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "cdfa73e5af7e175bef793b318365cbebf4580d78756cf6b457b29685bce23831",
+      "decoded_RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 412,
+      "RGB_exceeds_premultiplied_bound_pixels": 206,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            1,
+            1
+          ],
+          "TXD_offset": 94844,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            31
+          ],
+          "native_word": "0x1f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            62
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_3.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 226570624,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 85704,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 85860,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "ffc07896385d817ebd1dce832cf3fe5833a3ffacd349298b6585b9e41e35ad66",
+      "decoded_RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 320,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            7,
+            0
+          ],
+          "TXD_offset": 85888,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            63
+          ],
+          "native_word": "0x3f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            126
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_3.txd",
+      "texture": "street",
+      "mode": "v2_128x16",
+      "member_offset": 226570624,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 94172,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 94328,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "cdfa73e5af7e175bef793b318365cbebf4580d78756cf6b457b29685bce23831",
+      "decoded_RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 412,
+      "RGB_exceeds_premultiplied_bound_pixels": 206,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            1,
+            1
+          ],
+          "TXD_offset": 94844,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            31
+          ],
+          "native_word": "0x1f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            62
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_4.txd",
+      "texture": "streetI",
+      "mode": "v2_128x16",
+      "member_offset": 227969116,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 85704,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 85860,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "ffc07896385d817ebd1dce832cf3fe5833a3ffacd349298b6585b9e41e35ad66",
+      "decoded_RGBA_sha256": "8f575bb5ccad1676023e469ae3095117d5be06acb64f006c2ff83a6095b2231b",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 992,
+      "RGB_exceeds_premultiplied_bound_pixels": 320,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 85860,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            7,
+            0
+          ],
+          "TXD_offset": 85888,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            63
+          ],
+          "native_word": "0x3f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            126
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "FIELD",
+      "entry": "field\\map\\sub\\stage2\\st2_4.txd",
+      "texture": "street",
+      "mode": "v2_128x16",
+      "member_offset": 227969116,
+      "member_bytes": 540656,
+      "member_sha256": "949a3f8ff429fccf92d36da23154f8644b5bf4be840655173173243bb38ae477",
+      "metadata_offset": 94172,
+      "metadata_hex": "800000001000000020000000040502000080001c05000000000000000000000000400000040040000040000004004000502000000000000000100000c00f0000",
+      "pixel_offset": 94328,
+      "pixel_bytes": 8192,
+      "pixel_raw_sha256": "cdfa73e5af7e175bef793b318365cbebf4580d78756cf6b457b29685bce23831",
+      "decoded_RGBA_sha256": "ec18625a82151956081cfcb96ae67b545d99f965154bf01f7243636b6860ad68",
+      "colored_pixels": 2048,
+      "hidden_nonzero_RGB_pixels": 412,
+      "RGB_exceeds_premultiplied_bound_pixels": 206,
+      "raw_alpha_max": 128,
+      "witnesses": [
+        {
+          "kind": "colored",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 94328,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ],
+          "native_word": "0x688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            0
+          ]
+        },
+        {
+          "kind": "RGB_exceeds_premultiplied_bound",
+          "xy": [
+            1,
+            1
+          ],
+          "TXD_offset": 94844,
+          "native_RGBA": [
+            123,
+            138,
+            104,
+            31
+          ],
+          "native_word": "0x1f688a7b",
+          "display_RGBA": [
+            123,
+            138,
+            104,
+            62
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "BATTLE",
+      "entry": "battle\\shield\\null.txd",
+      "texture": "Y:\\Graphic\\battle\\shield\\null",
+      "mode": "v2_16x16",
+      "member_offset": 862165366,
+      "member_bytes": 1364,
+      "member_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+      "metadata_offset": 144,
+      "metadata_hex": "100000001000000020000000040502000040001005000000000000000000000000400000040040000040000004004000500400000000000000080000c00f0000",
+      "pixel_offset": 300,
+      "pixel_bytes": 1024,
+      "pixel_raw_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "decoded_RGBA_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "colored_pixels": 0,
+      "hidden_nonzero_RGB_pixels": 256,
+      "RGB_exceeds_premultiplied_bound_pixels": 0,
+      "raw_alpha_max": 0,
+      "witnesses": [
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 300,
+          "native_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "native_word": "0xffffff",
+          "display_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    },
+    {
+      "archive": "BATTLE",
+      "entry": "battle\\weapon\\null.txd",
+      "texture": "Y:\\Graphic\\battle\\weapon\\null",
+      "mode": "v2_16x16",
+      "member_offset": 898057094,
+      "member_bytes": 1364,
+      "member_sha256": "d1b7c09d79f7325c8da89757c86ef6d4a5c41255f0bcb939d8601abe36e5b8d7",
+      "metadata_offset": 144,
+      "metadata_hex": "100000001000000020000000040502000040001005000000000000000000000000400000040040000040000004004000500400000000000000080000c00f0000",
+      "pixel_offset": 300,
+      "pixel_bytes": 1024,
+      "pixel_raw_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "decoded_RGBA_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "colored_pixels": 0,
+      "hidden_nonzero_RGB_pixels": 256,
+      "RGB_exceeds_premultiplied_bound_pixels": 0,
+      "raw_alpha_max": 0,
+      "witnesses": [
+        {
+          "kind": "hidden_RGB",
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 300,
+          "native_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ],
+          "native_word": "0xffffff",
+          "display_RGBA": [
+            255,
+            255,
+            255,
+            0
+          ]
+        }
+      ],
+      "historical_PNG_present": false
+    }
+  ],
+  "unique_payload_alpha_distributions": {
+    "801a2ba9756e05d79e144b7e4d23b6ad1ebebad10e3adeab008329292972153d": {
+      "raw_alpha_histogram": {
+        "0": 151614,
+        "1": 61,
+        "2": 44,
+        "3": 53,
+        "4": 38,
+        "5": 46,
+        "6": 29,
+        "7": 33,
+        "8": 22,
+        "9": 19,
+        "10": 19,
+        "11": 11,
+        "12": 16,
+        "13": 21,
+        "14": 21,
+        "15": 14,
+        "16": 18,
+        "17": 18,
+        "18": 20,
+        "19": 20,
+        "20": 20,
+        "21": 23,
+        "22": 19,
+        "23": 14,
+        "24": 20,
+        "25": 21,
+        "26": 20,
+        "27": 15,
+        "28": 19,
+        "29": 13,
+        "30": 25,
+        "31": 13,
+        "32": 16,
+        "33": 19,
+        "34": 10,
+        "35": 12,
+        "36": 13,
+        "37": 11,
+        "38": 14,
+        "39": 13,
+        "40": 13,
+        "41": 11,
+        "42": 14,
+        "43": 13,
+        "44": 16,
+        "45": 18,
+        "46": 20,
+        "47": 11,
+        "48": 13,
+        "49": 9,
+        "50": 13,
+        "51": 17,
+        "52": 10,
+        "53": 9,
+        "54": 10,
+        "55": 13,
+        "56": 15,
+        "57": 17,
+        "58": 15,
+        "59": 15,
+        "60": 8,
+        "61": 11,
+        "62": 9,
+        "63": 18,
+        "64": 9,
+        "65": 14,
+        "66": 12,
+        "67": 9,
+        "68": 21,
+        "69": 10,
+        "70": 14,
+        "71": 11,
+        "72": 12,
+        "73": 14,
+        "74": 21,
+        "75": 9,
+        "76": 11,
+        "77": 24,
+        "78": 10,
+        "79": 12,
+        "80": 4,
+        "81": 14,
+        "82": 7,
+        "83": 14,
+        "84": 14,
+        "85": 13,
+        "86": 11,
+        "87": 11,
+        "88": 13,
+        "89": 21,
+        "90": 13,
+        "91": 13,
+        "92": 14,
+        "93": 15,
+        "94": 11,
+        "95": 17,
+        "96": 20,
+        "97": 11,
+        "98": 18,
+        "99": 17,
+        "100": 18,
+        "101": 11,
+        "102": 10,
+        "103": 20,
+        "104": 17,
+        "105": 18,
+        "106": 17,
+        "107": 19,
+        "108": 19,
+        "109": 16,
+        "110": 15,
+        "111": 21,
+        "112": 12,
+        "113": 18,
+        "114": 20,
+        "115": 24,
+        "116": 21,
+        "117": 25,
+        "118": 21,
+        "119": 36,
+        "120": 27,
+        "121": 35,
+        "122": 38,
+        "123": 33,
+        "124": 38,
+        "125": 45,
+        "126": 72,
+        "127": 34,
+        "128": 108175
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 262144,
+      "example": {
+        "entry": "event\\npc\\npc_18_.txd",
+        "texture": "NPC_18_0"
+      }
+    },
+    "2cc51d7b69f8ce21ac477176cdadc8aede46484a47e91c69b53248bbd9510a04": {
+      "raw_alpha_histogram": {
+        "0": 196706,
+        "12": 2649,
+        "35": 2163,
+        "43": 2078,
+        "59": 6940,
+        "67": 1425,
+        "84": 2068,
+        "92": 8100,
+        "101": 1431,
+        "110": 3361,
+        "118": 9260,
+        "128": 25963
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 262144,
+      "example": {
+        "entry": "system\\font.txd",
+        "texture": "font2"
+      }
+    },
+    "d17b2a6a4c33ff3b9015dfea47509e3713737df985e2153416b3862109ccfe63": {
+      "raw_alpha_histogram": {
+        "0": 152733,
+        "12": 7305,
+        "35": 12330,
+        "43": 5864,
+        "59": 14318,
+        "67": 2495,
+        "84": 3517,
+        "92": 2350,
+        "101": 12502,
+        "110": 7083,
+        "118": 4126,
+        "128": 37521
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 262144,
+      "example": {
+        "entry": "system\\font.txd",
+        "texture": "font1"
+      }
+    },
+    "22749152df256fce1ac6abf706fb14711c55e433887c331933c5bc2ac917779a": {
+      "raw_alpha_histogram": {
+        "0": 182839,
+        "12": 5919,
+        "23": 1273,
+        "35": 7601,
+        "43": 3408,
+        "51": 1208,
+        "59": 9396,
+        "67": 1917,
+        "76": 1287,
+        "84": 2307,
+        "92": 953,
+        "93": 2618,
+        "101": 6212,
+        "110": 3991,
+        "118": 3452,
+        "128": 27763
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 262144,
+      "example": {
+        "entry": "system\\font.txd",
+        "texture": "font0"
+      }
+    },
+    "544afc404b2dff12f998463afe4366b1b76e3b1c0bb47707ac95ecfaf697e700": {
+      "raw_alpha_histogram": {
+        "0": 56146,
+        "4": 475,
+        "8": 392,
+        "12": 606,
+        "16": 352,
+        "20": 336,
+        "24": 335,
+        "28": 261,
+        "33": 311,
+        "37": 484,
+        "41": 251,
+        "45": 227,
+        "49": 256,
+        "53": 416,
+        "57": 326,
+        "61": 360,
+        "66": 232,
+        "70": 225,
+        "74": 270,
+        "78": 453,
+        "82": 332,
+        "86": 369,
+        "90": 397,
+        "94": 418,
+        "99": 435,
+        "103": 392,
+        "107": 498,
+        "111": 378,
+        "115": 585,
+        "119": 800,
+        "123": 1016,
+        "128": 62738
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 131072,
+      "example": {
+        "entry": "system\\icon_p.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\icon_p"
+      }
+    },
+    "21b413164cfae178fa90607284e6189dad1eadb3800e86fc24c24e7c3ab572e7": {
+      "raw_alpha_histogram": {
+        "0": 56776,
+        "1": 190,
+        "2": 35,
+        "3": 24,
+        "4": 24,
+        "5": 18,
+        "6": 13,
+        "7": 16,
+        "8": 15,
+        "9": 12,
+        "10": 11,
+        "11": 7,
+        "12": 12,
+        "13": 16,
+        "14": 10,
+        "15": 15,
+        "16": 5,
+        "17": 10,
+        "18": 12,
+        "19": 12,
+        "20": 4,
+        "21": 6,
+        "22": 14,
+        "23": 7,
+        "24": 12,
+        "25": 10,
+        "26": 8,
+        "27": 9,
+        "28": 12,
+        "29": 7,
+        "30": 5,
+        "31": 8,
+        "32": 10,
+        "33": 11,
+        "34": 8,
+        "35": 5,
+        "36": 5,
+        "37": 15,
+        "38": 8,
+        "39": 8,
+        "40": 4,
+        "41": 9,
+        "42": 6,
+        "43": 7,
+        "44": 14,
+        "45": 11,
+        "46": 7,
+        "47": 10,
+        "48": 5,
+        "49": 11,
+        "50": 10,
+        "51": 6,
+        "52": 14,
+        "53": 10,
+        "54": 11,
+        "55": 7,
+        "56": 7,
+        "57": 9,
+        "58": 7,
+        "59": 10,
+        "60": 22,
+        "61": 27,
+        "62": 13,
+        "63": 19,
+        "64": 22,
+        "65": 16,
+        "66": 20,
+        "67": 18,
+        "68": 19,
+        "69": 23,
+        "70": 25,
+        "71": 29,
+        "72": 31,
+        "73": 35,
+        "74": 43,
+        "75": 62,
+        "76": 62,
+        "77": 64,
+        "78": 63,
+        "79": 83,
+        "80": 96,
+        "81": 129,
+        "82": 166,
+        "83": 176,
+        "84": 200,
+        "85": 218,
+        "86": 243,
+        "87": 285,
+        "88": 251,
+        "89": 376,
+        "90": 634,
+        "91": 815,
+        "92": 1057,
+        "93": 1176,
+        "94": 823,
+        "95": 307,
+        "96": 88,
+        "97": 44,
+        "98": 36,
+        "99": 31,
+        "100": 36,
+        "101": 38,
+        "102": 32,
+        "103": 3
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 103,
+      "pixels": 65536,
+      "example": {
+        "entry": "system\\multitap.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\multitap"
+      }
+    },
+    "7366bc8ae7e72842243ac8143bf51a70b5902f8a0c11bd73d9cd7e0d487a9f24": {
+      "raw_alpha_histogram": {
+        "128": 131072
+      },
+      "raw_alpha_min": 128,
+      "raw_alpha_max": 128,
+      "pixels": 131072,
+      "example": {
+        "entry": "system\\rw.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\rw"
+      }
+    },
+    "1f294a8b7e351672ab9e6c7b8f7a7d44062b455bf87ef6ed0d8eaaf97168be94": {
+      "raw_alpha_histogram": {
+        "128": 65536
+      },
+      "raw_alpha_min": 128,
+      "raw_alpha_max": 128,
+      "pixels": 65536,
+      "example": {
+        "entry": "system\\tycoon.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\tycoon"
+      }
+    },
+    "a8ef8b7e15d963319d89dd2a8ddac7725953c1dd45a93cc7d0be7b897baa25e9": {
+      "raw_alpha_histogram": {
+        "0": 992,
+        "5": 32,
+        "11": 32,
+        "18": 32,
+        "26": 32,
+        "35": 32,
+        "44": 32,
+        "54": 32,
+        "63": 32,
+        "64": 64,
+        "73": 12,
+        "74": 20,
+        "83": 20,
+        "84": 12,
+        "92": 4,
+        "93": 28,
+        "101": 20,
+        "102": 12,
+        "109": 12,
+        "110": 20,
+        "116": 12,
+        "117": 20,
+        "122": 12,
+        "123": 20,
+        "128": 512
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 2048,
+      "example": {
+        "entry": "field\\map\\main\\field_map.txd",
+        "texture": "streetI"
+      }
+    },
+    "ffc07896385d817ebd1dce832cf3fe5833a3ffacd349298b6585b9e41e35ad66": {
+      "raw_alpha_histogram": {
+        "0": 992,
+        "5": 32,
+        "11": 32,
+        "18": 32,
+        "26": 32,
+        "35": 32,
+        "44": 32,
+        "54": 32,
+        "63": 32,
+        "64": 64,
+        "73": 12,
+        "74": 20,
+        "83": 20,
+        "84": 12,
+        "92": 4,
+        "93": 28,
+        "101": 20,
+        "102": 12,
+        "109": 12,
+        "110": 20,
+        "116": 12,
+        "117": 20,
+        "122": 12,
+        "123": 20,
+        "128": 512
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 2048,
+      "example": {
+        "entry": "field\\map\\sub\\stage2\\st2_1.txd",
+        "texture": "streetI"
+      }
+    },
+    "cdfa73e5af7e175bef793b318365cbebf4580d78756cf6b457b29685bce23831": {
+      "raw_alpha_histogram": {
+        "0": 412,
+        "1": 16,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 4,
+        "7": 5,
+        "8": 6,
+        "13": 1,
+        "18": 8,
+        "19": 1,
+        "20": 7,
+        "21": 6,
+        "22": 2,
+        "24": 12,
+        "25": 12,
+        "26": 8,
+        "30": 2,
+        "31": 12,
+        "32": 10,
+        "34": 1,
+        "35": 7,
+        "41": 6,
+        "42": 2,
+        "47": 8,
+        "49": 2,
+        "50": 6,
+        "52": 6,
+        "53": 2,
+        "55": 7,
+        "56": 9,
+        "60": 8,
+        "61": 14,
+        "62": 1,
+        "64": 1,
+        "68": 6,
+        "69": 2,
+        "73": 8,
+        "77": 5,
+        "78": 1,
+        "81": 2,
+        "82": 6,
+        "84": 6,
+        "85": 2,
+        "89": 1,
+        "90": 7,
+        "91": 5,
+        "92": 3,
+        "94": 2,
+        "95": 8,
+        "96": 6,
+        "101": 3,
+        "102": 5,
+        "103": 5,
+        "104": 5,
+        "105": 7,
+        "106": 13,
+        "111": 16,
+        "112": 9,
+        "113": 8,
+        "114": 2,
+        "115": 1,
+        "116": 7,
+        "117": 7,
+        "118": 1,
+        "119": 2,
+        "120": 7,
+        "122": 1,
+        "123": 10,
+        "124": 21,
+        "125": 1,
+        "126": 26,
+        "127": 5,
+        "128": 1206
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 128,
+      "pixels": 2048,
+      "example": {
+        "entry": "field\\map\\sub\\stage2\\st2_1.txd",
+        "texture": "street"
+      }
+    },
+    "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79": {
+      "raw_alpha_histogram": {
+        "0": 256
+      },
+      "raw_alpha_min": 0,
+      "raw_alpha_max": 0,
+      "pixels": 256,
+      "example": {
+        "entry": "battle\\shield\\null.txd",
+        "texture": "Y:\\Graphic\\battle\\shield\\null"
+      }
+    }
+  },
+  "raw_alpha_aggregate_instances": {
+    "0": 805918,
+    "1": 315,
+    "2": 87,
+    "3": 85,
+    "4": 545,
+    "5": 304,
+    "6": 42,
+    "7": 69,
+    "8": 453,
+    "9": 31,
+    "10": 30,
+    "11": 242,
+    "12": 16507,
+    "13": 41,
+    "14": 31,
+    "15": 29,
+    "16": 375,
+    "17": 28,
+    "18": 288,
+    "19": 36,
+    "20": 388,
+    "21": 53,
+    "22": 41,
+    "23": 1294,
+    "24": 415,
+    "25": 79,
+    "26": 284,
+    "27": 24,
+    "28": 292,
+    "29": 20,
+    "30": 38,
+    "31": 69,
+    "32": 66,
+    "33": 341,
+    "34": 22,
+    "35": 22363,
+    "36": 18,
+    "37": 510,
+    "38": 22,
+    "39": 21,
+    "40": 17,
+    "41": 295,
+    "42": 28,
+    "43": 11370,
+    "44": 254,
+    "45": 256,
+    "46": 27,
+    "47": 53,
+    "48": 18,
+    "49": 284,
+    "50": 47,
+    "51": 1231,
+    "52": 48,
+    "53": 443,
+    "54": 245,
+    "55": 48,
+    "56": 58,
+    "57": 352,
+    "58": 22,
+    "59": 30679,
+    "60": 62,
+    "61": 454,
+    "62": 26,
+    "63": 261,
+    "64": 483,
+    "65": 30,
+    "66": 264,
+    "67": 5864,
+    "68": 64,
+    "69": 41,
+    "70": 264,
+    "71": 40,
+    "72": 43,
+    "73": 165,
+    "74": 474,
+    "75": 71,
+    "76": 1360,
+    "77": 108,
+    "78": 530,
+    "79": 95,
+    "80": 100,
+    "81": 151,
+    "82": 529,
+    "83": 330,
+    "84": 8214,
+    "85": 239,
+    "86": 623,
+    "87": 296,
+    "88": 264,
+    "89": 401,
+    "90": 1072,
+    "91": 848,
+    "92": 12514,
+    "93": 4005,
+    "94": 1260,
+    "95": 356,
+    "96": 132,
+    "97": 55,
+    "98": 54,
+    "99": 483,
+    "100": 54,
+    "101": 20346,
+    "102": 146,
+    "103": 435,
+    "104": 37,
+    "105": 46,
+    "106": 69,
+    "107": 517,
+    "108": 19,
+    "109": 100,
+    "110": 14590,
+    "111": 463,
+    "112": 48,
+    "113": 50,
+    "114": 28,
+    "115": 613,
+    "116": 133,
+    "117": 193,
+    "118": 16863,
+    "119": 844,
+    "120": 55,
+    "121": 35,
+    "122": 126,
+    "123": 1229,
+    "124": 122,
+    "125": 49,
+    "126": 176,
+    "127": 54,
+    "128": 467176
+  },
+  "finite_modes": [
+    {
+      "mode": "v0_512x512",
+      "native_version": 0,
+      "dimensions": [
+        512,
+        512
+      ],
+      "raster_format": "0x0504",
+      "TEX0": "0x664020000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 8,
+        "PSM": 0,
+        "TW": 9,
+        "TH": 9,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 0
+      },
+      "palette_base": 0,
+      "TEX1LOW": 0,
+      "pixel_info_size": 1048576,
+      "palette_info_size": 0,
+      "pixel_struct_size": 1048576,
+      "GS_allocation_words": 262144,
+      "upload_DBW": 8,
+      "upload_DPSM": 0,
+      "upload_TRXREG": [
+        512,
+        512
+      ],
+      "transfer_header_count": 0,
+      "header_hex": "",
+      "source_exemplar": {
+        "archive": "EVENT",
+        "entry": "event\\npc\\npc_18_.txd",
+        "texture": "NPC_18_0"
+      },
+      "instances": 4,
+      "native_legacy_IMAGE_fragment_qwords": [
+        32750,
+        32750,
+        36
+      ],
+      "source_linear_stride_bytes": 2048,
+      "source_raw_alpha_limit": 128,
+      "implementation_scope": "smallest proposed explicitRGBA extension with existing default monochrome contract preserved"
+    },
+    {
+      "mode": "v0_256x512",
+      "native_version": 0,
+      "dimensions": [
+        256,
+        512
+      ],
+      "raster_format": "0x0504",
+      "TEX0": "0x660010000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 0,
+        "TW": 8,
+        "TH": 9,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 0
+      },
+      "palette_base": 0,
+      "TEX1LOW": 0,
+      "pixel_info_size": 524288,
+      "palette_info_size": 0,
+      "pixel_struct_size": 524288,
+      "GS_allocation_words": 131072,
+      "upload_DBW": 4,
+      "upload_DPSM": 0,
+      "upload_TRXREG": [
+        256,
+        512
+      ],
+      "transfer_header_count": 0,
+      "header_hex": "",
+      "source_exemplar": {
+        "archive": "SYSTEM",
+        "entry": "system\\icon_p.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\icon_p"
+      },
+      "instances": 1,
+      "native_legacy_IMAGE_fragment_qwords": [
+        32750,
+        18
+      ],
+      "source_linear_stride_bytes": 1024,
+      "source_raw_alpha_limit": 128,
+      "implementation_scope": "proposed explicitRGBA mode only ifv0_512x512; other shapes/layouts held for a separate increment"
+    },
+    {
+      "mode": "v2_256x256",
+      "native_version": 2,
+      "dimensions": [
+        256,
+        256
+      ],
+      "raster_format": "0x0504",
+      "TEX0": "0x620010000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 4,
+        "PSM": 0,
+        "TW": 8,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 0
+      },
+      "palette_base": 0,
+      "TEX1LOW": 0,
+      "pixel_info_size": 262224,
+      "palette_info_size": 0,
+      "pixel_struct_size": 262224,
+      "GS_allocation_words": 65536,
+      "upload_DBW": 4,
+      "upload_DPSM": 0,
+      "upload_TRXREG": [
+        256,
+        256
+      ],
+      "transfer_header_count": 1,
+      "header_hex": "03000000000000100e0000000000000000000000000000005100000000000000000100000001000052000000000000000000000000000000530000000000000000400000000000080000000000000000",
+      "source_exemplar": {
+        "archive": "SYSTEM",
+        "entry": "system\\multitap.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\multitap"
+      },
+      "instances": 2,
+      "source_linear_stride_bytes": 1024,
+      "source_raw_alpha_limit": 128,
+      "implementation_scope": "proposed explicitRGBA mode only ifv0_512x512; other shapes/layouts held for a separate increment"
+    },
+    {
+      "mode": "v0_512x256",
+      "native_version": 0,
+      "dimensions": [
+        512,
+        256
+      ],
+      "raster_format": "0x0504",
+      "TEX0": "0x624020000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 8,
+        "PSM": 0,
+        "TW": 9,
+        "TH": 8,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 0
+      },
+      "palette_base": 0,
+      "TEX1LOW": 0,
+      "pixel_info_size": 524288,
+      "palette_info_size": 0,
+      "pixel_struct_size": 524288,
+      "GS_allocation_words": 131072,
+      "upload_DBW": 8,
+      "upload_DPSM": 0,
+      "upload_TRXREG": [
+        512,
+        256
+      ],
+      "transfer_header_count": 0,
+      "header_hex": "",
+      "source_exemplar": {
+        "archive": "SYSTEM",
+        "entry": "system\\rw.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\rw"
+      },
+      "instances": 1,
+      "native_legacy_IMAGE_fragment_qwords": [
+        32750,
+        18
+      ],
+      "source_linear_stride_bytes": 2048,
+      "source_raw_alpha_limit": 128,
+      "implementation_scope": "proposed explicitRGBA mode only ifv0_512x512; other shapes/layouts held for a separate increment"
+    },
+    {
+      "mode": "v2_128x16",
+      "native_version": 2,
+      "dimensions": [
+        128,
+        16
+      ],
+      "raster_format": "0x0504",
+      "TEX0": "0x51c008000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 2,
+        "PSM": 0,
+        "TW": 7,
+        "TH": 4,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 0
+      },
+      "palette_base": 0,
+      "TEX1LOW": 0,
+      "pixel_info_size": 8272,
+      "palette_info_size": 0,
+      "pixel_struct_size": 8272,
+      "GS_allocation_words": 4096,
+      "upload_DBW": 2,
+      "upload_DPSM": 0,
+      "upload_TRXREG": [
+        128,
+        16
+      ],
+      "transfer_header_count": 1,
+      "header_hex": "03000000000000100e0000000000000000000000000000005100000000000000800000001000000052000000000000000000000000000000530000000000000000020000000000080000000000000000",
+      "source_exemplar": {
+        "archive": "FIELD",
+        "entry": "field\\map\\main\\field_map.txd",
+        "texture": "streetI"
+      },
+      "instances": 11,
+      "source_linear_stride_bytes": 512,
+      "source_raw_alpha_limit": 128,
+      "implementation_scope": "proposed explicitRGBA mode only ifv0_512x512; other shapes/layouts held for a separate increment"
+    },
+    {
+      "mode": "v2_16x16",
+      "native_version": 2,
+      "dimensions": [
+        16,
+        16
+      ],
+      "raster_format": "0x0504",
+      "TEX0": "0x510004000",
+      "TEX0_fields": {
+        "TBP0": 0,
+        "TBW": 1,
+        "PSM": 0,
+        "TW": 4,
+        "TH": 4,
+        "TCC": 1,
+        "TFX": 0,
+        "CBP": 0,
+        "CPSM": 0,
+        "CSM": 0,
+        "CSA": 0,
+        "CLD": 0
+      },
+      "palette_base": 0,
+      "TEX1LOW": 0,
+      "pixel_info_size": 1104,
+      "palette_info_size": 0,
+      "pixel_struct_size": 1104,
+      "GS_allocation_words": 2048,
+      "upload_DBW": 1,
+      "upload_DPSM": 0,
+      "upload_TRXREG": [
+        16,
+        16
+      ],
+      "transfer_header_count": 1,
+      "header_hex": "03000000000000100e0000000000000000000000000000005100000000000000100000001000000052000000000000000000000000000000530000000000000040000000000000080000000000000000",
+      "source_exemplar": {
+        "archive": "BATTLE",
+        "entry": "battle\\shield\\null.txd",
+        "texture": "Y:\\Graphic\\battle\\shield\\null"
+      },
+      "instances": 2,
+      "source_linear_stride_bytes": 64,
+      "source_raw_alpha_limit": 128,
+      "implementation_scope": "proposed explicitRGBA mode only ifv0_512x512; other shapes/layouts held for a separate increment"
+    }
+  ],
+  "mode_oracles": [
+    {
+      "mode": "v0_512x512",
+      "source": {
+        "archive": "EVENT",
+        "entry": "event\\npc\\npc_18_.txd",
+        "texture": "NPC_18_0",
+        "member_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662"
+      },
+      "noop_TXD_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+      "raw_pixel_sha256": "801a2ba9756e05d79e144b7e4d23b6ad1ebebad10e3adeab008329292972153d",
+      "decoded_RGBA_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+      "in_memory_PNG_inverse_exact": true,
+      "PNG_bytes": 193336,
+      "two_colored_pixel_edits": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 200,
+          "candidate_RGBA": [
+            17,
+            101,
+            233,
+            127
+          ],
+          "expected_native_RGBA": [
+            17,
+            101,
+            233,
+            64
+          ],
+          "decoded_RGBA": [
+            17,
+            101,
+            233,
+            128
+          ]
+        },
+        {
+          "xy": [
+            511,
+            511
+          ],
+          "TXD_offset": 1048772,
+          "candidate_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "expected_native_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "decoded_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ]
+        }
+      ],
+      "edited_TXD_sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+      "edited_native_pixel_sha256": "3f766c594eeb838e3578d08c72766c7e537346d36c06965ea22b1b23417b2096",
+      "edited_decoded_RGBA_sha256": "8e986f39fac5a0a01895a59488ebeaf626f651ce1ebde01d1c4710251c6702bf",
+      "changed_TXD_offsets": [
+        200,
+        201,
+        202,
+        203,
+        1048772,
+        1048773,
+        1048774
+      ],
+      "outside_selected8bytes_changed": 0,
+      "unselected_textures_and_headers_identical": true
+    },
+    {
+      "mode": "v0_256x512",
+      "source": {
+        "archive": "SYSTEM",
+        "entry": "system\\icon_p.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\icon_p",
+        "member_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5"
+      },
+      "noop_TXD_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+      "raw_pixel_sha256": "544afc404b2dff12f998463afe4366b1b76e3b1c0bb47707ac95ecfaf697e700",
+      "decoded_RGBA_sha256": "2367c32fb90104c3e0d768eec3813e851f559a0c6ed42dd6a0d7199f8b9d20a8",
+      "in_memory_PNG_inverse_exact": true,
+      "PNG_bytes": 121056,
+      "two_colored_pixel_edits": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 216,
+          "candidate_RGBA": [
+            17,
+            101,
+            233,
+            127
+          ],
+          "expected_native_RGBA": [
+            17,
+            101,
+            233,
+            64
+          ],
+          "decoded_RGBA": [
+            17,
+            101,
+            233,
+            128
+          ]
+        },
+        {
+          "xy": [
+            255,
+            511
+          ],
+          "TXD_offset": 524500,
+          "candidate_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "expected_native_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "decoded_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ]
+        }
+      ],
+      "edited_TXD_sha256": "a1a2c27f503f2870f242df66bf5d29419ef4b1e3901a6ef4421faec2e4b9f24e",
+      "edited_native_pixel_sha256": "bf771d241e9365a198cf582b1f6b2788be1430df9a63702a71ee4732040fbd76",
+      "edited_decoded_RGBA_sha256": "d9a6cff14da5a4cb5a5a7ec7a9d58c0684e9dbc60347ee9aaf25d9fedb95885b",
+      "changed_TXD_offsets": [
+        216,
+        217,
+        218,
+        219,
+        524500,
+        524501,
+        524502
+      ],
+      "outside_selected8bytes_changed": 0,
+      "unselected_textures_and_headers_identical": true
+    },
+    {
+      "mode": "v2_256x256",
+      "source": {
+        "archive": "SYSTEM",
+        "entry": "system\\multitap.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\multitap",
+        "member_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f"
+      },
+      "noop_TXD_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+      "raw_pixel_sha256": "21b413164cfae178fa90607284e6189dad1eadb3800e86fc24c24e7c3ab572e7",
+      "decoded_RGBA_sha256": "bddc99c27e69afef5082681b55ffec49371073ea1d6484316536259a95aeafa0",
+      "in_memory_PNG_inverse_exact": true,
+      "PNG_bytes": 22993,
+      "two_colored_pixel_edits": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 296,
+          "candidate_RGBA": [
+            17,
+            101,
+            233,
+            127
+          ],
+          "expected_native_RGBA": [
+            17,
+            101,
+            233,
+            64
+          ],
+          "decoded_RGBA": [
+            17,
+            101,
+            233,
+            128
+          ]
+        },
+        {
+          "xy": [
+            255,
+            255
+          ],
+          "TXD_offset": 262436,
+          "candidate_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "expected_native_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "decoded_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ]
+        }
+      ],
+      "edited_TXD_sha256": "811f05f56f088bcf6c662dd9b0d24330318223cccaed1662478a17d8245e59a8",
+      "edited_native_pixel_sha256": "0cca6f543e3a6a610aa9da479e4b9d81da749229c11d950a9052ec1120f33547",
+      "edited_decoded_RGBA_sha256": "cdbb51b3abf2e08c88ad593354228018e794a98e4d1a376eb0c047b69d25fa6c",
+      "changed_TXD_offsets": [
+        296,
+        297,
+        298,
+        299,
+        262436,
+        262437,
+        262438
+      ],
+      "outside_selected8bytes_changed": 0,
+      "unselected_textures_and_headers_identical": true
+    },
+    {
+      "mode": "v0_512x256",
+      "source": {
+        "archive": "SYSTEM",
+        "entry": "system\\rw.txd",
+        "texture": "Y:\\Graphic\\SYSTEM\\rw",
+        "member_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c"
+      },
+      "noop_TXD_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+      "raw_pixel_sha256": "7366bc8ae7e72842243ac8143bf51a70b5902f8a0c11bd73d9cd7e0d487a9f24",
+      "decoded_RGBA_sha256": "abbbeff6510a5cf666a7b7976519d1af19236ad2d18ee3cb1104b6486bbe71e0",
+      "in_memory_PNG_inverse_exact": true,
+      "PNG_bytes": 26402,
+      "two_colored_pixel_edits": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 212,
+          "candidate_RGBA": [
+            17,
+            101,
+            233,
+            127
+          ],
+          "expected_native_RGBA": [
+            17,
+            101,
+            233,
+            64
+          ],
+          "decoded_RGBA": [
+            17,
+            101,
+            233,
+            128
+          ]
+        },
+        {
+          "xy": [
+            511,
+            255
+          ],
+          "TXD_offset": 524496,
+          "candidate_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "expected_native_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "decoded_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ]
+        }
+      ],
+      "edited_TXD_sha256": "6502945cc9627b05f868cc962b708a1096868110c1bfb22097403ad8c28ee76f",
+      "edited_native_pixel_sha256": "8bec049a68e9016c4b5367b9b1dde6d13036049c6647efa4a6e5fb1d460a4fa7",
+      "edited_decoded_RGBA_sha256": "88c3844d94a1c1baf39ff260552fc81adcbf9ccef5fe20d36812fb83f18abf70",
+      "changed_TXD_offsets": [
+        212,
+        213,
+        214,
+        215,
+        524496,
+        524497,
+        524498,
+        524499
+      ],
+      "outside_selected8bytes_changed": 0,
+      "unselected_textures_and_headers_identical": true
+    },
+    {
+      "mode": "v2_128x16",
+      "source": {
+        "archive": "FIELD",
+        "entry": "field\\map\\main\\field_map.txd",
+        "texture": "streetI",
+        "member_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405"
+      },
+      "noop_TXD_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "raw_pixel_sha256": "a8ef8b7e15d963319d89dd2a8ddac7725953c1dd45a93cc7d0be7b897baa25e9",
+      "decoded_RGBA_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "in_memory_PNG_inverse_exact": true,
+      "PNG_bytes": 300,
+      "two_colored_pixel_edits": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 71468,
+          "candidate_RGBA": [
+            17,
+            101,
+            233,
+            127
+          ],
+          "expected_native_RGBA": [
+            17,
+            101,
+            233,
+            64
+          ],
+          "decoded_RGBA": [
+            17,
+            101,
+            233,
+            128
+          ]
+        },
+        {
+          "xy": [
+            127,
+            15
+          ],
+          "TXD_offset": 79656,
+          "candidate_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "expected_native_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "decoded_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ]
+        }
+      ],
+      "edited_TXD_sha256": "8989ecac122c8fcc6fff0b888695c0b732753cc8e565c5e98f5b2645136003de",
+      "edited_native_pixel_sha256": "f726b81ed263b9f44d710f1fa9f665272040318a35e3204fbcc9c8aa73a8b83d",
+      "edited_decoded_RGBA_sha256": "fb86550fa179071ac56a5e79fa7a6552747d24ee3776fff21154b6fa8a8fb60a",
+      "changed_TXD_offsets": [
+        71468,
+        71469,
+        71470,
+        71471,
+        79656,
+        79657,
+        79658
+      ],
+      "outside_selected8bytes_changed": 0,
+      "unselected_textures_and_headers_identical": true
+    },
+    {
+      "mode": "v2_16x16",
+      "source": {
+        "archive": "BATTLE",
+        "entry": "battle\\shield\\null.txd",
+        "texture": "Y:\\Graphic\\battle\\shield\\null",
+        "member_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054"
+      },
+      "noop_TXD_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+      "raw_pixel_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "decoded_RGBA_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "in_memory_PNG_inverse_exact": true,
+      "PNG_bytes": 85,
+      "two_colored_pixel_edits": [
+        {
+          "xy": [
+            0,
+            0
+          ],
+          "TXD_offset": 300,
+          "candidate_RGBA": [
+            17,
+            101,
+            233,
+            127
+          ],
+          "expected_native_RGBA": [
+            17,
+            101,
+            233,
+            64
+          ],
+          "decoded_RGBA": [
+            17,
+            101,
+            233,
+            128
+          ]
+        },
+        {
+          "xy": [
+            15,
+            15
+          ],
+          "TXD_offset": 1320,
+          "candidate_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "expected_native_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ],
+          "decoded_RGBA": [
+            231,
+            19,
+            87,
+            0
+          ]
+        }
+      ],
+      "edited_TXD_sha256": "f6e12bc88c84bb878abdae11f96a9abeb021dab265be91bb2532f1084d3d660b",
+      "edited_native_pixel_sha256": "f02ac5ccfbcff1af5a7032ac2304b55cca0922b571634a6425637112d6d28f80",
+      "edited_decoded_RGBA_sha256": "7e70298a7544370fc747e57905f206cc9c279acef6c9820b26b80d65c37ba8e0",
+      "changed_TXD_offsets": [
+        300,
+        301,
+        302,
+        303,
+        1320,
+        1321,
+        1322
+      ],
+      "outside_selected8bytes_changed": 0,
+      "unselected_textures_and_headers_identical": true
+    }
+  ],
+  "native_provenance": {
+    "source_zip": "assets/executable-49ab69ac.zip",
+    "zip_sha256": "e2e4840869e3a160907afd67934eb20ab01a051e6198accffff921c60919294b",
+    "member": "SLPM_657.50",
+    "elf_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+    "elf_bytes": 5087232,
+    "mapping": "PT_LOAD file offset0x80 maps to VMA0x100000; cited code/data file offsets=VMA-0xfff80. Empty symtab/strtab: semantic labels below are analyst names, not recovered symbol names."
+  },
+  "all12_prior_native_spans_rebound": [
+    {
+      "name": "native_texture_read",
+      "start_vma": "0x217488",
+      "end_vma_exclusive": "0x2176b8",
+      "file_offset": 1144072,
+      "sha256": "2919dca0f6fcf35868c34ab4ea749b9514c95827c922f607d0ef828c9f9cfd3f",
+      "matched": true
+    },
+    {
+      "name": "native_raster_read",
+      "start_vma": "0x217050",
+      "end_vma_exclusive": "0x217394",
+      "file_offset": 1142992,
+      "sha256": "4a3657b9579bd9f2370038bc62f0596610d2f9126a4b6106a9bbbb2475dfdfe0",
+      "matched": true
+    },
+    {
+      "name": "device_registration",
+      "start_vma": "0x219708",
+      "end_vma_exclusive": "0x2197cc",
+      "file_offset": 1152904,
+      "sha256": "f3ed0134feb8047822fd8a785451124450da05736e3f95558a20373a2719b70a",
+      "matched": true
+    },
+    {
+      "name": "default_relocation_and_TEX0",
+      "start_vma": "0x2284c0",
+      "end_vma_exclusive": "0x228760",
+      "file_offset": 1213760,
+      "sha256": "00cc2316ef7a6d70a5be4c8e5220997b672cb89b53aea412db37d3224b91a504",
+      "matched": true
+    },
+    {
+      "name": "uploader_relocation",
+      "start_vma": "0x2270b0",
+      "end_vma_exclusive": "0x227270",
+      "file_offset": 1208624,
+      "sha256": "3408f810aef6bf7c713afee07f9f1a62ac7cbf826bcc935505cfa2fa3cf107bb",
+      "matched": true
+    },
+    {
+      "name": "nonzero_palette_packet",
+      "start_vma": "0x2145a0",
+      "end_vma_exclusive": "0x21477c",
+      "file_offset": 1132064,
+      "sha256": "bf0c524cc7ded17797d6a0c301403741b4079fde0669b7dec24cf0decb7aa29c",
+      "matched": true
+    },
+    {
+      "name": "PSMT8_pixel_BITBLTBUF",
+      "start_vma": "0x214410",
+      "end_vma_exclusive": "0x214520",
+      "file_offset": 1131664,
+      "sha256": "6fa28aeee44ccd99c56c8cd415c0981ab4fd1e179e6824efce8c22d39877e59c",
+      "matched": true
+    },
+    {
+      "name": "PSMT8_palette_position",
+      "start_vma": "0x213a50",
+      "end_vma_exclusive": "0x213b7c",
+      "file_offset": 1129168,
+      "sha256": "728cb57c2e3a10133205546858b6559eba8651c4bec0824bdbaf6df381476d05",
+      "matched": true
+    },
+    {
+      "name": "allocation",
+      "start_vma": "0x2138bc",
+      "end_vma_exclusive": "0x213a1c",
+      "file_offset": 1128764,
+      "sha256": "428167e246196d2e22bd20bc0a547f29ad183cec5c56eab018267e8e0107ad82",
+      "matched": true
+    },
+    {
+      "name": "second_residency_path",
+      "start_vma": "0x228c34",
+      "end_vma_exclusive": "0x228ce0",
+      "file_offset": 1215668,
+      "sha256": "557ad21a918807a65e945e2eb9890beffaad7f8ecb64394126217cedef7fefcd",
+      "matched": true
+    },
+    {
+      "name": "device_callback_table",
+      "start_vma": "0x455e10",
+      "end_vma_exclusive": "0x455ef0",
+      "file_offset": 3497616,
+      "sha256": "19e496f64927760ddf39dcb336c87a6ae8f6c17d849cc2b249eac03f1446c5c8",
+      "matched": true
+    },
+    {
+      "name": "default_cache_data",
+      "start_vma": "0x456200",
+      "end_vma_exclusive": "0x456240",
+      "file_offset": 3498624,
+      "sha256": "6a0fc71ba56715c4c117fc2afa03dd0236e7a2179df121697afbe079bb575d2c",
+      "matched": true
+    }
+  ],
+  "additional_native_spans": [
+    {
+      "name": "v0_legacy_create",
+      "start_vma": "0x2147d4",
+      "end_vma_exclusive": "0x2148d0",
+      "file_offset": 1132628,
+      "bytes": 252,
+      "sha256": "27c592743c3ca31d332fc3f247f8f88b9c4da10d1b538b5360b07adbd99e1973"
+    },
+    {
+      "name": "v0_legacy_uploader",
+      "start_vma": "0x227440",
+      "end_vma_exclusive": "0x2279a0",
+      "file_offset": 1209536,
+      "bytes": 1376,
+      "sha256": "71df6faca9d0a1496f266fa16c9751cc3a948f3c1ec60ee4c766d2915be4a4a2"
+    },
+    {
+      "name": "v0_packet_builder",
+      "start_vma": "0x2266a8",
+      "end_vma_exclusive": "0x226920",
+      "file_offset": 1206056,
+      "bytes": 632,
+      "sha256": "e526d99dc075e2cb113cc768f2654af76ba3ae772a70914e28eb7e2d660b5bca"
+    },
+    {
+      "name": "v0_post_create",
+      "start_vma": "0x226920",
+      "end_vma_exclusive": "0x226b18",
+      "file_offset": 1206688,
+      "bytes": 504,
+      "sha256": "bc17ba7d366f625a748340153ac4b8857e15016e389d54ff9603ec3c91bba0d4"
+    },
+    {
+      "name": "v0_packet_relocation",
+      "start_vma": "0x226b18",
+      "end_vma_exclusive": "0x226d50",
+      "file_offset": 1207192,
+      "bytes": 568,
+      "sha256": "1f75fc43ca890375f680483ec4a031419315f436fc6d51114df8939a5e74199a"
+    },
+    {
+      "name": "v0_alternate_copy_upload",
+      "start_vma": "0x226d50",
+      "end_vma_exclusive": "0x2270b0",
+      "file_offset": 1207760,
+      "bytes": 864,
+      "sha256": "0b3162f9a5df94655c0fba163ab60edad9746a0aad1082f7c53b78b978dfc9cd"
+    },
+    {
+      "name": "direct_modern_BITBLTBUF",
+      "start_vma": "0x2144b8",
+      "end_vma_exclusive": "0x214520",
+      "file_offset": 1131832,
+      "bytes": 104,
+      "sha256": "3a01e0d638d05d99c2d0f39b8045df8463b5ba2522afa16803e08478fbc116fc"
+    },
+    {
+      "name": "native_direct_page_geometry_tables",
+      "start_vma": "0x5169a0",
+      "end_vma_exclusive": "0x516aa0",
+      "file_offset": 4287008,
+      "bytes": 256,
+      "sha256": "ada34cd0957391c6dc99100912a8a35023d2d0d02b048387ed9dbd97abd4de65"
+    }
+  ],
+  "primary_sources_rebound": [
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/R5900OpcodeTables.cpp",
+      "sha256": "80562704233e7d7f68d54878f4cf00cad2f63d1ba8362b76ea09634c5093ec1f",
+      "bytes": 31265,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-R5900OpcodeTables.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/MMI.cpp",
+      "sha256": "5b5a045dfbf896bc470d8aed658dfc492a07a5b74859a0d7832b2969f539159a",
+      "bytes": 41508,
+      "path": "/var/tmp/dokapon-clut-loader-study-8c3zt7o9/pcsx2-MMI.cpp",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSLocalMemory.h",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSLocalMemory.h",
+      "bytes": 33989,
+      "sha256": "8cd6ed874f53aafde5f3d294048b2b0beed87765ab099a5f8aa93899cb988a19",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSLocalMemory.cpp",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSLocalMemory.cpp",
+      "bytes": 25866,
+      "sha256": "46da01086c93f3839c0c20787433f8cd0b7b89790d42f12414f9589c66fd4e51",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSRegs.h",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSRegs.h",
+      "bytes": 23792,
+      "sha256": "b9d73e6f5a8caf8ab12ab470de1ba8fdc407b5eb58c5bafa80e178adb57d730c",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/bin/resources/shaders/opengl/tfx_fs.glsl",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-tfx_fs.glsl",
+      "bytes": 36957,
+      "sha256": "3aa5999392096043acd6dad291665453d9f290121ea9f0bd8eed3b9b07572124",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSPng.cpp",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSPng.cpp",
+      "bytes": 4500,
+      "sha256": "765cb170c1b8faf1cb74d7a73d00afdff11e4fcaee2aa8ff5c8deb467f915d1b",
+      "matched": true
+    },
+    {
+      "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSPng.h",
+      "revision": "eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c",
+      "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/pcsx2-GSPng.h",
+      "bytes": 843,
+      "sha256": "49b21df2eb1fe2006efb6796560f98898abadfcae914b51cecf24f48cc7371c5",
+      "matched": true
+    }
+  ],
+  "critical_instruction_words": {
+    "0x2170d8": "0x24020001",
+    "0x2170dc": "0xaf8287b0",
+    "0x213a14": "0x1480036f",
+    "0x214874": "0xc089a48",
+    "0x2270f4": "0x104000d2",
+    "0x227720": "0x8e870020",
+    "0x227738": "0xc089ac6",
+    "0x226850": "0x72292b89",
+    "0x22684c": "0x6103c",
+    "0x226884": "0xce3021",
+    "0x226bd4": "0x3183c",
+    "0x226bd8": "0x471025",
+    "0x226be0": "0x52e38",
+    "0x226bf0": "0x24050050"
+  },
+  "nomip_legacy_dispatch_table": {
+    "vma": "0x517420",
+    "value": "0x2275b4"
+  },
+  "pins_stable_during_study": true,
+  "scratch": "/var/tmp/dokapon-colored-direct-contract-Mc15um",
+  "native_page_geometry_words": {
+    "0x516a1c": 64,
+    "0x516a9c": 32
+  },
+  "status": "NATIVE BYTE CONTRACT ESTABLISHED; proposed explicitRGBA policy on existing512-squarev0 mode only, no implementation or approval",
+  "scope": "Only analysis/colored-direct-native-contract.json/.md written in repository. Bounded original21instance/12uniquepayload census plus native source and primary-format study. Commands nice19/ownedvarTMP; no production/test/source/art/registry/ISOwrites or actualISO/emulator/PINE/process/log/settings access. Six referencePNG roundtrips are in memory; no art artifacts were written.",
+  "coverage": {
+    "core_complete": 3,
+    "core_denominator": 14,
+    "core_percent": 21.43,
+    "expanded_complete": 3,
+    "expanded_denominator": 17,
+    "expanded_percent": 17.65,
+    "texture_family": "partial",
+    "study_credit": 0
+  },
+  "inventory_summary": {
+    "instances": 21,
+    "colored_instances": 16,
+    "already_handled_monochrome_fonts": 3,
+    "monochrome_transparent_null_instances": 2,
+    "unique_raw_payloads": 12,
+    "metadata_modes": 6,
+    "source_PNG_exports_present": 0,
+    "source_member_status": "Actual original extracted CMB members present and individually SHA-pinned; manifest-referenced original PNG exports absent. No historical rendered-image proof is claimed.",
+    "raw_alpha_min": 0,
+    "raw_alpha_max": 128,
+    "raw_alpha_values_observed": 129,
+    "raw_alpha_over128_pixels": 0,
+    "pixels_counting_instances": 1464832,
+    "distribution_qualification": "Per-unique-payload exact histograms avoid duplicating identical original payloads; aggregate counts repeated instances. max103 on actualmultitap, max0 on the two nulls; the other modes include max128."
+  },
+  "native_pipeline": {
+    "common_registration_and_source": "Exact prior sourceZIP/member and all12loader/cache spans rebound. Registered PS2texture reader217488 ->raster reader217050; actualcreation212fe0 anddefaultcache data unchanged. No currentGo pin drift is a finding in this source-only contract.",
+    "v0_headerless_route": [
+      "Native version0 sets old-layoutglobal at2170d8..2170dc beforecreation; creator213a14 takes legacyallocation2147d4, leaving modernpacketflag1 clear. The record has pixelSize=w*h*4,paletteSize0,paletteBase0,TEX1LOW0; legacyreader copies sourcepixel bytes directly and performs cachemaintenance.",
+      "Uploader2270f4 dispatches flag1clear to227440. TEX1LOW0 selects actualjumptable517420->2275b4, sets baseTBW fromTEX0 andbaseGSblocks fromresidencybaseWords>>6. For PSM0 it skips8/4bit conversion branches andcalls2266a8/226b18 with original width/height, pointer, depth32, DBW=sampledTBW andDPSM0.",
+      "2266a8 creates IMAGE/DMAreference packets pointing at sourcepixel bytes; it increments payloadaddress by0x7fee0B between bounded fragments and has no R/G/B/A conversion loop. Large512square splits65536qwords into32750,32750,36; two524288B shapes split32768 into32750,18. Fragments continue one host-to-local image transfer; they are not mip levels.",
+      "226b18 writes BITBLTBUF.DPSM0, DBW=sampleTBW andDBP=B, TRXPOS0 andfullwidth/heightTRXREG. The fallback226d50 path constructs the same destination fields and transports source row bytes; no channel or alpha arithmetic is applied. Source stridewidth*4 and PSM0 are the finite contract."
+    ],
+    "v2_one_header_route": [
+      "Version2 keeps modernpacketflag1, reads pixelSize=w*h*4+80 directly into the createdpacketbuffer. PaletteSize0 means no CLUT read orpalettepacket. Actual selectedpixelstruct is exactly ONE80B header plus rawpixel bytes; no indexedtwo-header storage assumption.",
+      "DirectPSM0 does not take indexedhalfwidth/halfheight branches. Native2144b8..214520 buildsDPSM0/DBW=TBW andpixelTRXREG=w,h. Modern2270b0 uploader relocates DBP usingthe sameB as sampleTBP0 and referencesrawpayload without re-encoding.",
+      "256square IMAGE16384qwords,128x16IMAGE512qwords and16squareIMAGE64qwords all match actualheaders. The two narrow shapes reserve partial nativepages:4096words and2048words rather than w*hwords.16square has minimumTBW1, not width/64=0."
+    ],
+    "linear_address_inference": "Both direct upload andsample usePSMCT32, the samebaseB andDBW=TBW. Hosttransfer scans originalw*hRGBAwords; hardware writes andsamples the samePSMCT32 address map. Swizzle therefore cancels between upload/sample and filepixeloffset=(y*w+x)*4 is established for this finite mode, not assumed from the oldlinear-unverified scanner label.",
+    "allocation": "Actual pagegeometrywords at516a1c/516a9c are64x32. All21native records matchceil(w/64)*ceil(h/32)*2048words. No palettepage is allocated; paletteBase, paletteSize andserializedCLUTfields arezero. Native directsample ignores CLUTfields evenif genericcachebinder fillsCBP bits.",
+    "no_native_visual_claim": "Static normalregistered/defaultcache evidence only. No actualruntime sampling, drawcallhistory orblendstate was observed; customstream callbacks, runtimeconfig/indirecthistories andISOownership remain outside."
+  },
+  "primary_format_proof": {
+    "sources": "Eight pinnedprimary files: two priorPCSX2CPUinstruction sources plus GSLocalMemory.h/.cpp,GSRegs.h,tfx_fs.glsl,GSPng.cpp/.h at the same existingPCSX2revisioneb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c. No emulator was run.",
+    "RGBA_order": "GSRegs.h739..746 storespackedRGBAQ channels R,G,B,A in byte order. GSLocalMemory.h671..674/818..821/1010..1013 reads/writesPSMCT32packedu32unchanged; thePSMCT32format remains32bits withno palette. GSLocalMemory.cpp623..648 passesrawpixel bytes toRGB/RGB_A PNGoutput withrb_swapped=false; GSPng.cpp18..23/67..88 choosesRGB/RGBAoutput andonlyenablesBGRswap ifrequested. Together withactualnativeunmodifiedbytes these establishfileR,G,B,A byteorder; not BGRA andnot inferredfromgrayscale.",
+    "straight_RGB_storage": "PSMCT32 storesRGBAcomponents; sourcecopy/texture-read path has no premultiply or inversepremultiply. PNGwriter preservesstoredRGB ratherthan derivingitfromalpha. ActualNPC18haswhiteRGB255/255/255 atnativealpha2 andhiddenwhiteRGB atalpha0, proving these sourcebytes are not uniformlypremultipliedRGBA boundedbyalpha. Do not multiply/divideRGB or cleartransparentRGB duringdefault/directpolicyimport/export. This doesnot inferoriginalart provenance orfinaldrawblendchoice.",
+    "alpha_native_vs_authoring": "tfx_fs.glsl1035..1037/1061..1095/1285..1288 representsGSblendfactors in1/128 units andallowsabove1 in relevant modes. Therefore rawalpha128 meansunit factorwhenalpha isused asblendcoefficient; rawalpha>128cannot be declaredsaturatedopaque. Actualdirectsource0..128 only. The projectPNGpolicy min(255,2*rawAlpha), inverse(A+1)//2 is a reversible129levelauthoring convention andretainscurrentmonofontbehavior; it is not exactPNGopacitysimulation ofrawAlpha/128 for intermediatevalues orproof ofgameblendoutput."
+  },
+  "next_increment": {
+    "selected_scope": "Explicit pixel_policy=rgba on the ALREADYcalibrated512x512/RF0x0504/version0/headerless/TEX00x664020000/paletteBase0/TEX1LOW0/262144wordallocation mode only. OneactualcoloredsourceNPC18plus3currentmonochromefonts sharethe identicalmetadata/storagecontract.",
+    "default_policy_necessity": "Preserve existingdefaultfont/source/candidate monochrome refusals. NativeRGBAproof alone doesnotauthorize silentlyremovingoldpublicrefusals. Defaultoptionsmustcontinue torejectcoloredsource/candidate; explicitrgbaoptin selects RGBsupport. Bothpoliciescontinuetorefuserawsourcealpha>128.",
+    "policy_contract": [
+      "AllowRGBApolicy for calibrateddirect32 export andmaskedimport; unknownpixelpolicy refuses, andindexeddepth4/8 refusesRGBApolicy. Reject incompatiblepalette_policy exact / pixel_policy rgba combination explicitly.",
+      "Metadata,sourcebounds,sourcealpha0..128,exactsource/PNGpins,rawpixelpreservation andmask/outsidechangerefusals stayunchanged. UseoriginalR/G/B andrawalpha0..128; candidatealpha(A+1)//2roundstiesupasoldfont. ReportdecodedoutputRGBA, not arbitrarycandidatealpha orblendmatch.",
+      "Existingpixelwalk alreadyuses linearbyteoffset,NRGBAcolor,mask andfourbytewrite. Enhanceits source/candidate monochrome checks conditionally underexplicitpolicy; do not add asecondpixelwalk/quantizer/publisher ortransformtransparentRGB.",
+      "RootproposedpurposegroupedTextureOptions(PalettePolicy,PixelPolicy) embeddedin existingTextureProfile andpassedtoexistingtexture cankeepcanonical policyfieldsinoneplacewithout growingpositionalstrings. This is arootdesigndirection, notimplemented orapprovedbythisstudy; no newfunction needed.",
+      "authorTexture mustvalidate/reportpolicy and updateits limits; reuseexistingreadInput/writeNewFile/run. Extendexistinggolden/rawfont/standaloneCLI tests andoneactualNPC18fixture; defaultoldcoloredrefusalsremainnegativecases andexplicitrgba getspositivecoloredcases."
+    ],
+    "actual_selected_fixture": "mode_oracles[v0_512x512] uses originalevent\\npc\\npc_18_.txd/NPC_18_0. Fullmember/rawpixel/decodedRGBA/noopandtwo-colored-pixeledit hashes andexactoffsets aresealed. Sourcefirstpixelnative[255,255,255,0] retains hiddenRGB. FirsteditPNG[17,101,233,127] ->native[17,101,233,64] ->reported[17,101,233,128]; lastedit[231,19,87,0] retainsallthreeRGBchannels atnativealpha0.",
+    "held_for_later": [
+      "Other v0dimensions256x512/512x256 haveboundednativebyteproofandmodeoraclesherebutstayoutside firstincrement. Their metadata/TEX0/shapeguardsmustbeaddedexplicitly later.",
+      "Allv2ONEheadermodes256square/128x16/16squarestayhelduntilsharedstorage/packetvalidation supports oneheader/zeroCLUT andproperdirectdimensions/minimumTBW/pagefootprint. Do not letexistingindexed2headerloop infer anemptyCLUTpacket.",
+      "Anyrawalpha>128source staysrefused; otherformats,32bitmipmaps,arbitrarydims,versions,TFX/TCC/customruntimeblendstates areunproved. Nativecoloredbyteproof doesnotclosewholetexturefamily."
+    ]
+  },
+  "required_future_checks": [
+    "Existingdefaultmodeall227corpusandmonochromefontalpha/mask/refusalgoldensmustremainunchanged. AddexplicitRGBAactualNPCsourcefullRGBA/noop/editreadback plusunselectedbytecontainment andsourcepreservation.",
+    "Policyunknown/indexed/conflict refusal/export+preview/import+applyCLIcoverage; sourcecolored/defaultrefusal, candidatecolored/defaultrefusal, explicitRGBApositive; sourcealpha129/255refusalunderbothpolicies beforepublication.",
+    "Candidatealpha0..255 vectors includingodd/ties; rawsourcealpha0..128preservenoop; coloredandtransparenthiddenRGBmustnotpremultiplyorzero; outside-maskdifferencesstillrefuseeveniftheyroundtosamewrittenalpha.",
+    "No layoutguard relaxation: wrongversion/nativeformat/TEX0/CLUTfields/paletteBase/TEX1/footprint/storageinfo/headerpresence/dimensions/sourcebounds mustrefuse. Neighboringv0/v2directmodesremainheldinthefirstincrement.",
+    "Normalprojectrace/vet/build/gofmt/scopedcredential/whitespacechecks andfreshindependentreview; standalonepublisheroverwrite/sourcepolicy unchanged. No UI/visualgameplay/ISOapplycredit from static pixelhashes."
+  ],
+  "verification": {
+    "result": "PASS all21actualinstanceand12payload/sourcehashes/nativefields/headerfacts;exactalpha histograms,max128andzeroover128; sixindependentpackedwordRGBAhashes+in-memoryPNGinverse/noop/two-colored-pixelcontainmentoracles;sourceGo/helperpinsstableduringthestudy; nativeZIP/ELF/all12prior+8boundedspanpins and8primarysourcepins,14criticalinstructionwords andactualnomipdispatchassertions.",
+    "qualification": "The6finiteoracles includeheldfuturelayoutmodes. Theyare referencecontracts, notGoimplementationpasses orpermission toacceptthemnow. Native/RGBAproofisnotgameblendmatch.",
+    "not_run": "NoGo suite/build/lint,actualnativeexecution,completeindirectgraph,ISOaliasownershipscan orartapplication. No source/artartifactwaswritten;PNGtestingusedBytesIOonly."
+  },
+  "study_script": {
+    "path": "/var/tmp/dokapon-colored-direct-contract-Mc15um/study.py",
+    "sha256": "dd4711389062e56e540be9295cc4f587d88f96365e142c0af987b66315b1940a"
+  }
+}

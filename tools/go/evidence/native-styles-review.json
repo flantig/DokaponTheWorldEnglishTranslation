@@ -1,0 +1,146 @@
+{
+  "at": "2026-10-20T18:53:22.810879+00:00",
+  "status": "PASS on revised67-pin candidate; no open material findings",
+  "scope": "Ordinary read-only implementation/reuse/behavior review. Only assigned evidence reports and owned private scratch written. No production/test/fixture/art/ISO/emulator/PINE/process/settings changes or protected reads.",
+  "candidate": {
+    "frozen_at": "2026-10-20T18:46:39.864802+00:00",
+    "source_data_pins": 67,
+    "all_pins_held": true,
+    "baseline": "/var/tmp/dokapon-native-text-sealed-k665qxfz",
+    "source_pins_path": "/var/tmp/dokapon-native-styles-review-d9jv1h_t/source-pins.json",
+    "source_pins_sha256": "8e415d0d05b21f04f8919235116776f8cbac16d666fd074d0f7f335070de5ce9",
+    "key_pins": {
+      "raster_runs.go": "7fe4e63e3f9f666be8ffb8e196265cf2c52b4955e901b2c39396cdc7a2769ea6",
+      "raster.go": "06a119260769b46191e225d4dfb3f5ce26cdd6a19c66f758a65ca24dae880a1c",
+      "raster_types.go": "6b09d0290bcd9ea4861fef4d5d6fc3a4280b17555459ce9d14cae1f4379f37a3",
+      "texture.go": "623d83e75e5efef1b9c44392ae11cd1845e58ae08d962fee437c3b5b2a8d26b8",
+      "texture_authoring.go": "75ae32af096e0631e27c617913de0f4774df66a1e46e0870da588253a30f4510",
+      "profiles/textures/help00-turn-order.json": "0c1e7159b26aa5f630e484fb17c467aba709fb34c2266928a98b265d3042dc99",
+      "testdata/native-styles.zip": "7d02fb107be7c2cc178fc1b740992fd081a9ed55daba74c10e8e15c7695b4e86",
+      "testdata/source-colors.zip": "f2a76d93b8e4b1c1cac61e4cac2a40d3c9484fa98bfd274dcb0a59a8f4c23102"
+    }
+  },
+  "findings": [],
+  "resolved_during_review": [
+    {
+      "finding": "Expanded containment also expanded PANEL paint, changing nine extra source bytes and producing416ef06c instead of original precode8931937b. Identified by root before acceptance.",
+      "resolution": "Optional metric-only BackgroundRect separates original paint[125,84,384,26] from strict approved cell[124,84,385,26], both inside original parent[121,72,388,70]. Outside paint, both compositors use original baseRGBA. Default whole-cell paint and old pixel-font behavior preserved; no new function.",
+      "proof": "Independent original E.composite +E.snap+ps2 quantizer restores existing precode artifact8931937b/RGBA87598b6e/6411 and ledger80dda1e1. Narrow approved cell still refuses positive float fringe. Patterned and additional transparent-source oracles pass.",
+      "superseded": "Old66-pin race149.035s/checks/CLI/raw candidate7ec01c92 and416ef06c target retained privately, not acceptance evidence for revision."
+    }
+  ],
+  "ownership_and_readability": {
+    "Serena_session": "d7f95853",
+    "result": "Existing renderRuns owns tracking/min-size/ordered strokes and ONE authoritative float32 BitmapLayer. composeCells owns explicit caller composition, containment and separate paint selection; authorTexture owns I/O/pins/policy orchestration; texture owns source-palette selection and unchanged native publication path. No new function/helper/test function/dependency/writer/CLI.",
+    "numerical_control": "Explicit glyph/color/outline roles preserve named-outline versus literal-black behavior. Ordered layers retain counter/inner-rim rules; nonzero tracking uses continuous drawing cursor while zero keeps run resets. Bounded discs reused,268M-visit work guard; minimum/finite/advance/conflict/color validations stay explicit.",
+    "source_policy": "One literal default-export selfcall terminates at depth1. Distinct used-sourceRGBA keys sort lexicographically; one shared INTEGER distance loop performs source projection then FULL native-order quantization. Raw-mask check precedes projection, equality after projection preserves duplicate indices. Raw source-color cache stops storing at4096 and continues uncached; default4096 refusal unchanged.",
+    "references": [
+      "raster_runs.go:36",
+      "raster_runs.go:58",
+      "raster_runs.go:112",
+      "raster_runs.go:150",
+      "raster_runs.go:189",
+      "raster.go:19",
+      "raster.go:125",
+      "raster.go:192",
+      "raster.go:203",
+      "texture.go:297",
+      "texture.go:378",
+      "texture.go:392",
+      "texture_authoring.go:38",
+      "texture_authoring.go:163"
+    ]
+  },
+  "independent_results": {
+    "actual_source_SHA256": "663c2990b13026ba40ceb70b26380b2ba5c06490dae889555ed2d05788ae857e",
+    "raw_candidate_SHA256": "a82da02f996057764f2fa5ad2cc45d1c24e836580b5565c81db8689c3dd853b7",
+    "whole_TXD_SHA256": "8931937b228c6bf337e4f98b096812cca4a684fff95fe8bbbe995da05c691d93",
+    "decoded_RGBA_SHA256": "87598b6e4a47c2fdd9bf488f5dbca40b25326662ff65cd9d218f4dc9f7e867e7",
+    "changed_native_bytes": 6411,
+    "ledger_SHA256": "80dda1e1549465f8df6ff2646efa0a06c6e3a237eaa4b016ad04825106e3958c",
+    "outside_approved_changes": 0,
+    "CLUT_headers_siblings_rest_unchanged": true,
+    "style_goldens": "Four actual styles plus independent minimum-fit and two explicit role witnesses: raw float word, placed layer, rounded word and PANEL composition compared to independent canonical arrays. Old Janky rawfloat/byte/TXD, HUD cells and134 resizer goldens retained.",
+    "source_goldens": "All19 native standard8/headerless8/standard4 cases independently reconstructed with ORIGINAL E.snap and ps2 decode/encode/quantizer. Includes unused palette exclusion, lex tie, transparent/lowalpha, raw alias/duplicate index, integer floor and4097 raw colors successful only under source policy.",
+    "paint_goldens": "Three repository patterned-background PNGs independently reconstructed; four additional private float/Pillow \u00d7sourcealpha0/73 cases and shifted base/atlas origins preserve inputs and match canonical images.",
+    "actual_CLI": "Current standalone binary: original\u2192precode artifact, preview/apply, deterministic second output, readback, rebound-source reapply exact; all19 source fixtures exact. Ten invalid policy/null/style/fringe cutsets refuse preview+apply; overwrite, four input aliases and symlink refuse; source/font/atlas/profile identity+mtime unchanged."
+  },
+  "mutations": {
+    "target": "CURRENT repository tests via private overlays, no repo mutation",
+    "all14_killed": [
+      "source-reverse-lex",
+      "native-exact-shortcut",
+      "skip-projection-equality",
+      "skip-source-raw-mask",
+      "source-4096-refusal",
+      "round-area-early",
+      "tracking-zero-cursor",
+      "outline-rim-one",
+      "role-from-RGB",
+      "ignore-minimum",
+      "round-float-containment",
+      "ignore-background-rect",
+      "float-constant-destination",
+      "pillow-constant-destination"
+    ],
+    "details": "Per-mutant compile-success, failure message and timings are hashed in private mutants.json. These include source lex order/exact shortcut/projection equality/raw masks/cache acceptance, float rounding/tracking/inner rim/role/minimum/fringe and both background destination branches."
+  },
+  "verification": {
+    "race": {
+      "exit": 0,
+      "package_seconds": 157.69,
+      "command": "nice -n19 env GOMAXPROCS=2 TMPDIR=<owned>/tmp GOTMPDIR=<owned>/tmp go test -race -count=1 -p2 -overlay=<CURRENT existing Golden owner plus227 corpus cases> ./..."
+    },
+    "preservation_corpus": "All227 accepted; fullRGBA/noop/independent sample artifact/source preservation all true.",
+    "required_checks": "Independent vet/build/gofmt, scoped Git whitespace and manual pinned-text whitespace, selfchecked POSIX API/password/private-key and token/secret scans PASS. Exact commands/receipts private.",
+    "preserved": "Prior testdata and old HUD/native-font source data, resizer, quantizer and input/output owners unchanged; test function set unchanged.",
+    "root_receipt_SHA256": "28ce014a398858e84ed1efa3fb1410b809c319a0e591008d77c672ceabeddd35",
+    "private_harness_corrections": "A private rebind script initially contained an invisible identifier character and stopped before execution; corrected. Revised CLI setup encountered an old OWN symlink fixture; retained prior attempt, cleaned own setup and reran to terminal PASS. No expected pins changed from Go."
+  },
+  "oracle_chronology": {
+    "styles": "Original69 four-style oracles precode (early69 reconstructed exactly); all68 nonmanifest member contents preserved. Final72 adds independent minimum raw forms; original72 member bytes still exact in current76-entry fixture. Superseded expanded target and three pre-BackgroundRect patterned PNGs are independent additions.",
+    "source": "Seven abstract vectors frozen before policy;19 encoded native fixtures generated independently after implementation, with native alpha1 normalized to displayed2 BEFORE reference selection. No Go-derived expected data.",
+    "actual": "Final accepted target reuses original precode8931937b in the72 bundle; no repin to expanded416ef06c. Private corrected raw oracle independently built from original narrow paint/full float layer before revised Go comparison."
+  },
+  "limits": [
+    "Four style groups and one original body operation are not113 individual operations or line-group orchestration coverage. Renderer remains Partial; no full-family or migration closure.",
+    "Only the explicit native font/style/composition/source-policy contracts are evidenced. TTF, donors, other visual styles, all-size/platform floating proof, artwork/gameplay acceptance, historical retirement and ISO/runtime approval remain outside scope.",
+    "Capability grew; no reduction/savings claim or native storage/layout expansion. Reviewer used private/canonical fixtures, not protected ISO or emulator resources."
+  ],
+  "contracts": {
+    "analysis/native-style-reuse-contract.json": "b334d6d473488753c687436590694dbbf3194e513406bfbcdde44964bf0b35b3",
+    "analysis/source-color-reuse-contract.json": "918d6640a06473d19c647985106752dd225757226b4dadb1a45d437c0083efad",
+    "analysis/native-background-reuse-contract.json": "3c1cc105e5997c23a0af83f46faf3956099be09b528c358bfa974dcfac06a47b",
+    "analysis/native-styles-reuse-decision.json": "ce84296afb43a87ed1e68511fd98afca349778a40160ed9f48c8a5b5773b185b"
+  },
+  "private_artifacts": {
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/source-pins.json": "8e415d0d05b21f04f8919235116776f8cbac16d666fd074d0f7f335070de5ce9",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/revision.json": "48e3fbcaf5d8c972451783159b8a3822e62b578e88168d76d12d15c7ea3edb54",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/race.log": "27c45d1ca6302f8ade8a7bda787db9f155d0e21e28d586e7c39716872c8cf9aa",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/checks.json": "436a1f308e681a67b53f2fa192882aef13662e322ebf962f30b976ab4eb64ae5",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/overlay.json": "7425d6cb0a0ec9b7680d97e803ce7d6e24c93d30faf7f88849da02bc78524d48",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/patch_test.go": "70a94bb227948e02248ac645e7270aa1e21d5377d116f99c1618a008ad23f4e7",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/corpus-results.json": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/mutants.py": "48a6a8c4e3941e8be49434e1ec6ffa444d0e13ba39e4f76402d118f4a308c64b",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/mutants.json": "27393d69eef8368f76395e952dabd24556468211affdc76012e7f41122d8efc4",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/rebind.py": "71085f786885f5f0637d98aa8bb700ddbe6c09dc3112f91663486a20d975f0f9",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/rebind.json": "1c758ba14a6841a08206712f5574f5d1d4396fda48449364f012fe12cfaa542d",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/cli.py": "34ed32a141c0b8029ab485d1fbe75017044ec721bcf81d13b7d77de7025c50d6",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/cli.json": "2dc89ee06a853271de5d5ab3980208779cb30a4ee5208e1e21352d66dcd7cc1f",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/raw-probe.py": "33bc4897df503340cb3eb89b9d1c7603f72f2675e5c9820165dd076dc2bdb676",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/raw-probe.json": "647b1334fc80cb878b933e91b5c16aba80fe4c35a47265bf4cd5358df0331db8",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/candidate.raw": "a82da02f996057764f2fa5ad2cc45d1c24e836580b5565c81db8689c3dd853b7",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/original-paint-oracle.py": "d6fc51aa69fac7617602e7de54c44735de826aa2139f3ce8fc23ee46f4935143",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/original-paint-oracle.json": "2aff4dc2b180a801c608a91ce4a84631fbe5fbeed9ec0d9a5427a99187b23772",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/original-paint-raw.png": "52df51f19d043a9a50df05c8f87d1a09bbcd0ef624875014d39a8f6b7c177b7f",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/original-paint-ledger.bin": "80dda1e1549465f8df6ff2646efa0a06c6e3a237eaa4b016ad04825106e3958c",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/background-oracles/oracles.zip": "b16448cb6edd2f39baca275187c6999ad3ac9630992c85b7245cc4fc7c8f031b",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/background-oracles/manifest.json": "322dea0c0be596aea233db251c0c60bed363bd4ae00567de01c467b9718e4d5b",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/background-check.py": "562f5f7b5e5cab6ad0ace08c618a98d3925e72a24608078022548d8d4cbff6e4",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/background-check.json": "8f1d8035f6db4734f5876f46b2ae07824c5d6b4264f4db974e909bda84caa593",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/background-check.log": "69f61bb10eb9d68c49a88004beae4811da6bb7c7618c657ad53aba7fc7208df7",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/pre-background-rect/source-pins.json": "734bdf0e84a746b118583418e9ae4137bfcfbae6a6f537c89eb01d200281bae1",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/pre-background-rect/race.log": "cac907ed9578486eadd53447be377325d794cd13f8a4102870ff1522bce385bf",
+    "/var/tmp/dokapon-native-styles-review-d9jv1h_t/pre-background-rect/superseded.json": "edf613a7845d3e21161ec3867f99b1479d9b4a902905f78d4f349a3f85b05f4a"
+  }
+}

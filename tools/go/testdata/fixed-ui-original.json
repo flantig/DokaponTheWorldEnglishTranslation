@@ -1,0 +1,61 @@
+{
+  "source_sha256": "e9074e32dbe84125207dd250917b5902ac669577bc97088196ac6a33de4da9b5",
+  "source_size": 4243259392,
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "tables": {
+    "recipes/text/fixed-ui/00-exp-label.json": {
+      "operation": "exact_control_stream",
+      "entries": {
+        "0x47a1b0": {
+          "en": "{{HL:0xb008}}<b992><c8bd><e850>EXP<000c><e864><b9ea><c8ca><87f7><e83c><d008>EXP<e864><b9ea><c90e><87f7><e83c><d008>EXP<e864><e846><b998><c95e>{{PARAM:0xa000}}<e864><e85a><ba4e><c95c><97fa><e864><c944><b9b8><4800><b9cc><4800><b9e0><4800><b9f4><4800><ba08><4800>",
+          "offset": 4299312,
+          "old_hex": "08b092b9bdc850e8e501e601d9020c0064e8eab9cac8f7873ce808d049005c00540064e8eab90ec9f7873ce808d049005c00540064e846e898b95ec900a064e85ae84eba5cc9fa9764e844c9b8b90048ccb90048e0b90048f4b9004808ba004800f8",
+          "new_hex": "08b092b9bdc850e849005c0054000c0064e8eab9cac8f7873ce808d049005c00540064e8eab90ec9f7873ce808d049005c00540064e846e898b95ec900a064e85ae84eba5cc9fa9764e844c9b8b90048ccb90048e0b90048f4b9004808ba004800f8",
+          "encoded_sha256": "30d3226e62bc104366d2067e076b6f5b2b735b924b59381e653cb19685a7621c"
+        }
+      }
+    },
+    "recipes/text/fixed-ui/01-exp-consumer.json": {
+      "operation": "guarded_words",
+      "entries": {
+        "0x355418": {
+          "offset": 3099800,
+          "old_hex": "4800053c",
+          "new_hex": "4800053c"
+        },
+        "0x35549c": {
+          "offset": 3099932,
+          "old_hex": "b0a1a524",
+          "new_hex": "b0a1a524"
+        }
+      }
+    },
+    "recipes/text/fixed-ui/02-area-label.json": {
+      "operation": "exact_control_stream",
+      "entries": {
+        "0x47be10": {
+          "en": "<b000>{{PARAM:0xa000}} Map<b92c><8ff9>|",
+          "offset": 4306576,
+          "old_hex": "00b000a0b200d600af007b002cb9f98f000800f8",
+          "new_hex": "00b000a0000051002b003a002cb9f98f000800f8",
+          "encoded_sha256": "3c5b33284638a5c751c824e850840dc6bcaccb5287877aa5bf32820eb152e2a5"
+        }
+      }
+    },
+    "recipes/text/fixed-ui/03-area-consumer.json": {
+      "operation": "guarded_words",
+      "entries": {
+        "0x3499b0": {
+          "offset": 3052080,
+          "old_hex": "4800053c",
+          "new_hex": "4800053c"
+        },
+        "0x3499b8": {
+          "offset": 3052088,
+          "old_hex": "10bea524",
+          "new_hex": "10bea524"
+        }
+      }
+    }
+  }
+}

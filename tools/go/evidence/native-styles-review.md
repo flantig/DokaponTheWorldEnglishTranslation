@@ -1,0 +1,9 @@
+Native styles/source-color review: **PASS** on the revised 67-pin freeze, with no open material findings. All pins held. No source, tests, fixtures, protected assets or emulator resources were changed by the reviewer.
+
+A preacceptance fidelity correction separates paint from containment. The approved cell remains `[124,84,385,26]`; PANEL paint is the original `[125,84,384,26]`. Both compositors use original sourceRGBA outside paint. Independent canonical reconstruction and current CLI reproduce original precode TXD `8931937b…`, RGBA `87598b6e…`, raw candidate `a82da02f…` and 6,411-byte ledger `80dda1e1…`; outside bytes and CLUT remain unchanged. The narrower allowed cell still refuses its positive float fringe. Earlier expanded-paint receipts are superseded.
+
+Existing owners remain cohesive: one float layer from `renderRuns`, explicit composition/paint/containment in `composeCells`, and one integer two-stage source/native quantizer loop in `texture` with a bounded default-export leaf. No functions, helpers, test functions, dependencies or writers were added. Default palette behavior and cache refusal remain unchanged.
+
+Fresh race suite passes (157.690s), including all 227 preservation cases, old Janky/HUD and 134 resize vectors. All 14 targeted mutations are killed by current repository tests. Vet/build/format/whitespace/selfchecked credential scans pass. All 19 source-policy native fixtures were independently reconstructed using original Python; actual standalone CLI imports/readback/reapply/publication checks pass. Patterned and additional transparent-background/shifted-origin cases match canonical results.
+
+Four actual style groups, minimum-fit and role witnesses do not establish all 113 operations. Renderer scope remains **Partial**; no full-family, retirement, visual/gameplay, savings or ISO approval is supplied. Detailed hashed receipts: `/var/tmp/dokapon-native-styles-review-d9jv1h_t`.

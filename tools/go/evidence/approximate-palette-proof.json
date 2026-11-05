@@ -1,0 +1,101 @@
+{
+  "at": "2026-10-20T16:29:24.108173+00:00",
+  "status": "VERIFIED approximate palette generation, bounded standalone artifacts; migration incomplete",
+  "source_data_pins": {
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "patch_test.go": "a66a92e84a5e86a7122e42f0e37223b96eb4418864bec834cf4a611d027e209a",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "ff419b20bbf0bfa8aa9def7c07d804022432f8be800e72265e8b2395e2107e14",
+    "texture_authoring.go": "d75c64784c382175905d89dcc012f49f7127019c1ee6d03ce68ea3b8632db16e",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "ab4705cc089c4a54669e05c1ba606af18675d6fa56175a2a1abd743bec436145",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "067a0f8064411ae5ef1741a1c4872dcc9cad34de7d7ef95c1a62c0e61f3ed92e",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "05a32b18476a297c262a63fc8c4699c16d3b1a6594a7676bcab988d94f819817",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+    "testdata/direct-layouts.zip": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+    "testdata/small-psmt8.zip": "3f5ff123f1f05924e0e11dd95bee3f451270d679973b9cde75d9b248a0cd77bf",
+    "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
+    "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838"
+  },
+  "frozen_snapshot": "/var/tmp/dokapon-approximate-palette-sealed-wedh3uum",
+  "root_checks": ".goal/approximate-palette-checks-work.json",
+  "root_checks_sha256": "0f2846afc3e46bc17fb59e9f4644ea4507f73b22cd83449c27dc56379b6bac4c",
+  "ordinary_review": "evidence/approximate-palette-review.json",
+  "ordinary_review_sha256": "e5ddc6bf47adfa15823599ab0d905573f2229a9f9193b6dbea9fe7db65eeded0",
+  "independent_contract": "analysis/approximate-palette-reuse-contract.json",
+  "reuse_decision": "analysis/approximate-palette-reuse-decision.json",
+  "root_binary": "/var/tmp/dokapon-approximate-palette-6z4h8avk/dokapon-go-quantize",
+  "root_binary_sha256": "4ab2b6b54d6be04f1fcfd3b43eca9d061279b006bd7da51fd962d295df528b57",
+  "verification": {
+    "root_race_seconds": 53.126,
+    "independent_race_seconds": 85.365,
+    "preserved_default_corpus": 227,
+    "canonical_cases": 7,
+    "old_base_records_unchanged": 42,
+    "old_exact_records_unchanged": 26,
+    "old_zip_entry_contents_unchanged": 8,
+    "synthetic_png_entries_appended": 6,
+    "independent_numerical_mutants_killed": 7,
+    "shifted_bounds_cases": 7,
+    "additional_alpha_vectors": 4,
+    "root_seeded_cases": 12,
+    "root_above4096_normalized_cases": 1,
+    "independent_guaranteed4097_case": true,
+    "root_seeded_probe": "evidence/approximate-palette-seeded-probe.json",
+    "root_seeded_probe_sha256": "b7b6d1dc11ad8f4a698a15a3092d980ce4c476e48a403910c0b188dc729d1aca"
+  },
+  "accounting": {
+    "runtime_without_bundle": {
+      "files": 1,
+      "bytes": 5593
+    },
+    "runtime_with_bundle": {
+      "files": 1,
+      "bytes": 5593
+    },
+    "runtime_and_executed_evidence": {
+      "files": 1,
+      "bytes": 5593
+    },
+    "groups": {
+      "asset_bundle": 0,
+      "executed_evidence_inputs": 0,
+      "go_module": 0,
+      "go_tests": 571,
+      "pointer_selector": 0,
+      "production_go": 5593,
+      "recipe_tables": 0,
+      "testdata": 16465,
+      "build_entrypoint": 0,
+      "consumer_profiles": 0
+    },
+    "old_base_records_unchanged": 42,
+    "old_exact_records_unchanged": 26,
+    "old_zip_entries_contents_unchanged": 8,
+    "new_zip_entries": 6,
+    "production_named_functions": 22
+  },
+  "reuse": "One pure generatePalette owner absorbs existing exact normalization, histogram, sorted inputs and logical-index output. Quantize adds median cuts and eight weighted Lloyd updates. Existing texture retains native parsing, calibrated storage, CSM1 and pixel writes; authorTexture retains pins and exclusive publication. No separate per-image handlers, numerical helper family, options framework, dependency, writer or runtime bundle.",
+  "preserved": "Exact rejects more than256 normalized colors. Default raw palettes/duplicate indices/direct font guards, rectangles, source alpha, native packet/allocation checks and source/publication safety remain. Quantize is whole calibrated standard PSMT8 only.",
+  "metadata_correction": "Root seeded input row counts were initially mistaken for unique color counts; actual normalized counts measured and corrected (4096 and4097). Outputs and source did not change; initial correction assertion failed before writes. Independent review separately guarantees4097 distinct normalized colors.",
+  "limits": [
+    "Bounded floating parity against canonical real, synthetic and seeded cases; no exhaustive proof for arbitrary floating histograms.",
+    "Texture family remains partial: historical128x64/128x256 full-page CLUT positions need independent binding and tests. Below16 crop/padding remains held.",
+    "No ISO writes, art/visual/gameplay approval, legacy caller retirement or migration completion."
+  ]
+}

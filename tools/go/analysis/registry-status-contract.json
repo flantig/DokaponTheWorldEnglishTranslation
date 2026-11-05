@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:42:32.834023+00:00",
+  "status": "READ_ONLY_COMPLETE_THREE_INPUT_STATUS_CONTRACT_PRECODE_NO_IMPLEMENTATION",
+  "responsibility": "A fresh progress summary from pinned registry+glossary+milestone-flow, covering ALL legacy meaningful metrics. One report operation in existing authorRegistry is reasonable; no source JSON mutation or native/disc readiness inference.",
+  "owners": {
+    "serena": "authorRegistry at registry_authoring.go28..650; find_referencing_symbols confirms run is sole caller. Existing raw-reader/pin/normalizedID/Unicode/report/publication ownership inspected. readInput supplies bounded regular extra artifacts; writeNewFile already exclusively publishes.",
+    "existing_enhancement": "Add one cohesive report branch after shared registry parse/ID checks. Read/pin glossary and flow using readInput, validate selected fields, collect counts/source-order lists, format fixed fact model and execute ONE pinned standard text/template before unchanged publication. No new function/helper/closure/FuncMap/writer/parser engine needed.",
+    "avoid_sprawl": "Do not overload RegistryUpdates/RegistryColumns, use fake patch entries, or create one handler per report/metric. A purpose-named input set and one template pointer/pin are enough; no template discovery/search/global mutable cache/subtemplate plug-in/config language. Root chooses final schema.",
+    "template": "Human prose/layout lives in one reviewed template, facts stay Go responsibility. Use standard text/template with missingkey=error and a fixed bounded data model; no custom functions or methods. Parse/execute errors refuse before output. Template is trusted pinned recipe data, not arbitrary user program. Template/render byte bounds need explicit root guard.",
+    "rendered_date": "Reuse explicit report date where reasonable; do not silently borrow input last_updated or rewrite it. Legacy date is local/time-dependent and wording references Python; revised truthful provenance/date is deliberate format redesign."
+  },
+  "required_inputs": [
+    {
+      "role": "registry",
+      "shape": "object.entries array of objects; normalized unique ID/common reader plus nullable text report fields",
+      "ownership": "human+machine registry PLAN; statuses are source claims, not verified disc contents"
+    },
+    {
+      "role": "glossary",
+      "shape": "object; entries missing→[] else object array; todos missing→[] else array; schema string/integer/null/missing proposal; provenance nullable text",
+      "ownership": "schema_version, complete entry/provenance counts, todos length; content/todo elements opaque otherwise"
+    },
+    {
+      "role": "flow",
+      "shape": "array of objects; nullable/missing vma string; all steps count including missing/empty VMA",
+      "ownership": "len(flow), set of truthy exact raw VMA strings; no canonicalization/validation against registry or executable"
+    }
+  ],
+  "source_contract": {
+    "load": "status_load176..180 reads registry then glossary then flow. No input can be dropped for a complete report. Legacy paths/default output are retained Python interface, not required Go globals.",
+    "registry": "len(entries). Known statuses ordered drafted,zone_pending,patched,decode_verified,emulator_confirmed; zero known rows omitted by old presentation. Missing status becomes literal unknown; explicit null distinct; unknown rows source first-seen. Chapter/tier/pool missing or null→unknown (literal unknown coalesces); empty remains its own category; lexical category order.",
+    "diagnostics": "Empty EN is Python falsey (within selected nullable-text domain: missing/null/empty). Missing tags if any chapter/character/event is missing/null/empty. ID spelling and SOURCE row order remain; do not sort with CSV numeric IDs. Lists emitted only if nonempty in old Markdown.",
+    "flow": "steps includes every array element. Unique count includes only nonempty VMA strings, exact spelling: 0x10,0x0010,0X10,space and0 are distinct; empty/missing/null excluded. No numeric parsing or registry-ID join.",
+    "glossary": "Missing entries/todos default empty; present null is malformed. Provenance missing→unknown; explicit null is distinct Counter key. Old Markdown displays only official/web/authored counts including zeros, but computes full provenance counter. Complete reusable fact model can retain other values separately; showing extras is deliberate visibility improvement. Todos counts array elements regardless element shape. Missing schema_version displays ?, explicit null displays None, integer1 displays1.",
+    "markdown": "UTF8 joined with LF, trailing LF, fixed coverage/status/pool/chapter/tier/glossary sections, local generated date, source-order comma-joined IDs; naive table helper/Python unknown-dict repr does not escape Markdown. Improved prose/layout/escaping is allowed only as declared redesign, not claimed byte parity.",
+    "corrected_null_contract": "Current shared provider intentionally corrects original mixed null/text chapter/tier/pool TypeError into unknown bucket; actual test_status_null_counter_correction_and_dispatcher142..166 and bucket test169..179 establish source responsibility. Preserve that correction."
+  },
+  "historical_vs_selected_domain": [
+    {
+      "field": "registry.entries",
+      "values": [
+        null,
+        {},
+        [
+          "not-object"
+        ]
+      ],
+      "selected": "refuse: array of objects required",
+      "legacy": "null/objects/nonobjects fail later or accidentally iterate wrong type"
+    },
+    {
+      "field": "registry.id",
+      "values": [
+        "bad",
+        null,
+        1
+      ],
+      "selected": "common valid unique normalized hexadecimal ID; source-order diagnostic spelling preserved",
+      "legacy": "status does not parse ID numerically; malformed truthy ID can print or fail join only when diagnostic is listed"
+    },
+    {
+      "field": "registry.status",
+      "values": [
+        false,
+        0,
+        [],
+        {}
+      ],
+      "selected": "string or null, missing allowed; refuse other types",
+      "legacy": "hashable bool/int counted as unknown; containers unhashable; accidental coercions not readiness facts"
+    },
+    {
+      "field": "registry.en / chapter / character / event / tier / source_pool",
+      "values": [
+        0,
+        false,
+        [],
+        {}
+      ],
+      "selected": "nullable strings/missing only",
+      "legacy": "falsey values may become diagnostic or unknown-like empty state; truthy nonstrings can count/sort/fail arbitrarily"
+    },
+    {
+      "field": "glossary top-level",
+      "values": [
+        null,
+        []
+      ],
+      "selected": "object required",
+      "legacy": "get method fails"
+    },
+    {
+      "field": "glossary.entries",
+      "values": [
+        null,
+        {},
+        [
+          "entry"
+        ]
+      ],
+      "selected": "missing defaults []; present must be array of objects",
+      "legacy": "None len fails; empty object accidentally zero; nonobjects fail provenance lookup"
+    },
+    {
+      "field": "glossary.todos",
+      "values": [
+        null,
+        {},
+        "todo"
+      ],
+      "selected": "missing defaults []; present must be array; opaque elements acceptable since only len consumed",
+      "legacy": "None fails len; dict/string length accidentally accepted"
+    },
+    {
+      "field": "glossary.provenance",
+      "values": [
+        false,
+        0,
+        [],
+        {}
+      ],
+      "selected": "nullable string/missing only",
+      "legacy": "bool/int hashable but hidden from three known rows; containers fail Counter"
+    },
+    {
+      "field": "glossary.schema_version",
+      "values": [
+        [],
+        {},
+        true,
+        1.5
+      ],
+      "selected": "root must explicitly choose domain; recommend string or integer or null plus missing fallback, refuse containers/bool/float; integer1 is used by actual existing test fixture",
+      "legacy": "table applies str to anything, including Python collection repr"
+    },
+    {
+      "field": "flow",
+      "values": [
+        null,
+        {},
+        [
+          null
+        ]
+      ],
+      "selected": "array of objects required",
+      "legacy": "empty object accidentally returns0; null/nonobjects fail"
+    },
+    {
+      "field": "flow.vma",
+      "values": [
+        0,
+        false,
+        [],
+        {},
+        12
+      ],
+      "selected": "nullable string/missing only; nonempty spelling opaque (no hex normalization)",
+      "legacy": "falsey0/False/emptycontainers ignored, truthyint accepted; truthycontainers unhashable"
+    },
+    {
+      "field": "input pins/encoding/publication",
+      "selected": "all sources+template explicit regular bounded files; invalid UTF8/surrogate/JSON/hash/size, template parse/missing fact, existing output/alias/drift refuse before publish",
+      "legacy": "JSON/open failures incidental; old main overwrites selected/default Markdown path"
+    }
+  ],
+  "semantic_oracles": {
+    "directory": "/var/tmp/dokapon-registry-status-xsuashnn",
+    "main": "10 disordered registry rows +10 glossary entries/4 opaque todos +9 flow steps; all metrics literal expected-semantics.json. Null/missing/literalunknown/empty distinctions, repeated known counts, source-order lists, lex categories, raw VMA spelling, glossary unknown provenance/schema integer are explicit.",
+    "additional": [
+      "empty-case.json defaults and all known glossary zero counts",
+      "null-case.json explicit null status/provenance/schema distinct from missing",
+      "malformed-domain-vectors.json source-informed strict refusals versus accidental Python behavior",
+      "markdown-readability.json raw facts versus escaping/display/date redesign"
+    ],
+    "independence": "No project Python import/execution, no Go or candidate outputs. Literal expectations manually supplied and checked using Python stdlib Counter/set/len arithmetic against synthetic source files. This is semantic parity evidence, not frozen old Markdown bytes or proposed Go JSON field schema.",
+    "files": {
+      "empty-case.json": {
+        "bytes": 577,
+        "sha256": "4e967f6666068e7efc51becddab6ef558285b80bea94ba944faf2fa9d42090ae"
+      },
+      "expected-semantics.json": {
+        "bytes": 2464,
+        "sha256": "54d09e5f580292bdf5e3ec42ff7a81f57c284f5f4ac34e9f9fdfad431ec7f72f"
+      },
+      "flow.json": {
+        "bytes": 215,
+        "sha256": "d76b59c9ccef8cb3ce406a91f806c72751a0daaa0920ede52c3ded1bbe147b29"
+      },
+      "glossary.json": {
+        "bytes": 494,
+        "sha256": "1627d94f87b3223818f4dea64ebd9aaa7a971c055aa15a2711856ab36f8535ce"
+      },
+      "main-source.txt": {
+        "bytes": 1036,
+        "sha256": "421d06a47f9f4260bc73d6f6f0dee9545193313081f389570d049a2a3a0ea2e5"
+      },
+      "malformed-domain-vectors.json": {
+        "bytes": 3464,
+        "sha256": "daddf460dc220d1aa8a080a31eddb87b3000c8c94be6f8571e88f7a656852a4e"
+      },
+      "markdown-readability.json": {
+        "bytes": 840,
+        "sha256": "b3d55cc1410f4157daff888216cad8af3157f1880515507acb86910d5e0233ba"
+      },
+      "null-case.json": {
+        "bytes": 1171,
+        "sha256": "457f78e5e19cae59d778bf77b6c326d1d541b3e33447aa686d7d25f13066dc06"
+      },
+      "registry.json": {
+        "bytes": 2345,
+        "sha256": "7f296171f348af7081960cfcfb5c5c66fdc2e73c7bfc872949b84a86c924fcaa"
+      },
+      "status_build-source.txt": {
+        "bytes": 3638,
+        "sha256": "d6017524665a862347f75dbe7c7903206a651919b64bd5f056b4d2e14bced899"
+      },
+      "status_load-source.txt": {
+        "bytes": 467,
+        "sha256": "b93b472718c62aa3a94a8f3bf709f5ec10643828d3ae4a531b75cedaeba1ce9f"
+      },
+      "status_main-source.txt": {
+        "bytes": 414,
+        "sha256": "cb096fa5b0d6366ebbea3d673c58848a397148bad62ed9c7260f635adc32bedd"
+      },
+      "table-source.txt": {
+        "bytes": 255,
+        "sha256": "be24ce30585637d346773501f4e2ccc8c23a3c2fd3cc27a96c5857afb47f5cbc"
+      }
+    }
+  },
+  "baseline_row": {
+    "path": "tools/build_status_summary.py",
+    "purpose": "Generate current registry status summary",
+    "callers": {
+      "audited_python_imports": [],
+      "textual_references": [
+        {
+          "path": "docs/HANDOFF.md",
+          "line": 11,
+          "reference": "tools/build_status_summary.py"
+        },
+        {
+          "path": "docs/HANDOFF.md",
+          "line": 88,
+          "reference": "build_status_summary.py"
+        },
+        {
+          "path": "docs/HANDOFF.md",
+          "line": 97,
+          "reference": "tools/build_status_summary.py"
+        },
+        {
+          "path": "tools/README.md",
+          "line": 8,
+          "reference": "build_status_summary.py"
+        }
+      ],
+      "dynamic_shell_document_callers": "review-required; textual references are leads, not proven callers"
+    },
+    "qualification": "Frozen baseline Python replacement-verified is not Go migration credit; textual references remain leads."
+  },
+  "source_slices": [
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "status_load",
+      "lines": [
+        176,
+        181
+      ],
+      "path": "/var/tmp/dokapon-registry-status-xsuashnn/status_load-source.txt",
+      "sha256": "b93b472718c62aa3a94a8f3bf709f5ec10643828d3ae4a531b75cedaeba1ce9f"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "table",
+      "lines": [
+        183,
+        188
+      ],
+      "path": "/var/tmp/dokapon-registry-status-xsuashnn/table-source.txt",
+      "sha256": "be24ce30585637d346773501f4e2ccc8c23a3c2fd3cc27a96c5857afb47f5cbc"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "status_build",
+      "lines": [
+        190,
+        268
+      ],
+      "path": "/var/tmp/dokapon-registry-status-xsuashnn/status_build-source.txt",
+      "sha256": "d6017524665a862347f75dbe7c7903206a651919b64bd5f056b4d2e14bced899"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "status_main",
+      "lines": [
+        270,
+        276
+      ],
+      "path": "/var/tmp/dokapon-registry-status-xsuashnn/status_main-source.txt",
+      "sha256": "cb096fa5b0d6366ebbea3d673c58848a397148bad62ed9c7260f635adc32bedd"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "main",
+      "lines": [
+        294,
+        311
+      ],
+      "path": "/var/tmp/dokapon-registry-status-xsuashnn/main-source.txt",
+      "sha256": "421d06a47f9f4260bc73d6f6f0dee9545193313081f389570d049a2a3a0ea2e5"
+    }
+  ],
+  "source_pins": {
+    "../build_status_summary.py": {
+      "sha256": "96f57ab1486ab63de572f46b404b852bb4ab3b227683351e3dc38487c4161a9d",
+      "bytes": 1296
+    },
+    "../rework/new_tool/reports/registry.py": {
+      "sha256": "851b8086227e3463b827c6664191c88ae7a0d73331c73810c443c215be56694a",
+      "bytes": 14082
+    },
+    "../rework/new_tool/reports/test_registry_reports.py": {
+      "sha256": "e5035b206b95515589010ed86dcdb71c7d3d3b6e09f72212295261d0f0b0691b",
+      "bytes": 16986
+    },
+    "../rework/new_tool/evidence/parity-matrix.json": {
+      "sha256": "bbad75e6e3678d3d3883390cc938d53e30ca25cf80d32db24d1f45881bc778cd",
+      "bytes": 2478533
+    },
+    "analysis/registry-export-contract.json": {
+      "sha256": "c3312135ce0c89d0445157cb9d43e12763f83be5d2db5185a490ae20536786cf",
+      "bytes": 18621
+    },
+    "registry_authoring.go": {
+      "sha256": "26c5b976df83a38ce0fb8f43a7e58660a6b6a6ac39cfb72934fc2d3af9fed0bb",
+      "bytes": 25963
+    },
+    "registry_types.go": {
+      "sha256": "4cc87c73af303c317683fc8ac96e415300258df24c07ee31740f956384da863c",
+      "bytes": 695
+    },
+    "recipe_types.go": {
+      "sha256": "b5c2517698550e5f45d448433eeff700b714fb2a2ca86292721c5fb94a75a2c9",
+      "bytes": 6103
+    },
+    "inputs.go": {
+      "sha256": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+      "bytes": 1011
+    },
+    "main.go": {
+      "sha256": "cc48b15cee3184141f7e88716b8b6c8b32f78005f1adbdcfc6ad64dcc245e5e7",
+      "bytes": 12651
+    },
+    "outputs.go": {
+      "sha256": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "bytes": 1760
+    },
+    "/usr/lib/golang/src/text/template/doc.go": {
+      "sha256": "0f74f7ac85529540095185d9905584606b9140a3b0a1ae7b3e064df3470387d0",
+      "bytes": 18629
+    },
+    "/usr/lib/golang/src/text/template/option.go": {
+      "sha256": "fae2206d9c10cf31439ba9d616a2f8ead93f8e9b8fc12060fbf9cfbc842c0a43",
+      "bytes": 1991
+    }
+  },
+  "required_checks": [
+    "All three input pins/regular bounds/UTF8/JSON and unchanged bytes; source-list IDs preserve spelling/order; unknown and zero groups accounted for.",
+    "Compare all literal main/empty/null fact vectors; selected malformed fields must fail before output while unselected metadata remains opaque.",
+    "Template missing facts/parse failure and publication/alias/drift refusals; explicit date and readable escaped multiline/pipe categories; compare facts separately from revised prose.",
+    "Existing-operation guard regression via focused current owner; build/vet/gofmt and scoped checks owned by implementer. No full-suite execution needed for this read-only study."
+  ],
+  "limits": [
+    "No canonical registry/glossary/flow read, ISO/native/emulator/process/settings access, project script import/execution, dependency install, or Go/test/doc/ledger changes.",
+    "No accepted runtime implementation, historical retirement, whole-path parity, coverage promotion or readiness claim. All three sources contribute meaningful report facts; complete facts do not certify their real-world truth."
+  ],
+  "final_verification": {
+    "private_files_rehashed": 13,
+    "all_metric_sums_consistent": true,
+    "glossary_and_flow_counts_checked": true,
+    "historical_source_pins_unchanged": true,
+    "go_documentary_drift": [],
+    "execution": "Only independent stdlib study arithmetic/AST/hash code ran; no project Python or Go execution."
+  }
+}

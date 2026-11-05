@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-19T20:48:43.578986+00:00",
+  "status": "VERIFIED A024-1 correction insharedtexture parser",
+  "change": "Storednativeinfo0x38 allocationwordsmustexactlymatchcalibratedmode:fullpagePSMT8 count/4+2048;fixed4bit2048;direct32count. Explicit128x64fullpage8geometry supportsformula;allcurrent1508bit fit. No newfunction/schema/handler/codec/writer.",
+  "evidence": {
+    "evidence/astra-audit-024-pins.json": "d55341e5a647860da3212bb7a81d8d39bbf746f70ea47085030ddbe521fc71f3",
+    "evidence/astra-audit-024.json": "3f1122096096605b3ec0637ab48418f2c7cde063150d027e47c5fe7039027015",
+    "evidence/astra-audit-024.md": "016414e277ecfc54bf444f30bb8f99601d4a502d67f617f8f64347938153a72a",
+    "analysis/native-texture-footprint-contract.json": "02b3728368f6d287c58bfcb342932dcfe7bd9d2aac7368fe18666ed725295a39",
+    "analysis/texture-footprint-reuse-decision.json": "0c19ecdf71ff0c5efddaafc1fc0b6759675b0b1a895d0f7b79d18790ed4aa51d",
+    "evidence/texture-footprint-review.json": "afafc4ce37b8a55b3385c655e0f49a1bc279ec4648fe67e002afea438f0ed8c7",
+    "evidence/texture-footprint-review.md": "e20d8bd3f2cb1bd2897203693d700020bf4c0f251986174e117459aab0f80f68",
+    "evidence/texture-footprint-checks.json": "c0a57bf1bb4c67a3cdc093a3603cc60380950bb60a6dd2b70ffba392163d83de",
+    "analysis/go-current-input-accounting.json": "852621d8fc80b64ad29297aadfca49dbaa8c452a64e84f81f5721bcba0e6a2fb"
+  },
+  "corpus": {
+    "current_test_source": true,
+    "command": "TMPDIR=<own /var/tmp> GOTMPDIR=<own /var/tmp>/gotmp GOMAXPROCS=2 nice -n19 go test -count=1 -p 2 -overlay <own overlay.json> -run ^TestPilotHistoricalGoldenBytes$ -v .",
+    "exit_code": 0,
+    "seconds": 5.535,
+    "cases": 227,
+    "accepted": 225,
+    "held": 2,
+    "failures": 0,
+    "accepted_assertions": "Full decoded RGBA SHA; exact no-op entire-TXD SHA; one-pixel edit entire-TXD and readback-RGBA SHA against pre-existing independent Python oracle; input preservation. Existing ten golden cases and permanent malformed tables also ran.",
+    "held_assertions": "Exact prior errors, nil artifact/raster, source unchanged; no accidental admission.",
+    "held_cases": [
+      {
+        "bundle_key": "GRAPHIC/EVENT.CMB/event/command/button.txd",
+        "expected_refusal": true,
+        "refusal": "unsupported GS upload packet at 0x4120",
+        "source_preserved": true,
+        "source_sha256": "6b9243c7adb22b7179848e94445beabef55a7b5f4c2bf0e4b3611e0bd5579fd1",
+        "status": "refused",
+        "texture": "command\\button.png"
+      },
+      {
+        "bundle_key": "GRAPHIC/TEXTURES.CMB/textures/sale.txd",
+        "expected_refusal": true,
+        "refusal": "unsupported GS upload packet at 0x4114",
+        "source_preserved": true,
+        "source_sha256": "4bce4a5ca4208b857960639b18c57e129c602eaedfa9cbc1aa8fa67584d6cdbb",
+        "status": "refused",
+        "texture": "sale"
+      }
+    ]
+  },
+  "malformed_cli": {
+    "count": 48,
+    "matrix": "0,1,expected-1,expected+1 \u00d7 depths8,4,32 \u00d7 export,no-op import \u00d7 preview,apply",
+    "checks": "Exit nonzero; expected allocation-footprint error; empty stdout/report; no output pathname created; mutated source unchanged; separate original source/PNG unchanged. Valid original exported to each temporary no-op PNG first.",
+    "permanent_direct_mutations": 12,
+    "depth8_original": "GRAPHIC/TEXTURES.CMB/textures/win_w.txd / win_w, metadata0x84, footprint67584words",
+    "depth4_original": "GRAPHIC/SYSTEM.CMB/system/vlg_plt.txd / vlg_plt73, metadata0x7c, footprint2048words",
+    "depth32_original": "GRAPHIC/SYSTEM.CMB/system/font.txd / font2, metadata0x7c, footprint262144words"
+  },
+  "limits": "CalibratedstandalonePNG/TXDonly; all225bytesexact/twoheldpacketpositionsunchanged. No actualISO/nativevisual/generalGSallocator/mipmapping/colorfonts/retirementapproval. Prior2369de86correctedfieldlabels/TEX1guardsbutdidnotestablishallocationvalidation; originalA024counterexamplespreserved. SeparatecommaadvanceissueOPEN, no fullnativewidth/relativeenvelopeclaim."
+}

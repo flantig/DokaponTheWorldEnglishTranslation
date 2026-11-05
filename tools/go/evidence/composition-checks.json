@@ -1,0 +1,73 @@
+{
+  "kind": "recipe-composition-checks",
+  "runtime_and_recipe_files": [
+    {
+      "path": "patch.go",
+      "lines": 423,
+      "bytes": 12641,
+      "sha256": "e73ec045e6a6c378504f2f2d6e38baa982d8fd3894788c00440a452482f83b78"
+    },
+    {
+      "path": "main.go",
+      "lines": 113,
+      "bytes": 3260,
+      "sha256": "bd12dcf29ab3a9e5f39b354263a82957de0da73a1c70cbfad2d4306a5229fd56"
+    },
+    {
+      "path": "go.mod",
+      "lines": 3,
+      "bytes": 30,
+      "sha256": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9"
+    },
+    {
+      "path": "recipes/fixed-fields.json",
+      "lines": 111,
+      "bytes": 10343,
+      "sha256": "bc4e7f26980920398ad137a10d9fbd98ba39922a533074878b8c5a69c51558bc"
+    },
+    {
+      "path": "recipes/inplace.json",
+      "lines": 36,
+      "bytes": 1312,
+      "sha256": "8e52b121ac3e36c850bec7844e587a844c9f95f2a12bb617fdff56e0e9d309bb"
+    },
+    {
+      "path": "recipes/nicknames.json",
+      "lines": 71,
+      "bytes": 6502,
+      "sha256": "7a4717712c78658124049b74bbd438a86cc6bf0ba10dc389658285c6bdd255ce"
+    }
+  ],
+  "total_lines": 757,
+  "total_bytes": 34088,
+  "runtime_named_functions": 10,
+  "test_named_functions": 10,
+  "test_source_lines": 600,
+  "test_source_bytes": 21480,
+  "fixture_bytes": 31458,
+  "checks": {
+    "go test -race -json ./...": "pass",
+    "go vet ./...": "pass",
+    "go build -o /var/tmp/dokapon-go-tools .": "pass",
+    "gofmt": "pass",
+    "scoped credentials": "pass",
+    "untracked-aware whitespace": "pass"
+  },
+  "named_tests_passed": 9,
+  "named_subtests_passed": 28,
+  "test_report": "evidence/composition-tests-boundary-fix.jsonl",
+  "new_functions": 0,
+  "recipe_cases": 164,
+  "limits": [
+    "No whole historical workflow retired.",
+    "Code+data increased for one shared composition capability; relocation is not credited as deletion.",
+    "No new visual/RAM/gameplay proof."
+  ],
+  "boundary_fix": "Writer independently binds every candidate Offset/Old/profile to table facts, exact numeric ID coverage required.",
+  "timestamp": "2026-10-17T02:08:59.829937+00:00",
+  "overhead": {
+    "documentation_and_rules_lines": 484,
+    "evidence_bytes_excluding_this_report": 381349,
+    "audit_control_bytes": 3116
+  }
+}

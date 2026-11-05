@@ -1,0 +1,107 @@
+{
+  "audit": 33,
+  "at": "2026-10-21T05:36:45.159877+00:00",
+  "role": "Adversarial read-only findings; no implementation or approval authority",
+  "scope": {
+    "snapshot": "/var/tmp/dokapon-astra033-bzf6nk3i/source",
+    "manifest_sha256": "5301c9fb82e2886c0b0119698e2316a4aa47ecc2cc44e1d07508e9953f2bcde2",
+    "members_verified": 95,
+    "member_verification": "All95 byte sizes and SHA256 identities match manifest. AUDIT-SCOPE.json read before sources.",
+    "accepted_manifest": "/var/tmp/dokapon-inline-icons-6x56rlg_/sealed-final/manifest.json",
+    "accepted_manifest_sha256": "e8c05238f1fb1fcef2a0142d3bf938e0c7e10385eb49954d7b05d8d68d137b74",
+    "accepted_manifest_members": 477,
+    "qualification": "Accepted manifest hash/member count verified; full477 payload not reread. live/ accepted and prototype/ isolated unaccepted. Scope is selected95 members, not whole-repository audit."
+  },
+  "findings": [
+    {
+      "id": "A033-1",
+      "severity": "MEDIUM",
+      "status": "CONFIRMED in immutable snapshot; already root-known before audit; root reports fix outside snapshot, not verified here",
+      "title": "Explicit no-stroke intent disappears on JSON round trip",
+      "locations": [
+        "prototype/raster_types.go:74",
+        "prototype/raster_runs.go:84",
+        "prototype/raster_runs.go:92",
+        "prototype/raster_runs.go:392"
+      ],
+      "problem": "BitmapRunLayout.Strokes is a slice tagged omitempty. Explicit nonnil empty slice selects TTF no-stroke path, but JSON marshaling omits it and subsequent decode produces nil. renderRuns then constructs a zero-radius glyph stroke; counter treatment depends on nonempty strokes. The input can therefore change rendering semantics merely by serializing it.",
+      "reproduction": "Construct layout with Strokes: []BitmapStroke{}, marshal then unmarshal. Before len==0 and nil==false; after len==0 and nil==true. Compare no-stroke TTF text containing counters before and after the round trip. Structural serialization consequence established from Go type/tag and control flow; no Go runtime executed in this source-only audit.",
+      "minimal_direction": "Preserve omitted versus explicitly empty presence in the existing layout type and its current consumers. Extend existing test with JSON round trip and complete output comparison. Root has already chosen optional pointer presence; this report does not prescribe duplicate implementation.",
+      "discovery_credit": "Root, not audit033"
+    }
+  ],
+  "unconfirmed_leads": [
+    {
+      "topic": "TTF initial-plane clipping",
+      "locations": [
+        "prototype/raster_runs.go:299",
+        "prototype/raster_runs.go:338",
+        "prototype/raster.go:18"
+      ],
+      "observation": "TTF drops nonzero masks outside temporary coverage canvas; bitmap branch refuses nonzero overflow. Repeated combining marks/negative bearings can stress this distinction.",
+      "disposition": "NOT a confirmed functional finding. Root explains original text_layer allocates fixed measured-advance/face-metric canvas and ImageDraw clips there; final composed layer still undergoes common cell containment. No original counterexample established within frozen source-only scope. Do not add a new refusal solely to equalize unlike branches.",
+      "minimal_direction": "Document this deliberate source-plane clipping beside the branch so future maintainers do not conflate it with approved-cell clipping. If broader Unicode fidelity is claimed later, use original complete-image stress vectors."
+    }
+  ],
+  "reuse_accounting": {
+    "paired_file_byte_deltas": [
+      {
+        "path": "prototype/patch_test.go",
+        "byte_delta": 7733
+      },
+      {
+        "path": "prototype/raster.go",
+        "byte_delta": 955
+      },
+      {
+        "path": "prototype/raster_font.go",
+        "byte_delta": 914
+      },
+      {
+        "path": "prototype/raster_font_disabled.go",
+        "byte_delta": 7
+      },
+      {
+        "path": "prototype/raster_runs.go",
+        "byte_delta": 2738
+      },
+      {
+        "path": "prototype/raster_types.go",
+        "byte_delta": 652
+      },
+      {
+        "path": "prototype/texture_authoring.go",
+        "byte_delta": 1239
+      },
+      {
+        "path": "prototype/texture_contacts.go",
+        "byte_delta": 37
+      }
+    ],
+    "qualification": "Selected paired deltas only, not net repository reduction/accounting. Test delta reported separately from implementation. No retirement or savings is established by this work.",
+    "private_implementation_byte_growth": 6542,
+    "private_test_byte_growth": 7733,
+    "coverage": "6Full8Partial/14 (42.86%),64/84 planning as supplied. Historical8FullGo20reviewed16partial366outstanding410 unchanged. TTF .05 zero credit.",
+    "nonfindings": "Whole-run measurement versus per-character tracked paint is explicitly source-derived and documented in frozen corpus contract; not duplication to normalize away. Color-plane TTF merge and native pixelOver carry different source semantics. No additional function or per-patch handler needed to address the confirmed issue."
+  },
+  "verification": {
+    "performed": [
+      "Read AUDIT-SCOPE first",
+      "Verify95 member bytes and SHA256",
+      "Verify accepted manifest hash and477 count",
+      "Compare paired live/prototype source changes",
+      "Trace renderRuns, textMasks, composeCells and authorTexture call path",
+      "Read prior audit032 and current frozen TTF decision/contracts",
+      "Parse and verify this report after exclusive creation"
+    ],
+    "not_performed": [
+      "Go builds/tests/vet/race or any runtime execution",
+      "Original renderer counterexample execution",
+      "Outside-snapshot pointer fix verification",
+      "Full477 accepted member verification",
+      "Protected resource access or control"
+    ]
+  },
+  "limitations": "Static bounded audit; not acceptance, arbitrary Unicode proof, CLI lifecycle proof, whole-codebase security review or migration completion. No new confirmed defect beyond the root-known serialization issue.",
+  "safety": "Only requested report written. No source edits, children, Serena activation, ISO/canonical registry/emulator/PINE/controller/process/log/settings access/control, real patch writes or historical main execution."
+}

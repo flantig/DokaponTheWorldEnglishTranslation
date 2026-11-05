@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-20T21:21:05.297684+00:00",
+  "status": "READ_ONLY_SOURCE_AND_PRECODE_STUDY_NO_IMPLEMENTATION_COVERAGE",
+  "recommended_scope": "Enhance existing authorRegistry for offline registry CSV projection only. RegistryColumns is one purpose-named ordered list; canonical fourteen-column recipe remains data. Dry run reports rows/columns/output digest; apply exclusively publishes new CSV. Status counts, full Markdown/glossary/flow report and disc-truth ledger are explicit future responsibilities, not implemented by this scope.",
+  "owners_considered": {
+    "authorRegistry": "Existing source-pinned bounded rawdocument read, normalizedID/Unicode/duplicate-key checks and report/publication lifecycle are a reasonable sharedowner. Add early projection/report path before mutationguards/date writes; do not fabricate RegistryUpdates to reach it. Existingrun routes operation and writerpublishes. No new function/parser/exportframework justified.",
+    "inspect": "Owns image/ELF/readiness, not registryfield projection; moving counts here would mixresponsibilities.",
+    "new_report_owner": "Not needed for fixed projection; authorRegistry alreadyowns source-derived registryreports. Reconsider boundary only if later glossary/flow/HTML responsibilities cause realsprawl, not speculative wrappers."
+  },
+  "source_crawl_projection": [
+    {
+      "path": "tools/build_change_ledger.py",
+      "current_sha256": "43598024c933f89d29c9fd64592674120815f3638c32b988f4b4969733325a5a",
+      "capabilities": [
+        "registry_reconcile",
+        "text_codec_fit",
+        "evidence_report"
+      ],
+      "evidence": [
+        "522-523:def iso",
+        "682:text.replace",
+        "614:raise ValueError(f\"phase3_stream_markup: unhandled token kind {k!r} (word={t.get('word')!r}) - add explic"
+      ],
+      "exceptions": "Many individually pinned battle/board format decoders, icon aliases and dynamic module loads. Generic codec coverage must be proved before collapsing them."
+    },
+    {
+      "path": "tools/build_html.py",
+      "current_sha256": "7367ed294aa5a63e6e45cc09564d727ad6d7b82b8320d717c1b6859753a9d47d",
+      "capabilities": [
+        "evidence_report"
+      ],
+      "evidence": [
+        "57-64:def load",
+        "58:(ROOT / 'registry' / 'string-registry.json').read_text",
+        "63:sys.exit(\"ERROR: glossary.json has no 'entries' list\")"
+      ],
+      "exceptions": "HTML escaping is essential; legacy card/layout markup is not a requirement for a new export."
+    },
+    {
+      "path": "tools/build_registry_csv.py",
+      "current_sha256": "2e70eb95d24d8e44156d6e759b6f0eb4a0fd29e16ed0bd7d3ad1c9fba32dfcf3",
+      "capabilities": [
+        "evidence_report"
+      ],
+      "evidence": [
+        "41:_reports.export_csv"
+      ],
+      "exceptions": null,
+      "delegates": [
+        "p68"
+      ]
+    },
+    {
+      "path": "tools/build_status_summary.py",
+      "current_sha256": "96f57ab1486ab63de572f46b404b852bb4ab3b227683351e3dc38487c4161a9d",
+      "capabilities": [
+        "evidence_report"
+      ],
+      "evidence": [
+        "41:_reports.status_main"
+      ],
+      "exceptions": null,
+      "delegates": [
+        "p73",
+        "p71"
+      ]
+    }
+  ],
+  "historical_csv": {
+    "columns": [
+      "id",
+      "status",
+      "source_pool",
+      "chapter",
+      "character",
+      "event",
+      "tier",
+      "jp",
+      "en",
+      "mode",
+      "ref_type",
+      "landing_vma",
+      "patch_ref",
+      "note"
+    ],
+    "source": "registry.py18..19,export_csv157..174;build_registry_csv facade41",
+    "rows": "EVERY registryentry regardlessstatus, sorted int(id,16), stable for duplicate numericIDs; IDspelling preserved. e.get(column,empty) or empty: missing/null/ANYfalsey value becomes empty; truthy nonstrings become Pythonstr via csvwriter. No control stripping/retranslation/glyphvalidation.",
+    "bytes": "UTF8 withoutBOM, comma delimiter, Pythoncsv excel defaults:CRLF recordterminators,QUOTE_MINIMAL doubles quotes and quotes cells containingcomma/quote/CR/LF. Embedded LF/CR/CRLF remain EXACT, leadingwhitespacealone and literal\\. unquoted. Formula-lookingtext unchanged. Header alwayswritten, evenemptyentries. Structuredfields omitted, notflattened.",
+    "write_order": "Old export opens output w and writes header before numeric sorting; malformedID can leave partialoutput and overwrite priorfile. New Go sourcevalidation/exclusivepublication deliberately improves failure behavior.",
+    "legitimate_field_domain": "STRING-REGISTRY.md59..89 defines id/jp/en/status/source_pool and optional canonical projected fields as text, enum or nullable advisory text; required EN may intentionally be empty. Its jp_capacity_u16 field is a legitimate integer and can be selected in an optional view. Structured ref_sites, inline_codes, param_blocks and midcontent_markup_shape are structured metadata, not flat CSV cells. Boolean scalar parity is supported without claiming any canonical fourteen-column field is Boolean.",
+    "mutable_columns": "Historical facade/provider tests test_csv_policy_authority_keeps_mutable_exports_independent304..313 show COLUMNS may be customized as an independent ordered list; new RegistryColumns purpose field is root design, not a historical recipe schema."
+  },
+  "historical_status": {
+    "source": "registry.status_build190..268",
+    "registry_counts": "n entries; fixedknownstatusorder drafted,zone_pending,patched,decode_verified,emulator_confirmed, suppresszero rows; unknownstatusvalues warnednotincludedknown-table. Statusmissing=>unknown, explicitnull remains None counterkey. Tier/chapter/pool missingORnull=>unknown, emptystring remainsblankgroup. Groupdimensions sortedlexically; unknownstatuses in firstseen order.",
+    "lists": "EmptyEN uses Pythonfalsey; missingtags when chapter/character/event anyfalsey; both IDlists retain sourcearray order, not CSVsortedorder. No percentages or patched/native-bytetruth inferred.",
+    "additional_inputs": "Full Markdown also reads glossaryJSON+milestone-flowJSON: steps=len(flow), uniqueVMAs are a set of truthy rawVMAstrings (not normalizedIDs), glossaryprovenance counts andtodos; generated localdate. All require explicitsource/pins if implementedlater.",
+    "format": "table joins arbitrarycelltext without Markdownescaping; pipe/newline categorynames can breaktablelayout. Legacyfilename/template/links are presentationfacts, not mandatory newJSONschema.",
+    "selected_increment": "Excluded entirely from this increment; expected-source-counts.json and status-extra-inputs.json are historical semantic evidence only, not promised Go output schema or test requirement."
+  },
+  "disc_truth_separation": {
+    "source": "build_change_ledger.py1196..1230,1849..1855",
+    "facts": "Reads original+workingISO, verifies originalSHA, derives live sentinelbounds, decodes JP/EN/nativeformats and actualpointers before rows. Columns exactlyvma,jp,en,landing_vma,patch_ref. Registry-backedCSV covers plan/allstatuses; ledger covers actualdisctruth. Serialization similarity doesnotjustify changing the source/evidence domain.",
+    "held": "No ISO reads or ledgerdecoderexecution in thisstudy; numerous pinned nativeformatdecoders, alias/refusals and currentledgerbugs remain separate."
+  },
+  "stdlib_csv_gotcha": {
+    "primary": "/usr/lib/golang/src/encoding/csv/writer.go Write+fieldNeedsQuotes",
+    "facts": "Go writerdefaultLF differs PythonCRLF. UseCRLF=true rewrites embeddedLF->CRLF and drops embeddedCR; it additionallyquotes leadingUnicodewhitespace and literal\\.. Therefore simply enablingUseCRLF or replacingallLF is not exactPython output.",
+    "minimal_options": "If exact historicalbytes required, tiny inline currentowner loop: after typedcellprojection, quote onlyifcomma/quote/CR/LF, doublequotes, joincommas, appendCRLF. Existingstrings/bytes standardlib sufficient, no new CSVhelper. If standardGoCSV chosen instead, explicitly label changedbyteformat and retain decodedcellsemantics; do not claim byteparity."
+  },
+  "selected_scope_validation": {
+    "retain": "Same boundedregularsource+size/SHA,validJSON/UTF8/surrogate/normalizedID/duplicatekeyguards; allsource bytesunchanged; preview nooutput; applynewfileonly via writeNewFile; reject unrelated update/image/glyph/registryinputfields. Exportdoesnotmodify last_updated.",
+    "recommendation_not_legacy": "Selected CSV fields accept strings/null/missing plus JSON integers/bools: null/missing/false/integer zero become blank; true becomes True; nonzero integers emit arbitrary-precision decimal. Selected arrays/objects/floats/nonfinite are deliberate refusals, including historically falsey empty containers and 0.0. Unselected opaque metadata is ignored. No blanket Go float-format parity: Python repr has different suffix/threshold behavior. Status grouping is NOT selected for this increment.",
+    "no_scope_creep": "Unknownmetadata staysunread/unmodified; no glossary/flow/ISO/canonicalpath defaults, spreadsheetformulaescaping,translationvalidation,HTML,derivedmachineupdate or schemaframework.",
+    "columns": "Root selected ordered RegistryColumns; canonical fourteen-column recipe separately data. Empty/duplicate column-name validation and maximum column/output bounds are new-operation safety decisions, not historical fixed-column refusals. Missing selected fields remain blank. No schema-enum/translation/glyph validation is implied by exporting."
+  },
+  "precode": {
+    "directory": "/var/tmp/dokapon-registry-export-eeu_9p50",
+    "files": {
+      "empty-expected.csv": {
+        "bytes": 99,
+        "sha256": "6e8850d29fd3a2452b5678d6806f297467abcc8faa01411ccd38f50e2c4bb014"
+      },
+      "empty-registry.json": {
+        "bytes": 15,
+        "sha256": "7a0b7943ccd293821e69c3413abdfebf3d74e3d9a2a92c2f362a7fcbab72f8b3"
+      },
+      "expected-source-counts.json": {
+        "bytes": 1546,
+        "sha256": "d3aec7210f9f205750022e67d8d4b1827966983fb639db5f8c406ffad1d403d6"
+      },
+      "expected.csv": {
+        "bytes": 498,
+        "sha256": "5fbfee53b8f6a8f41a44027b401a56f4bc4e372ec21912cd81c8d7e612bb5085"
+      },
+      "export_csv-source.txt": {
+        "bytes": 840,
+        "sha256": "1d67d4b2f944ff2fbb84f7c2f124babfa4ed5cd660999af6893eee16fa0a2056"
+      },
+      "legacy-coercion-contrast.json": {
+        "bytes": 781,
+        "sha256": "92b8482864aae96269ad2f2147531ceff36281be07b9c5b65737279796250027"
+      },
+      "number-lexical-vectors.json": {
+        "bytes": 497,
+        "sha256": "37eb9cc9051a8f4a935cd8e52988150ee56e4afca25c3fe9969b82719e767d1b"
+      },
+      "prepare.py": {
+        "bytes": 17526,
+        "sha256": "daf99dbd0d198232cd7be7afcf26227ee67a469b190cdd58de3a3c2dc6cc4e51"
+      },
+      "refusal-vectors.json": {
+        "bytes": 1688,
+        "sha256": "6fbe586036bd49377d97ce93e4df36ed4c14fbbb779e664984ab7b3a344bd1bc"
+      },
+      "scalar-columns.json": {
+        "bytes": 43,
+        "sha256": "89589d379e498b4da2b985088c8f4a8b07f13a16aa1044c9666f783a09b6dd1b"
+      },
+      "scalar-expected.csv": {
+        "bytes": 135,
+        "sha256": "0dc3e719aa701b2755291277be4907293cc5a4e40e9bdc0e683ba6bb06d5c835"
+      },
+      "scalar-registry.json": {
+        "bytes": 445,
+        "sha256": "b32f86dfbbeff1b77a940ef69d381844976177db9d1b3b648c37d9ab9659df0e"
+      },
+      "selected-domain-refusals.json": {
+        "bytes": 1594,
+        "sha256": "003cdd2a9869c619845980e204d37028f2e975674030d2aa4e0b89fea8459684"
+      },
+      "source-registry.json": {
+        "bytes": 1949,
+        "sha256": "3c5d5d4209c291a150f88d40ca25dca146bc494633c74c9447f5c3e455be8150"
+      },
+      "status-extra-inputs.json": {
+        "bytes": 616,
+        "sha256": "4999f065c530697122f8b4b62f6de5a6e29f30bc98d55c77e03cf09f3964168d"
+      },
+      "status_build-source.txt": {
+        "bytes": 3638,
+        "sha256": "d6017524665a862347f75dbe7c7903206a651919b64bd5f056b4d2e14bced899"
+      },
+      "status_load-source.txt": {
+        "bytes": 467,
+        "sha256": "b93b472718c62aa3a94a8f3bf709f5ec10643828d3ae4a531b75cedaeba1ce9f"
+      },
+      "status_main-source.txt": {
+        "bytes": 414,
+        "sha256": "cb096fa5b0d6366ebbea3d673c58848a397148bad62ed9c7260f635adc32bedd"
+      },
+      "subset-columns.json": {
+        "bytes": 21,
+        "sha256": "fc76f34072cf54d1bb7954b3bce467f5bb7f0f48be95bfc75b514df12cdf0085"
+      },
+      "subset-expected.csv": {
+        "bytes": 112,
+        "sha256": "ce9f09aa7e0d3ecfdfdcd2c6088acb28026949f3494c7d10f45a0a2336a9c143"
+      },
+      "subset-registry.json": {
+        "bytes": 1843,
+        "sha256": "3ca9ac2e83a0e7758a5dedfa851cf5cccd6060666e0c89f5b4bcf844073adf81"
+      },
+      "table-source.txt": {
+        "bytes": 255,
+        "sha256": "be24ce30585637d346773501f4e2ccc8c23a3c2fd3cc27a96c5857afb47f5cbc"
+      }
+    },
+    "cases": "8-row disorderedtypedfixture, fixed14columns, numericorder/spelling,CRLFrecords+embeddedLF/CR/CRLF,quote/comma/leadingwhitespace/Unicode/\\./formula-likecells,null/missing/emptyEN,emptyregistryheader-only,known+unknown+nullstatuses,blank+unknowncategorygroups,sourceorderdiagnosticlists,legacycoercioncontrasts,8refusalvectors andscope-onlyglossary/flowexample. Scalar/subset fixtures freeze ordered columns, signed >2^53 and 30-digit integers, false/zero/null blank, True, unselected containers ignored, and explicit selected-container/float refusals. No candidate Go outputs were inspected.",
+    "independence": "NoGooutput/projectPythonexecution. SourceCOLUMNS fromAST; expectedCSV uses independent Pythonstdlibcsv withliteralprojectedrows. Counts manuallyspecified thenchecked withstdlibCounter/sourcepredicate arithmetic.",
+    "scalar_expected_cells": [
+      [
+        "id",
+        "flag",
+        "count",
+        "text",
+        "missing"
+      ],
+      [
+        "0x10",
+        "",
+        "",
+        "\\.",
+        ""
+      ],
+      [
+        "0x20",
+        "",
+        "-9007199254740993",
+        "雪,\"x\"\nY\rZ\r\nW",
+        ""
+      ],
+      [
+        "0x30",
+        "True",
+        "123456789012345678901234567890",
+        " \tlead",
+        ""
+      ]
+    ]
+  },
+  "source_slices": [
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "export_csv",
+      "start_line": 157,
+      "end_line": 174,
+      "slice_path": "/var/tmp/dokapon-registry-export-eeu_9p50/export_csv-source.txt",
+      "slice_sha256": "1d67d4b2f944ff2fbb84f7c2f124babfa4ed5cd660999af6893eee16fa0a2056"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "status_load",
+      "start_line": 176,
+      "end_line": 181,
+      "slice_path": "/var/tmp/dokapon-registry-export-eeu_9p50/status_load-source.txt",
+      "slice_sha256": "b93b472718c62aa3a94a8f3bf709f5ec10643828d3ae4a531b75cedaeba1ce9f"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "table",
+      "start_line": 183,
+      "end_line": 188,
+      "slice_path": "/var/tmp/dokapon-registry-export-eeu_9p50/table-source.txt",
+      "slice_sha256": "be24ce30585637d346773501f4e2ccc8c23a3c2fd3cc27a96c5857afb47f5cbc"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "status_build",
+      "start_line": 190,
+      "end_line": 268,
+      "slice_path": "/var/tmp/dokapon-registry-export-eeu_9p50/status_build-source.txt",
+      "slice_sha256": "d6017524665a862347f75dbe7c7903206a651919b64bd5f056b4d2e14bced899"
+    },
+    {
+      "source": "../rework/new_tool/reports/registry.py",
+      "symbol": "status_main",
+      "start_line": 270,
+      "end_line": 276,
+      "slice_path": "/var/tmp/dokapon-registry-export-eeu_9p50/status_main-source.txt",
+      "slice_sha256": "cb096fa5b0d6366ebbea3d673c58848a397148bad62ed9c7260f635adc32bedd"
+    }
+  ],
+  "source_pins": {
+    "../build_registry_csv.py": {
+      "sha256": "2e70eb95d24d8e44156d6e759b6f0eb4a0fd29e16ed0bd7d3ad1c9fba32dfcf3",
+      "bytes": 1628
+    },
+    "../build_status_summary.py": {
+      "sha256": "96f57ab1486ab63de572f46b404b852bb4ab3b227683351e3dc38487c4161a9d",
+      "bytes": 1296
+    },
+    "../build_change_ledger.py": {
+      "sha256": "43598024c933f89d29c9fd64592674120815f3638c32b988f4b4969733325a5a",
+      "bytes": 102489
+    },
+    "../rework/new_tool/reports/registry.py": {
+      "sha256": "851b8086227e3463b827c6664191c88ae7a0d73331c73810c443c215be56694a",
+      "bytes": 14082
+    },
+    "../rework/new_tool/reports/test_registry_reports.py": {
+      "sha256": "e5035b206b95515589010ed86dcdb71c7d3d3b6e09f72212295261d0f0b0691b",
+      "bytes": 16986
+    },
+    "../../skills/STRING-REGISTRY.md": {
+      "sha256": "c726c021391e4848d39e3023af91ee71a6ccd6b288781c142ab55bcd9f3b05c5",
+      "bytes": 73413
+    },
+    "analysis/pattern-crawl-iso_registry_reports.json": {
+      "sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+      "bytes": 119708
+    },
+    "analysis/reusability-coverage-baseline.json": {
+      "sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+      "bytes": 13267
+    },
+    "registry_authoring.go": {
+      "sha256": "68b21b9eb9532a118156fa00d275da55a4eeddd1296242aba228ee97c6b9abd0",
+      "bytes": 22422
+    },
+    "main.go": {
+      "sha256": "cc48b15cee3184141f7e88716b8b6c8b32f78005f1adbdcfc6ad64dcc245e5e7",
+      "bytes": 12651
+    },
+    "outputs.go": {
+      "sha256": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+      "bytes": 1760
+    },
+    "/usr/lib/golang/src/encoding/csv/writer.go": {
+      "sha256": "a0a4bdd01fddd75efc583f822599118320d30b8269f05eb957777c28e2aec1ee",
+      "bytes": 4962
+    }
+  },
+  "verification": "CSV roundtripcell equality with newline-preserving stdlibreader; exactCR/LF/UTF8/noBOM assertions;manualcount/list equality;emptyheader bytes;source/provider/stdlib/policy hashes;JSON/whitespace/credentialchecks. NoGo/tests/build/fullsuite or coverageclaim. No canonical registry/ISO/emulator/process/settings/control accessed.",
+  "source_pin_qualification": {
+    "facts": "Historical/provider/stdlib pins checked unchanged at final study seal. Go pins document initial ownership only; later root implementation drift does not invalidate independent CSV vectors.",
+    "go_documentary_drift": [
+      {
+        "path": "registry_authoring.go",
+        "study_pin": "68b21b9eb9532a118156fa00d275da55a4eeddd1296242aba228ee97c6b9abd0",
+        "final_observed_sha256": "26c5b976df83a38ce0fb8f43a7e58660a6b6a6ac39cfb72934fc2d3af9fed0bb",
+        "qualification": "root candidate ownership change after CSV oracle sealed; not inspected or executed; not an oracle failure"
+      }
+    ]
+  }
+}

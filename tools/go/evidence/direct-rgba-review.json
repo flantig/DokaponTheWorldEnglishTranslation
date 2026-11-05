@@ -1,0 +1,573 @@
+{
+  "at": "2026-10-20T15:10:56.106118+00:00",
+  "status": "PASS",
+  "findings": [],
+  "verdict": "Ship the bounded standalone explicit RGBA512square/native-v0 increment. No ISO/art/visual/family approval.",
+  "scope": "Fresh ordinary independent read-only code/DRY/behavior implementation review. Repository writes limited to evidence/direct-rgba-review.json and .md. Past reports preserved; no production/test/fixture/art/ISO/canonical-registry edits.",
+  "baseline": "/var/tmp/dokapon-multipage-psmt4-sealed-6o58oewe",
+  "work": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa",
+  "source_data_pins": {
+    "main.go": "a1d5b67ed70dbd83c086af33fb0e767be5a6f7649d03fcbe8d1ca1daaf32d694",
+    "registry_types.go": "056f963845233554d326e667c5a3b6148af3cf669895e4e7935fbb8b4f58ff44",
+    "image_types.go": "2d723b39c61067abeffe5fa2827d9a20625bce0a87e36fd598320db36e5d8a59",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "77b85d1b79d4d2b37f7e83522629d7502e5149a4faf433cfa5cb28a712aa0302",
+    "patch.go": "d4224b40951f5effac801335cb0dbf0b39a371a7a18d94c0fd421952a92b0441",
+    "recipe_types.go": "71a70b66f69f9594f089793fbcbfee1622ecb9eb2acc80bd1645a0db0333284a",
+    "cmb.go": "87c75049c6f2f83e581532df4506c6dab767112a4668d90598d7488f74daf7f4",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "texture.go": "12d56f2079e35ca3b4ad4e3e5918408497e4687c1d3179fc7805f71db6e96bad",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "texture_types.go": "63d463fb0a5700d8850b4850289b37cd733ce97b295ed0835b2924f0c5247d9e",
+    "texture_authoring.go": "50993a03e3f5c4c2c2ff747b9f946cb645a6ad5c858dead533e67ad46b26b3bf",
+    "outputs.go": "1af3331a6cae54075652e3d4a90f603128e073fc4d8d7c659fe02f65010cd3db",
+    "patch_test.go": "799d4d22c290f1a17fa89380d73bf11461831e90f28683b5fa7e04f0bb504421",
+    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "testdata/textures.json": "9cd7064d1d6445353fe320e4f890b3428e006c3d75dda9e5457cdc96adae6de1",
+    "testdata/direct-rgba.zip": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+    "testdata/exact-palette.zip": "f3bd4bda3aa3e0acae80ff935253856396d37643e234e1d95e98ad5473d89f54",
+    "testdata/multipage-psmt4.zip": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87"
+  },
+  "source_data_pins_stable_at_end": true,
+  "production_changes": [
+    "texture.go",
+    "texture_authoring.go",
+    "texture_types.go"
+  ],
+  "no_new_named_functions_types_codec_arguments_writers_dependencies": true,
+  "prior16base_and6exact_oracle_data_unchanged": true,
+  "past_report_pins": {
+    "evidence/exact-palette-review.json": "f7dd3ad2b4b1904377935d22a16e945f1cd65e69cd754f2d8bcfbb57123ec160",
+    "evidence/multipage-psmt4-review.json": "2d56beb21341c47e777a390760e7200a2ff1f44606764aa56f0ce6a84d9aaca4",
+    "analysis/texture-color-policy-design-review.json": "6db8a9223cec412f430ba4b4c336c8723ceb9eb869271836442795130f869908"
+  },
+  "callers": {
+    "serena_session": "d7f95853",
+    "texture": [
+      "authorTexture",
+      "TestPilotHistoricalGoldenBytes"
+    ],
+    "references": "33currenttest-owner calls and sole production authorTexture caller. Existing five-argument API retained. TextureProfile references still belong to authorTexture and two existing test owners.",
+    "assessment": "A direct optional PixelPolicy field and finite fifth-argument rasterPolicy implement the agreed before-code design. No options struct/nested literals/sixth positional argument/profile-I/O coupling/new wrapper."
+  },
+  "contract_review": {
+    "external_policy": "palette_policy retains own empty/exact allowlist and whole-PNG requirements. pixel_policy has only empty/rgba; both nonempty refuse before selection. Report palette_policy remains profile-derived, pixel_policy only appears when explicit. Unknown/wrong-field/case/conflict/missing-color-policy refusals independently exercised.",
+    "codec_policy": "Only empty/exact/rgba accepted. rgba requires depth32 after the unchanged finite512square/version0/RF0504/TEX0/paletteBase/storage/footprint checks; exact remains whole standard8 only. No other direct mode enabled.",
+    "default_refusals": "Default source and candidate monochrome checks remain. Sourcealpha>128 is an unconditional direct guard, including rgba. The old combined font-source message is split into native-alpha and monochrome diagnostics; the meaningful refusals remain. Explicit rgba intentionally permits color only.",
+    "raw_bytes": "One existing direct walk reads/writes independent R/G/B channels, retains hidden RGB atalpha0 and applies the existing (A+1)/2 native-alpha rounding/ties-up rule. It reencodes only pixels that differ, retains clone-only writes and nil partial results on refusal. No palette normalization/transparent-RGB cleanup/premultiplication added to direct mode.",
+    "masks": "Existing rectangle validation and pre-quantization changed-pixel refusal stay intact. A candidate outside the mask must refuse even if it would round to the same native byte; independently verified outside refusal and inside success as exact no-op.",
+    "reuse": "Existing parser/native mode guard/pixel walk/alpha expression/clone/mask/readInput/run/writeNewFile owners remain. No duplicated quantizer or conversion engine. Existing CLI fixture facts now read from canonical texture testdata instead of a copied three-row table.",
+    "load": "Single bounded artifact CLI; existing512square direct loop and caps unchanged, no new global state or publication path."
+  },
+  "native_source_verification": {
+    "status": "PASS",
+    "contract_sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85",
+    "native_spans": 20,
+    "critical_words": 14,
+    "primary_sources": 8,
+    "legacy_dispatch_word": true,
+    "actual_source_instances": 21,
+    "unique_payloads": 12,
+    "source_RGBA_alpha_histograms_witnesses_PNG_inverses": true,
+    "raw_alpha_values": 129,
+    "raw_alpha_max": 128,
+    "modes": [
+      {
+        "mode": "v0_512x512",
+        "source_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v0_512x512"
+      },
+      {
+        "mode": "v0_256x512",
+        "source_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v0_256x512"
+      },
+      {
+        "mode": "v2_256x256",
+        "source_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v2_256x256"
+      },
+      {
+        "mode": "v0_512x256",
+        "source_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v0_512x256"
+      },
+      {
+        "mode": "v2_128x16",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v2_128x16"
+      },
+      {
+        "mode": "v2_16x16",
+        "source_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+        "path": "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/actual-v2_16x16"
+      }
+    ],
+    "NPC_fixture_original_member_identity": true,
+    "NPC_two_edits": {
+      "txd_sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+      "rgba_sha256": "8e986f39fac5a0a01895a59488ebeaf626f651ce1ebde01d1c4710251c6702bf",
+      "changed_offsets": [
+        200,
+        201,
+        202,
+        203,
+        1048772,
+        1048773,
+        1048774
+      ],
+      "outside_two_selected_pixels": 0
+    }
+  },
+  "oracle_pins": {
+    "native_contract": {
+      "path": "analysis/colored-direct-native-contract.json",
+      "sha256": "b2811e50bdf28beb570b495aa932e1a9f8891101ec36e1c54f673ed56e15be85"
+    },
+    "beforecode_decision": {
+      "path": "analysis/direct-rgba-reuse-decision.json",
+      "sha256": "a9adfd019bc6d2636ff6d49c825e3e039b46aa4ffcb2b86e344e121acc7116df"
+    },
+    "beforecode_design": {
+      "path": "analysis/texture-color-policy-design-review.json",
+      "sha256": "6db8a9223cec412f430ba4b4c336c8723ceb9eb869271836442795130f869908"
+    },
+    "preserve_corpus": {
+      "path": "/var/tmp/dokapon-complete-texture-parity-g_1eyz4s/oracle.json",
+      "sha256": "6b08f10d1af8ff1f1edbf434710a89332ec1a99ec05b68fd5f77381c147c13c8",
+      "accepted": 227,
+      "held": 0,
+      "full_RGBA_noop_TXD_onepixel_TXD_and_RGBA": true,
+      "source_preserved": true,
+      "harness": "Private overlay inserts corrected227case block into CURRENT existing TestPilotHistoricalGoldenBytes. No older test overwrite/new test function/production edit."
+    }
+  },
+  "verification": {
+    "race": {
+      "command": [
+        "nice",
+        "-n",
+        "19",
+        "go",
+        "test",
+        "-race",
+        "-count=1",
+        "-p",
+        "2",
+        "-overlay",
+        "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/overlay.json",
+        "./..."
+      ],
+      "exit_code": 0,
+      "seconds": 64.03222890699999,
+      "stdout": "ok  \tdokapon/tools\t61.052s\n",
+      "stderr": ""
+    },
+    "checks": {
+      "checks": [
+        {
+          "name": "vet",
+          "command": [
+            "go",
+            "vet",
+            "-p",
+            "2",
+            "./..."
+          ],
+          "exit_code": 0,
+          "seconds": 0.0670669020000787,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "build",
+          "command": [
+            "go",
+            "build",
+            "-p",
+            "2",
+            "-o",
+            "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/dokapon-go",
+            "."
+          ],
+          "exit_code": 0,
+          "seconds": 0.18257715299932897,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "format",
+          "command": [
+            "gofmt",
+            "-l",
+            "main.go",
+            "registry_types.go",
+            "image_types.go",
+            "text_types.go",
+            "wrap.go",
+            "reference_types.go",
+            "references.go",
+            "patch.go",
+            "recipe_types.go",
+            "cmb.go",
+            "glyphs.go",
+            "fit_types.go",
+            "fit.go",
+            "texture.go",
+            "inputs.go",
+            "texture_types.go",
+            "texture_authoring.go",
+            "outputs.go",
+            "patch_test.go"
+          ],
+          "exit_code": 0,
+          "seconds": 0.038904969000213896,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "whitespace",
+          "command": [
+            "git",
+            "diff",
+            "--check",
+            "--",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_types.go",
+            "patch_test.go",
+            "testdata/textures.json",
+            "testdata/direct-rgba.zip"
+          ],
+          "exit_code": 0,
+          "seconds": 0.0017686669998511206,
+          "stdout": "",
+          "stderr": ""
+        },
+        {
+          "name": "credentials",
+          "command": [
+            "rg",
+            "-n",
+            "-i",
+            "(AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|api[_-]?key[[:space:]]*[:=][[:space:]]*\"[^\" ]{12,}|password[[:space:]]*[:=][[:space:]]*\"[^\" ]{8,})",
+            "texture.go",
+            "texture_authoring.go",
+            "texture_types.go",
+            "patch_test.go",
+            "testdata/textures.json"
+          ],
+          "exit_code": 1,
+          "seconds": 0.012259342999641376,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "credential_pattern_selfcheck": {
+        "exit_code": 0,
+        "matches": 2,
+        "input": "api_key = \"synthetic_nonsecret_example\"\npassword\t:\t\"synthetic_nonsecret_example\"\n"
+      }
+    },
+    "actual_standalone": [
+      {
+        "operation": "export_preview_apply",
+        "rgba_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+        "preserves_source_hidden_white": true,
+        "policy_namespaces_correct": true,
+        "status": "PASS"
+      },
+      {
+        "operation": "noop",
+        "txd_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+        "rgba_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+        "changed_bytes": 0,
+        "outside_selected_pixels_or_alpha_ramp": 0,
+        "header_trailer_unchanged": true,
+        "preview_apply_overwrite_readback_input_identity": true,
+        "status": "PASS"
+      },
+      {
+        "operation": "two_colored_edits",
+        "txd_sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+        "rgba_sha256": "8e986f39fac5a0a01895a59488ebeaf626f651ce1ebde01d1c4710251c6702bf",
+        "changed_bytes": 7,
+        "outside_selected_pixels_or_alpha_ramp": 0,
+        "header_trailer_unchanged": true,
+        "preview_apply_overwrite_readback_input_identity": true,
+        "status": "PASS"
+      },
+      {
+        "operation": "all256_candidate_alphas",
+        "txd_sha256": "4dfed1550f18d2822acf109354b8a8f5966d954786bf901bc8fe6a655820ef4f",
+        "rgba_sha256": "2a729f2de26cdd761883efa3ef1d494bd1d6e0bc9f8f0daa55f504b7d8569ac3",
+        "changed_bytes": 1023,
+        "outside_selected_pixels_or_alpha_ramp": 0,
+        "header_trailer_unchanged": true,
+        "preview_apply_overwrite_readback_input_identity": true,
+        "status": "PASS"
+      },
+      {
+        "operation": "hidden_RGB",
+        "txd_sha256": "8aa350e9b5959dbcd8fc21847acbbe0fad9b92db8ac8753019688f12fcb747f1",
+        "rgba_sha256": "8b30f393d11cb369c82ff70d9daadba1ea4e1ce7237d6160256ae567d9c728bd",
+        "changed_bytes": 3,
+        "outside_selected_pixels_or_alpha_ramp": 0,
+        "header_trailer_unchanged": true,
+        "preview_apply_overwrite_readback_input_identity": true,
+        "status": "PASS"
+      },
+      {
+        "operation": "same_rounded_byte_mask",
+        "outside_mask_refused": true,
+        "inside_mask_whole_TXD_noop": true,
+        "status": "PASS"
+      }
+    ],
+    "additional34refusals": [
+      {
+        "case": "v0_256x512",
+        "actual_held_layout_refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "case": "v2_256x256",
+        "actual_held_layout_refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "case": "v0_512x256",
+        "actual_held_layout_refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "case": "v2_128x16",
+        "actual_held_layout_refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "case": "v2_16x16",
+        "actual_held_layout_refused": true,
+        "diagnostic": "unsupported direct font raster mode"
+      },
+      {
+        "case": "missing_rgba",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "direct font candidate must be monochrome"
+      },
+      {
+        "case": "unknown_pixel",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "pixel policy requires rgba without a palette policy"
+      },
+      {
+        "case": "case_pixel",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "pixel policy requires rgba without a palette policy"
+      },
+      {
+        "case": "exact_in_pixel",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "pixel policy requires rgba without a palette policy"
+      },
+      {
+        "case": "rgba_in_palette",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "case": "both",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "pixel policy requires rgba without a palette policy"
+      },
+      {
+        "case": "unknown_palette",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "exact palette policy requires a whole candidate PNG without rectangles"
+      },
+      {
+        "case": "badsource",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "texture source identity mismatch"
+      },
+      {
+        "case": "badpng",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "candidate PNG hash mismatch"
+      },
+      {
+        "case": "invalid_rect",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "invalid texture rectangle"
+      },
+      {
+        "case": "outside_rect",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "candidate changes a pixel outside approved rectangles"
+      },
+      {
+        "case": "unknown_selector",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "texture selector matches 0 native textures"
+      },
+      {
+        "case": "unknown_field",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "json: unknown field \"new_mode\""
+      },
+      {
+        "case": "second_object",
+        "refused": true,
+        "no_output_input_preserved": true,
+        "diagnostic": "texture profile requires one JSON object"
+      },
+      {
+        "case": "publication-source.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "publication-two_colored_edits.png",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "publication-two_colored_edits.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "publication-symlink.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "publication-hardlink.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "publication-cli",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "publication-output.txd",
+        "refused": true,
+        "source_PNG_existing_output_preserved": true
+      },
+      {
+        "case": "NPC-alpha-129",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "case": "NPC-alpha-255",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "case": "font-alpha-129",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "case": "font-alpha-255",
+        "refused": true,
+        "diagnostic": "direct source requires native alpha0..128"
+      },
+      {
+        "case": "default_font_colored_candidate",
+        "refused": true,
+        "diagnostic": "direct font candidate must be monochrome"
+      },
+      {
+        "case": "std8-rgba",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      },
+      {
+        "case": "nohdr8-rgba",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      },
+      {
+        "case": "std4-low-nibble-rgba",
+        "refused": true,
+        "diagnostic": "rgba pixel policy requires calibrated direct32"
+      }
+    ],
+    "permanent_tests": "Complete uncached race suite includes prior16basecases and6exactpalettecases unchanged, new actualNPC wholeRGBA/noop/two-edits, existingfont+newRGBA all256candidatealpha/129nativealpha/hiddenRGB/PNGinverse/mask/metadata cases. Existing default colored-font candidate refusal remains. Standalone test owner covers canonical4mode cohort and profile/publication refusals. Private227case preserve corpus added without source/test edits.",
+    "identity_stats": "Standalone source/PNG/existing-output checks compare device,inode,size,mtime_ns,ctime_ns,mode and complete SHA; reads may update atime.",
+    "go_execution": "nice19; GOMAXPROCS2/go-p2; owned /var/tmp TMPDIR/GOTMPDIR",
+    "artifacts": {
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/patch_test.go": {
+        "sha256": "d499c2b1c64d9e18d9dd7711816dbf7d5623d848219552d02ed7477bc880ad1e",
+        "bytes": 334775
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/overlay.json": {
+        "sha256": "d379ac3b0eecddeccaf1d51cc396d198fe35bb160ae99cdb41fc8fc5240368e5",
+        "bytes": 145
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/source-pins.json": {
+        "sha256": "055751a9484dea19934132eb95d4ae20ecad46a21492c3db189bcd85e457a137",
+        "bytes": 2107
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/corpus-results.json": {
+        "sha256": "c18b3a7601d467553709c91324dc54c20a586328d69ce4f30827aa7d8bcf1b02",
+        "bytes": 76145
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/oracle-edit.txd": {
+        "sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+        "bytes": 1048816
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/native-source-checks.json": {
+        "sha256": "ce72c46bf1e9ce91d3f40c203baf0ca13161f717784697d63b2cb2445e7fc805",
+        "bytes": 2066
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/race.json": {
+        "sha256": "ee93e6e6aaab8073335983d66ef0b5b8b5e33d168a83d0ee7f082b9c2c1723eb",
+        "bytes": 329
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/dokapon-go": {
+        "sha256": "b725a71ff439c149811aa19d10abd753e58184b628887c89274bb9e342ccb184",
+        "bytes": 5239692
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/checks.json": {
+        "sha256": "6f1726a2f7523a07e3f80c77cff7fc0087f2e1c3bcd621673dd1cc3f265d3ff7",
+        "bytes": 2328
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/cli-results.json": {
+        "sha256": "39cd3452565ed8082e9ff10a71d4726e15705a4dd1882b995a3212128bfeca39",
+        "bytes": 2026
+      },
+      "/var/tmp/dokapon-direct-rgba-review-p3i6mrfa/refusal-results.json": {
+        "sha256": "2c810d3158be5fd46c124c0746aa4ab29a54c3e4341d164b0160b6aa5cd5641b",
+        "bytes": 4776
+      }
+    }
+  },
+  "limits": [
+    "Static native normal registered/default-cache path, source bytes and project PNG authoring convention only; no native blend simulation, actual draw/residency selection, rendering or art approval. Intermediate PNG alpha min(255,2*rawAlpha) differs from exact native alpha-factor128ths; reports explicitly state authoring convention.",
+    "Other5actualnative direct modes remain refused by the unchanged direct raster guard; native byte proofs do not implement them. No other geometries/version2one-header/mipmap/arbitrarycallbacks or indirect state history approval.",
+    "No wholeISO/CMB aliases/palette-sharing/placement proof or legacy force/write-policy relaxation. No protected ISO/canonical writes or owneremulator/PINE/controller/process/log/settings access.",
+    "No texture-family promotion, historical path retirement, source savings or migration completion claim. Root owns documentation/accounting after this frozen implementation review."
+  ]
+}

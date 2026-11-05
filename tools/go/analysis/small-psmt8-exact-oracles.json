@@ -1,0 +1,673 @@
+{
+  "at": "2026-10-20T15:29:17.161905+00:00",
+  "status": "READ-ONLY INDEPENDENT EXACT-POLICY ORACLES; no implementation/review/approval",
+  "scope": "Only analysis/small-psmt8-exact-oracles.json/.md written in repository. Private PNG/RGBA/TXD/change-ledger artifacts under owned varTMP; no Go/test/fixture/art/ISO/canonical writes, Go outputs, emulator/PINE/process/log/settings access or subagents.",
+  "scratch": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx",
+  "basis": {
+    "native_contract_path": "analysis/small-psmt8-native-contract.json",
+    "native_contract_sha256": "7a204d144c662257a99fc6bb250e5ca81a8be749de9d86ac2701d66f3aa2add5",
+    "source": {
+      "path": "../../extracted/iso-root/GRAPHIC/EVENT.CMB",
+      "entry": "event\\bg\\e01\\e01.txd",
+      "offset": 537670,
+      "bytes": 816696,
+      "sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "whole_container_hash": "not calculated; bounded selected member only"
+    },
+    "primary_tables_rebound": [
+      {
+        "path": "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSTables.h",
+        "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSTables.h",
+        "sha256": "34c60c7163952ed34c4b150e603d8bc78aa35ed6661d684c485510167b9cc0eb",
+        "bytes": 5762,
+        "matched": true
+      },
+      {
+        "path": "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSTables.cpp",
+        "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSTables.cpp",
+        "sha256": "a9a226297ede32b89177d7bdb04e9d8e21728e7d55799405f6112e97fe4969e8",
+        "bytes": 11711,
+        "matched": true
+      },
+      {
+        "path": "/var/tmp/dokapon-small-psmt8-native-b14qEL/GSClut.cpp",
+        "url": "https://raw.githubusercontent.com/PCSX2/pcsx2/eb3fc0dbea8b2abecdd99dc3e4f60b3c7cbbfd6c/pcsx2/GS/GSClut.cpp",
+        "sha256": "9f4ed253c162855bc4d2838c08b522cbd28b6af96d03abd44cf0f83415bb1e32",
+        "bytes": 25415,
+        "matched": true
+      }
+    ],
+    "qualification": "Native transport/address proof unchanged and referenced, not repeated. No Go source pin or output is an expected-byte oracle."
+  },
+  "coverage": {
+    "core": "3/14=21.43%",
+    "expanded": "3/17=17.65%",
+    "texture": "partial",
+    "new_credit": false
+  },
+  "candidate_contract": {
+    "pattern": "authoredColor[(x+3*y)%4], row-major; same64x256PNG reused bycolums3/colums",
+    "straight_authored_RGBA": [
+      [
+        17,
+        99,
+        201,
+        0
+      ],
+      [
+        233,
+        17,
+        101,
+        1
+      ],
+      [
+        17,
+        101,
+        233,
+        127
+      ],
+      [
+        231,
+        19,
+        87,
+        255
+      ]
+    ],
+    "normalized_RGBA_in_authored_order": [
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        233,
+        17,
+        101,
+        2
+      ],
+      [
+        17,
+        101,
+        233,
+        128
+      ],
+      [
+        231,
+        19,
+        87,
+        255
+      ]
+    ],
+    "sorted_first4_logical_RGBA": [
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        17,
+        101,
+        233,
+        128
+      ],
+      [
+        231,
+        19,
+        87,
+        255
+      ],
+      [
+        233,
+        17,
+        101,
+        2
+      ]
+    ],
+    "authored_color_to_logical_index": [
+      0,
+      3,
+      1,
+      2
+    ],
+    "raw_PS2_alpha_in_sorted_order": [
+      0,
+      64,
+      128,
+      1
+    ],
+    "unused_logical_entries": "indices4..255 exactlyzeroRGBA; CSM1 rawslots vary bypermutation",
+    "normalization": "rawA=(A+1)//2 nearesttiesup;displayA=min255,2rawA; rawA0 setsRGB0; sortedpackedRGBA equals lexicographic straightRGBA; no premultiply or color correction",
+    "Pillow_version": "12.3.0"
+  },
+  "candidates": [
+    {
+      "filename": "exact-32x32.png",
+      "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/exact-32x32.png",
+      "bytes": 139,
+      "PNG_sha256": "0f514cfa571d7a32efc97c95eb7ac79ecbbc1451beee8e67095c3cfe7d64bf44",
+      "candidate_RGBA_sha256": "b8f1e1cc6e26341a6a6398b3b86e1ec84bc1a6bb51131418140a4a3ffa21ea35",
+      "normalized_RGBA_sha256": "365f8e9156ddffe1fd2ef404ceca4b265fd32ef0f444fbd340b1b8f3ef585365",
+      "linear_indices_sha256": "a001530f945d55ecda44db773de570e0f863511754f27991a6997ae03a74b38a",
+      "RGBA_bytes": 4096,
+      "normalized_color_counts": {
+        "0": 256,
+        "1": 256,
+        "2": 256,
+        "3": 256
+      }
+    },
+    {
+      "filename": "exact-64x128.png",
+      "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/exact-64x128.png",
+      "bytes": 291,
+      "PNG_sha256": "4a55737d6704f36561215644da940c4030b3f8125c38edc0153994fc4e5ee9ab",
+      "candidate_RGBA_sha256": "a8d72a018019789486d68b7b71507a8febdbb80096da92806575b2613b0c2419",
+      "normalized_RGBA_sha256": "a5a7fbca1446263a471325a931c991d0c60ae59f8a874eef4e4aa5d18948294e",
+      "linear_indices_sha256": "f21b2a5043ed9eaea4d478ee8f3149fbff021a6472b93eecc926bfd3b8c4d73d",
+      "RGBA_bytes": 32768,
+      "normalized_color_counts": {
+        "0": 2048,
+        "1": 2048,
+        "2": 2048,
+        "3": 2048
+      }
+    },
+    {
+      "filename": "exact-64x256.png",
+      "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/exact-64x256.png",
+      "bytes": 469,
+      "PNG_sha256": "bc39540d188802803bef459bd21ee8e6aac773439c2523f201bf09bdf87d8230",
+      "candidate_RGBA_sha256": "6fb6c8dc79d0ffb1b10a9764f47dbcc5802d4ff41c1e7400bc09f7d12a31efd7",
+      "normalized_RGBA_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+      "linear_indices_sha256": "c990cf4de31ef328323cfd0c32ddb04cb332304890af94968ac94a04be215c01",
+      "RGBA_bytes": 65536,
+      "normalized_color_counts": {
+        "0": 4096,
+        "1": 4096,
+        "2": 4096,
+        "3": 4096
+      }
+    }
+  ],
+  "cases": [
+    {
+      "texture": "sofashadow",
+      "dimensions": [
+        32,
+        32
+      ],
+      "candidate_filename": "exact-32x32.png",
+      "source_member_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "expected_member_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/sofashadow-exact.txd",
+      "expected_member_bytes": 816696,
+      "expected_member_sha256": "14d6e8938f96c8c2f8e24aad0e02a9844a66e7072d22f2c166a651844c67fb1d",
+      "expected_pixel_sha256": "e4326581726bb772ba9e09b258e60e45df1edc92e6e291e360a1291446070eff",
+      "expected_raw_CLUT_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+      "expected_linear_indices_sha256": "a001530f945d55ecda44db773de570e0f863511754f27991a6997ae03a74b38a",
+      "expected_RGBA_sha256": "365f8e9156ddffe1fd2ef404ceca4b265fd32ef0f444fbd340b1b8f3ef585365",
+      "expected_RGBA_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/sofashadow-expected.rgba",
+      "pixel_offset": 280,
+      "pixel_bytes": 1024,
+      "CLUT_offset": 1384,
+      "CLUT_bytes": 1024,
+      "declared_editable_ranges_halfopen": [
+        [
+          280,
+          1304
+        ],
+        [
+          1384,
+          2408
+        ]
+      ],
+      "declared_editable_bytes": 2048,
+      "changed_bytes": 1395,
+      "changed_pixel_bytes": 1024,
+      "changed_CLUT_bytes": 371,
+      "changed_offset_min_max": [
+        280,
+        2407
+      ],
+      "changed_offsets_u32le_sha256": "3df6b43e12043ff81daae96769db26bb761bd1547912ca97197d6a9a7c440155",
+      "changed_run_count": 220,
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/sofashadow-changes-u32-u8-u8.bin",
+        "format": "sorted records <IBB: uint32LE TXDoffset, uint8old, uint8new;6bytes/record",
+        "bytes": 8370,
+        "sha256": "aa99e18b8b87ef798b46ae7f38ac9a74238e6e3402dde3f4a0c1513b1df09f82"
+      },
+      "outside_declared_changes": 0,
+      "outside_declared_bytes": 814648,
+      "outside_declared_sha256": "59ad9203ed209b24096d678c338fa6e68df710ec2e5435acbabe2087e0c8a6ee",
+      "metadata_and_both_headers_unchanged": true,
+      "CLUT_padding_bytes": 0,
+      "unselected_siblings_unchanged": [
+        "windowlight",
+        "maku02",
+        "light3",
+        "pole",
+        "maku",
+        "nuno2",
+        "nuno",
+        "flag",
+        "nuno3",
+        "colums3",
+        "colums",
+        "mark",
+        "door",
+        "wall6",
+        "wall5",
+        "yuka",
+        "wall",
+        "crown2",
+        "gate",
+        "wall3",
+        "wall4",
+        "kabe",
+        "wall2",
+        "isu",
+        "sofa1",
+        "jyutan"
+      ],
+      "exact_reapply_idempotent": true,
+      "native_mapping_sha256": "c7633ab27bc08082fe1f41a2f0c086d4a79bfa94f0a1ec1e26fe0ab4b1bcceef",
+      "first4_logical_to_physical_CLUT_slots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "first4_raw_palette_RGBA": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          17,
+          101,
+          233,
+          64
+        ],
+        [
+          231,
+          19,
+          87,
+          128
+        ],
+        [
+          233,
+          17,
+          101,
+          1
+        ]
+      ],
+      "unused252entries_zero": true
+    },
+    {
+      "texture": "colums3",
+      "dimensions": [
+        64,
+        256
+      ],
+      "candidate_filename": "exact-64x256.png",
+      "source_member_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "expected_member_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/colums3-exact.txd",
+      "expected_member_bytes": 816696,
+      "expected_member_sha256": "f071677a1310283f379524bd7c2f1353f3ea5166b853df59d7ec24abe2e13dfa",
+      "expected_pixel_sha256": "bec2098dc55f4b85960b6212fcfc6262d6cd68745b4c1288178298d5d43134e9",
+      "expected_raw_CLUT_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+      "expected_linear_indices_sha256": "c990cf4de31ef328323cfd0c32ddb04cb332304890af94968ac94a04be215c01",
+      "expected_RGBA_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+      "expected_RGBA_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/colums3-expected.rgba",
+      "pixel_offset": 170884,
+      "pixel_bytes": 16384,
+      "CLUT_offset": 187348,
+      "CLUT_bytes": 1024,
+      "declared_editable_ranges_halfopen": [
+        [
+          170884,
+          187268
+        ],
+        [
+          187348,
+          188372
+        ]
+      ],
+      "declared_editable_bytes": 17408,
+      "changed_bytes": 17388,
+      "changed_pixel_bytes": 16365,
+      "changed_CLUT_bytes": 1023,
+      "changed_offset_min_max": [
+        170884,
+        188371
+      ],
+      "changed_offsets_u32le_sha256": "2f5f7f754b434fb095441ece979d324825e56a8c5bf31498018f2cdc37915d78",
+      "changed_run_count": 22,
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/colums3-changes-u32-u8-u8.bin",
+        "format": "sorted records <IBB: uint32LE TXDoffset, uint8old, uint8new;6bytes/record",
+        "bytes": 104328,
+        "sha256": "c74c49653912a9eb30c960b3f9888fa9d476d692d61b5416fea8de7d0fb028c8"
+      },
+      "outside_declared_changes": 0,
+      "outside_declared_bytes": 799288,
+      "outside_declared_sha256": "dc0b99e2a0a49c11c8cc2230a51fc72d8bcfefbc9bd2c28985a4851135bdd0c9",
+      "metadata_and_both_headers_unchanged": true,
+      "CLUT_padding_bytes": 0,
+      "unselected_siblings_unchanged": [
+        "sofashadow",
+        "windowlight",
+        "maku02",
+        "light3",
+        "pole",
+        "maku",
+        "nuno2",
+        "nuno",
+        "flag",
+        "nuno3",
+        "colums",
+        "mark",
+        "door",
+        "wall6",
+        "wall5",
+        "yuka",
+        "wall",
+        "crown2",
+        "gate",
+        "wall3",
+        "wall4",
+        "kabe",
+        "wall2",
+        "isu",
+        "sofa1",
+        "jyutan"
+      ],
+      "exact_reapply_idempotent": true,
+      "native_mapping_sha256": "c958d8e483b518515ca4e9af617f925befe42dcf7dbdbd57d33219af57bbbff1",
+      "first4_logical_to_physical_CLUT_slots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "first4_raw_palette_RGBA": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          17,
+          101,
+          233,
+          64
+        ],
+        [
+          231,
+          19,
+          87,
+          128
+        ],
+        [
+          233,
+          17,
+          101,
+          1
+        ]
+      ],
+      "unused252entries_zero": true
+    },
+    {
+      "texture": "colums",
+      "dimensions": [
+        64,
+        256
+      ],
+      "candidate_filename": "exact-64x256.png",
+      "source_member_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "expected_member_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/colums-exact.txd",
+      "expected_member_bytes": 816696,
+      "expected_member_sha256": "98aba456f3c06a002c6518ddd196606436c8e6eaef906f061d71a1c283abdd90",
+      "expected_pixel_sha256": "bec2098dc55f4b85960b6212fcfc6262d6cd68745b4c1288178298d5d43134e9",
+      "expected_raw_CLUT_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+      "expected_linear_indices_sha256": "c990cf4de31ef328323cfd0c32ddb04cb332304890af94968ac94a04be215c01",
+      "expected_RGBA_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+      "expected_RGBA_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/colums-expected.rgba",
+      "pixel_offset": 188648,
+      "pixel_bytes": 16384,
+      "CLUT_offset": 205112,
+      "CLUT_bytes": 1024,
+      "declared_editable_ranges_halfopen": [
+        [
+          188648,
+          205032
+        ],
+        [
+          205112,
+          206136
+        ]
+      ],
+      "declared_editable_bytes": 17408,
+      "changed_bytes": 17393,
+      "changed_pixel_bytes": 16370,
+      "changed_CLUT_bytes": 1023,
+      "changed_offset_min_max": [
+        188648,
+        206135
+      ],
+      "changed_offsets_u32le_sha256": "6ebb34a3e8c0f68484326a5355d8bdc72cacdbd65346ad239740318fc1b37e2f",
+      "changed_run_count": 17,
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/colums-changes-u32-u8-u8.bin",
+        "format": "sorted records <IBB: uint32LE TXDoffset, uint8old, uint8new;6bytes/record",
+        "bytes": 104358,
+        "sha256": "cadad82bc713cf9a78f3f2dcd2040409e8dd18548417bae6ea463d80e5cff952"
+      },
+      "outside_declared_changes": 0,
+      "outside_declared_bytes": 799288,
+      "outside_declared_sha256": "c543f9c8ff63d2bcf089ca9e1f04c309114322cac862b5a0157c1be0964ce157",
+      "metadata_and_both_headers_unchanged": true,
+      "CLUT_padding_bytes": 0,
+      "unselected_siblings_unchanged": [
+        "sofashadow",
+        "windowlight",
+        "maku02",
+        "light3",
+        "pole",
+        "maku",
+        "nuno2",
+        "nuno",
+        "flag",
+        "nuno3",
+        "colums3",
+        "mark",
+        "door",
+        "wall6",
+        "wall5",
+        "yuka",
+        "wall",
+        "crown2",
+        "gate",
+        "wall3",
+        "wall4",
+        "kabe",
+        "wall2",
+        "isu",
+        "sofa1",
+        "jyutan"
+      ],
+      "exact_reapply_idempotent": true,
+      "native_mapping_sha256": "c958d8e483b518515ca4e9af617f925befe42dcf7dbdbd57d33219af57bbbff1",
+      "first4_logical_to_physical_CLUT_slots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "first4_raw_palette_RGBA": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          17,
+          101,
+          233,
+          64
+        ],
+        [
+          231,
+          19,
+          87,
+          128
+        ],
+        [
+          233,
+          17,
+          101,
+          1
+        ]
+      ],
+      "unused252entries_zero": true
+    },
+    {
+      "texture": "gate",
+      "dimensions": [
+        64,
+        128
+      ],
+      "candidate_filename": "exact-64x128.png",
+      "source_member_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "expected_member_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/gate-exact.txd",
+      "expected_member_bytes": 816696,
+      "expected_member_sha256": "54b1cf2968e9430c6af8d6e6aa14ea5977b88e4e4f66ca7dc957a7449c8c1cee",
+      "expected_pixel_sha256": "7591cfde1c8f0ff1c73aca96e428d5cc2ce825bac49c17b5437a19eb93f0de1e",
+      "expected_raw_CLUT_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+      "expected_linear_indices_sha256": "f21b2a5043ed9eaea4d478ee8f3149fbff021a6472b93eecc926bfd3b8c4d73d",
+      "expected_RGBA_sha256": "a5a7fbca1446263a471325a931c991d0c60ae59f8a874eef4e4aa5d18948294e",
+      "expected_RGBA_path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/gate-expected.rgba",
+      "pixel_offset": 584712,
+      "pixel_bytes": 8192,
+      "CLUT_offset": 592984,
+      "CLUT_bytes": 1024,
+      "declared_editable_ranges_halfopen": [
+        [
+          584712,
+          592904
+        ],
+        [
+          592984,
+          594008
+        ]
+      ],
+      "declared_editable_bytes": 9216,
+      "changed_bytes": 9205,
+      "changed_pixel_bytes": 8182,
+      "changed_CLUT_bytes": 1023,
+      "changed_offset_min_max": [
+        584712,
+        594007
+      ],
+      "changed_offsets_u32le_sha256": "2df58ab19260b767895149c02c2654ba487068a07d924692be851f322c3299c8",
+      "changed_run_count": 13,
+      "changed_byte_ledger": {
+        "path": "/var/tmp/dokapon-small-psmt8-exact-Gemdgx/gate-changes-u32-u8-u8.bin",
+        "format": "sorted records <IBB: uint32LE TXDoffset, uint8old, uint8new;6bytes/record",
+        "bytes": 55230,
+        "sha256": "9f5865fb21e965701d29a958d6e4ef6e48009a62539621b936312361809e03eb"
+      },
+      "outside_declared_changes": 0,
+      "outside_declared_bytes": 807480,
+      "outside_declared_sha256": "31491470307e3d12d02b557b1962b47bcc8526e16c954ecae09bb19271ebed20",
+      "metadata_and_both_headers_unchanged": true,
+      "CLUT_padding_bytes": 0,
+      "unselected_siblings_unchanged": [
+        "sofashadow",
+        "windowlight",
+        "maku02",
+        "light3",
+        "pole",
+        "maku",
+        "nuno2",
+        "nuno",
+        "flag",
+        "nuno3",
+        "colums3",
+        "colums",
+        "mark",
+        "door",
+        "wall6",
+        "wall5",
+        "yuka",
+        "wall",
+        "crown2",
+        "wall3",
+        "wall4",
+        "kabe",
+        "wall2",
+        "isu",
+        "sofa1",
+        "jyutan"
+      ],
+      "exact_reapply_idempotent": true,
+      "native_mapping_sha256": "edfbef08df3ad102b4eb457f02f3c59a63c24deb25f5dc75b29c797df176e056",
+      "first4_logical_to_physical_CLUT_slots": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "first4_raw_palette_RGBA": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          17,
+          101,
+          233,
+          64
+        ],
+        [
+          231,
+          19,
+          87,
+          128
+        ],
+        [
+          233,
+          17,
+          101,
+          1
+        ]
+      ],
+      "unused252entries_zero": true
+    }
+  ],
+  "method": "Construct independentPSMCT32upload inversion/PSMT8samplemapping andnativeCSM1tablejoin from pinnedprimaryGSTables. Compare mappingdigests to7a204d14, then write normalized four-color indices/CLUT via thosejoins. Independentlydecode through same nativeaddressrelationship forRGBAreadback. NoGooutputs, no legacyencode/quantize function, no approximatequantizer.",
+  "limits": [
+    "NoGo acceptance/test/build/review claim; implementation expected to use existingexact branch once finite nativegeometry/packetguards accept these modes.",
+    "No nativeblend/premultiplication/visual/ISOapply/CLUTownership/alias-sharing approval. Thiswholemember output preserves26siblingsbytes, notproofof independentVRAMpaletteownership.",
+    "This closes only exactpolicyartifactoracle gap; sourcepreserve no-op/twoedit/nativeaddresscontracts remain in7a204d14. ThethreePNGs are synthetic authored candidates, not originalmissingPNGexports."
+  ],
+  "verification": {
+    "source_and_primary_pins_match": true,
+    "all4_artifacts_independently_decoded": true,
+    "all4_fullmembercontainment": true,
+    "all26siblings_eachcase_unchanged": true,
+    "metadata_packets_unchanged": true,
+    "unused252_CLUTentries_zero": true,
+    "exact_reapply_idempotent": true,
+    "prior_native_contract_unchanged": true,
+    "checks": "JSON/artifact/hash/changedbyteledger/containment/PNGreadback assertions and scoped document whitespace/credential checks; no code tests because no code changes."
+  }
+}

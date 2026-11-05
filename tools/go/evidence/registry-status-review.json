@@ -1,0 +1,133 @@
+{
+  "schema": "registry-status-ordinary-review-v1",
+  "at": "2026-10-20T22:02:30.591422+00:00",
+  "result": "PASS_NO_OPEN_FINDINGS",
+  "candidate_pins": {
+    "cmb.go": "5319575b72bb4313bef42b8f3cf607ec226032ecd48b32a7e0ba423074c34463",
+    "fit.go": "e613afefbfbc490d8f7413dadb78e0280a38d0888a09370a2b885503afef7d32",
+    "fit_types.go": "51860005f0f5066e61cc9224d48715b46ffd87e90667725b8eea91050857090b",
+    "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
+    "image_types.go": "0a97463b2cfb9207d63c68b6ed5d449445227aff299c5a2c725b1ec084d1625d",
+    "inputs.go": "98953dab68069df30ca60faa658d2a0beaad4697f7cbdb2e30ce0900a7788c41",
+    "main.go": "69e778f7f445b80c0f30c5903017728123f9e46bd078847ea9a3ffb41e59a477",
+    "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
+    "patch.go": "2721e771410da22e25871ba4e88138eac5feec9db5e1b76af65633f25ea39bbb",
+    "patch_test.go": "9194ed2b7d5175ccef852547045b578bf01acfe9b969db75128ef7c9ba7a7e68",
+    "raster.go": "6d6947fd69e7e077e321d4c0e165f6cb0e08cd769791498f0c44a8847258d8a8",
+    "raster_resize.go": "ed1b179c7c9530691c719c60b492331c2329eac4580115ec6a64938f4b92adab",
+    "raster_runs.go": "c2cb1fcd64f4d0d2c76a3bbf760b3b354438858df3e04ab365a6b3b26a89bebf",
+    "raster_types.go": "62d46cc223964b27bd600d51b6233a2873fd5429718f1762b93ff54fc35c07fa",
+    "recipe_types.go": "2212a907bb5fdbab5a35c32d1dd4d13f00545d46a0ea6293b4890d39fc9eba13",
+    "recipes/reports/registry-status.json": "7a00b9101773ac86a3b9d5ff0b38cd66fb5a3c14a58c1df26f32620984df4f6c",
+    "recipes/reports/registry-status.md.tmpl": "2eb5dc89055ef1bfa9139feb153086ccbbfb63fed0526a5436e7232c39b30b51",
+    "reference_types.go": "5bc6da4bbd6ccafafa8526db31209d567557cf04e79ab37cfac7f814d36f5398",
+    "references.go": "eda1f18b6a655a2e8915e8572d247fdba5d41fc67d07860af34a62827b1ca4dc",
+    "registry_authoring.go": "be6104b83f8e47703de6e12551875236ba7c14db15930c0b5c09f850fd99fc1f",
+    "registry_types.go": "987f9f47f023432232a0547bfc3a487f848fc67c4c3cf3ba3432da68f5725434",
+    "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
+    "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
+    "testdata/registry-status.json": "c9d5082f93e72b63d266ed3b6091041d5ee3aed5db70f921ac9b48f45fd8e4ad",
+    "text_types.go": "48068ba98d515107c15da8eb3db4650a4800b36d31697b7ae131c4c0d5f9f2ab",
+    "texture.go": "c553ebccdf2f5a7b4ccea7f40932a447bc8c09705659e1cad52f4f20cae35b61",
+    "texture_authoring.go": "3a0a7c850aa513aa0688850864951862996dbd99ce4d2a143ebcf935d8d8cdaf",
+    "texture_index.go": "8af13407daebe5e67b858b30643a3d5e8b3e00eabb3f9f415c51cbb262b1a69f",
+    "texture_palette.go": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb",
+    "texture_types.go": "0ef749afb5e64c1944e85798723090bb8c2e9ca872194a349cee4b21c9c61ce7",
+    "wrap.go": "6daf94b2a60c010a807ce4cc3eb63a35ce2ea7017a167b0891c871542b3ae9b4"
+  },
+  "verification_receipt_pins_held": true,
+  "findings": [
+    {
+      "id": "STATUS-DISPLAY-1",
+      "severity": "LOW",
+      "status": "CLOSED_ON_REVISED31PINS",
+      "path": "registry_authoring.go:688",
+      "problem": "Source label &copy; has Display &copy; and default Markdown publishes | &copy; | 1 |; HTML entity interpretation displays copyright symbol instead of the literal label. JSON Value and counts remain correct.",
+      "minimal_fix": "Add & -> &amp; to existing strings.NewReplacer and extend an existing literal display/Markdown assertion.",
+      "counterexample": "/var/tmp/dokapon-status-review-WBtBoBMh/entity-display/counterexample.json",
+      "counterexample_sha256": "e3786eff3773a0b22292c7dec0538d17444d8c77ff3e888b874998cf825ad1da",
+      "verification_limit": "Actual CLI bytes and standard HTML entity decoding; no browser/full Markdown renderer executed.",
+      "disposition": "One added & -> &amp; pair in existing replacer; literal group/schema/provenance regression appended to existing fixture. Test normalizes only schema JSON spelling with Decoder.UseNumber and Marshal before facts comparison. Independent current-binary check preserves raw &copy; in all3 JSON values and publishes3 &amp;copy; displays.",
+      "closure_evidence": {
+        "path": "/var/tmp/dokapon-status-review-WBtBoBMh/entity-fixed/receipt.json",
+        "sha256": "a9d5116d30ba85eafbc63104b5ff600c6fc314216fd41051ce280d7055fdcdf6",
+        "current31pin_recheck": "/var/tmp/dokapon-status-review-WBtBoBMh/final-checks.json"
+      }
+    }
+  ],
+  "assessment": {
+    "three_input_semantics": "Known status policy order, unknown first-seen order, null/missing/empty distinctions, lexical groups and source-order diagnostics match source contract. Glossary complete provenance buckets/todos/schema and exact-spelling flow set remain distinct. Boolean/float schema is an explicit chosen scalar extension; containers refuse.",
+    "ownership": "Existing authorRegistry/readInput/writeNewFile coherently share source parsing, pins, groups and publication. The shared aggregation loop avoids parallel registry/provenance counters. RegistryInput/RegistryCount/local groupKey carry immediate distinct needs. No unnecessary function/helper found.",
+    "isolation": "Exact per-operation allowlists deliberately refuse previously ignored bundle fields. Main resolves supplements recipe-relatively. Registry/supplements reread before exclusive publisher. Invalid template/source/pins refuse before output; default rendering issue above is separate.",
+    "trusted_template": "Pinned 1MiB input/64MiB post-render check is explicitly not a CPU/memory sandbox; no custom FuncMap."
+  },
+  "verification": {
+    "build": "PASS",
+    "vet": "PASS",
+    "gofmt": "PASS",
+    "scoped_whitespace": "PASS",
+    "selfchecked_credentials": "PASS no hits",
+    "independent_cases": "6 positive/7 refused, plus one LOW display counterexample",
+    "positive": "Literal expected3-input facts/order and custom group, schema true/false/float/null/missing, alternative template bytes; preview/apply hashes and whole bytes.",
+    "negative": "Schema containers, duplicate flow/Unicode-equivalent glossary keys, lone surrogate, missing template fact, unrelated bundle field.",
+    "publication": "48 existing/source/recipe/supplement/symlink/hardlink output refusals; all inputs preserve bytes/inode/mtime.",
+    "initial_focused_complete_TestCLIDryRunAndApply": "PASS4.136s -count=1 -p2",
+    "final_focused_complete_TestCLIDryRunAndApply": "PASS9.698s -count=1 -p2",
+    "final_build_vet_gofmt_whitespace_selfchecked_credentials": "PASS",
+    "superseded_first_fix": "Focused CLI failed0.010s because raw JSON & versus \\u0026 encoded equal scalar values differently. Disclosed and corrected test comparison; production entity probe already passed. See private first-fix-checks.json."
+  },
+  "source_contract": {
+    "path": "analysis/registry-status-contract.json",
+    "sha256": "b9c32c8d0b1951013092bd847f8370bbaa79448d6a4f75b7747897871f4905bb"
+  },
+  "reuse_decision": {
+    "path": "analysis/registry-status-reuse-decision.json",
+    "sha256": "d3e1a1824c14b9f6182dbbc5ed5b38dfb2943bce47c151e16c5ae8d7e4b0d44d"
+  },
+  "private_evidence": [
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/probe.py",
+      "sha256": "09547514633ca91af80c6ed1eb56331a4185612068daa4b4da35addb09c6e1df"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/probes.json",
+      "sha256": "ceaff9f3a4f53c98b6d8ab3b295ebca2b53b6c91b42b6191712625868230c3bb"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/checks.json",
+      "sha256": "b4b8a112148dba6ea9c71aa2d5fa192916ff204cde57029e2e1f3788242dd8c8"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/initial-pins.json",
+      "sha256": "2e807448fecec8d17f6da173b84f05ae3066cc585af178e32acf42d34c7e1c3e"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/first-fix-checks.json",
+      "sha256": "3097a46f71da46843b642cfebd8543c5a4888835d231723dc96029e0e1508bd8"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/final-checks.json",
+      "sha256": "be487ba05697e5794aa10874dd070150a861ab9a65e16608c2aac25a6d8eeaa2"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/delta.json",
+      "sha256": "575d812c6a635a61b346ec9afb6e513454e4fe238c05f1dacf700e99c96386a4"
+    },
+    {
+      "path": "/var/tmp/dokapon-status-review-WBtBoBMh/entity-fixed/receipt.json",
+      "sha256": "a9d5116d30ba85eafbc63104b5ff600c6fc314216fd41051ce280d7055fdcdf6"
+    }
+  ],
+  "limits": [
+    "Final review binds current31pins and focused terminal receipts; earlier receipts are historical/superseded where disclosed. No fullsuite/race/exhaustive or coverage-promotion claim.",
+    "Focused review only, no fullsuite/race/exhaustive campaign/family promotion, historical Markdown parity or installed-disc/gameplay claim.",
+    "No production/test/doc edits or project Python execution/imports; no ISO/canonical registry/native/emulator/PINE/process/settings/log/control access. Reviewer supplies findings, not approval."
+  ],
+  "all31_final_pins_held": true,
+  "initial_review": {
+    "path": "/var/tmp/dokapon-status-review-WBtBoBMh/initial-review.json",
+    "sha256": "341d811fd1c2c56a6300a23d33184f16811ba6d213cb99c005a4c703b07a2ff7",
+    "finding_was_open": true
+  },
+  "delta_verification": "Only3initialpin paths changed: production one replacer pair, existing test scalar normalization, appended literal-entities fixture. Reversing each respective change reconstructs its initial SHA exactly."
+}

@@ -1,0 +1,1121 @@
+{
+  "schema": "reconstruction-row-corpus-contract-v1",
+  "at": "2026-10-21T06:27:50.720410+00:00",
+  "status": "Expanded original-only source oracles; no implementation/schema/architecture or coverage approval",
+  "chronology": "Original-onlyexpandedrow/column corpus frozenbefore newGointerpolationimplementation/candidatecomparison; existingTTF/iconwork unrelated. WorkerexecutednoGo/projectmodule/main.",
+  "scope": "38small wholeRGBAcases across row/column interpolation, support/masks/order andsourceguardcontrols. Same existing make_batch_c.op_erase/build_allow +mxhelpers, not onehandler/testfunction percase.",
+  "pack": {
+    "directory": "/var/tmp/dokapon-reconstruction-row-corpus-rd3jvl_8",
+    "members": 512,
+    "member_bytes": 310302,
+    "manifest_sha256": "6a4a05245889c651905854c60ebf9da1aede5006d51e4ce0a167064581a8e391",
+    "facts_sha256": "0676edbe5d5606ca604f25ec113a99b62e733dc97d8b5dfcc8413d19954523ff",
+    "harness_sha256": "6fef5526464c255990789f0eca7853057fd7c43982e85bc43d67e09a6c577131",
+    "source_pins": {
+      "make_explainer_png.py": "438157afd4756285811ae2356c441f9a44e56fcb45afe1c28b4f4eb5a4be4de3",
+      "make_batch_c_png.py": "240d864e9467cd9f9a738ad54ae266f2e8dbb3298b491d8f44582214b48b3149"
+    },
+    "prior_baseline_pack": "/var/tmp/dokapon-donor-reconstruction-frontier-7evd4aet;27members preserved"
+  },
+  "method": {
+    "reference": "AST-selected original purehelpers/shape_mask/build_allow/all_rects/op_erase; namespace mx directly references same selectedoriginalhelpers. No projectimports/modulemain/Go/candidate execution.",
+    "instrumentation": "Additivecaptures immediatelyafter original holeassignment copyCURRENT input, selected-limitedm andgrown-limitedhole. Everycompleteoutput andexception matched separateuninstrumentedoriginal. No sourcecalculationreplaced.",
+    "inputs": "LiteralRGBA arrays; RGB sentinel[123,45,67] selects holes unlessspecificluminancecontrol. Realoperation/allowmetadata andwholebasePNG/raw percase. Straightchannels carryalpha0/17/128/255; no premultiplication orpaletteprojection.",
+    "mask_names": "opN-selected-limited is canonicaloriginalm AFTER rect&allow; opN-hole is canonicaloriginalfour-neighborgrow thenrect&allow. opN-current is exactsource pixels beforethatoperation, so prefix/donor chronology is directlyinspectable."
+  },
+  "numerical_coverage": {
+    "gaps": "Rowholelengths1,2,3,6,10,16,17; selectedcolumntransposes include1,6,17 andhiddenRGBA. Non-dyadicinterpolationdenominators3,7,11,17,18 supplement exacthalf ties. Completeoutputs retain everychannel, not a few samples.",
+    "tie_even_low": {
+      "endpoints": [
+        [
+          0,
+          2,
+          4,
+          0
+        ],
+        [
+          1,
+          3,
+          5,
+          17
+        ]
+      ],
+      "middle": [
+        0,
+        2,
+        4,
+        8
+      ],
+      "meaning": "0.5/2.5/4.5/8.5\u2192even."
+    },
+    "tie_even_high": {
+      "endpoints": [
+        [
+          1,
+          3,
+          5,
+          17
+        ],
+        [
+          2,
+          4,
+          6,
+          128
+        ]
+      ],
+      "middle": [
+        2,
+        4,
+        6,
+        72
+      ],
+      "meaning": "1.5/3.5/5.5/72.5\u2192even."
+    },
+    "hidden_RGB": {
+      "endpoints": [
+        [
+          20,
+          40,
+          60,
+          0
+        ],
+        [
+          220,
+          180,
+          140,
+          0
+        ]
+      ],
+      "middle": [
+        120,
+        110,
+        100,
+        0
+      ],
+      "meaning": "RGBinterpolates evenwhenbothA0; nozeroinghiddenchannels."
+    },
+    "endpoint_support": "Leading/trailingholes clampnearestknown, singleknown fillsconstant, allunknownrow/col unchanged, noholes unchanged. Row/column matchedtranspose controls verified.",
+    "floating": "Source uses NumPyfloat64interpolation thennp.rint\u2192uint8. Thisfinitecorpus doesnotprove allalgebraicreorderings equivalent orreplace a requiredprimarynumericbinding iffuturecases exposea discrepancy."
+  },
+  "mask_and_order_coverage": [
+    "Integerluma199/200/201 withlum_lt200 orlum_gt200 provesstrictthreshold200excluded; alpha doesnotoverrideRGBpredicate.",
+    "Onecenterseed grow1 selects5four-neighborcrosspixels, no diagonal. Removingoneallowedneighbor leaves4; removingseed beforegrowth yields0. Theseare source4-neighborgrowth facts, notcirculardisk/8neighbor dilation.",
+    "Positiveunion minusnegativeunion isindependentofshapelistorder: twoinputorders yieldidenticalallow andwholeoutput. allow_add aftersubtraction resurrectspixel andchangeswholeoutput.",
+    "OrderedflatRGB prefix defaultsA255; explicitRGBAprefix preservesA17; clearprefix writes0,0,0,0. Reconstruction readsCURRENTdonor values afterprefix, notimmutableorigargument. Peroperationcurrentimages/masks arefrozen.",
+    "Eachoutputpreservesallbytesoutsideallow; selectedmask/hole canbeempty andstillbevalid. Rect/cellboundsafety policy isnotinferredfromNumPyslicebehavior."
+  ],
+  "source_guard_facts": [
+    {
+      "name": "unknown-method-empty",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true
+    },
+    {
+      "name": "unknown-method-positive",
+      "outcome": {
+        "type": "SystemExit",
+        "message": "unknown erase method 'bogus'"
+      },
+      "unchanged": true
+    },
+    {
+      "name": "flat-missing-color-empty",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true
+    },
+    {
+      "name": "flat-missing-color-positive",
+      "outcome": {
+        "type": "KeyError",
+        "message": "'color'"
+      },
+      "unchanged": true
+    },
+    {
+      "name": "unknown-mask-key",
+      "outcome": {
+        "type": "SystemExit",
+        "message": "unknown mask key 'bogus'"
+      },
+      "unchanged": true
+    }
+  ],
+  "guard_qualification": "Originalemptyhole earlyreturn precedesmethoddispatch andflatcolorlookup: emptyunknownmethod andemptyflatmissingcolor succeedunchanged. Nonemptyunknownmethod raisesSystemExit; nonemptyflatmissingcolor raisesKeyError. Unknownmaskkey raisesSystemExitbeforeholeexists. Do notclaimblanketlegacyrefusals. AnystrictertypedGoprofilepolicy is a separateexplicitdecision, notthese sourcefacts.",
+  "color_helper": [
+    {
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "result": [
+        1,
+        2,
+        3,
+        255
+      ]
+    },
+    {
+      "input": [
+        1,
+        2,
+        3,
+        17
+      ],
+      "result": [
+        1,
+        2,
+        3,
+        17
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "name": "rows-half-even-low",
+      "category": "numerical",
+      "input": "rows-half-even-low/input.json",
+      "shape": [
+        3,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "b47dc9a263bb76cc7a7aa1bd8fc48d80d61363948a40dbb91fd337196e4e75be",
+      "allow_sha256": "71e232cc415bd8287fbb8bf93937d2bab92359c70ca6694f2804effffffa8c68",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 1,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "cols-half-even-low",
+      "category": "numerical",
+      "input": "cols-half-even-low/input.json",
+      "shape": [
+        3,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "63cebec65da02caa11917b96426e6cca59c038839fb4789662de1a44eba7d8c0",
+      "allow_sha256": "71e232cc415bd8287fbb8bf93937d2bab92359c70ca6694f2804effffffa8c68",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 1,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "rows-half-even-high",
+      "category": "numerical",
+      "input": "rows-half-even-high/input.json",
+      "shape": [
+        3,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "6c4c54e1ded69929c0d8e01d9d1ab1127d700ed61b46257d89d2102368709e5d",
+      "allow_sha256": "71e232cc415bd8287fbb8bf93937d2bab92359c70ca6694f2804effffffa8c68",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 1,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "rows-gap2",
+      "category": "numerical",
+      "input": "rows-gap2/input.json",
+      "shape": [
+        3,
+        4,
+        4
+      ],
+      "output_RGBA_sha256": "953f15b6aaa0cb0910261494798be72c2653b7c415c852f984b66303cf601506",
+      "allow_sha256": "8688d249e9d047b4fc2fb89ce05afe9ec89252ffccdd969de6eef260dd7ffb21",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 2,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 2,
+          "hole_pixels": 2
+        }
+      ]
+    },
+    {
+      "name": "rows-gap3",
+      "category": "numerical",
+      "input": "rows-gap3/input.json",
+      "shape": [
+        3,
+        5,
+        4
+      ],
+      "output_RGBA_sha256": "26466afbb4a5bedfbdd8e0ed902bdda9e48d2b9adce9366494602e1756e653d1",
+      "allow_sha256": "b31089763d9003ea03c8955b45acbf4d41d7316c1c0cfdd6847e05b5901cad73",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 3,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 3,
+          "hole_pixels": 3
+        }
+      ]
+    },
+    {
+      "name": "rows-gap6",
+      "category": "numerical",
+      "input": "rows-gap6/input.json",
+      "shape": [
+        3,
+        8,
+        4
+      ],
+      "output_RGBA_sha256": "ad8ba7ceeaeec1fa4a17a629378f3cb32c5f178990514875e27e47b399965b68",
+      "allow_sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 6,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 6,
+          "hole_pixels": 6
+        }
+      ]
+    },
+    {
+      "name": "cols-gap6",
+      "category": "numerical",
+      "input": "cols-gap6/input.json",
+      "shape": [
+        8,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "8eb5bcbe9d9c3afc29435e2299667ba5047849045fd736308d6e68c2306b2186",
+      "allow_sha256": "44a5f7891570e5631e8c91c85186e6633f4ab5364f644040b2a00126a07985b6",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 6,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 6,
+          "hole_pixels": 6
+        }
+      ]
+    },
+    {
+      "name": "rows-gap10",
+      "category": "numerical",
+      "input": "rows-gap10/input.json",
+      "shape": [
+        3,
+        12,
+        4
+      ],
+      "output_RGBA_sha256": "0d420eb1d5694bd636dccc41b66ef39570b2421e6ff89943e8ed7746d85daad0",
+      "allow_sha256": "c38236f1e6d5ba2e8616b0c8a115bf8bf0814ddae740ac6cbea93d063417cd0e",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 10,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 10,
+          "hole_pixels": 10
+        }
+      ]
+    },
+    {
+      "name": "rows-gap16",
+      "category": "numerical",
+      "input": "rows-gap16/input.json",
+      "shape": [
+        3,
+        18,
+        4
+      ],
+      "output_RGBA_sha256": "ee7fb022d1c9346d8e7f5366acf81b2b2f4f6750b2e540fb720b18ee3fd8ed44",
+      "allow_sha256": "1d15acfeb2edbd16f21951af2d9db31a9dd540a6f27b5cddef7c69e5ec1ee00c",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 16,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 16,
+          "hole_pixels": 16
+        }
+      ]
+    },
+    {
+      "name": "rows-gap17",
+      "category": "numerical",
+      "input": "rows-gap17/input.json",
+      "shape": [
+        3,
+        19,
+        4
+      ],
+      "output_RGBA_sha256": "91b4c4d4d9019d413ea5915261062e9756f548aa4a28796f4c39c0c08310a233",
+      "allow_sha256": "6eaa0abf8d7eda3e157692f5191a59bc08196ac193f6ac3bdde2af54214f2240",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 17,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 17,
+          "hole_pixels": 17
+        }
+      ]
+    },
+    {
+      "name": "cols-gap17",
+      "category": "numerical",
+      "input": "cols-gap17/input.json",
+      "shape": [
+        19,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "eb3ce08b5a4a586a5129898213a29c52859d5d9458e61470c383a2bc6af09ee2",
+      "allow_sha256": "6eaa0abf8d7eda3e157692f5191a59bc08196ac193f6ac3bdde2af54214f2240",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 17,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 17,
+          "hole_pixels": 17
+        }
+      ]
+    },
+    {
+      "name": "rows-hidden-rgb-zero-alpha",
+      "category": "numerical",
+      "input": "rows-hidden-rgb-zero-alpha/input.json",
+      "shape": [
+        3,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "6179eece689897c6c1dab1edefd2674aa3812373fbf11d7342d4f6c43c510d89",
+      "allow_sha256": "71e232cc415bd8287fbb8bf93937d2bab92359c70ca6694f2804effffffa8c68",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 1,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "cols-hidden-rgb-zero-alpha",
+      "category": "numerical",
+      "input": "cols-hidden-rgb-zero-alpha/input.json",
+      "shape": [
+        3,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "449da6ed032aa4c8c6e92c4e081cacb815ae7720dc559b404f8b2c75775f73ff",
+      "allow_sha256": "71e232cc415bd8287fbb8bf93937d2bab92359c70ca6694f2804effffffa8c68",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 1,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "rows-left-endpoint",
+      "category": "support",
+      "input": "rows-left-endpoint/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "6379200f6d8bc3bc51ef702a5a1a3389c54fe4408e403e088ee98a0d1f4c528a",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 4,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "rows-right-endpoint",
+      "category": "support",
+      "input": "rows-right-endpoint/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "b74f818631dc9d4f249145778b156b5e421b8da909e72fe3635a24740b97475b",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 4,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "rows-single-known",
+      "category": "support",
+      "input": "rows-single-known/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "fc143803271ce4a7d841f1fd47448e7fdf1c5200288422e5661b1637a2cd25a7",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 10,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 10,
+          "hole_pixels": 10
+        }
+      ]
+    },
+    {
+      "name": "rows-all-unknown",
+      "category": "support",
+      "input": "rows-all-unknown/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "5c70a20b55386f2ce541d924b2450845cacda08dba00812c25e96fba139df2f8",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 11,
+          "hole_pixels": 11
+        }
+      ]
+    },
+    {
+      "name": "rows-no-holes",
+      "category": "support",
+      "input": "rows-no-holes/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "0674efa491a8757f80a5fddab88f1e6450cb7336e9b2767019a73e56d419ad90",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 0,
+          "hole_pixels": 0
+        }
+      ]
+    },
+    {
+      "name": "cols-left-endpoint",
+      "category": "support",
+      "input": "cols-left-endpoint/input.json",
+      "shape": [
+        11,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "3247e5875f1bad2a243f8c96662d1547e82c45b5eff2351bab7ad185754ab8b2",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 4,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "cols-single-known",
+      "category": "support",
+      "input": "cols-single-known/input.json",
+      "shape": [
+        11,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "fe0c13adc53b5e6ea67740567de496181f4282738518ab0c075f3b8219dadf7a",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 10,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 10,
+          "hole_pixels": 10
+        }
+      ]
+    },
+    {
+      "name": "cols-all-unknown",
+      "category": "support",
+      "input": "cols-all-unknown/input.json",
+      "shape": [
+        11,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "7beba65a97fffaefc4aeedcbc1ca3f534f912f9913ccb6e62f49be093fdd95af",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 11,
+          "hole_pixels": 11
+        }
+      ]
+    },
+    {
+      "name": "cols-no-holes",
+      "category": "support",
+      "input": "cols-no-holes/input.json",
+      "shape": [
+        11,
+        3,
+        4
+      ],
+      "output_RGBA_sha256": "97f06adb66cd5fb20910d3292cad620aa9ec100f4989e0a64de7860ef4618cbf",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "cols",
+          "selected_pixels": 0,
+          "hole_pixels": 0
+        }
+      ]
+    },
+    {
+      "name": "lum200-lt",
+      "category": "threshold",
+      "input": "lum200-lt/input.json",
+      "shape": [
+        3,
+        7,
+        4
+      ],
+      "output_RGBA_sha256": "a41c8438ed6a328ae2f94f93a8000b488feb61201199b06e682840cde8414b06",
+      "allow_sha256": "be32a73016f6f55b580adcc7041010de62e3826440e837554869647d66ad1727",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 2,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 2,
+          "hole_pixels": 2
+        }
+      ]
+    },
+    {
+      "name": "lum200-gt",
+      "category": "threshold",
+      "input": "lum200-gt/input.json",
+      "shape": [
+        3,
+        7,
+        4
+      ],
+      "output_RGBA_sha256": "29c8b03f6c38955bad9aed5bc5412cd7cdc6877d1b4325f43c4b6cbfbf6b315b",
+      "allow_sha256": "be32a73016f6f55b580adcc7041010de62e3826440e837554869647d66ad1727",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 2,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 16,
+          "hole_pixels": 16
+        }
+      ]
+    },
+    {
+      "name": "grow-cross",
+      "category": "growth",
+      "input": "grow-cross/input.json",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "output_RGBA_sha256": "49a1d6d02b235d48aaae260a697c6655e6e6cafa46f0b3f8dbfbb19acd663df2",
+      "allow_sha256": "46af1d82e34f575f358368082e30b3dbae2aa906cceb8849737943f179cedc06",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 5,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 1,
+          "hole_pixels": 5
+        }
+      ]
+    },
+    {
+      "name": "grow-minus-neighbor",
+      "category": "growth",
+      "input": "grow-minus-neighbor/input.json",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "output_RGBA_sha256": "7c338321c8844cd7164d84e3ae5632e6d60f6ddaded2d499d179359493db751f",
+      "allow_sha256": "c81cc91401703cfab1ebaeebffec18b88b32355bf9e2de8da001585906ddfd79",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 4,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 1,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "grow-protected-seed",
+      "category": "growth",
+      "input": "grow-protected-seed/input.json",
+      "shape": [
+        7,
+        7,
+        4
+      ],
+      "output_RGBA_sha256": "b95a4e047e706085a2e411fbc0a5fc69a5a1eb442c922124ba72f597fd53ad4e",
+      "allow_sha256": "f2b693baeaf1adb8c16eea656d7f8d5a71c1b75c0fecd00e6e1a76517c2a81d7",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 0,
+          "hole_pixels": 0
+        }
+      ]
+    },
+    {
+      "name": "allow-positive-negative",
+      "category": "allow-order",
+      "input": "allow-positive-negative/input.json",
+      "shape": [
+        3,
+        9,
+        4
+      ],
+      "output_RGBA_sha256": "6a33bec9543cf56a9c1af72bb606a2b8697f9e76608f8892659d834bc14fa683",
+      "allow_sha256": "84e9943427473857c45ffdd410c42d6f989d7816508714264dc87b802ba9bb76",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 4,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "allow-negative-positive",
+      "category": "allow-order",
+      "input": "allow-negative-positive/input.json",
+      "shape": [
+        3,
+        9,
+        4
+      ],
+      "output_RGBA_sha256": "6a33bec9543cf56a9c1af72bb606a2b8697f9e76608f8892659d834bc14fa683",
+      "allow_sha256": "84e9943427473857c45ffdd410c42d6f989d7816508714264dc87b802ba9bb76",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 4,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "allow-add-resurrection",
+      "category": "allow-order",
+      "input": "allow-add-resurrection/input.json",
+      "shape": [
+        3,
+        9,
+        4
+      ],
+      "output_RGBA_sha256": "73fd3fafe1f8d3846eb6a94b0d9299f42d43c82ab18dc6cfa1806c51575e3df7",
+      "allow_sha256": "6d9bb51b47f6dd755d5a435acd1cd3270ed8ca932284909078f901e151513cf9",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 5,
+      "capture": [
+        {
+          "method": "rows",
+          "selected_pixels": 5,
+          "hole_pixels": 5
+        }
+      ]
+    },
+    {
+      "name": "prefix-flat-rgb",
+      "category": "ordered-current",
+      "input": "prefix-flat-rgb/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "679f2aa374ad0159352fee91675be5b64749124b537dfb2932a39e0caf2e6d34",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 5,
+      "capture": [
+        {
+          "method": "flat",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        },
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "prefix-flat-rgba",
+      "category": "ordered-current",
+      "input": "prefix-flat-rgba/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "8a7ffe98d2d8fa35ff4e70a190020fa5a3318ac9f264b6c69f2cd21a7cf83eca",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 5,
+      "capture": [
+        {
+          "method": "flat",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        },
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "prefix-clear",
+      "category": "ordered-current",
+      "input": "prefix-clear/input.json",
+      "shape": [
+        3,
+        11,
+        4
+      ],
+      "output_RGBA_sha256": "e8ba88d1694889268a5be39ff0d7647b448a2d92f4aa9200fef4e89ac96e2e02",
+      "allow_sha256": "ffb8b6e27a06ffb98ecf60d261a6818cdc573f8256f06429000a2b125b070c37",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": false,
+      "changed_pixels": 5,
+      "capture": [
+        {
+          "method": "clear",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        },
+        {
+          "method": "rows",
+          "selected_pixels": 4,
+          "hole_pixels": 4
+        }
+      ]
+    },
+    {
+      "name": "unknown-method-empty",
+      "category": "guard-order",
+      "input": "unknown-method-empty/input.json",
+      "shape": [
+        3,
+        5,
+        4
+      ],
+      "output_RGBA_sha256": "86fcd55387ecccf61ee5052cb22139e697987b6b4858db19eae53733d6e7bea2",
+      "allow_sha256": "b31089763d9003ea03c8955b45acbf4d41d7316c1c0cfdd6847e05b5901cad73",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "bogus",
+          "selected_pixels": 0,
+          "hole_pixels": 0
+        }
+      ]
+    },
+    {
+      "name": "unknown-method-positive",
+      "category": "guard-order",
+      "input": "unknown-method-positive/input.json",
+      "shape": [
+        3,
+        5,
+        4
+      ],
+      "output_RGBA_sha256": "66132e1ad8723d139b617a391566579d7d775c0f4540a95e65ae6ead8c4819e3",
+      "allow_sha256": "b31089763d9003ea03c8955b45acbf4d41d7316c1c0cfdd6847e05b5901cad73",
+      "outcome": {
+        "type": "SystemExit",
+        "message": "unknown erase method 'bogus'"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "bogus",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "flat-missing-color-empty",
+      "category": "guard-order",
+      "input": "flat-missing-color-empty/input.json",
+      "shape": [
+        3,
+        5,
+        4
+      ],
+      "output_RGBA_sha256": "86fcd55387ecccf61ee5052cb22139e697987b6b4858db19eae53733d6e7bea2",
+      "allow_sha256": "b31089763d9003ea03c8955b45acbf4d41d7316c1c0cfdd6847e05b5901cad73",
+      "outcome": {
+        "type": "success"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "flat",
+          "selected_pixels": 0,
+          "hole_pixels": 0
+        }
+      ]
+    },
+    {
+      "name": "flat-missing-color-positive",
+      "category": "guard-order",
+      "input": "flat-missing-color-positive/input.json",
+      "shape": [
+        3,
+        5,
+        4
+      ],
+      "output_RGBA_sha256": "66132e1ad8723d139b617a391566579d7d775c0f4540a95e65ae6ead8c4819e3",
+      "allow_sha256": "b31089763d9003ea03c8955b45acbf4d41d7316c1c0cfdd6847e05b5901cad73",
+      "outcome": {
+        "type": "KeyError",
+        "message": "'color'"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": [
+        {
+          "method": "flat",
+          "selected_pixels": 1,
+          "hole_pixels": 1
+        }
+      ]
+    },
+    {
+      "name": "unknown-mask-key",
+      "category": "guard-order",
+      "input": "unknown-mask-key/input.json",
+      "shape": [
+        3,
+        5,
+        4
+      ],
+      "output_RGBA_sha256": "66132e1ad8723d139b617a391566579d7d775c0f4540a95e65ae6ead8c4819e3",
+      "allow_sha256": "b31089763d9003ea03c8955b45acbf4d41d7316c1c0cfdd6847e05b5901cad73",
+      "outcome": {
+        "type": "SystemExit",
+        "message": "unknown mask key 'bogus'"
+      },
+      "unchanged": true,
+      "changed_pixels": 0,
+      "capture": []
+    }
+  ],
+  "verification": {
+    "all_members": "512of512 sizes/SHAverified",
+    "whole_raw_PNG": "234complete raw/PNGpairs reopenedandbyteequal",
+    "reference_instrumentation": "38of38wholeRGBAoutput+errorresults equal",
+    "structural_crosschecks": "alloworderwholeoutputequal,allow_adddifferent;4row/columntransposes; noholes/allunknown unchanged; alloutsideallowunchanged.",
+    "prior_artifacts": "Original27pack andallpriorrenderer/TTFpacks preserved",
+    "versions": {
+      "numpy": "2.4.6",
+      "pillow": "12.3.0",
+      "scipy": "1.17.1"
+    },
+    "not_run": "NoGo/projectmodule/historicalmain/newcandidate/protectedresources; no production/test/fixture/coverage/goalwrites."
+  },
+  "limits": [
+    "Finite38casecorpus, not allreconstruction algorithms or .06completion. Exemplar/PDE/radial/contour/materialfill remainseparate heldfrontiers.",
+    "No newfunction/type/schema/CLI orarchitecturalapproval. Rootowns readableexisting-owner integration and independentreview.",
+    "Noactualart/nativecodec/ISO/registry/emulator/PINE/controller/process/log/settings access/control orvisualapproval."
+  ]
+}

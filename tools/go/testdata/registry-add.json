@@ -1,0 +1,189 @@
+{
+  "source_contract": "analysis/registry-insert-contract.json",
+  "source_contract_sha256": "404bc6ae2fdbe715863359adabaa3120268ec6c8c92d65ed7dcd2b4f5634e7bb",
+  "precode_vectors_sha256": "73b7eec2a4f099468a4dcd9bdadf4de47fb444cae9eefedb9b02e3c3cd8c665a",
+  "source": {
+    "schema_version": "1.0",
+    "last_updated": "2026-10-01",
+    "entries": [
+      {
+        "id": "0X0010",
+        "jp": "あ",
+        "en": "A",
+        "status": "patched",
+        "note": "keep old note",
+        "source_pool": "existing-pool",
+        "discovered_by": "existing provenance",
+        "ref_sites": [
+          {
+            "site": "0x80"
+          }
+        ],
+        "opaque": {
+          "large": 9007199254740993
+        }
+      }
+    ],
+    "unknown_top": {
+      "number_lexeme": "1e+3 preserved by current raw JSON owner"
+    }
+  },
+  "cases": [
+    {
+      "id": "minimal-empty-English",
+      "key": "0x20",
+      "body": {
+        "jp": "あ",
+        "en": "",
+        "status": "drafted",
+        "source_pool": "unknown"
+      },
+      "expected": "insert"
+    },
+    {
+      "id": "unknown-metadata",
+      "key": "0x20",
+      "body": {
+        "jp": "あ",
+        "en": "",
+        "status": "drafted",
+        "source_pool": "unknown",
+        "opaque": {
+          "big": 9007199254740993
+        },
+        "chapter": "optional-discovery-chapter"
+      },
+      "expected": "insert; retain raw unknown values"
+    },
+    {
+      "id": "nondraft-new",
+      "key": "0x20",
+      "body": {
+        "jp": "あ",
+        "en": "",
+        "status": "patched",
+        "source_pool": "unknown"
+      },
+      "expected": "refuse new status"
+    },
+    {
+      "id": "existing-locked-exact-text",
+      "key": "0x10",
+      "body": {
+        "jp": "あ",
+        "en": "A",
+        "status": "drafted",
+        "source_pool": "different incoming pool",
+        "note": "ignored incoming note"
+      },
+      "expected": "already_present; retain old patched status and ALL old metadata"
+    },
+    {
+      "id": "existing-different-text",
+      "key": "0x10",
+      "body": {
+        "jp": "あ",
+        "en": "B",
+        "status": "drafted",
+        "source_pool": "unknown"
+      },
+      "expected": "conflict"
+    },
+    {
+      "id": "missing-jp",
+      "key": "0x20",
+      "body": {
+        "en": "",
+        "status": "drafted",
+        "source_pool": "unknown"
+      },
+      "expected": "refuse missing required field"
+    },
+    {
+      "id": "missing-en",
+      "key": "0x20",
+      "body": {
+        "jp": "あ",
+        "status": "drafted",
+        "source_pool": "unknown"
+      },
+      "expected": "refuse missing required field"
+    },
+    {
+      "id": "missing-status",
+      "key": "0x20",
+      "body": {
+        "jp": "あ",
+        "en": "",
+        "source_pool": "unknown"
+      },
+      "expected": "refuse missing required field"
+    },
+    {
+      "id": "missing-source_pool",
+      "key": "0x20",
+      "body": {
+        "jp": "あ",
+        "en": "",
+        "status": "drafted"
+      },
+      "expected": "refuse missing required field"
+    },
+    {
+      "id": "normalized-map-duplicates",
+      "updates": {
+        "0x20": {
+          "jp": "あ",
+          "en": "",
+          "status": "drafted",
+          "source_pool": "unknown"
+        },
+        "0X000020": {
+          "jp": "あ",
+          "en": "",
+          "status": "drafted",
+          "source_pool": "unknown"
+        }
+      },
+      "expected": "refuse duplicate normalizedID before output"
+    },
+    {
+      "id": "existing-ID-alias-noop",
+      "key": "0X000010",
+      "body": {
+        "jp": "あ",
+        "en": "A",
+        "status": "drafted",
+        "source_pool": "unknown"
+      },
+      "expected": "already_present; existingID spelling0X0010 and metadata unchanged"
+    },
+    {
+      "id": "existing-progressed-incoming-status",
+      "key": "10",
+      "body": {
+        "jp": "あ",
+        "en": "A",
+        "status": "patched",
+        "source_pool": "ignored incoming pool"
+      },
+      "expected": "already_present; existing progressed metadata is ignored",
+      "oracle_basis": "Independent review existing-status counterexample; source classify_entry compares only JP/EN."
+    },
+    {
+      "id": "existing-conflict-incoming-nondraft",
+      "key": "10",
+      "body": {
+        "jp": "あ",
+        "en": "B",
+        "status": "patched",
+        "source_pool": "ignored incoming pool"
+      },
+      "expected": "conflict",
+      "error_contains": "conflicts with existing en",
+      "oracle_basis": "Independent review conflict precedence; existing text conflicts before new-row deployment policy."
+    }
+  ],
+  "limits": "Reviewed draft row lifecycle only; no glyph/speaker/marker/fit guarantee. Whole source bytes/date remain identical when no rows are added.",
+  "independent_review_extension": "Two post-implementation counterexamples supplement the eleven source-frozen vectors. They are not claimed precode."
+}

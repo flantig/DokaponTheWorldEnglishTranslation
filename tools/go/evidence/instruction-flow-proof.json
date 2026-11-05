@@ -1,0 +1,104 @@
+{
+  "at": "2026-11-04T20:43:11.533204+00:00",
+  "status": "ROOT_VERIFIED_FINITE_INSTRUCTION_INDEX",
+  "baseline_manifest": "/var/tmp/dokapon-gp-index-ojcy9sxb/sealed-final/manifest.json",
+  "baseline_manifest_sha256": "c3cfb0f87ddb15ebfebc0dc5d0f1a48b7698adb1dfa04dc3d64ff6b22cef9b5c",
+  "metrics": {
+    "production_before": 474721,
+    "production_after": 489925,
+    "runtime_before": {
+      "files": 181,
+      "bytes": 2549244
+    },
+    "runtime_after": {
+      "files": 184,
+      "bytes": 2564808
+    },
+    "production_growth": 15204,
+    "runtime_growth": 15564,
+    "test_source_growth": 2752,
+    "test_fixture_growth": 16115,
+    "new_production_files": 2,
+    "new_fact_types": 8,
+    "new_functions": 0,
+    "named_functions": 41,
+    "new_example_files": 1,
+    "retirements": 0,
+    "milestone_credit": 0
+  },
+  "root_verification": {
+    "at": "2026-11-04T20:31:28.836865+00:00",
+    "status": "PASS_ROOT_CORE_NATIVE_CLI_BUILD_VET_FORMAT_HYGIENE",
+    "build_vet": [
+      "core-build",
+      "core-vet",
+      "native-build",
+      "native-vet"
+    ],
+    "complete_positive_cases": 87,
+    "independent_instruction_rows": 247,
+    "old_GP_whole_output_parities": 13,
+    "old_audit_whole_output_parities": [
+      "stream-audit",
+      "reference-bound-audit",
+      "canonical-audit",
+      "fixed-audit",
+      "pinned-raw-audit",
+      "gp-audit",
+      "reconciliation-audit",
+      "sentinel-audit"
+    ],
+    "new_mapping_refusals_both_builds": 6,
+    "exact32768_NOP_rows": true,
+    "32769_word_refusal": true,
+    "input_identities_preserved": 174,
+    "core_native_outputs_identical": true,
+    "production_Go_files": 41,
+    "production_bytes": 489925,
+    "named_production_functions": 41,
+    "core_sha256": "bf5a9ce871a9f868697a2582bf8da9e97a841c54f52176ff815b009f7c51c64c",
+    "native_sha256": "74a20b047bc267d5ef532a956e2b13ec139b6fdad11c903a04cd187f7842d09d",
+    "limits": "Full suite/nativefonts race/gameplay not checked. No CFG/def-use milestone or reduction claim."
+  },
+  "focused_seconds": [
+    14.567,
+    14.325
+  ],
+  "race": {
+    "at": "2026-11-04T20:35:47.478814+00:00",
+    "status": "PASS_RACE_AND_MANUAL_EXAMPLE",
+    "focused_race_log": "ok  \tdokapon/tools\t166.772s",
+    "example_rows": 3,
+    "source_equations_frozen_before_example_execution": true,
+    "core_native_example_complete_output_exact": true
+  },
+  "source_pins": {
+    "main.go": "0b33e039d0ce04c6293aa0141ecb4d9eca6aa90519ca263bc14627bd2bcd10ab",
+    "references.go": "0225c2bf1d1bb42325af8770e52ba135f1a1d1a36e26d86a596bf52b74503f9f",
+    "reference_types.go": "57ec030258490309c0524d58d6efa95780e5c8f465834547eca5655b23516092",
+    "instruction_types.go": "2c4e4547a8564316a5714cbc2c83ecb1a53b2a02b8ea6c6f04030ffeaf1dcbc7",
+    "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
+    "patch_test.go": "6d5883dcc6886c3e446eafbfa5438a1a4032b1bbfe0b29c3b0c369bd1360d034",
+    "testdata/instruction-index-fixture.zip": "6eb077edda6569ef5af3c7844d1189da902bf8773673bdd1f90076f8d9c4fc35",
+    "examples/gp-audit/instruction-profile.json": "42053b4544dfa594c4fb5026837e04c2d7806647d486b1551f457479dba40130",
+    "analysis/instruction-flow-reuse-decision.json": "5645cd2ca3acd20190364a6dc63f6bee9a0f0c41ae351da14e52f0f23bc1be70",
+    "analysis/go-current-input-accounting.json": "eac092609f56acf45b3af6cbea07e0ca4d5529f28d8ee758631ce2f27b914b7f",
+    "evidence/instruction-flow-review.json": "2b187599a1449520d65cc071471c3a2f849cc2e68491257191c74c1f4a9f88aa",
+    "evidence/astra-audit-040.json": "e1d4c88f8fc8c52cba369351f66267f20556ec5d3e4f3ee3ce1fec647efa326f"
+  },
+  "root_artifact_manifest": "/var/tmp/dokapon-instruction-flow-b69ig0qd/root-artifact-manifest.json",
+  "root_artifact_manifest_sha256": "b1ff2ab93445c332fb7dc2c0b3a3979f5855e8cfafc887eec12938f0a07a1467",
+  "scope": "Finite operand/localtransfer facts only. No actual CFG/reachingdefs/uses_after, no milestone credit/reduction/retirement, no protectedresource or gamepatch.",
+  "deferred": "Fullsuite/nativefontsrace/gameplay deferred by owner pacing.",
+  "pin_lifecycle": "Immutable632 review snapshot retains accepted626 ledger state. Current flat pins refreshed at publication; historical nested source pins remain immutable.",
+  "review": {
+    "path": "evidence/instruction-flow-review.json",
+    "sha256": "2b187599a1449520d65cc071471c3a2f849cc2e68491257191c74c1f4a9f88aa",
+    "artifacts_root_verified": 110
+  },
+  "source_snapshot": {
+    "members": 632,
+    "manifest": "/var/tmp/dokapon-instruction-flow-b69ig0qd/review-source/manifest.json",
+    "sha256": "98d97042f1b5a36452cf2b408fc359854360126b7161a9fac96ff89507775166"
+  }
+}

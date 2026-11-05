@@ -1,0 +1,3060 @@
+{
+  "source_zip_sha256": "7969754af0cc6b677808839dc4e9dd2feb0070fe9e465d47398e9e4080a1366a",
+  "source_script_sha256": "5f84c9cbe02499d60218b6e70da6f4f00073e1f82169bfc1279c754bceab9733",
+  "cases": [
+    {
+      "name": "std8",
+      "bundle_key": "GRAPHIC/EVENT.CMB/event/systex/win_w.txd",
+      "texture": "systex\\win_w.png",
+      "source_sha256": "246ae1010084277376cf7028859c493c32d50046f138691639f577eb46479d74",
+      "source_mutations": [],
+      "width": 1024,
+      "height": 256,
+      "layout": "std",
+      "rgba_sha256": "b0c6fd94cc684099a5c5837b76311696bba11b281dc191bbb986123647194c4a",
+      "noop_txd_sha256": "246ae1010084277376cf7028859c493c32d50046f138691639f577eb46479d74",
+      "edit": {
+        "txd_sha256": "7090ae13eeba52c6c6c0487367ab809ade4aa16065c1e8170851b9e99d2f864b",
+        "rgba_sha256": "7c875ed8e8b904f26bddf588e56d4658b2c3f92e86d73d8b76d206dbeb77640f",
+        "changed_bytes": 1,
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              10
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "nohdr8",
+      "bundle_key": "GRAPHIC/ETC.CMB/etc/textures/help_illust00.txd",
+      "texture": "textures\\help_illust00",
+      "source_sha256": "38f899fd51bc3539966f748dd579d759a2dc2ba4c01159947d79c9f6dcddc189",
+      "source_mutations": [],
+      "width": 1024,
+      "height": 512,
+      "layout": "nohdr",
+      "rgba_sha256": "ce59170f8a91b5516976f402615d371bf478ab871d0e01a8b062f1e5704e0ae7",
+      "noop_txd_sha256": "38f899fd51bc3539966f748dd579d759a2dc2ba4c01159947d79c9f6dcddc189",
+      "edit": {
+        "txd_sha256": "081101fdda8dc85ccdc68c5c2026a82f95fc33369bea68004e12b15b4a1a874d",
+        "rgba_sha256": "13e7f44d2a6165408fc930b2e6f440f0eaf53e81fb7e311c8695ec14d38680ab",
+        "changed_bytes": 1,
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              22
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std8-duplicate-clut-index",
+      "bundle_key": "GRAPHIC/EVENT.CMB/event/systex/win_w.txd",
+      "texture": "systex\\win_w.png",
+      "source_sha256": "246ae1010084277376cf7028859c493c32d50046f138691639f577eb46479d74",
+      "source_mutations": [
+        {
+          "offset": 262512,
+          "hex": "ffffff00"
+        }
+      ],
+      "width": 1024,
+      "height": 256,
+      "layout": "std",
+      "rgba_sha256": "1b50743112b3bf6b22fb22e857b5c3b21e79d68e8193ff6274a4579ea44affbd",
+      "noop_txd_sha256": "f8265a64e12ac70fb9c1f4428b85a2596f8ae995be90db517ab43a0c5532d609",
+      "edit": {
+        "txd_sha256": "63587731ab3409970a126c5822b1ad3e674cd2fcf2e0cc5137fc4694680769db",
+        "rgba_sha256": "2993acf777b52cf13e6d435a189dcfdd5c5f7562496fe2f390894add53cad03c",
+        "changed_bytes": 1,
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              42
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std8-raw-alpha-ff",
+      "bundle_key": "GRAPHIC/EVENT.CMB/event/systex/win_w.txd",
+      "texture": "systex\\win_w.png",
+      "source_sha256": "246ae1010084277376cf7028859c493c32d50046f138691639f577eb46479d74",
+      "source_mutations": [
+        {
+          "offset": 263467,
+          "hex": "ff"
+        }
+      ],
+      "width": 1024,
+      "height": 256,
+      "layout": "std",
+      "rgba_sha256": "4bce4a7bd5276851389c18f336d90fae9ecd4fa636765b0d99435cc1d8249ed0",
+      "noop_txd_sha256": "0c33a124cd2aa42728b2f06fa3d0652f254a6b307122d81643a9a49c281c4e03",
+      "edit": {
+        "txd_sha256": "73f89cda66568ad5eebdc026447bf67f188ec54d83147ee856f7d310d9ab3e01",
+        "rgba_sha256": "52196b19f74254a2bfa126eb31ebdb9cc3a8b96d3fe47b33afa24feefb073571",
+        "changed_bytes": 1,
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              10
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std4-low-nibble",
+      "bundle_key": "GRAPHIC/SYSTEM.CMB/system/vlg_plt.txd",
+      "texture": "vlg_plt73",
+      "source_sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "source_mutations": [],
+      "width": 128,
+      "height": 32,
+      "layout": "std4",
+      "rgba_sha256": "f9ad5adba2133d1a24f00073ec699cd2e4a19fae4199ca754f5a44987605b37c",
+      "noop_txd_sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              19,
+              13,
+              25,
+              250
+            ]
+          }
+        ],
+        "txd_sha256": "668ec8e5309cb3e348ddeb92465d9535ae7794481fc432da618cd3e0ee2f478f",
+        "rgba_sha256": "b85f9c62a4837da0d690403cd30aa49d775736b56b1c7d6a1b10b63b18ce6e28",
+        "changed_bytes": 1
+      }
+    },
+    {
+      "name": "std4-high-nibble",
+      "bundle_key": "GRAPHIC/SYSTEM.CMB/system/vlg_plt.txd",
+      "texture": "vlg_plt73",
+      "source_sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "source_mutations": [],
+      "width": 128,
+      "height": 32,
+      "layout": "std4",
+      "rgba_sha256": "f9ad5adba2133d1a24f00073ec699cd2e4a19fae4199ca754f5a44987605b37c",
+      "noop_txd_sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 2,
+            "rgba": [
+              19,
+              13,
+              25,
+              250
+            ]
+          }
+        ],
+        "txd_sha256": "5cd44aa3a8ce13bece13d2a9a54733609ad4d3d902e492494f7e9a493c896219",
+        "rgba_sha256": "5a94d3d6245a9a4262a2243a74eba1ef9f43ffd9022d3b4b4cf343e27deeafb1",
+        "changed_bytes": 1
+      }
+    },
+    {
+      "name": "std4-both-nibbles",
+      "bundle_key": "GRAPHIC/SYSTEM.CMB/system/vlg_plt.txd",
+      "texture": "vlg_plt73",
+      "source_sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "source_mutations": [],
+      "width": 128,
+      "height": 32,
+      "layout": "std4",
+      "rgba_sha256": "f9ad5adba2133d1a24f00073ec699cd2e4a19fae4199ca754f5a44987605b37c",
+      "noop_txd_sha256": "d997e7fc2321250576ec718b0819c3075bfb26eb2b1b211b3e2803d1657ef52a",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              19,
+              13,
+              25,
+              250
+            ]
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "rgba": [
+              19,
+              13,
+              25,
+              250
+            ]
+          }
+        ],
+        "txd_sha256": "a815ab7377a75d22d28e848b3d92f240034577af07a49ff2796439571f02b572",
+        "rgba_sha256": "c3110419a452c08dff3f2237d515e9c51127f8ec355d76d855130b1242c6f7b0",
+        "changed_bytes": 1
+      }
+    },
+    {
+      "name": "raw32-font2",
+      "bundle_key": "GRAPHIC/SYSTEM.CMB/system/font.txd",
+      "texture": "font2",
+      "source_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "source_mutations": [],
+      "width": 512,
+      "height": 512,
+      "layout": "monochrome-raw32",
+      "rgba_sha256": "5d6415f88686c573cb1b50127436cb462584257f75089b10f55932335e588943",
+      "noop_txd_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              17,
+              17,
+              1
+            ]
+          },
+          {
+            "x": 23,
+            "y": 0,
+            "rgba": [
+              241,
+              241,
+              241,
+              127
+            ]
+          },
+          {
+            "x": 24,
+            "y": 0,
+            "rgba": [
+              99,
+              99,
+              99,
+              128
+            ]
+          },
+          {
+            "x": 511,
+            "y": 511,
+            "rgba": [
+              35,
+              35,
+              35,
+              255
+            ]
+          },
+          {
+            "x": 494,
+            "y": 264,
+            "rgba": [
+              220,
+              220,
+              220,
+              254
+            ]
+          }
+        ],
+        "txd_sha256": "9d80b743b08564d13d72490d10d1ee2889aee187077e0dc5071853c40681ed99",
+        "rgba_sha256": "53650902312b580b25bc5604e124027cefcf870f71b39c70307a89e2206191a5",
+        "changed_bytes": 20
+      }
+    },
+    {
+      "name": "raw32-font1",
+      "bundle_key": "GRAPHIC/SYSTEM.CMB/system/font.txd",
+      "texture": "font1",
+      "source_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "source_mutations": [],
+      "width": 512,
+      "height": 512,
+      "layout": "monochrome-raw32",
+      "rgba_sha256": "0fbbac456c549277ea9775a278cb63cdf76f3c8b4279140b18e74fc655ad9d30",
+      "noop_txd_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              17,
+              17,
+              1
+            ]
+          },
+          {
+            "x": 23,
+            "y": 0,
+            "rgba": [
+              241,
+              241,
+              241,
+              127
+            ]
+          },
+          {
+            "x": 24,
+            "y": 0,
+            "rgba": [
+              99,
+              99,
+              99,
+              128
+            ]
+          },
+          {
+            "x": 511,
+            "y": 511,
+            "rgba": [
+              35,
+              35,
+              35,
+              255
+            ]
+          },
+          {
+            "x": 494,
+            "y": 264,
+            "rgba": [
+              220,
+              220,
+              220,
+              254
+            ]
+          }
+        ],
+        "txd_sha256": "908e2fa4495ab318d9fd94f34819b9aedf90976cd6bb761d739fc749d0d7af7c",
+        "rgba_sha256": "dc491889aa05d0beb8246e191db6cd51b04c1300c8ed1174e49ec6ae9941b047",
+        "changed_bytes": 20
+      }
+    },
+    {
+      "name": "raw32-font0",
+      "bundle_key": "GRAPHIC/SYSTEM.CMB/system/font.txd",
+      "texture": "font0",
+      "source_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "source_mutations": [],
+      "width": 512,
+      "height": 512,
+      "layout": "monochrome-raw32",
+      "rgba_sha256": "e834cb277959176057b6dac71261aa852c1828d512ffbd17c0844b86caf5f5f9",
+      "noop_txd_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              17,
+              17,
+              1
+            ]
+          },
+          {
+            "x": 23,
+            "y": 0,
+            "rgba": [
+              241,
+              241,
+              241,
+              127
+            ]
+          },
+          {
+            "x": 24,
+            "y": 0,
+            "rgba": [
+              99,
+              99,
+              99,
+              128
+            ]
+          },
+          {
+            "x": 511,
+            "y": 511,
+            "rgba": [
+              35,
+              35,
+              35,
+              255
+            ]
+          },
+          {
+            "x": 494,
+            "y": 264,
+            "rgba": [
+              220,
+              220,
+              220,
+              254
+            ]
+          }
+        ],
+        "txd_sha256": "ee4f43826976658b925059655264649ed9dc713f248e7772b8ef155fd967032b",
+        "rgba_sha256": "58eb80debd4ff8418ede5f68e83fbcd908d19db7a9342da634fc5010e2a60f5f",
+        "changed_bytes": 20
+      }
+    },
+    {
+      "name": "std8-shared-base-button",
+      "bundle_key": "GRAPHIC/EVENT.CMB/event/command/button.txd",
+      "texture": "command\\button.png",
+      "source_sha256": "6b9243c7adb22b7179848e94445beabef55a7b5f4c2bf0e4b3611e0bd5579fd1",
+      "source_mutations": [],
+      "width": 128,
+      "height": 128,
+      "layout": "std",
+      "palette_packet_offset": 16672,
+      "rgba_sha256": "d34b485be528eb309f248d60dc3dad8a7e95979c9c68ecb94c1ea06eeaf9a186",
+      "noop_txd_sha256": "6b9243c7adb22b7179848e94445beabef55a7b5f4c2bf0e4b3611e0bd5579fd1",
+      "edit": {
+        "txd_sha256": "8d1e6d37580562c5028c2f026277a71c919780ed8bd278acdc70bebc58b957eb",
+        "rgba_sha256": "e7580f21e83d66051617100a40e2a1463fe04042a10eb30a82a1bb4a3f596249",
+        "changed_bytes": 1,
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              83,
+              149,
+              113
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std8-shared-base-sale",
+      "bundle_key": "GRAPHIC/TEXTURES.CMB/textures/sale.txd",
+      "texture": "sale",
+      "source_sha256": "4bce4a5ca4208b857960639b18c57e129c602eaedfa9cbc1aa8fa67584d6cdbb",
+      "source_mutations": [],
+      "width": 128,
+      "height": 128,
+      "layout": "std",
+      "palette_packet_offset": 16660,
+      "rgba_sha256": "1fdde8467a051ac839062be16177f4e01b2f9fd707f59704e32ea7a6b9954c2e",
+      "noop_txd_sha256": "4bce4a5ca4208b857960639b18c57e129c602eaedfa9cbc1aa8fa67584d6cdbb",
+      "edit": {
+        "txd_sha256": "317389a8696a2222495b3d47752fa9fc05e90f29414ff99e3bd86852cf4f1bcb",
+        "rgba_sha256": "8e0f77ac2121ba9dea88a32ef83037e1835243415b839139d928503b3431c244",
+        "changed_bytes": 1,
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              83,
+              149,
+              113
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "std4-multipage-two_corners",
+      "texture": "Y:\\Graphic\\battle\\textures\\vs_s",
+      "bundle_key": "vs_sen.txd",
+      "source_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "width": 512,
+      "height": 512,
+      "rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+      "noop_txd_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              12
+            ]
+          },
+          {
+            "x": 511,
+            "y": 511,
+            "rgba": [
+              0,
+              0,
+              0,
+              12
+            ]
+          }
+        ],
+        "txd_sha256": "c2a46230e6065d8a55f52fe14a8daa4b14248a6800fcc013bf98d0197d8e903f",
+        "rgba_sha256": "32bb4d2ad671fcaf2d660e76c4b4679ca15f8604460ddceae52506324638ffc3",
+        "changed_bytes": 2
+      },
+      "pixel_offset": 300,
+      "ramp_rgba_sha256": [
+        "b93af93b64575edb07baf153adc4db78e07375db18f777e6477a44f9cb023d9f",
+        "1313cea550bb835de8c05d298af9459e313eef713102270260b77cb55b2e39a0",
+        "c83d3c8ae395ce05e4fba95351896052e102e48f5cab63c232be4736ebd92c4d",
+        "af8a00e9628dc3059dad96255f934dae25fc047596a7f609c4ed943edb61eb93",
+        "928106d8a8fd1d072e238217cfbd0652315f542c67cd114a94ff3f32f723d114"
+      ]
+    },
+    {
+      "name": "std4-multipage-all_corners",
+      "texture": "Y:\\Graphic\\battle\\textures\\vs_s",
+      "bundle_key": "vs_sen.txd",
+      "source_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "width": 512,
+      "height": 512,
+      "rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+      "noop_txd_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              12
+            ]
+          },
+          {
+            "x": 511,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              228
+            ]
+          },
+          {
+            "x": 0,
+            "y": 511,
+            "rgba": [
+              0,
+              0,
+              0,
+              12
+            ]
+          },
+          {
+            "x": 511,
+            "y": 511,
+            "rgba": [
+              0,
+              0,
+              0,
+              12
+            ]
+          }
+        ],
+        "txd_sha256": "846b46b8c47997d7d404195266cc0476a7db4656db8d772a50db43cd0f868685",
+        "rgba_sha256": "1f199e219f5c295abd1d1a5fde6e6426bb491e39b0aea3981e6b12f531b2853f",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std4-multipage-page_boundary",
+      "texture": "Y:\\Graphic\\battle\\textures\\vs_s",
+      "bundle_key": "vs_sen.txd",
+      "source_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "width": 512,
+      "height": 512,
+      "rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+      "noop_txd_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "edit": {
+        "pixels": [
+          {
+            "x": 127,
+            "y": 127,
+            "rgba": [
+              0,
+              0,
+              0,
+              96
+            ]
+          },
+          {
+            "x": 128,
+            "y": 127,
+            "rgba": [
+              0,
+              0,
+              0,
+              96
+            ]
+          },
+          {
+            "x": 127,
+            "y": 128,
+            "rgba": [
+              122,
+              122,
+              122,
+              56
+            ]
+          },
+          {
+            "x": 128,
+            "y": 128,
+            "rgba": [
+              122,
+              122,
+              122,
+              198
+            ]
+          }
+        ],
+        "txd_sha256": "93d494f67bd6d8b0e58aac361855bc4b4448dfebf18f8e0280257f401ee218e0",
+        "rgba_sha256": "7a6d03db8a9cf855352d3f5298226e1f5f995341f56d4fbb2eb21e598a5860c4",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std4-multipage-shared_byte",
+      "texture": "Y:\\Graphic\\battle\\textures\\vs_s",
+      "bundle_key": "vs_sen.txd",
+      "source_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "width": 512,
+      "height": 512,
+      "rgba_sha256": "f99b5547175e6fd3e788b22475d4a9b1e958483f80fc9e07834edbffd26082fc",
+      "noop_txd_sha256": "35e995b0baa8bb624023a3390794ae31369f816ddeba6b2fa3aef80ffebfc10d",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              12
+            ]
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "rgba": [
+              0,
+              0,
+              0,
+              44
+            ]
+          }
+        ],
+        "txd_sha256": "daff2edf0c287af29cc2deb551b00dc540f90fdd8685fe2a823874be3583381e",
+        "rgba_sha256": "ba67311cfcecfebec2dbc34bb75a98524b120c2c7d954564a0b88cc31fa09697",
+        "changed_bytes": 1
+      }
+    },
+    {
+      "name": "raw32-rgba-npc18",
+      "raster_policy": "rgba",
+      "texture": "NPC_18_0",
+      "bundle_key": "npc_18_.txd",
+      "source_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+      "width": 512,
+      "height": 512,
+      "rgba_sha256": "e818ff8c1b863226daac5506c0b25722aad32f4564556ae430aadffec390aaa9",
+      "noop_txd_sha256": "9abbc98368a5deb481dd5b6a7dfa8ed6431ed3fdafcea3432eaa154149622662",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              101,
+              233,
+              127
+            ]
+          },
+          {
+            "x": 511,
+            "y": 511,
+            "rgba": [
+              231,
+              19,
+              87,
+              0
+            ]
+          }
+        ],
+        "txd_sha256": "c610f138c26d673ca72b1a61b1d5ca96f979b5076ab861bf101cefed996a959a",
+        "rgba_sha256": "8e986f39fac5a0a01895a59488ebeaf626f651ce1ebde01d1c4710251c6702bf",
+        "changed_bytes": 7
+      },
+      "pixel_offset": 200,
+      "bundle_path": "testdata/direct-rgba.zip"
+    },
+    {
+      "name": "raw32-rgba-v0_256x512",
+      "texture": "Y:\\Graphic\\SYSTEM\\icon_p",
+      "raster_policy": "rgba",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v0_256x512.txd",
+      "source_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+      "width": 256,
+      "height": 512,
+      "metadata_offset": 140,
+      "pixel_offset": 216,
+      "rgba_sha256": "2367c32fb90104c3e0d768eec3813e851f559a0c6ed42dd6a0d7199f8b9d20a8",
+      "noop_txd_sha256": "539d46fd4675b6d882ee4f3c812cbf03f8746a1e67600848de5ec4b0253d8bc5",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              101,
+              233,
+              127
+            ]
+          },
+          {
+            "x": 255,
+            "y": 511,
+            "rgba": [
+              231,
+              19,
+              87,
+              0
+            ]
+          }
+        ],
+        "txd_sha256": "a1a2c27f503f2870f242df66bf5d29419ef4b1e3901a6ef4421faec2e4b9f24e",
+        "rgba_sha256": "d9a6cff14da5a4cb5a5a7ec7a9d58c0684e9dbc60347ee9aaf25d9fedb95885b",
+        "changed_bytes": 7
+      }
+    },
+    {
+      "name": "raw32-rgba-v2_256x256",
+      "texture": "Y:\\Graphic\\SYSTEM\\multitap",
+      "raster_policy": "rgba",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_256x256.txd",
+      "source_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+      "width": 256,
+      "height": 256,
+      "metadata_offset": 140,
+      "pixel_offset": 296,
+      "rgba_sha256": "bddc99c27e69afef5082681b55ffec49371073ea1d6484316536259a95aeafa0",
+      "noop_txd_sha256": "899456472fa5aef4395743ef73105eaa18be2328954b97e9b736c8880d1a422f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              101,
+              233,
+              127
+            ]
+          },
+          {
+            "x": 255,
+            "y": 255,
+            "rgba": [
+              231,
+              19,
+              87,
+              0
+            ]
+          }
+        ],
+        "txd_sha256": "811f05f56f088bcf6c662dd9b0d24330318223cccaed1662478a17d8245e59a8",
+        "rgba_sha256": "cdbb51b3abf2e08c88ad593354228018e794a98e4d1a376eb0c047b69d25fa6c",
+        "changed_bytes": 7
+      }
+    },
+    {
+      "name": "raw32-rgba-v0_512x256",
+      "texture": "Y:\\Graphic\\SYSTEM\\rw",
+      "raster_policy": "rgba",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v0_512x256.txd",
+      "source_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+      "width": 512,
+      "height": 256,
+      "metadata_offset": 136,
+      "pixel_offset": 212,
+      "rgba_sha256": "abbbeff6510a5cf666a7b7976519d1af19236ad2d18ee3cb1104b6486bbe71e0",
+      "noop_txd_sha256": "088ab503363713a216bfd99e6fb18f363e2a20ccfe0065d34930bff14bc0b20c",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              101,
+              233,
+              127
+            ]
+          },
+          {
+            "x": 511,
+            "y": 255,
+            "rgba": [
+              231,
+              19,
+              87,
+              0
+            ]
+          }
+        ],
+        "txd_sha256": "6502945cc9627b05f868cc962b708a1096868110c1bfb22097403ad8c28ee76f",
+        "rgba_sha256": "88c3844d94a1c1baf39ff260552fc81adcbf9ccef5fe20d36812fb83f18abf70",
+        "changed_bytes": 8
+      }
+    },
+    {
+      "name": "raw32-rgba-v2_128x16",
+      "texture": "streetI",
+      "raster_policy": "rgba",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 128,
+      "height": 16,
+      "metadata_offset": 71312,
+      "pixel_offset": 71468,
+      "rgba_sha256": "1785fe01689151e87df8329de53831ed5a5e69ac29ff3da4014a1318c434e453",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              101,
+              233,
+              127
+            ]
+          },
+          {
+            "x": 127,
+            "y": 15,
+            "rgba": [
+              231,
+              19,
+              87,
+              0
+            ]
+          }
+        ],
+        "txd_sha256": "8989ecac122c8fcc6fff0b888695c0b732753cc8e565c5e98f5b2645136003de",
+        "rgba_sha256": "fb86550fa179071ac56a5e79fa7a6552747d24ee3776fff21154b6fa8a8fb60a",
+        "changed_bytes": 7
+      }
+    },
+    {
+      "name": "raw32-rgba-v2_16x16",
+      "texture": "Y:\\Graphic\\battle\\shield\\null",
+      "raster_policy": "rgba",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_16x16.txd",
+      "source_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+      "width": 16,
+      "height": 16,
+      "metadata_offset": 144,
+      "pixel_offset": 300,
+      "rgba_sha256": "4ab894760b4d2518a56d7f03e98f1c91ddb01b915a22ef9e09ab3071e1d5cb79",
+      "noop_txd_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              17,
+              101,
+              233,
+              127
+            ]
+          },
+          {
+            "x": 15,
+            "y": 15,
+            "rgba": [
+              231,
+              19,
+              87,
+              0
+            ]
+          }
+        ],
+        "txd_sha256": "f6e12bc88c84bb878abdae11f96a9abeb021dab265be91bb2532f1084d3d660b",
+        "rgba_sha256": "7e70298a7544370fc747e57905f206cc9c279acef6c9820b26b80d65c37ba8e0",
+        "changed_bytes": 7
+      }
+    },
+    {
+      "name": "std8-small-sofashadow",
+      "texture": "sofashadow",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/e01.txd",
+      "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "width": 32,
+      "height": 32,
+      "metadata_offset": 124,
+      "pixel_offset": 280,
+      "palette_packet_offset": 1304,
+      "rgba_sha256": "3f84c90fd6902418a2be5414cedc0442689e598ffae30f499b406e3a20f87c6c",
+      "noop_txd_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              128
+            ]
+          },
+          {
+            "x": 31,
+            "y": 31,
+            "rgba": [
+              0,
+              0,
+              0,
+              128
+            ]
+          }
+        ],
+        "txd_sha256": "d6d10a118975b4323177f7bc38f603974cbac9ea8b6a21acc75f5bceb484476e",
+        "rgba_sha256": "6302a34f2c92695a4019586e49a2dc2590e1b39e759e1d411b99957e0c1e59ac",
+        "changed_bytes": 2
+      }
+    },
+    {
+      "name": "std8-small-colums3",
+      "texture": "colums3",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/e01.txd",
+      "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "width": 64,
+      "height": 256,
+      "metadata_offset": 170728,
+      "pixel_offset": 170884,
+      "palette_packet_offset": 187268,
+      "rgba_sha256": "74464e13db5156856830662e2cef8aa290aaf12c364e8f02f6e63e99eed9ff74",
+      "noop_txd_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              75,
+              79,
+              44,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 255,
+            "rgba": [
+              75,
+              79,
+              44,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "770092b3f75b912ecc26624bf777f8bc502502d551806f6fac25392b71c8f64c",
+        "rgba_sha256": "ce2138a5e7afc5b8ff773f748777c666f6592f9c1b67396bde106d71c26aef39",
+        "changed_bytes": 2
+      }
+    },
+    {
+      "name": "std8-small-colums",
+      "texture": "colums",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/e01.txd",
+      "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "width": 64,
+      "height": 256,
+      "metadata_offset": 188492,
+      "pixel_offset": 188648,
+      "palette_packet_offset": 205032,
+      "rgba_sha256": "4655cb3694207848c98a71a4047032a7a8e1550eb363573f9d7c6be1549b2671",
+      "noop_txd_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              125,
+              130,
+              87,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 255,
+            "rgba": [
+              125,
+              130,
+              87,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "0fe53735d47c293b8b2547a46b387b86495ec7360f96946ebaf38e3ac66e98d2",
+        "rgba_sha256": "dfa900382359e3dd765931eb52255e4cee7dc75ca9cf5dc771e6a16e6bd8d660",
+        "changed_bytes": 2
+      }
+    },
+    {
+      "name": "std8-small-gate",
+      "texture": "gate",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/e01.txd",
+      "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "width": 64,
+      "height": 128,
+      "metadata_offset": 584556,
+      "pixel_offset": 584712,
+      "palette_packet_offset": 592904,
+      "rgba_sha256": "2898bf4626beba01f728d18631e553cc4aa84f275a63f80f720de9b869dc6b27",
+      "noop_txd_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              69,
+              97,
+              86,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 127,
+            "rgba": [
+              69,
+              97,
+              86,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "c75760c614ef061c0d4374cfecd41085b2dfb4d9163faf9670c80daabd360d8f",
+        "rgba_sha256": "653478a4192e10a2269284ae16d15c72df22ca695b42d4c1b1c38718a983335f",
+        "changed_bytes": 2
+      }
+    },
+    {
+      "name": "std8-small-16x16-church_siba",
+      "texture": "church_siba",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 16,
+      "height": 16,
+      "metadata_offset": 1202544,
+      "pixel_offset": 1202700,
+      "palette_packet_offset": 1202956,
+      "rgba_sha256": "50d6b6cf199756a3f883704737d9423e2530c5477de071d28f2436bd5537aeba",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              128
+            ]
+          },
+          {
+            "x": 15,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              128
+            ]
+          },
+          {
+            "x": 0,
+            "y": 15,
+            "rgba": [
+              0,
+              0,
+              0,
+              128
+            ]
+          },
+          {
+            "x": 15,
+            "y": 15,
+            "rgba": [
+              0,
+              0,
+              0,
+              128
+            ]
+          }
+        ],
+        "txd_sha256": "4094f5ef081a71a60fe8e5cca3689f6b1b9913120317a7a2f2864ce220dbfbe1",
+        "rgba_sha256": "fb2aac8a5caa6c57840da0542ae3ea01132157973115bcd5fdf69020c16c7f87",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-16x32-mu_columun2",
+      "texture": "mu_columun2",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 16,
+      "height": 32,
+      "metadata_offset": 158072,
+      "pixel_offset": 158228,
+      "palette_packet_offset": 158740,
+      "rgba_sha256": "32ef333a40a3e703c791f8770d10239dfdbf24911164d596ce47386aa1e2f44a",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              55,
+              94,
+              103,
+              238
+            ]
+          },
+          {
+            "x": 15,
+            "y": 0,
+            "rgba": [
+              55,
+              94,
+              103,
+              238
+            ]
+          },
+          {
+            "x": 0,
+            "y": 31,
+            "rgba": [
+              55,
+              94,
+              103,
+              238
+            ]
+          },
+          {
+            "x": 15,
+            "y": 31,
+            "rgba": [
+              55,
+              94,
+              103,
+              238
+            ]
+          }
+        ],
+        "txd_sha256": "5be2e792f2a3722ba9051a527dbebf18b4f420efdebbb203fb6b1da7454a6221",
+        "rgba_sha256": "49b9a46b0a76fd23d0a31aeeada0086141020cb71fb9241ef757a14258ac6d94",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-16x64-castle_wall02",
+      "texture": "castle_wall02",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 16,
+      "height": 64,
+      "metadata_offset": 1208244,
+      "pixel_offset": 1208400,
+      "palette_packet_offset": 1209424,
+      "rgba_sha256": "19ba8daac26a56dd80d0835ec898ec8d4a4ab5ff1593cdc176b6b9f5cc29ae40",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              99,
+              131,
+              134,
+              255
+            ]
+          },
+          {
+            "x": 15,
+            "y": 0,
+            "rgba": [
+              99,
+              131,
+              134,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 63,
+            "rgba": [
+              99,
+              131,
+              134,
+              255
+            ]
+          },
+          {
+            "x": 15,
+            "y": 63,
+            "rgba": [
+              99,
+              131,
+              134,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "16b2fe02d8f99c7d26ef9c56f7d6d34dc49f1342a210577d6b98c90cb33a34ed",
+        "rgba_sha256": "a885107335ba7e3d4426f2c7c05215515244b870c327310c7bd25514d5137a9a",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-16x128-ivy2",
+      "texture": "ivy2",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/battle-b13.txd",
+      "source_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+      "width": 16,
+      "height": 128,
+      "metadata_offset": 218984,
+      "pixel_offset": 219140,
+      "palette_packet_offset": 221188,
+      "rgba_sha256": "0c12939db95d45eab5358c5a30cdfef34a958d056e82b5ca938969804d7cc961",
+      "noop_txd_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              187,
+              187,
+              144,
+              255
+            ]
+          },
+          {
+            "x": 15,
+            "y": 0,
+            "rgba": [
+              187,
+              187,
+              144,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 127,
+            "rgba": [
+              187,
+              187,
+              144,
+              255
+            ]
+          },
+          {
+            "x": 15,
+            "y": 127,
+            "rgba": [
+              187,
+              187,
+              144,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "f11faf0155ea6ccdd1db429d3fda39ea956a66c911cff4b803a88599bd23b1f5",
+        "rgba_sha256": "0225efab4e8d549f3edfdb6d48aa5a2ac348e82870be727b423aba28073f03c4",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-32x16-stone06",
+      "texture": "stone06",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 32,
+      "height": 16,
+      "metadata_offset": 94876,
+      "pixel_offset": 95032,
+      "palette_packet_offset": 95544,
+      "rgba_sha256": "a696c97437fac1c6831b3e3ac4f73c44eadea6e9ff867d07fb4b1409d5ce540e",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              92,
+              139,
+              94,
+              255
+            ]
+          },
+          {
+            "x": 31,
+            "y": 0,
+            "rgba": [
+              92,
+              139,
+              94,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 15,
+            "rgba": [
+              92,
+              139,
+              94,
+              255
+            ]
+          },
+          {
+            "x": 31,
+            "y": 15,
+            "rgba": [
+              92,
+              139,
+              94,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "50fa7c8b5ca87981db0564e1e6b16188877376a5daa58c6f4c45e9d67f889ba0",
+        "rgba_sha256": "604a2226065c26614f793489e7b53cd3d832f3d474ffb0dd6cb0bf13aca976ff",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-32x64-colosseum_top",
+      "texture": "colosseum_top",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 32,
+      "height": 64,
+      "metadata_offset": 1181340,
+      "pixel_offset": 1181496,
+      "palette_packet_offset": 1183544,
+      "rgba_sha256": "a3cde78f3a37a647813cdee5bb7c07f25ca6fbc5dd3eb9a80b52ef7d0d305302",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              183,
+              123,
+              83,
+              255
+            ]
+          },
+          {
+            "x": 31,
+            "y": 0,
+            "rgba": [
+              183,
+              123,
+              83,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 63,
+            "rgba": [
+              183,
+              123,
+              83,
+              255
+            ]
+          },
+          {
+            "x": 31,
+            "y": 63,
+            "rgba": [
+              183,
+              123,
+              83,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "8f5b0bc5a6f6defbdaee455181dfea67bf2451a83187a5dc05e7e518b1b12256",
+        "rgba_sha256": "afd0f400a1b9b3ff78338b0521f7f4d62830c9fac7900cfe5a80e4daf1f73235",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-32x128-russia_ki",
+      "texture": "russia_ki",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 32,
+      "height": 128,
+      "metadata_offset": 118332,
+      "pixel_offset": 118488,
+      "palette_packet_offset": 122584,
+      "rgba_sha256": "ac1d3e6aaad1a78509636f0ca5bacfe2a56449508c7a461637203e3196cd67c0",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              26,
+              53,
+              59,
+              236
+            ]
+          },
+          {
+            "x": 31,
+            "y": 0,
+            "rgba": [
+              26,
+              53,
+              59,
+              236
+            ]
+          },
+          {
+            "x": 0,
+            "y": 127,
+            "rgba": [
+              26,
+              53,
+              59,
+              236
+            ]
+          },
+          {
+            "x": 31,
+            "y": 127,
+            "rgba": [
+              26,
+              53,
+              59,
+              236
+            ]
+          }
+        ],
+        "txd_sha256": "a4476409c28e5ac3fc731ce031be589563bb217d5eab89c588f5e4534ec44b6d",
+        "rgba_sha256": "75942d2d5ac14b10c5528d825f33e805f0306aa81e20254086fa92efa5f40c2d",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-32x256-roofWB",
+      "texture": "roofWB",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/battle-b13.txd",
+      "source_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+      "width": 32,
+      "height": 256,
+      "metadata_offset": 30572,
+      "pixel_offset": 30728,
+      "palette_packet_offset": 38920,
+      "rgba_sha256": "0a47c98917ec1e00f4a2c1207b29b7ee20119145680e07f13a92a36a2a09cfbf",
+      "noop_txd_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              168,
+              122,
+              41,
+              255
+            ]
+          },
+          {
+            "x": 31,
+            "y": 0,
+            "rgba": [
+              168,
+              122,
+              41,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 255,
+            "rgba": [
+              168,
+              122,
+              41,
+              255
+            ]
+          },
+          {
+            "x": 31,
+            "y": 255,
+            "rgba": [
+              168,
+              122,
+              41,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "70c6ee93e81acb0b3184929004beb82dd730cefa90ba05fe4245d93d453ee30c",
+        "rgba_sha256": "9431af14b07013d259f02c6c2a92828def0028f4e02793745f4bf2861651ef9a",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-64x16-mu_front",
+      "texture": "mu_front",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 64,
+      "height": 16,
+      "metadata_offset": 153260,
+      "pixel_offset": 153416,
+      "palette_packet_offset": 154440,
+      "rgba_sha256": "432445fe9d2a5c40818abf64aad2318a83c1168a83e1ca33dd6efd084df653ac",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              80,
+              133,
+              94,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 0,
+            "rgba": [
+              80,
+              133,
+              94,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 15,
+            "rgba": [
+              80,
+              133,
+              94,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 15,
+            "rgba": [
+              80,
+              133,
+              94,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "11e3c6834774a94825d3208243b7c18ad804fa5dc91bfd6959185b2ec9f67c88",
+        "rgba_sha256": "70a0ca636fbaac57cac56b4cb2f1247332780f74614b6327d2f541c49839c55d",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-64x32-mu_yane",
+      "texture": "mu_yane",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 64,
+      "height": 32,
+      "metadata_offset": 149828,
+      "pixel_offset": 149984,
+      "palette_packet_offset": 152032,
+      "rgba_sha256": "eef6c4806f10108e2b4f2bb26252ca468cca9688283f2c0ed336ce5a5d4fd5a0",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              125,
+              148,
+              91,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 0,
+            "rgba": [
+              125,
+              148,
+              91,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 31,
+            "rgba": [
+              125,
+              148,
+              91,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 31,
+            "rgba": [
+              125,
+              148,
+              91,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "6088c4f16f3c2809e2fb599cc8c4a6911c736e0fbf30fbd0d820c8535a9f900c",
+        "rgba_sha256": "01bd0863e8a4ec47d2aa73580acc639149d239cbc6ad118f272269c7f180d832",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-64x64-WA_mas",
+      "texture": "WA_mas",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 64,
+      "height": 64,
+      "metadata_offset": 120,
+      "pixel_offset": 276,
+      "palette_packet_offset": 4372,
+      "rgba_sha256": "bec018d90c6130b9077f7a5b510599f2060727f973fa3c81c118822b38480bb8",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 63,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 63,
+            "y": 63,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "4acbd155b5f2df8288670be382acd6d4f2b407660eca5284681f1bc7eb628ce2",
+        "rgba_sha256": "6f0f6ece09a32761bba8dfd33d640a6c615ed1ad521cfe2f565c421036396372",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-128x16-street3",
+      "texture": "street3",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 128,
+      "height": 16,
+      "metadata_offset": 79780,
+      "pixel_offset": 79936,
+      "palette_packet_offset": 81984,
+      "rgba_sha256": "250faa8b866a40b567f5057dfa87b0ecd71ad01a2e1074f0c2d95f7e249a2886",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 15,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 15,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "dd78f433fc3446ce58df0fb4b8c48de0d9687a714a4e9c755e52777ad13e6416",
+        "rgba_sha256": "5e452f3b565ff1e539fc9d968137cfe58394daa60e985a341709c46b2859710e",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-128x32-ghost_ki",
+      "texture": "ghost_ki",
+      "bundle_path": "testdata/direct-layouts.zip",
+      "bundle_key": "direct-layouts/v2_128x16.txd",
+      "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "width": 128,
+      "height": 32,
+      "metadata_offset": 1120248,
+      "pixel_offset": 1120404,
+      "palette_packet_offset": 1124500,
+      "rgba_sha256": "4b88de0de2dcc4dc3740f60dd479583240ceb8af00e57996e10ec7a52e7d1b2f",
+      "noop_txd_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 31,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 31,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "9c6bc7c6763489de5fabf78abf39bd3a689800b49e0cd36cdead795e9b104f58",
+        "rgba_sha256": "625ff9c77d52dbd5a4116a2cc46851970b27780c74e1cde5230b5a82392c901d",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-256x16-floor03",
+      "texture": "floor03",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/battle-b17.txd",
+      "source_sha256": "11b59435f095bec91164b8e4111cb50961a7088a81a0b88f530d3ce59a53cfd5",
+      "width": 256,
+      "height": 16,
+      "metadata_offset": 232360,
+      "pixel_offset": 232516,
+      "palette_packet_offset": 236612,
+      "rgba_sha256": "34610899f32d6548737853a6d4edf9bb1c776b4b9738f3a4b14522f35a19c579",
+      "noop_txd_sha256": "11b59435f095bec91164b8e4111cb50961a7088a81a0b88f530d3ce59a53cfd5",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              65,
+              52,
+              41,
+              255
+            ]
+          },
+          {
+            "x": 255,
+            "y": 0,
+            "rgba": [
+              65,
+              52,
+              41,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 15,
+            "rgba": [
+              65,
+              52,
+              41,
+              255
+            ]
+          },
+          {
+            "x": 255,
+            "y": 15,
+            "rgba": [
+              65,
+              52,
+              41,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "eda5f1ab54c02a60c3d7b1d6f82a254ff1f2de34f3bcea6edfc6b8a9d1eaf060",
+        "rgba_sha256": "a1eded53eeb018f8270333fd3f8527f92210601148d8e53696613043a1bd52a1",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-256x32-grassA",
+      "texture": "grassA",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/battle-b13.txd",
+      "source_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+      "width": 256,
+      "height": 32,
+      "metadata_offset": 294804,
+      "pixel_offset": 294960,
+      "palette_packet_offset": 303152,
+      "rgba_sha256": "18c9f25968af0d25dfae80fecf98cba1093e8bc0c84d41e639f690b08abf1cca",
+      "noop_txd_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              97,
+              126,
+              78,
+              252
+            ]
+          },
+          {
+            "x": 255,
+            "y": 0,
+            "rgba": [
+              97,
+              126,
+              78,
+              252
+            ]
+          },
+          {
+            "x": 0,
+            "y": 31,
+            "rgba": [
+              97,
+              126,
+              78,
+              252
+            ]
+          },
+          {
+            "x": 255,
+            "y": 31,
+            "rgba": [
+              97,
+              126,
+              78,
+              252
+            ]
+          }
+        ],
+        "txd_sha256": "58f2eada60ccf7c1d755ab383468c0774b1cbdb1260d7111ea4b58937d61c73d",
+        "rgba_sha256": "855b2a6034c1cf481f682ac7dea89c8f8948c4bcfb009a5ad84827bf164b3d36",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-small-512x32-bg\\e07farB",
+      "texture": "bg\\e07farB",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/event-e07farb.txd",
+      "source_sha256": "a5ce4160d63a977fa9834d68d5667db146ef8451dbbf98a44cb72bc7f56e944e",
+      "width": 512,
+      "height": 32,
+      "metadata_offset": 124,
+      "pixel_offset": 280,
+      "palette_packet_offset": 16664,
+      "rgba_sha256": "21a08b661542cc50f92ebec1bc0628edcda52150d35304629b48f076fad3f431",
+      "noop_txd_sha256": "a5ce4160d63a977fa9834d68d5667db146ef8451dbbf98a44cb72bc7f56e944e",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              214,
+              238,
+              245,
+              255
+            ]
+          },
+          {
+            "x": 511,
+            "y": 0,
+            "rgba": [
+              214,
+              238,
+              245,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 31,
+            "rgba": [
+              214,
+              238,
+              245,
+              255
+            ]
+          },
+          {
+            "x": 511,
+            "y": 31,
+            "rgba": [
+              214,
+              238,
+              245,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "16d4f48ac921d9e9e58c46bbdeb6885a0127686429c1865dcf0cfee4f36ddcd7",
+        "rgba_sha256": "8f55aab7d7770f5920450a2e225306521703010c72046cc7cd60a1196cbc41eb",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-fullpage-nuno2",
+      "texture": "nuno2",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/e01.txd",
+      "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "width": 128,
+      "height": 64,
+      "pixel_offset": 108020,
+      "palette_packet_offset": 116212,
+      "rgba_sha256": "7ff6fe45493e6ee4ff84b33c5f4c4bd5092b8601232e1ef81c3a8a4fa56aceee",
+      "noop_txd_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 0,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 63,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 63,
+            "rgba": [
+              0,
+              0,
+              0,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "8abb8b461d2da6e3ccfdfb83308f09dccaba5bdf31bb95428d5bcb76b41479ce",
+        "rgba_sha256": "f660c3bd9f37af8790af7446f4b1741a2af96acabc9047758c64b08a2409422e",
+        "changed_bytes": 4
+      }
+    },
+    {
+      "name": "std8-fullpage-maku02",
+      "texture": "maku02",
+      "bundle_path": "testdata/small-psmt8.zip",
+      "bundle_key": "small-psmt8/e01.txd",
+      "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "width": 128,
+      "height": 256,
+      "pixel_offset": 20452,
+      "palette_packet_offset": 53220,
+      "rgba_sha256": "fdade737e8a953967d85a3b0bb5d6a8549bf0c186434536d518e44f9a41d011c",
+      "noop_txd_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+      "edit": {
+        "pixels": [
+          {
+            "x": 0,
+            "y": 0,
+            "rgba": [
+              146,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 0,
+            "rgba": [
+              146,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 0,
+            "y": 255,
+            "rgba": [
+              146,
+              0,
+              0,
+              255
+            ]
+          },
+          {
+            "x": 127,
+            "y": 255,
+            "rgba": [
+              146,
+              0,
+              0,
+              255
+            ]
+          }
+        ],
+        "txd_sha256": "48155aefa88e18533b3a6a4543595fa9e4caf8f5c05917a49496052037d3d555",
+        "rgba_sha256": "089c30a9dbb0349e60fc750d46cbb8994426eeef69da40f884092725814187c3",
+        "changed_bytes": 4
+      }
+    }
+  ],
+  "psmt4_map_sha256": "15930ab5e4dbe3bbef41d0957e004db043d95e437c0c0135cc0d9d035ce12cec",
+  "exact_palette": {
+    "source_zip_sha256": "9a4f2e8e8d7ae38947aaa336525a1c2162f3bfa313bab4c42377bbf74f4e3ad9",
+    "provenance": "Independent integer-normalization/sorted-tuple and historical quantizer agreement before Go implementation; see analysis/texture-codec-remaining-contract.json. Sixth approximate row is refusal only; target hashes not supported by exact policy.",
+    "cases": [
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "goku/014_Goku.png",
+        "png_sha256": "087d483594d6c9807a25224e076eb069259973eb2fa9df8b9d1c5ef60b4a47bb",
+        "colors": 1513,
+        "refuse": true,
+        "txd_sha256": "116090852fc91d1c3ea5b42daaa8ebfbc4803972b88552da305a6c662cb57323",
+        "rgba_sha256": "4b870408ec7cf93c27a03040c5a32eaabe68ba9303b7f97587906f75f18662fe",
+        "palette_sha256": "437630b79550d2e9f2c56677dc4003032e42ad0c1aa2324036cca8789335c903",
+        "pixel_sha256": "647ce1567224cd27964f049e83fb4d41b9cc3fdfbf614f12b118226311c3cb3a",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33490
+      },
+      {
+        "texture": "mon0",
+        "bundle_key": "m_015.txd",
+        "source_sha256": "cc737ace8fd9be990f2e312034c48dc28523959be3ebbe55a8ac1f721b73a27e",
+        "png": "goku/014_Goku_mon0.png",
+        "png_sha256": "851c2065e51996ae4f628403f8061e30f3e4a2c1677a255b2cea6521285f55df",
+        "colors": 51,
+        "refuse": false,
+        "txd_sha256": "ce83eb5e5d446f02350a1d4b2fe67245d81b4425010d903571a36fc1427b4813",
+        "rgba_sha256": "464091fdc09a76774479467998abf3324a41eb8ae311c0e3b8f49b12ca2bf35e",
+        "palette_sha256": "2b278e59a8935fa850939dc5451d8ae61aca468545b295430506a907553f1cfb",
+        "pixel_sha256": "692f28f42776bce27f73da11f34aa4f7c4978c69704cd6432b3d68262e0f7919",
+        "allowed_byte_ranges": [
+          [
+            267940,
+            333476
+          ],
+          [
+            333556,
+            334580
+          ]
+        ],
+        "changed_bytes": 65987
+      },
+      {
+        "texture": "mon1",
+        "bundle_key": "m_015.txd",
+        "source_sha256": "cc737ace8fd9be990f2e312034c48dc28523959be3ebbe55a8ac1f721b73a27e",
+        "png": "goku/014_Goku_mon1.png",
+        "png_sha256": "2271b88c8807d281be8f996aeba7cc8f446453946e21ccd3574fc76746e3fbc2",
+        "colors": 44,
+        "refuse": false,
+        "txd_sha256": "8e8b7be4d24b8e2202491fff3e42ea7ca0dea5ba1b44a2a8c1aa5eaf74ae69a0",
+        "rgba_sha256": "d713058b75c2731497d9863b3e1c89fbff7d955870fee0ecfed6045b337546c0",
+        "palette_sha256": "44aeb53b463596eee80492d94130ab340d5f0230baf6bd3db21b6070b746ffd0",
+        "pixel_sha256": "16841e9ddea04ad6a99e34793554d85e2e7d44744dc619d56d0f6e75e593a5b3",
+        "allowed_byte_ranges": [
+          [
+            201024,
+            266560
+          ],
+          [
+            266640,
+            267664
+          ]
+        ],
+        "changed_bytes": 65942
+      },
+      {
+        "texture": "mon2",
+        "bundle_key": "m_015.txd",
+        "source_sha256": "cc737ace8fd9be990f2e312034c48dc28523959be3ebbe55a8ac1f721b73a27e",
+        "png": "goku/014_Goku_mon2.png",
+        "png_sha256": "c6769e6cb9867c5505bd97e8c38da6afeedfcf1012752fe66a72a018be52a7fe",
+        "colors": 51,
+        "refuse": false,
+        "txd_sha256": "9db97a68dce5bc6ccc149e0dede0b25e35cdd712222075797975310d5532ee5f",
+        "rgba_sha256": "e76323a6154e9c2cf8a0f9285d590e285a451be9e36a9f93556e4f8f70890831",
+        "palette_sha256": "ab564c3fdfc7038cc93bf56ced127a15228e4ed9d2ce04feaf7dff10508acee9",
+        "pixel_sha256": "ea37a5b9a3df65ed720205becafa72dd2996222cccfe9914834737e5c3f005b4",
+        "allowed_byte_ranges": [
+          [
+            134108,
+            199644
+          ],
+          [
+            199724,
+            200748
+          ]
+        ],
+        "changed_bytes": 65662
+      },
+      {
+        "texture": "mon3",
+        "bundle_key": "m_015.txd",
+        "source_sha256": "cc737ace8fd9be990f2e312034c48dc28523959be3ebbe55a8ac1f721b73a27e",
+        "png": "goku/014_Goku_mon3.png",
+        "png_sha256": "29f86b8f766850864d5ce20cfc9b2ee22a5c9e510951c14a7e085e23b7ca224a",
+        "colors": 44,
+        "refuse": false,
+        "txd_sha256": "bbaf80bba81534dd990e84f9ba49e14e56be6912c4940912632f93c842e7808b",
+        "rgba_sha256": "1ab1cccf1e978fce860f1645c78309fa049d4cf7cc24324c357f2adabc63c460",
+        "palette_sha256": "04ac43bb4759042f1863122c777ccf250d5159589cf04d87809b1571bfb939a6",
+        "pixel_sha256": "6a74d6d8f10e9e428c629e2ebbb9647b7141370b98c239b44db778c141af0e15",
+        "allowed_byte_ranges": [
+          [
+            67192,
+            132728
+          ],
+          [
+            132808,
+            133832
+          ]
+        ],
+        "changed_bytes": 65103
+      },
+      {
+        "texture": "mon4",
+        "bundle_key": "m_015.txd",
+        "source_sha256": "cc737ace8fd9be990f2e312034c48dc28523959be3ebbe55a8ac1f721b73a27e",
+        "png": "goku/014_Goku_mon4.png",
+        "png_sha256": "b0fda17ee489f9c6572297f91f4217002d419acc0cfacf8054425ca3c8808a67",
+        "colors": 78,
+        "refuse": false,
+        "txd_sha256": "96e30c360d3767a661686bdadd079ad86966f2288b0f4f61fc03adec880b6a6b",
+        "rgba_sha256": "a2ed65a1f35d20df05dab1f7869470150429309b79ad9002fe72102f80c09305",
+        "palette_sha256": "5255ba1f1e95758850564ccb0a94ed10bb2d8dc51c037a0c3c28d73456f8062f",
+        "pixel_sha256": "7c968b2a8edace4bcd20e412a03b0cb6f588ba198544306626763221d8527807",
+        "allowed_byte_ranges": [
+          [
+            276,
+            65812
+          ],
+          [
+            65892,
+            66916
+          ]
+        ],
+        "changed_bytes": 65720
+      },
+      {
+        "texture": "sofashadow",
+        "bundle_key": "small-psmt8/e01.txd",
+        "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+        "png": "small-psmt8/exact-32x32.png",
+        "png_sha256": "0f514cfa571d7a32efc97c95eb7ac79ecbbc1451beee8e67095c3cfe7d64bf44",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "14d6e8938f96c8c2f8e24aad0e02a9844a66e7072d22f2c166a651844c67fb1d",
+        "rgba_sha256": "365f8e9156ddffe1fd2ef404ceca4b265fd32ef0f444fbd340b1b8f3ef585365",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "e4326581726bb772ba9e09b258e60e45df1edc92e6e291e360a1291446070eff",
+        "allowed_byte_ranges": [
+          [
+            280,
+            1304
+          ],
+          [
+            1384,
+            2408
+          ]
+        ],
+        "changed_bytes": 1395
+      },
+      {
+        "texture": "colums3",
+        "bundle_key": "small-psmt8/e01.txd",
+        "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+        "png": "small-psmt8/exact-64x256.png",
+        "png_sha256": "bc39540d188802803bef459bd21ee8e6aac773439c2523f201bf09bdf87d8230",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "f071677a1310283f379524bd7c2f1353f3ea5166b853df59d7ec24abe2e13dfa",
+        "rgba_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "bec2098dc55f4b85960b6212fcfc6262d6cd68745b4c1288178298d5d43134e9",
+        "allowed_byte_ranges": [
+          [
+            170884,
+            187268
+          ],
+          [
+            187348,
+            188372
+          ]
+        ],
+        "changed_bytes": 17388
+      },
+      {
+        "texture": "colums",
+        "bundle_key": "small-psmt8/e01.txd",
+        "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+        "png": "small-psmt8/exact-64x256.png",
+        "png_sha256": "bc39540d188802803bef459bd21ee8e6aac773439c2523f201bf09bdf87d8230",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "98aba456f3c06a002c6518ddd196606436c8e6eaef906f061d71a1c283abdd90",
+        "rgba_sha256": "a55669a1454272eb97ece2e17fe5faafdacc1db2f5918009eddd68fbd7defe7b",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "bec2098dc55f4b85960b6212fcfc6262d6cd68745b4c1288178298d5d43134e9",
+        "allowed_byte_ranges": [
+          [
+            188648,
+            205032
+          ],
+          [
+            205112,
+            206136
+          ]
+        ],
+        "changed_bytes": 17393
+      },
+      {
+        "texture": "gate",
+        "bundle_key": "small-psmt8/e01.txd",
+        "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+        "png": "small-psmt8/exact-64x128.png",
+        "png_sha256": "4a55737d6704f36561215644da940c4030b3f8125c38edc0153994fc4e5ee9ab",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "54b1cf2968e9430c6af8d6e6aa14ea5977b88e4e4f66ca7dc957a7449c8c1cee",
+        "rgba_sha256": "a5a7fbca1446263a471325a931c991d0c60ae59f8a874eef4e4aa5d18948294e",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "7591cfde1c8f0ff1c73aca96e428d5cc2ce825bac49c17b5437a19eb93f0de1e",
+        "allowed_byte_ranges": [
+          [
+            584712,
+            592904
+          ],
+          [
+            592984,
+            594008
+          ]
+        ],
+        "changed_bytes": 9205
+      },
+      {
+        "texture": "church_siba",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/16x16-exact.png",
+        "png_sha256": "ee8201e33be07c6a3b4e07cc16282ef071e8db2fd1028e90332d253d837f972e",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "9369fe41a99d321a985a38e603597f7778f2abc4ebaf75f8564ccdb8e1f10cdf",
+        "rgba_sha256": "4dbfdbb7fc501175ac3f67f52c690e9430c3b449bc41ca189c65b8a4f87bc2f7",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "bf3334886fc02e9070b1c6000c6f9e3975ea498e9153d5dfe1099d99a9d79b5b",
+        "allowed_byte_ranges": [
+          [
+            1202700,
+            1202956
+          ],
+          [
+            1203036,
+            1204060
+          ]
+        ],
+        "changed_bytes": 1220
+      },
+      {
+        "texture": "mu_columun2",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/16x32-exact.png",
+        "png_sha256": "cb168935b54bd05e96d0dfac0ba3637dd429a899790924d0cb65436d2506a727",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "d75931d0a82a18ceacc16448f75769c2aa1ba198c9cc97d07d259f0d53e4a887",
+        "rgba_sha256": "760cbfcbc13798f1368340711771f013354c795bec4c3ab019096481333e8449",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "cff25ccf5ac8ce74031b61331878eab3c9e52302efe6572f51e2812848f878a7",
+        "allowed_byte_ranges": [
+          [
+            158228,
+            158740
+          ],
+          [
+            158820,
+            159844
+          ]
+        ],
+        "changed_bytes": 1476
+      },
+      {
+        "texture": "castle_wall02",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/16x64-exact.png",
+        "png_sha256": "2badf4a0c1d48409f07db535965067b72479245d48c7c47aed236755d104dd3b",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "3885def44418efa7e6c33a7be1d18d90edb6809dfc8394bf57271b7436bf2174",
+        "rgba_sha256": "88ee1cc55a4aa2fa9120563de567ffacfe934b93e8a38e4f3d8700a6574d597a",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "b82dd9d6ccd1ffdd1e8c6c5b52d38b72ea2fa5f39c8285a4b88c9c58b2e4d611",
+        "allowed_byte_ranges": [
+          [
+            1208400,
+            1209424
+          ],
+          [
+            1209504,
+            1210528
+          ]
+        ],
+        "changed_bytes": 2046
+      },
+      {
+        "texture": "ivy2",
+        "bundle_key": "small-psmt8/battle-b13.txd",
+        "source_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+        "png": "small-psmt8/16x128-exact.png",
+        "png_sha256": "b0459b91ef6e2a17b8c66ac59f8468b469af74136eb779b8e10fda934278a6f4",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "d10952eb53fdab45b6fd82395e2135be9072adae778866aab771533281eff199",
+        "rgba_sha256": "7626de171209b22ca1d836e8950ed18bb71d51cf56d73597706297ff65ffc541",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "4b4abe73100929e4cc0e99a3f204105540291791d2f4e3c3998dc971a7ebb605",
+        "allowed_byte_ranges": [
+          [
+            219140,
+            221188
+          ],
+          [
+            221268,
+            222292
+          ]
+        ],
+        "changed_bytes": 3070
+      },
+      {
+        "texture": "stone06",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/32x16-exact.png",
+        "png_sha256": "5935222ca67881feeb40ea6b07341ec37d0df76298db19eea203beee02062666",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "31f2d17eb70485a236458f8cc8269b55d3691f771ad781443524b4653ccd9106",
+        "rgba_sha256": "935ac8f4f2b1ade40d82a3e3192a2fa1295c79a5d522a4681c1f9e216227a628",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "84b25c57e0aa0e18923b3bd101b99dd6064106dd8de2f9b00bf913931b3996ff",
+        "allowed_byte_ranges": [
+          [
+            95032,
+            95544
+          ],
+          [
+            95624,
+            96648
+          ]
+        ],
+        "changed_bytes": 1533
+      },
+      {
+        "texture": "colosseum_top",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/32x64-exact.png",
+        "png_sha256": "c435f6456303ce232167274a121a45d478810759f2511881f998a554505d14c5",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "5fa561da8c43a9bd5edaa1c0a9376843ea5d92002467753c15d65739476e8884",
+        "rgba_sha256": "4ef19d51cd75de5dc0b48a42826b645da173a85bab3d339f45adc1aee8c99e33",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "06fff291e71a2dbb6ae859d894731f1841a964ae51d6bb66c5f3734a763ff3fa",
+        "allowed_byte_ranges": [
+          [
+            1181496,
+            1183544
+          ],
+          [
+            1183624,
+            1184648
+          ]
+        ],
+        "changed_bytes": 3070
+      },
+      {
+        "texture": "russia_ki",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/32x128-exact.png",
+        "png_sha256": "395d9eee12c9dd0909f1547e8b9e3325b7a5e28a041df12a9cfd2ec1086e6220",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "1898cc8f7e5a3bd8156be5cbea38f41941c088460cf60c411f0262dc8d27c58f",
+        "rgba_sha256": "70225a11b3269aea4b7fee25c31873c107f815da0e3910344ba3cd6627e1cff4",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "3e7f36e9f90993fe62cf282a31bb82949270a0927909a197d241e5e7838bb1b5",
+        "allowed_byte_ranges": [
+          [
+            118488,
+            122584
+          ],
+          [
+            122664,
+            123688
+          ]
+        ],
+        "changed_bytes": 5114
+      },
+      {
+        "texture": "roofWB",
+        "bundle_key": "small-psmt8/battle-b13.txd",
+        "source_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+        "png": "small-psmt8/32x256-exact.png",
+        "png_sha256": "82e3dfa06a4e2efe83220015d1d635a781a6c790ed76582d5e07daca361b1954",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "47208f9339994427c29ebc7605607a1ca1eb6e25eaf8bdf56050e58da7cb42e2",
+        "rgba_sha256": "dcacb754ede288772bcaed1b8c620f67dc7ec8cbeac7a8b40218ab6c46f7104b",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "ac64b089c2e897c02ddb6dcda697fbdb8630cc51742a874726015199c5a05104",
+        "allowed_byte_ranges": [
+          [
+            30728,
+            38920
+          ],
+          [
+            39000,
+            40024
+          ]
+        ],
+        "changed_bytes": 9211
+      },
+      {
+        "texture": "mu_front",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/64x16-exact.png",
+        "png_sha256": "bb3bb2b9aadbc82ef39dc3af3dbe283e190b25bd4df588ed8fd3c3a71d252546",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "038e95672027efa971ea64d5d8ca523e7cec027cbbdb8e10d6de77648ce560f9",
+        "rgba_sha256": "c06d121b71a32618bf4e9459d81353d32693abed025e8e08ea3835871ab95351",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "3f69ac3f86d2607ef18582e21936df4e2ede4876ef40eac6a6348c16c66fc7a5",
+        "allowed_byte_ranges": [
+          [
+            153416,
+            154440
+          ],
+          [
+            154520,
+            155544
+          ]
+        ],
+        "changed_bytes": 1916
+      },
+      {
+        "texture": "mu_yane",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/64x32-exact.png",
+        "png_sha256": "d484f7f6c23420f351a1f589d04a202cf623eb807ffeea3046af5d21b65005b9",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "d58294e37027873a54d40fafadd1e36d19d2a5530c95f3399fa02a41ec4b1124",
+        "rgba_sha256": "94c6aa9583ba0def9ca42590f39611d01a56931e7fb9661fbb79c2883e93077f",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "f0808fc5f4f165ce5abc9e43ea0317a188eb71f866b6cba3902d0c5f56fe861b",
+        "allowed_byte_ranges": [
+          [
+            149984,
+            152032
+          ],
+          [
+            152112,
+            153136
+          ]
+        ],
+        "changed_bytes": 3066
+      },
+      {
+        "texture": "WA_mas",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/64x64-exact.png",
+        "png_sha256": "69871f987cccb0b4c32182082f571ad4785d89888526f7d8224e355f19843312",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "8564ff3f1284a9a15012cdc6340d6ac39aa597e77c7c4c45b048e328be963463",
+        "rgba_sha256": "caeab69bb1bfce8108b1fd281f53c9729ee40e7e1342dbce6e6473fd0cb2ccb3",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "ac9af8e58f7027304e91eb5a33b966bd1f830d202131689b7fe94510ef59658f",
+        "allowed_byte_ranges": [
+          [
+            276,
+            4372
+          ],
+          [
+            4452,
+            5476
+          ]
+        ],
+        "changed_bytes": 5048
+      },
+      {
+        "texture": "street3",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/128x16-exact.png",
+        "png_sha256": "99c42762f81de148b141bf86f7dcd675d0438882502666aa7cad8135bb641e9b",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "ab4bb4c4240156508013721553b42c98ce987b3dd2ecb912c65a47dc44990083",
+        "rgba_sha256": "0203d3dcd7951c8abea9824cbb215a91c796bfd6095aaab78492ba2a73f0d157",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "2ad80e00c569323701cf83a2598a6c7935f1d0e34d12dff2fc15e05a20c9f16c",
+        "allowed_byte_ranges": [
+          [
+            79936,
+            81984
+          ],
+          [
+            82064,
+            83088
+          ]
+        ],
+        "changed_bytes": 2329
+      },
+      {
+        "texture": "ghost_ki",
+        "bundle_key": "direct-layouts/v2_128x16.txd",
+        "source_sha256": "a6ded445d30f6bf58f4e9a4b129a3153405cd795ef1a0d8ed082701617b31405",
+        "png": "small-psmt8/128x32-exact.png",
+        "png_sha256": "e5a7aa8cb34a71daf7fae26c0fda0978573b1d83b86dd66323d19c26a499e184",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "61dba7ff899776909c030d2f4c39746c52ff153aa0119680d0631a575d5ffcf0",
+        "rgba_sha256": "27531221a2e7a125f77cb507bc3a9db79952bd8ac2a6353f693071eb325d3a38",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "c7798a241f46f52ebb5a08c7789f182e56ca1001fcee5e64f67739b9302b294b",
+        "allowed_byte_ranges": [
+          [
+            1120404,
+            1124500
+          ],
+          [
+            1124580,
+            1125604
+          ]
+        ],
+        "changed_bytes": 4843
+      },
+      {
+        "texture": "floor03",
+        "bundle_key": "small-psmt8/battle-b17.txd",
+        "source_sha256": "11b59435f095bec91164b8e4111cb50961a7088a81a0b88f530d3ce59a53cfd5",
+        "png": "small-psmt8/256x16-exact.png",
+        "png_sha256": "5cae00ea67bfd3c69db0a06c643f9b6e12fa5851609632aa258bea4c3e39d8af",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "f0154478d35636a375ba7c3ce6e3057d927f0c49458feadf10871f42ae18cfb3",
+        "rgba_sha256": "0894842806f9570d2a3bc3ce35a4908232b8039780269b981e7ff4e1a561f1e6",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "df102e49690016ff7eb91f86a3813c0da1447dd649e945658e5aaa027f4c3f77",
+        "allowed_byte_ranges": [
+          [
+            232516,
+            236612
+          ],
+          [
+            236692,
+            237716
+          ]
+        ],
+        "changed_bytes": 5113
+      },
+      {
+        "texture": "grassA",
+        "bundle_key": "small-psmt8/battle-b13.txd",
+        "source_sha256": "6f7737e4ce856794ab6554b48863bb897bc9ddabf177d3e9aee6aeab5d356a1a",
+        "png": "small-psmt8/256x32-exact.png",
+        "png_sha256": "b0f924cff1e7ba1306864db3ead955662901e2fe47818f6a020069ea83c95a1a",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "be8c90f50f44985972dd74390fdff24bf1911a568a14c84b452e7fbcce54fa4e",
+        "rgba_sha256": "616154ef18f15ca16e8c07f42e28f89bf6245478ec799253521e154fb802ee75",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "5dd795f383393dabe60a2d1872654a366f861cb9adf92d5cff7afcb042b71e40",
+        "allowed_byte_ranges": [
+          [
+            294960,
+            303152
+          ],
+          [
+            303232,
+            304256
+          ]
+        ],
+        "changed_bytes": 9198
+      },
+      {
+        "texture": "bg\\e07farB",
+        "bundle_key": "small-psmt8/event-e07farb.txd",
+        "source_sha256": "a5ce4160d63a977fa9834d68d5667db146ef8451dbbf98a44cb72bc7f56e944e",
+        "png": "small-psmt8/512x32-exact.png",
+        "png_sha256": "65a657fa6b4deadd07288ad431f2e9ad5a19c9e8fafb85a9badb64e1631548a4",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "a665f0c2a0318c6dba3f289cc772b467379b5e73d2092a69d5e592941dc4049b",
+        "rgba_sha256": "6d5f8fbd225650145f9d6d3acae29fa7fea5d3f9a451603e2b974419bace842b",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "ffea591108f28ff3999ad6bc2928c4a046b15c19d5a2e56d2a0b4a8e297f36e4",
+        "allowed_byte_ranges": [
+          [
+            280,
+            16664
+          ],
+          [
+            16744,
+            17768
+          ]
+        ],
+        "changed_bytes": 17340
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "goku/014_Goku.png",
+        "png_sha256": "087d483594d6c9807a25224e076eb069259973eb2fa9df8b9d1c5ef60b4a47bb",
+        "colors": 1513,
+        "refuse": false,
+        "txd_sha256": "116090852fc91d1c3ea5b42daaa8ebfbc4803972b88552da305a6c662cb57323",
+        "rgba_sha256": "4b870408ec7cf93c27a03040c5a32eaabe68ba9303b7f97587906f75f18662fe",
+        "palette_sha256": "437630b79550d2e9f2c56677dc4003032e42ad0c1aa2324036cca8789335c903",
+        "pixel_sha256": "647ce1567224cd27964f049e83fb4d41b9cc3fdfbf614f12b118226311c3cb3a",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33490,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "quantize/unique_variance_frequency.png",
+        "png_sha256": "ef04bd9eaf1f46e2132fefd56777ed51e4137cd2611c4385479cdc59bc4d59c9",
+        "colors": 257,
+        "refuse": false,
+        "txd_sha256": "66b321767c534c5e33ed31bb3b796bb587973c20504044cc3c7d315ad100260a",
+        "rgba_sha256": "1737f442e714ab2c912ac9474539618be4f74aec41b4f05ae307aa5195865546",
+        "palette_sha256": "8d241e074cbbaae02b620d78cbd6f2eebffe98392163d8d2147c7cc84dc3b30a",
+        "pixel_sha256": "733d082b3c84ca75d669eda58824d8eb86e6cf1230ea7dcd64aa0b93e37c5d39",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33387,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "quantize/stable_channel_box_ties.png",
+        "png_sha256": "0b52097c1c3a254eea3045b12822fd04c96a1f6edbe8e5e2e30868f8411b9f69",
+        "colors": 289,
+        "refuse": false,
+        "txd_sha256": "177fc0632ec596bcbeac080ae3763037ba9ac20dffff278d38455374f0ebc909",
+        "rgba_sha256": "ea9822f78389954a5e0cc5aa632fd81050891a82a4a01ca55e738772bed5dde1",
+        "palette_sha256": "9eddbf12f9a72e1ad280f4e09a200b1bf2aaffa947507311c06a951ac1b437f5",
+        "pixel_sha256": "cfbbf979d4ee0a5fa24fe96136eebf8433eaca14d070efa88a263b177ca270b7",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33412,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "quantize/rounding_257_boundary.png",
+        "png_sha256": "f07d6e5fa386ecacf12f2a5ec74b215f48a6584d47ab3102900eecd79f5e6f39",
+        "colors": 257,
+        "refuse": false,
+        "txd_sha256": "e39a386328562895fcf4dcc2808ebe5cc93ccda8c694f2f8b8641a6155b764a4",
+        "rgba_sha256": "e1d6f76eda4b12baa24206f14cfabab54fb8505e48ccc8b4b816ebaad0c1b668",
+        "palette_sha256": "5cf10bdf366e0c3b2c0043f5909bce4e99be51a2d4cfaed97ca8454391a9d7ea",
+        "pixel_sha256": "c3e050e529bbbd85c68c19f1e2f5e5d685536e22ad2079d76d3f2ea1fe47f037",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33425,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "quantize/transparent_odd_alpha.png",
+        "png_sha256": "5eeb12e3b405a638fa5402c37212da638eebd0b4c9f81bf2c6dc041d3514a23f",
+        "colors": 514,
+        "refuse": false,
+        "txd_sha256": "94d5a57ae121a9962031338387cdfb0924faaeb92ffb1e84fcefbe51a20877d7",
+        "rgba_sha256": "339821c741ad6a44d166d498bb6316757a504917c76b7483949fb151c63c75c4",
+        "palette_sha256": "5219cf82dc52e345ea03863fadf76a5904af9026dae3efe3b4ad984e9d508d7a",
+        "pixel_sha256": "76353274e67f4770cd21711f27d0b63683996334ad09449e9e20ef582c1c6fd1",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33645,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "quantize/lloyd_eight_iterations.png",
+        "png_sha256": "1d3e8ca0f261fc400498e9986f17d8f11a8a4f7805747e344c15f9af3c8b61ff",
+        "colors": 769,
+        "refuse": false,
+        "txd_sha256": "e8182051e9731a23ec030baa08d7f3778c05de6d8e8a48554b86f9a6fe2a1376",
+        "rgba_sha256": "b3a9140aca7fa8eaa42840145425f7edf9cf94ddece717d273692860b3955958",
+        "palette_sha256": "da188c8a7de9644a34c26fdc2b0b2ef5e56f40906d1899742e685e027b028575",
+        "pixel_sha256": "f268822a4e05c26cbb99aa63ff359e55e05b27c563c1aea094e8ecc3f709f952",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33609,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "Y:\\Graphic\\battle\\textures\\mons",
+        "bundle_key": "vsm_015.txd",
+        "source_sha256": "71ca2db3c9e7a0b58e25085f5927b99f8c9f3672917c99df1fba873f52e71ffc",
+        "png": "quantize/exact_256_boundary.png",
+        "png_sha256": "c142f83107e8f6a81cb7b84c17abdae0c9b362262512e34867caed7a14575c12",
+        "colors": 256,
+        "refuse": false,
+        "txd_sha256": "f902187c838d426f47d85b52a21ad9238588fcd75567c51ac6848de5c7f520c7",
+        "rgba_sha256": "33368dabc5822fb2b14ff7e2cac31e5eb291ee2735489ba649e798c619ee3f99",
+        "palette_sha256": "539daf4d77795947b88c08d8602f2d07394305231fe0a27ff7cdbd514123134d",
+        "pixel_sha256": "7df02ca880273aeaac3bf4c06cb52104103e19b5a5397bbcc2bad9b112e1b52a",
+        "allowed_byte_ranges": [
+          [
+            300,
+            33068
+          ],
+          [
+            33148,
+            34172
+          ]
+        ],
+        "changed_bytes": 33480,
+        "palette_policy": "quantize"
+      },
+      {
+        "texture": "nuno2",
+        "bundle_key": "small-psmt8/e01.txd",
+        "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+        "png": "small-psmt8/fullpage-nuno2-exact.png",
+        "png_sha256": "e389771c7e46dbb2b790f93055a18dc9ff3eeb60c7e06dbffdafb653dc7c08c7",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "396c30ba039ec3d9f5fa4d90ab2d4866ee45a5bbad9c36efc518871f773b0e76",
+        "rgba_sha256": "4455a0c6fe7c2f3961607cb4a575539781acf1650507b75ceee1ca61c6250934",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "01e1c76a5de0df4e3a7719f93bd8a9f3bd56e5be481932cd36e49acd79e7490a",
+        "allowed_byte_ranges": [
+          [
+            108020,
+            116212
+          ],
+          [
+            116292,
+            117316
+          ]
+        ],
+        "changed_bytes": 8597
+      },
+      {
+        "texture": "maku02",
+        "bundle_key": "small-psmt8/e01.txd",
+        "source_sha256": "56f0659174ce2dd8c9c1d63821c3fe8b05a090ab5937dd65f0105f729a4c2d0f",
+        "png": "small-psmt8/fullpage-maku02-exact.png",
+        "png_sha256": "cb459cd85daf2be172f86ca15f829b297bf7617b3fe8262ce7723b3e89d14bd6",
+        "colors": 4,
+        "refuse": false,
+        "txd_sha256": "9b1c854f8dca064f2e672a83b3aaac5f14553acd42320d0c052c391a174af331",
+        "rgba_sha256": "8dce42cb52579390cffcd25ba11cb80fc9156ef951b56b48a2dcc57628549fb3",
+        "palette_sha256": "35a11d8cde26b1f10728bb3225e41692e032ca932870ff1f6d58a17bd96bd511",
+        "pixel_sha256": "313c4965427efc4ad15523d9b0cce455f98fa059987c0ecf066e9e056642756d",
+        "allowed_byte_ranges": [
+          [
+            20452,
+            53220
+          ],
+          [
+            53300,
+            54324
+          ]
+        ],
+        "changed_bytes": 32805
+      }
+    ],
+    "quantize_provenance": {
+      "contract": "analysis/approximate-palette-reuse-contract.json",
+      "sha256": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
+      "scope": "Seven independently frozen preimplementation whole TXD/CLUT/pixel/RGBA cases; original real source and PNG reused unchanged, six synthetic PNGs appended. Exact remains strict."
+    }
+  },
+  "multipage_psmt4_zip_sha256": "40fe9e09f4cbe4a9e6709c9c9df52c8fd822081e9f64168a4717a707764d3c87",
+  "direct_rgba_zip_sha256": "f68049151fb391e4888b2d4d33e4c81df3f21973d46a2474e3bca755fb8b510b",
+  "direct_layouts_zip_sha256": "58a7d87ab9ec57e0d9a6908be513d8bfccd2038488ecc6ff04aba2c9ae156443",
+  "small_psmt8_zip_sha256": "a8e60bcefda173823307e240c34fea3c8d1640c5c5f2c00f36fbb65e6170faaf"
+}
