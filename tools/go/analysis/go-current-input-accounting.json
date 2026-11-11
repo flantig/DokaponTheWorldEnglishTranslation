@@ -145,12 +145,12 @@
     },
     "go_tests": {
       "files": 1,
-      "bytes": 775840,
+      "bytes": 842109,
       "items": [
         {
           "path": "patch_test.go",
-          "bytes": 775840,
-          "sha256": "7a01ef95110a7bbf6dbc0ba8c756fb3160acf14cfab5718321d3577f0c67ade7"
+          "bytes": 842109,
+          "sha256": "abc478f51de5339d5cea55bb3287335ce249e7ae42a25f2c5b4213cb7a3afc6f"
         }
       ]
     },
@@ -181,13 +181,13 @@
       ]
     },
     "production_go": {
-      "files": 47,
-      "bytes": 562270,
+      "files": 48,
+      "bytes": 607520,
       "items": [
         {
           "path": "cmb.go",
-          "bytes": 11642,
-          "sha256": "0c03c31a74ff0d96a0c40cf2bfbb82ccbf2b45a76eca88a21642189acbc2d0e2"
+          "bytes": 11674,
+          "sha256": "5868b48f9923c6975227d03d3b124e6aa9aac653dadbd8144a48f9b0989efabb"
         },
         {
           "path": "fit.go",
@@ -211,18 +211,18 @@
         },
         {
           "path": "input_types.go",
-          "bytes": 1106,
-          "sha256": "b390d0df1b57dd9c7678708d4cab5a333cedd24fd8cfc508d691590796fe2fbf"
+          "bytes": 1241,
+          "sha256": "c98f6a3be0a6004d493561b11e838164ca9a4466af40afe8840a351e00d07686"
         },
         {
           "path": "inputs.go",
-          "bytes": 4966,
-          "sha256": "f37e980aebc9e5042bef967fba13956c36a11ea2319ea3a351aa8caa69ba4e8a"
+          "bytes": 5450,
+          "sha256": "e475b60804b68bc3e726919da0bca763b988034412ed1dcc4d45b0cf20084601"
         },
         {
           "path": "main.go",
-          "bytes": 24404,
-          "sha256": "577be3fb49b604e82eb5714b289ce2b49a0bcf66f8750151148fa89c6cd73956"
+          "bytes": 24869,
+          "sha256": "1a668e39ebd568979ea0372f42b6ca18d88bc303251507877285b9d7778bd00c"
         },
         {
           "path": "outputs.go",
@@ -231,8 +231,8 @@
         },
         {
           "path": "patch.go",
-          "bytes": 119159,
-          "sha256": "26efa9a2edfd373949d443b6935dea5b7b6e0409e09e3ea9a05ee71dd9015ef9"
+          "bytes": 119190,
+          "sha256": "8ec61b328840697941ed9e279ea2922ec7401c989409c84d366eb981b87a7c8d"
         },
         {
           "path": "raster.go",
@@ -281,8 +281,8 @@
         },
         {
           "path": "recipe_types.go",
-          "bytes": 6583,
-          "sha256": "d77ea5881e6c52c9dd5c4e93200429e8a7228d25b629d5debfe95008406163fe"
+          "bytes": 6673,
+          "sha256": "1a914d1bdfb4cf84ccc017cafa60d3da8fa692c242b68bad94784c5a6739b8df"
         },
         {
           "path": "reference_geometry.go",
@@ -296,18 +296,18 @@
         },
         {
           "path": "references.go",
-          "bytes": 41133,
-          "sha256": "3ff8cdc675a137dc50a39a89cc2fffc428e5fb03b6c8aced3c627eb939fb8ac2"
+          "bytes": 41166,
+          "sha256": "0d55fd8cbc2fa689132e16b480bd9a4b5f43562b0fcfc36b71f46398480c8755"
         },
         {
           "path": "registry_authoring.go",
-          "bytes": 33203,
-          "sha256": "e5c59fb2d492ba7bc9122793c7c090d076f122872f1e1415380b1876d97baa41"
+          "bytes": 69116,
+          "sha256": "ffb9a9295d126b34c8e1aef25810ed9cfd5cd7b11f6c80ca8642e62cecc7d14b"
         },
         {
           "path": "registry_types.go",
-          "bytes": 983,
-          "sha256": "af1a42a643d6561713789d35982a0ed69bf41a4ab9a414bee4f635a67b6a6e0e"
+          "bytes": 3339,
+          "sha256": "290af23dd6a6bde6699d6be43dbc754ae31214f50717441f5a465e718f0d18f0"
         },
         {
           "path": "snapshot_types.go",
@@ -418,12 +418,17 @@
           "path": "raster_mask_types.go",
           "bytes": 3271,
           "sha256": "a73f96ed05c0054f696eefd54a7b0ddba73eca6245c548edc58c44aa80f0cc4d"
+        },
+        {
+          "path": "registry_human.go",
+          "bytes": 5711,
+          "sha256": "3cf8e22ca6f5dde3ecb18297cc9ad8cd6fa7e936513a5e2b1a4a11b89676eae8"
         }
       ]
     },
     "recipe_tables": {
-      "files": 52,
-      "bytes": 419065,
+      "files": 57,
+      "bytes": 668086,
       "items": [
         {
           "path": "recipes/assets/cmb-members.json",
@@ -684,12 +689,37 @@
           "path": "recipes/text/village-chief-reflow.json",
           "bytes": 14697,
           "sha256": "0e8635d66fb576049515c51e0b8f5ad0c072acf64749605eb734fa99a36585e7"
+        },
+        {
+          "path": "recipes/registry/human-authored.json",
+          "bytes": 25585,
+          "sha256": "7aa3257589f98cf3b7e070c62e1794e839dd87c9b38df467cd92ec7f3947b3d0"
+        },
+        {
+          "path": "recipes/registry/terminology-corrections.json",
+          "bytes": 45039,
+          "sha256": "3d97c09643d7559cdf192f19dd4075564721254b6548cf52b1e6506c6b244266"
+        },
+        {
+          "path": "recipes/registry/terminology-glossary.json",
+          "bytes": 14775,
+          "sha256": "9f2cf61291a09fc39a14cd53c00987c92767769ebaee1e3d1d8769053230e676"
+        },
+        {
+          "path": "recipes/registry/reward-marker-orders.json",
+          "bytes": 1495,
+          "sha256": "9a976fc848e81aae7f864302d991ef2c3fbe51a460aeb5546d8f6ba69c0038ec"
+        },
+        {
+          "path": "recipes/registry/historical-discoveries.json",
+          "bytes": 162127,
+          "sha256": "49fd16aacb27d8fd41cd4c685c77badffb05eca6b2952f11733747a9a9798d56"
         }
       ]
     },
     "testdata": {
-      "files": 89,
-      "bytes": 12811214,
+      "files": 96,
+      "bytes": 13188892,
       "items": [
         {
           "path": "testdata/allocation.json",
@@ -973,8 +1003,8 @@
         },
         {
           "path": "testdata/runtime-tables.json",
-          "bytes": 6369,
-          "sha256": "aba9bbf37875beb581909bf6b4256ab3c89e50e1a934ec220b2f9a9153418843"
+          "bytes": 7111,
+          "sha256": "6be7fa30219ceb14c64839d28bda702ccf03b401aabce1e9f2dbee064eec881a"
         },
         {
           "path": "testdata/sentinel-reader.json",
@@ -1135,6 +1165,41 @@
           "path": "testdata/source-ordered.json",
           "bytes": 42330,
           "sha256": "47d2240689e36c69f5420fc3063f32e2f42e4c220a977db5d856fd23d5096dcf"
+        },
+        {
+          "path": "testdata/registry-import.json",
+          "bytes": 52456,
+          "sha256": "8d9c844d0ee5e5814db1b8b92ac5274bb3216e2da41aa7fda390cd5ee7d9056a"
+        },
+        {
+          "path": "testdata/registry-import-provenance.json",
+          "bytes": 7581,
+          "sha256": "cfb379c7c79a0c75637fe23f7209e13e2e2a65a29fcb8d3aa5df263a180ac5a1"
+        },
+        {
+          "path": "testdata/registry-import-pretty.zip",
+          "bytes": 24133,
+          "sha256": "dda847089cae84f829fc47f263eec25d08e8c65eee1bfa54470116c9730d535d"
+        },
+        {
+          "path": "testdata/registry-serialization.json",
+          "bytes": 48726,
+          "sha256": "93b6066af283ef5a79266542b5b4a0148a2e9047eebad5971367c799f97b68aa"
+        },
+        {
+          "path": "testdata/registry-paired.json",
+          "bytes": 83031,
+          "sha256": "7d84559aea7c5523412a837305b3bbcd8b95887273f97caaab16ece4e230e20e"
+        },
+        {
+          "path": "testdata/registry-human.json",
+          "bytes": 96956,
+          "sha256": "fcd045d504eec5f4f07915b8ec8c8b05bdc52159c7e330de63818d3af248553d"
+        },
+        {
+          "path": "testdata/registry-full-sweep.json",
+          "bytes": 64053,
+          "sha256": "48b4321a0c0dcfccc58776b678f88f9d5be46d774f5f7d9153176e3dbbcd9f19"
         }
       ]
     },
@@ -1374,8 +1439,8 @@
       ]
     },
     "audit_examples": {
-      "files": 60,
-      "bytes": 172690,
+      "files": 81,
+      "bytes": 193107,
       "items": [
         {
           "path": "examples/asset-comparison/after.png",
@@ -1676,6 +1741,111 @@
           "path": "examples/reference-flow/profile.json",
           "bytes": 1162,
           "sha256": "781e29cf8ccf1ff240da36293e3eb4429361008de6dd62100b8f5525784fa361"
+        },
+        {
+          "path": "examples/registry-import/batch.json",
+          "bytes": 266,
+          "sha256": "55fcca392f1ab62bc1683cbc84987be5ee86b17a5cef128bd0d40ab176aa5c31"
+        },
+        {
+          "path": "examples/registry-import/glyphs.json",
+          "bytes": 15,
+          "sha256": "8eeb5ceb5ce14ad0745c9f8db5d0bfb3c32cfab97b4e5aa414f2a6ba9561a487"
+        },
+        {
+          "path": "examples/registry-import/profile.json",
+          "bytes": 706,
+          "sha256": "a8c16e4a8d2e0f0b24cfec80f11c12daba6bb6e4987389990cbf51cefc926d21"
+        },
+        {
+          "path": "examples/registry-import/source.json",
+          "bytes": 75,
+          "sha256": "33f949088746c7439763944f77f4286721e68870aba0c2cae68439dd590e1372"
+        },
+        {
+          "path": "examples/registry-reconcile/corrections.json",
+          "bytes": 112,
+          "sha256": "c9e07197d1b89ae654718d7f445277ee634d294fc5257c48734fddddfe99d8ed"
+        },
+        {
+          "path": "examples/registry-reconcile/glossary.json",
+          "bytes": 75,
+          "sha256": "33f949088746c7439763944f77f4286721e68870aba0c2cae68439dd590e1372"
+        },
+        {
+          "path": "examples/registry-reconcile/profile.json",
+          "bytes": 797,
+          "sha256": "dece8beff64d3deccff2cd3f3cc2652c4390724cd5bf8851afed090368309ab0"
+        },
+        {
+          "path": "examples/registry-reconcile/proposals.json",
+          "bytes": 132,
+          "sha256": "99665bbdf178218f5829c9fa90e6254de540358dc5d40192e4bb8b5b08e7d1d1"
+        },
+        {
+          "path": "examples/registry-reconcile/registry.json",
+          "bytes": 233,
+          "sha256": "d169331dff4700c9d1051b6450bc2c84623cfa917bb7e51c8c245a56fd934d48"
+        },
+        {
+          "path": "examples/registry-human/authored.json",
+          "bytes": 201,
+          "sha256": "df610b4f71907e3ee9d7e40ae88ffe7f89ef1a6f842696a3237f9eff8e9a12cf"
+        },
+        {
+          "path": "examples/registry-human/decoded.json",
+          "bytes": 38,
+          "sha256": "1b3b229fd9a973c934d958203d6e7d37b45d98867ce0abf1c122cea3ce2794bc"
+        },
+        {
+          "path": "examples/registry-human/flow.json",
+          "bytes": 16,
+          "sha256": "35f006f1de7f46019ad8dd48e15932200ab0471cbc502c2b529d971d699db8c3"
+        },
+        {
+          "path": "examples/registry-human/profile.json",
+          "bytes": 745,
+          "sha256": "86b5085519159887b32758c5263f631ef4132ba4b7b72f30d5b4e84a9130179a"
+        },
+        {
+          "path": "examples/registry-human/registry.json",
+          "bytes": 138,
+          "sha256": "3d669e102371f1a5847a30aedf13a5c725346f20ccbc6dedbf8a591098c06c69"
+        },
+        {
+          "path": "examples/registry-full-sweep/drafts.json",
+          "bytes": 302,
+          "sha256": "f9a36ff784f114ce682a2c9eca0ebdb84ac6dd6e08be1c0bd79663d57ab73c94"
+        },
+        {
+          "path": "examples/registry-full-sweep/glyphs.json",
+          "bytes": 37,
+          "sha256": "ab86416957d065a3fb5fb6221613def9e8cc60858a6828312ae7cc193c398e3a"
+        },
+        {
+          "path": "examples/registry-full-sweep/orders.json",
+          "bytes": 194,
+          "sha256": "bb3c76f558327ab17057dee456ecf6c4d24836f90159a9565de583d8b217999f"
+        },
+        {
+          "path": "examples/registry-full-sweep/profile.json",
+          "bytes": 910,
+          "sha256": "6feb11ce2d163674a84fb5a87ee263002c7ebd9e9d2669a6bbdfd17d20280c49"
+        },
+        {
+          "path": "examples/registry-full-sweep/registry.json",
+          "bytes": 15,
+          "sha256": "7a0b7943ccd293821e69c3413abdfebf3d74e3d9a2a92c2f362a7fcbab72f8b3"
+        },
+        {
+          "path": "examples/registry-reward-notes/profile.json",
+          "bytes": 5461,
+          "sha256": "5c3be374b24f07ba50cd551a4753f8a7de2c3e2a7626c2da289df2930f67e2bc"
+        },
+        {
+          "path": "examples/registry-reward-notes/registry.json",
+          "bytes": 9949,
+          "sha256": "b15a945eec15ecef2aeea35a3b99ef2214363a6c370f4daad3e53454499ce90e"
         }
       ]
     },
@@ -1692,16 +1862,16 @@
     }
   },
   "runtime_and_executed_evidence": {
-    "files": 230,
-    "bytes": 14598102
+    "files": 257,
+    "bytes": 14912790
   },
   "runtime_with_bundle": {
-    "files": 209,
-    "bytes": 13975970
+    "files": 236,
+    "bytes": 14290658
   },
   "runtime_without_bundle": {
-    "files": 206,
-    "bytes": 2662880
+    "files": 233,
+    "bytes": 2977568
   },
   "scope": "Complete Go source/module/selector/entrypoint, active recipe/profile/shared-font data, report templates, required third-party notices and runnable audit examples. ZIPs and executed evidence inputs added separately; tests/fixtures separate. No savings claim.",
   "accounting_correction": {
@@ -1710,8 +1880,8 @@
     "bytes": 9274,
     "reason": "Runtime golden explicitly references these source-pinned Go selector/rebuild profiles. Prior accounts/snapshot omitted them; count conservatively with all native profiles. Actualbuild does not execute them; both reviewers independently verified their goldenSHA as supplemental test inputs. No savings claim."
   },
-  "updated_at": "2026-11-05T04:42:55.607463+00:00",
-  "verification": "Postguard4focusedcore32.559/native43.389/core-nativebuildvet/gofmt/scopedwhitespace/selfcheckedcredentials PASS.111core+real-auditpolicycases83positive28refusal atorigins0/6; finalactualCLI race175.450s PASS. Independent31.963s focused/buildvet/review/sourcecohortpinhashes andexplicitduplicateprefixclosure PASS. Initial337.220sfourrace preservedbefore3lineguard/notreattributed. Fullsuite/nativefontsrace/gameplay deferred.",
+  "updated_at": "2026-11-05T10:23:45.502408+00:00",
+  "verification": "Root core/nativefonts build/vet/five focused tests37.919/59.397wall, CLIrace241.686s, formatting/scoped credential selfchecks; independent core/nativefonts49.180/60.125wall and source/data/boundary review PASS. Fullsuite/nativefonts race/gameplay deferred.",
   "latest_summary_correction": {
     "at": "2026-10-21T17:49:44.234264+00:00",
     "prior_summary_fields": {

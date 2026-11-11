@@ -1,0 +1,1652 @@
+{
+  "schema_version": 1,
+  "authority": "Independent manually authored FUTURE contract vectors, frozen before any comparison/projection. No Go/candidate input or old unsafe date/write behavior adopted as golden.",
+  "contract_sha256": "15c2a0c9c3935f0ea580fa43b4f1b26011612771b499c5e009a5f768e2a5b894",
+  "source96_manifest_sha256": "93c7c4a4da5583180ffabf1a09fceaf914b51e0bbef1567a2d7675f15b87b48f",
+  "source39_literal_sha256": "b6354823d79cc8d76302cff8b03e1d294d61f545d3dd272c728007fa03b06b5e",
+  "member_contract": {
+    "names_order": [
+      "registry.json",
+      "glossary.json"
+    ],
+    "compression": "Store",
+    "whole_changed_member_bytes": "Not fixed by this fixture: semantic complete state plus required raw lexemes; caller shared readable serializer owns formatting.",
+    "whole_unchanged_member_bytes": "Exact original source string including whitespace/date/escaped lexemes.",
+    "archive": "Success requires complete central directory/fixed2members; deterministic repeated archive required, no Go-derived ZIP golden or atomic pathname/install claim.",
+    "outcome_labels": "Semantic vector labels eligible/applied/already_applied/held/already_present in authored input order; not a selected public report field layout."
+  },
+  "cases": [
+    {
+      "name": "both-members-change-historical-suffix-verbatim",
+      "origin": "source96:eligible-correction-and-new-glossary; deliberate changed-member date policy",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": false,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": [
+          "eligible"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": [
+          "applied"
+        ]
+      },
+      "expected_bundle": true
+    },
+    {
+      "name": "registry-only-change-glossary-exact-noop",
+      "origin": "contract:unchanged-member exact bytes",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": []
+      },
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "glossary-only-change-registry-exact-noop",
+      "origin": "source96:locked-held glossary advance; no corrections variant",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "A",
+            "status": "drafted",
+            "note": "keep",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "old-registry",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": false,
+      "expected_outcomes": {
+        "corrections": [],
+        "glossary": [
+          "eligible"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [],
+        "glossary": [
+          "applied"
+        ]
+      },
+      "expected_registry_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "already-before-old-null-status-and-opaque-note",
+      "origin": "source96:already-applied before lock; sameJPEN provenance preservation; NEW exact no-op",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":null,\"note\":{\"opaque\":\"keep\"},\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":null,\"source\":\"reviewed source\",\"usage_note\":\"menu\",\"unknown\":{\"keep\":true}}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"stale on purpose\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": null,
+            "note": {
+              "opaque": "keep"
+            },
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "old-registry",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": null,
+            "source": "reviewed source",
+            "usage_note": "menu",
+            "unknown": {
+              "keep": true
+            }
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "already_applied"
+        ],
+        "glossary": [
+          "already_present"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "already_applied"
+        ],
+        "glossary": [
+          "already_present"
+        ]
+      },
+      "expected_registry_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":null,\"note\":{\"opaque\":\"keep\"},\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "expected_glossary_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":null,\"source\":\"reviewed source\",\"usage_note\":\"menu\",\"unknown\":{\"keep\":true}}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "held-locked-registry-exact-glossary-advances",
+      "origin": "source96:locked-held-eligible-row-and-glossary-advance; all3knownlockedstatuses",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"patched\",\"note\":42,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x20\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"decode_verified\",\"note\":null,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x30\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"emulator_confirmed\",\"note\":{\"opaque\":\"keep\"},\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"},{\"id\":\"0x20\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"},{\"id\":\"0x30\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "A",
+            "status": "patched",
+            "note": 42,
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          },
+          {
+            "id": "0x20",
+            "jp": "\u8a9e",
+            "en": "A",
+            "status": "decode_verified",
+            "note": null,
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          },
+          {
+            "id": "0x30",
+            "jp": "\u8a9e",
+            "en": "A",
+            "status": "emulator_confirmed",
+            "note": {
+              "opaque": "keep"
+            },
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "old-registry",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": false,
+      "expected_outcomes": {
+        "corrections": [
+          "held",
+          "held",
+          "held"
+        ],
+        "glossary": [
+          "eligible"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "held",
+          "held",
+          "held"
+        ],
+        "glossary": [
+          "applied"
+        ]
+      },
+      "expected_registry_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"patched\",\"note\":42,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x20\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"decode_verified\",\"note\":null,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x30\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"emulator_confirmed\",\"note\":{\"opaque\":\"keep\"},\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "mixed-outcomes-and-source-spelling-in-input-order",
+      "origin": "source96 mixed decisions plus canonical numeric-ID lookup, new idempotence",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":\"mystery\",\"note\":[],\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0X0020\",\"jp\":\"\\u8a9e\",\"en\":\"C\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x30\",\"jp\":\"\\u8a9e\",\"en\":\"E\",\"status\":\"decode_verified\",\"note\":false,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x40\",\"jp\":\"\\u8a9e\",\"en\":\"G\",\"status\":\"zone_pending\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x20\",\"old_en\":\"C\",\"new_en\":\"D\",\"note_suffix\":\"!\"},{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"},{\"id\":\"0x30\",\"old_en\":\"E\",\"new_en\":\"F\",\"note_suffix\":\"?\"},{\"id\":\"0x40\",\"old_en\":\"G\",\"new_en\":\"H\",\"note_suffix\":\"suffix\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "mystery",
+            "note": [],
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          },
+          {
+            "id": "0X0020",
+            "jp": "\u8a9e",
+            "en": "D",
+            "status": "drafted",
+            "note": "keep!",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          },
+          {
+            "id": "0x30",
+            "jp": "\u8a9e",
+            "en": "E",
+            "status": "decode_verified",
+            "note": false,
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          },
+          {
+            "id": "0x40",
+            "jp": "\u8a9e",
+            "en": "H",
+            "status": "zone_pending",
+            "note": "suffix",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible",
+          "already_applied",
+          "held",
+          "eligible"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied",
+          "already_applied",
+          "held",
+          "applied"
+        ],
+        "glossary": []
+      },
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "canonical-lookup-keeps-existing-ID-spelling",
+      "origin": "NEW canonical lookup differs from legacy raw correction lookup",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0X0010\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0X0010",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": []
+      },
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "missing-note-is-empty-only-on-change",
+      "origin": "source96 missing/null note rule",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": " CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": []
+      },
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "null-note-is-empty-only-on-change",
+      "origin": "source96 missing/null note rule",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":null,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": " CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": []
+      },
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "suffix-Unicode-quotes-backslash-CRLF-verbatim",
+      "origin": "authored exact suffix data, source newline contracts; no boilerplate generated",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\"\\ud83d\\ude42 \\u0394 \\\"Q\\\" \\\\path\\r\\nnext\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"quoted \\\"Q\\\" \\\\path\\r\\n\\u8a9e\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep\ud83d\ude42 \u0394 \"Q\" \\path\r\nnext",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "quoted \"Q\" \\path\r\n\u8a9e"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": false,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": [
+          "eligible"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": [
+          "applied"
+        ]
+      },
+      "expected_bundle": true
+    },
+    {
+      "name": "same-JPEN-preserves-all-existing-glossary-metadata",
+      "origin": "source96 same rendering preserves provenance, extended ALL old metadata",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":null,\"source\":[\"old opaque\"],\"usage_note\":{\"old\":true},\"extra\":123456789012345678901234567890}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": null,
+            "source": [
+              "old opaque"
+            ],
+            "usage_note": {
+              "old": true
+            },
+            "extra": 123456789012345678901234567890
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": [
+          "already_present"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": [
+          "already_present"
+        ]
+      },
+      "expected_glossary_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":null,\"source\":[\"old opaque\"],\"usage_note\":{\"old\":true},\"extra\":123456789012345678901234567890}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "exact-JP-no-NFC-or-trimming-append-order",
+      "origin": "source exact JP key rule; authored NFC/whitespace distinction",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u00e9\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[]",
+      "glossary_proposals": "[{\"jp\":\"e\\u0301\",\"en\":\"A\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"},{\"jp\":\"\\u8a9e \",\"en\":\"C\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"},{\"jp\":\"\\u8a9e\",\"en\":\"D\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "A",
+            "status": "drafted",
+            "note": "keep",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "old-registry",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u00e9",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          },
+          {
+            "jp": "e\u0301",
+            "en": "A",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          },
+          {
+            "jp": "\u8a9e ",
+            "en": "C",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          },
+          {
+            "jp": "\u8a9e",
+            "en": "D",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": false,
+      "expected_outcomes": {
+        "corrections": [],
+        "glossary": [
+          "eligible",
+          "eligible",
+          "eligible"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [],
+        "glossary": [
+          "applied",
+          "applied",
+          "applied"
+        ]
+      },
+      "expected_registry_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "empty-authored-arrays-both-exact-members",
+      "origin": "NEW unchanged-member idempotence",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "A",
+            "status": "drafted",
+            "note": "keep",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "old-registry",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [],
+        "glossary": []
+      },
+      "expected_registry_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "second-application-all-present-no-double-suffix",
+      "replay_of": "both-members-change-historical-suffix-verbatim",
+      "origin": "NEW all-present exact-member replay, not old date rewrite",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":\"drafted\",\"note\":\"keep CONSISTENCY FIX 2026-09-03 (term 'term'): why\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"2040-02-03\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"2040-02-03\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "already_applied"
+        ],
+        "glossary": [
+          "already_present"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "already_applied"
+        ],
+        "glossary": [
+          "already_present"
+        ]
+      },
+      "expected_registry_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":\"drafted\",\"note\":\"keep CONSISTENCY FIX 2026-09-03 (term 'term'): why\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"2040-02-03\",\"root_extra\":{\"keep\":true}}\n",
+      "expected_glossary_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"2040-02-03\",\"root_extra\":123456789012345678901234567890}\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "already-before-wrong-type-status-note-guards",
+      "origin": "contract unchanged row before status/note guard",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":[],\"note\":42,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"wrong\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": [],
+            "note": 42,
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "old-registry",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": true,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "already_applied"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "already_applied"
+        ],
+        "glossary": []
+      },
+      "expected_registry_bytes": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":[],\"note\":42,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    },
+    {
+      "name": "changed-members-preserve-raw-opaque-lexemes",
+      "registry_raw_lexemes": [
+        "\"\\u0041\"",
+        "\"\\ud800\"",
+        "1e+003",
+        "123456789012345678901234567890"
+      ],
+      "glossary_raw_lexemes": [
+        "\"\\u0042\"",
+        "\"\\udc00\"",
+        "1e+003",
+        "123456789012345678901234567890"
+      ],
+      "origin": "source96 truncation weakness; NEW raw opaque preservation instead of old reserialization",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true}, \"opaque\":{\"esc\":\"\\u0041\",\"surrogate\":\"\\ud800\",\"exp\":1e+003,\"big\":123456789012345678901234567890} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890, \"opaque\":{\"esc\":\"\\u0042\",\"surrogate\":\"\\udc00\",\"exp\":1e+003} }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        },
+        "opaque": {
+          "esc": "A",
+          "surrogate": "\ud800",
+          "exp": 1000,
+          "big": 123456789012345678901234567890
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "jp": "\u8a9e",
+            "en": "B",
+            "provenance": "human",
+            "source": "reviewed source",
+            "usage_note": "menu"
+          }
+        ],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": 123456789012345678901234567890,
+        "opaque": {
+          "esc": "B",
+          "surrogate": "\udc00",
+          "exp": 1000
+        }
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": false,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": [
+          "eligible"
+        ]
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": [
+          "applied"
+        ]
+      },
+      "expected_bundle": true
+    },
+    {
+      "name": "stale-late-correction-aborts-whole-pair",
+      "origin": "source96 late-stale preflight",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0x20\",\"jp\":\"\\u8a9e\",\"en\":\"X\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"},{\"id\":\"0x20\",\"old_en\":\"C\",\"new_en\":\"D\",\"note_suffix\":\"!\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "stale",
+      "expected_bundle": false
+    },
+    {
+      "name": "late-glossary-conflict-aborts-correction-and-new-term",
+      "origin": "source96 glossary conflict aborts correction too",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"conflict\",\"en\":\"old\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"},{\"jp\":\"conflict\",\"en\":\"new\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "glossary_conflict",
+      "expected_bundle": false
+    },
+    {
+      "name": "normalized-correction-duplicate-refuses",
+      "origin": "NEW canonical duplicate guard, legacy raw aliases differed",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"},{\"id\":\"0X0010\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "duplicate_correction_ID",
+      "expected_bundle": false
+    },
+    {
+      "name": "normalized-existing-registry-duplicate-refuses",
+      "origin": "canonical guard, source96 raw duplicate weakness",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890},{\"id\":\"0X0010\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "duplicate_registry_ID",
+      "expected_bundle": false
+    },
+    {
+      "name": "duplicate-existing-JP-refuses-before-collapse",
+      "origin": "NEW guard replaces legacy last-existing-JP collapse",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"},{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "duplicate_existing_JP",
+      "expected_bundle": false
+    },
+    {
+      "name": "duplicate-proposal-JP-refuses-even-same-EN",
+      "origin": "source96 duplicate proposed exactJP",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"},{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "duplicate_proposal_JP",
+      "expected_bundle": false
+    },
+    {
+      "name": "selected-current-EN-missing-refuses",
+      "origin": "NEW selected current EN string, unlike legacy missing defaults empty",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "current_EN_type",
+      "expected_bundle": false
+    },
+    {
+      "name": "selected-current-EN-null-refuses",
+      "origin": "contract selected currentEN string",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":null,\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "current_EN_type",
+      "expected_bundle": false
+    },
+    {
+      "name": "selected-current-EN-nonstring-refuses",
+      "origin": "contract selected currentEN string",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":42,\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "current_EN_type",
+      "expected_bundle": false
+    },
+    {
+      "name": "actual-change-unknown-status-refuses",
+      "origin": "canonical known-unlocked owner, deliberate source96 difference",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"mystery\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "change_status",
+      "expected_bundle": false
+    },
+    {
+      "name": "actual-change-null-status-refuses",
+      "origin": "canonical known-unlocked owner",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":null,\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "change_status",
+      "expected_bundle": false
+    },
+    {
+      "name": "actual-change-missing-status-refuses",
+      "origin": "canonical known-unlocked owner",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "change_status",
+      "expected_bundle": false
+    },
+    {
+      "name": "actual-change-wrong-type-status-refuses",
+      "origin": "canonical known-unlocked owner",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":[],\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "change_status",
+      "expected_bundle": false
+    },
+    {
+      "name": "actual-change-nonstr-note-refuses",
+      "origin": "contract append requires string or absent/null",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":42,\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "note_type",
+      "expected_bundle": false
+    },
+    {
+      "name": "actual-change-note-unpaired-Unicode-refuses",
+      "origin": "NEW selected Unicode validation before publication",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"\\ud800\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "note_unicode",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-missing-note-suffix-refuses",
+      "origin": "new closed4field transport",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-unknown-field-refuses",
+      "origin": "new closed4field transport; suffix contains authoredtermifdesired",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\",\"term\":\"not transport\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-alias-key-refuses",
+      "origin": "new closed canonical key schema",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"NOTE_SUFFIX\":\"!\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-null-suffix-refuses",
+      "origin": "new typed nonempty suffix",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":null}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "already-row-empty-suffix-still-refuses-before-decision",
+      "origin": "validate ALL authored rows before already no-op",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\"\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-empty-new-EN-refuses",
+      "origin": "canonical nonempty EN deliberate source96 difference",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-null-old-EN-refuses",
+      "origin": "old_en may empty string, not null",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":null,\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "correction_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "proposal-missing-usage-note-refuses",
+      "origin": "source five required keys, new closedtyped",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "proposal_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "proposal-unowned-extra-field-refuses",
+      "origin": "NEW closed5field transport vs olddiscardedextra",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\",\"_source_file\":\"not transport\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "proposal_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "proposal-null-EN-refuses",
+      "origin": "NEW five nonempty strings",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":null,\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "proposal_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "proposal-empty-provenance-refuses",
+      "origin": "NEW nonempty provenance unlike oldpresence-only",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "proposal_schema",
+      "expected_bundle": false
+    },
+    {
+      "name": "new-EN-unpaired-Unicode-refuses",
+      "origin": "NEW selected text Unicode before planning",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"\\ud800\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "authored_unicode",
+      "expected_bundle": false
+    },
+    {
+      "name": "already-row-invalid-old-EN-Unicode-still-refuses",
+      "origin": "Validate all authored strings before already decision",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"B\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"\\ud800\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "authored_unicode",
+      "expected_bundle": false
+    },
+    {
+      "name": "proposal-JP-unpaired-Unicode-refuses",
+      "origin": "exactJP still requires paired Unicode",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[]",
+      "glossary_proposals": "[{\"jp\":\"\\udc00\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "authored_unicode",
+      "expected_bundle": false
+    },
+    {
+      "name": "matched-existing-glossary-null-EN-refuses",
+      "origin": "selected existingJPEN explicit string Unicode validation",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":\"\\u8a9e\",\"en\":null,\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "existing_glossary_text",
+      "expected_bundle": false
+    },
+    {
+      "name": "existing-glossary-null-JP-refuses",
+      "origin": "JP must index exact string, no rawNone key",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"jp\":null,\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}],\"todos\":[\"keep\"],\"last_updated\":\"old-glossary\",\"root_extra\":123456789012345678901234567890}\n",
+      "corrections": "[]",
+      "glossary_proposals": "[{\"jp\":\"\\u8a9e\",\"en\":\"B\",\"provenance\":\"human\",\"source\":\"reviewed source\",\"usage_note\":\"menu\"}]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "existing_glossary_text",
+      "expected_bundle": false
+    },
+    {
+      "name": "selected-current-EN-unpaired-Unicode-refuses",
+      "origin": "selected currentEN validated before stale/status",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"\\ud800\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "current_EN_unicode",
+      "expected_bundle": false
+    },
+    {
+      "name": "correction-duplicate-raw-key-refuses",
+      "origin": "existing strict JSON guard before decoding",
+      "updated": "2040-02-03",
+      "registry_source": "{ \"schema_version\":\"1.0\", \"entries\":[{\"id\":\"0x10\",\"jp\":\"\u8a9e\",\"en\":\"A\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}], \"last_updated\":\"old-registry\", \"root_extra\":{\"keep\":true} }\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"A\",\"new_en\":\"B\",\"note_suffix\":\"!\",\"note_suffix\":\"?\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expect_refuse": true,
+      "reason_category": "duplicate_key",
+      "expected_bundle": false
+    },
+    {
+      "name": "empty-old-EN-matches-empty-current-string",
+      "origin": "contract old_en may empty; selected current EN is still a string",
+      "updated": "2040-02-03",
+      "registry_source": "{\"schema_version\":\"1.0\",\"entries\":[{\"id\":\"0x10\",\"jp\":\"\\u8a9e\",\"en\":\"\",\"status\":\"drafted\",\"note\":\"keep\",\"ref_sites\":[{\"keep\":\"opaque\"}],\"unknown\":123456789012345678901234567890}],\"last_updated\":\"old-registry\",\"root_extra\":{\"keep\":true}}\n",
+      "glossary_source": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "corrections": "[{\"id\":\"0x10\",\"old_en\":\"\",\"new_en\":\"B\",\"note_suffix\":\" CONSISTENCY FIX 2026-09-03 (term 'term'): why\"}]",
+      "glossary_proposals": "[]",
+      "inputs_unchanged": true,
+      "expected_registry": {
+        "schema_version": "1.0",
+        "entries": [
+          {
+            "id": "0x10",
+            "jp": "\u8a9e",
+            "en": "B",
+            "status": "drafted",
+            "note": "keep CONSISTENCY FIX 2026-09-03 (term 'term'): why",
+            "ref_sites": [
+              {
+                "keep": "opaque"
+              }
+            ],
+            "unknown": 123456789012345678901234567890
+          }
+        ],
+        "last_updated": "2040-02-03",
+        "root_extra": {
+          "keep": true
+        }
+      },
+      "expected_glossary": {
+        "schema_version": "1.0",
+        "entries": [],
+        "todos": [
+          "keep"
+        ],
+        "last_updated": "old-glossary",
+        "root_extra": 123456789012345678901234567890
+      },
+      "registry_unchanged": false,
+      "glossary_unchanged": true,
+      "expected_outcomes": {
+        "corrections": [
+          "eligible"
+        ],
+        "glossary": []
+      },
+      "expected_apply_outcomes": {
+        "corrections": [
+          "applied"
+        ],
+        "glossary": []
+      },
+      "expected_glossary_bytes": "{ \"schema_version\":\"1.0\", \"entries\":[], \"todos\":[\"keep\"], \"last_updated\":\"old-glossary\", \"root_extra\":123456789012345678901234567890 }\n",
+      "expected_bundle": true
+    }
+  ],
+  "scope": "Corrections/glossary only. Human/force/source factory and all source-native/patch readiness remain outside first slice; no family/.06 credit."
+}

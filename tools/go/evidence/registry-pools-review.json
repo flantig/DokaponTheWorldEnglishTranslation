@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T10:10:11.656997+00:00",
+  "kind": "Independent ordinary read-only code/data/Golden-role review, findings not approval",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-registry-pools-zbms83vq/review-source-initial/manifest.json",
+    "sha256": "89613e81f3e6f3ec1d262faf5ce745d18a206eb7806b8f1fe38cf91e9a29d7d5",
+    "all66_source_and_owned_project_members_verified_before_checks_and_seal": true
+  },
+  "findings": [],
+  "code_assessment": {
+    "scope_gate": "marker_orders raw presence is permitted only for full_sweep, required there and may point to an empty object. Other import presets retain their previous schema/policies. Distinct bounded resource names and pinned1MiB review table/profile are checked through existing resource/profile owners; review bytes count in shared64MiB authored input budget.",
+    "permutation": "The loop walks English marker indices and selects Japanese sourcePosition-1. Both exact decoded UTF8 text hashes, complete equal tape lengths, unique in-range positions and paired original kind/code are checked. Declared records validate even when kind sequences agree; leftover records refuse. Numeric aliases are rejected before normalized map collapse.",
+    "default_policy": "Without a supplied record the original ten-field/kind-only/full-sweep apostrophe gate remains explicit. Code values may differ when kinds agree under this historical draft policy. Free notes never grant a bypass. No opaque payload, byte source, native fit or patch authority follows from lexical equality.",
+    "state_write_safety": "All incoming rows and supplied mappings validate before shared add/no-op/conflict planning. Existing source/resource/profile byte rechecks, raw all-present bytes/date, shared bounded serializer and exclusive publisher remain in use.",
+    "reuse_quality": "Existing contiguous authorRegistry admission and RegistryImportSpec/main guards enhanced. One new DTO expresses source occurrence order; no new runtime function/Gofile/Recipefield/CLIflag/dependency or per-ID handler. This is capability/data growth, not a reduction claim. No concrete correctness/DRY/readability finding identified in bounded review."
+  },
+  "source_data_assessment": {
+    "reconstruction": "Original literal source arrays matched frozen source facts. Only original pure marker conversion/build_entry functions and exact pure row-construction AST blocks executed, without original module imports/mains/registry classifiers/I/O. Complete142rows matched frozen expectations and the new profile maps;15-byte compact empty source seed/header hash independently verified.",
+    "groups": [
+      {
+        "group": "cluster1",
+        "literal_source_names": [
+          "NEW_ENTRIES"
+        ],
+        "rows": 14,
+        "complete_original_construction_equals_frozen_expectation": true
+      },
+      {
+        "group": "cluster2",
+        "literal_source_names": [
+          "NEW_ENTRIES"
+        ],
+        "rows": 23,
+        "complete_original_construction_equals_frozen_expectation": true
+      },
+      {
+        "group": "cluster3",
+        "literal_source_names": [
+          "CLUSTER3_ENTRIES"
+        ],
+        "rows": 5,
+        "complete_original_construction_equals_frozen_expectation": true
+      },
+      {
+        "group": "events",
+        "literal_source_names": [
+          "EVENT_TAUNT_ENTRIES"
+        ],
+        "rows": 90,
+        "complete_original_construction_equals_frozen_expectation": true
+      },
+      {
+        "group": "titles",
+        "literal_source_names": [
+          "TITLE_ENTRIES"
+        ],
+        "rows": 10,
+        "complete_original_construction_equals_frozen_expectation": true
+      }
+    ],
+    "marker_data": "All5manual complete marker tapes were checked against frozen raw JP/EN. Exact decoded text hashes and declared one-based EN-to-JP maps reconstructed and equal recipe data.0x4f1720 is non-involutive, so direction is distinguished. Repeated equal-code occurrence assignment is declared lexical role data, never inferred opaque payload identity.",
+    "actual_current_wording": "Historical constructor facts are not latest/current canonical wording; no private canonical-derived Go outputs were used. Conflicting evolved wording must continue to refuse.",
+    "source_pins": "authority-pins.json verifies41actual source/5manual tapes/79prior source/12future fixtures/55precode challenge members.",
+    "harness_note": "First header check used a spaced16-byte synthetic empty seed.142row reconstruction had passed. Corrected only the harness seed to declared compact15bytes, preserving before-correction script and note. No candidate code/data changed."
+  },
+  "Golden_roles": {
+    "baseline_profiles": 56,
+    "profiles": 57,
+    "resources": 4,
+    "discovered_paths": 61,
+    "all_old_profile_hashes_unchanged": true,
+    "all_paths_exactly_one_role_and_hash": true,
+    "profile_operation_explicit_nonempty": true,
+    "resource_paths": [
+      "recipes/registry/human-authored.json",
+      "recipes/registry/reward-marker-orders.json",
+      "recipes/registry/terminology-corrections.json",
+      "recipes/registry/terminology-glossary.json"
+    ],
+    "strict_Recipes_decode_actual_Golden_test_passed": true,
+    "no_generic_missing_operation_or_new_prefix_skip": true
+  },
+  "Golden_assessment": "Each discovered path must have exactly one explicit role and correct hash. Profiles still use strict Recipes decoding and exactly one JSON value. Resources skip only wrong profile-schema decoding and stay pinned to consumer-owned schemas. The existing operation-specific dynamic lifecycle category includes the new registry_add profile; no generic missing-operation or new path-prefix skip was introduced. Three preexisting bare resources are now honestly registered rather than pretending to be profiles.",
+  "verification": {
+    "actual_commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 6.702922194992425
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.3868793730216566
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler|PilotHistoricalGoldenBytes)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 49.1795323700062
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 2.7377241310023237
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.3476823980163317
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler|PilotHistoricalGoldenBytes)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 60.12455073799356
+      }
+    ],
+    "focused_pattern": "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler|PilotHistoricalGoldenBytes)$",
+    "core_focused_wall_seconds": 49.1795323700062,
+    "actual_nativefonts_focused_wall_seconds": 60.12455073799356,
+    "backend": "nativefonts-selected-files.txt confirms raster_font.go inCgoFiles and disabled backend absent; actual tag nativefonts used.",
+    "future55_fixture_sha256": "48b4321a0c0dcfccc58776b678f88f9d5be46d774f5f7d9153176e3dbbcd9f19",
+    "corpus_counts": "New55=10success45refusal; old50=22success28refusal; combined105=32success73refusal remain separate per-corpus glyph maps.",
+    "independent_endpoint": "65536mapping positions succeed with complete declared record consumed despite equal kind tapes; supplied1based identity maps every source once.382296B markerresource/1704105B batch. Complete output1704248B SHA4f535048110d33ae1ff88c4c192883a38fdd9916d4318a2688ce7a7c4c654c80; consuming all-present replay with later profile date preserves exact bytes/date.65537refusal covered by frozen focused table.",
+    "independent_endpoint_CLI_calls": 2,
+    "all_owned_jobs_terminal": true,
+    "resume_mode": "seal-only, no verification reruns"
+  },
+  "timeline": "timeline.json",
+  "scope_limits": [
+    "No implementation/approval/family/.04/.05/retirement/reduction credit. Root and later source crosswalks own criterion determination.",
+    "No actual3186/current canonical registry Go parity results or private canonical-derived outputs used as reviewer oracle; only permitted frozen source data and synthetic endpoint.",
+    "No fullsuite/race/gameplay/protectedISO/currentcanonical/art/emulator/auth/log/process crawl performed. Root race and Astra cadence remain separate evidence, not reproduced or approved here.",
+    "Review is exact frozen66. All assertions are bounded to this contract/data/test surface; lexical marker mapping is not opaque/native payload proof."
+  ]
+}

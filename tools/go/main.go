@@ -115,11 +115,15 @@ func run(args []string, stdout io.Writer) error {
 		if err := json.Unmarshal(recipeData, &tableFields); err != nil {
 			return err
 		}
-		// These optional requests belong to one read-only operation each.
+		// Each optional request belongs to one operation, including raw null or alias keys.
 		for key, raw := range tableFields {
 			var canonical, operation, route string
 			policy := checkedJSON{raw: raw, text: true, allObjects: true, nonNull: true}
 			switch {
+			case strings.EqualFold(key, "registry_import"):
+				canonical, operation, route = "registry_import", "registry_add", "registry draft import"
+				policy.fieldsByDepth = map[int][]string{1: {"policy", "batches", "glyphmap", "discovered_by", "marker_orders"}}
+				policy.requiredByDepth = map[int][]string{1: {"policy", "batches", "glyphmap"}}
 			case strings.EqualFold(key, "sentinel"):
 				canonical, operation, route = "sentinel", "elf_layout", "read-only ELF layout"
 				policy.fieldsByDepth = map[int][]string{1: {"retail_elf_size", "loader_vmas", "window_bases", "window_sizes"}}
@@ -309,7 +313,7 @@ func run(args []string, stdout io.Writer) error {
 			}
 		}
 		switch recipes.Operation {
-		case "registry_author", "registry_add", "registry_merge", "registry_markup", "registry_export", "registry_status", "text_shapes":
+		case "registry_author", "registry_add", "registry_merge", "registry_markup", "registry_export", "registry_status", "registry_reconcile", "registry_human", "text_shapes":
 			registryRecipeData = recipeData
 		}
 		tables = append(tables, recipes)
@@ -474,8 +478,8 @@ func run(args []string, stdout io.Writer) error {
 		return nil
 	}
 	switch tables[0].Operation {
-	case "registry_author", "registry_add", "registry_merge", "registry_markup", "registry_export", "registry_status", "text_shapes":
-		return authorRegistry(source, tables, registryRecipeData, RegistryOptions{RegistryPath: *registryPath, GlyphmapPath: *glyphPath, Output: *output, Apply: *apply}, stdout)
+	case "registry_author", "registry_add", "registry_merge", "registry_markup", "registry_export", "registry_status", "registry_reconcile", "registry_human", "text_shapes":
+		return authorRegistry(source, tables, registryRecipeData, RegistryOptions{RegistryPath: *registryPath, ProfilePath: paths[0], GlyphmapPath: *glyphPath, Output: *output, Apply: *apply}, stdout)
 	}
 	bundleOnly := len(tables) == 1 && (tables[0].Operation == "cmb_member_replace" || tables[0].Operation == "iso_file_replace")
 	if !bundleOnly && (*registryPath == "" || *glyphPath == "") {

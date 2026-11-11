@@ -1,0 +1,56 @@
+{
+  "review": "Astra047",
+  "role": "Read-only adversarial findings, not implementation or approval",
+  "started_at": "2026-11-05T08:05:35Z",
+  "ended_at": "2026-11-05T08:08:03.794675+00:00",
+  "cadence_due": "2026-11-05T08:05:16Z",
+  "late_start_seconds": 19,
+  "next_due": "2026-11-05T10:05:35Z",
+  "scope": "Pinned accepted743 only for implementation; v4 human contract precode challenge. No active private Go or draft fixture outputs inspected.",
+  "findings": [],
+  "conclusion": "No supported new defect in bounded inspection. This is not whole-project correctness or completion evidence.",
+  "previous_findings": {
+    "RRI-1": "Accepted source registry_authoring.go:207 bounds replicated CSV label at512 bytes. Closure status supplied by root; no execution repeated.",
+    "A046-1": "Shared default serializer registry_authoring.go:1368-1382 checks compact size and checkJSON maxPrettyBytes before json.Indent. inputs.go:53-95 counts indentation overhead conservatively. Static inspection supports removal of the previously demonstrated path; no runtime closure claim made by this auditor.",
+    "RPR-1": "registry_authoring.go:1010-1012 guards append when glossaryEntries is65536. Static count boundary observed; no Go job run."
+  },
+  "maintainability_challenges": [
+    {
+      "location": "registry_authoring.go:42-1486",
+      "observation": "No new function does not mean simpler implementation. File is now one larger multi-operation orchestration owner. Current paired preflight is contiguous and serializer remains shared, so no concrete duplicate serializer or unnecessary new helper was found. Reject function count alone as reduction evidence."
+    },
+    {
+      "location": "registry_authoring.go:1052-1069; human-contract-v4.json reuse/boundaries",
+      "observation": "Human must not inherit the existing addition shortcut: locked row with equal JP/EN but stale chapter must refresh chapter under v4, while adding continues at1060. Share only missing-row construction. This is a future-code counterexample, not a defect in accepted addition behavior."
+    },
+    {
+      "location": "human-contract-v4.json joins/transition",
+      "observation": "Pure resolveHumanEntries boundary remains defensible because three-way canonical joining, ordered decoded winners and override resolution are independent of registry policy. Returning only source-derived entries, force intent and provenance avoids duplicating status/mutation/publication."
+    },
+    {
+      "location": "human-contract-v4.json transition",
+      "observation": "Selected-only completeness is an explicit redesign. An unrelated row lacking chapter is accepted by new contract but rejected by the legacy global assertion. Keep that difference visible in fixtures and parity accounting; structural62-cohort census cannot establish resolved JP or complete Go output parity."
+    }
+  ],
+  "accounting": {
+    "production_files": 47,
+    "production_bytes": 592172,
+    "named_functions": 45,
+    "prior046_production_bytes": 579385,
+    "growth_since046": 12787
+  },
+  "accounting_claims": "Accepted analysis/registry-paired-reuse-decision.json labels11342 production/12691 runtime growth, zero retirements/family credit. Production total independently matches592172; full215-artifact runtime total was not re-derived. Registry3/6 and full9/14 unchanged, per root.",
+  "serena": "Manual read. Initial no-active-project lookup recorded; activated only own copied source. Bounded find_referencing_symbols authorRegistry found main.go:482 and existing TestCLIDryRunAndApply patch_test.go:12456. No implementation edits.",
+  "checks": {
+    "manifest": "All743 accepted hashes verified before inspection; rechecked below after inspection.",
+    "source_unchanged": true,
+    "tests_build_lint": "Not run, read-only audit and no Go jobs authorized. Parent evidence not represented as reviewer execution.",
+    "protected_resources": "No canonical/ISO/emulator/PINE/controller/auth/log access or writes.",
+    "current_private_draft": "Not inspected."
+  },
+  "limitations": [
+    "Bounded registry delta/source ownership review, not full semantic inventory or all historical scripts.",
+    "No runtime counterexample or new independent execution evidence generated.",
+    "No full-suite, native race, gameplay, source-payload, reduction, retirement, approval or completion claim."
+  ]
+}

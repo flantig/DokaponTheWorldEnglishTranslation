@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T08:25:29.667160+00:00",
+  "status": "SOURCE_ONLY actual8 authored audit capture/projection complete, no current canonical readiness or implementation/approval/coverage claim",
+  "workspace": "/var/tmp/dokapon-registry-audit-source-rjBGvVjP",
+  "actual_source_cohort": {
+    "exact_files": 8,
+    "raw_total_bytes": 57383,
+    "correction_rows": 52,
+    "glossary_proposals": 17,
+    "per_file_counts": {
+      "agent1-corrections.csv": 9,
+      "agent1-glossary-additions.json": 5,
+      "agent2-corrections.csv": 9,
+      "agent2-glossary-additions.json": 3,
+      "agent3-corrections.csv": 26,
+      "agent3-glossary-additions.json": 6,
+      "agent4-corrections.csv": 8,
+      "agent4-glossary-additions.json": 3
+    },
+    "distinct_correction_terms": 14,
+    "glossary_provenance_counts": {
+      "authored": 15,
+      "web": 2
+    }
+  },
+  "source_findings": [
+    "All8original files unchanged by identity/mtime/size/digest after owned-copy AST checks. CSV requiredheaders present, no duplicateheaders/irregular logical widths/BOM; all projected strings Unicode-valid.",
+    "No raw or normalized correction-ID duplicates, distinct-newEN group conflict, duplicate proposedJP or conflicting proposedJP/EN within these8inputs. These facts do not compare against current registry/glossary.",
+    "All52corrections can be represented by closed4field paired intent with literal historical suffix data; all17proposals project to closed5nonempty-string rows. No old/new wording is invented or replaced with a glossary term.",
+    "Suffix is exact source annotation including leading separator, hardcoded historical2026-09-03 date and Python term repr; projected once into data, no runtime term/date formatter or per-script handler.",
+    "Source `_source_file`, jp_excerpt, term and reasoning remain in raw captured rows/crosswalk; runtime correction transports complete old/newEN and literal suffix. New glossary transports only five owned fields, as original projection.",
+    "Current EN/status, existing glossary JP/EN, provenance conflicts and stale/locked/already outcomes remain UNKNOWN without current pinned snapshots. Source loader acceptance is not an eligible correction decision."
+  ],
+  "explicit_no_fix_exception": [
+    {
+      "id": "0x477010",
+      "source_file": "agent1-corrections.csv",
+      "term": "死神",
+      "old_en": "was possessed by Doom!",
+      "new_en": "was possessed by Doom!",
+      "reasoning": "DOCUMENTED EXCEPTION - no fix, logged per owner's rule. 死神 renders as 'Doom' (0x477010, 0x477090, 0x4770c0, 0x4eb650 status list) vs 'Reaper' (0x4613d0 Reaper's Whistle flavor text, 0x531c1e item name 'Reaper's Whistle'). This entry's own note field explicitly documents the split as deliberate: '死神 status rendered \"Doom\" per the reconciled system-vocabulary pool (was \"the Grim Reaper\" in an earlier draft) - \"Reaper\" reserved for the character-facing sense (e.g. Reaper's Whistle) elsewhere.' Per owner's exception rule, left as-is; recorded here for visibility, not applied as a correction (old_en=new_en)."
+    }
+  ],
+  "exception_implication": "For actual0x477010 old_en==new_en Doom exception, generic precedence can only already-skip if current matches or stale-refuse otherwise, never eligible or append annotation. Its reasoning documents deliberate Doom/Reaper split, not a request for automatic terminology substitution. The quoted old registry note is an audit claim, not reverified current truth.",
+  "data_reuse_conclusion": "This fixed source52/17cohort can be frozen as reviewed JSON data for existing generic registry_reconcile intent transport, preserving complete annotations and provenance without new runtime CSV/per-agent/per-term logic. It does not establish arbitrary future CSV import or current compatibility; later source changes require explicit re-extraction/repin/review, and canonical source/glossary guards must still run.",
+  "resource_transitions": "resource-versions.json pins all8raw versions and two derived resource names/sizes/SHA256s, linked in historical agent order. No canonical profile source/hash/status or updated date fabricated.",
+  "verification": {
+    "expected_loader_rows_and_projected_data_frozen_before_original_AST": true,
+    "original_loader_rows_matched": {
+      "corrections": 52,
+      "glossary": 17
+    },
+    "actual_original_annotation_expressions_matched": 52,
+    "manual_quote_slash_CRLF_boundaries": 3,
+    "actual_original_glossary_fivefield_expressions_matched": 17,
+    "all_assertions_passed": true,
+    "runtime_scope": "Selected original loader definitions and two exact expression nodes only; original consistency planner/writer not executed against actual state. Source39 conditional semantics reused as conditions, not fabricated actual outcomes.",
+    "no_Go_candidate_project_code_or_output_access": true,
+    "commands": [
+      "nice -n19 env TMPDIR=/var/tmp/dokapon-registry-audit-source-rjBGvVjP/tmp python3 /var/tmp/dokapon-registry-audit-source-rjBGvVjP/freeze-source.py",
+      "nice -n19 env TMPDIR=/var/tmp/dokapon-registry-audit-source-rjBGvVjP/tmp python3 /var/tmp/dokapon-registry-audit-source-rjBGvVjP/check-original.py"
+    ],
+    "all_owned_jobs_terminal": true
+  },
+  "limits": [
+    "No canonical registry/glossary, actual current statuses/EN, ISO/art/emulator/auth/logs or host crawl read. Exact8audit files and prior immutable source code only.",
+    "No new root/runtime/test functions or operational Python dependency, no actual .06/family credit or script retirement.",
+    "Two web-provenance labels are preserved source claims; external referenced sources were not fetched or reverified.",
+    "Actual decoded/flow structural census is root separate work and was not accessed or used as an oracle here."
+  ],
+  "all_owned_jobs_terminal": true
+}

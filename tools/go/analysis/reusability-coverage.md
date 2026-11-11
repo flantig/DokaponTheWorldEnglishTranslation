@@ -1,6 +1,6 @@
 # Reusable Go workflow coverage
 
-The current conservative score is **64.29%: 9 of 14 core workflow families fully verified**. Five are partial and none is wholly unsupported. Partial support earns zero completion credit. The input/output column describes the usable scoped baseline; it is not a claim that each family is complete.
+The current conservative score is **71.43%: 10 of 14 core workflow families fully verified**. Four are partial and none is wholly unsupported. Partial support earns zero completion credit. The input/output column describes the usable scoped baseline; it is not a claim that each family is complete.
 
 This is a workflow-completion metric, not a percentage of code reused, a readability score or ISO byte parity. A partial family can already support many useful edits.
 
@@ -9,14 +9,14 @@ The [versioned roadmap](migration-roadmap.json) now scores six concrete acceptan
 milestones within each area. Only proven milestones count; partial, missing and
 held items remain open. These percentages measure checklist completion, not code
 reuse, effort, time remaining or game/script coverage. The original family score
-above is9/14. Future updates keep these milestone IDs and denominators stable.
+above is10/14. Future updates keep these milestone IDs and denominators stable.
 
 The asset specification/preview/inventory family is now **6/6 (100%)** under
 its original contract. The [final contact proof](../evidence/asset-contact-score-policy-proof.json),
 [independent review](../evidence/asset-contact-score-policy-review.json) and
 [source closure](asset-preview-family-closure.json) close the prior score-presence
 gap and document intentional geometry/serialized-view policies. The earlier HOLD
-is retained as historical evidence. Total **73/84 milestones (86.90% planning index)**.
+is retained as historical evidence. Total **76/84 milestones (90.48% planning index)**.
 Inline icons and pinned TrueType share the existing raster owners, currently5/6.
 Reconciliation and offline reporting now meet their original bounded contracts; general GP indexing is now proven; bounded CFG/register reasoning is next.
 
@@ -27,7 +27,7 @@ Reconciliation and offline reporting now meet their original bounded contracts; 
 | Consumer layout and text fitting | **50% (3/6)** | Partial | Native source + wording + consumer profile → read-only line/overflow report. | [`inspect`](../patch.go), [`controls`](../patch.go), [`wrapPages`](../wrap.go), [`previewFit`](../fit.go) | Scale, positioning, ink bounds and nested strings. |
 | Instruction and reference inspection | **66.67% (4/6)** | Partial | Pinned ELF + reference queries or guarded words → advisory report or bounded word plan. | [`references`](../references.go), [`plan`](../patch.go) | Bounded branch/delay/CFG register reasoning and interior/hook ABI analysis. |
 | Image mapping, allocation and capacity | **66.67% (4/6)** | Partial | Pinned source + named extent/allocation facts → checked layout and edit plan. | [`inspect`](../patch.go), [`isoFileExtent`](../cmb.go), [`plan`](../patch.go) | Safe-cave/landing analysis and general ELF segment/BSS growth. |
-| Registry authoring, import and merge | **50% (3/6)** | Partial | Pinned registry + existing-ID updates or keyed new drafts → preview/new document; all-present additions preserve source bytes. | [`authorRegistry`](../registry_authoring.go), [`writeNewFile`](../outputs.go) | Discovery scanning, batch-specific text/schema policies, CSV/full imports and glossary reconciliation. |
+| Registry authoring, import and merge | **100% (6/6)** | Full | Pinned registry + authored source joins, paired corrections/glossary or reviewed drafts → guarded new snapshots. | [`resolveHumanEntries`](../registry_human.go), [`authorRegistry`](../registry_authoring.go), [`checkJSON`](../inputs.go), [`writeNewFile`](../outputs.go) | Original material contract verified; raw legacy temporary replay and native payload equivalence not claimed. |
 | Registry versus installed-content reconciliation | **100% (6/6)** | Full | ELF/queries → advisory matches; independent original/installed inputs + registry EN → source-aware canonical comparison facts. | [`references`](../references.go), [`controls`](../patch.go), [`authorRegistry`](../registry_authoring.go), [`auditStreams`](../stream_audit.go), [`checkJSON`](../inputs.go) | Reviewed pointer/inline proposals, meaningful unknowns and field-owned publication preview verified. |
 | Versioned snapshot and restore management | **100% (6/6)** | Full | Regular file + tag/revision → snapshot/receipt; explicit tag → verified new restore output. | [`snapshotArtifacts`](../snapshots.go), [`readInput`](../inputs.go), [`writeNewFile`](../outputs.go) | Frozen explicit-version contract verified; legacy-format import and workspace-wide reporting remain separate. |
 | Offline evidence reports and exports | **100% (6/6)** | Full | Pinned source + table/profile → JSON; pinned registry → CSV; registry/glossary/flow + template → Markdown. | [`references`](../references.go), [`controls`](../patch.go), [`authorRegistry`](../registry_authoring.go), [`auditStreams`](../stream_audit.go), [`checkJSON`](../inputs.go) | Operational Go structure plus identity/coverage-qualified audit, authored fit, CSV and progress composition verified. |
@@ -37,7 +37,7 @@ Reconciliation and offline reporting now meet their original bounded contracts; 
 | Text and donor-based raster rendering | **83.33% (5/6)** | Partial | Pinned texture + font + cell/run/group profile → bounded rendered texture through the shared importer. | [`composeCells`](../raster.go), [`authorTexture`](../texture_authoring.go), [`texture`](../texture.go), [`writeNewFile`](../outputs.go), [`renderRuns`](../raster_runs.go), [`pixelOver`](../raster_runs.go), [`resizeRaster`](../raster_resize.go) | Native/TrueType styles, multiline and icons verified; donor reconstruction remains. |
 | Asset specifications, previews and inventory | **100% (6/6)** | Full | Pinned TXD/CMB/PNG + profile → inventory, discovery/contact ZIP or RGB comparison pair. | [`authorTexture`](../texture_authoring.go), [`manifestTextures`](../texture_manifest.go), [`contactSheets`](../texture_contacts.go), [`textMasks`](../raster_font.go), [`decodePNG`](../raster_png.go), [`resizeRaster`](../raster_resize.go), [`pixelOver`](../raster_runs.go), [`writeNewFile`](../outputs.go) | Original contract verified; normalized geometry/serialization policies and finite native-font limits remain explicit. |
 
-The eight complete families are **guarded transactions**, **candidate composition/containment**, **texture codec**, **named ISO/CMB asset placement**, **versioned artifact snapshots**, **asset specifications/previews/inventory**, **registry reconciliation** and **offline reports**. Text grammar, native layout and raster authoring retain their separate gaps.
+The ten complete families are **guarded transactions**, **text grammar**, **candidate composition/containment**, **texture codec**, **named ISO/CMB asset placement**, **versioned artifact snapshots**, **asset specifications/previews/inventory**, **registry authoring/import**, **registry reconciliation** and **offline reports**. Native layout, binary inspection and raster authoring retain their separate gaps.
 
 ### Earlier implementation checkpoints
 
@@ -77,7 +77,7 @@ prove source facts, without family, historical-retirement or reduction credit.
 
 The [frozen baseline](reusability-coverage-baseline.json) crosswalks the **21 recommendations already present in the three 410-script discovery reports**. It merges transaction and image-layout aliases; the combined text-codec/fit recommendation maps to its two existing families. Retirement-gate administration is tracked outside editing coverage. This yields 17 distinct workflows.
 
-The existing toolkit plan treats owned runtime as optional. Diagnostic instrumentation, runtime platform and scenario verification remain visible separately: one partial, two unsupported. Including them gives **8/17 = 47.06%**, with 7 partial and two unsupported. They have not been erased from the inventory.
+The existing toolkit plan treats owned runtime as optional. Diagnostic instrumentation, runtime platform and scenario verification remain visible separately: one partial, two unsupported. Including them gives **10/17 = 58.82%**, with 5 partial and two unsupported. They have not been erased from the inventory.
 
 ```text
 core coverage = 100 × fully verified core families / 14
@@ -690,3 +690,43 @@ Production grows14246B and runtime28042B; tests19437B/fixtures157572B separate,2
 111 core and real-audit cases (83 positives,28 refusals) pass at source origins0/6 in core/native builds. Post-guard race, build/vet/format/scoped hygiene pass. A late duplicate-prefix-speaker override defect was independently reproduced, fixed in the existing preparation owner and closed by four new refusal cases. One local occurrence record resolves Astra045 bookkeeping duplication. No new function or handler was added.
 
 Full9/14(64.29%), planning73/84(86.90%). This adds capability and code, not script retirement or net reduction. Unknown native widths/opaque image writes, unclassified narrative E000 varargs and multi-rune authoring remain explicit separate domains. No full-suite/nativefonts-race/gameplay claim.
+
+
+## Shared registry draft admission - 2026-11-05
+
+[Proof](../evidence/registry-import-proof.json), [review](../evidence/registry-import-review.json) and [contract](../analysis/registry-import-contract.json) verify four declared JSON/CSV draft policies through the existing owner. Source policies intentionally differ; binary controls are not a lexical-import parser. Pinned input roles, normalized whole-cohort IDs, raw metadata/numbers, exact all-present bytes and the exclusive publisher are shared. CSV field spans preserve quoted CRLF after standard-library grammar validation.
+
+The shared JSON rewrite branch now checks the complete compact document before indentation, including inherited metadata; all rewritten snapshots fit 64 MiB. The estimate conservatively overcounts empty containers. CSV provenance is capped at512 UTF-8 bytes, retaining the original 282-byte label. Independent review found and root closed both multiplication risks. Whole outputs for author/merge/add/markup match accepted718;33 deep rows match66,538,175 bytes,34 refuse, and deep inline/import no-ops retain75,133 source bytes. No hostile-memory sandbox is claimed.
+
+Runtime grows; no function or per-script handler was added. Coverage remains 9/14, registry 3/6, planning 73/84 and410 retirements unchanged. Fixed constructor facts, missing selection/occurrence source bindings and glossary/correction/drift reconciliation remain separate work. Full suite/nativefonts race/gameplay stay deferred.
+
+
+## Paired registry corrections and glossary - 2026-11-05
+
+[Proof](../evidence/registry-paired-proof.json), [review](../evidence/registry-paired-review.json) and [contract](../analysis/registry-paired-contract.json) verify the first paired .06 slice. One fixed operation consumes three pinned roles and stages the complete pair. Existing EN/note mutation and an ordered document loop retain readable serialization, metadata and exact numbers. Fully authored suffixes keep historical wording in data; already-applied rows never append again. Held rows allow independent glossary advancement; stale or conflicting data refuses everything.
+
+The ZIP contains exactly registry.json and glossary.json, deterministic Store members, closed before the existing exclusive publisher runs once. Successful return verifies a complete artifact; the pathname is visible during writing and no canonical files are installed. Unchanged members retain exact bytes/dates, deliberately improving old date-rewrite behavior. Independent50fixtures, emitted-member replay, typed/wire/source-profile/budget refusals and old route tests pass. A resulting-glossary count bug found in review is closed at the existing append guard: the final slot succeeds/replays, one extra term refuses.
+
+No new function or runtime file was added. This is capability growth, not a code reduction or script retirement. Coverage remains9/14, registry3/6, planning73/84. Human drift/force and decoded-flow/source construction remain separate unfinished responsibilities. Full suite/nativefonts race/gameplay remain deferred.
+
+
+## Human source and field ownership - 2026-11-05
+
+[Proof](../evidence/registry-human-proof.json), [review](../evidence/registry-human-review.json) and [milestone crosswalk](../analysis/registry-ownership-milestone.json) close registry .06. Registry progress is4/6; the planning index is74/84 (88.10%). Core families remain9/14 (64.29%), with no script retirement or code-reuse percentage claimed. Per-pool .04/.05 duties remain.
+
+One justified pure source resolver joins decoded winners, flow scope and named authored fields. Registry status/mutation/noop/serialization/publication stay with their existing owner. It shares insertion only for missing rows; matching, locked and drifted rows still refresh metadata. Human force never changes locked wording and only known unlocked statuses permit actual wording replacement. Selected-only metadata checks preserve unrelated incomplete records; this and unchanged-byte/date behavior deliberately differ from the old writer.
+
+Separate tables capture62human entries,52complete correction intents and17glossary proposals. Literal annotations and the deliberate no-fix Doom row require no term/date formatter or per-script handler. Real62source semantic parity and controlled52/17state comparisons pass; complete Go replay preserves bytes/date. Current applicability of historical corrections and native/gameplay readiness remain unproved.
+
+This increment adds one production file and one function for a distinct source relationship, plus two shared value types. Combined code/module/data accounting grows by97397B (224runtimefiles/2792590B). This is capability growth, not deletion or a reduction. Test and fixture overhead are reported separately in the proof. Full suite/nativefonts race/gameplay remain deferred.
+
+
+## Registry pool responsibilities - 2026-11-05
+
+[Proof](../evidence/registry-pools-proof.json), [review](../evidence/registry-pools-review.json) and [original-scope assessment](../analysis/registry-pools-family-assessment.json) close registry .04/.05 and its material family contract. Registry is6/6, core families10/14 (71.43%), planning76/84 (90.48%). This measures verified toolkit responsibilities, not code reuse or historical script retirement.
+
+The existing admission owner gains the finite full_sweep policy. It checks ten required fields and the source speaker/page/glyph/apostrophe rules. Exact decoded-text hashes bind reviewed complete one-based EN-ordinal to JP-source-position marker permutations; no note substring grants a waiver. Kind-only default validation retains an explicit source weakness. This proves lexical admission, not opaque native argument bytes.
+
+Separate data holds142 original constructor facts, five marker mappings and five complete note replacements. The six historical keeper decisions are represented by current normalized source facts. Legacy raw temporary inputs are absent, so their preselection replay is not claimed. All3186 current batch rows match independently frozen original whole-document expectations. Evolved current wording conflicts refuse historical constructor application.
+
+No production file or function was added. Go grows4488B; code/module/recipe/runtime inputs together grow184978B to233files/2977568B. Tests grow5543B and fixture/configuration inputs64795B separately. This is capability growth, not a reduction. The golden pin verifier now distinguishes exact disjoint profile/resource roles and retains all56 prior hashes. Fullsuite/nativefonts race/gameplay remain deferred.

@@ -1,0 +1,98 @@
+{
+  "at": "2026-11-05T08:05:35.102025+00:00",
+  "status": "ROOT_VERIFIED_HUMAN_OWNERSHIP_AND_SOURCE_JOIN",
+  "baseline": {
+    "manifest": "/var/tmp/dokapon-registry-reconcile-58nlvgjd/sealed-final/manifest.json",
+    "sha256": "07075c6d7abd411a6bf13861a3719a5a2709aff5521f01509c8fd0705cd3500f"
+  },
+  "source_contract": "/var/tmp/dokapon-registry-human-source-7QOM8LG6/human-source-contract.json",
+  "operation": "registry_human",
+  "wire": {
+    "profile": "Same six root fields as registry_reconcile, fixed operation registry_human, exactly decoded/flow/authored pinned resources; no new Recipes field/CLI flag.",
+    "authored": "Closed object {translations: {ID: {en,chapter,character,event,tier,note}}, jp_overrides: {ID: nonemptyJP}, overwrite_drift: bool, discovered_by: nonemptystring<=512UTF8bytes}, all four explicit. Unknown/alias/duplicate fields refuse; finite chapter/tier sets. Facts not hardcoded in Go.",
+    "decoded": "Bare ordered array of objects. Missing/null/empty-string vma marks an unaddressed row and is ignored, preserving source admission and actual one null-VMA record. Other vma values require numeric string admission. decoded_jp required nonempty string only for selected last-winner without override. Other fields opaque.",
+    "flow": "Bare array of objects, each vma string numeric-ID admitted. Duplicates identical spelling collapse; normalized conflicting spellings within an input refuse.",
+    "bounds": "Existing 64MiB document/resource guard; all three resources combined64MiB; max65536 records each/translations/overrides and existing/result registry, profile1MiB. Streaming admission before row append."
+  },
+  "joins": [
+    "Numeric ID joins across resources. Within each resource, different spellings of the same numeric ID refuse before collapse. Exact repeated decoded spelling retains last record; exact repeated flow spelling collapses.",
+    "Flow, selected decoded and authored ID cohorts must be identical; unresolved flow IDs refuse (legacy silently missed them). Decoded rows outside scope ignored after vma admission.",
+    "JP override keys must belong to authored cohort, canonical duplicate check; override supplies JP even if selected source decoded_jp missing/null (explicit redesign of eager legacy default bug)."
+  ],
+  "transition": [
+    "New rows use canonical ID, authored six fields+resolvedJP, drafted, chapter menu->menu_labels else text_bank, null landing/patch, explicit authored discovered_by. Captured legacy fact table supplies build_registry.py, not a Go provenance literal.",
+    "Existing rows preserve ID spelling/status/machine/unknown metadata. Always refresh chapter/character/event/tier/note, including locked and drifted.",
+    "Compare actual old JP/EN: locked wording always preserved; drift default preserves/reports; overwrite_drift true permits change only known drafted/zone_pending, unknown/null/missing/casevariant status refuses actual change. Matching wording or metadata-only does not impose global status validity.",
+    "Only authored/selected rows receive human completeness and Unicode validation. Preserve all unselected metadata without requiring chapter/character/event/tier. Existing registry_status owns whole-registry completeness reporting. Explicit redesign of old global assertion that refuses actual current registry on unrelated missingmetadata. Admission, input guards and selected invariants still run before no-op/output.",
+    "Sort numeric whole registry when changed. Semantic no-op preserves exact bytes/date. Changed-only serialization/date is explicit newGo contract.",
+    "Existing JP/EN equality is only a valid JSON string exact match. Missing/null/nonstring old wording counts as drift and is preserved by locked/default handling; force may replace it only for known unlocked. Invalid Unicode in selected old wording strings refuses before mutation; opaque nonstring old wording may be preserved, not read as text.",
+    "Selected old owned string-valued chapter/character/event/tier/note as well as JP/EN require valid Unicode before semantic equality. Missing/null/nonstring old metadata may be replaced by valid authored metadata; selected resulting metadata strings validate Unicode too. Prevent unpaired-surrogate to U+FFFD false equality/no-op."
+  ],
+  "reuse": [
+    "Inspected authorRegistry/main.run, checkJSON/readInput and flat import admission. New pure resolveHumanEntries may be justified for three-way source ownership: it accepts only three resource bytes, returns typed canonical resolved rows plus overwrite intent, and cannot see registry/status/publication. authorRegistry owns all registry transitions/shared mutation/serializer. No per-policy helpers.",
+    "Share only missing-entry insertion, never classify human as adding. Existing matching/locked/drifted human rows still refresh metadata; changed-only human publication independent from adding added_count. Known-unlocked JP/EN mutation uses canonical statuses sequence.",
+    "Extend existing TestCLIDryRunAndApply block/table and complete JSON comparison loop, existing input preservation and profile drift patterns. No new testfunc/helper.",
+    "Other operation allowlists should stay closed: fixed operation names only added main source selection/dispatch. No exported Recipes field avoids touching unrelated owners."
+  ],
+  "review_questions": [
+    "Would pure source-join/planning extraction be justified now, despite ability to enhance authorRegistry? Provide concrete boundary versus cost, no function-count gaming.",
+    "Does sharing additions need muddying flags? Prefer single shared insertion responsibility, retain human existing ownership separate.",
+    "Counterexample intended policies/wire/limits/idempotence/global metadata validation; distinguish legacy observations from future contract."
+  ],
+  "excluded": [
+    "No glossary/paired force coupling",
+    "No source-native/patch readiness or family credit",
+    "No new per-script handler/DSL/dependency",
+    "No canonical/ISO writes. Actual decoded/flow now located and structural census62cohortjoin PASS; actual resolved62JP/registry/source parity not yet performed and not fixture oracle."
+  ],
+  "boundaries": {
+    "resolveHumanEntries": "NEW pure source-only function selected by root after read-only Astra challenge. readInput owns bounded bytes, checkJSON owns JSON wire, registry import owns flat independent rows, authorRegistry owns registry document policy. None owns three-way source resolution/ordered precedence/overrides. Returns shared typed resolved entries, overwrite intent, authored provenance; no registry/status/I/O. Extending a candidate would mix these independent source relationships into unrelated parsers or add more source flags to registry orchestration. Separate cohesive function justified, not a function-count target.",
+    "authorRegistry": "Enhanced, not duplicated: resource/profile guard, human transition plan, missing-entry insertion, shared field mutation/serializer/noop/exclusive publisher.",
+    "TestCLIDryRunAndApply": "Enhanced existing table and complete JSON comparison pipeline, no new test functions/helpers."
+  },
+  "review_fixtures": [
+    "H1 matching JPEN/locked metadata refresh must bypass add already-present shortcut",
+    "H2 last exact decoded winner validated afterselection, firstnull/lastvalidsucceeds, reversewithoutoverriderefuses",
+    "H3 overridefillsJPfield, neverinvents missingdecodedROW",
+    "H4 semanticescapedstringequality/unsortedsource alone preserves exactbytes/date, afterselectedvalidation"
+  ],
+  "actual_read_only_source_census": "actual-source-structural-census.json",
+  "decision": {
+    "normalization": "Optional question no answer after60s, announced recommended numericcrossinput/aliasrefusal assumption.",
+    "metadata_scope": "Optional question no answer after60s, root chooses recommended selected-only as announced; actual original on private canonical snapshot refuses on unrelated incomplete rows. Existing registry_status retainsglobaldiagnostics. No approval inferred.",
+    "history": "v3manual55fixture preserved immutable, independentworker will explicitly revise only3unselected-global refusal vectors and refreeze beforeGo."
+  },
+  "updated_at": "2026-11-05T08:37:16.928422+00:00",
+  "source_capsules": [
+    {
+      "name": "human-source121",
+      "manifest": "/var/tmp/dokapon-registry-human-source-7QOM8LG6/manifest.json",
+      "sha256": "c9ee49f7ce438fb2abb2f9bfd1101d4896adea5b2e1e12eba77515187609cc99"
+    },
+    {
+      "name": "future-fixture19",
+      "manifest": "/var/tmp/dokapon-registry-human-fixtures-o9kyZYAl/manifest.json",
+      "sha256": "d16cb18f3c19fe0e01b0701827cb4de1b5937d2ff60aa14c9ac36798e6c0bc69"
+    },
+    {
+      "name": "actual-audit25",
+      "manifest": "/var/tmp/dokapon-registry-audit-source-rjBGvVjP/manifest.json",
+      "sha256": "1e70d60b43d7d137123c3b08a431926e05854db22dda736c3edfd68dde4b8d31"
+    },
+    {
+      "name": "precodeAstra",
+      "manifest": "/tmp/dokapon-astra046-human-precode-ls_vmyom/manifest.json",
+      "sha256": "e91e76b23b7a275ff6376092879f12d15bf00cacb39f73e9876b75b13bb1838f"
+    },
+    {
+      "name": "precodeProvenance",
+      "manifest": "/tmp/dokapon-astra046-human-v2-6fj4vv70/manifest.json",
+      "sha256": "ffcf9759a5904b291a83904fc588740e28a4799d9ec6ddc0a17791441958a82d"
+    },
+    {
+      "name": "periodic047",
+      "manifest": "/tmp/dokapon-astra047-t65qd73z/manifest.json",
+      "sha256": "7ac52e3c58d4853b0884280b6c8aa734c34b74ffb6939ab945c934383c3646c2"
+    }
+  ]
+}

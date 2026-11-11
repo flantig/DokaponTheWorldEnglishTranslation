@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T07:36:12.728662+00:00",
+  "kind": "Independent read-only ordinary review, frozen56 pre-count-fix",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-registry-reconcile-58nlvgjd/review-source/manifest.json",
+    "sha256": "a9e89b43105c09934bc609c00e6e203ba20477f4745cc5856d8c4df4742c4d18",
+    "overlay_files_verified": 56,
+    "baseline_manifest_sha256": "88e047a7713f481a32abff70556ed47ce0882d335ac48b751d21eed9c262c728",
+    "baseline_local_files_verified": 729,
+    "baseline_exclusions": [
+      "external/skills/MIGRATION-TOOLS.md",
+      "external/skills/STRING-REGISTRY.md",
+      "source-aliases.json"
+    ],
+    "all56_source_pins_reverified_after_checks": true
+  },
+  "findings": [
+    {
+      "id": "RPR-1",
+      "severity": "medium",
+      "title": "New glossary proposals can publish a member above its own replay count limit",
+      "location": "registry_authoring.go:927-930 existing reader ceiling and1011-1017 proposal append",
+      "witness": "65536existing distinct JP rows plus1new proposal succeeds, publishing65537entries in a3331420-byte glossary member. Updating pinned glossary input to that produced member and replaying the unchanged proposal refuses: glossary exceeds65536existingentries.",
+      "positive_boundary": "65535existing+1new succeeds with65536entries and replay succeeds with identical3331369-byte glossary SHA df2000729f59c55a21335f28d98d2e19099383f08250e008bb0737db296a88a2.",
+      "impact": "A successful bounded output becomes unusable by the same engine on its next invocation, contradicting the new consumable snapshot/replay contract despite remaining far below64MiB.",
+      "recommendation": "Enforce the resulting65536glossary row ceiling at the existing absent-JP append boundary before publication; retain65535+1positive/65536+1refusal plus at-cap already-present/noop. No new helper or limit flag needed.",
+      "status": "Open in frozen56. Parent owns fix, fresh frozen delta and required QA.",
+      "expectation_qualification": "The result ceiling is inferred from the explicit existing reader ceiling and idempotence contract and was independently frozen before the probe; it is not falsely attributed to the50precode fixture goldens.",
+      "actual_commands": "glossary-count-results.json",
+      "raw_inputs_outputs": "witness/ with lossless storage pins in witness-storage.json"
+    }
+  ],
+  "other_review_assessment": {
+    "schema": "The public operation has6closed root fields and3exact pinned resource roles. Four correction intent fields and5proposal strings are closed and validated before planning. Normalized correction IDs and exact decoded JP duplicates refuse before indexes collapse. Existing GL aliases are checked in entries, leaving unrelated root metadata opaque.",
+    "state_transitions": "Current==new precedes stale/status handling and changes no notes; stale refuses pair; known locked rows are held while GL may advance; only known unlocked rows stage EN/note changes. Missing/null note becomesempty only on actualchange, present wrongtype/unpaired note refuses. Exact suffix supplied as data is appended once; already-applied replay preserves it.",
+    "raw_and_noop": "RawMessage keeps unknown metadata and exact numbers. Old record ID spellings/order preserved. New explicit unchanged-member raw/date preservation is distinguished from old always-rewrite behavior.",
+    "paired_preflight": "All correction/proposal typing, duplicates and outcomes are planned before registry maps mutate. Fatal later glossary conflict creates no output or partial canonical write.",
+    "serialization_publication": "One local document record shares existing compact/preflight/Indent path for registry and glossary. Fixed2Storemember ZIP headers/order and one Close-before-publication bundle are deterministic. Source/resources/rawprofile rechecked before one existing exclusive writer. Complete artifact on successful return is not atomic namespace visibility or installation.",
+    "readability_reuse": "No new function/helper or per-script handler. Two transport structs express intent distinct from canonical registry rows. One local document record replaces parallel member state; contiguous paired preflight and existing EN/note mutation reuse are coherent. Existing owner grows materially; this is capability growth, not code-reduction credit. No additional concrete correctness or code-quality finding identified within bounded scope.",
+    "limits": "Input/profile/row/compact/pretty/archive bounds are explicit and do not claim generic hostile-memory isolation. RPR-1 is the independently identified missing resulting row guard."
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 6.904740199999651
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.4718886890041176
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 32.297719649010105
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 2.6365243130130693
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.3720875989820343
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 39.801308105001226
+      }
+    ],
+    "actual_backend": "go list -tags nativefonts selected raster_font.go in CgoFiles and excluded raster_font_disabled.go; raw log nativefonts-selected-files.txt",
+    "core_focused_wall_seconds": 32.297719649010105,
+    "nativefonts_focused_wall_seconds": 39.801308105001226,
+    "independent_frozen50_fixture_sha256": "7d84559aea7c5523412a837305b3bbcd8b95887273f97caaab16ece4e230e20e",
+    "independent_frozen50_counts": {
+      "success": 17,
+      "refusal": 33
+    },
+    "source_packs_members_verified": [
+      96,
+      16,
+      1
+    ],
+    "count_probe_actual_calls": 4,
+    "all_owned_jobs_terminal": true,
+    "no_frozen_or_live_source_mutations": true
+  },
+  "scope_limits": [
+    "Partial registry reconciliation engine only, no .06/family/retirement/reduction credit or approval.",
+    "Human drift/force/decoded-flow source construction remains unfinished. Original batch ownership/drop/reward/occurrence duties remain held from earlier scopes.",
+    "No full suite/race/nativefontsrace/gameplay, protected canonical registry/images/emulator/auth or PID crawl accessed.",
+    "Root owns any implementation change and final race/publication. This review did not inspect or execute a count-fix candidate."
+  ]
+}

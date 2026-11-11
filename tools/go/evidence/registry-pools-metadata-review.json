@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T10:34:50.372547+00:00",
+  "kind": "Read-only final metadata closure review, not implementation/approval",
+  "operational_identity": {
+    "frozen66_manifest_sha256": "89613e81f3e6f3ec1d262faf5ce745d18a206eb7806b8f1fe38cf91e9a29d7d5",
+    "all66_operational_files_including_README_unchanged": true,
+    "prior42_ordinary_review_manifest": "/var/tmp/dokapon-registry-pools-review-0VXbhlos/sealed-final/manifest.json",
+    "prior42_manifest_sha256": "610fae42861288563e55729f1e89def88c131dc801a0c4a3e358f953c83982bd",
+    "Go_test_build_jobs_started": 0
+  },
+  "finding_history": [
+    {
+      "id": "META-1",
+      "status": "Closed after private metadata correction",
+      "initial_issue": "Current coverage proof retained old hashes for5operational paths, omitted newpools paths and described344old inputs/human-only scoped proof while currentinventory was354.",
+      "initial_witness": "finding-META-1.json",
+      "initial_witness_sha256": "7226d1f1bad795fe6049028daf383b237e1f331f6f20e92c785b0880cba960be",
+      "correction": "All5frozen66scoped/report hashes now match; all23new paths and all explicitlyrefreshed paths hashchecked. Counts now665stagedscoped/563report/354inputs, stalehumanonlytextremoved; finalization/linkscan honestly markedpending. Oldfinding retained rather than overwritten.",
+      "closure_receipt": "META-1-closure.json"
+    }
+  ],
+  "remaining_findings": [],
+  "arithmetic": {
+    "original_scope_pins": [
+      {
+        "path": "analysis/pattern-crawl-text_binary.json",
+        "expected": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+        "actual": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+        "equal": true
+      },
+      {
+        "path": "analysis/pattern-crawl-iso_registry_reports.json",
+        "expected": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+        "actual": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+        "equal": true
+      },
+      {
+        "path": "analysis/pattern-crawl-assets_runtime_tests.json",
+        "expected": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+        "actual": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
+        "equal": true
+      },
+      {
+        "path": "analysis/reusable-toolkit-plan.json",
+        "expected": "f099024ae73691b76ccf31e128b60cec31aa895f049d09736f9003d4853f11a9",
+        "actual": "2d6a3b503545aa69389ea30e083b5cac4c53aae65ca7ee552f7a11288e2a5ada",
+        "equal": false
+      }
+    ],
+    "family_denominators": {
+      "core": 14,
+      "optional": 3,
+      "expanded": 17,
+      "planning": 84
+    },
+    "computed": {
+      "core_full": 10,
+      "planning_proven": 76,
+      "registry_proven": 6,
+      "core_percent": 71.43,
+      "planning_percent": 90.48,
+      "expanded_percent": 58.82
+    },
+    "only_milestone_status_changes": [
+      {
+        "id": "registry_authoring.04",
+        "before": "partial",
+        "after": "proven"
+      },
+      {
+        "id": "registry_authoring.05",
+        "before": "partial",
+        "after": "proven"
+      }
+    ],
+    "only_family_status_changes": [
+      {
+        "id": "registry_authoring",
+        "before": "partial",
+        "after": "full"
+      }
+    ],
+    "runtime_before_after": [
+      {
+        "files": 224,
+        "bytes": 2792590
+      },
+      {
+        "files": 233,
+        "bytes": 2977568
+      }
+    ],
+    "runtime_growth": 184978,
+    "production": {
+      "files": 48,
+      "bytes": 607520,
+      "functions": 46,
+      "growth": 4488
+    },
+    "test_growth": 5543,
+    "fixture_growth": 64795,
+    "accounted_inputs": 354
+  },
+  "original_scope_assessment": {
+    "denominators": "Frozen baseline14core+3optional=17expanded;14families*6milestones=84. No IDs/requirementstrings changed. Onlyregistry.04/.05 advance partial\u2192proven and registryfamily partial\u2192full relative accepted764; .01/.02/.03/.06 remain previouslyproven.",
+    "credit_interpretation": "Currentroot metadata10/14=71.43%,76/84=90.48%,registry6/6 is arithmeticallyconsistent and attached to an explicit original-material-scope familyassessment, not inferred automatically from testpass counts. Reviewer does not mutate/approve credit.",
+    "primary_original_pins": "Baseline2b0aaa88 and all3original crawl hashes match. The separate historicalf099context plan was not recovered; current2d6plan is not substituted. Final assessment explicitly states this provenance limitation and leaves denominators unchanged.",
+    "guard_crosswalk": "The finalassessment names original ID/schema/integrity/conflict/status/humanownership/rawmetadata/sourcehash/exclusiveoutput guards and maps each to priorfield/add/import/human/pair/pools proofs. Whole.06reconciliation ownership has a separate explicit crosswalk and deliberatetyped/selectedscope/status/noop dispositions. No additional guard silently replaced with a passing-corpushypothesis.",
+    "fixed_data_vs_missing_replay": "Sixkeepers are fixed reviewed batchfacts;142constructor outputs and5literal complete-note replacements share existing fieldowners. No generic winner selector or arbitrary noteprepend engine is claimed. Eightmissing historicaltemporaryinputs/rawpreselection replay remain unverified, while declarative reviewed normalized-input capability is the asserted originalfamily duty.",
+    "native_boundary": "Exact-text permutations validate lexical marker occurrences/family/code, not opaque argument payload or reconstructed nativeframes. Native byte/reference responsibilities remain separate families and are not credited here.",
+    "scope_challenge": "Astraoriginal-scope report manifest95871d92 verified all13pins. Its named counterexamples/limitations are carried into finalassessment; it supplies a challenge, not approval.",
+    "documentation": "AppendedMIGRATION/ARCHITECTURE describe currentcounts/growth and source limits. Earlierdatedincrement sections retain historicalcounts. CurrentcoverageJSON/MD and roadmap agree; no currentcanonicalapplicability, all410retirement, code-reuse percentage, rawtemp replay or reduction claim found."
+  },
+  "accounting_assessment": {
+    "independent_recompute": "Groupitem counts/byte sums match runtime summaries for accepted764 andcurrent. Runtime224files2792590B\u2192233files2977568B, growth184978B. Production48files607520B/46functions, growth4488B; tests5543B andfixture/config64795B separate. Allaccountinggroups total354inputs.",
+    "not_a_reduction": "Runtime/code growth charged as capability cost. No deletion, relocation savings, script retirement orDRYpercentage inferred.",
+    "protected_boundary": "Byte arithmetic used declared inventories and production source counts, not protectedasset payloads. Rootreceipt owns the full665/563external/binary sweep; reviewer separatelychecked explicitchanged/new metadata/sourcehashes."
+  },
+  "finalization_boundary": {
+    "state": "Private staged metadata, corrected current pins. Finalizer will add this report, refresh its pin and perform finalJSON/MD/hygiene/seal steps. finalized_at remainsnull until then.",
+    "inspected_metadata": "inspected-metadata-pins.json binds reviewed currentversions; no large duplicate source bundle.",
+    "all_owned_jobs_terminal": true,
+    "source_project_edits": false,
+    "children": 0
+  },
+  "limitations": [
+    "No Go/build/test/race rerun and no gameplay/protectedcanonical/ISO/art/emulator/auth/log/process access. Prior42ordinaryreview remains immutable.",
+    "Metadata review checks arithmetic/sourcecrosswalk and evidence traceability. Root-controlled actual3186/62/52+17Go semanticparities andrace receipts are referenced evidence, not independentlyreplayed neworacles in this turn.",
+    "No implementation or publication approval, credit mutation, fullgoal completion, currentcanonicalreadiness or historicalrawinput replay claim."
+  ]
+}

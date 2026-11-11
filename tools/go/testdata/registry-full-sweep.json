@@ -1,0 +1,1213 @@
+{
+  "glyphmap": {
+    "0x1": "a",
+    "0x2": "b",
+    "0x3": "c",
+    "0x4": "d",
+    "0x5": "e",
+    "0x6": "f",
+    "0x7": "g",
+    "0x8": "h",
+    "0x9": "i",
+    "0xa": "j",
+    "0xb": "k",
+    "0xc": "l",
+    "0xd": "m",
+    "0xe": "n",
+    "0xf": "o",
+    "0x10": "p",
+    "0x11": "q",
+    "0x12": "r",
+    "0x13": "s",
+    "0x14": "t",
+    "0x15": "u",
+    "0x16": "v",
+    "0x17": "w",
+    "0x18": "x",
+    "0x19": "y",
+    "0x1a": "z",
+    "0x1b": "A",
+    "0x1c": "B",
+    "0x1d": "C",
+    "0x1e": "D",
+    "0x1f": "E",
+    "0x20": "F",
+    "0x21": "G",
+    "0x22": "H",
+    "0x23": "I",
+    "0x24": "J",
+    "0x25": "K",
+    "0x26": "L",
+    "0x27": "M",
+    "0x28": "N",
+    "0x29": "O",
+    "0x2a": "P",
+    "0x2b": "Q",
+    "0x2c": "R",
+    "0x2d": "S",
+    "0x2e": "T",
+    "0x2f": "U",
+    "0x30": "V",
+    "0x31": "W",
+    "0x32": "X",
+    "0x33": "Y",
+    "0x34": "Z",
+    "0x35": "0",
+    "0x36": "1",
+    "0x37": "2",
+    "0x38": "3",
+    "0x39": "4",
+    "0x3a": "5",
+    "0x3b": "6",
+    "0x3c": "7",
+    "0x3d": "8",
+    "0x3e": "9",
+    "0x3f": "!",
+    "0x40": "\"",
+    "0x41": "#",
+    "0x42": "$",
+    "0x43": "%",
+    "0x44": "&",
+    "0x45": "'",
+    "0x46": "(",
+    "0x47": ")",
+    "0x48": "*",
+    "0x49": "+",
+    "0x4a": ",",
+    "0x4b": "-",
+    "0x4c": ".",
+    "0x4d": "/",
+    "0x4e": ":",
+    "0x4f": ";",
+    "0x50": "<",
+    "0x51": "=",
+    "0x52": ">",
+    "0x53": "?",
+    "0x54": "@",
+    "0x55": "[",
+    "0x56": "\\",
+    "0x57": "]",
+    "0x58": "^",
+    "0x59": "_",
+    "0x5a": "`",
+    "0x5b": "{",
+    "0x5c": "|",
+    "0x5d": "}",
+    "0x5e": "~",
+    "0x5f": "日",
+    "0x60": "é",
+    "0x61": "́",
+    "0x62": "‘",
+    "0x63": "’"
+  },
+  "cases": [
+    {
+      "name": "full-ordinary-empty-review-new",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "A",
+          "en": "B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-default-kind-equality-allows-code-change",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}A\",\"en\":\"{{HL:0xb003}}{{PARAM:0x8800}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}A",
+          "en": "{{HL:0xb003}}{{PARAM:0x8800}}B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-default-kind-mismatch-missing-record",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "marker-kind-sequence"
+    },
+    {
+      "name": "full-magic-note-cannot-waive-mismatch",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"note\":\"NOT line up 1:1, claimed by unrelated author\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "marker-kind-sequence"
+    },
+    {
+      "name": "full-three-cycle-en-to-jp-direction",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A",
+          "en": "{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-three-cycle-inverse-refuses",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[3,1,2]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "paired-kind-or-code"
+    },
+    {
+      "name": "full-kind-equal-review-identity-valid",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"cc3dd759c400825031a95a44c3e57c0d4b6d55a46814af85d9c46eb591f90dfc\",\"en_sources_jp\":[1,2,3]}}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-kind-equal-review-code-mismatch-refuses",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"cc3dd759c400825031a95a44c3e57c0d4b6d55a46814af85d9c46eb591f90dfc\",\"en_sources_jp\":[3,2,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "paired-kind-or-code"
+    },
+    {
+      "name": "full-identical-codes-chosen-lexical-identity",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb002}}A\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"5961b770b434dae79b6038c9b7edc713eca970cbfdf0f74b1d6483e4972a9b8f\",\"en_sha256\":\"b83e1c7e6ebf35c9e9401b4af0fa115419c57c877951f7e128aa93a49b480518\",\"en_sources_jp\":[3,2,1]}}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb002}}A",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb002}}B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-identical-codes-still-require-bijection",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb002}}A\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"5961b770b434dae79b6038c9b7edc713eca970cbfdf0f74b1d6483e4972a9b8f\",\"en_sha256\":\"b83e1c7e6ebf35c9e9401b4af0fa115419c57c877951f7e128aa93a49b480518\",\"en_sources_jp\":[1,2,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "bijection-repeat"
+    },
+    {
+      "name": "full-wrong-jp-text-hash",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "jp-hash"
+    },
+    {
+      "name": "full-wrong-en-text-hash",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "en-hash"
+    },
+    {
+      "name": "full-changed-text-same-tape-stale-review",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}BC\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "en-hash"
+    },
+    {
+      "name": "full-resource-null-root",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "null",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-object-root"
+    },
+    {
+      "name": "full-resource-array-root",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "[]",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-object-root"
+    },
+    {
+      "name": "full-review-missing-required-field",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "closed-review-required"
+    },
+    {
+      "name": "full-review-extra-field",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1],\"note\":\"not an admission field\"}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "closed-review-extra"
+    },
+    {
+      "name": "full-review-case-alias-field",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1],\"JP_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\"}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "closed-review-case-alias"
+    },
+    {
+      "name": "full-review-duplicate-field",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1],\"jp_sha256\":\"0000000000000000000000000000000000000000000000000000000000000000\"}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "duplicate-json-key"
+    },
+    {
+      "name": "full-resource-duplicate-exact-id",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]},\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "duplicate-json-key"
+    },
+    {
+      "name": "full-resource-normalized-id-aliases",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]},\"0X001000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "normalized-review-id-duplicate"
+    },
+    {
+      "name": "full-hashes-use-decoded-utf8-not-json-spelling",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "escaped.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{P\\u0041R\\u0041M:0xa000}}{{HL:0xb003}}\\u0041\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"cc3dd759c400825031a95a44c3e57c0d4b6d55a46814af85d9c46eb591f90dfc\",\"en_sources_jp\":[1,2,3]}}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-resource-invalid-id",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"not-a-vma\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-id"
+    },
+    {
+      "name": "full-resource-id-over-32bits",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x100000000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-id-bound"
+    },
+    {
+      "name": "full-positions-null",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":null}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-array"
+    },
+    {
+      "name": "full-positions-empty",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-count"
+    },
+    {
+      "name": "full-positions-zero",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[0,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-one-based"
+    },
+    {
+      "name": "full-positions-out-of-range",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,4,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-range"
+    },
+    {
+      "name": "full-positions-negative",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,-1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-one-based"
+    },
+    {
+      "name": "full-positions-repeated",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,2,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "bijection-repeat"
+    },
+    {
+      "name": "full-positions-fractional-json-number",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2.0,3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-integer"
+    },
+    {
+      "name": "full-positions-string-element",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[\"2\",3,1]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-integer"
+    },
+    {
+      "name": "full-positions-incomplete",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "positions-complete"
+    },
+    {
+      "name": "full-unused-reviewed-id",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x2000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"cc3dd759c400825031a95a44c3e57c0d4b6d55a46814af85d9c46eb591f90dfc\",\"en_sources_jp\":[1,2,3]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "unused-review"
+    },
+    {
+      "name": "full-other-policy-empty-resource-declaration",
+      "policy": "json_kinds",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-policy-presence"
+    },
+    {
+      "name": "full-other-policy-null-resource-declaration",
+      "policy": "json_codes",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "null",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-policy-presence"
+    },
+    {
+      "name": "full-required-review-declaration-omitted",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-required"
+    },
+    {
+      "name": "full-required-ref-type-missing",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "ten-required-fields"
+    },
+    {
+      "name": "full-required-discovered-by-empty",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "ten-required-fields"
+    },
+    {
+      "name": "full-hash-null-even-kind-equal",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":{\"jp_sha256\":null,\"en_sha256\":\"cc3dd759c400825031a95a44c3e57c0d4b6d55a46814af85d9c46eb591f90dfc\",\"en_sources_jp\":[1,2,3]}}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-hash-type"
+    },
+    {
+      "name": "full-curly-apostrophe-is-glyph-backed",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"A’s\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "straight-apostrophe-policy"
+    },
+    {
+      "name": "full-backtick-is-glyph-backed",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"A`s\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "straight-apostrophe-policy"
+    },
+    {
+      "name": "full-speaker-page-anchor-mismatch",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"[spk 0x3a91]A\",\"en\":\"[spk 0x3a92]B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "speaker-page"
+    },
+    {
+      "name": "full-page-count-mismatch",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A//B\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "page-count"
+    },
+    {
+      "name": "full-unknown-glyph",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B🚫\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "glyph-membership"
+    },
+    {
+      "name": "full-existing-identical-preserves-whole-source",
+      "policy": "full_sweep",
+      "source": " { \"last_updated\" : \"1999-12-31\", \"root_opaque\" : 1e+09, \"entries\" : [{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"reviewed\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"note\":\"preserve human note\",\"machine\":{\"scale\":1e+09},\"big\":123456789012345678901234567890}] }\n",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"note\":\"must not replace note\",\"machine\":{\"scale\":2}}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": false,
+      "unchanged_source": true,
+      "raw_number_literals": [
+        "1e+09",
+        "123456789012345678901234567890"
+      ],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "A",
+          "en": "B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "reviewed",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture",
+          "note": "preserve human note",
+          "machine": {
+            "scale": 1000000000.0
+          },
+          "big": 123456789012345678901234567890
+        }
+      ]
+    },
+    {
+      "name": "full-existing-wording-conflict",
+      "policy": "full_sweep",
+      "source": " { \"last_updated\" : \"1999-12-31\", \"root_opaque\" : 1e+09, \"entries\" : [{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"reviewed\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"note\":\"preserve human note\",\"machine\":{\"scale\":1e+09},\"big\":123456789012345678901234567890}] }\n",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"C\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "existing-content-conflict"
+    },
+    {
+      "name": "full-mixed-existing-and-new-metadata-rawnumbers",
+      "policy": "full_sweep",
+      "source": " { \"last_updated\" : \"1999-12-31\", \"root_opaque\" : 1e+09, \"entries\" : [{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"reviewed\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"note\":\"preserve human note\",\"machine\":{\"scale\":1e+09},\"big\":123456789012345678901234567890}] }\n",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"note\":\"must not replace note\",\"machine\":{\"scale\":2}},{\"id\":\"0x0800\",\"jp\":\"C\",\"en\":\"D\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\",\"opaque\":{\"huge\":123456789012345678901234567890}}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [
+        "1e+09",
+        "123456789012345678901234567890"
+      ],
+      "expected_rows": [
+        {
+          "id": "0x800",
+          "jp": "C",
+          "en": "D",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture",
+          "opaque": {
+            "huge": 123456789012345678901234567890
+          }
+        },
+        {
+          "id": "0x1000",
+          "jp": "A",
+          "en": "B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "reviewed",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture",
+          "note": "preserve human note",
+          "machine": {
+            "scale": 1000000000.0
+          },
+          "big": 123456789012345678901234567890
+        }
+      ]
+    },
+    {
+      "name": "full-late-bad-row-refuses-whole-batch",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"},{\"id\":\"0x2000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "late-required-field"
+    },
+    {
+      "name": "full-cross-batch-normalized-duplicate",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "first.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        },
+        {
+          "name": "second.json",
+          "data": "[{\"id\":\"0X001000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "normalized-batch-id-duplicate"
+    },
+    {
+      "name": "full-within-batch-normalized-aliases",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"},{\"id\":\"0X001000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "normalized-batch-id-duplicate"
+    },
+    {
+      "name": "full-cross-resource-spelling-joins-numeric-id",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0X001000\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A\",\"en\":\"{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x00001000\":{\"jp_sha256\":\"e5f866eae267413e196fe7c507f218d0d35f21a06d4bec74f1c029dcdbea63f3\",\"en_sha256\":\"82e0d11ca6346fd336eae9ea581a18c27fe144c490baa0765c6e0a47a7e075ff\",\"en_sources_jp\":[2,3,1]}}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x1000",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb003}}A",
+          "en": "{{PARAM:0xa000}}{{HL:0xb003}}{{HL:0xb002}}B",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-five-source-role-permutations-concise",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x2100\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb008}}C\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb008}}E{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"},{\"id\":\"0x2200\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}{{PARAM:0xa000}}{{PARAM:0xa000}}{{HL:0xb008}}C\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}{{PARAM:0xa000}}{{PARAM:0xa000}}{{HL:0xb008}}E{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"},{\"id\":\"0x2300\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}{{PARAM:0x8800}}{{HL:0xb008}}C\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}{{PARAM:0x8800}}{{HL:0xb008}}E{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"},{\"id\":\"0x2400\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}C{{HL:0xb008}}\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}E{{HL:0xb008}}{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"},{\"id\":\"0x2500\",\"jp\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}C{{HL:0xb008}}\",\"en\":\"{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}E{{HL:0xb008}}{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x2100\":{\"jp_sha256\":\"1c7590b9e2affdd90b95febbf2926a46357bbb1cf5592f89f5a0687431dc9c5e\",\"en_sha256\":\"fdf93744765b3a3c9edd03320ac6b69e54b69f6f5bb9b8d4c084dfe6cc096d18\",\"en_sources_jp\":[1,2,3,7,8,9,4,5,6]},\"0x2200\":{\"jp_sha256\":\"47906ab4c1e7b6d7cbe7271100fb9412b53de0a30ce006ace3dfa56dff3ec362\",\"en_sha256\":\"f68749080256a9ee98f8ca5fd7a064ad8a4d357fd0c82e08c9b57b2ecee83ab6\",\"en_sources_jp\":[1,2,3,7,8,9,10,4,5,6]},\"0x2300\":{\"jp_sha256\":\"6056f5832499395d06e32bcff8710d24931305e7a9ff1f0ba56b638e46d8811a\",\"en_sha256\":\"3e43a98e530d4427400e641f67b0f6ce25b4a25acdf17a0e48ca01dbbbe15474\",\"en_sources_jp\":[1,2,3,7,8,9,4,5,6]},\"0x2400\":{\"jp_sha256\":\"0c2bb825d58b7aa94f2ca4c2cd806b2dec276b03f3dda62a68b7df39c1ff61f8\",\"en_sha256\":\"75ee248843764cec6f4074fe709825fdd7d5717537b965270f2efb2834b53852\",\"en_sources_jp\":[1,2,3,7,8,4,5,6]},\"0x2500\":{\"jp_sha256\":\"0c2bb825d58b7aa94f2ca4c2cd806b2dec276b03f3dda62a68b7df39c1ff61f8\",\"en_sha256\":\"75ee248843764cec6f4074fe709825fdd7d5717537b965270f2efb2834b53852\",\"en_sources_jp\":[1,2,3,7,8,4,5,6]}}",
+      "expect_refuse": false,
+      "unchanged_source": false,
+      "raw_number_literals": [],
+      "expected_rows": [
+        {
+          "id": "0x2100",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb008}}C",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb008}}E{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        },
+        {
+          "id": "0x2200",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}{{PARAM:0xa000}}{{PARAM:0xa000}}{{HL:0xb008}}C",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}{{PARAM:0xa000}}{{PARAM:0xa000}}{{HL:0xb008}}E{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        },
+        {
+          "id": "0x2300",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}{{PARAM:0x8800}}{{HL:0xb008}}C",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}{{PARAM:0x8800}}{{HL:0xb008}}E{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        },
+        {
+          "id": "0x2400",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}C{{HL:0xb008}}",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}E{{HL:0xb008}}{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        },
+        {
+          "id": "0x2500",
+          "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}A{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}B{{HL:0xb003}}C{{HL:0xb008}}",
+          "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}D{{HL:0xb003}}E{{HL:0xb008}}{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}F",
+          "chapter": "source-study",
+          "character": "system",
+          "event": "literal",
+          "tier": "authored",
+          "status": "drafted",
+          "source_pool": "manual",
+          "ref_type": "unknown",
+          "discovered_by": "independent-fixture"
+        }
+      ]
+    },
+    {
+      "name": "full-review-row-null",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":null}",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-row-object"
+    },
+    {
+      "name": "full-resource-malformed-json",
+      "policy": "full_sweep",
+      "source": "{\"last_updated\":\"2001-02-03\",\"root_note\":\"preserve\",\"entries\":[]}",
+      "batches": [
+        {
+          "name": "literal.json",
+          "data": "[{\"id\":\"0x1000\",\"jp\":\"A\",\"en\":\"B\",\"chapter\":\"source-study\",\"character\":\"system\",\"event\":\"literal\",\"tier\":\"authored\",\"status\":\"drafted\",\"source_pool\":\"manual\",\"ref_type\":\"unknown\",\"discovered_by\":\"independent-fixture\"}]"
+        }
+      ],
+      "marker_orders": "{\"0x1000\":",
+      "expect_refuse": true,
+      "unchanged_source": true,
+      "raw_number_literals": [],
+      "reasoncategory": "review-json"
+    }
+  ]
+}

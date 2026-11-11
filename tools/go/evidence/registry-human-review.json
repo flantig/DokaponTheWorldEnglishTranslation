@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T08:31:08.209790+00:00",
+  "kind": "Independent final-delta ordinary read-only review, findings not approval",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-registry-human-sof2vzt3/review-source-final/manifest.json",
+    "sha256": "0530299cd181c06afd994ef10f809f6951a0286234a9baace989018d7b6842ef",
+    "all_members_verified_before_after": 61
+  },
+  "initial_review": {
+    "manifest": "/var/tmp/dokapon-registry-human-review-liUGwyJS/sealed-initial/manifest.json",
+    "sha256": "5fa01cc308dbaab45ee2e224b4c6fa110cc1f72b3781c77a9a2014827584d7a6",
+    "preserved_immutable": true,
+    "qualification": "Initial bounded no-findings review did not identify the profile-text omission. Root identified it later; current independent old-versus-fixed evidence records the defect and closure separately, without rewriting history."
+  },
+  "defect_disposition": [
+    {
+      "issue": "Human raw profile value Unicode validation omitted from existing writer checker",
+      "status": "Supported closed on frozen final61",
+      "runtime_delta": "The sole runtime delta adds ||human to registryRecipeData checkedJSON.text, matching author/add/export/status writers. Source joins, status/drift/metadata and serializer code otherwise unchanged.",
+      "independent_counterexample": "A valid6-key registry_human profile whose evidenceVALUE is raw \"\\ud800\", allother inputs valid and emptycohorts, is accepted in preview/apply by retained initial54 binary. Fixed61 refuses both with paired-surrogate error,0stdout and no output. This cannot be explained by an extra/unknown root-key refusal.",
+      "positive_control": "Same6-key profile with valid surrogatepair emoji evidence succeeds in preview/apply and retains exactsourcebytes on semanticnoop.",
+      "before_binary_sha256": "c06d655001326fb0d56cdd41c3433875938ee0b63cb56870c5ecb5960e0bfdde",
+      "after_binary_sha256": "9ad4c4cae2892684211a76386f9f3d7496b57a2ddc4fcf3e3df3666884527cbf",
+      "actual_commands_results": "profile-unicode-results.json"
+    }
+  ],
+  "new_findings": [],
+  "delta_review": {
+    "profile_guard": "The addedtextpolicy validates stringvalues before mutation/noop/publication, not just keys. It retains existing typed/profile/resource limits and introduces no alternate parser, function, helper, type, Recipesfield or CLIflag. Valid paired profile strings remain accepted.",
+    "regression_quality": "Shared wire regression changes evidenceVALUE in an otherwise6field profile for reconcile/human. It does not add a seventh key that could mask Unicode acceptance. Existing testowner also gains sharedhuman capacity-success/consumingreplay and runnableexample coverage, alongside priorbounds/profiledrift tables.",
+    "source_boundary_reuse": "Pure resolveHumanEntries remains source-only with one productioncaller, and status/drift/insertion/serialization/publisher remain authorRegistry responsibilities. Initial boundary assessment and charged1function growth remain applicable; this delta adds no runtime function.",
+    "recipe_and_examples": "All61members including human-authored recipefacts/example5JSON/README are pinned. Their presence/runnableexample tests are verified, not adopted as original/private62 semantic oracles.",
+    "limits": "Selected-only metadata checks, changed-only raw/date no-op and override/lastwinner semantics are explicit frozenv4 decisions. Conservative pretty budget may refuse below64MiB; admission/compact allocation is not a generic hostile-memory sandbox."
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.5949634339776821
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.4008239880204201
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 33.885905118018854
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 2.4240508069924545
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.8530313069932163
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 47.44576261297334
+      }
+    ],
+    "core_focused_wall_seconds": 33.885905118018854,
+    "actual_nativefonts_focused_wall_seconds": 47.44576261297334,
+    "backend_selection": "final-nativefonts-selected-files.txt proves raster_font.go selected as CgoFiles and disabledbackend excluded; actualtag nativefonts used.",
+    "independent_CLI_cases": 6,
+    "preserved_manual55_fixture_sha256": "fcd045d504eec5f4f07915b8ec8c8b05bdc52159c7e330de63818d3af248553d",
+    "manual55_counts": {
+      "success": 29,
+      "refusal": 26
+    },
+    "capacity_evidence": "Initial independent4CLI capacity witnesses remain pinned:65535+1\u219265536, exactbytes/date consumingnoop despite newprofiledate;65536+1preview/applyrefusal. Final focused owner independently exercises current sharedcapacity endpoint/replay and bounds.",
+    "all61_source_pins_reverified_after_checks": true,
+    "all_owned_jobs_terminal": true,
+    "source_test_or_protected_writes": false,
+    "harness_note": "First retained-binary probe could not execute because copyfile omitted executablemode. Ownedbinary chmod0755 fixed the harness, SHAunchanged. Pre-executionfailure is preserved separately and not treated as candidate behavior."
+  },
+  "scope_limits": [
+    "No implementation/approval/family/retirement/reduction credit. Rootowns required finalrace/publication and whole-family assessment.",
+    "No privateactual canonical62/5545source data or parity oracle read or adopted; report expectedvalues use frozen manual55 and synthetic contracts only.",
+    "No fullsuite/race/gameplay/protected ISO/canonicalregistry/art/emulator/auth/log/process crawl.",
+    "Initial46capsule remains unchanged; current final61 QA is distinct new evidence, not relabeled initial54 QA.",
+    "Pure registry source joins do not establish glyph/nativefit/reference/payload/source-native/patchreadiness. Persistentfullobjective remains active."
+  ]
+}

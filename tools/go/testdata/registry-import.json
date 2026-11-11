@@ -1,0 +1,1288 @@
+{
+  "schema_version": 1,
+  "authority": "Independent whole-entry expectations projected from sealed source125/newline24 plus explicit frozen724 contract and718 existing merge guards. No Go/candidate read or execution. Expected fields manually authored before original AST comparisons.",
+  "contract_sha256": "72414c384659a7f1511986ca824519b2ee2ef4012bc3fe51d28a7e3a0c5cd3e2",
+  "provenance": {
+    "source125": {
+      "manifest": "/var/tmp/dokapon-registry-source-UL1O4GgA/manifest.json",
+      "sha256": "07aef19ae142284f4083a0f99a4b1cb5b4ef29129ec5907a0b57e3ae5e8a5335",
+      "facts": "literal-contracts.json,csv-edge-literals.json,fact-table.json"
+    },
+    "newline24": {
+      "manifest": "/var/tmp/dokapon-registry-csv-newlines-G59bgl00/manifest.json",
+      "sha256": "0294135f36118626d7356154a457574669e70bc4d1a56d73e68806f824aa7176",
+      "facts": "literal-contracts.json"
+    },
+    "718": "959c143ecc875f0b27728f1ede82ce2d2f383baa6c6f21b67bc79ef439d65472"
+  },
+  "glyphmap": {
+    "0": " ",
+    "1": "A",
+    "2": "B",
+    "3": "C",
+    "4": "D",
+    "5": "語",
+    "6": "é",
+    "7": "e",
+    "8": "'",
+    "9": "‘",
+    "10": "’",
+    "11": "`",
+    "12": "\"",
+    "13": ","
+  },
+  "cases": [
+    {
+      "name": "kinds-whole-entry-unknown-raw-numbers",
+      "policy": "json_kinds",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual",
+          "unknown": {
+            "big": 123456789012345678901234567890,
+            "exp": 1000
+          },
+          "opaque": [
+            true,
+            null,
+            "語"
+          ]
+        }
+      ],
+      "raw_number_literals": [
+        "123456789012345678901234567890",
+        "1e+003"
+      ],
+      "origin": "source125:unknown-metadata/required;718 raw preservation",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\",\"unknown\":{\"big\":123456789012345678901234567890,\"exp\":1e+003},\"opaque\":[true,null,\"語\"]}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "kinds-changed-marker-values-draft-only-pass",
+      "policy": "json_kinds",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb001}}語{{PARAM:0x7000}}",
+          "en": "{{HL:0xb002}}A{{PARAM:0x8800}}",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual"
+        }
+      ],
+      "weakness": "Ordered kinds only, no value/source-byte integrity proof.",
+      "origin": "source125:same-marker-kinds-changed-values-pass",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb001}}語{{PARAM:0x7000}}\",\"en\":\"{{HL:0xb002}}A{{PARAM:0x8800}}\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "kinds-repeated-occurrence-kind-sequence",
+      "policy": "json_kinds",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb001}}{{PARAM:0x7000}}{{HL:0xb002}}語",
+          "en": "{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb004}}A",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual"
+        }
+      ],
+      "weakness": "Repeated kinds remain ordered; source value binding still unproved.",
+      "origin": "source125:marker policy;contract724:json_kinds",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb001}}{{PARAM:0x7000}}{{HL:0xb002}}語\",\"en\":\"{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb004}}A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "kinds-page-speaker-case-and-pages",
+      "policy": "json_kinds",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "[spk 0x38AF]語//[spk 0x3802]語",
+          "en": "[spk 0x38af]A//[spk 0x3802]B",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual"
+        }
+      ],
+      "origin": "source125:speaker-pages-valid",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"[spk 0x38AF]語//[spk 0x3802]語\",\"en\":\"[spk 0x38af]A//[spk 0x3802]B\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "kinds-body-speaker-limit-draft-only",
+      "policy": "json_kinds",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語|[spk 0x3801]語",
+          "en": "A|[spk 0x3802]B",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual"
+        }
+      ],
+      "weakness": "Page-leading transcription comparison does not validate body LINE speaker identity.",
+      "origin": "source125:midpage-speaker-difference-not-checked",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語|[spk 0x3801]語\",\"en\":\"A|[spk 0x3802]B\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "kinds-raw-echo-strip-draft-only",
+      "policy": "json_kinds",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "<0xffff>A",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual"
+        }
+      ],
+      "weakness": "Raw echo stripping proves no valid control word or payload/native semantics.",
+      "origin": "source125:raw-control-strip-not-validation",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"<0xffff>A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "kinds-falsey-required-en",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "required_value",
+      "origin": "source125:required-field-order-and-falsy",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-missing-discovery-provenance",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "required_field",
+      "origin": "source125:full-sweep-ten-fields",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-family-order-mismatch",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "markers",
+      "origin": "source125:marker-kind-order-refused",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb001}}語{{PARAM:0x7000}}\",\"en\":\"{{PARAM:0x7000}}A{{HL:0xb001}}\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-malformed-speaker",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "speaker",
+      "origin": "source125:speaker-malformed",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"[spk xxx]A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-page-count-mismatch",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "speaker_pages",
+      "origin": "source125:speaker-page-count",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語//語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-page-speaker-value-mismatch",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "speaker",
+      "origin": "source125:speaker-page-value",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"[spk 0x3801]語\",\"en\":\"[spk 0x3802]A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-curly-apostrophe-banned-despite-glyph",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "apostrophe",
+      "origin": "source125:curly-backtick-apostrophes",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A’B\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-no-NFC-repair",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "glyph",
+      "origin": "source125:unicode-no-silent-normalization",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"Aé\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-note-does-not-waive-marker-order",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "markers",
+      "oracle_kind": "declared_strict",
+      "origin": "contract724:no magic note waiver;source125:full-sweep note weakness",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb001}}語{{PARAM:0x7000}}\",\"en\":\"{{PARAM:0x7000}}A{{HL:0xb001}}\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\",\"note\":\"NOT line up 1:1\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "selected-EN-unpaired-surrogate",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "unicode",
+      "oracle_kind": "declared_strict",
+      "origin": "718 paired Unicode;source125:authored-boundaries",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0x10\",\"jp\":\"語\",\"en\":\"\\ud800\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "JSON-entry-duplicate-key",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "duplicate_key",
+      "oracle_kind": "declared_strict",
+      "origin": "718 checkJSON;source125:authored-boundaries",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0x10\",\"id\":\"0x20\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "kinds-nonfixed-marker-width-not-stripped",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "glyph",
+      "origin": "contract724:fixed4 marker/strip",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb1}}語\",\"en\":\"{{HL:0xb1}}A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "codes-eight-field-minimal",
+      "policy": "json_codes",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p"
+        }
+      ],
+      "origin": "source125:localization-eight-fields",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "codes-variable-width-and-reordered-multiset",
+      "policy": "json_codes",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb1}}語{{PARAM:0x70000}}",
+          "en": "{{PARAM:0x70000}}A{{HL:0xb1}}",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p"
+        }
+      ],
+      "weakness": "Variable hex code strings including beyond16bit are lexical draft facts, no encoding/patch readiness.",
+      "origin": "source125:localization-code-multiset-reorder;contract724:json_codes",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb1}}語{{PARAM:0x70000}}\",\"en\":\"{{PARAM:0x70000}}A{{HL:0xb1}}\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "codes-family-identity-ignored",
+      "policy": "json_codes",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0x7000}}語",
+          "en": "{{PARAM:0x7000}}A",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p"
+        }
+      ],
+      "weakness": "Code multiset comparison ignores HL/PARAM family.",
+      "origin": "source125:localization-kind-identity-not-checked",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0x7000}}語\",\"en\":\"{{PARAM:0x7000}}A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "codes-spelling-case-sensitive",
+      "policy": "json_codes",
+      "expect_refuse": true,
+      "reason_category": "markers",
+      "origin": "contract724:case-sensitive raw code strings;original check_hl_param_markers",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xB001}}語\",\"en\":\"{{HL:0xb001}}A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "codes-repeated-code-count-mismatch",
+      "policy": "json_codes",
+      "expect_refuse": true,
+      "reason_category": "markers",
+      "origin": "source125:code-multiset value/count policy",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{PARAM:0x7000}}{{PARAM:0x7000}}語\",\"en\":\"{{PARAM:0x7000}}A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "codes-curly-and-backtick-allowed-by-glyphmap",
+      "policy": "json_codes",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A’`B",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p"
+        }
+      ],
+      "origin": "contract724:json_codes no extra apostropheban",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A’`B\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "codes-falsey-required-character",
+      "policy": "json_codes",
+      "expect_refuse": true,
+      "reason_category": "required_value",
+      "origin": "source125:localization check_required_fields",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":false,\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "converted-fixed-angle-lowercase-and-JP-metadata",
+      "policy": "converted_markers",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb001}}語{{PARAM:0x7000}}",
+          "en": "{{HL:0xb001}}A{{PARAM:0x7000}}",
+          "status": "drafted",
+          "source_pool": "p",
+          "standalone_codes": [
+            "0xb001"
+          ],
+          "param_blocks": [
+            {
+              "code": "0x7000"
+            }
+          ]
+        }
+      ],
+      "origin": "source125:marker-conversion-occurrences",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"<<HL:0xB001>>語<<PARAM:0x7000>>\",\"en\":\"<<HL:0xb001>>A<<PARAM:0x7000>>\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "converted-repeated-per-kind-occurrences",
+      "policy": "converted_markers",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb001}}{{PARAM:0x7000}}{{HL:0xb002}}{{PARAM:0x7000}}語",
+          "en": "{{HL:0xb001}}{{PARAM:0x7000}}{{HL:0xb002}}{{PARAM:0x7000}}A",
+          "status": "drafted",
+          "source_pool": "p",
+          "standalone_codes": [
+            "0xb001",
+            "0xb002"
+          ],
+          "param_blocks": [
+            {
+              "code": "0x7000"
+            },
+            {
+              "code": "0x7000"
+            }
+          ]
+        }
+      ],
+      "origin": "source125:convert_markers occurrence lists",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"<<HL:0xb001>><<PARAM:0x7000>><<HL:0xb002>><<PARAM:0x7000>>語\",\"en\":\"<<HL:0xb001>><<PARAM:0x7000>><<HL:0xb002>><<PARAM:0x7000>>A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "converted-angle-code-change-refused",
+      "policy": "converted_markers",
+      "expect_refuse": true,
+      "reason_category": "converted_metadata",
+      "origin": "source125:cluster2 ordered per-kind metadata",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"<<HL:0xb001>>語\",\"en\":\"<<HL:0xb002>>A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "converted-global-kind-order-required-too",
+      "policy": "converted_markers",
+      "expect_refuse": true,
+      "reason_category": "markers",
+      "origin": "source125:cluster2 metadata plus shared kinds",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"<<HL:0xb001>><<PARAM:0x7000>><<HL:0xb002>>語\",\"en\":\"<<HL:0xb001>><<HL:0xb002>><<PARAM:0x7000>>A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "converted-derived-metadata-replaces-input-values",
+      "policy": "converted_markers",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb001}}語",
+          "en": "{{HL:0xb001}}A",
+          "status": "drafted",
+          "source_pool": "p",
+          "standalone_codes": [
+            "0xb001"
+          ],
+          "param_blocks": [],
+          "unknown": {
+            "keep": true
+          }
+        }
+      ],
+      "origin": "source125:add_cluster2_entries main assigns JP-derived lists",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"<<HL:0xb001>>語\",\"en\":\"<<HL:0xb001>>A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"standalone_codes\":[\"0xdead\"],\"param_blocks\":[{\"code\":\"0xbeef\"}],\"unknown\":{\"keep\":true}}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "converted-existing-curly-values-draft-only-pass",
+      "policy": "converted_markers",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb001}}語",
+          "en": "{{HL:0xb002}}A",
+          "status": "drafted",
+          "source_pool": "p",
+          "standalone_codes": [],
+          "param_blocks": []
+        }
+      ],
+      "weakness": "Angle converter leaves curly markers unchanged and derives empty lists; shared comparison checks kinds only, not values.",
+      "origin": "root clarification2026-11-05;source convert_markers plus shared kinds",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb001}}語\",\"en\":\"{{HL:0xb002}}A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "converted-mixed-curly-and-angle-value-scope",
+      "policy": "converted_markers",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "{{HL:0xb003}}{{PARAM:0x7000}}語",
+          "en": "{{HL:0xb004}}{{PARAM:0x7000}}A",
+          "status": "drafted",
+          "source_pool": "p",
+          "standalone_codes": [],
+          "param_blocks": [
+            {
+              "code": "0x7000"
+            }
+          ]
+        }
+      ],
+      "weakness": "Only angle-derived PARAM value is compared; existing curly HL values remain kinds-only.",
+      "origin": "root clarification;original converter metadata boundary",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"{{HL:0xb003}}<<PARAM:0x7000>>語\",\"en\":\"{{HL:0xb004}}<<PARAM:0x7000>>A\",\"status\":\"drafted\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "csv-comma-quotes-Unicode-CRLF-note",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A,B",
+          "chapter": "c",
+          "character": "N",
+          "event": null,
+          "tier": "A",
+          "note": "comma, \"quote\" 語\r\nnext [manual import]",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "ref_sites": [],
+          "landing_vma": null,
+          "patch_ref": null,
+          "discovered_by": "manual import"
+        }
+      ],
+      "origin": "newline24:note-comma-doublequote-Unicode-CRLF",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\r\n0X0010,語,\"A,B\",c,N,,A,,p,\"comma, \"\"quote\"\" 語\r\nnext\"\r\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "csv-LF-note-distinct",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "c",
+          "character": "N",
+          "event": null,
+          "tier": "A",
+          "note": "one\ntwo [manual import]",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "ref_sites": [],
+          "landing_vma": null,
+          "patch_ref": null,
+          "discovered_by": "manual import"
+        }
+      ],
+      "origin": "newline24:note-quoted-LF",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\r\n0X0010,語,A,c,N,,A,,p,\"one\ntwo\"\r\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "csv-CRLF-note-distinct",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "c",
+          "character": "N",
+          "event": null,
+          "tier": "A",
+          "note": "one\r\ntwo [manual import]",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "ref_sites": [],
+          "landing_vma": null,
+          "patch_ref": null,
+          "discovered_by": "manual import"
+        }
+      ],
+      "origin": "newline24:note-quoted-CRLF",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\r\n0X0010,語,A,c,N,,A,,p,\"one\r\ntwo\"\r\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "csv-optional-defaults-extra-header-ignored",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "c",
+          "character": "N",
+          "event": "ev",
+          "tier": "A",
+          "note": "note [manual import]",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "ref_sites": [],
+          "landing_vma": null,
+          "patch_ref": null,
+          "discovered_by": "manual import",
+          "mode": "dialog"
+        }
+      ],
+      "origin": "source125:present-event-mode-note-retained;contract724 unknownheaders ignored",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note,unowned\n0X0010,語,A,c,N,ev,A,dialog,p,note,ignored\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "csv-duplicate-header-strict-refusal",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expect_refuse": true,
+      "reason_category": "csv_header",
+      "oracle_kind": "declared_strict",
+      "origin": "source125:duplicate-header-last-cell-wins;contract724 strict uniqueness",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,en,chapter,character,event,tier,mode,source_pool,note\n0x10,語,A,B,c,N,,A,,p,\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "csv-short-row-strict-refusal",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expect_refuse": true,
+      "reason_category": "csv_width",
+      "oracle_kind": "declared_strict",
+      "origin": "source125:short-row-cells-become-none;contract724 strictwidth",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x10,語,A\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "csv-extra-cell-strict-refusal",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expect_refuse": true,
+      "reason_category": "csv_width",
+      "oracle_kind": "declared_strict",
+      "origin": "source125:extra-row-cells-have-none-key;contract724 strictwidth",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x10,語,A,c,N,,A,,p,,surplus\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "csv-BOM-strict-refusal",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expect_refuse": true,
+      "reason_category": "csv_BOM",
+      "oracle_kind": "declared_strict",
+      "origin": "contract724:BOMrefusal",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "﻿id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x10,語,A,c,N,,A,,p,\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "csv-quoted-JP-CRLF-glyph-refusal",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expect_refuse": true,
+      "reason_category": "glyph",
+      "origin": "newline24:quoted-JP-CRLF-glyph-refusal",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\r\n0x10,\"語\r\n語\",A,c,N,,A,,p,note\r\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "csv-quoted-EN-LF-glyph-refusal",
+      "policy": "csv_drafts",
+      "discovered_by": "manual import",
+      "expect_refuse": true,
+      "reason_category": "glyph",
+      "origin": "newline24:quoted-EN-LF-glyph-refusal",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x10,語,\"A\nB\",c,N,,A,,p,note\n"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "ordered-multiple-CSV-batches-final-ID-sort",
+      "policy": "csv_drafts",
+      "batches": [
+        {
+          "name": "first.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x20,語,B,c,N,,A,,p,\n"
+        },
+        {
+          "name": "second.csv",
+          "data": "id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x10,語,A,c,N,,A,,p,\n"
+        }
+      ],
+      "discovered_by": "manual import",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "c",
+          "character": "N",
+          "event": null,
+          "tier": "A",
+          "note": "[manual import]",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "ref_sites": [],
+          "landing_vma": null,
+          "patch_ref": null,
+          "discovered_by": "manual import"
+        },
+        {
+          "id": "0x20",
+          "jp": "語",
+          "en": "B",
+          "chapter": "c",
+          "character": "N",
+          "event": null,
+          "tier": "A",
+          "note": "[manual import]",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "ref_sites": [],
+          "landing_vma": null,
+          "patch_ref": null,
+          "discovered_by": "manual import"
+        }
+      ],
+      "origin": "source125:CSV source order and finite projection;718 normalized final sort",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "oracle_kind": "original_policy",
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "mixed-new-existing-whole-owner-metadata",
+      "policy": "json_kinds",
+      "source": "{ \"entries\": [{\"id\":\"0x10\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"owned\",\"character\":\"Owner\",\"tier\":\"B\",\"status\":\"patched\",\"source_pool\":\"owned\",\"note\":\"keep\",\"unknown\":{\"opaque_num\":123456789012345678901234567890}}], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "owned",
+          "character": "Owner",
+          "tier": "B",
+          "status": "patched",
+          "source_pool": "owned",
+          "note": "keep",
+          "unknown": {
+            "opaque_num": 123456789012345678901234567890
+          }
+        },
+        {
+          "id": "0x20",
+          "jp": "語",
+          "en": "B",
+          "chapter": "c",
+          "character": "N",
+          "tier": "A",
+          "status": "drafted",
+          "source_pool": "p",
+          "ref_type": "unknown",
+          "discovered_by": "manual",
+          "unknown": {
+            "new_num": 123456789012345678901234567890
+          }
+        }
+      ],
+      "raw_number_literals": [
+        "123456789012345678901234567890"
+      ],
+      "origin": "source125:identical-existing-preserves-owner-metadata;718 shared merge",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\",\"note\":\"replace attempt\"},{\"id\":\"0x20\",\"jp\":\"語\",\"en\":\"B\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\",\"unknown\":{\"new_num\":123456789012345678901234567890}}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "all-present-whole-byte-noop",
+      "policy": "json_kinds",
+      "source": "{ \"entries\": [{\"id\":\"0x10\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"owned\",\"character\":\"Owner\",\"tier\":\"B\",\"status\":\"patched\",\"source_pool\":\"owned\",\"note\":\"keep\",\"unknown\":{\"opaque_num\":123456789012345678901234567890}}], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "expected_rows": [
+        {
+          "id": "0x10",
+          "jp": "語",
+          "en": "A",
+          "chapter": "owned",
+          "character": "Owner",
+          "tier": "B",
+          "status": "patched",
+          "source_pool": "owned",
+          "note": "keep",
+          "unknown": {
+            "opaque_num": 123456789012345678901234567890
+          }
+        }
+      ],
+      "unchanged_source": true,
+      "origin": "source125:full-sweep-all-present-byte-noop;718 allpresent bytes",
+      "oracle_kind": "original_policy",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\",\"note\":\"do not replace\"}]"
+        }
+      ],
+      "input_sources_unchanged": true,
+      "scope": "DRAFT admission only, not byte-source/native/source-payload/reference/patch readiness"
+    },
+    {
+      "name": "late-existing-content-conflict-no-partial-new-row",
+      "policy": "json_kinds",
+      "source": "{ \"entries\": [{\"id\":\"0x10\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"owned\",\"character\":\"Owner\",\"tier\":\"B\",\"status\":\"patched\",\"source_pool\":\"owned\",\"note\":\"keep\",\"unknown\":{\"opaque_num\":123456789012345678901234567890}}], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "first.json",
+          "data": "[{\"id\": \"0x20\", \"jp\": \"語\", \"en\": \"B\", \"chapter\": \"c\", \"character\": \"N\", \"tier\": \"A\", \"status\": \"drafted\", \"source_pool\": \"p\", \"ref_type\": \"unknown\", \"discovered_by\": \"manual\"}]"
+        },
+        {
+          "name": "late.json",
+          "data": "[{\"id\": \"0X0010\", \"jp\": \"語\", \"en\": \"C\", \"chapter\": \"c\", \"character\": \"N\", \"tier\": \"A\", \"status\": \"drafted\", \"source_pool\": \"p\", \"ref_type\": \"unknown\", \"discovered_by\": \"manual\"}]"
+        }
+      ],
+      "expect_refuse": true,
+      "reason_category": "existing_conflict",
+      "oracle_kind": "shared_merge",
+      "origin": "source125:existing-wording-conflict;718 guarded whole batch",
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "normalized-ID-crossbatch-duplicate",
+      "policy": "json_codes",
+      "batches": [
+        {
+          "name": "first.json",
+          "data": "[{\"id\": \"0X0010\", \"jp\": \"語\", \"en\": \"A\", \"chapter\": \"c\", \"character\": \"N\", \"tier\": \"A\", \"status\": \"drafted\", \"source_pool\": \"p\"}]"
+        },
+        {
+          "name": "second.json",
+          "data": "[{\"id\": \"0x0010\", \"jp\": \"語\", \"en\": \"A\", \"chapter\": \"c\", \"character\": \"N\", \"tier\": \"A\", \"status\": \"drafted\", \"source_pool\": \"p\"}]"
+        }
+      ],
+      "expect_refuse": true,
+      "reason_category": "duplicate_ID",
+      "oracle_kind": "shared_merge",
+      "origin": "source125:normalized-duplicates;contract724 complete crossbatch validation",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "late-already-present-bad-glyph-not-noop-bypass",
+      "policy": "json_kinds",
+      "source": "{ \"entries\":[{\"id\":\"0x10\",\"jp\":\"語\",\"en\":\"Z\",\"status\":\"patched\",\"source_pool\":\"owned\",\"note\":\"keep\"}], \"last_updated\":\"old\" }\n",
+      "batches": [
+        {
+          "name": "first.json",
+          "data": "[{\"id\": \"0x20\", \"jp\": \"語\", \"en\": \"B\", \"chapter\": \"c\", \"character\": \"N\", \"tier\": \"A\", \"status\": \"drafted\", \"source_pool\": \"p\", \"ref_type\": \"unknown\", \"discovered_by\": \"manual\"}]"
+        },
+        {
+          "name": "late.json",
+          "data": "[{\"id\": \"0X0010\", \"jp\": \"語\", \"en\": \"Z\", \"chapter\": \"c\", \"character\": \"N\", \"tier\": \"A\", \"status\": \"drafted\", \"source_pool\": \"p\", \"ref_type\": \"unknown\", \"discovered_by\": \"manual\"}]"
+        }
+      ],
+      "expect_refuse": true,
+      "reason_category": "glyph",
+      "origin": "contract724 all rows admitted before existing no-op merge",
+      "oracle_kind": "original_policy",
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "new-row-locked-status-refused",
+      "policy": "json_codes",
+      "expect_refuse": true,
+      "reason_category": "draft_status",
+      "oracle_kind": "shared_merge",
+      "origin": "718 new additions drafted only; original full-sweep permissiveness not widened",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":\"A\",\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"patched\",\"source_pool\":\"p\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    },
+    {
+      "name": "truthy-nonstring-selected-EN-refused",
+      "policy": "json_kinds",
+      "expect_refuse": true,
+      "reason_category": "typed_text",
+      "oracle_kind": "declared_strict",
+      "origin": "718 four typed draft fields; source125 truthiness is not schema",
+      "source": "{ \"entries\": [], \"last_updated\":\"old\", \"opaque_root\":123456789012345678901234567890 }\n",
+      "batches": [
+        {
+          "name": "one.json",
+          "data": "[{\"id\":\"0X0010\",\"jp\":\"語\",\"en\":[\"A\"],\"chapter\":\"c\",\"character\":\"N\",\"tier\":\"A\",\"status\":\"drafted\",\"source_pool\":\"p\",\"ref_type\":\"unknown\",\"discovered_by\":\"manual\"}]"
+        }
+      ],
+      "unchanged_source": false,
+      "input_sources_unchanged": true
+    }
+  ],
+  "comparison_contract": "expected_rows are complete final entries semantically, with Raw JSON unknown fields/numbers and raw_number_literals preserved. Only all-present explicitly requires entire output bytes equal source; new outputs use the declared updated value from caller and may format JSON. All original source/resources must remain untouched. New IDs canonicalize zero padding per718; existing source row metadata stays owned. Refusals must not publish partial new rows. No exact message spelling required by reason_category."
+}

@@ -1,0 +1,2975 @@
+{
+  "operation": "registry_add",
+  "source_size": 15,
+  "source_sha256": "7a0b7943ccd293821e69c3413abdfebf3d74e3d9a2a92c2f362a7fcbab72f8b3",
+  "evidence": "142 historical constructor facts frozen against original AST; not latest canonical wording or patch readiness. Conflicting existing content refuses.",
+  "updated": "2026-11-05",
+  "registry_updates": {
+    "0x4ef500": {
+      "jp": "[spk 0x3a8d]・・・えっと・・・そうですよね?",
+      "en": "[spk 0x3a8d]...Um... right?",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f0",
+      "tier": "authored",
+      "note": "Navi-intro pool box F0. NO 0x2800 header - starts bare at the speaker code, unlike every other box in this pool. Zero static reference found (chain_refs/u32_refs both empty at this VMA); likely reached by unconditional fall-through from entry E's own dispatch code rather than an independent reference - see skills/FIND-NEW-TEXT.md. 54 B available before F1's header (0x4ef530), EN encodes to ~34 B - in-place patch may be viable without relocation, but confirm the fall-through theory first.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "unknown",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01"
+    },
+    "0x4ef530": {
+      "jp": "[spk 0x3a8e]やっぱりですぅ!//[spk 0x3a8f]こうして私と、次元をこえてお話してるんですから、|そうに決まってますぅ!//[spk 0x3a90]これでドカポン王国は救われますぅ!",
+      "en": "[spk 0x3a8e]Of course!//[spk 0x3a8f]Since you are talking with me across dimensions like this,|it has to be true!//[spk 0x3a90]This means the Dokapon Kingdom will be saved!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f1",
+      "tier": "authored",
+      "note": "Navi-intro pool box F1. Branch pair with F2 - a genuine player yes/no choice point; F1 and F2 are two SEPARATELY referenced streams that both lead into the identical page-3 follow-up (duplicated inline in each stream, not deduped/shared data). Page 2 differs from F2's page 2 by one glyph (hiragana こえて vs kanji 越えて) - only page 3 is byte-identical.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36751c",
+          "addiu_vma": "0x367528",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef5c0": {
+      "jp": "[spk 0x3a91]そんなはず無いですぅ!//[spk 0x3a8f]こうして私と、次元を越えてお話してるんですから、|そうに決まってますぅ!//[spk 0x3a90]これでドカポン王国は救われますぅ!",
+      "en": "[spk 0x3a91]That cannot be true!//[spk 0x3a8f]Since you are talking with me across dimensions like this,|it has to be true!//[spk 0x3a90]This means the Dokapon Kingdom will be saved!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f2",
+      "tier": "authored",
+      "note": "Navi-intro pool box F2. Branch pair with F1 (see F1's note) - the other side of the yes/no choice. Page 3 is byte-identical to F1's page 3 (independently confirmed by direct decode); page 2 differs from F1 by one glyph (kanji 越えて vs hiragana こえて).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367540",
+          "addiu_vma": "0x36754c",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef650": {
+      "jp": "[spk 0x3a92]あ、ごめんなさいですぅ!//[spk 0x3a93]つい、カンゲキしてしまいました。",
+      "en": "[spk 0x3a92]Oh, sorry about that!//[spk 0x3a93]I just got a little carried away.",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f3",
+      "tier": "authored",
+      "note": "Navi-intro pool box F3.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367564",
+          "addiu_vma": "0x367570",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef6a0": {
+      "jp": "[spk 0x3a94]私、ナビィともうしますぅ!//[spk 0x3a95]伝説の勇者様の案内が、私の役目ですぅ。//[spk 0x3a96]よろしくお願いしますぅ!//[spk 0x3a97]もう旅立つ準備はよろしいですよね?//[spk 0x3a98]・・・え? どこに行くのかって?//[spk 0x3a99]決まってますぅ!//[spk 0x3a9a]ドカポン王国を救うのが、|伝説の勇者様のお仕事ですぅ!//[spk 0x3a9b]さあ、悪者を倒しに行きましょう!//・・・・・・。//[spk 0x3a9c]・・・はっ!//[spk 0x3a9d]もしかして、何をすればいいのか|分からないのですか?",
+      "en": "[spk 0x3a94]My name is Navi!//[spk 0x3a95]Guiding the legendary hero is my job.//[spk 0x3a96]It is nice to meet you!//[spk 0x3a97]Are you ready to set out on your journey?//[spk 0x3a98]...Huh? You want to know where you are going?//[spk 0x3a99]That is easy!//[spk 0x3a9a]Saving the Dokapon Kingdom|is the job of the legendary hero!//[spk 0x3a9b]Now then, let us go defeat the villain!//.......//[spk 0x3a9c]...Oh!//[spk 0x3a9d]Could it be|you do not know what to do?",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f4",
+      "tier": "authored",
+      "note": "Navi-intro pool box F4. Long 11-page self-introduction. Page 9 ('.......') has no speaker code (0x1000 not followed by a 0x3Axx value) - mirrored verbatim as an ellipsis-only EN page with no [spk] tag, matching the raw stream exactly.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367584",
+          "addiu_vma": "0x367590",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef820": {
+      "jp": "[spk 0x3a9e]ご説明いたしましょうか?",
+      "en": "[spk 0x3a9e]Shall I explain?",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f5",
+      "tier": "authored",
+      "note": "Navi-intro pool box F5. HAS a proper 0x2800 header (unlike F0) but zero static reference found (chain_refs/u32_refs both empty at this VMA). Immediately follows F4's terminator with only 2 bytes of space-padding - may be reached the same fall-through way as F0 despite having its own header. Needs further investigation before patching (relocation is not possible without knowing what to repoint).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "unknown",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01"
+    },
+    "0x4ef840": {
+      "jp": "[spk 0x3a9f]いきなり言われても分からないですよね。//[spk 0x3aa0]ごめんなさいですぅ。//[spk 0x3aa1]私って、少しだけおっちょこちょいなんですぅ。",
+      "en": "[spk 0x3a9f]I suppose it makes no sense out of nowhere.//[spk 0x3aa0]I am sorry.//[spk 0x3aa1]I can be a little scatterbrained sometimes.",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f6",
+      "tier": "authored",
+      "note": "Navi-intro pool box F6.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367600",
+          "addiu_vma": "0x367608",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef8c0": {
+      "jp": "[spk 0x3aa2]いえ!//[spk 0x3aa3]やっぱりちゃんとご説明しなくては!//[spk 0x3aa4]それが、私のお仕事ですぅ!",
+      "en": "[spk 0x3aa2]No!//[spk 0x3aa3]I really should explain properly!//[spk 0x3aa4]That is my job, after all!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f7",
+      "tier": "authored",
+      "note": "Navi-intro pool box F7.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36760c",
+          "addiu_vma": "0x367610",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef920": {
+      "jp": "[spk 0x3aa5]さすが、ご自分の使命をよくごぞんじです!//[spk 0x3aa6]たのもしい!//[spk 0x3aa7]すてきですぅ!",
+      "en": "[spk 0x3aa5]As expected, you know your duty well!//[spk 0x3aa6]How reliable!//[spk 0x3aa7]Wonderful!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f8",
+      "tier": "authored",
+      "note": "Navi-intro pool box F8.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x3675dc",
+          "addiu_vma": "0x3675e4",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4ef980": {
+      "jp": "[spk 0x3aa8]私がいるこちら側は、|ドカポン王国って言いますぅ。//[spk 0x3aa9]勇者様の住む世界とは別の次元なので、|行き来することはできません。//[spk 0x3aaa]でも、二つの世界は表と裏で|つながった世界なんですぅ。//[spk 0x3aab]一方の世界が豊かなら、もう一方も安定しますぅ。//[spk 0x3aac]逆に一方が乱れれば、|同じようにもう一方も不安定になるんですぅ。//[spk 0x3aad]勇者様の住む世界は、不景気だったり、|治安が悪くなったりしていませんか?//[spk 0x3aae]それは、このドカポン王国の異変が|関係しているんですぅ!",
+      "en": "[spk 0x3aa8]This side, where I live,|is called the Dokapon Kingdom.//[spk 0x3aa9]It is a different dimension from the world you live in,|so travel between them is normally impossible.//[spk 0x3aaa]But the two worlds are connected,|like two sides of the same coin.//[spk 0x3aab]When one world thrives, the other stays stable too.//[spk 0x3aac]But if one falls into chaos,|the other grows unstable as well.//[spk 0x3aad]Has your world been suffering hard times,|or growing more dangerous lately?//[spk 0x3aae]That is connected|to the crisis here in the Dokapon Kingdom!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f9",
+      "tier": "authored",
+      "note": "Navi-intro pool box F9. World-lore exposition.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367620",
+          "addiu_vma": "0x36762c",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4efb40": {
+      "jp": "[spk 0x3aaf]ドカポン王国は豊かで美しい国でした。//[spk 0x3ab0]ですが、ある日突然、|呪術師マコンデがモンスターを操って|襲って来たんですぅ!//[spk 0x3ab1]それからは、もう大変!//[spk 0x3ab2]作物はちゃんと育たないわ・・・。//[spk 0x3ab3]動物たちは暴れるわ・・・。//[spk 0x3ab4]王様のおでこは後退するわで、|なんて悲しいことでしょう・・・。//[spk 0x3ab5]マコンデは、世界各地に手下を送り込み、|人々を苦しめ続けていますぅ。",
+      "en": "[spk 0x3aaf]The Dokapon Kingdom used to be a rich and beautiful land.//[spk 0x3ab0]But one day, out of nowhere,|the sorcerer Maconde commanded monsters|and attacked us!//[spk 0x3ab1]Ever since then, it has been terrible!//[spk 0x3ab2]The crops will not grow properly...//[spk 0x3ab3]The animals have gone wild...//[spk 0x3ab4]Even the king is losing his hair,|oh, how sad it all is...//[spk 0x3ab5]Maconde keeps sending henchmen|all over the world, tormenting people.",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f10",
+      "tier": "authored",
+      "note": "Navi-intro pool box F10. Maconde backstory. jp/en text is plain (no literal brackets - matches the convention already used by entry C's inline_codes, which are pure metadata, not visible text markup). Both occurrences of Maconde/マコンデ are wrapped by an inline 0xb001...0xb008 control-code pair (dispatcher type 22, code>>11==22, params 1/8) in the actual byte stream - functionally the same self-contained/no-payload behavior as probe box's 0xe86e/0xe864, but NOT the same dispatcher type (those are type 29, code>>11==29, a different handler - confirmed 2026-09-01, see skills/PATCH-MOD-ISO.md's Cluster 2 mechanism writeup) - resemblance by behavior, not an identical code path. Likely a name-highlight effect. inline_codes lists both occurrences; preserve both verbatim around the glyph-encoded name in any patch, do not reinterpret.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x3676b8",
+          "addiu_vma": "0x3676c4",
+          "reg": "$a1"
+        }
+      ],
+      "inline_codes": [
+        {
+          "before": "0xb001",
+          "after": "0xb008"
+        },
+        {
+          "before": "0xb001",
+          "after": "0xb008"
+        }
+      ]
+    },
+    "0x4efcb0": {
+      "jp": "[spk 0x3ab6]お願いですぅ!//[spk 0x3ab7]ドカポン王国の危機を救えるのは、|勇者様だけなんですぅ!//[spk 0x3ab8]・・・え?//[spk 0x3ab9]まかせておけ?//[spk 0x3aba]わあ、ありがとうございますぅ!//[spk 0x3abb]これで一安心ですぅ!//[spk 0x3abc]それではさっそく、勇者様のことを教えてください!",
+      "en": "[spk 0x3ab6]Please!//[spk 0x3ab7]Only the legendary hero|can save the Dokapon Kingdom from this crisis!//[spk 0x3ab8]...Huh?//[spk 0x3ab9]Leave it to you?//[spk 0x3aba]Wow, thank you so much!//[spk 0x3abb]Now I can relax!//[spk 0x3abc]Well then, please tell me about yourself right away!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f11",
+      "tier": "authored",
+      "note": "Navi-intro pool box F11. Closes the intro, transitions into character creation (a structurally different cluster - see HANDOFF.md).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367708",
+          "addiu_vma": "0x367718",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4f0250": {
+      "jp": "[spk 0x3ad5]それでは、みなさんを|ドカポン王国にご案内しますぅ。//[spk 0x3ad6]でも、みなさん自身が次元の壁を|越えることはできません。//[spk 0x3ad7]なので、魔法を使って心の一部だけ、|こちらの次元に連れてきますぅ。//[spk 0x3ad8]それでは行きますよー!//[spk 0x3ad9]えーいっ!//[spk 0x3ada]ドカっと一発勇者でポーンっ!",
+      "en": "[spk 0x3ad5]Now then, let me guide all of you|to the Dokapon Kingdom.//[spk 0x3ad6]But you yourselves cannot|cross the dimensional wall.//[spk 0x3ad7]So I will use magic to bring|just a part of your hearts to this dimension.//[spk 0x3ad8]Here we go!//[spk 0x3ad9]Hyah!//[spk 0x3ada]Boop, bonk, and poof! Heroes away!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f12",
+      "tier": "authored",
+      "note": "Navi-intro pool box F12. Spoken AFTER character creation completes (teleport flavor text). Zero static reference found (chain_refs/u32_refs both empty at this VMA) - needs further investigation before patching. Do not confuse with F13's confirmed reference (0x367d28) - the discovering fork initially mixed these two up; independently re-verified 2026-09-01.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "unknown",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01"
+    },
+    "0x4f0360": {
+      "jp": "[spk 0x3adb]それでは、ドカポン王国にご案内ですぅ!",
+      "en": "[spk 0x3adb]Now then, welcome to the Dokapon Kingdom!",
+      "chapter": "navi-intro",
+      "character": "Navi",
+      "event": "navi-intro-f13",
+      "tier": "authored",
+      "note": "Navi-intro pool box F13. True end of the coherent Cluster-1 narrative; VMA 0x4f0398 onward is a structurally different cluster (character-creation tooltips) - see HANDOFF.md.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-1 scan 2026-09-01",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367d20",
+          "addiu_vma": "0x367d28",
+          "reg": "$a1"
+        }
+      ]
+    },
+    "0x4efd90": {
+      "jp": "[spk 0x3abd]勇者様は何人いるんですか?",
+      "en": "[spk 0x3abd]How many heroes are there?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-00-party-size-q",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36b1a8",
+          "addiu_vma": "0x36b1b4",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4efdb0": {
+      "jp": "[spk 0x3abe]・・・一人ぼっちですか。//[spk 0x3abf]さみしいですね・・・。",
+      "en": "[spk 0x3abe]...All by yourself?//[spk 0x3abf]That is lonely...",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-01-solo-check",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36b250",
+          "addiu_vma": "0x36b25c",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4efdf0": {
+      "jp": "{{HL:0xb002}}{{PARAM:0x7000}}勇者様。|[spk 0x3ac1]勇者様の性別は何ですか?",
+      "en": "{{HL:0xb002}}{{PARAM:0x7000}} Hero.|[spk 0x3ac1]What is the gender of this hero?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-02-gender-q",
+      "tier": "authored",
+      "note": "Matches HANDOFF.md's already-reviewed Cluster 2 mechanism worked example at this exact VMA verbatim. lui_vma CORRECTED 2026-09-01 by adversarial review: 0x36ae94 (the fall-through-path lui, byte-identical value to the real one today) was misattributed instead of 0x36ae90 (the branch-delay-slot lui that actually feeds this box's addiu on the taken path) - the exact F12/F13 hazard class, numerically invisible until landing zones diverge the hi16. Independently confirmed by 2 reviewers + a direct spot-check trace before applying.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36ae90",
+          "addiu_vma": "0x36aea0",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01",
+      "standalone_codes": [
+        "0xb002"
+      ],
+      "param_blocks": [
+        {
+          "code": "0x7000"
+        }
+      ]
+    },
+    "0x4efe30": {
+      "jp": "[spk 0x3ac0]勇者様の名前を教えてください。",
+      "en": "[spk 0x3ac0]Please tell me the name of this hero.",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-03-name-q",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x369c78",
+          "addiu_vma": "0x369c84",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4efe60": {
+      "jp": "それでは{{HL:0xb002}}{{PARAM:0xa000}}聞きしますぅ。|[spk 0x3ac5]勇者様は何色がお好きですか?",
+      "en": "Now then, {{HL:0xb002}}{{PARAM:0xa000}} let me ask you.|[spk 0x3ac5]What color does this hero like?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-04-color-q",
+      "tier": "authored",
+      "note": "Matches HANDOFF.md's already-reviewed Cluster 2 mechanism worked example at this exact VMA verbatim. The 0xa000 param likely echoes the hero's own name (collected by box 3) but this is interpretation, not confirmed - HANDOFF.md itself leaves param semantics unresolved. lui_vma CORRECTED 2026-09-01 by adversarial review: same delay-slot misattribution class as box 2 (0x4efdf0) - was 0x36a63c, correct value is 0x36a638.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36a638",
+          "addiu_vma": "0x36a648",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01",
+      "standalone_codes": [
+        "0xb002"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        }
+      ]
+    },
+    "0x4efeb0": {
+      "jp": "{{HL:0xb002}}{{PARAM:0xa000}}[spk 0x3ac6]勇者様はどの職業につきますか?",
+      "en": "{{HL:0xb002}}{{PARAM:0xa000}}[spk 0x3ac6]What class will this hero take?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-05-class-q",
+      "tier": "authored",
+      "note": "CORRECTED 2026-09-01 by 2 independent adversarial reviewers: the original draft had a spurious // page break here that does not exist in the raw bytes (zero 0x1000 words anywhere in this stream - it is ONE unbroken page: HDR, highlight+param block, then the speaker tag and question directly) - the earlier note claiming 'page 1 is legitimately empty' was itself wrong, since there was never a real page 1/page 2 split. lui_vma ALSO corrected: same delay-slot misattribution class as boxes 2/4 - was 0x36a07c, correct value is 0x36a078.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36a078",
+          "addiu_vma": "0x36a088",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01",
+      "standalone_codes": [
+        "0xb002"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        }
+      ]
+    },
+    "0x4efee0": {
+      "jp": "[spk 0x3ac8]王様が募集している勇者様は4人ですぅ。//[spk 0x3ac9]ということは勇者様が足りません。//あと{{HL:0xb002}}{{PARAM:0x7000}}ですぅ。",
+      "en": "[spk 0x3ac8]The King is looking for 4 heroes.//[spk 0x3ac9]Which means we still need more heroes.//More {{HL:0xb002}}{{PARAM:0x7000}} needed.",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-06-recruit-status",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36900c",
+          "addiu_vma": "0x36901c",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01",
+      "standalone_codes": [
+        "0xb002"
+      ],
+      "param_blocks": [
+        {
+          "code": "0x7000"
+        }
+      ]
+    },
+    "0x4eff50": {
+      "jp": "[spk 0x3b9a]男女どちらがお好みですか?",
+      "en": "[spk 0x3b9a]Do you prefer male or female?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-07-gender-q-alt",
+      "tier": "authored",
+      "note": "Uses 0x3b9a speaker/context code, not 0x3axx - see module docstring open question. Shares its lui with box 2 (0x4efdf0), same chain-continuation pattern already established for F12/F13 - independently reassembly-verified, not just trusted.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36ae94",
+          "addiu_vma": "0x36ae9c",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4eff70": {
+      "jp": "[spk 0x3b9b]どんな色の人がよろしいですか?",
+      "en": "[spk 0x3b9b]What color would you like?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-08-color-q-alt",
+      "tier": "authored",
+      "note": "0x3b9b speaker/context code - see module docstring open question. Shares its lui with box 4 (0x4efe60).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36a63c",
+          "addiu_vma": "0x36a644",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4effa0": {
+      "jp": "[spk 0x3b9c]どんな職業の人がよろしいですか?",
+      "en": "[spk 0x3b9c]What class would you like?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-09-class-q-alt",
+      "tier": "authored",
+      "note": "0x3b9c speaker/context code - see module docstring open question. Shares its lui with box 5 (0x4efeb0).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36a07c",
+          "addiu_vma": "0x36a084",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4effd0": {
+      "jp": "[spk 0x3b9d]強さはどのくらいの人がよろしいですか?",
+      "en": "[spk 0x3b9d]How strong would you like this hero?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-10-strength-q",
+      "tier": "authored",
+      "note": "0x3b9d speaker/context code - see module docstring open question.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x369958",
+          "addiu_vma": "0x369964",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0000": {
+      "jp": "{{HL:0xb002}}{{PARAM:0x7000}}勇者様についてお聞きしますぅ。",
+      "en": "{{HL:0xb002}}{{PARAM:0x7000}} Hero, let me ask you some questions.",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-11-question-intro",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x369424",
+          "addiu_vma": "0x369434",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01",
+      "standalone_codes": [
+        "0xb002"
+      ],
+      "param_blocks": [
+        {
+          "code": "0x7000"
+        }
+      ]
+    },
+    "0x4f0030": {
+      "jp": "こんな方を募集します。|[spk 0x3b9f]気に入らない場所があったら直してください。",
+      "en": "We are looking for someone like this.|[spk 0x3b9f]If there is a part you do not like, please change it.",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-12-recruit-flavor",
+      "tier": "authored",
+      "note": "Page 1 has NO leading speaker tag - confirmed genuine narrator/system-voice line (first content word after 0x2800 decodes as a real glyph, not an unrecognized code), not a decode gap. character left as Navi pending confirmation.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x3696e8",
+          "addiu_vma": "0x3696f4",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0080": {
+      "jp": "[spk 0x3acd]分かりました!//[spk 0x3ace]それでは探してきますぅ!",
+      "en": "[spk 0x3acd]Understood!//[spk 0x3ace]Now let me go look!",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-13-found-hero",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36927c",
+          "addiu_vma": "0x369288",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f00c0": {
+      "jp": "[spk 0x3ad0]これで4人の勇者様が全員そろいました!",
+      "en": "[spk 0x3ad0]Now all 4 heroes are gathered!",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-14-party-complete",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x367b44",
+          "addiu_vma": "0x367b50",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f00f0": {
+      "jp": "つながっていないコントローラが|選ばれていますよ!",
+      "en": "An unconnected controller|has been selected!",
+      "chapter": "character-creation",
+      "character": "system",
+      "event": "charcreate-15-controller-warning",
+      "tier": "authored",
+      "note": "NO speaker code at all - confirmed genuine system/UI warning (first word after 0x2800 decodes as a real glyph), not a decode gap. character=system, not Navi.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x368a60",
+          "addiu_vma": "0x368a68",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0130": {
+      "jp": "[spk 0x3ad3]使うコントローラを決めてください!",
+      "en": "[spk 0x3ad3]Please decide which controller to use!",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-16-controller-assign",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x368608",
+          "addiu_vma": "0x368614",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0160": {
+      "jp": "[spk 0x3ba1]どちらのモードで遊びますか?",
+      "en": "[spk 0x3ba1]Which mode will you play?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-17-mode-select",
+      "tier": "authored",
+      "note": "0x3ba1 speaker/context code - see module docstring open question.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36b950",
+          "addiu_vma": "0x36b95c",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0190": {
+      "jp": "[spk 0x3ba2]金額を決めてください。",
+      "en": "[spk 0x3ba2]Please decide the amount of money.",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-18-money-select",
+      "tier": "authored",
+      "note": "0x3ba2 speaker/context code. Shares its lui with box 19 (0x4f01b0). lui_vma CORRECTED 2026-09-01 by adversarial review: same delay-slot misattribution class as boxes 2/4/5 - was 0x36b6b8, correct value is 0x36b6b4.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36b6b4",
+          "addiu_vma": "0x36b6c4",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f01b0": {
+      "jp": "[spk 0x3ba3]週数を決めてください。",
+      "en": "[spk 0x3ba3]Please decide the number of weeks.",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-19-weeks-select",
+      "tier": "authored",
+      "note": "0x3ba3 speaker/context code. Shares its lui with box 18 (0x4f0190).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x36b6b8",
+          "addiu_vma": "0x36b6c0",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f01d0": {
+      "jp": "[spk 0x3ad4]それでは順番を決めますぅ!",
+      "en": "[spk 0x3ad4]Now let us decide the turn order!",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-20-turn-order",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x368010",
+          "addiu_vma": "0x36801c",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f01f0": {
+      "jp": "[spk 0x3ac4]以上のように決まりました!",
+      "en": "[spk 0x3ac4]It has been decided as above!",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-21-confirm-settings",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 2 (character-creation UI). See HANDOFF.md item 3a and skills/STRING-REGISTRY.md's standalone_codes/param_blocks fields (added 2026-09-01 for this batch).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x3682e0",
+          "addiu_vma": "0x3682ec",
+          "reg": "$a1"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0220": {
+      "jp": "[spk 0x3ad1]このメンバーでよろしいですね?",
+      "en": "[spk 0x3ad1]Is this party okay with you?",
+      "chapter": "character-creation",
+      "character": "Navi",
+      "event": "charcreate-22-party-confirm",
+      "tier": "authored",
+      "note": "Only box in this batch NOT using $a1 - uses $t2. Independently reassembly-verified like every other entry, not an exception to the check. CAVEAT (found by adversarial review 2026-09-01): this reference feeds into jal 0x28a8a0, the same non-standard condition/flag-check helper already flagged for Cluster 1's F0/F5 (not the standard jal 0x3634a0 display call every other entry in this batch reaches) - unconfirmed whether patching this actually changes displayed text without a PCSX2 check. Do not treat as equal-confidence with the other 22 entries.",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "mode": "dialog_box",
+      "ref_type": "code_immediate",
+      "ref_sites": [
+        {
+          "lui_vma": "0x368524",
+          "addiu_vma": "0x368540",
+          "reg": "$t2"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-2 (character creation) scan 2026-09-01"
+    },
+    "0x4f0390": {
+      "jp": "攻撃力でガンガン行く職業ですぅ。|物理攻撃が得意ですけど、|魔力が上がらないので魔法には弱いですぅ。",
+      "en": "A class that charges ahead with raw attack power.|Great at physical attacks, but|magic power never rises, so it is weak against magic.",
+      "chapter": "class-tooltip",
+      "character": "Navi",
+      "event": "charcreate-00-class-tooltip-fighter",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 3 (class-selection tooltip). No 0x2800 header, no speaker code - plain glyph text, padded to a 16-byte VMA boundary. Referenced via pointer_array table 0x4f1840-0x4f1850 (this entry's slot: 0x4f1840+0x0), confirmed the ONLY reference to this VMA anywhere in the ELF - relocating needs only a single u32 rewrite, no lui/addiu hi/lo carry math. See HANDOFF.md item 3a's Cluster 3 bullet for the full mechanism writeup and reviewer-disagreement note on the display-call routing (does not affect translation safety).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x4f1840"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-3 (class tooltips) scan 2026-09-01"
+    },
+    "0x4f0400": {
+      "jp": "高い魔力でビシビシ行く職業ですぅ。|魔法攻撃は強力ですけど、|防御力が上がらないので打たれ弱いですぅ。",
+      "en": "A class that strikes hard with powerful magic.|Magic attacks hit like a truck, but|defense never rises, so it cannot take a hit.",
+      "chapter": "class-tooltip",
+      "character": "Navi",
+      "event": "charcreate-01-class-tooltip-mage",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 3 (class-selection tooltip). No 0x2800 header, no speaker code - plain glyph text, padded to a 16-byte VMA boundary. Referenced via pointer_array table 0x4f1840-0x4f1850 (this entry's slot: 0x4f1840+0x4), confirmed the ONLY reference to this VMA anywhere in the ELF - relocating needs only a single u32 rewrite, no lui/addiu hi/lo carry math. See HANDOFF.md item 3a's Cluster 3 bullet for the full mechanism writeup and reviewer-disagreement note on the display-call routing (does not affect translation safety).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x4f1844"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-3 (class tooltips) scan 2026-09-01"
+    },
+    "0x4f0470": {
+      "jp": "HPが高い職業ですぅ。|打たれ強さはありますけど、|素早さが上がらないのでミスしやすいですぅ。",
+      "en": "A class with high HP.|Tough enough to take a beating, but|speed never rises, so it tends to miss.",
+      "chapter": "class-tooltip",
+      "character": "Navi",
+      "event": "charcreate-02-class-tooltip-tank",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 3 (class-selection tooltip). No 0x2800 header, no speaker code - plain glyph text, padded to a 16-byte VMA boundary. Referenced via pointer_array table 0x4f1840-0x4f1850 (this entry's slot: 0x4f1840+0x8), confirmed the ONLY reference to this VMA anywhere in the ELF - relocating needs only a single u32 rewrite, no lui/addiu hi/lo carry math. See HANDOFF.md item 3a's Cluster 3 bullet for the full mechanism writeup and reviewer-disagreement note on the display-call routing (does not affect translation safety).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x4f1848"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-3 (class tooltips) scan 2026-09-01"
+    },
+    "0x4f04d0": {
+      "jp": "素早さがピカイチの職業ですぅ。|素早く攻撃をよけたりしますけど、|他にこれといった特徴が無いですぅ。",
+      "en": "A class with unmatched speed.|Quick enough to dodge attacks, but|it has no other real standout traits.",
+      "chapter": "class-tooltip",
+      "character": "Navi",
+      "event": "charcreate-03-class-tooltip-speed",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 3 (class-selection tooltip). No 0x2800 header, no speaker code - plain glyph text, padded to a 16-byte VMA boundary. Referenced via pointer_array table 0x4f1840-0x4f1850 (this entry's slot: 0x4f1840+0xc), confirmed the ONLY reference to this VMA anywhere in the ELF - relocating needs only a single u32 rewrite, no lui/addiu hi/lo carry math. See HANDOFF.md item 3a's Cluster 3 bullet for the full mechanism writeup and reviewer-disagreement note on the display-call routing (does not affect translation safety).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x4f184c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-3 (class tooltips) scan 2026-09-01"
+    },
+    "0x4f0540": {
+      "jp": "職業にはつかない自由人ですぅ。|何のメリットもなく、給料ももらえないので、|生活はキビシイですぅ。",
+      "en": "A free spirit who takes no class at all.|With no benefits and no salary,|life is rough.",
+      "chapter": "class-tooltip",
+      "character": "Navi",
+      "event": "charcreate-04-class-tooltip-freelancer",
+      "tier": "authored",
+      "note": "Navi-intro pool Cluster 3 (class-selection tooltip). No 0x2800 header, no speaker code - plain glyph text, padded to a 16-byte VMA boundary. Referenced via pointer_array table 0x4f1840-0x4f1850 (this entry's slot: 0x4f1840+0x10), confirmed the ONLY reference to this VMA anywhere in the ELF - relocating needs only a single u32 rewrite, no lui/addiu hi/lo carry math. See HANDOFF.md item 3a's Cluster 3 bullet for the full mechanism writeup and reviewer-disagreement note on the display-call routing (does not affect translation safety).",
+      "status": "drafted",
+      "source_pool": "navi_intro",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "pointer_vma": "0x4f1850"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT navi-intro cluster-3 (class tooltips) scan 2026-09-01"
+    },
+    "0x4ad060": {
+      "jp": "やったあ!|{{HL:0xb003}}大豊作{{HL:0xb008}}ですぅ!//みんながお金を|持ってきてくれますぅ!",
+      "en": "Yay! | A {{HL:0xb003}}Bumper Harvest{{HL:0xb008}}! // Everyone is bringing | you money!",
+      "chapter": "event-notification",
+      "character": "Navi (unconfirmed - spk 0x3af4 matches Navi's ですぅ tic, not independently verified)",
+      "event": "event-bumper-harvest",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=218, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cecec"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02",
+      "standalone_codes": [
+        "0xb003",
+        "0xb008"
+      ]
+    },
+    "0x4ad0b0": {
+      "jp": "やったあ!|{{HL:0xb003}}好景気{{HL:0xb008}}ですぅ!|村が発展していきますぅ!",
+      "en": "Yay! | An {{HL:0xb003}}Economic Boom{{HL:0xb008}}! | The village is growing!",
+      "chapter": "event-notification",
+      "character": "Navi (unconfirmed - spk 0x3af4 matches Navi's ですぅ tic, not independently verified)",
+      "event": "event-economic-boom",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=219, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cecf8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02",
+      "standalone_codes": [
+        "0xb003",
+        "0xb008"
+      ]
+    },
+    "0x4ad0f0": {
+      "jp": "やったあ!|{{HL:0xb003}}エリアカーニバル{{HL:0xb008}}ですぅ!|みんなお祭りさわぎですぅ!",
+      "en": "Yay! | An {{HL:0xb003}}Area Carnival{{HL:0xb008}}! | Everyone's celebrating!",
+      "chapter": "event-notification",
+      "character": "Navi (unconfirmed - spk 0x3af4 matches Navi's ですぅ tic, not independently verified)",
+      "event": "event-area-carnival",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=220, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced04"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02",
+      "standalone_codes": [
+        "0xb003",
+        "0xb008"
+      ]
+    },
+    "0x4ad140": {
+      "jp": "やったあ!|{{HL:0xb003}}ワールドカーニバル{{HL:0xb008}}ですぅ!|世界中がお祭りさわぎですぅ!",
+      "en": "Yay! | A {{HL:0xb003}}World Carnival{{HL:0xb008}}! | The whole world's celebrating!",
+      "chapter": "event-notification",
+      "character": "Navi (unconfirmed - spk 0x3af4 matches Navi's ですぅ tic, not independently verified)",
+      "event": "event-world-carnival",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=221, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced10"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02",
+      "standalone_codes": [
+        "0xb003",
+        "0xb008"
+      ]
+    },
+    "0x4acd40": {
+      "jp": "やったあ!|{{HL:0xb003}}ウィウィ大発生{{HL:0xb008}}ですぅ!//{{HL:0xb002}}ウィウィ{{HL:0xb008}}は幸運を呼ぶ、|めずらしいモンスターですぅ!",
+      "en": "Yay! | A {{HL:0xb003}}Wiwi Swarm{{HL:0xb008}}! // {{HL:0xb002}}Wiwis{{HL:0xb008}} are rare monsters | that bring good luck!",
+      "chapter": "event-notification",
+      "character": "Navi (unconfirmed - spk 0x3af4 matches Navi's ですぅ tic, not independently verified)",
+      "event": "event-wiwi-swarm",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=222, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup. Wiwi (ウィウィ) kept as a transliterated proper noun - likely a specific in-game creature, no established EN name found.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced1c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02",
+      "standalone_codes": [
+        "0xb003",
+        "0xb008",
+        "0xb002",
+        "0xb008"
+      ]
+    },
+    "0x4ad190": {
+      "jp": "<0x3b78>あれあれ?|世界平和金庫に|{{HL:0xb002}}怪盗出現{{HL:0xb008}}ですぅ!//ビリの人は、他の人の金庫の|お金をもらえて超ラッキーですぅ!",
+      "en": "Huh? | A {{HL:0xb002}}Thief{{HL:0xb008}} has appeared | at the World Peace Bank! // Whoever's in last place gets | super lucky with everyone else's gold!",
+      "chapter": "event-notification",
+      "character": "Announcer (unidentified - spk 0x3b78, distinct from the 0x3af4 code above)",
+      "event": "event-bank-thief",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=223, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup. World Peace Bank (世界平和金庫) - established gloss from this session's earlier incidental decode.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced28"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02",
+      "standalone_codes": [
+        "0xb002",
+        "0xb008"
+      ]
+    },
+    "0x4ab840": {
+      "jp": "唱ーッ!|復活である!",
+      "en": "Chant! | Resurrection!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=300, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced34"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab860": {
+      "jp": "くらうのであーる!|我が法力のえじきとなるのである!",
+      "en": "Devour this! | Become prey to my sorcery!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=301, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced40"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab8a0": {
+      "jp": "唱ーッ!|わがはいが使ってやるから|かんしゃするのである!",
+      "en": "Chant! | I shall use this myself - | be grateful!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=302, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced4c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab8f0": {
+      "jp": "唱ーッ!|金こそ我が法力の源である!",
+      "en": "Chant! | Gold is the source of my power!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=303, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced58"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab920": {
+      "jp": "唱ーッ!|我がしもべよ、召嗅である!",
+      "en": "Chant! | My servant, I summon thee!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=304, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup. 召嗅 is an unusual kanji pairing (not standard - possibly a stylized/invented reading); translated by sense (summon) from context, not a literal dictionary match.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced64"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab950": {
+      "jp": "唱ーッ!|ムダな努力である!",
+      "en": "Chant! | Your effort is futile!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=305, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced70"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab980": {
+      "jp": "くらうのであーる!|行き止まりにするのである!",
+      "en": "Devour this! | This is a dead end!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=306, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced7c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ab9c0": {
+      "jp": "くらうのであーる!|死ぬまで戦うのである!",
+      "en": "Devour this! | Fight until you die!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=307, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced88"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4aba00": {
+      "jp": "唱ーッ!|ワナをばらまくのである!",
+      "en": "Chant! | I shall scatter traps!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3836/0x383a)",
+      "event": "taunt-a-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=308, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ced94"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4aba30": {
+      "jp": "フン!|十年早いぞ!",
+      "en": "Hmph! | You're ten years too early!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=309, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceda0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4aba50": {
+      "jp": "くらえ!|オレ様の力、見せてやる!",
+      "en": "Take this! | I'll show you my power!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=310, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cedac"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4aba80": {
+      "jp": "フン!|それはオレ様が使ってやろう!",
+      "en": "Hmph! | I'll be the one using that!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=311, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cedb8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abab0": {
+      "jp": "フン!|金はオレ様がいただくぞ!",
+      "en": "Hmph! | I'll be taking that gold!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=312, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cedc4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abae0": {
+      "jp": "くらえ!|こいつに勝って、もっと強くなれ!",
+      "en": "Take this! | Beat this and grow stronger!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=313, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cedd0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abb20": {
+      "jp": "フン!|安心するんじゃないぞ!",
+      "en": "Hmph! | Don't get too comfortable!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=314, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceddc"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abb50": {
+      "jp": "くらえ!|ここから先へは行かせん!",
+      "en": "Take this! | You're not getting past me!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=315, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cede8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abb80": {
+      "jp": "くらえ!|強き者のみ生き残るがいい!",
+      "en": "Take this! | Only the strong survive!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=316, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cedf4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abbb0": {
+      "jp": "くらえ!|ワナを乗りこえて来い!",
+      "en": "Take this! | Try getting past my traps!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3849/0x384a)",
+      "event": "taunt-b-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=317, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee00"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abbe0": {
+      "jp": "ふんごー!|おいら、いつも元気ー!",
+      "en": "Hmphoo! | I'm always full of energy!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=318, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee0c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abc10": {
+      "jp": "くらえー!|おまえ、大嫌いー!",
+      "en": "Take thiiis! | I really hate you!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=319, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee18"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abc40": {
+      "jp": "ふんごー!|おいらも使うー!",
+      "en": "Hmphoo! | I'll use this too!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=320, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee24"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abc70": {
+      "jp": "ふんごー!|金ー、オレの物にするー!",
+      "en": "Hmphoo! | This gold is miiine now!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=321, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee30"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abca0": {
+      "jp": "ふんごー!|いけー、食料奪えー!",
+      "en": "Hmphoo! | Go, steal their food!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=322, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee3c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abcd0": {
+      "jp": "ふんごー!|おいら、そいつ助けるー!",
+      "en": "Hmphoo! | I'll go help that guy!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=323, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee48"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abd00": {
+      "jp": "くらえー!|先には行かせないー!",
+      "en": "Take thiiis! | You're not going any further!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=324, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee54"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abd30": {
+      "jp": "ふんごー!|おまえらー、みんな戦えー!",
+      "en": "Hmphoo! | Everybody, fight!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=325, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee60"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abd60": {
+      "jp": "ふんごー!|おいら、ワナ、しかけるー!",
+      "en": "Hmphoo! | I'll set a trap!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3858/0x3859)",
+      "event": "taunt-c-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=326, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee6c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abd90": {
+      "jp": "ヌゥゥ!|ワシの命の火は消せんぞ!",
+      "en": "Nnngh! | My life flame won't be snuffed out!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=327, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee78"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abdc0": {
+      "jp": "くらえぇい!!|ワシの怒り、思い知れぇ!",
+      "en": "Take thaaat!! | Know my fury!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=328, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee84"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abdf0": {
+      "jp": "ヌゥゥ!|キサマにはもったいないわ!",
+      "en": "Nnngh! | You don't deserve this!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=329, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee90"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abe20": {
+      "jp": "ヌゥゥ!|金なんぞ持たせんぞぉ!",
+      "en": "Nnngh! | I won't let you have this gold!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=330, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cee9c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abe50": {
+      "jp": "くらえぇい!!|ワシの怒りを教えてやれぇ!",
+      "en": "Take thaaat!! | Show them my fury!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=331, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceea8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abe90": {
+      "jp": "ヌゥゥ!|やらせはせんぞぉ!",
+      "en": "Nnngh! | I won't let you win!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=332, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceeb4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abec0": {
+      "jp": "くらえぇい!!|先には進ませるかぁ!",
+      "en": "Take thaaat!! | You won't be going any further!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=333, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceec0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abef0": {
+      "jp": "くらえぇい!!|生き残りたくば戦えい!",
+      "en": "Take thaaat!! | Fight if you want to survive!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=334, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceecc"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abf20": {
+      "jp": "くらえぇい!!|ワナにかかってくたばるがよいわ!",
+      "en": "Take thaaat!! | Fall in my trap and drop dead!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3867/0x3868)",
+      "event": "taunt-d-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=335, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceed8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abf60": {
+      "jp": "コノヤロー!|ボクを倒すなんてムダだからな!",
+      "en": "You jerk! | Beating me is pointless!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=336, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceee4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abfa0": {
+      "jp": "こうしてやる!|お前なんか死んじゃえ!",
+      "en": "Take this! | Just drop dead already!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=337, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceef0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4abfd0": {
+      "jp": "コノヤロー!|お前なんかに使わせないぞ!",
+      "en": "You jerk! | I won't let you use this!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=338, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceefc"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac000": {
+      "jp": "こうしてやる!|ボクが代わりに貯金してやるよ!",
+      "en": "Take this! | I'll save this money for you instead!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=339, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef08"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac040": {
+      "jp": "コノヤロー!|好き勝手にさせないぞ!",
+      "en": "You jerk! | I won't let you do as you please!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=340, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef14"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac070": {
+      "jp": "こうしてやる!|ざまーみろ!",
+      "en": "Take this! | Serves you right!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=341, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef20"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac0a0": {
+      "jp": "こうしてやる!|こっちに来るなよ!",
+      "en": "Take this! | Don't come this way!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=342, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef2c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac0d0": {
+      "jp": "こうしてやる!|みんなで倒し合え!",
+      "en": "Take this! | Fight each other, everyone!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=343, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef38"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac100": {
+      "jp": "こうしてやる!|ワナにかかって死んじゃえ!",
+      "en": "Take this! | Fall in my trap and die!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3876/0x3877)",
+      "event": "taunt-e-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=344, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef44"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac140": {
+      "jp": "コラァー!|ムダだって言ってるだろが!",
+      "en": "Heeey! | I said it's pointless!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=345, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef50"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac170": {
+      "jp": "オラァ!|くらえや!",
+      "en": "Yaaah! | Take this!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=346, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef5c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac190": {
+      "jp": "オラァ!|それオレによこせ!",
+      "en": "Yaaah! | Hand that over to me!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=347, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef68"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac1c0": {
+      "jp": "オラァ!|人気者には金がいるんだよ!",
+      "en": "Yaaah! | A popular guy like me needs money!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=348, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef74"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac1f0": {
+      "jp": "オラァ!|しっかり働けぇ!",
+      "en": "Yaaah! | Get to work already!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=349, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef80"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac220": {
+      "jp": "コラァー!|しっかりしろー!",
+      "en": "Heeey! | Get it together!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=350, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef8c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac250": {
+      "jp": "コラァー!|そっち行くんじゃねぇよ!",
+      "en": "Heeey! | Don't go that way!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=351, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cef98"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac280": {
+      "jp": "オラァ!|お前ら勝手にやりあいな!",
+      "en": "Yaaah! | Go fight it out amongst yourselves!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=352, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefa4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac2b0": {
+      "jp": "オラァ!|ワナにでもひっかかってな!",
+      "en": "Yaaah! | Go fall in a trap or something!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3886/0x3887)",
+      "event": "taunt-f-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=353, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefb0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac2e0": {
+      "jp": "ヒッヒッヒ。|きかんわ。",
+      "en": "Heh heh heh. | Won't work on me.",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=354, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefbc"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac300": {
+      "jp": "くらうのじゃ!|おろか者よ!",
+      "en": "Devour thee! | Foolish one!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=355, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefc8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac330": {
+      "jp": "ヒッヒッヒ。|ワシが使ってやろう。",
+      "en": "Heh heh heh. | I'll make use of this.",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=356, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefd4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac360": {
+      "jp": "ヒッヒッヒ。|金は全てワシのものじゃ。",
+      "en": "Heh heh heh. | All this gold is mine now.",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=357, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefe0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac390": {
+      "jp": "ヒッヒッヒ。|この村はいただきじゃ。",
+      "en": "Heh heh heh. | This village is mine for the taking.",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=358, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cefec"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac3c0": {
+      "jp": "ヒッヒッヒ!|残念じゃったのう。",
+      "en": "Heh heh heh! | Too bad for you.",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=359, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4ceff8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac3f0": {
+      "jp": "くらうのじゃ!|これより先へは進ませんぞ!",
+      "en": "Devour thee! | You'll go no further than this!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=360, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf004"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac430": {
+      "jp": "くらうのじゃ!|ぞんぶんに殺し合うがよいわ!",
+      "en": "Devour thee! | Fight each other to your hearts' content!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=361, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf010"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac470": {
+      "jp": "ヒッヒッヒ。|ワナだらけにしてやるわい。",
+      "en": "Heh heh heh. | I'll fill this place with traps.",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3899/0x389a)",
+      "event": "taunt-g-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=362, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf01c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac4a0": {
+      "jp": "グガァアアアァァ!!!",
+      "en": "GRRRAAAAAAGH!!!",
+      "chapter": "battle-taunt",
+      "character": "Monster (unidentified, wordless)",
+      "event": "taunt-roar-1",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=363, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf028"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac4c0": {
+      "jp": "ピギャァアアァァ!!!",
+      "en": "SKREEEEEAAAGH!!!",
+      "chapter": "battle-taunt",
+      "character": "Monster (unidentified, wordless)",
+      "event": "taunt-roar-2",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=364, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf034"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac4e0": {
+      "jp": "MOOONNN・・・。|ムダだ・・・。",
+      "en": "MOOONNN... | Futile...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=365, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup. JP source has MOOONNN already in romaji (an eerie moan), kept verbatim.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf040"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac510": {
+      "jp": "滅びよ・・・。|異世界の勇者・・・。",
+      "en": "Perish... | Hero of another world...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=366, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf04c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac540": {
+      "jp": "MOOONNN・・・。|なんじには不要だ・・・。",
+      "en": "MOOONNN... | You have no need of this...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=367, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf058"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac580": {
+      "jp": "MOOONNN・・・。|金こそ・・・我が力の源・・・。",
+      "en": "MOOONNN... | Gold is... the source of my power...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=368, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf064"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac5c0": {
+      "jp": "MOOONNN・・・。|勇者よ・・・絶望しろ・・・。",
+      "en": "MOOONNN... | Hero... despair...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=369, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf070"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac600": {
+      "jp": "MOOONNN・・・。|無意味・・・。",
+      "en": "MOOONNN... | Meaningless...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=370, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf07c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac630": {
+      "jp": "MOOONNN・・・。|なんじの進む道はない・・・。",
+      "en": "MOOONNN... | There is no path forward for you...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=371, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf088"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac670": {
+      "jp": "滅びよ・・・。|争い・・・憎め・・・。",
+      "en": "Perish... | Strife... hatred...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=372, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf094"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac6a0": {
+      "jp": "MOOONNN・・・。|苦しめ・・・。",
+      "en": "MOOONNN... | Suffer...",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x38af/0x38b0)",
+      "event": "taunt-h-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=373, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0a0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac6d0": {
+      "jp": "ウキキのキー!|いやされたぜ!",
+      "en": "Ooh-ee-ee-kee! | That felt good!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-01",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=374, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0ac"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac700": {
+      "jp": "食らいやがれ!|バカな人間め!",
+      "en": "Eat this! | You foolish human!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-02",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=375, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0b8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac730": {
+      "jp": "ウキキのキー!|オレ様にも使わせてくれよ!",
+      "en": "Ooh-ee-ee-kee! | Let me use this too!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-03",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=376, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0c4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac770": {
+      "jp": "ウキキのキー!|ガバっといただき!",
+      "en": "Ooh-ee-ee-kee! | I'll just take all of it!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-04",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=377, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0d0"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac7a0": {
+      "jp": "ウキキのキー!|オレ様のために働け!",
+      "en": "Ooh-ee-ee-kee! | Work for my sake!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-05",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=378, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0dc"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac7d0": {
+      "jp": "ウキキのキー!|そう簡単にはいかないぜ!",
+      "en": "Ooh-ee-ee-kee! | It won't be that easy!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-06",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=379, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0e8"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac800": {
+      "jp": "食らいやがれ!|こっちは行き止まりだ!",
+      "en": "Eat this! | This way's a dead end!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-07",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=380, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf0f4"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac830": {
+      "jp": "食らいやがれ!|全員で戦いな!",
+      "en": "Eat this! | Everyone, fight!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-08",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=381, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf100"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac860": {
+      "jp": "ウキキのキー!|ワナをしかけてやるぜ!",
+      "en": "Ooh-ee-ee-kee! | I'll set up some traps!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-09",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=382, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf10c"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x4ac890": {
+      "jp": "ウキキのキー!|次はこっちだぜ!",
+      "en": "Ooh-ee-ee-kee! | Next is over here!",
+      "chapter": "battle-taunt",
+      "character": "Monster (0x3936/0x3938)",
+      "event": "taunt-i-10",
+      "tier": "authored",
+      "note": "Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; structure fully bounded by a dedicated follow-up investigation the same day. Referenced via a 12-byte outer table at VMA 0x4cecec (event_id=383, entry re-derived and decoded fresh from raw ELF bytes for this batch). See docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching 2026-09-02 ledger entries for the full discovery writeup.",
+      "status": "drafted",
+      "source_pool": "ybs_script",
+      "ref_type": "pointer_array",
+      "ref_sites": [
+        {
+          "outer_table_row_vma": "0x4cf118"
+        }
+      ],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478c90": {
+      "jp": "ドカポンマスター",
+      "en": "Dokapon Master",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-dokapon-master",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478bf0": {
+      "jp": "土地成金",
+      "en": "Land Baron",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-land-baron",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478cd0": {
+      "jp": "ドカポンクイーン",
+      "en": "Dokapon Queen",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-dokapon-queen",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478bb0": {
+      "jp": "やりこみ大将",
+      "en": "Completionist General",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-completionist-general",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478cb0": {
+      "jp": "ドカポンキング",
+      "en": "Dokapon King",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-dokapon-king",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478bd0": {
+      "jp": "マネーのオニ",
+      "en": "Money Demon",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-money-demon",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478c50": {
+      "jp": "友人キラー",
+      "en": "Friend Killer",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-friend-killer",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478c30": {
+      "jp": "魔物ハンター",
+      "en": "Monster Hunter",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-monster-hunter",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478c10": {
+      "jp": "バトルマニア",
+      "en": "Battle Maniac",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-battle-maniac",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    },
+    "0x478c70": {
+      "jp": "ヘタレくん",
+      "en": "Wimp",
+      "chapter": "title-award",
+      "character": "system",
+      "event": "title-wimp",
+      "tier": "authored",
+      "note": "One of 10 distinct end-game title-award strings cycled across a 50-row {ptr, threshold} table at VMA 0x520c10 (5 score-threshold groups x these same 10 titles) - plain null-terminated glyph string, no 0x2800 header/control codes, unlike the rest of this project's text. The runtime mechanism selecting a row from that table was NOT found by the boundary investigation - ref_type left honestly unknown rather than guessed. Discovered incidentally 2026-09-02 during the dispatch-table landing-zone survey; see docs/HANDOFF.md item 3 and skills/PATCH-MOD-ISO.md's matching ledger entries.",
+      "status": "drafted",
+      "source_pool": "unknown",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "FIND-NEW-TEXT dispatch-table-survey-incidental-discovery 2026-09-02, boundary/structure confirmed by dedicated follow-up 2026-09-02"
+    }
+  }
+}

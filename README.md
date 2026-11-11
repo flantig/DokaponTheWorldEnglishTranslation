@@ -42,4 +42,4 @@ and the game remain with their respective owners.
 
 ## Go migration tooling
 
-The reusable [Go toolkit](tools/go/README.md) has 9 of 14 core workflow families verified. This measures toolkit capabilities, not historical script retirement. Build instructions, contracts and verification evidence are in the toolkit documentation.
+The reusable [Go toolkit](tools/go/README.md) has 10 of 14 core workflow families verified. This measures toolkit capabilities, not historical script retirement. Build instructions, contracts and verification evidence are in the toolkit documentation.

@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T06:37:44.586276+00:00",
+  "kind": "Corrected standalone independent read-only final shared-scope delta review, findings not approval",
+  "candidate_manifest": {
+    "path": "/var/tmp/dokapon-registry-import-6bezqn0z/review-source-shared/manifest.json",
+    "sha256": "30d592742dceb94d9e270794e34e6e88531e778d0c777dbe11cd618377f51cbd",
+    "members_verified": 59,
+    "all59_reverified_after_test_probe_restore": true
+  },
+  "previous_immutable_reviews": [
+    {
+      "path": "/var/tmp/dokapon-registry-import-review-hO9znBhZ/sealed-report/manifest.json",
+      "sha256": "86aac17b99b08aea302cd25bd96b8494505af427d1cd950251b036f9a97f1c0b"
+    },
+    {
+      "path": "/var/tmp/dokapon-registry-import-review-hO9znBhZ/sealed-final-delta/manifest.json",
+      "sha256": "1140a39974717a522c78f9fa69664858061b6b742e4c692bc54f5d38280a7e48"
+    }
+  ],
+  "new_findings": [],
+  "finding_disposition": {
+    "RRI-1": "CSV512 UTF-8 byte bound retained; independent pre-edit provenance5 and initial witness closure from58 remain applicable and current59 focused tests pass.",
+    "A046-1": "Supported closed in shared snapshot responsibility, including inherited exposure through author/merge/markup/inlineadd/import. Existing default branch now owns compact entries/final-document caps, complete-document preflight, sole stdlibIndent and final actual cap. No old-route bypass predicate retained."
+  },
+  "static_review": {
+    "owner_boundary": "The existing default serializer branch is the correct common owner. All rewritten JSON snapshots flow here. Status/template and export/CSV cases precede default, adding-allpresent copies exact raw source in its own case, and text_shapes returns earlier. There is no additional post-switch mode predicate.",
+    "preserved_semantics": "Same sorted map/raw field serialization into compact stages followed by stdlib two-spaceIndent preserves exact admitted readable output, raw numeric lexemes, duplicate opaque object keys and opaque source/root metadata. Complete document checking includes inherited root metadata. Source/resource recheck, output digest and exclusive publisher locations are retained.",
+    "quality": "Small coherent four-file scope delta, no new runtime function/type or alternate parser. Shared responsibility removes the import-only formatting split. Existing large owner has multiple operations, but this delta centralizes its existing representation policy without new mode flags or handlers.",
+    "zero_budget": "Internal maxPrettyBytes0 retains the legacy checkJSON policy. Current structured property probe and10frozen literal checks passed.",
+    "explicit_new_refusal": "All rewritten registry JSON snapshots must fit64MiB compact and the conservative two-space budget before indentation; actual formatted bytes also fit64MiB. Empty-container overcount may refuse a valid actual formatted snapshot below64MiB. This is an explicit new shared output policy, not universal legacy acceptance parity.",
+    "memory_qualification": "Compact encoders and lexical preparation still allocate. The fixes bound identified provenance multiplication/quadratic indentation and newly consumable snapshot size. No generic hostile-memory/output sandbox or runtime-resource framework is claimed."
+  },
+  "independent_compatibility": {
+    "fixture_sha256": "93b6066af283ef5a79266542b5b4a0148a2e9047eebad5971367c799f97b68aa",
+    "authority": "Whole bytes from accepted718, separate from original Python admission semantics. Independently replayed both actual reference and new executable on owned synthetic inputs.",
+    "reference_binary": "/var/tmp/dokapon-textcodec-jjf7t07t/core-final",
+    "reference_binary_sha256_verified": "6dce0b8ed53c3138698ec4b26133f845ec13c1d103d339a811ad3184d46bca25",
+    "routes": [
+      {
+        "operation": "registry_author",
+        "bytes": 399,
+        "sha256": "94484540400438b1063a16af561b6ab057277a0367898f99d504461c51e36a47"
+      },
+      {
+        "operation": "registry_merge",
+        "bytes": 428,
+        "sha256": "483bf686ed8d996a1f3e46efa251ac344791c1d1c38a876d9f9b6e156fe86928"
+      },
+      {
+        "operation": "registry_add",
+        "bytes": 526,
+        "sha256": "6485d5d1caa3196d4f3a40daef00607275ffd2c83f5401fa70311cbdc8ecc871"
+      },
+      {
+        "operation": "registry_markup",
+        "bytes": 9381,
+        "sha256": "44a9cfa18d29bc51cc06d525d722640ca6af9e3a528dbe459a9abee5bdd97a9c"
+      }
+    ]
+  },
+  "verification": {
+    "independent_actual_CLI_calls": 18,
+    "CLI_results": "shared-replay-results.json",
+    "old_route_over_budget": "registry_author/registry_merge/inline registry_add each preview+apply refuse0stdout/nooutput; source deep34records are below input64MiB.",
+    "opaque_root": "Inherited34deep rows placed only in opaque_root, selected entries small; preview+apply refuse final budget, demonstrating complete merged document scope.",
+    "byte_noops": "Inline/import allpresent deep source both preserve exact75133B, SHA8ce54ffbabe61f4d7dc4e070d63cbe5c50ba463e0c105f63114c77600f5168a9.",
+    "additional_checker_properties": {
+      "cases": 1024,
+      "existing_test_owner": "TestPlanRefusals",
+      "package_seconds": 0.165,
+      "block": "budget-probe-block.txt",
+      "log": "shared-budget-probe.txt",
+      "own_test_probe_restored": true
+    },
+    "owned_source_identity_checks": "shared-input-verification.json plus frozen59 focused tests own input-mutation assertions",
+    "all_owned_jobs_terminal": true,
+    "default_and_unused_tag_build_vet_focused_commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.681925049982965
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.4158715319936164
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 27.53005700101494
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "native",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.6889469049929176
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "native",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.4007594670110848
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "native",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 17.490067553007975
+      }
+    ],
+    "default_command_interpretation": "Commands without tags are default/core. Historical -tags native commands are repeated default-backend checks, not nativefonts.",
+    "actual_nativefonts_build_vet_focused_commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 3.7623880409810226
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 2.448149217001628
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 81.78267218999099
+      }
+    ],
+    "actual_backend_selection": {
+      "command": [
+        "go",
+        "list",
+        "-tags",
+        "nativefonts",
+        "-f",
+        "{{.CgoFiles}} {{.GoFiles}}",
+        "."
+      ],
+      "log": "nativefonts-selected-files.txt",
+      "CgoFiles": [
+        "raster_font.go"
+      ],
+      "disabled_backend_selected": false
+    },
+    "actual_nativefonts_job_session": 55723,
+    "actual_nativefonts_job_terminal_exit": 0
+  },
+  "scope_limits": [
+    "No implementation, acceptance, .04/.05/.06 completion, family promotion, retirement or reduction claim.",
+    "Original6drop+5reward batch bodies, occurrence pairing and remaining pool construction facts remain held; .06 human drift/correction/glossary paired publication remains material separate work.",
+    "No full suite/race/native-font race/gameplay or protected game/registry/art/auth/process resources accessed.",
+    "Root owns required final race and publication; prior pre-fix QA is not substituted.",
+    "Only owned copy testprobe was temporarily inserted into an existing owner; restored exact59. Initial26/delta73 immutable capsules unchanged.",
+    "Earlier native-tag labels are explicitly corrected here; nativefonts evidence applies to exact shared59 and the requested four focused owners, not full-suite or native-font race coverage."
+  ],
+  "tag_correction": {
+    "error": "Reviewer previously used -tags native and described those results as native. The project backend is selected by nativefonts && cgo && linux. The arbitrary native tag did not activate it.",
+    "prior_capsules_preserved_unchanged": [
+      {
+        "path": "/var/tmp/dokapon-registry-import-review-hO9znBhZ/sealed-report/manifest.json",
+        "sha256": "86aac17b99b08aea302cd25bd96b8494505af427d1cd950251b036f9a97f1c0b"
+      },
+      {
+        "path": "/var/tmp/dokapon-registry-import-review-hO9znBhZ/sealed-final-delta/manifest.json",
+        "sha256": "1140a39974717a522c78f9fa69664858061b6b742e4c692bc54f5d38280a7e48"
+      },
+      {
+        "path": "/var/tmp/dokapon-registry-import-review-hO9znBhZ/sealed-final-shared/manifest.json",
+        "sha256": "0f59a86e1865d3a79e0f40c54fb6cae8f69f683c071f451530dab342295ae289"
+      }
+    ],
+    "prior_claim_qualification": "All -tags native build/vet/focused runs in the initial26,delta73,shared81 reports are default-backend/unused-tag checks only. They do not establish nativefont backend coverage, and are not relabeled as nativefonts. Valid default-core,18CLI replays,4accepted718 wholebyte comparisons,1024checkerproperties and static finding conclusions remain valid.",
+    "actual_nativefonts_coverage": "New commands below actually use -tags nativefonts on exact shared59. go list confirms raster_font.go in CgoFiles and excludes disabled backend. This is new measured evidence, not reuse of mislabeled runs.",
+    "source59_reverified_after_actual_checks": true
+  }
+}

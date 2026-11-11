@@ -1,0 +1,72 @@
+{
+  "at": "2026-11-05T07:02:34.085284+00:00",
+  "status": "ROOT_VERIFIED_FIRST_PAIRED_CORRECTION_GLOSSARY_ENGINE",
+  "baseline732": "88e047a7713f481a32abff70556ed47ce0882d335ac48b751d21eed9c262c728",
+  "source96": "93c7c4a4da5583180ffabf1a09fceaf914b51e0bbef1567a2d7675f15b87b48f",
+  "source39": "b6354823d79cc8d76302cff8b03e1d294d61f545d3dd272c728007fa03b06b5e",
+  "approach": "1fbcfbb9dc7424bf5b62fe040d2cf2defec4ea8c435d41235ddb4dbf0f84ab37",
+  "scope": "First .06 slice: reviewed exact-old/new EN corrections and exact-JP glossary proposals, planned together; human drift/force/decoded-flow construction remains separate unfinished work. No .06/family credit from this slice alone.",
+  "API": {
+    "operation": "registry_reconcile",
+    "root_fields": [
+      "operation",
+      "source_size",
+      "source_sha256",
+      "evidence",
+      "updated",
+      "registry_inputs"
+    ],
+    "registry_inputs": "Exactly glossary/corrections/glossary_proposals, existing {path,size,sha256} pins; all three JSON, paths relative to profile. No registry_updates/import/column/image fields.",
+    "corrections": "Bare array, closed objects with id,old_en,new_en,note_suffix; all strings, id/new_en/note_suffix nonempty, old_en may be empty. Exact fully authored suffix includes separator and historical annotation if desired; no Go-generated term/date boilerplate.",
+    "glossary_proposals": "Bare array, closed objects with jp,en,provenance,source,usage_note; all five nonempty strings. New entry projects exactly those five; unknown/alias/null keys refuse.",
+    "options": "Same --source registryJSON, --recipes, preview and --apply --output newZIP. No new CLI flag/general policy/inline alternative."
+  },
+  "normalization": "Existing canonical numeric registry IDs for lookup; reject normalized duplicates in existing registry and corrections before keyed collapse. Existing record ID spellings/order preserved. Glossary JP is exact decoded string, no trim/NFC; reject duplicate existing/proposed JP before indexing.",
+  "decisions": [
+    "Validate all authored input types/Unicode/duplicates before planning, including already-present records. Selected current EN must be a paired-Unicode string.",
+    "current EN==new_en -> already_applied before old/status handling, with no note append or metadata changes; unknown/null status on such unchanged rows remains untouched.",
+    "otherwise current EN!=old_en -> stale fatal, whole pair refuses.",
+    "otherwise known locked status patched/decode_verified/emulator_confirmed -> held, no EN/note mutation, glossary proposals may still advance.",
+    "otherwise only known drafted/zone_pending may change EN via existing owner; unknown/null/missing/wrong-type status on actual change refuses.",
+    "On actual EN change, missing/null current note means empty; a present other value must be a paired-Unicode string. Append exact note_suffix without trimming/newline normalization; no second append on replay.",
+    "Existing same JP/EN glossary entry preserves ALL provenance/metadata. Different EN conflicts fatally. New proposals append in authored order; selected existing JP/EN string and Unicode validation is explicit."
+  ],
+  "idempotence": "NEW Go behavior, not historical parity: unchanged member preserves exact source bytes/date, including held-only registry while glossary advances. Changed member uses shared readable serializer and explicit updated date. All-present pair has two exact source members and deterministic archive. Original source always rewrote both dates; keep observations distinct.",
+  "limits": {
+    "profile_bytes": 1048576,
+    "registry_bytes": 67108864,
+    "glossary_bytes": 67108864,
+    "combined_corrections_proposals_bytes": 67108864,
+    "combined_authored_records": 65536,
+    "existing_glossary_records": 65536,
+    "each_member_bytes": 67108864,
+    "archive_bytes": 134218752,
+    "qualification": "Explicit finite new bounds, not actual cohort inventory or generic hostile-memory sandbox. Shared conservative two-space preflight may overcount empty containers."
+  },
+  "publication": "Prepare all outcomes and both member buffers, then fixed-name/order ZIP registry.json,glossary.json using zip.Store/deterministic headers and close central directory. Recheck original registry handle/hash, all named pinned inputs and raw profile bytes before one existing writeNewFile call. ZIP output is a complete verified artifact on successful return, NOT atomic pathname visibility or installation of two canonical files. No source/canonical file is overwritten. Existing output refusal and owned-inode cleanup retained.",
+  "reuse": "Existing authorRegistry contiguous pair preflight, ready EN/note through existing mutation path, shared ordered one-or-two-document serialization loop, existing checkJSON/glyph-independent JSON validation/bounded input/writeNewFile, standard ZIP pattern from manifestTextures/contactSheets. No new function/helper/closure or per-script handler. Revisit pure boundary if unrelated branches/mode bags would be required.",
+  "type_plan": "Correction/proposal transport fields differ from canonical RegistryEntry. Inspect RegistryEntry and existing types; place unavoidable intent/value structs in registry_types.go grouped by usage. No new public Recipes field is needed. One transient document record may replace parallel source/member arrays in shared serialization.",
+  "profile_recheck": "Extend existing RegistryOptions with raw profile path for paired operation and pass existing recipe path from main.run; require bounded byte-identity recheck before publication. Do not add another loader/parser or expand old unrelated behavior speculatively.",
+  "verification": "Independent new pair/member goldens BEFORE Go edits, not direct blind reuse of20source observations. Preview/guardedZIP/apply/replay/normalizedalias/typedrefusals/suffixUnicodeCRLF/rawnumbers/deepbudgets/immutableinputs. Existing actualCLI test owner and all old4policy/import/status/export/author/machine routes unchanged; core/actualnativefonts buildvet/focused/race/freshreview/accounting before acceptance.",
+  "design_preference": "User optional ZIP-vs-directory question unanswered after reasonable opportunity; root announces recommended ZIP assumption within already-authorized migration. Not user approval; do not implement both modes.",
+  "updated_at": "2026-11-05T07:45:00.154929+00:00",
+  "resulting_glossary_entries": 65536,
+  "result_count_delta": "RPR-1: complete result must satisfy the same65536entry consuming-reader limit. Existing-lookup no-op at capacity stays allowed; absent-JP append refuses at capacity.",
+  "source_capsules": [
+    {
+      "name": "source96",
+      "manifest": "/var/tmp/dokapon-registry-reconcile-source-BxtLlexU/manifest.json",
+      "sha256": "93c7c4a4da5583180ffabf1a09fceaf914b51e0bbef1567a2d7675f15b87b48f"
+    },
+    {
+      "name": "paired16",
+      "manifest": "/var/tmp/dokapon-registry-paired-fixtures-Uxjk7f4J/manifest.json",
+      "sha256": "310560a73449c67fc3b7cb09095afb6ca035a4fae8033bb33a04590d58fe480b"
+    },
+    {
+      "name": "precodeAstra",
+      "manifest": "/tmp/dokapon-astra046-reconcile-plan-lf8el11x/manifest.json",
+      "sha256": "1fbcfbb9dc7424bf5b62fe040d2cf2defec4ea8c435d41235ddb4dbf0f84ab37"
+    }
+  ]
+}

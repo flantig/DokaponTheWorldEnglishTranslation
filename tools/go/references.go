@@ -61,7 +61,7 @@ func references(data, registryData, glyphData []byte, profile Recipes) (Referenc
 				return ReferenceReport{}, fmt.Errorf("GP point query names require 1..128 bytes")
 			}
 		}
-	} else if profile.RegisterFlow != nil || profile.Sentinel != nil || profile.RegistryInputs != nil || profile.RegistryColumns != nil || profile.AddressRanges != nil || profile.WordingField != "" || profile.Operation != "reference_candidates" || scan == nil || profile.Evidence == "" || profile.SourceContext ||
+	} else if profile.RegisterFlow != nil || profile.Sentinel != nil || profile.RegistryInputs != nil || profile.RegistryImport != nil || profile.RegistryColumns != nil || profile.AddressRanges != nil || profile.WordingField != "" || profile.Operation != "reference_candidates" || scan == nil || profile.Evidence == "" || profile.SourceContext ||
 		profile.RegistryUpdates != nil || profile.Updated != "" || profile.RegistryPatchRef != "" || profile.Stream != nil || profile.Layout != nil || profile.Growth != nil ||
 		len(profile.Entries)+len(profile.Values)+len(profile.WordBlocks) != 0 || profile.ISOELFOffset != "0x0" ||
 		profile.SourceSize <= 0 || profile.SourceSize > 64<<20 || int64(len(data)) != profile.SourceSize || len(registryData) > 64<<20 {

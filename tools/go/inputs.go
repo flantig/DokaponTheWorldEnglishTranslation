@@ -47,11 +47,14 @@ func readInput(path string, limit int64) ([]byte, error) {
 // checkJSON rejects duplicate owned keys and unpaired Unicode escapes. Opaque
 // registry metadata keeps its old selective policy; allObjects owns every key.
 // Nonempty input must already be JSON; legacy refusal wording is preserved.
+// An optional two-space layout budget overcounts empty containers conservatively;
+// it bounds indentation allocation, without adding ownership of opaque metadata.
 func checkJSON(input checkedJSON) error {
 	if len(input.raw) != 0 && (!utf8.Valid(input.raw) || !json.Valid(input.raw)) {
 		return fmt.Errorf("input must be valid UTF-8 JSON")
 	}
 	data := input.raw
+	prettyBytes := int64(len(data))
 	depth, inEntries := 0, false
 	keys := make(map[int]map[string]bool)
 	for start := 0; start < len(data); start++ {
@@ -72,6 +75,17 @@ func checkJSON(input checkedJSON) error {
 				}
 			}
 			depth--
+		}
+		if input.maxPrettyBytes > 0 {
+			switch data[start] {
+			case '{', '[', '}', ']', ',':
+				prettyBytes += 1 + 2*int64(depth)
+			case ':':
+				prettyBytes++
+			}
+			if prettyBytes > input.maxPrettyBytes {
+				return fmt.Errorf("JSON two-space layout exceeds its byte budget")
+			}
 		}
 		if data[start] != '"' {
 			continue

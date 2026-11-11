@@ -38,6 +38,7 @@ type Recipes struct {
 	ReferenceFlow   *ReferenceFlowSpec                    `json:"reference_flow,omitempty"`
 	RegisterFlow    *RegisterFlowSpec                     `json:"register_flow,omitempty"`
 	RegistryInputs  map[string]RegistryInput              `json:"registry_inputs,omitempty"`
+	RegistryImport  *RegistryImportSpec                   `json:"registry_import,omitempty"`
 	RegistryColumns []string                              `json:"registry_columns,omitempty"`
 	AddressRanges   map[string]AddressRange               `json:"address_ranges,omitempty"`
 	Sentinel        *SentinelLayout                       `json:"sentinel,omitempty"`

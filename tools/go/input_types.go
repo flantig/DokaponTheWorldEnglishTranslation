@@ -14,6 +14,7 @@ type RegistryInput struct {
 type checkedJSON struct {
 	raw                                []byte
 	updates, text, records, allObjects bool
+	maxPrettyBytes                     int64            // Conservative two-space indentation budget; zero preserves the existing policy.
 	nonNull                            bool             // Authored numeric nulls must not silently become zero.
 	nonNullByDepth                     map[int][]string // Reject null only for these owned fields.
 	requiredByDepth                    map[int][]string // Require explicit owned fields, including zero-valued token coordinates.

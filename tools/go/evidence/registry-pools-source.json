@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T08:54:13.750175+00:00",
+  "status": "SOURCE_ONLY actual pool resource study sealed; no Go/API implementation, review approval, credit or retirement claim.",
+  "workspace": "/var/tmp/dokapon-registry-actual-pools-t4mq66s9",
+  "authority": {
+    "prior_pool79_manifest_sha256": "428edea0c10e94d57b5f9cb651f56f34edfde24c9da32abd2f07a8036e84823c",
+    "source125_manifest_sha256": "07aef19ae142284f4083a0f99a4b1cb5b4ef29129ec5907a0b57e3ae5e8a5335",
+    "accepted764_manifest_reference_sha256": "ee09048af6e6780f7424c8d62bd56b20bef929d44ad2907aa7e0648898a72070",
+    "accepted764_Go_or_output_accessed": false,
+    "root_frozen_original_registry_sha256": "550652fce7434569bbdc7129a00aac44eb584aacefb6eadb1e075ef47efa4cd1"
+  },
+  "actual_resources": {
+    "present_full_sweep_files": 7,
+    "rows": 3186,
+    "counts": {
+      "registry_batch_pool1_itemdb.json": 198,
+      "registry_batch_pool2_vocab.json": 748,
+      "registry_batch_pool3_bestiary.json": 344,
+      "registry_batch_pool4_help.json": 218,
+      "registry_batch_pool5_battle.json": 221,
+      "registry_batch_pool6_misc.json": 154,
+      "registry_batch_poolb.json": 1303
+    },
+    "all_source_rows_status": "drafted",
+    "glyphmap": "raw/glyphmap.json",
+    "historical_scratch_files_missing": 8,
+    "exact_path_resolution_only": true,
+    "all_source_identity_size_mtime_hash_rechecks_pass": true
+  },
+  "selection_facts": {
+    "six_drops": [
+      "0x532480",
+      "0x5324e0",
+      "0x5324f0",
+      "0x532530",
+      "0x5325c0",
+      "0x5327f0"
+    ],
+    "actual_pool1_losers": 0,
+    "actual_pool2_unique_keepers": 6,
+    "historical_selection_replayed": false,
+    "current_already_selected_input_refuses_original_drop_loader": "Expected6drops, actually0. This is source state difference, not a failed current normalized cohort.",
+    "other_copy_facts": "Actual0x464620 BAD Item exists in pool1 and0x5323fa Recovery Item in pool2. Source comment claims0x532400 Recovery Item in pool1 but actual current row is absent. Receipt records prefreeze KeyError and corrected explicit absence before any AST."
+  },
+  "reward_facts": {
+    "rows": 5,
+    "original_headline_matches": 5,
+    "replay_changes": 0,
+    "kind_mismatch_ids": [
+      "0x4f1720",
+      "0x4f1790",
+      "0x4f17d0"
+    ],
+    "all_code_multisets_match": true,
+    "all_HL_sequences_reorder": true,
+    "one_PARAM_sequence_reorders_id": "0x4f1760",
+    "segment_mapping": "EN uses JP segments[1,3,2], actual note explicitly declares X/recipient1,Y/giver2,Z/reward3. PARAM occurrence mapping1,3,4,2 for compound reward0x4f1720.",
+    "known_source_limitations": [
+      "AllfiveJP frames expressly reconstructed, not independently byte-verified.",
+      "All128param_blocks across seven files contain code only, no opaque payload bytes.",
+      "Full-sweep warning gate tests note substring only, not this occurrence map or source identity."
+    ]
+  },
+  "original_AST_verification": {
+    "all_assertions_passed": true,
+    "whole_actual_rows_checked": 3186,
+    "independent_policy_expectations_frozen_before_AST": true,
+    "pre_AST_freeze_sha256": "e512765e9cd52488e32f729846ed78b979234f3645fc8114dfb92672b27badf5",
+    "source142_prior_checks_reused": true,
+    "no_original_main_registry_write_or_current_state_classification_executed": true,
+    "details": "original-observations.json"
+  },
+  "reuse_cutset": {
+    "data": "Keep seven complete source arrays in historical order and source-specific finite ownership/headline/occurrence facts separately. Existing source142literal rows already capture fixed constructors without per-pool handlers.",
+    "shared_behavior": "Existing import/ID/field-owner/text-validation/publication responsibilities can consume these facts; no API/function chosen here.",
+    "required_policy_caution": "json_codes8field/no-added-apostrophe source preset does not reproduce full-sweep10field+apostrophe refusals. Preserve declared gates before claiming wholepolicy equivalence. Kinds-in-order alone fails3legitimate drafted source rows and accepts value changes.",
+    "source_state_guard": "139of142old constructor JP/EN pairs differ from explicitly permitted root-frozen original snapshot. All six keeper ENs and4of5reward ENs differ too. Preserve conflict/no-op/ownership rather than replacing evolved wording from historical rows.",
+    "historical_missing_inputs": "No raw loser-row or scratchpad generator replay claim; this does not imply absent old scratch paths block data-based handling of already-checked-in normalized cohort.",
+    "next_assessment": "requirement-crosswalk.json gives .04/.05 source duties, material dynamic behavior, finite facts and explicit remaining boundaries for root/Astra. No family credit decision."
+  },
+  "constructor_snapshot_join": [
+    {
+      "group": "cluster1",
+      "factory_rows": 14,
+      "frozen_original_present": 14,
+      "same_jp_en": 2
+    },
+    {
+      "group": "cluster2",
+      "factory_rows": 23,
+      "frozen_original_present": 23,
+      "same_jp_en": 0
+    },
+    {
+      "group": "cluster3",
+      "factory_rows": 5,
+      "frozen_original_present": 5,
+      "same_jp_en": 0
+    },
+    {
+      "group": "events",
+      "factory_rows": 90,
+      "frozen_original_present": 90,
+      "same_jp_en": 0
+    },
+    {
+      "group": "titles",
+      "factory_rows": 10,
+      "frozen_original_present": 10,
+      "same_jp_en": 1
+    }
+  ],
+  "commands": [
+    "nice -n19 env TMPDIR=/var/tmp/dokapon-registry-actual-pools-t4mq66s9/tmp python3 /var/tmp/dokapon-registry-actual-pools-t4mq66s9/freeze.py",
+    "nice -n19 env TMPDIR=/var/tmp/dokapon-registry-actual-pools-t4mq66s9/tmp python3 /var/tmp/dokapon-registry-actual-pools-t4mq66s9/check.py",
+    "nice -n19 env TMPDIR=/var/tmp/dokapon-registry-actual-pools-t4mq66s9/tmp python3 /var/tmp/dokapon-registry-actual-pools-t4mq66s9/seal.py"
+  ],
+  "limits": [
+    "No Go/private candidate/project/code/output access or Go execution.",
+    "No current canonical registry/glossary, ISO/art/emulator/auth/log/process input access or broad crawl. Only exact referenced source files and explicitly permitted root-frozen original registry snapshot.",
+    "No actual payload/native/patch readiness, semantic source correctness, current eligible import or milestone/script-retirement claim.",
+    "No runtime/test changes or operational Python dependency. Own source-only scratch scripts and bounded AST checks only."
+  ],
+  "all_owned_jobs_terminal": true
+}

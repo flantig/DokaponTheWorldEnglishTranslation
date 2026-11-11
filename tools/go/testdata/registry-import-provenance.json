@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "status": "independent expectations frozen before candidate512-bound edit; not observations of amended candidate",
+  "scope": "csv_drafts only, otherwise valid one-row A/A synthetic request; new finite policy1..512 UTF-8 bytes, actual original282-byte positive preserved",
+  "source": {
+    "file": "registry_import.py",
+    "line": 467,
+    "constant": "DRAFTING_DISCOVERED_BY",
+    "value": "full-ELF-sweep gap-fill batch 2026-09-03: 4-agent parallel draft (non-overlapping VMA ranges, Gap A 0x538350-0x539600 + Gap B 0x4d9d82-0x4d9e00) + single Fable-model adversarial review (byte-accuracy re-decode of every row, cross-agent terminology consistency, glossary cross-check)",
+    "utf8_bytes": 282,
+    "source_sha256": "5b43b920efb806d8b09cdec24384f8dc60b930fc6676823d4201454168d7a4a6"
+  },
+  "cases": [
+    {
+      "id": "original-282",
+      "discovered_by": "full-ELF-sweep gap-fill batch 2026-09-03: 4-agent parallel draft (non-overlapping VMA ranges, Gap A 0x538350-0x539600 + Gap B 0x4d9d82-0x4d9e00) + single Fable-model adversarial review (byte-accuracy re-decode of every row, cross-agent terminology consistency, glossary cross-check)",
+      "utf8_bytes": 282,
+      "sha256": "13553a7e78b6811fb3cb30dd657d7b38d9cebcfef3d46d5d4e323f8b7441d956",
+      "expected_accept": true,
+      "expected_note": "[full-ELF-sweep gap-fill batch 2026-09-03: 4-agent parallel draft (non-overlapping VMA ranges, Gap A 0x538350-0x539600 + Gap B 0x4d9d82-0x4d9e00) + single Fable-model adversarial review (byte-accuracy re-decode of every row, cross-agent terminology consistency, glossary cross-check)]",
+      "expected_discovered_by": "full-ELF-sweep gap-fill batch 2026-09-03: 4-agent parallel draft (non-overlapping VMA ranges, Gap A 0x538350-0x539600 + Gap B 0x4d9d82-0x4d9e00) + single Fable-model adversarial review (byte-accuracy re-decode of every row, cross-agent terminology consistency, glossary cross-check)",
+      "expected_no_report_or_publication": false
+    },
+    {
+      "id": "ascii-512",
+      "discovered_by": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "utf8_bytes": 512,
+      "sha256": "6d1658a92a0c35551c1e935c4c616b3d1876f2129300aa0e042e62608889cc4b",
+      "expected_accept": true,
+      "expected_note": "[XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX]",
+      "expected_discovered_by": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "expected_no_report_or_publication": false
+    },
+    {
+      "id": "ascii-513",
+      "discovered_by": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "utf8_bytes": 513,
+      "sha256": "19fe7c2a19fb3281c172dec035983cf18dfc109f43d002422c6358bd1353916e",
+      "expected_accept": false,
+      "expected_note": null,
+      "expected_discovered_by": null,
+      "expected_no_report_or_publication": true
+    },
+    {
+      "id": "multibyte-512",
+      "discovered_by": "語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語AB",
+      "utf8_bytes": 512,
+      "sha256": "2cc62260ac433037b04dc30afc8f1def57b9cc9a915f1b8f2eb0af64471fe2f9",
+      "expected_accept": true,
+      "expected_note": "[語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語AB]",
+      "expected_discovered_by": "語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語AB",
+      "expected_no_report_or_publication": false
+    },
+    {
+      "id": "multibyte-513",
+      "discovered_by": "語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語語",
+      "utf8_bytes": 513,
+      "sha256": "91215f1ff072fcaa2915f5714611884d0e1a2195e5eef73cdacfbc79af737a4c",
+      "expected_accept": false,
+      "expected_note": null,
+      "expected_discovered_by": null,
+      "expected_no_report_or_publication": true
+    }
+  ],
+  "held": [
+    "No output/memory sandbox claim",
+    "JSON record discovered_by has no cross-row multiplier; preserve raw metadata",
+    "Root owns implementation and delta replay"
+  ]
+}

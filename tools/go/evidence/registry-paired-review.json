@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T07:40:36.876662+00:00",
+  "kind": "Independent read-only final count delta review, not approval",
+  "candidate_manifest": {
+    "path": "/var/tmp/dokapon-registry-reconcile-58nlvgjd/review-source-count/manifest.json",
+    "sha256": "ea331336e9a34c7e532505c5524c67a55c7628a4d132057f1abc28b772639448",
+    "members_verified_before_after": 56
+  },
+  "initial_review_preserved": {
+    "manifest": "/var/tmp/dokapon-registry-reconcile-review-9mf4F0In/sealed-initial/manifest.json",
+    "sha256": "500dce4e6cd441b685f4ccf80522087fed3fa9186ad6ac977e9fa9d1ad4d8d83",
+    "report_sha256": "4f29b6e469425f4a6eb5bdc0e69ef26367964623710be1a7f3f388a0a5311daa",
+    "old_finding_and_failed_replay_remain_immutable": true
+  },
+  "finding_disposition": [
+    {
+      "id": "RPR-1",
+      "status": "Supported closed on reviewed frozen56v2",
+      "fix": "Existing absent-JP append branch now refuses at len65536 before allocating/projecting another row. Earlier reader restricts initialcount<=65536, so invariant is maintained inductively. Matching existing JP is handled before this guard and remains allowed at capacity.",
+      "independent_original_witness": "Same65536existing+1new original inputs now refuse in preview and apply with0stdout, no output and unchanged inputs.",
+      "positive_and_idempotence": "Same65535existing+1new inputs produce65536entries and preserve pre-fix valid wholeZIP3331713B SHA b75e3ce1f75661af66045c9dfed45decbbb2ff63572bb046c313617aedab43c0. Rebinding emitted registry/glossary and keeping same proposal replays exactly that wholeZIP at capacity.",
+      "guard_scope": "Resulting glossary bound is explicit in README and precode delta contract; not misrepresented as already covered by old50source fixtures."
+    }
+  ],
+  "new_findings": [],
+  "delta_review": {
+    "changed_paths": [
+      "registry_authoring.go",
+      "patch_test.go",
+      "README.md"
+    ],
+    "runtime_change": "Only3-line append guard, no new function/type/config or policy mode. State/schema/Unicode/raw-number/suffix/pair publisher architecture remains as independently assessed in initial review.",
+    "tests": "Existing paired wire refusal table adds65536+1negative for bothpreview/apply. Existing CLI owner adds65535+1success then consumes both emitted members and requires identical wholeZIP on replay, covering at-cap already-present exception. No new test function.",
+    "safety": "Overflow refuses complete pair before registry mutation/publication; all source/resource/profile and shared compact/pretty/ZIP bounds remain in their earlier owners.",
+    "qualification": "65536 resulting entries is the explicit consuming reader limit, not original historical inventory. Conservative pretty-size overcount can still refuse below64MiB; limits do not establish a hostile-memory sandbox."
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.527526926016435
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.43298040100489743
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 31.07487094399403
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 2.398722849000478
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.8065733030089177
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 41.48147734600934
+      }
+    ],
+    "core_focused_wall_seconds": 31.07487094399403,
+    "actual_nativefonts_focused_wall_seconds": 41.48147734600934,
+    "backend_selection": "count-nativefonts-selected-files.txt confirms raster_font.go in CgoFiles and excludes disabled backend; actualtag nativefonts used.",
+    "independent_cli_commands_results": "count-fixed-results.json",
+    "independent_cli_calls": 4,
+    "all56_source_pins_reverified_after_checks": true,
+    "all_owned_jobs_terminal": true,
+    "no_frozen_or_live_source_changes": true,
+    "no_own_test_mutations": true
+  },
+  "retained_source_evidence": {
+    "source96_manifest_sha256": "93c7c4a4da5583180ffabf1a09fceaf914b51e0bbef1567a2d7675f15b87b48f",
+    "fixture16_manifest_sha256": "310560a73449c67fc3b7cb09095afb6ca035a4fae8033bb33a04590d58fe480b",
+    "manual50_fixture_sha256": "7d84559aea7c5523412a837305b3bbcd8b95887273f97caaab16ece4e230e20e",
+    "manual50_counts": "17success33refusal unchanged, replayed in focused owners alongside old route tests.",
+    "delta_precode_contract_sha256": "03faa0eae21955de349031c133d66695a0dceaae4da4a92b1f487b1f8bcdb016"
+  },
+  "scope_limits": [
+    "First registry .06 slice only, no .06/family/retirement/reduction credit or approval.",
+    "Human drift/force/decoded-flow construction and other previously held source batch duties remain missing.",
+    "ZIP is a complete verified artifact on successful return, not atomic pathname visibility or installation of canonical files.",
+    "No fullsuite/race/gameplay/protected canonical/images/emulator/auth/PID crawl performed. Root owns separate finalrace/publication/acceptance.",
+    "Current source56v2 QA is new; earlier pre-fix QA is retained as history and is not substituted for current evidence."
+  ]
+}

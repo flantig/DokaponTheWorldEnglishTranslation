@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T08:22:14.629588+00:00",
+  "kind": "Independent ordinary read-only review of frozen initial registry_human prototype, not approval",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-registry-human-sof2vzt3/review-source-initial/manifest.json",
+    "sha256": "4a0d9c554abe3ec1bed28adfc2c459cb07be93d2b6cd869e9bdea2883b24935f",
+    "runtime_test_fixture_members_verified_before_after": 54,
+    "copy_method": "Authorized full private project copy for old fixtures/examples, then exact frozen54 overlay; .git/buildbinary excluded. Frozen54 runtime/testdata identity, not later mutable private changes, was tested.",
+    "baseline_manifest_sha256_verified": "07075c6d7abd411a6bf13861a3719a5a2709aff5521f01509c8fd0705cd3500f",
+    "contract_v4_sha256": "bc36229ef88ff30000eb28b958b953dad5901a7f497c17d078aa0f87e209cb9e"
+  },
+  "findings": [],
+  "bounded_assessment": {
+    "pure_join": "resolveHumanEntries is a cohesive new pure responsibility:3resource identity cohorts, within-input alias refusal, last exact decoded winner, selected field resolution and overrides. Existing checkJSON owns syntax/Unicode, readInput bytes/identity, flat import independent rows, authorRegistry mutable status/document/publication policy. Extending those into source-specific three-way joins would mix responsibilities. The sole production caller is authorRegistry, and the resolver sees no registry/status/I/O/publisher authority. The1function growth is charged, not a reduction target.",
+    "join_rules": "Exact repeated decoded spelling retains last raw JP for validation after selection; within-input numeric aliases refuse, cross-input numeric spellings join, flow scope must fully resolve and match authored cohort. Overrides fill the selected JP field, never a missing decoded row. Unaddressed decoded VMA placeholders ignored; all other VMA values admitted before out-of-scope JP ignore.",
+    "transition": "Human existing rows bypass add-already-present shortcut. Locked JP/EN always preserved, metadata refreshes; default drift preserves bothwording fields, force changes only knownunlocked. Matching wording/metadata-only does not globally validate status. Missing/null/nonstring old wording remains drift or locked unless knownunlocked force replaces it.",
+    "Unicode_and_equality": "Selected old string-valued JP/EN and owned metadata validate Unicode before semantic matching, avoiding replacement-character false no-op. Authored data validate all required strings/closed schema. Unselected metadata remain opaque and incomplete tags do not cause a global human failure, as deliberately frozen in v4.",
+    "metadata_new_rows_noop": "The6authoredmetadata fields replace full values, note is not a suffix. New rows use canonical ID and menu/textbank policy, drafted/nullmachine fields and suppliedprovenance. Changed whole registry sorts numerically while existing ID spelling/machine/unknownmetadata persist; semantic no-op preserves exact source bytes/date.",
+    "bounds": "Each source record stream/translations/overrides is bounded before append, all3resource bytes share64MiB, provenance512UTF8bytes, existing/result registry65536. Existing raw registry parsing still allocates as in shared owner; these are finite admission/output limits, not a generic hostile-memory sandbox. Shared conservative pretty budget can refuse below64MiB.",
+    "publication_separation": "Existing profile/resource/source identity rechecks, sharedserializer/no-op switch and exclusive writer remain owners. Old author/reconcile routes retain distinct allowlists/state rules and their focused goldens pass. No newRecipes field/CLIflag or per-script handler added.",
+    "quality": "The source extraction avoids additional source-mode flags in registry orchestration; mutable human transition prep stays contiguous and shares missing-entry insertion and field mutation. Two transport types hold source intent, no alternate registry representation or publisher. No concrete correctness/DRY/readability defect identified in the bounded snapshot review.",
+    "legacy_differences": "Selected-only metadata checks, unresolved flow refusal, override default handling and changed-only source date/byte preservation are explicit newGo decisions, not claimed full legacy output/refusal parity."
+  },
+  "independent_endpoints": {
+    "expected_values_origin": "Contractv4 rules frozen before this own candidate endpoint execution, not candidate-derived expectedstate. Raw outputs saved separately as observations.",
+    "cases": "65535existing+1new reaches65536; consuming replay withprofiledate2041-02-04 remains exact prior2040-02-03 bytes/date andchangedfalse.65536existing+1new preview/apply refuses0stdout/nooutput/unchangedinputs.",
+    "output_bytes": 5107826,
+    "output_sha256": "3374ffa6e06436bd3946d5a3b20ac618af6ff5d6c3743e1311dccdafe863c5cf",
+    "extra_adversarial_scope": "Existing unselected rows lack chapter/event/tier and remain untouched; selected ID uses different numeric spellings across decoded/flow/authored resources. Full new row metadata/provenance/defaults and whole numeric order are asserted independently.",
+    "commands_results": "endpoint-results.json",
+    "CLI_calls": 4
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 6.738184146001004
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.4428755819972139
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 33.85662970901467
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 2.7837346529995557
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.3852497659972869
+      },
+      {
+        "command": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-tags",
+          "nativefonts",
+          "-run",
+          "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-v",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 43.74052199101425
+      }
+    ],
+    "core_focused_wall_seconds": 33.85662970901467,
+    "actual_nativefonts_focused_wall_seconds": 43.74052199101425,
+    "actual_backend": "nativefonts-selected-files.txt shows raster_font.go inCgoFiles and disabledbackend absent. No unused native tag used.",
+    "frozen_manual55_fixture_sha256": "fcd045d504eec5f4f07915b8ec8c8b05bdc52159c7e330de63818d3af248553d",
+    "manual55_counts": {
+      "success": 29,
+      "refusal": 26
+    },
+    "source121_and_fixture19_members_all_verified": true,
+    "all54_source_pins_reverified_after_checks": true,
+    "all_owned_jobs_terminal": true,
+    "source_or_test_edits": false
+  },
+  "accounting": {
+    "production_files": 48,
+    "production_functions": 46,
+    "production_bytes": 603023
+  },
+  "scope_limits": [
+    "No implementation/approval/family/retirement or reduction claim. Rootowns finalQA/race/publication and whole-family determination.",
+    "Review is frozen initial54 only. Later root-side tests/docs/examples or final source freeze are not claimed tested here.",
+    "No actual private/canonical62source parity oracle used; only manually frozen55 and synthetic endpoints. No canonical registry/ISO/images/emulator/auth/log/process crawl accessed.",
+    "No fullsuite/race/gameplay/extraagents or parallelGo jobs run.",
+    "The persistent full objective remains active. Source-native/payload/glyph/fit/reference/patch readiness is not established by human registry admission."
+  ]
+}

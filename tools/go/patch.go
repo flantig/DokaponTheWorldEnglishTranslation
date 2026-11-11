@@ -1117,7 +1117,7 @@ func plan(tables []Recipes, registry Registry, glyphData []byte, source io.Reade
 		if table.References != nil {
 			return nil, fmt.Errorf("reference discovery cannot be used in an image transaction")
 		}
-		if table.RegistryUpdates != nil || table.Updated != "" {
+		if table.RegistryImport != nil || table.RegistryUpdates != nil || table.Updated != "" {
 			return nil, fmt.Errorf("registry updates cannot be used in an image transaction")
 		}
 		if table.Operation == "stream_allocate" {

@@ -1,0 +1,314 @@
+[
+  {
+    "id": "0x485d40",
+    "old_en": "Some weapons and shields, raise more than just Attack and Defense, yes. Like, Knife is light, so Speed goes up a little, yes. Good news, if your Speed is low, yes. Think carefully, before changing gear, good.",
+    "new_en": "Some weapons and shields, raise more than just Attack and Defense, yes. Like, Knife is light, so Speed goes up a little, yes. Good news, if your Speed is low, yes. Think carefully, before changing equipment, good.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '装備'): 24 of 27 装備 occurrences say 'Equipment'/'equipment' (menu labels like 0x534b8a, 0x459300, status entries AT-UP (Equipment), and prose e.g. 0x486f10 'Some equipment that isn't sold in shops...'). This dialect NPC line (Voice A) and 2 siblings used 'gear' instead. No note on this entry documents 'gear' as a deliberate register choice - it's just a synonym slip, not a reasoned exception - so aligned to majority. Reads naturally with the swap; dialect tics (aru ne, yoroshi->'yes'/'good') untouched."
+  },
+  {
+    "id": "0x489510",
+    "old_en": "Yo, I'm Gutz the blacksmith. If you want your gear reinforced, I'm your man.",
+    "new_en": "Yo, I'm Gutz the blacksmith. If you want your equipment reinforced, I'm your man.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '装備'): Same 装備='gear' outlier as 0x485d40 - Gutz the blacksmith's line. No documented reason for the synonym; aligned to the established majority rendering 'equipment'. Reads naturally in context."
+  },
+  {
+    "id": "0x4ea4e0",
+    "old_en": "{{HL:0xb002}}Castle Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Deposit gold or give the king a gift.|{{HL:0xb002}}Village Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Collect tribute and specialty goods.|{{HL:0xb002}}Shop Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Buy tools, gear, and all sorts of other things.|{{HL:0xb002}}Church Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Cure status ailments, among other things.|If you die, you're revived at the last church you visited.",
+    "new_en": "{{HL:0xb002}}Castle Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Deposit gold or give the king a gift.|{{HL:0xb002}}Village Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Collect tribute and specialty goods.|{{HL:0xb002}}Shop Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Buy tools, equipment, and all sorts of other things.|{{HL:0xb002}}Church Panels{{HL:0xb008}}<0xd004><0x4817><0xd7fc>|Cure status ailments, among other things.|If you die, you're revived at the last church you visited.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '装備'): Same 装備='gear' outlier as 0x485d40/0x489510 - this is the Shop Panels line of the help-manual panel-type list. No documented reason for the synonym; aligned to majority rendering 'equipment' for consistency with the parallel Castle/Village/Church Panel lines' register."
+  },
+  {
+    "id": "0x477010",
+    "old_en": "was possessed by Doom!",
+    "new_en": "was possessed by Doom!",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '死神'): DOCUMENTED EXCEPTION - no fix, logged per owner's rule. 死神 renders as 'Doom' (0x477010, 0x477090, 0x4770c0, 0x4eb650 status list) vs 'Reaper' (0x4613d0 Reaper's Whistle flavor text, 0x531c1e item name 'Reaper's Whistle'). This entry's own note field explicitly documents the split as deliberate: '死神 status rendered \"Doom\" per the reconciled system-vocabulary pool (was \"the Grim Reaper\" in an earlier draft) - \"Reaper\" reserved for the character-facing sense (e.g. Reaper's Whistle) elsewhere.' Per owner's exception rule, left as-is; recorded here for visibility, not applied as a correction (old_en=new_en)."
+  },
+  {
+    "id": "0x532ef0",
+    "old_en": "Scroll of Total Meltdown",
+    "new_en": "Scroll of Mass Outbreak",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'scroll-dark-arts-family'): ミナデロン matches the Dark Art at 0x539160 (effect 0x4ec9d0: 'Summons a village boss to every village in the Area') exactly. OWNER OVERRIDE 2026-09-03: this entry's rename was held out of the 2026-09-03 consistency-audit batch because it conflicts with an earlier note marked 'RESOLVED by owner decision 2026-09-02'. Reviewer 2 flagged that the underlying premise (Scroll items grant a specific Dark Art) may not hold, since 0x4ebaa0's own note distinguishes 'ordinary Field Magic' from 'Dark Aura' abilities as separate systems - a shared JP root name may just be wordplay reuse across two unrelated systems, not proof of a shared effect. The owner was shown this conflict directly (both reviewers' findings, per-scroll confidence ranking) and explicitly chose to apply all 5 renames anyway, trusting the shared-root-name/effect-match theory over the prior decision's stated reasoning. This note records that explicit re-decision for future readers - it is not a silent overwrite."
+  },
+  {
+    "id": "0x532ec0",
+    "old_en": "Scroll of Petrifying",
+    "new_en": "Scroll of Roll Call",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'scroll-dark-arts-family'): ヘイカモン matches the Dark Art at 0x539170 exactly (effect 0x4eca10: 'Pulls everyone together onto your panel, no escape' - morphology ヘイ+カモン = 'Hey, come on!'). Both reviewers independently confirmed this is the cleanest of the 5 (exact name match, no conflict with any prior resolved decision)."
+  },
+  {
+    "id": "0x532f10",
+    "old_en": "Scroll of Distress-Call",
+    "new_en": "Scroll of Ruin",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'scroll-dark-arts-family'): メッセヨ (滅せよ, 'perish/be destroyed') is the root of the Dark Art ミナメッセヨ (0x5390f0, effect 0x4ec770: 'Destroys one Item or Magic spell'). OWNER OVERRIDE 2026-09-03: this entry's rename was held out of the 2026-09-03 consistency-audit batch because it conflicts with an earlier note marked 'RESOLVED by owner decision 2026-09-02'. Reviewer 2 flagged that the underlying premise (Scroll items grant a specific Dark Art) may not hold, since 0x4ebaa0's own note distinguishes 'ordinary Field Magic' from 'Dark Aura' abilities as separate systems - a shared JP root name may just be wordplay reuse across two unrelated systems, not proof of a shared effect. The owner was shown this conflict directly (both reviewers' findings, per-scroll confidence ranking) and explicitly chose to apply all 5 renames anyway, trusting the shared-root-name/effect-match theory over the prior decision's stated reasoning. This note records that explicit re-decision for future readers - it is not a silent overwrite. Note the ORIGINAL 2026-09-02 decision's stated reason for 'Distress-Call' was to pair with neighboring scroll 0x532f00's 'Distress' name - that pairing is now broken by this rename; a human should double check 0x532f00 still reads sensibly on its own."
+  },
+  {
+    "id": "0x532ed0",
+    "old_en": "Scroll of Melting",
+    "new_en": "Scroll of Outbreak",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'scroll-dark-arts-family'): Base root デロン (出ろん, 'come out!') shared by 3 confirmed Outbreak-family Dark Arts (ワナデロン/Trap Outbreak, ミナデロン/Mass Outbreak, ドミナデロン/World Outbreak) - the bare root itself has no single matching Dark Art name, this is a compositional inference from the shared root's consistent meaning across its siblings, not a literal string match. OWNER OVERRIDE 2026-09-03: this entry's rename was held out of the 2026-09-03 consistency-audit batch because it conflicts with an earlier note marked 'RESOLVED by owner decision 2026-09-02'. Reviewer 2 flagged that the underlying premise (Scroll items grant a specific Dark Art) may not hold, since 0x4ebaa0's own note distinguishes 'ordinary Field Magic' from 'Dark Aura' abilities as separate systems - a shared JP root name may just be wordplay reuse across two unrelated systems, not proof of a shared effect. The owner was shown this conflict directly (both reviewers' findings, per-scroll confidence ranking) and explicitly chose to apply all 5 renames anyway, trusting the shared-root-name/effect-match theory over the prior decision's stated reasoning. This note records that explicit re-decision for future readers - it is not a silent overwrite."
+  },
+  {
+    "id": "0x532edc",
+    "old_en": "Scroll of Patchy Melting",
+    "new_en": "Scroll of Village Outbreak",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'scroll-dark-arts-family'): ムラ (village) + デロン (see 0x532ed0's root reasoning) - WEAKEST evidence of the 5: no Dark Art literally named 'ムラデロン' exists in the real 15-item list, this is pure compositional inference (village-scoped variant of the Outbreak root). OWNER OVERRIDE 2026-09-03: this entry's rename was held out of the 2026-09-03 consistency-audit batch because it conflicts with an earlier note marked 'RESOLVED by owner decision 2026-09-02'. Reviewer 2 flagged that the underlying premise (Scroll items grant a specific Dark Art) may not hold, since 0x4ebaa0's own note distinguishes 'ordinary Field Magic' from 'Dark Aura' abilities as separate systems - a shared JP root name may just be wordplay reuse across two unrelated systems, not proof of a shared effect. The owner was shown this conflict directly (both reviewers' findings, per-scroll confidence ranking) and explicitly chose to apply all 5 renames anyway, trusting the shared-root-name/effect-match theory over the prior decision's stated reasoning. This note records that explicit re-decision for future readers - it is not a silent overwrite."
+  },
+  {
+    "id": "0x4efeb0",
+    "old_en": "{{HL:0xb002}}{{PARAM:0xa000}}[spk 0x3ac6]What class will this hero take?",
+    "new_en": "{{HL:0xb002}}{{PARAM:0xa000}}[spk 0x3ac6]What job will this hero take?",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro-pool outlier: majority of 職業 entries (59/66) say 'Job'; this charcreate-05-class-q entry said 'class' with no documented reason. Aligned to majority per owner's rule."
+  },
+  {
+    "id": "0x4effa0",
+    "old_en": "[spk 0x3b9c]What class would you like?",
+    "new_en": "[spk 0x3b9c]What job would you like?",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro-pool outlier (charcreate-09-class-q-alt), same fix as 0x4efeb0 - aligned 'class'->'job' to majority rendering."
+  },
+  {
+    "id": "0x4f0390",
+    "old_en": "A class that charges ahead with raw attack power.|Great at physical attacks, but|magic power never rises, so it is weak against magic.",
+    "new_en": "A job that charges ahead with raw attack power.|Great at physical attacks, but|magic power never rises, so it is weak against magic.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro class-tooltip (charcreate-00-class-tooltip-fighter) outlier - aligned 'class'->'job' to majority rendering."
+  },
+  {
+    "id": "0x4f0400",
+    "old_en": "A class that strikes hard with powerful magic.|Magic attacks hit like a truck, but|defense never rises, so it cannot take a hit.",
+    "new_en": "A job that strikes hard with powerful magic.|Magic attacks hit like a truck, but|defense never rises, so it cannot take a hit.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro class-tooltip (charcreate-01-class-tooltip-mage) outlier - aligned 'class'->'job' to majority rendering."
+  },
+  {
+    "id": "0x4f0470",
+    "old_en": "A class with high HP.|Tough enough to take a beating, but|speed never rises, so it tends to miss.",
+    "new_en": "A job with high HP.|Tough enough to take a beating, but|speed never rises, so it tends to miss.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro class-tooltip (charcreate-02-class-tooltip-tank) outlier - aligned 'class'->'job' to majority rendering."
+  },
+  {
+    "id": "0x4f04d0",
+    "old_en": "A class with unmatched speed.|Quick enough to dodge attacks, but|it has no other real standout traits.",
+    "new_en": "A job with unmatched speed.|Quick enough to dodge attacks, but|it has no other real standout traits.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro class-tooltip (charcreate-03-class-tooltip-speed) outlier - aligned 'class'->'job' to majority rendering."
+  },
+  {
+    "id": "0x4f0540",
+    "old_en": "A free spirit who takes no class at all.|With no benefits and no salary,|life is rough.",
+    "new_en": "A free spirit who takes no job at all.|With no benefits and no salary,|life is rough.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '職業'): navi_intro class-tooltip (charcreate-04-class-tooltip-freelancer) outlier - aligned 'class'->'job' to majority rendering."
+  },
+  {
+    "id": "0x486af0",
+    "old_en": "Word is there's an investigator sniffing around for some kind of suspicious cargo. Watch yourself if you're carrying any. Get caught, and you're dead for sure.",
+    "new_en": "Word is there's an investigator sniffing around for some kind of suspicious package. Watch yourself if you're carrying any. Get caught, and you're dead for sure.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '荷物'): Refers to the same in-quest item as the formal item name 'Suspicious Package' (id 0x531c6e, jp 怪しい荷物) and as Morude/Musashi's 'package' dialogue. Aligned 'cargo'->'package' to majority + item-name match."
+  },
+  {
+    "id": "0x48ab30",
+    "old_en": "Hm!? What is the meaning of this cargo!?",
+    "new_en": "Hm!? What is the meaning of this package!?",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '荷物'): Inquisitor Sermon confronting the player about the same delivery-quest item ('Suspicious Package'). Aligned 'cargo'->'package' to majority + item-name match."
+  },
+  {
+    "id": "0x4795a0",
+    "old_en": "The shop is closed today. You can't stop on that space.",
+    "new_en": "The shop is closed today. You can't stop on that panel.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x4795e0",
+    "old_en": "The Job Center is closed today. You can't stop on that space.",
+    "new_en": "The Job Center is closed today. You can't stop on that panel.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479620",
+    "old_en": "You're a criminal, so you can't stop on that space.",
+    "new_en": "You're a criminal, so you can't stop on that panel.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479d40",
+    "old_en": "Walk to This Space",
+    "new_en": "Walk to This Panel",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479d70",
+    "old_en": "Move to this space?",
+    "new_en": "Move to this panel?",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479d90",
+    "old_en": "You can't move to this space.",
+    "new_en": "You can't move to this panel.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479f20",
+    "old_en": "can no longer stop on Building spaces!",
+    "new_en": "can no longer stop on Building panels!",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479f60",
+    "old_en": "The terrain space turned into a Devilar Space! Land on it, and you'll have to fight a Devilman!",
+    "new_en": "The terrain panel turned into a Devilar Panel! Land on it, and you'll have to fight a Devilman!",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x47d100",
+    "old_en": "Turn yourself into a stone Jizo statue for a while, preventing others from passing through or stopping on your space.",
+    "new_en": "Turn yourself into a stone Jizo statue for a while, preventing others from passing through or stopping on your panel.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x47d1c0",
+    "old_en": "Lay a trap on a space so it triggers when someone stops there. What happens is a surprise for whoever lands on it.",
+    "new_en": "Lay a trap on a panel so it triggers when someone stops there. What happens is a surprise for whoever lands on it.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x486670",
+    "old_en": "Seems there's spaces where you can collect funds or develop without even visiting a village. Make good use of 'em.",
+    "new_en": "Seems there's panels where you can collect funds or develop without even visiting a village. Make good use of 'em.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Known structural pattern: source_pool=pool_b_gameplay repeatedly rendered マス as 'space' instead of the registry-wide majority 'Panel'/'panel' (~95 of 99 マス occurrences already say Panel/panels). No note on this entry documents 'space' as a deliberate choice (all carry only the generic ref_type=code_immediate boilerplate note) - aligned to majority per owner's rule. Distance-count idioms like 'move 0 to 6 spaces' (0x460c20, item_database pool) are a different construction (counting units of travel, not naming the landable board square) and were left untouched."
+  },
+  {
+    "id": "0x479ee0",
+    "old_en": "can no longer stop on Treasure, Collect Funds, or Warp spaces!",
+    "new_en": "can no longer stop on Treasure, Collection, or Warp panels!",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '集金マス'): KNOWN CASE (集金マス, 6 entries): 'Collection Panel' is the majority (5 of 6: 0x4e8560, 0x4e8cb0, 0x4ec830, 0x5388e0, 0x5388f0 'All-Village Collection Panel'); this entry (pool_b_gameplay) used 'Collect Funds' instead. Same pool_b_gameplay pattern as the broader マス='space' drift - no deliberate-choice note on this entry (its note explicitly frames 'Collect Funds' as an earlier-draft fix over a prior mistranslation 'Toll', not a reasoned decision to diverge from 'Collection Panel'). Also folds in the マス 'space'->'panel' fix for the same sentence (宝箱マス/ワープマス in the same list), and drops '客箱'/'Chest' to match the parallel 'Treasure Panels' short form used elsewhere (0x4ea3d0) - logged once here rather than duplicated under the マス term since this id is the explicit 集金マス known case."
+  },
+  {
+    "id": "0x4ea090",
+    "old_en": "Grand Temple Depths Panel",
+    "new_en": "Temple Depths Panel",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '大神殿最深部'): KNOWN CASE, investigated per owner's specific instruction (do not default to majority-wins blindly). This entry's own note claims deliberate reasoning: \"matches 'the Grand Temple of Mu' naming used throughout the dungeon-label entries below.\" Verified this claim against the actual dungeon-label family and found it does NOT hold up: (1) entries whose JP explicitly writes ムー大神殿 (with Mu) consistently render 'the Grand Temple of Mu' (0x52f670, 0x4e92d0, 0x4e9e70, 0x4ec660, 0x538a60 'Grand Temple of Mu Entrance', 0x538d70 'Grand Temple of Mu Exit'); (2) entries whose JP is the bare/elliptical form WITHOUT ムー (大神殿入口, 大神殿内部, 大神殿最深部 - 15 entries total across all three) consistently drop BOTH 'Grand' and 'Mu', rendering just 'the Temple Entrance' / 'the Temple Interior' / 'the/To the Temple Depths'. This entry's own JP (大神殿最深部マス, no ムー) is the bare form. The exact sibling pattern - a マス-suffixed panel-label built on the bare form - already exists at 0x538fd0 (大神殿入口マス -> 'Temple Entrance Panel', NOT 'Grand Temple of Mu Entrance Panel'), which directly confirms the マス-panel-label form should also drop 'Grand'/'Mu'. Conclusion: the note's stated justification rests on a mistaken premise about what 'the dungeon-label entries below' actually do, so the EXCEPTION clause (preserve documented deliberate choices) does not apply here - the note documents a REASON, not a verified-correct one, and checking it was exactly what was asked. Realigned to 'Temple Depths Panel', matching both the 5-entry 大神殿最深部 majority and the 0x538fd0 sibling precedent."
+  },
+  {
+    "id": "0x487dd0",
+    "old_en": "Even devils fear a devil, exists. My grandfather, met him, he said. Egg, keep too long, dangerous.",
+    "new_en": "Even demons fear a demon, exists. My grandfather, met him, he said. Egg, keep too long, dangerous.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '悪魔'): 3 of 7 occurrences rendered 悪魔 as 'devil(s)' instead of the majority 'demon' (4 of 7: 0x486e90, 0x4870c0, 0x487760, 0x4d0ce0). Also matches the already-locked glossary entry あくま (hiragana, same word) = 'Demon' in registry/glossary.json ('Locked EN for the demon/monster threat'). No note on any 'devil' occurrence documents it as a deliberate register choice. Aligned minority to 'demon'."
+  },
+  {
+    "id": "0x489d30",
+    "old_en": "...That one... is off-limits. ...Can't beat... a devil.",
+    "new_en": "...That one... is off-limits. ...Can't beat... a demon.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '悪魔'): 3 of 7 occurrences rendered 悪魔 as 'devil(s)' instead of the majority 'demon' (4 of 7: 0x486e90, 0x4870c0, 0x487760, 0x4d0ce0). Also matches the already-locked glossary entry あくま (hiragana, same word) = 'Demon' in registry/glossary.json ('Locked EN for the demon/monster threat'). No note on any 'devil' occurrence documents it as a deliberate register choice. Aligned minority to 'demon'."
+  },
+  {
+    "id": "0x4d1310",
+    "old_en": "A devil who commands snowmen and ice orbs|to cause mischief among people.|",
+    "new_en": "A demon who commands snowmen and ice orbs|to cause mischief among people.|",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '悪魔'): 3 of 7 occurrences rendered 悪魔 as 'devil(s)' instead of the majority 'demon' (4 of 7: 0x486e90, 0x4870c0, 0x487760, 0x4d0ce0). Also matches the already-locked glossary entry あくま (hiragana, same word) = 'Demon' in registry/glossary.json ('Locked EN for the demon/monster threat'). No note on any 'devil' occurrence documents it as a deliberate register choice. Aligned minority to 'demon'."
+  },
+  {
+    "id": "0x4859f0",
+    "old_en": "Jobs have upper-tier versions, y'know, and you can't change into 'em without raisin' your skill in the lower job first. Also heard some jobs are men-only or women-only.",
+    "new_en": "Jobs have upper-tier versions, y'know, and you can't change into 'em without raisin' your Proficiency in the lower job first. Also heard some jobs are men-only or women-only.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '熟練度'): 熟練度 is a formally-defined, named job stat (5 ranks, raises salary, persists across job changes - see the help-manual page 0x4eb040, which uses highlight markup and the capitalized 'Proficiency' 5 times while formally introducing the mechanic) and appears the same way in the battle-system level-up message (0x457db0: \"'s proficiency rose to...\"). 4 of 6 occurrences, all in casual/dialect NPC advice dialogue, paraphrased the same mechanic as 'skill'/'skill level(s)' instead (0x4859f0 Osaka-dialect, 0x485ef0 アル-dialect, 0x4862f0, 0x487290). No note documents this as deliberate - it reads as a synonym drift in casual paraphrase rather than a reasoned split (unlike e.g. the documented 死神 Doom/Reaper split elsewhere in the audit). Realigned the 4 casual lines to 'Proficiency' so the same underlying stat reads as the same name in dialogue, the help page, and battle messages, while keeping each line's dialect flavor intact."
+  },
+  {
+    "id": "0x485ef0",
+    "old_en": "Jobs have skill level, fight more, skill level goes up, yes. Skill level up, salary up too, and become a Master, very good things happen, yes.",
+    "new_en": "Jobs have Proficiency, fight more, Proficiency goes up, yes. Proficiency up, salary up too, and become a Master, very good things happen, yes.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '熟練度'): 熟練度 is a formally-defined, named job stat (5 ranks, raises salary, persists across job changes - see the help-manual page 0x4eb040, which uses highlight markup and the capitalized 'Proficiency' 5 times while formally introducing the mechanic) and appears the same way in the battle-system level-up message (0x457db0: \"'s proficiency rose to...\"). 4 of 6 occurrences, all in casual/dialect NPC advice dialogue, paraphrased the same mechanic as 'skill'/'skill level(s)' instead (0x4859f0 Osaka-dialect, 0x485ef0 アル-dialect, 0x4862f0, 0x487290). No note documents this as deliberate - it reads as a synonym drift in casual paraphrase rather than a reasoned split (unlike e.g. the documented 死神 Doom/Reaper split elsewhere in the audit). Realigned the 4 casual lines to 'Proficiency' so the same underlying stat reads as the same name in dialogue, the help page, and battle messages, while keeping each line's dialect flavor intact."
+  },
+  {
+    "id": "0x4862f0",
+    "old_en": "It seems a Thief can change into higher-tier jobs by raising skill in another job alongside it~. But for a lot of jobs, raising skill alone isn't enough to change - you'll need to find someone willing to change you~.",
+    "new_en": "It seems a Thief can change into higher-tier jobs by raising Proficiency in another job alongside it~. But for a lot of jobs, raising Proficiency alone isn't enough to change - you'll need to find someone willing to change you~.",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '熟練度'): 熟練度 is a formally-defined, named job stat (5 ranks, raises salary, persists across job changes - see the help-manual page 0x4eb040, which uses highlight markup and the capitalized 'Proficiency' 5 times while formally introducing the mechanic) and appears the same way in the battle-system level-up message (0x457db0: \"'s proficiency rose to...\"). 4 of 6 occurrences, all in casual/dialect NPC advice dialogue, paraphrased the same mechanic as 'skill'/'skill level(s)' instead (0x4859f0 Osaka-dialect, 0x485ef0 アル-dialect, 0x4862f0, 0x487290). No note documents this as deliberate - it reads as a synonym drift in casual paraphrase rather than a reasoned split (unlike e.g. the documented 死神 Doom/Reaper split elsewhere in the audit). Realigned the 4 casual lines to 'Proficiency' so the same underlying stat reads as the same name in dialogue, the help page, and battle messages, while keeping each line's dialect flavor intact."
+  },
+  {
+    "id": "0x487290",
+    "old_en": "Apparently there's a job that won't accept you unless your Thief and Jobless skill levels are both high. Even with both maxed, it's touch and go, though...",
+    "new_en": "Apparently there's a job that won't accept you unless your Thief and Jobless Proficiency levels are both high. Even with both maxed, it's touch and go, though...",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '熟練度'): 熟練度 is a formally-defined, named job stat (5 ranks, raises salary, persists across job changes - see the help-manual page 0x4eb040, which uses highlight markup and the capitalized 'Proficiency' 5 times while formally introducing the mechanic) and appears the same way in the battle-system level-up message (0x457db0: \"'s proficiency rose to...\"). 4 of 6 occurrences, all in casual/dialect NPC advice dialogue, paraphrased the same mechanic as 'skill'/'skill level(s)' instead (0x4859f0 Osaka-dialect, 0x485ef0 アル-dialect, 0x4862f0, 0x487290). No note documents this as deliberate - it reads as a synonym drift in casual paraphrase rather than a reasoned split (unlike e.g. the documented 死神 Doom/Reaper split elsewhere in the audit). Realigned the 4 casual lines to 'Proficiency' so the same underlying stat reads as the same name in dialogue, the help page, and battle messages, while keeping each line's dialect flavor intact."
+  },
+  {
+    "id": "0x4ef210",
+    "old_en": "Target Money||",
+    "new_en": "Target Amount||",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '金額'): 6 of 7 金額 occurrences render it as 'amount' (e.g. 0x461310 'a set amount', 0x461770 'how much you put in', 0x4ebf60 'Set a target amount of gold to reach', 0x4f0190 'the amount of money'). This entry is the settings-screen LABEL for the exact same setting described by 0x4ebf60's 'a target amount of gold to reach' - the label said 'Target Money' while its own description says 'target amount', an internal inconsistency between a UI label and its paired description text. No note documents 'Money' as a deliberate choice (the note only explains the string's byte-shape, mirroring the sibling 0x4ef1f0 '目標期間' -> 'Target Period'). Realigned to 'Target Amount' to match both the majority 金額 rendering and its own description text."
+  },
+  {
+    "id": "0x479650",
+    "old_en": "Space Check / Speed Up / Map / Back",
+    "new_en": "Panel Check / Speed Up / Map / Back",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Found during Phase C review (reviewer 2, 2026-09-03): pool_b_gameplay menu-label UI text using the マス->Space minority rendering, missed by the scanner because マス sits as a PREFIX in this run (マスチェック...) and the scanner only mines suffixes of longer runs, not prefixes. Verified independently against live registry before adding."
+  },
+  {
+    "id": "0x4796a0",
+    "old_en": "Space Check / Speed Up / Back",
+    "new_en": "Panel Check / Speed Up / Back",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Same as 0x479650 - scanner prefix blind spot, verified independently."
+  },
+  {
+    "id": "0x479c80",
+    "old_en": "Confirm / Space Check / Back",
+    "new_en": "Confirm / Panel Check / Back",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Same as 0x479650 - scanner prefix blind spot, verified independently."
+  },
+  {
+    "id": "0x47b6c0",
+    "old_en": "Basic Settings / Help / Message Display: Page / By Character / Space Movement: Fast / Normal / Sound: Stereo / Mono / Controller Vibration: ON / OFF / Character Voice: ON / OFF / Battle Shortcut: ALL / COM / OFF / Confirm / Cancel",
+    "new_en": "Basic Settings / Help / Message Display: Page / By Character / Panel Movement: Fast / Normal / Sound: Stereo / Mono / Controller Vibration: ON / OFF / Character Voice: ON / OFF / Battle Shortcut: ALL / COM / OFF / Confirm / Cancel",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Same as 0x479650 - scanner prefix blind spot (マス inside 文字マス移動, 'per-panel movement speed' setting), verified independently."
+  },
+  {
+    "id": "0x47b7f0",
+    "old_en": "Basic Settings / Help / Message Display: Page / By Character / Space Movement: Fast / Normal / Sound: Stereo / Mono / Controller Vibration: ON / OFF / Character Voice: ON / OFF / Battle Shortcut: ALL / COM / OFF / Confirm / Cancel",
+    "new_en": "Basic Settings / Help / Message Display: Page / By Character / Panel Movement: Fast / Normal / Sound: Stereo / Mono / Controller Vibration: ON / OFF / Character Voice: ON / OFF / Battle Shortcut: ALL / COM / OFF / Confirm / Cancel",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term 'マス'): Duplicate string of 0x47b6c0 at a different id (settings-screen variant) - same fix, verified independently."
+  },
+  {
+    "id": "0x4eb650",
+    "old_en": "<0xd832>{{HL:0xb001}}Poison{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Lose HP every turn.|<0xd832>{{HL:0xb001}}Plague{{HL:0xb008}}<0xd004><0x4817><0xd7fc>A powerful poison. Spreads to others and kills.|<0xd830>{{HL:0xb001}}Hobbled{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Can only move 1 panel.|<0xd834>{{HL:0xb001}}Cowardice{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Can't stop on a panel where someone else stands.|<0xd835>{{HL:0xb001}}Sealed{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Can't use the Bag command.|<0xd87e>{{HL:0xb001}}Prion{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Stats drop, and it turns into Poison.|<0xd837>{{HL:0xb001}}Doom{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Die in 5 turns. Defeat whoever cursed you to break it!|<0xd833>{{HL:0xb001}}Sleep{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Fall asleep and can't do anything.|<0xd82f>{{HL:0xb001}}Wanted{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Become a bounty target and can't enter buildings.||",
+    "new_en": "<0xd832>{{HL:0xb001}}Poison{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Lose HP every turn.|<0xd832>{{HL:0xb001}}Plague{{HL:0xb008}}<0xd004><0x4817><0xd7fc>A powerful poison. Spreads to others and kills.|<0xd830>{{HL:0xb001}}Hobbled{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Can only move 1 panel.|<0xd834>{{HL:0xb001}}Cowardice{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Can't stop on a panel where someone else stands.|<0xd835>{{HL:0xb001}}Seal{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Can't use the Bag command.|<0xd87e>{{HL:0xb001}}Prion{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Stats drop, and it turns into Poison.|<0xd837>{{HL:0xb001}}Doom{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Die in 5 turns. Defeat whoever cursed you to break it!|<0xd833>{{HL:0xb001}}Sleep{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Fall asleep and can't do anything.|<0xd82f>{{HL:0xb001}}Wanted{{HL:0xb008}}<0xd004><0x4817><0xd7fc>Become a bounty target and can't enter buildings.||",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '封印'): Standalone status-ailment LABEL inconsistency: this help-manual status-list entry rendered the 封印 label as 'Sealed' while all other standalone-label occurrences of 封印 (0x534796 'Seal', 0x538408 'Seal', 0x53498e 'Attack Magic Seal', 0x53499e 'Defense Magic Seal', 0x4d9dd0 'Cowardice & Seal') use noun 'Seal'. Note on this entry documents reasoning for OTHER terms in the same blob (icon-code reuse, Plague/Doom/Wanted choices) but not for 'Sealed' specifically, so no protected exception applies. Aligned to majority label form. Distinct from this term's 9 narration/verb-or-adjective occurrences (e.g. 'had their magic sealed!', \"'s magic is sealed...\", \"'s seal was broken!\", 'roads...are sealed') which correctly vary by grammatical role and are NOT touched - that variation is legitimate, not inconsistency."
+  },
+  {
+    "id": "0x4592e0",
+    "old_en": "Money|Item|Magic",
+    "new_en": "Gold|Item|Magic",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '所持金'): Standalone UI-label inconsistency: this entry rendered the 所持金 stat label as 'Money' while the majority of standalone-label occurrences of 所持金 use 'Gold'-family wording (0x47a550/0x487f40 'Gold Held', 0x4eeb00 'Gold:', 0x4eb290 'Gold on Hand'), matching the game's established currency term (glossary ゴールド -> Gold, official) and 13+ narrative 'Current gold:' instances that were already consistent. Aligned the head noun to 'Gold' while keeping each entry's own surrounding wording/scaffolding."
+  },
+  {
+    "id": "0x459300",
+    "old_en": "Money|Item|Magic|Equipment|Village",
+    "new_en": "Gold|Item|Magic|Equipment|Village",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '所持金'): Standalone UI-label inconsistency: this entry rendered the 所持金 stat label as 'Money' while the majority of standalone-label occurrences of 所持金 use 'Gold'-family wording (0x47a550/0x487f40 'Gold Held', 0x4eeb00 'Gold:', 0x4eb290 'Gold on Hand'), matching the game's established currency term (glossary ゴールド -> Gold, official) and 13+ narrative 'Current gold:' instances that were already consistent. Aligned the head noun to 'Gold' while keeping each entry's own surrounding wording/scaffolding."
+  },
+  {
+    "id": "0x459b60",
+    "old_en": "Money|Belongings|Weapon|Shield|Battle Magic|Accessory",
+    "new_en": "Gold|Belongings|Weapon|Shield|Battle Magic|Accessory",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '所持金'): Standalone UI-label inconsistency: this entry rendered the 所持金 stat label as 'Money' while the majority of standalone-label occurrences of 所持金 use 'Gold'-family wording (0x47a550/0x487f40 'Gold Held', 0x4eeb00 'Gold:', 0x4eb290 'Gold on Hand'), matching the game's established currency term (glossary ゴールド -> Gold, official) and 13+ narrative 'Current gold:' instances that were already consistent. Aligned the head noun to 'Gold' while keeping each entry's own surrounding wording/scaffolding."
+  },
+  {
+    "id": "0x459660",
+    "old_en": "Steal Half of {{PARAM:0xa000}}'s Money",
+    "new_en": "Steal Half of {{PARAM:0xa000}}'s Gold",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '所持金'): Standalone UI-label inconsistency: this entry rendered the 所持金 stat label as 'Money' while the majority of standalone-label occurrences of 所持金 use 'Gold'-family wording (0x47a550/0x487f40 'Gold Held', 0x4eeb00 'Gold:', 0x4eb290 'Gold on Hand'), matching the game's established currency term (glossary ゴールド -> Gold, official) and 13+ narrative 'Current gold:' instances that were already consistent. Aligned the head noun to 'Gold' while keeping each entry's own surrounding wording/scaffolding."
+  },
+  {
+    "id": "0x459d40",
+    "old_en": "Throw Away All of {{PARAM:0xa000}}'s Money",
+    "new_en": "Throw Away All of {{PARAM:0xa000}}'s Gold",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '所持金'): Standalone UI-label inconsistency: this entry rendered the 所持金 stat label as 'Money' while the majority of standalone-label occurrences of 所持金 use 'Gold'-family wording (0x47a550/0x487f40 'Gold Held', 0x4eeb00 'Gold:', 0x4eb290 'Gold on Hand'), matching the game's established currency term (glossary ゴールド -> Gold, official) and 13+ narrative 'Current gold:' instances that were already consistent. Aligned the head noun to 'Gold' while keeping each entry's own surrounding wording/scaffolding."
+  },
+  {
+    "id": "0x538450",
+    "old_en": "Money: 0",
+    "new_en": "Gold: 0",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '所持金'): Standalone UI-label inconsistency: this entry rendered the 所持金 stat label as 'Money' while the majority of standalone-label occurrences of 所持金 use 'Gold'-family wording (0x47a550/0x487f40 'Gold Held', 0x4eeb00 'Gold:', 0x4eb290 'Gold on Hand'), matching the game's established currency term (glossary ゴールド -> Gold, official) and 13+ narrative 'Current gold:' instances that were already consistent. Aligned the head noun to 'Gold' while keeping each entry's own surrounding wording/scaffolding. This entry's own note said it deliberately matched 0x4592e0's 'Money' as 'registry precedent' - since that precedent is itself the inconsistency being corrected here (not an independent grammatical/contextual justification for 'Money' over 'Gold'), it is not a protected documented exception; carried the correction forward to keep it consistent with its stated precedent."
+  },
+  {
+    "id": "0x4ab840",
+    "old_en": "Chant! | Resurrection!",
+    "new_en": "Chant! | Revival!",
+    "note_suffix": " CONSISTENCY FIX 2026-09-03 (term '復活'): This monster battle-taunt chant line was the lone occurrence among 15 using 'Resurrection' instead of this term's otherwise-uniform 'revive/revived/Revival' rendering (Revival Potion, Light of Revival, Revival Incantation, 'was revived...', etc.). No note documents a deliberate reason for the divergence, so aligned to the majority rendering."
+  }
+]

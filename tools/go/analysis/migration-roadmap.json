@@ -529,10 +529,10 @@
     {
       "id": "registry_authoring",
       "title": "Registry authoring and import",
-      "accepted_family_status": "partial",
-      "verified_milestones": 3,
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
       "total_milestones": 6,
-      "checklist_percent": 50.0,
+      "checklist_percent": 100.0,
       "milestones": [
         {
           "id": "registry_authoring.01",
@@ -567,38 +567,54 @@
         {
           "id": "registry_authoring.04",
           "requirement": "Ingest authored batches with declared schema/required-field normalization and per-pool import responsibilities",
-          "status": "partial",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
             "../rework/new_tool/registry_tools/registry_import.py:843-852",
-            "analysis/pattern-crawl-iso_registry_reports.json"
+            "analysis/pattern-crawl-iso_registry_reports.json",
+            "evidence/registry-import-proof.json",
+            "evidence/registry-import-review.json",
+            "evidence/registry-pools-proof.json",
+            "evidence/registry-pools-review.json",
+            "analysis/registry-pools-family-assessment.json"
           ],
-          "detail": "Keyed draft JSON exists; full import/schema/CSV adapters and original required-field roles are incomplete. Historical CLI spelling is not the gap."
+          "detail": "Original material duty verified by declared shared admission, source-backed constructor/keeper/headline facts and exact-text occurrence review. Raw historical temporary-input replay and native payload equivalence are explicit limits, not claimed support."
         },
         {
           "id": "registry_authoring.05",
           "requirement": "Validate speaker/page/marker/glyph integrity under declared source policies before accepting imports",
-          "status": "partial",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
             "../rework/new_tool/registry_tools/registry_import.py:45-107",
-            "analysis/reusability-coverage.json"
+            "analysis/reusability-coverage.json",
+            "evidence/registry-import-proof.json",
+            "evidence/registry-import-review.json",
+            "evidence/registry-pools-proof.json",
+            "evidence/registry-pools-review.json",
+            "analysis/registry-pools-family-assessment.json"
           ],
-          "detail": "Generic draft acceptance deliberately does not imply text readiness."
+          "detail": "Original material duty verified by declared shared admission, source-backed constructor/keeper/headline facts and exact-text occurrence review. Raw historical temporary-input replay and native payload equivalence are explicit limits, not claimed support."
         },
         {
           "id": "registry_authoring.06",
           "requirement": "Reconcile glossary/corrections and distinct human/machine field owners without silent drift or locked-status rollback",
-          "status": "missing",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
             "../rework/new_tool/registry_tools/registry.py:227-371",
-            "../rework/new_tool/registry_tools/registry.py:398-550"
-          ]
+            "../rework/new_tool/registry_tools/registry.py:398-550",
+            "evidence/registry-paired-proof.json",
+            "evidence/registry-paired-review.json",
+            "evidence/registry-human-proof.json",
+            "evidence/registry-human-review.json",
+            "analysis/registry-ownership-milestone.json"
+          ],
+          "detail": "Complete reviewed pair plus separate purehuman sourcejoin and existingfield-owned transition/writer verified; explicittyped/selected-scope/knownstatus/noop redesigns. Originalsource/future55/actual62/actual52+17 and freshreview/race evidence close .06, not wholefamily."
         }
       ],
-      "remaining_roadmap": "Declared batch/CSV imports \u2192 text-integrity policies \u2192 glossary and field ownership.",
-      "next_achievable_milestone": "One declarative authored-import policy joining required fields plus speaker/marker/glyph checks; glossary correction/conflict duty remains separate work.",
+      "remaining_roadmap": "No material gap under original registry-authoring contract. Historical temporary-input replay/native payload/gameplay not claimed.",
+      "next_achievable_milestone": "Maintain through existing declarative policies and field owners.",
       "dependencies": [
         "authorRegistry",
         "checkJSON",
@@ -1521,94 +1537,89 @@
     }
   ],
   "totals": {
-    "fully_verified_families": 9,
+    "fully_verified_families": 10,
     "core_families": 14,
-    "family_completion_percent": 64.29,
-    "verified_milestones": 73,
+    "family_completion_percent": 71.43,
+    "verified_milestones": 76,
     "milestones": 84,
-    "checklist_index_percent": 86.9,
+    "checklist_index_percent": 90.48,
     "warning": "Checklist index is a planning aid; equal-weight groups differ in effort and do not measure reuse or script migration."
   },
   "next_target": {
-    "family": "registry_authoring",
-    "milestone": "registry_authoring.04",
-    "action": "Source-only inspect originalremaining import/schema/glossary responsibilities and existing authorRegistry before choosing a reusable increment.",
-    "reason": "Textfinitecodec nowcomplete. Fiveotherfamiliespartial; no quick-credit scopewaiver."
+    "family": "raster_rendering",
+    "milestone": "raster_rendering.06",
+    "action": "Inspect remaining original family responsibility and existing source-backed evidence before choosing any implementation.",
+    "reason": "Registry complete against original contract; raster5/6 is the next bounded candidate, not an automatic promotion."
   },
-  "updated_at": "2026-11-05T04:42:55.607463+00:00",
+  "updated_at": "2026-11-05T10:26:25.281316+00:00",
   "latest_milestone": {
-    "at": "2026-11-05T04:42:55.607463+00:00",
-    "proof": "evidence/ordered-text-proof.json",
-    "review": "evidence/ordered-text-review.json",
-    "assessment": "analysis/ordered-text-family-assessment.json",
-    "reuse": "analysis/ordered-text-reuse-decision.json",
-    "milestone_credit": 2,
-    "family_credit": 1,
-    "full_families": 9,
-    "planning_milestones": 73,
+    "at": "2026-11-05T10:26:25.281316+00:00",
+    "proof": "evidence/registry-pools-proof.json",
+    "review": "evidence/registry-pools-review.json",
+    "contract": "analysis/registry-pools-contract.json",
+    "reuse": "analysis/registry-pools-reuse-decision.json",
+    "assessment": "analysis/registry-pools-family-assessment.json",
     "metrics": {
-      "production_before": 548925,
-      "production_after": 562270,
+      "production_before": 603032,
+      "production_after": 607520,
+      "production_growth": 4488,
       "runtime_before": {
-        "files": 206,
-        "bytes": 2649535
+        "files": 224,
+        "bytes": 2792590
       },
       "runtime_after": {
-        "files": 206,
-        "bytes": 2662880
+        "files": 233,
+        "bytes": 2977568
       },
-      "production_growth": 13345,
-      "runtime_growth": 13345,
-      "test_source_growth": 17681,
-      "test_fixture_growth": 42527,
+      "runtime_growth": 184978,
+      "test_source_growth": 5543,
+      "test_fixture_growth": 64795,
       "new_production_files": 0,
       "new_functions": 0,
-      "named_functions": 45,
-      "new_local_types": 1,
-      "new_public_types": 0,
+      "named_functions": 46,
+      "new_shared_types": 1,
+      "new_import_spec_fields": 1,
       "retirements": 0,
-      "milestone_credit": 2,
-      "family_credit": 1,
-      "claim": "Reusable recognized-source serialization andrealcaller capabilitygrowth; notcode reduction, relocation savings,410scriptretirement or opaque writepermission."
+      "claim": "Capability growth, not deletion, relocation savings or code reuse percentage."
     },
-    "limits": "Fullrecognizedcodecworkflow, not scriptretirement/nativefit/opaqueimagewrite/E000ABI/multiruneauthoring approval.",
-    "ids": [
-      "text_codec.05",
-      "text_codec.06"
-    ],
-    "family_counts_unchanged": false
+    "milestone_credit": 2,
+    "family_credit": 1,
+    "remaining": "Registry original material scope complete; remaining core families: consumer_layout, binary_inspection, image_layout, raster_rendering."
   },
   "latest_partial_increment": {
-    "at": "2026-11-04T20:43:11.533204+00:00",
-    "proof": "evidence/instruction-flow-proof.json",
-    "review": "evidence/instruction-flow-review.json",
-    "reuse_decision": "analysis/instruction-flow-reuse-decision.json",
+    "at": "2026-11-05T08:37:16.928422+00:00",
+    "proof": "evidence/registry-human-proof.json",
+    "review": "evidence/registry-human-review.json",
+    "contract": "analysis/registry-human-contract.json",
+    "reuse": "analysis/registry-human-reuse-decision.json",
+    "assessment": "analysis/registry-ownership-milestone.json",
     "metrics": {
-      "production_before": 474721,
-      "production_after": 489925,
+      "production_before": 592172,
+      "production_after": 603032,
+      "production_growth": 10860,
       "runtime_before": {
-        "files": 181,
-        "bytes": 2549244
+        "files": 215,
+        "bytes": 2695193
       },
       "runtime_after": {
-        "files": 184,
-        "bytes": 2564808
+        "files": 224,
+        "bytes": 2792590
       },
-      "production_growth": 15204,
-      "runtime_growth": 15564,
-      "test_source_growth": 2752,
-      "test_fixture_growth": 16115,
-      "new_production_files": 2,
-      "new_fact_types": 8,
-      "new_functions": 0,
-      "named_functions": 41,
-      "new_example_files": 1,
+      "runtime_growth": 97397,
+      "test_source_growth": 9103,
+      "test_fixture_growth": 96956,
+      "new_production_files": 1,
+      "new_functions": 1,
+      "named_functions": 46,
+      "new_shared_types": 2,
       "retirements": 0,
-      "milestone_credit": 0
+      "milestone_credit": 1,
+      "family_credit": 0,
+      "claim": "Capability growth including actual62human/52correction/17glossaryfacts, not deletion/relocation savings or a reuse percentage."
     },
-    "milestone_credit": 0,
-    "family_counts_unchanged": true,
-    "claim": "Finite branch/operand facts are foundation, not actual CFG/def-use. No reduction/retirement."
+    "milestone_credit": 1,
+    "family_credit": 0,
+    "remaining": ".04/.05 per-pool construction/selection/headline and source occurrencefact proofs; corefamily remainspartial."
   },
   "latest_joined_reconciliation_prototype": {
     "at": "2026-10-21T17:57:25.645497+00:00",
@@ -1949,5 +1960,144 @@
     "behavior_review": "evidence/gp-index-review.json",
     "milestone_credit": 1,
     "family_counts_unchanged": true
+  },
+  "latest_registry_import_increment": {
+    "at": "2026-11-05T06:38:39.096733+00:00",
+    "proof": "evidence/registry-import-proof.json",
+    "review": "evidence/registry-import-review.json",
+    "contract": "analysis/registry-import-contract.json",
+    "reuse": "analysis/registry-import-reuse-decision.json",
+    "metrics": {
+      "production_before": 562270,
+      "production_after": 580830,
+      "runtime_before": {
+        "files": 206,
+        "bytes": 2662880
+      },
+      "runtime_after": {
+        "files": 210,
+        "bytes": 2682502
+      },
+      "production_growth": 18560,
+      "runtime_growth": 19622,
+      "test_source_growth": 31626,
+      "test_fixture_growth": 132896,
+      "new_production_files": 0,
+      "new_functions": 0,
+      "named_functions": 45,
+      "new_public_types": 1,
+      "new_local_types": 1,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "family_credit": 0,
+      "claim": "Shared admission and consumable snapshots add capability and code. This is not a reduction, relocation saving or historical-script retirement."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "remaining": "Finitepoolfacts/actual6drop+5reward source bindings/occurrence pairing and .06 glossary/correction/drift reconciliation. No unsupported normalized-input waiver."
+  },
+  "latest_registry_paired_increment": {
+    "at": "2026-11-05T07:45:00.154929+00:00",
+    "proof": "evidence/registry-paired-proof.json",
+    "review": "evidence/registry-paired-review.json",
+    "contract": "analysis/registry-paired-contract.json",
+    "reuse": "analysis/registry-paired-reuse-decision.json",
+    "metrics": {
+      "production_before": 580830,
+      "production_after": 592172,
+      "runtime_before": {
+        "files": 210,
+        "bytes": 2682502
+      },
+      "runtime_after": {
+        "files": 215,
+        "bytes": 2695193
+      },
+      "production_growth": 11342,
+      "runtime_growth": 12691,
+      "test_source_growth": 19997,
+      "test_fixture_growth": 83031,
+      "new_production_files": 0,
+      "new_functions": 0,
+      "named_functions": 45,
+      "new_public_types": 2,
+      "new_local_types": 1,
+      "retirements": 0,
+      "milestone_credit": 0,
+      "family_credit": 0,
+      "claim": "Reusable paired correction/glossary capability growth, not deletion, reduction, relocation savings or completion of human reconciliation."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "remaining": "Human drift/force/metadata/source construction; missing .04/.05 selection/occurrence facts. No source-completion waiver."
+  },
+  "latest_registry_human_increment": {
+    "at": "2026-11-05T08:37:16.928422+00:00",
+    "proof": "evidence/registry-human-proof.json",
+    "review": "evidence/registry-human-review.json",
+    "contract": "analysis/registry-human-contract.json",
+    "reuse": "analysis/registry-human-reuse-decision.json",
+    "assessment": "analysis/registry-ownership-milestone.json",
+    "metrics": {
+      "production_before": 592172,
+      "production_after": 603032,
+      "production_growth": 10860,
+      "runtime_before": {
+        "files": 215,
+        "bytes": 2695193
+      },
+      "runtime_after": {
+        "files": 224,
+        "bytes": 2792590
+      },
+      "runtime_growth": 97397,
+      "test_source_growth": 9103,
+      "test_fixture_growth": 96956,
+      "new_production_files": 1,
+      "new_functions": 1,
+      "named_functions": 46,
+      "new_shared_types": 2,
+      "retirements": 0,
+      "milestone_credit": 1,
+      "family_credit": 0,
+      "claim": "Capability growth including actual62human/52correction/17glossaryfacts, not deletion/relocation savings or a reuse percentage."
+    },
+    "milestone_credit": 1,
+    "family_credit": 0,
+    "remaining": ".04/.05 per-pool construction/selection/headline and source occurrencefact proofs; corefamily remainspartial."
+  },
+  "latest_registry_pools_increment": {
+    "at": "2026-11-05T10:26:25.281316+00:00",
+    "proof": "evidence/registry-pools-proof.json",
+    "review": "evidence/registry-pools-review.json",
+    "contract": "analysis/registry-pools-contract.json",
+    "reuse": "analysis/registry-pools-reuse-decision.json",
+    "assessment": "analysis/registry-pools-family-assessment.json",
+    "metrics": {
+      "production_before": 603032,
+      "production_after": 607520,
+      "production_growth": 4488,
+      "runtime_before": {
+        "files": 224,
+        "bytes": 2792590
+      },
+      "runtime_after": {
+        "files": 233,
+        "bytes": 2977568
+      },
+      "runtime_growth": 184978,
+      "test_source_growth": 5543,
+      "test_fixture_growth": 64795,
+      "new_production_files": 0,
+      "new_functions": 0,
+      "named_functions": 46,
+      "new_shared_types": 1,
+      "new_import_spec_fields": 1,
+      "retirements": 0,
+      "claim": "Capability growth, not deletion, relocation savings or code reuse percentage."
+    },
+    "milestone_credit": 2,
+    "family_credit": 1,
+    "remaining": "Registry original material scope complete; remaining core families: consumer_layout, binary_inspection, image_layout, raster_rendering."
   }
 }

@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "kind": "independent read-only ordinary review, pre-fix source55",
+  "reviewed_candidate": {
+    "manifest": "/var/tmp/dokapon-registry-import-6bezqn0z/review-source/manifest.json",
+    "sha256": "6902e51fb4ef8567b915e6a5d2f49758d6279fc78628a8ccc36d64d85e1f96eb",
+    "overlay_members_verified": 55,
+    "own_baseline_members_verified": 715,
+    "baseline_exclusions": [
+      "external/skills/MIGRATION-TOOLS.md",
+      "external/skills/STRING-REGISTRY.md",
+      "source-aliases.json"
+    ],
+    "all55_project_sources_reverified_after_tests": true
+  },
+  "findings": [
+    {
+      "id": "RRI-1",
+      "severity": "medium",
+      "title": "Unbounded shared CSV provenance multiplies row allocations and snapshot size",
+      "location": "registry_authoring.go:187-189 and CSV note/discovered_by construction at363-372",
+      "trigger": "CSV import sets a very large discovered_by label, copied into note and discovered_by for every row before shared merge.",
+      "actual_witness": {
+        "command": [
+          "/var/tmp/dokapon-registry-import-review-hO9znBhZ/project/tools",
+          "--source",
+          "/var/tmp/dokapon-registry-import-review-hO9znBhZ/probe/source.json",
+          "--recipes",
+          "/var/tmp/dokapon-registry-import-review-hO9znBhZ/probe/profile.json",
+          "--apply",
+          "--output",
+          "/var/tmp/dokapon-registry-import-review-hO9znBhZ/probe/output.json"
+        ],
+        "exit_code": 0,
+        "seconds": 0.38851923000765964,
+        "batch_bytes": 3005,
+        "profile_bytes": 66242,
+        "rows": 128,
+        "discovered_by_bytes": 65536,
+        "output_bytes": 16823117,
+        "input_sha256": {
+          "source.json": "5ad5778046e8bb3a6b257f22619f39d215af81b09b544a8b93a0a393b98034bb",
+          "batch.csv": "6d595f369fa9e37f41d27ea480973f88fc343e3c8afdae93555b50e0e9a05c26",
+          "glyph.json": "d73ddc7430a01a6c55773bba8b4c97a46ed917fb45dc4b81119814e73cca349c",
+          "profile.json": "3ae4d619ce84a537e2faa9b1321c970e5f4c9d08bdd69136398884cd0edae26a"
+        },
+        "projection": "128*2*65536 = 16777216 provenance-value bytes, before JSON overhead. Allowed maximum65536 rows*2*(64MiB provenance) = 8TiB provenance-value bytes, while recipe remains below128MiB."
+      },
+      "impact": "A tiny batch plus bounded profile can request multi-terabyte derived values. This is a local resource-exhaustion risk beyond the stated input limits, not a claim that all hostile-input allocation must be sandboxed.",
+      "recommendation": "Bound the CSV shared provenance label in the existing policy guard. A1..512 UTF-8 byte bound preserves the actual282-byte source identity;256 would reject it. No new parser/helper/config needed.",
+      "status": "Open in reviewed immutable55. Parent owns any fix and fresh delta QA.",
+      "independent_expectations": "provenance-boundary-expectations.json"
+    }
+  ],
+  "verification": {
+    "core_focused": {
+      "exit_code": 0,
+      "package_seconds": 17.769,
+      "log": "focused.txt"
+    },
+    "native_focused": {
+      "exit_code": 0,
+      "package_seconds": 16.053,
+      "log": "native-focused.txt"
+    },
+    "focused_pattern": "^Test(PlanAndCopy|PlanRefusals|CLIDryRunAndApply|RegistryWordingAndNewRecipeNeedsNoHandler)$",
+    "build_vet": [
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 0.298438622005051
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.3127375969779678
+      },
+      {
+        "command": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "native",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.5257955140259583
+      },
+      {
+        "command": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "native",
+          "./..."
+        ],
+        "exit_code": 0,
+        "seconds": 1.259012669994263
+      }
+    ],
+    "source_pack_members_verified": [
+      125,
+      120,
+      24,
+      79
+    ],
+    "independent50_fixture_byte_identity": {
+      "candidate_path": "testdata/registry-import.json",
+      "source_path": "/var/tmp/dokapon-registry-import-fixtures-50rPzlCN/registry-import-fixtures.json",
+      "sha256": "8d9c844d0ee5e5814db1b8b92ac5274bb3216e2da41aa7fda390cd5ee7d9056a",
+      "positive": 22,
+      "refusal": 28
+    },
+    "all_owned_jobs_terminal": true,
+    "frozen_or_live_writes": false,
+    "own_candidate_source_mutations": false,
+    "full_suite_or_race_run": false
+  },
+  "review_assessment": {
+    "policy": "The4 explicit policies preserve source distinctions: ordered kinds, case-sensitive code multiset, converted per-kind metadata, CSV projection. Magic notes confer no bypass. Truthiness and selected-string checks remain separate.",
+    "csv": "encoding/csv owns grammar. FieldPos/InputOffset spans only restore CRLF normalized by the standard parser and verify equality after that normalization; quote/comma/Unicode/newline cases are independently frozen. Strict headers/width and malformed-record refusals are deliberate stronger boundaries.",
+    "raw_fields": "JSON records retain RawMessage metadata and numeric lexemes. Normalized complete-cohort IDs are checked before map collapse. Selected JP/EN Unicode is checked before repaired decoding.",
+    "ownership": "Shared addition owner still checks same JP/EN, preserves existing metadata, preserves full source bytes on all-present no-op, and restricts new records to drafted. Unknown import declaration fields, wrong operations and unrelated direct API pointers are guarded.",
+    "publication": "Existing source/resource byte rechecks precede writeNewFile exclusive creation. Inputs are untouched and no in-place registry operation added. Shared publisher retained.",
+    "limits": "64 batches,65536 total rows,64MiB aggregate batch bytes and64MiB glyphmap bytes are present. These are intake bounds; RRI-1 identifies the independent duplicated-label dimension.",
+    "glyph_root": "The explicit object-root check precedes glyphMaps, preventing null/array roots from space-only text bypasses. Empty object is structurally valid with an empty repertoire.",
+    "quality": "Cohesive extension of authorRegistry and shared guards/publisher,0 new functions and one public plus one local type. CSV span bookkeeping is substantial but protects exact source values and is not a parallel grammar parser. No additional concrete correctness defect found in this bounded review.",
+    "accounting": {
+      "baseline": {
+        "files": 47,
+        "bytes": 562270,
+        "functions": 45
+      },
+      "candidate": {
+        "files": 47,
+        "bytes": 579385,
+        "functions": 45
+      }
+    }
+  },
+  "scope_determination": {
+    "credit_added": 0,
+    "registry_authoring_04": "Partial ingestion/admission engine only. Original pool construction/ownership and actual6drop+5reward batch bodies/occurrence pairing remain held.",
+    "registry_authoring_05": "Declared lexical admission only. It is not source payload occurrence identity, fit, reference topology or patch readiness. Detailed reviewed exceptions remain held.",
+    "registry_authoring_06": "Human drift/locked correction old-new preconditions, glossary conflicts/provenance and paired publication remain separate material work.",
+    "retirements": 0
+  },
+  "limits": [
+    "Bounded review of frozen source and source-only fixture packs, not canonical registry, protected art/ISO, emulator, gameplay or authentication inputs.",
+    "No claim every allocation or race was exhaustively tested. Root owns separate race and acceptance.",
+    "Proposed512-bound expectations were frozen before any amended candidate; no amended candidate consulted.",
+    "Initial copy setup read local immutable external snapshot files before correcting exclusions; owned extras removed. No live external/protected file access."
+  ],
+  "witness_output_storage": {
+    "file": "witness/output.json.gz",
+    "decoded_bytes": 16823117,
+    "decoded_sha256": "52aa41e7d80a9cbed611d650f27e3b5ad34289b4a0f028a010c264b6a53f1a1b",
+    "compression": "gzip deterministic mtime0"
+  }
+}

@@ -650,6 +650,8 @@ remain in their [own checkpoint](evidence/source-context-checkpoint.json).
 | --- | --- | --- |
 | `registry_author` | Guarded existing-ID English/note edits | [verified request](evidence/registry-authoring-demo-input.json) |
 | `registry_add` | Reviewed new draft rows, content collisions and exact all-present no-ops | [precode lifecycle vectors](testdata/registry-add.json) |
+| `registry_reconcile` | Reviewed corrections and glossary proposals in one guarded ZIP of two snapshots | [paired fixtures](testdata/registry-paired.json), [example](examples/registry-reconcile/profile.json) |
+| `registry_human` | Resolve authored text against decoded/flow scope, then refresh human fields with drift/status guards | [human fixtures](testdata/registry-human.json), [example](examples/registry-human/profile.json) |
 | `registry_export` | Ordered scalar CSV projection with numeric ID ordering and an exclusive new output | [canonical columns](recipes/reports/registry-export.json) |
 | `registry_status` | Pinned registry, glossary and flow facts rendered through one reviewed Markdown template | [inputs](recipes/reports/registry-status.json), [template](recipes/reports/registry-status.md.tmpl) |
 | `registry_merge` | Guarded machine-field snapshot updates | [controller](recipes/registry/controller.json), [GP references](recipes/registry/gp.json) |
@@ -988,7 +990,9 @@ Duplicate/missing IDs, human-field changes and backward/invalid statuses refuse.
 Root and entry object keys with unpaired Unicode surrogate escapes refuse; nested
 raw keys/values remain opaque. Valid surrogate pairs and U+FFFD keys are preserved.
 Unknown fields and exact JSON numbers survive; top-level and entry keys are sorted,
-and JSON formatting is normalized. Nested raw objects retain their original key order. Sources over 64 MiB refuse. The [checks](evidence/registry-core-checks.json)
+and JSON formatting is normalized. Nested raw objects retain their original key order. Sources over 64 MiB refuse. Every rewritten registry snapshot also passes a
+conservative two-space formatting budget and stays within that same ceiling;
+all-present draft additions still return exact original bytes. The [checks](evidence/registry-core-checks.json)
 and [independent review](analysis/registry-core-contracts.json) use synthetic data;
 no canonical registry has been modified.
 
@@ -1031,6 +1035,275 @@ existing text tools for those contracts; historical batch policies remain in the
 [source study](analysis/registry-insert-contract.json). The
 [verification record](evidence/registry-add-proof.json) covers the lifecycle and
 preservation checks.
+
+## Pinned draft batch imports
+
+`registry_add` can replace `registry_updates` with one `registry_import`
+declaration plus `registry_inputs`. Each named input supplies `path`, `size` and
+`sha256`; paths resolve beside the recipe. The same admission and merge path
+handles ordered JSON or CSV batches. Preview the synthetic example from this
+folder:
+
+```sh
+go run . --source examples/registry-import/source.json \
+  --recipes examples/registry-import/profile.json
+```
+
+Add `--apply --output /new/draft-snapshot.json` to create an exclusive new copy.
+The canonical registry and all inputs remain unchanged. An import declaration is:
+
+```json
+{"policy":"json_kinds","batches":["batch"],"glyphmap":"glyphs"}
+```
+
+Use exactly its batch resources and one distinct glyphmap object. The `full_sweep`
+preset also declares a distinct `marker_orders` resource. Limits are
+1..64 unique batches, 65,536 total records, 64 MiB combined batch bytes and
+64 MiB for the glyphmap. Every batch is valid UTF-8. JSON batches are bare arrays;
+CSV requires the original ten headers, unique names and fixed row widths.
+Quoted commas, quotes and CRLF metadata are preserved. CSV provenance is bounded
+before copying it into every row; these ingress limits are not an output or memory
+sandbox. All rewritten registry snapshots also fit the 64 MiB source ceiling. The complete compact
+merged document passes a conservative two-space indentation budget before pretty
+printing. Empty containers can make that estimate exceed the actual formatted
+size, so a request near the ceiling may refuse below 64 MiB. All-present batches
+still preserve exact source bytes without reformatting. IDs normalize before
+cross-batch duplicate checks; unknown JSON metadata and numeric lexemes survive.
+
+| Policy | Required input and lexical comparison |
+|---|---|
+| `json_kinds` | Ten truthy fields: `id jp en chapter character tier status source_pool ref_type discovered_by`. Compare ordered fixed-four-digit HL/PARAM kinds. |
+| `json_codes` | The first eight fields above. Compare case-sensitive code-string multisets, accepting variable hex width and ignoring marker kind/order. |
+| `full_sweep` | The ten fields and apostrophe gate of `json_kinds`; explicit pinned occurrence mappings can authorize a reviewed marker permutation. |
+| `converted_markers` | Draft row fields `id jp en status source_pool`. Convert fixed-four-digit `<<HL/PARAM:0xNNNN>>`, lowercase codes and derive ordered `standalone_codes`/`param_blocks`; compare that metadata and marker kinds. |
+| `csv_drafts` | Headers `id jp en chapter character event tier mode source_pool note`; add a 1..512 UTF-8 byte `discovered_by` label to the declaration. Project original draft defaults, null empty events, omitted empty modes and provenance notes. |
+
+All five policies check page counts and matching page-leading speaker tags.
+They remove their recognized markup before glyph-membership checks; spaces are
+ignored. JSON policies also ignore raw `<0x...>` echoes. Only `json_codes` permits
+curly or backtick apostrophes when present in the glyphmap. No Unicode
+normalization is applied. Malformed closed speaker tags refuse; body tags retain
+the historical lexical policy. Note wording never waives a marker mismatch.
+
+These are deliberately distinct **draft admission** policies. Kind-only checks
+can admit changed code values. Code multisets can admit changed marker kinds or
+order. Converted metadata describes angle markers only, not existing curly
+markers or opaque payload widths. None proves source-control identity, native
+fit, references or patch readiness. Use the existing byte-aware text tools for
+those checks. Per-pool construction and note facts use the existing insertion and
+field owners described below. Current pool resources already contain their
+reviewed ownership choices; source payloads still require byte-aware evidence.
+The [independent fixtures](testdata/registry-import.json)
+keep weak historical admissions separate from refusals and strict wire rules.
+
+## Reviewed full-sweep marker orders
+
+`full_sweep` retains the ten-field, straight-apostrophe and default marker-kind
+sequence checks. It adds one named resource to the existing import declaration:
+
+```json
+{"policy":"full_sweep","batches":["drafts"],"glyphmap":"glyphs","marker_orders":"orders"}
+```
+
+The recipe still has seven root fields. The `orders` input uses the same
+path/size/SHA256 pin as other inputs. An empty `{}` means ordinary kind-order
+checks apply throughout. A supplied record is keyed by numeric registry ID:
+
+```json
+{"0x1000":{"jp_sha256":"<decoded JP UTF-8 digest>","en_sha256":"<decoded EN UTF-8 digest>","en_sources_jp":[2,3,1]}}
+```
+
+English occurrence 1 takes Japanese occurrence 2, English 2 takes Japanese 3,
+and English 3 takes Japanese 1. Positions start at one. The array must cover
+both complete HL/PARAM tapes, use every Japanese position once, and preserve
+each paired marker's kind and code. Both decoded text hashes must match. A
+supplied mapping is checked even when ordinary kinds already agree; unused
+records refuse. Distinct resource roles, normalized ID duplicates, unknown
+fields and invalid Unicode also refuse. `marker_orders` belongs only to this
+preset, including when its declaration would otherwise be empty.
+
+Preview the small non-involutive example:
+
+```sh
+go run . --source examples/registry-full-sweep/registry.json \
+  --recipes examples/registry-full-sweep/profile.json
+```
+
+The [five reward mappings](recipes/registry/reward-marker-orders.json) capture
+reviewed lexical facts from the historical pool data. Repeated identical codes
+are assigned by the declared segment roles. Their opaque payload identity and
+reconstructed Japanese source frames still require byte-aware verification.
+Without a supplied record, the historical kind-only gate can accept different
+code values; that draft policy remains explicit. Free note text grants no bypass.
+
+The mapping resource and full-sweep profile each cap at 1 MiB. A mapping has
+1..65,536 integer positions; the resource is included in the shared 64 MiB batch
+budget. All source/resource/profile bytes are rechecked before publication.
+The [55 independent cases](testdata/registry-full-sweep.json) cover mappings,
+ordinary checks, complete-row retention, conflicts and exact source no-ops.
+
+## Historical constructor and note facts
+
+The [historical discovery recipe](recipes/registry/historical-discoveries.json)
+contains all 142 fixed constructor results as stable-ID data. It uses the existing
+`registry_add` owner, rather than another generator. Preview it against the
+version-pinned empty example registry:
+
+```sh
+go run . --source examples/registry-full-sweep/registry.json \
+  --recipes recipes/registry/historical-discoveries.json
+```
+
+These rows preserve historical wording and reference facts. They are not current
+canonical translations. Existing equal JP/EN preserves all existing metadata;
+conflicting wording refuses the whole request. The source pin also prevents
+applying this empty-registry recipe to another registry without explicit review.
+
+The [five note examples](examples/registry-reward-notes/profile.json) express the
+old warning headline as literal full-note values through `registry_author`.
+Their [input snapshot](examples/registry-reward-notes/registry.json) is pinned.
+This demonstrates the fixed data without a per-ID prepend function. Import
+no-ops continue to preserve existing notes; separate field-owned updates remain
+an explicit choice. The author operation retains its documented date behavior.
+
+Current checked-in pool resources already contain the six reviewed pool2
+keepers and omit their pool1 losers. Historical scratch inputs are unavailable;
+no raw preselection replay or automatic winner selection is claimed. New
+conflicting duplicates still refuse. The original generators and source
+snapshots remain references for reviewed facts, not an operational dependency.
+
+## Paired corrections and glossary proposals
+
+`registry_reconcile` plans reviewed English corrections and glossary additions
+from a pinned registry plus exactly three `registry_inputs`: `glossary`,
+`corrections` and `glossary_proposals`. It shares the existing field owner,
+serializer and verified exclusive publisher. Preview the synthetic example:
+
+```sh
+go run . --source examples/registry-reconcile/registry.json \
+  --recipes examples/registry-reconcile/profile.json
+```
+
+Add `--apply --output /new/pair.zip` to write one ZIP with exactly `registry.json`
+and `glossary.json`, in that order. Successful return verifies the complete
+artifact. The pathname is visible during writing, so its appearance alone does
+not indicate completion. This publishes snapshots, without installing either
+canonical file. Extract the members to use them as inputs to later commands.
+
+The recipe has exactly `operation`, `source_size`, `source_sha256`, `evidence`,
+`updated` and `registry_inputs`. Named inputs use existing path/size/SHA256 pins;
+paths resolve beside the recipe. Corrections are a bare JSON array of closed
+objects:
+
+```json
+{"id":"0x10","old_en":"A","new_en":"B","note_suffix":" [reviewed correction]"}
+```
+
+All four values are strings; `id`, `new_en` and `note_suffix` are nonempty.
+The authored suffix includes its own separator and historical wording. Matching
+`new_en` is already applied and never appends again. Otherwise, a mismatched
+`old_en` refuses the whole pair. Known locked rows are held while valid glossary
+additions may advance. Only `drafted` and `zone_pending` permit an actual wording
+change. Missing/null notes start empty on an append; other current note values
+must be valid strings. Held and already-applied rows keep their metadata.
+Registry IDs use the same numeric identity as existing operations; aliases
+normalize before duplicate checks.
+
+Glossary proposals are a bare array with exactly five nonempty string fields:
+`jp`, `en`, `provenance`, `source`, `usage_note`. JP identity is exact, without
+trimming or Unicode normalization. Duplicate existing/proposed JP keys refuse.
+An existing identical JP/EN keeps all its provenance and metadata; a different
+English rendering refuses the entire pair. New entries append in authored order.
+
+Each unchanged member retains its exact bytes and date. Only a changed member is
+formatted and stamped with `updated`. This deliberately improves replay behavior
+from the old script, which rewrote both dates even when already applied. Existing
+metadata and numeric lexemes remain raw. Preview and every refusal preserve all
+inputs and create no output; an existing output path is never overwritten.
+
+The profile caps at 1 MiB; each source/member caps at 64 MiB. Corrections and
+proposals together cap at 64 MiB and 65,536 records; the existing glossary caps at
+65,536 entries, as does the resulting glossary. The archive allows two bounded members plus 1 KiB of ZIP overhead.
+The shared conservative indentation budget applies to changed members. These
+limits are not a general hostile-memory sandbox.
+
+The [52 captured terminology corrections](recipes/registry/terminology-corrections.json)
+and [17 glossary proposals](recipes/registry/terminology-glossary.json) reuse this
+operation as data. Their historical annotation suffixes are already authored.
+The no-fix Doom row has identical old/new English and never appends a note. These
+reviewed 2026-09-03 facts require new source pins and current-state checks before
+use; their availability does not establish current applicability.
+
+The [independent fixtures](testdata/registry-paired.json) cover paired states and
+refusals. This first slice does not implement human drift/force rules or build
+translations from decoded text/flow data. It proves no glyph, source-occurrence,
+native-fit, reference or patch readiness.
+
+## Human source and field ownership
+
+`registry_human` joins pinned `decoded`, `flow` and `authored` inputs to create one
+new registry snapshot. Its recipe uses the same six fields as reconciliation.
+Preview the synthetic example:
+
+```sh
+go run . --source examples/registry-human/registry.json \
+  --recipes examples/registry-human/profile.json
+```
+
+Add `--apply --output /new/registry.json` to publish through the existing exclusive
+writer. Inputs and existing output paths are preserved. No canonical file is
+installed. The [source resolver](registry_human.go) owns joins and precedence;
+[the registry owner](registry_authoring.go) owns statuses, mutation and publication.
+
+The authored resource has four explicit fields:
+
+```json
+{
+  "translations": {
+    "0x10": {"en":"A","chapter":"menu","character":"system","event":"label","tier":"B","note":"Reviewed wording."}
+  },
+  "jp_overrides": {},
+  "overwrite_drift": false,
+  "discovered_by": "reviewed human batch"
+}
+```
+
+Each translation has exactly six nonempty strings. Chapters are `prologue`,
+`opening`, `menu` or `character-nameplate`; tiers are `A`, `B` or `authored`.
+Provenance is a nonempty string of at most 512 UTF-8 bytes, copied only to new
+rows. The [62 captured historical entries](recipes/registry/human-authored.json)
+keep these facts and the Girl JP override in a separate table. That table alone
+is not evidence of current decoded text, wording readiness or installed bytes.
+
+Decoded and flow resources are arrays of objects. IDs match numerically across
+inputs; distinct spellings for one ID within an input refuse. Repeated identical
+flow IDs collapse; repeated identical decoded IDs retain the last record. Only
+the selected winner needs valid nonempty `decoded_jp`, unless an explicit JP
+override supplies it. An override cannot replace a missing decoded row. Decoded
+records without a VMA (missing, null or empty string) are ignored. Every flow VMA
+must resolve, and its ID cohort must exactly match the authored cohort.
+
+Existing rows always refresh the five metadata fields, including locked or
+drifted rows. Locked JP/EN never changes. Other divergent JP/EN stays unchanged
+unless `overwrite_drift` is true, and actual changes still require `drafted` or
+`zone_pending`. Matching wording and metadata-only updates do not require a
+known status. Missing/null/nonstring old wording counts as drift. Selected old
+string fields require valid Unicode; unknown and machine fields stay raw.
+
+New rows receive canonical numeric IDs, `drafted`, null landing/patch references
+and `menu_labels` for menu chapters or `text_bank` otherwise. A semantic no-op
+preserves exact bytes/date, even for escaped strings or unsorted rows. Real
+changes sort the whole registry numerically and stamp `updated`.
+
+Only selected rows receive human completeness checks. Unrelated incomplete
+metadata is preserved; use `registry_status` for completeness reporting. This and
+changed-only dates explicitly differ from the old script's global assertion and
+unconditional rewrite. There is no glyph, fit, reference or patch-readiness claim.
+
+The profile caps at 1 MiB. Registry and each input cap at 64 MiB; the three inputs
+together cap at 64 MiB. Each source collection and the existing/result registry
+cap at 65,536 records. Changed output shares the existing conservative 64 MiB
+indentation budget. All source/resource/profile bytes are rechecked before output.
 
 ## Registry wording updates
 

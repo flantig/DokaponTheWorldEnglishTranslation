@@ -1,0 +1,182 @@
+{
+  "entries": [
+    {
+      "id": "0x4f16f0",
+      "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}は、{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}から{{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb008}}をもらった!",
+      "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}} got {{HL:0xb003}}{{PARAM:0xa000}}{{HL:0xb008}} from {{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}!",
+      "chapter": "ending-sequence",
+      "character": "system",
+      "event": "ending-reward-01",
+      "tier": "authored",
+      "note": "5 reward lines share the frame 'X wa, Y kara Z wo moratta!' (X/Y both name-colored params, Z is the reward). jp full line RECONSTRUCTED from the source draft's stated template + given Z-slot content - the connecting JP particles were not given as an independently byte-verified quote, only the frame description was; re-verify against raw bytes before patching. EN naturally reorders X-Y-Z (JP order) to X-Z-Y (got Z from Y) - IMPORTANT: this means standalone_codes/param_blocks below (in JP occurrence order, per schema convention) do NOT line up 1:1 with EN's left-to-right occurrence order; a patch tool must NOT do a naive 'Nth occurrence in en = Nth occurrence in jp' mapping for these 5 entries - pairing is X=jp#1=en#1, Z=jp#3=en#2, Y=jp#2=en#3. Flagged for human review before these move past drafted status. single named-item param.",
+      "status": "drafted",
+      "source_pool": "misc_labels",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "full-ELF text sweep + localization workflow 2026-09-02",
+      "standalone_codes": [
+        "0xb002",
+        "0xb008",
+        "0xb002",
+        "0xb008",
+        "0xb003",
+        "0xb008"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        }
+      ]
+    },
+    {
+      "id": "0x4f1720",
+      "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}は、{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}から{{HL:0xb003}}{{PARAM:0xa000}}{{PARAM:0xa000}}{{HL:0xb008}}をもらった!",
+      "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}} got {{HL:0xb003}}{{PARAM:0xa000}}{{PARAM:0xa000}}{{HL:0xb008}} from {{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}!",
+      "chapter": "ending-sequence",
+      "character": "system",
+      "event": "ending-reward-02",
+      "tier": "authored",
+      "note": "5 reward lines share the frame 'X wa, Y kara Z wo moratta!' (X/Y both name-colored params, Z is the reward). jp full line RECONSTRUCTED from the source draft's stated template + given Z-slot content - the connecting JP particles were not given as an independently byte-verified quote, only the frame description was; re-verify against raw bytes before patching. EN naturally reorders X-Y-Z (JP order) to X-Z-Y (got Z from Y) - IMPORTANT: this means standalone_codes/param_blocks below (in JP occurrence order, per schema convention) do NOT line up 1:1 with EN's left-to-right occurrence order; a patch tool must NOT do a naive 'Nth occurrence in en = Nth occurrence in jp' mapping for these 5 entries - pairing is X=jp#1=en#1, Z=jp#3=en#2, Y=jp#2=en#3. Flagged for human review before these move past drafted status. Z slot has TWO consecutive {{PARAM:0xa000}} codes inside one bracket - a compound value (e.g. two-part item/enchant name, or amount+unit). Runtime meaning not confirmed.",
+      "status": "drafted",
+      "source_pool": "misc_labels",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "full-ELF text sweep + localization workflow 2026-09-02",
+      "standalone_codes": [
+        "0xb002",
+        "0xb008",
+        "0xb002",
+        "0xb008",
+        "0xb003",
+        "0xb008"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        }
+      ]
+    },
+    {
+      "id": "0x4f1760",
+      "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}は、{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}から{{HL:0xb003}}{{PARAM:0x8800}}{{HL:0xb008}}をもらった!",
+      "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}} got {{HL:0xb003}}{{PARAM:0x8800}}{{HL:0xb008}} from {{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}!",
+      "chapter": "ending-sequence",
+      "character": "system",
+      "event": "ending-reward-03",
+      "tier": "authored",
+      "note": "5 reward lines share the frame 'X wa, Y kara Z wo moratta!' (X/Y both name-colored params, Z is the reward). jp full line RECONSTRUCTED from the source draft's stated template + given Z-slot content - the connecting JP particles were not given as an independently byte-verified quote, only the frame description was; re-verify against raw bytes before patching. EN naturally reorders X-Y-Z (JP order) to X-Z-Y (got Z from Y) - IMPORTANT: this means standalone_codes/param_blocks below (in JP occurrence order, per schema convention) do NOT line up 1:1 with EN's left-to-right occurrence order; a patch tool must NOT do a naive 'Nth occurrence in en = Nth occurrence in jp' mapping for these 5 entries - pairing is X=jp#1=en#1, Z=jp#3=en#2, Y=jp#2=en#3. Flagged for human review before these move past drafted status. Z slot uses param 0x8800 (not 0xa000) - same non-standard param code as 0x52f53c's lost-item message, plausibly a money-amount slot, unconfirmed.",
+      "status": "drafted",
+      "source_pool": "misc_labels",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "full-ELF text sweep + localization workflow 2026-09-02",
+      "standalone_codes": [
+        "0xb002",
+        "0xb008",
+        "0xb002",
+        "0xb008",
+        "0xb003",
+        "0xb008"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0x8800"
+        }
+      ]
+    },
+    {
+      "id": "0x4f1790",
+      "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}は、{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}から{{HL:0xb003}}アイテム{{HL:0xb008}}をもらった!",
+      "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}} got {{HL:0xb003}}an Item{{HL:0xb008}} from {{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}!",
+      "chapter": "ending-sequence",
+      "character": "system",
+      "event": "ending-reward-04",
+      "tier": "authored",
+      "note": "5 reward lines share the frame 'X wa, Y kara Z wo moratta!' (X/Y both name-colored params, Z is the reward). jp full line RECONSTRUCTED from the source draft's stated template + given Z-slot content - the connecting JP particles were not given as an independently byte-verified quote, only the frame description was; re-verify against raw bytes before patching. EN naturally reorders X-Y-Z (JP order) to X-Z-Y (got Z from Y) - IMPORTANT: this means standalone_codes/param_blocks below (in JP occurrence order, per schema convention) do NOT line up 1:1 with EN's left-to-right occurrence order; a patch tool must NOT do a naive 'Nth occurrence in en = Nth occurrence in jp' mapping for these 5 entries - pairing is X=jp#1=en#1, Z=jp#3=en#2, Y=jp#2=en#3. Flagged for human review before these move past drafted status. Z slot is literal glyph text (generic fallback category), not a param.",
+      "status": "drafted",
+      "source_pool": "misc_labels",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "full-ELF text sweep + localization workflow 2026-09-02",
+      "standalone_codes": [
+        "0xb002",
+        "0xb008",
+        "0xb002",
+        "0xb008",
+        "0xb003",
+        "0xb008"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        }
+      ]
+    },
+    {
+      "id": "0x4f17d0",
+      "jp": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}は、{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}から{{HL:0xb003}}フィールド魔法{{HL:0xb008}}をもらった!",
+      "en": "{{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}} got {{HL:0xb003}}a Field Magic spell{{HL:0xb008}} from {{HL:0xb002}}{{PARAM:0xa000}}{{HL:0xb008}}!",
+      "chapter": "ending-sequence",
+      "character": "system",
+      "event": "ending-reward-05",
+      "tier": "authored",
+      "note": "5 reward lines share the frame 'X wa, Y kara Z wo moratta!' (X/Y both name-colored params, Z is the reward). jp full line RECONSTRUCTED from the source draft's stated template + given Z-slot content - the connecting JP particles were not given as an independently byte-verified quote, only the frame description was; re-verify against raw bytes before patching. EN naturally reorders X-Y-Z (JP order) to X-Z-Y (got Z from Y) - IMPORTANT: this means standalone_codes/param_blocks below (in JP occurrence order, per schema convention) do NOT line up 1:1 with EN's left-to-right occurrence order; a patch tool must NOT do a naive 'Nth occurrence in en = Nth occurrence in jp' mapping for these 5 entries - pairing is X=jp#1=en#1, Z=jp#3=en#2, Y=jp#2=en#3. Flagged for human review before these move past drafted status. Z slot is literal glyph text (generic fallback category), not a param.",
+      "status": "drafted",
+      "source_pool": "misc_labels",
+      "ref_type": "unknown",
+      "ref_sites": [],
+      "landing_vma": null,
+      "patch_ref": null,
+      "discovered_by": "full-ELF text sweep + localization workflow 2026-09-02",
+      "standalone_codes": [
+        "0xb002",
+        "0xb008",
+        "0xb002",
+        "0xb008",
+        "0xb003",
+        "0xb008"
+      ],
+      "param_blocks": [
+        {
+          "code": "0xa000"
+        },
+        {
+          "code": "0xa000"
+        }
+      ]
+    }
+  ],
+  "last_updated": "old"
+}

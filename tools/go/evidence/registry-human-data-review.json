@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "at": "2026-11-05T08:37:42.873676+00:00",
+  "kind": "Independent read-only final DATA/DOCS-only review, no approval",
+  "candidate": {
+    "manifest": "/var/tmp/dokapon-registry-human-sof2vzt3/review-source-data-final/manifest.json",
+    "sha256": "88e614725809e75316f5b8e9fc5cd71b97a3e18f61967ee35fb0786fe9d0f988",
+    "members_verified": 63,
+    "delta_from_final61": [
+      "README.md",
+      "recipes/registry/terminology-corrections.json",
+      "recipes/registry/terminology-glossary.json"
+    ],
+    "all60_other_preexisting_members_identical": true,
+    "Go_module_tests_fixtures_examples_unchanged": true
+  },
+  "source": {
+    "manifest": "/var/tmp/dokapon-registry-audit-source-rjBGvVjP/manifest.json",
+    "sha256": "1e70d60b43d7d137123c3b08a431926e05854db22dda736c3edfd68dde4b8d31",
+    "all25_members_verified": true,
+    "raw_files": 8,
+    "source_original_expression_locations": [
+      "sources/registry.py:461-477 current/new/old/status precedence",
+      "sources/registry.py:534-538 exact historical suffix",
+      "sources/registry.py:544-546 fivefield glossary projection"
+    ]
+  },
+  "findings": [],
+  "independent_checks": {
+    "corrections": 52,
+    "glossary_proposals": 17,
+    "source_raw_files": 8,
+    "source_order_and_all_fields_equal": true,
+    "exact_source_projection_bytes_equal": true,
+    "per_file_counts": [
+      {
+        "agent": 1,
+        "corrections": 9,
+        "glossary": 5
+      },
+      {
+        "agent": 2,
+        "corrections": 9,
+        "glossary": 3
+      },
+      {
+        "agent": 3,
+        "corrections": 26,
+        "glossary": 6
+      },
+      {
+        "agent": 4,
+        "corrections": 8,
+        "glossary": 3
+      }
+    ],
+    "normalized_IDs_unique_canonical": true,
+    "proposed_JP_unique": true,
+    "no_fix": {
+      "id": "0x477010",
+      "old_en": "was possessed by Doom!",
+      "new_en": "was possessed by Doom!",
+      "generic_semantic_outcome": "current==new ->already_applied, otherwise current!=old ->stale; nevereligible ornoteappend"
+    },
+    "provenance_counts": {
+      "authored": 15,
+      "web": 2
+    },
+    "web_labels_preserved_not_reverified": true,
+    "no_runtime_or_Go_tests_run": true,
+    "all_transport_values_unicode_scalar_valid_utf8": true
+  },
+  "assessment": {
+    "data_identity": "Candidate52correction and17glossary arrays are byteexact copies of frozen source projection, SHA3d97c09643d7559cdf192f19dd4075564721254b6548cf52b1e6506c6b244266 and9f2cf61291a09fc39a14cd53c00987c92767769ebaee1e3d1d8769053230e676.",
+    "independent_derivation": "Read all4CSV and4JSON files inagent1..4order. Independently projected closed correction4fields, exact old/new strings and historical Python-repr suffix; independently projected5glossary fields. Full array fields/order equal candidate. All typed strings/nonempty requirements, UTF8 scalar values, canonical/normalized unique IDs and exact uniqueJP were checked.",
+    "no_fix": "Only0x477010 has old_en==new_en (was possessed by Doom!). Existing generic precedence eitheralready_applied ifmatching, stale otherwise, or earlier malformed/missing-current refusal. It can neverbeeligible orappend a note. No specialterm handler/waiver is required or introduced.",
+    "reuse": "These are fixed authored facts for existing registry_reconcile transport. No runtime/per-agent/per-term handler/CSVprocessor/template added. Old source annotations are data, not runtime formatting logic.",
+    "README": "New paragraph correctlystates52/17counts, preauthoredhistoricalsuffixes, nofixskip and requirementfornewsourcepins/currentstatechecks beforeuse. It makes no currentapplicability/runtimeimplementation/fullfamily claim.",
+    "provenance": "15authored and2web labels preserved exactly. Webprovenance is an old source claim, not externallyreverified evidence. Historical2026-09-03 annotation is a pinnedliteral, not a newlyverified timestamp or currenttruth."
+  },
+  "verification": {
+    "mode": "Hash/JSON/CSV/static source comparison only",
+    "Go_build_test_race_run": false,
+    "runtime_changes": false,
+    "all_owned_jobs_terminal": true,
+    "previous_runtime_review_manifest": "/var/tmp/dokapon-registry-human-review-liUGwyJS/sealed-final/manifest.json",
+    "previous_runtime_review_sha256": "69eef98a370f45b2c60f0e55a801777fb32464a081f39eab7e5a04c161eb1465"
+  },
+  "scope_limits": [
+    "No canonical/current registry/glossary/actual62/5545data accessed, so no currentapplicability or currentstatus/EN judgement.",
+    "Rootcontrolled69/62semanticparities andrace results are separate evidence, not independentlyreplayed or adopted as reviewer oracles.",
+    "No .06/family/accounting promotion/retirement/reduction or approval claim. Rootowns whole criterioncrosswalk and acceptance.",
+    "No runtime/tests/rootfiles/protectedISO/art/emulator/auth/log/process controls orwrites. Sourcewebclaims not fetched or reverified."
+  ]
+}

@@ -18,6 +18,7 @@ import (
 	"io/fs"
 	"maps"
 	"math"
+	"math/big"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -2028,7 +2029,7 @@ func TestPlanAndCopy(t *testing.T) {
 			if err := run([]string{"--source", sourcePath, "--recipes", wholeRecipePath}, &preview); err != nil || !bytes.Contains(preview.Bytes(), []byte(`"iso_file"`)) || bytes.Contains(preview.Bytes(), []byte(`"new_hex"`)) {
 				t.Fatalf("whole-file CLI/report: %v", err)
 			}
-			for _, mutation := range []string{"name", "extent", "size", "source hash", "target hash", "bundle key", "bundle hash", "missing output hash", "malformed output hash", "mixed archives", "wrong operation", "wording selector", "sentinel transport"} {
+			for _, mutation := range []string{"name", "extent", "size", "source hash", "target hash", "bundle key", "bundle hash", "missing output hash", "malformed output hash", "mixed archives", "wrong operation", "wording selector", "sentinel transport", "draft import"} {
 				t.Run(mutation, func(t *testing.T) {
 					invalid := whole
 					invalid.Files = maps.Clone(whole.Files)
@@ -2057,6 +2058,8 @@ func TestPlanAndCopy(t *testing.T) {
 						invalid.Archives = recipe.Archives
 					case "wording selector":
 						invalid.WordingField = "jp"
+					case "draft import":
+						invalid.RegistryImport = &RegistryImportSpec{}
 					case "sentinel transport":
 						invalid.Sentinel = &SentinelLayout{RetailELFSize: 1920}
 					case "wrong operation":
@@ -2088,12 +2091,15 @@ func TestPlanAndCopy(t *testing.T) {
 }
 
 func TestPlanRefusals(t *testing.T) {
-	for _, name := range []string{"unknown authoring", "missing context", "independent prefix", "missing preimage", "missing encoding pin", "missing byte bound", "physical END", "body setup", "opaque payload", "scale prefix"} {
+	for _, name := range []string{"registry import", "unknown authoring", "missing context", "independent prefix", "missing preimage", "missing encoding pin", "missing byte bound", "physical END", "body setup", "opaque payload", "scale prefix"} {
 		r, registry, glyphs, image := fixture(t, "stream_reflow_format")
 		row := r.Entries["0x100"]
 		row.Authoring = "ordered"
 		wantError := ""
 		switch name {
+		case "registry import":
+			r.RegistryImport = &RegistryImportSpec{}
+			wantError = "registry updates"
 		case "unknown authoring":
 			row.Authoring = "automatic"
 		case "missing context":
@@ -3753,6 +3759,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 	bundledFixtures := make(map[string]map[string][]byte)
 	for _, fixture := range []struct{ Path, SHA256 string }{
 		{"testdata/asset-manifest.zip", assetManifestFixtureSHA},
+		{"testdata/registry-import-pretty.zip", "dda847089cae84f829fc47f263eec25d08e8c65eee1bfa54470116c9730d535d"},
 		{"testdata/sentinel-reader.zip", "991a0772859e89f02ef6d2a62868f33a887369938d769401c9891c4956b19ee1"},
 		{"testdata/gp-index-fixture.zip", "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97"},
 		{"testdata/instruction-index-fixture.zip", "6eb077edda6569ef5af3c7844d1189da902bf8773673bdd1f90076f8d9c4fc35"},
@@ -11530,6 +11537,1390 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		}
 
 		{
+			importDir := t.TempDir()
+			type jsonComparison struct {
+				label            string
+				actual, expected []byte
+			}
+			var completeComparisons []jsonComparison
+			var fixtures struct {
+				Glyphmap map[string]string
+				Cases    []struct {
+					Name, Policy, Source string
+					DiscoveredBy         string            `json:"discovered_by"`
+					MarkerOrders         string            `json:"marker_orders"`
+					Glyphmap             map[string]string `json:"-"`
+					Batches              []struct{ Name, Data string }
+					ExpectedRows         json.RawMessage `json:"expected_rows"`
+					Refuse               bool            `json:"expect_refuse"`
+					Unchanged            bool            `json:"unchanged_source"`
+					RawNumbers           []string        `json:"raw_number_literals"`
+				}
+			}
+			data, err := os.ReadFile("testdata/registry-import.json")
+			if err != nil || json.Unmarshal(data, &fixtures) != nil || len(fixtures.Cases) != 50 {
+				t.Fatal("independent registry import fixtures", err)
+			}
+			glyphData, err := json.Marshal(fixtures.Glyphmap)
+			if err != nil {
+				t.Fatal(err)
+			}
+			glyphPath := write(filepath.Join(importDir, "import-glyphs.json"), glyphData)
+			fullSweepFixtures := fixtures
+			fullSweepFixtures.Glyphmap, fullSweepFixtures.Cases = nil, nil
+			fullSweepData, err := os.ReadFile("testdata/registry-full-sweep.json")
+			if err != nil || json.Unmarshal(fullSweepData, &fullSweepFixtures) != nil || len(fullSweepFixtures.Cases) != 55 {
+				t.Fatal("independent full-sweep fixtures", err)
+			}
+			for _, c := range fullSweepFixtures.Cases {
+				c.Glyphmap = fullSweepFixtures.Glyphmap
+				fixtures.Cases = append(fixtures.Cases, c)
+			}
+			accepted, refused := 0, 0
+			for _, c := range fixtures.Cases {
+				caseGlyphData, caseGlyphPath := glyphData, glyphPath
+				if c.Glyphmap != nil {
+					caseGlyphData, err = json.Marshal(c.Glyphmap)
+					if err != nil {
+						t.Fatal(err)
+					}
+					caseGlyphPath = write(filepath.Join(importDir, "import-"+c.Name+"-glyphs.json"), caseGlyphData)
+				}
+				source := []byte(c.Source)
+				sourcePath := write(filepath.Join(importDir, "import-"+c.Name+"-source.json"), source)
+				inputs := map[string]RegistryInput{"glyphs": {Path: caseGlyphPath, Size: int64(len(caseGlyphData)), SHA256: fmt.Sprintf("%x", sha256.Sum256(caseGlyphData))}}
+				originals := map[string][]byte{sourcePath: source, caseGlyphPath: caseGlyphData}
+				declaration := map[string]any{"policy": c.Policy, "glyphmap": "glyphs"}
+				batchNames := []string{}
+				for i, batch := range c.Batches {
+					name := fmt.Sprintf("batch%d", i)
+					body := []byte(batch.Data)
+					path := write(filepath.Join(importDir, "import-"+c.Name+"-"+name+".data"), body)
+					inputs[name] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+					originals[path] = body
+					batchNames = append(batchNames, name)
+				}
+				declaration["batches"] = batchNames
+				if c.Policy == "csv_drafts" {
+					declaration["discovered_by"] = c.DiscoveredBy
+				}
+				if c.MarkerOrders != "" {
+					body := []byte(c.MarkerOrders)
+					path := write(filepath.Join(importDir, "import-"+c.Name+"-orders.json"), body)
+					inputs["orders"] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+					originals[path] = body
+					declaration["marker_orders"] = "orders"
+				}
+				request := map[string]any{"operation": "registry_add", "source_size": len(source), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(source)), "evidence": "Independent original import contracts and declared strict wire boundaries", "updated": "2026-11-05", "registry_import": declaration, "registry_inputs": inputs}
+				profilePath := jsonFile(filepath.Join(importDir, "import-"+c.Name+"-profile.json"), request)
+				profileData, err := os.ReadFile(profilePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				originals[profilePath] = profileData
+				args := []string{"--source", sourcePath, "--recipes", profilePath}
+				output := filepath.Join(importDir, "import-"+c.Name+"-out.json")
+				var preview bytes.Buffer
+				err = run(args, &preview)
+				if c.Refuse {
+					refused++
+					if err == nil || preview.Len() != 0 {
+						t.Fatal("import accepted refusal", c.Name, err, preview.String())
+					}
+					if err := run(append(slices.Clone(args), "--apply", "--output", output), io.Discard); err == nil {
+						t.Fatal("import applied refused cohort", c.Name)
+					}
+					if _, err := os.Stat(output); !os.IsNotExist(err) {
+						t.Fatal("import refusal published output", c.Name, err)
+					}
+				} else {
+					accepted++
+					if err != nil {
+						t.Fatal("import refused admission", c.Name, err)
+					}
+					if _, err := os.Stat(output); !os.IsNotExist(err) {
+						t.Fatal("import preview wrote output", c.Name, err)
+					}
+					var report struct {
+						Operation string
+						Import    struct {
+							Policy  string
+							Records int
+							Limits  string
+						}
+						Limits string
+					}
+					if json.Unmarshal(preview.Bytes(), &report) != nil || report.Operation != "registry_add" || report.Import.Policy != c.Policy || !strings.Contains(report.Limits, "draft") || !strings.Contains(report.Import.Limits, "not byte-source") {
+						t.Fatal("import misrepresented draft admission", c.Name, preview.String())
+					}
+					var applied bytes.Buffer
+					if err := run(append(slices.Clone(args), "--apply", "--output", output), &applied); err != nil {
+						t.Fatal("import apply", c.Name, err)
+					}
+					written, err := os.ReadFile(output)
+					if err != nil {
+						t.Fatal(err)
+					}
+					if c.Unchanged && !bytes.Equal(written, source) {
+						t.Fatal("all-present import changed source bytes/date", c.Name)
+					}
+					for _, literal := range c.RawNumbers {
+						if !bytes.Contains(written, []byte(literal)) {
+							t.Fatal("import changed numeric lexeme", c.Name, literal)
+						}
+					}
+					var document map[string]json.RawMessage
+					if json.Unmarshal(written, &document) != nil {
+						t.Fatal("import output JSON", c.Name)
+					}
+					completeComparisons = append(completeComparisons, jsonComparison{c.Name, document["entries"], c.ExpectedRows})
+					if !c.Unchanged && string(document["last_updated"]) != `"2026-11-05"` {
+						t.Fatal("import date not declared", c.Name, string(document["last_updated"]))
+					}
+					if err := run(append(slices.Clone(args), "--apply", "--output", output), io.Discard); err == nil {
+						t.Fatal("import overwrote existing output", c.Name)
+					}
+					after, err := os.ReadFile(output)
+					if err != nil || !bytes.Equal(after, written) {
+						t.Fatal("exclusive import retry changed output", c.Name, err)
+					}
+				}
+				for path, want := range originals {
+					got, err := os.ReadFile(path)
+					if err != nil || !bytes.Equal(got, want) {
+						t.Fatal("import changed input", c.Name, path, err)
+					}
+				}
+			}
+			if accepted != 32 || refused != 73 {
+				t.Fatal("independent import cohort changed", accepted, refused)
+			}
+			var paired struct {
+				Cases []struct {
+					Name, Updated     string
+					Registry          string `json:"registry_source"`
+					Glossary          string `json:"glossary_source"`
+					Corrections       string
+					Proposals         string                                   `json:"glossary_proposals"`
+					Refuse            bool                                     `json:"expect_refuse"`
+					ExpectedRegistry  json.RawMessage                          `json:"expected_registry"`
+					ExpectedGlossary  json.RawMessage                          `json:"expected_glossary"`
+					RegistryUnchanged bool                                     `json:"registry_unchanged"`
+					GlossaryUnchanged bool                                     `json:"glossary_unchanged"`
+					RegistryBytes     string                                   `json:"expected_registry_bytes"`
+					GlossaryBytes     string                                   `json:"expected_glossary_bytes"`
+					RegistryLexemes   []string                                 `json:"registry_raw_lexemes"`
+					GlossaryLexemes   []string                                 `json:"glossary_raw_lexemes"`
+					Outcomes          struct{ Corrections, Glossary []string } `json:"expected_outcomes"`
+					ApplyOutcomes     struct{ Corrections, Glossary []string } `json:"expected_apply_outcomes"`
+				}
+			}
+			pairData, err := os.ReadFile("testdata/registry-paired.json")
+			if err != nil || json.Unmarshal(pairData, &paired) != nil || len(paired.Cases) != 50 {
+				t.Fatal("independent paired fixtures", err)
+			}
+			pairAccepted, pairRefused := 0, 0
+			for _, c := range paired.Cases {
+				source := []byte(c.Registry)
+				sourcePath := write(filepath.Join(importDir, "paired-"+c.Name+"-source.json"), source)
+				inputs := map[string]RegistryInput{}
+				originals := map[string][]byte{sourcePath: source}
+				for name, text := range map[string]string{"glossary": c.Glossary, "corrections": c.Corrections, "glossary_proposals": c.Proposals} {
+					body := []byte(text)
+					path := write(filepath.Join(importDir, "paired-"+c.Name+"-"+name+".json"), body)
+					inputs[name] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+					originals[path] = body
+				}
+				request := map[string]any{"operation": "registry_reconcile", "source_size": len(source), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(source)), "evidence": "Independent frozen paired member contracts", "updated": c.Updated, "registry_inputs": inputs}
+				profilePath := jsonFile(filepath.Join(importDir, "paired-"+c.Name+"-profile.json"), request)
+				originals[profilePath], err = os.ReadFile(profilePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				args := []string{"--source", sourcePath, "--recipes", profilePath}
+				output := filepath.Join(importDir, "paired-"+c.Name+"-out.zip")
+				var previewHash string
+				for _, apply := range []bool{false, true} {
+					call := slices.Clone(args)
+					if apply {
+						call = append(call, "--apply", "--output", output)
+					}
+					var report bytes.Buffer
+					err := run(call, &report)
+					if c.Refuse {
+						if err == nil || report.Len() != 0 {
+							t.Fatal("paired refusal admitted", c.Name, apply, err, report.String())
+						}
+					} else {
+						var summary struct {
+							Hash                  string `json:"output_sha256"`
+							Corrections, Glossary []struct{ Outcome string }
+							Members               []struct{ Name string }
+						}
+						if err != nil || json.Unmarshal(report.Bytes(), &summary) != nil || len(summary.Members) != 2 || summary.Members[0].Name != "registry.json" || summary.Members[1].Name != "glossary.json" {
+							t.Fatal("paired report", c.Name, apply, err, report.String())
+						}
+						want := c.Outcomes
+						if apply {
+							want = c.ApplyOutcomes
+						}
+						for kind, rows := range map[string][]struct{ Outcome string }{"corrections": summary.Corrections, "glossary": summary.Glossary} {
+							expected := want.Corrections
+							if kind == "glossary" {
+								expected = want.Glossary
+							}
+							if len(rows) != len(expected) {
+								t.Fatal("paired outcome count", c.Name, kind)
+							}
+							for i, row := range rows {
+								if row.Outcome != expected[i] {
+									t.Fatal("paired outcome order", c.Name, kind, i, row, expected)
+								}
+							}
+						}
+						if apply && summary.Hash != previewHash {
+							t.Fatal("paired preview/apply hash differs", c.Name)
+						}
+						previewHash = summary.Hash
+					}
+					if !apply || c.Refuse {
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("paired preview/refusal published", c.Name, apply, err)
+						}
+					}
+				}
+				if c.Refuse {
+					pairRefused++
+				} else {
+					pairAccepted++
+					bundle, err := os.ReadFile(output)
+					if err != nil || fmt.Sprintf("%x", sha256.Sum256(bundle)) != previewHash {
+						t.Fatal("paired archive digest", c.Name, err)
+					}
+					archive, err := zip.NewReader(bytes.NewReader(bundle), int64(len(bundle)))
+					if err != nil || len(archive.File) != 2 {
+						t.Fatal("paired ZIP shape", c.Name, err)
+					}
+					members := map[string][]byte{}
+					for i, file := range archive.File {
+						name := []string{"registry.json", "glossary.json"}[i]
+						if file.Name != name || file.Method != zip.Store {
+							t.Fatal("paired member name/order/method", c.Name, file.Name, file.Method)
+						}
+						reader, err := file.Open()
+						if err != nil {
+							t.Fatal(err)
+						}
+						body, readErr := io.ReadAll(io.LimitReader(reader, 64<<20+1))
+						closeErr := reader.Close()
+						if readErr != nil || closeErr != nil || len(body) > 64<<20 {
+							t.Fatal("paired member read/CRC/bound", c.Name, readErr, closeErr)
+						}
+						members[name] = body
+						want, unchanged, raw, lexemes := c.ExpectedRegistry, c.RegistryUnchanged, c.RegistryBytes, c.RegistryLexemes
+						if i == 1 {
+							want, unchanged, raw, lexemes = c.ExpectedGlossary, c.GlossaryUnchanged, c.GlossaryBytes, c.GlossaryLexemes
+						}
+						completeComparisons = append(completeComparisons, jsonComparison{c.Name + "/" + name, body, want})
+						if unchanged && !bytes.Equal(body, []byte(raw)) {
+							t.Fatal("unchanged paired member/date reformatted", c.Name, name)
+						}
+						for _, needle := range lexemes {
+							if !bytes.Contains(body, []byte(needle)) {
+								t.Fatal("paired raw metadata lexeme lost", c.Name, name, needle)
+							}
+						}
+					}
+					second := output + "-second.zip"
+					if err := run(append(slices.Clone(args), "--apply", "--output", second), io.Discard); err != nil {
+						t.Fatal("paired deterministic repeat", c.Name, err)
+					}
+					if got, err := os.ReadFile(second); err != nil || !bytes.Equal(got, bundle) {
+						t.Fatal("paired ZIP headers not deterministic", c.Name, err)
+					}
+					if err := run(append(slices.Clone(args), "--apply", "--output", output), io.Discard); err == nil {
+						t.Fatal("paired overwrite accepted", c.Name)
+					}
+					if got, err := os.ReadFile(output); err != nil || !bytes.Equal(got, bundle) {
+						t.Fatal("paired refusal changed existing output", c.Name, err)
+					}
+					// Reusing the emitted members must not append again or rewrite either date.
+					replayInputs := maps.Clone(inputs)
+					replaySource := write(filepath.Join(importDir, "paired-"+c.Name+"-replay-registry.json"), members["registry.json"])
+					glossaryPath := write(filepath.Join(importDir, "paired-"+c.Name+"-replay-glossary.json"), members["glossary.json"])
+					replayInputs["glossary"] = RegistryInput{Path: glossaryPath, Size: int64(len(members["glossary.json"])), SHA256: fmt.Sprintf("%x", sha256.Sum256(members["glossary.json"]))}
+					replay := maps.Clone(request)
+					replay["source_size"], replay["source_sha256"], replay["registry_inputs"] = len(members["registry.json"]), fmt.Sprintf("%x", sha256.Sum256(members["registry.json"])), replayInputs
+					replayProfile := jsonFile(filepath.Join(importDir, "paired-"+c.Name+"-replay-profile.json"), replay)
+					replayed := output + "-replayed.zip"
+					if err := run([]string{"--source", replaySource, "--recipes", replayProfile, "--apply", "--output", replayed}, io.Discard); err != nil {
+						t.Fatal("paired emitted-source replay", c.Name, err)
+					}
+					if got, err := os.ReadFile(replayed); err != nil || !bytes.Equal(got, bundle) {
+						t.Fatal("paired replay changed annotation/member bytes/date", c.Name, err)
+					}
+				}
+				for path, want := range originals {
+					if got, err := os.ReadFile(path); err != nil || !bytes.Equal(got, want) {
+						t.Fatal("paired operation changed input", c.Name, path, err)
+					}
+				}
+			}
+			if pairAccepted != 17 || pairRefused != 33 {
+				t.Fatal("paired fixture cohort changed", pairAccepted, pairRefused)
+			}
+			var humanFixtures struct {
+				Cases []struct {
+					Name, Source, Decoded, Flow, Authored, Updated string
+					ExpectedDocument                               json.RawMessage `json:"expected_document"`
+					Refuse                                         bool            `json:"expect_refuse"`
+					Unchanged                                      bool            `json:"unchanged_source"`
+					RawNumbers                                     []string        `json:"raw_number_literals"`
+				}
+			}
+			humanData, err := os.ReadFile("testdata/registry-human.json")
+			if err != nil || json.Unmarshal(humanData, &humanFixtures) != nil || len(humanFixtures.Cases) != 55 {
+				t.Fatal("independent human source fixtures", err)
+			}
+			humanAccepted, humanRefused := 0, 0
+			for _, c := range humanFixtures.Cases {
+				source := []byte(c.Source)
+				sourcePath := write(filepath.Join(importDir, "human-"+c.Name+"-source.json"), source)
+				inputs := make(map[string]RegistryInput)
+				originals := map[string][]byte{sourcePath: source}
+				for name, value := range map[string]string{"decoded": c.Decoded, "flow": c.Flow, "authored": c.Authored} {
+					body := []byte(value)
+					path := write(filepath.Join(importDir, "human-"+c.Name+"-"+name+".json"), body)
+					inputs[name] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+					originals[path] = body
+				}
+				request := map[string]any{"operation": "registry_human", "source_size": len(source), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(source)), "evidence": "Independent manual55 full human states frozen before Go", "updated": c.Updated, "registry_inputs": inputs}
+				profilePath := jsonFile(filepath.Join(importDir, "human-"+c.Name+"-profile.json"), request)
+				profileData, err := os.ReadFile(profilePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				originals[profilePath] = profileData
+				args := []string{"--source", sourcePath, "--recipes", profilePath}
+				var firstOutput []byte
+				for _, apply := range []bool{false, true} {
+					output := filepath.Join(importDir, "human-"+c.Name+"-out.json")
+					call := slices.Clone(args)
+					if apply {
+						call = append(call, "--apply", "--output", output)
+					}
+					var report bytes.Buffer
+					err := run(call, &report)
+					if c.Refuse {
+						if err == nil || report.Len() != 0 {
+							t.Fatal("human refusal", c.Name, apply, err, report.String())
+						}
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("human refusal published", c.Name, err)
+						}
+						continue
+					}
+					if err != nil {
+						t.Fatal("human admission", c.Name, apply, err)
+					}
+					var result struct {
+						Operation        string
+						Applied, Changed bool
+						OutputSHA256     string `json:"output_sha256"`
+					}
+					if json.Unmarshal(report.Bytes(), &result) != nil || result.Operation != "registry_human" || result.Applied != apply || result.Changed == c.Unchanged {
+						t.Fatal("human report", c.Name, report.String())
+					}
+					if !apply {
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("human preview published", c.Name, err)
+						}
+						continue
+					}
+					firstOutput, err = os.ReadFile(output)
+					if err != nil || fmt.Sprintf("%x", sha256.Sum256(firstOutput)) != result.OutputSHA256 || c.Unchanged && !bytes.Equal(source, firstOutput) {
+						t.Fatal("human whole output identity/noop", c.Name, err)
+					}
+					for _, literal := range c.RawNumbers {
+						if !bytes.Contains(firstOutput, []byte(literal)) {
+							t.Fatal("human raw number changed", c.Name, literal)
+						}
+					}
+					completeComparisons = append(completeComparisons, jsonComparison{c.Name + "/human", firstOutput, c.ExpectedDocument})
+					if err := run(call, io.Discard); err == nil {
+						t.Fatal("human output overwrite allowed", c.Name)
+					}
+					replay := maps.Clone(request)
+					replay["source_size"], replay["source_sha256"], replay["updated"] = len(firstOutput), result.OutputSHA256, "2026-11-06"
+					replayProfile := jsonFile(filepath.Join(importDir, "human-"+c.Name+"-replay-profile.json"), replay)
+					replayOutput := filepath.Join(importDir, "human-"+c.Name+"-replay.json")
+					if err := run([]string{"--source", output, "--recipes", replayProfile, "--apply", "--output", replayOutput}, io.Discard); err != nil {
+						t.Fatal("human emitted-source replay", c.Name, err)
+					}
+					body, err := os.ReadFile(replayOutput)
+					if err != nil || !bytes.Equal(firstOutput, body) {
+						t.Fatal("human replay bytes/date changed", c.Name, err)
+					}
+				}
+				for path, body := range originals {
+					current, err := os.ReadFile(path)
+					if err != nil || !bytes.Equal(current, body) {
+						t.Fatal("human input mutated", c.Name, path, err)
+					}
+				}
+				if c.Refuse {
+					humanRefused++
+				} else {
+					humanAccepted++
+				}
+			}
+			if humanAccepted != 29 || humanRefused != 26 {
+				t.Fatal("human fixture cohort changed", humanAccepted, humanRefused)
+			}
+
+			for _, comparison := range completeComparisons {
+				// Compare complete values without rounding arbitrary JSON integers or exponents.
+				var actual, expected any
+				decoder := json.NewDecoder(bytes.NewReader(comparison.actual))
+				decoder.UseNumber()
+				if err := decoder.Decode(&actual); err != nil {
+					t.Fatal(err)
+				}
+				decoder = json.NewDecoder(bytes.NewReader(comparison.expected))
+				decoder.UseNumber()
+				if err := decoder.Decode(&expected); err != nil {
+					t.Fatal(err)
+				}
+				pending := [][2]any{{actual, expected}}
+				for len(pending) > 0 {
+					pair := pending[len(pending)-1]
+					pending = pending[:len(pending)-1]
+					switch value := pair[0].(type) {
+					case map[string]any:
+						want, ok := pair[1].(map[string]any)
+						if !ok || len(value) != len(want) {
+							t.Fatal("import object shape", comparison.label, pair)
+						}
+						for key, child := range value {
+							other, present := want[key]
+							if !present {
+								t.Fatal("unexpected import field", comparison.label, key)
+							}
+							pending = append(pending, [2]any{child, other})
+						}
+					case []any:
+						want, ok := pair[1].([]any)
+						if !ok || len(value) != len(want) {
+							t.Fatal("import array shape", comparison.label, pair)
+						}
+						for i, child := range value {
+							pending = append(pending, [2]any{child, want[i]})
+						}
+					case json.Number:
+						want, ok := pair[1].(json.Number)
+						if !ok {
+							t.Fatal("import number type", comparison.label, pair)
+						}
+						left, lok := new(big.Rat).SetString(string(value))
+						right, rok := new(big.Rat).SetString(string(want))
+						if !lok || !rok || left.Cmp(right) != 0 {
+							t.Fatal("import numeric value", comparison.label, pair)
+						}
+					default:
+						if !reflect.DeepEqual(pair[0], pair[1]) {
+							t.Fatal("import complete field value", comparison.label, pair)
+						}
+					}
+				}
+			}
+			var provenance struct {
+				Cases []struct {
+					ID, SHA256       string
+					DiscoveredBy     string `json:"discovered_by"`
+					Bytes            int    `json:"utf8_bytes"`
+					Accept           bool   `json:"expected_accept"`
+					Note             string `json:"expected_note"`
+					Provenance       string `json:"expected_discovered_by"`
+					NoReportOrOutput bool   `json:"expected_no_report_or_publication"`
+				}
+			}
+			boundaryData, err := os.ReadFile("testdata/registry-import-provenance.json")
+			if err != nil || json.Unmarshal(boundaryData, &provenance) != nil || len(provenance.Cases) != 5 {
+				t.Fatal("independent provenance boundaries", err)
+			}
+			for _, c := range provenance.Cases {
+				if len(c.DiscoveredBy) != c.Bytes || fmt.Sprintf("%x", sha256.Sum256([]byte(c.DiscoveredBy))) != c.SHA256 || c.Accept == c.NoReportOrOutput {
+					t.Fatal("provenance boundary literal changed", c.ID)
+				}
+				source := []byte(`{"entries":[]}`)
+				batch := []byte("id,jp,en,chapter,character,event,tier,mode,source_pool,note\n0x20,A,A,c,n,,1,,p,\n")
+				sourcePath := write(filepath.Join(importDir, "provenance-source.json"), source)
+				batchPath := write(filepath.Join(importDir, "provenance-batch.csv"), batch)
+				request := map[string]any{"operation": "registry_add", "source_size": len(source), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(source)), "evidence": "Independent RRI-1 provenance boundary literals, including original 282-byte identity", "updated": "2026-11-05", "registry_import": RegistryImportSpec{Policy: "csv_drafts", Batches: []string{"batch"}, Glyphmap: "glyphs", DiscoveredBy: c.DiscoveredBy}, "registry_inputs": map[string]RegistryInput{"batch": {Path: batchPath, Size: int64(len(batch)), SHA256: fmt.Sprintf("%x", sha256.Sum256(batch))}, "glyphs": {Path: glyphPath, Size: int64(len(glyphData)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphData))}}}
+				profilePath := jsonFile(filepath.Join(importDir, "provenance-profile.json"), request)
+				args := []string{"--source", sourcePath, "--recipes", profilePath}
+				output := filepath.Join(importDir, "provenance-"+c.ID+".json")
+				for _, apply := range []bool{false, true} {
+					call := slices.Clone(args)
+					if apply {
+						call = append(call, "--apply", "--output", output)
+					}
+					var report bytes.Buffer
+					err := run(call, &report)
+					if c.Accept {
+						if err != nil || report.Len() == 0 {
+							t.Fatal("bounded original/ASCII/Unicode provenance refused", c.ID, apply, err)
+						}
+					} else if err == nil || report.Len() != 0 || !strings.Contains(err.Error(), "1..512") {
+						t.Fatal("oversized provenance admitted or wrong boundary", c.ID, apply, err)
+					}
+					if !apply || !c.Accept {
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("provenance preview/refusal published", c.ID, apply, err)
+						}
+					}
+				}
+				if c.Accept {
+					var document struct {
+						Entries []struct {
+							Note         string
+							DiscoveredBy string `json:"discovered_by"`
+						}
+					}
+					written, err := os.ReadFile(output)
+					if err != nil || json.Unmarshal(written, &document) != nil || len(document.Entries) != 1 || document.Entries[0].Note != c.Note || document.Entries[0].DiscoveredBy != c.Provenance {
+						t.Fatal("bounded provenance changed value", c.ID, err, string(written))
+					}
+				}
+				if got, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(got, source) {
+					t.Fatal("provenance boundary changed source", c.ID, err)
+				}
+			}
+			prettyFiles := bundledFixtures["testdata/registry-import-pretty.zip"]
+			var syntax struct {
+				Cases []struct {
+					ID       string
+					Raw      string `json:"raw_utf8"`
+					Upper    int64  `json:"upper_bound_bytes"`
+					Actual   int    `json:"actual_pretty_bytes"`
+					Expected string `json:"actual_pretty_utf8"`
+				}
+			}
+			if json.Unmarshal(prettyFiles["syntax-literals.json"], &syntax) != nil || len(syntax.Cases) != 10 {
+				t.Fatal("independent two-space budget syntax literals")
+			}
+			for _, c := range syntax.Cases {
+				var formatted bytes.Buffer
+				if err := json.Indent(&formatted, []byte(c.Raw), "", "  "); err != nil || formatted.String() != c.Expected || formatted.Len() != c.Actual || int64(c.Actual) > c.Upper {
+					t.Fatal("independent actual formatting literal", c.ID, err)
+				}
+				if err := checkJSON(checkedJSON{raw: []byte(c.Raw)}); err != nil {
+					t.Fatal("zero budget changed old checker policy", c.ID, err)
+				}
+				if err := checkJSON(checkedJSON{raw: []byte(c.Raw), maxPrettyBytes: c.Upper}); err != nil {
+					t.Fatal("two-space bound refused its literal endpoint", c.ID, err)
+				}
+				if c.Upper > 1 {
+					if err := checkJSON(checkedJSON{raw: []byte(c.Raw), maxPrettyBytes: c.Upper - 1}); err == nil || !strings.Contains(err.Error(), "byte budget") {
+						t.Fatal("two-space budget missed syntax or conservative empty-container bound", c.ID, err)
+					}
+				}
+			}
+			type prettyCase struct {
+				id, disposition, sha string
+				bytes                int
+			}
+			var prettyCases []prettyCase
+			var deep struct {
+				Vectors []struct {
+					ID          string
+					Disposition string `json:"expected_new_budget_disposition"`
+					Bytes       int    `json:"actual_expected_pretty_output_bytes"`
+					SHA         string `json:"expected_pretty_output_sha256"`
+				}
+			}
+			if json.Unmarshal(prettyFiles["deep-vectors.json"], &deep) != nil || len(deep.Vectors) != 3 {
+				t.Fatal("independent deep budget vectors")
+			}
+			for _, c := range deep.Vectors {
+				prettyCases = append(prettyCases, prettyCase{c.ID, c.Disposition, c.SHA, c.Bytes})
+			}
+			var inherited struct {
+				Cases []struct {
+					ID          string
+					Disposition string `json:"expected_new_budget_disposition"`
+					Bytes       int    `json:"expected_output_bytes"`
+					SHA         string `json:"expected_output_sha256"`
+				}
+			}
+			if json.Unmarshal(prettyFiles["inherited-boundaries.json"], &inherited) != nil || len(inherited.Cases) != 2 {
+				t.Fatal("independent inherited budget vectors")
+			}
+			for _, c := range inherited.Cases {
+				prettyCases = append(prettyCases, prettyCase{c.ID, c.Disposition, c.SHA, c.Bytes})
+			}
+			for _, c := range prettyCases {
+				source := prettyFiles[c.id+"/source.json"]
+				sourcePath := write(filepath.Join(importDir, c.id+"-source.json"), source)
+				var request map[string]json.RawMessage
+				if json.Unmarshal(prettyFiles[c.id+"/profile.json"], &request) != nil {
+					t.Fatal("pretty input profile", c.id)
+				}
+				var inputs map[string]RegistryInput
+				if json.Unmarshal(request["registry_inputs"], &inputs) != nil {
+					t.Fatal("pretty input resource pins", c.id)
+				}
+				originals := map[string][]byte{sourcePath: source}
+				for name, input := range inputs {
+					body := prettyFiles[c.id+"/"+input.Path]
+					if int64(len(body)) != input.Size || fmt.Sprintf("%x", sha256.Sum256(body)) != input.SHA256 {
+						t.Fatal("pretty source resource pin", c.id, name)
+					}
+					input.Path = write(filepath.Join(importDir, c.id+"-"+name+".data"), body)
+					inputs[name], originals[input.Path] = input, body
+				}
+				request["registry_inputs"], _ = json.Marshal(inputs)
+				profilePath := jsonFile(filepath.Join(importDir, c.id+"-profile.json"), request)
+				originals[profilePath], err = os.ReadFile(profilePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				args := []string{"--source", sourcePath, "--recipes", profilePath}
+				output := filepath.Join(importDir, c.id+"-output.json")
+				refuse := strings.HasPrefix(c.disposition, "refuse")
+				for _, apply := range []bool{false, true} {
+					call := slices.Clone(args)
+					if apply {
+						call = append(call, "--apply", "--output", output)
+					}
+					var report bytes.Buffer
+					err := run(call, &report)
+					if refuse {
+						if err == nil || report.Len() != 0 || !strings.Contains(err.Error(), "byte budget") {
+							t.Fatal("deep merged metadata escaped pre-indent bound", c.id, apply, err)
+						}
+					} else {
+						var summary struct {
+							Hash string `json:"output_sha256"`
+						}
+						if err != nil || json.Unmarshal(report.Bytes(), &summary) != nil || summary.Hash != c.sha {
+							t.Fatal("deep metadata changed independent whole-output hash", c.id, apply, err, report.String())
+						}
+					}
+					if refuse || !apply {
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("pretty preview/refusal published output", c.id, apply, err)
+						}
+					}
+				}
+				if c.id == "inherited-34-deep-plus-new" {
+					var sourceDoc map[string]json.RawMessage
+					var sourceRows []map[string]json.RawMessage
+					if json.Unmarshal(source, &sourceDoc) != nil || json.Unmarshal(sourceDoc["entries"], &sourceRows) != nil {
+						t.Fatal("shared budget inherited source")
+					}
+					var existingID string
+					_ = json.Unmarshal(sourceRows[0]["id"], &existingID)
+					for _, operation := range []string{"registry_author", "registry_merge", "registry_add"} {
+						shared := maps.Clone(request)
+						delete(shared, "registry_import")
+						delete(shared, "registry_inputs")
+						shared["operation"], _ = json.Marshal(operation)
+						updates := map[string]map[string]json.RawMessage{existingID: {"en": json.RawMessage(`"B"`)}}
+						switch operation {
+						case "registry_merge":
+							updates[existingID] = map[string]json.RawMessage{"patch_ref": json.RawMessage(`"shared"`)}
+						case "registry_add":
+							updates = map[string]map[string]json.RawMessage{"0x99ff": {"jp": json.RawMessage(`"A"`), "en": json.RawMessage(`"B"`), "status": json.RawMessage(`"drafted"`), "source_pool": json.RawMessage(`"synthetic"`)}}
+						}
+						shared["registry_updates"], _ = json.Marshal(updates)
+						path := jsonFile(filepath.Join(importDir, operation+"-oversized.json"), shared)
+						for _, apply := range []bool{false, true} {
+							call := []string{"--source", sourcePath, "--recipes", path}
+							if apply {
+								call = append(call, "--apply", "--output", output)
+							}
+							var report bytes.Buffer
+							if err := run(call, &report); err == nil || report.Len() != 0 || !strings.Contains(err.Error(), "byte budget") {
+								t.Fatal("older registry route bypassed shared output budget", operation, apply, err)
+							}
+							if _, err := os.Stat(output); !os.IsNotExist(err) {
+								t.Fatal("oversized registry route published", operation, err)
+							}
+						}
+					}
+					// Opaque root metadata joins only at the final compact stage.
+					rootSource := maps.Clone(sourceDoc)
+					rootSource["opaque_root"], _ = json.Marshal(map[string]json.RawMessage{"held": sourceDoc["entries"]})
+					rootSource["entries"] = json.RawMessage(`[{"id":"0x99ff","jp":"A","en":"A","status":"drafted","source_pool":"synthetic"}]`)
+					rootData, _ := json.Marshal(rootSource)
+					rootPath := write(filepath.Join(importDir, "deep-root-source.json"), rootData)
+					rootRequest := maps.Clone(request)
+					rootRequest["source_size"], _ = json.Marshal(len(rootData))
+					rootRequest["source_sha256"], _ = json.Marshal(fmt.Sprintf("%x", sha256.Sum256(rootData)))
+					rootProfile := jsonFile(filepath.Join(importDir, "deep-root-profile.json"), rootRequest)
+					for _, apply := range []bool{false, true} {
+						call := []string{"--source", rootPath, "--recipes", rootProfile}
+						if apply {
+							call = append(call, "--apply", "--output", output)
+						}
+						var report bytes.Buffer
+						if err := run(call, &report); err == nil || report.Len() != 0 || !strings.Contains(err.Error(), "byte budget") {
+							t.Fatal("opaque root escaped final budget", apply, err)
+						}
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("oversized root published", apply, err)
+						}
+					}
+				}
+				if !refuse {
+					written, err := os.ReadFile(output)
+					if err != nil || len(written) != c.bytes || fmt.Sprintf("%x", sha256.Sum256(written)) != c.sha || strings.Contains(c.disposition, "noop") && !bytes.Equal(written, source) {
+						t.Fatal("deep budget output size/hash/noop", c.id, err)
+					}
+					if strings.Contains(c.disposition, "noop") {
+						var sourceDoc map[string]json.RawMessage
+						var sourceRows []map[string]json.RawMessage
+						if json.Unmarshal(source, &sourceDoc) != nil || json.Unmarshal(sourceDoc["entries"], &sourceRows) != nil {
+							t.Fatal("inline deep no-op source")
+						}
+						var id string
+						_ = json.Unmarshal(sourceRows[0]["id"], &id)
+						inline := maps.Clone(request)
+						delete(inline, "registry_import")
+						delete(inline, "registry_inputs")
+						inline["registry_updates"], _ = json.Marshal(map[string]map[string]json.RawMessage{id: {"jp": sourceRows[0]["jp"], "en": sourceRows[0]["en"], "status": json.RawMessage(`"drafted"`), "source_pool": json.RawMessage(`"ignored incoming metadata"`)}})
+						path := jsonFile(filepath.Join(importDir, "inline-deep-noop-profile.json"), inline)
+						inlineOutput := output + "-inline.json"
+						for _, apply := range []bool{false, true} {
+							call := []string{"--source", sourcePath, "--recipes", path}
+							if apply {
+								call = append(call, "--apply", "--output", inlineOutput)
+							}
+							if err := run(call, io.Discard); err != nil {
+								t.Fatal("shared serializer refused inline byte-noop", apply, err)
+							}
+							if !apply {
+								if _, err := os.Stat(inlineOutput); !os.IsNotExist(err) {
+									t.Fatal("inline no-op preview wrote", err)
+								}
+							}
+						}
+						if got, err := os.ReadFile(inlineOutput); err != nil || !bytes.Equal(got, source) {
+							t.Fatal("shared serializer reformatted inline deep no-op", err)
+						}
+					}
+				}
+				for path, want := range originals {
+					if got, err := os.ReadFile(path); err != nil || !bytes.Equal(got, want) {
+						t.Fatal("pretty check changed input", c.id, path, err)
+					}
+				}
+			}
+			var serialization struct {
+				Cases []struct {
+					Operation string
+					Source    string `json:"source_hex"`
+					Registry  string `json:"registry_hex"`
+					Glyphmap  string `json:"glyphmap_hex"`
+					Profile   map[string]json.RawMessage
+					Expected  string `json:"expected_output_hex"`
+					Bytes     int    `json:"expected_output_bytes"`
+					SHA       string `json:"expected_output_sha256"`
+				}
+			}
+			parityData, err := os.ReadFile("testdata/registry-serialization.json")
+			if err != nil || json.Unmarshal(parityData, &serialization) != nil || len(serialization.Cases) != 4 {
+				t.Fatal("accepted718 serialization compatibility", err)
+			}
+			for _, c := range serialization.Cases {
+				source, err := hex.DecodeString(c.Source)
+				if err != nil {
+					t.Fatal(err)
+				}
+				sourcePath := write(filepath.Join(importDir, c.Operation+"-parity-source.data"), source)
+				profilePath := jsonFile(filepath.Join(importDir, c.Operation+"-parity-profile.json"), c.Profile)
+				args := []string{"--source", sourcePath, "--recipes", profilePath}
+				originals := map[string][]byte{sourcePath: source}
+				for _, input := range []struct{ flag, encoded string }{{"--registry", c.Registry}, {"--glyphmap", c.Glyphmap}} {
+					if input.encoded == "" {
+						continue
+					}
+					body, err := hex.DecodeString(input.encoded)
+					if err != nil {
+						t.Fatal(err)
+					}
+					path := write(filepath.Join(importDir, c.Operation+input.flag+"-parity.data"), body)
+					args = append(args, input.flag, path)
+					originals[path] = body
+				}
+				output := filepath.Join(importDir, c.Operation+"-parity-output.json")
+				for _, apply := range []bool{false, true} {
+					call := slices.Clone(args)
+					if apply {
+						call = append(call, "--apply", "--output", output)
+					}
+					var report bytes.Buffer
+					if err := run(call, &report); err != nil {
+						t.Fatal("shared serializer route refused", c.Operation, apply, err)
+					}
+					if !apply {
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("shared serializer preview wrote", c.Operation, err)
+						}
+					}
+				}
+				written, err := os.ReadFile(output)
+				want, decodeErr := hex.DecodeString(c.Expected)
+				if err != nil || decodeErr != nil || len(written) != c.Bytes || !bytes.Equal(written, want) || fmt.Sprintf("%x", sha256.Sum256(written)) != c.SHA {
+					t.Fatal("shared serializer changed accepted whole bytes", c.Operation, err, decodeErr)
+				}
+				for path, want := range originals {
+					if got, err := os.ReadFile(path); err != nil || !bytes.Equal(got, want) {
+						t.Fatal("serializer compatibility changed input", c.Operation, path, err)
+					}
+				}
+			}
+			// Source-bound writers share declaration, identity and publication refusals.
+			pairBase := paired.Cases[0]
+			for _, operation := range []string{"registry_reconcile", "registry_human", "full_sweep"} {
+				mutations := []string{"inline updates", "import null", "columns", "no date", "bad date", "extra input", "missing input", "null input", "input alias", "input extra field", "bad glossary hash", "bad correction size", "non-UTF8 proposal", "wrong glossary root", "profile bound", "authored row bound", "combined row bound", "existing glossary bound", "resulting glossary bound", "combined byte bound", "glossary metadata output bound", "raw profile duplicate", "unpaired evidence"}
+				if operation == "registry_human" {
+					mutations = []string{"inline updates", "import null", "columns", "no date", "bad date", "extra input", "missing input", "null input", "input alias", "input extra field", "bad glossary hash", "bad correction size", "non-UTF8 proposal", "wrong glossary root", "profile bound", "combined byte bound", "raw profile duplicate", "unpaired evidence", "human flow bound", "human decoded bound", "human translations bound", "human existing registry bound", "human result bound"}
+				}
+				if operation == "full_sweep" {
+					mutations = []string{"inline updates", "import null", "columns", "no date", "bad date", "extra input", "missing input", "null input", "input alias", "input extra field", "bad glossary hash", "bad correction size", "non-UTF8 proposal", "wrong glossary root", "profile bound", "combined byte bound", "raw profile duplicate", "unpaired evidence", "orders resource bound", "permutation bound", "orders glyph overlap", "orders batch overlap"}
+				}
+				for _, mutation := range mutations {
+					source := []byte(pairBase.Registry)
+					bodies := map[string][]byte{"glossary": []byte(pairBase.Glossary), "corrections": []byte(pairBase.Corrections), "glossary_proposals": []byte(pairBase.Proposals)}
+					roles := []string{"glossary", "corrections", "glossary_proposals"}
+					if operation == "registry_human" {
+						base := humanFixtures.Cases[0]
+						source = []byte(base.Source)
+						bodies = map[string][]byte{"decoded": []byte(base.Decoded), "flow": []byte(base.Flow), "authored": []byte(base.Authored)}
+						roles = []string{"decoded", "flow", "authored"}
+					}
+					if operation == "full_sweep" {
+						base := fullSweepFixtures.Cases[0]
+						source = []byte(base.Source)
+						glyphBody, err := json.Marshal(fullSweepFixtures.Glyphmap)
+						if err != nil {
+							t.Fatal(err)
+						}
+						bodies = map[string][]byte{"batch": []byte(base.Batches[0].Data), "glyphs": glyphBody, "orders": []byte(base.MarkerOrders)}
+						roles = []string{"batch", "glyphs", "orders"}
+					}
+					wantError := ""
+					switch mutation {
+					case "non-UTF8 proposal":
+						bodies[roles[2]] = []byte{'[', 0xff, ']'}
+					case "wrong glossary root":
+						bodies[roles[0]] = []byte(`[]`)
+						if operation == "full_sweep" {
+							bodies[roles[0]] = []byte(`{}`)
+						}
+					case "authored row bound":
+						row := `{"id":"0x10","old_en":"A","new_en":"B","note_suffix":" fix"}`
+						bodies["corrections"] = []byte("[" + strings.Repeat(row+",", 65536) + row + "]")
+						wantError = "65536"
+					case "combined row bound":
+						row := `{"id":"0x10","old_en":"A","new_en":"B","note_suffix":" fix"}`
+						bodies["corrections"] = []byte("[" + strings.Repeat(row+",", 65535) + row + "]")
+						wantError = "65536"
+					case "existing glossary bound", "resulting glossary bound":
+						var body strings.Builder
+						body.WriteString(`{"entries":[`)
+						count := 65537
+						if mutation == "resulting glossary bound" {
+							count = 65536
+						}
+						for i := 0; i < count; i++ {
+							if i != 0 {
+								body.WriteByte(',')
+							}
+							fmt.Fprintf(&body, `{"jp":"term%d","en":"A"}`, i)
+						}
+						body.WriteString("]}")
+						bodies["glossary"] = []byte(body.String())
+						wantError = "65536"
+						if mutation == "resulting glossary bound" {
+							wantError = "resulting glossary"
+						}
+					case "combined byte bound":
+						bodies[roles[1]] = append([]byte("[]"), bytes.Repeat([]byte(" "), (33<<20)-2)...)
+						wantError = "in total"
+					case "glossary metadata output bound":
+						var old map[string]json.RawMessage
+						if json.Unmarshal(prettyFiles["inherited-34-deep-plus-new/source.json"], &old) != nil {
+							t.Fatal("deep glossary source")
+						}
+						bodies["glossary"], _ = json.Marshal(map[string]json.RawMessage{"entries": json.RawMessage(`[]`), "opaque_root": old["entries"]})
+						wantError = "byte budget"
+					}
+					if operation == "full_sweep" {
+						switch mutation {
+						case "combined byte bound":
+							glyphBody, _ := json.Marshal(fullSweepFixtures.Glyphmap)
+							bodies["glyphs"] = glyphBody
+							bodies["batch"] = append(bodies["batch"], bytes.Repeat([]byte(" "), (33<<20)-len(bodies["batch"]))...)
+						case "orders resource bound":
+							bodies["orders"] = append([]byte("{}"), bytes.Repeat([]byte(" "), (1<<20)-1)...)
+							wantError = "invalid"
+						case "permutation bound":
+							order := RegistryMarkerOrder{JPSHA256: strings.Repeat("a", 64), ENSHA256: strings.Repeat("b", 64), ENSourcesJP: make([]int, 65537)}
+							bodies["orders"], _ = json.Marshal(map[string]RegistryMarkerOrder{"0x1000": order})
+							wantError = "65536"
+						}
+					}
+					if strings.HasPrefix(mutation, "human ") {
+						wantError = "65536"
+						switch mutation {
+						case "human flow bound", "human decoded bound":
+							name := "flow"
+							if mutation == "human decoded bound" {
+								name = "decoded"
+							}
+							row := `{"vma":"0x10","decoded_jp":"JP"}`
+							bodies[name] = []byte("[" + strings.Repeat(row+",", 65536) + row + "]")
+						case "human translations bound":
+							var declaration map[string]json.RawMessage
+							_ = json.Unmarshal(bodies["authored"], &declaration)
+							var rows strings.Builder
+							rows.WriteByte('{')
+							for i := 0; i < 65537; i++ {
+								if i != 0 {
+									rows.WriteByte(',')
+								}
+								fmt.Fprintf(&rows, `"0x%x":{"en":"A","chapter":"menu","character":"system","event":"label","tier":"B","note":"note"}`, i)
+							}
+							rows.WriteByte('}')
+							declaration["translations"] = json.RawMessage(rows.String())
+							bodies["authored"], _ = json.Marshal(declaration)
+						case "human existing registry bound", "human result bound":
+							count := 65537
+							if mutation == "human result bound" {
+								count = 65536
+							}
+							var rows strings.Builder
+							rows.WriteString(`{"entries":[`)
+							for i := 0; i < count; i++ {
+								if i != 0 {
+									rows.WriteByte(',')
+								}
+								fmt.Fprintf(&rows, `{"id":"0x%x"}`, i+0x1000)
+							}
+							rows.WriteString("]}")
+							source = []byte(rows.String())
+						}
+					}
+					sourcePath := write(filepath.Join(importDir, "pair-wire-source.json"), source)
+					inputs := map[string]RegistryInput{}
+					originals := map[string][]byte{sourcePath: source}
+					for name, body := range bodies {
+						path := write(filepath.Join(importDir, "pair-wire-"+name+".json"), body)
+						inputs[name] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+						originals[path] = body
+					}
+					request := map[string]any{"operation": operation, "source_size": len(source), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(source)), "evidence": "shared pinned writer refusals", "updated": pairBase.Updated, "registry_inputs": inputs}
+					if operation == "full_sweep" {
+						request["operation"] = "registry_add"
+						request["registry_import"] = map[string]any{"policy": "full_sweep", "batches": []string{"batch"}, "glyphmap": "glyphs", "marker_orders": "orders"}
+					}
+
+					switch mutation {
+					case "inline updates":
+						request["registry_updates"] = map[string]any{}
+					case "import null":
+						request["registry_import"] = nil
+					case "columns":
+						request["registry_columns"] = []string{}
+					case "no date":
+						delete(request, "updated")
+					case "bad date":
+						request["updated"] = "tomorrow"
+					case "extra input":
+						inputs["other"] = inputs[roles[0]]
+					case "missing input":
+						delete(inputs, roles[0])
+					case "bad glossary hash":
+						pin := inputs[roles[0]]
+						pin.SHA256 = strings.Repeat("0", 64)
+						inputs[roles[0]] = pin
+					case "bad correction size":
+						pin := inputs[roles[1]]
+						pin.Size++
+						inputs[roles[1]] = pin
+					case "profile bound":
+						request["evidence"] = strings.Repeat("x", 1<<20)
+						wantError = "bounded profile"
+					case "combined byte bound":
+						pin := inputs[roles[2]]
+						pin.Size = 34 << 20
+						inputs[roles[2]] = pin
+					}
+					if operation == "full_sweep" {
+						declaration, _ := request["registry_import"].(map[string]any)
+						switch mutation {
+						case "combined byte bound":
+							declaration["batches"] = []string{"batch", "more"}
+							inputs["more"] = RegistryInput{Path: inputs["batch"].Path, Size: 34 << 20, SHA256: inputs["batch"].SHA256}
+							pin := inputs["orders"]
+							pin.Size = int64(len(bodies["orders"]))
+							inputs["orders"] = pin
+						case "orders glyph overlap":
+							declaration["marker_orders"] = "glyphs"
+						case "orders batch overlap":
+							declaration["marker_orders"] = "batch"
+						}
+					}
+					raw, _ := json.Marshal(request)
+					switch mutation {
+					case "null input":
+						path, _ := json.Marshal(inputs[roles[0]].Path)
+						raw = bytes.Replace(raw, append([]byte(`"path":`), path...), []byte(`"path":null`), 1)
+					case "input alias":
+						raw = bytes.Replace(raw, []byte(`"size":`), []byte(`"Size":`), 1)
+					case "input extra field":
+						raw = bytes.Replace(raw, []byte(`"path":`), []byte(`"other":0,"path":`), 1)
+					case "unpaired evidence":
+						raw = bytes.Replace(raw, []byte(`"shared pinned writer refusals"`), []byte(`"\ud800"`), 1)
+					case "raw profile duplicate":
+						raw = bytes.Replace(raw, []byte(`"updated":`), []byte(`"updated":"2040-02-03","updated":`), 1)
+					}
+					profilePath := write(filepath.Join(importDir, "pair-wire-profile.json"), raw)
+					originals[profilePath] = raw
+					output := filepath.Join(importDir, "pair-wire-refused.zip")
+					for _, apply := range []bool{false, true} {
+						call := []string{"--source", sourcePath, "--recipes", profilePath}
+						if apply {
+							call = append(call, "--apply", "--output", output)
+						}
+						var report bytes.Buffer
+						if err := run(call, &report); err == nil || report.Len() != 0 || wantError != "" && !strings.Contains(err.Error(), wantError) {
+							t.Fatal("pinned writer wire/budget admitted or wrong boundary", mutation, apply, err, report.String())
+						}
+						if _, err := os.Stat(output); !os.IsNotExist(err) {
+							t.Fatal("pinned writer wire published", mutation, apply, err)
+						}
+					}
+					for path, want := range originals {
+						if got, err := os.ReadFile(path); err != nil || !bytes.Equal(got, want) {
+							t.Fatal("pinned writer wire changed input", mutation, path, err)
+						}
+					}
+				}
+			}
+			// Both result-count endpoints remain usable as inputs to the same writer.
+			for _, operation := range []string{"registry_reconcile", "registry_human"} {
+				var glossary strings.Builder
+				glossary.WriteString(`{"entries":[`)
+				for i := 0; i < 65535; i++ {
+					if i != 0 {
+						glossary.WriteByte(',')
+					}
+					fmt.Fprintf(&glossary, `{"jp":"term%d","en":"A"}`, i)
+				}
+				glossary.WriteString("]}")
+				source := []byte(pairBase.Registry)
+				bodies := map[string][]byte{"glossary": []byte(glossary.String()), "corrections": []byte(pairBase.Corrections), "glossary_proposals": []byte(pairBase.Proposals)}
+				if operation == "registry_human" {
+					base := humanFixtures.Cases[0]
+					bodies = map[string][]byte{"decoded": []byte(base.Decoded), "flow": []byte(base.Flow), "authored": []byte(base.Authored)}
+					var rows strings.Builder
+					rows.WriteString(`{"entries":[`)
+					for i := 0; i < 65535; i++ {
+						if i != 0 {
+							rows.WriteByte(',')
+						}
+						fmt.Fprintf(&rows, `{"id":"0x%x"}`, i+0x1000)
+					}
+					rows.WriteString("]}")
+					source = []byte(rows.String())
+				}
+				sourcePath := write(filepath.Join(importDir, "pair-full-source.json"), source)
+				inputs := map[string]RegistryInput{}
+				for name, body := range bodies {
+					path := write(filepath.Join(importDir, "pair-full-"+name+".json"), body)
+					inputs[name] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+				}
+				request := map[string]any{"operation": operation, "source_size": len(source), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(source)), "evidence": "RPR-1 exact consuming endpoint", "updated": pairBase.Updated, "registry_inputs": inputs}
+				var first []byte
+				for iteration := 0; iteration < 2; iteration++ {
+					profile := jsonFile(filepath.Join(importDir, fmt.Sprintf("%s-full-%d-profile.json", operation, iteration)), request)
+					output := filepath.Join(importDir, fmt.Sprintf("%s-full-%d.out", operation, iteration))
+					if err := run([]string{"--source", sourcePath, "--recipes", profile, "--apply", "--output", output}, io.Discard); err != nil {
+						t.Fatal("last glossary slot or replay refused", iteration, err)
+					}
+					body, err := os.ReadFile(output)
+					if err != nil {
+						t.Fatal(err)
+					}
+					if iteration == 1 {
+						if !bytes.Equal(body, first) {
+							t.Fatal("full glossary replay changed pair")
+						}
+						break
+					}
+					first = body
+					if operation == "registry_human" {
+						var doc struct{ Entries []json.RawMessage }
+						if json.Unmarshal(body, &doc) != nil || len(doc.Entries) != 65536 {
+							t.Fatal("last human registry slot output count", len(doc.Entries))
+						}
+						sourcePath = write(filepath.Join(importDir, "human-full-replay-source.json"), body)
+						request["source_size"], request["source_sha256"] = len(body), fmt.Sprintf("%x", sha256.Sum256(body))
+						continue
+					}
+					archive, err := zip.NewReader(bytes.NewReader(body), int64(len(body)))
+					if err != nil || len(archive.File) != 2 {
+						t.Fatal("full glossary archive", err)
+					}
+					for _, file := range archive.File {
+						reader, err := file.Open()
+						if err != nil {
+							t.Fatal(err)
+						}
+						member, readErr := io.ReadAll(reader)
+						closeErr := reader.Close()
+						if readErr != nil || closeErr != nil {
+							t.Fatal(readErr, closeErr)
+						}
+						path := write(filepath.Join(importDir, "pair-full-replay-"+file.Name), member)
+						if file.Name == "registry.json" {
+							sourcePath = path
+							request["source_size"], request["source_sha256"] = len(member), fmt.Sprintf("%x", sha256.Sum256(member))
+						} else {
+							var doc struct{ Entries []json.RawMessage }
+							if json.Unmarshal(member, &doc) != nil || len(doc.Entries) != 65536 {
+								t.Fatal("last glossary slot output count", len(doc.Entries))
+							}
+							inputs["glossary"] = RegistryInput{Path: path, Size: int64(len(member)), SHA256: fmt.Sprintf("%x", sha256.Sum256(member))}
+						}
+					}
+				}
+			}
+			// The caller's frozen profile must still be the exact file before publication.
+			for _, operation := range []string{"registry_reconcile", "registry_human", "full_sweep"} {
+				source := []byte(pairBase.Registry)
+				texts := map[string]string{"glossary": pairBase.Glossary, "corrections": pairBase.Corrections, "glossary_proposals": pairBase.Proposals}
+				if operation == "registry_human" {
+					base := humanFixtures.Cases[0]
+					source = []byte(base.Source)
+					texts = map[string]string{"decoded": base.Decoded, "flow": base.Flow, "authored": base.Authored}
+				}
+				if operation == "full_sweep" {
+					base := fullSweepFixtures.Cases[0]
+					source = []byte(base.Source)
+					glyphBody, _ := json.Marshal(fullSweepFixtures.Glyphmap)
+					texts = map[string]string{"batch": base.Batches[0].Data, "glyphs": string(glyphBody), "orders": base.MarkerOrders}
+				}
+				sourcePath := write(filepath.Join(importDir, "pair-profile-drift-source.json"), source)
+				inputs := map[string]RegistryInput{}
+				for name, text := range texts {
+					body := []byte(text)
+					path := write(filepath.Join(importDir, "pair-profile-drift-"+name+".json"), body)
+					inputs[name] = RegistryInput{Path: path, Size: int64(len(body)), SHA256: fmt.Sprintf("%x", sha256.Sum256(body))}
+				}
+				profile := Recipes{Operation: operation, SourceSize: int64(len(source)), SourceSHA256: fmt.Sprintf("%x", sha256.Sum256(source)), Evidence: "frozen profile lifecycle", Updated: pairBase.Updated, RegistryInputs: inputs}
+				request := map[string]any{"operation": profile.Operation, "source_size": profile.SourceSize, "source_sha256": profile.SourceSHA256, "evidence": profile.Evidence, "updated": profile.Updated, "registry_inputs": profile.RegistryInputs}
+				if operation == "full_sweep" {
+					profile.Operation = "registry_add"
+					profile.RegistryImport = &RegistryImportSpec{Policy: "full_sweep", Batches: []string{"batch"}, Glyphmap: "glyphs", MarkerOrders: "orders"}
+					request["operation"], request["registry_import"] = profile.Operation, profile.RegistryImport
+				}
+				raw, _ := json.Marshal(request)
+				profilePath := write(filepath.Join(importDir, "pair-profile-drift.json"), append(bytes.Clone(raw), '\n'))
+				output := filepath.Join(importDir, "pair-profile-drift-refused.zip")
+				for _, apply := range []bool{false, true} {
+					file, err := os.Open(sourcePath)
+					if err != nil {
+						t.Fatal(err)
+					}
+					var report bytes.Buffer
+					err = authorRegistry(file, []Recipes{profile}, raw, RegistryOptions{ProfilePath: profilePath, Output: output, Apply: apply}, &report)
+					closeErr := file.Close()
+					if err == nil || !strings.Contains(err.Error(), "profile changed") || report.Len() != 0 || closeErr != nil {
+						t.Fatal("paired profile drift ignored", apply, err, closeErr)
+					}
+					if _, err := os.Stat(output); !os.IsNotExist(err) {
+						t.Fatal("paired profile drift published", apply, err)
+					}
+				}
+			}
+			for _, example := range []struct{ source, profile, marker string }{
+				{"examples/registry-import/source.json", "examples/registry-import/profile.json", `"0x20"`},
+				{"examples/registry-reconcile/registry.json", "examples/registry-reconcile/profile.json", `"glossary.json"`},
+				{"examples/registry-human/registry.json", "examples/registry-human/profile.json", `"wording": "new"`},
+				{"examples/registry-full-sweep/registry.json", "examples/registry-full-sweep/profile.json", `"full_sweep"`},
+				{"examples/registry-full-sweep/registry.json", "recipes/registry/historical-discoveries.json", `"0x4ef500"`},
+				{"examples/registry-reward-notes/registry.json", "examples/registry-reward-notes/profile.json", `"registry_author"`},
+			} {
+				var report bytes.Buffer
+				if err := run([]string{"--source", example.source, "--recipes", example.profile}, &report); err != nil || !bytes.Contains(report.Bytes(), []byte(example.marker)) {
+					t.Fatal("documented registry example", example.profile, err, report.String())
+				}
+			}
+
+			// Declarations and pinned inputs fail before any output is published.
+			base := fixtures.Cases[0]
+			wireSource := []byte(base.Source)
+			wireSourcePath := write(filepath.Join(importDir, "wire-source.json"), wireSource)
+			for _, mutation := range []string{
+				"foreign empty marker_orders", "null import", "nonobject import", "missing policy", "null policy", "policy alias", "unknown policy", "unknown field", "empty batches", "null batches", "65 batches", "duplicate batches", "glyph overlap", "missing glyph name", "JSON provenance", "CSV no provenance", "wrong operation", "inline empty", "inline null", "root alias", "root duplicate", "declaration duplicate", "unused input", "missing input", "empty path", "zero size", "oversized input", "size mismatch", "hash mismatch", "pin alias", "pin null", "pin unknown", "directory input", "invalid UTF-8", "invalid JSON", "JSON object", "null record", "scalar record", "duplicate record key", "record alias", "unpaired text", "null glyphmap", "unpaired glyphmap", "row bound", "aggregate budget",
+			} {
+				batch := []byte(base.Batches[0].Data)
+				glyphBody := glyphData
+				switch mutation {
+				case "invalid UTF-8":
+					batch = []byte{'[', 0xff, ']'}
+				case "invalid JSON":
+					batch = []byte(`[{`)
+				case "JSON object":
+					batch = []byte(`{"entries":[]}`)
+				case "null record":
+					batch = []byte(`[null]`)
+				case "scalar record":
+					batch = []byte(`["row"]`)
+				case "duplicate record key":
+					batch = []byte(`[{"id":"0x20","id":"0x21"}]`)
+				case "record alias":
+					batch = []byte(`[{"id":"0x20","JP":"A"}]`)
+				case "unpaired text":
+					batch = bytes.Replace(batch, []byte(`"en":`), []byte(`"en":"\ud800","discarded":`), 1)
+				case "null glyphmap":
+					glyphBody = []byte(`null`)
+					var rows []map[string]json.RawMessage
+					if json.Unmarshal(batch, &rows) != nil {
+						t.Fatal("glyph-root fixture")
+					}
+					rows[0]["jp"], rows[0]["en"] = json.RawMessage(`" "`), json.RawMessage(`" "`)
+					batch, _ = json.Marshal(rows)
+				case "unpaired glyphmap":
+					glyphBody = []byte(`{"1":"\ud800"}`)
+				case "row bound":
+					batch = []byte("[" + strings.Repeat("{},", 65536) + "{}]")
+				case "aggregate budget":
+					batch = append(batch, bytes.Repeat([]byte(" "), (33<<20)-len(batch))...)
+				}
+				batchPath := write(filepath.Join(importDir, "wire-batch.json"), batch)
+				glyphPath := write(filepath.Join(importDir, "wire-glyphs.json"), glyphBody)
+				inputs := map[string]RegistryInput{
+					"batch":  {Path: batchPath, Size: int64(len(batch)), SHA256: fmt.Sprintf("%x", sha256.Sum256(batch))},
+					"glyphs": {Path: glyphPath, Size: int64(len(glyphBody)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphBody))},
+				}
+				declaration := map[string]any{"policy": "json_kinds", "batches": []string{"batch"}, "glyphmap": "glyphs"}
+				request := map[string]any{"operation": "registry_add", "source_size": len(wireSource), "source_sha256": fmt.Sprintf("%x", sha256.Sum256(wireSource)), "evidence": "Explicit import wire refusals", "updated": "2026-11-05", "registry_import": declaration, "registry_inputs": inputs}
+				switch mutation {
+				case "foreign empty marker_orders":
+					declaration["marker_orders"] = ""
+				case "null import":
+					request["registry_import"] = nil
+				case "nonobject import":
+					request["registry_import"] = []string{}
+				case "missing policy":
+					delete(declaration, "policy")
+				case "null policy":
+					declaration["policy"] = nil
+				case "policy alias":
+					delete(declaration, "policy")
+					declaration["Policy"] = "json_kinds"
+				case "unknown policy":
+					declaration["policy"] = "automatic"
+				case "unknown field":
+					declaration["other"] = true
+				case "empty batches":
+					declaration["batches"] = []string{}
+				case "null batches":
+					declaration["batches"] = nil
+				case "65 batches":
+					declaration["batches"] = make([]string, 65)
+				case "duplicate batches":
+					declaration["batches"] = []string{"batch", "batch"}
+				case "glyph overlap":
+					declaration["glyphmap"] = "batch"
+				case "missing glyph name":
+					declaration["glyphmap"] = ""
+				case "JSON provenance":
+					declaration["discovered_by"] = ""
+				case "CSV no provenance":
+					declaration["policy"] = "csv_drafts"
+				case "wrong operation":
+					request["operation"] = "registry_author"
+				case "inline empty":
+					request["registry_updates"] = map[string]any{}
+				case "inline null":
+					request["registry_updates"] = nil
+				case "aggregate budget":
+					declaration["batches"] = []string{"batch", "overflow"}
+					inputs["overflow"] = RegistryInput{Path: batchPath, Size: 34 << 20, SHA256: inputs["batch"].SHA256}
+				case "unused input":
+					inputs["unused"] = inputs["batch"]
+				case "missing input":
+					delete(inputs, "batch")
+				case "empty path", "zero size", "oversized input", "size mismatch", "hash mismatch", "directory input":
+					input := inputs["batch"]
+					switch mutation {
+					case "empty path":
+						input.Path = ""
+					case "zero size":
+						input.Size = 0
+					case "oversized input":
+						input.Size = 64<<20 + 1
+					case "size mismatch":
+						input.Size++
+					case "hash mismatch":
+						input.SHA256 = strings.Repeat("0", 64)
+					case "directory input":
+						input.Path = importDir
+					}
+					inputs["batch"] = input
+				}
+				raw, err := json.Marshal(request)
+				if err != nil {
+					t.Fatal(err)
+				}
+				switch mutation {
+				case "root alias":
+					raw = bytes.Replace(raw, []byte(`"registry_import":`), []byte(`"Registry_Import":`), 1)
+				case "root duplicate":
+					raw = bytes.Replace(raw, []byte(`"registry_import":`), []byte(`"registry_import":null,"registry_import":`), 1)
+				case "declaration duplicate":
+					raw = bytes.Replace(raw, []byte(`"policy":`), []byte(`"policy":null,"policy":`), 1)
+				case "pin alias":
+					raw = bytes.Replace(raw, []byte(`"size":`), []byte(`"Size":`), 1)
+				case "pin null":
+					quotedPath, _ := json.Marshal(batchPath)
+					raw = bytes.Replace(raw, append([]byte(`"path":`), quotedPath...), []byte(`"path":null`), 1)
+				case "pin unknown":
+					raw = bytes.Replace(raw, []byte(`"path":`), []byte(`"other":0,"path":`), 1)
+				}
+				profilePath := write(filepath.Join(importDir, "wire-profile.json"), raw)
+				args := []string{"--source", wireSourcePath, "--recipes", profilePath}
+				output := filepath.Join(importDir, "wire-refused.json")
+				for _, apply := range []bool{false, true} {
+					call := slices.Clone(args)
+					if apply {
+						call = append(call, "--apply", "--output", output)
+					}
+					var report bytes.Buffer
+					if err := run(call, &report); err == nil || report.Len() != 0 || mutation == "aggregate budget" && !strings.Contains(err.Error(), "in total") {
+						t.Fatal("invalid import wire request admitted", mutation, apply, err, report.String())
+					}
+					if _, err := os.Stat(output); !os.IsNotExist(err) {
+						t.Fatal("invalid import wire request published", mutation, err)
+					}
+				}
+				for path, want := range map[string][]byte{wireSourcePath: wireSource, profilePath: raw, batchPath: batch, glyphPath: glyphBody} {
+					got, err := os.ReadFile(path)
+					if err != nil || !bytes.Equal(got, want) {
+						t.Fatal("wire refusal changed input", mutation, path, err)
+					}
+				}
+			}
+		}
+
+		{
 			var vectors struct {
 				Source json.RawMessage `json:"source"`
 				Cases  []struct {
@@ -12885,7 +14276,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 				t.Fatalf("reference ownership %s: %#v, %v", name, got, err)
 			}
 		}
-		for _, name := range []string{"source hash", "registry hash", "glyph hash", "scan bounds", "odd scan", "content range", "ID range", "query missing selector", "row stride", "duplicate ID", "JP type", "patch fields", "wording selector", "mode missing"} {
+		for _, name := range []string{"source hash", "registry hash", "glyph hash", "scan bounds", "odd scan", "content range", "ID range", "query missing selector", "row stride", "duplicate ID", "JP type", "patch fields", "draft import", "wording selector", "mode missing"} {
 			encoded, _ := json.Marshal(profile)
 			var bad Recipes
 			_ = json.Unmarshal(encoded, &bad)
@@ -12920,6 +14311,8 @@ func TestCLIDryRunAndApply(t *testing.T) {
 				bad.Entries = map[string]Recipe{"0x10008000": {}}
 			case "wording selector":
 				bad.WordingField = "jp"
+			case "draft import":
+				bad.RegistryImport = &RegistryImportSpec{}
 			case "mode missing":
 				bad.References = nil
 			}
@@ -16343,7 +17736,10 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	var pins map[string]string
+	var pins struct {
+		Profiles  map[string]string `json:"profiles"`
+		Resources map[string]string `json:"resources"`
+	}
 	if err := json.Unmarshal(data, &pins); err != nil {
 		t.Fatal(err)
 	}
@@ -16356,7 +17752,7 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 	}); err != nil {
 		t.Fatal(err)
 	}
-	if len(paths) != len(pins) {
+	if len(paths) != len(pins.Profiles)+len(pins.Resources) {
 		t.Fatal("runtime table coverage set changed; review the new or removed tables")
 	}
 	for _, recipePath := range paths {
@@ -16364,8 +17760,21 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if fmt.Sprintf("%x", sha256.Sum256(data)) != pins[recipePath] {
+		profileSHA, profile := pins.Profiles[recipePath]
+		resourceSHA, resource := pins.Resources[recipePath]
+		if profile == resource {
+			t.Fatalf("%s: runtime table must have exactly one declared role", recipePath)
+		}
+		wantSHA := profileSHA
+		if resource {
+			wantSHA = resourceSHA
+		}
+		if fmt.Sprintf("%x", sha256.Sum256(data)) != wantSHA {
 			t.Fatalf("%s: differs from independently reviewed runtime table", recipePath)
+		}
+		if resource {
+			// Input schemas belong to their consumers; this guard pins reviewed facts.
+			continue
 		}
 		var r Recipes
 		decoder := json.NewDecoder(bytes.NewReader(data))
@@ -16394,7 +17803,7 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 			continue
 		}
 		switch r.Operation {
-		case "pointer_check", "registry_markup", "text_shapes", "reference_candidates", "reference_observed", "elf_layout", "registry_export", "registry_status":
+		case "pointer_check", "registry_markup", "text_shapes", "reference_candidates", "reference_observed", "elf_layout", "registry_export", "registry_status", "registry_add":
 			// Exact selectors are frozen above; shared lifecycle fixtures exercise dynamic inputs.
 			continue
 		}

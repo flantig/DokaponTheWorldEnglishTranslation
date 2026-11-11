@@ -1,0 +1,505 @@
+{
+  "translations": {
+    "0x536370": {
+      "en": "Name",
+      "chapter": "menu",
+      "character": "system",
+      "event": "name-field",
+      "tier": "B",
+      "note": "Field label on the name-entry screen. Kanji form of glossary なまえ."
+    },
+    "0x5364c8": {
+      "en": "Boy",
+      "chapter": "menu",
+      "character": "system",
+      "event": "gender-boy",
+      "tier": "B",
+      "note": "Gender option on the name-entry screen."
+    },
+    "0x5363c4": {
+      "en": "Girl",
+      "chapter": "menu",
+      "character": "system",
+      "event": "gender-girl",
+      "tier": "B",
+      "note": "Recovered from packed source at 0x5363c4 (STEP3D low-confidence placement); surrounding bytes are decoder noise."
+    },
+    "0x535b00": {
+      "en": "Dokapon King",
+      "chapter": "character-nameplate",
+      "character": "King",
+      "event": "nameplate",
+      "tier": "A",
+      "note": "NAME_TABLE slot 1. King's proper title (Dokapon Wiki 'Dokapon King'). Also the brand shown on the new-game screen."
+    },
+    "0x535b30": {
+      "en": "Minister Lavender",
+      "chapter": "character-nameplate",
+      "character": "Minister Lavender",
+      "event": "nameplate",
+      "tier": "authored",
+      "note": "NAME_TABLE slot 7. Full name ラベンダ・ミニストル = Lavender Minister, Minister of Taxation."
+    },
+    "0x535b40": {
+      "en": "Minister Rose",
+      "chapter": "character-nameplate",
+      "character": "Minister Rose",
+      "event": "nameplate",
+      "tier": "authored",
+      "note": "NAME_TABLE slot 8. Full name ローズ・ミニストル = Rose Minister, Minister of Finance."
+    },
+    "0x535bf0": {
+      "en": "Navi",
+      "chapter": "character-nameplate",
+      "character": "Navi",
+      "event": "nameplate",
+      "tier": "authored",
+      "note": "NAME_TABLE slots 19 AND 53 - both pointer words (0x4cffb8, 0x4d00c8) hold this same string, and they are its only two static references anywhere in the ELF (zero lui+addiu chains build it). This is the nameplate shown above every navi_intro dialog box. Long-i variant of glossary ナビー. The JP string occupies exactly 8 bytes with the next name starting at 0x535bf8, so 'Navi' (10 bytes) could not be patched in place and was relocated into the Phase 2 landing segment - see tools/patch_nameplate_navi.py."
+    },
+    "0x535cf0": {
+      "en": "Makonde the Sorcerer",
+      "chapter": "character-nameplate",
+      "character": "Makonde",
+      "event": "nameplate",
+      "tier": "authored",
+      "note": "NAME_TABLE slot 45. Retargeted from 0x535d10: string_bank id=45 at 0x535cf0 decodes 呪術師マコンデ (milestone-flow step + id_table record confirm). jp taken from the decoded record."
+    },
+    "0x535d10": {
+      "en": "Ninja Gamamaru",
+      "chapter": "character-nameplate",
+      "character": "Ninja Gamamaru",
+      "event": "nameplate",
+      "tier": "authored",
+      "note": "NAME_TABLE slot 49, decodes 忍者我魔丸; furigana ガママル in dialog 0x4a4b90. No established EN (no official release), so role-first EN authored: Ninja Gamamaru."
+    },
+    "0x498160": {
+      "en": "Rose & Lavender",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "cast-label",
+      "tier": "authored",
+      "note": "Twin ministers, joint cast roll label."
+    },
+    "0x498180": {
+      "en": "Michieri Child A",
+      "chapter": "prologue",
+      "character": "Michieri Child A",
+      "event": "cast-label",
+      "tier": "authored",
+      "note": "Cast roll label; Michieri = snowlands family (id_table id=41 雪原人ミチエーリ)."
+    },
+    "0x4981a0": {
+      "en": "Michieri Child B",
+      "chapter": "prologue",
+      "character": "Michieri Child B",
+      "event": "cast-label",
+      "tier": "authored",
+      "note": "Cast roll label."
+    },
+    "0x4981c0": {
+      "en": "Michieri's Wife",
+      "chapter": "prologue",
+      "character": "Michieri's Wife",
+      "event": "cast-label",
+      "tier": "authored",
+      "note": "Cast roll label. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Michieri's Wife\"]"
+    },
+    "0x498460": {
+      "en": "How's everyone feeling today?",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "navi-greeting",
+      "tier": "B",
+      "note": "Navi opens with a mood check before the avatar reveal. TAIL-3 FIX 2026-09-02 (owner PCSX2-screenshot review): original wording \"Everyone feeling okay today?\" clipped off-screen (renderer does not auto-wrap, confirmed line was over the empirical ~24-char/line width budget derived from the owner's own screenshots) - shortened/re-broken to fit. Deliberate override of a decode_verified-locked en field - see HANDOFF.md/skills/PATCH-MOD-ISO.md for the full clipping map and byte-budget verification."
+    },
+    "0x498490": {
+      "en": "Huh? Something's off... We look like a paper doll?",
+      "chapter": "prologue",
+      "character": "Player",
+      "event": "avatar-reaction",
+      "tier": "authored",
+      "note": "Player reacts to the chibi avatar. ペラペラの人形 = flat paper doll."
+    },
+    "0x4984d0": {
+      "en": "Not at all! In this world, you've got supermodel looks!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "avatar-reassure",
+      "tier": "authored",
+      "note": "Navi's ですぅ verbal tic dropped in EN; kept the playful tone."
+    },
+    "0x498530": {
+      "en": "Now then, don't sweat the details. Let's go!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "onward",
+      "tier": "authored",
+      "note": "Transition line into the rift. TAIL-3 FIX 2026-09-02 (owner PCSX2-screenshot review): original wording \"Now, never mind the details. | Let us go!\" clipped off-screen (renderer does not auto-wrap, confirmed line was over the empirical ~24-char/line width budget derived from the owner's own screenshots) - shortened/re-broken to fit. Deliberate override of a decode_verified-locked en field - see HANDOFF.md/skills/PATCH-MOD-ISO.md for the full clipping map and byte-budget verification. [2026-09-02 tail-5: reverted to natural apostrophe wording now that font-glyph-1 exists - was 'Never mind the details. | Let us go!']"
+    },
+    "0x498570": {
+      "en": "This is the rift that links your world to the Dokapon Kingdom.",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "rift-explain",
+      "tier": "authored",
+      "note": "次元のはざま = dimensional rift. Glossary: ドカポン王国 = Dokapon Kingdom (official). TAIL-3 FIX 2026-09-02 (owner PCSX2-screenshot review): original wording \"This is the rift that links | your world to the | Dokapon Kingdom.\" clipped off-screen (renderer does not auto-wrap, confirmed line was over the empirical ~24-char/line width budget derived from the owner's own screenshots) - shortened/re-broken to fit. Deliberate override of a decode_verified-locked en field - see HANDOFF.md/skills/PATCH-MOD-ISO.md for the full clipping map and byte-budget verification."
+    },
+    "0x4985c0": {
+      "en": "No crossing, no Dokapon Kingdom! This is your first trial!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "first-trial",
+      "tier": "authored",
+      "note": "D&D-flavored stakes line."
+    },
+    "0x498610": {
+      "en": "This is the gateway to the Dokapon Kingdom. And the very first hero to arrive gets a present from me!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "kingdom-entrance",
+      "tier": "authored",
+      "note": "Entrance gift hook; 勇者様 = hero (glossary ゆうしゃ = Hero). TAIL-3 FIX 2026-09-02 (owner PCSX2-screenshot review): original wording \"This is the gateway to the Dokapon Kingdom. | [spk 0x3ae6] The first hero to arrive | gets a present | from me!\" clipped off-screen (renderer does not auto-wrap, confirmed line was over the empirical ~24-char/line width budget derived from the owner's own screenshots) - shortened/re-broken to fit. Deliberate override of a decode_verified-locked en field - see HANDOFF.md/skills/PATCH-MOD-ISO.md for the full clipping map and byte-budget verification."
+    },
+    "0x498690": {
+      "en": "What's inside? Se... cret!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "prize-secret",
+      "tier": "authored",
+      "note": "ひ・み・つ broken syllable gag, mirrored in EN. TAIL-4 FIX 2026-09-02: replaced the space-split \"Se cret\" workaround with a real hyphen glyph (idx 20) now that one is confirmed present - same footprint, literal glyph swap at the same position. Deliberate override of a decode_verified-locked en field."
+    },
+    "0x4986c0": {
+      "en": "Do your best, everyone!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "cheer",
+      "tier": "B",
+      "note": "Standard encouragement."
+    },
+    "0x4986f0": {
+      "en": "You made it! Here is my present for you. Please accept it!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "first-prize",
+      "tier": "B",
+      "note": "Gift hand-over."
+    },
+    "0x498750": {
+      "en": "Then onward, to the Dokapon Kingdom!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "onward-kingdom",
+      "tier": "authored",
+      "note": "Departure from the rift."
+    },
+    "0x498780": {
+      "en": "And here we are! This is the Dokapon Kingdom, the world where you will forge a brand-new legend!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "arrival",
+      "tier": "authored",
+      "note": "Kingdom arrival; 新たな伝説 = brand-new legend."
+    },
+    "0x4987e0": {
+      "en": "The King awaits! Let's go meet him at once!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "king-waits",
+      "tier": "B",
+      "note": "王様 = The King (glossary, official). [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"The King awaits! Let's go meet him at once!\"]"
+    },
+    "0x498820": {
+      "en": "So you've come, heroes!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "king-greeting",
+      "tier": "authored",
+      "note": "King's blunt greeting; 勇者達 = heroes (plural). [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"So you've come, heroes!\"]"
+    },
+    "0x498840": {
+      "en": "We've been expecting you.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "ministers-greeting",
+      "tier": "B",
+      "note": "Joint minister line. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"We've been expecting you.\"]"
+    },
+    "0x498860": {
+      "en": "The legendary heroes... they truly appeared...",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "legendary-heroes",
+      "tier": "authored",
+      "note": "Wonder at the prophecy coming true."
+    },
+    "0x4988a0": {
+      "en": "How moving.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "moved",
+      "tier": "authored",
+      "note": "感动ですわ; わ feminine keigo dropped in EN."
+    },
+    "0x4988c0": {
+      "en": "To journey here from a distant world...",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "from-far-world",
+      "tier": "authored",
+      "note": "異世界 = other world; milestone context = the player's world."
+    },
+    "0x4988f0": {
+      "en": "I am Rose Minister, Minister of Finance.",
+      "chapter": "prologue",
+      "character": "Minister Rose",
+      "event": "rose-intro",
+      "tier": "authored",
+      "note": "会計大臣 = Minister of Finance/Accounts; surname ミニストル kept as 'Minister'."
+    },
+    "0x498920": {
+      "en": "I am Lavender Minister, Minister of Taxation.",
+      "chapter": "prologue",
+      "character": "Minister Lavender",
+      "event": "lavender-intro",
+      "tier": "authored",
+      "note": "税理大臣 = Minister of Taxation."
+    },
+    "0x498950": {
+      "en": "We are honored to meet you.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "pleasantries",
+      "tier": "B",
+      "note": "よろしくお願いいたします in audience context."
+    },
+    "0x498980": {
+      "en": "I-It is I, the King of the Dokapon Kingdom!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "king-intro",
+      "tier": "authored",
+      "note": "ワシ/じゃ old-man dialect rendered as blustery self-announcement."
+    },
+    "0x4989b0": {
+      "en": "Oh, Your Majesty. You're here?",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "king-noticed",
+      "tier": "authored",
+      "note": "Teasing that they overlooked the king. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Oh, Your Majesty. You're here?\"]"
+    },
+    "0x4989e0": {
+      "en": "We hardly noticed you, sire. Your presence and your hairline have grown so thin.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "bald-joke",
+      "tier": "authored",
+      "note": "影も髪もうすい = shadow and hair both thinning; keeps the bald joke."
+    },
+    "0x498a30": {
+      "en": "Grr! This is all Makonde's doing! He made off with every last coin of my gold!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "maconde-fault",
+      "tier": "authored",
+      "note": "ごっそり = scooped out wholesale; D&D-flavored indignation. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Grr! This is all Makonde's doing! He made off with every last coin of my gold!\"]"
+    },
+    "0x498aa0": {
+      "en": "Those are the King of the Dokapon Kingdom and his twin ministers. They may not look it, but that's who they are.",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "navi-cast-intro",
+      "tier": "authored",
+      "note": "ふた子の大臣 = twin ministers; Navi's aside to the players. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Those are the King of the Dokapon Kingdom and his twin ministers. They may not look it, but that's who they are.\"]"
+    },
+    "0x498b10": {
+      "en": "See, Your Majesty? The heroes are here, just as we hoped.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "heroes-arrived",
+      "tier": "authored",
+      "note": "Prompting the king."
+    },
+    "0x498b50": {
+      "en": "Let us entrust everything to the heroes.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "entrust-heroes",
+      "tier": "authored",
+      "note": "おまかせ = leave it to them."
+    },
+    "0x498b80": {
+      "en": "R-Right... There is still hope, after all.",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "still-hope",
+      "tier": "authored",
+      "note": "King rallies after the ministers' nudge."
+    },
+    "0x498bc0": {
+      "en": "Navi has told you, no doubt: this kingdom teeters on the brink of ruin. Once, this was a peaceful land... until the sorcerer Makonde looted every coin from the castle vault!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "maconde-theft-lore",
+      "tier": "authored",
+      "note": "Backstory beat: kingdom crisis + vault theft. 金庫 = castle vault."
+    },
+    "0x498e20": {
+      "en": "The moment the gold vanished, this world went wrong. Business dried up, calamities ran wild across the land... And so!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "world-gone-wrong",
+      "tier": "authored",
+      "note": "不景気 = recession; 天変地異 = calamities."
+    },
+    "0x498ec0": {
+      "en": "To bring peace to the world once more!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "for-peace",
+      "tier": "authored",
+      "note": "Rallying cry."
+    },
+    "0x498ef0": {
+      "en": "You must return the stolen fortune to the vault!",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "return-gold",
+      "tier": "authored",
+      "note": "ばく大な = vast; ministers state the objective."
+    },
+    "0x498f20": {
+      "en": "Aah! You took the words right out of my mouth!",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "line-stolen",
+      "tier": "authored",
+      "note": "Comedy beat: king's grand line hijacked."
+    },
+    "0x498f40": {
+      "en": "We beg of you, heroes. Crush Makonde's ambitions and win back the gold.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "plea",
+      "tier": "authored",
+      "note": "お願いです + うちくだき = crush; the core quest pitch. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"We beg of you, heroes. Crush Makonde's ambitions and win back the gold.\"]"
+    },
+    "0x498fa0": {
+      "en": "Otherwise, we won't even draw our salaries.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "salary-joke",
+      "tier": "authored",
+      "note": "给料 gag: the ministers' real motivation. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Otherwise, we won't even draw our salaries.\"]"
+    },
+    "0x498fd0": {
+      "en": "Now that is a pressing matter.",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "navi-agrees",
+      "tier": "authored",
+      "note": "切実 = dire/serious; Navi plays along."
+    },
+    "0x498ff0": {
+      "en": "First, save the Asia area, home of Dokapon Castle. Its villages now suffer under the curse of the monk Sanzou.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "save-asia",
+      "tier": "authored",
+      "note": "惨憎法師 = Sanzou (pun on 三蔵法師); boss of the Asia area, next milestone."
+    },
+    "0x499080": {
+      "en": "The roads between areas are sealed, so you cannot roam the world freely.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "areas-sealed",
+      "tier": "authored",
+      "note": "Area-gating mechanic explanation."
+    },
+    "0x4990d0": {
+      "en": "Defeat the boss who rules Asia, and the road to the next area should open. Ask each area's village chief about its boss. They will share all kinds of clues.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "boss-advice",
+      "tier": "authored",
+      "note": "Boss > chief > clues loop. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Defeat the boss who rules Asia, and the road to the next area should open. Ask each area's village chief about its boss. They will share all kinds of clues.\"]"
+    },
+    "0x499190": {
+      "en": "To deposit gold into the World Peace Bank, visit a castle or a church. When your purse is full, please put the gold in the vault.",
+      "chapter": "prologue",
+      "character": "Twin Ministers",
+      "event": "deposit-info",
+      "tier": "authored",
+      "note": "世界平和金庫 = World Peace Bank (glossary, web; JP string now confirmed). 城か教会 = castle or church."
+    },
+    "0x499360": {
+      "en": "The Dokapon Hero! So cool!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "dokapon-hero-cheer",
+      "tier": "authored",
+      "note": "ドカポンヒーロー = Dokapon Hero, the top-gold title."
+    },
+    "0x499390": {
+      "en": "There can be only one true hero in all the world! Don't let the others outdo you. Strive with all your might! And take this: your adventure stipend. Buy gear and supplies with it.",
+      "chapter": "prologue",
+      "character": "King",
+      "event": "stipend",
+      "tier": "authored",
+      "note": "仕度金 = adventure stipend/starting funds; the hand-out beat. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"There can be only one true hero in all the world! Don't let the others outdo you. Strive with all your might! And take this: your adventure stipend. Buy gear and supplies with it.\"]"
+    },
+    "0x499430": {
+      "en": "Everyone received a gift from the King!",
+      "chapter": "prologue",
+      "character": "system",
+      "event": "stipend-received",
+      "tier": "authored",
+      "note": "JP reads 王様からをもらった (dropped object particle); intent clear."
+    },
+    "0x499460": {
+      "en": "I'll help you along the way. Let's all give it our best!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "navi-help",
+      "tier": "authored",
+      "note": "Navi joins the party. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"I'll help you along the way. Let's all give it our best!\"]"
+    },
+    "0x4994b0": {
+      "en": "First, let's head to the village and lift the curse on the magic circle!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "village-quest",
+      "tier": "authored",
+      "note": "魔法陣の呪い = curse on the magic circle; next objective. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"First, let's head to the village and lift the curse on the magic circle!\"]"
+    },
+    "0x499500": {
+      "en": "Ah, so you are the legendary hero, yes? We have been waiting! You will save us, yes?",
+      "chapter": "prologue",
+      "character": "Asia Chief",
+      "event": "chief-greeting",
+      "tier": "authored",
+      "note": "アル dialect tic rendered as a folksy 'yes?' cadence; full dialect is a localization trade-off, noted for critic review."
+    },
+    "0x499560": {
+      "en": "Everyone has high hopes for you, hero! Here's the moment: make a big, flashy debut. Knock 'em dead!",
+      "chapter": "prologue",
+      "character": "Navi",
+      "event": "debut-cheer",
+      "tier": "authored",
+      "note": "ババーンとハデにデビュー = grand flashy debut. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"Everyone has high hopes for you, hero! Here's the moment: make a big, flashy debut. Knock 'em dead!\"]"
+    },
+    "0x4995c0": {
+      "en": "The one who rules the Asia area is a wandering monk named Sanzou. When he first arrived, he was a very good monk, yes. He used the power of feng shui to solve the villagers' troubles for free, yes. Worries about the future, worries of love, worries of debt. All kinds, yes.",
+      "chapter": "prologue",
+      "character": "Asia Chief",
+      "event": "sanzou-intro",
+      "tier": "authored",
+      "note": "Foreshadowing: Sanzou's fall. 風水 = feng shui; アルヨ tic kept as 'yes'. [2026-09-02: rephrased to remove the literal apostrophe per tools/reconcile.py's apostrophe_violation check - no apostrophe glyph exists yet (see skills/PATCH-MOD-ISO.md's 2026-09-02 glyph-feasibility ledger entry). Old EN: \"The one who rules the Asia area is a wandering monk named Sanzou. When he first arrived, he was a very good monk, yes. He used the power of feng shui to solve the villagers' troubles for free, yes. Worries about the future, worries of love, worries of debt. All kinds, yes.\"]"
+    }
+  },
+  "jp_overrides": {
+    "0x5363c4": "女の子"
+  },
+  "overwrite_drift": false,
+  "discovered_by": "build_registry.py"
+}

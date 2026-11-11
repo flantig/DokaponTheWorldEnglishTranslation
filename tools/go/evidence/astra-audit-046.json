@@ -1,0 +1,79 @@
+{
+  "review": "Astra046",
+  "role": "Read-only adversarial findings, not implementation or approval",
+  "started_at": "2026-11-05T06:05:16Z",
+  "ended_at": "2026-11-05T06:09:32.594163+00:00",
+  "cadence_due": "2026-11-05T06:04:43Z",
+  "late_start_seconds": 33,
+  "scope": "Accepted718 baseline and frozen55 private import source. Actual imported source hashes were checked before and after review; all 55 unchanged. Bounded static inspection plus one 30 ms synthetic executable witness. No canonical or protected resource writes.",
+  "findings": [
+    {
+      "id": "A046-1",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "title": "Indented opaque metadata bypasses the import memory boundary and can generate snapshots its own reader refuses",
+      "locations": [
+        "registry_authoring.go:385",
+        "registry_authoring.go:398",
+        "registry_authoring.go:886",
+        "registry_authoring.go:935",
+        "registry_authoring.go:939",
+        "registry_authoring.go:1151",
+        "registry_authoring.go:1154",
+        "registry_authoring.go:1157",
+        "registry_authoring.go:141"
+      ],
+      "mechanism": "JSON import retains arbitrary raw metadata. The shared merge serializes entries with two-space indentation, clones that result into document[entries], then serializes the whole document again. Input byte and row bounds do not bound pretty-printed size. Unlike status/export, the JSON merge has no final output-size guard. The underlying serializer weakness predates this import extension; the newly bounded importer exposes it without a derived-output budget.",
+      "observed": "One valid json_kinds row with depth-1000 nested arrays in unknown opaque metadata: 2210 batch bytes, 2016383 output bytes, exit 0; approximately 912.39x. No discovered_by declaration or CSV path is involved. Whole command and hashes are in nested-metadata/receipt.json.",
+      "inference": "34 distinct-ID rows of the same shape remain below 76 KiB input and below all declared batch/record limits, yet exceed the 64 MiB registry-source ceiling. This scale was calculated, not executed. Higher admitted nesting/row counts amplify allocation further; no out-of-memory run was attempted.",
+      "impact": "A small admitted input can cause unexpectedly large allocation during preview or apply; successful apply can emit a snapshot the same registry owner cannot read again because source size is capped at 64 MiB.",
+      "minimal_existing_owner_direction": "Keep the shared authorRegistry merge and publisher. Establish a derived-size budget before indentation allocates the expanded value, and cap emitted registry snapshots at the existing source ceiling before publication. Existing checkJSON is the candidate owner for any structural/depth or encoded-size preflight, rather than another JSON parser/helper. A post-Encode length guard alone prevents unreadable publication but does not solve allocation amplification. A bounded io.Writer alone also does not constrain encoding/json internal buffering. Preserve opaque metadata, numbers and existing all-present byte-noop semantics.",
+      "verification_needed": "Add a bounded nested-metadata fixture that exercises preview and apply refusal, verifies no output was created and inputs remain unchanged; also prove combined old registry plus incoming rows cannot exceed the consumable output boundary. Retest the existing no-op and raw metadata cases.",
+      "relationship_to_RRI_1": "Distinct from the already known CSV provenance replication issue. A 512-byte provenance cap does not close this JSON metadata expansion path."
+    }
+  ],
+  "adversarial_maintainability_notes": [
+    "Do not use zero newly named functions as proof of simplification. authorRegistry grew from 823 to 1217 file lines and from 33203 to 49417 bytes, while already coordinating multiple operations. Its intake, CSV span restoration, lexical conversion, merge, reports and publication responsibilities must be reviewed independently of the named-function count. This is a concrete complexity/accounting challenge, not a second reproduced correctness defect or a demand to manufacture helpers.",
+    "Do not repair A046-1 with a parallel importer or serializer. The shared merge is the location where both old-source metadata and new rows meet; an import-only raw-byte check cannot bound that combined output. Any unavoidable new function requires examination of existing owners rather than treating the 45-function count as a target.",
+    "Historical lexical imports and byte-aware controls have different contracts. Unifying them solely because marker syntax looks similar risks changing deliberate weak draft admission. The report does not award migration coverage from copied lexical checks."
+  ],
+  "known_open": [
+    {
+      "id": "RRI-1",
+      "status": "OPEN in frozen55",
+      "note": "Known CSV discovered_by amplification; not newly found here and no closure claimed. Root reports a private 512-byte fix outside this snapshot, not inspected."
+    }
+  ],
+  "accounting": {
+    "production_before": 562270,
+    "production_after": 579385,
+    "production_growth": 17115,
+    "production_files": 47,
+    "named_functions_before": 45,
+    "named_functions_after": 45,
+    "registry_authoring_growth": 16214,
+    "test_source_growth": 15101,
+    "test_fixture_bytes": 52456,
+    "runtime_growth_reported": 18177,
+    "runtime_growth_components_checked": "17115 production + 1062 examples",
+    "runtime_total_2681057": "Parent accounting claim, not an independent scan of all 210 runtime artifacts",
+    "retirements": 0,
+    "coverage": "No new family credit. Registry3/6 and accepted9/14 unchanged; .04/.05/.06 not closed."
+  },
+  "inspection": "Read frozen registry_authoring import/acquisition/shared merge/publication sections, main raw-option guard, import types, inputs/checkJSON, README contract, and import tests. Deterministic rg caller check finds authorRegistry definition plus main.go call. Serena initial instructions were read; symbolic lookup returned No active project. Did not activate on frozen source, because activation could create project state outside own capsule. Used read-only rg and source inspection instead.",
+  "checks": {
+    "source55_hashes": "Verified all before and after",
+    "baseline_production": "Checked hashes of compared baseline Go files; independently totaled 47 production Go files and named functions",
+    "synthetic_witness_exit": 0,
+    "executed_source_binary_sha256": "31fcaa0c8994049f832fab5d6897a9cc5d03d896042f4c6d870576aaae7b9ac7",
+    "build_test_lint": "No builds, full suites or race tests run by this reviewer. Parent receipt is pinned only, not promoted into reviewer test claims.",
+    "code_edits": "None; only own review capsule and synthetic files written.",
+    "job_terminal_status": "All reviewer commands exited; synthetic child exit 0; no active child process or test session."
+  },
+  "limitations": [
+    "No full semantic inventory of 125 historical source files or 79 pool facts. Manifest pins alone are not content review.",
+    "No gameplay/native-race/full-suite/native-fit or source-payload claims.",
+    "No new UI, code, registry, protected resources, auth/settings/logs or unrelated processes accessed or changed.",
+    "No reduction, retirement, approval or family completion credit."
+  ]
+}

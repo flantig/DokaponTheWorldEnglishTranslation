@@ -1,0 +1,66 @@
+{
+  "review": "Astra048",
+  "role": "Read-only adversarial findings, not approval",
+  "started_at": "2026-11-05T10:07:30Z",
+  "ended_at": "2026-11-05T10:09:42.886219+00:00",
+  "cadence_due": "2026-11-05T10:05:35Z",
+  "late_start_seconds": 115,
+  "next_due": "2026-11-05T12:07:30Z",
+  "scope": "Pinned accepted764 versus prior047 copied source; frozen private66 full-sweep code/data/golden roles. Own copied source only for Serena.",
+  "findings": [],
+  "conclusion": "No supported new defect in bounded static review. No runtime or migration approval follows.",
+  "challenges": [
+    {
+      "location": "registry_authoring.go:47-1653",
+      "observation": "Existing orchestration owner grew by77 lines and4016 bytes since764. Zero new functions is not reduction evidence. New admission block stays contiguous, shared insertion/serializer/publication remain reused; no justified extraction or needless helper identified."
+    },
+    {
+      "location": "registry_authoring.go:613-637",
+      "observation": "Supplied order validated independently of equal-kind fallback; decoded UTF-8 SHA, both tape lengths, one-based bijection, kind/code and consumed record checks are explicit. No note bypass found."
+    },
+    {
+      "location": "registry_authoring.go:601-612; README.md:1137-1140",
+      "observation": "No-map fallback remains kind-only and admits different codes; README explicitly disclaims that weakness and payload proof. Do not promote lexical mapping to source parameter identity."
+    },
+    {
+      "location": "patch_test.go:17739-17809; testdata/runtime-tables.json",
+      "observation": "57 profile and4 resource maps disjoint, all56 prior profile digests retained. Exactly-one-role plus cardinality prevents an unregistered recipe being silently skipped. registry_add is a finite operation skip, not empty-operation or prefix escape."
+    },
+    {
+      "location": "recipes/registry/historical-discoveries.json; examples/registry-reward-notes/profile.json",
+      "observation": "Stable-ID recipe facts avoid per-script generators or note-prepend handlers.142 constructor facts and5 literal notes are additional capability/data, not measured deletion. Source provenance/reconstruction and actual3186 parity remain independent evidence, not rerun here."
+    },
+    {
+      "location": "registry_human.go:11-148; registry_authoring.go:1201",
+      "observation": "Prior047 human shortcut risk is avoided by separate pure join and human existing-row policy. Addition shortcut remains guarded by adding or missing human entry. Selected-only completeness/date behavior remains documented redesign, not legacy full-registry parity."
+    }
+  ],
+  "accounting": {
+    "prior047_production_bytes": 592202,
+    "accepted764_production_bytes": 603062,
+    "private66_production_bytes": 607550,
+    "private_production_growth": 4488,
+    "private_test_growth_bytes": 5543,
+    "new_recipe_data_bytes": 163622,
+    "new_named_functions_private": 0,
+    "new_go_files_private": 0,
+    "note": "Production includes all non-test Go plus go.mod; runtime recipe/example growth is not a reduction. No retirements or family credit claimed."
+  },
+  "pins": {
+    "prior047": "7ac52e3c58d4853b0884280b6c8aa734c34b74ffb6939ab945c934383c3646c2",
+    "accepted764": "ee09048af6e6780f7424c8d62bd56b20bef929d44ad2907aa7e0648898a72070",
+    "private66": "89613e81f3e6f3ec1d262faf5ce745d18a206eb7806b8f1fe38cf91e9a29d7d5"
+  },
+  "verification": {
+    "accepted764_hashes": "all pass",
+    "private66_hashes": "all pass before and after inspection",
+    "serena": "Initial manual; own copied source project; authorRegistry caller run/main.go482 and TestCLIDryRunAndApply12741; RegistryMarkerOrder references only existing authorRegistry and existing test.",
+    "jobs": "All auditor tool calls terminal; no Go/tests/build/race jobs launched; no children. Parent race not inspected.",
+    "protected": "No canonical/ISO/emulator/PINE/controller/auth/log/process/private-actual-output access. Goal/JOURNAL metadata read only."
+  },
+  "limitations": [
+    "Bounded static audit, no executable counterexample or independent test run.",
+    "Ordinary reviewer report not sealed when audit began; root must resume and verify before accepting it.",
+    "No full-suite/native/gameplay/payload/retirement/migration-completion claim."
+  ]
+}

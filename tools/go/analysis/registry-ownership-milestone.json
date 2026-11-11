@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-05T08:37:16.928422+00:00",
+  "milestone": "registry_authoring.06",
+  "decision": "PROVEN",
+  "requirement": "Reconcile glossary/corrections and distinct human/machine field owners without silent drift or locked-status rollback",
+  "crosswalk": [
+    {
+      "responsibility": "Complete correction/glossary pair/stale/conflicts/held/identical metadata",
+      "evidence": [
+        "evidence/registry-paired-proof.json",
+        "testdata/registry-paired.json",
+        "evidence/registry-audit-source.json",
+        "recipes/registry/terminology-corrections.json",
+        "recipes/registry/terminology-glossary.json",
+        "evidence/registry-human-data-review.json"
+      ],
+      "proof": "Prior50independentpairedcases+actual52/17fourcontrolledstates+exactZIPreplay; nofixDoomneverannotated."
+    },
+    {
+      "responsibility": "Human source/scope/orderedwinner/JPoverride/metadata/locked/drift/knownforce",
+      "evidence": [
+        "evidence/registry-human-proof.json",
+        "testdata/registry-human.json",
+        "analysis/registry-human-contract.json",
+        "recipes/registry/human-authored.json"
+      ],
+      "proof": "Manual55precodefuturecases,source33originalobservations/prior9human,real62threefullsemanticparities/5545scratchselection preserved61locked5483unselected andallreplays."
+    },
+    {
+      "responsibility": "Distinct human/machine owners and no locked rollback",
+      "evidence": [
+        "evidence/registry-policy-closure.json",
+        "evidence/registry-human-review.json"
+      ],
+      "proof": "Existingmachineforward-status/allowlist preserved; oldauthorENnoteonly andpairedforceindependence retained,sharedstatussequence/readabilityfreshreview."
+    },
+    {
+      "responsibility": "Complete preflight/bounds/refusals/write preservation",
+      "evidence": [
+        "evidence/registry-human-proof.json",
+        "evidence/registry-human-review.json"
+      ],
+      "proof": "Core/nativefonts/focusedrace, sharedinput/profile/result65kendpoint/exclusive/newoutput/noop/hygiene/sourceguards. Unsafeoldpartialwritesnotported."
+    }
+  ],
+  "deliberate_contract_changes": [
+    "Numericjoins across resources with within-resource alias refusal; ignore actualunaddresseddecodedplaceholder while exactspellinglastwinnerkept.",
+    "Selected-only metadata completeness preserves unrelatedcurrentrecords; oldwholecurrent source refuses. Existingstatusreport ownscompleteness.",
+    "Known-unlocked requiredforactualforce wording; unsafeunknownstatus legacypermissiveness notported.",
+    "Changed-only dates and exactrawbyte noops; original alwaysrewrote dates.",
+    "Bounded typednonemptyfield/Unicode/row/resourceprofile/result limits beforepublication."
+  ],
+  "credit": 1,
+  "family_credit": 0,
+  "retirements": 0,
+  "scope_limit": ".04/.05 remainpartial; no all410accounting completion/percentage ofreusedcode or currentgameplay claim."
+}
