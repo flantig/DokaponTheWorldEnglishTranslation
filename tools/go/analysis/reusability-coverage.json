@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "status": "VERIFIED_BINARY_INSPECTION_FULL_82_OF_90",
+  "status": "VERIFIED_RASTER_RENDERING_FULL_83_OF_90",
   "measured_at": "2026-11-13T03:55:26.084576+00:00",
   "metric": "Verified shared Go workflow-family coverage",
   "baseline_version": "workflow-families-v3",
@@ -9,18 +9,18 @@
   "formula": "100 * count(status == full) / count(core workflow families). Partial and unsupported get zero completion credit.",
   "counts": {
     "core": {
-      "full": 12,
-      "partial": 3,
+      "full": 13,
+      "partial": 2,
       "unsupported": 0,
       "total": 15,
-      "full_coverage_percent": 80
+      "full_coverage_percent": 86.67
     },
     "expanded": {
-      "full": 12,
-      "partial": 3,
+      "full": 13,
+      "partial": 2,
       "unsupported": 0,
       "total": 15,
-      "full_coverage_percent": 80
+      "full_coverage_percent": 86.67
     },
     "optional_runtime": {
       "full": 0,
@@ -770,7 +770,7 @@
     {
       "id": "raster_rendering",
       "title": "Text and donor-based raster rendering",
-      "status": "partial",
+      "status": "full",
       "scope": "core",
       "source_recommendations": [
         {
@@ -881,10 +881,12 @@
         "evidence/fixed-art-proof.json",
         "evidence/fixed-art-reviews.json",
         "analysis/fixed-art-reuse-decision.json",
-        "recipes/artwork/fixed-instances.json"
+        "recipes/artwork/fixed-instances.json",
+        "analysis/raster-current-baseline203.json",
+        "evidence/raster-fixed-data-review.md"
       ],
-      "verified_support": "Shared pinned binary grayscale font -> centered outlined/shaded text cells -> same masked native importer and exclusive publisher. Five real HUD cells match original-to-approved wholeTXD/rawRGBA with2361 changes contained in2922 pixels; independent semantic, refusal, publication and227-case regression checks. Actual original mini_g01 three-run optical text also matches whole TXD/raw candidate/decoded RGBA with5371 native changes contained in6636 allowed pixels. Shared95-glyph metrics/atlas, quarter-step fit, Pillow-exact alpha and resampling, finite glyph-colored stroke/counters, placement and unchanged publication verified; six mutants killed. Four observed native styles, tracking, minimum, ordered semantic strokes, float/Pillow composition and separate background paint verified against canonical word/layer/panel cases; original tutorial byte effects preserved. Shared native multiline width/height fitting, leading and left/center placement with ordered byte composition pass focused canonical/native checks. Fixed-size inlineicons now share quarterfit/rungeometry, fullsource/destinationpreflight and per-lineimmutableRGBAreplacement;11original wholecases plus shiftedorigins/nativeprojection and lifecycle verified. PinnedTrueType now shares styledquarterfit/run/group/icon/background and finalcontainment/import/publication. Actualoriginalop8,8stylepatterns,5implicitLFcases,70fractional+6signedmasks andsourcecanvascrop verified; standardJSONnostrokepresence preserved. Finite flat/clear/row/column erases now share explicit mixed ordering, current RGBA donors, exact allow/exclude/add and per-text byte guards, immutable original icons, optional font resources, native importer and exclusive publisher.45original vectors, shifted origins, whole native projection, input preservation and strict canonical owned keys verified; no new family/script credit. RGBexclusions and up to32extraANDclauses withindividualtolerance plus sat_lt nowshareexistingcurrent-pixelpredicate/growth/donor/native path.18neworiginalwholeimages/twoorigins, old45cases, newwholeTXD/nativeledger5685andzerooutsidemask, boundedwork/strictnestedJSON/inputpreservation verified;0newfunctions/files. Onelevelsharedpermissionresource preservesexistingthree-stageorder/64cap/nativeintersection/textleaks;2nativeprofiles shareonecanonicaltable, fixedsource13rectangles match80254pixels. Generalshapes/OR/morphology andremainingartduties remain open. Currenterase/originalpermission predicates and erase/font/footprint topology sharetwojustifiednumericalowners. FiniteOR-of-AND plusstrictsignedscalarfacts andfixedclose/fill/core/min/grow/clip/excludepipeline verifiedagainst179sourcevectors+3shiftedobservations. Sevenpurposedtables cover14genericproviderrecords; other27providers/wholeartwork remain open. Existingcomponentwalk sharesminimumsize/foregroundseedmembership/tagcomponentveto with4/8componentconnectivity; sourcepredicateconstructor distinguishesSampleRectfromRect andsupportsstrictsignedgreen-blue. Sevenadditionalmaskfnrecords have14actual/16manualsourceoutcomes; other20maskfnrecords/flood/advancedartdutiesremainheld. Existingcomponent/holefill/erosionownerspreservelabel0allbackground/crop/postunionerosion andall56stagesof4sourcepermissioncontexts. Threefulltables/fourstableassetIDs, obsoletepartialt2runtimeinputremovedwhileoldliteralexpectationsstayunchanged. Other20maskfn/font/art/donordutiesremainheld. Three batchE permission calls share fixed cross/square morphology, with six complete provider comparisons on two declared synthetic contexts and source-pinned stable asset tables. One named approvedallmap_1logo-A fixed-instance datum is imported/replayed throughunchangedGo owners with independentnative/RGBA/exactmask/versionguardproof; arbitraryeditablegenerators remainunsupported.",
-      "remaining_gap": "17other Epermission calls/font-dependentpermissions plus donor/PDE/exemplar/plate/familyfields/radial/contour/source-art/material duties remain. Three newly proven permission calls do not complete artwork reconstruction.",
+      "verified_support": "Current source-qualified fixed-data criterion complete. Shared styled layer/current-donor ordering and permissions,203row material dispositions and one independently exact native endpoint are canonical in reconstruction-row-proof.current_raster_criterion_assessment.",
+      "remaining_gap": "No remaining criterion clause under approved current fixed-data scope. Arbitrary historical generators/newart/pristine/runtimevisual/gameplay remain outside the accepted finite contract.",
       "scoped_toolkit_operation": "Pinned texture plus grouped cells/icons/reconstruction/order facts -> bounded composed texture through shared importer."
     },
     {
@@ -1016,8 +1018,8 @@
     ".goal/USAGE-CHECK.md": "3e444f3c4f4f29184b12eb9592fba2eb0f92c1e168af7fd0f4eb79ef7948954a",
     "ARCHITECTURE.html": "8683b76ec216457b63dd05ce6563fcdb3104986337fd3b36868de5d6b2c85d3e",
     "ARCHITECTURE.md": "d5f12138a03f9d1f71366ba5971c4780d81c3317d3ac75c3eab8f8131ea01dc2",
-    "MIGRATION.md": "b999285f7c535a3234c2bbf2ac33044f2972ca15412e444c0ffc3df24aefb2cf",
-    "README.md": "44866bd65cb7de118d98a7867817796a461e5936888a0826a0cf11e4e5bf6a53",
+    "MIGRATION.md": "346a7c1b6894d9468b1d03e48ac0d80e5b63b57855a6916b84c7c7146787521c",
+    "README.md": "73f3e1f7529645dd2e6083811a2f82485560b4cf14c4504a42b79d8aad3e4370",
     "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
     "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838",
     "analysis/asset-comparison-decision.json": "a5c804100d12ea1e2ef63903ee58b273f5ca5b0b2075c2758dcc2972c0a40096",
@@ -1045,7 +1047,7 @@
     "analysis/guarded-transaction-coverage-reassessment.json": "841d24a962fcf0eeb89a31bf7948064f419192a3c9b0401923d6e6884a37cad3",
     "analysis/guarded-transaction-coverage-review.json": "74c188a329fa6949642cad2329349f6b9148593fcf29c9d0cd3c5ca3adecee1b",
     "analysis/inline-icons-reuse-decision.json": "7220f120359530fe540098a00a80d1f18d47f7022d35257de23fd222ed5bc656",
-    "analysis/migration-roadmap.json": "3fc384a2e9ee605dabc08da27ad271a4f304d76d98de4419d8077b99591e35b7",
+    "analysis/migration-roadmap.json": "f41cc2ab8ff3272ce07eb8759c8fa0a5bc64a9277331d44d386e149a86405df8",
     "analysis/multipage-psmt4-native-contract.json": "7b8392c79d7c65faff8356e581c8154a9952ee79d3455537184e76acad65ac08",
     "analysis/native-background-reuse-contract.json": "3c1cc105e5997c23a0af83f46faf3956099be09b528c358bfa974dcfac06a47b",
     "analysis/native-line-groups-contract.json": "af2e5e44a483ae4a55f1fa4d611ea2b1d92f09dac9fcf1d9f82d7c25d26bf3f7",
@@ -1386,7 +1388,7 @@
     "analysis/donor-reconstruction-boundary-review.json": "55b9cf650d06ce15bece4b2aeda072a789d92831893877b017b9e96c60f323fc",
     "analysis/reconstruction-icon-source-contract.json": "b902a24756696350a3085eda7ba6b02f7752cafd3b531074c49d2c31c95d74f8",
     "analysis/reconstruction-native-contract.json": "299d44039cb93a3ae79c0821dd7b23c1dc1ba756dd121eb41b04bf8a3efdf82a",
-    "evidence/reconstruction-row-proof.json": "544a5fe1f709701ebab16d75586cfa2e05ae6fbd19f10a94f1d3afa146ba8a8f",
+    "evidence/reconstruction-row-proof.json": "02f879bf92096d387fee98d3d19169a8b4c2b9282bd52cb349acb39a74984b47",
     "evidence/reconstruction-row-review.json": "e3ff8c302672f146c74a9218b4927954c7be1e2d678e857b9c94bbe0f73387bd",
     "raster_reconstruction.go": "08d61937dc7053193404e561d122f20ba79724fd7a6903efc7545540cd7a4a9d",
     "raster_reconstruction_types.go": "fe93295aae18dbca31cdc2d6b79d3f2532ca84a536db04a3aeb5333fddd7a6f8",
@@ -1698,7 +1700,7 @@
     "profiles/textures/fixed-art/allmap_1-logo-a-v1.json": "777aca1d08f5ed9254069d946e327fcd84436c9040b6bc38420c7a99d09754d7",
     "evidence/fixed-art-proof.json": "b9fc394df966c0363f61ea145eff486f828aa3f7c655bd2abb176f508390d7c2",
     "analysis/migration-roadmap-v1-accepted808.json": "6dd58b961a73e6a861ae642c81ee32adada4bc5eb8c5f8dcb802c2d295931a3c",
-    "analysis/migration-roadmap.md": "221be4d472ae06a1f7329a18862fd18178b8785b50084e9adb6a45f2b2f9219c",
+    "analysis/migration-roadmap.md": "54805be76f10efe4f1c19170b162642775854ce9424df8fca9889b6187a35cd6",
     "analysis/probe-family-contract-v2.json": "6a1f637781b9323171a287dcbc70c5e7276cb977438df09cbf351d4d85a0f93a",
     "analysis/probe-owner-handoff.json": "3e49e4ae48b9ec34686879a2cdf4173a3dfbdd2960baf0e5dfa601c230891555",
     "analysis/reusability-coverage-baseline-v2.json": "410a0c8cb8d561c6342bd654ad97b9f0b4c1b0dca2f2e8a3d6590d5a046785ca",
@@ -1728,7 +1730,7 @@
     "analysis/reusability-coverage-baseline-v3.json": "1d3c2954c9e861dff649217a6498908136a6df98137d61dbbec9285465108483",
     "analysis/reusability-coverage-v2-accepted834.json": "ce1fee5a0900669c0ec5eab7793fcda18324ec169fc5a2a90d69c741407ab41c",
     "analysis/reusability-coverage-v2-accepted834.md": "955a64bafdec58f394650424b2210054c90d4d39efc5661de2a6a50453bdd3c9",
-    "analysis/reusability-coverage.md": "028f835ec8dcbf04140ff76df76a2a10bcaba44e7d74dd5d6c7276c74de2a245",
+    "analysis/reusability-coverage.md": "be667a1341f9de78a3fa8b8dfd5f4c710edc8e67c7ad151f2eb771a9d68ef34e",
     "evidence/current-tooling-scope-proof.json": "995418471f40a818b9fd1fa7734ebb5055650ef031cfac0576530a260af6e8b1",
     "evidence/current-tooling-scope-review.json": "aa47f6d2b56d49586f4d8ea2fba244ea68440bf061ddb2e12b1da218a3ce7eda",
     "evidence/reusability-coverage-checks-v2-accepted834.json": "3f338ac615fe98dae2ae07462c5e0e31feab2db3606ad8999cc429b1d17dcb8e",
@@ -1804,7 +1806,9 @@
     "testdata/startup-centering-2026-10-01-sent.json": "160a7a3c56f859bc72ad77789c4188901a5d4fa8744e65034f7f5485f0efacd5",
     "analysis/consumer-layout-facts.json": "54a3eee0c565828837a01952822f59b641923c5e394ca90ca0a1cdd17de87eb3",
     "testdata/instruction-addu-fixture.zip": "ff03ef94d07debfb20f985d41b5ee4d7174400989c777d1bc7934afa02e5f235",
-    "testdata/pointer-consumer-v2-fixture.zip": "e7e2c927c7d48c4e668b104aacc15af556f6c0891d8cfd4a01b8f618449cf1bc"
+    "testdata/pointer-consumer-v2-fixture.zip": "e7e2c927c7d48c4e668b104aacc15af556f6c0891d8cfd4a01b8f618449cf1bc",
+    "analysis/raster-current-baseline203.json": "767e42ca68dafa653c37bb7b08f628d32dacc392b94ca0f25b173ce01201dd03",
+    "evidence/raster-fixed-data-review.md": "753633368889d35de09df90f636615367a5259b7efc182b1a124d36009568e06"
   },
   "limitations": [
     "Unweighted broad-family completion, not fraction of code reused or proof of readability/DRY. It does not mean only this fraction of the mod can be rebuilt.",
@@ -1815,9 +1819,9 @@
     "The v3 scope record amends two current obligations without changing any verified-Go score. Exact accepted-834 views preserve the previous requirements and statuses. Historical disposition is not implemented Go functionality."
   ],
   "classification_correction": "Independent review identified missing verified revert responsibility in the original binary_edit contract. Root accepted guarded_transactions downgrade from provisional full to partial before publishing any final percentage. No new feature/test added to increase the number.",
-  "verified_at": "2026-11-13T21:03:44Z",
+  "verified_at": "2026-11-13T23:09:57Z",
   "verification_checks": "evidence/reusability-coverage-checks.json",
-  "verified_progress": "12 of15core families Full(80.00%);82 of90criteria proven(91.11%). Binary6/6Full,consumer6/6,image5/6. Eight uncredited: sixprobe-last,raster.06active,reviewed retired image.06zero-credit. Not effort/reuse/runtime-fit/gameplay coverage.",
+  "verified_progress": "13of15coreFull86.67%;83of90criteria92.22%. Sevenuncredited: sixprobe0/6 andreviewedretired image.06zero. Notreuse/script/effort/gameplaycoverage.",
   "latest_family_assessment": {
     "at": "2026-11-05T10:26:25.281316+00:00",
     "proof": "evidence/registry-pools-proof.json",
@@ -2048,14 +2052,14 @@
     "functions_added": 0
   },
   "granular_roadmap": {
-    "at": "2026-11-13T21:03:44Z",
+    "at": "2026-11-13T23:09:57Z",
     "roadmap": "analysis/migration-roadmap.json",
-    "roadmap_sha256": "3fc384a2e9ee605dabc08da27ad271a4f304d76d98de4419d8077b99591e35b7",
+    "roadmap_sha256": "f41cc2ab8ff3272ce07eb8759c8fa0a5bc64a9277331d44d386e149a86405df8",
     "version": "capability-milestones-v3",
-    "verified": 82,
+    "verified": 83,
     "total": 90,
     "source_recheck": "evidence/migration-roadmap-source-checks.json",
-    "claim": "12 of15core families Full(80.00%);82 of90criteria proven(91.11%). Binary6/6Full,consumer6/6,image5/6. Eight uncredited: sixprobe-last,raster.06active,reviewed retired image.06zero-credit. Not effort/reuse/runtime-fit/gameplay coverage."
+    "claim": "13of15coreFull86.67%;83of90criteria92.22%. Sevenuncredited: sixprobe0/6 andreviewedretired image.06zero. Notreuse/script/effort/gameplaycoverage."
   },
   "latest_asset_specification_increment": {
     "at": "2026-10-21T00:55:05.225608+00:00",
@@ -3751,5 +3755,13 @@
     "proof_sha256": "aec861832859a6920282db82d6ab9804081deb901acb9848edf45b09de48375e",
     "record": "current_range_removal_assessment",
     "milestone_credit": 0
+  },
+  "latest_raster_criterion_completion": {
+    "proof": "evidence/reconstruction-row-proof.json",
+    "proof_sha256": "02f879bf92096d387fee98d3d19169a8b4c2b9282bd52cb349acb39a74984b47",
+    "record": "current_raster_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 1,
+    "pin_basis": "Affectedcurrentmetadata/proof/datajoinsrefreshed;READMEpinisverifiedcoreprojectionexcludingunchangedconcurrentprobe suffix. Historicalcompiled/native/sourcepinsareunchanged."
   }
 }
