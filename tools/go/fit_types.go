@@ -9,6 +9,7 @@ type FitProfile struct {
 	ISOFile        string              `json:"iso_file,omitempty"`
 	ELFVMADelta    string              `json:"elf_vma_delta"`
 	Font           Layout              `json:"font"`
+	InkAtlas       *RegistryInput      `json:"ink_atlas,omitempty"` // Native font TXD; independent of candidate ELF provenance.
 	Boxes          map[string]FitBox   `json:"boxes"`
 	Entries        map[string]FitEntry `json:"entries"`
 }
@@ -31,18 +32,21 @@ type FitEntry struct {
 }
 
 type FitRow struct {
-	ID            string   `json:"registry_id"`
-	Box           string   `json:"box"`
-	English       string   `json:"en"`
-	Status        string   `json:"status"`
-	EncodedHex    string   `json:"encoded_hex,omitempty"`
-	EncodedSHA256 string   `json:"encoded_sha256,omitempty"`
-	Bytes         int      `json:"bytes"`
-	Width         int      `json:"max_line_width"`
-	Lines         int      `json:"max_lines_per_page"`
-	LineWidths    [][]int  `json:"line_widths_by_page,omitempty"`
-	LineBreaks    *int     `json:"line_breaks,omitempty"` // Absent unless requested and successfully measured; zero is a known count.
-	Diagnostics   []string `json:"diagnostics,omitempty"`
+	ID            string     `json:"registry_id"`
+	Box           string     `json:"box"`
+	English       string     `json:"en"`
+	Status        string     `json:"status"`
+	EncodedHex    string     `json:"encoded_hex,omitempty"`
+	EncodedSHA256 string     `json:"encoded_sha256,omitempty"`
+	Bytes         int        `json:"bytes"`
+	Width         int        `json:"max_line_width"`
+	Lines         int        `json:"max_lines_per_page"`
+	LineWidths    [][]int    `json:"line_widths_by_page,omitempty"`
+	LineBreaks    *int       `json:"line_breaks,omitempty"` // Absent unless requested and successfully measured; zero is a known count.
+	Diagnostics   []string   `json:"diagnostics,omitempty"`
+	InkStatus     string     `json:"ink_status,omitempty"`
+	InkBounds     [][][4]int `json:"ink_bounds_by_page,omitempty"`
+	InkDiagnostic string     `json:"ink_diagnostic,omitempty"`
 }
 
 type FitReport struct {
@@ -52,6 +56,8 @@ type FitReport struct {
 	GlyphmapSHA256 string            `json:"glyphmap_sha256"`
 	ProfileSHA256  string            `json:"profile_sha256"`
 	Measurement    string            `json:"measurement"`
+	InkAtlasSHA256 string            `json:"ink_atlas_sha256,omitempty"`
+	InkAtlasSize   int64             `json:"ink_atlas_size,omitempty"`
 	Limits         string            `json:"limits"`
 	Boxes          map[string]FitBox `json:"boxes"`
 	Entries        []FitRow          `json:"entries"`

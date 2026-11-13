@@ -1,0 +1,200 @@
+{
+  "kind": "CONSOLIDATED_POINTER_CONSUMER_REVIEW_HISTORY",
+  "initial_ordinary": {
+    "kind": "INDEPENDENT_ORDINARY_POINTER_CONSUMER_SOURCE_REVIEW",
+    "at": "2026-11-13T05:41:20.943056+00:00",
+    "reviewer": "/root/inclusive_flow_review",
+    "reviewed_manifest": "/var/tmp/dokapon-pointer-consumers-u656gnjn/operational-manifest.json",
+    "reviewed_manifest_sha256": "6fd8abfc1cc813f008982c29b14b3b137f8c735694b0fd8fc0e4b907f0a80146",
+    "findings": [
+      {
+        "id": "SPILL-RELOAD-LOSS",
+        "severity": "HIGH",
+        "location": "pointer_flow.go:90-103",
+        "problem": "Only supported aligned 4-byte nonmerge GPR reloads propagate a stored origin. A modeled wider, partial, merge or non-GPR reload overlapping a live pointer spill can silently discard provenance without any incompleteness reason. Clearing that spill later allows complete empty termination even though the loaded register may still carry the pointer.",
+        "source_counterexample": {
+          "seed": "before root a0/register4, normal, entry base0x100000",
+          "words": [
+            "afa40000",
+            "24040000",
+            "dfb00000",
+            "afa00000",
+            "96020000",
+            "24100000",
+            "03200008",
+            "00000000"
+          ],
+          "meaning": "SW a0,0(SP);clear a0;LD s0,0(SP);SW zero,0(SP);LHU v0,0(s0);clear s0;JR t9;NOP",
+          "derivation": "LD restores the saved pointer low32 from the seeded intact word at SP+0. Current source sets loadedOrigin=false for width8, records no unknown reason, then exact SWzero clears the last tracked spill and stops before the real LHU. This is source-derived, not a Go execution result.",
+          "required_minimum": "For the intentionally bounded SW/LW domain, unsupported potentially overlapping reload must leave an explicit sticky UNKNOWN/provenance-loss reason. Preserve MAY origin for supported low32 reconstruction, or stop conservatively rather than manufacture completeness. Do not claim new LD/LQ/cross-bank semantics merely to fix this."
+        },
+        "minimal_direction": "Enhance the existing memory-load branch using authoritative decoded width/merge/bank facts. Check all known overlapping slots and unknown addresses with live slots, including partial/merge/non-GPR forms. Merge footprints may overlap the aligned block preceding literal EA. Extend the existing fixture table, no new function/test owner."
+      },
+      {
+        "id": "FALSE-LINK-CALL",
+        "severity": "HIGH",
+        "location": "pointer_flow.go:182-200",
+        "problem": "A conditional linked branch delay state is treated as a call merely because LinkRegister is nonnil, even for a known false outcome. This emits a nonexistent call_argument and drops the existing false fallthrough consumer path.",
+        "source_counterexample": {
+          "seed": "before root a0/register4, normal, entry base0x100000",
+          "words": [
+            "04100002",
+            "00000000",
+            "94820000",
+            "24040000",
+            "03200008",
+            "00000000"
+          ],
+          "meaning": "BLTZAL zero,+2 (statically false);NOP delay;LHU v0,0(a0);clear a0;JR t9;NOP",
+          "derivation": "indexInstructions correctly models op1/rt16/rs0 as always_false and produces the real delayed fallthrough edge to base+8. Link effects may remain as decoded, but no call takes place. Current trace checks only LinkRegister, emits call_argument with Taken=false at base+4 and stops call_continuation_unmodelled, losing the actual base+8 pointee_read.",
+          "required_result": "Known pointee_read at base+8, register4,width2,displacement0, no delay context; no call_argument. With the root value killed at base+12, complete within this asserted local scope is true."
+        },
+        "minimal_direction": "Apply linked-call stop/argument capture only for an actually taken conditional-link outcome. Untaken nonlikely branch uses its existing graph fallthrough edge; this is not inventing a call-return edge. Preserve actual delay execution, link effects, and likely annulment. Add literal false plus mixed-outcome coverage through existing fixture owner."
+      }
+    ],
+    "dismissed_suspicion": {
+      "id": "CALL-TARGET-OVERFLOW",
+      "status": "WITHDRAWN",
+      "reason": "Initial suspicion of uint64 truncation was disproved by the shared number owner: patch.go:29 parses hexadecimal with strconv.ParseUint bitSize32, and references already checks err. No redundant production guard is needed. Reported correction to root and owner."
+    },
+    "verified": {
+      "operational_members": 52,
+      "post_review_operational_drift": 0,
+      "approach_members": 2,
+      "approach_source_pins": 13,
+      "literal_review_members": 1,
+      "literal_review_source_pins": 13,
+      "join_erratum_members": 1,
+      "join_erratum_source_pins": 13,
+      "all_checked_capsule_hashes_exact": true,
+      "manual_v4_changes": "Only one frame-disagreement-at-join event added to v3; other37cases,4policyvectors,reasons/completeness unchanged. Exact source-bound erratum verified.",
+      "fixture_zip": "Both members equal retained JSON projections,38consumer+4policycases and15+16refusals.",
+      "mechanical_carrier_fix": "Existing policy codeLOAD filesz/memsz20->52 covers13 source words before next file/VMA mapping; no expected policy/event change.",
+      "architecture": "queryRegisterFlow is sole graph constructor. indexInstructions remains sole decoder; internal transfer/memory descriptors and lifted graph types reused. One pure pointer-domain function is justified by monotone state joins/spills/events and existing reviewed separation. No helper-per-opcode or generic framework.",
+      "flow_checks": "Alias/spill incoming joins union; exact frames intersect; queued reprocessing and work budgets are bounded. Existing normal/delay/any contexts and after seed phase preserve graph identity. Known risk outranks unknown and declared allowed rules cannot erase unresolved call continuation. No production software attestation follows from free-text evidence.",
+      "compatibility": "Absent optional fields and unaffected decoded forms retain existing API paths. Newly supported zero-operand copy encodings intentionally change instruction facts; universal old-report byte equality would be unsupported."
+    },
+    "review_limits": [
+      "No Go execution, new test result or independent runtime replay claimed. Owner QA is separate.",
+      "This review covers frozen code/schema/tests/fixture only; moving documentation/accounting needs its separate final metadata review.",
+      "Full interprocedural/global/getter/table/call-summary duties and binary .06 remain open. No full .05 or family credit.",
+      "No source edits, native/probe/game/ISO/canonical registry access, public push or extra agents.",
+      "Findings supply no approval authority and do not reset periodic Astra cadence."
+    ]
+  },
+  "final_operational_delta": {
+    "kind": "INDEPENDENT_NARROW_POINTER_CONSUMER_FIX_DELTA_REVIEW",
+    "at": "2026-11-13T05:51:05.496154+00:00",
+    "reviewer": "/root/inclusive_flow_review",
+    "reviewed_manifest": "/var/tmp/dokapon-pointer-consumers-u656gnjn/operational-v4-manifest.json",
+    "reviewed_manifest_sha256": "4b5ad4a022c95510b15816d067807640a1c4ea96e1aa31b017f030c8cd7649fc",
+    "prior_review_manifest_sha256": "30425091d523f0e63f126cbfdec04c1f1133290f99989a2dfbc9d46255d3b657",
+    "findings": [],
+    "closed_findings": [
+      {
+        "id": "SPILL-RELOAD-LOSS",
+        "disposition": "Resolved conservatively in existing memory-load branch. Any unsupported possible overlap with a saved origin slot leaves stickyunsupported_spill_reload, including known partial/merge/wide/FPR/COP2 reads and unknown addresses. Only intact aligned4-byteGPR reload is modeled as supported; no new wide/cross-bank semantics or FPR->GPR alias invented."
+      },
+      {
+        "id": "FALSE-LINK-CALL",
+        "disposition": "Resolved: linked conditional transfer is a call only on selected ConditionTaken outcome. False branch follows existing graph fallthrough, actual delay/link effects unchanged; likelyfalse still annuls its delay. Newfalse/true/unknown/likelyfalse source literals bind exact events and completeness."
+      },
+      {
+        "id": "DUPLICATED-FOOTPRINT",
+        "disposition": "Resolved without helper: one aligned merge-access start/end calculation before load/store dispatch, using shared decoded width/merge facts. Both branches use same geometry owner."
+      }
+    ],
+    "rejected_diagnostic": "Width>=4-only unknown-address partial guard was rejected because weakening exact address facts must not erase an already possible unsupported origin-bit read. Diagnosticv3 run is retained but not acceptance. Number-overflow suspicion remains withdrawn; only an additional negative fixture uses existing32bitnumber parser.",
+    "source_erratum": "source-erratum.json supplies six independently derived additive reason changes and three completeness flags, from concreteorigin=seedSP witness and monotonic-address weakening. All49 words/knownpositiveeventsets and4policyvectors unchanged; other43 expectedcaseobjects unchanged.",
+    "verification": {
+      "all52operational_member_hashes_verified": true,
+      "only3changed_members_from_reviewed_v1": [
+        "pointer_flow.go",
+        "patch_test.go",
+        "testdata/pointer-consumer-fixture.zip"
+      ],
+      "v1_original3members_retained_exact": true,
+      "new_functions_types_fields_or_decoder_engines_in_fix": 0,
+      "manual_v6_sha256": "3ec307f676c7c953dca41f364495767f3ce445360e37d2fdce6a1f3a52670edd",
+      "manual_v6_frozen_at": "2026-11-13T05:49:33.575778Z",
+      "source_erratum_frozen_at": "2026-11-13T05:47:54.335874Z",
+      "timeline": "Independenterratum followed diagnosticv3execution but used only immutablemanualv5 and source contracts, no candidate outputs. It predates finalconservativev4execution. No claim thaterratum predates allcandidateexecution.",
+      "fixture": "49raw+4policy cases,15+17refusals, all49 words/sourceprofilepins/eventcore/reasons/completeness manuallybound in typed fixture. Policy member retains unchangedv4manualsourcehash because its4policy vectors are unchanged throughv6.",
+      "worklist": "Existing union aliases/spills, intersection exact frames, reprocessing and root/delay/after context facts unchanged in narrowfix. New guard remains conservative under loss of exact address, nooriginbit disjointness assumption.",
+      "post_review_operational_drift": 0
+    },
+    "conclusion": "No reproducible remaining defect found in bounded finalv4 delta. Prior twoHIGH findings and smallDRY issue resolved by shared owners. Source review supplies findings, not approval or verification of the ongoing ownerQA job.",
+    "limits": [
+      "No Go execution, source edit, protected resource access, public push or extra worker.",
+      "OwnerfocusedQA/build/vet/race and finalmetadata review remain separate requirements.",
+      "Full interprocedural/global/getter/table/ABI/fullbinary.05 and.06 remain open; probeLAST and retiredstaticgrowth disposition unchanged.",
+      "No code reduction, full milestone, retirement or universal old-output byte equality claim; newly supported copy forms intentionally change decoded facts.",
+      "Nonperiodicfixreview does not reset Astra cadence."
+    ]
+  },
+  "initial_manifest_sha256": "30425091d523f0e63f126cbfdec04c1f1133290f99989a2dfbc9d46255d3b657",
+  "final_manifest_sha256": "b4aebda5a62250a6533a2cd1821594be9cd54a6671d9bba0c70562acd8988d89",
+  "role": "Read-only reviewers supply findings, not approval. The implementation owner verifies checks and publication gates.",
+  "source_errata": {
+    "framejoin_manifest_sha256": "4ed9ebed205aba9722c221fc5266cec1ae3143751de0095273443d4cd523c92b",
+    "partial_reload_source_erratum_sha256": "6e84bd408dab3d5f738ed0c6391b1e3d65497e8efc95adb2763bbd1ed912145f",
+    "claim": "Manual words and positive events are source-bound, not copied from candidate outputs. Earlier versions, failed runs and independent corrections remain retained. A rejected narrowing experiment passed its incomplete fixture but is not acceptance evidence."
+  },
+  "final_metadata": {
+    "kind": "INDEPENDENT_FINAL_POINTER_CONSUMER_METADATA_REVIEW",
+    "at": "2026-11-13T06:12:44.416700+00:00",
+    "reviewer": "/root/inclusive_flow_review",
+    "reviewed_metadata_manifest": "/var/tmp/dokapon-pointer-consumers-u656gnjn/review-metadata-v2/manifest.json",
+    "reviewed_metadata_manifest_sha256": "6081beb4d034ce9813c1327ebfd4ea524593b8d08738c98f12119c027a5958a2",
+    "previous_metadata_manifest_sha256": "8cbd2dd14fcdb64f4ed07fbd86a8cabcdcbd4bdfee9e87ee601a38be117363d4",
+    "reviewed_operational_manifest_sha256": "4b5ad4a022c95510b15816d067807640a1c4ea96e1aa31b017f030c8cd7649fc",
+    "remaining_findings": [],
+    "resolved_finding": {
+      "id": "DOC-PROSE",
+      "severity": "MEDIUM",
+      "problem": "New authoritative JSON narratives joined ordinary words, making developer contracts and the retired-design boundary needlessly hard to read. Examples included Existingquerylabel identifiesoneassertedlow32origin and OldfixedstaticPH1loadable-segmentplusInitHeapcap architecture.",
+      "resolution": "Nine prose/hash-closure files were revised. New contract, disposition and current proof/roadmap/coverage narratives now use concise sentences. Recursive comparison confirms unchanged object keys, types, list lengths and non-string facts; only prose strings and associated current hashes differ. Original17-file snapshot remains retained. Existing immutable review history was not rewritten."
+    },
+    "verification": {
+      "metadata_snapshot_members": 17,
+      "operational_members": 52,
+      "post_review_drift": 0,
+      "wording_delta_files": 9,
+      "scoped_pins": 708,
+      "report_pins": 606,
+      "pin_aliases": "Both exact external skill aliases resolve; all current pinned paths hash-match.",
+      "accounted_inputs": 370,
+      "accounting": "All unique input paths, complete hashes, byte counts and group totals checked. Runtime-without-bundle, with-bundle and executed-evidence aggregates recomputed. Imports/module/config/data/examples count together with production; tests/ZIP and documentation/evidence/screenshots/private analysis remain separate.",
+      "measured_growth": {
+        "production_files": 49,
+        "production_bytes": 629953,
+        "named_functions": 47,
+        "production_byte_delta": 20963,
+        "runtime_byte_delta_with_examples": 21940,
+        "test_byte_delta": 2397,
+        "new_fixture_bytes": 9242,
+        "new_functions": 1,
+        "new_dependencies": 0
+      },
+      "reuse": "Existing graph and instruction producer retain ownership. One previously reviewed pure pointer-state function is justified by distinct joins/frame-spill semantics; no additional function, helper, decoder, graph or dependency was introduced by fixes or metadata. These bytes are capability growth, not deletion, relocation savings or retirement.",
+      "publication_delta": "20 existing paths changed and8 new paths; accepted822 plus8 gives830 anticipated members. Whitelist matches code/metadata/example/fixture changes. No obsolete source or earlier proof deletion.",
+      "history_and_coverage": "All90 milestone IDs, requirements, statuses and credits remain unchanged. Four baseline/accepted808 coverage/roadmap archives retain exact822 hashes. Coverage stays10/15 Full and76/90 milestones, binary4/6, image4/6, probe0/6.",
+      "source_contracts": "Four legacy source identities match. The finite SW/LW and possible unsupported reload contract retains sticky UNKNOWN, no stack-disjointness assumption or FPR-to-GPR provenance claim. Actual conditional-call and before/after seed boundaries remain documented. Declared call rules do not attest software bytes or grant patch/ABI authority.",
+      "retired_design": "The exact old PH1/InitHeap architecture has a source-bound retired-design disposition. Stage A/parser history, current aligned streaming differences and the1872-byte old padding boundary remain explicit. This is not general Go BSS growth, image .05/.06 completion or whole-script retirement.",
+      "priority": "Current native ink/layout tooling is the next bounded investigation; probe implementation remains last and Python remains sole operational owner.",
+      "QA": "Eight retained command/result rows match qa-results.results and exact log hashes, all exit0. Final core CLI26.065s; actual nativefonts CgoFiles raster_font.go; both builds/vet and focused core/nativefonts tests pass. Core CLI+TestPilotHistoricalGoldenBytes race401.161 package seconds and421.726 wall seconds. No independent Go rerun by this reviewer.",
+      "compatibility": "Old172 index/graph vectors and86 refusals remain covered. Previously unsupported zero-operand ADDU/DADDU/OR facts intentionally expand; metadata makes no universal old-report byte-equality claim.49 raw+4 declared-policy vectors and32 new refusals are scoped, with source-derived corrections and rejected diagnostic history preserved.",
+      "example": "New276-byte ELF and701-byte profile hashes match retained successful example report; no source/profile mutation claim exceeds owner evidence.",
+      "diagram": "Exact HTML/render receipt and two screenshot identities verified; both images independently viewed. New diagram is legible, describes one decoder/CFG/pointer domain/report-policy chain and points to canonical current coverage instead of stale6/14. Mobile uses an explicitly labeled keyboard-focusable scrolling region; owner receipt records bounds and keyboard scrolling. No new behavior or Go rerun was required.",
+      "links": "All newly introduced Markdown and HTML paths resolve.220 unchanged historical Markdown links lie outside the reduced owned snapshot; this review does not assert every historical link is available.",
+      "Astra": "052 receipt records actual05:52:12..05:54:52.980099Z, next07:52:12Z, no reproducible findings. It is a separate adversarial challenge, not approval; its77-pin verification is historical at that receipt time, not a fresh current-metadata replay."
+    },
+    "limits": [
+      "Complete suite, nativefonts race and gameplay/native patch acceptance remain deferred.",
+      "No source edits, Go execution, native/probe/game/ISO/canonical registry control, public push or extra agents.",
+      "Final local integration, evidence linkage/hash closure and source guards remain root/implementation-owner responsibilities. Findings supply no approval authority.",
+      "This nonperiodic metadata review does not reset Astra cadence."
+    ]
+  },
+  "finalization_delta": "Attach the final metadata review and refresh only review/proof linkage and their existing hash closure. Code, recipes, accounting, requirements and credits remain exactly reviewed."
+}

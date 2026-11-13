@@ -1,0 +1,220 @@
+{
+  "kind": "VERIFIED_ROOT_INCLUSIVE_QUERY_INCREMENT",
+  "at": "2026-11-13T05:05:10.010460+00:00",
+  "base_manifest_sha256": "f00b9a25f4d7a94b39f2e84a8d04606444c4e58b7d8af8e8dd8a3086d2db5615",
+  "operational_manifest_sha256": "7d3f1ccc0c6c65418ce7264674f069c6b0746a0e836dbee2ab96656bde522dd6",
+  "contract": "analysis/register-inclusive-contract.json",
+  "review": "evidence/register-inclusive-review.json",
+  "verification": {
+    "independent_literal_cases": 24,
+    "complete": 16,
+    "unknown": 8,
+    "known_positive": 14,
+    "complete_empty": 5,
+    "unknown_empty": 5,
+    "source_profile_identity_and_bytes_preserved": true,
+    "old_full_graph_and_ownership_reports_byte_identical": 57,
+    "old_report_evidence_limit": "Implementation owner executed57 byte assertions before the original SD fixture failure; baseline57 stdout/stderr retained. Source-only reviewer inspected assertions and owner account, but did not independently rerun or receive a separately materialized57 candidate-output bundle.",
+    "refusals": "Existing86 index/graph fixture refusals and schema/operation/physical-input guards run in existing CLI test. Shared schema-refusal table also exercises reads_before_kill. Original manual24 data contain0 input-refusal vectors.",
+    "five_focused_tests": [
+      "TestCLIDryRunAndApply",
+      "TestPilotHistoricalGoldenBytes",
+      "TestPlanRefusals",
+      "TestRecipeSchemaRefusals",
+      "TestRegistryWordingAndNewRecipeNeedsNoHandler"
+    ],
+    "commands_and_results": [
+      {
+        "step": "build-core",
+        "argv": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-inclusive-flow-h58utzc3/build/final-core",
+          "."
+        ],
+        "started": "2026-11-13T04:55:17.247532+00:00",
+        "wall_seconds": 0.265,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "vet-core",
+        "argv": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "started": "2026-11-13T04:55:17.512320+00:00",
+        "wall_seconds": 0.465,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "five-focused-core",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-timeout=12m",
+          "-run",
+          "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler",
+          "."
+        ],
+        "started": "2026-11-13T04:55:17.977538+00:00",
+        "wall_seconds": 39.848,
+        "exit_code": 0,
+        "log_sha256": "ac25205170a29d1c0018210a9be2c8e91921d5b4d62c33429bf9b0d3be1afabc"
+      },
+      {
+        "step": "native-backend",
+        "argv": [
+          "go",
+          "list",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-f",
+          "{{.CgoFiles}}",
+          "."
+        ],
+        "started": "2026-11-13T04:55:57.825378+00:00",
+        "wall_seconds": 0.032,
+        "exit_code": 0,
+        "log_sha256": "cd5b7b218145a83098f5d17d09a36fbdacfd24327795ce7a83b4f713de5729b9"
+      },
+      {
+        "step": "build-nativefonts",
+        "argv": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-o",
+          "/var/tmp/dokapon-inclusive-flow-h58utzc3/build/final-nativefonts",
+          "."
+        ],
+        "started": "2026-11-13T04:55:57.857519+00:00",
+        "wall_seconds": 2.619,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "vet-nativefonts",
+        "argv": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "."
+        ],
+        "started": "2026-11-13T04:56:00.476587+00:00",
+        "wall_seconds": 0.866,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "five-focused-nativefonts",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-count=1",
+          "-timeout=12m",
+          "-run",
+          "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler",
+          "."
+        ],
+        "started": "2026-11-13T04:56:01.342376+00:00",
+        "wall_seconds": 64.136,
+        "exit_code": 0,
+        "log_sha256": "3765e0f0eed4bf47bac7239d2335a093c12fdbdd1ac36cd76a21c02ea02ab21e"
+      },
+      {
+        "step": "focused-race-core",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-race",
+          "-count=1",
+          "-timeout=14m",
+          "-run",
+          "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes",
+          "."
+        ],
+        "started": "2026-11-13T04:57:05.479028+00:00",
+        "wall_seconds": 415.325,
+        "exit_code": 0,
+        "log_sha256": "ec8665bbd3c9753a99d188b8dba2e50d221d70243501a3f06787b641c311a6a8"
+      }
+    ],
+    "hygiene": {
+      "gofmt_all49": true,
+      "scoped_credentials_positive_selfchecked": true,
+      "scoped_whitespace": true,
+      "frozen53_unchanged": true,
+      "deferred": [
+        "full suite",
+        "nativefonts race",
+        "gameplay"
+      ]
+    },
+    "native_backend": "Actual -tags nativefonts; go list CgoFiles includes raster_font.go."
+  },
+  "source_fixture_corrections": {
+    "review_manifest_sha256": "ea7923664b2e2cd35093f23417d30b7f82a29530c13fe81d0e9ad43f0399d244",
+    "narrow_erratum_manifest_sha256": "d22b43fdbbc51f71a383e3350507c0ffcb7631b215d0fee4e75f50339cb1705a",
+    "expected_vectors_unchanged": 24,
+    "original_failure_retained": true,
+    "notes": "Two input words are unsupported by the finite model, not claimed hardware-invalid. Original rejected v3/source history and failed test remain retained; no expected value copied from candidate."
+  },
+  "accounting": {
+    "production_files": 48,
+    "production_bytes": 608990,
+    "named_functions": 46,
+    "new_functions_types_fields_dependencies": 0,
+    "production_byte_delta": 205,
+    "runtime_byte_delta_including_example": 389,
+    "test_byte_delta": 378,
+    "test_fixture_byte_delta": 3033,
+    "claim": "Capability growth, no reduction or historical retirement. Documentation, analysis and evidence overhead accounted separately at finalization."
+  },
+  "coverage": {
+    "full_families": 10,
+    "total_families": 15,
+    "proven_milestones": 76,
+    "total_milestones": 90,
+    "binary_inspection": "4/6, partial .05 and .06",
+    "probe": "0/6; implementation last, Python retains sole operational ownership",
+    "increment_credit": 0
+  },
+  "remaining": "Original cross-register/stack/tag/pointee Tracer consumer duties and interior/saved-RA/clobber/call-liveness/hook ABI proofs remain. Source-bound remaining binary consumer tooling next; historical ELF growth disposition is separate, without a port for credit.",
+  "deferred": [
+    "full suite",
+    "nativefonts race",
+    "gameplay"
+  ],
+  "protected_resources": "No original/shipping/custom ISO, canonical registry, emulator/PINE/controller/card/profile/log, other session or public Git writes.",
+  "metadata_review": {
+    "report_sha256": "4a297acbe1efa8994b276b042751daaa2151c3f5be0e94cbf250e516429aed08",
+    "reviewed_metadata_manifest_sha256": "c5b0a1013f4b114af7915f2de7721d62fd02d8c5326a16060b29882fa58a4d93",
+    "disposition": "No unresolved findings",
+    "finalization_delta": "After frozen metadata review, attach this report and update only review linkage, consolidated proof and their current hash closure. Source, recipes, accounting, requirements and credits remain exactly reviewed."
+  }
+}

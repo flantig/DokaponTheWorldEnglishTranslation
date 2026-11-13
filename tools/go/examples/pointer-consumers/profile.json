@@ -1,0 +1,27 @@
+{
+  "operation": "instruction_index",
+  "source_size": 276,
+  "source_sha256": "e6b3e92ad8f981967743cb3f39ad5d4f85596f1d5d246a85a6afcd0ac65cef28",
+  "evidence": "Synthetic incoming pointer origin0x100400 asserted in a0; copy to s0 then kill a0 and read via s0. Not native execution or a patch guard.",
+  "references": {
+    "file_range": {
+      "start": "0x100",
+      "end": "0x114"
+    }
+  },
+  "register_flow": {
+    "entry_vmas": [
+      "0x100000"
+    ],
+    "queries": {
+      "0x100400": {
+        "kind": "pointer_consumers",
+        "seed_phase": "before",
+        "register": 4,
+        "vma": "0x100000",
+        "context": "normal",
+        "max_visited_states": 1000
+      }
+    }
+  }
+}

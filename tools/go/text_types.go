@@ -51,6 +51,7 @@ type TextScanOptions struct {
 	Terminated       bool
 	ExactControls    bool
 	Advances         map[uint16]int
+	InkBounds        map[uint16][4]int // Optional source-derived half-open bounds relative to the incoming pen.
 	Decode           bool
 	Glyphs           map[uint16]string
 	RequireHDR       bool
@@ -74,5 +75,8 @@ type TextShape struct {
 	Boundaries                                          []Boundary
 	Width, Lines                                        int
 	LineWidths                                          [][]int
+	LineInkBounds                                       [][][4]int
+	InkKnown                                            bool
+	InkDiagnostic                                       string
 	Pages                                               bool
 }

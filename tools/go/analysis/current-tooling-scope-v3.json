@@ -1,0 +1,90 @@
+{
+  "kind": "CURRENT_TOOLING_SCOPE_AMENDMENT",
+  "version": "current-tooling-scope-v3",
+  "created_at": "2026-11-13T07:27:57.742076+00:00",
+  "authorization": {
+    "decision": "Adopt the current-tooling scope",
+    "source": "Explicit user choice, relayed by the coordinating owner.",
+    "proposal_manifest": "/var/tmp/dokapon-original14-scope-proposal-v1-a6l6d3tv/manifest.json",
+    "proposal_manifest_sha256": "a7c77bda21ae9b6820d10173e4031bd04a929404771cde608a345e5833847c0a",
+    "source_review_manifest": "/var/tmp/dokapon-original14-scope-review-8duf6f0p/manifest.json",
+    "source_review_manifest_sha256": "ba13d2ff22f1da20370d66f6408a6fe94d5ae881f0d3d7bd1fd8b04d08c97812",
+    "qualification": "The source review was based on accepted 830. Its dated source pins remain historical evidence; this amendment does not repin them to 834 or claim current canonical-data compatibility."
+  },
+  "previous_baseline": {
+    "path": "analysis/reusability-coverage-baseline-v2.json",
+    "sha256": "410a0c8cb8d561c6342bd654ad97b9f0b4c1b0dca2f2e8a3d6590d5a046785ca"
+  },
+  "previous_views": {
+    "analysis/migration-roadmap.json": {
+      "path": "analysis/migration-roadmap-v2-accepted834.json",
+      "sha256": "6d8fd1e2c940078b2e8ec97a85bd221d570409cd3ecdbf3ddc31051c1c9caa8a"
+    },
+    "analysis/reusability-coverage.json": {
+      "path": "analysis/reusability-coverage-v2-accepted834.json",
+      "sha256": "ce1fee5a0900669c0ec5eab7793fcda18324ec169fc5a2a90d69c741407ab41c"
+    },
+    "analysis/reusability-coverage.md": {
+      "path": "analysis/reusability-coverage-v2-accepted834.md",
+      "sha256": "955a64bafdec58f394650424b2210054c90d4d39efc5661de2a6a50453bdd3c9"
+    },
+    "evidence/reusability-coverage-checks.json": {
+      "path": "evidence/reusability-coverage-checks-v2-accepted834.json",
+      "sha256": "3f338ac615fe98dae2ae07462c5e0e31feab2db3606ad8999cc429b1d17dcb8e"
+    }
+  },
+  "amendments": [
+    {
+      "id": "image_layout.06",
+      "requirement": "Preserve the retired static ELF segment and heap-cap design as a reviewed historical disposition; preserve current stream-loader metadata coherence through the active allocation responsibilities.",
+      "status": "reviewed_disposition",
+      "credit": 0,
+      "previous_record": {
+        "path": "analysis/migration-roadmap-v2-accepted834.json",
+        "milestone_id": "image_layout.06",
+        "meaning": "The exact previous requirement, status and zero credit are preserved in this immutable accepted-834 view."
+      },
+      "source_basis": {
+        "original": "The September 3 Phase 2 design, lines 53-60, explicitly rejected BSS-only allocation. patch_iso_grow_elf.stage_b implemented one fixed PH1 and InitHeap architecture.",
+        "current": "patch_iso_stream_blob.py:2-29 excludes Stage B and uses the normal heap. analysis/retired-static-elf-design.json records the explicit owner-approved disposition and preserves Stage A provenance."
+      },
+      "current_obligation": "Maintain the current stream allocation, growth, source guards, metadata and containment already owned by image_layout.01-.04. Preserve historical static-stage behavior as reference, not as an active implementation requirement.",
+      "archived_research_goal": "A new general ELF/BSS allocator and fresh heap-placement proof without a current consumer.",
+      "credit_boundary": "The exact original row and its zero Go credit remain in immutable history. The amended obligation is reviewed disposition, not verified Go functionality. Existing allocation duties receive no duplicate credit, and no family or checklist score increases automatically. This amendment introduces no separate completion score."
+    },
+    {
+      "id": "consumer_layout.04",
+      "requirement": "Maintain source-bound native scale and position patches through shared guarded tools, and report consumer measurements with their proven units and explicit unsupported cases.",
+      "status": "held",
+      "credit": 0,
+      "previous_record": {
+        "path": "analysis/migration-roadmap-v2-accepted834.json",
+        "milestone_id": "consumer_layout.04",
+        "meaning": "The exact previous requirement, status and zero credit are preserved in this immutable accepted-834 view."
+      },
+      "source_basis": {
+        "original": "fix_comparison_name_scale_2026_10_08.py:31-105 preserves a fixed E846/A000/E864/F800 template, a 207-name census with maximum 289, and a nominal 0.70 width guard. The startup-centering source describes calibrated finite offsets and retained controls, rather than a general processor model.",
+        "current": "text_tools/layouts.py:26-124 retains the same census and caller guards. text.py:392-420 binds comparison and Dark Aura aliases to header_alias_pair/header_alias_run. maintenance/test_compatibility.py:3167 onward pins original comparison/category sources."
+      },
+      "current_obligation": "Preserve local-template payloads, selected/nonselected consumer ownership, calibrated source constraints, exact pre/post bytes, source identity and safe output. New inputs need fresh source-bound measurements and proof; no automatic native fit assertion follows.",
+      "archived_research_goal": "General PS2 float32/FCSR-equivalent scaled wrapping, arbitrary positioned/centered text interpretation and physical-fit predictions. Those require a separately accepted authoring requirement and calibration.",
+      "credit_boundary": "The exact original requirement, held status and zero credit remain in accepted-834 history. The amended row is still held with zero credit. Existing guarded_words or literal ink support alone is insufficient; independently verify a complete bounded workflow. consumer_layout.05/.06 and source-grid versus physical-fit limitations remain unchanged."
+    }
+  ],
+  "preserved_boundaries": [
+    "Only these two current requirements change. All other 88 milestone rows, all 90 IDs, existing Go credits and family classifications remain unchanged.",
+    "Reviewed historical disposition earns zero verified-Go credit. Current stream-loader coherence remains required under image_layout.01 through .04 and receives no duplicate credit. image_layout.05 independent landing ownership remains held.",
+    "consumer_layout.04 remains held with zero credit until a complete source-bound maintenance workflow is independently verified. Existing primitives or literal ink alone do not prove it.",
+    "The partial source-grid ink contract in consumer_layout.05 and the nested and consumer-geometry requirements in consumer_layout.06 remain unchanged.",
+    "The verified-Go index remains 10/15 Full families and 76/90 proven milestones. This amendment creates no new completion metric and automatically promotes no family.",
+    "Probe family 15 remains last. Existing operational Python support is not retired."
+  ],
+  "next_work": {
+    "name": "Caller-local equipment comparison template maintenance",
+    "existing_expression": "Existing guarded_words can encode a fixed reviewed alias payload and both pointer pairs at a declared reviewed landing. references can report caller ownership; existing source guards, validateEdits, verifySource and patchCopy own admission and exclusive output. No new scale interpreter or function is justified.",
+    "not_yet_proven": "Existing byte-edit representation alone does not reproduce the dynamic207-name census and exact ownership scan. This review has not demonstrated an end-to-end data-only implementation or current canonical-source compatibility.",
+    "minimal_choice": "For a pinned maintenance version, independently freeze the complete207 pointer/name/metric inputs, source/refsite facts, exact expected bytes and reviewed landing as data, then use existing shared primitives and refusal tests. Whole-source identity bounds the result. If the user requires recalculation across arbitrary current inputs, inspect an enhancement of existing references/report ownership; do not claim that fixed data supports that broader behavior.",
+    "scope": "This is one reusable local-alias maintenance responsibility with F112 as the concrete cohort, not a request to port every historical script or retire the current Python route.",
+    "before_implementation": "The current-tooling scope is approved. Obtain approved public-safe source facts through the normal owner workflow, without blind repinning. Freeze expected whole bytes and refusals before Go projection; meaningful implementation needs a concrete source-bound approach review."
+  }
+}

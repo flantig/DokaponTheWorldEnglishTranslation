@@ -1,0 +1,154 @@
+{
+  "kind": "CURRENT_TOOLING_SCOPE_REVIEWS",
+  "source_review": {
+    "manifest": "/var/tmp/dokapon-original14-scope-review-8duf6f0p/manifest.json",
+    "manifest_sha256": "ba13d2ff22f1da20370d66f6408a6fe94d5ae881f0d3d7bd1fd8b04d08c97812",
+    "report_sha256": "9b1f96ccad2e44a028059330d9e1de3a49011d09c0ea9760abe349f659805426",
+    "report": "# Original fourteen-family scope review\n\nThe roadmap mixes maintenance of actual patch behavior with stronger, partly new analysis promises. That makes endless implementation growth a real risk. Keep the original milestone history, and distinguish verified Go behavior, accepted historical dispositions, and future analysis explicitly. This review changes no requirement or credit.\n\n## Concrete scope findings\n\n1. **image_layout.06 is broader than the demonstrated historical use case.** The Phase2 design explicitly rejected BSS-only growth because it could not preload translated content (2026-09-03 design, lines53-60). The current patch_iso_stream_blob.py description explicitly excludes PH1 and InitHeap, using a normal heap buffer instead (lines2-29). The accepted retired-static-elf-design.json records the user's disposition and leaves Stage A provenance intact. Requiring a new general BSS allocator now would create capability rather than preserve that design. My earlier recommendation to implement segment/BSS growth is withdrawn. No new user permission is needed to respect the existing retirement decision. A changed completion criterion or score does require an explicit versioned decision, while preserving the old held row.\n\n2. **consumer_layout.04 must separate fixed patch maintenance from exact native fit prediction.** Active comparison_widths and comparison_plan in text_tools/layouts.py:26-124 use a 207-name census, maximum289, nominal multiplication by0.70, fixed template E846/A000/E864/F800, exact caller words and reference ownership. The original F112 source has the same behavior. Neither promises a PS2 FPU emulator. native-scale-reuse-contract.json correctly shows that host multiplication is insufficient for a new native-exact fit claim. That stronger claim is necessary only if generalized automatic fit becomes an accepted product requirement. It is not a prerequisite for safely preserving the existing pinned template. User decision is needed to separate this future authoring/analysis promise from current-toolset completion, not to waive existing guards or claim physical fit.\n\n3. **Some remaining duties are real and must not be dismissed as sophistication.** zone_safety.py:586-618 checks interior pointers, reconstructed addresses, indexed accesses and indirect struct fields; the active spawn_regional_plan caller in text_tools/slots.py:909-915 consumes these checks. Consequently image_layout.05 and binary_inspection.06 retain concrete safety work. A zero run, an absence of known references, or the old safe flag alone cannot certify placement. Likewise pointer-consumer-contract.json still identifies actual legacy getter/global/interprocedural responsibilities; the current limited analyzer does not erase them. Nested-job source work establishes bounded lists but explicitly leaves index/gender ownership unresolved; a claimed general nested fit checker cannot infer closure from samples.\n\n4. **Do not implement every offered raster mode.** raster-remaining-source-study.json already distinguishes unselected ellipse/poly/alpha_gt/mask and NS modes from active footprint paths and standalone generators. Provider availability is not demand. Approved fixed artwork may have source-bound data dispositions, but only for named instances. raster_rendering.06 cannot become full through the allmap pilot or by labeling every remaining generator unused.\n\n## One next cohesive obligation\n\nFinish a usable, caller-local template maintenance workflow, with equipment-comparison F112 as the concrete caller cohort. Its purpose is to keep a local scale/template change from affecting other consumers of the shared name source. This is a whole maintenance responsibility, not a request to translate the F112 script line by line.\n\nThe existing current route is text.header_alias_context('comparison-name-scale') at text.py:392-420, which binds comparison_widths, comparison_plan, header_alias_pair and the shared header_alias_run in layouts.py. The same writer serves Dark Aura, proving that caller-local aliases are shared behavior. Current tests already pin the original F112 source and category table in maintenance/test_compatibility.py:3167 onward. Retain the current Python route until a verified Go workflow covers the responsibility.\n\nUse existing Go references for source/caller ownership, existing metric/text reporting for the complete207-name census, and plan/guarded_words plus the exclusive writer for the pinned payload and pointer changes. Keep the two local caller pairs, the three retained nonlocal pairs, exact source bytes, argument/callsite guards, capacity reservation and pre/post states as recipe facts. Use fixed reviewed payload bytes rather than making unknown scale/parameter tokens eligible for general text authoring. Existing stream-append grammar is restrictive, so do not silently relax it: a reviewed fixed landing and guarded words are the existing bounded route to examine first. This may need enhanced data admission in an existing owner; this review has not demonstrated that a data-only implementation is sufficient. No new function is currently justified.\n\nBefore implementation, freeze independent complete bytes and refusal cases for both callers, mismatched pairs, changed other consumers, unexpected controls, invalid or unterminated names, capacity conflict, source drift, repeat application and outside-edit preservation. Preserve the exact207-name/max289 guard, or separately approve and verify a source-bound replacement guard. An arbitrary synthetic nominal width does not replace that census. No current ISO or registry was read here, so this recommendation does not claim that today's canonical wording still satisfies the historical guard.\n\nThe useful endpoint is one reviewable Go report/profile/apply workflow that preserves this local alias responsibility. It earns only the evidence it demonstrates; it does not close consumer_layout.04/.05/.06, binary ABI, or a whole historical script automatically. Native literal source-grid ink remains partial and is not physical screen-fit evidence.\n\n## Boundaries\n\nSerena confirmed plan's callers in main/verifySource/tests and references' callers in main/auditStreams/tests. The inspected files and accepted830 manifest identity are pinned separately. No full830 verification, Go/native/browser execution, protected input, canonical registry, private receipt, probe access, source edit, new agent, or implementation approval occurred. This is a nonperiodic review and leaves the07:52:12Z audit cadence unchanged. Probe family15 remains last.\n",
+    "source_pins": {
+      "created_at": "2026-11-13T07:06:24.874428+00:00",
+      "accepted_manifest": {
+        "path": "/var/tmp/dokapon-pointer-consumers-u656gnjn/sealed-final/manifest.json",
+        "sha256": "d1250ba97c103f7883b5a9a3b2cb5d3e4275c4f6bee9ca7d864d8094e220242f"
+      },
+      "files": [
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/migration-roadmap.md",
+          "bytes": 46065,
+          "sha256": "dc46e0d3e85acca78594653d81bad993bb606f070cb3762228b6fccb4fb7dc5b"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/retired-static-elf-design.json",
+          "bytes": 2490,
+          "sha256": "e0a8405b027c0828fb424d38bb2a78429f4de459b67db6cc73e0045ba7c998d7"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/pattern-crawl-text_binary.json",
+          "bytes": 111214,
+          "sha256": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/pattern-crawl-iso_registry_reports.json",
+          "bytes": 119708,
+          "sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/native-scale-reuse-contract.json",
+          "bytes": 28618,
+          "sha256": "38fb287b0f379095cb47a1abaa239a33c10408a0643d500cc7fdb45960c689e3"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/nested-job-producer-contract.json",
+          "bytes": 18986,
+          "sha256": "3df198a33b33bc4e44dc22c319acfe65e1b39c078b923cf17df1de227ad5e42d"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/raster-remaining-source-study.json",
+          "bytes": 42662,
+          "sha256": "5a96e15ebfb9a295b9649f0dd6d7d2aad96986bd6c73733a2c361fcaa3973165"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/analysis/pointer-consumer-contract.json",
+          "bytes": 6960,
+          "sha256": "c5bdffae1415dcda06dde2fe72eec754a285aa98752597f260431b15af6dfe64"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/fix_comparison_name_scale_2026_10_08.py",
+          "bytes": 5689,
+          "sha256": "ba1de7e8256b8a526dc088616c35bd97bae1dd85c28fafba36859ba1f4be83b0"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/rework/new_tool/text_tools/layouts.py",
+          "bytes": 50830,
+          "sha256": "0e9359061a0968350491e6cc4a65acfaadf790707c2ec6f7c4f0f767af967587"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/rework/new_tool/text_tools/text.py",
+          "bytes": 37886,
+          "sha256": "1fa08304070d7ad0282438b9870f0da53b2a331a6cf8b2bfb3eba270d11b7af7"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/rework/new_tool/text_tools/slots.py",
+          "bytes": 50797,
+          "sha256": "2fb1cbdcfcf4db5c6fa724908c901ba698ce4f217bdf328effd4e4484d427efe"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/rework/new_tool/maintenance/test_compatibility.py",
+          "bytes": 468610,
+          "sha256": "f26f16ea3c2fc7a54e9221741906e46e0e777836684e8e7ea9d5590fd23d5788"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/zone_safety.py",
+          "bytes": 53653,
+          "sha256": "690fdbe1eadda6b2ecd732126a59ae79a0debf6903783fae35cdd46a3d9384bb"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/patch_iso_stream_blob.py",
+          "bytes": 27292,
+          "sha256": "cd943f22faee9b6c7bb129e01ad48b98d3d54bf2573d83aaba7769287dfad2e2"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/docs/planning-log/2026-09-03-phase2-iso-elf-expansion.md",
+          "bytes": 25676,
+          "sha256": "16b709aec9025acebd417c8453275590c214b94421776d5a025db99a89ef31d1"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/patch.go",
+          "bytes": 119190,
+          "sha256": "8ec61b328840697941ed9e279ea2922ec7401c989409c84d366eb981b87a7c8d"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/references.go",
+          "bytes": 44236,
+          "sha256": "754494405cbbe448d08cb19d39cffaa3fe271fed6522d4856f9c09487ba38c82"
+        },
+        {
+          "path": "/home/franklinl/Documents/Dokapon World Mod/tools/go/recipe_types.go",
+          "bytes": 6673,
+          "sha256": "1a914d1bdfb4cf84ccc017cafa60d3da8fa692c242b68bad94784c5a6739b8df"
+        }
+      ],
+      "qualification": "Targeted read-only source review. File hashes are publication-time identities; only named relevant sections were inspected. Pending ink code was not reviewed."
+    },
+    "qualification": "The source review was based on accepted 830. Its dated source pins remain historical evidence; this amendment does not repin them to 834 or claim current canonical-data compatibility."
+  },
+  "metadata_review": {
+    "kind": "INDEPENDENT_CURRENT_TOOLING_SCOPE_METADATA_REVIEW",
+    "at": "2026-11-13T07:35:47.405015+00:00",
+    "reviewer": "/root/inclusive_flow_review",
+    "reviewed_manifest": "/var/tmp/dokapon-current-scope-v3-5w005d0z/review-metadata-v1/manifest.json",
+    "reviewed_manifest_sha256": "ffa376439cd3f3f502dca6cd84b1147aede4fd93a9de7b414646a5cd18f52a0f",
+    "accepted_base_manifest_sha256": "1ed9a772caff7a0def874fc1748ca6810e4996f6c05e8bf50d05fd89332bd788",
+    "findings": [],
+    "conclusion": "No reproducible scope, provenance, status, scoring, runtime-consumer or hash-closure defect found in the bounded frozen18-file projection. Findings only, not approval or proof of new Go functionality.",
+    "verified": {
+      "metadata_members": 18,
+      "post_review_drift": 0,
+      "authoritative_record": "analysis/current-tooling-scope-v3.json",
+      "proposal": "Exact user-approved a7c77bda proposal identity and its6012-byte member were verified. The two current requirement strings equal the proposed new wording exactly; archived834 requirements equal the proposed old wording exactly. Root relayed the explicit user adoption; this review introduces no new choice.",
+      "canonical_projection": "The staging source assigns both current JSON and Markdown row requirements from the authoritative amendment records. Baseline and derived views pin that record. They are identified as generated projections, not independent wording authorities. No runtime schema, parser, scoring framework or new Go function was added.",
+      "rows": "90 stable IDs remain. Exactly consumer_layout.04 and image_layout.06 row objects differ; every other88 complete row object is unchanged. All90 credits, existing family classifications and totals remain exact. consumer_layout.04 stays held0; image_layout.06 becomes reviewed_disposition0, never verified-Go support.",
+      "score": "10/15 Full families and76/90 proven milestones remain unchanged. Disposition earns no Go credit and active image allocation .01-.04 duties receive no duplicate credit. No new completion metric is introduced.",
+      "requirements": "Current scale/position maintenance requires complete source-bound workflow proof, not mere guarded_words availability or literal ink. General processor-exact arbitrary scale/FPU interpretation and general unused BSS allocation remain archived research. Active stream-loader coherence, image_layout.05 independent landing ownership, consumer_layout.05 source-grid limitations and.06 nested/runtime geometry remain required. Probe is last.",
+      "history": "Four accepted834 views are byte-exact archives. Five prior baseline/v1 accepted808 archive identities remain exact. The v3 baseline preserves all21 discovery crosswalk objects, original source pins,15-family denominator and legacy runtime facets, with explicit previous-baseline linkage.",
+      "source_provenance": "The ba13d2 source-review capsule and members were verified. Its accepted830 source context remains dated evidence, explicitly not repinned as accepted834/current canonical compatibility. No current census, native fit, image parity, current registry compatibility or operational Python retirement is claimed.",
+      "unchanged_runtime": "All371 unique accounted inputs retain complete hashes and group sizes, with zero byte delta. All Go/test/module files match834; production stays49 files636563B47 named functions. The accounting document itself remains unchanged. Tests, builds, native, browser and gameplay checks were correctly not rerun or claimed for metadata-only changes.",
+      "pins": {
+        "scoped": 721,
+        "report": 618,
+        "explicit_external_skill_aliases": 2,
+        "all_hashes_match": true
+      },
+      "publication": "Exactly10 changed and8 new metadata paths match the whitelist; accepted834 plus8 gives842 anticipated members. Four new archives total602738B. Documentation/archive/evidence overhead is separate from unchanged code/runtime and is not claimed as savings.",
+      "syntax_links_hygiene": "All665 projected JSON documents parse.1663 Markdown paths resolve using the explicitly qualified owned-snapshot or existing source-workspace locations; no unresolved path. All18 changed/new files pass whitespace checks and a positively self-checked scoped credential scan. No secret content printed.",
+      "client_boundary": "Bounded search covered local tools and snapshot HTML/HTM/JS/MJS/CJS/TS/TSX/JSX/Vue/Svelte for coverage/roadmap JSON, reviewed_disposition, fetch, XMLHttpRequest and script use. Only static ARCHITECTURE.html text/hyperlinks exist; there is no client JSON fetch or status enum to break. HTML remains byte-identical. No browser rerun is needed or claimed.",
+      "human_readability": "The authoritative obligations and credit/history boundaries use ordinary readable English. Current documentation distinguishes historical disposition from implemented behavior and links to exact older views. The next F112 maintenance scope explicitly retains the unproved dynamic207-name census and source-ownership requirements."
+    },
+    "limits": [
+      "No edits, Go/native/browser execution, real ISO/probe access, canonical or private peer mutation, public push or extra agents.",
+      "Root and implementation owner retain final evidence linkage, allowed hash closure, source guards and local integration responsibilities.",
+      "This independent metadata review does not reset the periodic Astra cadence; next due07:52:12Z remains unchanged."
+    ]
+  },
+  "finalization_delta": "Attach the final metadata review, record its disposition in the existing proof and current coverage/checks references, and refresh only the resulting review/proof/current-view hash closure. Requirements, statuses, all credits, baseline, archives, runtime inputs and documentation remain frozen."
+}

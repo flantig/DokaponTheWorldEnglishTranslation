@@ -1,0 +1,242 @@
+{
+  "kind": "SYNTHETIC_DECLARATIVE_NAME_POLICY_PROOF",
+  "at": "2026-11-13T10:33:40Z",
+  "accepted_base": {
+    "checkpoint": 850,
+    "manifest_sha256": "edff3ae26c52fdd3ccbe3f57ee4cf2dd3790acd68d4fc24d2ff6f366346044e6"
+  },
+  "contract": "analysis/name-policy-replay-contract.json",
+  "contract_sha256": "92c0bdc90d8658852469b2c37fb6ccfc2479c70bfe35155f2c39a48d41a8fab8",
+  "accounting": "analysis/go-current-input-accounting.json",
+  "accounting_sha256": "2fb70950734961b32eb0b59b6935c78c2e4464809a0ef7c4dfda29357aaeafbb",
+  "review": "evidence/name-policy-replay-review.json",
+  "review_sha256": "218e6f7b06a61f3a03ca5c3a443b9819818c28e211774f0a110a7aad1e1f5013",
+  "operational": {
+    "v1_manifest_sha256": "160e62eb015df1384be5a18b83d12d11efc295d3325644f5ab94d3020b27282d",
+    "v2_manifest_sha256": "375d0df024baa6a75edb92d6b4228fdce2a54f72fde4e1f45034364c37db0c66",
+    "members": 57,
+    "production_go_unchanged": 49,
+    "v2_delta": "Two derived recipe description corrections and their runtime-table pins only. All actual bytes/words/addresses, independent oracles, test code, module and production code remain exact."
+  },
+  "executed": {
+    "selection": "All 11 original public F172/F173 records preserved: 9 native and 2 SENT, 156 words, 624 declared bytes and 161 changed bytes",
+    "pre_go_oracle": {
+      "method": "Independent shell byte tools; complete CC carrier and literal after-image before candidate Go",
+      "bytes": 5087232,
+      "source_sha256": "60abd9dc541db81d8767c419b497fb3328b1ad1a54b7dda1d62ee10abe0c6a17",
+      "output_sha256": "892140086e52a0a0f6193caa3e1fc98c52b4988e3b73a51f2aa4cb5558b6cbe9"
+    },
+    "v1_core": {
+      "focused": "TestCLIDryRunAndApply and TestPilotHistoricalGoldenBytes",
+      "test_seconds": 42.649,
+      "build": "PASS",
+      "vet": "PASS"
+    },
+    "v1_nativefonts": {
+      "focused": "Same two affected owners",
+      "test_seconds": 51.093,
+      "build": "PASS",
+      "vet": "PASS"
+    },
+    "v2_affected": {
+      "focused": "TestPilotHistoricalGoldenBytes",
+      "test_seconds": 15.499,
+      "started_at": "2026-11-13T10:24:18Z",
+      "finished_at": "2026-11-13T10:24:34Z",
+      "result": "PASS"
+    },
+    "complete_synthetic_applies": 2,
+    "recipe_orders": 2,
+    "refusals": {
+      "mutations": 26,
+      "overwrite_reattempts": 2,
+      "scope": "Every old span including no-op, source size/unrelated mutation, partial state, mapping/overlap/alignment/bounds, normalized-ID and table/output pin mismatches, incomplete-package apply and same-file output"
+    },
+    "partial_previews": 2,
+    "partial_preview_limit": "They succeed only as expected-output pin echoes; actual single-table applications fail full output readback and remove their outputs",
+    "input_preservation": "Complete source bytes plus inode/mtime preserved; refused inputs and existing synthetic outputs preserved",
+    "current_hygiene": "All 50 Go files formatted; scoped whitespace clean; credentials clean with positive detector self-check; v2 pin/readback and unchanged-word checks pass"
+  },
+  "production": {
+    "files": 49,
+    "bytes": 669526,
+    "named_functions": 47,
+    "new_functions": 0,
+    "new_named_types": 0,
+    "new_dependencies": 0,
+    "implementation_delta_bytes": 0
+  },
+  "costs": {
+    "recipe_runtime_growth_bytes": 22784,
+    "test_growth_bytes": 9723,
+    "fixture_and_test_pin_growth_bytes": 13094,
+    "accounted_inputs": 380,
+    "metadata_and_private_evidence": "Separate overhead, measured in the final metadata gate; no reduction or retirement claimed"
+  },
+  "coverage": {
+    "full_families": "10/15",
+    "proven_milestones": "78/90",
+    "consumer_layout_04": "proven, credit1",
+    "image_layout_05": "proven, credit1",
+    "probe": "0/6 last",
+    "new_credit": 2,
+    "authority": "accepted_finite_f112_criteria"
+  },
+  "metadata_review": {
+    "status": "PASS_WITH_FRESH_NARROW_CLOSURE",
+    "review": "evidence/name-policy-replay-review.json",
+    "report_sha256": "16e61692cafb723b45cd5d76a5d46d3f20b3f8888cdca9e52131ab91374ae58e",
+    "closure_sha256": "e1d13d46f0e5cbf84b7642b5fd72235eaf623e1234070100be471a6a206754de",
+    "boundary": "Qualified review insertion and source-publication readback are separate hash checks, with operational bytes unchanged"
+  },
+  "limits": [
+    "Synthetic exact-byte replay only; no native binary is shipped in fixtures",
+    "Published whole116-edit ISO target is not this subset target",
+    "Later October25/28 changes and latest translation are excluded",
+    "Native carrier/output, ownership, landing/capacity, ABI, units/rounding, physical fit and gameplay remain separate",
+    "No native output, canonical/ISO/probe change or public push",
+    "V1 core/native checks remain dated. Final v2 changes annotations and hash pins only, with a fresh affected Golden pass; CLI/native runs were not repeated for v2.",
+    "Full suite and race remain deferred. Static diagram topology is unchanged; no new UI or browser verification is claimed."
+  ],
+  "accepted_native_preservation_join": {
+    "status": "ROOT_ACCEPTED_SCOPED_PRESERVATION_EVIDENCE_NOT_04_COMPLETION",
+    "at": "2026-11-13T16:06:12Z",
+    "prior_fields_scope": "Original synthetic, historical census and native-byte receipts retain their dated scopes; this is not a new207 measurement or full-source seal",
+    "candidate": {
+      "manifest": "/var/tmp/dokapon-layout-preservation-join-XLnXDUH2/manifest.json",
+      "sha256": "0a94f976a8cd678572eefdfb9b0b314389839904991edf0d88645dbee6e1602b",
+      "footprint": "/var/tmp/dokapon-layout-preservation-join-XLnXDUH2/dependencies.tsv",
+      "footprint_sha256": "cdf4631f2dbd76f222375db1d840d75a36cca88624000dcdc49155a923dd1221"
+    },
+    "reviews": {
+      "ordinary": "/var/tmp/dokapon-layout-join-ordinary-6rheTUwQ/review.md",
+      "ordinary_sha256": "6666a4fa05c290989be60d0d748dc97e2b6141393bf866c4846a14a5b7be4dd9",
+      "adversarial_criterion": "/var/tmp/dokapon-layout-criterion-astra-MH4MDraB/review.md",
+      "adversarial_sha256": "d426fd75f1d2de4f5c2e6b2c08bc4565341dc42008589a1a77a9c35e2842188e"
+    },
+    "preservation": "207 existing occurrence rows/185 first-END-inclusive names and complete font/SPACE/exception/protocol/mapping dependencies form420 bounded intervals. Zero intersections against all11 DECLARED624-byte spans, including no-op; all420 range SHA pairs and exact comparisons match.27 proof-contract selfchecks are not new Go refusal tests or intrinsic odd-pointer admission. Raw max289/nominal70% facts carry through prior_census, with no census rerun.",
+    "pairing": {
+      "before_ELF": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+      "after_ELF": "90f120f7d53bc210ed9d4e69ba81108a3d589845bb24718342ca10194ee8e584",
+      "physical_trailer": [
+        4431872,
+        5087232
+      ],
+      "old_SENT": "9f6a07559b5c7a05eb5fcb6d89d98a42673bcb65ea3c8995c48ca1b066c7efbd",
+      "after_SENT": "204a13d2249b87266ba524f51c4d0793d588844a1f5ce2886a1b8c8e2157ba63",
+      "meaning": "External source-to-trailer relation; Go validates independent pins and does not intrinsically refuse a deliberately declared old-sidecar pairing"
+    },
+    "finite_controls": "Outer60%/restore100% with signed Y+5/-5, fallback56%, inner50/45/50/46% restore60 remain literal source conventions, not new fit/rounding measurements. Four newly redirected calls gain NEW4 only, preserving original pointers outside NEW4 including OLD30. Five pre-existing wrapper routes lose OLD30/gain NEW4, with outsideunion34 miss preservation conditional on selected modes; bypass is separate. Unchanged callers through changed templates do not preserve rendering.",
+    "held_contracts": {
+      "consumer_layout_04": "Held/zero credit: scoped substantive partial workflow, not completion",
+      "startup": "Six Multitap offsets; retained wording/arguments/colors; E832 SPACE E864 to C007 equivalence;151/152-word capacity; four renderer/caller guards; three memory-notice final-glyph shifts retaining7002",
+      "header_aliases": "Original comparison and Dark Aura payload, OLD/DONE source/reference-set and append-capacity contracts need separate existing-owner assessment; later installed transition does not prove creation/DONE",
+      "units": "Current60%/joined316/379 measurements, physical fit, global ownership/ABI/landing/latest-mod compatibility remain unproved"
+    },
+    "credit": "10/15 families and76/90 milestones unchanged; image_layout.06 remains reviewed retired disposition, no new implementation or credit",
+    "operations": "Read-only standard-tool join; zero production/runtime recipe/test code or helper/function additions, no GoCLI/build/tests/native/sidecar output or public push. Only proof metadata changes; current source/art/pointer proofs unchanged.",
+    "prior_census": {
+      "manifest": "/var/tmp/dokapon-f112-historical-census-OKx9Dhqm/manifest.json",
+      "manifest_sha256": "5fc4edb7cdb82894783c5bcd33fb49ed349787f46bf6db7385ccec982409d91c",
+      "independent_review": "/var/tmp/dokapon-f112-census-review-f6124l/manifest.json",
+      "review_sha256": "f896bb7f72dc0fc2bba91b61ea3037c8957a1833ca7d4f331b49e54d7bb550f8"
+    }
+  },
+  "accepted_startup_synthetic": {
+    "status": "ROOT_ACCEPTED_SYNTHETIC_PROTOTYPE_NOT_04_COMPLETION",
+    "integrated_at": "2026-11-13T16:47:39Z",
+    "candidate": {
+      "manifest": "/var/tmp/dokapon-startup-prototype-m031UcAS/manifest.json",
+      "sha256": "fc17c9a857a7b239b1b127e7293e63eeb9469e59d93364dc41b77e59c473d7e5"
+    },
+    "reviews": {
+      "ordinary": "/var/tmp/dokapon-startup-prototype-ordinary-PiSJp4RR/review.md",
+      "ordinary_sha256": "4fd54131b71afeac9325dbaecf87a57361e595e988e2fd1428d85b7e068382b6",
+      "astra": "/var/tmp/dokapon-startup-final-astra-VQyWq2Yy/review.md",
+      "astra_sha256": "ee7d901d3596dad00a14bcff4df0b060aaab178294c13a65c0de62eeb7bd9c37"
+    },
+    "authority": {
+      "fixture": "testdata/startup-centering-2026-10-01.json",
+      "fixture_sha256": "3ebd752e95ff78ecdc6179dca9f88fae5937c03cd98d80b9ce28ead84b183945",
+      "precode_manifest": "/var/tmp/dokapon-startup-precode-1h5nlNB6/manifest.json",
+      "precode_sha256": "becb71290383a1926c63b10892e7fb153d94a1181b3ff9cdb35233ba41d58b9d",
+      "meaning": "Source-literal synthetic OLD and independently metric-derived NEW frozen before Go outputs. All four complete padded NEW vectors equal retained6e and90f slots; no native-original OLD replay."
+    },
+    "scope": "16 explicitly pinned inter-slot OLD/DONE states,4atomic whole padded slots+37retained guards=41records/1688declared bytes. Existing guarded_words/inspect/patchCopy; DONE creates a fresh exclusive byte-identical copy. No control waiver/new runtime API.",
+    "calibration": "Six ties-to-even offsets, first scaled-space/C007 equivalence with second triple retained,151/152capacity,22memory row metrics and66numeric-width checks are canonical in fixture/precode oracle. Memory C00E visible+7 depends on centered-window origin movement; not a general native renderer/FPU model.",
+    "verification": {
+      "receipt": "/var/tmp/dokapon-startup-prototype-m031UcAS/verification.json",
+      "sha256": "51eb776c733e02a2cad010e96e75c6519b363d960449addc7681047590b08b8b",
+      "focused": "Complete TestPlanAndCopy+TestPlanRefusals PASS1.279s; both builds/vets/test compiles. Exact outputs/source/exclusivity,41guard mutations,4partial-slot and typed refusals checked. No fullsuite/nativefonts execution/race/gameplay rerun."
+    },
+    "external_reference_gate": {
+      "review": "/var/tmp/dokapon-startup-reference-gate-FzMmAWEe/review.md",
+      "sha256": "243d899602ef011b3e3e60e5b6d7ad01947c691783b8dd18ae67e018ea6b4c4b",
+      "observed": "Four declared pairs resolved/appliedfalse on exact6e only",
+      "complete_gate": "UNKNOWN: complete starts/interior/raw/materialized-reader coverage remains separate; no intrinsic guarded_words reference-safety claim"
+    },
+    "accounting_delta_bytes": {
+      "production": 0,
+      "runtime_recipes": 63237,
+      "literal_fixture": 27386,
+      "test": 12032,
+      "README": 1340,
+      "private_question": 313,
+      "Golden_projection_fixtures": 11106
+    },
+    "projection_qualification": "Two required basename fixtures project the independent canonical bytes for existing generic Golden admission. Read-only schema/byte/membership checks only, no new target/measurement or Golden execution; runtime inventory adds the two reviewed profiles.",
+    "held": [
+      "consumer_layout.04 credit",
+      "native-original OLD replay",
+      "post-patch live capture/physical fit",
+      "complete consumer/interior/boundary reference admission",
+      "dynamic original comparison/Dark Aura aliases",
+      "global ownership/ABI/landing/latest-mod compatibility"
+    ],
+    "credit": "10/15families,76/90milestones unchanged; capability/data growth, no deletion/reduction/retirement claim",
+    "prior_fields_scope": "Earlier synthetic/native preservation/census receipts retain dated history; this node does not rewrite their original obligations or measurements",
+    "projection_review": {
+      "path": "/var/tmp/dokapon-startup-projection-review-jC6Jr4Io/review.md",
+      "sha256": "e88614d6198d2edd57a75b608fa8a4766bbd5c69152c682e5386986ebb2ade34",
+      "scope": "Read-only37+4entry/genericGoldencontract/66membership+hashjoins; wholeGolden remains unexecuted for this integration"
+    }
+  },
+  "accepted_finite_f112_criteria": {
+    "status": "ROOT_ACCEPTED_CONSUMER_LAYOUT_04_AND_IMAGE_LAYOUT_05",
+    "at": "2026-11-13T18:27:30Z",
+    "source_scope": "Approved current-tooling-scope-v3 finite historical F112 maintenance workflow. Earlier fields retain their dated synthetic/partial/native-byte scope; no compiled or native source pin is rebound to the parked range candidate.",
+    "landing": {
+      "manifest": "/var/tmp/dokapon-f112-landing-current-XqWmeBv6/manifest.json",
+      "sha256": "31710d061595ec8433dfe7823c027cd879fe132fa3f916d727fbd64a434de39e",
+      "authority": "/var/tmp/dokapon-f173-allocation-authority-DV6q0n1F/report.md",
+      "authority_sha256": "f6750a85d8c9c069e98b7d95657c3a7cfd85163b22672860c5f35ba506bcbfba",
+      "contract": "Source-pinned resident-blob append convention and explicit F19/F168/F173 reservations, not zero-byte inference. Current highwater8b664 aligns8b670 with12B padding; reserved F16880B is retained. Sole new F173216B payload/targets remain within408b6c0..408b798;116declared intervals and420finite dependencies are nonintersecting as qualified in the join."
+    },
+    "criteria": [
+      {
+        "id": "consumer_layout.04",
+        "credit": 1,
+        "basis": "Accepted guarded/native eleven-span maintenance, carried207-name calibration provenance and finite routing/unit qualifications, plus reviewed landing. Not every startup/header-alias workflow.",
+        "review": "/var/tmp/dokapon-astra059-landing-closure-vxcaWWXE/review.md",
+        "review_sha256": "339cdeb4506773296c25445598885c26a56eeaf25653667d34a85e4084b5a25c"
+      },
+      {
+        "id": "image_layout.05",
+        "credit": 1,
+        "basis": "Separate independent ownership derivation: F173216B is the only new placement in624 declared bytes;408B use existing regions. Existing124B wrapper changes only its4B ORI. Distinct from range enforcement and maintenance.",
+        "review": "/var/tmp/dokapon-image05-astra-Aj7maAQH/review.md",
+        "review_sha256": "689bf5e63165e787c62eef3c61903ff726ee02ca3f48e1633686ed75e2944fdf"
+      }
+    ],
+    "prior_accepted_join": "accepted_native_preservation_join",
+    "exclusions": "No global Refs/foreign-reader census, ABI, new/current60% or joined316/379 fit, later-source/latest-mod, original-ISO or gameplay acceptance. Full suite/race remain deferred. Optional range candidate wholeCLI remains unexecuted and parked.",
+    "operations": "Evidence/status integration only: zero new production/runtime/test code or native/census/build/test execution; no public push.",
+    "current_scores": {
+      "milestones": "78/90",
+      "consumer_layout": "4/6",
+      "image_layout": "5/6",
+      "full_families": "10/15",
+      "uncredited": "12: six probe-last groups, five active original-tool groups and image_layout.06 reviewed retired disposition with zero Go credit; no instruction to implement retired design."
+    }
+  }
+}

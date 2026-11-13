@@ -1,0 +1,106 @@
+{
+  "kind": "CONSOLIDATED_REGISTER_INCLUSIVE_REVIEWS",
+  "operational_source_only": {
+    "kind": "INDEPENDENT_READ_ONLY_ORDINARY_IMPLEMENTATION_REVIEW",
+    "at": "2026-11-13T04:57:59.560585+00:00",
+    "reviewer": "/root/inclusive_flow_review",
+    "candidate_manifest": "/var/tmp/dokapon-inclusive-flow-h58utzc3/operational-manifest.json",
+    "candidate_manifest_sha256": "7d3f1ccc0c6c65418ce7264674f069c6b0746a0e836dbee2ab96656bde522dd6",
+    "findings": [],
+    "conclusion": "No reproducible correctness, DRY, unnecessary-function or caller-binding defect found in the bounded frozen change. This supplies findings, not approval or family-completion authority. Owner verification remains independently required.",
+    "verified_bindings": {
+      "operational_files": 53,
+      "operational_control_files": 4,
+      "original_oracle_members": 15,
+      "independent_source_review_members": 1,
+      "v4_erratum_members": 7,
+      "original_live_source_pins": 16,
+      "retained_baseline_reports_and_refusals": 81,
+      "retained_candidate_exact_manual_graphs": 24,
+      "v4_expected_sets_completeness_reasons_unchanged": 24,
+      "zip_member_equals_frozen_v4_JSON": true,
+      "post_review_operational_drift": 0
+    },
+    "implementation": {
+      "owner": "register_flow.go:15 queryRegisterFlow",
+      "production_change": "Accept one additional kind, seed selected root execution states, and share the existing forward read-before-kill traversal. No opcode/CFG engine, function, type, field, dependency or second planner introduced.",
+      "root_semantics": "Root effects are inspected before definite kill; kills prevent downstream uncertainty from resurrecting the incoming value. Conditional and merge preservation use the existing decoder facts.",
+      "context_budget_semantics": "normal/delay/any_reachable filter selected execution roots; delay controller/outcome survives existing graph nodes. Inclusive root consumes per-query and batch work budget; no arbitrary boolean conversion of empty incomplete results. GPR0 keeps established mutable-dependency convention.",
+      "compatibility": "The old query cases and references.go generated query kinds retain the same dispatch and traversal branches. The only general refusal text change enumerates the newly allowed kind.",
+      "callers_inspected": [
+        "references.go:107 instruction_index optional register_flow",
+        "references.go:735 generated ownership/reference report flow"
+      ],
+      "bindings_inspected": [
+        "main.go:130 strict canonical schema, operation boundary and required fields",
+        "register_flow_types.go existing wire shape",
+        "README.md:1733 new mode, budget and MAYREAD/UNKNOWN contract",
+        "examples/gp-audit/register-flow-profile.json:25 new mode example",
+        "patch_test.go:3765 hash-pinned new fixture and shared CLI table",
+        "patch_test.go:3810 existing semantic graph comparison, source-fact baseline and input preservation",
+        "patch_test.go:4208 schema-refusal matrix extended to both forward kinds"
+      ]
+    },
+    "oracle_review": {
+      "basis": "Manual source evaluation of all24 literals against accepted finite instruction/CFG model, original helper scope separated. Retained candidate output checked after independent expectations; no execution used to produce expected data.",
+      "erratum": "Original ffffffff is modeled SD, not unsupported. Both mislabeled likely-delay words become0000003f, unmodeled by this finite decoder, without changing expected sets/completeness/reasons; mechanical Instructions->instruction_index binding corrected. Original rejected v3 and failed log retained.",
+      "cases": "Root read/kill, later read, known+unknown, empty unknown, conditional/merge preservation, annulled/unknown likely paths, root-counted limit, normal/delay/any contexts, unreachable roots, GPR0, cycles, kill-before-unknown, and long-budget sentinel case manually checked.",
+      "retained_outputs": "All24 candidate outputs have source/profile hashes matching retained inputs and exact frozen expected graph and manual known-sites/completeness/reasons. Baseline81 stdout/stderr identities verified:57 old complete reports and24 prior-kind refusals.",
+      "old_57_limit": "Inspected baseline-freeze and compare_candidate.py assertions plus owner supplied execution account that all57 old reports matched before the original SD fixture failure. This reviewer did not independently rerun Go or receive a separately materialized57 candidate-output bundle."
+    },
+    "limitations": [
+      "Not Code.reads_arg whole-method parity: original limit sentinels and conditional shortcuts differ deliberately.",
+      "Dependency MAYREAD facts are not pointee consumption, consumer SAFE/RISKY, ABI, savedRA or whole-program proof.",
+      "No binary .05/.06 or full-family/retirement credit follows from this slice.",
+      "Focused test/build/vet/race verification is owned by implementation agent and still outside this source-only review.",
+      "No Go execution, full suite, nativefonts race, gameplay, private probe resources, ISOs, registry changes or public push performed.",
+      "Nonperiodic ordinary review does not reset periodic Astra cadence."
+    ]
+  },
+  "final_metadata": {
+    "kind": "FRESH_INDEPENDENT_FINAL_METADATA_REVIEW",
+    "at": "2026-11-13T05:07:37.765975+00:00",
+    "reviewer": "/root/inclusive_flow_review",
+    "findings": [],
+    "conclusion": "No reproducible new metadata/accounting/pin/claim defect found in the bounded13-file frozen overlay. Findings only, not approval. Code remains the independently reviewed53-file operational freeze.",
+    "reviewed": {
+      "metadata_manifest": "/var/tmp/dokapon-inclusive-flow-h58utzc3/review-metadata/manifest.json",
+      "metadata_manifest_sha256": "c5b0a1013f4b114af7915f2de7721d62fd02d8c5326a16060b29882fa58a4d93",
+      "operational_manifest_sha256": "7d3f1ccc0c6c65418ce7264674f069c6b0746a0e836dbee2ab96656bde522dd6",
+      "patch_list_sha256": "f2b74f37f49656380686b2c050c4df9ab44400b93838b1e7356c78a5ad0fe1dc",
+      "base_manifest_sha256": "f00b9a25f4d7a94b39f2e84a8d04606444c4e58b7d8af8e8dd8a3086d2db5615"
+    },
+    "verification": {
+      "metadata_files": 13,
+      "operational_files": 53,
+      "scoped_pins_resolved": 700,
+      "report_pins_resolved": 598,
+      "accounted_unique_inputs": 366,
+      "accounting_group_counts_sizes_hashes": true,
+      "runtime_aggregate_recomputed": true,
+      "accounting_delta": "Only patch_test.go, register_flow.go and runnable register-flow example changed; new future-register-read-fixture.zip added; no removal.",
+      "patch_delta": "14 existing paths changed,4 new paths;818+4 gives822 expected members.",
+      "history": "Four original coverage/roadmap baseline and accepted808 archive objects retain exact accepted818 identities. Existing milestone IDs/requirements/credits/status unchanged across all90. Prior review linkage retained separately.",
+      "coverage": "10/15 Full,76/90 proven, binary4/6,probe0/6. No new milestone, historical retirement or reduction credit.",
+      "code_costs": "48productionGo files608990B,46named functions,0newfunctions/types/fields/dependencies;205Bproduction growth389Bruntime growth with example,378Btest growth3033Bfixture growth reported separately. Documentation/analysis/evidence overhead remains finalizer accounting.",
+      "QA_receipts": "All8 recorded command results equal retained qa-results.json, exit0 and exact log hashes. Core/nativefonts focused runs and both build/vet passed; actual native CgoFiles output raster_font.go verified; core CLI+TestPilotHistoricalGoldenBytes race output398.972package/415.325wall. No new Go run by reviewer.",
+      "old57_limit": "Proof explicitly preserves owner execution assertion and baseline retained output evidence, and states ordinary reviewer did not independently rerun or receive separately materialized57 candidate outputs. No independent replay overclaim.",
+      "links": "All newly introduced Markdown links resolve in owned snapshot; source aliases correctly resolve700/598 pins.185 unchanged historical links point outside the reduced owned snapshot, so this review makes no all-history-link-valid claim.",
+      "priority": "Probe implementation explicitly last; existing Python sole operational owner unchanged. Current binary consumer/report duty is next; historical ELF-growth disposition remains separate with no port-for-credit claim.",
+      "post_review_drift": 0
+    },
+    "deferred": [
+      "Complete suite",
+      "nativefonts race",
+      "Gameplay/native probe acceptance"
+    ],
+    "not_performed": [
+      "Source edits",
+      "Go execution",
+      "Protected game/ISO/registry/probe work",
+      "Public push"
+    ],
+    "authority": "Review supplies findings only; local integration and guard checks remain root/implementation-owner responsibility. Nonperiodic metadata review does not reset Astra cadence."
+  },
+  "finalization_delta": "After frozen metadata review, attach this report and update only review linkage, consolidated proof and their current hash closure. Source, recipes, accounting, requirements and credits remain exactly reviewed."
+}

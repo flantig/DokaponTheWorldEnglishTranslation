@@ -7,7 +7,8 @@ import (
 )
 
 // queryRegisterFlow builds one bounded graph from decoded facts, then searches
-// before reads for definitions or after execution for uses of the same low32 GPR.
+// before reads for definitions or forward for uses of the same low32 GPR.
+// reads_before_kill includes the queried execution; uses_after starts after it.
 // Delay states retain their controller/outcome. A definite overwrite closes a
 // value only without incoming preservation; calls never invent return edges.
 // Completeness is conditional on asserted entries and the supported local model.
@@ -44,11 +45,19 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 		if label == "" || len(label) > 128 || !utf8.ValidString(label) || err != nil || vma > 0xffffffff || !selected || query.Register > 31 || query.MaxVisitedStates < 1 || query.MaxVisitedStates > 100000 {
 			return report, fmt.Errorf("invalid register flow query %q: label, site, register or work limit", label)
 		}
-		if query.Kind != "reaching_defs" && query.Kind != "uses_after" {
-			return report, fmt.Errorf("register flow query %q requires reaching_defs or uses_after", label)
+		switch query.Kind {
+		case "reaching_defs", "uses_after", "reads_before_kill", "pointer_consumers":
+		default:
+			return report, fmt.Errorf("register flow query %q requires reaching_defs, uses_after, reads_before_kill or pointer_consumers", label)
 		}
-		result := RegisterFlowResult{Kind: query.Kind, Register: query.Register, VMA: uint32(vma), Context: query.Context,
+		if query.Kind == "pointer_consumers" && query.SeedPhase != "before" && query.SeedPhase != "after" || query.Kind != "pointer_consumers" && query.SeedPhase != "" {
+			return report, fmt.Errorf("register flow query %q requires before/after seed_phase only for pointer_consumers", label)
+		}
+		result := RegisterFlowResult{Kind: query.Kind, SeedPhase: query.SeedPhase, Register: query.Register, VMA: uint32(vma), Context: query.Context,
 			KnownFactSites: []uint32{}, IncomingEntrySites: []uint32{}, IncompleteReasons: []string{}}
+		if query.Kind == "pointer_consumers" {
+			result.Consumer = &PointerConsumerResult{Events: []PointerConsumerEvent{}}
+		}
 		switch query.Context {
 		case "any_reachable", "normal":
 			if query.DelayOf != nil {
@@ -74,26 +83,19 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 	slices.Sort(labels)
 
 	// A physical word can execute normally and in several pending transfers.
-	type execution struct{ row, controller, path int }
-	type node struct {
-		execution
-		successors, predecessors []int
-		unknown                  []string
-		entry                    bool
-	}
-	graph := make([]node, 0, len(rows))
-	states := make(map[execution]int)
+	graph := make([]registerFlowNode, 0, len(rows))
+	states := make(map[registerExecution]int)
 	for _, vma := range report.EntryVMAs {
-		key := execution{row: byVMA[vma], controller: -1, path: -1}
+		key := registerExecution{row: byVMA[vma], controller: -1, path: -1}
 		states[key] = len(graph)
-		graph = append(graph, node{execution: key, entry: true})
+		graph = append(graph, registerFlowNode{registerExecution: key, entry: true})
 	}
 	graphLimited := false
 	unknownFrontiers := []string{}
 	for at := 0; at < len(graph); at++ {
-		state := graph[at].execution
+		state := graph[at].registerExecution
 		row := rows[state.row]
-		var successors []execution
+		var successors []registerExecution
 		var targets []uint32
 		var unknown []string
 		switch {
@@ -146,13 +148,13 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 					if control.Kind == "register_jump" {
 						path = -1
 					}
-					successors = append(successors, execution{row: delay, controller: state.row, path: path})
+					successors = append(successors, registerExecution{row: delay, controller: state.row, path: path})
 				}
 			}
 		}
 		for _, target := range targets {
 			if destination, present := byVMA[target]; present {
-				successors = append(successors, execution{row: destination, controller: -1, path: -1})
+				successors = append(successors, registerExecution{row: destination, controller: -1, path: -1})
 			} else {
 				unknown = append(unknown, "out_of_scope_direct_target")
 			}
@@ -167,7 +169,7 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 				}
 				next = len(graph)
 				states[key] = next
-				graph = append(graph, node{execution: key})
+				graph = append(graph, registerFlowNode{registerExecution: key})
 			}
 			if !slices.Contains(graph[at].successors, next) {
 				graph[at].successors = append(graph[at].successors, next)
@@ -206,6 +208,20 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 			if len(reasons) == 0 {
 				reasons = append(reasons, "query_unreachable_under_declared_entries")
 			}
+		} else if query.Kind == "pointer_consumers" {
+			events, unknown, used := tracePointerConsumers(rows, graph, roots, query, label, 1000000-batchWork)
+			if graphLimited {
+				retained := events[:0]
+				for _, event := range events {
+					if event.Kind != "stack_container_argument" {
+						retained = append(retained, event)
+					}
+				}
+				events = retained
+			}
+			result.Consumer = &PointerConsumerResult{Events: events}
+			reasons = append(reasons, unknown...)
+			batchWork += used
 		} else if result.Register != 0 {
 			// Unknown reachable transfers may introduce predecessors at any site.
 			// Keep lower-bound facts, but never claim their absence proves closure.
@@ -223,6 +239,8 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 				case "uses_after":
 					pending = append(pending, graph[root].successors...)
 					reasons = append(reasons, graph[root].unknown...)
+				case "reads_before_kill":
+					pending = append(pending, root)
 				}
 			}
 			visited := make(map[int]bool)
@@ -258,7 +276,7 @@ func queryRegisterFlow(rows []InstructionObservation, spec RegisterFlowSpec) (Re
 						result.IncomingEntrySites = append(result.IncomingEntrySites, uint32(row.VMA))
 					}
 					pending = append(pending, state.predecessors...)
-				case "uses_after":
+				case "uses_after", "reads_before_kill":
 					if slices.Contains(effects.GPRReads, query.Register) || preserves {
 						result.KnownFactSites = append(result.KnownFactSites, uint32(row.VMA))
 					}

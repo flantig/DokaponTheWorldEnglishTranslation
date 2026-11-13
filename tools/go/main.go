@@ -101,6 +101,11 @@ func run(args []string, stdout io.Writer) error {
 		if err != nil {
 			return err
 		}
+		// Reject ambiguous root keys before either decode can discard a hidden
+		// request. Keep the validator's selective legacy policy for nested data.
+		if err := checkJSON(checkedJSON{raw: recipeData}); err != nil {
+			return err
+		}
 		var recipes Recipes
 		decoder := json.NewDecoder(bytes.NewReader(recipeData))
 		decoder.DisallowUnknownFields()
@@ -129,12 +134,15 @@ func run(args []string, stdout io.Writer) error {
 				policy.fieldsByDepth = map[int][]string{1: {"retail_elf_size", "loader_vmas", "window_bases", "window_sizes"}}
 			case strings.EqualFold(key, "register_flow"):
 				canonical, operation, route = "register_flow", "instruction_index", "instruction_index"
-				policy.fieldsByDepth = map[int][]string{1: {"entry_vmas", "queries"}, 3: {"kind", "register", "vma", "context", "delay_of", "max_visited_states"}}
+				policy.fieldsByDepth = map[int][]string{1: {"entry_vmas", "queries"}, 3: {"kind", "register", "vma", "context", "delay_of", "max_visited_states", "seed_phase"}}
 				policy.requiredByDepth = map[int][]string{1: {"entry_vmas", "queries"}, 3: {"kind", "register", "vma", "context", "max_visited_states"}}
 			case strings.EqualFold(key, "reference_flow"):
 				canonical, operation, route = "reference_flow", "reference_candidates", "reference_candidates"
-				policy.fieldsByDepth = map[int][]string{1: {"entry_vmas", "max_visited_states", "entries"}, 3: {"benign_reader_pairs", "zero_padding_allowance"}, 5: {"lui_vma", "use_vma", "evidence"}}
-				policy.requiredByDepth = map[int][]string{1: {"entry_vmas", "max_visited_states", "entries"}, 5: {"lui_vma", "use_vma", "evidence"}}
+				if recipes.Operation == "reference_cohort" {
+					operation, route = "reference_cohort", "reference_cohort"
+				}
+				policy.fieldsByDepth = map[int][]string{1: {"entry_vmas", "max_visited_states", "entries", "call_rules"}}
+				policy.requiredByDepth = map[int][]string{1: {"entry_vmas", "max_visited_states", "entries"}}
 			default:
 				continue
 			}
@@ -147,10 +155,64 @@ func run(args []string, stdout io.Writer) error {
 			if err := checkJSON(policy); err != nil {
 				return err
 			}
+			if canonical == "reference_flow" {
+				var flowFields map[string]json.RawMessage
+				if err := json.Unmarshal(raw, &flowFields); err != nil {
+					return err
+				}
+				if rules, present := flowFields["call_rules"]; present {
+					if err := checkJSON(checkedJSON{raw: rules, text: true, allObjects: true, nonNull: true,
+						fieldsByDepth: map[int][]string{2: {"allowed_registers", "evidence"}}, requiredByDepth: map[int][]string{2: {"allowed_registers", "evidence"}}}); err != nil {
+						return err
+					}
+				}
+				var entries map[string]json.RawMessage
+				if err := json.Unmarshal(flowFields["entries"], &entries); err != nil {
+					return err
+				}
+				for _, entry := range entries {
+					if err := checkJSON(checkedJSON{raw: entry, text: true, allObjects: true, nonNull: true,
+						fieldsByDepth: map[int][]string{1: {"benign_reader_pairs", "zero_padding_allowance", "consumer_seeds", "expected_pairs", "expected_pointers"}}}); err != nil {
+						return err
+					}
+					var fields map[string]json.RawMessage
+					if err := json.Unmarshal(entry, &fields); err != nil {
+						return err
+					}
+					for _, name := range []string{"expected_pairs", "expected_pointers"} {
+						if raw, present := fields[name]; present {
+							if recipes.Operation != "reference_cohort" {
+								return fmt.Errorf("source-policy buckets belong only to reference_cohort")
+							}
+							policy := checkedJSON{raw: raw, allObjects: true, nonNull: true}
+							if name == "expected_pairs" {
+								keys := []string{"lui_vma", "lower_vma", "target", "opcode"}
+								policy.fieldsByDepth, policy.requiredByDepth = map[int][]string{2: keys}, map[int][]string{2: keys}
+							}
+							if err := checkJSON(policy); err != nil {
+								return err
+							}
+						}
+					}
+					if pairs, present := fields["benign_reader_pairs"]; present {
+						if err := checkJSON(checkedJSON{raw: pairs, text: true, allObjects: true, nonNull: true,
+							fieldsByDepth: map[int][]string{2: {"lui_vma", "use_vma", "evidence"}}, requiredByDepth: map[int][]string{2: {"lui_vma", "use_vma", "evidence"}}}); err != nil {
+							return err
+						}
+					}
+					if seeds, present := fields["consumer_seeds"]; present {
+						if err := checkJSON(checkedJSON{raw: seeds, text: true, allObjects: true, nonNull: true,
+							fieldsByDepth: map[int][]string{2: {"register", "vma", "context", "delay_of", "seed_phase"}}, requiredByDepth: map[int][]string{2: {"register", "vma", "context", "seed_phase"}}}); err != nil {
+							return err
+						}
+					}
+				}
+			}
 		}
+		cohort := recipes.Operation == "reference_cohort"
 		indexed := recipes.Operation == "reference_gp_index" || recipes.Operation == "instruction_index"
 		flow := recipes.ReferenceFlow != nil
-		if recipes.Operation == "reference_observed" || indexed || flow {
+		if recipes.Operation == "reference_observed" || indexed || flow || cohort {
 			fields := []string{"operation", "source_size", "source_sha256", "scope_sha256", "evidence", "registry_patch_ref"}
 			if indexed {
 				fields = []string{"operation", "source_size", "source_sha256", "evidence", "references"}
@@ -161,15 +223,18 @@ func run(args []string, stdout io.Writer) error {
 			if recipes.Operation == "instruction_index" {
 				fields = append(fields, "register_flow")
 			}
-			if flow {
+			if flow && !cohort {
 				fields = []string{"operation", "source_size", "source_sha256", "scope_sha256", "glyphmap_sha256", "evidence", "iso_elf_offset", "elf_vma_delta", "references", "reference_flow", "pointer_state"}
+			}
+			if cohort {
+				fields = []string{"operation", "source_size", "source_sha256", "evidence", "elf_vma_delta", "references", "layout", "registry_inputs", "reference_flow"}
 			}
 			policy := checkedJSON{raw: recipeData, text: true, allObjects: true, fieldsByDepth: map[int][]string{1: fields}}
 			if indexed {
 				policy.nonNullByDepth = map[int][]string{1: {"references", "address_ranges"}}
 				policy.requiredByDepth = map[int][]string{1: {"operation", "source_size", "source_sha256", "evidence", "references"}}
 			}
-			if flow {
+			if flow && !cohort {
 				policy.nonNull = true
 				// pointer_state is optional; every preceding root field is explicit.
 				policy.requiredByDepth = map[int][]string{1: fields[:len(fields)-1]}
@@ -187,7 +252,7 @@ func run(args []string, stdout io.Writer) error {
 					}
 				}
 			}
-			if flow {
+			if flow && !cohort {
 				if err := checkJSON(checkedJSON{raw: tableFields["references"], text: true, allObjects: true, nonNull: true,
 					fieldsByDepth:   map[int][]string{1: {"file_range", "pointer_min_vma", "skip_words", "decode_words", "queries"}},
 					requiredByDepth: map[int][]string{1: {"file_range", "pointer_min_vma", "skip_words", "decode_words", "queries"}}}); err != nil {
@@ -229,9 +294,61 @@ func run(args []string, stdout io.Writer) error {
 					}
 				}
 			}
+			if cohort {
+				if err := checkJSON(checkedJSON{raw: recipeData, allObjects: true, nonNull: true, fieldsByDepth: map[int][]string{1: fields}, requiredByDepth: map[int][]string{1: fields[:7]}}); err != nil {
+					return err
+				}
+				if err := checkJSON(checkedJSON{raw: tableFields["layout"], allObjects: true, nonNull: true,
+					fieldsByDepth:   map[int][]string{1: {"font_table_vma", "unfloored_glyph_vma", "unfloored_glyph", "space_words"}},
+					requiredByDepth: map[int][]string{1: {"font_table_vma", "unfloored_glyph_vma", "unfloored_glyph", "space_words"}}}); err != nil {
+					return err
+				}
+				if raw, exists := tableFields["registry_inputs"]; exists {
+					if err := checkJSON(checkedJSON{raw: raw, allObjects: true, nonNull: true,
+						fieldsByDepth: map[int][]string{1: {"sentinel"}, 2: {"path", "size", "sha256"}}, requiredByDepth: map[int][]string{1: {"sentinel"}, 2: {"path", "size", "sha256"}}}); err != nil {
+						return err
+					}
+				}
+				var scanFields map[string]json.RawMessage
+				if err := json.Unmarshal(tableFields["references"], &scanFields); err != nil {
+					return err
+				}
+				if err := checkJSON(checkedJSON{raw: tableFields["references"], allObjects: true, nonNull: true,
+					fieldsByDepth:   map[int][]string{1: {"decode_words", "advance_floor", "space_advance", "missing_advance", "sidecar_vma", "queries", "file_range", "raw_file_range", "raw_pointer_range", "data_range"}},
+					requiredByDepth: map[int][]string{1: {"decode_words", "advance_floor", "space_advance", "missing_advance", "sidecar_vma", "queries"}}}); err != nil {
+					return err
+				}
+				for _, name := range []string{"file_range", "raw_file_range", "raw_pointer_range", "data_range"} {
+					if raw, exists := scanFields[name]; exists {
+						if err := checkJSON(checkedJSON{raw: raw, allObjects: true, nonNull: true, fieldsByDepth: map[int][]string{1: {"start", "end"}}, requiredByDepth: map[int][]string{1: {"start", "end"}}}); err != nil {
+							return err
+						}
+					}
+				}
+				var queries map[string]json.RawMessage
+				if err := json.Unmarshal(scanFields["queries"], &queries); err != nil {
+					return err
+				}
+				for _, raw := range queries {
+					keys := []string{"content_range", "pointer_tables", "expected_count", "expected_max_width", "nominal_scale", "scaled_limit"}
+					if err := checkJSON(checkedJSON{raw: raw, allObjects: true, nonNull: true, fieldsByDepth: map[int][]string{1: keys}, requiredByDepth: map[int][]string{1: keys}}); err != nil {
+						return err
+					}
+					var fields map[string]json.RawMessage
+					if err := json.Unmarshal(raw, &fields); err != nil {
+						return err
+					}
+					if err := checkJSON(checkedJSON{raw: fields["content_range"], allObjects: true, nonNull: true, fieldsByDepth: map[int][]string{1: {"start", "end"}}, requiredByDepth: map[int][]string{1: {"start", "end"}}}); err != nil {
+						return err
+					}
+					if err := checkJSON(checkedJSON{raw: fields["pointer_tables"], allObjects: true, nonNull: true, fieldsByDepth: map[int][]string{2: {"name", "start", "end", "stride"}}, requiredByDepth: map[int][]string{2: {"name", "start", "end", "stride"}}}); err != nil {
+						return err
+					}
+				}
+			}
 			pinnedRecipeData = recipeData
 			pinnedRecipeInfo, err = os.Stat(path)
-			if err != nil || len(recipeData) > 1<<20 || flow && !pinnedRecipeInfo.Mode().IsRegular() {
+			if err != nil || len(recipeData) > 1<<20 || (flow || cohort) && !pinnedRecipeInfo.Mode().IsRegular() {
 				return fmt.Errorf("reference recipe must be bounded and regular: %v", err)
 			}
 		}
@@ -337,7 +454,8 @@ func run(args []string, stdout io.Writer) error {
 	if len(tables) == 0 || !sourceInfo.Mode().IsRegular() || sourceInfo.Size() != tables[0].SourceSize {
 		return fmt.Errorf("source size/type mismatch")
 	}
-	if profile := tables[0]; profile.Operation == "reference_candidates" || profile.Operation == "reference_observed" || profile.Operation == "reference_gp_index" || profile.Operation == "instruction_index" || profile.Operation == "elf_layout" {
+	if profile := tables[0]; profile.Operation == "reference_cohort" || profile.Operation == "reference_candidates" || profile.Operation == "reference_observed" || profile.Operation == "reference_gp_index" || profile.Operation == "instruction_index" || profile.Operation == "elf_layout" {
+		cohort := profile.Operation == "reference_cohort"
 		layout := profile.Operation == "elf_layout"
 		observed := profile.Operation == "reference_observed"
 		gpIndex := profile.Operation == "reference_gp_index"
@@ -352,19 +470,23 @@ func run(args []string, stdout io.Writer) error {
 			}
 			return fmt.Errorf("ELF layout requires one bounded ELF profile; registry, glyphmap and writes are forbidden")
 		}
-		if !layout && !indexed && (len(tables) != 1 || *apply || *registryPath == "" || observed && *glyphPath != "" || !observed && *glyphPath == "" || sourceInfo.Size() <= 0 || sourceInfo.Size() > 64<<20) {
+		if !layout && !indexed && !cohort && (len(tables) != 1 || *apply || *registryPath == "" || observed && *glyphPath != "" || !observed && *glyphPath == "" || sourceInfo.Size() <= 0 || sourceInfo.Size() > 64<<20) {
 			if observed {
 				return fmt.Errorf("observed references require one bounded ELF profile and registry; glyphmap and writes are forbidden")
 			}
 			return fmt.Errorf("reference reports require one bounded ELF profile, registry and glyphmap; reports are read-only")
+		}
+		if cohort && (len(tables) != 1 || *apply || *registryPath != "" || *glyphPath != "" || sourceInfo.Size() < 52 || sourceInfo.Size() > 64<<20) {
+			return fmt.Errorf("cohort reports require one bounded source profile without registry, glyphmap or writes")
 		}
 		data, err := io.ReadAll(io.LimitReader(source, sourceInfo.Size()+1))
 		if err != nil {
 			return err
 		}
 		var report any
-		var registryBefore, glyphBefore os.FileInfo
-		var registryData, glyphData []byte
+		var registryBefore, glyphBefore, sidecarBefore os.FileInfo
+		var registryData, glyphData, sidecarData []byte
+		var sidecarPath string
 		if layout {
 			if int64(len(data)) != profile.SourceSize || fmt.Sprintf("%x", sha256.Sum256(data)) != profile.SourceSHA256 {
 				return fmt.Errorf("ELF layout source hash/size mismatch")
@@ -382,19 +504,19 @@ func run(args []string, stdout io.Writer) error {
 				layoutReport["limits"] = "Read-only ELF32 MIPS LOAD and installed sentinel transport mapping. sentinel_blob has no program header; only the loaded physical intersection is mapped, not the larger dispatch window. Retail EOF is a declared pinned-layout assumption. Mapping and installed instructions do not prove runtime execution, ownership, safe placement or patch readiness. No ISO allocation or writes."
 			}
 		} else {
-			if observed || flow {
+			if (observed || flow) && !cohort {
 				registryBefore, err = os.Stat(*registryPath)
 				if err != nil {
 					return err
 				}
 				registryData, err = readInput(*registryPath, 64<<20)
-			} else if !indexed {
+			} else if !indexed && !cohort {
 				registryData, err = os.ReadFile(*registryPath)
 			}
 			if err != nil {
 				return err
 			}
-			if !observed && !indexed {
+			if !observed && !indexed && !cohort {
 				if flow {
 					glyphBefore, err = os.Stat(*glyphPath)
 					if err != nil {
@@ -408,11 +530,27 @@ func run(args []string, stdout io.Writer) error {
 					return err
 				}
 			}
-			facts, err := references(data, registryData, glyphData, profile)
+			if cohort {
+				if pin, exists := profile.RegistryInputs["sentinel"]; exists {
+					sidecarPath = pin.Path
+					if !filepath.IsAbs(sidecarPath) {
+						sidecarPath = filepath.Join(filepath.Dir(paths[0]), sidecarPath)
+					}
+					sidecarBefore, err = os.Stat(sidecarPath)
+					if err != nil {
+						return err
+					}
+					sidecarData, err = readInput(sidecarPath, 64<<20)
+					if err != nil {
+						return err
+					}
+				}
+			}
+			facts, err := references(data, registryData, glyphData, sidecarData, profile)
 			if err != nil {
 				return err
 			}
-			if observed || indexed || flow {
+			if observed || indexed || flow || cohort {
 				facts.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(pinnedRecipeData))
 			}
 			report = facts
@@ -430,7 +568,7 @@ func run(args []string, stdout io.Writer) error {
 			}
 			return fmt.Errorf("reference source changed during analysis")
 		}
-		if observed || indexed || flow {
+		if observed || indexed || flow || cohort {
 			pathInfo, err := os.Stat(*sourcePath)
 			if err != nil || !os.SameFile(sourceInfo, pathInfo) {
 				return fmt.Errorf("observed source path changed")
@@ -440,8 +578,8 @@ func run(args []string, stdout io.Writer) error {
 				data   []byte
 				limit  int64
 				before os.FileInfo
-			}{{*registryPath, registryData, 64 << 20, registryBefore}, {paths[0], pinnedRecipeData, 1 << 20, pinnedRecipeInfo}, {*glyphPath, glyphData, 64 << 20, glyphBefore}} {
-				if indexed && i == 0 || !flow && i == 2 {
+			}{{*registryPath, registryData, 64 << 20, registryBefore}, {paths[0], pinnedRecipeData, 1 << 20, pinnedRecipeInfo}, {*glyphPath, glyphData, 64 << 20, glyphBefore}, {sidecarPath, sidecarData, 64 << 20, sidecarBefore}} {
+				if (indexed || cohort) && i == 0 || (!flow || cohort) && i == 2 || i == 3 && sidecarPath == "" {
 					continue
 				}
 				current, err := readInput(input.path, input.limit)
@@ -453,7 +591,7 @@ func run(args []string, stdout io.Writer) error {
 		}
 		var buffered bytes.Buffer
 		var destination io.Writer = stdout
-		if indexed || flow {
+		if indexed || flow || cohort {
 			destination = &buffered
 		}
 		encoder := json.NewEncoder(destination)
@@ -462,9 +600,9 @@ func run(args []string, stdout io.Writer) error {
 		if err := encoder.Encode(report); err != nil {
 			return err
 		}
-		if indexed || flow {
+		if indexed || flow || cohort {
 			if buffered.Len() > 64<<20 {
-				if flow {
+				if flow || cohort {
 					return fmt.Errorf("Reference flow JSON exceeds64MiB")
 				}
 				if gpIndex {

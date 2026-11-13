@@ -1,16 +1,16 @@
 {
-  "schema_version": 1,
-  "checklist_version": "capability-milestones-v1",
+  "schema_version": 2,
+  "checklist_version": "capability-milestones-v3",
   "created_at": "2026-10-21T00:32:23.943095+00:00",
-  "scope": "All14core families under unchanged workflow-families-v1. New planning milestones expose partial progress; no scope replacement or family promotion.",
+  "scope": "All 15 core families retain six stable groups each. The user-approved current-tooling amendment changes two obligations; the other 88 rows and all existing credits are unchanged. Exact accepted-834 v2 views preserve the previous 90 requirements and statuses.",
   "original_baseline": {
     "path": "analysis/reusability-coverage-baseline.json",
     "sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b"
   },
   "scoring": {
-    "rule": "100 * proven milestones / six milestones per family. Partial/missing/held earn zero credit. Equal-weight acceptance groups are not equal effort.",
+    "rule": "100 * proven milestones / six milestones per family. Partial, missing, held, unproven and reviewed-disposition groups earn zero credit. Equal-weight acceptance groups are not equal effort.",
     "denominator_frozen_for_future_updates": true,
-    "family_completion": "Allmaterial original family obligations and independent completion assessment still required. Checklist arithmetic never automatically promotes a family.",
+    "family_completion": "All material current family obligations and an independent completion assessment remain required. Reviewed disposition is recorded separately from verified Go support. Checklist arithmetic and scope amendment never automatically promote a family.",
     "does_not_measure": [
       "Code reuse or readability",
       "Percentage of implementation effort/time remaining",
@@ -22,11 +22,12 @@
     "independent_static_review": "analysis/sixth-family-closure-review.json",
     "review_sha256": "863c904dec6b563c9f5e6568e857c267b0bfbf8914e3747c7efb3317f798340a",
     "current_source_recheck": "evidence/migration-roadmap-source-checks.json",
-    "source_recheck_sha256": "09ddaf64ffb12cd0d9733ec74c000fbda00feeaa6792ec4c18899b1b490f1d69",
+    "source_recheck_sha256": "0842836e1592ecbf06d86973fe0f8e9390ab310538fb78516352f4ccbc01a1aa",
     "review_preceding_source_receipt_sha256": "a091128a9dd411165571bc3c58f7fec38c8014264ecc9e1bcd6bbd424ed92dc9",
     "accepted_code_snapshot": "/var/tmp/dokapon-fit-line-count-p1p46j4_/sealed-final",
     "accepted_code_manifest_sha256": "0189e234e47105fe2ce521c0d2e32f62bbd6852d0017ca050ac6fe81786ac647",
-    "verification_scope": "Current source/proof/checklist review; prior accepted behavior evidence cited, no new full-suite run. Inline code WIP remains private and earns no credit."
+    "verification_scope": "Current source/proof/checklist review; prior accepted behavior evidence cited, no new full-suite run. Inline code WIP remains private and earns no credit.",
+    "historical_source_recheck_sha256_at_v1": "09ddaf64ffb12cd0d9733ec74c000fbda00feeaa6792ec4c18899b1b490f1d69"
   },
   "families": [
     {
@@ -221,10 +222,10 @@
     {
       "id": "consumer_layout",
       "title": "Text fitting and layout",
-      "accepted_family_status": "partial",
-      "verified_milestones": 3,
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
       "total_milestones": 6,
-      "checklist_percent": 50.0,
+      "checklist_percent": 100,
       "milestones": [
         {
           "id": "consumer_layout.01",
@@ -256,48 +257,64 @@
         },
         {
           "id": "consumer_layout.04",
-          "requirement": "Model explicit native scale, positioned/centered pens and their rounding/consumer units",
-          "status": "held",
-          "credit": 0,
+          "requirement": "Maintain source-bound native scale and position patches through shared guarded tools, and report consumer measurements with their proven units and explicit unsupported cases.",
+          "status": "proven",
+          "credit": 1,
           "evidence": [
-            "analysis/native-scale-reuse-contract.json"
+            "analysis/current-tooling-scope-v3.json",
+            "evidence/current-tooling-scope-proof.json",
+            "analysis/name-cohort-contract.json",
+            "evidence/name-cohort-proof.json",
+            "evidence/name-cohort-review.json",
+            "testdata/cohort-report-fixture.zip",
+            "analysis/name-policy-replay-contract.json",
+            "evidence/name-policy-replay-proof.json",
+            "evidence/name-policy-replay-review.json",
+            "testdata/name-policy-2026-10-22.json"
           ],
-          "detail": "Native numerical/consumer-unit proof remains held; bitmap renderer scale is not native text layout."
+          "detail": "Finite source-qualified F112 workflow accepted; canonical criterion/landing/limits: evidence/name-policy-replay-proof.json#accepted_finite_f112_criteria. No current fit/global ABI/other-source claim."
         },
         {
           "id": "consumer_layout.05",
           "requirement": "Measure relevant native ink extents as well as pen advance",
-          "status": "partial",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
-            "analysis/reusability-coverage.json"
+            "analysis/reusability-coverage.json",
+            "analysis/native-ink-contract.json",
+            "evidence/native-ink-proof.json",
+            "testdata/native-ink-fixture.zip"
           ],
-          "detail": "Raster-layer bounds exist separately; native text ink support is incomplete."
+          "detail": "Native source-grid ink criterion accepted in evidence/native-ink-proof.json#current_criterion_assessment.22synthetic native-format goldens/22legacy reports are distinct from actual native codec/source qualification. Combinedactual-atlas+metric textreport was not performed; scaled/numeric/FPU/physicalfit/geometry limits remain."
         },
         {
           "id": "consumer_layout.06",
           "requirement": "Provide proved consumer geometry/expansion diagnostics including nested producer domains",
-          "status": "held",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
             "analysis/nested-job-producer-contract.json",
             "analysis/nested-job-index-followup.json",
-            "analysis/nested-job-gender-followup.json"
-          ]
+            "analysis/nested-job-gender-followup.json",
+            "analysis/consumer-layout-facts.json"
+          ],
+          "detail": "Conditional source-qualified geometry/plain-child expansion diagnostics accepted in consumer-layout-facts.json#current_conditional_diagnostics_assessment. Runtime W/producer-domain/A000 authoring/physical-vertical fit/ABI remain explicitly unproved; diagnostics do not waive stronger nested-authoring holds."
         }
       ],
-      "remaining_roadmap": "Native scale/position and rounding \u2192 ink bounds \u2192 nested expansions and proved consumer boxes.",
-      "next_achievable_milestone": "Complete one source-proven scale/leading consumer contract and its exact rounding/geometry checks before generalizing.",
+      "remaining_roadmap": "No material gap under the reviewed source-qualified toolkit contract. Preserve native source-grid and conditional geometry/producer limits; new sources require fresh qualification, and runtime A000 authoring/physical fit remain outside accepted diagnostics.",
+      "next_achievable_milestone": "Maintain existing shared owners and source/refusal boundaries; no speculative nested engine or authoring waiver.",
       "dependencies": [
         "inspect",
-        "controls",
-        "wrapPages",
-        "previewFit",
+        "references",
+        "plan",
+        "validateEdits",
+        "verifySource",
+        "patchCopy",
         "source-proven native consumer units"
       ],
       "acceptance_checks": [
-        "Independent fractional/negative/centered pen and ink cases; preserve exact-LINE and unsupported scale behavior until proved.",
-        "Bound nested argument domains and expansion widths; source-derived geometry must replace nominal character budgets."
+        "Independently freeze the complete fixed template and selected and retained caller bytes, source identity, reviewed landing and refusal boundaries. New sources require fresh measurements and ownership proof.",
+        "Preserve the native ink source-grid limitations and the existing nested-domain and consumer-geometry obligations."
       ],
       "original_requirement_crosswalk": [
         {
@@ -315,10 +332,10 @@
     {
       "id": "binary_inspection",
       "title": "Instruction and reference inspection",
-      "accepted_family_status": "partial",
-      "verified_milestones": 4,
+      "accepted_family_status": "full",
+      "verified_milestones": 6,
       "total_milestones": 6,
-      "checklist_percent": 66.67,
+      "checklist_percent": 100,
       "milestones": [
         {
           "id": "binary_inspection.01",
@@ -371,8 +388,8 @@
         {
           "id": "binary_inspection.05",
           "requirement": "Classify branch/fallthrough and perform bounded register/CFG reasoning required by original reports",
-          "status": "partial",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
             "analysis/pattern-crawl-text_binary.json",
             "analysis/reusability-coverage-baseline.json",
@@ -397,23 +414,33 @@
             "evidence/reference-owner-approach-review.json",
             "testdata/reference-owner-fixture.zip",
             "testdata/instruction-ori-fixture.zip",
-            "examples/reference-flow/profile.json"
+            "examples/reference-flow/profile.json",
+            "analysis/register-inclusive-contract.json",
+            "evidence/register-inclusive-proof.json",
+            "testdata/future-register-read-fixture.zip",
+            "analysis/pointer-consumer-contract.json",
+            "evidence/pointer-consumer-proof.json",
+            "evidence/pointer-consumer-review.json",
+            "testdata/pointer-consumer-fixture.zip",
+            "testdata/instruction-addu-fixture.zip",
+            "testdata/pointer-consumer-v2-fixture.zip"
           ],
-          "detail": "Actual one-batch graph joined to canonical registry ownership, registered-LUI membership, multiple/incoming/nonLUI definitions, originalID/landing target arithmetic, exact benign pairs, foreign-reader statuses, full ordered refusals and strict canonicalpair errors. Fresh pinnedELF computes facts, no injectedproofs. Original reads_arg and Tracerconsumer events remain; .06interior/hookABI separate. No full.05credit."
+          "detail": "Current source-qualified completion: evidence/register-flow-proof.json#current_criterion_assessment. Five finite original-consumer groups join independently frozen source bridges and shared low32 reports; nine decoder cases/eight composition queries/290legacy reports verified. Ordinary ADDU operand/fallthrough facts preserve conservative pointer UNKNOWNs. External bridges are not automatic interprocedural/128bit propagation or ABI/fullTracer parity; .06 remains separate."
         },
         {
           "id": "binary_inspection.06",
           "requirement": "Identify interior references and preserve hook/ABI proof boundaries across those forms",
-          "status": "partial",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
-            "analysis/reusability-coverage.json"
+            "analysis/reusability-coverage.json",
+            "evidence/register-flow-proof.json"
           ],
-          "detail": "Strict recorded sites are useful; exhaustive/interior/liveness/hook reasoning remains held."
+          "detail": "Current finite source-qualified hook/interior acceptance: evidence/register-flow-proof.json#current_hook_criterion_assessment. Synthetic exact OLD/NEW/helper/translator/matched8B frame-return proof joins existing point/GP/control/liveness owners; source guards and UNKNOWN remain distinct from low32 facts. No native/globalRefs/fullABI/automatic128bit claim."
         }
       ],
-      "remaining_roadmap": "Original reads_arg/Tracerconsumer report duties and interior-reference/hookABI boundaries remain; shared graph ownership/refusal join verified.",
-      "next_achievable_milestone": "Freeze remaining reads_arg/Tracerconsumer contracts before enhancing existing analysis owners; avoid fullTracer append.",
+      "remaining_roadmap": "Finite family contract complete under canonical source/ABI/UNKNOWN boundaries; general native/full128ABI/globalRefs/gameplay remain unproved.",
+      "next_achievable_milestone": "Maintain source-qualified finite contracts. Next named criterion is raster_rendering.06 after separately reviewed removal of unused range mode.",
       "dependencies": [
         "references",
         "normalizeReference",
@@ -437,9 +464,9 @@
       "id": "image_layout",
       "title": "Image allocation and capacity",
       "accepted_family_status": "partial",
-      "verified_milestones": 4,
+      "verified_milestones": 5,
       "total_milestones": 6,
-      "checklist_percent": 66.67,
+      "checklist_percent": 83.33,
       "milestones": [
         {
           "id": "image_layout.01",
@@ -484,34 +511,39 @@
         {
           "id": "image_layout.05",
           "requirement": "Derive independent safe-cave/landing ownership rather than infer it from zero bytes",
-          "status": "held",
-          "credit": 0,
+          "status": "proven",
+          "credit": 1,
           "evidence": [
             "analysis/reusability-coverage.json",
-            "analysis/pattern-crawl-text_binary.json"
-          ]
+            "analysis/pattern-crawl-text_binary.json",
+            "evidence/name-policy-replay-proof.json"
+          ],
+          "detail": "Independent source-qualified ownership for the sole216Bnew F173placement, separately reviewed from maintenance/range enforcement; canonical accepted_finite_f112_criteria. No general cave allocator or global ownership claim."
         },
         {
           "id": "image_layout.06",
-          "requirement": "Support general ELF segment/BSS growth with coherent image metadata",
-          "status": "held",
+          "requirement": "Preserve the retired static ELF segment and heap-cap design as a reviewed historical disposition; preserve current stream-loader metadata coherence through the active allocation responsibilities.",
+          "status": "reviewed_disposition",
           "credit": 0,
           "evidence": [
-            "analysis/reusability-coverage.json",
-            "analysis/pattern-crawl-iso_registry_reports.json"
-          ]
+            "analysis/current-tooling-scope-v3.json",
+            "evidence/current-tooling-scope-proof.json"
+          ],
+          "detail": "Reviewed historical disposition only. Current stream-loader coherence remains required under .01 through .04; no Go capability or duplicate credit is claimed."
         }
       ],
-      "remaining_roadmap": "Prove safe placement ownership \u2192 coherent ELF segment/BSS growth.",
-      "next_achievable_milestone": "A finite segment-growth/reservation contract with independent loader/heap ownership proof; current read-only mapping is not allocator approval.",
+      "remaining_roadmap": "Preserve active stream-loader coherence. image_layout.06 is resolved historical retired-design disposition with zero Go credit, not a coding task to revive the retired allocator.",
+      "next_achievable_milestone": "No new image-layout implementation selected; preserve source-qualified ownership/reservation contracts for new inputs.",
       "dependencies": [
         "inspect",
         "isoFileExtent",
         "plan",
-        "native loader/heap constraints"
+        "native loader constraints",
+        "independent landing ownership"
       ],
       "acceptance_checks": [
-        "Independent boundary/overlap/BSS/segment-order/growth fixtures, all metadata reachability/endian fields, unrelated bytes and startup-window coherence."
+        "Keep the existing capacity, reservations, metadata and startup-window guards. Independently prove landing ownership for each new placement.",
+        "Preserve the historical static-stage source and parity boundaries as disposition, with no new Go credit or duplicate allocation credit."
       ],
       "original_requirement_crosswalk": [
         {
@@ -1383,13 +1415,22 @@
             "testdata/flood-source.zip",
             "profiles/permissions/footprints/mini-g02-g12.json",
             "profiles/permissions/footprints/mini-g08.json",
-            "profiles/permissions/footprints/mini-t2.json"
+            "profiles/permissions/footprints/mini-t2.json",
+            "evidence/square-mask-proof.json",
+            "evidence/square-mask-review.json",
+            "analysis/square-mask-contract.json",
+            "analysis/square-mask-reuse-decision.json",
+            "evidence/fixed-art-proof.json",
+            "evidence/fixed-art-reviews.json",
+            "analysis/fixed-art-reuse-decision.json",
+            "recipes/artwork/fixed-instances.json",
+            "docs/fixed-art.md"
           ],
-          "detail": "Finite ordered flat/clear/row/column kernel verified through shared containment/native publication, exact permissions/current donors/immutable icons. Other masks, PDE, exemplar, plate, radial/contour, material and source-art duties remain; credit0. Existing selection now supports RGB exclusion/finiteAND/sat_lt with exact source/native/current-pixel/refusal proof; no newfunction. Broader source-art duties remain; credit0. Sharedpinnedpermissiontables nowreuseexistingthree-stagecompositor withlocalsteps unchanged. Twoactualnativeprofiles shareonecanonicaldatum; sourcefixedshape13rectangles match80254pixels. No parametricshapeengine/fullartworkflowclaim; nine source-material groups remain. SharedOR-of-AND/scalar4-connectedfootprints nowimplement14genericproviderrecords with179sourcevectors/3shiftedobservations, sharingexistingcurrenterases/fontcounters. Sevenpurpose-groupedtables; other27providerrecords/donor/advancedreconstruction/artduties remain held. Noautomaticfull.06or9/14promotion. ExistingcomponentBFS nowshares4/8seed/tag/minimumcriteria; SampleRect keepssourcecroplabelingdistinctfromwholecanvasgrowth. Sevenadditionalmaskfnrecordsverifiedagainst30neworiginalmasks,209totalsourcevectorsplus33shifted. Fullglobalcontextsremainheldforfloodlabel0/posterosion. Sharedlabel-zero/erosion nowclose6sourcefloodcallsandall56stagesof4fullpermissioncontexts; no art/hooks/text/donorworkflowclosure. Obsoletepartialt2inputreplacedwithfulltable, g02/g12shareoneflatobject."
+          "detail": "Finite ordered flat/clear/row/column kernel verified through shared containment/native publication, exact permissions/current donors/immutable icons. Other masks, PDE, exemplar, plate, radial/contour, material and source-art duties remain; credit0. Existing selection now supports RGB exclusion/finiteAND/sat_lt with exact source/native/current-pixel/refusal proof; no newfunction. Broader source-art duties remain; credit0. Sharedpinnedpermissiontables nowreuseexistingthree-stagecompositor withlocalsteps unchanged. Twoactualnativeprofiles shareonecanonicaldatum; sourcefixedshape13rectangles match80254pixels. No parametricshapeengine/fullartworkflowclaim; nine source-material groups remain. SharedOR-of-AND/scalar4-connectedfootprints nowimplement14genericproviderrecords with179sourcevectors/3shiftedobservations, sharingexistingcurrenterases/fontcounters. Sevenpurpose-groupedtables; other27providerrecords/donor/advancedreconstruction/artduties remain held. Noautomaticfull.06or9/14promotion. ExistingcomponentBFS nowshares4/8seed/tag/minimumcriteria; SampleRect keepssourcecroplabelingdistinctfromwholecanvasgrowth. Sevenadditionalmaskfnrecordsverifiedagainst30neworiginalmasks,209totalsourcevectorsplus33shifted. Fullglobalcontextsremainheldforfloodlabel0/posterosion. Sharedlabel-zero/erosion nowclose6sourcefloodcallsandall56stagesof4fullpermissioncontexts; no art/hooks/text/donorworkflowclosure. Obsoletepartialt2inputreplacedwithfulltable, g02/g12shareoneflatobject. Three further Epermission calls share fixed square morphology, verified on two declared synthetic contexts (six provider comparisons). Raster .06 remains partial with0credit;17other Epermission calls and advanced artwork remain. One approvedallmap_1logo-A override nowhasversionedreadabledata andexactexistingGo import/replay/maintenanceguardproof. This fixed-instance disposition doesnotimplement arbitrarybrand2/restorationgenerators;0credit."
         }
       ],
-      "remaining_roadmap": "Remaining20maskfnproviderrecords/font-dependentpermissions, donoracquisition/PDE/exemplar/familyfields/radial/contour/sourceart/material duties. Completefourpermissioncontexts isnotwholeartwork/familyclosure.",
-      "next_achievable_milestone": "Remaining shape/OR/morphology/source-art contracts, preserving source ownership and shared containment. Canonical-audit cross-family work can proceed independently.",
+      "remaining_roadmap": "Remaining17other Epermission calls/font-dependentpermissions, donor acquisition/PDE/exemplar/plate/familyfields/radial/contour/source-art/material duties. Two synthetic source contexts verify three additional permission calls, not whole artwork or family closure.",
+      "next_achievable_milestone": "Independently prove constrained square-growth and remaining font/coverage/source-art contracts in existing owners, preserving source ownership and shared containment.",
       "dependencies": [
         "renderRuns",
         "composeCells",
@@ -1534,24 +1575,172 @@
           "contract": "Spec builders are chiefly authored tables plus measurement, not a new engine per batch. Share preview/checkerboard/contact-sheet/manifest mechanics where contracts agree."
         }
       ]
+    },
+    {
+      "id": "probe_orchestration_evidence",
+      "title": "Probe orchestration and evidence",
+      "accepted_family_status": "partial",
+      "verified_milestones": 0,
+      "total_milestones": 6,
+      "checklist_percent": 0.0,
+      "milestones": [
+        {
+          "id": "probe_orchestration_evidence.01",
+          "requirement": "Run records and ownership receipts",
+          "acceptance": "Versioned metadata, profile receipts and session records validate required identity and nonce linkage, schema/version, path roles and exact error/refusal order; missing, stale, conflicting and duplicate evidence is refused.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "initial_zero_reason": "No verified Go admission contract or owner-approved synthetic receipt oracle.",
+          "evidence": [
+            "analysis/probe-family-contract-v2.json",
+            "analysis/probe-owner-handoff.json"
+          ],
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+        },
+        {
+          "id": "probe_orchestration_evidence.02",
+          "requirement": "Checkpoints and acceptance reports",
+          "acceptance": "Deterministic event/cohort reports preserve native slots, exact fingerprints, ordered evidence, warm/cold distinctions and unknown outcomes across fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons. SKIPPED and UNKNOWN outcomes retain their reasons and source ordering and never count as passing coverage.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "initial_zero_reason": "Existing offline reports do not establish probe event semantics or original scenario cohort parity.",
+          "evidence": [
+            "analysis/probe-family-contract-v2.json",
+            "analysis/probe-owner-handoff.json"
+          ],
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+        },
+        {
+          "id": "probe_orchestration_evidence.03",
+          "requirement": "Typed reads and diagnostics",
+          "acceptance": "Build/session-bound typed memory reads and decoders match owner oracles and refuse stale/partial/malformed/unsupported reads. Versioned diagnostic hook/counter plans, saved/live provenance and material displaced-instruction/ABI obligations are independently verified.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "initial_zero_reason": "Static Go hook/template facts are partial support only; no complete owned diagnostic/read pipeline or ABI proof.",
+          "evidence": [
+            "analysis/probe-family-contract-v2.json",
+            "analysis/probe-owner-handoff.json"
+          ],
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+        },
+        {
+          "id": "probe_orchestration_evidence.04",
+          "requirement": "Capture and evidence linkage",
+          "acceptance": "Serialized captures tie frame tags, decoded UI, image paths, logs and checkpoint outcome to one process/session; timeout, partial and cross-session/race cases are preserved/refused; owner-operated native comparison confirms parity. Bounded evidence retention and resource budgets are agreed with the probe owner and verified, including stalled/partial capture behavior.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "initial_zero_reason": "No verified Go capture pipeline or owner-exported exact capture contract.",
+          "evidence": [
+            "analysis/probe-family-contract-v2.json",
+            "analysis/probe-owner-handoff.json"
+          ],
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+        },
+        {
+          "id": "probe_orchestration_evidence.05",
+          "requirement": "Owned runtime lifecycle",
+          "acceptance": "Exact PID/starttime/build/ISO, profile receipt, PINE, virtual-pad, IPC/session/nonce and private card roots govern lifecycle and cleanup. Warm reset differs from cold restart; preservation/post-flush hashes and adversarial ownership refusals pass under one controller owner. BIOS/card/controller identities are guarded. Unattended crash/stall detection, bounded recovery, safe stop/resume and post-flush preservation pass under owner-agreed limits. Bounded skip/attempt policy preserves SKIPPED/UNKNOWN outcomes without granting coverage or unbounded polling/retries.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "initial_zero_reason": "No verified Go lifecycle replacement; existing Python remains operational owner.",
+          "evidence": [
+            "analysis/probe-family-contract-v2.json",
+            "analysis/probe-owner-handoff.json"
+          ],
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+        },
+        {
+          "id": "probe_orchestration_evidence.06",
+          "requirement": "Native scenario parity and handover",
+          "acceptance": "Exact-source smoke and three sequential stories, nondefault slot creation/paired reload, preservation/overwrite/retry, verified advancement and broader required cohorts pass; independent acceptance authorizes one-owner handover without duplicate production FSM. Starting the story probe and leaving it unattended requires owner-agreed bounded soak duration, recovery outcomes, resource and evidence-retention acceptance. These limits remain TBD; prior three-story tests do not establish this acceptance.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "initial_zero_reason": "Current-actor takeover fresh smoke/stories remain pending in authorized handoff; no verified Go scenario parity or handover.",
+          "evidence": [
+            "analysis/probe-family-contract-v2.json",
+            "analysis/probe-owner-handoff.json"
+          ],
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+        }
+      ],
+      "remaining_roadmap": "Full owned probe workflow, including unattended operation/recovery and broader original scenario/diagnostic duties, remains unproven in Go.",
+      "next_achievable_milestone": "Obtain owner-approved sanitized schemas and refusal-order fixtures, then inspect existing Go input/report owners before a pure admission slice. A receipt slice alone does not close .01.",
+      "dependencies": [
+        "Existing Python runtime owner",
+        "Owner-approved sanitized schema and oracle fixtures",
+        "Existing Go checkJSON/readInput/report/snapshot owners to inspect before implementation"
+      ],
+      "acceptance_checks": [
+        "Versioned metadata, profile receipts and session records validate required identity and nonce linkage, schema/version, path roles and exact error/refusal order; missing, stale, conflicting and duplicate evidence is refused.",
+        "Deterministic event/cohort reports preserve native slots, exact fingerprints, ordered evidence, warm/cold distinctions and unknown outcomes across fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons. SKIPPED and UNKNOWN outcomes retain their reasons and source ordering and never count as passing coverage.",
+        "Build/session-bound typed memory reads and decoders match owner oracles and refuse stale/partial/malformed/unsupported reads. Versioned diagnostic hook/counter plans, saved/live provenance and material displaced-instruction/ABI obligations are independently verified.",
+        "Serialized captures tie frame tags, decoded UI, image paths, logs and checkpoint outcome to one process/session; timeout, partial and cross-session/race cases are preserved/refused; owner-operated native comparison confirms parity. Bounded evidence retention and resource budgets are agreed with the probe owner and verified, including stalled/partial capture behavior.",
+        "Exact PID/starttime/build/ISO, profile receipt, PINE, virtual-pad, IPC/session/nonce and private card roots govern lifecycle and cleanup. Warm reset differs from cold restart; preservation/post-flush hashes and adversarial ownership refusals pass under one controller owner. BIOS/card/controller identities are guarded. Unattended crash/stall detection, bounded recovery, safe stop/resume and post-flush preservation pass under owner-agreed limits. Bounded skip/attempt policy preserves SKIPPED/UNKNOWN outcomes without granting coverage or unbounded polling/retries.",
+        "Exact-source smoke and three sequential stories, nondefault slot creation/paired reload, preservation/overwrite/retry, verified advancement and broader required cohorts pass; independent acceptance authorizes one-owner handover without duplicate production FSM. Starting the story probe and leaving it unattended requires owner-agreed bounded soak duration, recovery outcomes, resource and evidence-retention acceptance. These limits remain TBD; prior three-story tests do not establish this acceptance."
+      ],
+      "original_requirement_crosswalk": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "source_pointer": "core_opportunities/instrumentation",
+          "original_recommendation": "instrumentation",
+          "families": [
+            "probe_orchestration_evidence"
+          ],
+          "original_contract": "Prepare versioned diagnostic hook/counter capture plans; read saved/live values only through an explicitly owned runtime workflow.",
+          "exclusion": null,
+          "legacy_facet_ids": [
+            "diagnostic_instrumentation"
+          ]
+        },
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "source_pointer": "minimum_toolkit_recommendation/owned-runtime-platform",
+          "original_recommendation": "owned-runtime-platform",
+          "families": [
+            "probe_orchestration_evidence"
+          ],
+          "original_contract": "Keep transport, input backend, capture/inspection and owned lifecycle as clear responsibilities behind a small runtime toolset. Reuse PID/starttime/ISO-guarded cleanup; never adopt app-wide pkill/flatpak kill or shared log truncation from legacy scenarios.",
+          "legacy_facet_ids": [
+            "runtime_platform"
+          ]
+        },
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "source_pointer": "minimum_toolkit_recommendation/runtime-scenarios-and-contract-verification",
+          "original_recommendation": "runtime-scenarios-and-contract-verification",
+          "families": [
+            "probe_orchestration_evidence"
+          ],
+          "original_contract": "Represent repeated batch verifications as cohort selector + typed read/decoder/comparison + scenario facts atop owned runtime. Preserve separate fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons.",
+          "legacy_facet_ids": [
+            "runtime_scenarios"
+          ]
+        }
+      ],
+      "legacy_facets": [
+        "diagnostic_instrumentation",
+        "runtime_platform",
+        "runtime_scenarios"
+      ],
+      "classification": "Inherited static diagnostic Go support is Partial; operational platform/scenario support remains unproven. All six milestone credits are zero. No new Go probe module or controller owner."
     }
   ],
   "totals": {
-    "fully_verified_families": 10,
-    "core_families": 14,
-    "family_completion_percent": 71.43,
-    "verified_milestones": 76,
-    "milestones": 84,
-    "checklist_index_percent": 90.48,
+    "fully_verified_families": 12,
+    "core_families": 15,
+    "family_completion_percent": 80,
+    "verified_milestones": 82,
+    "milestones": 90,
+    "checklist_index_percent": 91.11,
     "warning": "Checklist index is a planning aid; equal-weight groups differ in effort and do not measure reuse or script migration."
   },
   "next_target": {
     "family": "raster_rendering",
     "milestone": "raster_rendering.06",
-    "action": "Inspect remaining original family responsibility and existing source-backed evidence before choosing any implementation.",
-    "reason": "Registry complete against original contract; raster5/6 is the next bounded candidate, not an automatic promotion."
+    "status": "AFTER_REVIEWED_UNUSED_RANGE_REMOVAL_THEN_EXACT_CLAUSE_PLANNING",
+    "rule": "Do not start cleanup without scoped independent plan/pre-edit review; one named criterion, exact unmet checks, necessary support only; probe last."
   },
-  "updated_at": "2026-11-05T10:26:25.281316+00:00",
+  "updated_at": "2026-11-13T21:03:02Z",
   "latest_milestone": {
     "at": "2026-11-05T10:26:25.281316+00:00",
     "proof": "evidence/registry-pools-proof.json",
@@ -2099,5 +2288,194 @@
     "milestone_credit": 2,
     "family_credit": 1,
     "remaining": "Registry original material scope complete; remaining core families: consumer_layout, binary_inspection, image_layout, raster_rendering."
+  },
+  "latest_square_mask_increment": {
+    "at": "2026-11-13T02:31:01.379388+00:00",
+    "proof": "evidence/square-mask-proof.json",
+    "review": "evidence/square-mask-review.json",
+    "contract": "analysis/square-mask-contract.json",
+    "reuse": "analysis/square-mask-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 48,
+        "bytes": 607520
+      },
+      "production_after": {
+        "files": 48,
+        "bytes": 608785
+      },
+      "runtime_before": {
+        "files": 233,
+        "bytes": 2977568
+      },
+      "runtime_after": {
+        "files": 236,
+        "bytes": 2986877
+      },
+      "production_growth": 1265,
+      "runtime_growth": 9309,
+      "test_growth": 8736,
+      "fixture_growth": 31096,
+      "evidence_archive_bytes": 110267,
+      "new_functions": 0,
+      "new_production_files": 0,
+      "new_production_types": 0,
+      "new_DTO_fields": 2,
+      "new_runtime_tables": 3,
+      "named_functions": 46,
+      "new_source_provider_vectors": 6,
+      "new_shifted_observations": 6,
+      "manual_source_records": 13,
+      "manual_accepted_transforms": 12,
+      "source_fill8_contrast_refused": 1,
+      "root_manual_closes": 2,
+      "milestone_credit": 0,
+      "family_credit": 0,
+      "retirements": 0,
+      "claim": "New capability and data are growth; no deletion/reduction/family completion inferred."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "scope": "Three E permission calls; two declared synthetic contexts, six provider comparisons. Raster remains partial5/6."
+  },
+  "latest_fixed_art_increment": {
+    "at": "2026-11-13T03:32:13.463791+00:00",
+    "proof": "evidence/fixed-art-proof.json",
+    "review": "evidence/fixed-art-reviews.json",
+    "reuse": "analysis/fixed-art-reuse-decision.json",
+    "record": "recipes/artwork/fixed-instances.json",
+    "metrics": {
+      "production_before": {
+        "files": 48,
+        "bytes": 608785
+      },
+      "production_after": {
+        "files": 48,
+        "bytes": 608785
+      },
+      "runtime_before": {
+        "files": 236,
+        "bytes": 2986877
+      },
+      "runtime_after": {
+        "files": 241,
+        "bytes": 4451999
+      },
+      "production_growth": 0,
+      "runtime_growth": 1465122,
+      "test_growth": 11659,
+      "fixture_growth": 180506,
+      "new_runtime_data_files": 5,
+      "new_pristine_fixture_ZIPs": 1,
+      "new_functions": 0,
+      "new_production_files": 0,
+      "new_fields_types_dependencies": 0,
+      "named_functions": 46,
+      "accounted_inputs_before": 359,
+      "accounted_inputs_after": 365,
+      "named_fixed_instances": 1,
+      "new_milestone_credit": 0,
+      "new_family_credit": 0,
+      "retirements": 0,
+      "claim": "Readable approved image/mask/source/provenance data growth, not reusable generator implementation or reduction."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "scope": "One named alreadyapprovedallmap_1 fixedoverride; arbitraryeditablegenerators unsupported."
+  },
+  "previous_checklist": {
+    "path": "analysis/migration-roadmap-v2-accepted834.json",
+    "sha256": "6d8fd1e2c940078b2e8ec97a85bd221d570409cd3ecdbf3ddc31051c1c9caa8a"
+  },
+  "current_baseline": {
+    "path": "analysis/reusability-coverage-baseline-v3.json",
+    "sha256": "1d3c2954c9e861dff649217a6498908136a6df98137d61dbbec9285465108483"
+  },
+  "previous_next_target": {
+    "family": "raster_rendering",
+    "milestone": "raster_rendering.06",
+    "action": "Independently prove remaining constrained square-growth and source-art duties using existing owners before selecting another API.",
+    "reason": "This permission slice does not close the artwork responsibility."
+  },
+  "taxonomy_update": {
+    "at": "2026-11-13T03:55:26.084576+00:00",
+    "contract": "analysis/probe-family-contract-v2.json",
+    "old84_records_unchanged": true,
+    "new_milestone_credit": 0,
+    "new_family_credit": 0,
+    "historical_410_dispositions_changed": false,
+    "runtime_code_changed": false
+  },
+  "latest_register_inclusive_increment": {
+    "at": "2026-11-13T04:57:45.622751+00:00",
+    "contract": "analysis/register-inclusive-contract.json",
+    "proof": "evidence/register-inclusive-proof.json",
+    "credit": 0
+  },
+  "latest_pointer_consumer_increment": {
+    "at": "2026-11-13T06:05:04.910144+00:00",
+    "contract": "analysis/pointer-consumer-contract.json",
+    "proof": "evidence/pointer-consumer-proof.json",
+    "credit": 0,
+    "remaining": "Call summaries, table/global/getter origins and interior/ABI duties remain. Probe work is last."
+  },
+  "latest_native_ink_increment": {
+    "at": "2026-11-13T07:00:36.995590+00:00",
+    "contract": "analysis/native-ink-contract.json",
+    "proof": "evidence/native-ink-proof.json",
+    "credit": 0
+  },
+  "current_tooling_scope": {
+    "record": "analysis/current-tooling-scope-v3.json",
+    "sha256": "b2aeb6bc06c9396797b4c5b029abe887fda766544d33b9c8eb42728c28d51aa0",
+    "authority": "The two amended requirement values below are generated from this record. Edit that record first; current views are projections, not independent wording authorities."
+  },
+  "latest_name_cohort_increment": {
+    "at": "2026-11-13T08:54:15.446353+00:00",
+    "proof": "evidence/name-cohort-proof.json",
+    "credit": 0,
+    "scope": "Read-only nominal cohort and bounded source-policy evidence; the fixed guarded maintenance workflow remains incomplete."
+  },
+  "latest_name_policy_replay": {
+    "at": "2026-11-13T10:32:29Z",
+    "proof": "evidence/name-policy-replay-proof.json",
+    "credit": 0,
+    "scope": "Synthetic exact-byte replay of eleven dated F172/F173 records through unchanged guarded-word owners; native maintenance remains held.",
+    "proof_sha256": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf"
+  },
+  "latest_finite_f112_criteria": {
+    "proof": "evidence/name-policy-replay-proof.json",
+    "proof_sha256": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf",
+    "record": "accepted_finite_f112_criteria",
+    "credit": 2,
+    "family_credit": 0
+  },
+  "latest_native_ink_criterion": {
+    "proof": "evidence/native-ink-proof.json",
+    "proof_sha256": "4ae4b1aa640e1033e281018d3d2be972b4695aca7112c24ac00de7faf2fd37b9",
+    "record": "current_criterion_assessment",
+    "credit": 1,
+    "family_credit": 0
+  },
+  "latest_conditional_geometry_completion": {
+    "proof": "analysis/consumer-layout-facts.json",
+    "proof_sha256": "54a3eee0c565828837a01952822f59b641923c5e394ca90ca0a1cdd17de87eb3",
+    "record": "current_conditional_diagnostics_assessment",
+    "milestone_credit": 1,
+    "family_credit": 1
+  },
+  "latest_binary_consumer_completion": {
+    "proof": "evidence/register-flow-proof.json",
+    "record": "current_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 0,
+    "proof_sha256": "61ca38212cdb11b9fd73816fc1674a75adef8d3dd2071d5c2866403b13de2f52"
+  },
+  "latest_binary_hook_completion": {
+    "proof": "evidence/register-flow-proof.json",
+    "proof_sha256": "61ca38212cdb11b9fd73816fc1674a75adef8d3dd2071d5c2866403b13de2f52",
+    "record": "current_hook_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 1
   }
 }

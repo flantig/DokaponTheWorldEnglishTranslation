@@ -1,0 +1,536 @@
+{
+  "source_pin": "817962e211e7d17fa2d04383c3b698a275ee41e114900743bf1fceca554226c3",
+  "stat_stable": true,
+  "historical_exact_ref_bindings_of627": {
+    "equipment_descriptions": 60,
+    "scene_op40": 513,
+    "skill_descriptions": 50,
+    "race_comments": 3,
+    "visitor_description": 1
+  },
+  "scene_arg_partition": {
+    "without_args": 485,
+    "with_args": 28
+  },
+  "interpretation": "Op40 reads existing window handle from state+0x278. Factory default h116/w[56ebc0]-16 only on zero rectangle argument; custom rectangles exist. Table membership does not prove fixed geometry. Source-envelope remains relative width/line proxy.",
+  "instructions": {
+    "0x2da7a8": [
+      {
+        "vma": "0x2da7a8",
+        "word": "0x8fa50070",
+        "decoded": "lw $a1,0x70($sp)"
+      },
+      {
+        "vma": "0x2da7ac",
+        "word": "0x8fa60078",
+        "decoded": "lw $a2,0x78($sp)"
+      },
+      {
+        "vma": "0x2da7b0",
+        "word": "0x8fa7007c",
+        "decoded": "lw $a3,0x7c($sp)"
+      },
+      {
+        "vma": "0x2da7b4",
+        "word": "0x8fa80080",
+        "decoded": "lw $t0,0x80($sp)"
+      },
+      {
+        "vma": "0x2da7b8",
+        "word": "0x8fa90084",
+        "decoded": "lw $t1,0x84($sp)"
+      },
+      {
+        "vma": "0x2da7bc",
+        "word": "0x0c0bd6d0",
+        "decoded": "jal 0x2f5b40"
+      },
+      {
+        "vma": "0x2da7c0",
+        "word": "0x96440278",
+        "decoded": "lhu $a0,0x278($s2)"
+      },
+      {
+        "vma": "0x2da7c4",
+        "word": "0x1000000e",
+        "decoded": "beq $zero,$zero,0x2da800"
+      },
+      {
+        "vma": "0x2da7c8",
+        "word": "0x00000000",
+        "decoded": "nop"
+      },
+      {
+        "vma": "0x2da7cc",
+        "word": "0x00000000",
+        "decoded": "nop"
+      },
+      {
+        "vma": "0x2da7d0",
+        "word": "0x24040001",
+        "decoded": "addiu $a0,$zero,0x1"
+      },
+      {
+        "vma": "0x2da7d4",
+        "word": "0x0080282d",
+        "decoded": "daddu $a1,$a0,$zero"
+      },
+      {
+        "vma": "0x2da7d8",
+        "word": "0x0c0bd750",
+        "decoded": "jal 0x2f5d40"
+      },
+      {
+        "vma": "0x2da7dc",
+        "word": "0x0080302d",
+        "decoded": "daddu $a2,$a0,$zero"
+      },
+      {
+        "vma": "0x2da7e0",
+        "word": "0x8fa50070",
+        "decoded": "lw $a1,0x70($sp)"
+      },
+      {
+        "vma": "0x2da7e4",
+        "word": "0x8fa60078",
+        "decoded": "lw $a2,0x78($sp)"
+      },
+      {
+        "vma": "0x2da7e8",
+        "word": "0x8fa7007c",
+        "decoded": "lw $a3,0x7c($sp)"
+      },
+      {
+        "vma": "0x2da7ec",
+        "word": "0x8fa80080",
+        "decoded": "lw $t0,0x80($sp)"
+      },
+      {
+        "vma": "0x2da7f0",
+        "word": "0x8fa90084",
+        "decoded": "lw $t1,0x84($sp)"
+      },
+      {
+        "vma": "0x2da7f4",
+        "word": "0x0c0bd6d0",
+        "decoded": "jal 0x2f5b40"
+      },
+      {
+        "vma": "0x2da7f8",
+        "word": "0x96440278",
+        "decoded": "lhu $a0,0x278($s2)"
+      },
+      {
+        "vma": "0x2da7fc",
+        "word": "0x00000000",
+        "decoded": "nop"
+      }
+    ],
+    "0x2a1fb0": [
+      {
+        "vma": "0x2a1fb0",
+        "word": "0x27bdffe0",
+        "decoded": "addiu $sp,$sp,-0x20"
+      },
+      {
+        "vma": "0x2a1fb4",
+        "word": "0x00a0402d",
+        "decoded": "daddu $t0,$a1,$zero"
+      },
+      {
+        "vma": "0x2a1fb8",
+        "word": "0xffbf0010",
+        "decoded": "sd $ra,0x10($sp)"
+      },
+      {
+        "vma": "0x2a1fbc",
+        "word": "0x14800012",
+        "decoded": "bne $a0,$zero,0x2a2008"
+      },
+      {
+        "vma": "0x2a1fc0",
+        "word": "0x7fb00000",
+        "decoded": "sq $s0,0x0($sp)"
+      },
+      {
+        "vma": "0x2a1fc4",
+        "word": "0x3c010057",
+        "decoded": "lui $at,0x57"
+      },
+      {
+        "vma": "0x2a1fc8",
+        "word": "0x3c0342e8",
+        "decoded": "lui $v1,0x42e8"
+      },
+      {
+        "vma": "0x2a1fcc",
+        "word": "0x8c24ebc4",
+        "decoded": "lw $a0,-0x143c($at)"
+      },
+      {
+        "vma": "0x2a1fd0",
+        "word": "0x44830000",
+        "decoded": "mtc1 $v1,$f0"
+      },
+      {
+        "vma": "0x2a1fd4",
+        "word": "0x24090008",
+        "decoded": "addiu $t1,$zero,0x8"
+      },
+      {
+        "vma": "0x2a1fd8",
+        "word": "0x24070074",
+        "decoded": "addiu $a3,$zero,0x74"
+      },
+      {
+        "vma": "0x2a1fdc",
+        "word": "0x2483fff0",
+        "decoded": "addiu $v1,$a0,-0x10"
+      },
+      {
+        "vma": "0x2a1fe0",
+        "word": "0x3c010057",
+        "decoded": "lui $at,0x57"
+      },
+      {
+        "vma": "0x2a1fe4",
+        "word": "0x44830800",
+        "decoded": "mtc1 $v1,$f1"
+      },
+      {
+        "vma": "0x2a1fe8",
+        "word": "0x8c22ebc0",
+        "decoded": "lw $v0,-0x1440($at)"
+      },
+      {
+        "vma": "0x2a1fec",
+        "word": "0x46800860",
+        "decoded": "cvt.s.w $f1,$f1"
+      },
+      {
+        "vma": "0x2a1ff0",
+        "word": "0x46000801",
+        "decoded": "sub.s $f0,$f1,$f0"
+      },
+      {
+        "vma": "0x2a1ff4",
+        "word": "0x46000024",
+        "decoded": "cvt.w.s $f0,$f0"
+      },
+      {
+        "vma": "0x2a1ff8",
+        "word": "0x44050000",
+        "decoded": "mfc1 $a1,$f0"
+      },
+      {
+        "vma": "0x2a1ffc",
+        "word": "0x10000006",
+        "decoded": "beq $zero,$zero,0x2a2018"
+      },
+      {
+        "vma": "0x2a2000",
+        "word": "0x2446fff0",
+        "decoded": "addiu $a2,$v0,-0x10"
+      },
+      {
+        "vma": "0x2a2004",
+        "word": "0x00000000",
+        "decoded": "nop"
+      },
+      {
+        "vma": "0x2a2008",
+        "word": "0x8c890000",
+        "decoded": "lw $t1,0x0($a0)"
+      },
+      {
+        "vma": "0x2a200c",
+        "word": "0x8c850004",
+        "decoded": "lw $a1,0x4($a0)"
+      },
+      {
+        "vma": "0x2a2010",
+        "word": "0x8c860008",
+        "decoded": "lw $a2,0x8($a0)"
+      },
+      {
+        "vma": "0x2a2014",
+        "word": "0x8c87000c",
+        "decoded": "lw $a3,0xc($a0)"
+      },
+      {
+        "vma": "0x2a2018",
+        "word": "0x0120202d",
+        "decoded": "daddu $a0,$t1,$zero"
+      },
+      {
+        "vma": "0x2a201c",
+        "word": "0x0c09f428",
+        "decoded": "jal 0x27d0a0"
+      },
+      {
+        "vma": "0x2a2020",
+        "word": "0x24090004",
+        "decoded": "addiu $t1,$zero,0x4"
+      },
+      {
+        "vma": "0x2a2024",
+        "word": "0x0040802d",
+        "decoded": "daddu $s0,$v0,$zero"
+      },
+      {
+        "vma": "0x2a2028",
+        "word": "0x0000282d",
+        "decoded": "daddu $a1,$zero,$zero"
+      },
+      {
+        "vma": "0x2a202c",
+        "word": "0x0c09e5c0",
+        "decoded": "jal 0x279700"
+      },
+      {
+        "vma": "0x2a2030",
+        "word": "0x0200202d",
+        "decoded": "daddu $a0,$s0,$zero"
+      },
+      {
+        "vma": "0x2a2034",
+        "word": "0x0c09e3f4",
+        "decoded": "jal 0x278fd0"
+      },
+      {
+        "vma": "0x2a2038",
+        "word": "0x0200202d",
+        "decoded": "daddu $a0,$s0,$zero"
+      },
+      {
+        "vma": "0x2a203c",
+        "word": "0x90480002",
+        "decoded": "lbu $t0,0x2($v0)"
+      },
+      {
+        "vma": "0x2a2040",
+        "word": "0x2406fffc",
+        "decoded": "addiu $a2,$zero,-0x4"
+      },
+      {
+        "vma": "0x2a2044",
+        "word": "0x64070001",
+        "decoded": "UNKNOWN op=0x19 word=0x64070001"
+      },
+      {
+        "vma": "0x2a2048",
+        "word": "0x2403fff3",
+        "decoded": "addiu $v1,$zero,-0xd"
+      },
+      {
+        "vma": "0x2a204c",
+        "word": "0x64050004",
+        "decoded": "UNKNOWN op=0x19 word=0x64050004"
+      },
+      {
+        "vma": "0x2a2050",
+        "word": "0x0200202d",
+        "decoded": "daddu $a0,$s0,$zero"
+      },
+      {
+        "vma": "0x2a2054",
+        "word": "0x01063024",
+        "decoded": "and $a2,$t0,$a2"
+      },
+      {
+        "vma": "0x2a2058",
+        "word": "0x00c73025",
+        "decoded": "or $a2,$a2,$a3"
+      },
+      {
+        "vma": "0x2a205c",
+        "word": "0xa0460002",
+        "decoded": "sb $a2,0x2($v0)"
+      },
+      {
+        "vma": "0x2a2060",
+        "word": "0x90460002",
+        "decoded": "lbu $a2,0x2($v0)"
+      },
+      {
+        "vma": "0x2a2064",
+        "word": "0x00c31824",
+        "decoded": "and $v1,$a2,$v1"
+      },
+      {
+        "vma": "0x2a2068",
+        "word": "0x00651825",
+        "decoded": "or $v1,$v1,$a1"
+      },
+      {
+        "vma": "0x2a206c",
+        "word": "0x0c09e3f4",
+        "decoded": "jal 0x278fd0"
+      }
+    ]
+  },
+  "references": [
+    "tools/migrate_drafted_2026_09_30.py:272",
+    "docs/planning-log/2026-10-01-equipment-description-consumer-trace.md",
+    "docs/planning-log/2026-09-04-vertical-line-capacity.md"
+  ],
+  "historical_binding_sources": [
+    {
+      "path": "generated/history/unregistered-batch2-2026-09-30.csv",
+      "sha256": "2d020cd17b30a7d73157b7aec325405105b92162cc14b2ebc0c91507acc3e7b2"
+    },
+    {
+      "path": "generated/history/unregistered-batch3-2026-09-30.csv",
+      "sha256": "e3812bdb5bb589fc95ae240083d51536df15aaae64fd3f3ab5e1054d32034594"
+    },
+    {
+      "path": "generated/history/unregistered-batch4-2026-09-30.csv",
+      "sha256": "9a7a171810f90e2a7d229e224d4f42c1936f390791ee6c8f530eaa0287016188"
+    },
+    {
+      "path": "generated/history/unregistered-batch5-2026-09-30.csv",
+      "sha256": "85b54b60eeade62e5f2e6a54182aa52469426e06603f2dba4d046a546534f3c6"
+    },
+    {
+      "path": "generated/history/unregistered-batch8-2026-09-30.csv",
+      "sha256": "fcdb5820e8358888b61fb54bedced124842458868fb671d2735edd10dbb4113a"
+    },
+    {
+      "path": "generated/history/unregistered-batch9-2026-09-30.csv",
+      "sha256": "e1c6eb7f823891d7c4ad8d2189e97c7b76bfa12791598820706464d4cfdd9ea3"
+    },
+    {
+      "path": "generated/history/unregistered-batch11-2026-09-30.csv",
+      "sha256": "4d27cd829f9ae34fe40b224811506c902dc88195553634944323729b9aa97123"
+    },
+    {
+      "path": "generated/history/unregistered-batch15-2026-10-01.csv",
+      "sha256": "afdbea036da885f39cdb862f1cc492d440ca6e79e0c0ec8069e97ac2a708d716"
+    }
+  ],
+  "base_allowance_source": {
+    "path": "tools/migrate_unregistered_2026_09_30.py",
+    "sha256": "fad6e69df7ed3c5caa0d64ec810f3d2cdbdd7a37cf77c0022a0b339bdef0cc72",
+    "ranges": [
+      [
+        4907008,
+        4915200
+      ],
+      [
+        4922128,
+        4922208
+      ],
+      [
+        4991648,
+        4991704
+      ],
+      [
+        5465584,
+        5465588
+      ],
+      [
+        5465592,
+        5465596
+      ],
+      [
+        5465600,
+        5465604
+      ],
+      [
+        5465608,
+        5465612
+      ]
+    ],
+    "selected_ids": [
+      "0x498c90",
+      "0x499210",
+      "0x499700",
+      "0x499810",
+      "0x4998e0",
+      "0x499950",
+      "0x499ac0",
+      "0x499b10",
+      "0x499b60",
+      "0x499c00",
+      "0x499c60",
+      "0x499da0",
+      "0x499f80",
+      "0x49a000",
+      "0x49a180",
+      "0x49a1d0",
+      "0x49a230",
+      "0x49a280",
+      "0x49a350",
+      "0x49a3d0",
+      "0x49a400",
+      "0x49a4c0",
+      "0x49a5d0",
+      "0x49a650",
+      "0x49a700",
+      "0x49a790",
+      "0x49a870",
+      "0x49a8c0",
+      "0x49aab0",
+      "0x49ab00",
+      "0x49ac00",
+      "0x49ac40",
+      "0x49ad60",
+      "0x49adf0",
+      "0x49aef0",
+      "0x49af40",
+      "0x49afb0"
+    ]
+  },
+  "main_agent_independent_join": "590 exactID+site CSV joins plus37 exact canonical-reference inclusions in original ALLOWED; unique627categories",
+  "provenance_correction": "Batch2 mixes10scene entries with equipment; classify its explicit consumer_class rather than assigning onecategoryperfile. Base37event entries are not in numbered CSVs; use original ALLOWED provenance, not a fabricated CSV join.",
+  "current_conditional_diagnostics_assessment": {
+    "status": "ROOT_ACCEPTED_CONSUMER_LAYOUT_06_AND_CONSUMER_FAMILY_FULL",
+    "integrated_at": "2026-11-13T19:14:58Z",
+    "criterion": "consumer_layout.06",
+    "credit": 1,
+    "family_credit": 1,
+    "scope": "Source-qualified conditional geometry/expansion diagnostics; not runtime-complete A000 authoring. Original8179source facts below retain their dated binding; stronger nested-text-expansion runtime-authoring holds remain unchanged.",
+    "review": {
+      "path": "/var/tmp/dokapon-consumer06-final-astra-WUU7Ig8s/review.md",
+      "sha256": "f7a90c26e9ca99f5aee6a5a6afd178af8d69308a688c8db4aa7b5ec2630c08ec"
+    },
+    "composition": {
+      "manifest": "/var/tmp/dokapon-consumer06-fit-composition-0cnw6pO6/manifest.json",
+      "sha256": "d27af698d1fc8af88817f74d50cf03730f1b0769fa5dd6858744345f4a6b2366",
+      "report_sha256": "5b945cae611c65faea5d4dc63c7ed15f29301ff4bf9032ccf2d4003f6cd35009",
+      "actual_fit_sha256": "5cf891443de2433c268c6e744086f3a1b58d40e45669434e25e2a4941313acdf",
+      "facts": "One read-only existing-tool batch: four exact literal proxies220/394/equality394/overflow393, plus the exact30Bsource A000 parent remaining unsupported; complete encoded bytes independently matched.18members/13input hashes/10identities verified."
+    },
+    "geometry": {
+      "constructor_manifest": "/var/tmp/dokapon-consumer06-constructor-XayAs0Q1/manifest.json",
+      "constructor_sha256": "e02e8f64747263df7705d00bf69dc88bdef1a2d04d9e8eaa892dd17753506e46",
+      "reader": "/var/tmp/dokapon-f122-reader-7MeluMi8/report.md",
+      "reader_sha256": "e95c450f6dbc34008446d31d72f4805fcdcb31911f9a135c0a075b79fd1e452f",
+      "independent_source_checks": "/var/tmp/dokapon-consumer06-final-astra-WUU7Ig8s/source-checks.md",
+      "source_checks_sha256": "d57ea0816b7aeb9740d5d981d4121800f1fe8394736dc7aa1da8f1011946f4bd",
+      "relation": "Selected normal/default constructor yields usable W−48 by84, confirmation W−200 by84. W is runtime unknown; W640/594/593 are hypothetical. Textctx34 iswidth/object7c; textctx38 isheight/object80, not width.",
+      "conditions": "Normal creation and same live handle; no intervening geometry updates; unscaled plain children and declared catalogue membership; positive/nonzero converted width, exact conversion, no overflow/narrowing. Argument0 resets default width: W200 gives152, not0."
+    },
+    "oracle_history": {
+      "original": "/var/tmp/dokapon-consumer06-expansion-oracle-OQDDZe/oracle.md",
+      "original_sha256": "cc7b7a100bdc549241f9950fc8c777fbcfe4c46f66ece3c5d8c4d2eb4a824252",
+      "correction": "/var/tmp/dokapon-consumer06-expansion-oracle-OQDDZe/correction.md",
+      "correction_sha256": "79bca125b524bc7d84d42acb4b5ec2170fb11f01e4552ba3106c719c717329af",
+      "pre_output_qualification_sha256": "0f4a53a07cb2a341e8880d22b0abafe36536a5d4b11f7645f1e4db1c7756ac87",
+      "meaning": "SelectorID1b versus advance6 erratum and width-zero reset corrected in an explicit pre-output addendum; original oracle/source studies preserved. No child/tail glyph1b; independent native46member/metric/SPACE checks preserve220/394."
+    },
+    "boundaries": "Literal no-HDR proxies34/56B differ from conceptual HDR36/58B, parent30B/storage46B and childmax32B. within_profile is hypothetical logical pen/LINE checking, not native A000 authoring, numeric/positioned child support, physical/vertical fit or finalY. Runtime index/count/gender/save/reuse domain, viewport applicability, globalABI/current game fit remain UNKNOWN.",
+    "scores": {
+      "milestones": "80/90",
+      "consumer_layout": "6/6 Full",
+      "image_layout": "5/6",
+      "full_families": "11/15"
+    },
+    "operations": "Metadata-only acceptance, zero new production/runtime/test implementation/functions/types/dependencies/API or native/CLI/build/test/Golden/census/push. Older operational/compiled pins stay historical; range candidate parked, wholeCLI unexecuted.",
+    "source_binding": {
+      "ELF_sha256": "6e0e4e35fc70c6b2278131940a0e9b1f7817e0f129a3362b7b7d681106c5f831",
+      "paired_SENT_sha256": "9f6a07559b5c7a05eb5fcb6d89d98a42673bcb65ea3c8995c48ca1b066c7efbd",
+      "qualification": "Owned historical6e/9f component, distinct from prior8179 facts; no latest-mod/original-ISO or runtime observation claim"
+    }
+  }
+}

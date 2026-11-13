@@ -7,19 +7,13 @@ to shared engines and purpose-grouped profiles/recipes. The [verified crawl](ana
 checked all 410 source hashes and disjoint memberships at its discovery snapshot. Static similarity
 identifies review candidates, not semantic equivalence or safe deletion.
 
-The [versioned workflow checklist](analysis/reusability-coverage.md) measures
-**57.14% fully verified reusable Go coverage: 8 of 14 core workflow families**.
-Six families are partial and none unsupported; partial work earns no completion
-credit. The denominator comes from the pre-existing study recommendations with
-aliases merged. Three optional runtime families remain tracked separately;
-including them gives8 of17, or47.06%. This measures broad workflow completion,
-not the fraction of code reused, a readability score or exact-mod reproduction.
+The current [v3 coverage](analysis/reusability-coverage.md) is **10/15 fully verified core families (66.67%)**, with five Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 76 proven (84.44%)**, six per family. Probe orchestration and evidence is Partial with **0/6** groups proven in Go. These are unweighted capability/checklist counts, not code reuse, effort, time or script migration percentages.
 
-The user prioritizes a reasonable extensible toolset across all14 responsibilities.
-The percentage above records exhaustive verified family contracts; it is not the
-acceptance gate for a usable toolkit. Extend shared owners as new cases arise.
-Use focused checks during development and run the full integrated suite towards
-the end. Current capability coverage is more useful than a count of old scripts:
+The original14 authoring families retain their scoped usable operations. The new full probe workflow has no verified Go orchestration owner. Existing Python remains the sole production owner until identical native acceptance and explicit handover. Starting a story probe, unattended crash/stall detection, bounded recovery, safe stop/resume, preservation and bounded evidence/resource use are required. The probe owner must agree the soak duration, recovery outcomes and budgets before acceptance; earlier three-story tests do not prove unattended acceptance.
+
+The [v1 baseline](analysis/reusability-coverage-baseline.json) remains byte-identical. Its accepted808 views preserve **10/14 Full (71.43%)**, **76/84 (90.48%)** and expanded **10/17 (58.82%)** as history. The original three optional runtime groups are retained as non-additive facets of the one new core family, so v2 introduced 15 unique families, which v3 retains. Native hook/counter/ABI duties and fixed-field, narrative, positional-grid, code/hook/capacity and image-state scenario duties remain in scope. No Go/runtime implementation, new native proof, retirement or capability credit follows from this taxonomy update.
+
+Next: obtain owner-approved sanitized run/profile/session/receipt/event schemas and refusal-order fixtures before selecting a pure Go admission slice. No private probe artifacts or runtime resources are used by this metadata update.
 
 | Capability | Verified shared behavior | Remaining limit |
 |---|---|---|
@@ -29,7 +23,7 @@ the end. Current capability coverage is more useful than a count of old scripts:
 | Asset discovery | Pinned extracted TXD native names/raw headers through the shared structural parser; metadata errors stay local | Original spec/preview/contact contract verified; inventory alone does not assess codec support |
 | Registry | Existing-ID authoring, reviewed new-draft insertion, machine merge, ordered flat CSV projection and markup/report operations share guarded source/publication owners | Discovery scanning, batch-specific text validation, full imports and remaining field policies |
 | Offline verification | Shared text/reference/ISO/CMB reports, three-input registry progress and pinned ELF LOAD/file-backed/BSS/unmapped range mapping | Disc-truth exports and combined audits remain partial; mapping does not prove safe caves or runtime control flow |
-| Runtime probes | Existing ownership rules and reference implementations retained | Optional supporting domain; no new Go lifecycle or gameplay claim |
+| Runtime probes | Existing Python ownership and reference implementations retained; inherited static Go diagnostic facts only | Core probe family Partial0/6; Go lifecycle/unattended/native acceptance remains unproven |
 
 The [ELF mapping increment](evidence/elf-layout-proof.json) enhances existing
 `inspect` and report dispatch with no new function. Independent headers, interval
@@ -2233,3 +2227,62 @@ The existing admission owner gains the finite full_sweep policy. It checks ten r
 Separate data holds142 original constructor facts, five marker mappings and five complete note replacements. The six historical keeper decisions are represented by current normalized source facts. Legacy raw temporary inputs are absent, so their preselection replay is not claimed. All3186 current batch rows match independently frozen original whole-document expectations. Evolved current wording conflicts refuse historical constructor application.
 
 No production file or function was added. Go grows4488B; code/module/recipe/runtime inputs together grow184978B to233files/2977568B. Tests grow5543B and fixture/configuration inputs64795B separately. This is capability growth, not a reduction. The golden pin verifier now distinguishes exact disjoint profile/resource roles and retains all56 prior hashes. Fullsuite/nativefonts race/gameplay remain deferred.
+
+
+## Square permission masks - 2026-11-13
+
+[Proof](evidence/square-mask-proof.json) and [independent review](evidence/square-mask-review.json) verify three batchE permission calls on two declared synthetic contexts (six provider comparisons). Existing mask owners gain one optional cross/square morphology setting; hole filling stays four-connected and component connectivity remains separate. Button crops remain separate, and full-canvas sale protection clips to its own sign after growth. The old implementation failed the independently frozen sale mask before API edits. All three runtime tables now supply the complete-mask test, with unchanged source bytes.
+
+Go grows1265B with no new function, production file, type or dependency. Code/module/recipe/runtime inputs together grow9309B to236files/2986877B. Tests grow8736B and fixtures31096B; the110267B source archive is separate evidence overhead. This is capability growth, with no deletion or reduction claim. Core10/14, planning76/84 and raster5/6 remain unchanged;17other Epermission calls and advanced artwork duties remain. Source masks do not prove actual game art dimensions or complete rendering hooks. Fullsuite/nativefonts race/gameplay remain deferred.
+
+
+## Named approved fixed artwork - 2026-11-13
+
+[Proof](evidence/fixed-art-proof.json), [fresh pre-apply reviews](evidence/fixed-art-reviews.json) and [maintenance contract](docs/fixed-art.md) establish one source-bound allmap_1 logo-A replay through the existing static PNG importer. The canonical versioned record owns approval/provenance and independent whole-native/RGBA/mask facts, with one profile owning operational fields. Shared source/image/mask PNGs remain readable data. The two concrete reviews preceded the exclusive standalone native write; every263584byte matches the old independently approved target. WholeRGBA/11570mask/11027changedpixels/outside0 and unchanged CLUT/nonpixel data were checked separately.
+
+No production Go function, file, field, type or dependency changed. Runtime data grows1465122B to241files/4451999B; tests grow11659B and fixtures180506B separately. This is data/workflow growth, not a new generator or reduction. Exact-target and hole-mask checks are external to the runtime coarse rectangle/self-integrity guards. In-memory maintenance counterexamples demonstrate that repinning an edited image requires a new approved version and independent expected artifact. Original14/84/410history, unsupported editable generators and core10/14/planning76/84/raster5/6 remain unchanged, with no retirement credit. No ISO, live artwork or public main change. Broader fullsuite/nativefonts/race/gameplay were not repeated for unchangedproduction/staticPNGdata.
+
+
+### Root-inclusive dependency queries - 2026-11-13
+
+The existing register graph now accepts root-inclusive `reads_before_kill` through
+the shared forward traversal. See the [contract](analysis/register-inclusive-contract.json)
+and [verification](evidence/register-inclusive-proof.json) for semantics, source
+fixture corrections and remaining Tracer duties. No function or milestone credit
+was added. Current binary consumer tooling is next; probe implementation is last.
+
+
+### Bounded pointer-origin consumers - 2026-11-13
+
+[Pointer consumers](analysis/pointer-consumer-contract.json) reuse the instruction
+producer and the same register graph for aliases, bounded frame spills and typed
+consumer events. One pure analysis function contains the distinct mutable value
+domain; existing report/schema/test owners integrate it. Declared call policy is
+separate from byte-attested software behavior, and unresolved call continuation
+is preserved. This is capability growth, with no full `.05` milestone credit.
+
+The owner-directed [retired static ELF design](analysis/retired-static-elf-design.json)
+records why PH1/InitHeap and speculative BSS growth are not ported. Current stream
+allocation remains distinct, including its deliberate sector alignment. Historical
+criteria and scores are preserved. Probe implementation remains last.
+
+
+### Native source-grid ink for authoring - 2026-11-13
+
+The existing fit report accepts one optional pinned native font TXD. Shared source
+metrics, texture decoding and token measurement now expose full-tile ink bounds
+alongside advance. [Contract](analysis/native-ink-contract.json) and
+[checks](evidence/native-ink-proof.json) retain literal, symbolic and source-guard
+limits. No function/type or milestone credit was added.
+
+The [current-tooling scope amendment](analysis/current-tooling-scope-v3.json) preserves exact accepted-834 history and changes two current obligations without adding Go credit. The [v3 roadmap](analysis/migration-roadmap.md) remains 76/90 proven groups and 10/15 Full families. The next bounded task is source-bound maintenance of the current documented name policy; historical F112 70% is not current, and native replay, ownership and fit remain unproved. Probe work is last.
+
+## Source-bound name cohorts
+
+The shared `reference_cohort` report selects declarative pointer tables, preserves each slot occurrence and measures the first-END stream through existing font and grammar owners. Its explicit historical nominal policy is separate from native advances, source-grid ink and physical fit. An optional source-policy join reuses the instruction index and graph; raw buckets are capped before allocation, and known hazards remain beside UNKNOWN.
+
+Start with the [synthetic runnable example](examples/name-cohort/README.md). The [contract](analysis/name-cohort-contract.json), [proof](evidence/name-cohort-proof.json) and [reviews](evidence/name-cohort-review.json) document the 43 cases, 28 typed refusals, source limits and capability costs. The actual 207-name game census, fixed F112 alias, complete ownership and landing proof remain pending. No new handler, decoder, graph or scale interpreter was added. This is capability growth, not code reduction; coverage remains 10/15 Full and 76/90 proven, and probe work is last.
+
+## Synthetic declarative name-policy replay
+
+The [eleven-record example](examples/name-policy/README.md) exercises existing guarded-word planning and complete synthetic copy readback with no production code change. It preserves source-version boundaries, distinguishes dry-run pin echoes from computed outputs, and grants no native, reduction or migration credit.

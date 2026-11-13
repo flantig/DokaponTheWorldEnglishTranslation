@@ -548,7 +548,7 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 	}
 	if len(maskData) != 0 {
 		stages := []string{"allow", "exclude", "allow_add"}
-		footprintFields := []string{"rect", "sample_rect", "any", "core", "core_grow", "close", "fill", "grow", "erode", "minimum_size", "components", "clip", "exclude"}
+		footprintFields := []string{"rect", "sample_rect", "any", "core", "core_grow", "kernel", "close", "fill", "grow", "grow_through", "erode", "minimum_size", "components", "clip", "exclude"}
 		componentFields := []string{"connectivity", "seeds", "reject", "background_seed"}
 		// These objects have fixed depths; scalar-map keys remain finite data properties.
 		if err := checkJSON(checkedJSON{raw: maskData, allObjects: true, text: true, nonNull: true,

@@ -278,6 +278,264 @@ func fixture(t *testing.T, operation string) (Recipes, Registry, []byte, []byte)
 }
 
 func TestPlanAndCopy(t *testing.T) {
+	// Calibration changes control words deliberately; exact whole-slot word tables
+	// preserve the stream codec's stricter control invariant. These carriers are synthetic.
+	{
+		data, err := os.ReadFile("testdata/startup-centering-2026-10-01.json")
+		var oracle struct {
+			CarrierSize  int    `json:"carrier_size"`
+			FillByte     byte   `json:"fill_byte"`
+			OutputSHA256 string `json:"output_sha256"`
+			States       []struct {
+				DoneMask     int    `json:"done_mask"`
+				SourceSHA256 string `json:"source_sha256"`
+			} `json:"states"`
+			Records []struct {
+				ID, VMA, Role string
+				Offset, Slot  int
+				OldHex        string `json:"old_hex"`
+				NewHex        string `json:"new_hex"`
+			} `json:"records"`
+		}
+		if err != nil || json.Unmarshal(data, &oracle) != nil || len(oracle.States) != 16 || len(oracle.Records) != 41 || oracle.CarrierSize != 5087232 {
+			t.Fatal("startup literal oracle", err)
+		}
+		glyphs := []byte("{}")
+		var tables []Recipes
+		for _, part := range []string{"native", "sent"} {
+			data, err := os.ReadFile("recipes/layout/startup-centering-2026-10-01-" + part + ".json")
+			var table Recipes
+			if err != nil || json.Unmarshal(data, &table) != nil || table.OutputSHA256 != oracle.OutputSHA256 || table.SourceSHA256 != oracle.States[0].SourceSHA256 {
+				t.Fatal("startup recipe", part, err)
+			}
+			tables = append(tables, table)
+		}
+		old, want := bytes.Repeat([]byte{oracle.FillByte}, oracle.CarrierSize), bytes.Repeat([]byte{oracle.FillByte}, oracle.CarrierSize)
+		recordAt := make(map[int]int)
+		for i, record := range oracle.Records {
+			before, oldErr := hex.DecodeString(record.OldHex)
+			after, newErr := hex.DecodeString(record.NewHex)
+			if oldErr != nil || newErr != nil || len(before) == 0 || len(before) != len(after) || record.Offset < 0 || record.Offset > len(old)-len(before) || (i < 4) != (record.Role == "whole-padded-slot") {
+				t.Fatal("startup complete record", record.VMA, oldErr, newErr)
+			}
+			if i < 4 && (len(before) != record.Slot*2 || bytes.Equal(before, after)) || i >= 4 && !bytes.Equal(before, after) {
+				t.Fatal("startup slot capacity/retained guard", record.VMA)
+			}
+			copy(old[record.Offset:], before)
+			copy(want[record.Offset:], after)
+			if _, duplicate := recordAt[record.Offset]; duplicate {
+				t.Fatal("startup duplicate physical record", record.VMA)
+			}
+			recordAt[record.Offset] = i
+		}
+		if fmt.Sprintf("%x", sha256.Sum256(want)) != oracle.OutputSHA256 || fmt.Sprintf("%x", sha256.Sum256(old)) != oracle.States[0].SourceSHA256 {
+			t.Fatal("startup independently frozen carrier identity")
+		}
+		dir := t.TempDir()
+		for mask, state := range oracle.States {
+			image := bytes.Clone(old)
+			for i, record := range oracle.Records[:4] {
+				if mask&(1<<i) != 0 {
+					copy(image[record.Offset:record.Offset+record.Slot*2], want[record.Offset:record.Offset+record.Slot*2])
+				}
+			}
+			if state.DoneMask != mask || fmt.Sprintf("%x", sha256.Sum256(image)) != state.SourceSHA256 {
+				t.Fatal("startup explicitly pinned mixed state", mask)
+			}
+			for i := range tables {
+				tables[i].SourceSHA256 = state.SourceSHA256
+			}
+			edits, err := plan(tables, Registry{}, glyphs, bytes.NewReader(image))
+			if err != nil || len(edits) != len(oracle.Records) {
+				t.Fatal("startup atomic plan", mask, err)
+			}
+			inspection, err := inspect(bytes.NewReader(image), edits, nil)
+			if err != nil {
+				t.Fatal("startup state inspection", mask, err)
+			}
+			for i, edit := range edits {
+				recordIndex, present := recordAt[int(edit.Offset)]
+				record := oracle.Records[recordIndex]
+				if !present || edit.ID != record.VMA || len(edit.Old)*2 != len(record.OldHex) || hex.EncodeToString(edit.Old) != record.OldHex || hex.EncodeToString(edit.New) != record.NewHex {
+					t.Fatal("startup recipe differs from independent record", mask, edit.ID)
+				}
+				expectedState := "pending"
+				if bytes.Equal(image[edit.Offset:edit.Offset+int64(len(edit.New))], edit.New) {
+					expectedState = "already patched" // No-op guards and DONE slots prefer NEW.
+				}
+				if inspection.States[i] != expectedState || !bytes.Equal(edit.New, want[edit.Offset:edit.Offset+int64(len(edit.New))]) {
+					t.Fatal("startup whole-slot/guard state", mask, edit.ID)
+				}
+			}
+			path, output := filepath.Join(dir, fmt.Sprintf("startup-%02d.bin", mask)), filepath.Join(dir, fmt.Sprintf("new-%02d.bin", mask))
+			if err := os.WriteFile(path, image, 0400); err != nil {
+				t.Fatal(err)
+			}
+			source, err := os.Open(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			beforeInfo, err := source.Stat()
+			if err != nil {
+				t.Fatal(err)
+			}
+			digest, copyErr := patchCopy(source, output, tables, edits, Registry{}, glyphs)
+			if copyErr != nil || digest != oracle.OutputSHA256 {
+				t.Fatal("startup guarded copy", mask, copyErr)
+			}
+			actual, readErr := os.ReadFile(output)
+			preserved, sourceErr := os.ReadFile(path)
+			afterInfo, statErr := source.Stat()
+			outputInfo, outputStatErr := os.Stat(output)
+			if readErr != nil || sourceErr != nil || statErr != nil || outputStatErr != nil || os.SameFile(beforeInfo, outputInfo) || !bytes.Equal(actual, want) || !bytes.Equal(preserved, image) || !beforeInfo.ModTime().Equal(afterInfo.ModTime()) {
+				t.Fatal("startup complete output/source preservation", mask, readErr, sourceErr, statErr)
+			}
+			if _, err := patchCopy(source, output, tables, edits, Registry{}, glyphs); err == nil {
+				t.Fatal("startup overwrote existing output", mask)
+			}
+			if mask == 0 {
+				registryPath, glyphPath := filepath.Join(dir, "registry.json"), filepath.Join(dir, "glyphs.json")
+				if err := os.WriteFile(registryPath, []byte(`{"entries":[]}`), 0600); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(glyphPath, glyphs, 0600); err != nil {
+					t.Fatal(err)
+				}
+				args := []string{"--source", path, "--registry", registryPath, "--glyphmap", glyphPath,
+					"--recipes", "recipes/layout/startup-centering-2026-10-01-native.json",
+					"--recipes", "recipes/layout/startup-centering-2026-10-01-sent.json"}
+				if err := run(args, io.Discard); err != nil {
+					t.Fatal("startup checked-in recipe schema/dry run", err)
+				}
+				if _, err := patchCopy(source, path, tables, edits, Registry{}, glyphs); err == nil {
+					t.Fatal("startup accepted output alias")
+				}
+				for _, record := range oracle.Records {
+					bad := bytes.Clone(image)
+					bad[record.Offset+len(record.OldHex)/2-1] ^= 1
+					if _, err := inspect(bytes.NewReader(bad), edits, nil); err == nil {
+						t.Fatal("startup accepted changed slot/metric/caller guard", record.VMA, record.Role)
+					}
+				}
+				for _, record := range oracle.Records[:4] {
+					partial := bytes.Clone(image)
+					for at := record.Offset; at < record.Offset+record.Slot*2; at += 2 {
+						if !bytes.Equal(image[at:at+2], want[at:at+2]) {
+							copy(partial[at:at+2], want[at:at+2])
+							break
+						}
+					}
+					end := record.Offset + record.Slot*2
+					if bytes.Equal(partial[record.Offset:end], image[record.Offset:end]) || bytes.Equal(partial[record.Offset:end], want[record.Offset:end]) {
+						t.Fatal("startup partial witness is not distinct", record.ID)
+					}
+					if _, err := inspect(bytes.NewReader(partial), edits, nil); err == nil {
+						t.Fatal("startup accepted partial within a slot", record.ID)
+					}
+				}
+				unknown := bytes.Clone(image)
+				unknown[0x80] ^= 1 // Outside every declared record, so only whole-source admission catches it.
+				unknownPath, refused := filepath.Join(dir, "unknown-source.bin"), filepath.Join(dir, "refused.bin")
+				if err := os.WriteFile(unknownPath, unknown, 0400); err != nil {
+					t.Fatal(err)
+				}
+				unknownSource, err := os.Open(unknownPath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				_, err = patchCopy(unknownSource, refused, tables, edits, Registry{}, glyphs)
+				closeErr := unknownSource.Close()
+				if err == nil || !strings.Contains(err.Error(), "source hash mismatch") || closeErr != nil {
+					t.Fatal("startup accepted an unlisted source", err, closeErr)
+				}
+				if _, err := os.Stat(refused); !os.IsNotExist(err) {
+					t.Fatal("startup refused source created an output")
+				}
+				if preserved, err := os.ReadFile(unknownPath); err != nil || !bytes.Equal(preserved, unknown) {
+					t.Fatal("startup source refusal modified its input", err)
+				}
+				if err := verifySource(source, tables, edits[:len(edits)-1], Registry{}, glyphs); err == nil {
+					t.Fatal("startup accepted a lost guard in the supplied plan")
+				}
+				overlap := append(slices.Clone(edits), edits[len(edits)-1])
+				if err := validateEdits(overlap, int64(len(image))); err == nil {
+					t.Fatal("startup accepted an overlapping guard")
+				}
+				wrongOutput := slices.Clone(tables)
+				for i := range wrongOutput {
+					wrongOutput[i].OutputSHA256 = strings.Repeat("0", 64)
+				}
+				if _, err := patchCopy(source, refused, wrongOutput, edits, Registry{}, glyphs); err == nil || !strings.Contains(err.Error(), "output hash mismatch") {
+					t.Fatal("startup accepted an incorrect complete target", err)
+				}
+				if _, err := os.Stat(refused); !os.IsNotExist(err) {
+					t.Fatal("startup target refusal retained its created output")
+				}
+				for _, mutation := range []string{"truncated payload", "expanded payload", "odd preimage", "alignment", "capacity", "source pin"} {
+					invalid := slices.Clone(tables)
+					invalid[1].Entries = maps.Clone(tables[1].Entries)
+					row := invalid[1].Entries["0x4079b00"]
+					row.Words = slices.Clone(row.Words)
+					switch mutation {
+					case "truncated payload":
+						row.Words = row.Words[:len(row.Words)-1]
+					case "expanded payload":
+						row.Words = append(row.Words, Word{Hex: "0x0", Assembly: ".word outside certified slot"})
+					case "odd preimage":
+						row.ExpectedHex = row.ExpectedHex[:len(row.ExpectedHex)-2]
+					case "alignment":
+						delete(invalid[1].Entries, "0x4079b00")
+					case "capacity":
+						for i := range invalid {
+							invalid[i].SourceSize = 4930604 // Four bytes short of the final slot end.
+						}
+					case "source pin":
+						for i := range invalid {
+							invalid[i].SourceSHA256 = strings.Repeat("0", 64)
+						}
+					}
+					if mutation == "alignment" {
+						invalid[1].Entries["0x4079b02"] = row
+					} else {
+						invalid[1].Entries["0x4079b00"] = row
+					}
+					invalidEdits, planErr := plan(invalid, Registry{}, glyphs, bytes.NewReader(image))
+					if mutation == "source pin" {
+						if planErr != nil {
+							t.Fatal("startup source-pin witness never reached admission", planErr)
+						}
+						planErr = verifySource(source, invalid, invalidEdits, Registry{}, glyphs)
+					}
+					if planErr == nil {
+						t.Fatal("startup accepted malformed slot/source contract", mutation)
+					}
+				}
+				wrongMapping := slices.Clone(tables)
+				wrongMapping[1].ISOELFOffset = "0x43a004"
+				wrongEdits, err := plan(wrongMapping, Registry{}, glyphs, bytes.NewReader(image))
+				if err != nil {
+					t.Fatal("startup mapping witness never reached source inspection", err)
+				}
+				if err := verifySource(source, wrongMapping, wrongEdits, Registry{}, glyphs); err == nil || !strings.Contains(err.Error(), "unexpected image bytes") {
+					t.Fatal("startup accepted a different SENT physical mapping", err)
+				}
+				wrongPins := slices.Clone(tables)
+				wrongPins[1].SourceSHA256 = strings.Repeat("0", 64)
+				if _, err := plan(wrongPins, Registry{}, glyphs, bytes.NewReader(image)); err == nil || !strings.Contains(err.Error(), "incompatible source") {
+					t.Fatal("startup accepted incompatible table identities", err)
+				}
+			}
+			preserved, sourceErr = os.ReadFile(path)
+			actual, readErr = os.ReadFile(output)
+			if sourceErr != nil || readErr != nil || !bytes.Equal(preserved, image) || !bytes.Equal(actual, want) {
+				t.Fatal("startup refusal/exclusivity checks modified source/output", mask, sourceErr, readErr)
+			}
+			if err := source.Close(); err != nil {
+				t.Fatal(err)
+			}
+		}
+		t.Log("startup:16 explicitly pinned OLD/DONE states,41 atomic slot/retained records, whole output/source/exclusivity and typed refusals")
+	}
 	{
 		profile, registry, glyphs, image := fixture(t, "stream_reflow_format")
 		baseline, err := plan([]Recipes{profile}, registry, glyphs, bytes.NewReader(image))
@@ -3756,6 +4014,45 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		}
 		return write(name, data)
 	}
+	// Generic root validation must fail for duplicates, not a retired operation field.
+	{
+		guarded, _, guardGlyphs, guardData := fixture(t, "guarded_words")
+		guardWire, err := json.Marshal(guarded)
+		if err != nil {
+			t.Fatal(err)
+		}
+		sourcePath := write("root-guard-source.bin", guardData)
+		guardArgs := []string{"--source", sourcePath, "--recipes", write("root-guard.json", guardWire), "--registry", jsonFile("root-guard-registry.json", registry), "--glyphmap", write("root-guard-glyphs.json", guardGlyphs)}
+		if err := run(guardArgs, io.Discard); err != nil {
+			t.Fatal("root-duplicate baseline is not valid", err)
+		}
+		for _, key := range []string{"operation", "source_size"} {
+			prefix := `{"operation":"guarded_words",`
+			if key == "source_size" {
+				prefix = fmt.Sprintf(`{"source_size":%d,`, guarded.SourceSize)
+			}
+			cut := append([]byte(prefix), guardWire[1:]...)
+			guardArgs[3] = write("root-duplicate.json", cut)
+			var refused bytes.Buffer
+			err := run(guardArgs, &refused)
+			if err == nil || !strings.Contains(err.Error(), fmt.Sprintf("duplicate registry object key %q", key)) || refused.Len() != 0 {
+				t.Fatal("ambiguous root did not fail for its duplicate key", key, err, refused.String())
+			}
+		}
+		// Opaque nested word details keep the preexisting selective intake policy.
+		nested := bytes.Replace(guardWire, []byte(`"assembly":`), []byte(`"assembly":"ignored first value","assembly":`), 1)
+		guardArgs[3] = write("root-selective-nested.json", nested)
+		if bytes.Equal(nested, guardWire) {
+			t.Fatal("nested-policy witness did not change the recipe")
+		}
+		if err := run(guardArgs, io.Discard); err != nil {
+			t.Fatal("legacy selective nested policy changed", err)
+		}
+		if preserved, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(preserved, guardData) {
+			t.Fatal("root-intake reports changed source", err)
+		}
+	}
+	var inputCLIPath string // Reuse the bounded-input CLI for later resource guards.
 	bundledFixtures := make(map[string]map[string][]byte)
 	for _, fixture := range []struct{ Path, SHA256 string }{
 		{"testdata/asset-manifest.zip", assetManifestFixtureSHA},
@@ -3763,9 +4060,15 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		{"testdata/sentinel-reader.zip", "991a0772859e89f02ef6d2a62868f33a887369938d769401c9891c4956b19ee1"},
 		{"testdata/gp-index-fixture.zip", "434aab918d573df3989c1502011b5202eb5ed2fa06cee5291ca832fbadd04a97"},
 		{"testdata/instruction-index-fixture.zip", "6eb077edda6569ef5af3c7844d1189da902bf8773673bdd1f90076f8d9c4fc35"},
+		{"testdata/instruction-addu-fixture.zip", "ff03ef94d07debfb20f985d41b5ee4d7174400989c777d1bc7934afa02e5f235"},
 		{"testdata/register-flow-fixture.zip", "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2"},
+		{"testdata/future-register-read-fixture.zip", "2fb9e11155a9d2fe12fd592a84a36ba90cfe6382f862716a5fd9db4a2cd28e0b"},
+		{"testdata/native-ink-fixture.zip", "eb4be8a3bd9d0f1cdb88a1606c8cdf58fc39674a87224c635c0436f7413ee003"},
+		{"testdata/pointer-consumer-v2-fixture.zip", "e7e2c927c7d48c4e668b104aacc15af556f6c0891d8cfd4a01b8f618449cf1bc"},
+		{"testdata/pointer-container-fixture.zip", "9d86fc8286a7d0114d3ea1d811066d72770d875a42764114990fb15946d18b49"},
 		{"testdata/instruction-ori-fixture.zip", "31d9cdd7193258d89335722b50bab448d8906cc6c35a4cea4e04d82ad71076e7"},
 		{"testdata/reference-owner-fixture.zip", "a8a76300aab41a80a3775dd9eedf12391cfbf7ddd9d74567c24d097ba28b905f"},
+		{"testdata/cohort-report-fixture.zip", "e056e2f2f44ebbf85e7b3f2bb9e8b84522f46c7295e207ecfdfdc8dc92d31c92"},
 		{"testdata/truetype-raster.zip", "dfdb85cbc5e431edf404b6b3e7f00118fede5d1c7065d2263dd47cd4478330c3"},
 		{"testdata/reconstruction-rows.zip", "1fc8751a5f42731d1f4e78b0582316bda331ac9559d62a1d66e7863638e7f58e"},
 		{"testdata/reconstruction-masks.zip", "bfaadb71c12020fa85000ac8893ddb526f54c9b79abbf2439be0bf6d92de6c5d"},
@@ -3797,23 +4100,54 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		}
 		bundledFixtures[fixture.Path] = files
 	}
+	var containerFacts struct {
+		LegacyAdditions    map[string][]PointerConsumerEvent `json:"legacy_additions"`
+		InterruptionLimits []struct {
+			Query, Batch, Work int
+			NewEvent           bool `json:"new_event"`
+			Reasons            []string
+		} `json:"interruption_limits"`
+	}
+	if err := json.Unmarshal(bundledFixtures["testdata/pointer-container-fixture.zip"]["pointer-containers.json"], &containerFacts); err != nil || len(containerFacts.LegacyAdditions) != 1 {
+		t.Fatal("independent legacy container additions", err)
+	}
 	for _, bundle := range []struct {
 		Path, Member    string
 		Cases, Refusals int
-	}{{"testdata/gp-index-fixture.zip", "gp-index.json", 13, 39}, {"testdata/instruction-index-fixture.zip", "instruction-index.json", 74, 6}, {"testdata/register-flow-fixture.zip", "register-flow.json", 26, 18}, {"testdata/instruction-ori-fixture.zip", "instruction-ori.json", 4, 0}, {"testdata/reference-owner-fixture.zip", "reference-owner.json", 31, 23}} {
+	}{{"testdata/gp-index-fixture.zip", "gp-index.json", 13, 39}, {"testdata/instruction-index-fixture.zip", "instruction-index.json", 74, 6}, {"testdata/instruction-addu-fixture.zip", "instruction-addu.json", 9, 0}, {"testdata/register-flow-fixture.zip", "register-flow.json", 26, 18}, {"testdata/future-register-read-fixture.zip", "future-register-read.json", 24, 0}, {"testdata/pointer-consumer-v2-fixture.zip", "pointer-consumers.json", 49, 15}, {"testdata/pointer-consumer-v2-fixture.zip", "pointer-consumer-policy.json", 4, 17}, {"testdata/pointer-container-fixture.zip", "pointer-containers.json", 22, 0}, {"testdata/instruction-ori-fixture.zip", "instruction-ori.json", 4, 0}, {"testdata/reference-owner-fixture.zip", "reference-owner.json", 31, 23}, {"testdata/cohort-report-fixture.zip", "cohort-report.json", 43, 28}} {
 		var indexFixture struct {
 			CarrierHex string `json:"carrier_hex"`
 			Profile    json.RawMessage
 			Cases      []struct {
-				Name            string
-				ExpectedScope   string                                 `json:"expected_core_scope"`
-				OwnerScope      string                                 `json:"expected_scope"`
-				RegistryText    string                                 `json:"registry_text"`
-				GlyphmapText    string                                 `json:"glyphmap_text"`
-				CarrierOverride string                                 `json:"carrier_hex_override"`
-				ExpectedFlow    map[string]map[string]ReferenceFlowRow `json:"expected_flow_by_query_by_ID"`
-				ExpectedGraph   *RegisterFlowReport                    `json:"expected_register_flow"`
-				SourceEdits     []struct {
+				Name              string
+				Reorder           bool
+				SidecarHex        string `json:"sidecar_hex"`
+				SidecarZeroPrefix int    `json:"sidecar_zero_prefix"`
+				CohortExpected    *struct {
+					Rows                    []ReferenceRow        `json:"rows"`
+					Summary                 ReferenceSummary      `json:"summary"`
+					IgnorePartialWordCounts bool                  `json:"ignore_partial_word_counts"`
+					SourceTarget            string                `json:"source_target"`
+					RawIndexStatus          string                `json:"raw_index_status"`
+					SourcePairs             []ReferenceFlowTarget `json:"source_pairs"`
+					SourcePointers          []uint32              `json:"source_pointers"`
+					SourceProblems          []string              `json:"source_problems"`
+					IgnorePairBucket        bool                  `json:"ignore_pair_bucket"`
+					CallerDisposition       string                `json:"caller_disposition"`
+					RequiredDiagnostics     []string              `json:"required_diagnostics"`
+					RequiredPrefixes        []string              `json:"required_prefixes"`
+					RequiredSubstrings      []string              `json:"required_substrings"`
+				} `json:"cohort_expected"`
+				ExpectedScope         string                                 `json:"expected_core_scope"`
+				OwnerScope            string                                 `json:"expected_scope"`
+				RegistryText          string                                 `json:"registry_text"`
+				GlyphmapText          string                                 `json:"glyphmap_text"`
+				CarrierOverride       string                                 `json:"carrier_hex_override"`
+				ExpectedFlow          map[string]map[string]ReferenceFlowRow `json:"expected_flow_by_query_by_ID"`
+				ExpectedGraph         *RegisterFlowReport                    `json:"expected_register_flow"`
+				ExpectedConsumers     map[string]ReferenceConsumerAssessment `json:"expected_consumers"`
+				ExpectedConsumerQuery *RegisterFlowResult                    `json:"expected_consumer_query"`
+				SourceEdits           []struct {
 					Offset int
 					Hex    string
 				} `json:"source_edits"`
@@ -3826,6 +4160,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			}
 			Refusals []struct {
 				Name, Expected  string
+				SidecarHex      string `json:"sidecar_hex"`
 				RegistryText    string `json:"registry_text"`
 				GlyphmapText    string `json:"glyphmap_text"`
 				Profile         json.RawMessage
@@ -3851,6 +4186,13 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			t.Fatal("independent instruction index fixture", err)
 		}
 		for _, fixture := range indexFixture.Cases {
+			if bundle.Member == "pointer-consumers.json" {
+				if added := containerFacts.LegacyAdditions[fixture.Name]; len(added) != 0 {
+					query := fixture.Expected.Instructions.RegisterFlow.Queries[fixture.Name]
+					query.Consumer.Events = append(query.Consumer.Events, added...)
+					fixture.Expected.Instructions.RegisterFlow.Queries[fixture.Name] = query
+				}
+			}
 			carrier := indexFixture.CarrierHex
 			if fixture.CarrierOverride != "" {
 				carrier = fixture.CarrierOverride
@@ -3870,8 +4212,22 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			sourcePath, profilePath := write(filepath.Join(caseDir, "source.elf"), body), write(filepath.Join(caseDir, "profile.json"), fixture.Profile)
 			args := []string{"--source", sourcePath, "--recipes", profilePath}
 			inputBytes := map[string][]byte{sourcePath: body, profilePath: fixture.Profile}
+			var sidecarData []byte
+			if fixture.SidecarHex != "" {
+				blob, err := hex.DecodeString(fixture.SidecarHex)
+				if err != nil {
+					t.Fatal(err)
+				}
+				if fixture.SidecarZeroPrefix < 0 || fixture.SidecarZeroPrefix > 64<<20 {
+					t.Fatal("invalid bounded fixture zero prefix")
+				}
+				blob = append(make([]byte, fixture.SidecarZeroPrefix), blob...)
+				sidecarData = blob
+				blobPath := write(filepath.Join(caseDir, "sentinel.bin"), blob)
+				inputBytes[blobPath] = blob
+			}
 			registryPin, glyphPin := "", ""
-			if bundle.Member == "reference-owner.json" {
+			if bundle.Member == "reference-owner.json" || fixture.ExpectedScope == "consumer_policy_semantic_group_only" {
 				registryPath := write(filepath.Join(caseDir, "registry.json"), []byte(fixture.RegistryText))
 				glyphPath := write(filepath.Join(caseDir, "glyphmap.json"), []byte(fixture.GlyphmapText))
 				args = append(args, "--registry", registryPath, "--glyphmap", glyphPath)
@@ -3895,6 +4251,16 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			if err := run(args, &out); err != nil || json.Unmarshal(out.Bytes(), &got) != nil || got.Operation != operation.Operation || got.Applied || got.SourceSHA256 != fmt.Sprintf("%x", sha256.Sum256(body)) || got.ProfileSHA256 != fmt.Sprintf("%x", sha256.Sum256(fixture.Profile)) || got.RegistrySHA256 != registryPin || got.GlyphmapSHA256 != glyphPin {
 				t.Fatalf("instruction index case %s: %v\n%s", fixture.Name, err, out.String())
 			}
+			if bundle.Member == "gp-index.json" && fixture.Name == "GP536bf0-42word-full-index" {
+				cut := bytes.Replace(fixture.Profile, []byte(`"file_range":`), []byte(`"target_ranges":{},"file_range":`), 1)
+				refusedArgs := slices.Clone(args)
+				refusedArgs[3] = write(filepath.Join(caseDir, "retired-range-field.json"), cut)
+				var refused bytes.Buffer
+				err := run(refusedArgs, &refused)
+				if bytes.Equal(cut, fixture.Profile) || err == nil || !strings.Contains(err.Error(), `unknown field "target_ranges"`) || refused.Len() != 0 {
+					t.Fatal("retired nested field did not fail as unknown", err, refused.String())
+				}
+			}
 			if fixture.Expected.Index != nil && fixture.Expected.Index.MetadataError != "" {
 				if got.GPIndex.MetadataError == "" || got.RegisterInfo.Error == "" || got.RegisterInfo.GlobalPointer != nil {
 					t.Fatal("GP unknown metadata guessed", fixture.Name, got)
@@ -3908,6 +4274,69 @@ func TestCLIDryRunAndApply(t *testing.T) {
 				}
 			}
 			actualInstructions := got.InstructionIndex
+			if fixture.CohortExpected != nil {
+				want := fixture.CohortExpected
+				rows := slices.Clone(got.Queries["names"])
+				for i := range rows {
+					if want.IgnorePartialWordCounts && rows[i].NominalMaximum == nil {
+						rows[i].WordCount = 0
+					}
+				}
+				if got.Measurement != "historical_nominal_pen_units" || !reflect.DeepEqual(got.NominalPolicy, map[string]int{"advance_floor": 22, "space_advance": 14, "missing_advance": 23, "max_words_including_end": 100}) ||
+					!reflect.DeepEqual(rows, want.Rows) || !reflect.DeepEqual(got.Summaries["names"], want.Summary) {
+					actual, _ := json.Marshal(got)
+					t.Fatalf("independent cohort measurement differs %s: %s", fixture.Name, actual)
+				}
+				blob := sidecarData
+				if len(blob) != 0 && (got.BlobSize != int64(len(blob)) || got.BlobSHA256 != fmt.Sprintf("%x", sha256.Sum256(blob))) {
+					t.Fatal("cohort sidecar identity", fixture.Name)
+				}
+				if want.SourceTarget != "" {
+					flow, exists := got.SourcePolicy[want.SourceTarget]
+					if want.RawIndexStatus != "" && flow.RawIndexStatus != want.RawIndexStatus {
+						t.Fatal("cohort limited raw-index state", fixture.Name, flow.RawIndexStatus, want.RawIndexStatus)
+					}
+					if !exists || flow.RawPointerSites == nil || !slices.Equal(*flow.RawPointerSites, want.SourcePointers) ||
+						!want.IgnorePairBucket && !slices.Equal(flow.ConstructedTargets, want.SourcePairs) || flow.CallerDisposition != want.CallerDisposition {
+						t.Fatal("cohort source-policy buckets", fixture.Name, flow)
+					}
+					for _, problem := range want.SourceProblems {
+						parts, found := strings.SplitN(problem, ":", 2), false
+						for _, issue := range flow.Diagnostics {
+							if strings.HasPrefix(issue, parts[0]+":") && (len(parts) == 1 || strings.HasSuffix(issue, ":"+parts[1])) {
+								found = true
+							}
+						}
+						if !found {
+							t.Fatal("cohort known source problem lost", fixture.Name, problem, flow.Diagnostics)
+						}
+					}
+					for _, issue := range want.RequiredDiagnostics {
+						if !slices.Contains(flow.Diagnostics, issue) {
+							t.Fatal("cohort required hold", fixture.Name, issue, flow.Diagnostics)
+						}
+					}
+					for _, group := range []struct {
+						Values []string
+						Prefix bool
+					}{{want.RequiredPrefixes, true}, {want.RequiredSubstrings, false}} {
+						for _, value := range group.Values {
+							found := false
+							for _, issue := range flow.Diagnostics {
+								if group.Prefix && strings.HasPrefix(issue, value) || !group.Prefix && strings.Contains(issue, value) {
+									found = true
+								}
+							}
+							if !found {
+								t.Fatal("cohort required incomplete fact", fixture.Name, value, flow.Diagnostics)
+							}
+						}
+					}
+				}
+				// Source-policy graph details retain their independent existing owners' oracles.
+				// This fixture asserts measured rows and known source buckets, never invented graph parity.
+				actualInstructions = fixture.Expected.Instructions
+			}
 			if bundle.Member == "reference-owner.json" {
 				if fixture.OwnerScope != "exact requested row.flow objects and exact authoritative register_flow group only; legacy advisory oracle separate" || got.InstructionIndex == nil || fixture.ExpectedGraph == nil || !reflect.DeepEqual(got.InstructionIndex.RegisterFlow, fixture.ExpectedGraph) {
 					t.Fatal("reference owner authoritative graph", fixture.Name, got.InstructionIndex)
@@ -3978,6 +4407,87 @@ func TestCLIDryRunAndApply(t *testing.T) {
 					t.Fatal("register flow changed decoded facts", fixture.Name)
 				}
 				actualInstructions = fixture.Expected.Instructions
+			}
+			if fixture.ExpectedScope == "consumer_policy_semantic_group_only" {
+				var consumers map[string]ReferenceConsumerAssessment
+				for _, row := range got.Queries["selected"] {
+					if row.ID == "0x100400" && row.Flow != nil {
+						consumers = row.Flow.Consumers
+					}
+				}
+				if !reflect.DeepEqual(consumers, fixture.ExpectedConsumers) || got.InstructionIndex == nil || got.InstructionIndex.RegisterFlow == nil || fixture.ExpectedConsumerQuery == nil {
+					t.Fatal("independent consumer policy differs", fixture.Name, consumers)
+				}
+				for _, assessment := range consumers {
+					actual := got.InstructionIndex.RegisterFlow.Queries[assessment.Query]
+					if !reflect.DeepEqual(&actual, fixture.ExpectedConsumerQuery) {
+						t.Fatal("independent consumer event query differs", fixture.Name, actual)
+					}
+				}
+				actualInstructions = fixture.Expected.Instructions
+			}
+			if fixture.Reorder || bundle.Member == "pointer-consumers.json" && slices.Contains([]string{"diamond-alias-arrives-later", "loop-alias-revisits-header", "frame-disagreement-at-join"}, fixture.Name) {
+				for _, ordering := range []string{"paths", "entries", "both"} {
+					var profile Recipes
+					if err := json.Unmarshal(fixture.Profile, &profile); err != nil {
+						t.Fatal(err)
+					}
+					if ordering != "paths" {
+						slices.Reverse(profile.RegisterFlow.EntryVMAs)
+					}
+					facts, err := indexInstructions(body, profile)
+					if err != nil {
+						t.Fatal(err)
+					}
+					if ordering != "entries" {
+						for i := range facts.InstructionIndex.Instructions {
+							if control := facts.InstructionIndex.Instructions[i].Control; control != nil {
+								slices.Reverse(control.PossiblePaths)
+							}
+						}
+					}
+					reversed, err := queryRegisterFlow(facts.InstructionIndex.Instructions, *profile.RegisterFlow)
+					if err != nil || !reflect.DeepEqual(&reversed, fixture.Expected.Instructions.RegisterFlow) {
+						t.Fatal("consumer result depends on worklist order", fixture.Name, ordering, err, reversed)
+					}
+				}
+			}
+			if bundle.Member == "pointer-containers.json" && fixture.Name == "container-converged8" {
+				var profile Recipes
+				if err := json.Unmarshal(fixture.Profile, &profile); err != nil || len(containerFacts.InterruptionLimits) != 5 {
+					t.Fatal("independent interruption fixture", err)
+				}
+				facts, err := indexInstructions(body, profile)
+				if err != nil {
+					t.Fatal(err)
+				}
+				// Literal eight-state taken/untaken graph from the independent oracle.
+				graph := []registerFlowNode{
+					{registerExecution: registerExecution{row: 0, controller: -1, path: -1}, successors: []int{1}},
+					{registerExecution: registerExecution{row: 1, controller: -1, path: -1}, successors: []int{2}},
+					{registerExecution: registerExecution{row: 2, controller: -1, path: -1}, successors: []int{3}},
+					{registerExecution: registerExecution{row: 3, controller: -1, path: -1}, successors: []int{4, 5}},
+					{registerExecution: registerExecution{row: 4, controller: 3, path: 0}},
+					{registerExecution: registerExecution{row: 4, controller: 3, path: 1}, successors: []int{6}},
+					{registerExecution: registerExecution{row: 5, controller: -1, path: -1}, successors: []int{7}},
+					{registerExecution: registerExecution{row: 6, controller: 5, path: -1}},
+				}
+				for _, limit := range containerFacts.InterruptionLimits {
+					query := profile.RegisterFlow.Queries["seed"]
+					query.MaxVisitedStates = limit.Query
+					events, reasons, work := tracePointerConsumers(facts.InstructionIndex.Instructions, graph, []int{0}, query, "seed", limit.Batch)
+					slices.Sort(reasons)
+					reasons = slices.Compact(reasons)
+					wantEvents := []PointerConsumerEvent{}
+					for _, event := range fixture.Expected.Instructions.RegisterFlow.Queries["seed"].Consumer.Events {
+						if event.Kind != "stack_container_argument" || limit.NewEvent {
+							wantEvents = append(wantEvents, event)
+						}
+					}
+					if work != limit.Work || !reflect.DeepEqual(events, wantEvents) || !reflect.DeepEqual(reasons, limit.Reasons) {
+						t.Fatal("pointer interruption changed legacy facts or budget precedence", limit, work, events, reasons)
+					}
+				}
 			}
 			if !reflect.DeepEqual(actualInstructions, fixture.Expected.Instructions) || !reflect.DeepEqual(got.GPIndex, fixture.Expected.Index) || !reflect.DeepEqual(got.RegisterInfo, fixture.Expected.RegisterInfo) {
 				actual, _ := json.Marshal(struct {
@@ -4087,6 +4597,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 				}
 				// Isolate FIFO opens in an owned CLI process so a regression cannot hang the suite.
 				cliPath := filepath.Join(caseDir, "input-check-cli")
+				inputCLIPath = cliPath
 				buildContext, cancelBuild := context.WithTimeout(context.Background(), 90*time.Second)
 				build := exec.CommandContext(buildContext, "go", "build", "-p", "2", "-o", cliPath, ".")
 				build.Env = append(os.Environ(), "GOMAXPROCS=2")
@@ -4206,9 +4717,12 @@ func TestCLIDryRunAndApply(t *testing.T) {
 						t.Fatal("register flow wire cut missing", cut.Before)
 					}
 					wire := strings.Replace(string(compact), cut.Before, cut.After, 1)
-					out.Reset()
-					if err := run([]string{"--source", sourcePath, "--recipes", write(filepath.Join(caseDir, "invalid.json"), []byte(wire))}, &out); err == nil || out.Len() != 0 {
-						t.Fatal("register flow schema refusal", cut.Before, err)
+					for _, kind := range []string{"uses_after", "reads_before_kill"} {
+						invalid := strings.ReplaceAll(wire, `"kind":"uses_after"`, `"kind":"`+kind+`"`)
+						out.Reset()
+						if err := run([]string{"--source", sourcePath, "--recipes", write(filepath.Join(caseDir, "invalid.json"), []byte(invalid))}, &out); err == nil || out.Len() != 0 {
+							t.Fatal("register flow schema refusal", kind, cut.Before, err)
+						}
 					}
 				}
 				for _, operation := range []string{"reference_gp_index", "reference_observed", "reference_candidates", "elf_layout", "words", "reuse_table"} {
@@ -4313,11 +4827,36 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			caseDir := t.TempDir()
 			var out bytes.Buffer
 			args := []string{"--source", write(filepath.Join(caseDir, "source.elf"), body), "--recipes", write(filepath.Join(caseDir, "profile.json"), wire)}
-			if bundle.Member == "reference-owner.json" {
+			if bundle.Member == "reference-owner.json" || bundle.Member == "pointer-consumer-policy.json" {
 				args = append(args, "--registry", write(filepath.Join(caseDir, "registry.json"), []byte(fixture.RegistryText)), "--glyphmap", write(filepath.Join(caseDir, "glyphmap.json"), []byte(fixture.GlyphmapText)))
 			}
-			if err := run(args, &out); err == nil || out.Len() != 0 {
-				t.Fatal("instruction index refusal accepted", fixture.Name, err)
+			inputBytes := map[string][]byte{args[1]: body, args[3]: wire}
+			if fixture.SidecarHex != "" {
+				blob, err := hex.DecodeString(fixture.SidecarHex)
+				if err != nil {
+					t.Fatal(err)
+				}
+				path := write(filepath.Join(caseDir, "sentinel.bin"), blob)
+				inputBytes[path] = blob
+			}
+			beforeInputs := make(map[string]os.FileInfo)
+			for path := range inputBytes {
+				info, err := os.Stat(path)
+				if err != nil {
+					t.Fatal(err)
+				}
+				beforeInputs[path] = info
+			}
+			err = run(args, &out)
+			if err == nil || out.Len() != 0 || bundle.Member == "cohort-report.json" && !strings.Contains(err.Error(), fixture.Expected) {
+				t.Fatal("instruction index refusal accepted or differs", fixture.Name, err, fixture.Expected)
+			}
+			for path, expected := range inputBytes {
+				after, readErr := os.ReadFile(path)
+				info, statErr := os.Stat(path)
+				if readErr != nil || statErr != nil || !bytes.Equal(after, expected) || !os.SameFile(beforeInputs[path], info) || beforeInputs[path].ModTime() != info.ModTime() {
+					t.Fatal("reference refusal changed input", fixture.Name, path, readErr, statErr)
+				}
 			}
 		}
 	}
@@ -4554,9 +5093,9 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			// Alpha is nonnegative: core fill restores the complete rectangle after closing.
 			allPixels := [][]RasterSelection{{{Above: map[string]float64{"alpha": -1}}}}
 			coreGrowth := 0
-			programPermissions.Masks.Allow = append(programPermissions.Masks.Allow, RasterFootprint{Rect: rect, SampleRect: rect, Any: allPixels, Core: &allPixels, CoreGrow: &coreGrowth, Close: 1, Fill: "core", MinimumSize: 1, Components: &RasterComponentFilter{Connectivity: 8, Seeds: &[][]int{{rect[0], rect[1]}}, Reject: &[][]RasterSelection{{{Above: map[string]float64{"alpha": 255}}}}}, Clip: rect})
+			programPermissions.Masks.Allow = append(programPermissions.Masks.Allow, RasterFootprint{Rect: rect, SampleRect: rect, Kernel: "square", Any: allPixels, Core: &allPixels, CoreGrow: &coreGrowth, Close: 1, Fill: "core", MinimumSize: 1, Components: &RasterComponentFilter{Connectivity: 8, Seeds: &[][]int{{rect[0], rect[1]}}, Reject: &[][]RasterSelection{{{Above: map[string]float64{"alpha": 255}}}}}, Grow: 1, GrowThrough: &[][]RasterSelection{}, Clip: rect})
 			// An eroded label-zero region is contained in the already allowed rectangle.
-			programPermissions.Masks.Allow = append(programPermissions.Masks.Allow, RasterFootprint{Rect: rect, Any: [][]RasterSelection{}, Fill: "holes", Components: &RasterComponentFilter{Connectivity: 4, Seeds: &[][]int{{rect[0], rect[1]}}, BackgroundSeed: "label-zero"}, Erode: 1})
+			programPermissions.Masks.Allow = append(programPermissions.Masks.Allow, RasterFootprint{Rect: rect, Any: [][]RasterSelection{}, Fill: "holes", Components: &RasterComponentFilter{Connectivity: 4, Seeds: &[][]int{{rect[0], rect[1]}}, BackgroundSeed: "label-zero"}, Kernel: "square", Erode: 1})
 		}
 		programTable, err := json.Marshal(programPermissions)
 		if err != nil {
@@ -4581,6 +5120,34 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		programArtifact, err := os.ReadFile(programOutput)
 		if err != nil || !bytes.Equal(programArtifact, files["native/expected-native.txd"]) {
 			t.Fatal("mask-program representation changed source native golden", err)
+		}
+		for _, kernel := range []string{"", "cross", "square"} {
+			for i := range programPermissions.Masks.Allow {
+				programPermissions.Masks.Allow[i].Kernel = kernel
+			}
+			programFields["masks"], _ = json.Marshal(programPermissions.Masks)
+			programFields["erases"], _ = json.Marshal(composition.Reconstruction.Erases)
+			render := programProfile["render"].(map[string]any)
+			delete(render, "permissions")
+			render["reconstruction"] = programFields
+			inlineWire, err := json.Marshal(programProfile)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if kernel == "" {
+				inlineWire = bytes.ReplaceAll(inlineWire, []byte(`"any":`), []byte(`"kernel":"","any":`))
+			}
+			inlineArgs := slices.Clone(sharedArgs)
+			inlineArgs[3] = write(filepath.Join(nativeDir, "inline-program-profile.json"), inlineWire)
+			inlineOutput := filepath.Join(nativeDir, "inline-program-"+kernel+".txd")
+			sharedReport.Reset()
+			if err := run(append(inlineArgs, "--apply", "--output", inlineOutput), &sharedReport); err != nil {
+				t.Fatal("inline morphology kernel", kernel, err)
+			}
+			artifact, err := os.ReadFile(inlineOutput)
+			if err != nil || !bytes.Equal(artifact, files["native/expected-native.txd"]) {
+				t.Fatal("inline kernel changed source native golden", kernel, err)
+			}
 		}
 		for _, mutation := range []string{"path", "empty path", "size", "zero size", "large size", "pin", "bad pin", "inline empty", "missing reconstruction", "null without reconstruction"} {
 			var bad map[string]any
@@ -4636,8 +5203,33 @@ func TestCLIDryRunAndApply(t *testing.T) {
 				t.Fatal("shared permission wire refusal", cut.Name, err)
 			}
 		}
+		permissionErases, err := json.Marshal(composition.Reconstruction.Erases)
+		if err != nil {
+			t.Fatal(err)
+		}
 		for _, table := range []string{`null`, `[]`, `{}`, `{"allow":null}`, `{"allow":[]}`, `{"Allow":[[0,0,1,1]]}`, `{"allow":[],"allow":[[0,0,1,1]]}`, `{"allow":[[0,0,1,1]],"erases":[]}`, `{"allow":[[0,0,1,1]],"permissions":{}}`, `{"allow":[[0,0,1,1]],"bogus":0}`, `{"allow":[[0,0,1]]}`, `{"allow":[[-1,0,1,1]]}`, `{"allow":[[0,0,1,1]]} {}`,
 			`{"masks":null}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":null}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":{}}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"Grow_Through":[]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":[],"grow_through":[[]]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":[[{"Above":{"alpha":0}}]]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":[[{"above":{"ALPHA":0}}]]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":[[{"above":{"alpha":0},"above":{"alpha":1}}]]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":1,"grow_through":[[{"unknown":1}]]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"grow_through":[]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":-1,"grow_through":[[]]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":null}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":1}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":true}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":[]}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":{}}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":"diamond"}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":"Square"}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":" square"}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"Kernel":"square"}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":"cross","kernel":"square"}]}}`,
+			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"kernel":"cross","Kernel":"square"}]}}`,
 			`{"masks":{"Allow":[]}}`,
 			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"proof":true}]}}`,
 			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"grow":0}]}}`,
@@ -4675,15 +5267,28 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"components":{"connectivity":4,"seeds":[[0,0]],"background_seed":"label-zero","reject":[]}}]}}`,
 			`{"masks":{"allow":[{"rect":[0,0,1,1],"any":[[]],"fill":"none","grow":0,"minimum_size":1,"components":{"connectivity":4,"seeds":[[0,0]],"background_seed":"label-zero"}}]}}`,
 		} {
-			var bad map[string]any
-			_ = json.Unmarshal(sharedWire, &bad)
-			bad["render"].(map[string]any)["permissions"] = RegistryInput{Path: write(filepath.Join(nativeDir, "bad-table.json"), []byte(table)), Size: int64(len(table)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(table)))}
-			wire, _ := json.Marshal(bad)
-			call := slices.Clone(sharedArgs)
-			call[3] = write(filepath.Join(nativeDir, "bad-table-profile.json"), wire)
-			sharedReport.Reset()
-			if err := run(call, &sharedReport); err == nil || sharedReport.Len() != 0 {
-				t.Fatal("shared table grammar refusal", table, err)
+			modes := []string{"resource"}
+			if strings.Contains(strings.ToLower(table), "kernel") || strings.Contains(strings.ToLower(table), "grow_through") {
+				modes = append(modes, "inline")
+			}
+			for _, mode := range modes {
+				var bad map[string]any
+				_ = json.Unmarshal(sharedWire, &bad)
+				render := bad["render"].(map[string]any)
+				if mode == "inline" {
+					// Retain raw footprint keys so duplicate and alias refusals reach the inline loader.
+					delete(render, "permissions")
+					render["reconstruction"] = json.RawMessage(strings.TrimSuffix(table, "}") + `,"erases":` + string(permissionErases) + `}`)
+				} else {
+					render["permissions"] = RegistryInput{Path: write(filepath.Join(nativeDir, "bad-table.json"), []byte(table)), Size: int64(len(table)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(table)))}
+				}
+				wire, _ := json.Marshal(bad)
+				call := slices.Clone(sharedArgs)
+				call[3] = write(filepath.Join(nativeDir, "bad-table-profile.json"), wire)
+				sharedReport.Reset()
+				if err := run(call, &sharedReport); err == nil || sharedReport.Len() != 0 {
+					t.Fatal("permission table grammar refusal", mode, table, err)
+				}
 			}
 		}
 		textProfilePath := "profiles/textures/help00-turn-order.json"
@@ -7876,7 +8481,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 					t.Fatal("bound refusal must carry actual variant pins", refusal.Name)
 				}
 				if example.folder == "gp-audit" && slices.Contains([]string{"missing-reginfo", "duplicate-reginfo", "reginfo-size20"}, refusal.Name) {
-					facts, err := references(data, registry, nil, Recipes{Operation: "reference_observed", SourceSize: int64(len(data)), SourceSHA256: bad.Sources["observed"].SHA256, ScopeSHA256: bad.Sources["registry"].SHA256, RegistryPatchRef: bad.ObservedFamily, Evidence: bad.Evidence})
+					facts, err := references(data, registry, nil, nil, Recipes{Operation: "reference_observed", SourceSize: int64(len(data)), SourceSHA256: bad.Sources["observed"].SHA256, ScopeSHA256: bad.Sources["registry"].SHA256, RegistryPatchRef: bad.ObservedFamily, Evidence: bad.Evidence})
 					if err != nil || len(facts.Queries[bad.ObservedFamily]) != 3 || facts.Summaries[bad.ObservedFamily].FailedSites != 4 {
 						t.Fatal("invalid GP metadata discarded reference observations", refusal.Name, err)
 					}
@@ -9805,6 +10410,101 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			if report["palette_policy"] != "preserve" || c.Policy != "" && report["pixel_policy"] != c.Policy {
 				t.Fatal("raster policy report mislabeled")
 			}
+			if c.Name == "raw32-rgba-v2_16x16" {
+				oracle, err := os.ReadFile("testdata/constrained-growth.json")
+				var witness struct {
+					CLI struct {
+						TemplateSHA     string `json:"template_sha256"`
+						SourceSHA       string `json:"source_sha256"`
+						OutputSHA       string `json:"output_sha256"`
+						UnrestrictedSHA string `json:"unrestricted_sha256"`
+						PixelOffset     int    `json:"pixel_offset"`
+						Pixels          []string
+						Colors          map[string][4]byte
+						Spec            RasterFootprint
+						Want            []string
+						Unrestricted    []string
+					}
+				}
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(oracle)) != "240167fc73342258689247892fa68ad49ed8e28ec496eb2d1fd400e0bda4f0a1" || json.Unmarshal(oracle, &witness) != nil || fmt.Sprintf("%x", sha256.Sum256(source)) != witness.CLI.TemplateSHA || witness.CLI.PixelOffset != 300 || len(source) != 1364 {
+					t.Fatal("independent CLI growth-admission oracle", err)
+				}
+				// This calibrated direct layout is row-major; preserve its complete native envelope.
+				carrier := bytes.Clone(source)
+				white := witness.CLI.Colors["W"]
+				for at := 0; at < 16*16; at++ {
+					copy(carrier[300+4*at:], white[:])
+				}
+				for y, row := range witness.CLI.Pixels {
+					for x, key := range row {
+						pixel := witness.CLI.Colors[string(key)]
+						copy(carrier[300+4*(y*16+x):], pixel[:])
+					}
+				}
+				if fmt.Sprintf("%x", sha256.Sum256(carrier)) != witness.CLI.SourceSHA {
+					t.Fatal("CLI growth-admission source construction")
+				}
+				carrierPath := write(filepath.Join(assetDir, "growth-source.txd"), carrier)
+				beforeCarrier, err := os.Stat(carrierPath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				for _, variant := range []struct {
+					Name, SHA string
+					Rows      []string
+					Admit     bool
+				}{{"constrained", witness.CLI.OutputSHA, witness.CLI.Want, true}, {"unrestricted", witness.CLI.UnrestrictedSHA, witness.CLI.Unrestricted, false}} {
+					expected := bytes.Clone(carrier)
+					for y, row := range variant.Rows {
+						for x, value := range row {
+							if value == '#' {
+								copy(expected[300+4*(y*16+x):], []byte{7, 11, 13, 128})
+							}
+						}
+					}
+					if fmt.Sprintf("%x", sha256.Sum256(expected)) != variant.SHA || bytes.Equal(expected, carrier) {
+						t.Fatal("literal CLI growth-admission afterimage", variant.Name)
+					}
+					mask := witness.CLI.Spec
+					if !variant.Admit {
+						mask.GrowThrough = nil
+					}
+					masks := RasterPermissionMasks{Allow: []RasterFootprint{mask}}
+					erases := []RasterErase{{ID: "growth-admission", Rect: []int{0, 0, 7, 3}, Method: "flat", Fill: []int{7, 11, 13, 255}}}
+					permissionWire, _ := json.Marshal(map[string]any{"masks": masks})
+					permissionPath := write(filepath.Join(assetDir, "growth-permissions-"+variant.Name+".json"), permissionWire)
+					for _, route := range []string{"inline", "shared"} {
+						reconstruction := map[string]any{"erases": erases}
+						render := map[string]any{"reconstruction": reconstruction}
+						if route == "inline" {
+							reconstruction["masks"] = masks
+						} else {
+							render["permissions"] = RegistryInput{Path: permissionPath, Size: int64(len(permissionWire)), SHA256: fmt.Sprintf("%x", sha256.Sum256(permissionWire))}
+						}
+						profile := map[string]any{"source_sha256": witness.CLI.SourceSHA, "source_size": len(carrier), "texture": c.Texture, "pixel_policy": "rgba", "evidence": "Literal synthetic growth barrier; no artwork or game acceptance", "render": render}
+						profilePath := jsonFile(filepath.Join(assetDir, "growth-profile.json"), profile)
+						outputPath := filepath.Join(assetDir, "growth-"+variant.Name+"-"+route+".txd")
+						var outcome bytes.Buffer
+						if err := run([]string{"--source", carrierPath, "--texture-profile", profilePath, "--apply", "--output", outputPath}, &outcome); err != nil {
+							t.Fatal("CLI growth-admission route", variant.Name, route, err)
+						}
+						actual, err := os.ReadFile(outputPath)
+						if err != nil || !bytes.Equal(actual, expected) {
+							t.Fatal("CLI ignored growth admission or changed unrelated native bytes", variant.Name, route, err)
+						}
+						for path, want := range map[string][]byte{carrierPath: carrier, permissionPath: permissionWire} {
+							actual, err := os.ReadFile(path)
+							if err != nil || !bytes.Equal(actual, want) {
+								t.Fatal("CLI growth admission mutated its input", variant.Name, route, path, err)
+							}
+						}
+						info, err := os.Stat(carrierPath)
+						if err != nil || !os.SameFile(beforeCarrier, info) || beforeCarrier.ModTime() != info.ModTime() {
+							t.Fatal("CLI growth admission replaced its input", variant.Name, route, err)
+						}
+					}
+				}
+			}
 			if c.Name == "std8" {
 				// Independent known fixture offsets build a second native, not a second parser.
 				if len(source) != 263576 || binary.LittleEndian.Uint32(source[28:]) != 0x15 || binary.LittleEndian.Uint32(source[120:]) != 1 {
@@ -10807,6 +11507,169 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		var repeat bytes.Buffer
 		if err := run(args, &repeat); err != nil || !bytes.Equal(output.Bytes(), repeat.Bytes()) {
 			t.Fatalf("fit report is not deterministic: %v", err)
+		}
+		{
+			files := bundledFixtures["testdata/native-ink-fixture.zip"]
+			var inkFixture struct {
+				Profile FitProfile
+				Cases   []struct {
+					Name     string
+					Expected struct {
+						InkStatus    string     `json:"ink_status"`
+						InkBounds    [][][4]int `json:"ink_bounds"`
+						LineAdvances [][]int    `json:"line_advances"`
+					}
+				}
+			}
+			if err := json.Unmarshal(files["native-ink.json"], &inkFixture); err != nil || len(inkFixture.Cases) != 22 {
+				t.Fatal("independent native ink fixture", err)
+			}
+			inkDir := t.TempDir()
+			inkSource := write(filepath.Join(inkDir, "source.elf"), files["source.elf"])
+			inkGlyphs := write(filepath.Join(inkDir, "glyphmap.json"), files["glyphmap.json"])
+			atlasPath := write(filepath.Join(inkDir, "source.txd"), files["source.txd"])
+			inkProfilePath, inkRegistryPath := filepath.Join(inkDir, "fit.json"), filepath.Join(inkDir, "registry.json")
+			inkArgs := []string{"--source", inkSource, "--glyphmap", inkGlyphs, "--registry", inkRegistryPath, "--fit-profile", inkProfilePath}
+			var firstProfile FitProfile
+			for i, c := range inkFixture.Cases {
+				profileBytes := files[fmt.Sprintf("baseline/%02d/profile.json", i)]
+				registryBytes := files[fmt.Sprintf("baseline/%02d/registry.json", i)]
+				want := files[fmt.Sprintf("baseline/%02d/stdout.json", i)]
+				write(inkProfilePath, profileBytes)
+				write(inkRegistryPath, registryBytes)
+				var oldOutput bytes.Buffer
+				if err := run(inkArgs, &oldOutput); err != nil || !bytes.Equal(oldOutput.Bytes(), want) {
+					t.Fatal("pre-edit complete no-atlas report changed", c.Name, err)
+				}
+				var selected FitProfile
+				if err := json.Unmarshal(profileBytes, &selected); err != nil {
+					t.Fatal(err)
+				}
+				atlas := *inkFixture.Profile.InkAtlas
+				selected.InkAtlas = &atlas
+				jsonFile(inkProfilePath, selected) // Atlas path resolves beside this profile, not the process cwd.
+				var measured bytes.Buffer
+				var inkReport, oldReport FitReport
+				if err := run(inkArgs, &measured); err != nil || json.Unmarshal(measured.Bytes(), &inkReport) != nil || json.Unmarshal(want, &oldReport) != nil || len(inkReport.Entries) != 1 {
+					t.Fatal("native ink report", c.Name, err, measured.String())
+				}
+				row := inkReport.Entries[0]
+				if inkReport.InkAtlasSHA256 != atlas.SHA256 || inkReport.InkAtlasSize != atlas.Size || row.InkStatus != c.Expected.InkStatus || !reflect.DeepEqual(row.InkBounds, c.Expected.InkBounds) || c.Expected.LineAdvances != nil && !reflect.DeepEqual(row.LineWidths, c.Expected.LineAdvances) {
+					t.Fatal("independent native source-grid bounds", c.Name, row)
+				}
+				if row.InkStatus == "unknown" && row.InkBounds != nil {
+					t.Fatal("symbolic origin was reported complete", c.Name)
+				}
+				row.InkStatus, row.InkBounds, row.InkDiagnostic = "", nil, ""
+				if !reflect.DeepEqual(row, oldReport.Entries[0]) {
+					t.Fatal("atlas measurement changed old pen/encoding facts", c.Name)
+				}
+				for path, expected := range map[string][]byte{inkSource: files["source.elf"], inkGlyphs: files["glyphmap.json"], atlasPath: files["source.txd"], inkRegistryPath: registryBytes} {
+					got, err := os.ReadFile(path)
+					if err != nil || !bytes.Equal(got, expected) {
+						t.Fatal("ink measurement changed input", path, err)
+					}
+				}
+				if i == 0 {
+					firstProfile = selected
+				}
+			}
+			write(inkRegistryPath, files["baseline/00/registry.json"])
+			for _, refusal := range []string{"missing path", "directory", "FIFO", "wrong size", "wrong hash", "missing font2", "duplicate font0", "wrong dimensions", "wrong format", "bad page metadata"} {
+				bad := firstProfile
+				atlas := *firstProfile.InkAtlas
+				bad.InkAtlas = &atlas
+				data := bytes.Clone(files["source.txd"])
+				switch refusal {
+				case "missing path":
+					atlas.Path = "absent.txd"
+				case "directory":
+					atlas.Path = inkDir
+				case "FIFO":
+					atlas.Path = filepath.Join(inkDir, "owned-ink.fifo")
+					if output, err := exec.Command("mkfifo", atlas.Path).CombinedOutput(); err != nil {
+						t.Fatal(err, string(output))
+					}
+				case "wrong size":
+					atlas.Size++
+				case "wrong hash":
+					atlas.SHA256 = strings.Repeat("0", 64)
+				default:
+					index, err := indexTextures(data)
+					if err != nil {
+						t.Fatal(err)
+					}
+					switch refusal {
+					case "missing font2":
+						at := bytes.Index(data, []byte("font2\x00"))
+						copy(data[at:at+5], "fontX")
+					case "duplicate font0":
+						at := bytes.Index(data, []byte("font2\x00"))
+						copy(data[at:at+5], "font0")
+					case "wrong dimensions":
+						entry := index.Textures[index.byName["font2"][0]]
+						binary.LittleEndian.PutUint32(data[entry.infoStart:], 256)
+					case "wrong format":
+						entry := index.Textures[index.byName["font2"][0]]
+						binary.LittleEndian.PutUint32(data[entry.infoStart+8:], 8)
+					case "bad page metadata":
+						entry := index.Textures[index.byName["font2"][0]]
+						binary.LittleEndian.PutUint32(data[entry.infoStart+0x30:], 1)
+					}
+					atlas.Path = write(filepath.Join(inkDir, strings.ReplaceAll(refusal, " ", "-")+".txd"), data)
+					atlas.Size, atlas.SHA256 = int64(len(data)), fmt.Sprintf("%x", sha256.Sum256(data))
+				}
+				jsonFile(inkProfilePath, bad)
+				if refusal == "FIFO" {
+					guardContext, cancelGuard := context.WithTimeout(context.Background(), 3*time.Second)
+					command := exec.CommandContext(guardContext, inputCLIPath, inkArgs...)
+					command.Env = append(os.Environ(), "GOMAXPROCS=2")
+					command.WaitDelay = time.Second
+					var stdout, stderr bytes.Buffer
+					command.Stdout, command.Stderr = &stdout, &stderr
+					err := command.Run()
+					deadline := guardContext.Err()
+					cancelGuard()
+					if err == nil || deadline != nil || stdout.Len() != 0 || !strings.Contains(stderr.String(), "bounded regular file") {
+						t.Fatal("atlas FIFO blocked or escaped admission", err, deadline, stdout.String(), stderr.String())
+					}
+					continue
+				}
+				var refused bytes.Buffer
+				if err := run(inkArgs, &refused); err == nil || refused.Len() != 0 {
+					t.Fatal("native atlas admission", refusal, err)
+				}
+			}
+			valid := jsonFile(inkProfilePath, firstProfile)
+			validWire, err := os.ReadFile(valid)
+			if err != nil {
+				t.Fatal(err)
+			}
+			atlasWire, err := json.Marshal(firstProfile.InkAtlas)
+			if err != nil {
+				t.Fatal(err)
+			}
+			for _, cut := range []struct{ Before, After string }{
+				{`"ink_atlas":` + string(atlasWire), `"ink_atlas":null`},
+				{`"ink_atlas":`, `"Ink_Atlas":`},
+				{`"path":"source.txd"`, `"Path":"source.txd"`},
+				{`"path":"source.txd"`, `"path":"source.txd","path":"source.txd"`},
+				{`"path":"source.txd"`, `"path":"source.txd","bbox":[0,0,1,1]`},
+			} {
+				if !strings.Contains(string(validWire), cut.Before) {
+					t.Fatal("atlas wire cut missing", cut.Before)
+				}
+				write(inkProfilePath, []byte(strings.Replace(string(validWire), cut.Before, cut.After, 1)))
+				var refused bytes.Buffer
+				if err := run(inkArgs, &refused); err == nil || refused.Len() != 0 {
+					t.Fatal("native atlas JSON refusal", cut.Before, err)
+				}
+			}
+			for _, options := range []TextScanOptions{{Terminated: true, Advances: map[uint16]int{1: -2}, InkBounds: map[uint16][4]int{1: {}}}, {InkBounds: map[uint16][4]int{1: {}}}} {
+				if _, err := controls([]byte{1, 0, 0, 0xf8}, options); err == nil {
+					t.Fatal("invalid supplied native measurement policy accepted")
+				}
+			}
 		}
 		{
 			// Literal oracles were frozen independently of the encoder and LINE-count implementation.
@@ -14214,7 +15077,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		mismatched := bytes.Replace(canonical, []byte(`"jp":"A"`), []byte(`"jp":"Z"`), 1)
 		mismatchPolicy := profile
 		mismatchPolicy.ScopeSHA256 = fmt.Sprintf("%x", sha256.Sum256(mismatched))
-		advisory, err := references(data, mismatched, glyphData, mismatchPolicy)
+		advisory, err := references(data, mismatched, glyphData, nil, mismatchPolicy)
 		if err != nil || advisory.Summaries["sample"].ContentMismatches != 1 || advisory.Summaries["unlanded"].ContentMismatches != 1 || advisory.Summaries["sample"].Resolved != 6 {
 			t.Fatalf("content mismatches must remain advisory: %#v, %v", advisory, err)
 		}
@@ -14265,7 +15128,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			registryBytes, _ := json.Marshal(document)
 			policy := profile
 			policy.ScopeSHA256 = fmt.Sprintf("%x", sha256.Sum256(registryBytes))
-			got, err := references(data, registryBytes, glyphData, policy)
+			got, err := references(data, registryBytes, glyphData, nil, policy)
 			if name == "field overflow" || name == "invalid offset" {
 				if err == nil {
 					t.Fatalf("reference ownership accepted %s", name)
@@ -14319,7 +15182,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			if bad.References != nil {
 				bad.References.Queries["sample"] = q
 			}
-			if _, err := references(data, registryBytes, glyphData, bad); err == nil {
+			if _, err := references(data, registryBytes, glyphData, nil, bad); err == nil {
 				t.Fatalf("reference report accepted %s", name)
 			}
 		}
@@ -14344,6 +15207,247 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		imageProfile.References = profile.References
 		if _, err := plan([]Recipes{imageProfile}, reg, glyphs, bytes.NewReader(source)); err == nil {
 			t.Fatal("reference discovery leaked into guarded image planning")
+		}
+	}
+	{
+		// The literal oracle and whole synthetic hashes predate recipe generation.
+		literal, err := os.ReadFile("testdata/name-policy-2026-10-22.json")
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(literal)) != "e664cc8d18c3bcd20395454a89dda59bbcae8ddec311aa24ca400c31938b2b8e" {
+			t.Fatal("name-policy independent literal identity", err)
+		}
+		var oracle struct {
+			CarrierSize   int    `json:"carrier_size"`
+			FillByte      byte   `json:"fill_byte"`
+			ISOOrigin     uint64 `json:"iso_origin"`
+			NativeDelta   uint64 `json:"native_delta"`
+			SentOffset    uint64 `json:"sent_offset"`
+			SentBase      uint64 `json:"sent_base"`
+			SourceSHA256  string `json:"source_sha256"`
+			OutputSHA256  string `json:"output_sha256"`
+			DeclaredBytes int    `json:"declared_bytes"`
+			ChangedBytes  int    `json:"changed_bytes"`
+			Records       []struct {
+				ID, Offset, Component string
+				CarrierOffset         int    `json:"carrier_offset"`
+				BeforeHex             string `json:"before_hex"`
+				AfterHex              string `json:"after_hex"`
+			}
+		}
+		if err := json.Unmarshal(literal, &oracle); err != nil || len(oracle.Records) != 11 || oracle.CarrierSize != 5087232 {
+			t.Fatal("name-policy literal selection", err)
+		}
+		before := bytes.Repeat([]byte{oracle.FillByte}, oracle.CarrierSize)
+		want := bytes.Clone(before)
+		selected := make(map[string]int)
+		declared, changed := 0, 0
+		for i, row := range oracle.Records {
+			id, idErr := strconv.ParseUint(row.ID, 0, 64)
+			isoOffset, offsetErr := strconv.ParseUint(row.Offset, 0, 64)
+			old, oldErr := hex.DecodeString(row.BeforeHex)
+			next, nextErr := hex.DecodeString(row.AfterHex)
+			at := id - oracle.NativeDelta
+			if row.Component == "sent" {
+				at = oracle.SentOffset + id - oracle.SentBase
+			} else if row.Component != "native" {
+				t.Fatal("unknown name-policy mapping", row.ID)
+			}
+			_, duplicate := selected[row.ID]
+			if idErr != nil || offsetErr != nil || oldErr != nil || nextErr != nil || duplicate || len(old) == 0 || len(old) != len(next) || len(old)%4 != 0 || at != uint64(row.CarrierOffset) || at+oracle.ISOOrigin != isoOffset || at+uint64(len(old)) > uint64(len(before)) {
+				t.Fatal("independent name-policy projection", row.ID)
+			}
+			selected[row.ID] = i
+			copy(before[at:], old)
+			copy(want[at:], next)
+			declared += len(old)
+		}
+		for i := range before {
+			if before[i] != want[i] {
+				changed++
+			}
+		}
+		if declared != 624 || changed != 161 || declared != oracle.DeclaredBytes || changed != oracle.ChangedBytes || fmt.Sprintf("%x", sha256.Sum256(before)) != oracle.SourceSHA256 || fmt.Sprintf("%x", sha256.Sum256(want)) != oracle.OutputSHA256 {
+			t.Fatal("complete independent name-policy carriers differ")
+		}
+		var tables [2]Recipes
+		for i, part := range []string{"native", "sent"} {
+			data, err := os.ReadFile("recipes/layout/name-policy-2026-10-22-" + part + ".json")
+			if err != nil || json.Unmarshal(data, &tables[i]) != nil || tables[i].SourceSHA256 != oracle.SourceSHA256 || tables[i].OutputSHA256 != oracle.OutputSHA256 || tables[i].SourceSize != int64(len(before)) {
+				t.Fatal("name-policy source/output binding", part, err)
+			}
+		}
+		if len(tables[0].Entries) != 9 || len(tables[1].Entries) != 2 {
+			t.Fatal("name-policy mapping partition")
+		}
+		glyphs := []byte(`{}`)
+		edits, err := plan(tables[:], Registry{}, glyphs, bytes.NewReader(before))
+		if err != nil || len(edits) != len(selected) {
+			t.Fatal("complete name-policy package", err)
+		}
+		seen := make(map[string]bool)
+		for _, edit := range edits {
+			i, found := selected[edit.ID]
+			row := oracle.Records[i]
+			if !found || seen[edit.ID] || edit.Offset != int64(row.CarrierOffset) || hex.EncodeToString(edit.Old) != row.BeforeHex || hex.EncodeToString(edit.New) != row.AfterHex {
+				t.Fatal("name-policy ID, mapping or word differs", edit.ID)
+			}
+			seen[edit.ID] = true
+		}
+		caseDir := t.TempDir()
+		sourcePath := write(filepath.Join(caseDir, "synthetic.bin"), before)
+		registryPath := jsonFile(filepath.Join(caseDir, "registry.json"), Registry{})
+		glyphPath := write(filepath.Join(caseDir, "glyphs.json"), glyphs)
+		inputInfo, err := os.Stat(sourcePath)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, order := range []int{0, 1} {
+			paths := []string{jsonFile(filepath.Join(caseDir, "native.json"), tables[0]), jsonFile(filepath.Join(caseDir, "sent.json"), tables[1])}
+			args := []string{"--source", sourcePath, "--registry", registryPath, "--glyphmap", glyphPath, "--recipes", paths[order], "--recipes", paths[1-order]}
+			output := filepath.Join(caseDir, fmt.Sprintf("complete-%d.bin", order))
+			var dry bytes.Buffer
+			if err := run(args, &dry); err != nil {
+				t.Fatal("name-policy dry run", err)
+			}
+			var report struct {
+				Expected string `json:"expected_output_sha256"`
+				Output   string `json:"output_sha256"`
+				Applied  bool
+			}
+			if json.Unmarshal(dry.Bytes(), &report) != nil || report.Expected != oracle.OutputSHA256 || report.Output != "" || report.Applied {
+				t.Fatal("name-policy dry-run binding", dry.String())
+			}
+			if _, err := os.Stat(output); !os.IsNotExist(err) {
+				t.Fatal("name-policy preview wrote output", err)
+			}
+			var applied bytes.Buffer
+			command := append(slices.Clone(args), "--apply", "--output", output)
+			if err := run(command, &applied); err != nil {
+				t.Fatal("name-policy synthetic apply", err)
+			}
+			actual, err := os.ReadFile(output)
+			if err != nil || !bytes.Equal(actual, want) || json.Unmarshal(applied.Bytes(), &report) != nil || report.Output != oracle.OutputSHA256 || !report.Applied {
+				t.Fatal("name-policy complete after-image", err)
+			}
+			var refused bytes.Buffer
+			if err := run(command, &refused); err == nil || refused.Len() != 0 {
+				t.Fatal("name-policy overwrite accepted", err)
+			}
+			preserved, err := os.ReadFile(output)
+			if err != nil || !bytes.Equal(preserved, want) {
+				t.Fatal("name-policy overwrite damaged output", err)
+			}
+		}
+		encodedTables, err := json.Marshal(tables)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for mutation := 0; mutation < len(oracle.Records)+15; mutation++ {
+			var bad [2]Recipes
+			if err := json.Unmarshal(encodedTables, &bad); err != nil {
+				t.Fatal(err)
+			}
+			input := before
+			parts := []int{0, 1}
+			name := fmt.Sprintf("old-byte-%d", mutation)
+			if mutation < len(oracle.Records) {
+				// Re-pin the changed carrier so each preimage, including the no-op, is exercised.
+				input = bytes.Clone(before)
+				input[oracle.Records[mutation].CarrierOffset] ^= 0x80
+				for i := range bad {
+					bad[i].SourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(input))
+				}
+			} else {
+				switch mutation - len(oracle.Records) {
+				case 0:
+					name = "unrelated-source-byte"
+					input = bytes.Clone(before)
+					input[0] ^= 1
+				case 1:
+					name = "partial-state"
+					input = bytes.Clone(before)
+					row := oracle.Records[0]
+					next, _ := hex.DecodeString(row.AfterHex)
+					copy(input[row.CarrierOffset:], next)
+				case 2:
+					name = "source-size"
+					for i := range bad {
+						bad[i].SourceSize--
+					}
+				case 3:
+					name = "unaligned-map"
+					bad[0].ISOELFOffset = "0x1"
+				case 4:
+					name = "shifted-map"
+					bad[0].ISOELFOffset = "0x4"
+				case 5:
+					name = "outside-map"
+					bad[1].ISOELFOffset = "0x500000"
+				case 6:
+					name = "overlap-map"
+					bad[1].ISOELFOffset = "0xe60a4"
+				case 7:
+					name = "duplicate-ID"
+					bad[0].Entries["0X271004"] = bad[0].Entries["0x271004"]
+				case 8:
+					name = "mixed-source-pin"
+					bad[1].SourceSHA256 = strings.Repeat("0", 64)
+				case 9:
+					name = "mixed-output-pin"
+					bad[1].OutputSHA256 = strings.Repeat("0", 64)
+				case 10:
+					name = "wrong-output-pin"
+					for i := range bad {
+						bad[i].OutputSHA256 = strings.Repeat("0", 64)
+					}
+				case 11:
+					name = "native-only"
+					parts = []int{0}
+				case 12:
+					name = "sent-only"
+					parts = []int{1}
+				case 13:
+					name = "same-file-output"
+				case 14:
+					name = "truncated-word"
+					row := bad[0].Entries["0x271004"]
+					row.ExpectedHex = row.ExpectedHex[:6]
+					bad[0].Entries["0x271004"] = row
+				}
+			}
+			inputPath := write(filepath.Join(caseDir, name+"-input.bin"), input)
+			args := []string{"--source", inputPath, "--registry", registryPath, "--glyphmap", glyphPath}
+			for _, i := range parts {
+				args = append(args, "--recipes", jsonFile(filepath.Join(caseDir, fmt.Sprintf("%s-%d.json", name, i)), bad[i]))
+			}
+			output := filepath.Join(caseDir, name+"-refused.bin")
+			if name == "same-file-output" {
+				output = inputPath
+			}
+			if name == "native-only" || name == "sent-only" {
+				// A preview echoes the pin; only full copy readback proves package completeness.
+				var partial bytes.Buffer
+				if err := run(args, &partial); err != nil || !bytes.Contains(partial.Bytes(), []byte(oracle.OutputSHA256)) {
+					t.Fatal("name-policy partial preview contract", name, err)
+				}
+			}
+			var refused bytes.Buffer
+			if err := run(append(args, "--apply", "--output", output), &refused); err == nil || refused.Len() != 0 {
+				t.Fatal("name-policy refused case accepted", name, err)
+			}
+			if output != inputPath {
+				if _, err := os.Stat(output); !os.IsNotExist(err) {
+					t.Fatal("name-policy failed copy left output", name, err)
+				}
+			}
+			preserved, err := os.ReadFile(inputPath)
+			if err != nil || !bytes.Equal(preserved, input) {
+				t.Fatal("name-policy refusal changed input", name, err)
+			}
+		}
+		preserved, err := os.ReadFile(sourcePath)
+		afterInfo, statErr := os.Stat(sourcePath)
+		if err != nil || statErr != nil || !bytes.Equal(preserved, before) || !os.SameFile(inputInfo, afterInfo) || !inputInfo.ModTime().Equal(afterInfo.ModTime()) {
+			t.Fatal("name-policy source identity changed", err, statErr)
 		}
 	}
 	{
@@ -14496,13 +15600,540 @@ func TestRegistryWordingAndNewRecipeNeedsNoHandler(t *testing.T) {
 }
 
 func TestPilotHistoricalGoldenBytes(t *testing.T) {
-	for _, vector := range []struct {
+	{
+		var records struct {
+			Version       int
+			NativeBundles map[string]struct{ Path, SHA256 string } `json:"native_bundles"`
+			SharedArt     map[string]struct{ Path, SHA256 string } `json:"shared_source_art"`
+			Contracts     map[string]json.RawMessage
+			Approval      struct {
+				PNGs map[string]string `json:"approved_png_sha256"`
+			} `json:"approval_source"`
+			Witnesses map[string]struct {
+				Allowed struct {
+					Point        [2]int
+					SourceRGBA   [4]uint8 `json:"source_rgba"`
+					ApprovedRGBA [4]uint8 `json:"approved_rgba"`
+				} `json:"allowed_edit"`
+				Guard struct {
+					Kind             string
+					Point            [2]int
+					ApprovedRGBA     [4]uint8 `json:"approved_rgba"`
+					ReplacementPoint [2]int   `json:"replacement_source_point"`
+					ReplacementRGBA  [4]uint8 `json:"replacement_rgba"`
+				}
+				Geometry struct {
+					MaskPixels     int `json:"mask_pixels"`
+					CoarsePixels   int `json:"coarse_union_pixels"`
+					Holes          int `json:"interior_holes"`
+					MaskMismatches int `json:"mask_coarse_mismatches"`
+				}
+			} `json:"maintenance_witnesses"`
+			Held            map[string]json.RawMessage `json:"held_instances"`
+			HistoricalHolds map[string]struct {
+				State       string
+				Profile     json.RawMessage
+				ApprovedPNG RegistryInput `json:"approved_png"`
+				Resolution  struct{ Status, Instance string }
+			} `json:"historical_holds"`
+			Instances map[string]struct {
+				AssetID           string `json:"asset_id"`
+				Contract          string
+				SharedArt         string `json:"shared_source_art"`
+				Profile           struct{ Path, SHA256 string }
+				ApprovedSourceArt struct{ Path, SHA256 string } `json:"approved_source_art"`
+				Mask              struct {
+					Path, SHA256 string
+					RawSHA       string `json:"raw_sha256"`
+					Pixels       int
+				} `json:"exact_allowed_mask"`
+				Source struct {
+					Bundle, SHA256, Key string
+					BundleID            string `json:"bundle_id"`
+				} `json:"pristine_fixture"`
+				Expected struct {
+					Bundle, Key   string
+					BundleID      string `json:"bundle_id"`
+					BundleSHA     string `json:"bundle_sha256"`
+					NativeSHA     string `json:"native_sha256"`
+					SourceRGBA    string `json:"source_rgba_sha256"`
+					RGBA          string `json:"rgba_sha256"`
+					Bytes         int
+					NativeChanges int    `json:"changed_native_bytes"`
+					PixelChanges  int    `json:"changed_rgba_pixels"`
+					Outside       int    `json:"changed_rgba_outside_mask"`
+					PixelPayload  [2]int `json:"source_pixel_payload"`
+				} `json:"expected"`
+				Historical *struct {
+					Mask struct {
+						Path, SHA256 string
+						RawSHA       string `json:"raw_sha256"`
+						Pixels       int
+					}
+					Outside int `json:"observed_changed_rgba_outside_mask"`
+				} `json:"historical_contract"`
+				MaskProvenance *struct {
+					Historical RegistryInput `json:"historical_mask"`
+					UnionRect  []int         `json:"union_rectangle_xywh"`
+				} `json:"mask_provenance"`
+			}
+		}
+		recordData, err := os.ReadFile("recipes/artwork/fixed-instances.json")
+		if err != nil || json.Unmarshal(recordData, &records) != nil || records.Version != 1 || len(records.Instances) != 14 || len(records.Witnesses) != 14 || len(records.Held) != 0 || len(records.HistoricalHolds) != 1 || len(records.NativeBundles) != 3 || len(records.Contracts) != 2 || len(records.Approval.PNGs) != 14 {
+			t.Fatal("versioned fixed-art records", err)
+		}
+		for id, held := range records.HistoricalHolds {
+			data, err := os.ReadFile(held.ApprovedPNG.Path)
+			_, resolved := records.Instances[held.Resolution.Instance]
+			if err != nil || held.State != "HELD_APPROVED_TARGET_ORACLE_MISMATCH" || len(held.Profile) != 0 || fmt.Sprintf("%x", sha256.Sum256(data)) != held.ApprovedPNG.SHA256 || held.Resolution.Status != "CLOSED_BY_DISTINCT_INDEPENDENT_REFERENCE_TARGET" || !resolved {
+				t.Fatal("artwork history must preserve approval and name a distinct resolution", id, err)
+			}
+		}
+		prepared := make([]struct {
+			ID, CandidatePath                          string
+			Profile                                    TextureProfile
+			Source, Expected, CandidatePNG, OutsidePNG []byte
+			NativeChanges, PixelChanges, Outside       int
+		}, len(records.Instances))
+		for recordIndex, id := range slices.Sorted(maps.Keys(records.Instances)) {
+			record := records.Instances[id]
+			witness, present := records.Witnesses[id]
+			if !present {
+				t.Fatal("fixed-art maintenance facts missing", id)
+			}
+			if record.Contract != "" && len(records.Contracts[record.Contract]) == 0 {
+				t.Fatal("unknown fixed-art contract", id)
+			}
+			profileData, err := os.ReadFile(record.Profile.Path)
+			var profile TextureProfile
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(profileData)) != record.Profile.SHA256 || json.Unmarshal(profileData, &profile) != nil || records.Approval.PNGs[record.AssetID] != profile.PNGSHA256 {
+				t.Fatal("fixed-art canonical profile join", id, err)
+			}
+			art := record.ApprovedSourceArt
+			if record.SharedArt != "" {
+				shared, present := records.SharedArt[record.SharedArt]
+				if !present || art.Path != "" {
+					t.Fatal("missing or ambiguous fixed-art shared source", id)
+				}
+				art = shared
+			}
+			if art.Path != "" {
+				sourceArt, err := os.ReadFile(art.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(sourceArt)) != art.SHA256 {
+					t.Fatal("fixed-art shared source identity", id, err)
+				}
+			} else if record.Contract == "" {
+				t.Fatal("legacy fixed-art source identity missing", id)
+			}
+			members := make(map[string][]byte)
+			for _, input := range []struct{ Name, Path, SHA256, Key, BundleID string }{
+				{"source", record.Source.Bundle, record.Source.SHA256, record.Source.Key, record.Source.BundleID},
+				{"expected", record.Expected.Bundle, record.Expected.BundleSHA, record.Expected.Key, record.Expected.BundleID},
+			} {
+				if input.BundleID != "" {
+					bundle, present := records.NativeBundles[input.BundleID]
+					if !present || input.Path != "" || input.SHA256 != "" {
+						t.Fatal("missing or ambiguous fixed-art native bundle", id, input.Name)
+					}
+					input.Path, input.SHA256 = bundle.Path, bundle.SHA256
+				}
+				data, err := os.ReadFile(input.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != input.SHA256 {
+					t.Fatal("fixed-art independent native bundle", id, input.Name, err)
+				}
+				archive, err := zip.NewReader(bytes.NewReader(data), int64(len(data)))
+				if err != nil {
+					t.Fatal(err)
+				}
+				members[input.Name], err = fs.ReadFile(archive, input.Key)
+				if err != nil || len(members[input.Name]) != record.Expected.Bytes {
+					t.Fatal("fixed-art native member", input.Name, err)
+				}
+			}
+			source, expected := members["source"], members["expected"]
+			if fmt.Sprintf("%x", sha256.Sum256(source)) != profile.SourceSHA256 || fmt.Sprintf("%x", sha256.Sum256(expected)) != record.Expected.NativeSHA || bytes.Equal(source, expected) {
+				t.Fatal("fixed-art predecessor/approved target identity", id)
+			}
+			candidatePath := filepath.Join(filepath.Dir(record.Profile.Path), profile.PNG)
+			candidateData, err := os.ReadFile(candidatePath)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(candidateData)) != profile.PNGSHA256 {
+				t.Fatal("fixed-art approved PNG identity", id, err)
+			}
+			candidate, err := png.Decode(bytes.NewReader(candidateData))
+			if err != nil {
+				t.Fatal(err)
+			}
+			maskData, err := os.ReadFile(record.Mask.Path)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(maskData)) != record.Mask.SHA256 {
+				t.Fatal("fixed-art exact mask identity", id, err)
+			}
+			mask, err := png.Decode(bytes.NewReader(maskData))
+			if err != nil || mask.Bounds() != candidate.Bounds() {
+				t.Fatal("fixed-art mask bounds", id, err)
+			}
+			_, original, err := texture(source, profile.Texture, nil, nil, "", nil)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(original.Pix)) != record.Expected.SourceRGBA {
+				t.Fatal("fixed-art original pixels", id, err)
+			}
+			rectangles := make([]image.Rectangle, 0, len(profile.Rectangles))
+			for _, r := range profile.Rectangles {
+				rectangles = append(rectangles, image.Rect(r[0], r[1], r[0]+r[2], r[1]+r[3]))
+			}
+			before := bytes.Clone(source)
+			artifact, pixels, err := texture(source, profile.Texture, candidate, rectangles, "", nil)
+			if err != nil || !bytes.Equal(artifact, expected) || fmt.Sprintf("%x", sha256.Sum256(pixels.Pix)) != record.Expected.RGBA || !bytes.Equal(source, before) {
+				t.Fatal("fixed-art complete native and RGBA target", id, err)
+			}
+			_, readback, err := texture(artifact, profile.Texture, nil, nil, "", nil)
+			if err != nil || !bytes.Equal(readback.Pix, pixels.Pix) {
+				t.Fatal("fixed-art in-memory native readback", id, err)
+			}
+			allowed, changed, outside, nativeChanged := 0, 0, 0, 0
+			rawMask := make([]byte, len(pixels.Pix)/4)
+			coarseMask := make([]bool, len(rawMask))
+			coarsePixels, holes, maskMismatches := 0, 0, 0
+			var historicalRaw []byte
+			historicalAllowed, historicalOutside := 0, 0
+			var verificationMasks [2]image.Image
+			maskInputs := [2]struct{ Path, SHA256 string }{}
+			if record.Historical != nil {
+				maskInputs[0].Path, maskInputs[0].SHA256 = record.Historical.Mask.Path, record.Historical.Mask.SHA256
+				historicalRaw = make([]byte, len(rawMask))
+			}
+			if record.MaskProvenance != nil {
+				maskInputs[1].Path, maskInputs[1].SHA256 = record.MaskProvenance.Historical.Path, record.MaskProvenance.Historical.SHA256
+				if len(record.MaskProvenance.UnionRect) != 4 {
+					t.Fatal("fixed-art mask union rectangle", id)
+				}
+				r := record.MaskProvenance.UnionRect
+				if !image.Rect(r[0], r[1], r[0]+r[2], r[1]+r[3]).In(pixels.Rect) || r[2] < 1 || r[3] < 1 {
+					t.Fatal("fixed-art mask union exceeds canvas", id)
+				}
+			}
+			for role, input := range maskInputs {
+				if input.Path == "" {
+					continue
+				}
+				data, err := os.ReadFile(input.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != input.SHA256 {
+					t.Fatal("fixed-art mask provenance identity", id, role, err)
+				}
+				verificationMasks[role], err = png.Decode(bytes.NewReader(data))
+				if err != nil || verificationMasks[role].Bounds() != pixels.Rect {
+					t.Fatal("fixed-art mask provenance geometry", id, role, err)
+				}
+			}
+			for at := range rawMask {
+				x, y := at%pixels.Rect.Dx(), at/pixels.Rect.Dx()
+				value := color.GrayModel.Convert(mask.At(x, y)).(color.Gray).Y
+				if value != 0 && value != 255 {
+					t.Fatal("fixed-art binary mask", id)
+				}
+				rawMask[at] = value
+				for _, rect := range rectangles {
+					if image.Pt(x, y).In(rect) {
+						coarseMask[at] = true
+						break
+					}
+				}
+				if coarseMask[at] {
+					coarsePixels++
+					if value == 0 {
+						holes++
+					}
+				}
+				if (value == 255) != coarseMask[at] {
+					maskMismatches++
+				}
+				if value == 255 {
+					allowed++
+				}
+				if !bytes.Equal(original.Pix[4*at:4*at+4], pixels.Pix[4*at:4*at+4]) {
+					changed++
+					if value == 0 {
+						outside++
+					}
+				}
+				if historical := verificationMasks[0]; historical != nil {
+					oldValue := color.GrayModel.Convert(historical.At(x, y)).(color.Gray).Y
+					if oldValue != 0 && oldValue != 255 {
+						t.Fatal("fixed-art historical binary mask", id)
+					}
+					historicalRaw[at] = oldValue
+					if oldValue == 255 {
+						historicalAllowed++
+					}
+					isChanged := !bytes.Equal(original.Pix[4*at:4*at+4], pixels.Pix[4*at:4*at+4])
+					if isChanged && oldValue == 0 {
+						historicalOutside++
+					}
+					if (value == 255) != isChanged {
+						t.Fatal("reconstruction verification bound is not exact netdelta", id, at)
+					}
+				}
+				if base := verificationMasks[1]; base != nil {
+					baseValue := color.GrayModel.Convert(base.At(x, y)).(color.Gray).Y
+					r := record.MaskProvenance.UnionRect
+					inside := x >= r[0] && x-r[0] < r[2] && y >= r[1] && y-r[1] < r[3]
+					if baseValue != 0 && baseValue != 255 || (value == 255) != (baseValue == 255 || inside) {
+						t.Fatal("fixed-art repair mask differs from authorized union", id, at)
+					}
+				}
+			}
+			if record.Historical != nil && (fmt.Sprintf("%x", sha256.Sum256(historicalRaw)) != record.Historical.Mask.RawSHA || historicalAllowed != record.Historical.Mask.Pixels || historicalOutside != record.Historical.Outside) {
+				t.Fatal("source-cache reconstruction lost historical contract failure", id, historicalAllowed, historicalOutside)
+			}
+			for at, value := range source {
+				if value != artifact[at] {
+					nativeChanged++
+					if at < record.Expected.PixelPayload[0] || at-record.Expected.PixelPayload[0] >= record.Expected.PixelPayload[1] {
+						t.Fatal("fixed-art changed CLUT/headers/unselected native data", id, at)
+					}
+				}
+			}
+			if fmt.Sprintf("%x", sha256.Sum256(rawMask)) != record.Mask.RawSHA || allowed != record.Mask.Pixels || changed != record.Expected.PixelChanges || outside != record.Expected.Outside || nativeChanged != record.Expected.NativeChanges {
+				t.Fatal("fixed-art whole-mask/native containment", id, allowed, changed, outside, nativeChanged)
+			}
+			if allowed != witness.Geometry.MaskPixels || coarsePixels != witness.Geometry.CoarsePixels || holes != witness.Geometry.Holes || maskMismatches != witness.Geometry.MaskMismatches {
+				t.Fatal("fixed-art independently frozen maintenance geometry", id, allowed, coarsePixels, holes, maskMismatches)
+			}
+			for _, point := range [][2]int{witness.Allowed.Point, witness.Guard.Point, witness.Guard.ReplacementPoint} {
+				if !image.Pt(point[0], point[1]).In(pixels.Rect) {
+					t.Fatal("fixed-art maintenance point outside canvas", id, point)
+				}
+			}
+			allowedAt := witness.Allowed.Point[1]*pixels.Rect.Dx() + witness.Allowed.Point[0]
+			guardAt := witness.Guard.Point[1]*pixels.Rect.Dx() + witness.Guard.Point[0]
+			replacementAt := witness.Guard.ReplacementPoint[1]*pixels.Rect.Dx() + witness.Guard.ReplacementPoint[0]
+			if rawMask[allowedAt] != 255 || !coarseMask[allowedAt] || !bytes.Equal(original.Pix[4*allowedAt:4*allowedAt+4], witness.Allowed.SourceRGBA[:]) || !bytes.Equal(pixels.Pix[4*allowedAt:4*allowedAt+4], witness.Allowed.ApprovedRGBA[:]) || witness.Allowed.SourceRGBA == witness.Allowed.ApprovedRGBA {
+				t.Fatal("fixed-art allowed-edit witness", id)
+			}
+			if rawMask[guardAt] != 0 || !bytes.Equal(pixels.Pix[4*guardAt:4*guardAt+4], witness.Guard.ApprovedRGBA[:]) || !bytes.Equal(original.Pix[4*replacementAt:4*replacementAt+4], witness.Guard.ReplacementRGBA[:]) || witness.Guard.ReplacementRGBA[3] != 255 || witness.Guard.ReplacementRGBA == witness.Guard.ApprovedRGBA {
+				t.Fatal("fixed-art independent opaque-palette counterexample", id)
+			}
+			switch witness.Guard.Kind {
+			case "fine_mask_hole":
+				if !coarseMask[guardAt] || holes == 0 {
+					t.Fatal("fixed-art fine-hole witness is not permitted by coarse rectangles", id)
+				}
+			case "coarse_equals_mask_outside_refusal":
+				if maskMismatches != 0 || holes != 0 || allowed != coarsePixels || coarseMask[guardAt] {
+					t.Fatal("fixed-art no-hole contract lacks complete union equality", id)
+				}
+			default:
+				t.Fatal("unknown fixed-art maintenance contract", id, witness.Guard.Kind)
+			}
+			var outsidePNG []byte
+			// A new in-bounds image can import successfully while invalidating this fixed version.
+			for _, region := range []string{"allowed edit", "guard"} {
+				at := allowedAt
+				replacement := witness.Allowed.SourceRGBA[:]
+				if region == "guard" {
+					at, replacement = guardAt, witness.Guard.ReplacementRGBA[:]
+				}
+				variant := image.NewNRGBA(pixels.Rect)
+				copy(variant.Pix, pixels.Pix)
+				copy(variant.Pix[4*at:4*at+4], replacement)
+				changedVersion, variantPixels, err := texture(source, profile.Texture, variant, rectangles, "", nil)
+				if region == "guard" && witness.Guard.Kind == "coarse_equals_mask_outside_refusal" {
+					if err == nil || changedVersion != nil || variantPixels != nil || !strings.Contains(err.Error(), "outside approved rectangles") {
+						t.Fatal("fixed-art outside-rectangle maintenance refusal", id, err)
+					}
+					var encoded bytes.Buffer
+					if err := png.Encode(&encoded, variant); err != nil {
+						t.Fatal("fixed-art outside counterexample PNG", id, err)
+					}
+					outsidePNG = encoded.Bytes()
+					continue
+				}
+				if err != nil || bytes.Equal(changedVersion, expected) {
+					t.Fatal("fixed-art version target guard", id, region, err)
+				}
+				if !bytes.Equal(variantPixels.Pix, variant.Pix) {
+					t.Fatal("fixed-art maintenance RGBA differs from intended image", id, region)
+				}
+				outside := 0
+				for i, value := range rawMask {
+					if value == 0 && !bytes.Equal(original.Pix[4*i:4*i+4], variantPixels.Pix[4*i:4*i+4]) {
+						outside++
+					}
+				}
+				wantOutside := 0
+				if region == "guard" {
+					wantOutside = 1
+				}
+				if outside != wantOutside {
+					t.Fatal("fixed-art exact-mask guard is independent of bbox", id, region, outside)
+				}
+			}
+			if !bytes.Equal(source, before) {
+				t.Fatal("fixed-art pure checks changed source", id)
+			}
+			item := &prepared[recordIndex]
+			item.ID, item.Profile, item.CandidatePath = id, profile, candidatePath
+			item.Source, item.Expected, item.CandidatePNG, item.OutsidePNG = source, expected, candidateData, outsidePNG
+			item.NativeChanges, item.PixelChanges, item.Outside = nativeChanged, changed, outside
+		}
+		t.Logf("fixed-art pure validation passed for all %d instances before replay", len(prepared))
+		for _, item := range prepared {
+			id, profile, candidatePath := item.ID, item.Profile, item.CandidatePath
+			source, expected, candidateData := item.Source, item.Expected, item.CandidatePNG
+			record := records.Instances[id]
+			before := bytes.Clone(source)
+			// Native fixture replay requires two fresh concrete-package reviews before this test runs.
+			// Preserve this owned directory on failure; successful instances clean up explicitly.
+			dir, err := os.MkdirTemp("", "dokapon-fixed-art-")
+			if err != nil {
+				t.Fatal("fixed-art isolated directory", id, err)
+			}
+			directoryIdentity, err := os.Stat(dir)
+			if err != nil {
+				t.Fatal("fixed-art directory identity", id, err)
+			}
+			t.Logf("fixed-art %s: owned work directory %s", id, dir)
+			sourcePath := filepath.Join(dir, "original.txd")
+			if err := os.WriteFile(sourcePath, source, 0o600); err != nil {
+				t.Fatal(err)
+			}
+			args := []string{"--source", sourcePath, "--texture-profile", record.Profile.Path}
+			var out bytes.Buffer
+			if err := run(args, &out); err != nil {
+				t.Fatal("fixed-art read-only CLI", id, err)
+			}
+			var report map[string]any
+			if json.Unmarshal(out.Bytes(), &report) != nil || report["applied"] != false || report["output_sha256"] != record.Expected.NativeSHA || report["rgba_sha256"] != record.Expected.RGBA {
+				t.Fatal("fixed-art read-only CLI identity", id, out.String())
+			}
+			outputPath := filepath.Join(dir, "approved.txd")
+			applyArgs := append(slices.Clone(args), "--apply", "--output", outputPath)
+			out.Reset()
+			if err := run(applyArgs, &out); err != nil {
+				t.Fatal("fixed-art isolated CLI replay", id, err)
+			}
+			body, err := os.ReadFile(outputPath)
+			if err != nil || !bytes.Equal(body, expected) {
+				t.Fatal("fixed-art isolated complete native replay", id, err)
+			}
+			for _, refusedOutput := range []string{outputPath, sourcePath} {
+				out.Reset()
+				if err := run(append(slices.Clone(args), "--apply", "--output", refusedOutput), &out); err == nil || out.Len() != 0 {
+					t.Fatal("fixed-art existing output/source alias refusal", id, err)
+				}
+			}
+			if after, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(after, source) {
+				t.Fatal("fixed-art CLI changed pristine source", id, err)
+			}
+			if after, err := os.ReadFile(outputPath); err != nil || !bytes.Equal(after, expected) {
+				t.Fatal("fixed-art refusal changed approved output", id, err)
+			}
+			if len(item.OutsidePNG) != 0 {
+				outsideImage := filepath.Join(dir, "outside-counterexample.png")
+				if err := os.WriteFile(outsideImage, item.OutsidePNG, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				outsideProfile := profile
+				outsideProfile.PNG, outsideProfile.PNGSHA256 = outsideImage, fmt.Sprintf("%x", sha256.Sum256(item.OutsidePNG))
+				wire, err := json.Marshal(outsideProfile)
+				if err != nil {
+					t.Fatal(err)
+				}
+				outsideProfilePath, refusedOutput := filepath.Join(dir, "outside-profile.json"), filepath.Join(dir, "outside-refused.txd")
+				if err := os.WriteFile(outsideProfilePath, wire, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				out.Reset()
+				if err := run([]string{"--source", sourcePath, "--texture-profile", outsideProfilePath, "--apply", "--output", refusedOutput}, &out); err == nil || out.Len() != 0 || !strings.Contains(err.Error(), "outside approved rectangles") {
+					t.Fatal("fixed-art CLI outside-rectangle apply refusal", id, err)
+				}
+				if _, err := os.Lstat(refusedOutput); !os.IsNotExist(err) {
+					t.Fatal("fixed-art outside refusal published output", id, err)
+				}
+				if after, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(after, source) {
+					t.Fatal("fixed-art outside refusal changed source", id, err)
+				}
+			}
+			for _, mutation := range []string{"source pin", "source size", "source version", "PNG pin", "selector", "bounds", "outside rectangle", "native structure", "PNG drift", "dimensions"} {
+				bad := profile
+				bad.PNG, err = filepath.Abs(candidatePath)
+				if err != nil {
+					t.Fatal(err)
+				}
+				badSource := bytes.Clone(source)
+				switch mutation {
+				case "source pin":
+					bad.SourceSHA256 = strings.Repeat("0", 64)
+				case "source size":
+					bad.SourceSize++
+				case "source version":
+					badSource[record.Expected.PixelPayload[0]] ^= 1
+				case "PNG pin":
+					bad.PNGSHA256 = strings.Repeat("0", 64)
+				case "selector":
+					bad.Texture += "missing"
+				case "bounds":
+					bad.Rectangles = [][]int{{-1, 0, 1, 1}}
+				case "outside rectangle":
+					bad.Rectangles = [][]int{{6, 4, 1, 1}}
+				case "native structure":
+					badSource[0] = 0
+					bad.SourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(badSource))
+				case "PNG drift":
+					bad.PNG = filepath.Join(dir, "changed.png")
+					if err := os.WriteFile(bad.PNG, append(bytes.Clone(candidateData), 0), 0o600); err != nil {
+						t.Fatal(err)
+					}
+				case "dimensions":
+					var encoded bytes.Buffer
+					if err := png.Encode(&encoded, image.NewNRGBA(image.Rect(0, 0, 2, 2))); err != nil {
+						t.Fatal(err)
+					}
+					bad.PNG = filepath.Join(dir, "small.png")
+					bad.PNGSHA256 = fmt.Sprintf("%x", sha256.Sum256(encoded.Bytes()))
+					bad.Rectangles = nil
+					if err := os.WriteFile(bad.PNG, encoded.Bytes(), 0o600); err != nil {
+						t.Fatal(err)
+					}
+				}
+				if err := os.WriteFile(sourcePath, badSource, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				wire, err := json.Marshal(bad)
+				if err != nil {
+					t.Fatal(err)
+				}
+				badPath := filepath.Join(dir, "bad-profile.json")
+				if err := os.WriteFile(badPath, wire, 0o600); err != nil {
+					t.Fatal(err)
+				}
+				out.Reset()
+				if err := run([]string{"--source", sourcePath, "--texture-profile", badPath}, &out); err == nil || out.Len() != 0 {
+					t.Fatal("fixed-art read-only refusal", id, mutation, err)
+				}
+			}
+			if !bytes.Equal(source, before) {
+				t.Fatal("fixed-art changed source buffer", id)
+			}
+			if got, err := os.ReadFile(candidatePath); err != nil || !bytes.Equal(got, candidateData) {
+				t.Fatal("fixed-art changed approved asset", id, err)
+			}
+			currentDirectory, err := os.Lstat(dir)
+			if err != nil || !os.SameFile(directoryIdentity, currentDirectory) || !currentDirectory.IsDir() {
+				t.Fatal("fixed-art cleanup directory identity changed", id, dir, err)
+			}
+			if err := os.RemoveAll(dir); err != nil {
+				t.Fatal("fixed-art owned cleanup", id, dir, err)
+			}
+			t.Logf("fixed-art %s: native %x, %d changed bytes, %d changed pixels, outside %d; CLI/refusals/maintenance passed", id, sha256.Sum256(body), item.NativeChanges, item.PixelChanges, item.Outside)
+		}
+	}
+	type maskVector struct {
 		Name  string
 		Mask  []bool
 		Width int
 		Spec  RasterMaskTransform
 		Want  []bool
-	}{
+	}
+	maskVectors := []maskVector{
 		{"cross", []bool{false, false, false, false, true, false, false, false, false}, 3, RasterMaskTransform{Kind: "dilate", Iterations: 1}, []bool{false, true, false, true, true, true, false, true, false}},
 		{"saturate", []bool{true, false, false, false, false, false, false, false, false}, 3, RasterMaskTransform{Kind: "dilate", Iterations: math.MaxInt}, []bool{true, true, true, true, true, true, true, true, true}},
 		{"diagonal does not drain", []bool{false, true, true, true, false, true, true, true, true}, 3, RasterMaskTransform{Kind: "fill_holes"}, []bool{false, true, true, true, true, true, true, true, true}},
@@ -14552,9 +16183,84 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 		{"label zero refuses empty rejection mask", []bool{true}, 1, RasterMaskTransform{Kind: "components", Connectivity: 4, Seeds: []int{0}, BackgroundSeed: "label-zero", Reject: []bool{}}, nil},
 		{"label zero refuses tag criteria", []bool{true}, 1, RasterMaskTransform{Kind: "components", Connectivity: 4, Seeds: []int{0}, BackgroundSeed: "label-zero", Reject: []bool{false}}, nil},
 		{"background criteria on erosion", []bool{true}, 1, RasterMaskTransform{Kind: "erode", BackgroundSeed: "label-zero"}, nil},
-	} {
+
+		{"square-close-bridges-gap", []bool{false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false}, 5, RasterMaskTransform{Kind: "close", Kernel: "square", Iterations: 1}, []bool{false, false, false, false, false, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false, false, false, false, false}},
+		{"cross-close-keeps-gap", []bool{false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false}, 5, RasterMaskTransform{Kind: "close", Kernel: "cross", Iterations: 1}, []bool{false, false, false, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false}},
+		{"square zero dilation converges", []bool{true, false, false, false}, 2, RasterMaskTransform{Kind: "dilate", Kernel: "square"}, []bool{true, true, true, true}},
+		{"square negative erosion converges", []bool{true, true, true, true}, 2, RasterMaskTransform{Kind: "erode", Kernel: "square", Iterations: -1}, []bool{false, false, false, false}},
+		{"square huge dilation saturates", []bool{true, false, false, false}, 2, RasterMaskTransform{Kind: "dilate", Kernel: "square", Iterations: math.MaxInt}, []bool{true, true, true, true}},
+		{"unknown morphology kernel", []bool{true}, 1, RasterMaskTransform{Kind: "dilate", Kernel: "diamond"}, nil},
+		{"cross kernel cannot change fill", []bool{true}, 1, RasterMaskTransform{Kind: "fill_holes", Kernel: "cross"}, nil},
+		{"square kernel cannot change minimum", []bool{true}, 1, RasterMaskTransform{Kind: "minimum", Kernel: "square"}, nil},
+		{"square kernel cannot change components", []bool{true}, 1, RasterMaskTransform{Kind: "components", Kernel: "square", Connectivity: 8}, nil},
+	}
+	manualTransforms, err := os.ReadFile("testdata/square-transforms.json")
+	var sourceTransforms struct {
+		Cases []struct {
+			ID          string
+			Width       int
+			Mask        []bool
+			Spec        RasterMaskTransform
+			Want        []bool
+			RuntimeCase bool `json:"runtime_case"`
+		}
+	}
+	if err != nil || fmt.Sprintf("%x", sha256.Sum256(manualTransforms)) != "9beaa7f07ee48476893fca31053bd03879fe73ed99428a07648899429d4a895f" || json.Unmarshal(manualTransforms, &sourceTransforms) != nil || len(sourceTransforms.Cases) != 13 {
+		t.Fatal("precode source morphology witnesses", err)
+	}
+	for _, vector := range sourceTransforms.Cases {
+		want := vector.Want
+		if !vector.RuntimeCase {
+			// The source eight-connected fill is a contrast, rejected by the fixed Go contract.
+			want = nil
+		}
+		maskVectors = append(maskVectors, maskVector{vector.ID, vector.Mask, vector.Width, vector.Spec, want})
+	}
+	admissionData, err := os.ReadFile("testdata/constrained-growth.json")
+	var admissionCases struct {
+		Transforms []struct {
+			ID         string
+			Mask       []string
+			Admit      []string
+			Kind       string
+			Kernel     string
+			Iterations int
+			Want       []string
+		}
+		Stages []struct {
+			ID     string
+			Pixels []string
+			Colors map[string][4]uint8
+			Spec   RasterFootprint
+			Want   []string
+		}
+	}
+	if err != nil || fmt.Sprintf("%x", sha256.Sum256(admissionData)) != "240167fc73342258689247892fa68ad49ed8e28ec496eb2d1fd400e0bda4f0a1" || json.Unmarshal(admissionData, &admissionCases) != nil || len(admissionCases.Transforms) != 16 || len(admissionCases.Stages) != 2 {
+		t.Fatal("independent constrained-growth witnesses", err)
+	}
+	for _, vector := range admissionCases.Transforms {
+		var decoded [3][]bool
+		for role, rows := range [][]string{vector.Mask, vector.Admit, vector.Want} {
+			if rows == nil {
+				continue
+			}
+			decoded[role] = []bool{}
+			for _, row := range rows {
+				for _, pixel := range row {
+					if pixel != '#' && pixel != '.' {
+						t.Fatal("invalid literal mask", vector.ID)
+					}
+					decoded[role] = append(decoded[role], pixel == '#')
+				}
+			}
+		}
+		spec := RasterMaskTransform{Kind: vector.Kind, Kernel: vector.Kernel, Iterations: vector.Iterations, Admission: decoded[1]}
+		maskVectors = append(maskVectors, maskVector{vector.ID, decoded[0], len(vector.Mask[0]), spec, decoded[2]})
+	}
+	for _, vector := range maskVectors {
 		before := slices.Clone(vector.Mask)
 		beforeReject, beforeSeeds := slices.Clone(vector.Spec.Reject), slices.Clone(vector.Spec.Seeds)
+		beforeAdmission := slices.Clone(vector.Spec.Admission)
 		got, err := transformRasterMask(vector.Mask, vector.Width, vector.Spec)
 		if vector.Want == nil {
 			if err == nil || got != nil {
@@ -14569,6 +16275,9 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 		if !slices.Equal(vector.Spec.Reject, beforeReject) || !slices.Equal(vector.Spec.Seeds, beforeSeeds) {
 			t.Fatal("shared topology mutated component criteria", vector.Name)
 		}
+		if !slices.Equal(vector.Spec.Admission, beforeAdmission) {
+			t.Fatal("shared topology mutated admission mask", vector.Name)
+		}
 		if len(got) > 0 {
 			got[0] = !got[0]
 			if !slices.Equal(vector.Mask, before) {
@@ -14577,6 +16286,43 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 			if !slices.Equal(vector.Spec.Reject, beforeReject) {
 				t.Fatal("shared topology returned a rejection-mask alias", vector.Name)
 			}
+			if !slices.Equal(vector.Spec.Admission, beforeAdmission) {
+				t.Fatal("shared topology returned an admission-mask alias", vector.Name)
+			}
+		}
+	}
+	for _, stage := range admissionCases.Stages {
+		height, width := len(stage.Pixels), len(stage.Pixels[0])
+		pixels := image.NewNRGBA(image.Rect(0, 0, width, height))
+		want := make([]bool, width*height)
+		for y, row := range stage.Pixels {
+			if len(row) != width || len(stage.Want[y]) != width {
+				t.Fatal("incomplete historical stage rows", stage.ID)
+			}
+			for x, key := range row {
+				pixel, present := stage.Colors[string(key)]
+				if !present {
+					t.Fatal("unknown historical stage pixel", stage.ID, key)
+				}
+				pixels.SetNRGBA(x, y, color.NRGBA{pixel[0], pixel[1], pixel[2], pixel[3]})
+				want[y*width+x] = stage.Want[y][x] == '#'
+			}
+		}
+		beforePixels := bytes.Clone(pixels.Pix)
+		beforeSpec, _ := json.Marshal(stage.Spec)
+		got, charged, err := selectRaster(pixels, stage.Spec, 1<<28)
+		if err != nil || !slices.Equal(got, want) {
+			t.Fatal("historical top/bottom constrained lettering mask", stage.ID, got, err)
+		}
+		if got, _, err := selectRaster(pixels, stage.Spec, charged); err != nil || !slices.Equal(got, want) {
+			t.Fatal("exact constrained-growth work charge", stage.ID, err)
+		}
+		if got, _, err := selectRaster(pixels, stage.Spec, charged-1); err == nil || got != nil {
+			t.Fatal("constrained-growth work budget refusal", stage.ID, err)
+		}
+		afterSpec, _ := json.Marshal(stage.Spec)
+		if !bytes.Equal(pixels.Pix, beforePixels) || !bytes.Equal(beforeSpec, afterSpec) {
+			t.Fatal("constrained-growth mutated pixels or predicates", stage.ID)
 		}
 	}
 	selectionImage := image.NewNRGBA(image.Rect(7, 13, 10, 16))
@@ -14587,6 +16333,40 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 	selected, _, err := selectRaster(selectionImage, RasterFootprint{Rect: []int{0, 0, 3, 3}, Any: [][]RasterSelection{{{LuminanceBelow: &selectionThreshold}}}}, 1<<28)
 	if err != nil || !slices.Equal(selected, []bool{false, false, false, false, true, false, false, false, false}) || !bytes.Equal(selectionImage.Pix, selectionBefore) {
 		t.Fatal("shared selection lost origin, hidden RGB or input preservation", selected, err)
+	}
+	for _, vector := range []struct {
+		Name       string
+		Predicates *[][]RasterSelection
+		Sample     []int
+		Want       []bool
+	}{
+		{"omitted", nil, nil, []bool{false, true, false, true, true, true, false, true, false}},
+		{"explicit empty", &[][]RasterSelection{}, nil, []bool{false, false, false, false, true, false, false, false, false}},
+		{"all true", &[][]RasterSelection{{}}, nil, []bool{false, true, false, true, true, true, false, true, false}},
+		{"all false", &[][]RasterSelection{{{Above: map[string]float64{"alpha": 255}}}}, nil, []bool{false, false, false, false, true, false, false, false, false}},
+		{"sampling bounds admission", &[][]RasterSelection{{}}, []int{1, 1, 1, 1}, []bool{false, false, false, false, true, false, false, false, false}},
+	} {
+		spec := RasterFootprint{Rect: []int{0, 0, 3, 3}, SampleRect: vector.Sample, Any: [][]RasterSelection{{{LuminanceBelow: &selectionThreshold}}}, Grow: 1, GrowThrough: vector.Predicates}
+		wire, err := json.Marshal(spec)
+		var restored RasterFootprint
+		if err != nil || json.Unmarshal(wire, &restored) != nil || (restored.GrowThrough == nil) != (spec.GrowThrough == nil) || spec.GrowThrough != nil && len(*spec.GrowThrough) != len(*restored.GrowThrough) {
+			t.Fatal("growth admission presence changed in JSON", vector.Name, string(wire), err)
+		}
+		got, charged, err := selectRaster(selectionImage, restored, 1<<28)
+		if err != nil || !slices.Equal(got, vector.Want) || !bytes.Equal(selectionImage.Pix, selectionBefore) {
+			t.Fatal("growth admission predicate semantics", vector.Name, got, err)
+		}
+		if _, _, err := selectRaster(selectionImage, restored, charged); err != nil {
+			t.Fatal("exact growth-admission charge", vector.Name, charged, err)
+		}
+		if got, _, err := selectRaster(selectionImage, restored, charged-1); err == nil || got != nil {
+			t.Fatal("one-under growth-admission charge", vector.Name, charged, err)
+		}
+	}
+	for _, growth := range []int{-1, 0} {
+		if got, _, err := selectRaster(selectionImage, RasterFootprint{Rect: []int{0, 0, 3, 3}, Any: [][]RasterSelection{{}}, Grow: growth, GrowThrough: &[][]RasterSelection{}}, 1<<28); err == nil || got != nil || !bytes.Equal(selectionImage.Pix, selectionBefore) {
+			t.Fatal("nonpositive constrained final growth admitted", growth, err)
+		}
 	}
 	emptyComponentSeeds, centerComponentSeed := [][]int{}, [][]int{{1, 1}}
 	for _, seeds := range []*[][]int{nil, &emptyComponentSeeds, &centerComponentSeed} {
@@ -14722,8 +16502,46 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 			t.Fatal("core presence lost during JSON roundtrip", string(wire), err)
 		}
 	}
+	zeroSquareCoreGrow := 0
+	for _, vector := range []struct {
+		Name        string
+		Spec        RasterFootprint
+		Passes      int64
+		CrossCharge int64
+	}{
+		{"inactive", RasterFootprint{}, 0, 9},
+		{"close", RasterFootprint{Close: 1}, 2, 585},
+		{"default core", RasterFootprint{Core: &emptyCore}, 1, 585},
+		{"convergent core", RasterFootprint{Core: &emptyCore, CoreGrow: &zeroSquareCoreGrow}, 1, 585},
+		{"erode", RasterFootprint{Erode: 1}, 1, 153},
+		{"grow", RasterFootprint{Grow: 1}, 1, 585},
+		{"all morphology", RasterFootprint{Close: 1, Core: &emptyCore, CoreGrow: &zeroSquareCoreGrow, Erode: -1, Grow: -1}, 5, 729},
+		{"fill and components", RasterFootprint{Fill: "holes", Components: &RasterComponentFilter{Connectivity: 8}}, 0, 1305},
+	} {
+		spec := vector.Spec
+		spec.Rect, spec.Any = []int{0, 0, 3, 3}, [][]RasterSelection{{}}
+		_, crossCharge, err := selectRaster(selectionImage, spec, 1<<28)
+		if err != nil || crossCharge != vector.CrossCharge {
+			t.Fatal("default work baseline", vector.Name, crossCharge, vector.CrossCharge, err)
+		}
+		for _, kernel := range []string{"", "cross", "square"} {
+			spec.Kernel = kernel
+			wantCharge := crossCharge
+			if kernel == "square" {
+				wantCharge += 16 * 9 * vector.Passes
+			}
+			mask, charged, err := selectRaster(selectionImage, spec, wantCharge)
+			if err != nil || charged != wantCharge || len(mask) != 9 {
+				t.Fatal("exact morphology work charge", vector.Name, kernel, charged, wantCharge, err)
+			}
+			if mask, _, err := selectRaster(selectionImage, spec, wantCharge-1); err == nil || mask != nil {
+				t.Fatal("morphology one-under work refusal", vector.Name, kernel, err)
+			}
+		}
+	}
 	for _, spec := range []RasterFootprint{
 		{Rect: []int{0, 0, 3, 3}, Any: [][]RasterSelection{{}}, Fill: "core"},
+		{Rect: []int{0, 0, 3, 3}, Kernel: "diamond", Any: [][]RasterSelection{{}}},
 		{Rect: []int{0, 0, 3, 3}, Any: [][]RasterSelection{{}}, Clip: []int{}},
 		{Rect: []int{0, 0, 3, 3}, Any: [][]RasterSelection{{}}, Exclude: [][]int{{-1, 0, 1, 1}}},
 		{Rect: []int{0, 0, 3, 3}, Any: [][]RasterSelection{{}}, Fill: "unknown"},
@@ -14816,6 +16634,7 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 		{"testdata/footprint-source.zip", "85e32925d6d05a0a1de43faa093bdfba2c76f7facd615aeb01bbf842320287de", 179, true},
 		{"testdata/component-source.zip", "00e6f0edff1e33b5161ad5e9db605b13bfc4710407a11e86068b0dd45344b384", 30, false},
 		{"testdata/flood-source.zip", "5606007ccf4721edcb962bb1f77f6adef13d9b166c5a6e0a664dd2d4e16aaeca", 88, false},
+		{"testdata/square-source.zip", "ed20a3034fd63794cf3fa84acb168320505fb8d4e2a586c9c7fc08f387c13772", 6, false},
 	} {
 		footprintBundle, err := os.ReadFile(sourceBundle.Path)
 		if err != nil || fmt.Sprintf("%x", sha256.Sum256(footprintBundle)) != sourceBundle.SHA256 {
@@ -14832,6 +16651,12 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 				t.Fatal(err)
 			}
 			footprintFiles[entry.Name] = body
+			if sourceBundle.Path == "testdata/square-source.zip" && strings.HasPrefix(entry.Name, "tables/") {
+				actual, err := os.ReadFile(filepath.Join("profiles", "permissions", "footprints", filepath.Base(entry.Name)))
+				if err != nil || !bytes.Equal(actual, body) {
+					t.Fatal("source permission table drift", entry.Name, err)
+				}
+			}
 		}
 		var completeTables struct {
 			Assets map[string]string `json:"asset_to_complete_flat_table"`
@@ -14868,6 +16693,18 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 			t.Fatal("source footprint vector schema")
 		}
 		for _, vector := range footprints.Vectors {
+			if sourceBundle.Path == "testdata/square-source.zip" {
+				parts := strings.Split(vector.ID, "/")
+				if len(parts) != 2 {
+					t.Fatal("source provider identity", vector.ID)
+				}
+				name := map[string]string{"op_allow": "op_p.json", "button_allow": "button.json", "sale_allow": "sale.json"}[parts[1]]
+				data, err := os.ReadFile(filepath.Join("profiles", "permissions", "footprints", name))
+				vector.Permissions = RasterReconstruction{}
+				if name == "" || err != nil || json.Unmarshal(data, &vector.Permissions) != nil {
+					t.Fatal("complete source permission resource", vector.ID, err)
+				}
+			}
 			if strings.HasSuffix(vector.ID, "/final_allow") && (sourceBundle.Canonical || len(completeTables.Assets) > 0) {
 				parts := strings.Split(vector.ID, "/")
 				texture := parts[len(parts)-2]

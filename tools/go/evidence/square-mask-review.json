@@ -1,0 +1,267 @@
+{
+  "original_report": {
+    "at": "2026-11-13T02:26:03.725768+00:00",
+    "role": "Independent ordinary read-only code reviewer; no implementation, acceptance or family-credit authority",
+    "candidate_manifest_sha256": "88319075a63c2c0c99110eb5e846608949c7c94c3f4b77d4d95ea85350db4545",
+    "baseline_manifest_sha256": "fa8e1ff7a8008875d74b31244e35b6d30b5410450b19e1155db083390cd0097d",
+    "findings": [],
+    "finding_history": "No concrete defect found during this bounded review; no findings were silently dropped or fixed in this review.",
+    "what_changes": "Existing RasterFootprint and RasterMaskTransform gain cross/square morphology selection; existing numerical and JSON owners thread it. Three stable provider tables reproduce op_p, button and sale permissions. No new production function, helper, source file or dependency.",
+    "scope": {
+      "production_go_changed": [
+        "raster_mask.go",
+        "raster_mask_types.go",
+        "texture_authoring.go"
+      ],
+      "test_owner": "patch_test.go existing TestCLIDryRunAndApply and TestPilotHistoricalGoldenBytes",
+      "new_tables": 3,
+      "new_fixtures": 2,
+      "operational_files": 54,
+      "accepted_local_base_files": 785,
+      "unchanged_base_dependencies": 736,
+      "excluded_base": [
+        "external/skills/MIGRATION-TOOLS.md",
+        "external/skills/STRING-REGISTRY.md",
+        "source-aliases.json"
+      ],
+      "expected_load": "Bounded local CLI image processing, masks <=1048576pixels; no service/concurrent-user assumption"
+    },
+    "static_challenges": [
+      "Serena inspected transformRasterMask/selectRaster/RasterFootprint symbols and references. Unchanged reconstructRaster dilation and renderRuns hole-fill callers keep default cross. authorTexture remains the common inline/resource grammar owner.",
+      "Erosion first frontier reads immutable input across all chosen offsets, treating exterior as false. BFS rings then remove each pixel at most once. Dilation seeds selected pixels once and marks added pixels before queueing. Iteration magnitude cannot drive unbounded repeated scans after saturation.",
+      "Close forwards chosen kernel to both passes. selectRaster forwards it to close/core dilation/erode/grow only. fill_holes and core hole filling receive no kernel; component filtering retains its own 4/8 connectivity and rejects nonempty transform kernel.",
+      "Default empty/cross semantics preserve the original four-neighbor erosion boundary condition, including width1/height1. Unknown footprint kernels are rejected even with no active morphology.",
+      "Existing JSON validation owns field names/null/type/duplicates/aliases. New raw inline refusals retain duplicate and alias keys and are paired with successful explicit empty/cross/square inline controls. The masks-only positive controls rule out incidental missing-flat-allow refusal.",
+      "Eight absolute cross/default work baselines and24kernelcases check exact budget success/one-under refusal; square adds16*topologyarea per active pass, close2/core1/erode1/grow1. Charging precedes pixel evaluation.",
+      "Source op_p11rectangles, button16independent32cell crops (alpha>128/fill4/squareerode1), sale four disjoint allows and2fullcanvas squaregrow3 exclusions match source. Sale exclusions clip to their own sign before subtraction, preserving neighboring signs.",
+      "Whole source provider vectors now decode the actual3runtime tables, in addition to archive table exact-byte equality. Whole-pixel comparisons cover both512contexts, shifted origins, unchanged source pixels, and old397source vectors through existing loop.",
+      "The13manual fixture masks/expected bitmaps match precode manual authority, including unsupported8-connected fill contrast. Direct close contrast exercises both passes with square/cross separation. No candidate result generated or repinned an oracle.",
+      "No duplicated numerical owner, new mode-dispatch helper, per-patch handler, speculative radius API, unsupported retirement/reduction claim or concrete readability defect found in this bounded delta."
+    ],
+    "source_independence": {
+      "core_members_verified_pre_post": 235,
+      "projection_members_verified_pre_post": 11,
+      "whole_masks_normalization_only": "6exact source-binary0/1 to0/255 joins",
+      "fixtures_exact": 2,
+      "precode_manual_bitmap_joins": 13,
+      "sale_neighbor_pixels_both_contexts": [
+        [
+          104,
+          32
+        ],
+        [
+          50,
+          66
+        ]
+      ],
+      "contract_sha256": "baec26d0700d32773d469992c05d3aa60e39f6ad1ab5f2330ec156908a832dfa"
+    },
+    "verification": {
+      "core-test": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 58.422065020989976,
+        "terminal": true,
+        "at": "2026-11-13T02:23:26.986572+00:00"
+      },
+      "core-build": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/tmp/dokapon-square-review-2j590j0j/tmp/tool-core",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 0.2645221869897796,
+        "terminal": true,
+        "at": "2026-11-13T02:23:58.577360+00:00"
+      },
+      "core-vet": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 1.2664634789980482,
+        "terminal": true,
+        "at": "2026-11-13T02:23:59.844049+00:00"
+      },
+      "native-backend": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "list",
+          "-tags",
+          "nativefonts",
+          "-f",
+          "{{.CgoFiles}}",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 0.03207124899199698,
+        "terminal": true,
+        "at": "2026-11-13T02:23:59.876319+00:00"
+      },
+      "native-build": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-o",
+          "/tmp/dokapon-square-review-2j590j0j/tmp/tool-native",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 2.6693216359999496,
+        "terminal": true,
+        "at": "2026-11-13T02:24:02.545815+00:00"
+      },
+      "native-vet": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 1.4162541440018686,
+        "terminal": true,
+        "at": "2026-11-13T02:24:03.962257+00:00"
+      },
+      "native-test": {
+        "command": [
+          "nice",
+          "-n",
+          "19",
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-count=1",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "."
+        ],
+        "cwd": "/tmp/dokapon-square-review-2j590j0j/project",
+        "env": {
+          "GOMAXPROCS": "2",
+          "TMPDIR": "/tmp/dokapon-square-review-2j590j0j/tmp",
+          "GOTMPDIR": "/tmp/dokapon-square-review-2j590j0j/gotmp",
+          "GOCACHE": "/tmp/dokapon-square-review-2j590j0j/gocache"
+        },
+        "exit_code": 0,
+        "seconds": 60.43013372499263,
+        "terminal": true,
+        "at": "2026-11-13T02:25:04.392590+00:00"
+      }
+    },
+    "limits": [
+      "Fullsuite, all-tests race and nativefonts race not run, owner explicitly deferred integrated checkpoint.",
+      "No visual/gameplay, font/artwork, whole-game or native-payload approval; no canonical-registry/ISO/emulator/PINE/controller/auth/settings/log access.",
+      "Scoped formatting and credential-pattern checks are not a complete security audit.",
+      "This code review does not reset the periodic Astra cadence or authorize acceptance/publication."
+    ],
+    "all_owned_jobs_terminal": true,
+    "disposition": "No requested code fix from this bounded review. Root/implementation owner retains acceptance and broader QA/accounting responsibility."
+  },
+  "original_manifest": "/tmp/dokapon-square-review-2j590j0j/sealed-review/manifest.json",
+  "original_manifest_sha256": "e67247a61acfa40929ec2c4b8637ed3cfe969450badfc63ad475a16378798f79",
+  "original_report_sha256": "f847a93deb9788b5a69a5f3aceaf3bc7c1963154acb11dc7015d00021615795f",
+  "explicit_count_erratum": {
+    "by": "Implementation owner, factual count correction; independent verification is recorded in the separate metadata review",
+    "incorrect_original_phrase": "old397source vectors",
+    "verified_old_bundle_vector_counts": [
+      179,
+      30,
+      88
+    ],
+    "correct_old_vectors": 297,
+    "new_provider_vectors": 6,
+    "correct_current_bundle_vectors": 303,
+    "new_whole_provider_observations": 12,
+    "new_shifted_observations": 6,
+    "effect": "Count typo only. Original87member capsule remains immutable; no Go, test, expected byte or result changed."
+  }
+}

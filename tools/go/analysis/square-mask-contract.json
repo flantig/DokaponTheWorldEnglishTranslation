@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-05T10:42:42.182491+00:00",
+  "status": "VERIFIED_FIXED_SQUARE_MORPHOLOGY",
+  "API_assumption": "Optional one/perstage question pending withoutanswer afterreasonablewindow; recommendedonefootprintkernel selected. No owner approval inferred.",
+  "wire": {
+    "owner": "RasterFootprint",
+    "field": "kernel",
+    "type": "optionalstring",
+    "values": {
+      "omitted": "cross",
+      "": "cross",
+      "cross": "four orthogonal neighbors",
+      "square": "eight surrounding neighbors in3x3"
+    },
+    "scope": [
+      "Close (dilate then erode)",
+      "CoreGrow whenever Core present, default4 and explicit0converges",
+      "Erode if nonzero",
+      "Grow if nonzero"
+    ],
+    "not_affected": [
+      "four-connected fill_holes and core hole filling",
+      "component4/8connectivity",
+      "minimum component filtering",
+      "source/current ownership",
+      "stage ordering, native containment and publisher"
+    ]
+  },
+  "transform": "RasterMaskTransform.Kernel uses sameempty/cross/square default; nonempty kernel only accepted for dilate/erode/close, recursiveclose forwards. Erosion initialfrontier scans allchosenneighbors onimmutablemask, exteriorfalse. Existing boundedqueueowner remains, no newfunction.",
+  "work": "Preserve oldcross chargedwork. For square add16per active morphological pass pertopologypixel; close2, core1evenexplicit0, Erode/Grow1onlynonzero. Bound checked beforepixel evaluation; eachsaturation queue visits eachpixel atmostonce perpass, independent ofiterationmagnitude.",
+  "validation": "Existingclosedfootprintfields adds kernel. Reject nonstring/null/aliases/duplicates/unknownenum. Empty explicitstring intentionallysameasomitted. Owner validatesenumevenwhenallmorphstagesinactive; no newarbitrarykernel/radius/structelement.",
+  "data": "op_p11literalrectangles; button16crop-localalpha>128/fillholes/squareerode1; sale4allowrectangles, first2fullcanvasprotectedmaskalpha>40ANDmaxRGB>90/samplelower15rowbands/squaregrow3 thenexclude. ExistingORscalar predicates andthree-stagepermissionowner.",
+  "tests": "Extend existingGolden transforms andsourcearchive loop; existingCLI resource/inline/native/wire/profiledrift/refusal owners. Freeze manual +original wholemask expectations beforecandidateoutputs. No newtestfunction/helper.",
+  "reuse_inspection": "Serenaedf80ffd fulltransformbody, transform andDTO allreferences; read selectRaster/topology/work/authorTextureclosedsubtree/nativeCLI integration. Existingnumericalowner/wireowner/testowners suffice.",
+  "precode_review": {
+    "manifest": "/tmp/dokapon-astra047-square-wire-ufjgmlhk/manifest.json",
+    "sha256": "638349c0b03a2ec9ccfb0ac975b3020ed00f84e57580361d17cc2ae86f86d1b0",
+    "root_verified_members": 2
+  },
+  "limits": "No familycredit/scriptretirement/reduction/nativeartapproval. .06largepartialafter3calls,17Ecallsplusadvancedart remain.",
+  "prior_contract_sha256": "84e5ec1900c2b942a1bfec8fa78a14470683330b7b1f4d3208727380602ea1c7",
+  "source_scope_clarification": "sale_allow unions each disjoint reg_i minus its own prot_i. Grow protected masks over full canvas, then Clip each exclusion to its own corresponding sale rectangle before global subtraction. Without own-region clipping, lower-band growth steals pixels from neighboring independent signs (prot0 into sign1 rows32..34, prot1 into sign2 row66). Keep whole-context witnesses.",
+  "verified_at": "2026-11-13T02:31:01.379388+00:00",
+  "precode_sha256": "baec26d0700d32773d469992c05d3aa60e39f6ad1ab5f2330ec156908a832dfa"
+}

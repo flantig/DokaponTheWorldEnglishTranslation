@@ -1,0 +1,1733 @@
+{
+  "version": 1,
+  "instances": {
+    "allmap_1.logo-a.v1": {
+      "asset_id": "allmap_1",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "purpose": "Preserve the existing approved horizontal logo A, fixed ocean restoration and surrounding map/LOADING art.",
+      "profile": {
+        "path": "profiles/textures/fixed-art/allmap_1-logo-a-v1.json",
+        "sha256": "777aca1d08f5ed9254069d946e327fcd84436c9040b6bc38420c7a99d09754d7"
+      },
+      "wording": {
+        "exact": "DOKAPON THE WORLD",
+        "binding": "Exact approved PNG digest in the profile; no OCR or runtime text validator is claimed."
+      },
+      "canvas": [
+        512,
+        512
+      ],
+      "approved_source_art": {
+        "path": "assets/artwork/logo-a/horizontal-source.png",
+        "sha256": "994dd2341f96bf29986993a7b52f7119f0e7e49f33c7cf9f4e0346e772527d61",
+        "crop_xyxy": [
+          50,
+          87,
+          2119,
+          589
+        ],
+        "role": "One retained shared high-resolution horizontal A source for related fixed versions."
+      },
+      "exact_allowed_mask": {
+        "path": "assets/artwork/logo-a/allmap_1-v1-allow.png",
+        "sha256": "344a39ecf5e27594bfc4be8eca2f1001dfe85c4a3ea6649bab3116c31b49aaa1",
+        "raw_sha256": "d06880ce981dae4002996754c46e983fec98cf28050ff320948807936cf5d6eb",
+        "pixels": 11570,
+        "role": "Independent all-channel verification only. Runtime coarse rectangles do not enforce its holes."
+      },
+      "pristine_fixture": {
+        "bundle": "testdata/artwork-pristine.zip",
+        "sha256": "09e660809e1d02cd86be283d282cbaaf582c194d33776e6963aae79754694931",
+        "key": "GRAPHIC/SYSTEM.CMB/system/allmap_1.txd",
+        "source_archive": "GRAPHIC/SYSTEM.CMB",
+        "source_member": "system\\allmap_1.txd",
+        "source_member_offset": 976
+      },
+      "expected": {
+        "bundle": "assets/cmb-members.zip",
+        "bundle_sha256": "7969754af0cc6b677808839dc4e9dd2feb0070fe9e465d47398e9e4080a1366a",
+        "key": "GRAPHIC/SYSTEM.CMB/system/allmap_1.txd",
+        "native_sha256": "81d60919bc39704c5c7286e25a70db6279724332ed7e8fe9e93e99103e813c4f",
+        "bytes": 263584,
+        "source_rgba_sha256": "d4557b313317526302169433336e007786cf027fe42662b3a0e5dae70f0ba002",
+        "rgba_sha256": "84a2ee269582e2dd3e1f76a1e55eba4d04790c77fd32f735bc2e1e5b85bba572",
+        "changed_native_bytes": 11027,
+        "changed_rgba_pixels": 11027,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          296,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262520,
+          1024
+        ]
+      },
+      "approval_provenance": {
+        "historical_source": "tools/apply_approved_batch_e_2026_10_01.py",
+        "historical_source_sha256": "017edb5f58ba708839fd8e623769b357e3469273f34cb404922382e545067a87",
+        "declaration": "Fourteen owner-approved replacements; APPROVED_PNG_SHA[allmap_1] binds the same PNG digest. Existing approval, no new art choice.",
+        "integration_report_source": "generated/art/logo-A-integration/report.json",
+        "integration_report_sha256": "f57611a83cfee6939b7f8c807435499ebdfa0f3311e5c3d68bb3fd30b35b3f59",
+        "historical_coordinate_contract": "target_box is XYXY; the profile owns converted XYWH. Inner logo placement is separate from guard bounds."
+      },
+      "versioned_duty_disposition": {
+        "requirement": "raster_rendering.06",
+        "scope": "Named allmap_1 approved logo-A override only, not a generic generator.",
+        "superseded_recipe": {
+          "source": "tools/batch_e_art.py",
+          "symbols": [
+            "brand_logo2",
+            "brand2_allow"
+          ],
+          "reason": "The approved horizontal A override replaces the complete older logo, including its dial. Legacy generator/source duties remain in original history."
+        },
+        "retained_unsupported_editable_capabilities": [
+          "Arbitrary ocean restoration/Telea/exemplar/radial/material regeneration",
+          "Arbitrary brand2 wording/layout or source-art synthesis"
+        ],
+        "original_denominators": {
+          "core": 14,
+          "planning": 84,
+          "historical": 410
+        },
+        "new_milestone_credit": 0,
+        "new_family_credit": 0,
+        "retirements": 0
+      },
+      "external_execution_gate": {
+        "runtime_guards": "Source/PNG identity, selector/format/geometry, coarse rectangles and exclusive output/self-integrity.",
+        "independent_target_guard": "Dry-run report and in-memory native/RGBA/exact-mask verification against this independently approved target, then freeze exact executable/profile/source/PNG bytes and argv across later apply. Expected native SHA is not a writer-runtime target pin.",
+        "apply_requirement": "Two fresh independent concrete-package reviews before any real-native --apply, including tests. No ISO write.",
+        "future_edits": "A changed source/image/wording/mask is a new reviewed version and invalidates this fixed-result proof."
+      },
+      "maintenance_contract": {
+        "process": "Edit retained approved source/layers in a normal image editor, then create a new version with fresh approval and independently frozen PNG/native/RGBA/mask evidence. Use the same import/comparison/containment owners.",
+        "runtime_limit": "Go does not regenerate restoration or infer wording. Repinning an image does not establish exact-mask or native-target equivalence.",
+        "verification_contract": "An altered in-mask image must fail the old independently approved native target; a bbox-permitted hole edit must fail the independent exact-mask check. The importer may accept these new images, so a new approved version and expected artifact are required."
+      }
+    },
+    "allmap_2.approved-20261001.source-cache.v1": {
+      "asset_id": "allmap_2",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/allmap_2-approved-v1.json",
+        "sha256": "e82581d4ba4bc33eb363ae8873c4ebc98014a6ee5ef0bc2b61b051ade3358b93"
+      },
+      "wording": {
+        "exact": "DOKAPON THE WORLD"
+      },
+      "canvas": [
+        512,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/allmap_2-allow.png",
+        "sha256": "d31202892639056e421e8dc80f41d73135dcea96642d9b4c5ba6621a60d8accd",
+        "raw_sha256": "4832b3918e5045fdb3df2d6aab9961fbe692a96243f7672f0860fd40a147ed02",
+        "pixels": 11491,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/SYSTEM.CMB/system/allmap_2.txd",
+        "source_archive": "GRAPHIC/SYSTEM.CMB",
+        "source_member": "system\\allmap_2.txd",
+        "source_member_offset": 264560,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "80ba5ec85f56b8e63352bed1af3d5df3cc3f5458fa3985b693a6e2af0eff08d7"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/SYSTEM.CMB/system/allmap_2.txd",
+        "native_sha256": "8b8ac3791b1b35d540dafe7f19c16cba37b28bd3002102e8728be4c823a81d75",
+        "bytes": 263584,
+        "source_rgba_sha256": "442b4dfb963873629563cbd5e128ac12afae379ec7b81936f265b143e682d06e",
+        "rgba_sha256": "660b0e8ace70607a9c9c8b7c3310066c488a0258cdeebbcb9923a2a44a8a09ce",
+        "changed_native_bytes": 10917,
+        "changed_rgba_pixels": 10917,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          296,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262520,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "80ba5ec85f56b8e63352bed1af3d5df3cc3f5458fa3985b693a6e2af0eff08d7",
+        "source_cache_pixel_sha256": "80ba5ec85f56b8e63352bed1af3d5df3cc3f5458fa3985b693a6e2af0eff08d7",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      },
+      "shared_source_art": "horizontal-logo-a"
+    },
+    "button.approved-20261001.source-cache.v1": {
+      "asset_id": "button",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/button-approved-v1.json",
+        "sha256": "e03fe09e4106d23f27e3f8c3f4bb04f4135de024ae620e7cc97af663ada55964"
+      },
+      "wording": {
+        "exact": "BUY SELL LEAVE ATK STAY USE JOB BAG GIFT VAULT CURE HP [sword] [shield] EXIT OK"
+      },
+      "canvas": [
+        128,
+        128
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/button-allow.png",
+        "sha256": "899d509e0bea00b139b2915a02ae5cace1478cff3bd208ea2e95eade3d89766e",
+        "raw_sha256": "9cc37d522ae93f5ee6411b62ed3c45a4a915e3183682d012c6bebca20b9c60f2",
+        "pixels": 11008,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/command/button.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\command\\button.txd",
+        "source_member_offset": 14942071,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "b053cd203ac314226d3311468f09ddad1be9e0bb3f0a3c3092456a0c0e44c5dd"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/command/button.txd",
+        "native_sha256": "6b9243c7adb22b7179848e94445beabef55a7b5f4c2bf0e4b3611e0bd5579fd1",
+        "bytes": 17816,
+        "source_rgba_sha256": "9495e6d21c94adf71343bdd40becc7c85071b18a4372347952e2066dd8d5cad1",
+        "rgba_sha256": "d34b485be528eb309f248d60dc3dad8a7e95979c9c68ecb94c1ea06eeaf9a186",
+        "changed_native_bytes": 6080,
+        "changed_rgba_pixels": 6080,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          288,
+          16384
+        ],
+        "source_CLUT_payload": [
+          16752,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "b053cd203ac314226d3311468f09ddad1be9e0bb3f0a3c3092456a0c0e44c5dd",
+        "source_cache_pixel_sha256": "b053cd203ac314226d3311468f09ddad1be9e0bb3f0a3c3092456a0c0e44c5dd",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "casino.approved-20261001.source-cache.v1": {
+      "asset_id": "casino",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/casino-approved-v1.json",
+        "sha256": "6c9d45e04b5d93a2274b5903fbb09eff7a3ae48e25a5991d736f5ab3da0fc71a"
+      },
+      "wording": {
+        "exact": "SHOWDOWN FOR ALL!! WEDNESDAY SHOWTIME! / CARD PARADISE"
+      },
+      "canvas": [
+        1024,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/casino-allow.png",
+        "sha256": "18074634545701fb3630268284b71bedfe41b5afbc98ae9a5faa4641d98b60c0",
+        "raw_sha256": "38656de4204120119b6753a93bf4582d991c1a900c6b9c1613810fe7a061753d",
+        "pixels": 64300,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/not30/casino.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\not30\\casino.txd",
+        "source_member_offset": 24210187,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "75dffe8fbad97537a511a2013b9422e9314ee0ba02ddce798f429d00932eb120"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/not30/casino.txd",
+        "native_sha256": "31d5b40e95b3554ddaf087d759116f85a569f85cf2eb70eed98694409c24f064",
+        "bytes": 525556,
+        "source_rgba_sha256": "cb47620b8e3c9e277849f9b9310325f072215dc4fb3a4c45b6eee9c85c7e27df",
+        "rgba_sha256": "0555c6e8d9031c3f9eeb9095fa576461f48aac2bfbbb831eaf66135750dd8fef",
+        "changed_native_bytes": 53773,
+        "changed_rgba_pixels": 53773,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          204,
+          524288
+        ],
+        "source_CLUT_payload": [
+          524492,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "75dffe8fbad97537a511a2013b9422e9314ee0ba02ddce798f429d00932eb120",
+        "source_cache_pixel_sha256": "75dffe8fbad97537a511a2013b9422e9314ee0ba02ddce798f429d00932eb120",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      },
+      "mask_provenance": {
+        "historical_mask": {
+          "path": "assets/artwork/approved-batch-e-v1/casino-historical-allow.png",
+          "sha256": "1deea6d533fddd1917f0ea2b846abea6d8728520beb2a3b61b98cef2d1ee88bf"
+        },
+        "union_rectangle_xywh": [
+          174,
+          246,
+          296,
+          128
+        ],
+        "authority": "Shared owner approval script appends this repair rectangle. Final binary mask is exactly the historical mask OR this rectangle; no other permission expansion."
+      }
+    },
+    "dk-1.approved-20261001.source-cache.v1": {
+      "asset_id": "dk-1",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/dk-1-approved-v1.json",
+        "sha256": "163d75b61dfaf49bc6107a98a602ab01de93b269c367b4d92e0b52ee6f466a76"
+      },
+      "wording": {
+        "exact": "SHOWDOWN FOR ALL!! WEDNESDAY SHOWTIME!"
+      },
+      "canvas": [
+        1024,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/dk-1-allow.png",
+        "sha256": "b6d3b625572d7d4f5a431d2e64277bea8abf3bd93af6eeba2323fe921231a448",
+        "raw_sha256": "0d621c71c6ff943337e0419a2b2a3887230631af21df480901ff4518323b7d26",
+        "pixels": 26411,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/dk-1/dk-1.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\dk-1\\dk-1.txd",
+        "source_member_offset": 15454618,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "81882a986824110316cf5b95f7cec4c2e57bf6e79eed41ec79b81d011bbd0bf7"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/dk-1/dk-1.txd",
+        "native_sha256": "efff2252f88297dc5b6a15bf5fed72bcbc855290b66678aa7c00dfb58dde28a3",
+        "bytes": 525552,
+        "source_rgba_sha256": "66739bf6b46763f0eb9395afd2efaae58c7450db9a5da44e6ac1d2c36d102a77",
+        "rgba_sha256": "6b950817ad6691b398cc3a3756ef4546a51aa0cf929a1b174547df30ec72ccba",
+        "changed_native_bytes": 21965,
+        "changed_rgba_pixels": 21965,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          200,
+          524288
+        ],
+        "source_CLUT_payload": [
+          524488,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "81882a986824110316cf5b95f7cec4c2e57bf6e79eed41ec79b81d011bbd0bf7",
+        "source_cache_pixel_sha256": "81882a986824110316cf5b95f7cec4c2e57bf6e79eed41ec79b81d011bbd0bf7",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "f_title.approved-20261001.source-cache.v1": {
+      "asset_id": "f_title",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/f_title-approved-v1.json",
+        "sha256": "3314a6ef45d39bd613c66bbc14670f7189168a07a3638eea22b1dcf4c4ff62b2"
+      },
+      "wording": {
+        "exact": "SHOWDOWN FOR ALL!! WEDNESDAY SHOWTIME! / FOOD BATTLE!! ~NATIONAL TOURNAMENT~"
+      },
+      "canvas": [
+        1024,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/f_title-allow.png",
+        "sha256": "c3e77603991527d2b5db3c1d52d4db9184632aca3cf4b7b59c1dd668b0fda14b",
+        "raw_sha256": "cd4f5eb098d9328474da185e9091ca0a3a5169351a91773aba3c657c01b8265c",
+        "pixels": 48609,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/food/f_title.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\food\\f_title.txd",
+        "source_member_offset": 19256693,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "cf6c256762c30dcd01806c0213bd10ba8ddc26451bd73c25d88d6c84fd50c280"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/food/f_title.txd",
+        "native_sha256": "2ca7669d5e4d05a4587b2fa7f7cf60a8f35b4809e53a517f7918a214ebd14b33",
+        "bytes": 525556,
+        "source_rgba_sha256": "79a4bcd2f4d68b93813a734f24eee92efabd2d0a7c2476a091d59ab69e4bfaa8",
+        "rgba_sha256": "604eaf20e33dd736faa6b69159e9254c4543da4b7db03e7830ebecd36f243bb6",
+        "changed_native_bytes": 42514,
+        "changed_rgba_pixels": 42514,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          204,
+          524288
+        ],
+        "source_CLUT_payload": [
+          524492,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "cf6c256762c30dcd01806c0213bd10ba8ddc26451bd73c25d88d6c84fd50c280",
+        "source_cache_pixel_sha256": "cf6c256762c30dcd01806c0213bd10ba8ddc26451bd73c25d88d6c84fd50c280",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "food_t.approved-20261001.source-cache.v1": {
+      "asset_id": "food_t",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/food_t-approved-v1.json",
+        "sha256": "86d4dfd772f61c13ecbbf61960486ae8bcfd1fc6fd6cb1372c27ad3b7c2574ec"
+      },
+      "wording": {
+        "exact": "FOOD BATTLE!! ~NATIONAL TOURNAMENT~ / FOOD BATTLE TOURNAMENT / WINNER"
+      },
+      "canvas": [
+        512,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/food_t-allow.png",
+        "sha256": "0ea10800ab8e1ecc716cc589b858c8bca22c66b18fd486b8b6a00998d927d8a2",
+        "raw_sha256": "bcaa765bbf863858cdea0a1511c435a5452549f4fd2c17fe8bb90e9f71b5ff05",
+        "pixels": 32260,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/food/food_t.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\food\\food_t.txd",
+        "source_member_offset": 18993125,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "077d1ece1bf5d7a5abe2e5037e31a50f1198dfeb32d8e861428cf98e62d1e13f"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/food/food_t.txd",
+        "native_sha256": "375ba534846f1ccd27523f1b00b3270ed50d28c3bbd9c11cc1229d574fe9464a",
+        "bytes": 263568,
+        "source_rgba_sha256": "e6e9226356f1b97cc47faa649b8efe0291577a7943dce9ffacdf0553f34e4655",
+        "rgba_sha256": "57f4ae21cc5b9a7238a4c98fa08326af2d3310df5321881815f3ae02f3b0eab5",
+        "changed_native_bytes": 28590,
+        "changed_rgba_pixels": 28590,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          280,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262504,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "077d1ece1bf5d7a5abe2e5037e31a50f1198dfeb32d8e861428cf98e62d1e13f",
+        "source_cache_pixel_sha256": "077d1ece1bf5d7a5abe2e5037e31a50f1198dfeb32d8e861428cf98e62d1e13f",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "op_p.approved-20261001.source-cache.v1": {
+      "asset_id": "op_p",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/op_p-approved-v1.json",
+        "sha256": "4e5b43936f5415088ca75113675ebcfabb41fd4d716d727a784dc2b621421bc8"
+      },
+      "wording": {
+        "exact": "OK! / Red Orange Yellow Lime Green Green Light Blue Blue Pink Black White"
+      },
+      "canvas": [
+        512,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/op_p-allow.png",
+        "sha256": "8c7b7f9ed92ac5a1b8cbea9152e39327b473049de83402cc42d1f9848817ffda",
+        "raw_sha256": "3e61fde62be113fd703dc346a4ae51942c5bc751e8dcedef6a5f111a254ebc03",
+        "pixels": 10580,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/ETC.CMB/etc/textures/op_p.txd",
+        "source_archive": "GRAPHIC/ETC.CMB",
+        "source_member": "etc\\textures\\op_p.txd",
+        "source_member_offset": 11563872,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "c7dde7cfbde0a4af776c40f7aebb1bd6cbd5c56d14cb072433400368547f4dfc"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/ETC.CMB/etc/textures/op_p.txd",
+        "native_sha256": "45bb39db8068d51775af44de008e682e7dec2c41413589d81ff5fe1a993bbcd6",
+        "bytes": 263572,
+        "source_rgba_sha256": "422728dde3ea327217286914cdb60f6d0a8edb2f8e42f854c29c5dedc3a97590",
+        "rgba_sha256": "da9e096c66ac5ac49871ac5f0a42fa055a0ffba592475011c9241c6632003a2f",
+        "changed_native_bytes": 4149,
+        "changed_rgba_pixels": 4149,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          284,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262508,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "c7dde7cfbde0a4af776c40f7aebb1bd6cbd5c56d14cb072433400368547f4dfc",
+        "source_cache_pixel_sha256": "c7dde7cfbde0a4af776c40f7aebb1bd6cbd5c56d14cb072433400368547f4dfc",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "sale.approved-20261001.source-cache.v1": {
+      "asset_id": "sale",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/sale-approved-v1.json",
+        "sha256": "4efac931ce60f079d28a45f6cc13719050f751726f4c0b75d9cd4268e03c845c"
+      },
+      "wording": {
+        "exact": "BARGAIN SALE / SUNDAY SALE / CLOSED / TEMPORARILY CLOSED"
+      },
+      "canvas": [
+        128,
+        128
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/sale-allow.png",
+        "sha256": "640705561f2fc184306f3418ca68f36968c64743ad1e869e50ac1987832bd06c",
+        "raw_sha256": "a8a1b866fa17bfd0ffdf202e0a7f31e1aeeae5a014d5b5a9ec20fb47a375e4af",
+        "pixels": 8139,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/TEXTURES.CMB/textures/sale.txd",
+        "source_archive": "GRAPHIC/TEXTURES.CMB",
+        "source_member": "textures\\sale.txd",
+        "source_member_offset": 72784,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "e3419ede8ff4815dff70fb8640ea4ccf43e1df3fc27090c7d0072a0bba627cac"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/TEXTURES.CMB/textures/sale.txd",
+        "native_sha256": "4bce4a5ca4208b857960639b18c57e129c602eaedfa9cbc1aa8fa67584d6cdbb",
+        "bytes": 17804,
+        "source_rgba_sha256": "b3641e99aee94958d4f998ad6c9a84e1c12e6159ba3cc05acd7864b1fb94d63d",
+        "rgba_sha256": "1fdde8467a051ac839062be16177f4e01b2f9fd707f59704e32ea7a6b9954c2e",
+        "changed_native_bytes": 5202,
+        "changed_rgba_pixels": 5202,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          276,
+          16384
+        ],
+        "source_CLUT_payload": [
+          16740,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "e3419ede8ff4815dff70fb8640ea4ccf43e1df3fc27090c7d0072a0bba627cac",
+        "source_cache_pixel_sha256": "e3419ede8ff4815dff70fb8640ea4ccf43e1df3fc27090c7d0072a0bba627cac",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "title.approved-20261001.source-cache.v1": {
+      "asset_id": "title",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/title-approved-v1.json",
+        "sha256": "b7a8a5cd6a59dfa12bc5218e940e01fd6ee40cd17698e60838bd30ed7058f483"
+      },
+      "wording": {
+        "exact": "DOKAPON THE WORLD"
+      },
+      "canvas": [
+        1024,
+        256
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/title-allow.png",
+        "sha256": "84b4fa3545c121436d5660490eafde658a233c0d312a49c7a0b2256d6ff9f090",
+        "raw_sha256": "3c313f9e3c4416ce483a0817dbf1c5157106d2687b86d1a957d9b390050a55b2",
+        "pixels": 63106,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/ETC.CMB/etc/textures/title.txd",
+        "source_archive": "GRAPHIC/ETC.CMB",
+        "source_member": "etc\\textures\\title.txd",
+        "source_member_offset": 13284632,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "e5a05b2a8a7b6c894f73462599963b856e3004fe2d24ac5c4f44736199235b82"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/ETC.CMB/etc/textures/title.txd",
+        "native_sha256": "9433750dbee1297e71efad0cfdb7dab871e5cd41f6515c7bc290c462db78e59c",
+        "bytes": 263572,
+        "source_rgba_sha256": "affe545dc0f229d2dc0eaacb0c8a4307111a0b56c7ae4ccee8346744df17ecb1",
+        "rgba_sha256": "8503c8cacc2f88246ce6b56c6277435bf58a7e87a84f88856bc1165af3bcc5bf",
+        "changed_native_bytes": 59381,
+        "changed_rgba_pixels": 59381,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          284,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262508,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "e5a05b2a8a7b6c894f73462599963b856e3004fe2d24ac5c4f44736199235b82",
+        "source_cache_pixel_sha256": "e5a05b2a8a7b6c894f73462599963b856e3004fe2d24ac5c4f44736199235b82",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      },
+      "shared_source_art": "horizontal-logo-a"
+    },
+    "tx_win_w.approved-20261001.source-cache.v1": {
+      "asset_id": "tx_win_w",
+      "state": "SOURCE_APPROVED_FIXED_INSTANCE",
+      "contract": "approved-relative-mask-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/tx_win_w-approved-v1.json",
+        "sha256": "52f99178e209a4b35e1a2732160e56a7e399b64dee0c9afabbbd594a8f1b40f0"
+      },
+      "wording": {
+        "exact": "Weekly Report / Pay Raise!"
+      },
+      "canvas": [
+        1024,
+        256
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/tx_win_w-allow.png",
+        "sha256": "a358e686fc8860ce9423f8060f27894fcd1419a11791bf9277118689874ee0d9",
+        "raw_sha256": "5d9eb6e74986b27b36ed769252be23f001a163783553185cf35bb150f30d4f66",
+        "pixels": 21563,
+        "role": "Historical approved permission mask; external verification only, not a runtime hole guard."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/TEXTURES.CMB/textures/win_w.txd",
+        "source_archive": "GRAPHIC/TEXTURES.CMB",
+        "source_member": "textures\\win_w.txd",
+        "source_member_offset": 12260972,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "dd47cb857124795d5599e169ee89a2bad7fe1a85489947be443f3ca8c50cc723"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/TEXTURES.CMB/textures/win_w.txd",
+        "native_sha256": "beed1bba516ed2795eb8f633d2f6c914de679378988afdc972acc089fe841927",
+        "bytes": 263564,
+        "source_rgba_sha256": "4385a1bf39106d8777b7907f402d31cf93adc4fcbb1ccaa9ca4a2c4bc0bdcc67",
+        "rgba_sha256": "2efa2096216f02c29f31357a0020c7089fd5d338107c3ebfad5e8a26a16484bf",
+        "changed_native_bytes": 11638,
+        "changed_rgba_pixels": 11638,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          276,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262500,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "dd47cb857124795d5599e169ee89a2bad7fe1a85489947be443f3ca8c50cc723",
+        "source_cache_pixel_sha256": "dd47cb857124795d5599e169ee89a2bad7fe1a85489947be443f3ca8c50cc723",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      }
+    },
+    "win_fw.approved-20261001.source-cache-reconstruction.v1": {
+      "asset_id": "win_fw",
+      "state": "SOURCE_QUALIFIED_FIXED_RECONSTRUCTION",
+      "contract": "approved-source-cache-reconstruction-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/win_fw-approved-source-cache-reconstruction-v1.json",
+        "sha256": "3acebe32601bc7e04db8f1e207d0b99a55c740cb09ab688644a0343627798bdd"
+      },
+      "wording": {
+        "exact": "Final Report / Pay Raise!"
+      },
+      "canvas": [
+        1024,
+        256
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/win_fw-reconstruction-delta.png",
+        "sha256": "ddb491d3db00a2b7e19c63e914013321909c59a904123e5f456fb04bc187b9c6",
+        "raw_sha256": "31424efbfb81bd62b39c557a6b5a163a67026393f2de38fbb5d784fd65aac5fb",
+        "pixels": 13124,
+        "role": "Exact source-cache to approved-final RGBA netdelta. External reconstruction verification bound, not prior or renewed editing permission."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/systex/win_fw.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\systex\\win_fw.txd",
+        "source_member_offset": 71026837,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "1d1dfcf80b9a4132ac0ec372d0b1508aa0bd04e5103b0af1028115a956c81980"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/systex/win_fw.txd",
+        "native_sha256": "c8a13a8d8fa078b1d4413477c564caec1eb65c3b41c715471c6720054e549b38",
+        "bytes": 263576,
+        "source_rgba_sha256": "c96e143a24856822b741ad44aeaf600a7199c7066d4634846017dfb34af20b89",
+        "rgba_sha256": "7da0cb3570d961d30e7bcbeb75f953333bd10fca94e5f022cb5fb5676c26737c",
+        "changed_native_bytes": 13124,
+        "changed_rgba_pixels": 13124,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          288,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262512,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "eb1d14ec5ef56888056caa5687ccebf1de80f24322ac52f4cd225f6aa3f39758",
+        "source_cache_pixel_sha256": "1d1dfcf80b9a4132ac0ec372d0b1508aa0bd04e5103b0af1028115a956c81980",
+        "precondition_matches": false,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      },
+      "historical_contract": {
+        "mask": {
+          "path": "assets/artwork/approved-batch-e-v1/win_fw-historical-allow.png",
+          "sha256": "75b040023467d471b56889218a8c64acb0ed5d297c59036afd1f4340a675c013",
+          "raw_sha256": "c21bb77a983b1762b643ea8f919779d16864d98c1d63a0a952336b4b3a08ea6a",
+          "pixels": 21039
+        },
+        "observed_changed_rgba_outside_mask": 2839,
+        "old_contract_replayed": false,
+        "prior_edit_history": "unproved"
+      }
+    },
+    "win_w.approved-20261001.source-cache-reconstruction.v1": {
+      "asset_id": "win_w",
+      "state": "SOURCE_QUALIFIED_FIXED_RECONSTRUCTION",
+      "contract": "approved-source-cache-reconstruction-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/win_w-approved-source-cache-reconstruction-v1.json",
+        "sha256": "fd96716af54a6af491bbefd94b007edbc45881893c4d896985b3bef276d8e750"
+      },
+      "wording": {
+        "exact": "Weekly Report / Pay Raise!"
+      },
+      "canvas": [
+        1024,
+        256
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/win_w-reconstruction-delta.png",
+        "sha256": "5f9d817ced34cee54939bc1b73abb66513d9190b786acf87c06000993e1bab4c",
+        "raw_sha256": "06a763a4bb34fa0edf9b06ace896a6c2de04b7d69c968ecb368366cdb9bae616",
+        "pixels": 14373,
+        "role": "Exact source-cache to approved-final RGBA netdelta. External reconstruction verification bound, not prior or renewed editing permission."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/systex/win_w.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\systex\\win_w.txd",
+        "source_member_offset": 71290413,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "6956f72cbf490fe2dfc3fff23fdc9d68b43217c0b0cce1f54eae2fb84202b97f"
+      },
+      "expected": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/systex/win_w.txd",
+        "native_sha256": "246ae1010084277376cf7028859c493c32d50046f138691639f577eb46479d74",
+        "bytes": 263576,
+        "source_rgba_sha256": "b76636cf4356b3d4bec175d1b3e1bd3bcb573463c71f77eb16ff9b0f21b097d7",
+        "rgba_sha256": "b0c6fd94cc684099a5c5837b76311696bba11b281dc191bbb986123647194c4a",
+        "changed_native_bytes": 14373,
+        "changed_rgba_pixels": 14373,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          288,
+          262144
+        ],
+        "source_CLUT_payload": [
+          262512,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "becd2138b4ba419b399b605631f1118b6e9ec4666f0f7c917e1d80487cc1c404",
+        "source_cache_pixel_sha256": "6956f72cbf490fe2dfc3fff23fdc9d68b43217c0b0cce1f54eae2fb84202b97f",
+        "precondition_matches": false,
+        "old_contract_replayed": false,
+        "qualification": "Preserved source facts do not assert execution of the historical apply script."
+      },
+      "historical_contract": {
+        "mask": {
+          "path": "assets/artwork/approved-batch-e-v1/win_w-historical-allow.png",
+          "sha256": "75b040023467d471b56889218a8c64acb0ed5d297c59036afd1f4340a675c013",
+          "raw_sha256": "c21bb77a983b1762b643ea8f919779d16864d98c1d63a0a952336b4b3a08ea6a",
+          "pixels": 21039
+        },
+        "observed_changed_rgba_outside_mask": 2839,
+        "old_contract_replayed": false,
+        "prior_edit_history": "unproved"
+      }
+    },
+    "race.approved-20261001.source-cache-reconstruction.v1": {
+      "asset_id": "race",
+      "state": "SOURCE_QUALIFIED_FIXED_RECONSTRUCTION",
+      "contract": "approved-source-cache-reconstruction-v1",
+      "profile": {
+        "path": "profiles/textures/fixed-art/race-approved-source-cache-reconstruction-v1.json",
+        "sha256": "358047320e4f237e1feba098947f004e76ad8ae8f62c6eda37e05e36d7672355"
+      },
+      "wording": {
+        "exact": "SHOWDOWN FOR ALL!! WEDNESDAY SHOWTIME! / MONSTER RACE KING DOKAPON CUP / Dokapon Stadium / FINISH!"
+      },
+      "canvas": [
+        1024,
+        512
+      ],
+      "exact_allowed_mask": {
+        "path": "assets/artwork/approved-batch-e-v1/race-reconstruction-delta.png",
+        "sha256": "18ec4a609e7f2ddf2f1d9a9a9041e0b5235a75b0e4385641a231e5f7f2fc35f2",
+        "raw_sha256": "8b596c7809e581c0f7023973cd07e1d0f6de3376728459734b85fbafb7901595",
+        "pixels": 64210,
+        "role": "Exact source-cache to independently approved-final RGBA netdelta. External reconstruction verification bound; not prior or renewed generator editing permission."
+      },
+      "pristine_fixture": {
+        "bundle_id": "batch-e-source-cache-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/race/race.txd",
+        "source_archive": "GRAPHIC/EVENT.CMB",
+        "source_member": "event\\race\\race.txd",
+        "source_member_offset": 50610743,
+        "qualification": "Exact extracted-cache member; pristine ISO provenance is not established.",
+        "pixel_sha256": "01796e791052f5491d233ec69884a1820964df706cf51764d188cf4b4341f1bd"
+      },
+      "expected": {
+        "bundle_id": "approved-reference-targets-v1",
+        "key": "approved/race.txd",
+        "native_sha256": "23a3023a64c57142308f321a77f42294a27423e83b926824e2085eaaa5546dda",
+        "bytes": 525552,
+        "source_rgba_sha256": "5d9581072f9bacbeb3647985a3d06bc1db209298461379a8e5bd502788adfa77",
+        "rgba_sha256": "7c55aa88865683319ae918cf0b955629d4149fc894c3842784171e53d2a838ed",
+        "changed_native_bytes": 64210,
+        "changed_rgba_pixels": 64210,
+        "changed_rgba_outside_mask": 0,
+        "source_pixel_payload": [
+          200,
+          524288
+        ],
+        "source_CLUT_payload": [
+          524488,
+          1024
+        ]
+      },
+      "source_version": {
+        "approval_precondition_pixel_sha256": "01796e791052f5491d233ec69884a1820964df706cf51764d188cf4b4341f1bd",
+        "source_cache_pixel_sha256": "01796e791052f5491d233ec69884a1820964df706cf51764d188cf4b4341f1bd",
+        "precondition_matches": true,
+        "old_contract_replayed": false,
+        "qualification": "Historical apply source pixel pin matches; the stale generator fine mask is not the complete-image replacement contract."
+      },
+      "historical_contract": {
+        "mask": {
+          "path": "assets/artwork/approved-batch-e-v1/race-historical-allow.png",
+          "sha256": "67660c831c2bad630e9a7d780d888dbdfc779f6ae05576ebd4bebfb126f4ff0d",
+          "raw_sha256": "5ad7674702ee0c56c7576557e6ae090c8f1d094225f1f43f9e3b7f66e8ea30d6",
+          "pixels": 65257
+        },
+        "observed_changed_rgba_outside_mask": 6532,
+        "old_contract_replayed": false,
+        "prior_edit_history": "The fine generator mask is retained as failed comparison evidence; complete approved image and script rectangle authority govern this distinct fixed reconstruction."
+      },
+      "reference_target_id": "race-reference-v1"
+    }
+  },
+  "native_bundles": {
+    "batch-e-source-cache-v1": {
+      "path": "testdata/artwork-source-cache.zip",
+      "sha256": "e39da117a9b33023959bb8b97e1a56df8e3dd7d6d30c5d05d00a6fc38f2035fa",
+      "role": "Thirteen exact extracted-cache members. Full pristine ISO lineage is not claimed."
+    },
+    "approved-cmb-members-v1": {
+      "path": "assets/cmb-members.zip",
+      "sha256": "7969754af0cc6b677808839dc4e9dd2feb0070fe9e465d47398e9e4080a1366a",
+      "role": "Historical independently frozen native members. The old race member remains mismatching historical evidence; its distinct approved reference target is in a separate bundle."
+    },
+    "approved-reference-targets-v1": {
+      "path": "testdata/artwork-reference-targets.zip",
+      "sha256": "b37f22d3bc34d20ad38943daf84d47d613b39f4433aa608ab2b0c2ca0b1cc775",
+      "role": "One independently generated historical race reference, accepted only after complete source/native/RGBA/containment and independent outcome review; no Go output was used as its oracle."
+    }
+  },
+  "shared_source_art": {
+    "horizontal-logo-a": {
+      "path": "assets/artwork/logo-a/horizontal-source.png",
+      "sha256": "994dd2341f96bf29986993a7b52f7119f0e7e49f33c7cf9f4e0346e772527d61",
+      "crop_xyxy": [
+        50,
+        87,
+        2119,
+        589
+      ]
+    }
+  },
+  "approval_source": {
+    "id": "batch-e-owner-20261001",
+    "historical_source": "tools/apply_approved_batch_e_2026_10_01.py",
+    "historical_source_sha256": "017edb5f58ba708839fd8e623769b357e3469273f34cb404922382e545067a87",
+    "whole_image_contract": "The historical source describes fourteen owner-approved complete images, pins each complete PNG and requires complete final decoded RGBA equality. It does not establish old-mask editing approval for different source versions.",
+    "approved_png_sha256": {
+      "win_w": "58a49ac4ed87dd0eb170c723a10d78555adb94460cdeebf423925d801709222d",
+      "win_fw": "22e293079f966f435d9ba0e44dcd72d6c3a3d3eb3d87ab4dcc62613d234a7c9c",
+      "tx_win_w": "a8d50cf6c28e922c48ae5878392d9ed2580cc98dc3e1d746453b91d94fe4c2db",
+      "op_p": "516304ebc5a7ef68173c9c905662306ea99c216e2aadae9e73c77b5ddb5ab474",
+      "button": "616553ba9a51d31d7716ba14b45d158cb0929499c8823cac75490923b5db48be",
+      "sale": "158b8a5c85345cd63a19d458abc3be5dc9428364ef6f68fb094de6bc38c3a472",
+      "dk-1": "8b8d6250e317eeea49261167b4671f776b8488e11cb27598ba3c59f2ecaa1057",
+      "f_title": "db8d6d761b6fc1f9dd8da69a79b92c4a2f7bf6d7afaa8908ba8d370006d8575a",
+      "casino": "fcc720f85977d918f907642866957800c0009b7c30e3d41437959378bedb9e28",
+      "race": "9821b34555a394ffbc42a0fec69fb278170295df1cf9a497cc7b2c89b4f86008",
+      "food_t": "776188ad24c79d7cdabe679b10a35b339390b1a3d9aaf83a45b81140baeee089",
+      "title": "20d3df077367a734d7306b77f0a06da1b4b1f18e14d817b4d61b572c025aba7c",
+      "allmap_2": "0267290cd92dd9cc233d680d92c271f8c25902ae0da39c2f14ef5c46efd68b9d",
+      "allmap_1": "5418b3de9addb601db1fcbdfd4522dac63b80afb0efc736b4d672240c035c38c"
+    }
+  },
+  "contracts": {
+    "approved-relative-mask-v1": {
+      "scope": "An already approved complete flattened image from an exact source-cache member, contained in the historical approval mask. Source wording is bound by the approved PNG; no OCR/generator inference.",
+      "mask_role": "Independent historical permission verification; runtime profile rectangles are coarse."
+    },
+    "approved-source-cache-reconstruction-v1": {
+      "scope": "A distinct exact source-cache member reconstructed to the identical independently approved complete final image. The old source/mask contract failed and is not replayed.",
+      "mask_role": "Exact sourceRGBA-to-approved-finalRGBA netdelta is an external reconstruction verification bound, not renewed or prior editing permission."
+    }
+  },
+  "external_execution_gate": {
+    "runtime": "Source/image identities, selector/format/geometry, coarse rectangles and exclusive output/self-integrity are enforced by the existing importer.",
+    "independent": "Complete native target and all decoded channels, mask/alpha/palette/nonpixel preservation and old-version refusals remain external checks. Expected native hash is not a writer-runtime target pin.",
+    "apply": "Two fresh independent reviews of concrete exact executable/input/profile/image/mask/expected-byte/test-argv package, then root release before new native applies, including tests. Only owned exclusive outputs; no ISO writes."
+  },
+  "maintenance_contract": {
+    "process": "Retain the approved flattened PNG and shared source art once. Intentional art/wording/source changes need a distinct reviewed version and independent native/RGBA/mask target. Repinning alone is insufficient.",
+    "question": "Which named assets still need ongoing algorithmic editing?",
+    "reversible_default": "Use the already approved fixed image for these versions. Keep editable generators unsupported unless an established editing need justifies them.",
+    "limits": "Named fixed instances do not implement arbitrary Telea/exemplar/radial/material reconstruction or complete raster_rendering.06. No family/milestone/retirement credit; original14/84/410 history is preserved."
+  },
+  "held_instances": {},
+  "source_version_qualification": "All new source-cache rows bind measured extracted-cache bytes, not an unproved pristine ISO chain. The original allmap_1 pilot record and its authority remain unchanged.",
+  "historical_holds": {
+    "race.approved-20261001.held-native-oracle": {
+      "asset_id": "race",
+      "state": "HELD_APPROVED_TARGET_ORACLE_MISMATCH",
+      "approved_png": {
+        "path": "assets/artwork/approved-batch-e-v1/race.png",
+        "sha256": "9821b34555a394ffbc42a0fec69fb278170295df1cf9a497cc7b2c89b4f86008"
+      },
+      "source_cache": {
+        "archive": "GRAPHIC/EVENT.CMB",
+        "member": "event\\race\\race.txd",
+        "member_offset": 50610743,
+        "sha256": "fa12180fc8fb7e44c9621f89525f8efb17454fd2b772ccc03899f9b2f4893a80"
+      },
+      "rejected_historical_native": {
+        "bundle_id": "approved-cmb-members-v1",
+        "key": "GRAPHIC/EVENT.CMB/event/race/race.txd",
+        "native_sha256": "2b8908bf332f795b6a3b221056d6384dcc4e2002aec6da90d00f3fc6d769150c",
+        "decoded_rgba_sha256": "6cc91708e4875afb4d825d54087a01c89914b056c3e9db846fe2da1665205f6d",
+        "changed_pixels_against_approved_PNG": 18723,
+        "changed_alpha_bytes": 91,
+        "difference_bbox_xyxy": [
+          175,
+          305,
+          475,
+          387
+        ]
+      },
+      "qualification": "This historical native member is not the approved PNG target. No runnable profile, approved-native expectation or Go completion is provided. Preserve the approved PNG pin and seek an independent exact native oracle.",
+      "resolution": {
+        "status": "CLOSED_BY_DISTINCT_INDEPENDENT_REFERENCE_TARGET",
+        "instance": "race.approved-20261001.source-cache-reconstruction.v1",
+        "reference_target_id": "race-reference-v1",
+        "qualification": "The old mismatching native bundle is unchanged and is never used as the approved race expectation."
+      }
+    }
+  },
+  "independent_reference_targets": {
+    "race-reference-v1": {
+      "tool": "Existing tools.rework.new_tool textures CLI, index0 replacement; one reviewed historical encoder invocation, not a production Python dependency or new program.",
+      "tool_package_manifest": "/var/tmp/dokapon-race-reference-package-NPdReL48/manifest.json",
+      "tool_package_manifest_sha256": "86c8fec7f858e7d7c1adf6ff17e4b0f6a6b923d391163d501a4499375cd030ac",
+      "input_native_sha256": "fa12180fc8fb7e44c9621f89525f8efb17454fd2b772ccc03899f9b2f4893a80",
+      "approved_PNG_sha256": "9821b34555a394ffbc42a0fec69fb278170295df1cf9a497cc7b2c89b4f86008",
+      "approved_complete_RGBA_sha256": "7c55aa88865683319ae918cf0b955629d4149fc894c3842784171e53d2a838ed",
+      "reference_native_sha256": "23a3023a64c57142308f321a77f42294a27423e83b926824e2085eaaa5546dda",
+      "output_bytes": 525552,
+      "unchanged_CLUT_sha256": "592a144856a0715897feffedcbbc81a2a7282bfa46b3fae077b0bdb0ed656735",
+      "every_nonpixel_byte_unchanged": true,
+      "source_and_runtime_preserved": true,
+      "execution_outcome": "/var/tmp/dokapon-race-reference-package-NPdReL48/execution-outcome/manifest.json",
+      "execution_outcome_sha256": "6c0ecaf9210cad1b17eb00238ea4c64298f9f93ba326075649b674fa48e0e5d2",
+      "independent_review": "/var/tmp/dokapon-race-output-review-ZcXSUo9c/review.md",
+      "independent_review_sha256": "d2cc464fb601f540a6c7ac080b1bf62bd4c6288e7b83015ce5ce333b1740da2e",
+      "qualification": "Root accepted this independently verified historical reference for fixture use, not game/native deployment or family credit. Whole approved PNG authority is the shared approval_source; old artifact mismatch and generator mask failure remain recorded."
+    }
+  },
+  "maintenance_witnesses": {
+    "allmap_1.logo-a.v1": {
+      "allowed_edit": {
+        "point": [
+          44,
+          4
+        ],
+        "source_rgba": [
+          15,
+          75,
+          117,
+          255
+        ],
+        "approved_rgba": [
+          9,
+          38,
+          90,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          6,
+          4
+        ],
+        "approved_rgba": [
+          14,
+          99,
+          137,
+          255
+        ],
+        "replacement_source_point": [
+          0,
+          0
+        ],
+        "replacement_rgba": [
+          42,
+          10,
+          2,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 11570,
+        "coarse_union_pixels": 15708,
+        "interior_holes": 4138,
+        "mask_coarse_mismatches": 4138
+      }
+    },
+    "allmap_2.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          210,
+          4
+        ],
+        "source_rgba": [
+          24,
+          125,
+          154,
+          255
+        ],
+        "approved_rgba": [
+          18,
+          80,
+          121,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          6,
+          4
+        ],
+        "approved_rgba": [
+          14,
+          98,
+          136,
+          255
+        ],
+        "replacement_source_point": [
+          0,
+          0
+        ],
+        "replacement_rgba": [
+          42,
+          10,
+          2,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 11491,
+        "coarse_union_pixels": 15708,
+        "interior_holes": 4217,
+        "mask_coarse_mismatches": 4217
+      }
+    },
+    "button.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          77,
+          3
+        ],
+        "source_rgba": [
+          6,
+          9,
+          14,
+          255
+        ],
+        "approved_rgba": [
+          0,
+          0,
+          0,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          0,
+          0
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          11,
+          1
+        ],
+        "replacement_rgba": [
+          0,
+          0,
+          0,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 11008,
+        "coarse_union_pixels": 16384,
+        "interior_holes": 5376,
+        "mask_coarse_mismatches": 5376
+      }
+    },
+    "casino.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          303,
+          62
+        ],
+        "source_rgba": [
+          217,
+          239,
+          113,
+          255
+        ],
+        "approved_rgba": [
+          196,
+          238,
+          178,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          200,
+          52
+        ],
+        "approved_rgba": [
+          35,
+          185,
+          25,
+          255
+        ],
+        "replacement_source_point": [
+          0,
+          0
+        ],
+        "replacement_rgba": [
+          2,
+          7,
+          0,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 64300,
+        "coarse_union_pixels": 85307,
+        "interior_holes": 21007,
+        "mask_coarse_mismatches": 21007
+      }
+    },
+    "dk-1.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          324,
+          62
+        ],
+        "source_rgba": [
+          112,
+          100,
+          18,
+          255
+        ],
+        "approved_rgba": [
+          81,
+          129,
+          46,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          200,
+          52
+        ],
+        "approved_rgba": [
+          35,
+          184,
+          25,
+          255
+        ],
+        "replacement_source_point": [
+          0,
+          0
+        ],
+        "replacement_rgba": [
+          2,
+          5,
+          1,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 26411,
+        "coarse_union_pixels": 44144,
+        "interior_holes": 17733,
+        "mask_coarse_mismatches": 17733
+      }
+    },
+    "f_title.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          330,
+          61
+        ],
+        "source_rgba": [
+          236,
+          243,
+          203,
+          255
+        ],
+        "approved_rgba": [
+          143,
+          207,
+          35,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          200,
+          52
+        ],
+        "approved_rgba": [
+          35,
+          185,
+          26,
+          255
+        ],
+        "replacement_source_point": [
+          0,
+          0
+        ],
+        "replacement_rgba": [
+          2,
+          7,
+          0,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 48609,
+        "coarse_union_pixels": 84080,
+        "interior_holes": 35471,
+        "mask_coarse_mismatches": 35471
+      }
+    },
+    "food_t.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          163,
+          31
+        ],
+        "source_rgba": [
+          227,
+          134,
+          10,
+          252
+        ],
+        "approved_rgba": [
+          219,
+          129,
+          9,
+          242
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          8,
+          6
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          246,
+          29
+        ],
+        "replacement_rgba": [
+          244,
+          195,
+          110,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 32260,
+        "coarse_union_pixels": 72532,
+        "interior_holes": 40272,
+        "mask_coarse_mismatches": 40272
+      }
+    },
+    "op_p.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          400,
+          3
+        ],
+        "source_rgba": [
+          1,
+          1,
+          1,
+          34
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ]
+      },
+      "guard": {
+        "kind": "coarse_equals_mask_outside_refusal",
+        "point": [
+          0,
+          0
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          43,
+          1
+        ],
+        "replacement_rgba": [
+          49,
+          25,
+          4,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 10580,
+        "coarse_union_pixels": 10580,
+        "interior_holes": 0,
+        "mask_coarse_mismatches": 0
+      }
+    },
+    "race.approved-20261001.source-cache-reconstruction.v1": {
+      "allowed_edit": {
+        "point": [
+          705,
+          15
+        ],
+        "source_rgba": [
+          255,
+          255,
+          255,
+          22
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          642,
+          8
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          0,
+          0
+        ],
+        "replacement_rgba": [
+          2,
+          6,
+          0,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 64210,
+        "coarse_union_pixels": 118338,
+        "interior_holes": 54128,
+        "mask_coarse_mismatches": 54128
+      }
+    },
+    "sale.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          26,
+          0
+        ],
+        "source_rgba": [
+          0,
+          0,
+          0,
+          58
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          36,
+          15
+        ],
+        "approved_rgba": [
+          0,
+          0,
+          0,
+          255
+        ],
+        "replacement_source_point": [
+          46,
+          2
+        ],
+        "replacement_rgba": [
+          3,
+          0,
+          0,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 8139,
+        "coarse_union_pixels": 11049,
+        "interior_holes": 2910,
+        "mask_coarse_mismatches": 2910
+      }
+    },
+    "title.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          83,
+          41
+        ],
+        "source_rgba": [
+          255,
+          255,
+          255,
+          2
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          4,
+          40
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          82,
+          48
+        ],
+        "replacement_rgba": [
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 63106,
+        "coarse_union_pixels": 82368,
+        "interior_holes": 19262,
+        "mask_coarse_mismatches": 19262
+      }
+    },
+    "tx_win_w.approved-20261001.source-cache.v1": {
+      "allowed_edit": {
+        "point": [
+          904,
+          16
+        ],
+        "source_rgba": [
+          215,
+          46,
+          45,
+          255
+        ],
+        "approved_rgba": [
+          206,
+          0,
+          0,
+          255
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          868,
+          0
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          911,
+          2
+        ],
+        "replacement_rgba": [
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 21563,
+        "coarse_union_pixels": 27018,
+        "interior_holes": 5455,
+        "mask_coarse_mismatches": 5455
+      }
+    },
+    "win_fw.approved-20261001.source-cache-reconstruction.v1": {
+      "allowed_edit": {
+        "point": [
+          845,
+          6
+        ],
+        "source_rgba": [
+          179,
+          179,
+          179,
+          184
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          208,
+          6
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          845,
+          7
+        ],
+        "replacement_rgba": [
+          185,
+          185,
+          185,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 13124,
+        "coarse_union_pixels": 58482,
+        "interior_holes": 45358,
+        "mask_coarse_mismatches": 45358
+      }
+    },
+    "win_w.approved-20261001.source-cache-reconstruction.v1": {
+      "allowed_edit": {
+        "point": [
+          845,
+          6
+        ],
+        "source_rgba": [
+          179,
+          179,
+          179,
+          184
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ]
+      },
+      "guard": {
+        "kind": "fine_mask_hole",
+        "point": [
+          193,
+          6
+        ],
+        "approved_rgba": [
+          255,
+          255,
+          255,
+          0
+        ],
+        "replacement_source_point": [
+          845,
+          7
+        ],
+        "replacement_rgba": [
+          187,
+          186,
+          186,
+          255
+        ]
+      },
+      "geometry": {
+        "mask_pixels": 14373,
+        "coarse_union_pixels": 60264,
+        "interior_holes": 45891,
+        "mask_coarse_mismatches": 45891
+      }
+    }
+  }
+}

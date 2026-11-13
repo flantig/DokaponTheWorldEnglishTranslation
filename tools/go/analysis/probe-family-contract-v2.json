@@ -1,0 +1,436 @@
+{
+  "status": "USER_APPROVED_V2_TAXONOMY_NO_GO_IMPLEMENTATION",
+  "at": "2026-11-13T03:55:26.084576+00:00",
+  "family_id": "probe_orchestration_evidence",
+  "title": "Probe orchestration and evidence",
+  "proposed_baseline_version": "workflow-families-v2",
+  "proposed_checklist_version": "capability-milestones-v2",
+  "previous_proposal_manifest_sha256": "379aa24edff9611d1466585fbb01bf20898e4b0f0d4fef73e9b0a72760ca17c6",
+  "reviewed_source_pins": {
+    "at": "2026-11-13T03:22:51.643835+00:00",
+    "authorized_handoff": {
+      "path": "/home/franklinl/Documents/Dokapon World Mod/docs/audits/2026-11/2026-11-12-save-reload-probe.md",
+      "heading": "## Probe migration coordination, proposed fifteenth core family",
+      "start_line": 188,
+      "section_bytes": 3187,
+      "section_sha256": "a8ea4d137fda6ec5445bd3fefd80344e320f593b477bdc54d2ed0e1afc53076f",
+      "whole_file_sha256_at_read": "c56023989d32e6f4e83ea7949249a4c13280fd54af11fbfabafeec790d699446",
+      "private_artifacts_read": false
+    },
+    "accepted_metadata": {
+      "/var/tmp/dokapon-square-masks-oyxrneqa/sealed-final/manifest.json": "0f6af0e4c4a7066e6ba65f7c15c1b66481485728b8dddf4a3605b33f6d635d79",
+      "/var/tmp/dokapon-square-masks-oyxrneqa/sealed-final/analysis/reusability-coverage-baseline.json": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+      "/var/tmp/dokapon-square-masks-oyxrneqa/sealed-final/analysis/reusability-coverage.json": "4f960763e53b2ded07a1aebe8240b385aac5012a897bc5acc497596fa2495843",
+      "/var/tmp/dokapon-square-masks-oyxrneqa/sealed-final/analysis/migration-roadmap.json": "8edb5a098a22ff2c413224e436f4f99240891b510586ba9a3055cddd30e91f4e"
+    }
+  },
+  "milestones": [
+    {
+      "id": "probe_orchestration_evidence.01",
+      "requirement": "Run records and ownership receipts",
+      "acceptance": "Versioned metadata, profile receipts and session records validate required identity and nonce linkage, schema/version, path roles and exact error/refusal order; missing, stale, conflicting and duplicate evidence is refused.",
+      "credit": 0,
+      "status": "unproven_in_Go",
+      "initial_zero_reason": "No verified Go admission contract or owner-approved synthetic receipt oracle."
+    },
+    {
+      "id": "probe_orchestration_evidence.02",
+      "requirement": "Checkpoints and acceptance reports",
+      "acceptance": "Deterministic event/cohort reports preserve native slots, exact fingerprints, ordered evidence, warm/cold distinctions and unknown outcomes across fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons. SKIPPED and UNKNOWN outcomes retain their reasons and source ordering and never count as passing coverage.",
+      "credit": 0,
+      "status": "unproven_in_Go",
+      "initial_zero_reason": "Existing offline reports do not establish probe event semantics or original scenario cohort parity."
+    },
+    {
+      "id": "probe_orchestration_evidence.03",
+      "requirement": "Typed reads and diagnostics",
+      "acceptance": "Build/session-bound typed memory reads and decoders match owner oracles and refuse stale/partial/malformed/unsupported reads. Versioned diagnostic hook/counter plans, saved/live provenance and material displaced-instruction/ABI obligations are independently verified.",
+      "credit": 0,
+      "status": "unproven_in_Go",
+      "initial_zero_reason": "Static Go hook/template facts are partial support only; no complete owned diagnostic/read pipeline or ABI proof."
+    },
+    {
+      "id": "probe_orchestration_evidence.04",
+      "requirement": "Capture and evidence linkage",
+      "acceptance": "Serialized captures tie frame tags, decoded UI, image paths, logs and checkpoint outcome to one process/session; timeout, partial and cross-session/race cases are preserved/refused; owner-operated native comparison confirms parity. Bounded evidence retention and resource budgets are agreed with the probe owner and verified, including stalled/partial capture behavior.",
+      "credit": 0,
+      "status": "unproven_in_Go",
+      "initial_zero_reason": "No verified Go capture pipeline or owner-exported exact capture contract."
+    },
+    {
+      "id": "probe_orchestration_evidence.05",
+      "requirement": "Owned runtime lifecycle",
+      "acceptance": "Exact PID/starttime/build/ISO, profile receipt, PINE, virtual-pad, IPC/session/nonce and private card roots govern lifecycle and cleanup. Warm reset differs from cold restart; preservation/post-flush hashes and adversarial ownership refusals pass under one controller owner. BIOS/card/controller identities are guarded. Unattended crash/stall detection, bounded recovery, safe stop/resume and post-flush preservation pass under owner-agreed limits. Bounded skip/attempt policy preserves SKIPPED/UNKNOWN outcomes without granting coverage or unbounded polling/retries.",
+      "credit": 0,
+      "status": "unproven_in_Go",
+      "initial_zero_reason": "No verified Go lifecycle replacement; existing Python remains operational owner."
+    },
+    {
+      "id": "probe_orchestration_evidence.06",
+      "requirement": "Native scenario parity and handover",
+      "acceptance": "Exact-source smoke and three sequential stories, nondefault slot creation/paired reload, preservation/overwrite/retry, verified advancement and broader required cohorts pass; independent acceptance authorizes one-owner handover without duplicate production FSM. Starting the story probe and leaving it unattended requires owner-agreed bounded soak duration, recovery outcomes, resource and evidence-retention acceptance. These limits remain TBD; prior three-story tests do not establish this acceptance.",
+      "credit": 0,
+      "status": "unproven_in_Go",
+      "initial_zero_reason": "Current-actor takeover fresh smoke/stories remain pending in authorized handoff; no verified Go scenario parity or handover."
+    }
+  ],
+  "legacy_facets": {
+    "diagnostic_instrumentation": {
+      "milestones": [
+        "03"
+      ],
+      "dependencies": [
+        "01",
+        "02",
+        "04",
+        "05"
+      ],
+      "retain": "Versioned hook/counter preparation, saved/live provenance, displaced-instruction/ABI gap including duties outside save/reload.",
+      "additional_family_credit": 0
+    },
+    "runtime_platform": {
+      "milestones": [
+        "01",
+        "03",
+        "04",
+        "05"
+      ],
+      "retain": "Transport, input, capture/inspection, exact owned lifecycle.",
+      "additional_family_credit": 0
+    },
+    "runtime_scenarios": {
+      "milestones": [
+        "02",
+        "06"
+      ],
+      "dependencies": [
+        "03",
+        "04",
+        "05"
+      ],
+      "retain": "Fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons.",
+      "additional_family_credit": 0
+    }
+  },
+  "all_fifteen_granularity": {
+    "existing_families": [
+      {
+        "id": "guarded_transactions",
+        "milestone_ids": [
+          "guarded_transactions.01",
+          "guarded_transactions.02",
+          "guarded_transactions.03",
+          "guarded_transactions.04",
+          "guarded_transactions.05",
+          "guarded_transactions.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "text_codec",
+        "milestone_ids": [
+          "text_codec.01",
+          "text_codec.02",
+          "text_codec.03",
+          "text_codec.04",
+          "text_codec.05",
+          "text_codec.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "consumer_layout",
+        "milestone_ids": [
+          "consumer_layout.01",
+          "consumer_layout.02",
+          "consumer_layout.03",
+          "consumer_layout.04",
+          "consumer_layout.05",
+          "consumer_layout.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "binary_inspection",
+        "milestone_ids": [
+          "binary_inspection.01",
+          "binary_inspection.02",
+          "binary_inspection.03",
+          "binary_inspection.04",
+          "binary_inspection.05",
+          "binary_inspection.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "image_layout",
+        "milestone_ids": [
+          "image_layout.01",
+          "image_layout.02",
+          "image_layout.03",
+          "image_layout.04",
+          "image_layout.05",
+          "image_layout.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "registry_authoring",
+        "milestone_ids": [
+          "registry_authoring.01",
+          "registry_authoring.02",
+          "registry_authoring.03",
+          "registry_authoring.04",
+          "registry_authoring.05",
+          "registry_authoring.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "registry_reconciliation",
+        "milestone_ids": [
+          "registry_reconciliation.01",
+          "registry_reconciliation.02",
+          "registry_reconciliation.03",
+          "registry_reconciliation.04",
+          "registry_reconciliation.05",
+          "registry_reconciliation.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "artifact_snapshots",
+        "milestone_ids": [
+          "artifact_snapshots.01",
+          "artifact_snapshots.02",
+          "artifact_snapshots.03",
+          "artifact_snapshots.04",
+          "artifact_snapshots.05",
+          "artifact_snapshots.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "offline_reports",
+        "milestone_ids": [
+          "offline_reports.01",
+          "offline_reports.02",
+          "offline_reports.03",
+          "offline_reports.04",
+          "offline_reports.05",
+          "offline_reports.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "candidate_composition",
+        "milestone_ids": [
+          "candidate_composition.01",
+          "candidate_composition.02",
+          "candidate_composition.03",
+          "candidate_composition.04",
+          "candidate_composition.05",
+          "candidate_composition.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "texture_codec",
+        "milestone_ids": [
+          "texture_codec.01",
+          "texture_codec.02",
+          "texture_codec.03",
+          "texture_codec.04",
+          "texture_codec.05",
+          "texture_codec.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "asset_placement",
+        "milestone_ids": [
+          "asset_placement.01",
+          "asset_placement.02",
+          "asset_placement.03",
+          "asset_placement.04",
+          "asset_placement.05",
+          "asset_placement.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "raster_rendering",
+        "milestone_ids": [
+          "raster_rendering.01",
+          "raster_rendering.02",
+          "raster_rendering.03",
+          "raster_rendering.04",
+          "raster_rendering.05",
+          "raster_rendering.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "id": "asset_preview_inventory",
+        "milestone_ids": [
+          "asset_preview_inventory.01",
+          "asset_preview_inventory.02",
+          "asset_preview_inventory.03",
+          "asset_preview_inventory.04",
+          "asset_preview_inventory.05",
+          "asset_preview_inventory.06"
+        ],
+        "existing_credits": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "new_family_milestones": 6,
+    "preserve_existing_84_requirements_status_evidence_exactly": true
+  },
+  "initial_metrics": {
+    "core_full": 10,
+    "core_total": 15,
+    "core_percent": 66.67,
+    "milestones_proven": 76,
+    "milestones_total": 90,
+    "milestone_percent": 84.44,
+    "new_family_credit": 0,
+    "new_milestone_credit": 0,
+    "retirements": 0,
+    "meaning": "Unweighted accepted capabilities/checklist groups, not effort, time or reuse percent."
+  },
+  "historical_metrics": {
+    "baseline": "workflow-families-v1",
+    "core": "10/14 = 71.43%",
+    "milestones": "76/84 = 90.48%",
+    "expanded": "10/17 = 58.82%",
+    "optional_runtime": "0/3 full; 1 partial, 2 unsupported in Go"
+  },
+  "gates": [
+    "Wait for root-provided final art checkpoint baseline identity; do not stage from a guessed live head.",
+    "Create isolated taxonomy/doc staging only after prior checkpoint is finalized and source pins verified.",
+    "Keep current Python runtime owner until identical native acceptance; no second production state machine.",
+    "Peer-reviewed sanitized synthetic fixtures and stable export/refusal contract precede future implementation.",
+    "Taxonomy changes do not grant code/native capability, historical retirement or ISO/control authority."
+  ],
+  "current_authorized_handoff": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/docs/audits/2026-11/2026-11-12-save-reload-probe.md",
+    "heading": "## Probe migration coordination, proposed fifteenth core family",
+    "read_at": "2026-11-13T03:55:26.084576+00:00",
+    "section_sha256": "76e57bfe4f2234394afdaddcc52b2eb07d8719d89d1261509ec73e5c86b14529",
+    "section_bytes": 3559,
+    "whole_file_sha256_at_read": "767bd6d1491626d1ba6d9fc3ea5ea8b02902e77f0fb7255a8a44c8a592440d8d",
+    "previous_reviewed_section_sha256": "a8ea4d137fda6ec5445bd3fefd80344e320f593b477bdc54d2ed0e1afc53076f",
+    "qualification": "Authorized coordination section only. Current section adds bounded skipped-eligibility bookkeeping and reports 98 tests plus57 subtests. Owner-reported results were not rerun here. Fresh current-actor production smoke/three stories and preservation/overwrite retry remain pending at this source freeze.",
+    "private_artifacts_read": false
+  },
+  "accepted_metadata_base": {
+    "path": "/var/tmp/dokapon-art-data-pilot-q18hc1jf/sealed-final/manifest.json",
+    "sha256": "d9c5429b65f929af8cf24c00c00e48f085ef4e895c385727e62eb7e83b4b50f0"
+  },
+  "user_unattended_acceptance": {
+    "requirement": "Starting the story probe, leaving it unattended, and all lifecycle/recovery responsibilities are inside the full probe family.",
+    "duration": "TBD with probe owner before acceptance; no invented overnight duration.",
+    "recovery_and_resource_budget": "Owner-agreed bounded detection, recovery, safe stop/resume and resource/evidence budgets must be explicit acceptance criteria.",
+    "credit": 0,
+    "prior_three_story_evidence_satisfies_unattended_acceptance": false
+  },
+  "implementation_gate": "Receive owner-approved public-safe synthetic metadata/profile/session/receipt/events schemas and refusal-order fixtures before Go parsing implementation. Existing Python remains sole production owner until identical native acceptance and explicit one-owner handover."
+}

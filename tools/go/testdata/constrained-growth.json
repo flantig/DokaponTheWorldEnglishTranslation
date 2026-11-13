@@ -1,0 +1,542 @@
+{
+  "contract": "Literal masks frozen before Go changes. # is true. Admission affects only newly added pixels in finite positive dilation; seeds remain selected. Stage expectations follow rectangular distances and one-pixel green-wall openings, not Go-generated outputs.",
+  "source": {
+    "path": "/var/tmp/dokapon-original-permission-source-jdo2V5Rg/sources/batch_e_art.py",
+    "sha256": "529d2fa2fbb8a64cc3960c24c078ea194b8166ddbca6df51cc1cc125d40ca55d",
+    "lines": "700-735",
+    "limits": "Top/bottom original lettering only. Middle centroid filtering, new glyph coverage and complete wedding artwork remain unsupported."
+  },
+  "transforms": [
+    {
+      "id": "square barrier",
+      "mask": [
+        ".......",
+        ".#.....",
+        "......."
+      ],
+      "admit": [
+        "###.###",
+        "###.###",
+        "###.###"
+      ],
+      "kind": "dilate",
+      "kernel": "square",
+      "iterations": 5,
+      "want": [
+        "###....",
+        "###....",
+        "###...."
+      ]
+    },
+    {
+      "id": "unrestricted contrast crosses wall",
+      "mask": [
+        ".......",
+        ".#.....",
+        "......."
+      ],
+      "kind": "dilate",
+      "kernel": "square",
+      "iterations": 5,
+      "want": [
+        "#######",
+        "#######",
+        "#######"
+      ]
+    },
+    {
+      "id": "finite detour",
+      "mask": [
+        ".....",
+        ".....",
+        "#....",
+        ".....",
+        "....."
+      ],
+      "admit": [
+        "#####",
+        "##.##",
+        "##.##",
+        "##.##",
+        "##.##"
+      ],
+      "kind": "dilate",
+      "kernel": "square",
+      "iterations": 3,
+      "want": [
+        "####.",
+        "##.#.",
+        "##...",
+        "##...",
+        "##..."
+      ]
+    },
+    {
+      "id": "diagonal square path",
+      "mask": [
+        "#..",
+        "...",
+        "..."
+      ],
+      "admit": [
+        "#..",
+        ".#.",
+        "..#"
+      ],
+      "kind": "dilate",
+      "kernel": "square",
+      "iterations": 2,
+      "want": [
+        "#..",
+        ".#.",
+        "..#"
+      ]
+    },
+    {
+      "id": "diagonal cross refusal to cross",
+      "mask": [
+        "#..",
+        "...",
+        "..."
+      ],
+      "admit": [
+        "#..",
+        ".#.",
+        "..#"
+      ],
+      "kind": "dilate",
+      "kernel": "cross",
+      "iterations": 2,
+      "want": [
+        "#..",
+        "...",
+        "..."
+      ]
+    },
+    {
+      "id": "outside seed starts admitted path",
+      "mask": [
+        "#.."
+      ],
+      "admit": [
+        ".##"
+      ],
+      "kind": "dilate",
+      "iterations": 2,
+      "want": [
+        "###"
+      ]
+    },
+    {
+      "id": "all true admission",
+      "mask": [
+        ".#."
+      ],
+      "admit": [
+        "###"
+      ],
+      "kind": "dilate",
+      "iterations": 1,
+      "want": [
+        "###"
+      ]
+    },
+    {
+      "id": "all false admission preserves seed",
+      "mask": [
+        ".#."
+      ],
+      "admit": [
+        "..."
+      ],
+      "kind": "dilate",
+      "iterations": 1,
+      "want": [
+        ".#."
+      ]
+    },
+    {
+      "id": "empty direct admission refuses dimensions",
+      "mask": [
+        ".#."
+      ],
+      "admit": [],
+      "kind": "dilate",
+      "iterations": 1
+    },
+    {
+      "id": "wrong admission dimensions",
+      "mask": [
+        ".#."
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "dilate",
+      "iterations": 1
+    },
+    {
+      "id": "admission cannot affect erosion",
+      "mask": [
+        "#"
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "erode",
+      "iterations": 1
+    },
+    {
+      "id": "admission cannot affect closing",
+      "mask": [
+        "#"
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "close",
+      "iterations": 1
+    },
+    {
+      "id": "admission cannot affect filling",
+      "mask": [
+        "#"
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "fill_holes"
+    },
+    {
+      "id": "admission cannot affect components",
+      "mask": [
+        "#"
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "minimum"
+    },
+    {
+      "id": "admission requires finite positive count",
+      "mask": [
+        "#"
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "dilate",
+      "iterations": 0
+    },
+    {
+      "id": "negative admission count refuses",
+      "mask": [
+        "#"
+      ],
+      "admit": [
+        "#"
+      ],
+      "kind": "dilate",
+      "iterations": -1
+    }
+  ],
+  "stages": [
+    {
+      "id": "top closed lettering and strict red-green wall opening",
+      "pixels": [
+        "........G....",
+        "........G....",
+        "..TTUTT.G..T.",
+        "..T...U.G....",
+        "..U...T.O....",
+        "..T...T.G....",
+        "..TTTTT.G....",
+        "........G....",
+        "........G....",
+        "........G..TT",
+        "........G..TT",
+        "........G...."
+      ],
+      "colors": {
+        ".": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "T": [
+          205,
+          190,
+          80,
+          255
+        ],
+        "U": [
+          180,
+          100,
+          100,
+          255
+        ],
+        "G": [
+          0,
+          100,
+          0,
+          255
+        ],
+        "O": [
+          75,
+          100,
+          0,
+          255
+        ]
+      },
+      "spec": {
+        "rect": [
+          0,
+          0,
+          13,
+          12
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "red": 150,
+                "red-green": 20
+              },
+              "below": {
+                "blue": 110
+              }
+            }
+          ],
+          [
+            {
+              "above": {
+                "red": 200,
+                "green": 150
+              },
+              "below": {
+                "blue": 90
+              }
+            }
+          ]
+        ],
+        "kernel": "square",
+        "close": 1,
+        "fill": "holes",
+        "minimum_size": 12,
+        "grow": 5,
+        "grow_through": [
+          [
+            {
+              "above": {
+                "red-green": -26
+              }
+            }
+          ],
+          [
+            {
+              "below": {
+                "green-blue": 11
+              }
+            }
+          ]
+        ]
+      },
+      "want": [
+        "########.....",
+        "########.###.",
+        "########.###.",
+        "########.###.",
+        "############.",
+        "########.###.",
+        "########.###.",
+        "########.###.",
+        "########.....",
+        "########.....",
+        "########.....",
+        "########....."
+      ]
+    },
+    {
+      "id": "bottom closed lettering and strict green-blue wall opening",
+      "pixels": [
+        "........G....",
+        "........G....",
+        "..BBBBB.G..B.",
+        "..B...B.G....",
+        "..B...B.O....",
+        "..B...B.G....",
+        "..BBBBB.G....",
+        "........G....",
+        "........G....",
+        "........G..BB",
+        "........G..BB",
+        "........G...."
+      ],
+      "colors": {
+        ".": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "B": [
+          110,
+          70,
+          90,
+          255
+        ],
+        "G": [
+          0,
+          100,
+          0,
+          255
+        ],
+        "O": [
+          0,
+          100,
+          90,
+          255
+        ]
+      },
+      "spec": {
+        "rect": [
+          0,
+          0,
+          13,
+          12
+        ],
+        "any": [
+          [
+            {
+              "above": {
+                "red-green": 30,
+                "red": 70
+              },
+              "below": {
+                "blue": 100,
+                "green": 130
+              }
+            }
+          ]
+        ],
+        "kernel": "square",
+        "close": 1,
+        "fill": "holes",
+        "minimum_size": 12,
+        "grow": 5,
+        "grow_through": [
+          [
+            {
+              "above": {
+                "red-green": -26
+              }
+            }
+          ],
+          [
+            {
+              "below": {
+                "green-blue": 11
+              }
+            }
+          ]
+        ]
+      },
+      "want": [
+        "########.....",
+        "########.###.",
+        "########.###.",
+        "########.###.",
+        "############.",
+        "########.###.",
+        "########.###.",
+        "########.###.",
+        "########.....",
+        "########.....",
+        "########.....",
+        "########....."
+      ]
+    }
+  ],
+  "cli": {
+    "template_sha256": "bebd53b087f3416f8255da1a5aad92cdebced652a10b80e9fa470f4234373054",
+    "pixel_offset": 300,
+    "pixels": [
+      "WWWGWWW",
+      "WSWGWWW",
+      "WWWGWWW"
+    ],
+    "colors": {
+      "W": [
+        255,
+        255,
+        255,
+        128
+      ],
+      "G": [
+        0,
+        100,
+        0,
+        128
+      ],
+      "S": [
+        0,
+        0,
+        0,
+        128
+      ]
+    },
+    "spec": {
+      "rect": [
+        0,
+        0,
+        7,
+        3
+      ],
+      "any": [
+        [
+          {
+            "near": [
+              0,
+              0,
+              0
+            ],
+            "tol": 0
+          }
+        ]
+      ],
+      "kernel": "square",
+      "fill": "none",
+      "grow": 5,
+      "grow_through": [
+        [
+          {
+            "above": {
+              "red-green": -26
+            }
+          }
+        ],
+        [
+          {
+            "below": {
+              "green-blue": 11
+            }
+          }
+        ]
+      ]
+    },
+    "want": [
+      "###....",
+      "###....",
+      "###...."
+    ],
+    "unrestricted": [
+      "#######",
+      "#######",
+      "#######"
+    ],
+    "source_sha256": "5a394d7bfd6174f20198548ee67d3550db1ef3a8a293f112f64896baeeb4a7f7",
+    "output_sha256": "f0eed1aae036c0e4eaaf44109bf07d2c5062f697ca279bc8f71274a4866d7777",
+    "unrestricted_sha256": "58983e05d5da873f55a2522f8253a77c58c16a2fd9712270eda53f175ea5b390"
+  }
+}

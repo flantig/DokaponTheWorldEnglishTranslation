@@ -1,0 +1,72 @@
+{
+  "kind": "BOUNDED_POINTER_ORIGIN_CONSUMER_CONTRACT",
+  "updated_at": "2026-11-13T05:51:28.955426+00:00",
+  "operation": "instruction_index.register_flow pointer_consumers; optional reference_candidates.reference_flow policy join",
+  "input": "The existing query label identifies one asserted low32 origin. A query supplies the existing VMA, register, context, delay controller and work limit, plus seed_phase before or after. Seed phase is accepted only for this kind. Entries and seeds are assumptions, not inferred pointer values or proof of code ownership.",
+  "graph_and_domain": "queryRegisterFlow remains the sole graph builder and context selector. One pure tracePointerConsumers analysis receives the same decoded rows, graph, selected roots and remaining batch budget. MAY origin aliases and saved slots join by union; exact frame addresses survive only identical incoming facts. A changed join reprocesses its node. An unknown-address full-word load may recover any live origin spill and remains incomplete.",
+  "decoder": "indexInstructions remains the only decoder. It adds internal transfer and memory-geometry facts. The finite domain uses existing ADDIU and MOVZ/MOVN facts plus valid zero-operand ADDU/DADDU/OR copies. Those copy forms intentionally expand formerly unsupported index and graph results. No second decoder or general ALU is introduced. Ordinary nonmove ADDU supplies normal operand/fallthrough facts only. Its transfer stays unset: tracked-source arithmetic remains provenance_loss/unsupported_origin_transfer, while destination-only overwrite kills the old alias. Other nonmove DADDU/OR and reserved forms remain unknown.",
+  "stack": "Seed SP is relative frame offset zero, without native frame-ownership proof. Exact offsets are bounded to [-8192,8192) and at most 64 MAY origin slots, limiting alias-state growth. Only intact, aligned four-byte GPR SW/LW transfers are fully supported. Partial, merged, wide or non-GPR reloads that may overlap a live origin slot stay UNKNOWN. An origin alias does not prove stack disjointness. Later clearing the saved slot cannot erase earlier loss. Load and store branches share one aligned merge-footprint calculation.",
+  "calls": "The controller applies the authoritative link write, then the actual delay instruction executes. EE argument registers4..11 are observed only for a direct/indirect linked call or a taken conditional-link path. A false conditional link follows its existing fallthrough. Calls stop with an unmodeled continuation; no PC+8 return edge, ABI clobber, or callee-stack identity is invented. Jump-target and delayed return-value events remain distinct.",
+  "output": "An optional consumer group records origin label, VMA, event kind, register, width, literal displacement, target and delay context. These are possible origin-derived uses, not object bounds, complete128-bit identity or CPU execution proof. Pointee reads/writes differ from pointer stores, call arguments, returns, jumps and provenance loss. Unknown reasons remain sticky and sorted while known events stay visible. Whole-program scope remains unproved. Empty consumer sets classify UNRESOLVED even when locally complete.",
+  "policy": "ReferenceFlowSpec owns shared call_rules keyed by target, with allowed_registers and evidence. Per-registry-ID consumer_seeds reuse query coordinates and inherit the kind and work limit. Rules are declarations bound to the pinned source/profile, not attestations of callee behavior. Missing rules stay unknown; an empty allowed list declares risk; a wrong argument is risky. RISKY outranks UNRESOLVED, which outranks safe under declared policy. Existing benign-reader pairs never waive consumer events. No production SAFE table or shipping rewrite exception is added.",
+  "limits": "Existing limits remain:32768 words,256 entries,64 queries,100000 graph states,100000 processing steps per query and1000000 per batch. Every abstract-state processing or reprocessing is charged. A registry ID may supply at most eight consumer seeds. There are at most64 call targets, each with up to eight distinct EE argument registers and4096 bytes of evidence. Exceeding a bound leaves the result incomplete.",
+  "reuse_decision": {
+    "existing_candidates": [
+      "queryRegisterFlow owns one CFG, validation, contexts and budgets; its fixed-register searches remain separate.",
+      "references owns source identity, registry association, reports and declared software policy, not mutable graph state.",
+      "indexInstructions owns decoding and typed facts.",
+      "Existing TestCLIDryRunAndApply owns ZIP vectors, refusals and metamorphic checks; no test function or helper is added."
+    ],
+    "new_function_justification": "One pure pointer-domain analyzer is justified by state-valued joins, frame/spill provenance and typed events. These differ materially from fixed-register searches. Embedding them in that search or the report handler would mix responsibilities. Existing graph types move by usage; no second graph builder, writer or generic framework is added.",
+    "new_functions": [
+      "tracePointerConsumers"
+    ],
+    "dependencies_added": 0
+  },
+  "independent_evidence": {
+    "precode38": "2f86016975e3b4f66af2351b85114ac19a0ef1b9596b82115338a5ee090a306e",
+    "manual49_final": "3ec307f676c7c953dca41f364495767f3ce445360e37d2fdce6a1f3a52670edd",
+    "source_corrections": "Independent source reviews corrected a frame-join expectation and six partial-reload reason sets. Words and events were not copied from candidate output. Earlier versions, failed runs and rejected narrowing experiments remain retained. The policy carrier LOAD geometry was corrected without changing instruction words or expected behavior.",
+    "fixture": "testdata/pointer-consumer-fixture.zip",
+    "fixture_sha256": "3997dd7111c4bb0815dae969fef94a09e1f43b422c50447a2ac777c06344d7bb",
+    "literal_cases": 49,
+    "declared_policy_cases": 4,
+    "new_refusals": 32,
+    "metamorphic": "Reverse branch-successor processing for the diamond, loop and frame-join cases; compare the same independent expected facts."
+  },
+  "remaining": "Interprocedural returns and summaries, getter/global/table/indirect/block origins, and shipping byte-proven exceptions remain unsupported. binary_inspection.05 stays partial. Interior/ABI and independent image ownership/growth duties remain open. No milestone, family or whole-script retirement credit is claimed. Probe implementation remains last.",
+  "legacy_source_pins": [
+    {
+      "repository_path": "tools/migrate_drafted_2026_09_30.py",
+      "bytes": 106911,
+      "sha256": "a35c8078bde4bab8ca978f22d5c9a843551ba523b8fff806f37ccc0edf005bdf"
+    },
+    {
+      "repository_path": "tools/patch_iso_grow_elf.py",
+      "bytes": 17425,
+      "sha256": "8a9ad86eeee3a7f48282e2da4fda2e85c37083deac02ac664b6cbbc2c9763925"
+    },
+    {
+      "repository_path": "tools/patch_iso_stream_blob.py",
+      "bytes": 27292,
+      "sha256": "cd943f22faee9b6c7bb129e01ad48b98d3d54bf2573d83aaba7769287dfad2e2"
+    },
+    {
+      "repository_path": "docs/planning-log/2026-09-03-phase2-iso-elf-expansion.md",
+      "bytes": 25676,
+      "sha256": "16b709aec9025acebd417c8453275590c214b94421776d5a025db99a89ef31d1"
+    }
+  ],
+  "stack_container_arguments": {
+    "status": "VERIFIED_SCOPED_STACK_CONTAINER_OBSERVATIONS",
+    "source_contract": "tools/migrate_drafted_2026_09_30.py Tracer.call695–701, pinned above",
+    "window": "For an actual linked call after its real delay instruction, exact frame addresses in EE argument registers4..11 admit live MAY spill starts in [argument,argument+64). Report the minimum relative displacement and width4 as pointer evidence, not object extent or ABI/callee proof.",
+    "convergence": "At most8 candidates per processed call context. Replace/delete point-local candidates on reprocessing, then reduce after convergence by origin/VMA/delay/outcome/register, excluding displacement and immutable target from identity. Work, batch, spill or caller graph limits suppress only this new kind; semantic UNKNOWN alone does not.",
+    "policy": "Default non-call eventRank1 stays unchanged; direct call_rules cannot admit container observations. End-to-end UNRESOLVED also contains semantic UNKNOWN, so isolated complete-query policy-rank proof remains unqualified without a reviewed existing-owner seam.",
+    "fixture": "testdata/pointer-container-fixture.zip",
+    "fixture_sha256": "9d86fc8286a7d0114d3ea1d811066d72770d875a42764114990fb15946d18b49",
+    "tests": "22 literal cases; old49/32 corpus retained with one separately frozen event addition; five internal budget assertions and branch/entry reorderings completed in the accepted whole selected CLI test",
+    "limits": "Full public1000000-step batch and100000-state graph-limit carriers remain unqualified. No ownership/landing/ABI, family, milestone or retirement credit.",
+    "acceptance": "evidence/pointer-consumer-proof.json#accepted_stack_container_arguments"
+  }
+}

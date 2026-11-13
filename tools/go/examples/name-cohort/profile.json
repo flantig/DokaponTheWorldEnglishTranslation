@@ -1,0 +1,86 @@
+{
+  "operation": "reference_cohort",
+  "source_size": 12416,
+  "source_sha256": "98908d58ee27b8ce050f03ef29b029ed8a9a6245f9023dc681c91d28692bf5db",
+  "evidence": "Synthetic source-bound nominal name cohort and declared raw-pointer policy; no game data or patch authorization.",
+  "elf_vma_delta": "0xfff80",
+  "layout": {
+    "font_table_vma": "0x100300",
+    "unfloored_glyph_vma": "0x100220",
+    "unfloored_glyph": "0x1",
+    "space_words": {
+      "0x100200": "0x3c024160",
+      "0x100204": "0x3c024160",
+      "0x100208": "0x3c024160",
+      "0x10020c": "0x3c024160",
+      "0x100210": "0x3c024160",
+      "0x100214": "0x3c024160",
+      "0x100218": "0x3c024160",
+      "0x10021c": "0x3c024160"
+    }
+  },
+  "registry_inputs": {
+    "sentinel": {
+      "path": "sentinel.bin",
+      "size": 4,
+      "sha256": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5"
+    }
+  },
+  "reference_flow": {
+    "entry_vmas": [
+      "0x100100"
+    ],
+    "max_visited_states": 4000,
+    "entries": {
+      "0x4000000": {
+        "expected_pairs": [],
+        "expected_pointers": [
+          "0x101804"
+        ]
+      }
+    }
+  },
+  "references": {
+    "decode_words": 100,
+    "advance_floor": 22,
+    "space_advance": 14,
+    "missing_advance": 23,
+    "sidecar_vma": "0x4000000",
+    "file_range": {
+      "start": "0x180",
+      "end": "0x1c0"
+    },
+    "raw_file_range": {
+      "start": "0x180",
+      "end": "0x3080"
+    },
+    "raw_pointer_range": {
+      "start": "0x4000000",
+      "end": "0x4100000"
+    },
+    "data_range": {
+      "start": "0x101800",
+      "end": "0x103000"
+    },
+    "queries": {
+      "names": {
+        "content_range": {
+          "start": "0x100000",
+          "end": "0x540000"
+        },
+        "pointer_tables": [
+          {
+            "name": "synthetic",
+            "start": "0x101804",
+            "end": "0x10180c",
+            "stride": 8
+          }
+        ],
+        "expected_count": 1,
+        "expected_max_width": 20,
+        "nominal_scale": 1,
+        "scaled_limit": 20
+      }
+    }
+  }
+}

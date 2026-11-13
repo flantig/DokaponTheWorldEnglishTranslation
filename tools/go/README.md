@@ -5,11 +5,13 @@ English stays in the registry; separate recipe tables hold patch facts. Read
 [MIGRATION.md](MIGRATION.md) for coverage, current evidence, costs and remaining work.
 Resume the persistent goal from [.goal/GOAL.md](.goal/GOAL.md).
 
-[Reusable workflow coverage](analysis/reusability-coverage.md) is **57.14% fully
-verified: 8 of 14 core families**, with 6 partial and none unsupported. Partial
-support earns no completion credit; this measures workflow support, not code
-readability or exact-mod reproduction. All14 areas now have a scoped usable
-entry point; complete historical coverage is not the toolkit usability gate.
+The current [v3 coverage](analysis/reusability-coverage.md) is **10/15 fully verified core families (66.67%)**, with five Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 76 proven (84.44%)**, six per family. Probe orchestration and evidence is Partial with **0/6** groups proven in Go. These are unweighted capability/checklist counts, not code reuse, effort, time or script migration percentages.
+
+The original14 authoring families retain their scoped usable operations. The new full probe workflow has no verified Go orchestration owner. Existing Python remains the sole production owner until identical native acceptance and explicit handover. Starting a story probe, unattended crash/stall detection, bounded recovery, safe stop/resume, preservation and bounded evidence/resource use are required. The probe owner must agree the soak duration, recovery outcomes and budgets before acceptance; earlier three-story tests do not prove unattended acceptance.
+
+The [v1 baseline](analysis/reusability-coverage-baseline.json) remains byte-identical. Its accepted808 views preserve **10/14 Full (71.43%)**, **76/84 (90.48%)** and expanded **10/17 (58.82%)** as history. The original three optional runtime groups are retained as non-additive facets of the one new core family, so v2 introduced 15 unique families, which v3 retains. Native hook/counter/ABI duties and fixed-field, narrative, positional-grid, code/hook/capacity and image-state scenario duties remain in scope. No Go/runtime implementation, new native proof, retirement or capability credit follows from this taxonomy update.
+
+Next: obtain owner-approved sanitized run/profile/session/receipt/event schemas and refusal-order fixtures before selecting a pure Go admission slice. No private probe artifacts or runtime resources are used by this metadata update.
 
 Follow [AGENTS.md](AGENTS.md): inspect symbols and callers with Serena, enhance
 existing functions whenever reasonable, and verify the complete change.
@@ -263,6 +265,24 @@ can overflow. Source/font and glyphmap pins remain required. Apply/output/recipe
 flags are refused. The example profile is a static398-unit/three-line candidate,
 not final visual geometry; its source pin deliberately rejects the newer live ISO.
 
+For source-grid ink measurements, add optional `ink_atlas` using the shared
+`RegistryInput` keys: `path`, `size` and `sha256`. The path resolves relative to
+the fit profile and selects one standalone native font TXD. Existing
+[font-atlas authoring](profiles/textures/font-atlas-export.json) uses this resource
+format. The decoder requires named `font0`, `font1` and `font2` pages; physical
+order does not select a page. Candidate ELF metrics and atlas hashes are separate
+measured inputs, with no installed-pairing claim.
+
+Rows then add `ink_status` (`measured`, `known_empty` or `unknown`) and, when
+known, half-open `ink_bounds_by_page` arrays `[left, top, right, bottom]`. Bounds
+include every nonzero-alpha pixel of the full glyph tile, placed using its native
+bearing. Y is local to each line's tile, and SPACE draws no ink. Numeric or nested
+substitutions leave the whole row's ink unknown, including later literal origins.
+`within_profile` still describes pen/count/byte checks. These bounds do not prove
+physical clipping, scale, positioning or actual screen fit. See the
+[contract](analysis/native-ink-contract.json) and [checks](evidence/native-ink-proof.json).
+Omitting `ink_atlas` preserves the existing report format.
+
 A fit entry can supply `authoring` (`markers`, `plain`, or `ordered`) together
 with `source: {"start": "0x100", "end": "0x110"}`. These are byte offsets
 relative to the selected ELF, including when `iso_file` selects it from an ISO.
@@ -486,7 +506,7 @@ scope. Explicit RGBA accepts these native layouts:
 | 2 | 256×256,128×16,16×16 | One upload header, no CLUT |
 
 Export, no-op import and rectangle-bounded edits share the same pixel loop.
-Raw source alpha above128 still refuses, and hidden RGB at zero alpha is preserved.
+Raw source alpha above 128 still refuses, and hidden RGB at zero alpha is preserved.
 The PNG alpha convention above is reversible over raw0–128; native GS blending
 uses alpha/128 and is not simulated here. `pixel_policy` and `palette_policy`
 cannot both be set. Other direct layouts remain unsupported. The initial
@@ -1710,6 +1730,10 @@ operand facts distinguish GPR destinations, other register banks, conditional
 writes and merge dependencies. May/must destinations describe normal completion;
 they do not prove a complete 128-bit overwrite.
 
+Ordinary `ADDU` exposes its source reads, destination write and fallthrough.
+Only zero-operand forms establish a pointer copy. Arithmetic involving a tracked
+pointer still loses provenance; a destination-only overwrite kills its old alias.
+
 Local control alternatives keep branch targets, likely-delay behavior and link
 values separate. A link does not imply return. Missing, unsupported or control
 words in a selected delay slot produce a delay error beside the raw alternatives.
@@ -1730,13 +1754,17 @@ go -C tools/go run . --source examples/gp-audit/observed.elf \
 
 An instruction profile may add a top-level `register_flow` object containing
 `entry_vmas` and a map of named `queries`. Entries assert normal execution at
-selected words. Each query requires `kind` (`reaching_defs` or `uses_after`),
+selected words. Each query requires `kind` (`reaching_defs`, `uses_after` or
+`reads_before_kill` or `pointer_consumers`),
 `register` (0..31), `vma`, `context` and `max_visited_states` (1..100,000).
 VMAs use the existing address-string syntax. Context is `normal`, `any_reachable`
 or `delay`; only `delay` requires and accepts `delay_of`, the controlling transfer.
 
 Definitions are searched before the queried word reads; uses are searched after
-it executes. A physical word can execute both normally and as a delay word.
+it executes. `reads_before_kill` instead includes the queried execution, checking
+its incoming dependencies before a definite overwrite. Its work budget includes
+the root and each distinct reached execution state. A physical word can execute
+both normally and as a delay word.
 Likely-branch annulment follows the selected outcome, and a link is visible
 before its delay. The engine builds one graph per batch and preserves conditional
 writes and merge dependencies instead of treating every destination as a kill.
@@ -1744,7 +1772,10 @@ Loops converge through visited execution states; they can revisit the query word
 GPR0 has no mutable definitions or uses.
 
 Results separate sorted known sites, incoming entry sites and incomplete reasons.
-An unknown exit or exhausted limit can coexist with useful facts. A reachable
+An unknown exit or exhausted limit can coexist with useful facts. Forward sites
+are dependency MAYREAD facts, including conditional preservation, not proof that
+a pointed-to value is consumed. Empty sites prove no modeled read only when
+`complete_within_asserted_scope` is true; an incomplete empty result is UNKNOWN. A reachable
 unknown transfer holds backward completeness even when a known path reaches the
 query, because the unknown target may add a predecessor inside the selected range.
 Forward uses stop at a definite overwrite, so a later unknown exit need not hold
@@ -1759,6 +1790,47 @@ bytes each). Graph states are capped at 100,000 and aggregate admitted query
 states at 1,000,000. Sorted query labels make shared-budget results deterministic.
 The example finds the first ADDIU defining a1 before the third word; later GP
 reads remain known while continuation outside the selected window stays held.
+
+### Following pointer consumers
+
+```sh
+go -C tools/go run . --source examples/pointer-consumers/source.elf \
+  --recipes examples/pointer-consumers/profile.json
+```
+
+A `pointer_consumers` register-flow query requires `seed_phase: "before"` or
+`"after"`. The query label identifies an asserted incoming low32 pointer origin.
+It follows copies, signed immediate offsets and aligned four-byte stack spills,
+including aliases that survive overwriting the original register. Results separate
+pointee reads/writes from pointer stores, call arguments, returns and provenance
+loss. They retain delay context and literal memory displacement, not object bounds.
+
+Calls stop after their actual delay instruction with an unknown continuation.
+A false conditional link follows its existing fallthrough. Partial, merged, wide
+or non-GPR spill reloads stay unknown, including possible overlaps after frame
+precision is lost. Clearing a saved slot later cannot erase that uncertainty.
+The analyzer uses the existing graph and charges repeated abstract-state work.
+
+`stack_container_argument` observes a live four-byte pointer spill whose start is
+within 64 bytes above an argument's exact stack-frame address. It reports the
+minimum relative displacement after frame facts converge. Work, batch, spill or
+graph limits suppress these observations; semantic uncertainty alone does not.
+The window is a historical reporting convention, not an object size, callee read
+or ABI proof. Direct-call policy declarations do not admit this event kind.
+
+A reference-flow recipe can add `consumer_seeds`, keyed by a short origin name;
+each seed supplies `vma`, `register`, `context`, `seed_phase` and optional
+`delay_of`. It inherits the shared work limit. Shared `call_rules` map a target
+to explicit `allowed_registers` (EE registers4..11) and `evidence`. An empty list
+marks risk; a missing rule stays unknown. These are declarations bound to the
+pinned source/profile, not proof of callee behavior. Risk outranks uncertainty;
+a permitted call never erases its unmodeled continuation. Existing benign-reader
+pairs do not waive pointer-consumer findings.
+
+The [contract](analysis/pointer-consumer-contract.json) records limits and remaining
+interprocedural/table/getter duties. This tool grants no patch or ABI authority.
+The [retired static ELF design](analysis/retired-static-elf-design.json) is documented
+separately; it is not a Go segment/BSS growth capability.
 
 ### Checking declared instruction readers
 
@@ -1937,9 +2009,30 @@ hole filling, optional immutable-core restriction, component-size filtering and
 growth follow the source order. `core_grow` defaults to four; explicit zero converges
 until stable. An omitted core skips restriction, while an explicit empty core
 selects nothing. `clip` and `exclude` apply afterward in canvas-relative coordinates.
-Morphology and hole filling are four-connected inside `rect`; component membership
-can explicitly use four or eight neighbors. Font-dependent providers remain outside
-this contract.
+Optional `kernel` is empty, `cross` (the default), or `square`. It controls closing,
+core growth, erosion and final growth. Square uses all eight surrounding pixels;
+cross uses four orthogonal pixels. Hole filling stays four-connected, and component
+membership keeps its separate four/eight choice. The crop exterior is false.
+Unknown kernels refuse even when no morphology is active. Font-dependent providers
+remain outside this contract.
+
+Optional `grow_through` uses the same OR-of-AND selectors on the original pixels.
+It admits each newly reached pixel during positive final `grow` only; omitted is
+unrestricted, `[]` admits none, and `[[]]` admits every sampled pixel. Existing
+selected pixels survive even when they fail admission. `sample_rect` also bounds
+this predicate role. Closing, filling, component selection and core growth remain
+unchanged; final `clip` and `exclude` still apply afterward. Nonpositive final
+growth with admission refuses. The existing predicate work budget includes this
+role before evaluation. Constrained growth stops at barriers, unlike unrestricted
+growth followed by clipping. Literal synthetic tests cover the historical wedding
+top/bottom lettering stages; middle centroid filtering, new glyph coverage and
+complete artwork permissions remain unfinished. These two inset fixtures do not
+establish arbitrary historical crop-edge parity or complete `raster_rendering.06`.
+
+Default and explicit cross preserve the existing work charge. Square adds
+`16 * rect width * rect height` per active morphological pass. Closing counts twice;
+a present core counts once, including `core_grow: 0`. Nonzero erosion and final
+growth each count once. The limit is checked before predicate or topology work.
 
 Rectangle and pixel masks share one three-stage permission loop, the combined
 64-region cap, native-footprint intersection and text protection. A single numerical
@@ -1949,7 +2042,7 @@ and erases share binary topology. No runtime Python or dynamic provider imports
 are used.
 
 Tables under `profiles/permissions/footprints/` keep permission facts tied to stable
-asset IDs. Nine tables cover ten source permission contexts on synthetic inputs;
+asset IDs. Twelve tables cover thirteen source permission contexts on synthetic inputs;
 `mini-g02-g12.json` serves both asset IDs because their operands match exactly.
 `mini-t2.json` replaces the former generic-only partial table. Historical partial
 expectations stay unchanged inside the source fixture, not as another runtime
@@ -2001,8 +2094,65 @@ field. A background seed selects all original background-label pixels across `re
 including disconnected regions and zero padding outside `sample_rect`. Removed
 foreground never becomes background. Foreground and background seed selections
 union before optional `erode`; zero erosion skips and negative erosion converges.
-Erosion stays four-connected and occurs before final growth and clipping. Original
+Erosion follows `kernel` and occurs before final growth and clipping. Original
 flood recipes use their crop as `rect`, keeping erosion inside it before placement.
 Omitted background policy preserves foreground-seed refusals. Explicit empty seeds
 still select nothing; explicit empty rejection criteria stay present and refuse
 label-zero mode. Advanced artwork and donor reconstruction remain open.
+
+
+Batch E permission tables `op_p.json`, `button.json` and `sale.json` cover three
+source calls on two declared synthetic 512x512 RGBA contexts. `op_p` stores eleven
+literal rectangles. `button` keeps sixteen separate 32x32 crops, selects alpha
+strictly above 128, fills four-connected holes, then erodes once with the square
+kernel. `sale` selects alpha above 40 and any RGB channel above 90 in the first two
+lower bands. Each protection grows by three square layers over the complete
+canvas, then clips to its own sign before subtraction. This preserves neighboring
+signs when protection crosses a seam. These tables describe permissions, not
+complete art workflows or verified dimensions of actual game assets.
+
+
+### Approved fixed artwork as versioned data
+
+[Fixed-art maintenance](docs/fixed-art.md) describes the existing static PNG import
+path for a named already approved image. The canonical [instance record](recipes/artwork/fixed-instances.json)
+references source-bound profile, readable source/image/mask data and independent
+native/RGBA expectations. Exact-mask and expected-target checks are separate from
+runtime coarse rectangles and writer self-integrity. No new renderer or general
+art generator is claimed.
+
+The [current-tooling scope amendment](analysis/current-tooling-scope-v3.json) preserves exact accepted-834 history and changes two current obligations without adding Go credit. The [v3 roadmap](analysis/migration-roadmap.md) remains 76/90 proven groups and 10/15 Full families. The next bounded task is source-bound maintenance of the current documented name policy; historical F112 70% is not current, and native replay, ownership and fit remain unproved. Probe work is last.
+
+## Source-bound name cohorts
+
+The shared `reference_cohort` report selects declarative pointer tables, preserves each slot occurrence and measures the first-END stream through existing font and grammar owners. Its explicit historical nominal policy is separate from native advances, source-grid ink and physical fit. An optional source-policy join reuses the instruction index and graph; raw buckets are capped before allocation, and known hazards remain beside UNKNOWN.
+
+Start with the [synthetic runnable example](examples/name-cohort/README.md). The [contract](analysis/name-cohort-contract.json), [proof](evidence/name-cohort-proof.json) and [reviews](evidence/name-cohort-review.json) document the 43 cases, 28 typed refusals, source limits and capability costs. The actual 207-name game census, fixed F112 alias, complete ownership and landing proof remain pending. No new handler, decoder, graph or scale interpreter was added. This is capability growth, not code reduction; coverage remains 10/15 Full and 76/90 proven, and probe work is last.
+
+## Synthetic declarative name-policy replay
+
+The [eleven-record example](examples/name-policy/README.md) exercises existing guarded-word planning and complete synthetic copy readback with no production code change. It preserves source-version boundaries, distinguishes dry-run pin echoes from computed outputs, and grants no native, reduction or migration credit.
+
+Startup centering uses the same planner and copy writer through the
+[native guards](recipes/layout/startup-centering-2026-10-01-native.json) and
+[four whole slots](recipes/layout/startup-centering-2026-10-01-sent.json).
+The [literal fixture](testdata/startup-centering-2026-10-01.json) binds all sixteen
+synthetic OLD/DONE combinations to one independently frozen all-NEW target.
+The checked-in recipes admit the all-OLD carrier; the tests select only the other
+fifteen explicitly pinned identities. They do not accept arbitrary repinned inputs.
+Run `go test -run '^(TestPlanAndCopy|TestPlanRefusals)$' -count=1 .` for synthetic
+copy, padding, source preservation and refusal checks. All-DONE still creates a
+fresh exclusive copy. No production function or stream-control waiver was added.
+
+The six Multitap offsets use source-specific ties-to-even rounding. The first
+scaled space becomes C007; the second remains unchanged. Memory prefixes account
+for the centered window's origin movement, so C00E moves visible ink by seven
+units. These fixed vectors preserve wording, pages and the7002 arguments; they
+are not a general renderer model. Retained native slots match the derived NEW
+bytes, but original-native OLD replay, complete consumer/interior/boundary
+reference admission and a post-patch live capture remain separate proof gates.
+
+Recipe intake now checks ambiguous duplicate root keys before decoding can erase
+them, including hidden mixed-operation requests. Valid legacy scalar output and
+its selective nested policy remain unchanged. This adds a refusal for ambiguous root configuration, without a new
+parser, operation, graph, function or control-waiver flag.

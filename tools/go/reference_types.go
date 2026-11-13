@@ -11,29 +11,42 @@ type ReferenceGeometry struct {
 
 // ReferenceScan describes a read-only search. Its matches are candidates, not patch guards.
 type ReferenceScan struct {
-	FileRange     AddressRange              `json:"file_range"`
-	PointerMinVMA string                    `json:"pointer_min_vma"`
-	SkipWords     int                       `json:"skip_words"`
-	DecodeWords   int                       `json:"decode_words"`
-	Queries       map[string]ReferenceQuery `json:"queries"`
+	AdvanceFloor    int                       `json:"advance_floor,omitempty"`
+	SpaceAdvance    int                       `json:"space_advance,omitempty"`
+	MissingAdvance  int                       `json:"missing_advance,omitempty"`
+	SidecarVMA      string                    `json:"sidecar_vma,omitempty"`
+	RawFileRange    AddressRange              `json:"raw_file_range,omitempty"`
+	RawPointerRange AddressRange              `json:"raw_pointer_range,omitempty"`
+	DataRange       AddressRange              `json:"data_range,omitempty"`
+	FileRange       AddressRange              `json:"file_range"`
+	PointerMinVMA   string                    `json:"pointer_min_vma"`
+	SkipWords       int                       `json:"skip_words"`
+	DecodeWords     int                       `json:"decode_words"`
+	Queries         map[string]ReferenceQuery `json:"queries"`
 }
 
 type ReferenceQuery struct {
-	SourcePool      string            `json:"source_pool,omitempty"`
-	Chapter         string            `json:"chapter,omitempty"`
-	IDRange         *AddressRange     `json:"id_range,omitempty"`
-	ContentRange    AddressRange      `json:"content_range"`
-	UnlandedOnly    bool              `json:"unlanded_only,omitempty"`
-	Backward        bool              `json:"backward,omitempty"`
-	DecodeTarget    bool              `json:"decode_target,omitempty"`
-	CheckCollisions bool              `json:"check_collisions,omitempty"`
-	StructRows      []ReferenceTable  `json:"struct_rows,omitempty"`
-	OmitIDs         []string          `json:"omit_ids,omitempty"`
-	Excluded        map[string]string `json:"excluded,omitempty"`
-	Flagged         map[string]string `json:"flagged,omitempty"`
+	PointerTables    []ReferenceTable  `json:"pointer_tables,omitempty"`
+	ExpectedCount    int               `json:"expected_count,omitempty"`
+	ExpectedMaxWidth int               `json:"expected_max_width,omitempty"`
+	NominalScale     float64           `json:"nominal_scale,omitempty"`
+	ScaledLimit      float64           `json:"scaled_limit,omitempty"`
+	SourcePool       string            `json:"source_pool,omitempty"`
+	Chapter          string            `json:"chapter,omitempty"`
+	IDRange          *AddressRange     `json:"id_range,omitempty"`
+	ContentRange     AddressRange      `json:"content_range"`
+	UnlandedOnly     bool              `json:"unlanded_only,omitempty"`
+	Backward         bool              `json:"backward,omitempty"`
+	DecodeTarget     bool              `json:"decode_target,omitempty"`
+	CheckCollisions  bool              `json:"check_collisions,omitempty"`
+	StructRows       []ReferenceTable  `json:"struct_rows,omitempty"`
+	OmitIDs          []string          `json:"omit_ids,omitempty"`
+	Excluded         map[string]string `json:"excluded,omitempty"`
+	Flagged          map[string]string `json:"flagged,omitempty"`
 }
 
 type ReferenceTable struct {
+	Name   string `json:"name,omitempty"`
 	Start  string `json:"start"`
 	End    string `json:"end"`
 	Stride int    `json:"stride"`
@@ -59,6 +72,13 @@ type ReferenceCandidate struct {
 }
 
 type ReferenceRow struct {
+	TableName       string                 `json:"table_name,omitempty"`
+	Occurrence      *int                   `json:"occurrence,omitempty"`
+	BackingSource   string                 `json:"backing_source,omitempty"`
+	WordCount       int                    `json:"word_count,omitempty"`
+	LineWidths      []int                  `json:"line_widths,omitempty"`
+	NominalMaximum  *int                   `json:"nominal_maximum,omitempty"`
+	Diagnostics     []string               `json:"diagnostics,omitempty"`
 	Flow            *ReferenceFlowRow      `json:"flow,omitempty"`
 	ID              string                 `json:"id"`
 	Method          string                 `json:"method"`
@@ -102,6 +122,11 @@ type GPIndex struct {
 }
 
 type ReferenceReport struct {
+	Measurement      string                      `json:"measurement,omitempty"`
+	NominalPolicy    map[string]int              `json:"nominal_policy,omitempty"`
+	BlobSHA256       string                      `json:"blob_sha256,omitempty"`
+	BlobSize         int64                       `json:"blob_size,omitempty"`
+	SourcePolicy     map[string]ReferenceFlowRow `json:"source_policy,omitempty"`
 	InstructionIndex *InstructionIndex           `json:"instruction_index,omitempty"`
 	GPIndex          *GPIndex                    `json:"gp_index,omitempty"`
 	RegisterInfo     *ELFRegisterInfo            `json:"register_info,omitempty"`
@@ -117,6 +142,10 @@ type ReferenceReport struct {
 }
 
 type ReferenceSummary struct {
+	NominalMaximum    *int           `json:"nominal_maximum,omitempty"`
+	NominalScaled     *float64       `json:"nominal_scaled,omitempty"`
+	NominalPolicyOK   *bool          `json:"nominal_policy_ok,omitempty"`
+	Diagnostics       []string       `json:"diagnostics,omitempty"`
 	ObservedSites     int            `json:"observed_sites,omitempty"`
 	FailedSites       int            `json:"failed_sites,omitempty"`
 	DivergentRows     int            `json:"divergent_rows,omitempty"`

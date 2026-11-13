@@ -8,13 +8,15 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"sort"
 	"unicode/utf8"
 )
 
 // previewFit reports new wording against declared native pen limits without planning edits.
 // Exact LINE constraints preserve menu separators and cannot be combined with wrapping.
-// Unsupported scale/position/substitution remains unknown; a report never authorizes a patch.
+// Optional native atlas ink stays in each line's unscaled source grid, independent
+// of candidate ELF provenance. Symbolic origins stay unknown; no screen-fit approval.
 func previewFit(sourcePath, registryPath, glyphPath, profilePath string, stdout io.Writer) error {
 	inputs := []struct {
 		path  string
@@ -31,7 +33,7 @@ func previewFit(sourcePath, registryPath, glyphPath, profilePath string, stdout 
 		}
 		inputs[i].data = data
 	}
-	if err := checkJSON(checkedJSON{raw: inputs[0].data, allObjects: true, aliasesByDepth: map[int][]string{3: {"required_line_breaks"}}}); err != nil {
+	if err := checkJSON(checkedJSON{raw: inputs[0].data, allObjects: true, aliasesByDepth: map[int][]string{1: {"ink_atlas"}, 3: {"required_line_breaks"}}, nonNullByDepth: map[int][]string{1: {"ink_atlas"}}}); err != nil {
 		return fmt.Errorf("fit profile: %w", err)
 	}
 	var profile FitProfile
@@ -44,10 +46,27 @@ func previewFit(sourcePath, registryPath, glyphPath, profilePath string, stdout 
 	if err := decoder.Decode(&extra); err != io.EOF {
 		return fmt.Errorf("fit profile must contain one JSON object")
 	}
+	if profile.InkAtlas != nil {
+		var fields map[string]json.RawMessage
+		if err := json.Unmarshal(inputs[0].data, &fields); err != nil {
+			return err
+		}
+		keys := []string{"path", "size", "sha256"}
+		if err := checkJSON(checkedJSON{raw: fields["ink_atlas"], allObjects: true, nonNull: true, fieldsByDepth: map[int][]string{1: keys}, requiredByDepth: map[int][]string{1: keys}}); err != nil {
+			return fmt.Errorf("fit ink atlas: %w", err)
+		}
+		if profile.InkAtlas.Path == "" || profile.InkAtlas.Size < 12 || profile.InkAtlas.Size > 64<<20 {
+			return fmt.Errorf("fit ink atlas requires a bounded native TXD")
+		}
+	}
 	if profile.SourceSize < 12 || len(profile.Entries) < 1 || len(profile.Entries) > 4096 || len(profile.Boxes) < 1 || profile.Font.Columns != 0 || profile.Font.Rows != 0 {
 		return fmt.Errorf("fit requires source font facts, explicit entries and consumer boxes without character budgets")
 	}
-	for _, pin := range []string{profile.SourceSHA256, profile.GlyphmapSHA256} {
+	pins := []string{profile.SourceSHA256, profile.GlyphmapSHA256}
+	if profile.InkAtlas != nil {
+		pins = append(pins, profile.InkAtlas.SHA256)
+	}
+	for _, pin := range pins {
 		decoded, err := hex.DecodeString(pin)
 		if err != nil || len(decoded) != sha256.Size {
 			return fmt.Errorf("invalid fit SHA-256 pin")
@@ -132,15 +151,79 @@ func previewFit(sourcePath, registryPath, glyphPath, profilePath string, stdout 
 	if err != nil {
 		return err
 	}
+	var inkBounds map[uint16][4]int
+	var atlasPath string
+	var atlasBefore os.FileInfo
+	if profile.InkAtlas != nil {
+		atlasPath = profile.InkAtlas.Path
+		if !filepath.IsAbs(atlasPath) {
+			atlasPath = filepath.Join(filepath.Dir(profilePath), atlasPath)
+		}
+		atlasBefore, err = os.Stat(atlasPath)
+		if err != nil {
+			return err
+		}
+		data, err := readInput(atlasPath, 64<<20)
+		if err != nil {
+			return err
+		}
+		if int64(len(data)) != profile.InkAtlas.Size || fmt.Sprintf("%x", sha256.Sum256(data)) != profile.InkAtlas.SHA256 {
+			return fmt.Errorf("fit ink atlas hash/size mismatch")
+		}
+		index, err := indexTextures(data)
+		if err != nil {
+			return err
+		}
+		inkBounds = make(map[uint16][4]int, 3*441)
+		for page := 0; page < 3; page++ {
+			name := fmt.Sprintf("font%d", page)
+			_, atlas, err := texture(data, name, nil, nil, "", &index)
+			if err != nil {
+				return fmt.Errorf("fit ink atlas %s: %w", name, err)
+			}
+			entries := index.byName[name] // The codec already requires one exact named texture.
+			header := index.Textures[entries[0]].Header
+			if header.Width != 512 || header.Height != 512 || header.Depth != 32 {
+				return fmt.Errorf("fit ink atlas %s requires a native 512x512 direct page", name)
+			}
+			for glyph := 0; glyph < 441; glyph++ {
+				word := uint16(page*441 + glyph)
+				left := int(native.GlyphMetrics[word][0])
+				x0, y0 := glyph%21*24, glyph/21*24
+				box := [4]int{}
+				for y := 0; y < 24; y++ {
+					for x := 0; x < 24; x++ {
+						if atlas.NRGBAAt(x0+x, y0+y).A == 0 {
+							continue
+						}
+						if box == ([4]int{}) {
+							box = [4]int{x - left, y, x + 1 - left, y + 1}
+						} else {
+							box = [4]int{min(box[0], x-left), min(box[1], y), max(box[2], x+1-left), max(box[3], y+1)}
+						}
+					}
+				}
+				inkBounds[word] = box
+			}
+		}
+	}
 	report := FitReport{Operation: "text_fit", SourceSHA256: profile.SourceSHA256,
 		RegistrySHA256: fmt.Sprintf("%x", sha256.Sum256(inputs[1].data)), GlyphmapSHA256: profile.GlyphmapSHA256,
 		ProfileSHA256: fmt.Sprintf("%x", sha256.Sum256(inputs[0].data)), Measurement: "native_pen_advances",
 		Limits: "Read-only measurements against declared consumer limits. No visual ink/scale/position, source-control, reference or patch approval. Unsupported semantics remain unknown.", Boxes: profile.Boxes, Entries: []FitRow{}}
+	if profile.InkAtlas != nil {
+		report.Measurement = "native_pen_advances_and_source_grid_ink"
+		report.InkAtlasSHA256, report.InkAtlasSize = profile.InkAtlas.SHA256, profile.InkAtlas.Size
+		report.Limits = "Read-only pen and byte/count checks against declared consumer limits. Ink bounds are unscaled, tile-local per line, from a separately pinned native atlas. Candidate ELF and atlas provenance do not prove installed pairing, GS coverage, physical clipping, scale, positioning or nested producers. within_profile describes pen/count/byte checks, not visual or ink-fit approval."
+	}
 	for _, text := range ids {
 		id, _ := number(text)
 		selection := profile.Entries[text]
 		box := profile.Boxes[selection.Box]
 		row := FitRow{ID: text, Box: selection.Box, English: byID[id].EN, Status: "unsupported"}
+		if inkBounds != nil {
+			row.InkStatus = "unknown"
+		}
 		var encoded []byte
 		if len(row.English) > maxStreamBytes*4 {
 			err = fmt.Errorf("wording exceeds authoring byte limit")
@@ -177,13 +260,26 @@ func previewFit(sourcePath, registryPath, glyphPath, profilePath string, stdout 
 			continue
 		}
 		row.EncodedHex, row.EncodedSHA256, row.Bytes = hex.EncodeToString(encoded), fmt.Sprintf("%x", sha256.Sum256(encoded)), len(encoded)
-		shape, err := controls(encoded, TextScanOptions{Terminated: true, Advances: native.Advances, NumericBounds: selection.NumericBounds})
+		shape, err := controls(encoded, TextScanOptions{Terminated: true, Advances: native.Advances, NumericBounds: selection.NumericBounds, InkBounds: inkBounds})
 		if err != nil {
 			row.Diagnostics = []string{err.Error()}
 			report.Entries = append(report.Entries, row)
 			continue
 		}
 		row.Width, row.Lines, row.LineWidths, row.Status = shape.Width, shape.Lines, shape.LineWidths, "within_profile"
+		if inkBounds != nil {
+			row.InkDiagnostic = shape.InkDiagnostic
+			if shape.InkKnown {
+				row.InkStatus, row.InkBounds = "known_empty", shape.LineInkBounds
+				for _, page := range row.InkBounds {
+					for _, box := range page {
+						if box != ([4]int{}) {
+							row.InkStatus = "measured"
+						}
+					}
+				}
+			}
+		}
 		if shape.Width > box.MaxWidth {
 			row.Diagnostics = append(row.Diagnostics, fmt.Sprintf("line width %d exceeds %d", shape.Width, box.MaxWidth))
 		}
@@ -225,6 +321,13 @@ func previewFit(sourcePath, registryPath, glyphPath, profilePath string, stdout 
 	}
 	if after, err := source.Stat(); err != nil || after.Size() != before.Size() || after.ModTime() != before.ModTime() || fmt.Sprintf("%x", hash.Sum(nil)) != profile.SourceSHA256 {
 		return fmt.Errorf("fit source changed or hash mismatch")
+	}
+	if profile.InkAtlas != nil {
+		data, err := readInput(atlasPath, 64<<20)
+		after, statErr := os.Stat(atlasPath)
+		if err != nil || statErr != nil || !os.SameFile(atlasBefore, after) || after.Size() != atlasBefore.Size() || after.ModTime() != atlasBefore.ModTime() || int64(len(data)) != profile.InkAtlas.Size || fmt.Sprintf("%x", sha256.Sum256(data)) != profile.InkAtlas.SHA256 {
+			return fmt.Errorf("fit ink atlas changed or hash mismatch")
+		}
 	}
 	encoder := json.NewEncoder(stdout)
 	encoder.SetIndent("", "  ")

@@ -6,11 +6,34 @@ type ReferenceFlowSpec struct {
 	EntryVMAs        []string                       `json:"entry_vmas"`
 	MaxVisitedStates int                            `json:"max_visited_states"`
 	Entries          map[string]ReferenceFlowRecipe `json:"entries"`
+	CallRules        map[string]ConsumerCallRule    `json:"call_rules,omitempty"`
 }
 
 type ReferenceFlowRecipe struct {
-	BenignReaderPairs    []ReferenceBenignUse `json:"benign_reader_pairs,omitempty"`
-	ZeroPaddingAllowance int                  `json:"zero_padding_allowance,omitempty"`
+	ExpectedPairs        []ReferenceFlowTarget        `json:"expected_pairs,omitempty"`
+	ExpectedPointers     []string                     `json:"expected_pointers,omitempty"`
+	BenignReaderPairs    []ReferenceBenignUse         `json:"benign_reader_pairs,omitempty"`
+	ZeroPaddingAllowance int                          `json:"zero_padding_allowance,omitempty"`
+	ConsumerSeeds        map[string]RegisterFlowQuery `json:"consumer_seeds,omitempty"`
+}
+
+// Call rules are source-bound declarations, not attestations of callee behavior.
+// Empty allowed registers declares risk; a missing rule leaves a call unknown.
+type ConsumerCallRule struct {
+	AllowedRegisters []uint32 `json:"allowed_registers"`
+	Evidence         string   `json:"evidence"`
+}
+
+type ReferenceConsumerAssessment struct {
+	Query          string                        `json:"query"`
+	Classification string                        `json:"classification"`
+	CallPolicies   []ReferenceConsumerCallPolicy `json:"call_policies"`
+}
+
+type ReferenceConsumerCallPolicy struct {
+	Event          int    `json:"event"`
+	Classification string `json:"classification"`
+	Evidence       string `json:"evidence,omitempty"`
 }
 
 type ReferenceBenignUse struct {
@@ -22,16 +45,20 @@ type ReferenceBenignUse struct {
 // ReferenceFlowRow joins declared sites to the authoritative register-flow group.
 // Eligible means only that this read-only row meets the declared finite policy.
 type ReferenceFlowRow struct {
-	CallerDisposition   string                `json:"caller_disposition"`
-	Diagnostics         []string              `json:"diagnostics"`
-	DefinitionQueries   map[string]string     `json:"definition_queries"`
-	UseQueries          map[string]string     `json:"use_queries"`
-	ConstructedTargets  []ReferenceFlowTarget `json:"constructed_targets"`
-	Readers             []ReferenceFlowReader `json:"readers"`
-	CanonicalPairErrors map[string]string     `json:"canonical_pair_errors"`
+	RawPointerSites     *[]uint32                              `json:"raw_pointer_sites,omitempty"`
+	RawIndexStatus      string                                 `json:"raw_index_status,omitempty"`
+	Consumers           map[string]ReferenceConsumerAssessment `json:"consumers,omitempty"`
+	CallerDisposition   string                                 `json:"caller_disposition"`
+	Diagnostics         []string                               `json:"diagnostics"`
+	DefinitionQueries   map[string]string                      `json:"definition_queries"`
+	UseQueries          map[string]string                      `json:"use_queries"`
+	ConstructedTargets  []ReferenceFlowTarget                  `json:"constructed_targets"`
+	Readers             []ReferenceFlowReader                  `json:"readers"`
+	CanonicalPairErrors map[string]string                      `json:"canonical_pair_errors"`
 }
 
 type ReferenceFlowTarget struct {
+	Opcode   uint32 `json:"opcode,omitempty"`
 	LUIVMA   uint32 `json:"lui_vma"`
 	LowerVMA uint32 `json:"lower_vma"`
 	Target   uint32 `json:"target"`

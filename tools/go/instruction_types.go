@@ -21,12 +21,29 @@ type InstructionIndex struct {
 
 type InstructionObservation struct {
 	InstructionWord
+	transfer    *instructionTransfer
+	memory      *instructionMemory
 	RD          uint32              `json:"rd"`
 	Operands    InstructionOperands `json:"operands"`
 	Control     *InstructionControl `json:"control"`
 	NextVMA     *uint32             `json:"next_vma"`
 	NextInScan  *bool               `json:"next_in_scan"`
 	SiteMapping ELFMapping          `json:"site_mapping"`
+}
+
+// Internal facts are decoded once; expanding an analysis adds no public index fields.
+type instructionTransfer struct {
+	kind                string
+	source, destination uint32
+	displacement        int32
+}
+
+type instructionMemory struct {
+	kind, bank   string
+	base, value  uint32
+	width        int
+	displacement int32
+	merge        bool
 }
 
 // InstructionOperands describes finite operand roles on normal completion.

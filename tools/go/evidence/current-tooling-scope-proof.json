@@ -1,0 +1,91 @@
+{
+  "kind": "CURRENT_TOOLING_SCOPE_PROOF",
+  "at": "2026-11-13T07:27:57.742076+00:00",
+  "accepted_base_manifest_sha256": "1ed9a772caff7a0def874fc1748ca6810e4996f6c05e8bf50d05fd89332bd788",
+  "record": "analysis/current-tooling-scope-v3.json",
+  "record_sha256": "b2aeb6bc06c9396797b4c5b029abe887fda766544d33b9c8eb42728c28d51aa0",
+  "archives": {
+    "analysis/migration-roadmap.json": {
+      "path": "analysis/migration-roadmap-v2-accepted834.json",
+      "sha256": "6d8fd1e2c940078b2e8ec97a85bd221d570409cd3ecdbf3ddc31051c1c9caa8a"
+    },
+    "analysis/reusability-coverage.json": {
+      "path": "analysis/reusability-coverage-v2-accepted834.json",
+      "sha256": "ce1fee5a0900669c0ec5eab7793fcda18324ec169fc5a2a90d69c741407ab41c"
+    },
+    "analysis/reusability-coverage.md": {
+      "path": "analysis/reusability-coverage-v2-accepted834.md",
+      "sha256": "955a64bafdec58f394650424b2210054c90d4d39efc5661de2a6a50453bdd3c9"
+    },
+    "evidence/reusability-coverage-checks.json": {
+      "path": "evidence/reusability-coverage-checks-v2-accepted834.json",
+      "sha256": "3f338ac615fe98dae2ae07462c5e0e31feab2db3606ad8999cc429b1d17dcb8e"
+    }
+  },
+  "checks": {
+    "milestone_rows": 90,
+    "amended_requirements": 2,
+    "other_rows_exact": 88,
+    "verified_milestones": 76,
+    "full_families": 10,
+    "core_families": 15,
+    "runtime_inputs_unchanged": 371,
+    "runtime_delta_bytes": 0,
+    "Go_files": 49,
+    "Go_bytes": 636563,
+    "Go_functions": 47,
+    "new_functions": 0,
+    "old_baselines_unchanged": true,
+    "code_schema_recipe_changes": false
+  },
+  "verification": "PASS deterministic two-row projection, exact 88-row preservation, archives, current pins, all 371 unchanged runtime inputs, JSON parsing, links, whitespace and positively self-checked credential scan.",
+  "tests_build_lint": "No rerun for metadata only. All 371 runtime and executed-evidence inputs must remain byte-identical to accepted 834. The accepted native ink checks remain the behavior evidence; no new runtime claim is made.",
+  "cost_boundary": "Archive, documentation and evidence growth are metadata overhead, not code reduction or new reusable capability.",
+  "review": "evidence/current-tooling-scope-review.json",
+  "limits": [
+    "No automatic Go credit or family promotion.",
+    "No dynamic 207-name census, current canonical-data compatibility, image parity, arbitrary scale interpretation or physical-fit proof.",
+    "consumer_layout.05/.06 and image_layout.05 remain unchanged. Probe work is last."
+  ],
+  "receipt": {
+    "at": "2026-11-13T07:28:56.787107+00:00",
+    "status": "PASS_METADATA_PROJECTION_AND_UNCHANGED_RUNTIME",
+    "base_sealed_members": 834,
+    "base_live_bindings": 833,
+    "projected_members": 842,
+    "milestone_rows": 90,
+    "amended_rows": 2,
+    "other_rows_exact": 88,
+    "full_families": 10,
+    "core_families": 15,
+    "verified_milestones": 76,
+    "scoped_pins": 721,
+    "report_pins": 618,
+    "runtime_inputs_exact": 371,
+    "runtime_delta_bytes": 0,
+    "Go_files": 49,
+    "Go_bytes": 636563,
+    "Go_named_functions": 47,
+    "JSON_documents": 665,
+    "resolved_MD_links": 1663,
+    "historical_unresolved_links": [],
+    "scoped_credentials": "PASS with positive self-check",
+    "scoped_whitespace": "PASS",
+    "tests_build_lint": "Not rerun: metadata only and all runtime inputs byte-identical to accepted 834.",
+    "public_push": false
+  },
+  "metadata_costs": {
+    "archive_files": 4,
+    "archive_bytes": 602738,
+    "boundary": "All changed and new files are documentation, history or evidence. The final accepted byte delta is recorded in the separate publication receipt to avoid self-referential size accounting. No runtime reduction or new capability is claimed."
+  },
+  "metadata_review": {
+    "manifest": "/var/tmp/dokapon-current-tooling-scope-metadata-review-dex51at5/manifest.json",
+    "manifest_sha256": "2fabd527e7c1501175ca9b5eada1e3b3e58a829045f423c682cdc2e9b802d919",
+    "report_sha256": "7ef32dece7ce93484a3234b22570c97ed6d5018d4bc0bf91c9c4111513596628",
+    "reviewed_metadata_manifest_sha256": "ffa376439cd3f3f502dca6cd84b1147aede4fd93a9de7b414646a5cd18f52a0f",
+    "disposition": "No unresolved findings",
+    "scope": "Independent review of the metadata projection has no unresolved findings. The reviewer supplied findings, not implementation or approval.",
+    "finalization_delta": "Attach the final metadata review, record its disposition in the existing proof and current coverage/checks references, and refresh only the resulting review/proof/current-view hash closure. Requirements, statuses, all credits, baseline, archives, runtime inputs and documentation remain frozen."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-13T03:55:26.084576+00:00",
+  "source": {
+    "path": "/home/franklinl/Documents/Dokapon World Mod/docs/audits/2026-11/2026-11-12-save-reload-probe.md",
+    "heading": "## Probe migration coordination, proposed fifteenth core family",
+    "read_at": "2026-11-13T03:55:26.084576+00:00",
+    "section_sha256": "76e57bfe4f2234394afdaddcc52b2eb07d8719d89d1261509ec73e5c86b14529",
+    "section_bytes": 3559,
+    "whole_file_sha256_at_read": "767bd6d1491626d1ba6d9fc3ea5ea8b02902e77f0fb7255a8a44c8a592440d8d",
+    "previous_reviewed_section_sha256": "a8ea4d137fda6ec5445bd3fefd80344e320f593b477bdc54d2ed0e1afc53076f",
+    "qualification": "Authorized coordination section only. Current section adds bounded skipped-eligibility bookkeeping and reports 98 tests plus57 subtests. Owner-reported results were not rerun here. Fresh current-actor production smoke/three stories and preservation/overwrite retry remain pending at this source freeze.",
+    "private_artifacts_read": false
+  },
+  "interfaces": [
+    "text_probe_run.run_probe",
+    "text_probe_run.prepare_profile",
+    "text_probe_run.boot_checkpoint",
+    "text_probe_run.read_frame_tags",
+    "text_probe_run.read_game_ui",
+    "text_probe_run.grab",
+    "autoplay_all_com.SaveReloadProbe",
+    "pine_autoplay_input",
+    "virtual_pad",
+    "dialog_codec.load_glyphmap"
+  ],
+  "operational_owner": "Existing Python retains sole production ownership until identical native acceptance and explicit handover.",
+  "source_status": "Owner-reported98tests+57subtests; not run here. Fresh current-actor production smoke and three sequential stories and preservation/overwrite retry pending at source freeze.",
+  "bounded_skip_bookkeeping": "Source handoff caps skipped-eligibility records to24 per run using four critical areas and six stable reasons. Skips do not count as coverage; repeated polling must not create unbounded evidence.",
+  "pending": "Owner-approved sanitized schema/refusal fixtures, broader cohort inventory, diagnostic ABI contract, unattended duration/recovery/resource acceptance and exact-source native handover."
+}

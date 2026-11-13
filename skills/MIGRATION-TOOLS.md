@@ -1751,3 +1751,54 @@ Keep fixed constructor, keeper and note decisions in purpose-grouped data, not p
 Declare source admission policies explicitly. Full sweep checks ten required truthy fields and straight-apostrophe, speaker, page, glyph and marker-kind contracts; an eight-field code-multiset preset is not equivalent. Bind reviewed reorderings to exact decoded UTF-8 JP/EN hashes and a complete one-based EN-ordinal to JP-source-position bijection. Compare every mapped kind/code, validate supplied reviews even when default order agrees and refuse unused records. Notes never waive marker integrity. Code-only source metadata does not prove opaque native payload bytes.
 
 A runtime table can be either a profile or an input resource. Keep explicit disjoint pin maps, exact directory coverage and every prior hash; validate profiles with the strict recipe decoder and resources with their consumers. Do not broaden a skip condition or repin unchanged inputs to silence golden failures. Measure implementation, recipe/example data and test overhead separately, and assess material original-family scope independently of cohort success.
+
+
+### Fixed square morphology in original permission masks - 2026-11-13
+
+Extend the existing bounded mask owner with one optional footprint kernel. Cross
+remains the default; square adds the four diagonals only for morphological close,
+core growth, erosion and final growth. Keep hole filling four-connected and
+component connectivity separate. Discover the erosion frontier against immutable
+input using every selected neighbor and false crop exterior; forward the kernel
+through both close passes. Charge square work before evaluating predicates, with
+close counted twice and present core counted even for zero-to-convergence growth.
+
+Preserve source domains in data. Button permissions use separate cell crops;
+sale protection grows across the full declared canvas, then clips to its own sign
+before subtraction, so a later sign retains permission. Freeze complete manual
+and original masks before candidate execution; a mechanical projection can change
+boolean representation from0/1 to0/255 but must never derive expected masks from
+the replacement. Require an old-code pixel failure, complete unchanged default
+corpus, independent table pins, work boundaries, wire refusals and native-byte
+checks. These three permission calls do not close the remaining artwork family.
+
+
+### Versioned approved fixed artwork - 2026-11-13
+
+Use the existing pinned static-PNG texture profile for a named already approved fixed asset. Put source/image/selector/bounds facts in that profile once; a versioned readable data record references its digest and retains source art, exact verification mask, approval provenance and independent native/RGBA target. Do not add a renderer, runtime manifest parser or Python apply wrapper.
+
+The native writer verifies its computed artifact digest and exclusive readback; it does not enforce an independent approved target. Before a new real native apply, freeze source/oracles before Go, require exact dry-run native/RGBA identities plus all-channel exact-mask proof, and obtain two fresh concrete-package reviews. Recheck exact executable/profile/inputs/argv across apply, then compare complete native bytes, decoded pixels, mask and unchanged source/CLUT/metadata. A coarse bbox does not enforce mask holes.
+
+New edits need a new named approved version and independent expected artifact. A fixed-instance data disposition does not implement arbitrary Telea, exemplar, radial, lettering or material generation. Keep original taxonomy/history and unsupported editable-generator requirements; no automatic family/retirement/reduction credit. Charge readable art and configuration with runtime data and tests/fixtures/evidence separately.
+
+
+### Root-inclusive register dependencies - 2026-11-13
+
+Use existing `instruction_index.register_flow` kind `reads_before_kill` for the
+incoming modeled low32 GPR at an explicit root. `uses_after` still starts after
+execution. Both use one context graph and preservation-aware forward walk. Check
+known sites and completeness separately: empty incomplete is UNKNOWN. Root
+reads occur before its own kill, and root states count against the query budget.
+Do not turn dependency MAYREAD into pointee/SAFE proof or original Tracer parity.
+Keep normal/delay context, source pins, refusal behavior and unknown frontiers.
+
+
+### Native ink in fit reports - 2026-11-13
+
+An optional `ink_atlas` uses existing RegistryInput path/size/SHA fields for one
+native font TXD beside a candidate ELF/ISO fit source. Read exact named font0/1/2
+pages through the shared texture codec and retain separately pinned provenance.
+Source-grid bounds scan all alpha>0 pixels before clipping, subtract native left
+bearings and follow existing LINE/PAGE origins. Empty and unknown are distinct;
+numeric or nested substitutions make whole-row ink unknown. within_profile still
+qualifies pen/count/byte limits, not actual screen fit or installed source pairing.

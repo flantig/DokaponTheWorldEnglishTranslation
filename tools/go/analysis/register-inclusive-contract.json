@@ -1,0 +1,37 @@
+{
+  "kind": "REGISTER_QUERY_ROOT_INCLUSIVE_DEPENDENCY_CONTRACT",
+  "at": "2026-11-13T04:57:45.622751+00:00",
+  "operation": "instruction_index.register_flow",
+  "existing_owner": "queryRegisterFlow",
+  "new_kind": "reads_before_kill",
+  "semantics": "For the incoming modeled low32 mutable GPR, inspect each selected root execution before its own overwrite; then use the existing preservation-aware forward traversal. A read and write at the same word records the read before closing that path. Normal/delay/any_reachable contexts retain existing graph semantics. GPR0 remains immutable.",
+  "result_contract": "Known sites are sorted dependency MAYREAD lower bounds, including incoming-preservation dependencies. A nonempty set is positive even with an incomplete frontier. Empty complete means no modeled read under asserted scope; empty incomplete is UNKNOWN, never false-by-default. No pointee consumption or SAFE/RISKY classification.",
+  "limits": "Root execution counts toward existing visited-state and shared batch budgets for mutable GPR queries. Existing256entries/64queries/32768words/100000graphstates/1000000batchstates remain. A definite kill before an unknown successor closes that value. No synthesized calls/returns/ABI facts.",
+  "reuse_decision": {
+    "existing_candidates": [
+      "queryRegisterFlow forward uses_after walk",
+      "indexInstructions finite operand facts",
+      "references canonical association",
+      "existing TestCLIDryRunAndApply fixture loop"
+    ],
+    "decision": "Only queryRegisterFlow needs additional root seeding and shared kind dispatch. references keeps uses_after for outputs already defined by a lower reader, and reaching_defs for incoming ownership; no semantic substitution. No new function, helper, closure, type, field, decoder, graph engine or dependency."
+  },
+  "source_evidence": {
+    "original_helper": "Code.reads_arg in tools/migrate_drafted_2026_09_30.py, frozen selected original AST and source pins retained in original9af25c50 capsule.",
+    "precode_oracle_manifest_sha256": "9af25c5082ebd5b2322f6a2685afccde5939925b853d3a522a816151c11f4ff7",
+    "independent_correction_review_sha256": "ed8e9fa27bc7e22bbbfac9476890c2f87695c21c2a8bf7179887548eae89c71e",
+    "erratum_manifest_sha256": "d22b43fdbbc51f71a383e3350507c0ffcb7631b215d0fee4e75f50339cb1705a",
+    "fixture": "testdata/future-register-read-fixture.zip",
+    "fixture_sha256": "2fb9e11155a9d2fe12fd592a84a36ba90cfe6382f862716a5fd9db4a2cd28e0b",
+    "erratum": "Original24 expected vectors unchanged. Two ffffffff SD delay words were mislabeled unsupported; independent finite-decoder review replaces both with0000003f, unsupported by the finite model. Mechanical expected_core.Instructions key corrected to instruction_index. Originalv3 and first failing run retained, corrected input versions frozen separately after candidate exposed data errors.",
+    "cases": 24,
+    "complete": 16,
+    "unknown": 8,
+    "known_positive": 14,
+    "complete_empty": 5,
+    "unknown_empty": 5,
+    "input_refusals_in_oracle": 0
+  },
+  "legacy_differences": "Original helper treats limit sentinel as truthy and can stop conditional preservation too early; this reports bounded conservative facts and explicit UNKNOWN. It is not full original Code.reads_arg or Tracer parity.",
+  "remaining": "binary_inspection.05 still needs cross-register/stack/tag/pointee Tracer consumer duties. .06 interior references, saved-RA/clobber/call-liveness and hook ABI remain. No milestone/family/410-script retirement credit. Probe work is last by owner direction."
+}

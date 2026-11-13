@@ -1,34 +1,35 @@
 {
-  "schema_version": 1,
-  "status": "VERIFIED10/14Full;76/84planning;registry original material scope complete",
-  "measured_at": "2026-11-05T10:26:25.281316+00:00",
+  "schema_version": 2,
+  "status": "VERIFIED_BINARY_INSPECTION_FULL_82_OF_90",
+  "measured_at": "2026-11-13T03:55:26.084576+00:00",
   "metric": "Verified shared Go workflow-family coverage",
-  "baseline_version": "workflow-families-v1",
-  "baseline_path": "analysis/reusability-coverage-baseline.json",
-  "baseline_sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b",
+  "baseline_version": "workflow-families-v3",
+  "baseline_path": "analysis/reusability-coverage-baseline-v3.json",
+  "baseline_sha256": "1d3c2954c9e861dff649217a6498908136a6df98137d61dbbec9285465108483",
   "formula": "100 * count(status == full) / count(core workflow families). Partial and unsupported get zero completion credit.",
   "counts": {
     "core": {
-      "full": 10,
-      "partial": 4,
+      "full": 12,
+      "partial": 3,
       "unsupported": 0,
-      "total": 14,
-      "full_coverage_percent": 71.43
+      "total": 15,
+      "full_coverage_percent": 80
     },
     "expanded": {
-      "full": 10,
-      "partial": 5,
-      "unsupported": 2,
-      "total": 17,
-      "full_coverage_percent": 58.82
+      "full": 12,
+      "partial": 3,
+      "unsupported": 0,
+      "total": 15,
+      "full_coverage_percent": 80
     },
     "optional_runtime": {
       "full": 0,
-      "partial": 1,
-      "unsupported": 2,
-      "total": 3,
-      "full_coverage_percent": 0.0
-    }
+      "partial": 0,
+      "unsupported": 0,
+      "total": 0,
+      "full_coverage_percent": null
+    },
+    "definition": "V2 all/expanded is the same15 unique core families. No additive optional family remains; three legacy facet statuses and v1 expanded17 are historical/non-additive."
   },
   "workflows": [
     {
@@ -75,7 +76,7 @@
       ],
       "verified_support": "Shared source-bound typed text/word planning, full preimages, sorted bounded nonoverlapping edits, exclusive copies, source replan, readback and failure cleanup. Actual independent-word and canonical-JP whole-image reversals plus independent18/290B mixed typed slot/code forward/reverse CLI tests verify explicit recovery in both table orders. Canonical registry/source ownership remains guarded.",
       "remaining_gap": "No material transaction-family gap under the original frozen contract. This does not imply automatic inversion, every historical repair replay, full text grammar, native visual acceptance or arbitrary allocation/registry rollback.",
-      "scoped_toolkit_operation": "Pinned source + reviewed edits \u2192 dry-run report or verified new copy."
+      "scoped_toolkit_operation": "Pinned source + reviewed edits → dry-run report or verified new copy."
     },
     {
       "id": "text_codec",
@@ -118,12 +119,12 @@
       ],
       "verified_support": "Recognizedsourcegrammar authoring/roundtrips preserveallorderedsetup/pen/HLroles/arguments/full8Bpayloads,anchors/finalpauses and1:1glyphidentity throughsharedplan/fit/audit; originalscope independentlyassessed.",
       "remaining_gap": "Originalfinitecodecfamily complete. Unknownnativefit/opaqueimagewrites/E000varargABI andmulti-runeauthoring remainexplicitseparatedomains, notgrantedpermission.",
-      "scoped_toolkit_operation": "Registry wording + glyphmap \u2192 encoded bytes and control checks through fit/plan."
+      "scoped_toolkit_operation": "Registry wording + glyphmap → encoded bytes and control checks through fit/plan."
     },
     {
       "id": "consumer_layout",
       "title": "Consumer layout and text fitting",
-      "status": "partial",
+      "status": "full",
       "scope": "core",
       "source_recommendations": [
         {
@@ -141,7 +142,12 @@
         "inspect",
         "controls",
         "wrapPages",
-        "previewFit"
+        "previewFit",
+        "texture",
+        "indexTextures",
+        "references",
+        "indexInstructions",
+        "queryRegisterFlow"
       ],
       "current_code": [
         "patch.go",
@@ -150,7 +156,16 @@
         "profiles/fit/village-dialogue.json",
         "profiles/fit/item-descriptions.json",
         "profiles/fit/job-center-summaries.json",
-        "fit_types.go"
+        "fit_types.go",
+        "texture.go",
+        "texture_index.go",
+        "input_types.go",
+        "references.go",
+        "reference_types.go",
+        "reference_flow_types.go",
+        "instruction_index.go",
+        "register_flow.go",
+        "inputs.go"
       ],
       "evidence": [
         "evidence/native-advance-exception-proof.json",
@@ -162,16 +177,25 @@
         "analysis/fit-line-count-contract.json",
         "analysis/fit-line-count-oracle-erratum.json",
         "evidence/fit-line-count-proof.json",
-        "evidence/fit-line-count-review.json"
+        "evidence/fit-line-count-review.json",
+        "analysis/native-ink-contract.json",
+        "evidence/native-ink-proof.json",
+        "evidence/native-ink-review.json",
+        "testdata/native-ink-fixture.zip",
+        "analysis/current-tooling-scope-v3.json",
+        "analysis/name-cohort-contract.json",
+        "evidence/name-cohort-proof.json",
+        "evidence/name-cohort-review.json",
+        "testdata/cohort-report-fixture.zip"
       ],
-      "verified_support": "Source-guarded integer advances, literal/word/page fitting, bounded numeric arguments, optional exact LINE constraints without wrapping;108selected existing profile entries. Native exact-count demonstration2plain+1unsupported scaled, not physical geometry.",
-      "remaining_gap": "Scaled/positioned/centered geometry, ink extents and nested string domains remain held;108selected rows are not whole-game support.",
-      "scoped_toolkit_operation": "Native source + wording + consumer profile \u2192 read-only line/overflow report."
+      "verified_support": "Source-guarded integer advances, literal/word/page fitting, bounded numeric arguments, optional exact LINE constraints without wrapping;108selected existing profile entries. Native exact-count demonstration2plain+1unsupported scaled, not physical geometry. Optional pinned native TXD now supplies alpha-derived source-grid ink rectangles alongside guarded native pen advances. Exact named pages, bearings, SPACE and ordered LINE/PAGE share existing owners; numeric/symbolic ink stays whole-row unknown. This does not establish physical clipping or installed pairing. The shared raw-name cohort report preserves declared pointer occurrences, measures explicit nominal pen units through guarded metrics and controls, and reports independently scoped source-policy facts through the existing instruction/graph producers. Limited raw buckets and unsupported paths remain incomplete. Finite historical F112 scale/position maintenance now accepted under accepted_finite_f112_criteria. Source-qualified conditional constructor/reader geometry and plain-child diagnostic composition accepted; canonical current_conditional_diagnostics_assessment.",
+      "remaining_gap": "No material gap under the reviewed source-qualified toolkit contract. Runtime viewport/index/gender applicability, arbitrary A000 authoring, numeric/positioned child behavior, physical/vertical fit and global ABI remain unproved; these limits are not silently upgraded by conditional diagnostics.",
+      "scoped_toolkit_operation": "Native source + wording + consumer profile → read-only line/overflow report."
     },
     {
       "id": "binary_inspection",
       "title": "Instruction and reference inspection",
-      "status": "partial",
+      "status": "full",
       "scope": "core",
       "source_recommendations": [
         {
@@ -186,7 +210,10 @@
         "normalizeReference",
         "referenceTarget",
         "auditStreams",
-        "inspect"
+        "inspect",
+        "indexInstructions",
+        "queryRegisterFlow",
+        "tracePointerConsumers"
       ],
       "current_code": [
         "references.go",
@@ -252,10 +279,20 @@
         "evidence/reference-owner-approach-review.json",
         "testdata/reference-owner-fixture.zip",
         "testdata/instruction-ori-fixture.zip",
-        "examples/reference-flow/profile.json"
+        "examples/reference-flow/profile.json",
+        "analysis/register-inclusive-contract.json",
+        "evidence/register-inclusive-proof.json",
+        "evidence/register-inclusive-review.json",
+        "testdata/future-register-read-fixture.zip",
+        "analysis/pointer-consumer-contract.json",
+        "evidence/pointer-consumer-proof.json",
+        "evidence/pointer-consumer-review.json",
+        "testdata/pointer-consumer-fixture.zip",
+        "testdata/instruction-addu-fixture.zip",
+        "testdata/pointer-consumer-v2-fixture.zip"
       ],
-      "verified_support": "Shared typed reference candidates, guarded word templates and bitfield fixups. Existing pointer_check also guards declared struct fields and strictLUI/ADDIU physical words through shared plan/verifier/read-only gate. Independent mixed5ID/8word states, signedcarry/wrap/refusals and frozen4ID/18word native vectors pass; olddata complete stdout remains identical. This is expected-word equality at recorded sites, without content or liveness proof. Strict declared-site observations now preserve each ordinal/raw word, reconstruct targets with shared geometry/strict signed arithmetic and use the existing ELF mapper for full4byte sites and1byte targets. Divergent and unmapped targets are retained; unavailable words/invalidinstructions never fallback to ID/landing. Precode7row10site13word+16invalidvectors and native4ID9site18words verified. This does not select live readers or prove complete stream content. Optional paired audit binding now requires the exact normalizedfamilyIDset, every declaredsitevalid+convergent and fullobservedwindow incltail mapped fromtarget to exactexplicitFileRange. Existingreferences+ELFmapper+sourcechecks reused; no newfunction. Sevenliteralrows/fourteenbindingrefusals/nineinputpolicies andnative3label8site16word facts verified. Storedvalues andselfcomparisons do not prove live/canonicalmod reconciliation. General GP-base indexing now retains supported address arithmetic/effective-slot classes, sourceorder/rawfields, unique full-word reverse mappings, metadataunknown/zero and bounded target-point queries/maps. Independent13case1480row39refusal fixture and full10212-row frozen source index verified acrosscore/native; no loadedvalue/liveGP inference. Shared finite address-form table now also feeds explicit GPR/non-GPR operand roles, may/must normal destinations and modeled merge/conditional dependencies. Local branch/link/likely-delay alternatives and exact selected-VMA membership retain unsupported/control/missing delay errors and unknown exits; no graph or def-use result. Optional one-batch graph provides before-read definitions and after-execution uses over shared decoded facts, with controller-specific delay states, entry provenance/backedges, preservation-aware kills and explicit limits/unknown frontiers. Known sites remain lower bounds; unsupported/indirect reentry prevents backward completeness. Remaining original caller/ownership/interior/ABI duties stay open. Optional reference_flow onexistingreference_candidates joins fresh pinnedELF graph facts to stable-ID owner/benign policy, preserving ordered unknown/foreign refusals, exact canonical pair errors and old advisory fields. Shared finiteproducer has indexed and registry consumers. ORI facts retain zeroextended arithmetic without relaxing strict patchgrammar. Original reads_arg/Tracerconsumer/interior/ABI duties remain.",
-      "remaining_gap": "Bounded branch/delay/CFG/register def-use and interior-reference/hook ABI reasoning remain open; matching an address is not live reference or ownership proof.",
+      "verified_support": "Shared typed reference candidates, guarded word templates and bitfield fixups. Existing pointer_check also guards declared struct fields and strictLUI/ADDIU physical words through shared plan/verifier/read-only gate. Independent mixed5ID/8word states, signedcarry/wrap/refusals and frozen4ID/18word native vectors pass; olddata complete stdout remains identical. This is expected-word equality at recorded sites, without content or liveness proof. Strict declared-site observations now preserve each ordinal/raw word, reconstruct targets with shared geometry/strict signed arithmetic and use the existing ELF mapper for full4byte sites and1byte targets. Divergent and unmapped targets are retained; unavailable words/invalidinstructions never fallback to ID/landing. Precode7row10site13word+16invalidvectors and native4ID9site18words verified. This does not select live readers or prove complete stream content. Optional paired audit binding now requires the exact normalizedfamilyIDset, every declaredsitevalid+convergent and fullobservedwindow incltail mapped fromtarget to exactexplicitFileRange. Existingreferences+ELFmapper+sourcechecks reused; no newfunction. Sevenliteralrows/fourteenbindingrefusals/nineinputpolicies andnative3label8site16word facts verified. Storedvalues andselfcomparisons do not prove live/canonicalmod reconciliation. General GP-base indexing now retains supported address arithmetic/effective-slot classes, sourceorder/rawfields, unique full-word reverse mappings, metadataunknown/zero and bounded target-point queries/maps. Independent13case1480row39refusal fixture and full10212-row frozen source index verified acrosscore/native; no loadedvalue/liveGP inference. Shared finite address-form table now also feeds explicit GPR/non-GPR operand roles, may/must normal destinations and modeled merge/conditional dependencies. Local branch/link/likely-delay alternatives and exact selected-VMA membership retain unsupported/control/missing delay errors and unknown exits; no graph or def-use result. Optional one-batch graph provides before-read definitions and after-execution uses over shared decoded facts, with controller-specific delay states, entry provenance/backedges, preservation-aware kills and explicit limits/unknown frontiers. Known sites remain lower bounds; unsupported/indirect reentry prevents backward completeness. Remaining original caller/ownership/interior/ABI duties stay open. Optional reference_flow onexistingreference_candidates joins fresh pinnedELF graph facts to stable-ID owner/benign policy, preserving ordered unknown/foreign refusals, exact canonical pair errors and old advisory fields. Shared finiteproducer has indexed and registry consumers. ORI facts retain zeroextended arithmetic without relaxing strict patchgrammar. Original reads_arg/Tracerconsumer/interior/ABI duties remain. Root-inclusive reads_before_kill seeds the same forward traversal at the query execution, with24 independent manual vectors and no new function. This is dependency MAYREAD with explicit UNKNOWN, not pointee consumption or full Tracer parity. Finite pointer_consumers shares one CFG and decoder for MAY register aliases, frame spills, typed consumer events and declared call-policy joins.49 literal,4 policy and32 new refusal vectors plus branch-order invariance are verified. Possible unsupported reloads remain UNKNOWN. Current finite .05 completion is canonical in evidence/register-flow-proof.json#current_criterion_assessment; private isolated core/native build/vet/testcompile and read-only literal/legacy reports verified, with all UNKNOWN limits retained. Current .06 hook/interior completion is canonical in evidence/register-flow-proof.json#current_hook_criterion_assessment; external source/value/guard proofs and automatic low32 facts remain distinct.",
+      "remaining_gap": "Finite family contract complete within canonical source-qualified hook/interior limits; no general native/fullABI/globalRefs/automatic128bit claim.",
       "scoped_toolkit_operation": "Pinned ELF + declared word window/point queries or recorded sites -> source-aware advisory instruction/reference facts; guarded words remain separate."
     },
     {
@@ -294,11 +331,12 @@
         "analysis/elf-layout-contract.json",
         "evidence/elf-layout-proof.json",
         "evidence/elf-layout-review.json",
-        "testdata/elf-layout.json"
+        "testdata/elf-layout.json",
+        "analysis/current-tooling-scope-v3.json"
       ],
-      "verified_support": "Source-profiled ISO9660 extents, initialized stream allocation/growth, native loader/window and reviewed reservations. Shared pinned ELF32 little-endian MIPS LOAD inventory and named half-open VMA queries distinguish initialized file offsets, BSS and unmapped spans; source guards and malformed/overlapping segment refusals verified.",
-      "remaining_gap": "Independent safe-cave/landing analysis and general ELF segment/BSS growth remain incomplete. Read-only segment mapping does not certify placement, startup heap ownership or native runtime safety.",
-      "scoped_toolkit_operation": "Pinned ELF + named ranges \u2192 read-only LOAD/file/BSS/gap map; named ISO/allocation facts \u2192 checked layout and edit plan."
+      "verified_support": "Source-profiled ISO9660 extents, initialized stream allocation/growth, native loader/window and reviewed reservations. Shared pinned ELF32 little-endian MIPS LOAD inventory and named half-open VMA queries distinguish initialized file offsets, BSS and unmapped spans; source guards and malformed/overlapping segment refusals verified. Independent source-qualified F173landing derivation separately reviewed; accepted_finite_f112_criteria is canonical.",
+      "remaining_gap": "Preserve active stream metadata coherence and source-specific reservations. image_layout.06 is reviewed retired zero-credit disposition, not an active coding task.",
+      "scoped_toolkit_operation": "Pinned ELF + named ranges → read-only LOAD/file/BSS/gap map; named ISO/allocation facts → checked layout and edit plan."
     },
     {
       "id": "registry_authoring",
@@ -353,7 +391,7 @@
       ],
       "verified_support": "Existing raw field policy, guarded draft additions and four finite source-declared JSON/CSV batch policies share one owner; byte-noop and consumable64MiB formatted snapshots verified. Paired reviewed old/new corrections and glossary proposals share state planning, field mutation, bounded member serialization and one verified archive publication. Pure human decoded/flow/authored joins, metadata refresh independent of locked/drifted wording, known-unlocked force and guarded source/date idempotence; actual62/52+17 source-bound facts as data verified. Five declared import policies now include ten-field full_sweep and hash-bound complete EN-to-JP marker permutations. Original142 constructors, fixed six keeper data and five literal headlines share existing owners; actual3186 whole-document source parity verified.",
       "remaining_gap": "No material gap under original registry authoring/import/merge contract. Raw legacy temporary cohort replay, native payload and current applicability of historical wording not claimed.",
-      "scoped_toolkit_operation": "Pinned registry + reviewed existing-ID updates or keyed new drafts \u2192 preview or new registry document; all-present additions preserve exact source bytes."
+      "scoped_toolkit_operation": "Pinned registry + reviewed existing-ID updates or keyed new drafts → preview or new registry document; all-present additions preserve exact source bytes."
     },
     {
       "id": "registry_reconciliation",
@@ -494,7 +532,7 @@
       ],
       "verified_support": "Generic explicit-file multi-tag create/index/hash/inventory/verified restore-to-new-output through one shared lifecycle and streaming publisher. Immutable-by-tool tags, receipt-last index/provenance, honest unverified listing, stored digest before restore and copied-byte readback, duplicate/overwrite/source-identity/receipt guards verified. Independent31-byte/2MiB flows, full integrated Go baseline and fresh empty/1MiB multi-version cases supply positive evidence.",
       "remaining_gap": "No material gap in frozen explicit-version snapshot contract. Legacy shared-ledger import, automatic checkout/in-place restore and broader workspace reference/allocation reports remain compatibility or separate-report scope; not claimed migrated.",
-      "scoped_toolkit_operation": "Regular file + tag/revision \u2192 snapshot/receipt; explicit tag \u2192 verified new restore output."
+      "scoped_toolkit_operation": "Regular file + tag/revision → snapshot/receipt; explicit tag → verified new restore output."
     },
     {
       "id": "offline_reports",
@@ -600,7 +638,7 @@
       ],
       "verified_support": "Shared JSON text-shape, fit, reference, patch and registry reports use explicit inputs. Ordered flat scalar registry CSV uses the same raw document/normalized ID/Unicode validation and exclusive publisher; all5544 canonical rows match complete independent historical CSV bytes. Preview reports pins/rows/columns/output hash. Complete registry/glossary/flow status facts and source-order diagnostics share raw readers, collection aggregation and exclusive publisher; one pinned Markdown template. Unknown/null/provenance identity and exact VMA spellings verified against independent oracles and all current project facts. Explicit pinned paired file windows now compare raw/through-END bytes, glyphs, controls, ordered decoded arguments and opaque payloads separately. Decoder style explicit; unknown decode semantics null. Plain paired comparisons alone do not select live references or construct canonical English. Strict declared-site observations now preserve each ordinal/raw word, reconstruct targets with shared geometry/strict signed arithmetic and use the existing ELF mapper for full4byte sites and1byte targets. Divergent and unmapped targets are retained; unavailable words/invalidinstructions never fallback to ID/landing. Precode7row10site13word+16invalidvectors and native4ID9site18words verified. This does not select live readers or prove complete stream content. Optional paired audit binding now requires the exact normalizedfamilyIDset, every declaredsitevalid+convergent and fullobservedwindow incltail mapped fromtarget to exactexplicitFileRange. Existingreferences+ELFmapper+sourcechecks reused; no newfunction. Sevenliteralrows/fourteenbindingrefusals/nineinputpolicies andnative3label8site16word facts verified. Storedvalues andselfcomparisons do not prove live/canonicalmod reconciliation. Optional canonical policies now derive pinned registry EN against independently pinned original context through existing controls/encode, using explicit no-wrap or character budgets. The generated third side shares existing token/comparison logic and mandatory declared-site/full-window/input-recheck gates. Eleven frozen literal rows, unknown/refusal boundaries, preserved original observations and complete old CLI output parity verified. This finite narrative subset is not full reconciliation or all historical source-policy/reader coverage. Source-context encode now preserves payload-free leading setup/non-scale pen state in original order, uses existing decoder for prefix validation and existing strict validator/wrapper for translated body. Headerless setup is supported.14original positives/14held-or-original refusals, caller-context immutability,7prefixguards and old report parity verified. Literal/global/nativewrite validation remains unchanged; no patch authority follows from encoded expected bytes. Explicit plain-versus-marker authoring now preserves source-leading colour order without altering default marked refusals, global diagnostics, native/write guards or inputs. Fifty original paired route cases and six actual-source/synthetic-wording cases verified; scale/opaque successes intentionally held. Root-assessed source-aware canonical comparison milestone proven; fixed/sentinel/source-pool readers and joined proposals remain separate family gaps. Bounded inline16 fields now share literal encoding, exact word decoding, nonpointer observed facts and full original/installed fieldmapping.28independent row projections + guards verified; missing/null wording and invalid glyphs stay unknown. Sentinel/source-pool readers and joined proposals remain open. Reviewed pointer/inline machine suggestions and source-accurate optional token/page structure now compose with independently pinned authored-fit, CSV and complete status reports. Foreign-source and incomplete-selection negatives, preserved unknowns and field-owned machine preview verified.",
       "remaining_gap": "No material gap under the original bounded shared family contract. New grammar/dataset/runtime/native-fit/reader policies still require independent facts; no arbitrary source decoding or automatic publication.",
-      "scoped_toolkit_operation": "Pinned source+table/profile \u2192 JSON; registry \u2192 CSV; registry/glossary/flow+template \u2192 Markdown; paired explicit stream windows \u2192 comparison JSON. Bound canonical policy: registry EN + original context -> shared encode -> installed comparison; unknown generation stays visible. Source-state prefix -> original-order copy + strict generated body; colour/opaque/nativewrite policies remain distinct. Explicit plain/marker source policy; no automatic fallback. Inline16: literal EN + eight validated words + independent original/observed fieldmaps; no pointertarget."
+      "scoped_toolkit_operation": "Pinned source+table/profile → JSON; registry → CSV; registry/glossary/flow+template → Markdown; paired explicit stream windows → comparison JSON. Bound canonical policy: registry EN + original context -> shared encode -> installed comparison; unknown generation stays visible. Source-state prefix -> original-order copy + strict generated body; colour/opaque/nativewrite policies remain distinct. Explicit plain/marker source policy; no automatic fallback. Inline16: literal EN + eight validated words + independent original/observed fieldmaps; no pointertarget."
     },
     {
       "id": "candidate_composition",
@@ -632,33 +670,7 @@
       ],
       "verified_support": "Existing data-driven composition and staged build combine reviewed inputs into new outputs, reject overlaps/preimage drift, preserve sources and prove containment.",
       "remaining_gap": "",
-      "scoped_toolkit_operation": "Compatible recipe tables + source \u2192 composed validated plan or verified new copy."
-    },
-    {
-      "id": "diagnostic_instrumentation",
-      "title": "Owned diagnostic instrumentation",
-      "status": "partial",
-      "scope": "optional_runtime",
-      "source_recommendations": [
-        {
-          "source": "analysis/pattern-crawl-iso_registry_reports.json",
-          "source_pointer": "core_opportunities/instrumentation",
-          "original_contract": "Prepare versioned diagnostic hook/counter capture plans; read saved/live values only through an explicitly owned runtime workflow."
-        }
-      ],
-      "shared_owners": [
-        "plan",
-        "patchCopy"
-      ],
-      "current_code": [
-        "patch.go",
-        "recipe_types.go"
-      ],
-      "evidence": [
-        "analysis/reusable-toolkit-plan.json"
-      ],
-      "verified_support": "Versioned guarded-word/template facts can represent static hook/counter edits.",
-      "remaining_gap": "No complete Go owned-runtime capture workflow or general displaced-instruction/ABI validator; static word transport alone does not complete this family."
+      "scoped_toolkit_operation": "Compatible recipe tables + source → composed validated plan or verified new copy."
     },
     {
       "id": "texture_codec",
@@ -722,7 +734,7 @@
       ],
       "verified_support": "One shared parser/quantizer/mask/edit path now handles all227surveyed rasters:150PSMT8,74PSMT4 and3monochrome direct fonts, including source-proven shared-base CLUT transfers. Explicit whole-standard-PSMT8 exact-palette policy now has five frozen actual standalone TXD/CLUT/swizzle/RGBA oracles and independently preserved227default corpus; excessive colors and other policy/layout combinations refuse. The same depth4 branch now verifies finite512-square/TBW8 multipage mode with all262144independentaddresspairs, fiveaddressramps and fouractualwholeTXD/RGBAedit/noop/standaloneproofs, preserving the128x32mode. Explicit pixel_policy rgba now verifies original512-square native-v0 colored direct source/export/noop/two-edits/all256candidatealpha/hiddenRGB/masks with no newfunction, argument, type or writer; defaultfont safeguards and227priorrasters preserved. Fiveadditionalnative directlayouts nowsharefiniteguard/storage/packetowners. All21observeddirectsourceinstances passactualCLIexport/fullRGBA/noop; fiveexemplars passfrozenedits/all256alpha/masks/source/publisherchecks and214codec/profile+30publicationrefusals; defaultfontscope intact. Finite32square/64x128/64x256 standard8 nowsharemetadata/TBW/packetXY owners;4actualpreserve+4exactoracles andCLI/alpha/limit/26siblings/refusals verified,227defaultand21directcorpus retained. Grouped19partialPSMT8geometries nowuseonepage/baseformula andtwo nativeCLUT rules, preservingconversionowners.16newactualrepresentatives/fourcorner/exactCLI/nativeGS/alpha/limits/idempotence/source/siblings/publisher/refusals verified; prior227default/21direct retained. PSMT4frontier actual75records in2supportedmodes, originalvillageauthoringcaller covered; no remainingobserved4bitgeometrygap. Explicit quantize now shares exact generation at<=256 normalized colors and implements original median-cut/eight-pass approximate generation above256. Seven independently frozen whole TXD/CLUT/index/RGBA cases, actual CLI publication/refusal/containment, preserved227 default corpus, shifted bounds, alpha vectors, seven numerical mutants and independent seeded comparisons pass. One cohesive numerical owner absorbs the existing exact block; no parallel palette pipeline. Finite full-page128x64/128x128/128x256 CLUT positions now derive Y from guarded palette base. Two original sources match independent native/GS/preserve/exact/readback/CLI proofs, with26 sibling containment and old full-page allowances retained; all prior corpus/palette/direct/partial cases pass. Source-color import projects used-source colors with canonical integer ties before unchanged native mapping;19 native cases verified.",
       "remaining_gap": "No material gap under the frozen codec contract after independent seven-duty assessment. Below16 crop/padding and arbitrary future formats retain declared refusals; rendering/resize/TTF, previews/inventories, placement, visuals/art and historical retirement remain separate responsibilities.",
-      "scoped_toolkit_operation": "Pinned texture/atlas + profile + optional PNG \u2192 PNG export or new native texture."
+      "scoped_toolkit_operation": "Pinned texture/atlas + profile + optional PNG → PNG export or new native texture."
     },
     {
       "id": "asset_placement",
@@ -753,7 +765,7 @@
       ],
       "verified_support": "Shared named ISO/CMB lookup, fixed-size member/file replacement, source/index/hash/extent guards and exclusive readback verified across142members/sixarchives plus executable transport. Byte placement earns credit only here, not as text/raster authoring.",
       "remaining_gap": "",
-      "scoped_toolkit_operation": "Pinned ISO + bundle + named member/file table \u2192 verified new image."
+      "scoped_toolkit_operation": "Pinned ISO + bundle + named member/file table → verified new image."
     },
     {
       "id": "raster_rendering",
@@ -861,10 +873,18 @@
         "testdata/flood-source.zip",
         "profiles/permissions/footprints/mini-g02-g12.json",
         "profiles/permissions/footprints/mini-g08.json",
-        "profiles/permissions/footprints/mini-t2.json"
+        "profiles/permissions/footprints/mini-t2.json",
+        "evidence/square-mask-proof.json",
+        "evidence/square-mask-review.json",
+        "analysis/square-mask-contract.json",
+        "analysis/square-mask-reuse-decision.json",
+        "evidence/fixed-art-proof.json",
+        "evidence/fixed-art-reviews.json",
+        "analysis/fixed-art-reuse-decision.json",
+        "recipes/artwork/fixed-instances.json"
       ],
-      "verified_support": "Shared pinned binary grayscale font -> centered outlined/shaded text cells -> same masked native importer and exclusive publisher. Five real HUD cells match original-to-approved wholeTXD/rawRGBA with2361 changes contained in2922 pixels; independent semantic, refusal, publication and227-case regression checks. Actual original mini_g01 three-run optical text also matches whole TXD/raw candidate/decoded RGBA with5371 native changes contained in6636 allowed pixels. Shared95-glyph metrics/atlas, quarter-step fit, Pillow-exact alpha and resampling, finite glyph-colored stroke/counters, placement and unchanged publication verified; six mutants killed. Four observed native styles, tracking, minimum, ordered semantic strokes, float/Pillow composition and separate background paint verified against canonical word/layer/panel cases; original tutorial byte effects preserved. Shared native multiline width/height fitting, leading and left/center placement with ordered byte composition pass focused canonical/native checks. Fixed-size inlineicons now share quarterfit/rungeometry, fullsource/destinationpreflight and per-lineimmutableRGBAreplacement;11original wholecases plus shiftedorigins/nativeprojection and lifecycle verified. PinnedTrueType now shares styledquarterfit/run/group/icon/background and finalcontainment/import/publication. Actualoriginalop8,8stylepatterns,5implicitLFcases,70fractional+6signedmasks andsourcecanvascrop verified; standardJSONnostrokepresence preserved. Finite flat/clear/row/column erases now share explicit mixed ordering, current RGBA donors, exact allow/exclude/add and per-text byte guards, immutable original icons, optional font resources, native importer and exclusive publisher.45original vectors, shifted origins, whole native projection, input preservation and strict canonical owned keys verified; no new family/script credit. RGBexclusions and up to32extraANDclauses withindividualtolerance plus sat_lt nowshareexistingcurrent-pixelpredicate/growth/donor/native path.18neworiginalwholeimages/twoorigins, old45cases, newwholeTXD/nativeledger5685andzerooutsidemask, boundedwork/strictnestedJSON/inputpreservation verified;0newfunctions/files. Onelevelsharedpermissionresource preservesexistingthree-stageorder/64cap/nativeintersection/textleaks;2nativeprofiles shareonecanonicaltable, fixedsource13rectangles match80254pixels. Generalshapes/OR/morphology andremainingartduties remain open. Currenterase/originalpermission predicates and erase/font/footprint topology sharetwojustifiednumericalowners. FiniteOR-of-AND plusstrictsignedscalarfacts andfixedclose/fill/core/min/grow/clip/excludepipeline verifiedagainst179sourcevectors+3shiftedobservations. Sevenpurposedtables cover14genericproviderrecords; other27providers/wholeartwork remain open. Existingcomponentwalk sharesminimumsize/foregroundseedmembership/tagcomponentveto with4/8componentconnectivity; sourcepredicateconstructor distinguishesSampleRectfromRect andsupportsstrictsignedgreen-blue. Sevenadditionalmaskfnrecords have14actual/16manualsourceoutcomes; other20maskfnrecords/flood/advancedartdutiesremainheld. Existingcomponent/holefill/erosionownerspreservelabel0allbackground/crop/postunionerosion andall56stagesof4sourcepermissioncontexts. Threefulltables/fourstableassetIDs, obsoletepartialt2runtimeinputremovedwhileoldliteralexpectationsstayunchanged. Other20maskfn/font/art/donordutiesremainheld.",
-      "remaining_gap": "Other mask/shape/OR/morphology/source-art,PDE/exemplar/plate/radial/contour/material duties remain; one finite selector extension does not complete reconstruction.",
+      "verified_support": "Shared pinned binary grayscale font -> centered outlined/shaded text cells -> same masked native importer and exclusive publisher. Five real HUD cells match original-to-approved wholeTXD/rawRGBA with2361 changes contained in2922 pixels; independent semantic, refusal, publication and227-case regression checks. Actual original mini_g01 three-run optical text also matches whole TXD/raw candidate/decoded RGBA with5371 native changes contained in6636 allowed pixels. Shared95-glyph metrics/atlas, quarter-step fit, Pillow-exact alpha and resampling, finite glyph-colored stroke/counters, placement and unchanged publication verified; six mutants killed. Four observed native styles, tracking, minimum, ordered semantic strokes, float/Pillow composition and separate background paint verified against canonical word/layer/panel cases; original tutorial byte effects preserved. Shared native multiline width/height fitting, leading and left/center placement with ordered byte composition pass focused canonical/native checks. Fixed-size inlineicons now share quarterfit/rungeometry, fullsource/destinationpreflight and per-lineimmutableRGBAreplacement;11original wholecases plus shiftedorigins/nativeprojection and lifecycle verified. PinnedTrueType now shares styledquarterfit/run/group/icon/background and finalcontainment/import/publication. Actualoriginalop8,8stylepatterns,5implicitLFcases,70fractional+6signedmasks andsourcecanvascrop verified; standardJSONnostrokepresence preserved. Finite flat/clear/row/column erases now share explicit mixed ordering, current RGBA donors, exact allow/exclude/add and per-text byte guards, immutable original icons, optional font resources, native importer and exclusive publisher.45original vectors, shifted origins, whole native projection, input preservation and strict canonical owned keys verified; no new family/script credit. RGBexclusions and up to32extraANDclauses withindividualtolerance plus sat_lt nowshareexistingcurrent-pixelpredicate/growth/donor/native path.18neworiginalwholeimages/twoorigins, old45cases, newwholeTXD/nativeledger5685andzerooutsidemask, boundedwork/strictnestedJSON/inputpreservation verified;0newfunctions/files. Onelevelsharedpermissionresource preservesexistingthree-stageorder/64cap/nativeintersection/textleaks;2nativeprofiles shareonecanonicaltable, fixedsource13rectangles match80254pixels. Generalshapes/OR/morphology andremainingartduties remain open. Currenterase/originalpermission predicates and erase/font/footprint topology sharetwojustifiednumericalowners. FiniteOR-of-AND plusstrictsignedscalarfacts andfixedclose/fill/core/min/grow/clip/excludepipeline verifiedagainst179sourcevectors+3shiftedobservations. Sevenpurposedtables cover14genericproviderrecords; other27providers/wholeartwork remain open. Existingcomponentwalk sharesminimumsize/foregroundseedmembership/tagcomponentveto with4/8componentconnectivity; sourcepredicateconstructor distinguishesSampleRectfromRect andsupportsstrictsignedgreen-blue. Sevenadditionalmaskfnrecords have14actual/16manualsourceoutcomes; other20maskfnrecords/flood/advancedartdutiesremainheld. Existingcomponent/holefill/erosionownerspreservelabel0allbackground/crop/postunionerosion andall56stagesof4sourcepermissioncontexts. Threefulltables/fourstableassetIDs, obsoletepartialt2runtimeinputremovedwhileoldliteralexpectationsstayunchanged. Other20maskfn/font/art/donordutiesremainheld. Three batchE permission calls share fixed cross/square morphology, with six complete provider comparisons on two declared synthetic contexts and source-pinned stable asset tables. One named approvedallmap_1logo-A fixed-instance datum is imported/replayed throughunchangedGo owners with independentnative/RGBA/exactmask/versionguardproof; arbitraryeditablegenerators remainunsupported.",
+      "remaining_gap": "17other Epermission calls/font-dependentpermissions plus donor/PDE/exemplar/plate/familyfields/radial/contour/source-art/material duties remain. Three newly proven permission calls do not complete artwork reconstruction.",
       "scoped_toolkit_operation": "Pinned texture plus grouped cells/icons/reconstruction/order facts -> bounded composed texture through shared importer."
     },
     {
@@ -943,57 +963,61 @@
       ],
       "verified_support": "Shared bounded PNG export plus pinned extracted-TXD native-order names/raw headers through the same structural parser used by the codec. Duplicate names and per-entry metadata errors retained; codec support explicitly not_evaluated. Real27-entry and synthetic/empty/global-refusal preservation cases verified. Exact pinned authored-spec joins now retain native ordinals, declared annotations, decoded dimensions/format/pixel hashes and explicit null measurement failures. Streaming complete CMB member/native/error manifests now retain original index order, source spans/full hashes, exact authored joins and pixel/encoded-preview links. Material advisory scores/tiers/ordered flags verified including explicit source error domains and Pillow PNG conversion; raw PNG encoded bytes preserved. Exact shared-PNG checker comparisons now preserve padded crop, unequal before-controlled targets, output-spacechecker/gap/RGB, guardedexclusivepublication andinputpreservation. Shared pinned manifest collection now retains inventory/error rows, group-local pre-sort dedup, stable pagination, final duplicate CSV links, exact TrueType masks/multiline captions and per-item painting order with guarded exclusive ZIP publication. Shared comparison now preserves flat commoncrop/padding/sourcegap4scaled/RGBAwiremode and weekday BASIC10 captions/fixedstrip/maskedRGBpaste/wholecanvasnearest, including normal capacities. Defaultchecker complete output remains unchanged. Explicit evaluated-failure versus absent-detector status now preserves successful original4group pages without fabricating scores; exact original outputs and policy crosswalk verified after fresh independent review.",
       "remaining_gap": "No material shared responsibility open in original contract. Explicit normalized geometry/serialized-view and native font calibration limits; new assets/formats require evidence.",
-      "scoped_toolkit_operation": "Pinned extracted TXD or CMB + authored profile \u2192 header/specification report, selected preview or complete discovery manifest/contained preview ZIP. Pinnedbefore/afterPNG+comparisonprofile -> deterministicreport/newRGBpair. PinnedmanifestZIPcollection+font -> contact pages/preserved previews/inventory CSV/report in one containednewZIP."
+      "scoped_toolkit_operation": "Pinned extracted TXD or CMB + authored profile → header/specification report, selected preview or complete discovery manifest/contained preview ZIP. Pinnedbefore/afterPNG+comparisonprofile -> deterministicreport/newRGBpair. PinnedmanifestZIPcollection+font -> contact pages/preserved previews/inventory CSV/report in one containednewZIP."
     },
     {
-      "id": "runtime_platform",
-      "title": "Owned runtime platform",
-      "status": "unsupported",
-      "scope": "optional_runtime",
+      "id": "probe_orchestration_evidence",
+      "title": "Probe orchestration and evidence",
+      "status": "partial",
+      "scope": "core",
       "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "source_pointer": "core_opportunities/instrumentation",
+          "original_contract": "Prepare versioned diagnostic hook/counter capture plans; read saved/live values only through an explicitly owned runtime workflow."
+        },
         {
           "source": "analysis/pattern-crawl-assets_runtime_tests.json",
           "source_pointer": "minimum_toolkit_recommendation/owned-runtime-platform",
           "original_contract": "Keep transport, input backend, capture/inspection and owned lifecycle as clear responsibilities behind a small runtime toolset. Reuse PID/starttime/ISO-guarded cleanup; never adopt app-wide pkill/flatpak kill or shared log truncation from legacy scenarios."
-        }
-      ],
-      "shared_owners": [],
-      "current_code": [],
-      "evidence": [
-        "analysis/reusable-toolkit-plan.json"
-      ],
-      "verified_support": "Ownership-aware Python references are retained.",
-      "remaining_gap": "No verified Go lifecycle, PINE/input transport or capture platform; no credit for retained Python services."
-    },
-    {
-      "id": "runtime_scenarios",
-      "title": "Runtime scenarios and verification",
-      "status": "unsupported",
-      "scope": "optional_runtime",
-      "source_recommendations": [
+        },
         {
           "source": "analysis/pattern-crawl-assets_runtime_tests.json",
           "source_pointer": "minimum_toolkit_recommendation/runtime-scenarios-and-contract-verification",
           "original_contract": "Represent repeated batch verifications as cohort selector + typed read/decoder/comparison + scenario facts atop owned runtime. Preserve separate fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons."
         }
       ],
-      "shared_owners": [],
-      "current_code": [],
-      "evidence": [
-        "analysis/reusable-toolkit-plan.json"
+      "shared_owners": [
+        "plan",
+        "patchCopy"
       ],
-      "verified_support": "Historical scenario/test evidence is retained.",
-      "remaining_gap": "No verified shared Go scenario runner for memory/control/visual checks; read-only offline byte proofs do not replace runtime verification."
+      "current_code": [
+        "patch.go",
+        "recipe_types.go"
+      ],
+      "evidence": [
+        "analysis/probe-family-contract-v2.json",
+        "analysis/probe-owner-handoff.json"
+      ],
+      "verified_support": "Inherited static guarded-word/template diagnostic facts only. These owners do not implement probe orchestration. Existing Python is the sole operational owner.",
+      "remaining_gap": "Full owned probe workflow, including unattended operation/recovery and broader original scenario/diagnostic duties, remains unproven in Go.",
+      "milestone_credit": 0,
+      "legacy_facets": [
+        "diagnostic_instrumentation",
+        "runtime_platform",
+        "runtime_scenarios"
+      ],
+      "classification": "Inherited static diagnostic Go support is Partial; operational platform/scenario support remains unproven. All six milestone credits are zero. No new Go probe module or controller owner."
     }
   ],
   "scoped_pins": {
-    "../../skills/MIGRATION-TOOLS.md": "0b13cf1547acae0cfd6ed1d73d761711c6418cfa98ec5cb988b0a79778415e1e",
+    "../../skills/MIGRATION-TOOLS.md": "6376aa11c25ecba0cb2777c67f03e420a18f0ec7600917cddc54f46573b4582a",
     "../../skills/STRING-REGISTRY.md": "f5e20cfe73ae61ec2b083f12df50bcca5b95938c449492e55cc9e5f08c497d10",
     ".goal/USAGE-CHECK.md": "3e444f3c4f4f29184b12eb9592fba2eb0f92c1e168af7fd0f4eb79ef7948954a",
-    "ARCHITECTURE.html": "317487fa7cf9b2eda7ca4a925c6e6e8dc39415d6194b2353c434234c0e38f6a2",
-    "ARCHITECTURE.md": "81790a2ce93db32d1726c86211391cf313ba3e037cbbc00fe0d10d9b3a48aff5",
-    "MIGRATION.md": "dc2f8fbf87e6d0653321c67dc74c0cb487ed100d885311abc75a2db268b86f28",
-    "README.md": "c8b986474e92e92917a4fc569ea214fa5eb3a0f87addb160a326f31d06ed65cc",
+    "ARCHITECTURE.html": "8683b76ec216457b63dd05ce6563fcdb3104986337fd3b36868de5d6b2c85d3e",
+    "ARCHITECTURE.md": "d5f12138a03f9d1f71366ba5971c4780d81c3317d3ac75c3eab8f8131ea01dc2",
+    "MIGRATION.md": "b999285f7c535a3234c2bbf2ac33044f2972ca15412e444c0ffc3df24aefb2cf",
+    "README.md": "44866bd65cb7de118d98a7867817796a461e5936888a0826a0cf11e4e5bf6a53",
     "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
     "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838",
     "analysis/asset-comparison-decision.json": "a5c804100d12ea1e2ef63903ee58b273f5ca5b0b2075c2758dcc2972c0a40096",
@@ -1016,12 +1040,12 @@
     "analysis/fit-line-count-oracle-erratum.json": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3",
     "analysis/fit-line-count-reuse-decision.json": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714",
     "analysis/fullpage-tbw2-reuse-decision.json": "2be87c6520f8f752612c8ea42e82a1cffcd049965ed37844c96c5feac47aca04",
-    "analysis/go-current-input-accounting.json": "f30222ad607592b46012e42fb35c79268826a913c779d5df00f0e640a568da0f",
+    "analysis/go-current-input-accounting.json": "2fb70950734961b32eb0b59b6935c78c2e4464809a0ef7c4dfda29357aaeafbb",
     "analysis/grouped-psmt8-authoring-contract.json": "b5bf4aaf7ac743cd130ec4470af132f39b98cf140c57a171df77b76ebcd5da01",
     "analysis/guarded-transaction-coverage-reassessment.json": "841d24a962fcf0eeb89a31bf7948064f419192a3c9b0401923d6e6884a37cad3",
     "analysis/guarded-transaction-coverage-review.json": "74c188a329fa6949642cad2329349f6b9148593fcf29c9d0cd3c5ca3adecee1b",
     "analysis/inline-icons-reuse-decision.json": "7220f120359530fe540098a00a80d1f18d47f7022d35257de23fd222ed5bc656",
-    "analysis/migration-roadmap.json": "159e2f4489ef8f187c98f999d0888d272dade704b82b5e63291206d31dc12c54",
+    "analysis/migration-roadmap.json": "3fc384a2e9ee605dabc08da27ad271a4f304d76d98de4419d8077b99591e35b7",
     "analysis/multipage-psmt4-native-contract.json": "7b8392c79d7c65faff8356e581c8154a9952ee79d3455537184e76acad65ac08",
     "analysis/native-background-reuse-contract.json": "3c1cc105e5997c23a0af83f46faf3956099be09b528c358bfa974dcfac06a47b",
     "analysis/native-line-groups-contract.json": "af2e5e44a483ae4a55f1fa4d611ea2b1d92f09dac9fcf1d9f82d7c25d26bf3f7",
@@ -1131,7 +1155,7 @@
     "evidence/icon-grammar-checkpoint.json": "143c8bdba5b9bae0a689205520e650632bc18ef1f9026d953b49b843bd2a74ef",
     "evidence/jp-selector-proof.json": "0a165f244b6b4a91102aad4bbee4b70e4ef0b9293bb8e37be501665d4204594e",
     "evidence/latest-build-proof.json": "72e0c2de6ebbb23ac2fa2ec9ff88f908b0c1005361a83f8df6b5f99e9aea1430",
-    "evidence/migration-roadmap-source-checks.json": "ec0a0c202b8fb1ef6aa91f7cf6cfdd58470a85d20bf1e99619850fb74bc480b3",
+    "evidence/migration-roadmap-source-checks.json": "0842836e1592ecbf06d86973fe0f8e9390ab310538fb78516352f4ccbc01a1aa",
     "evidence/multipage-psmt4-proof.json": "48e73fda152e539db534624dd58796b07bc729601399724ffaec68a71a04a588",
     "evidence/native-advance-exception-proof.json": "9d0f1c3bd6b2e288a8571898249320aa7fa69fce3f1ec9dcc6640231d5a2f39b",
     "evidence/native-line-groups-proof.json": "110fd0861f58bdbdc77f51eb87a547f0c9e71de2be74a038d52fd12712454514",
@@ -1211,22 +1235,22 @@
     "examples/stream-audit/observed.bin": "e2c04d69bdd7d0d52e9f19f8a39e0f78f31b4748399eb2ef49ab4aa956238228",
     "examples/stream-audit/profile.json": "99ee88a917d7d7df8f2add7fbccdd481c98b185cb79b9496d87eaecce2ec62d9",
     "examples/stream-audit/reference.bin": "7b9a05677e13b551f0c24fe31961e936bb5e3999a4c8488f9db8c254883ebba2",
-    "fit.go": "fd0149fec48e585ddcaa80988c9ee960917eddfd458bf4422c3692de63999532",
-    "fit_types.go": "f0c417222a2b4ec697ed01eed3653f552bfc37756cff2c4bee844238cac48f05",
+    "fit.go": "0b4045f21bd1b06754697e58a0e2b15434d17660a0c4905ef1b64413e9ef14bc",
+    "fit_types.go": "bf8ca34c165d2be3fbed3eef1098caf701656a3959e6a83e1585d083d93c898e",
     "fonts/game-optical.json": "0675957298f6d1a6468f3c11cc7c9e4587026fe5faab59c5998832e32af226f6",
     "fonts/game-optical.png": "3c018fb610cca1a9716c156387e6f88810252bfe34f463e23abf5cef7900d4d7",
     "fonts/hud-labels.json": "f1d73ee0e21a4ac60d28fdb05f7546d12a9bc412b5e7e16a22a8a29d082e405f",
     "fonts/hud-labels.png": "59a6fa8e3a281f120bc4f0cbf42c441ed1ef5607b772b1567ee61b168dcd690a",
     "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
     "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
-    "image_types.go": "e163a9dcfe762dc37ac8811f55f83801d3a9842641b13a3ee011705f1f3fefda",
+    "image_types.go": "fcd1b19a45c58a3827785a99bee69ce471063c041c6f255d639df688c56f5278",
     "input_types.go": "c98f6a3be0a6004d493561b11e838164ca9a4466af40afe8840a351e00d07686",
     "inputs.go": "e475b60804b68bc3e726919da0bca763b988034412ed1dcc4d45b0cf20084601",
     "licenses/Pillow.txt": "15181e7363dca9aed78b79bebebc7fde7f1814b8bd311ea3b87ae8ccadfc185b",
-    "main.go": "1a668e39ebd568979ea0372f42b6ca18d88bc303251507877285b9d7778bd00c",
+    "main.go": "d4e9d5eff410931ae001f2c958b20b12729a1cbb2ed0650b9fcba28a14cc6ce0",
     "outputs.go": "478bee85334cab7c39d09b90bbdc80838d4e258bc0b27a16f4f0ccdad366f9a7",
-    "patch.go": "8ec61b328840697941ed9e279ea2922ec7401c989409c84d366eb981b87a7c8d",
-    "patch_test.go": "abc478f51de5339d5cea55bb3287335ce249e7ae42a25f2c5b4213cb7a3afc6f",
+    "patch.go": "632c2670b935c4e7ccf4aa986958dbf0ae2e40ff0975e176da474c39d7cbbf52",
+    "patch_test.go": "9c260393e496759cb4d1bd57d97980fd5c308651900128e7fa3cc9fde946388e",
     "profiles/fit/item-descriptions.json": "25d8ffd1f205b3740bc4c90b787d58dbe5bba149f6ccf60ed5fa01e5aaf0f8bd",
     "profiles/fit/job-center-summaries.json": "e50c7dac277e3ee5de1804fd2e831c982357f023718b6447148fbea69f347940",
     "profiles/fit/village-dialogue.json": "9ca2145c5379f1d092aa4ee5111411df77b4020136d16be1466869e08f43c89d",
@@ -1251,13 +1275,13 @@
     "recipes/reports/registry-status.md.tmpl": "2eb5dc89055ef1bfa9139feb153086ccbbfb63fed0526a5436e7232c39b30b51",
     "recipes/text/native-slots/defense-label-restore.json": "efac3610657c288b70a7128366d4624d69bd04883bb7de2e180f0e2179d13790",
     "reference_geometry.go": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a",
-    "reference_types.go": "de954bf9c1c9043513f081ac63bebd8ddc525aa0520055dd365683bea8520c90",
-    "references.go": "0d55fd8cbc2fa689132e16b480bd9a4b5f43562b0fcfc36b71f46398480c8755",
+    "reference_types.go": "b9c751b394614b96eca0a80ae63e7d631d1db49c094cebfb8b6d6462480f3887",
+    "references.go": "2554a80dcb4e1c65011556c7bc5103572f9113f60d6d501da7d6d76a7e063527",
     "registry_authoring.go": "ffb9a9295d126b34c8e1aef25810ed9cfd5cd7b11f6c80ca8642e62cecc7d14b",
     "registry_types.go": "290af23dd6a6bde6699d6be43dbc754ae31214f50717441f5a465e718f0d18f0",
     "snapshot_types.go": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645",
     "snapshots.go": "702db65595a9a3b47986deca73973913e4fe9064f99141381755d097f406b0b3",
-    "stream_audit.go": "e970fea55fb0d1315aa35b9d24594f279d71a28447ecf81bc87d06afd4460a8d",
+    "stream_audit.go": "16c958418d86e2d41bd18281d7db75d7e96539834379e59373cf8b4c03dac5a3",
     "stream_audit_types.go": "2d0a6c03c3ca9260b1c72375a8c768d991eb9fac923f4e3bc6dcd3376fefa8ef",
     "testdata/asset-comparison.zip": "b115ecaccb3ad2d133546651dc31d6bc9092db50fcd65e08b5854cbef13578e6",
     "testdata/asset-manifest.zip": "731f163716b6d016521c92647bca72d9c2482b201f3ecad644577f7551110a97",
@@ -1289,9 +1313,9 @@
     "testdata/source-colors.zip": "f2a76d93b8e4b1c1cac61e4cac2a40d3c9484fa98bfd274dcb0a59a8f4c23102",
     "testdata/stream-audit.json": "7ee553f100ce4e5d37fa969745102b1681644f7a54788ed5c883aa5fb9bca89e",
     "testdata/textures.json": "9cd41caa39e44f39fd8d497180d34a45c3ff8335e34493e81d7ec82123bb2b91",
-    "text_types.go": "8ce454b47a1e1680ae79232bf4865bd51b414b33939d9da02debed69b3d0e401",
+    "text_types.go": "b355a6054b9829f6ff4cea09627afb4275f65b9a869226f173544b27a96d6822",
     "texture.go": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed",
-    "texture_authoring.go": "6f51944c1904871a721d51a3edcee0564bcde1fcfc0742534b49dddb08c85b4c",
+    "texture_authoring.go": "4031b4957dfd3788926b7bdedc239ea8d20dab407ea07076d88bd4db5e7dda90",
     "texture_discovery.go": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c",
     "texture_index.go": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65",
     "texture_manifest.go": "7a9a7c818f20bc986bff976505b2e955c815de944e960bdbbf2bdf7d385aa920",
@@ -1494,11 +1518,11 @@
     "analysis/instruction-flow-reuse-decision.json": "5645cd2ca3acd20190364a6dc63f6bee9a0f0c41ae351da14e52f0f23bc1be70",
     "evidence/astra-audit-039.json": "a4287b6f30ce4aa58ee6f045276bc418c7be62b9be58abafc98ac176beb6f4fd",
     "evidence/astra-audit-040.json": "e1d4c88f8fc8c52cba369351f66267f20556ec5d3e4f3ee3ce1fec647efa326f",
-    "evidence/instruction-flow-proof.json": "15d8435b757d55c7e7a672d4474b95b5e4b5d7324ac495ee11b4b6fca184f1d4",
+    "evidence/instruction-flow-proof.json": "aec861832859a6920282db82d6ab9804081deb901acb9848edf45b09de48375e",
     "evidence/instruction-flow-review.json": "2b187599a1449520d65cc071471c3a2f849cc2e68491257191c74c1f4a9f88aa",
     "examples/gp-audit/instruction-profile.json": "42053b4544dfa594c4fb5026837e04c2d7806647d486b1551f457479dba40130",
-    "instruction_forms.go": "51a621def28b05ae3eab6ee125a97a0de55ed91ac75fcf314bea06e06806c414",
-    "instruction_types.go": "f7ba096587477070f9b1606f1f0d97c97608b2a6ec78541f10d6d7cef2f4cf60",
+    "instruction_forms.go": "66334ddddd37425008c1bbb9a76ba5defe74bd771c76bdf50fdf31cad987b835",
+    "instruction_types.go": "922df17098ab23513a10033d26cb5d34e14f9e79b431ac1582cf78ec7b9be323",
     "testdata/instruction-index-fixture.zip": "6eb077edda6569ef5af3c7844d1189da902bf8773673bdd1f90076f8d9c4fc35",
     "analysis/register-flow-cli-contract-v2.json": "76a072a5244e3c3ca29a0fb3bd070bee40828c3c6096eb97bdae9e2c45feeed3",
     "analysis/register-flow-cli-contract-v3.json": "2368bfb21c12b177a74c08238179d0eb3aa7330208e6f2061ac02e21f969724d",
@@ -1507,11 +1531,11 @@
     "analysis/register-flow-source-contract.json": "1fc5e0d9873a652712e97aa1607d1fd7c489bb22e6f8ccacf28e38c32e31f1d5",
     "analysis/register-flow-source-supplement.json": "d09dd5de83e68e3d9cb09009d204f6cfca570bd723adedc6e8a6d1cbf3026ad2",
     "evidence/register-flow-final-review.json": "aa01bc08c6df45793da15354d073cfc94646370d2391852c080fc48e62514bd3",
-    "evidence/register-flow-proof.json": "2929bf61d050db5266fbe0070beea7894590895b98b6c62faa7565e73af31191",
+    "evidence/register-flow-proof.json": "61ca38212cdb11b9fd73816fc1674a75adef8d3dd2071d5c2866403b13de2f52",
     "evidence/register-flow-review.json": "d7f7fde3589502c8af4440b360048fc0c642b65d871dea5ed33ee82ab7ff89f4",
-    "examples/gp-audit/register-flow-profile.json": "89deb313dae399b337c4d3d78c18293f7bd074b5c4a29772ceeb670c26dd38c4",
-    "register_flow.go": "c6383656929b2e8102e73a60c971a80724db086effa9bd9b39645a10b4000548",
-    "register_flow_types.go": "4b7873459a77ccf35d1a402ddaebcc10a5c9fcfd0602f61e5177caef90eac70f",
+    "examples/gp-audit/register-flow-profile.json": "77e95ece2d1a061e9bdcd2f512758263321a48762577c2e77a6fc49263e807c0",
+    "register_flow.go": "b9b2af04fd4e72a9c80691b55c89f2ac52b1770b48344d9352231e5cf25bd5d6",
+    "register_flow_types.go": "5c062e55c0b0f7c6302d192e955ab48b02a81ce4d010192ba34f4c9a0ef48dbf",
     "testdata/register-flow-fixture.zip": "c747ab1007b8706216264e4f58f848c4e537c6b30af0005e42b82808a7e3b9a2",
     "analysis/reference-owner-cli-contract.json": "69db38decb6dbd90ae8a7edf0f10984767ae0c7d5adebfff0dadfc0667748d79",
     "analysis/reference-owner-reuse-decision.json": "47fb9837d8f469ed9202695876d574abc020516ae581e9938bd8baf669956b0d",
@@ -1526,8 +1550,8 @@
     "examples/reference-flow/profile.json": "781e29cf8ccf1ff240da36293e3eb4429361008de6dd62100b8f5525784fa361",
     "examples/reference-flow/registry.json": "9fc0f59f002f9e50ff9243378741f474c2a3f14f6d951533b28da0a0ffdccdc7",
     "examples/reference-flow/source.elf": "d3edeb9fa558f9842c74b25918c50867904c1b1ade6ce3c575b252c1d59c942c",
-    "instruction_index.go": "d2d100961d9fa271e4e92b2daa0038b947aa1fce000538b4d72889150126e37d",
-    "reference_flow_types.go": "324128e3427a45247735e6efeffce15c590684c65a25b863fdbe6331f7690205",
+    "instruction_index.go": "170a08404b8598ec3c1723c976fac63c235c72fc0d2f02bfa6964ed80ef76e3a",
+    "reference_flow_types.go": "4aa2e26d90e66facb764c712cbe0c2fd7a28ae5b91c4011517cd1671ba4449b5",
     "testdata/instruction-ori-fixture.zip": "31d9cdd7193258d89335722b50bab448d8906cc6c35a4cea4e04d82ad71076e7",
     "testdata/reference-owner-fixture.zip": "a8a76300aab41a80a3775dd9eedf12391cfbf7ddd9d74567c24d097ba28b905f",
     "analysis/fixed-permission-resource-reuse-decision.json": "129e2aa2aefcd0edff071bffb27ddffe73b7051b260ea086e1192acaabc8511c",
@@ -1554,8 +1578,8 @@
     "profiles/permissions/footprints/mini_t4.json": "a4e9ca6d258a93d8223b52ce2f170bd9fc3927321a8746f1f676cc6e6cb6449e",
     "profiles/permissions/footprints/mini_t5.json": "3b9e215d82ff5bc88287537c577f55479dfc888e95f64c0c43b987974ac4d301",
     "profiles/permissions/footprints/mini_t7.json": "cf19836ca2f1eb6b373f613464f2ac1d547d5448c2071a2183db18149607e3b8",
-    "raster_mask.go": "479dd8fd098a9e83fda1a0dcd49ede5db8c64f4950241a8f8ac13b7c8e2aead4",
-    "raster_mask_types.go": "a73f96ed05c0054f696eefd54a7b0ddba73eca6245c548edc58c44aa80f0cc4d",
+    "raster_mask.go": "05c62e16e20c2a63b261389272c0647f9ba60c08943bb887051b3f7a813c12ee",
+    "raster_mask_types.go": "fbc2a9561338513dc1941bc94f253cf3949e58a7b4fe2a7461a92d7d89cf4476",
     "testdata/footprint-source.zip": "85e32925d6d05a0a1de43faa093bdfba2c76f7facd615aeb01bbf842320287de",
     "testdata/mask-selection.zip": "f82ef016267f47cfe83616cd3267f344ad5b5ac7d5e03ad8627b54367c941524",
     "analysis/component-mask-reuse-decision.json": "45cf5c6ee7aba169f3e30d612955f5996a49a28c4b53e0ce989dd1e108a66267",
@@ -1652,28 +1676,148 @@
     "analysis/pattern-crawl-text_binary.json": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
     "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
     "analysis/pattern-crawl-assets_runtime_tests.json": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3",
-    "evidence/registry-pools-metadata-review.json": "df69a72335bf577643482905b7a32f5263cf0602c91208b769bf5636146a6606"
+    "evidence/registry-pools-metadata-review.json": "df69a72335bf577643482905b7a32f5263cf0602c91208b769bf5636146a6606",
+    "testdata/square-source.zip": "ed20a3034fd63794cf3fa84acb168320505fb8d4e2a586c9c7fc08f387c13772",
+    "profiles/permissions/footprints/button.json": "641f9b4440cc87e91ef9718eba8e17a61655be99162f986ba2a212106ea46b4f",
+    "evidence/square-mask-proof.json": "a0beb35e9a586d95b75e937500fbcdd308eddc3fd3f91916888b1b6c04101ac3",
+    "profiles/permissions/footprints/sale.json": "768af6f228eddd244afba4ff1c8bda0c677fee28985939120e6f71ff230b4de6",
+    "analysis/square-mask-contract.json": "b41264066ba3c26fc94a3fe0ea63346ea05d6e9e6188b40a06bb7f3ff29cafba",
+    "evidence/square-mask-source.zip": "df9ac85d05777e463bf356c4413fe54bde9c5ce5f263f6c0289ed34332b97945",
+    "testdata/square-transforms.json": "9beaa7f07ee48476893fca31053bd03879fe73ed99428a07648899429d4a895f",
+    "profiles/permissions/footprints/op_p.json": "4265dab00353514b2a829b5d2334b65d98641a566a1f80513bcd9d8930205058",
+    "analysis/square-mask-reuse-decision.json": "63343f75fab9db0f10e4fa5700ca065d913e54cc6d7592a7afdda4fc6d4b1285",
+    "evidence/square-mask-review.json": "42d565c25acdb4dfd7c962ac0b69e30cdec74aa9c9db1617bf626b718e0ebc00",
+    "analysis/fixed-art-reuse-decision.json": "4c0d1ac43fe2b85578b6d7e75eb6be2e170ee340da8a1a9b46794fc5766d1f79",
+    "assets/artwork/logo-a/allmap_1-v1-allow.png": "344a39ecf5e27594bfc4be8eca2f1001dfe85c4a3ea6649bab3116c31b49aaa1",
+    "assets/artwork/logo-a/horizontal-source.png": "994dd2341f96bf29986993a7b52f7119f0e7e49f33c7cf9f4e0346e772527d61",
+    "recipes/artwork/fixed-instances.json": "4cbf8e646fce94fe9f3423ba04bf58f43994f8ff0d9bd05382dbab57a8bd34d6",
+    "testdata/artwork-pristine.zip": "09e660809e1d02cd86be283d282cbaaf582c194d33776e6963aae79754694931",
+    "assets/artwork/logo-a/allmap_1-v1.png": "5418b3de9addb601db1fcbdfd4522dac63b80afb0efc736b4d672240c035c38c",
+    "evidence/fixed-art-reviews.json": "5188944e49142d691f7af2606bcae6e0846e68178e2888eff0ff1d63bd65d75c",
+    "docs/fixed-art.md": "5c133d3a860394f8e47d0f2298e17e7fcb65fa17085a56d86314cc435777f166",
+    "profiles/textures/fixed-art/allmap_1-logo-a-v1.json": "777aca1d08f5ed9254069d946e327fcd84436c9040b6bc38420c7a99d09754d7",
+    "evidence/fixed-art-proof.json": "b9fc394df966c0363f61ea145eff486f828aa3f7c655bd2abb176f508390d7c2",
+    "analysis/migration-roadmap-v1-accepted808.json": "6dd58b961a73e6a861ae642c81ee32adada4bc5eb8c5f8dcb802c2d295931a3c",
+    "analysis/migration-roadmap.md": "221be4d472ae06a1f7329a18862fd18178b8785b50084e9adb6a45f2b2f9219c",
+    "analysis/probe-family-contract-v2.json": "6a1f637781b9323171a287dcbc70c5e7276cb977438df09cbf351d4d85a0f93a",
+    "analysis/probe-owner-handoff.json": "3e49e4ae48b9ec34686879a2cdf4173a3dfbdd2960baf0e5dfa601c230891555",
+    "analysis/reusability-coverage-baseline-v2.json": "410a0c8cb8d561c6342bd654ad97b9f0b4c1b0dca2f2e8a3d6590d5a046785ca",
+    "analysis/reusability-coverage-v1-accepted808.json": "7ca9a659fa154f2ce679101fe31a95da8afcba52a779dce36772d74f92d2bb81",
+    "analysis/reusability-coverage-v1-accepted808.md": "17529c96587cb9624bce19620f362e207f46214f1f25082ee922fb090f178753",
+    "evidence/probe-taxonomy-proof.json": "2aae9afdd46e54bb85a688d0a5f358c231b90517d6af76950e16bbe28412cb97",
+    "evidence/reusability-coverage-checks-v1-accepted808.json": "b235edeb9e536607bcd5db1b951cf8a747bb7e232830b3510900bb348b2fd1a1",
+    "evidence/probe-taxonomy-review.json": "02baf6266a3052847e8a27e0a88ad4c6a222f9aada5c7b64a32246dc5b2a15d6",
+    "analysis/register-inclusive-contract.json": "d78c7be838f5e2ca55f336dacb87fcdf18b623993807ce26f8cc6f8ab5914a6e",
+    "evidence/register-inclusive-proof.json": "d163100634837e5bee50e4f53ac24d9cb347982c3cfbfd6739125f3109b7dcb2",
+    "evidence/register-inclusive-review.json": "9c94643a0371639090ff7c1bfa39142abed78c00ce0aef5578195027d0b9eb88",
+    "testdata/future-register-read-fixture.zip": "2fb9e11155a9d2fe12fd592a84a36ba90cfe6382f862716a5fd9db4a2cd28e0b",
+    "pointer_flow.go": "baaf843ae42c2b14c332b2353bf229e0496f5a131357c546830e9e6ff397d163",
+    "analysis/pointer-consumer-contract.json": "ddff05e7116bb4657c8f31b5fe4bdad73f66e6f9448ba10d7b8f254ed198c297",
+    "analysis/retired-static-elf-design.json": "20fc34a61ae8b7bbd114883ba2341a19428da7b351d425ad3e27b0b1b9478fa7",
+    "testdata/pointer-consumer-fixture.zip": "3997dd7111c4bb0815dae969fef94a09e1f43b422c50447a2ac777c06344d7bb",
+    "examples/pointer-consumers/source.elf": "e6b3e92ad8f981967743cb3f39ad5d4f85596f1d5d246a85a6afcd0ac65cef28",
+    "examples/pointer-consumers/profile.json": "0f42debca59c1492f4562979768f9847bb3bb551553e0fa74f73a26c753f48e3",
+    "evidence/pointer-consumer-proof.json": "3457cc2dba8721f7951800d23098053b67212411cc317d1d673b339eb3f0390a",
+    "evidence/pointer-consumer-review.json": "0ddd23a85d9e0e410b21f2b3d62fbe9c7d51c62c91c4e425577fb8024244f622",
+    "analysis/native-ink-contract.json": "de496e0eb4bc5847be31ec7fe171affcd8ba12b9dd8dbdd59ecd97195b309b03",
+    "evidence/native-ink-proof.json": "4ae4b1aa640e1033e281018d3d2be972b4695aca7112c24ac00de7faf2fd37b9",
+    "evidence/native-ink-review.json": "7215a1f5661a75dfb54e71b91d02cb21080dddb91108eb3e61fdf43fd6e3a6b7",
+    "testdata/native-ink-fixture.zip": "eb4be8a3bd9d0f1cdb88a1606c8cdf58fc39674a87224c635c0436f7413ee003",
+    "analysis/current-tooling-scope-v3.json": "b2aeb6bc06c9396797b4c5b029abe887fda766544d33b9c8eb42728c28d51aa0",
+    "analysis/migration-roadmap-v2-accepted834.json": "6d8fd1e2c940078b2e8ec97a85bd221d570409cd3ecdbf3ddc31051c1c9caa8a",
+    "analysis/reusability-coverage-baseline-v3.json": "1d3c2954c9e861dff649217a6498908136a6df98137d61dbbec9285465108483",
+    "analysis/reusability-coverage-v2-accepted834.json": "ce1fee5a0900669c0ec5eab7793fcda18324ec169fc5a2a90d69c741407ab41c",
+    "analysis/reusability-coverage-v2-accepted834.md": "955a64bafdec58f394650424b2210054c90d4d39efc5661de2a6a50453bdd3c9",
+    "analysis/reusability-coverage.md": "028f835ec8dcbf04140ff76df76a2a10bcaba44e7d74dd5d6c7276c74de2a245",
+    "evidence/current-tooling-scope-proof.json": "995418471f40a818b9fd1fa7734ebb5055650ef031cfac0576530a260af6e8b1",
+    "evidence/current-tooling-scope-review.json": "aa47f6d2b56d49586f4d8ea2fba244ea68440bf061ddb2e12b1da218a3ce7eda",
+    "evidence/reusability-coverage-checks-v2-accepted834.json": "3f338ac615fe98dae2ae07462c5e0e31feab2db3606ad8999cc429b1d17dcb8e",
+    "analysis/name-cohort-contract.json": "fee1dffb079adda24689bba7d652df5c65abee38cafc4728c881c58aa1528edf",
+    "evidence/name-cohort-proof.json": "ce1f58ba372786af717fa728f14ebee87568ca1767202df061026c985fff7db6",
+    "evidence/name-cohort-review.json": "6fecee74ced5def009ee4eb3a958a35b14f9a798e796c48b430baec96da0a776",
+    "examples/name-cohort/README.md": "0a9c7e3a2149408146b66da4eeab394a68ebb3d8e378e0c3503e910f9caf7ab2",
+    "examples/name-cohort/profile.json": "0f52aac1d57ac4689f2c3a052bfde8447742d311466f17f72106906c9dd19000",
+    "examples/name-cohort/sentinel.bin": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+    "examples/name-cohort/source.elf": "98908d58ee27b8ce050f03ef29b029ed8a9a6245f9023dc681c91d28692bf5db",
+    "testdata/cohort-report-fixture.zip": "e056e2f2f44ebbf85e7b3f2bb9e8b84522f46c7295e207ecfdfdc8dc92d31c92",
+    "recipes/layout/name-policy-2026-10-22-native.json": "fca7f5768e650da0df04e62ce85f73614fa8dbbb8b7d420b791edcb9f697b8e5",
+    "recipes/layout/name-policy-2026-10-22-sent.json": "9dc0d0c41dbdcf5877c9e788acca497d0bbabe3c09b6cbdeeb04e87ee6d08ba6",
+    "testdata/name-policy-2026-10-22-native.json": "98cdbbf1411900b078446d9231b94ba1bff1d127559e269132517325c04d0258",
+    "testdata/name-policy-2026-10-22-sent.json": "b4a61eabc111856307100448f29056e4f909ddd4efc950786a6b1fb8275d5a92",
+    "testdata/name-policy-2026-10-22.json": "e664cc8d18c3bcd20395454a89dda59bbcae8ddec311aa24ca400c31938b2b8e",
+    "analysis/name-policy-replay-contract.json": "92c0bdc90d8658852469b2c37fb6ccfc2479c70bfe35155f2c39a48d41a8fab8",
+    "evidence/name-policy-replay-proof.json": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf",
+    "evidence/name-policy-replay-review.json": "218e6f7b06a61f3a03ca5c3a443b9819818c28e211774f0a110a7aad1e1f5013",
+    "examples/name-policy/README.md": "3e8a5953cf309c640fa1a454da97287b312a5b828d8b2c053212c5865595339f",
+    "testdata/constrained-growth.json": "240167fc73342258689247892fa68ad49ed8e28ec496eb2d1fd400e0bda4f0a1",
+    "assets/artwork/approved-batch-e-v1/allmap_2-allow.png": "d31202892639056e421e8dc80f41d73135dcea96642d9b4c5ba6621a60d8accd",
+    "assets/artwork/approved-batch-e-v1/allmap_2.png": "0267290cd92dd9cc233d680d92c271f8c25902ae0da39c2f14ef5c46efd68b9d",
+    "assets/artwork/approved-batch-e-v1/button-allow.png": "899d509e0bea00b139b2915a02ae5cace1478cff3bd208ea2e95eade3d89766e",
+    "assets/artwork/approved-batch-e-v1/button.png": "616553ba9a51d31d7716ba14b45d158cb0929499c8823cac75490923b5db48be",
+    "assets/artwork/approved-batch-e-v1/casino-allow.png": "18074634545701fb3630268284b71bedfe41b5afbc98ae9a5faa4641d98b60c0",
+    "assets/artwork/approved-batch-e-v1/casino-historical-allow.png": "1deea6d533fddd1917f0ea2b846abea6d8728520beb2a3b61b98cef2d1ee88bf",
+    "assets/artwork/approved-batch-e-v1/casino.png": "fcc720f85977d918f907642866957800c0009b7c30e3d41437959378bedb9e28",
+    "assets/artwork/approved-batch-e-v1/dk-1-allow.png": "b6d3b625572d7d4f5a431d2e64277bea8abf3bd93af6eeba2323fe921231a448",
+    "assets/artwork/approved-batch-e-v1/dk-1.png": "8b8d6250e317eeea49261167b4671f776b8488e11cb27598ba3c59f2ecaa1057",
+    "assets/artwork/approved-batch-e-v1/f_title-allow.png": "c3e77603991527d2b5db3c1d52d4db9184632aca3cf4b7b59c1dd668b0fda14b",
+    "assets/artwork/approved-batch-e-v1/f_title.png": "db8d6d761b6fc1f9dd8da69a79b92c4a2f7bf6d7afaa8908ba8d370006d8575a",
+    "assets/artwork/approved-batch-e-v1/food_t-allow.png": "0ea10800ab8e1ecc716cc589b858c8bca22c66b18fd486b8b6a00998d927d8a2",
+    "assets/artwork/approved-batch-e-v1/food_t.png": "776188ad24c79d7cdabe679b10a35b339390b1a3d9aaf83a45b81140baeee089",
+    "assets/artwork/approved-batch-e-v1/op_p-allow.png": "8c7b7f9ed92ac5a1b8cbea9152e39327b473049de83402cc42d1f9848817ffda",
+    "assets/artwork/approved-batch-e-v1/op_p.png": "516304ebc5a7ef68173c9c905662306ea99c216e2aadae9e73c77b5ddb5ab474",
+    "assets/artwork/approved-batch-e-v1/race-historical-allow.png": "67660c831c2bad630e9a7d780d888dbdfc779f6ae05576ebd4bebfb126f4ff0d",
+    "assets/artwork/approved-batch-e-v1/race-reconstruction-delta.png": "18ec4a609e7f2ddf2f1d9a9a9041e0b5235a75b0e4385641a231e5f7f2fc35f2",
+    "assets/artwork/approved-batch-e-v1/race.png": "9821b34555a394ffbc42a0fec69fb278170295df1cf9a497cc7b2c89b4f86008",
+    "assets/artwork/approved-batch-e-v1/sale-allow.png": "640705561f2fc184306f3418ca68f36968c64743ad1e869e50ac1987832bd06c",
+    "assets/artwork/approved-batch-e-v1/sale.png": "158b8a5c85345cd63a19d458abc3be5dc9428364ef6f68fb094de6bc38c3a472",
+    "assets/artwork/approved-batch-e-v1/title-allow.png": "84b4fa3545c121436d5660490eafde658a233c0d312a49c7a0b2256d6ff9f090",
+    "assets/artwork/approved-batch-e-v1/title.png": "20d3df077367a734d7306b77f0a06da1b4b1f18e14d817b4d61b572c025aba7c",
+    "assets/artwork/approved-batch-e-v1/tx_win_w-allow.png": "a358e686fc8860ce9423f8060f27894fcd1419a11791bf9277118689874ee0d9",
+    "assets/artwork/approved-batch-e-v1/tx_win_w.png": "a8d50cf6c28e922c48ae5878392d9ed2580cc98dc3e1d746453b91d94fe4c2db",
+    "assets/artwork/approved-batch-e-v1/win_fw-historical-allow.png": "75b040023467d471b56889218a8c64acb0ed5d297c59036afd1f4340a675c013",
+    "assets/artwork/approved-batch-e-v1/win_fw-reconstruction-delta.png": "ddb491d3db00a2b7e19c63e914013321909c59a904123e5f456fb04bc187b9c6",
+    "assets/artwork/approved-batch-e-v1/win_fw.png": "22e293079f966f435d9ba0e44dcd72d6c3a3d3eb3d87ab4dcc62613d234a7c9c",
+    "assets/artwork/approved-batch-e-v1/win_w-historical-allow.png": "75b040023467d471b56889218a8c64acb0ed5d297c59036afd1f4340a675c013",
+    "assets/artwork/approved-batch-e-v1/win_w-reconstruction-delta.png": "5f9d817ced34cee54939bc1b73abb66513d9190b786acf87c06000993e1bab4c",
+    "assets/artwork/approved-batch-e-v1/win_w.png": "58a49ac4ed87dd0eb170c723a10d78555adb94460cdeebf423925d801709222d",
+    "profiles/textures/fixed-art/allmap_2-approved-v1.json": "e82581d4ba4bc33eb363ae8873c4ebc98014a6ee5ef0bc2b61b051ade3358b93",
+    "profiles/textures/fixed-art/button-approved-v1.json": "e03fe09e4106d23f27e3f8c3f4bb04f4135de024ae620e7cc97af663ada55964",
+    "profiles/textures/fixed-art/casino-approved-v1.json": "6c9d45e04b5d93a2274b5903fbb09eff7a3ae48e25a5991d736f5ab3da0fc71a",
+    "profiles/textures/fixed-art/dk-1-approved-v1.json": "163d75b61dfaf49bc6107a98a602ab01de93b269c367b4d92e0b52ee6f466a76",
+    "profiles/textures/fixed-art/f_title-approved-v1.json": "3314a6ef45d39bd613c66bbc14670f7189168a07a3638eea22b1dcf4c4ff62b2",
+    "profiles/textures/fixed-art/food_t-approved-v1.json": "86d4dfd772f61c13ecbbf61960486ae8bcfd1fc6fd6cb1372c27ad3b7c2574ec",
+    "profiles/textures/fixed-art/op_p-approved-v1.json": "4e5b43936f5415088ca75113675ebcfabb41fd4d716d727a784dc2b621421bc8",
+    "profiles/textures/fixed-art/race-approved-source-cache-reconstruction-v1.json": "358047320e4f237e1feba098947f004e76ad8ae8f62c6eda37e05e36d7672355",
+    "profiles/textures/fixed-art/sale-approved-v1.json": "4efac931ce60f079d28a45f6cc13719050f751726f4c0b75d9cd4268e03c845c",
+    "profiles/textures/fixed-art/title-approved-v1.json": "b7a8a5cd6a59dfa12bc5218e940e01fd6ee40cd17698e60838bd30ed7058f483",
+    "profiles/textures/fixed-art/tx_win_w-approved-v1.json": "52f99178e209a4b35e1a2732160e56a7e399b64dee0c9afabbbd594a8f1b40f0",
+    "profiles/textures/fixed-art/win_fw-approved-source-cache-reconstruction-v1.json": "3acebe32601bc7e04db8f1e207d0b99a55c740cb09ab688644a0343627798bdd",
+    "profiles/textures/fixed-art/win_w-approved-source-cache-reconstruction-v1.json": "fd96716af54a6af491bbefd94b007edbc45881893c4d896985b3bef276d8e750",
+    "testdata/artwork-reference-targets.zip": "b37f22d3bc34d20ad38943daf84d47d613b39f4433aa608ab2b0c2ca0b1cc775",
+    "testdata/artwork-source-cache.zip": "e39da117a9b33023959bb8b97e1a56df8e3dd7d6d30c5d05d00a6fc38f2035fa",
+    "testdata/runtime-tables.json": "bdcf8bceb40e2865778acfa9c7b29eb24eaf5e1b40f25e455226598bbcc4e0d9",
+    "testdata/pointer-container-fixture.zip": "9d86fc8286a7d0114d3ea1d811066d72770d875a42764114990fb15946d18b49",
+    "recipes/layout/startup-centering-2026-10-01-native.json": "ffe711f7c9591d8b8de9fc8541f6aebc3cc6b0900aeb5d9ac2a9a2a5b6f09176",
+    "recipes/layout/startup-centering-2026-10-01-sent.json": "a94af47e9b02a775828a701f13b188a3379a9df3207e5938912e14da59a9b164",
+    "testdata/startup-centering-2026-10-01.json": "3ebd752e95ff78ecdc6179dca9f88fae5937c03cd98d80b9ce28ead84b183945",
+    "testdata/startup-centering-2026-10-01-native.json": "b917b5ed18a843029a624b86bea1bd20732f4a6c4badaf0988a1347e3f3f1722",
+    "testdata/startup-centering-2026-10-01-sent.json": "160a7a3c56f859bc72ad77789c4188901a5d4fa8744e65034f7f5485f0efacd5",
+    "analysis/consumer-layout-facts.json": "54a3eee0c565828837a01952822f59b641923c5e394ca90ca0a1cdd17de87eb3",
+    "testdata/instruction-addu-fixture.zip": "ff03ef94d07debfb20f985d41b5ee4d7174400989c777d1bc7934afa02e5f235",
+    "testdata/pointer-consumer-v2-fixture.zip": "e7e2c927c7d48c4e668b104aacc15af556f6c0891d8cfd4a01b8f618449cf1bc"
   },
   "limitations": [
     "Unweighted broad-family completion, not fraction of code reused or proof of readability/DRY. It does not mean only this fraction of the mod can be rebuilt.",
     "Full refers to the family contract and guards documented here, not every historical argv spelling or arbitrary future source/format/consumer. Partial family rows may already support many actual edits.",
-    "21pre-existing recommendations are crosswalked; retirement administration is excluded, optional runtime3 is retained in expanded denominator. No unreviewed0.5partial weights.",
+    "The21 original recommendations remain crosswalked. Three legacy runtime groups are non-additive facets of the user-approved fifteenth core family. V1 core14/expanded17 are preserved with exact hashes; active denominator15. No partial weights.",
     "No new Go capability or production source changes made for measurement. Existing broad legacy Python suite remains failed4041pass/68fail; claims do not depend on the66unreachedFoes scenarios or two failed snapshot assertions.",
-    "Every score change requires evidence and an unchanged versioned denominator; taxonomy changes require a new baseline version."
+    "Every score change requires evidence and an unchanged versioned denominator; taxonomy changes require a new baseline version.",
+    "The v3 scope record amends two current obligations without changing any verified-Go score. Exact accepted-834 views preserve the previous requirements and statuses. Historical disposition is not implemented Go functionality."
   ],
   "classification_correction": "Independent review identified missing verified revert responsibility in the original binary_edit contract. Root accepted guarded_transactions downgrade from provisional full to partial before publishing any final percentage. No new feature/test added to increase the number.",
-  "verified_at": "2026-11-05T10:26:25.281316+00:00",
-  "independent_review": {
-    "json": "analysis/reusability-coverage-independent.json",
-    "json_sha256": "f42bd282ba141abded7af830f489cf96c8c08b0a525fe25d913377cafea27452",
-    "markdown": "analysis/reusability-coverage-independent.md",
-    "markdown_sha256": "42fddc1d8433a2acf6ce2015ec69c878d0879401afb48d6061292e597fbde979",
-    "reviewed_assessment_snapshot": "/var/tmp/dokapon-reusability-reviewed-ezqkmn66/reviewed-assessment.json",
-    "reviewed_assessment_sha256": "6218ed5f01d5e46fbd9884ecf826c7a29b5a324abcb18dc9d39df47b12e916c4",
-    "finalization_delta": "Only verification status/time/review linkage added; classifications, baseline,counts,owners and scoped evidence pins unchanged."
-  },
+  "verified_at": "2026-11-13T21:03:44Z",
   "verification_checks": "evidence/reusability-coverage-checks.json",
-  "verified_progress": "text_codec.05/.06originalrequirementsproven;9/14coreFull64.29%,73/84planning86.90%. All410historicalretirements unchanged; fiveotherfamiliespartial. Globalpins/publicationcheckedseparatelybeforeliveacceptance.",
+  "verified_progress": "12 of15core families Full(80.00%);82 of90criteria proven(91.11%). Binary6/6Full,consumer6/6,image5/6. Eight uncredited: sixprobe-last,raster.06active,reviewed retired image.06zero-credit. Not effort/reuse/runtime-fit/gameplay coverage.",
   "latest_family_assessment": {
     "at": "2026-11-05T10:26:25.281316+00:00",
     "proof": "evidence/registry-pools-proof.json",
@@ -1760,7 +1904,7 @@
         ],
         "verified_support": "Explicit immutable-by-tool tagged create/list/restore-to-new-output; fixed payload and receipt-last completion, caller revision/provenance, streaming digest/size/readback/exclusive publication and honest unverified listing. Focused root/independent31-byte/2MiB and source/corruption/refusal checks pass.",
         "remaining_gap": "Legacy shared-ledger/history import and broader workspace auditing remain separate; no full-family promotion or in-place restore. Current source passes the integrated full Go race suite.",
-        "scoped_toolkit_operation": "Regular file + tag/revision \u2192 snapshot/receipt; explicit tag \u2192 verified new restore output."
+        "scoped_toolkit_operation": "Regular file + tag/revision → snapshot/receipt; explicit tag → verified new restore output."
       },
       "current_before": "/var/tmp/dokapon-snapshot-family-smivpsz_/before-family-score/analysis/reusability-coverage.json"
     },
@@ -1904,16 +2048,14 @@
     "functions_added": 0
   },
   "granular_roadmap": {
-    "at": "2026-11-05T10:26:25.281316+00:00",
+    "at": "2026-11-13T21:03:44Z",
     "roadmap": "analysis/migration-roadmap.json",
-    "roadmap_sha256": "159e2f4489ef8f187c98f999d0888d272dade704b82b5e63291206d31dc12c54",
-    "version": "capability-milestones-v1",
-    "verified": 76,
-    "total": 84,
-    "family_counts_unchanged": false,
+    "roadmap_sha256": "3fc384a2e9ee605dabc08da27ad271a4f304d76d98de4419d8077b99591e35b7",
+    "version": "capability-milestones-v3",
+    "verified": 82,
+    "total": 90,
     "source_recheck": "evidence/migration-roadmap-source-checks.json",
-    "review": "evidence/registry-pools-review.json",
-    "claim": "76/84planning90.48%;10/14core71.43%. Not code reuse, readability, effort or script percentage."
+    "claim": "12 of15core families Full(80.00%);82 of90criteria proven(91.11%). Binary6/6Full,consumer6/6,image5/6. Eight uncredited: sixprobe-last,raster.06active,reviewed retired image.06zero-credit. Not effort/reuse/runtime-fit/gameplay coverage."
   },
   "latest_asset_specification_increment": {
     "at": "2026-10-21T00:55:05.225608+00:00",
@@ -3136,5 +3278,478 @@
     "milestone_credit": 2,
     "family_credit": 1,
     "remaining": "Registry original material scope complete; remaining core families: consumer_layout, binary_inspection, image_layout, raster_rendering."
+  },
+  "latest_square_mask_increment": {
+    "at": "2026-11-13T02:31:01.379388+00:00",
+    "proof": "evidence/square-mask-proof.json",
+    "review": "evidence/square-mask-review.json",
+    "contract": "analysis/square-mask-contract.json",
+    "reuse": "analysis/square-mask-reuse-decision.json",
+    "metrics": {
+      "production_before": {
+        "files": 48,
+        "bytes": 607520
+      },
+      "production_after": {
+        "files": 48,
+        "bytes": 608785
+      },
+      "runtime_before": {
+        "files": 233,
+        "bytes": 2977568
+      },
+      "runtime_after": {
+        "files": 236,
+        "bytes": 2986877
+      },
+      "production_growth": 1265,
+      "runtime_growth": 9309,
+      "test_growth": 8736,
+      "fixture_growth": 31096,
+      "evidence_archive_bytes": 110267,
+      "new_functions": 0,
+      "new_production_files": 0,
+      "new_production_types": 0,
+      "new_DTO_fields": 2,
+      "new_runtime_tables": 3,
+      "named_functions": 46,
+      "new_source_provider_vectors": 6,
+      "new_shifted_observations": 6,
+      "manual_source_records": 13,
+      "manual_accepted_transforms": 12,
+      "source_fill8_contrast_refused": 1,
+      "root_manual_closes": 2,
+      "milestone_credit": 0,
+      "family_credit": 0,
+      "retirements": 0,
+      "claim": "New capability and data are growth; no deletion/reduction/family completion inferred."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "scope": "Three E permission calls; two declared synthetic contexts, six provider comparisons. Raster remains partial5/6."
+  },
+  "current_summary_correction": {
+    "at": "2026-11-13T02:34:00.696335+00:00",
+    "finding": "META-2 inherited unqualified verified_progress alias",
+    "prior_value": "text_codec.05/.06originalrequirementsproven;9/14coreFull64.29%,73/84planning86.90%. All410historicalretirements unchanged; fiveotherfamiliespartial. Globalpins/publicationcheckedseparatelybeforeliveacceptance.",
+    "reason": "Current status/counts/roadmap already10/14and76/84 in accepted788. Repair stale summary only; no new coverage credit."
+  },
+  "latest_fixed_art_increment": {
+    "at": "2026-11-13T03:32:13.463791+00:00",
+    "proof": "evidence/fixed-art-proof.json",
+    "review": "evidence/fixed-art-reviews.json",
+    "reuse": "analysis/fixed-art-reuse-decision.json",
+    "record": "recipes/artwork/fixed-instances.json",
+    "metrics": {
+      "production_before": {
+        "files": 48,
+        "bytes": 608785
+      },
+      "production_after": {
+        "files": 48,
+        "bytes": 608785
+      },
+      "runtime_before": {
+        "files": 236,
+        "bytes": 2986877
+      },
+      "runtime_after": {
+        "files": 241,
+        "bytes": 4451999
+      },
+      "production_growth": 0,
+      "runtime_growth": 1465122,
+      "test_growth": 11659,
+      "fixture_growth": 180506,
+      "new_runtime_data_files": 5,
+      "new_pristine_fixture_ZIPs": 1,
+      "new_functions": 0,
+      "new_production_files": 0,
+      "new_fields_types_dependencies": 0,
+      "named_functions": 46,
+      "accounted_inputs_before": 359,
+      "accounted_inputs_after": 365,
+      "named_fixed_instances": 1,
+      "new_milestone_credit": 0,
+      "new_family_credit": 0,
+      "retirements": 0,
+      "claim": "Readable approved image/mask/source/provenance data growth, not reusable generator implementation or reduction."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "scope": "One named alreadyapprovedallmap_1 fixedoverride; arbitraryeditablegenerators unsupported."
+  },
+  "historical_v1_views": {
+    "accepted808": {
+      "analysis/migration-roadmap.json": {
+        "path": "analysis/migration-roadmap-v1-accepted808.json",
+        "sha256": "6dd58b961a73e6a861ae642c81ee32adada4bc5eb8c5f8dcb802c2d295931a3c"
+      },
+      "analysis/reusability-coverage.json": {
+        "path": "analysis/reusability-coverage-v1-accepted808.json",
+        "sha256": "7ca9a659fa154f2ce679101fe31a95da8afcba52a779dce36772d74f92d2bb81"
+      },
+      "analysis/reusability-coverage.md": {
+        "path": "analysis/reusability-coverage-v1-accepted808.md",
+        "sha256": "17529c96587cb9624bce19620f362e207f46214f1f25082ee922fb090f178753"
+      },
+      "evidence/reusability-coverage-checks.json": {
+        "path": "evidence/reusability-coverage-checks-v1-accepted808.json",
+        "sha256": "b235edeb9e536607bcd5db1b951cf8a747bb7e232830b3510900bb348b2fd1a1"
+      }
+    },
+    "v1_core_counts": {
+      "full": 10,
+      "partial": 4,
+      "unsupported": 0,
+      "total": 14,
+      "full_coverage_percent": 71.43
+    },
+    "v1_expanded_counts": {
+      "full": 10,
+      "partial": 5,
+      "unsupported": 2,
+      "total": 17,
+      "full_coverage_percent": 58.82
+    },
+    "v1_optional_runtime_counts": {
+      "full": 0,
+      "partial": 1,
+      "unsupported": 2,
+      "total": 3,
+      "full_coverage_percent": 0.0
+    }
+  },
+  "legacy_runtime_facets": [
+    {
+      "id": "diagnostic_instrumentation",
+      "title": "Owned diagnostic instrumentation",
+      "status": "partial",
+      "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "source_pointer": "core_opportunities/instrumentation",
+          "original_contract": "Prepare versioned diagnostic hook/counter capture plans; read saved/live values only through an explicitly owned runtime workflow."
+        }
+      ],
+      "shared_owners": [
+        "plan",
+        "patchCopy"
+      ],
+      "current_code": [
+        "patch.go",
+        "recipe_types.go"
+      ],
+      "evidence": [
+        "analysis/reusable-toolkit-plan.json"
+      ],
+      "verified_support": "Versioned guarded-word/template facts can represent static hook/counter edits.",
+      "remaining_gap": "No complete Go owned-runtime capture workflow or general displaced-instruction/ABI validator; static word transport alone does not complete this family.",
+      "legacy_scope": "optional_runtime",
+      "scope": "non_additive_probe_facet",
+      "family_id": "probe_orchestration_evidence",
+      "additional_family_credit": 0,
+      "crosswalk": {
+        "milestones": [
+          "03"
+        ],
+        "dependencies": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "retain": "Versioned hook/counter preparation, saved/live provenance, displaced-instruction/ABI gap including duties outside save/reload.",
+        "additional_family_credit": 0
+      }
+    },
+    {
+      "id": "runtime_platform",
+      "title": "Owned runtime platform",
+      "status": "unsupported",
+      "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "source_pointer": "minimum_toolkit_recommendation/owned-runtime-platform",
+          "original_contract": "Keep transport, input backend, capture/inspection and owned lifecycle as clear responsibilities behind a small runtime toolset. Reuse PID/starttime/ISO-guarded cleanup; never adopt app-wide pkill/flatpak kill or shared log truncation from legacy scenarios."
+        }
+      ],
+      "shared_owners": [],
+      "current_code": [],
+      "evidence": [
+        "analysis/reusable-toolkit-plan.json"
+      ],
+      "verified_support": "Ownership-aware Python references are retained.",
+      "remaining_gap": "No verified Go lifecycle, PINE/input transport or capture platform; no credit for retained Python services.",
+      "legacy_scope": "optional_runtime",
+      "scope": "non_additive_probe_facet",
+      "family_id": "probe_orchestration_evidence",
+      "additional_family_credit": 0,
+      "crosswalk": {
+        "milestones": [
+          "01",
+          "03",
+          "04",
+          "05"
+        ],
+        "retain": "Transport, input, capture/inspection, exact owned lifecycle.",
+        "additional_family_credit": 0
+      }
+    },
+    {
+      "id": "runtime_scenarios",
+      "title": "Runtime scenarios and verification",
+      "status": "unsupported",
+      "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "source_pointer": "minimum_toolkit_recommendation/runtime-scenarios-and-contract-verification",
+          "original_contract": "Represent repeated batch verifications as cohort selector + typed read/decoder/comparison + scenario facts atop owned runtime. Preserve separate fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons."
+        }
+      ],
+      "shared_owners": [],
+      "current_code": [],
+      "evidence": [
+        "analysis/reusable-toolkit-plan.json"
+      ],
+      "verified_support": "Historical scenario/test evidence is retained.",
+      "remaining_gap": "No verified shared Go scenario runner for memory/control/visual checks; read-only offline byte proofs do not replace runtime verification.",
+      "legacy_scope": "optional_runtime",
+      "scope": "non_additive_probe_facet",
+      "family_id": "probe_orchestration_evidence",
+      "additional_family_credit": 0,
+      "crosswalk": {
+        "milestones": [
+          "02",
+          "06"
+        ],
+        "dependencies": [
+          "03",
+          "04",
+          "05"
+        ],
+        "retain": "Fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons.",
+        "additional_family_credit": 0
+      }
+    }
+  ],
+  "historical_v1_independent_review": {
+    "json": "analysis/reusability-coverage-independent.json",
+    "json_sha256": "f42bd282ba141abded7af830f489cf96c8c08b0a525fe25d913377cafea27452",
+    "markdown": "analysis/reusability-coverage-independent.md",
+    "markdown_sha256": "42fddc1d8433a2acf6ce2015ec69c878d0879401afb48d6061292e597fbde979",
+    "reviewed_assessment_snapshot": "/var/tmp/dokapon-reusability-reviewed-ezqkmn66/reviewed-assessment.json",
+    "reviewed_assessment_sha256": "6218ed5f01d5e46fbd9884ecf826c7a29b5a324abcb18dc9d39df47b12e916c4",
+    "finalization_delta": "Only verification status/time/review linkage added; classifications, baseline,counts,owners and scoped evidence pins unchanged."
+  },
+  "taxonomy_update": {
+    "at": "2026-11-13T03:55:26.084576+00:00",
+    "contract": "analysis/probe-family-contract-v2.json",
+    "old84_records_unchanged": true,
+    "new_milestone_credit": 0,
+    "new_family_credit": 0,
+    "historical_410_dispositions_changed": false,
+    "runtime_code_changed": false
+  },
+  "historical_increment_records_note": "Dated implementation/finalization receipts preserve their source/compiled pins and scopes. Current scores/roadmap govern; affected current main/README pins denote verified core publication projections, not live concurrent probe overlays. No current full-source or probe acceptance is implied.",
+  "independent_review": {
+    "at": "2026-11-13T10:53:59Z",
+    "json": "evidence/name-policy-replay-review.json",
+    "sha256": "218e6f7b06a61f3a03ca5c3a443b9819818c28e211774f0a110a7aad1e1f5013",
+    "metadata_report_sha256": "16e61692cafb723b45cd5d76a5d46d3f20b3f8888cdca9e52131ab91374ae58e",
+    "metadata_closure_sha256": "e1d13d46f0e5cbf84b7642b5fd72235eaf623e1234070100be471a6a206754de",
+    "scope": "Independent source/data review, annotation closure and fresh metadata review/closure have no unresolved findings. This is synthetic evidence, not native approval."
+  },
+  "latest_register_inclusive_increment": {
+    "at": "2026-11-13T05:05:10.010460+00:00",
+    "proof": "evidence/register-inclusive-proof.json",
+    "contract": "analysis/register-inclusive-contract.json",
+    "credit": 0,
+    "runtime_growth_bytes": 389
+  },
+  "previous_independent_review_before_register_inclusive": {
+    "at": "2026-11-13T03:58:38.319405+00:00",
+    "json": "evidence/probe-taxonomy-review.json",
+    "json_sha256": "02baf6266a3052847e8a27e0a88ad4c6a222f9aada5c7b64a32246dc5b2a15d6",
+    "reviewed_metadata_manifest": "/var/tmp/dokapon-probe-taxonomy-5rup4lt_/review-metadata-v2/manifest.json",
+    "reviewed_metadata_manifest_sha256": "4bdf45170cb376bd16522f77b758d16f9976c1bdb520ef91103709761d0f1be2",
+    "root_disposition": "ACCEPT_FOR_LOCAL_METADATA_PUBLICATION",
+    "scope": "Versioned taxonomy/docs only, no new Go/runtime/native acceptance.",
+    "finalization_delta": "Only independent-review linkage, current review/finalization receipts and exact scoped pins added after reviewed17-file overlay; original14/84, new6 zero credits, family classifications and acceptance contracts unchanged."
+  },
+  "latest_pointer_consumer_increment": {
+    "at": "2026-11-13T06:05:04.910144+00:00",
+    "proof": "evidence/pointer-consumer-proof.json",
+    "contract": "analysis/pointer-consumer-contract.json",
+    "credit": 0,
+    "runtime_growth_bytes": 21940
+  },
+  "retired_static_design_disposition": {
+    "path": "analysis/retired-static-elf-design.json",
+    "credit": 0,
+    "scope": "The exact historical PH1/InitHeap architecture only, not the entire Python file or general Go BSS support."
+  },
+  "previous_independent_review_before_pointer_consumers": {
+    "at": "2026-11-13T05:05:10.010460+00:00",
+    "json": "evidence/register-inclusive-review.json",
+    "sha256": "9c94643a0371639090ff7c1bfa39142abed78c00ce0aef5578195027d0b9eb88",
+    "scope": "Source-only ordinary53-file implementation review and fresh final metadata review, no unresolved findings. Tests/build/vet/race owned by implementer.",
+    "operational_manifest_sha256": "7d3f1ccc0c6c65418ce7264674f069c6b0746a0e836dbee2ab96656bde522dd6",
+    "metadata_report_sha256": "4a297acbe1efa8994b276b042751daaa2151c3f5be0e94cbf250e516429aed08"
+  },
+  "latest_native_ink_increment": {
+    "at": "2026-11-13T07:06:27.691745+00:00",
+    "contract": "analysis/native-ink-contract.json",
+    "proof": "evidence/native-ink-proof.json",
+    "credit": 0,
+    "runtime_growth_bytes": 6610
+  },
+  "previous_independent_review_before_native_ink": {
+    "at": "2026-11-13T06:05:04.910144+00:00",
+    "json": "evidence/pointer-consumer-review.json",
+    "sha256": "0ddd23a85d9e0e410b21f2b3d62fbe9c7d51c62c91c4e425577fb8024244f622",
+    "scope": "Independent ordinary52-file source and final17-file metadata reviews have no unresolved findings. Two initial HIGH defects and the DOC-PROSE finding are closed. The implementation owner ran verification; reviewers supplied findings, not approval.",
+    "operational_manifest_sha256": "4b5ad4a022c95510b15816d067807640a1c4ea96e1aa31b017f030c8cd7649fc",
+    "metadata_report_sha256": "e6ebfa2cfe33b0c0a583fe8baf17cecf6c823faa5f7ecc5e3621eac0b81e5441"
+  },
+  "historical_v2_views": {
+    "analysis/migration-roadmap.json": {
+      "path": "analysis/migration-roadmap-v2-accepted834.json",
+      "sha256": "6d8fd1e2c940078b2e8ec97a85bd221d570409cd3ecdbf3ddc31051c1c9caa8a"
+    },
+    "analysis/reusability-coverage.json": {
+      "path": "analysis/reusability-coverage-v2-accepted834.json",
+      "sha256": "ce1fee5a0900669c0ec5eab7793fcda18324ec169fc5a2a90d69c741407ab41c"
+    },
+    "analysis/reusability-coverage.md": {
+      "path": "analysis/reusability-coverage-v2-accepted834.md",
+      "sha256": "955a64bafdec58f394650424b2210054c90d4d39efc5661de2a6a50453bdd3c9"
+    },
+    "evidence/reusability-coverage-checks.json": {
+      "path": "evidence/reusability-coverage-checks-v2-accepted834.json",
+      "sha256": "3f338ac615fe98dae2ae07462c5e0e31feab2db3606ad8999cc429b1d17dcb8e"
+    }
+  },
+  "previous_independent_review_before_current_tooling_scope": {
+    "at": "2026-11-13T07:06:27.691745+00:00",
+    "json": "evidence/native-ink-review.json",
+    "sha256": "7215a1f5661a75dfb54e71b91d02cb21080dddb91108eb3e61fdf43fd6e3a6b7",
+    "scope": "The independent source review covered 52 operational files, and a separate final review checked the metadata. No unresolved findings remain. The implementer ran the recorded checks.",
+    "operational_manifest_sha256": "207d3442baa212233631cbe28550d8df9fcfc80f3cc43c4ce585c79d65cae17e",
+    "metadata_report_sha256": "19ea89702b35ab3e826c396a658b9c208f50227b85d868385ed16102f939d306"
+  },
+  "latest_current_tooling_scope": {
+    "at": "2026-11-13T07:27:57.742076+00:00",
+    "record": "analysis/current-tooling-scope-v3.json",
+    "record_sha256": "b2aeb6bc06c9396797b4c5b029abe887fda766544d33b9c8eb42728c28d51aa0",
+    "proof": "evidence/current-tooling-scope-proof.json",
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "status": "Deterministic checks and fresh independent metadata review have no unresolved findings."
+  },
+  "previous_independent_review_before_name_cohort": {
+    "at": "2026-11-13T07:37:10.902344+00:00",
+    "json": "evidence/current-tooling-scope-review.json",
+    "sha256": "aa47f6d2b56d49586f4d8ea2fba244ea68440bf061ddb2e12b1da218a3ce7eda",
+    "metadata_report_sha256": "7ef32dece7ce93484a3234b22570c97ed6d5018d4bc0bf91c9c4111513596628",
+    "scope": "The source-bound proposal review and fresh metadata projection review are preserved. No unresolved findings remain. No new runtime acceptance is requested."
+  },
+  "latest_name_cohort_increment": {
+    "at": "2026-11-13T08:54:15.446353+00:00",
+    "contract": "analysis/name-cohort-contract.json",
+    "proof": "evidence/name-cohort-proof.json",
+    "credit": 0,
+    "scope": "Reusable read-only nominal cohort and bounded source-policy reporting. Full guarded maintenance workflow remains unproved.",
+    "proof_sha256": "ce1f58ba372786af717fa728f14ebee87568ca1767202df061026c985fff7db6",
+    "verification": "Operational checks and independent final metadata review have no unresolved findings."
+  },
+  "latest_name_policy_replay": {
+    "at": "2026-11-13T10:33:40Z",
+    "contract": "analysis/name-policy-replay-contract.json",
+    "proof": "evidence/name-policy-replay-proof.json",
+    "proof_sha256": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf",
+    "credit": 0,
+    "scope": "Synthetic eleven-record declarative exact-byte replay; source and native maintenance obligations remain held.",
+    "review": "evidence/name-policy-replay-review.json",
+    "review_sha256": "218e6f7b06a61f3a03ca5c3a443b9819818c28e211774f0a110a7aad1e1f5013"
+  },
+  "previous_independent_review_before_name_policy": {
+    "at": "2026-11-13T09:08:29.406737+00:00",
+    "json": "evidence/name-cohort-review.json",
+    "sha256": "6fecee74ced5def009ee4eb3a958a35b14f9a798e796c48b430baec96da0a776",
+    "metadata_report_sha256": "1db58a2cd08a78cdf368ad658397c20c4ad4431f91ee19a2087dd8d7b7ba634d",
+    "scope": "Source approach, independent literals, ordinary v1, final cap fix and fresh final metadata reviews are preserved. The collection finding is closed, with no unresolved findings. Reviewers supplied findings; the owner executed verification."
+  },
+  "latest_constrained_growth_increment": {
+    "proof": "evidence/square-mask-proof.json",
+    "proof_sha256": "a0beb35e9a586d95b75e937500fbcdd308eddc3fd3f91916888b1b6c04101ac3",
+    "record": "accepted_constrained_growth",
+    "status": "Accepted scoped increment; coverage unchanged; prior full seals remain historical"
+  },
+  "latest_fixed_art_batch": {
+    "proof": "evidence/fixed-art-proof.json",
+    "record": "accepted_batch_v4",
+    "proof_sha256": "b9fc394df966c0363f61ea145eff486f828aa3f7c655bd2abb176f508390d7c2",
+    "status": "Root accepted scoped14-instance Go replay; prior increment fields retain dated scope, no coverage credit",
+    "disposition_record": "batch_e_fixed_result_disposition"
+  },
+  "latest_stack_container_increment": {
+    "proof": "evidence/pointer-consumer-proof.json",
+    "record": "accepted_stack_container_arguments",
+    "proof_sha256": "3457cc2dba8721f7951800d23098053b67212411cc317d1d673b339eb3f0390a",
+    "status": "Root accepted scoped observations; prior fields remain dated, no coverage credit"
+  },
+  "latest_native_preservation_join": {
+    "proof": "evidence/name-policy-replay-proof.json",
+    "record": "accepted_native_preservation_join",
+    "proof_sha256": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf",
+    "status": "Dated scoped preservation evidence; later criterion disposition in accepted_finite_f112_criteria"
+  },
+  "latest_startup_synthetic": {
+    "proof": "evidence/name-policy-replay-proof.json",
+    "record": "accepted_startup_synthetic",
+    "proof_sha256": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf",
+    "status": "Accepted synthetic-only prototype, no original-native OLD/fullRefs/live-fit claim; later finite F112 criterion closure is separate"
+  },
+  "latest_finite_f112_criteria": {
+    "proof": "evidence/name-policy-replay-proof.json",
+    "proof_sha256": "19e9ea3d29b1a3667becfb676d8d5721249f96a98f9e4aa582d20a8c7cd8f2bf",
+    "record": "accepted_finite_f112_criteria",
+    "milestone_credit": 2,
+    "family_credit": 0
+  },
+  "latest_native_ink_criterion": {
+    "proof": "evidence/native-ink-proof.json",
+    "proof_sha256": "4ae4b1aa640e1033e281018d3d2be972b4695aca7112c24ac00de7faf2fd37b9",
+    "record": "current_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 0
+  },
+  "latest_conditional_geometry_completion": {
+    "proof": "analysis/consumer-layout-facts.json",
+    "proof_sha256": "54a3eee0c565828837a01952822f59b641923c5e394ca90ca0a1cdd17de87eb3",
+    "record": "current_conditional_diagnostics_assessment",
+    "milestone_credit": 1,
+    "family_credit": 1
+  },
+  "latest_binary_consumer_completion": {
+    "proof": "evidence/register-flow-proof.json",
+    "proof_sha256": "61ca38212cdb11b9fd73816fc1674a75adef8d3dd2071d5c2866403b13de2f52",
+    "record": "current_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 0
+  },
+  "latest_binary_hook_completion": {
+    "proof": "evidence/register-flow-proof.json",
+    "proof_sha256": "61ca38212cdb11b9fd73816fc1674a75adef8d3dd2071d5c2866403b13de2f52",
+    "record": "current_hook_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 1
+  },
+  "latest_range_removal": {
+    "proof": "evidence/instruction-flow-proof.json",
+    "proof_sha256": "aec861832859a6920282db82d6ab9804081deb901acb9848edf45b09de48375e",
+    "record": "current_range_removal_assessment",
+    "milestone_credit": 0
   }
 }

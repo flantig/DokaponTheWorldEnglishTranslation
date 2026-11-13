@@ -1,0 +1,421 @@
+{
+  "kind": "VERIFIED_BOUNDED_POINTER_CONSUMER_INCREMENT",
+  "at": "2026-11-13T06:05:04.910144+00:00",
+  "base_manifest_sha256": "eaecc373ea7353c3f67fd4d8af9ebe2a441fa71d38951c04d664ec030a234757",
+  "operational_manifest_sha256": "4b5ad4a022c95510b15816d067807640a1c4ea96e1aa31b017f030c8cd7649fc",
+  "contract": "analysis/pointer-consumer-contract.json",
+  "retired_design": "analysis/retired-static-elf-design.json",
+  "review": "evidence/pointer-consumer-review.json",
+  "verification": {
+    "independent_raw_vectors": 49,
+    "declared_policy_vectors": 4,
+    "new_refusals": 32,
+    "old_index_graph_vectors_unchanged": 172,
+    "old_index_graph_refusals": 86,
+    "old_output_limit": "Frozen unaffected historical fixtures remain unchanged. Newly supported ADDU/DADDU/OR copy forms intentionally expand formerly unsupported decoder knowledge. No universal old-report byte-identity claim is made.",
+    "input_preservation": "The existing CLI test checks source inputs and identities. The new example was independently executed and its source/profile preserved.",
+    "worklist_order": "Branch-successor processing is reversed for diamond, loop and frame-join vectors; the same manual events and unknown reasons are required.",
+    "core_final_CLI": "PASS26.065s",
+    "commands_and_results": [
+      {
+        "step": "build-core",
+        "argv": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-pointer-consumers-u656gnjn/bin/verified-core",
+          "."
+        ],
+        "started": "2026-11-13T05:52:50.354679+00:00",
+        "wall_seconds": 0.239,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/build-core.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "vet-core",
+        "argv": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "started": "2026-11-13T05:52:50.593890+00:00",
+        "wall_seconds": 0.404,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/vet-core.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "focused-core-additional",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-run",
+          "^(TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-count=1",
+          "-timeout=6m",
+          "."
+        ],
+        "started": "2026-11-13T05:52:50.998574+00:00",
+        "wall_seconds": 15.876,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/focused-core-additional.log",
+        "log_sha256": "1e5bfd54134f2340ab76f4513d5047f630db01306c8af2b9d7b87a24ed5cb2de"
+      },
+      {
+        "step": "native-backend",
+        "argv": [
+          "go",
+          "list",
+          "-tags",
+          "nativefonts",
+          "-f",
+          "{{.CgoFiles}}",
+          "."
+        ],
+        "started": "2026-11-13T05:53:06.874738+00:00",
+        "wall_seconds": 0.019,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/native-backend.log",
+        "log_sha256": "cd5b7b218145a83098f5d17d09a36fbdacfd24327795ce7a83b4f713de5729b9"
+      },
+      {
+        "step": "build-nativefonts",
+        "argv": [
+          "go",
+          "build",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-pointer-consumers-u656gnjn/bin/verified-nativefonts",
+          "."
+        ],
+        "started": "2026-11-13T05:53:06.894501+00:00",
+        "wall_seconds": 2.469,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/build-nativefonts.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "vet-nativefonts",
+        "argv": [
+          "go",
+          "vet",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "."
+        ],
+        "started": "2026-11-13T05:53:09.363353+00:00",
+        "wall_seconds": 0.792,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/vet-nativefonts.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "focused-nativefonts",
+        "argv": [
+          "go",
+          "test",
+          "-tags",
+          "nativefonts",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler)$",
+          "-count=1",
+          "-timeout=8m",
+          "."
+        ],
+        "started": "2026-11-13T05:53:10.155362+00:00",
+        "wall_seconds": 65.708,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/focused-nativefonts.log",
+        "log_sha256": "9cfdc9ecfdcb693c41debc23250ca3a0c7f0191bad01841dc3d4258b5246737d"
+      },
+      {
+        "step": "focused-race-core",
+        "argv": [
+          "go",
+          "test",
+          "-race",
+          "-p",
+          "2",
+          "-run",
+          "^(TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes)$",
+          "-count=1",
+          "-timeout=15m",
+          "."
+        ],
+        "started": "2026-11-13T05:54:15.863472+00:00",
+        "wall_seconds": 421.726,
+        "exit_code": 0,
+        "log": "/var/tmp/dokapon-pointer-consumers-u656gnjn/focused-race-core.log",
+        "log_sha256": "72145d4c6b30909192b0186be1837e9ecdf16d782ad5ad98c06ec18b018f03e3"
+      }
+    ],
+    "native_backend": "Actual -tags nativefonts build; go list CgoFiles includes raster_font.go.",
+    "hygiene": {
+      "at": "2026-11-13T06:02:46.470108+00:00",
+      "gofmt_Go_files": 50,
+      "scoped_whitespace_and_credentials": [
+        "ARCHITECTURE.html",
+        "ARCHITECTURE.md",
+        "MIGRATION.md",
+        "README.md",
+        "analysis/pointer-consumer-contract.json",
+        "analysis/retired-static-elf-design.json",
+        "examples/pointer-consumers/profile.json",
+        "instruction_forms.go",
+        "instruction_index.go",
+        "instruction_types.go",
+        "main.go",
+        "patch_test.go",
+        "pointer_flow.go",
+        "reference_flow_types.go",
+        "references.go",
+        "register_flow.go",
+        "register_flow_types.go"
+      ],
+      "credential_scanner_positive_selfcheck": true,
+      "all52_operational_unchanged": true,
+      "example": "PASS: new two-file isolated example, with source and profile preserved.",
+      "example_output_sha256": "d5c3a269b720b60426d1b3658af240f044dc1e09558d34104fac812f8e1b729b",
+      "UI": "Two isolated viewports1440/390: text fits its boxes, no page overflow, and keyboard scrolling works on mobile. Both screenshots were visually inspected.",
+      "QA": "Core/nativefonts focused tests, builds and vet pass; core CLI+Golden race passes in421.726 wall seconds.",
+      "not_run": [
+        "fullsuite",
+        "nativefonts race",
+        "gameplay/nativepatchapply"
+      ]
+    },
+    "architecture_render": {
+      "at": "2026-11-13T06:01:46.420620+00:00",
+      "kind": "ISOLATED_EXISTING_STATIC_HTML_DIAGRAM_VERIFICATION",
+      "html_sha256": "7710f197a618bf451212d7dcb8d0dc82719851c4bef54cdcf35252aacabf1f33",
+      "checks": [
+        {
+          "viewport_width": 1440,
+          "document_width": 1440,
+          "region_width": 1078,
+          "region_scroll_width": 1078,
+          "text_bounds": [
+            {
+              "label": "Pinned ELF + explicit profileOrigin ID / register / seed phaseEntry and context assumptions",
+              "fits": true
+            },
+            {
+              "label": "indexInstructionsONE finite instruction decoderTransfer and memory facts",
+              "fits": true
+            },
+            {
+              "label": "queryRegisterFlowONE delay / likely-aware CFGRoots, contexts and work budgets",
+              "fits": true
+            },
+            {
+              "label": "Optional reference-flow dataRegistry-ID consumer seedsShared declared call rulesNo software-byte attestation",
+              "fits": true
+            },
+            {
+              "label": "tracePointerConsumers: one pure value domainMAY aliases / spills join; exact frame facts must agreeReprocess changes; provenance loss and limits stay UNKNOWNCall boundary after actual delay, no inferred return",
+              "fits": true
+            },
+            {
+              "label": "Remaining dutiesCall / getter / table summariesGlobal origins and hook ABIProbe implementation last",
+              "fits": true
+            },
+            {
+              "label": "references: stable-ID evidence + declared policyRISKY > UNRESOLVED > safe under declared policyKnown consumer evidence remains beside UNKNOWNRead-only result, no patch / ABI / native attestation",
+              "fits": true
+            }
+          ],
+          "screenshot": "/var/tmp/dokapon-pointer-consumers-u656gnjn/screenshots/pointer-architecture-1440.png"
+        },
+        {
+          "viewport_width": 390,
+          "document_width": 390,
+          "region_width": 364,
+          "region_scroll_width": 888,
+          "text_bounds": [
+            {
+              "label": "Pinned ELF + explicit profileOrigin ID / register / seed phaseEntry and context assumptions",
+              "fits": true
+            },
+            {
+              "label": "indexInstructionsONE finite instruction decoderTransfer and memory facts",
+              "fits": true
+            },
+            {
+              "label": "queryRegisterFlowONE delay / likely-aware CFGRoots, contexts and work budgets",
+              "fits": true
+            },
+            {
+              "label": "Optional reference-flow dataRegistry-ID consumer seedsShared declared call rulesNo software-byte attestation",
+              "fits": true
+            },
+            {
+              "label": "tracePointerConsumers: one pure value domainMAY aliases / spills join; exact frame facts must agreeReprocess changes; provenance loss and limits stay UNKNOWNCall boundary after actual delay, no inferred return",
+              "fits": true
+            },
+            {
+              "label": "Remaining dutiesCall / getter / table summariesGlobal origins and hook ABIProbe implementation last",
+              "fits": true
+            },
+            {
+              "label": "references: stable-ID evidence + declared policyRISKY > UNRESOLVED > safe under declared policyKnown consumer evidence remains beside UNKNOWNRead-only result, no patch / ABI / native attestation",
+              "fits": true
+            }
+          ],
+          "screenshot": "/var/tmp/dokapon-pointer-consumers-u656gnjn/screenshots/pointer-architecture-390.png"
+        }
+      ],
+      "new_frontend_behavior": false,
+      "new_test_framework_or_function": false,
+      "browser_executable": "/home/franklinl/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell",
+      "harness_corrections": "DefaultPlaywright1234cachemissing,existing1243binaryreusednoinstall. SVGtextrequires text_content,notinner_text. Browserfinallyclosed.",
+      "profile": "Ownedemptybrowserprofileonly;noactiveuser/probeprofile/socket/authsettingsused."
+    },
+    "screenshots": [
+      {
+        "path": "/var/tmp/dokapon-pointer-consumers-u656gnjn/screenshots/pointer-architecture-1440.png",
+        "bytes": 102947,
+        "sha256": "6390784e25603a681e03b294d0ae444b2d9c3cc1d746c8f8ba512bba60589195"
+      },
+      {
+        "path": "/var/tmp/dokapon-pointer-consumers-u656gnjn/screenshots/pointer-architecture-390.png",
+        "bytes": 35520,
+        "sha256": "dc10a62f0db62c9a61bf27217baf9c54021d2419367c268b9f5e4077ac1b1826"
+      }
+    ]
+  },
+  "accounting": {
+    "at": "2026-11-13T06:05:04.910144+00:00",
+    "runtime_delta_bytes": 21940,
+    "production_delta_bytes": 20963,
+    "test_delta_bytes": 2397,
+    "fixture_delta_bytes": 9242,
+    "new_functions": 1,
+    "claim": "This is reusable capability growth, not relocation, deletion or savings. One pure pointer domain uses the existing graph and decoder.",
+    "production_files": 49,
+    "production_bytes": 629953,
+    "named_functions": 47,
+    "new_type_declarations": [
+      "ConsumerCallRule",
+      "PointerConsumerEvent",
+      "PointerConsumerResult",
+      "ReferenceConsumerAssessment",
+      "ReferenceConsumerCallPolicy",
+      "instructionMemory",
+      "instructionTransfer",
+      "point",
+      "registerExecution",
+      "registerFlowNode",
+      "valueState"
+    ],
+    "removed_local_type_names": [
+      "execution",
+      "node"
+    ],
+    "runtime_without_bundle": {
+      "files": 244,
+      "bytes": 4474328
+    },
+    "runtime_with_bundle": {
+      "files": 247,
+      "bytes": 15787418
+    },
+    "new_dependencies": 0,
+    "scope": "Production source, imports, module, data and examples are measured together. Test source/ZIPs and metadata, evidence, screenshots and private analysis overhead are separate."
+  },
+  "coverage": {
+    "full": 10,
+    "total": 15,
+    "milestones_proven": 76,
+    "milestones_total": 90,
+    "binary_inspection": "4/6; .05 and.06 remain partial.",
+    "image_layout": "4/6; .05 and.06 remain held. Retiring the old fixed design does not prove general BSS support.",
+    "probe": "0/6; implemented last. Python remains the sole operational runner.",
+    "credit": 0
+  },
+  "periodic052": {
+    "at": "2026-11-13T05:55:42.794180+00:00",
+    "manifest": "/var/tmp/dokapon-astra-periodic052-hxl9bjv2/manifest.json",
+    "sha256": "275d64081dd40f6272161c3e696569aa13dc72906834afca40910d409f8adf0c",
+    "members_verified": 1,
+    "source_pins_verified": 77,
+    "source_drift": [],
+    "actual_start": "2026-11-13T05:52:12Z",
+    "actual_end": "2026-11-13T05:54:52.980099Z",
+    "next_due": "2026-11-13T07:52:12Z",
+    "finding_disposition": "No reproducible new finding in the bounded review. Astra challenges code quality and supplies no approval. Draft metadata requires its separate final review.",
+    "cadence_written": true,
+    "report_sha256": "1b8dacfeb24b89071bbc2984b1c80eec92dd7d294d0b72988faa39147d800b42",
+    "source_pin_location": "report.json.source_pins, not outermanifest",
+    "private_audits_sha256": "4fa24591597f6f7fc5cd4a5e923e50fc7dec15eb740b34f15231112d6d2b4909"
+  },
+  "deferred": [
+    "fullsuite",
+    "nativefonts race",
+    "gameplay/nativeapplication"
+  ],
+  "protected_resources": "No original, shipping or custom ISO; canonical registry/glossary; game/probe/PINE/controller/card; active profile/log/auth settings; or public Git writes. The browser used an empty owned profile, then closed and cleaned it.",
+  "metadata_review": {
+    "report_sha256": "e6ebfa2cfe33b0c0a583fe8baf17cecf6c823faa5f7ecc5e3621eac0b81e5441",
+    "reviewed_metadata_manifest_sha256": "6081beb4d034ce9813c1327ebfd4ea524593b8d08738c98f12119c027a5958a2",
+    "disposition": "No unresolved findings",
+    "finalization_delta": "Attach the final metadata review and refresh only review/proof linkage and their existing hash closure. Code, recipes, accounting, requirements and credits remain exactly reviewed."
+  },
+  "accepted_stack_container_arguments": {
+    "status": "ROOT_ACCEPTED_SCOPED_STACK_CONTAINER_OBSERVATIONS",
+    "at": "2026-11-13T15:16:54Z",
+    "contract": "analysis/pointer-consumer-contract.json#stack_container_arguments",
+    "prior_fields_scope": "All prior top-level fields retain their dated original pointer increment scope; historical source seals/reports are unchanged",
+    "package": {
+      "path": "/var/tmp/dokapon-pointer-stack-candidate-iHv6A7uC/review-package-v2/manifest.json",
+      "sha256": "54cdcc5ce4e96e2b8d4dde267e27f2f61dfb047df86636d14f843f4ad312154a"
+    },
+    "outcome": {
+      "path": "/var/tmp/dokapon-pointer-stack-candidate-iHv6A7uC/execution-outcome-v2/manifest.json",
+      "sha256": "a76e7902ab648d74b0217c57fb11433ba65386ad936cd5b4ba7d94a5793083d7",
+      "independent_review": "/var/tmp/dokapon-pointer-stack-v2-outcome-ordinary-n6UuEqul/review.md",
+      "review_sha256": "6d9319ef5d28626e73ad86c7d6fe00ac59465944c010ae7c2a820d1abf632128",
+      "test": "TestCLIDryRunAndApply",
+      "attempts": 1,
+      "exit": 0,
+      "seconds": 25.846704887,
+      "whole_selected_core_test": "PASS",
+      "stderr": {
+        "bytes": 1044,
+        "sha256": "8e759ad095092980fad9d0240686aeffcff6c07c70bd3b0e736357040c1b8106",
+        "meaning": "Exactly the deliberate --unknown diagnostic and unchanged source-backed usage. No general stderr waiver.",
+        "operator_epilogue": "An unsupported extra empty-stderr assertion exited1 separately; original receipt retained, selected executable still exit0/PASS, no retry"
+      }
+    },
+    "verification": "Both builds, test compilations and vets passed. Whole-owner PASS through pinned control flow demonstrates five internal budget assertions and branch/entry reorderings ran, not per-assert telemetry.22 new cases,49 original cases with one explicit event addition,4 prior policy cases and32 refusals remain independently expected.351 runtime,51 Go/module,877 toolchain and23 tool/executable identities preserved;129 pinned exports and921-file cache inventory retained. Removed native fixture outputs were checked before ordinary cleanup, not independently rehashed after deletion.",
+    "history": "Original307-input package stayed unexecuted/HOLD. Corrected351-input/74-declared-join package ran once after two fresh reviews and root release. Later documentation/status updates are not a new full-source seal.",
+    "accounting": {
+      "production_files": 49,
+      "production_bytes": 672107,
+      "production_named_functions": 47,
+      "production_delta_bytes": 1613,
+      "test_code_delta_bytes": 3520,
+      "test_fixture_delta_bytes": 5122,
+      "contract_README_candidate_delta_bytes": 2197,
+      "new_functions": 0,
+      "new_runtime_types": 0,
+      "new_dependencies": 0,
+      "runtime_recipe_configuration_delta": 0,
+      "claim": "Capability growth, no reduction/deletion/relocation/retirement claim; acceptance metadata overhead separate"
+    },
+    "limits": "10/15 full families and76/90 milestones unchanged; binary scope remains partial. Historical64-byte window bounds spill starts, not object extent/callee reads/ABI/ownership/landing/fit. Huge public batch/graph-limit carriers and isolated complete-query policy ranking remain unqualified. Full suite/nativefonts execution/race/gameplay/shipping and protected operations deferred; no public push."
+  }
+}

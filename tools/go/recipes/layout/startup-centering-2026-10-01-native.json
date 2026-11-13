@@ -1,0 +1,798 @@
+{
+  "operation": "guarded_words",
+  "source_sha256": "740226db785953b765dfbb72f1d57e2404cac8ad67b2ac12f42ac13d7671c85d",
+  "source_size": 5087232,
+  "output_sha256": "ecd1c9d6b6c7ddc5a6781d270ed1dbacd96323c2ad79f5c7fb711c4b9be72e2b",
+  "iso_elf_offset": "0",
+  "elf_vma_delta": "0xfff80",
+  "glyphmap_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "evidence": "Synthetic startup calibration only: testdata/startup-centering-2026-10-01.json. Source-literal OLD, exact source-derived NEW,16 explicitly pinned source states. Not native-original replay, reference admission, live fit or publication authority.",
+  "entries": {
+    "0x133d2c": {
+      "expected_hex": "c0eb268c50000424800005242d4000002d4800005700013cc4eb228c28f4090c80ff47242d8040000804053c009ba524648a0a0c2d200002",
+      "evidence": "0x133d2c caller-window",
+      "words": [
+        {
+          "hex": "0x8c26ebc0",
+          "assembly": ".word retained caller-window at byte 0"
+        },
+        {
+          "hex": "0x24040050",
+          "assembly": ".word retained caller-window at byte 4"
+        },
+        {
+          "hex": "0x24050080",
+          "assembly": ".word retained caller-window at byte 8"
+        },
+        {
+          "hex": "0x0000402d",
+          "assembly": ".word retained caller-window at byte 12"
+        },
+        {
+          "hex": "0x0000482d",
+          "assembly": ".word retained caller-window at byte 16"
+        },
+        {
+          "hex": "0x3c010057",
+          "assembly": ".word retained caller-window at byte 20"
+        },
+        {
+          "hex": "0x8c22ebc4",
+          "assembly": ".word retained caller-window at byte 24"
+        },
+        {
+          "hex": "0x0c09f428",
+          "assembly": ".word retained caller-window at byte 28"
+        },
+        {
+          "hex": "0x2447ff80",
+          "assembly": ".word retained caller-window at byte 32"
+        },
+        {
+          "hex": "0x0040802d",
+          "assembly": ".word retained caller-window at byte 36"
+        },
+        {
+          "hex": "0x3c050408",
+          "assembly": ".word retained caller-window at byte 40"
+        },
+        {
+          "hex": "0x24a59b00",
+          "assembly": ".word retained caller-window at byte 44"
+        },
+        {
+          "hex": "0x0c0a8a64",
+          "assembly": ".word retained caller-window at byte 48"
+        },
+        {
+          "hex": "0x0200202d",
+          "assembly": ".word retained caller-window at byte 52"
+        }
+      ]
+    },
+    "0x2a3270": {
+      "expected_hex": "ff07a33000046230030040100000000000f8022425186200000083443c0021c62000804600080046950000103c0020e6",
+      "evidence": "0x2a3270 pen-x-add",
+      "words": [
+        {
+          "hex": "0x30a307ff",
+          "assembly": ".word retained pen-x-add at byte 0"
+        },
+        {
+          "hex": "0x30620400",
+          "assembly": ".word retained pen-x-add at byte 4"
+        },
+        {
+          "hex": "0x10400003",
+          "assembly": ".word retained pen-x-add at byte 8"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained pen-x-add at byte 12"
+        },
+        {
+          "hex": "0x2402f800",
+          "assembly": ".word retained pen-x-add at byte 16"
+        },
+        {
+          "hex": "0x00621825",
+          "assembly": ".word retained pen-x-add at byte 20"
+        },
+        {
+          "hex": "0x44830000",
+          "assembly": ".word retained pen-x-add at byte 24"
+        },
+        {
+          "hex": "0xc621003c",
+          "assembly": ".word retained pen-x-add at byte 28"
+        },
+        {
+          "hex": "0x46800020",
+          "assembly": ".word retained pen-x-add at byte 32"
+        },
+        {
+          "hex": "0x46000800",
+          "assembly": ".word retained pen-x-add at byte 36"
+        },
+        {
+          "hex": "0x10000095",
+          "assembly": ".word retained pen-x-add at byte 40"
+        },
+        {
+          "hex": "0xe620003c",
+          "assembly": ".word retained pen-x-add at byte 44"
+        }
+      ]
+    },
+    "0x2a2c98": {
+      "expected_hex": "00009744000000002000804600000000f041023c3c0020e600008244400021c60200144600080046400020e6070022920100422408020010070022a2",
+      "evidence": "0x2a2c98 line-x-reset",
+      "words": [
+        {
+          "hex": "0x44970000",
+          "assembly": ".word retained line-x-reset at byte 0"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained line-x-reset at byte 4"
+        },
+        {
+          "hex": "0x46800020",
+          "assembly": ".word retained line-x-reset at byte 8"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained line-x-reset at byte 12"
+        },
+        {
+          "hex": "0x3c0241f0",
+          "assembly": ".word retained line-x-reset at byte 16"
+        },
+        {
+          "hex": "0xe620003c",
+          "assembly": ".word retained line-x-reset at byte 20"
+        },
+        {
+          "hex": "0x44820000",
+          "assembly": ".word retained line-x-reset at byte 24"
+        },
+        {
+          "hex": "0xc6210040",
+          "assembly": ".word retained line-x-reset at byte 28"
+        },
+        {
+          "hex": "0x46140002",
+          "assembly": ".word retained line-x-reset at byte 32"
+        },
+        {
+          "hex": "0x46000800",
+          "assembly": ".word retained line-x-reset at byte 36"
+        },
+        {
+          "hex": "0xe6200040",
+          "assembly": ".word retained line-x-reset at byte 40"
+        },
+        {
+          "hex": "0x92220007",
+          "assembly": ".word retained line-x-reset at byte 44"
+        },
+        {
+          "hex": "0x24420001",
+          "assembly": ".word retained line-x-reset at byte 48"
+        },
+        {
+          "hex": "0x10000208",
+          "assembly": ".word retained line-x-reset at byte 52"
+        },
+        {
+          "hex": "0xa2220007",
+          "assembly": ".word retained line-x-reset at byte 56"
+        }
+      ]
+    },
+    "0x2a4130": {
+      "expected_hex": "01006392020063301b00601400000000000025924040033c01002492000083444800013c5c8e23942120a4000008844400000000a00880460900031280100046b041033c00008344000000003410004603000045000000008600004600000000440061c63c0060c68210014600000246170000103c0060e6",
+      "evidence": "0x2a4130 glyph-advance",
+      "words": [
+        {
+          "hex": "0x92630001",
+          "assembly": ".word retained glyph-advance at byte 0"
+        },
+        {
+          "hex": "0x30630002",
+          "assembly": ".word retained glyph-advance at byte 4"
+        },
+        {
+          "hex": "0x1460001b",
+          "assembly": ".word retained glyph-advance at byte 8"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained glyph-advance at byte 12"
+        },
+        {
+          "hex": "0x92250000",
+          "assembly": ".word retained glyph-advance at byte 16"
+        },
+        {
+          "hex": "0x3c034040",
+          "assembly": ".word retained glyph-advance at byte 20"
+        },
+        {
+          "hex": "0x92240001",
+          "assembly": ".word retained glyph-advance at byte 24"
+        },
+        {
+          "hex": "0x44830000",
+          "assembly": ".word retained glyph-advance at byte 28"
+        },
+        {
+          "hex": "0x3c010048",
+          "assembly": ".word retained glyph-advance at byte 32"
+        },
+        {
+          "hex": "0x94238e5c",
+          "assembly": ".word retained glyph-advance at byte 36"
+        },
+        {
+          "hex": "0x00a42021",
+          "assembly": ".word retained glyph-advance at byte 40"
+        },
+        {
+          "hex": "0x44840800",
+          "assembly": ".word retained glyph-advance at byte 44"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained glyph-advance at byte 48"
+        },
+        {
+          "hex": "0x468008a0",
+          "assembly": ".word retained glyph-advance at byte 52"
+        },
+        {
+          "hex": "0x12030009",
+          "assembly": ".word retained glyph-advance at byte 56"
+        },
+        {
+          "hex": "0x46001080",
+          "assembly": ".word retained glyph-advance at byte 60"
+        },
+        {
+          "hex": "0x3c0341b0",
+          "assembly": ".word retained glyph-advance at byte 64"
+        },
+        {
+          "hex": "0x44830000",
+          "assembly": ".word retained glyph-advance at byte 68"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained glyph-advance at byte 72"
+        },
+        {
+          "hex": "0x46001034",
+          "assembly": ".word retained glyph-advance at byte 76"
+        },
+        {
+          "hex": "0x45000003",
+          "assembly": ".word retained glyph-advance at byte 80"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained glyph-advance at byte 84"
+        },
+        {
+          "hex": "0x46000086",
+          "assembly": ".word retained glyph-advance at byte 88"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word retained glyph-advance at byte 92"
+        },
+        {
+          "hex": "0xc6610044",
+          "assembly": ".word retained glyph-advance at byte 96"
+        },
+        {
+          "hex": "0xc660003c",
+          "assembly": ".word retained glyph-advance at byte 100"
+        },
+        {
+          "hex": "0x46011082",
+          "assembly": ".word retained glyph-advance at byte 104"
+        },
+        {
+          "hex": "0x46020000",
+          "assembly": ".word retained glyph-advance at byte 108"
+        },
+        {
+          "hex": "0x10000017",
+          "assembly": ".word retained glyph-advance at byte 112"
+        },
+        {
+          "hex": "0xe660003c",
+          "assembly": ".word retained glyph-advance at byte 116"
+        }
+      ]
+    },
+    "0x2c2394": {
+      "expected_hex": "0a000424",
+      "evidence": "0x2c2394 memory-window-x",
+      "words": [
+        {
+          "hex": "0x2404000a",
+          "assembly": ".word retained memory-window-x at byte 0"
+        }
+      ]
+    },
+    "0x2c239c": {
+      "expected_hex": "6c020624",
+      "evidence": "0x2c239c memory-window-width",
+      "words": [
+        {
+          "hex": "0x2406026c",
+          "assembly": ".word retained memory-window-width at byte 0"
+        }
+      ]
+    },
+    "0x2c23ac": {
+      "expected_hex": "28f4090c",
+      "evidence": "0x2c23ac memory-window-call",
+      "words": [
+        {
+          "hex": "0x0c09f428",
+          "assembly": ".word retained memory-window-call at byte 0"
+        }
+      ]
+    },
+    "0x2c23b8": {
+      "expected_hex": "01000524",
+      "evidence": "0x2c23b8 memory-centering-argument",
+      "words": [
+        {
+          "hex": "0x24050001",
+          "assembly": ".word retained memory-centering-argument at byte 0"
+        }
+      ]
+    },
+    "0x2c23c0": {
+      "expected_hex": "24880a0c",
+      "evidence": "0x2c23c0 memory-centering-call",
+      "words": [
+        {
+          "hex": "0x0c0a8824",
+          "assembly": ".word retained memory-centering-call at byte 0"
+        }
+      ]
+    },
+    "0x2c23c4": {
+      "expected_hex": "2d30a000",
+      "evidence": "0x2c23c4 memory-centering-delay",
+      "words": [
+        {
+          "hex": "0x00a0302d",
+          "assembly": ".word retained memory-centering-delay at byte 0"
+        }
+      ]
+    },
+    "0x2c273c": {
+      "expected_hex": "90010724",
+      "evidence": "0x2c273c memory-400kb-first",
+      "words": [
+        {
+          "hex": "0x24070190",
+          "assembly": ".word retained memory-400kb-first at byte 0"
+        }
+      ]
+    },
+    "0x2c26f4": {
+      "expected_hex": "90010724",
+      "evidence": "0x2c26f4 memory-400kb-second",
+      "words": [
+        {
+          "hex": "0x24070190",
+          "assembly": ".word retained memory-400kb-second at byte 0"
+        }
+      ]
+    },
+    "0x2a5518": {
+      "expected_hex": "4040033c",
+      "evidence": "0x2a5518 memory-float-center-first",
+      "words": [
+        {
+          "hex": "0x3c034040",
+          "assembly": ".word retained memory-float-center-first at byte 0"
+        }
+      ]
+    },
+    "0x2a5534": {
+      "expected_hex": "c1000146",
+      "evidence": "0x2a5534 memory-float-op-first",
+      "words": [
+        {
+          "hex": "0x460100c1",
+          "assembly": ".word retained memory-float-op-first at byte 0"
+        }
+      ]
+    },
+    "0x2a2e50": {
+      "expected_hex": "4040023c",
+      "evidence": "0x2a2e50 memory-float-center-second",
+      "words": [
+        {
+          "hex": "0x3c024040",
+          "assembly": ".word retained memory-float-center-second at byte 0"
+        }
+      ]
+    },
+    "0x2a2e6c": {
+      "expected_hex": "c1000146",
+      "evidence": "0x2a2e6c memory-float-op-second",
+      "words": [
+        {
+          "hex": "0x460100c1",
+          "assembly": ".word retained memory-float-op-second at byte 0"
+        }
+      ]
+    },
+    "0x534700": {
+      "expected_hex": "10454700404a4700704f4700",
+      "evidence": "0x534700 font-page-table",
+      "words": [
+        {
+          "hex": "0x00474510",
+          "assembly": ".word retained font-page-table at byte 0"
+        },
+        {
+          "hex": "0x00474a40",
+          "assembly": ".word retained font-page-table at byte 4"
+        },
+        {
+          "hex": "0x00474f70",
+          "assembly": ".word retained font-page-table at byte 8"
+        }
+      ]
+    },
+    "0x478e5c": {
+      "expected_hex": "1b001c00",
+      "evidence": "0x478e5c comma-exception",
+      "words": [
+        {
+          "hex": "0x001c001b",
+          "assembly": ".word retained comma-exception at byte 0"
+        }
+      ]
+    },
+    "0x2a2b4c": {
+      "expected_hex": "6041023c",
+      "evidence": "0x2a2b4c space",
+      "words": [
+        {
+          "hex": "0x3c024160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a2de4": {
+      "expected_hex": "6041023c",
+      "evidence": "0x2a2de4 space",
+      "words": [
+        {
+          "hex": "0x3c024160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a3a3c": {
+      "expected_hex": "6041023c",
+      "evidence": "0x2a3a3c space",
+      "words": [
+        {
+          "hex": "0x3c024160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a3c04": {
+      "expected_hex": "6041023c",
+      "evidence": "0x2a3c04 space",
+      "words": [
+        {
+          "hex": "0x3c024160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a3d50": {
+      "expected_hex": "6041023c",
+      "evidence": "0x2a3d50 space",
+      "words": [
+        {
+          "hex": "0x3c024160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a5270": {
+      "expected_hex": "6041023c",
+      "evidence": "0x2a5270 space",
+      "words": [
+        {
+          "hex": "0x3c024160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a54ac": {
+      "expected_hex": "6041033c",
+      "evidence": "0x2a54ac space",
+      "words": [
+        {
+          "hex": "0x3c034160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x2a5630": {
+      "expected_hex": "6041033c",
+      "evidence": "0x2a5630 space",
+      "words": [
+        {
+          "hex": "0x3c034160",
+          "assembly": ".word retained space at byte 0"
+        }
+      ]
+    },
+    "0x474510": {
+      "expected_hex": "180000050f04090708050f04050f04041103050f",
+      "evidence": "0x474510 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x05000018",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x0709040f",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        },
+        {
+          "hex": "0x040f0508",
+          "assembly": ".word retained used-glyph-metric-window at byte 8"
+        },
+        {
+          "hex": "0x04040f05",
+          "assembly": ".word retained used-glyph-metric-window at byte 12"
+        },
+        {
+          "hex": "0x0f050311",
+          "assembly": ".word retained used-glyph-metric-window at byte 16"
+        }
+      ]
+    },
+    "0x474534": {
+      "expected_hex": "0a050901090e0215",
+      "evidence": "0x474534 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x0109050a",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x15020e09",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        }
+      ]
+    },
+    "0x474554": {
+      "expected_hex": "01060c06",
+      "evidence": "0x474554 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x060c0601",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        }
+      ]
+    },
+    "0x474560": {
+      "expected_hex": "0102031302031301",
+      "evidence": "0x474560 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x13030201",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x01130302",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        }
+      ]
+    },
+    "0x474570": {
+      "expected_hex": "011601100800000810040f05",
+      "evidence": "0x474570 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x10011601",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x08000008",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        },
+        {
+          "hex": "0x050f0410",
+          "assembly": ".word retained used-glyph-metric-window at byte 8"
+        }
+      ]
+    },
+    "0x474590": {
+      "expected_hex": "00050e05050e05050e05050e05050e05070a07050e05050e050a040a070a07060c060a040a031203060c06060c06050e05050e05070a07050e05060c06060c06050e05041004060c06060c06",
+      "evidence": "0x474590 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x050e0500",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x05050e05",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        },
+        {
+          "hex": "0x0e05050e",
+          "assembly": ".word retained used-glyph-metric-window at byte 8"
+        },
+        {
+          "hex": "0x050e0505",
+          "assembly": ".word retained used-glyph-metric-window at byte 12"
+        },
+        {
+          "hex": "0x05070a07",
+          "assembly": ".word retained used-glyph-metric-window at byte 16"
+        },
+        {
+          "hex": "0x0e05050e",
+          "assembly": ".word retained used-glyph-metric-window at byte 20"
+        },
+        {
+          "hex": "0x0a040a05",
+          "assembly": ".word retained used-glyph-metric-window at byte 24"
+        },
+        {
+          "hex": "0x06070a07",
+          "assembly": ".word retained used-glyph-metric-window at byte 28"
+        },
+        {
+          "hex": "0x040a060c",
+          "assembly": ".word retained used-glyph-metric-window at byte 32"
+        },
+        {
+          "hex": "0x0312030a",
+          "assembly": ".word retained used-glyph-metric-window at byte 36"
+        },
+        {
+          "hex": "0x06060c06",
+          "assembly": ".word retained used-glyph-metric-window at byte 40"
+        },
+        {
+          "hex": "0x0e05060c",
+          "assembly": ".word retained used-glyph-metric-window at byte 44"
+        },
+        {
+          "hex": "0x050e0505",
+          "assembly": ".word retained used-glyph-metric-window at byte 48"
+        },
+        {
+          "hex": "0x05070a07",
+          "assembly": ".word retained used-glyph-metric-window at byte 52"
+        },
+        {
+          "hex": "0x0c06050e",
+          "assembly": ".word retained used-glyph-metric-window at byte 56"
+        },
+        {
+          "hex": "0x060c0606",
+          "assembly": ".word retained used-glyph-metric-window at byte 60"
+        },
+        {
+          "hex": "0x04050e05",
+          "assembly": ".word retained used-glyph-metric-window at byte 64"
+        },
+        {
+          "hex": "0x0c060410",
+          "assembly": ".word retained used-glyph-metric-window at byte 68"
+        },
+        {
+          "hex": "0x060c0606",
+          "assembly": ".word retained used-glyph-metric-window at byte 72"
+        }
+      ]
+    },
+    "0x4745e0": {
+      "expected_hex": "140204100404100404100404",
+      "evidence": "0x4745e0 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x10040214",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x04100404",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        },
+        {
+          "hex": "0x04041004",
+          "assembly": ".word retained used-glyph-metric-window at byte 8"
+        }
+      ]
+    },
+    "0x4745f4": {
+      "expected_hex": "0410040a040a050f04050e0504100403120304100404100404100403",
+      "evidence": "0x4745f4 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x0a041004",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x0f050a04",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        },
+        {
+          "hex": "0x050e0504",
+          "assembly": ".word retained used-glyph-metric-window at byte 8"
+        },
+        {
+          "hex": "0x03041004",
+          "assembly": ".word retained used-glyph-metric-window at byte 12"
+        },
+        {
+          "hex": "0x10040312",
+          "assembly": ".word retained used-glyph-metric-window at byte 16"
+        },
+        {
+          "hex": "0x04100404",
+          "assembly": ".word retained used-glyph-metric-window at byte 20"
+        },
+        {
+          "hex": "0x03041004",
+          "assembly": ".word retained used-glyph-metric-window at byte 24"
+        }
+      ]
+    },
+    "0x474614": {
+      "expected_hex": "0404100404100404",
+      "evidence": "0x474614 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x04100404",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        },
+        {
+          "hex": "0x04041004",
+          "assembly": ".word retained used-glyph-metric-window at byte 4"
+        }
+      ]
+    },
+    "0x474620": {
+      "expected_hex": "04021402",
+      "evidence": "0x474620 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x02140204",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        }
+      ]
+    },
+    "0x475260": {
+      "expected_hex": "010e0406",
+      "evidence": "0x475260 used-glyph-metric-window",
+      "words": [
+        {
+          "hex": "0x06040e01",
+          "assembly": ".word retained used-glyph-metric-window at byte 0"
+        }
+      ]
+    }
+  }
+}

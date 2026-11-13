@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
+	"math"
 	"reflect"
 	"regexp"
 	"slices"
@@ -20,13 +21,498 @@ import (
 // retained or loaded values and shares the existing ELF metadata/mapping owner.
 // Instruction indexing retains unsupported effects and local transfer alternatives.
 // Optional pure register-flow queries consume these facts without another decoder.
-func references(data, registryData, glyphData []byte, profile Recipes) (ReferenceReport, error) {
+// Cohorts preserve pointer occurrences and measure an explicit nominal policy through
+// inspect and controls. Their separate source-policy phase uses bounded raw buckets
+// and shared instruction/graph facts. Limited buckets remain incomplete, and known
+// hazards outrank unknown paths. Neither phase proves native fit or authorizes writes.
+func references(data, registryData, glyphData, sidecarData []byte, profile Recipes) (ReferenceReport, error) {
 	report := ReferenceReport{Operation: profile.Operation, SourceSHA256: profile.SourceSHA256,
 		RegistrySHA256: profile.ScopeSHA256, GlyphmapSHA256: profile.GlyphmapSHA256,
 		Summaries: map[string]ReferenceSummary{},
 		Queries:   map[string][]ReferenceRow{}, Limits: "Read-only candidates; 64-instruction high-half matching is not register-liveness, control-flow or exhaustive-reference proof. Content matches are advisory; structural rows use declared layouts. No registry updates or patch authorization."}
 	scan := profile.References
 	flowSpec := profile.ReferenceFlow
+	if profile.Operation == "reference_cohort" {
+		// This is a nominal source-policy report, never native fit or write admission.
+		allowed := Recipes{Operation: profile.Operation, SourceSize: profile.SourceSize, SourceSHA256: profile.SourceSHA256,
+			Evidence: profile.Evidence, ELFVMADelta: profile.ELFVMADelta, References: scan, Layout: profile.Layout,
+			RegistryInputs: profile.RegistryInputs, ReferenceFlow: flowSpec}
+		if !reflect.DeepEqual(profile, allowed) || scan == nil || profile.Layout == nil || profile.Evidence == "" ||
+			profile.SourceSize < 52 || profile.SourceSize > 64<<20 || int64(len(data)) != profile.SourceSize || len(registryData)+len(glyphData) != 0 ||
+			scan.SkipWords != 0 || scan.PointerMinVMA != "" || scan.DecodeWords < 1 || scan.DecodeWords > 100 ||
+			scan.AdvanceFloor < 1 || scan.AdvanceFloor > 4096 || scan.SpaceAdvance < 1 || scan.SpaceAdvance > 4096 || scan.MissingAdvance < 1 || scan.MissingAdvance > 4096 ||
+			len(scan.Queries) < 1 || len(scan.Queries) > 8 {
+			return ReferenceReport{}, fmt.Errorf("cohort report requires bounded nominal font and pointer-table facts without registry or patch fields")
+		}
+		if fmt.Sprintf("%x", sha256.Sum256(data)) != profile.SourceSHA256 {
+			return ReferenceReport{}, fmt.Errorf("cohort source hash mismatch")
+		}
+		delta, deltaErr := number(profile.ELFVMADelta)
+		blobBase, blobErr := number(scan.SidecarVMA)
+		if deltaErr != nil || blobErr != nil || delta+uint64(len(data)) > 1<<32 || blobBase < delta+uint64(len(data)) || blobBase+uint64(len(sidecarData)) > 1<<32 {
+			return ReferenceReport{}, fmt.Errorf("cohort source domains overlap or wrap")
+		}
+		if len(profile.RegistryInputs) > 1 || len(profile.RegistryInputs) != 0 && profile.RegistryInputs["sentinel"].Path == "" {
+			return ReferenceReport{}, fmt.Errorf("cohort inputs permit only the pinned sentinel role")
+		}
+		if pin, exists := profile.RegistryInputs["sentinel"]; exists {
+			if pin.Size < 1 || pin.Size > 64<<20 || int64(len(sidecarData)) != pin.Size || blobBase+uint64(pin.Size) > 1<<32 || fmt.Sprintf("%x", sha256.Sum256(sidecarData)) != pin.SHA256 {
+				return ReferenceReport{}, fmt.Errorf("cohort sentinel input size or hash mismatch")
+			}
+			report.BlobSHA256, report.BlobSize = pin.SHA256, pin.Size
+		} else if len(sidecarData) != 0 {
+			return ReferenceReport{}, fmt.Errorf("cohort sentinel bytes require a declared pin")
+		}
+		font, err := inspect(bytes.NewReader(data), nil, &Recipes{Operation: "font_metrics", SourceSize: profile.SourceSize, ELFVMADelta: profile.ELFVMADelta, Layout: profile.Layout})
+		if err != nil {
+			return ReferenceReport{}, err
+		}
+		advances := make(map[uint16]int, 2048)
+		for glyph := uint16(0); glyph < 2048; glyph++ {
+			advance := scan.MissingAdvance
+			if metric, exists := font.GlyphMetrics[glyph]; exists {
+				advance = max(scan.AdvanceFloor, int(metric[0])+int(metric[1])+3) - int(metric[0])
+			}
+			if glyph == 0 {
+				advance = scan.SpaceAdvance
+			}
+			if advance <= 0 {
+				return ReferenceReport{}, fmt.Errorf("cohort nominal advances must be positive")
+			}
+			advances[glyph] = advance
+		}
+		report.Measurement = "historical_nominal_pen_units"
+		report.NominalPolicy = map[string]int{"advance_floor": scan.AdvanceFloor, "space_advance": scan.SpaceAdvance, "missing_advance": scan.MissingAdvance, "max_words_including_end": scan.DecodeWords}
+		report.Limits = "Read-only pointer occurrences and declared historical nominal policy. LINE resets pen width; the result is the maximum line, not their sum. Raw metric admission is stricter than legacy buffer reads. These units are not native grid, PS2 arithmetic, physical fit, exhaustive ownership or patch authorization."
+		var names []string
+		for name := range scan.Queries {
+			if name == "" || len(name) > 64 || !utf8.ValidString(name) {
+				return ReferenceReport{}, fmt.Errorf("cohort query names require 1..64 UTF-8 bytes")
+			}
+			names = append(names, name)
+		}
+		slices.Sort(names)
+		// Admit all geometry before allocating rows or walking any stream.
+		total, tableCount := uint64(0), 0
+		for _, name := range names {
+			query := scan.Queries[name]
+			allowedQuery := ReferenceQuery{ContentRange: query.ContentRange, PointerTables: query.PointerTables, ExpectedCount: query.ExpectedCount,
+				ExpectedMaxWidth: query.ExpectedMaxWidth, NominalScale: query.NominalScale, ScaledLimit: query.ScaledLimit}
+			lo, loErr := number(query.ContentRange.Start)
+			hi, hiErr := number(query.ContentRange.End)
+			if !reflect.DeepEqual(query, allowedQuery) || loErr != nil || hiErr != nil || lo < delta || lo >= hi || hi > blobBase ||
+				query.ExpectedCount < 1 || query.ExpectedCount > 4096 || query.ExpectedMaxWidth < 0 || query.ExpectedMaxWidth > 1<<24 ||
+				math.IsNaN(query.NominalScale) || math.IsInf(query.NominalScale, 0) || query.NominalScale <= 0 || query.NominalScale > 1e6 ||
+				math.IsNaN(query.ScaledLimit) || math.IsInf(query.ScaledLimit, 0) || query.ScaledLimit < 0 || query.ScaledLimit > 1<<30 || len(query.PointerTables) == 0 {
+				return ReferenceReport{}, fmt.Errorf("cohort query requires exclusive pointer tables, retail domain and bounded nominal comparisons")
+			}
+			seenTables := make(map[string]bool)
+			for _, table := range query.PointerTables {
+				a, aErr := number(table.Start)
+				b, bErr := number(table.End)
+				if aErr != nil || bErr != nil || table.Name == "" || len(table.Name) > 64 || !utf8.ValidString(table.Name) || seenTables[table.Name] ||
+					table.Stride < 4 || table.Stride > 4096 || table.Stride%4 != 0 || a%4 != 0 || a < delta || a >= b || b > delta+uint64(len(data)) || (b-a)%uint64(table.Stride) != 0 {
+					return ReferenceReport{}, fmt.Errorf("cohort pointer tables require distinct names and bounded aligned half-open slots")
+				}
+				seenTables[table.Name] = true
+				total += (b - a) / uint64(table.Stride)
+				tableCount++
+				if total > 4096 || tableCount > 32 {
+					return ReferenceReport{}, fmt.Errorf("cohort report exceeds 32 tables or 4096 occurrences")
+				}
+			}
+		}
+		// A target is measured once, while every source occurrence keeps its own slot.
+		measured := make(map[uint64]ReferenceRow)
+		for _, name := range names {
+			query := scan.Queries[name]
+			lo, _ := number(query.ContentRange.Start)
+			hi, _ := number(query.ContentRange.End)
+			rows := []ReferenceRow{}
+			summary := ReferenceSummary{ByType: map[string]int{"raw_pointer": 0}, Diagnostics: []string{}}
+			maximum, complete := 0, true
+			for _, table := range query.PointerTables {
+				a, _ := number(table.Start)
+				b, _ := number(table.End)
+				for slot, index := a, 0; slot < b; slot, index = slot+uint64(table.Stride), index+1 {
+					pointer := uint64(binary.LittleEndian.Uint32(data[slot-delta:]))
+					row := ReferenceRow{Method: "pointer-table", RefType: "raw_pointer", Target: fmt.Sprintf("0x%x", pointer), Diagnostics: []string{}}
+					if !(lo <= pointer && pointer < hi || blobBase <= pointer && pointer < blobBase+uint64(len(sidecarData))) {
+						row.Diagnostics = append(row.Diagnostics, "pointer_outside_domain")
+					} else if cached, exists := measured[pointer]; exists {
+						row = cached
+					} else {
+						backing, offset := data, pointer-delta
+						row.BackingSource = "retail"
+						if pointer >= blobBase {
+							backing, offset, row.BackingSource = sidecarData, pointer-blobBase, "sentinel"
+						}
+						start, terminated := offset, false
+						for count := 0; count < scan.DecodeWords; count++ {
+							if offset > uint64(len(backing)) || uint64(len(backing))-offset < 2 {
+								row.Diagnostics = append(row.Diagnostics, "truncated_read")
+								break
+							}
+							word := binary.LittleEndian.Uint16(backing[offset:])
+							offset += 2
+							row.WordCount++
+							if word == 0xf800 {
+								terminated = true
+								break
+							}
+							if word >= 0x0800 && word != 0x0800 {
+								row.Diagnostics = append(row.Diagnostics, "unsupported_control")
+								break
+							}
+						}
+						if len(row.Diagnostics) == 0 && !terminated {
+							row.Diagnostics = append(row.Diagnostics, "unterminated")
+						}
+						if terminated {
+							shape, err := controls(backing[start:offset], TextScanOptions{Terminated: true, Advances: advances})
+							if err != nil {
+								return ReferenceReport{}, fmt.Errorf("cohort bounded grammar: %w", err)
+							}
+							row.LineWidths = shape.LineWidths[0]
+							row.NominalMaximum = &shape.Width
+						}
+						measured[pointer] = row
+					}
+					row.ID, row.TableName = fmt.Sprintf("0x%x", slot), table.Name
+					// Keep the index value independent of the loop's later increments.
+					ordinal := index
+					row.Occurrence = &ordinal
+					row.Sites = []ReferenceCandidate{{ReferenceSite: ReferenceSite{PointerVMA: row.ID}}}
+					rows = append(rows, row)
+					summary.Total++
+					summary.ByType["raw_pointer"]++
+					if row.NominalMaximum == nil {
+						complete = false
+						summary.Unresolved++
+						for _, issue := range row.Diagnostics {
+							summary.Diagnostics = append(summary.Diagnostics, row.ID+":"+issue)
+						}
+					} else {
+						summary.Resolved++
+						maximum = max(maximum, *row.NominalMaximum)
+					}
+				}
+			}
+			policyOK := complete
+			if summary.Total != query.ExpectedCount {
+				summary.Diagnostics = append(summary.Diagnostics, "occurrence_count_mismatch")
+				policyOK = false
+			}
+			if complete {
+				scaled := float64(maximum) * query.NominalScale
+				summary.NominalMaximum, summary.NominalScaled = &maximum, &scaled
+				if maximum != query.ExpectedMaxWidth {
+					summary.Diagnostics = append(summary.Diagnostics, "maximum_mismatch")
+					policyOK = false
+				}
+				if scaled > query.ScaledLimit {
+					summary.Diagnostics = append(summary.Diagnostics, "scaled_limit_exceeded")
+					policyOK = false
+				}
+			}
+			summary.NominalPolicyOK = &policyOK
+			report.Queries[name], report.Summaries[name] = rows, summary
+		}
+		if flowSpec != nil {
+			const maxSourceBucketSites = 256
+			if len(flowSpec.EntryVMAs) < 1 || len(flowSpec.EntryVMAs) > 256 || len(flowSpec.Entries) < 1 || len(flowSpec.Entries) > 16 || flowSpec.MaxVisitedStates < 1 || flowSpec.MaxVisitedStates > 100000 || flowSpec.CallRules != nil {
+				return ReferenceReport{}, fmt.Errorf("cohort source policy requires bounded entries, targets and work without consumer call rules")
+			}
+			textStart, textErr := number(scan.FileRange.Start)
+			textEnd, textEndErr := number(scan.FileRange.End)
+			rawStart, rawErr := number(scan.RawFileRange.Start)
+			rawEnd, rawEndErr := number(scan.RawFileRange.End)
+			pointerStart, pointerErr := number(scan.RawPointerRange.Start)
+			pointerEnd, pointerEndErr := number(scan.RawPointerRange.End)
+			dataStart, dataErr := number(scan.DataRange.Start)
+			dataEnd, dataEndErr := number(scan.DataRange.End)
+			if textErr != nil || textEndErr != nil || rawErr != nil || rawEndErr != nil || pointerErr != nil || pointerEndErr != nil || dataErr != nil || dataEndErr != nil ||
+				textStart%4 != 0 || textEnd%4 != 0 || textStart >= textEnd || textEnd > uint64(len(data)) || rawStart%4 != 0 || rawEnd%4 != 0 || rawStart >= rawEnd || rawEnd > uint64(len(data)) ||
+				pointerStart >= pointerEnd || pointerEnd-pointerStart > 1<<20 || pointerStart != blobBase || dataStart >= dataEnd || dataStart < rawStart+delta || dataEnd > rawEnd+delta {
+				return ReferenceReport{}, fmt.Errorf("cohort ownership requires bounded text, raw scan, data and raw-pointer domains")
+			}
+			seenEntries := make(map[uint64]bool)
+			for _, text := range flowSpec.EntryVMAs {
+				vma, err := number(text)
+				if err != nil || vma%4 != 0 || vma < delta+textStart || vma >= delta+textEnd || seenEntries[vma] {
+					return ReferenceReport{}, fmt.Errorf("cohort ownership entries must be distinct selected words")
+				}
+				seenEntries[vma] = true
+			}
+			var targets []uint32
+			policies := make(map[uint32]ReferenceFlowRecipe)
+			declaredPointers := make(map[uint32]map[uint64]bool)
+			labels := make(map[uint32]string)
+			for name, recipe := range flowSpec.Entries {
+				target, err := number(name)
+				_, duplicate := policies[uint32(target)]
+				if err != nil || duplicate || recipe.ExpectedPairs == nil || recipe.ExpectedPointers == nil || len(recipe.ExpectedPairs)+len(recipe.ExpectedPointers) > maxSourceBucketSites ||
+					recipe.BenignReaderPairs != nil || recipe.ZeroPaddingAllowance != 0 || recipe.ConsumerSeeds != nil {
+					return ReferenceReport{}, fmt.Errorf("cohort source policy requires distinct targets and explicit expected pair/pointer buckets")
+				}
+				seenPairs, seenPointers := make(map[[3]uint32]bool), make(map[uint64]bool)
+				for _, pair := range recipe.ExpectedPairs {
+					key := [3]uint32{pair.LUIVMA, pair.LowerVMA, pair.Opcode}
+					if pair.Target != uint32(target) || pair.Opcode != 9 && pair.Opcode != 13 || pair.LUIVMA%4 != 0 || pair.LowerVMA%4 != 0 ||
+						uint64(pair.LUIVMA) < delta+textStart || uint64(pair.LUIVMA) >= delta+textEnd || uint64(pair.LowerVMA) < delta+textStart || uint64(pair.LowerVMA) >= delta+textEnd || seenPairs[key] {
+						return ReferenceReport{}, fmt.Errorf("cohort expected pairs require distinct selected ADDIU/ORI coordinates and the declared target")
+					}
+					seenPairs[key] = true
+				}
+				for _, text := range recipe.ExpectedPointers {
+					vma, err := number(text)
+					if err != nil || vma%4 != 0 || vma < dataStart || vma >= dataEnd || seenPointers[vma] {
+						return ReferenceReport{}, fmt.Errorf("cohort expected raw pointers require distinct data words")
+					}
+					seenPointers[vma] = true
+				}
+				targets = append(targets, uint32(target))
+				policies[uint32(target)], labels[uint32(target)] = recipe, name
+				declaredPointers[uint32(target)] = seenPointers
+			}
+			slices.Sort(targets)
+			// One raw-word pass preserves the legacy SENT-only index scope.
+			rawPointers := make(map[uint32][]uint32)
+			rawProblems := make(map[uint32][]string)
+			rawLimited := make(map[uint32]bool)
+			rawUnexpected := make(map[uint32]uint32)
+			rawOverflowText := make(map[uint32]uint32)
+			for at := rawStart; at < rawEnd; at += 4 {
+				value := binary.LittleEndian.Uint32(data[at:])
+				if _, selected := policies[value]; !selected || uint64(value) < pointerStart || uint64(value) >= pointerEnd {
+					continue
+				}
+				vma := uint32(at + delta)
+				inData := uint64(vma) >= dataStart && uint64(vma) < dataEnd
+				if inData && !declaredPointers[value][uint64(vma)] {
+					if _, found := rawUnexpected[value]; !found {
+						rawUnexpected[value] = vma
+					}
+				}
+				if len(rawPointers[value])+len(rawProblems[value]) >= maxSourceBucketSites {
+					rawLimited[value] = true
+					// Later matches retain only bounded numeric witnesses, never more site strings.
+					if !inData {
+						if _, found := rawOverflowText[value]; !found {
+							rawOverflowText[value] = vma
+						}
+					}
+					continue
+				}
+				if inData {
+					rawPointers[value] = append(rawPointers[value], vma)
+				} else {
+					rawProblems[value] = append(rawProblems[value], fmt.Sprintf("raw_pointer_inside_text:0x%x", vma))
+				}
+			}
+			words := make(map[uint32]InstructionObservation)
+			batch := RegisterFlowSpec{EntryVMAs: flowSpec.EntryVMAs, Queries: map[string]RegisterFlowQuery{}}
+			lowSites := make(map[uint32][]uint32)
+			wantedHigh := make(map[[2]uint32]uint32)
+			graphLimit := ""
+			if (textEnd-textStart)/4 > 32768 {
+				graphLimit = "source_policy_word_limit"
+			} else {
+				facts, err := indexInstructions(data, Recipes{Operation: "instruction_index", SourceSize: profile.SourceSize, SourceSHA256: profile.SourceSHA256,
+					Evidence: profile.Evidence, References: &ReferenceScan{FileRange: scan.FileRange}})
+				if err != nil {
+					return ReferenceReport{}, err
+				}
+				report.InstructionIndex = facts.InstructionIndex
+				wantedBases := make(map[[2]uint32]bool)
+				for _, word := range facts.InstructionIndex.Instructions {
+					if word.VMA != word.FileOffset+delta {
+						return ReferenceReport{}, fmt.Errorf("cohort ownership scan disagrees with declared affine source mapping")
+					}
+					words[uint32(word.VMA)] = word
+					if word.Opcode != 9 && word.Opcode != 13 && (word.Opcode < 0x20 || word.Opcode > 0x3f) {
+						continue
+					}
+					for _, target := range targets {
+						if word.Word&0xffff != target&0xffff {
+							continue
+						}
+						lowSites[target] = append(lowSites[target], uint32(word.VMA))
+						label := fmt.Sprintf("defs/%d/0x%x", word.RS, word.VMA)
+						batch.Queries[label] = RegisterFlowQuery{Kind: "reaching_defs", Register: word.RS, VMA: fmt.Sprintf("0x%x", word.VMA), Context: "any_reachable", MaxVisitedStates: flowSpec.MaxVisitedStates}
+						want := (uint64(target) + 0x8000) >> 16 & 0xffff
+						if word.Opcode == 13 {
+							want = uint64(target >> 16)
+						}
+						wantedHigh[[2]uint32{target, uint32(word.VMA)}] = uint32(want)
+						wantedBases[[2]uint32{word.RS, uint32(want)}] = true
+					}
+				}
+				for _, word := range facts.InstructionIndex.Instructions {
+					if word.Opcode == 15 && word.RS == 0 && word.RT != 0 && wantedBases[[2]uint32{word.RT, word.Word & 0xffff}] {
+						label := fmt.Sprintf("uses/%d/0x%x", word.RT, word.VMA)
+						batch.Queries[label] = RegisterFlowQuery{Kind: "uses_after", Register: word.RT, VMA: fmt.Sprintf("0x%x", word.VMA), Context: "any_reachable", MaxVisitedStates: flowSpec.MaxVisitedStates}
+					}
+				}
+				if len(batch.Queries) > 64 {
+					graphLimit = "source_policy_query_limit"
+				}
+			}
+			graph := RegisterFlowReport{Queries: map[string]RegisterFlowResult{}}
+			if graphLimit == "" && len(batch.Queries) != 0 {
+				var err error
+				graph, err = queryRegisterFlow(report.InstructionIndex.Instructions, batch)
+				if err != nil {
+					return ReferenceReport{}, err
+				}
+				report.InstructionIndex.RegisterFlow = &graph
+			}
+			report.SourcePolicy = make(map[string]ReferenceFlowRow)
+			for _, target := range targets {
+				pointers := append([]uint32{}, rawPointers[target]...)
+				result := ReferenceFlowRow{CallerDisposition: "eligible_under_declared_source_policy", RawPointerSites: &pointers, RawIndexStatus: "within_declared_index",
+					Diagnostics: append([]string{}, rawProblems[target]...), DefinitionQueries: map[string]string{}, UseQueries: map[string]string{},
+					ConstructedTargets: []ReferenceFlowTarget{}, Readers: []ReferenceFlowReader{}, CanonicalPairErrors: map[string]string{}}
+				var unknown []string
+				if rawLimited[target] {
+					result.RawIndexStatus = "limited"
+					unknown = append(unknown, "raw_pointer_site_limit")
+				}
+				if at, found := rawOverflowText[target]; found {
+					result.Diagnostics = append(result.Diagnostics, fmt.Sprintf("raw_pointer_inside_text:0x%x", at))
+				}
+				if uint64(target) < pointerStart || uint64(target) >= pointerEnd {
+					result.RawIndexStatus = "outside_declared_index"
+					unknown = append(unknown, "raw_pointer_index_out_of_scope")
+				}
+				if graphLimit != "" {
+					unknown = append(unknown, graphLimit)
+				}
+				owned := make(map[uint32]map[uint32]bool)
+				for _, low := range lowSites[target] {
+					if graphLimit != "" {
+						break
+					}
+					word := words[low]
+					label := fmt.Sprintf("defs/%d/0x%x", word.RS, low)
+					result.DefinitionQueries[fmt.Sprintf("0x%x", low)] = label
+					query := graph.Queries[label]
+					for _, reason := range query.IncompleteReasons {
+						unknown = append(unknown, fmt.Sprintf("definition_unknown:0x%x:%s", low, reason))
+					}
+					if len(query.IncomingEntrySites) != 0 {
+						unknown = append(unknown, fmt.Sprintf("definition_incoming_entry:0x%x", low))
+					}
+					var hits []uint32
+					want := wantedHigh[[2]uint32{target, low}]
+					for _, at := range query.KnownFactSites {
+						high := words[at]
+						if high.Opcode == 15 && high.RT == word.RS && high.Word&0xffff == want {
+							hits = append(hits, at)
+						}
+					}
+					if len(hits) == 0 {
+						continue
+					}
+					if len(hits) != len(query.KnownFactSites)+len(query.IncomingEntrySites) {
+						result.Diagnostics = append(result.Diagnostics, fmt.Sprintf("ambiguous_definition:0x%x", low))
+						continue
+					}
+					if word.Opcode != 9 && word.Opcode != 13 {
+						result.Diagnostics = append(result.Diagnostics, fmt.Sprintf("direct_memory_reader:0x%x", low))
+						continue
+					}
+					// Unlike canonical patch policy, all equal matching LUI definitions are retained.
+					slices.Sort(hits)
+					for _, high := range hits {
+						if owned[high] == nil {
+							owned[high] = make(map[uint32]bool)
+						}
+						owned[high][low] = true
+						result.ConstructedTargets = append(result.ConstructedTargets, ReferenceFlowTarget{LUIVMA: high, LowerVMA: low, Target: target, Opcode: word.Opcode})
+					}
+				}
+				var highs []uint32
+				for high := range owned {
+					highs = append(highs, high)
+				}
+				slices.Sort(highs)
+				for _, high := range highs {
+					label := fmt.Sprintf("uses/%d/0x%x", words[high].RT, high)
+					result.UseQueries[fmt.Sprintf("0x%x", high)] = label
+					query := graph.Queries[label]
+					for _, use := range query.KnownFactSites {
+						relation := "owned"
+						if !owned[high][use] {
+							relation = "foreign"
+							result.Diagnostics = append(result.Diagnostics, fmt.Sprintf("foreign_use:0x%x:0x%x", high, use))
+						}
+						result.Readers = append(result.Readers, ReferenceFlowReader{LUIVMA: high, UseVMA: use, Relation: relation, Owners: map[string]string{}})
+					}
+					for _, reason := range query.IncompleteReasons {
+						unknown = append(unknown, fmt.Sprintf("later_use_unknown:0x%x:%s", high, reason))
+					}
+				}
+				// Coordinate/opcode membership is deterministic; source Python set order is not promised.
+				policy := policies[target]
+				for _, pair := range result.ConstructedTargets {
+					if !slices.Contains(policy.ExpectedPairs, pair) {
+						result.Diagnostics = append(result.Diagnostics, fmt.Sprintf("unexpected_pair:0x%x:0x%x:%d", pair.LUIVMA, pair.LowerVMA, pair.Opcode))
+					}
+				}
+				for _, pair := range policy.ExpectedPairs {
+					if !slices.Contains(result.ConstructedTargets, pair) {
+						unknown = append(unknown, fmt.Sprintf("expected_pair_not_observed:0x%x:0x%x:%d", pair.LUIVMA, pair.LowerVMA, pair.Opcode))
+					}
+				}
+				expectedPointers := make([]uint32, 0, len(policy.ExpectedPointers))
+				for vma := range declaredPointers[target] {
+					expectedPointers = append(expectedPointers, uint32(vma))
+				}
+				slices.Sort(expectedPointers)
+				_, unexpectedPointer := rawUnexpected[target]
+				if unexpectedPointer || result.RawIndexStatus == "within_declared_index" && !slices.Equal(pointers, expectedPointers) {
+					result.Diagnostics = append(result.Diagnostics, "raw_pointer_bucket_mismatch")
+				}
+				if at, found := rawUnexpected[target]; found {
+					result.Diagnostics = append(result.Diagnostics, fmt.Sprintf("raw_pointer_unexpected_site:0x%x", at))
+				}
+				if len(result.Diagnostics) != 0 {
+					result.CallerDisposition = "refuse"
+				} else if len(unknown) != 0 {
+					result.CallerDisposition = "unknown"
+				}
+				result.Diagnostics = append(result.Diagnostics, unknown...)
+				report.SourcePolicy[labels[target]] = result
+			}
+			report.Limits += " Source-policy buckets use the declared raw-index window and one bounded existing instruction/graph producer. Sorted equal-definition pairs normalize Python set order. Unknown call/entry/unsupported/work-limit paths remain unknown, and known problems outrank unknowns. No corrected whole-program ownership parity or landing approval is claimed."
+		} else if scan.FileRange != (AddressRange{}) || scan.RawFileRange != (AddressRange{}) || scan.RawPointerRange != (AddressRange{}) || scan.DataRange != (AddressRange{}) {
+			return ReferenceReport{}, fmt.Errorf("cohort ownership domains require an explicit source-policy request")
+		}
+		return report, nil
+	}
+	if len(sidecarData) != 0 || scan != nil && (scan.AdvanceFloor != 0 || scan.SpaceAdvance != 0 || scan.MissingAdvance != 0 || scan.SidecarVMA != "" || scan.RawFileRange != (AddressRange{}) || scan.RawPointerRange != (AddressRange{}) || scan.DataRange != (AddressRange{})) {
+		return ReferenceReport{}, fmt.Errorf("nominal cohort facts and sentinel bytes belong only to reference_cohort")
+	}
+	if scan != nil {
+		for _, query := range scan.Queries {
+			if query.PointerTables != nil || query.ExpectedCount != 0 || query.ExpectedMaxWidth != 0 || query.NominalScale != 0 || query.ScaledLimit != 0 {
+				return ReferenceReport{}, fmt.Errorf("pointer-table comparisons belong only to reference_cohort")
+			}
+			for _, table := range query.StructRows {
+				if table.Name != "" {
+					return ReferenceReport{}, fmt.Errorf("named pointer tables cannot replace registry struct rows")
+				}
+			}
+		}
+	}
+	if flowSpec != nil {
+		for _, entry := range flowSpec.Entries {
+			if entry.ExpectedPairs != nil || entry.ExpectedPointers != nil {
+				return ReferenceReport{}, fmt.Errorf("source-policy expected sites belong only to reference_cohort")
+			}
+		}
+	}
 	inline := profile.Operation == "reference_inline16"
 	observed := profile.Operation == "reference_observed" || inline
 	gpIndex := profile.Operation == "reference_gp_index"
@@ -694,11 +1180,40 @@ func references(data, registryData, glyphData []byte, profile Recipes) (Referenc
 	if flowSpec != nil {
 		batch := RegisterFlowSpec{EntryVMAs: flowSpec.EntryVMAs, Queries: map[string]RegisterFlowQuery{}}
 		benign := make(map[uint64]map[[2]uint32]bool)
+		callRules := make(map[uint32]ConsumerCallRule)
+		if len(flowSpec.CallRules) > 64 {
+			return ReferenceReport{}, fmt.Errorf("consumer call rules require at most 64 targets")
+		}
+		for text, rule := range flowSpec.CallRules {
+			target, err := number(text)
+			_, duplicate := callRules[uint32(target)]
+			if err != nil || target%4 != 0 || duplicate || rule.AllowedRegisters == nil || len(rule.AllowedRegisters) > 8 || strings.TrimSpace(rule.Evidence) == "" || len(rule.Evidence) > 4096 {
+				return ReferenceReport{}, fmt.Errorf("consumer call rules require distinct aligned targets, explicit EE arguments and evidence")
+			}
+			seen := make(map[uint32]bool)
+			for _, register := range rule.AllowedRegisters {
+				if register < 4 || register > 11 || seen[register] {
+					return ReferenceReport{}, fmt.Errorf("consumer call rule arguments must be distinct EE registers4..11")
+				}
+				seen[register] = true
+			}
+			callRules[uint32(target)] = rule
+		}
 		for _, id := range flowIDs {
 			if !flowSelected[id] {
 				return ReferenceReport{}, fmt.Errorf("reference flow ID must be selected by an existing query")
 			}
 			entry := document.Entries[byID[id]]
+			if len(flowRecipes[id].ConsumerSeeds) > 8 {
+				return ReferenceReport{}, fmt.Errorf("consumer flow requires at most eight seeds per registry ID")
+			}
+			for name, seed := range flowRecipes[id].ConsumerSeeds {
+				if name == "" || len(name) > 64 || !utf8.ValidString(name) || seed.Kind != "" || seed.MaxVisitedStates != 0 {
+					return ReferenceReport{}, fmt.Errorf("consumer seeds require 1..64 byte names and inherit kind/work limit")
+				}
+				seed.Kind, seed.MaxVisitedStates = "pointer_consumers", flowSpec.MaxVisitedStates
+				batch.Queries[fmt.Sprintf("consumer/0x%x/%s", id, name)] = seed
+			}
 			for _, site := range entry.RefSites {
 				lui, highErr := number(site.LUIVMA)
 				lower, lowErr := number(site.ADDIUVMA)
@@ -743,6 +1258,41 @@ func references(data, registryData, glyphData []byte, profile Recipes) (Referenc
 			result := &ReferenceFlowRow{CallerDisposition: "eligible_under_declared_policy", Diagnostics: []string{},
 				DefinitionQueries: map[string]string{}, UseQueries: map[string]string{}, ConstructedTargets: []ReferenceFlowTarget{},
 				Readers: []ReferenceFlowReader{}, CanonicalPairErrors: map[string]string{}}
+			if len(flowRecipes[id].ConsumerSeeds) != 0 {
+				result.Consumers = make(map[string]ReferenceConsumerAssessment)
+			}
+			for name := range flowRecipes[id].ConsumerSeeds {
+				label := fmt.Sprintf("consumer/0x%x/%s", id, name)
+				query := graph.Queries[label]
+				assessment := ReferenceConsumerAssessment{Query: label, Classification: "UNRESOLVED", CallPolicies: []ReferenceConsumerCallPolicy{}}
+				rank := 1
+				if query.Consumer != nil && len(query.Consumer.Events) != 0 && query.CompleteWithinAssertedScope {
+					rank = 0
+				}
+				if query.Consumer != nil {
+					for ordinal, event := range query.Consumer.Events {
+						eventRank := 1
+						switch event.Kind {
+						case "pointee_read", "pointee_write":
+							eventRank = 2
+						case "call_argument":
+							policy := ReferenceConsumerCallPolicy{Event: ordinal, Classification: "unknown"}
+							if event.Target != nil {
+								if rule, present := callRules[*event.Target]; present {
+									policy.Classification, policy.Evidence, eventRank = "risky_under_declared_policy", rule.Evidence, 2
+									if slices.Contains(rule.AllowedRegisters, event.Register) {
+										policy.Classification, eventRank = "allowed_under_declared_policy", 0
+									}
+								}
+							}
+							assessment.CallPolicies = append(assessment.CallPolicies, policy)
+						}
+						rank = max(rank, eventRank)
+					}
+				}
+				assessment.Classification = []string{"SAFE_UNDER_DECLARED_POLICY", "UNRESOLVED", "RISKY"}[rank]
+				result.Consumers[name] = assessment
+			}
 			// Bucket order follows the full diagnostic audit, not site_plan's first refusal.
 			var issues [6][]string
 			expected, targetKnown := uint32(id), true

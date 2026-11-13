@@ -584,6 +584,9 @@ func encode(text string, prefix []string, glyphs map[rune]uint16, options TextEn
 // verifies exact one-word roles through local surrogates; it restores original
 // tokens before summaries and leaves source authoring/native eligibility blocked.
 func controls(data []byte, options TextScanOptions) (TextShape, error) {
+	if options.InkBounds != nil && (options.Advances == nil || !options.Terminated || options.Decode || options.ReadPin != nil || options.FixedWords != 0) {
+		return TextShape{}, fmt.Errorf("native ink requires terminated native advance measurement")
+	}
 	var rawRoles map[int]TextToken
 	if pin := options.ReadPin; pin != nil {
 		if !options.Decode || options.Glyphs == nil {
@@ -677,6 +680,10 @@ func controls(data []byte, options TextScanOptions) (TextShape, error) {
 	if advances != nil {
 		result.LineWidths = [][]int{{0}}
 		result.Lines = 1
+	}
+	if options.InkBounds != nil {
+		result.InkKnown = true
+		result.LineInkBounds = [][][4]int{{{0, 0, 0, 0}}}
 	}
 	numericAt := 0
 	for i := 0; i < len(data); i += 2 {
@@ -827,6 +834,30 @@ func controls(data []byte, options TextScanOptions) (TextShape, error) {
 				if !ok || advance <= 0 {
 					return TextShape{}, fmt.Errorf("missing font advance for %#x", w)
 				}
+				if result.InkKnown {
+					switch w {
+					case 0: // SPACE advances without drawing its atlas tile.
+					case 0x7000:
+						// A symbolic extent also makes every later literal origin unknown.
+						result.InkKnown, result.LineInkBounds = false, nil
+						result.InkDiagnostic = "numeric substitution needs native ink and origin semantics"
+					default:
+						box, exists := options.InkBounds[w]
+						if !exists {
+							return TextShape{}, fmt.Errorf("missing native ink bounds for %#x", w)
+						}
+						if box != ([4]int{}) {
+							box[0], box[2] = box[0]+width, box[2]+width
+							page := result.LineInkBounds[len(result.LineInkBounds)-1]
+							line := &page[len(page)-1]
+							if *line == ([4]int{}) {
+								*line = box
+							} else {
+								*line = [4]int{min(line[0], box[0]), min(line[1], box[1]), max(line[2], box[2]), max(line[3], box[3])}
+							}
+						}
+					}
+				}
 				width += advance
 				page := result.LineWidths[len(result.LineWidths)-1]
 				page[len(page)-1] = width
@@ -834,11 +865,17 @@ func controls(data []byte, options TextScanOptions) (TextShape, error) {
 			case w == 0x0800:
 				page := len(result.LineWidths) - 1
 				result.LineWidths[page] = append(result.LineWidths[page], 0)
+				if result.InkKnown {
+					result.LineInkBounds[page] = append(result.LineInkBounds[page], [4]int{})
+				}
 				width = 0
 				lines++
 				result.Lines = max(result.Lines, lines)
 			case w == 0x1000:
 				result.LineWidths = append(result.LineWidths, []int{0})
+				if result.InkKnown {
+					result.LineInkBounds = append(result.LineInkBounds, [][4]int{{}})
+				}
 				result.Pages = true
 				width, lines = 0, 1
 			case kind == "icon" || w >= 0xd800 && w != 0xf800:
@@ -2585,6 +2622,7 @@ func inspect(image io.ReaderAt, edits []Edit, recipes *Recipes) (Inspection, err
 				return Inspection{}, fmt.Errorf("native advance exception source differs from profile")
 			}
 			result.Advances = make(map[uint16]int, 3*441)
+			result.GlyphMetrics = make(map[uint16][3]byte, 3*441)
 			for page := 0; page < 3; page++ {
 				vma := uint64(binary.LittleEndian.Uint32(result.ELF[table-delta+uint64(page*4):]))
 				if vma < delta || len(result.ELF) < 441*3 || vma-delta > uint64(len(result.ELF)-441*3) {
@@ -2593,6 +2631,7 @@ func inspect(image io.ReaderAt, edits []Edit, recipes *Recipes) (Inspection, err
 				for glyph := 0; glyph < 441; glyph++ {
 					at := vma - delta + uint64(glyph*3)
 					left, ink := int(result.ELF[at]), int(result.ELF[at+1])
+					result.GlyphMetrics[uint16(page*441+glyph)] = [3]byte{result.ELF[at], result.ELF[at+1], result.ELF[at+2]}
 					advance := left + ink + 3
 					if uint64(page*441+glyph) != exceptionGlyph {
 						advance = max(22, advance)

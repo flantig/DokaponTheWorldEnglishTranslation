@@ -1,0 +1,35 @@
+{
+  "kind": "RETIRED_DESIGN_RESPONSIBILITY_DISPOSITION",
+  "status": "retired_by_owner_direction",
+  "updated_at": "2026-11-13T05:51:28.955426+00:00",
+  "owner_direction": "The user chose to prioritize current tooling and document the retired design. The primary agent relayed that explicit choice during this increment.",
+  "exact_scope": "The retired responsibility is the fixed PH1 loadable-segment plus InitHeap-cap architecture in patch_iso_grow_elf.stage_b. This does not retire the entire Python file: its Stage A directory parser and mechanism remain historical references used by the later streaming tool. No script entrypoint is removed or redirected.",
+  "source_mapping": [
+    "patch_iso_grow_elf.py Stage A grows the disc allocation from the exact, unaligned ELF EOF. Stage B changes seven PH1/InitHeap words, with recorded pre/post guards and readback.",
+    "patch_iso_stream_blob.py lines4-29 explicitly excludes Stage B. It uses a normal heap buffer and a sector-aligned, repeatable stream blob. Current Go stream_allocate/stream_grow cover those current allocation responsibilities.",
+    "The Phase2 design explicitly rejected a BSS-only segment because it could not preload translations. The existing PH0 BSS held live globals, not a free cave."
+  ],
+  "parity_boundary": "Old Stage A preserved an1872-byte EOF padding gap. Current streaming deliberately declares its end through the sector-aligned blob. These are not byte-equivalent recipes. Guarded words can represent the old edits but cannot establish loader or heap ownership.",
+  "coverage": "The approved current-tooling amendment in analysis/current-tooling-scope-v3.json classifies image_layout.06 as reviewed historical disposition, with zero Go credit. image_layout.05 remains held, and the family remains 4/6. Current stream-loader coherence remains required under .01 through .04. This is not verified Go BSS growth, whole-script retirement or native gameplay proof.",
+  "source_pins": [
+    {
+      "repository_path": "tools/patch_iso_grow_elf.py",
+      "bytes": 17425,
+      "sha256": "8a9ad86eeee3a7f48282e2da4fda2e85c37083deac02ac664b6cbbc2c9763925"
+    },
+    {
+      "repository_path": "tools/patch_iso_stream_blob.py",
+      "bytes": 27292,
+      "sha256": "cd943f22faee9b6c7bb129e01ad48b98d3d54bf2573d83aaba7769287dfad2e2"
+    },
+    {
+      "repository_path": "docs/planning-log/2026-09-03-phase2-iso-elf-expansion.md",
+      "bytes": 25676,
+      "sha256": "16b709aec9025acebd417c8453275590c214b94421776d5a025db99a89ef31d1"
+    }
+  ],
+  "current_scope": {
+    "record": "analysis/current-tooling-scope-v3.json",
+    "sha256": "b2aeb6bc06c9396797b4c5b029abe887fda766544d33b9c8eb42728c28d51aa0"
+  }
+}

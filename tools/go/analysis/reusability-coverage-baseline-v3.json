@@ -1,0 +1,452 @@
+{
+  "schema_version": 2,
+  "baseline_version": "workflow-families-v3",
+  "created_at": "2026-11-13T07:27:57.742076+00:00",
+  "purpose": "Freeze a reproducible denominator before assigning completion scores. Measures reusable Go workflow-family coverage, not code readability, a mathematical DRY percentage, percent of lines reused, per-script migration or ISO byte parity.",
+  "source_pins": {
+    "analysis/pattern-crawl-text_binary.json": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+    "analysis/pattern-crawl-iso_registry_reports.json": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+    "analysis/pattern-crawl-assets_runtime_tests.json": "bdecf023689fea01d6cebf67811f31b71bc372d4e00d925d71fc3549a45480f3"
+  },
+  "rule": "Preserve the 15-family denominator, 21 discovery crosswalks and all 90 IDs. Apply only the two explicitly approved current-tooling amendments identified by the authoritative scope record. Preserve the original contracts and zero-credit history as archived research goals.",
+  "scoring_rule": "Full=all material responsibilities of the family have verified shared Go support with declarative inputs and preserved guards. Partial=some shared Go support exists but a material responsibility is missing/held. Unsupported=no verified Go workflow. Partial/unsupported earn zero completion credit; no invented0.5 scores or counts of duplicate historical scripts. Python references/tests may verify Go; operational Python remains an unmet Go responsibility. Reviewed historical disposition earns zero verified-Go credit. A scope amendment does not prove Go support or automatically promote a family.",
+  "primary_core_families": [
+    "artifact_snapshots",
+    "asset_placement",
+    "asset_preview_inventory",
+    "binary_inspection",
+    "candidate_composition",
+    "consumer_layout",
+    "guarded_transactions",
+    "image_layout",
+    "offline_reports",
+    "probe_orchestration_evidence",
+    "raster_rendering",
+    "registry_authoring",
+    "registry_reconciliation",
+    "text_codec",
+    "texture_codec"
+  ],
+  "optional_runtime_families": [],
+  "all_workflow_families": [
+    "artifact_snapshots",
+    "asset_placement",
+    "asset_preview_inventory",
+    "binary_inspection",
+    "candidate_composition",
+    "consumer_layout",
+    "guarded_transactions",
+    "image_layout",
+    "offline_reports",
+    "probe_orchestration_evidence",
+    "raster_rendering",
+    "registry_authoring",
+    "registry_reconciliation",
+    "text_codec",
+    "texture_codec"
+  ],
+  "crosswalk": [
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/guarded_transaction",
+      "original_recommendation": "guarded_transaction",
+      "families": [
+        "guarded_transactions"
+      ],
+      "original_contract": "Plan sorted bounded old/new byte edits once, retain preimages/idempotence/exclusive output/readback and registry ownership; no per-script writer. Recipes contain IDs, words, text and explicit old/new states. Existing Go plan/validateEdits/verifySource/patchCopy and Python stream_fix_run already own much of this."
+    },
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/text_codec",
+      "original_recommendation": "text_codec",
+      "families": [
+        "text_codec"
+      ],
+      "original_contract": "One source-aware word/token grammar, glyph map, markup encoder/decoder and semantic-control checks. Canonical wording remains registry data. Reuse Go encode/controls, Python dialog_codec/text_encoder; do not make one codec handler per chapter."
+    },
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/consumer_layout",
+      "original_recommendation": "consumer_layout",
+      "families": [
+        "consumer_layout"
+      ],
+      "original_contract": "Shared native metrics, explicit scale, measured wrapping/ink bounds and expansion diagnostics, parameterized by proved consumer geometry. New canonical EN first gets read-only evidence; generated encoded pins then feed strict replay."
+    },
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/binary_inspection",
+      "original_recommendation": "binary_inspection",
+      "families": [
+        "binary_inspection"
+      ],
+      "original_contract": "Share deterministic word/instruction encoding, fixed-width decoding and reference indexes. Reports classify raw pointers, adjusted-high/signed-low pairs, GP offsets, branch/fallthrough, and interior references. Existing Go references and historical Scanner/Code/Tracer are reuse candidates, not interchangeable proof levels."
+    },
+    {
+      "source": "analysis/pattern-crawl-text_binary.json",
+      "source_pointer": "small_toolkit/allocation_safety",
+      "original_recommendation": "allocation_safety",
+      "families": [
+        "image_layout"
+      ],
+      "original_contract": "Shared ELF/disc/sentinel mapping, self-consistent loader/window capacity and bounded placement/reservations; recipes supply approved ranges and named claims. Enhance existing inspect/plan before adding allocators."
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/registry_merge",
+      "original_recommendation": "registry_merge",
+      "families": [
+        "registry_authoring"
+      ],
+      "original_contract": "Normalize stable IDs; validate/import authored entries or merge allowed machine fields into a new snapshot. Human wording and machine metadata have different owners.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/registry_reconcile",
+      "original_recommendation": "registry_reconcile",
+      "families": [
+        "registry_reconciliation"
+      ],
+      "original_contract": "Compare canonical plan with independently read on-disc bytes/references and propose differences. Report before mutating.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/binary_edit",
+      "original_recommendation": "binary_edit",
+      "families": [
+        "guarded_transactions"
+      ],
+      "original_contract": "Plan typed equal-size old/new edits, source guards, whole-copy application/revert and readback.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/image_layout",
+      "original_recommendation": "image_layout",
+      "families": [
+        "image_layout"
+      ],
+      "original_contract": "Map VMA/file/ISO ranges and validate or grow ISO9660/ELF/stream capacity.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/text_codec_fit",
+      "original_recommendation": "text_codec_fit",
+      "families": [
+        "text_codec",
+        "consumer_layout"
+      ],
+      "original_contract": "Decode/encode game text and inspect native line/byte/layout constraints or apply bounded edits.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/artifact_snapshot",
+      "original_recommendation": "artifact_snapshot",
+      "families": [
+        "artifact_snapshots"
+      ],
+      "original_contract": "Create/index/hash immutable snapshots and restore or inventory explicit versions.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/evidence_report",
+      "original_recommendation": "evidence_report",
+      "families": [
+        "offline_reports"
+      ],
+      "original_contract": "Derived exports, progress/structural checks and byte/registry audits from explicit inputs.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/candidate_compose",
+      "original_recommendation": "candidate_compose",
+      "families": [
+        "candidate_composition"
+      ],
+      "original_contract": "Compose reviewed edit sets into a new disposable image/private registry and prove expected-only changes.",
+      "exclusion": null
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/instrumentation",
+      "original_recommendation": "instrumentation",
+      "families": [
+        "probe_orchestration_evidence"
+      ],
+      "original_contract": "Prepare versioned diagnostic hook/counter capture plans; read saved/live values only through an explicitly owned runtime workflow.",
+      "exclusion": null,
+      "legacy_facet_ids": [
+        "diagnostic_instrumentation"
+      ]
+    },
+    {
+      "source": "analysis/pattern-crawl-iso_registry_reports.json",
+      "source_pointer": "core_opportunities/retired_gate",
+      "original_recommendation": "retired_gate",
+      "families": [],
+      "original_contract": "Current entrypoint refuses; preserve provenance and use-case record without counting removed historical behavior as current implementation.",
+      "exclusion": "Historical execution-disposition administration is separate from reusable editing workflows."
+    },
+    {
+      "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+      "source_pointer": "minimum_toolkit_recommendation/asset-codec",
+      "original_recommendation": "asset-codec",
+      "families": [
+        "texture_codec"
+      ],
+      "original_contract": "One PS2 TXD/index/CLUT codec independent of ISO placement and artwork. Retain distinct PSMT4/8/nohdr/PSMCT32 parsing facts and alpha/index invariants; use golden fixtures as well as roundtrips."
+    },
+    {
+      "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+      "source_pointer": "minimum_toolkit_recommendation/asset-location-and-guarded-placement",
+      "original_recommendation": "asset-location-and-guarded-placement",
+      "families": [
+        "asset_placement"
+      ],
+      "original_contract": "Share named ISO/CMB lookup and bounded plan/validate/copy/readback. Reuse existing Go safe writer for future Go authoring; do not create another writer per batch."
+    },
+    {
+      "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+      "source_pointer": "minimum_toolkit_recommendation/mask-contained-raster-rendering",
+      "original_recommendation": "mask-contained-raster-rendering",
+      "families": [
+        "raster_rendering"
+      ],
+      "original_contract": "Keep one styled glyph/run/layer path and one mask/containment execution path. TTF, game bitmap fonts and hand-designed pixel alphabets are explicit font sources, not three patch executors."
+    },
+    {
+      "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+      "source_pointer": "minimum_toolkit_recommendation/specification-export-preview-index",
+      "original_recommendation": "specification-export-preview-index",
+      "families": [
+        "asset_preview_inventory"
+      ],
+      "original_contract": "Spec builders are chiefly authored tables plus measurement, not a new engine per batch. Share preview/checkerboard/contact-sheet/manifest mechanics where contracts agree."
+    },
+    {
+      "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+      "source_pointer": "minimum_toolkit_recommendation/owned-runtime-platform",
+      "original_recommendation": "owned-runtime-platform",
+      "families": [
+        "probe_orchestration_evidence"
+      ],
+      "original_contract": "Keep transport, input backend, capture/inspection and owned lifecycle as clear responsibilities behind a small runtime toolset. Reuse PID/starttime/ISO-guarded cleanup; never adopt app-wide pkill/flatpak kill or shared log truncation from legacy scenarios.",
+      "legacy_facet_ids": [
+        "runtime_platform"
+      ]
+    },
+    {
+      "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+      "source_pointer": "minimum_toolkit_recommendation/runtime-scenarios-and-contract-verification",
+      "original_recommendation": "runtime-scenarios-and-contract-verification",
+      "families": [
+        "probe_orchestration_evidence"
+      ],
+      "original_contract": "Represent repeated batch verifications as cohort selector + typed read/decoder/comparison + scenario facts atop owned runtime. Preserve separate fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons.",
+      "legacy_facet_ids": [
+        "runtime_scenarios"
+      ]
+    }
+  ],
+  "verification_notes": [
+    "This is an unweighted broad-family metric. Family boundaries affect its value; baseline changes must be versioned and prior percentages kept with their denominator.",
+    "Single-asset/source-profile support does not complete a broad workflow family. A shared writer/codec primitive is not an authored renderer or snapshot manager.",
+    "The discovery sources are pinned historical study inputs, not a fresh claim that every legacy source remains byte-identical today.",
+    "Versioned scope expansion grants zero Go milestone/family or410 retirement credit. Operational Python ownership is retained; unsupported means unproven Go responsibility, not broken Python.",
+    "Probe is Partial because inherited static diagnostic facts exist, with all six complete acceptance groups unproven0/6. Static facts/offline reports do not establish owned operational workflows.",
+    "The authoritative scope record amends exactly two current obligations; all other 88 milestone rows and every existing credit remain unchanged. General static ELF/BSS allocation and processor-exact arbitrary scale interpretation remain archived research goals, not silently implemented capabilities."
+  ],
+  "previous_baseline": {
+    "path": "analysis/reusability-coverage-baseline-v2.json",
+    "sha256": "410a0c8cb8d561c6342bd654ad97b9f0b4c1b0dca2f2e8a3d6590d5a046785ca"
+  },
+  "historical_context_plan": {
+    "path": "analysis/reusable-toolkit-plan.json",
+    "original_v1_sha256": "f099024ae73691b76ccf31e128b60cec31aa895f049d09736f9003d4853f11a9",
+    "accepted808_current_sha256": "2d6a3b503545aa69389ea30e083b5cac4c53aae65ca7ee552f7a11288e2a5ada",
+    "qualification": "Original f099 context-plan bytes remain unrecovered; current2d6 differs. V1 original pin preserved, not repinned and no all-source-provenance claim. Original family duties remain anchored to the three matching crawl sources."
+  },
+  "authorization": {
+    "decision": "Adopt the current-tooling scope",
+    "record": "analysis/current-tooling-scope-v3.json",
+    "sha256": "b2aeb6bc06c9396797b4c5b029abe887fda766544d33b9c8eb42728c28d51aa0"
+  },
+  "legacy_runtime_facets": [
+    {
+      "id": "diagnostic_instrumentation",
+      "title": "Owned diagnostic instrumentation",
+      "status": "partial",
+      "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-iso_registry_reports.json",
+          "source_pointer": "core_opportunities/instrumentation",
+          "original_contract": "Prepare versioned diagnostic hook/counter capture plans; read saved/live values only through an explicitly owned runtime workflow."
+        }
+      ],
+      "shared_owners": [
+        "plan",
+        "patchCopy"
+      ],
+      "current_code": [
+        "patch.go",
+        "recipe_types.go"
+      ],
+      "evidence": [
+        "analysis/reusable-toolkit-plan.json"
+      ],
+      "verified_support": "Versioned guarded-word/template facts can represent static hook/counter edits.",
+      "remaining_gap": "No complete Go owned-runtime capture workflow or general displaced-instruction/ABI validator; static word transport alone does not complete this family.",
+      "legacy_scope": "optional_runtime",
+      "scope": "non_additive_probe_facet",
+      "family_id": "probe_orchestration_evidence",
+      "additional_family_credit": 0,
+      "crosswalk": {
+        "milestones": [
+          "03"
+        ],
+        "dependencies": [
+          "01",
+          "02",
+          "04",
+          "05"
+        ],
+        "retain": "Versioned hook/counter preparation, saved/live provenance, displaced-instruction/ABI gap including duties outside save/reload.",
+        "additional_family_credit": 0
+      }
+    },
+    {
+      "id": "runtime_platform",
+      "title": "Owned runtime platform",
+      "status": "unsupported",
+      "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "source_pointer": "minimum_toolkit_recommendation/owned-runtime-platform",
+          "original_contract": "Keep transport, input backend, capture/inspection and owned lifecycle as clear responsibilities behind a small runtime toolset. Reuse PID/starttime/ISO-guarded cleanup; never adopt app-wide pkill/flatpak kill or shared log truncation from legacy scenarios."
+        }
+      ],
+      "shared_owners": [],
+      "current_code": [],
+      "evidence": [
+        "analysis/reusable-toolkit-plan.json"
+      ],
+      "verified_support": "Ownership-aware Python references are retained.",
+      "remaining_gap": "No verified Go lifecycle, PINE/input transport or capture platform; no credit for retained Python services.",
+      "legacy_scope": "optional_runtime",
+      "scope": "non_additive_probe_facet",
+      "family_id": "probe_orchestration_evidence",
+      "additional_family_credit": 0,
+      "crosswalk": {
+        "milestones": [
+          "01",
+          "03",
+          "04",
+          "05"
+        ],
+        "retain": "Transport, input, capture/inspection, exact owned lifecycle.",
+        "additional_family_credit": 0
+      }
+    },
+    {
+      "id": "runtime_scenarios",
+      "title": "Runtime scenarios and verification",
+      "status": "unsupported",
+      "source_recommendations": [
+        {
+          "source": "analysis/pattern-crawl-assets_runtime_tests.json",
+          "source_pointer": "minimum_toolkit_recommendation/runtime-scenarios-and-contract-verification",
+          "original_contract": "Represent repeated batch verifications as cohort selector + typed read/decoder/comparison + scenario facts atop owned runtime. Preserve separate fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons."
+        }
+      ],
+      "shared_owners": [],
+      "current_code": [],
+      "evidence": [
+        "analysis/reusable-toolkit-plan.json"
+      ],
+      "verified_support": "Historical scenario/test evidence is retained.",
+      "remaining_gap": "No verified shared Go scenario runner for memory/control/visual checks; read-only offline byte proofs do not replace runtime verification.",
+      "legacy_scope": "optional_runtime",
+      "scope": "non_additive_probe_facet",
+      "family_id": "probe_orchestration_evidence",
+      "additional_family_credit": 0,
+      "crosswalk": {
+        "milestones": [
+          "02",
+          "06"
+        ],
+        "dependencies": [
+          "03",
+          "04",
+          "05"
+        ],
+        "retain": "Fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons.",
+        "additional_family_credit": 0
+      }
+    }
+  ],
+  "historical_views": {
+    "accepted808": {
+      "analysis/migration-roadmap.json": {
+        "path": "analysis/migration-roadmap-v1-accepted808.json",
+        "sha256": "6dd58b961a73e6a861ae642c81ee32adada4bc5eb8c5f8dcb802c2d295931a3c"
+      },
+      "analysis/reusability-coverage.json": {
+        "path": "analysis/reusability-coverage-v1-accepted808.json",
+        "sha256": "7ca9a659fa154f2ce679101fe31a95da8afcba52a779dce36772d74f92d2bb81"
+      },
+      "analysis/reusability-coverage.md": {
+        "path": "analysis/reusability-coverage-v1-accepted808.md",
+        "sha256": "17529c96587cb9624bce19620f362e207f46214f1f25082ee922fb090f178753"
+      },
+      "evidence/reusability-coverage-checks.json": {
+        "path": "evidence/reusability-coverage-checks-v1-accepted808.json",
+        "sha256": "b235edeb9e536607bcd5db1b951cf8a747bb7e232830b3510900bb348b2fd1a1"
+      }
+    },
+    "v1_core_counts": {
+      "full": 10,
+      "partial": 4,
+      "unsupported": 0,
+      "total": 14,
+      "full_coverage_percent": 71.43
+    },
+    "v1_expanded_counts": {
+      "full": 10,
+      "partial": 5,
+      "unsupported": 2,
+      "total": 17,
+      "full_coverage_percent": 58.82
+    },
+    "v1_optional_runtime_counts": {
+      "full": 0,
+      "partial": 1,
+      "unsupported": 2,
+      "total": 3,
+      "full_coverage_percent": 0.0
+    },
+    "accepted834": {
+      "analysis/migration-roadmap.json": {
+        "path": "analysis/migration-roadmap-v2-accepted834.json",
+        "sha256": "6d8fd1e2c940078b2e8ec97a85bd221d570409cd3ecdbf3ddc31051c1c9caa8a"
+      },
+      "analysis/reusability-coverage.json": {
+        "path": "analysis/reusability-coverage-v2-accepted834.json",
+        "sha256": "ce1fee5a0900669c0ec5eab7793fcda18324ec169fc5a2a90d69c741407ab41c"
+      },
+      "analysis/reusability-coverage.md": {
+        "path": "analysis/reusability-coverage-v2-accepted834.md",
+        "sha256": "955a64bafdec58f394650424b2210054c90d4d39efc5661de2a6a50453bdd3c9"
+      },
+      "evidence/reusability-coverage-checks.json": {
+        "path": "evidence/reusability-coverage-checks-v2-accepted834.json",
+        "sha256": "3f338ac615fe98dae2ae07462c5e0e31feab2db3606ad8999cc429b1d17dcb8e"
+      }
+    }
+  }
+}

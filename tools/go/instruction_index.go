@@ -143,6 +143,11 @@ func indexInstructions(data []byte, profile Recipes) (ReferenceReport, error) {
 				condition := "unknown_register_or_coprocessor_condition"
 				switch {
 				case addressForm:
+					if form.Kind == "constructed_address" {
+						row.transfer = &instructionTransfer{kind: "offset", source: rs, destination: rt, displacement: int32(int16(word))}
+					} else {
+						row.memory = &instructionMemory{kind: form.Kind, bank: form.ValueBank, base: rs, value: rt, width: form.Width, displacement: int32(int16(word)), merge: form.Merge}
+					}
 					effects.GPRReads = append(effects.GPRReads, rs)
 					role := "read"
 					if form.Kind == "load" || form.Kind == "constructed_address" {
@@ -171,16 +176,43 @@ func indexInstructions(data []byte, profile Recipes) (ReferenceReport, error) {
 				case op == 0x0d || op == 0x0f && rs == 0:
 					if op == 0x0d {
 						effects.GPRReads = append(effects.GPRReads, rs)
+						if word&0xffff == 0 {
+							row.transfer = &instructionTransfer{kind: "copy", source: rs, destination: rt}
+						}
 					}
 					effects.GPRMayWrite = append(effects.GPRMayWrite, rt)
 					effects.GPRMustWrite = append(effects.GPRMustWrite, rt)
 				case op == 0:
 					switch {
 					case fn == 0 && rs == 0:
+						if sa == 0 {
+							row.transfer = &instructionTransfer{kind: "copy", source: rt, destination: rd}
+						}
 						effects.GPRReads = append(effects.GPRReads, rt)
 						effects.GPRMayWrite = append(effects.GPRMayWrite, rd)
 						effects.GPRMustWrite = append(effects.GPRMustWrite, rd)
+					case (fn == 0x21 || fn == 0x2d || fn == 0x25) && sa == 0 && (rs == 0 || rt == 0):
+						source := rs
+						if source == 0 {
+							source = rt
+						}
+						row.transfer = &instructionTransfer{kind: "copy", source: source, destination: rd}
+						effects.GPRReads = append(effects.GPRReads, source)
+						effects.GPRMayWrite = append(effects.GPRMayWrite, rd)
+						effects.GPRMustWrite = append(effects.GPRMustWrite, rd)
+					case fn == 0x21 && sa == 0:
+						// ADDU has known operands; two nonzero inputs do not prove a pointer copy.
+						effects.GPRReads = append(effects.GPRReads, rs, rt)
+						effects.GPRMayWrite = append(effects.GPRMayWrite, rd)
+						effects.GPRMustWrite = append(effects.GPRMustWrite, rd)
 					case (fn == 0x0a || fn == 0x0b) && sa == 0:
+						row.transfer = &instructionTransfer{kind: "conditional", source: rs, destination: rd}
+						if rt == 0 {
+							row.transfer.kind = "keep"
+							if fn == 0x0a {
+								row.transfer.kind = "copy"
+							}
+						}
 						effects.GPRReads = append(effects.GPRReads, rs, rt)
 						if rt != 0 {
 							effects.GPRMayWrite = append(effects.GPRMayWrite, rd)

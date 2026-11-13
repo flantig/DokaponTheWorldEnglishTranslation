@@ -1,0 +1,51 @@
+{
+  "kind": "SYNTHETIC_SOURCE_VERSIONED_NAME_POLICY_REPLAY",
+  "purpose": "Express a connected eleven-record naming responsibility as data through existing guarded words, without a patch-specific handler.",
+  "source_basis": {
+    "public_profile": "../rework/audits/ui-fit-2026-10-22.json",
+    "profile_sha256": "60601734d1f22e4455ea8e428d7e8f1b4818926b20f82f6fe5596543fec60b0e",
+    "selected_findings": [
+      "F172",
+      "F173"
+    ],
+    "selected_records": 11,
+    "declared_bytes": 624,
+    "changed_bytes": 161,
+    "literal_oracle": "testdata/name-policy-2026-10-22.json",
+    "literal_oracle_sha256": "e664cc8d18c3bcd20395454a89dda59bbcae8ddec311aa24ca400c31938b2b8e",
+    "qualification": "Exactly the public profile selection, preserving every original field. The profile's full 116-edit ISO target is not the output hash of this subset. Later profile changes and latest-translation parity are excluded."
+  },
+  "owners": {
+    "data": [
+      "recipes/layout/name-policy-2026-10-22-native.json",
+      "recipes/layout/name-policy-2026-10-22-sent.json"
+    ],
+    "planning": "Existing plan guarded_words, Recipe word blocks and validateEdits",
+    "admission": "Existing verifySource and run",
+    "publication": "Existing exclusive patchCopy with complete source and output verification",
+    "tests": "Existing TestCLIDryRunAndApply and TestPilotHistoricalGoldenBytes; no new function or fixture framework"
+  },
+  "synthetic_carrier": {
+    "bytes": 5087232,
+    "fill_byte": 204,
+    "source_sha256": "60abd9dc541db81d8767c419b497fb3328b1ad1a54b7dda1d62ee10abe0c6a17",
+    "output_sha256": "892140086e52a0a0f6193caa3e1fc98c52b4988e3b73a51f2aa4cb5558b6cbe9",
+    "construction": "Transient CC-filled source and complete after-image overlaid directly from independently frozen public literals before Go execution. No native binary is stored in the repository.",
+    "mappings": {
+      "native": "VMA - 0xfff80",
+      "sent": "0x43a000 + VMA - 0x04000000"
+    },
+    "partition": {
+      "native_records": 9,
+      "sent_records": 2
+    },
+    "package_boundary": "One complete source and output pin across both affine tables. A table-alone preview can succeed as an unevaluated pin echo; table-alone apply fails composed output readback. Exact eleven-ID membership is a separate independent package test.",
+    "small_duplication": "The same twelve-byte template appears in two table-local word blocks. Both bind to the single literal oracle; cross-table templating would add an unnecessary mechanism."
+  },
+  "units_and_limits": {
+    "source_controls": "Both outer templates are D005 E83C A000 E864 D7FB F800: source-declared 60%, restore 100%, signed unscaled Y+5/-5. Fallback 56% and Sickle 46% remain distinct.",
+    "lui_guard": "Encoded word 0x3c090008 has immediate 0x0008. No full native pointer or ownership is inferred from that isolated instruction.",
+    "native_boundary": "Literal replay and synthetic complete-byte parity do not prove current-source compatibility, complete ownership, safe landing/capacity, ABI, native units/rounding or physical fit. Real isolated native writes still require two fresh concrete-package reviews, fresh source guards, full readback and containment.",
+    "coverage": "consumer_layout.04 remains held with zero credit; 10/15 Full, 76/90 and probe 0/6 last remain unchanged. No script retirement or reduction credit."
+  }
+}

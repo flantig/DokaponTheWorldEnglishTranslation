@@ -1,0 +1,1160 @@
+{
+  "operation": "guarded_words",
+  "source_sha256": "740226db785953b765dfbb72f1d57e2404cac8ad67b2ac12f42ac13d7671c85d",
+  "source_size": 5087232,
+  "output_sha256": "ecd1c9d6b6c7ddc5a6781d270ed1dbacd96323c2ad79f5c7fb711c4b9be72e2b",
+  "iso_elf_offset": "0x43a000",
+  "elf_vma_delta": "0x4000000",
+  "glyphmap_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "evidence": "Synthetic startup calibration only: testdata/startup-centering-2026-10-01.json. Source-literal OLD, exact source-derived NEW,16 explicitly pinned source states. Not native-original replay, reference admission, live fit or publication authority.",
+  "entries": {
+    "0x4079b00": {
+      "expected_hex": "07b05800390000003f003d002f0000003e0032002f000000540036002b00430057003e002b003e0033003900380032e8000064e80300000851003f0036003e0033003e002b003a001b0000003a0036003f003100000033003e000000330038003e003900000805b04700390038003e003c003900360036002f003c000000540039003c003e000000030007b01c000008530038003600430000003e0032002f000000540036002b00430057003e002b003e0033003900380032e8000064e80300000851003f0036003e0033003e002b003a00000033003d0000003d003f003a003a0039003c003e002f002e001c0000084d0030000000380039003e0000003f003d003300380031000000390038002f001b0000003a003c002f003d003d00000001481c0000f800000000000000000000",
+      "evidence": "0x478d30 whole-padded-slot",
+      "words": [
+        {
+          "hex": "0xb007c024",
+          "assembly": ".short source-approved startup payload/pad at byte 0"
+        },
+        {
+          "hex": "0x00390058",
+          "assembly": ".short source-approved startup payload/pad at byte 4"
+        },
+        {
+          "hex": "0x003f0000",
+          "assembly": ".short source-approved startup payload/pad at byte 8"
+        },
+        {
+          "hex": "0x002f003d",
+          "assembly": ".short source-approved startup payload/pad at byte 12"
+        },
+        {
+          "hex": "0x003e0000",
+          "assembly": ".short source-approved startup payload/pad at byte 16"
+        },
+        {
+          "hex": "0x002f0032",
+          "assembly": ".short source-approved startup payload/pad at byte 20"
+        },
+        {
+          "hex": "0x00540000",
+          "assembly": ".short source-approved startup payload/pad at byte 24"
+        },
+        {
+          "hex": "0x002b0036",
+          "assembly": ".short source-approved startup payload/pad at byte 28"
+        },
+        {
+          "hex": "0x00570043",
+          "assembly": ".short source-approved startup payload/pad at byte 32"
+        },
+        {
+          "hex": "0x002b003e",
+          "assembly": ".short source-approved startup payload/pad at byte 36"
+        },
+        {
+          "hex": "0x0033003e",
+          "assembly": ".short source-approved startup payload/pad at byte 40"
+        },
+        {
+          "hex": "0x00380039",
+          "assembly": ".short source-approved startup payload/pad at byte 44"
+        },
+        {
+          "hex": "0x0003c007",
+          "assembly": ".short source-approved startup payload/pad at byte 48"
+        },
+        {
+          "hex": "0xc0400800",
+          "assembly": ".short source-approved startup payload/pad at byte 52"
+        },
+        {
+          "hex": "0x003f0051",
+          "assembly": ".short source-approved startup payload/pad at byte 56"
+        },
+        {
+          "hex": "0x003e0036",
+          "assembly": ".short source-approved startup payload/pad at byte 60"
+        },
+        {
+          "hex": "0x003e0033",
+          "assembly": ".short source-approved startup payload/pad at byte 64"
+        },
+        {
+          "hex": "0x003a002b",
+          "assembly": ".short source-approved startup payload/pad at byte 68"
+        },
+        {
+          "hex": "0x0000001b",
+          "assembly": ".short source-approved startup payload/pad at byte 72"
+        },
+        {
+          "hex": "0x0036003a",
+          "assembly": ".short source-approved startup payload/pad at byte 76"
+        },
+        {
+          "hex": "0x0031003f",
+          "assembly": ".short source-approved startup payload/pad at byte 80"
+        },
+        {
+          "hex": "0x00330000",
+          "assembly": ".short source-approved startup payload/pad at byte 84"
+        },
+        {
+          "hex": "0x0000003e",
+          "assembly": ".short source-approved startup payload/pad at byte 88"
+        },
+        {
+          "hex": "0x00380033",
+          "assembly": ".short source-approved startup payload/pad at byte 92"
+        },
+        {
+          "hex": "0x0039003e",
+          "assembly": ".short source-approved startup payload/pad at byte 96"
+        },
+        {
+          "hex": "0xc05a0800",
+          "assembly": ".short source-approved startup payload/pad at byte 100"
+        },
+        {
+          "hex": "0x0047b005",
+          "assembly": ".short source-approved startup payload/pad at byte 104"
+        },
+        {
+          "hex": "0x00380039",
+          "assembly": ".short source-approved startup payload/pad at byte 108"
+        },
+        {
+          "hex": "0x003c003e",
+          "assembly": ".short source-approved startup payload/pad at byte 112"
+        },
+        {
+          "hex": "0x00360039",
+          "assembly": ".short source-approved startup payload/pad at byte 116"
+        },
+        {
+          "hex": "0x002f0036",
+          "assembly": ".short source-approved startup payload/pad at byte 120"
+        },
+        {
+          "hex": "0x0000003c",
+          "assembly": ".short source-approved startup payload/pad at byte 124"
+        },
+        {
+          "hex": "0x00390054",
+          "assembly": ".short source-approved startup payload/pad at byte 128"
+        },
+        {
+          "hex": "0x003e003c",
+          "assembly": ".short source-approved startup payload/pad at byte 132"
+        },
+        {
+          "hex": "0x00030000",
+          "assembly": ".short source-approved startup payload/pad at byte 136"
+        },
+        {
+          "hex": "0x001cb007",
+          "assembly": ".short source-approved startup payload/pad at byte 140"
+        },
+        {
+          "hex": "0xc0360800",
+          "assembly": ".short source-approved startup payload/pad at byte 144"
+        },
+        {
+          "hex": "0x00380053",
+          "assembly": ".short source-approved startup payload/pad at byte 148"
+        },
+        {
+          "hex": "0x00430036",
+          "assembly": ".short source-approved startup payload/pad at byte 152"
+        },
+        {
+          "hex": "0x003e0000",
+          "assembly": ".short source-approved startup payload/pad at byte 156"
+        },
+        {
+          "hex": "0x002f0032",
+          "assembly": ".short source-approved startup payload/pad at byte 160"
+        },
+        {
+          "hex": "0x00540000",
+          "assembly": ".short source-approved startup payload/pad at byte 164"
+        },
+        {
+          "hex": "0x002b0036",
+          "assembly": ".short source-approved startup payload/pad at byte 168"
+        },
+        {
+          "hex": "0x00570043",
+          "assembly": ".short source-approved startup payload/pad at byte 172"
+        },
+        {
+          "hex": "0x002b003e",
+          "assembly": ".short source-approved startup payload/pad at byte 176"
+        },
+        {
+          "hex": "0x0033003e",
+          "assembly": ".short source-approved startup payload/pad at byte 180"
+        },
+        {
+          "hex": "0x00380039",
+          "assembly": ".short source-approved startup payload/pad at byte 184"
+        },
+        {
+          "hex": "0x0000e832",
+          "assembly": ".short source-approved startup payload/pad at byte 188"
+        },
+        {
+          "hex": "0x0003e864",
+          "assembly": ".short source-approved startup payload/pad at byte 192"
+        },
+        {
+          "hex": "0xc0380800",
+          "assembly": ".short source-approved startup payload/pad at byte 196"
+        },
+        {
+          "hex": "0x003f0051",
+          "assembly": ".short source-approved startup payload/pad at byte 200"
+        },
+        {
+          "hex": "0x003e0036",
+          "assembly": ".short source-approved startup payload/pad at byte 204"
+        },
+        {
+          "hex": "0x003e0033",
+          "assembly": ".short source-approved startup payload/pad at byte 208"
+        },
+        {
+          "hex": "0x003a002b",
+          "assembly": ".short source-approved startup payload/pad at byte 212"
+        },
+        {
+          "hex": "0x00330000",
+          "assembly": ".short source-approved startup payload/pad at byte 216"
+        },
+        {
+          "hex": "0x0000003d",
+          "assembly": ".short source-approved startup payload/pad at byte 220"
+        },
+        {
+          "hex": "0x003f003d",
+          "assembly": ".short source-approved startup payload/pad at byte 224"
+        },
+        {
+          "hex": "0x003a003a",
+          "assembly": ".short source-approved startup payload/pad at byte 228"
+        },
+        {
+          "hex": "0x003c0039",
+          "assembly": ".short source-approved startup payload/pad at byte 232"
+        },
+        {
+          "hex": "0x002f003e",
+          "assembly": ".short source-approved startup payload/pad at byte 236"
+        },
+        {
+          "hex": "0x001c002e",
+          "assembly": ".short source-approved startup payload/pad at byte 240"
+        },
+        {
+          "hex": "0xc0180800",
+          "assembly": ".short source-approved startup payload/pad at byte 244"
+        },
+        {
+          "hex": "0x0030004d",
+          "assembly": ".short source-approved startup payload/pad at byte 248"
+        },
+        {
+          "hex": "0x00380000",
+          "assembly": ".short source-approved startup payload/pad at byte 252"
+        },
+        {
+          "hex": "0x003e0039",
+          "assembly": ".short source-approved startup payload/pad at byte 256"
+        },
+        {
+          "hex": "0x003f0000",
+          "assembly": ".short source-approved startup payload/pad at byte 260"
+        },
+        {
+          "hex": "0x0033003d",
+          "assembly": ".short source-approved startup payload/pad at byte 264"
+        },
+        {
+          "hex": "0x00310038",
+          "assembly": ".short source-approved startup payload/pad at byte 268"
+        },
+        {
+          "hex": "0x00390000",
+          "assembly": ".short source-approved startup payload/pad at byte 272"
+        },
+        {
+          "hex": "0x002f0038",
+          "assembly": ".short source-approved startup payload/pad at byte 276"
+        },
+        {
+          "hex": "0x0000001b",
+          "assembly": ".short source-approved startup payload/pad at byte 280"
+        },
+        {
+          "hex": "0x003c003a",
+          "assembly": ".short source-approved startup payload/pad at byte 284"
+        },
+        {
+          "hex": "0x003d002f",
+          "assembly": ".short source-approved startup payload/pad at byte 288"
+        },
+        {
+          "hex": "0x0000003d",
+          "assembly": ".short source-approved startup payload/pad at byte 292"
+        },
+        {
+          "hex": "0x001c4801",
+          "assembly": ".short source-approved startup payload/pad at byte 296"
+        },
+        {
+          "hex": "0x0000f800",
+          "assembly": ".short source-approved startup payload/pad at byte 300"
+        }
+      ]
+    },
+    "0x403be94": {
+      "expected_hex": "07b0470032002f002d00350033003800310000003e0032002f00000037002f00370039003c00430007b000082d002b003c002e0000002100540057000300220000003300380000003d00360039003e00000002001c0007b00010480039000000380039003e0000003c002f003700390040002f0000003e0032002f00000837002f00370039003c00430000002d002b003c002e000000210054005700030022001c0000f8",
+      "evidence": "0x488780 whole-padded-slot",
+      "words": [
+        {
+          "hex": "0x0047b007",
+          "assembly": ".short source-approved startup payload/pad at byte 0"
+        },
+        {
+          "hex": "0x002f0032",
+          "assembly": ".short source-approved startup payload/pad at byte 4"
+        },
+        {
+          "hex": "0x0035002d",
+          "assembly": ".short source-approved startup payload/pad at byte 8"
+        },
+        {
+          "hex": "0x00380033",
+          "assembly": ".short source-approved startup payload/pad at byte 12"
+        },
+        {
+          "hex": "0x00000031",
+          "assembly": ".short source-approved startup payload/pad at byte 16"
+        },
+        {
+          "hex": "0x0032003e",
+          "assembly": ".short source-approved startup payload/pad at byte 20"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 24"
+        },
+        {
+          "hex": "0x002f0037",
+          "assembly": ".short source-approved startup payload/pad at byte 28"
+        },
+        {
+          "hex": "0x00390037",
+          "assembly": ".short source-approved startup payload/pad at byte 32"
+        },
+        {
+          "hex": "0x0043003c",
+          "assembly": ".short source-approved startup payload/pad at byte 36"
+        },
+        {
+          "hex": "0xc00e0800",
+          "assembly": ".short source-approved startup payload/pad at byte 40"
+        },
+        {
+          "hex": "0x002b002d",
+          "assembly": ".short source-approved startup payload/pad at byte 44"
+        },
+        {
+          "hex": "0x002e003c",
+          "assembly": ".short source-approved startup payload/pad at byte 48"
+        },
+        {
+          "hex": "0x00210000",
+          "assembly": ".short source-approved startup payload/pad at byte 52"
+        },
+        {
+          "hex": "0x00570054",
+          "assembly": ".short source-approved startup payload/pad at byte 56"
+        },
+        {
+          "hex": "0x00220003",
+          "assembly": ".short source-approved startup payload/pad at byte 60"
+        },
+        {
+          "hex": "0x00330000",
+          "assembly": ".short source-approved startup payload/pad at byte 64"
+        },
+        {
+          "hex": "0x00000038",
+          "assembly": ".short source-approved startup payload/pad at byte 68"
+        },
+        {
+          "hex": "0x0036003d",
+          "assembly": ".short source-approved startup payload/pad at byte 72"
+        },
+        {
+          "hex": "0x003e0039",
+          "assembly": ".short source-approved startup payload/pad at byte 76"
+        },
+        {
+          "hex": "0x00020000",
+          "assembly": ".short source-approved startup payload/pad at byte 80"
+        },
+        {
+          "hex": "0x1000001c",
+          "assembly": ".short source-approved startup payload/pad at byte 84"
+        },
+        {
+          "hex": "0x00390048",
+          "assembly": ".short source-approved startup payload/pad at byte 88"
+        },
+        {
+          "hex": "0x00380000",
+          "assembly": ".short source-approved startup payload/pad at byte 92"
+        },
+        {
+          "hex": "0x003e0039",
+          "assembly": ".short source-approved startup payload/pad at byte 96"
+        },
+        {
+          "hex": "0x003c0000",
+          "assembly": ".short source-approved startup payload/pad at byte 100"
+        },
+        {
+          "hex": "0x0037002f",
+          "assembly": ".short source-approved startup payload/pad at byte 104"
+        },
+        {
+          "hex": "0x00400039",
+          "assembly": ".short source-approved startup payload/pad at byte 108"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 112"
+        },
+        {
+          "hex": "0x0032003e",
+          "assembly": ".short source-approved startup payload/pad at byte 116"
+        },
+        {
+          "hex": "0x0800002f",
+          "assembly": ".short source-approved startup payload/pad at byte 120"
+        },
+        {
+          "hex": "0x0037c00e",
+          "assembly": ".short source-approved startup payload/pad at byte 124"
+        },
+        {
+          "hex": "0x0037002f",
+          "assembly": ".short source-approved startup payload/pad at byte 128"
+        },
+        {
+          "hex": "0x003c0039",
+          "assembly": ".short source-approved startup payload/pad at byte 132"
+        },
+        {
+          "hex": "0x00000043",
+          "assembly": ".short source-approved startup payload/pad at byte 136"
+        },
+        {
+          "hex": "0x002b002d",
+          "assembly": ".short source-approved startup payload/pad at byte 140"
+        },
+        {
+          "hex": "0x002e003c",
+          "assembly": ".short source-approved startup payload/pad at byte 144"
+        },
+        {
+          "hex": "0x00210000",
+          "assembly": ".short source-approved startup payload/pad at byte 148"
+        },
+        {
+          "hex": "0x00570054",
+          "assembly": ".short source-approved startup payload/pad at byte 152"
+        },
+        {
+          "hex": "0x00220003",
+          "assembly": ".short source-approved startup payload/pad at byte 156"
+        },
+        {
+          "hex": "0xf800001c",
+          "assembly": ".short source-approved startup payload/pad at byte 160"
+        }
+      ]
+    },
+    "0x40424d0": {
+      "expected_hex": "07b052003900000037002f00370039003c00430000002d002b003c002e00000021005400570003002200000833003d000000330038003d002f003c003e002f002e00000807b03300380000003d00360039003e00000002001c00000057002b00400033003800310000002e002b003e002b000010300039003c00000807b00d004800390035002b003a003900380000003e0032002f0000005b0039003c0036002e000d0000083c002f003b003f0033003c002f003d00001007b02b003e00000036002f002b003d003e00000002704f004600000039003000000030003c002f002f0000083d003a002b002d002f001c00000807b057003e002b003c003e0000003e0032002f00000031002b0037002f0000002b003800430041002b004300170000f80000000000000000000000000000",
+      "evidence": "0x488810 whole-padded-slot",
+      "words": [
+        {
+          "hex": "0xb007c00b",
+          "assembly": ".short source-approved startup payload/pad at byte 0"
+        },
+        {
+          "hex": "0x00390052",
+          "assembly": ".short source-approved startup payload/pad at byte 4"
+        },
+        {
+          "hex": "0x00370000",
+          "assembly": ".short source-approved startup payload/pad at byte 8"
+        },
+        {
+          "hex": "0x0037002f",
+          "assembly": ".short source-approved startup payload/pad at byte 12"
+        },
+        {
+          "hex": "0x003c0039",
+          "assembly": ".short source-approved startup payload/pad at byte 16"
+        },
+        {
+          "hex": "0x00000043",
+          "assembly": ".short source-approved startup payload/pad at byte 20"
+        },
+        {
+          "hex": "0x002b002d",
+          "assembly": ".short source-approved startup payload/pad at byte 24"
+        },
+        {
+          "hex": "0x002e003c",
+          "assembly": ".short source-approved startup payload/pad at byte 28"
+        },
+        {
+          "hex": "0x00210000",
+          "assembly": ".short source-approved startup payload/pad at byte 32"
+        },
+        {
+          "hex": "0x00570054",
+          "assembly": ".short source-approved startup payload/pad at byte 36"
+        },
+        {
+          "hex": "0x00220003",
+          "assembly": ".short source-approved startup payload/pad at byte 40"
+        },
+        {
+          "hex": "0x00330800",
+          "assembly": ".short source-approved startup payload/pad at byte 44"
+        },
+        {
+          "hex": "0x0000003d",
+          "assembly": ".short source-approved startup payload/pad at byte 48"
+        },
+        {
+          "hex": "0x00380033",
+          "assembly": ".short source-approved startup payload/pad at byte 52"
+        },
+        {
+          "hex": "0x002f003d",
+          "assembly": ".short source-approved startup payload/pad at byte 56"
+        },
+        {
+          "hex": "0x003e003c",
+          "assembly": ".short source-approved startup payload/pad at byte 60"
+        },
+        {
+          "hex": "0x002e002f",
+          "assembly": ".short source-approved startup payload/pad at byte 64"
+        },
+        {
+          "hex": "0xb0070800",
+          "assembly": ".short source-approved startup payload/pad at byte 68"
+        },
+        {
+          "hex": "0x00380033",
+          "assembly": ".short source-approved startup payload/pad at byte 72"
+        },
+        {
+          "hex": "0x003d0000",
+          "assembly": ".short source-approved startup payload/pad at byte 76"
+        },
+        {
+          "hex": "0x00390036",
+          "assembly": ".short source-approved startup payload/pad at byte 80"
+        },
+        {
+          "hex": "0x0000003e",
+          "assembly": ".short source-approved startup payload/pad at byte 84"
+        },
+        {
+          "hex": "0x001c0002",
+          "assembly": ".short source-approved startup payload/pad at byte 88"
+        },
+        {
+          "hex": "0x00570000",
+          "assembly": ".short source-approved startup payload/pad at byte 92"
+        },
+        {
+          "hex": "0x0040002b",
+          "assembly": ".short source-approved startup payload/pad at byte 96"
+        },
+        {
+          "hex": "0x00380033",
+          "assembly": ".short source-approved startup payload/pad at byte 100"
+        },
+        {
+          "hex": "0x00000031",
+          "assembly": ".short source-approved startup payload/pad at byte 104"
+        },
+        {
+          "hex": "0x002b002e",
+          "assembly": ".short source-approved startup payload/pad at byte 108"
+        },
+        {
+          "hex": "0x002b003e",
+          "assembly": ".short source-approved startup payload/pad at byte 112"
+        },
+        {
+          "hex": "0xc0021000",
+          "assembly": ".short source-approved startup payload/pad at byte 116"
+        },
+        {
+          "hex": "0x00390030",
+          "assembly": ".short source-approved startup payload/pad at byte 120"
+        },
+        {
+          "hex": "0x0800003c",
+          "assembly": ".short source-approved startup payload/pad at byte 124"
+        },
+        {
+          "hex": "0xb007c009",
+          "assembly": ".short source-approved startup payload/pad at byte 128"
+        },
+        {
+          "hex": "0x0048000d",
+          "assembly": ".short source-approved startup payload/pad at byte 132"
+        },
+        {
+          "hex": "0x00350039",
+          "assembly": ".short source-approved startup payload/pad at byte 136"
+        },
+        {
+          "hex": "0x003a002b",
+          "assembly": ".short source-approved startup payload/pad at byte 140"
+        },
+        {
+          "hex": "0x00380039",
+          "assembly": ".short source-approved startup payload/pad at byte 144"
+        },
+        {
+          "hex": "0x003e0000",
+          "assembly": ".short source-approved startup payload/pad at byte 148"
+        },
+        {
+          "hex": "0x002f0032",
+          "assembly": ".short source-approved startup payload/pad at byte 152"
+        },
+        {
+          "hex": "0x005b0000",
+          "assembly": ".short source-approved startup payload/pad at byte 156"
+        },
+        {
+          "hex": "0x003c0039",
+          "assembly": ".short source-approved startup payload/pad at byte 160"
+        },
+        {
+          "hex": "0x002e0036",
+          "assembly": ".short source-approved startup payload/pad at byte 164"
+        },
+        {
+          "hex": "0x0800000d",
+          "assembly": ".short source-approved startup payload/pad at byte 168"
+        },
+        {
+          "hex": "0x002f003c",
+          "assembly": ".short source-approved startup payload/pad at byte 172"
+        },
+        {
+          "hex": "0x003f003b",
+          "assembly": ".short source-approved startup payload/pad at byte 176"
+        },
+        {
+          "hex": "0x003c0033",
+          "assembly": ".short source-approved startup payload/pad at byte 180"
+        },
+        {
+          "hex": "0x003d002f",
+          "assembly": ".short source-approved startup payload/pad at byte 184"
+        },
+        {
+          "hex": "0xb0071000",
+          "assembly": ".short source-approved startup payload/pad at byte 188"
+        },
+        {
+          "hex": "0x003e002b",
+          "assembly": ".short source-approved startup payload/pad at byte 192"
+        },
+        {
+          "hex": "0x00360000",
+          "assembly": ".short source-approved startup payload/pad at byte 196"
+        },
+        {
+          "hex": "0x002b002f",
+          "assembly": ".short source-approved startup payload/pad at byte 200"
+        },
+        {
+          "hex": "0x003e003d",
+          "assembly": ".short source-approved startup payload/pad at byte 204"
+        },
+        {
+          "hex": "0x70020000",
+          "assembly": ".short source-approved startup payload/pad at byte 208"
+        },
+        {
+          "hex": "0x0046004f",
+          "assembly": ".short source-approved startup payload/pad at byte 212"
+        },
+        {
+          "hex": "0x00390000",
+          "assembly": ".short source-approved startup payload/pad at byte 216"
+        },
+        {
+          "hex": "0x00000030",
+          "assembly": ".short source-approved startup payload/pad at byte 220"
+        },
+        {
+          "hex": "0x003c0030",
+          "assembly": ".short source-approved startup payload/pad at byte 224"
+        },
+        {
+          "hex": "0x002f002f",
+          "assembly": ".short source-approved startup payload/pad at byte 228"
+        },
+        {
+          "hex": "0xc00e0800",
+          "assembly": ".short source-approved startup payload/pad at byte 232"
+        },
+        {
+          "hex": "0x003a003d",
+          "assembly": ".short source-approved startup payload/pad at byte 236"
+        },
+        {
+          "hex": "0x002d002b",
+          "assembly": ".short source-approved startup payload/pad at byte 240"
+        },
+        {
+          "hex": "0x001c002f",
+          "assembly": ".short source-approved startup payload/pad at byte 244"
+        },
+        {
+          "hex": "0xb0070800",
+          "assembly": ".short source-approved startup payload/pad at byte 248"
+        },
+        {
+          "hex": "0x003e0057",
+          "assembly": ".short source-approved startup payload/pad at byte 252"
+        },
+        {
+          "hex": "0x003c002b",
+          "assembly": ".short source-approved startup payload/pad at byte 256"
+        },
+        {
+          "hex": "0x0000003e",
+          "assembly": ".short source-approved startup payload/pad at byte 260"
+        },
+        {
+          "hex": "0x0032003e",
+          "assembly": ".short source-approved startup payload/pad at byte 264"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 268"
+        },
+        {
+          "hex": "0x002b0031",
+          "assembly": ".short source-approved startup payload/pad at byte 272"
+        },
+        {
+          "hex": "0x002f0037",
+          "assembly": ".short source-approved startup payload/pad at byte 276"
+        },
+        {
+          "hex": "0x002b0000",
+          "assembly": ".short source-approved startup payload/pad at byte 280"
+        },
+        {
+          "hex": "0x00430038",
+          "assembly": ".short source-approved startup payload/pad at byte 284"
+        },
+        {
+          "hex": "0x002b0041",
+          "assembly": ".short source-approved startup payload/pad at byte 288"
+        },
+        {
+          "hex": "0x00170043",
+          "assembly": ".short source-approved startup payload/pad at byte 292"
+        },
+        {
+          "hex": "0x0000f800",
+          "assembly": ".short source-approved startup payload/pad at byte 296"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".short source-approved startup payload/pad at byte 300"
+        }
+      ]
+    },
+    "0x4042600": {
+      "expected_hex": "07b0580032002f00000037002f00370039003c00430000002d002b003c002e000000210054005700030022000008330038003d002f003c003e002f002e0000003300380000003d00360039003e0000000200000807b02e0039002f003d0038006d043e00000032002b0040002f0000002f00380039003f0031003200001030003c002f002f0000003d003a002b002d002f001c00000807b057002b00400033003800310000002e002b003e002b000000300039003c0000080d004800390035002b003a003900380000003e0032002f0000005b0039003c0036002e000d00001007b03c002f003b003f0033003c002f003d0000002b003e00000036002f002b003d003e00000002704f004600000839003000000030003c002f002f0000003d003a002b002d002f001c00000807b057003e002b003c003e0000003e0032002f00000031002b0037002f0000002b003800430041002b004300170000f800000000",
+      "evidence": "0x4888e0 whole-padded-slot",
+      "words": [
+        {
+          "hex": "0xb007c00b",
+          "assembly": ".short source-approved startup payload/pad at byte 0"
+        },
+        {
+          "hex": "0x00320058",
+          "assembly": ".short source-approved startup payload/pad at byte 4"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 8"
+        },
+        {
+          "hex": "0x002f0037",
+          "assembly": ".short source-approved startup payload/pad at byte 12"
+        },
+        {
+          "hex": "0x00390037",
+          "assembly": ".short source-approved startup payload/pad at byte 16"
+        },
+        {
+          "hex": "0x0043003c",
+          "assembly": ".short source-approved startup payload/pad at byte 20"
+        },
+        {
+          "hex": "0x002d0000",
+          "assembly": ".short source-approved startup payload/pad at byte 24"
+        },
+        {
+          "hex": "0x003c002b",
+          "assembly": ".short source-approved startup payload/pad at byte 28"
+        },
+        {
+          "hex": "0x0000002e",
+          "assembly": ".short source-approved startup payload/pad at byte 32"
+        },
+        {
+          "hex": "0x00540021",
+          "assembly": ".short source-approved startup payload/pad at byte 36"
+        },
+        {
+          "hex": "0x00030057",
+          "assembly": ".short source-approved startup payload/pad at byte 40"
+        },
+        {
+          "hex": "0x08000022",
+          "assembly": ".short source-approved startup payload/pad at byte 44"
+        },
+        {
+          "hex": "0x0033c003",
+          "assembly": ".short source-approved startup payload/pad at byte 48"
+        },
+        {
+          "hex": "0x003d0038",
+          "assembly": ".short source-approved startup payload/pad at byte 52"
+        },
+        {
+          "hex": "0x003c002f",
+          "assembly": ".short source-approved startup payload/pad at byte 56"
+        },
+        {
+          "hex": "0x002f003e",
+          "assembly": ".short source-approved startup payload/pad at byte 60"
+        },
+        {
+          "hex": "0x0000002e",
+          "assembly": ".short source-approved startup payload/pad at byte 64"
+        },
+        {
+          "hex": "0x00380033",
+          "assembly": ".short source-approved startup payload/pad at byte 68"
+        },
+        {
+          "hex": "0x003d0000",
+          "assembly": ".short source-approved startup payload/pad at byte 72"
+        },
+        {
+          "hex": "0x00390036",
+          "assembly": ".short source-approved startup payload/pad at byte 76"
+        },
+        {
+          "hex": "0x0000003e",
+          "assembly": ".short source-approved startup payload/pad at byte 80"
+        },
+        {
+          "hex": "0x08000002",
+          "assembly": ".short source-approved startup payload/pad at byte 84"
+        },
+        {
+          "hex": "0x0039002e",
+          "assembly": ".short source-approved startup payload/pad at byte 88"
+        },
+        {
+          "hex": "0x003d002f",
+          "assembly": ".short source-approved startup payload/pad at byte 92"
+        },
+        {
+          "hex": "0x046d0038",
+          "assembly": ".short source-approved startup payload/pad at byte 96"
+        },
+        {
+          "hex": "0x0000003e",
+          "assembly": ".short source-approved startup payload/pad at byte 100"
+        },
+        {
+          "hex": "0x002b0032",
+          "assembly": ".short source-approved startup payload/pad at byte 104"
+        },
+        {
+          "hex": "0x002f0040",
+          "assembly": ".short source-approved startup payload/pad at byte 108"
+        },
+        {
+          "hex": "0x002f0000",
+          "assembly": ".short source-approved startup payload/pad at byte 112"
+        },
+        {
+          "hex": "0x00390038",
+          "assembly": ".short source-approved startup payload/pad at byte 116"
+        },
+        {
+          "hex": "0x0031003f",
+          "assembly": ".short source-approved startup payload/pad at byte 120"
+        },
+        {
+          "hex": "0x10000032",
+          "assembly": ".short source-approved startup payload/pad at byte 124"
+        },
+        {
+          "hex": "0x0030c00e",
+          "assembly": ".short source-approved startup payload/pad at byte 128"
+        },
+        {
+          "hex": "0x002f003c",
+          "assembly": ".short source-approved startup payload/pad at byte 132"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 136"
+        },
+        {
+          "hex": "0x003a003d",
+          "assembly": ".short source-approved startup payload/pad at byte 140"
+        },
+        {
+          "hex": "0x002d002b",
+          "assembly": ".short source-approved startup payload/pad at byte 144"
+        },
+        {
+          "hex": "0x001c002f",
+          "assembly": ".short source-approved startup payload/pad at byte 148"
+        },
+        {
+          "hex": "0xc0020800",
+          "assembly": ".short source-approved startup payload/pad at byte 152"
+        },
+        {
+          "hex": "0x002b0057",
+          "assembly": ".short source-approved startup payload/pad at byte 156"
+        },
+        {
+          "hex": "0x00330040",
+          "assembly": ".short source-approved startup payload/pad at byte 160"
+        },
+        {
+          "hex": "0x00310038",
+          "assembly": ".short source-approved startup payload/pad at byte 164"
+        },
+        {
+          "hex": "0x002e0000",
+          "assembly": ".short source-approved startup payload/pad at byte 168"
+        },
+        {
+          "hex": "0x003e002b",
+          "assembly": ".short source-approved startup payload/pad at byte 172"
+        },
+        {
+          "hex": "0x0000002b",
+          "assembly": ".short source-approved startup payload/pad at byte 176"
+        },
+        {
+          "hex": "0x00390030",
+          "assembly": ".short source-approved startup payload/pad at byte 180"
+        },
+        {
+          "hex": "0x0800003c",
+          "assembly": ".short source-approved startup payload/pad at byte 184"
+        },
+        {
+          "hex": "0x000dc009",
+          "assembly": ".short source-approved startup payload/pad at byte 188"
+        },
+        {
+          "hex": "0x00390048",
+          "assembly": ".short source-approved startup payload/pad at byte 192"
+        },
+        {
+          "hex": "0x002b0035",
+          "assembly": ".short source-approved startup payload/pad at byte 196"
+        },
+        {
+          "hex": "0x0039003a",
+          "assembly": ".short source-approved startup payload/pad at byte 200"
+        },
+        {
+          "hex": "0x00000038",
+          "assembly": ".short source-approved startup payload/pad at byte 204"
+        },
+        {
+          "hex": "0x0032003e",
+          "assembly": ".short source-approved startup payload/pad at byte 208"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 212"
+        },
+        {
+          "hex": "0x0039005b",
+          "assembly": ".short source-approved startup payload/pad at byte 216"
+        },
+        {
+          "hex": "0x0036003c",
+          "assembly": ".short source-approved startup payload/pad at byte 220"
+        },
+        {
+          "hex": "0x000d002e",
+          "assembly": ".short source-approved startup payload/pad at byte 224"
+        },
+        {
+          "hex": "0x003c1000",
+          "assembly": ".short source-approved startup payload/pad at byte 228"
+        },
+        {
+          "hex": "0x003b002f",
+          "assembly": ".short source-approved startup payload/pad at byte 232"
+        },
+        {
+          "hex": "0x0033003f",
+          "assembly": ".short source-approved startup payload/pad at byte 236"
+        },
+        {
+          "hex": "0x002f003c",
+          "assembly": ".short source-approved startup payload/pad at byte 240"
+        },
+        {
+          "hex": "0x0000003d",
+          "assembly": ".short source-approved startup payload/pad at byte 244"
+        },
+        {
+          "hex": "0x003e002b",
+          "assembly": ".short source-approved startup payload/pad at byte 248"
+        },
+        {
+          "hex": "0x00360000",
+          "assembly": ".short source-approved startup payload/pad at byte 252"
+        },
+        {
+          "hex": "0x002b002f",
+          "assembly": ".short source-approved startup payload/pad at byte 256"
+        },
+        {
+          "hex": "0x003e003d",
+          "assembly": ".short source-approved startup payload/pad at byte 260"
+        },
+        {
+          "hex": "0x70020000",
+          "assembly": ".short source-approved startup payload/pad at byte 264"
+        },
+        {
+          "hex": "0x0046004f",
+          "assembly": ".short source-approved startup payload/pad at byte 268"
+        },
+        {
+          "hex": "0xc00e0800",
+          "assembly": ".short source-approved startup payload/pad at byte 272"
+        },
+        {
+          "hex": "0x00300039",
+          "assembly": ".short source-approved startup payload/pad at byte 276"
+        },
+        {
+          "hex": "0x00300000",
+          "assembly": ".short source-approved startup payload/pad at byte 280"
+        },
+        {
+          "hex": "0x002f003c",
+          "assembly": ".short source-approved startup payload/pad at byte 284"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 288"
+        },
+        {
+          "hex": "0x003a003d",
+          "assembly": ".short source-approved startup payload/pad at byte 292"
+        },
+        {
+          "hex": "0x002d002b",
+          "assembly": ".short source-approved startup payload/pad at byte 296"
+        },
+        {
+          "hex": "0x001c002f",
+          "assembly": ".short source-approved startup payload/pad at byte 300"
+        },
+        {
+          "hex": "0x00570800",
+          "assembly": ".short source-approved startup payload/pad at byte 304"
+        },
+        {
+          "hex": "0x002b003e",
+          "assembly": ".short source-approved startup payload/pad at byte 308"
+        },
+        {
+          "hex": "0x003e003c",
+          "assembly": ".short source-approved startup payload/pad at byte 312"
+        },
+        {
+          "hex": "0x003e0000",
+          "assembly": ".short source-approved startup payload/pad at byte 316"
+        },
+        {
+          "hex": "0x002f0032",
+          "assembly": ".short source-approved startup payload/pad at byte 320"
+        },
+        {
+          "hex": "0x00310000",
+          "assembly": ".short source-approved startup payload/pad at byte 324"
+        },
+        {
+          "hex": "0x0037002b",
+          "assembly": ".short source-approved startup payload/pad at byte 328"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".short source-approved startup payload/pad at byte 332"
+        },
+        {
+          "hex": "0x0038002b",
+          "assembly": ".short source-approved startup payload/pad at byte 336"
+        },
+        {
+          "hex": "0x00410043",
+          "assembly": ".short source-approved startup payload/pad at byte 340"
+        },
+        {
+          "hex": "0x0043002b",
+          "assembly": ".short source-approved startup payload/pad at byte 344"
+        },
+        {
+          "hex": "0xf8000017",
+          "assembly": ".short source-approved startup payload/pad at byte 348"
+        }
+      ]
+    }
+  }
+}

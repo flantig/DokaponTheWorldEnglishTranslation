@@ -2,14 +2,13 @@
 
 [Open the standalone visual diagram](ARCHITECTURE.html) (offline HTML with embedded SVG).
 
-This is one `package main` CLI with scoped operations in all14 core areas.
-That is availability, not complete historical coverage: six of14 family
-contracts are fully verified. The [historical ledger](evidence/go-coverage.json)
-records8 full Go paths,20 reviewed historical dispositions,16 partial paths and
-366 outstanding out of410. See [the14-area owner map](analysis/reusability-coverage.md)
-for current extension points and explicit limits. The
-[integrated checkpoint](evidence/registry-owner-proof.json) passes the full Go
-race suite, build, vet and scoped checks; it is not a gameplay or new ISO proof.
+The current [v3 coverage](analysis/reusability-coverage.md) is **10/15 fully verified core families (66.67%)**, with five Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 76 proven (84.44%)**, six per family. Probe orchestration and evidence is Partial with **0/6** groups proven in Go. These are unweighted capability/checklist counts, not code reuse, effort, time or script migration percentages.
+
+The original14 authoring families retain their scoped usable operations. The new full probe workflow has no verified Go orchestration owner. Existing Python remains the sole production owner until identical native acceptance and explicit handover. Starting a story probe, unattended crash/stall detection, bounded recovery, safe stop/resume, preservation and bounded evidence/resource use are required. The probe owner must agree the soak duration, recovery outcomes and budgets before acceptance; earlier three-story tests do not prove unattended acceptance.
+
+The [v1 baseline](analysis/reusability-coverage-baseline.json) remains byte-identical. Its accepted808 views preserve **10/14 Full (71.43%)**, **76/84 (90.48%)** and expanded **10/17 (58.82%)** as history. The original three optional runtime groups are retained as non-additive facets of the one new core family, so v2 introduced 15 unique families, which v3 retains. Native hook/counter/ABI duties and fixed-field, narrative, positional-grid, code/hook/capacity and image-state scenario duties remain in scope. No Go/runtime implementation, new native proof, retirement or capability credit follows from this taxonomy update.
+
+Current priority: native source-grid ink and the remaining current authoring duties. Probe implementation is last; Python retains runtime ownership.
 
 ## Components and contracts
 
@@ -53,6 +52,7 @@ flowchart TD
   Registry --> JSON
   Assets --> Read
   Fit --> Read
+  Fit -->|optional native atlas| Render
   Snapshots --> Read
   Registry --> Publish
   Assets --> Publish
@@ -271,7 +271,10 @@ establish gameplay or full migration.
 
 ## Authoring and artifact operations
 
-`previewFit` reads separate consumer profiles; it does not authorize a write.
+`previewFit` reads separate consumer profiles and optionally a pinned native font
+TXD. `inspect` supplies source bearings, `texture` decodes named atlas pages and
+`controls` shares the existing per-line advance/ink walk. Bounds stay in the
+unscaled source grid; symbolic origins stay unknown. It does not authorize a write.
 `authorTexture` shares calibrated codecs with PNG exports and cell/run/group
 rendering. `composeCells` owns fit groups, approved ink bounds, separate background
 paint and ordered composition; `renderRuns` owns native glyph/style and fixed-size
@@ -467,6 +470,18 @@ delay resolution remain separate terminal paths. Optional register requests go t
 [queryRegisterFlow](register_flow.go), a pure analysis boundary consuming the
 already decoded rows. It builds one bounded context graph per batch and shares
 one worklist loop between before-read definitions and after-execution uses.
+`reads_before_kill` starts at the queried execution and reuses the forward
+worklist; `uses_after` starts at its successors. Empty incomplete results stay
+UNKNOWN, and neither query certifies pointee consumption or hook safety.
+
+[tracePointerConsumers](pointer_flow.go) owns one finite pointer-origin domain.
+The existing graph owner passes its same decoded nodes and execution contexts;
+there is no second CFG or decoder. MAY aliases/spills join by union and exact
+frame addresses survive only matching incoming facts. This state-valued fixed
+point is separate from the single-register search and from report policy.
+`references` joins typed events to shared declared call rules and registry-ID
+seeds. Unknown continuation, reload loss and risk remain separate evidence.
+
 [Register-flow types](register_flow_types.go) keep entry assumptions, requests and
 conditional results together. The scanner retains source/mapping/report ownership;
 no ELF reread, second instruction decoder, call-return framework or patch handler
@@ -488,7 +503,7 @@ computed row diagnostics. The extraction moves one implementation, not deletion.
 [selectRaster](raster_mask.go) now owns bounded pixel-mask construction for current
 erases and original permissions. It compiles finite scalar checks and composes
 OR groups with the source's fixed footprint phases. [transformRasterMask](raster_mask.go)
-shares four-connected binary topology with reconstruction growth and font counters;
+shares bounded binary topology with reconstruction growth and font counters;
 its returned mask never aliases input. Callers retain image choice, global geometry,
 ordering and publication. [Mask types](raster_mask_types.go) keep authored facts and
 compiled comparisons separate. The existing compositor retains one allow/subtract/add
@@ -498,7 +513,9 @@ and closed JSON validation. Source facts live in separate asset-keyed tables.
 
 Component size, foreground seed membership and tag veto share the existing
 transformRasterMask component walk. Four/eight connectivity belongs only to that
-walk; morphology and font counters retain four neighbors. RasterComponentFilter
+walk. Morphology defaults to cross, with one optional square kernel shared by
+closing, core growth, erosion and final growth; hole filling and font counters
+retain four neighbors. RasterComponentFilter
 keeps the related facts together. selectRaster evaluates its main/core/tag roles
 through one predicate loop, with optional SampleRect limiting input selection
 while Rect retains topology/output bounds. The existing authoring validator checks
@@ -555,3 +572,24 @@ The existing admission owner gains the finite full_sweep policy. It checks ten r
 Separate data holds142 original constructor facts, five marker mappings and five complete note replacements. The six historical keeper decisions are represented by current normalized source facts. Legacy raw temporary inputs are absent, so their preselection replay is not claimed. All3186 current batch rows match independently frozen original whole-document expectations. Evolved current wording conflicts refuse historical constructor application.
 
 No production file or function was added. Go grows4488B; code/module/recipe/runtime inputs together grow184978B to233files/2977568B. Tests grow5543B and fixture/configuration inputs64795B separately. This is capability growth, not a reduction. The golden pin verifier now distinguishes exact disjoint profile/resource roles and retains all56 prior hashes. Fullsuite/nativefonts race/gameplay remain deferred.
+
+
+Square morphology reuses the same bounded queue. Erosion discovers its first
+frontier against immutable input using every chosen neighbor, including the false
+crop exterior. Recursive closing forwards the same kernel to both passes. The
+selection owner charges square passes before evaluation; one morphology setting
+never changes hole filling or component connectivity. Asset tables retain the
+source crop and final clipping decisions, including sale protection clipped to
+its own sign after growth across the complete canvas.
+
+The [current-tooling scope amendment](analysis/current-tooling-scope-v3.json) preserves exact accepted-834 history and changes two current obligations without adding Go credit. The [v3 roadmap](analysis/migration-roadmap.md) remains 76/90 proven groups and 10/15 Full families. The next bounded task is source-bound maintenance of the current documented name policy; historical F112 70% is not current, and native replay, ownership and fit remain unproved. Probe work is last.
+
+## Source-bound name cohorts
+
+The shared `reference_cohort` report selects declarative pointer tables, preserves each slot occurrence and measures the first-END stream through existing font and grammar owners. Its explicit historical nominal policy is separate from native advances, source-grid ink and physical fit. An optional source-policy join reuses the instruction index and graph; raw buckets are capped before allocation, and known hazards remain beside UNKNOWN.
+
+Start with the [synthetic runnable example](examples/name-cohort/README.md). The [contract](analysis/name-cohort-contract.json), [proof](evidence/name-cohort-proof.json) and [reviews](evidence/name-cohort-review.json) document the 43 cases, 28 typed refusals, source limits and capability costs. The actual 207-name game census, fixed F112 alias, complete ownership and landing proof remain pending. No new handler, decoder, graph or scale interpreter was added. This is capability growth, not code reduction; coverage remains 10/15 Full and 76/90 proven, and probe work is last.
+
+## Synthetic declarative name-policy replay
+
+The [eleven-record example](examples/name-policy/README.md) exercises existing guarded-word planning and complete synthetic copy readback with no production code change. It preserves source-version boundaries, distinguishes dry-run pin echoes from computed outputs, and grants no native, reduction or migration credit.

@@ -1,0 +1,449 @@
+{
+  "kind": "SOURCE_BOUND_NAME_COHORT_PROOF",
+  "at": "2026-11-13T08:54:15.446353+00:00",
+  "accepted_base": {
+    "manifest": "/var/tmp/dokapon-current-scope-v3-5w005d0z/sealed-final/manifest.json",
+    "sha256": "591fe8aebea24cf7066962aa89669b71d094a8d09da9ae636eb2474a92fb8729"
+  },
+  "operational": {
+    "manifest": "/var/tmp/dokapon-name-cohorts-243u_g64/operational-v2/manifest.json",
+    "sha256": "62417172b05da070c860f421196199ad313c213f94d0023c8e576c745ed39aaa",
+    "files": 52
+  },
+  "contract": "analysis/name-cohort-contract.json",
+  "contract_sha256": "fee1dffb079adda24689bba7d652df5c65abee38cafc4728c881c58aa1528edf",
+  "reviews": "evidence/name-cohort-review.json",
+  "independent_oracles": {
+    "manual_v1": "abf1a1debd436e39b22a23d34af8127726165743fb8d6bf51c996ef447e45df4",
+    "effective_manual_v2": "75b82aea57c6640c208af883c0d4abe394a35ddc3b47ce060675c8ff3b28b5e8",
+    "pre_fix_cap_oracle": "6b6795d1ed0ecefc89a9111ad1563370895b8fd7e590927793ac259fa1e4eadd",
+    "cap_witness": {
+      "at": "2026-11-13T08:40:40.438175+00:00",
+      "status": "CONFIRMED_V1_FAILS_PRE_FIX_OVER_CAP_ORACLE",
+      "source_manifest_sha256": "95152a4bfc5366e881168347077694f5df19c854212d9b499d40fa7eae90d47a",
+      "binary_sha256": "d19b9b0619eadda62d8269e58bc9d6601b9c107841c76b548c726544be7fbe2e",
+      "cap_oracle_sha256": "6b6795d1ed0ecefc89a9111ad1563370895b8fd7e590927793ac259fa1e4eadd",
+      "results": [
+        {
+          "name": "raw-sites-at-cap",
+          "actual": {
+            "raw_sites": 256,
+            "raw_index_status": "within_declared_index",
+            "caller_disposition": "eligible_under_declared_source_policy",
+            "diagnostics": []
+          },
+          "expected_raw_sites": 256,
+          "expected_status": "within_declared_index"
+        },
+        {
+          "name": "raw-sites-over-cap-with-later-hazard",
+          "actual": {
+            "raw_sites": 257,
+            "raw_index_status": "within_declared_index",
+            "caller_disposition": "refuse",
+            "diagnostics": [
+              "raw_pointer_inside_text:0x101d00",
+              "raw_pointer_bucket_mismatch"
+            ]
+          },
+          "expected_raw_sites": 256,
+          "expected_status": "limited"
+        }
+      ],
+      "limits": "Small synthetic258-match witness only; no large-memory stress or protected data."
+    },
+    "independence": "Literal words, measurements and source-policy facts were frozen before candidate code. The source mapping correction preserves all semantic expectations. The cap oracle was frozen before the fix and kills the old binary. No expected semantic values were derived from candidate output."
+  },
+  "executed": {
+    "total_cases": 43,
+    "unique_measurement_inputs": 26,
+    "measurement_labels": 27,
+    "source_bucket_records": 11,
+    "Go_work_limit_holds": 1,
+    "additional_raw_domain_query_word_holds": 3,
+    "cap_boundaries": 2,
+    "typed_refusals": 28,
+    "admission_obligations": 22,
+    "interpretation": "The 22 named admission obligations are bound by concrete negatives or the nominal-success/ownership-hold invariant; they are not 22 additional executed tests. One duplicate truncated-sidecar record shares an execution. Sorted equal-LUI order is explicit Go normalization."
+  },
+  "V1_dated_checks": [
+    {
+      "step": "build-core",
+      "argv": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-name-cohorts-243u_g64/bin/final-core",
+        "."
+      ],
+      "started": "2026-11-13T08:26:20.184824+00:00",
+      "wall_seconds": 0.265,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "vet-core",
+      "argv": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "."
+      ],
+      "started": "2026-11-13T08:26:20.449558+00:00",
+      "wall_seconds": 0.465,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "five-focused-core",
+      "argv": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-count=1",
+        "-timeout=12m",
+        "-run",
+        "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler",
+        "."
+      ],
+      "started": "2026-11-13T08:26:20.914552+00:00",
+      "wall_seconds": 41.344,
+      "exit_code": 0,
+      "log_sha256": "c7c0a61b33b8258bd9e335aa429753a45496f4fbde46b9ebc4a7e9d7e307cef8"
+    },
+    {
+      "step": "native-backend",
+      "argv": [
+        "go",
+        "list",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-f",
+        "{{.CgoFiles}}",
+        "."
+      ],
+      "started": "2026-11-13T08:27:02.259176+00:00",
+      "wall_seconds": 0.032,
+      "exit_code": 0,
+      "log_sha256": "cd5b7b218145a83098f5d17d09a36fbdacfd24327795ce7a83b4f713de5729b9"
+    },
+    {
+      "step": "build-nativefonts",
+      "argv": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-name-cohorts-243u_g64/bin/final-nativefonts",
+        "."
+      ],
+      "started": "2026-11-13T08:27:02.291620+00:00",
+      "wall_seconds": 2.769,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "vet-nativefonts",
+      "argv": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "."
+      ],
+      "started": "2026-11-13T08:27:05.060807+00:00",
+      "wall_seconds": 0.916,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "five-focused-nativefonts",
+      "argv": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-count=1",
+        "-timeout=12m",
+        "-run",
+        "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler",
+        "."
+      ],
+      "started": "2026-11-13T08:27:05.976676+00:00",
+      "wall_seconds": 69.644,
+      "exit_code": 0,
+      "log_sha256": "1e25a35237b3f950143495c5b98084adb59767be6c8e15e50b128fd89b6bd1cc"
+    },
+    {
+      "step": "focused-race-core",
+      "argv": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-race",
+        "-count=1",
+        "-timeout=14m",
+        "-run",
+        "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes",
+        "."
+      ],
+      "started": "2026-11-13T08:28:15.620692+00:00",
+      "wall_seconds": 432.925,
+      "exit_code": 0,
+      "log_sha256": "06f97776987a7a9b378ca985e0a0c4927e4dc94a7c445ed456a5401089abb4d4"
+    }
+  ],
+  "V1_hygiene": {
+    "gofmt_all50": true,
+    "scoped_credentials_positive_selfchecked": true,
+    "scoped_whitespace": true,
+    "frozen52_unchanged": true,
+    "deferred": [
+      "full suite",
+      "nativefonts race",
+      "gameplay"
+    ]
+  },
+  "final_V2_affected_checks": [
+    {
+      "step": "build-core",
+      "argv": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-o",
+        "/var/tmp/dokapon-name-cohorts-243u_g64/bin/final-core-v2",
+        "."
+      ],
+      "started": "2026-11-13T08:43:51.241343+00:00",
+      "wall_seconds": 1.868,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "vet-core",
+      "argv": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "."
+      ],
+      "started": "2026-11-13T08:43:53.109180+00:00",
+      "wall_seconds": 0.465,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "affected-CLI",
+      "argv": [
+        "go",
+        "test",
+        "-p",
+        "2",
+        "-count=1",
+        "-timeout=12m",
+        "-run",
+        "^TestCLIDryRunAndApply$",
+        "."
+      ],
+      "started": "2026-11-13T08:43:53.574522+00:00",
+      "wall_seconds": 46.701,
+      "exit_code": 0,
+      "log_sha256": "cf7c007168f20f8d376b2a0048c64fe5b8fcdf3e19b06119ec099a62489acad7"
+    },
+    {
+      "step": "build-nativefonts",
+      "argv": [
+        "go",
+        "build",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "-o",
+        "/var/tmp/dokapon-name-cohorts-243u_g64/bin/final-nativefonts-v2",
+        "."
+      ],
+      "started": "2026-11-13T08:44:40.276041+00:00",
+      "wall_seconds": 5.826,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "vet-nativefonts",
+      "argv": [
+        "go",
+        "vet",
+        "-p",
+        "2",
+        "-tags",
+        "nativefonts",
+        "."
+      ],
+      "started": "2026-11-13T08:44:46.102692+00:00",
+      "wall_seconds": 0.916,
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "final_V2_hygiene": {
+    "at": "2026-11-13T08:44:47.187674+00:00",
+    "gofmt_all50": true,
+    "scoped_credentials_positive_selfchecked": true,
+    "scoped_whitespace": true,
+    "frozen52_unchanged": true,
+    "executed_cases": 43,
+    "typed_refusals": 28,
+    "V1_evidence": "Separate core/native five-test and focused core CLI/Golden race passes retained on v1. No claim of a final-v2 race rerun.",
+    "deferred": [
+      "full suite",
+      "nativefonts race",
+      "gameplay",
+      "during-analysis mutation"
+    ]
+  },
+  "verification_boundary": "V1 broad core/native focused and core CLI/Golden race checks passed before the narrow resource fix. Final v2 reruns the affected CLI cases, core/native builds/vet and hygiene on unchanged final bytes. No final-v2 race, full-suite, nativefonts race or gameplay rerun is claimed. Existing pinned legacy assertions pass, not blanket byte identity for every historical report.",
+  "first_transport_failure": {
+    "at": "2026-11-13T08:20:49.818100+00:00",
+    "session_id": 40562,
+    "exit_code": 1,
+    "Go_test_seconds": 2.286,
+    "failure": "patch_test.go:3874 independent instruction index fixture unexpected end of JSON input",
+    "cause": "New JSON ZIP member is4750414 bytes and exceeds the existing 4MiB fixture read cap. The member was truncated before the case loop. No new case/refusal result was observed.",
+    "disposition": "Keep the existing 4MiB cap. The large sidecar now uses a bounded zero-prefix transport fact plus its literal tail. Reconstructed bytes and all parsed source/profile/expected facts are exact; no expected semantic values changed.",
+    "new_projection_sha256": "c01a8d2d593116d2c9b80489af90d0cd8e8636509f579a0477345cf17e250f4d",
+    "new_member_bytes": 2653300
+  },
+  "accounting": {
+    "at": "2026-11-13T08:54:15.446353+00:00",
+    "production_delta_bytes": 32963,
+    "runtime_delta_bytes": 47443,
+    "test_delta_bytes": 5842,
+    "fixture_delta_bytes": 39158,
+    "example_inputs": 3,
+    "scope": "Capability growth, not reduction. Runtime includes code, modules, data and runnable example inputs. Test, fixture, documentation and retained private evidence overhead are reported separately."
+  },
+  "accounting_sha256": "eca16b176aa5239a159e9e19ea1bdb4ba4d42562f2568c9c6a09d6ccd513ebd7",
+  "production": {
+    "files": 49,
+    "bytes": 669526,
+    "named_functions": 47,
+    "new_functions": 0,
+    "new_named_types": 0
+  },
+  "example": {
+    "path": "examples/name-cohort/profile.json",
+    "verification": {
+      "at": "2026-11-13T08:55:46.514875+00:00",
+      "status": "PASS_FINAL_V2_SYNTHETIC_EXAMPLE_AND_INPUT_PRESERVATION",
+      "input_files": 3,
+      "input_bytes": 14480,
+      "report_sha256": "7374e65839132ad5dbf106d6e101874ac9fd23c8cb21f28b7d7e8d6ceb0d3784",
+      "units": "Historical nominal pen units, no native fit or patch authority.",
+      "actual_game_census": false
+    },
+    "inputs": {
+      "examples/name-cohort/source.elf": "98908d58ee27b8ce050f03ef29b029ed8a9a6245f9023dc681c91d28692bf5db",
+      "examples/name-cohort/sentinel.bin": "9f4eb6daed128fe0cd23d3ab1bb6f51b5c8846206b40288d77b47920421ab1a5",
+      "examples/name-cohort/profile.json": "0f52aac1d57ac4689f2c3a052bfde8447742d311466f17f72106906c9dd19000"
+    }
+  },
+  "static_diagram": {
+    "at": "2026-11-13T08:57:29.211587+00:00",
+    "kind": "ISOLATED_STATIC_DIAGRAM_TEXT_CHECK",
+    "html_sha256": "8683b76ec216457b63dd05ce6563fcdb3104986337fd3b36868de5d6b2c85d3e",
+    "checks": [
+      {
+        "viewport_width": 1440,
+        "document_width": 1440,
+        "region_client_width": 1078,
+        "region_scroll_width": 1078,
+        "changed_text_bounds": [
+          {
+            "label": "\n                references.go: references\n                candidates / observed / cohort\n                Nominal census + source policy\n                Read-only; UNKNOWN retained\n              ",
+            "fits": true,
+            "rect": {
+              "x": 209.49925231933594,
+              "y": 311.76141357421875,
+              "width": 330.70509338378906,
+              "height": 128.9261474609375
+            },
+            "text": {
+              "x": 227.23455810546875,
+              "y": 325.30267333984375,
+              "width": 254.26565551757812,
+              "height": 93.09161376953125
+            }
+          }
+        ],
+        "keyboard_scroll": null,
+        "screenshot": "/var/tmp/dokapon-name-cohorts-243u_g64/screenshots/cohort-architecture-1440.png",
+        "screenshot_sha256": "cc8f4f96b4103a13f0ebd38142457ef1a24808cfd91929cb78540935a1904a7d"
+      },
+      {
+        "viewport_width": 390,
+        "document_width": 390,
+        "region_client_width": 364,
+        "region_scroll_width": 888,
+        "changed_text_bounds": [
+          {
+            "label": "\n                references.go: references\n                candidates / observed / cohort\n                Nominal census + source policy\n                Read-only; UNKNOWN retained\n              ",
+            "fits": true,
+            "rect": {
+              "x": 33.98694610595703,
+              "y": 378.1549987792969,
+              "width": 274.0300827026367,
+              "height": 106.83126831054688
+            },
+            "text": {
+              "x": 48.68284225463867,
+              "y": 389.2908020019531,
+              "width": 210.51564407348633,
+              "height": 77.07962036132812
+            }
+          }
+        ],
+        "keyboard_scroll": 40,
+        "screenshot": "/var/tmp/dokapon-name-cohorts-243u_g64/screenshots/cohort-architecture-390.png",
+        "screenshot_sha256": "3c246c72476843674c98f8f71139aac65a2225a49b63217340659fe960b50023"
+      }
+    ],
+    "browser_executable": "/home/franklinl/.cache/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-linux64/chrome-headless-shell",
+    "profile": "Fresh owned empty profile, closed and removed. No active user or probe profile, sockets, auth or runtime used.",
+    "new_frontend_behavior": false,
+    "new_framework_or_repository_test_function": false,
+    "visual_inspection": "Screenshots retained for owner visual inspection. The harness explicitly restores horizontal scroll after the mobile keyboard check; Home did not reset that container.",
+    "owner_visual_inspection": "Desktop and mobile screenshots were inspected. Changed reference labels fit their rectangle; mobile uses the existing keyboard-scrollable region without page overflow."
+  },
+  "limits": [
+    "During-analysis mutation remains source-reviewed and unexecuted.",
+    "The synthetic 207-occurrence case is not the actual current game census.",
+    "No actual canonical registry, whole-program Refs.find parity, alias write, landing/capacity, native FPU or physical fit proof.",
+    "consumer_layout.04 remains held and zero credit; full families stay 10/15 and proven milestones 76/90. Probe remains last.",
+    "No real ISO, game/probe action, canonical write or public push."
+  ],
+  "metadata_review": {
+    "manifest_sha256": "0053f7f05db77170c8b88f65a53fba3548e47b84195b634054dea37efe9109fd",
+    "report_sha256": "1db58a2cd08a78cdf368ad658397c20c4ad4431f91ee19a2087dd8d7b7ba634d",
+    "reviewed_metadata_manifest_sha256": "255b9b29e8811eff6bdcab8a5a5be0fed31419d13392e74aa8576f64d7b0f63e",
+    "disposition": "No unresolved findings",
+    "authority": "Independent reviewers supplied findings, not approval. The implementation owner ran the recorded checks.",
+    "finalization_delta": "Attach the final metadata review to evidence/name-cohort-review.json, record its disposition in evidence/name-cohort-proof.json, and refresh only those review/proof/current coverage/checks hash links. Contract, example, documentation, diagram, accounting, requirements, statuses, credits and all52 operational bytes remain frozen."
+  }
+}

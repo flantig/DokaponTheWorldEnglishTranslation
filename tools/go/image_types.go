@@ -15,6 +15,7 @@ type Inspection struct {
 	BlobOffset     int64
 	Capacity       int64
 	Advances       map[uint16]int
+	GlyphMetrics   map[uint16][3]byte // Raw source bearings and nominal ink width, before advance collapse.
 	PointerRanges  [][2]uint64
 	LandingRanges  [][2]uint64
 	MetadataRanges [][2]uint64

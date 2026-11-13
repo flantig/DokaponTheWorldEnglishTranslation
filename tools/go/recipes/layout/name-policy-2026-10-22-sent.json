@@ -1,0 +1,257 @@
+{
+  "operation": "guarded_words",
+  "source_sha256": "60abd9dc541db81d8767c419b497fb3328b1ad1a54b7dda1d62ee10abe0c6a17",
+  "source_size": 5087232,
+  "output_sha256": "892140086e52a0a0f6193caa3e1fc98c52b4988e3b73a51f2aa4cb5558b6cbe9",
+  "iso_elf_offset": "0x43a000",
+  "elf_vma_delta": "0x4000000",
+  "glyphmap_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "evidence": "Synthetic carrier only. Exact October22 F172/F173 byte subset from public profile60601734. All eleven records across both tables are required by the complete synthetic output pin; standalone dry runs do not prove completeness. No native ownership, landing, fit, full116-edit or latest-translation claim.",
+  "word_blocks": {
+    "name_template": {
+      "words": [
+        {
+          "hex": "0xe83cd005",
+          "assembly": ".short Y+5, SCALE60"
+        },
+        {
+          "hex": "0xe864a000",
+          "assembly": ".short NAME_ARG, SCALE100"
+        },
+        {
+          "hex": "0xf800d7fb",
+          "assembly": ".short Y-5, END"
+        }
+      ]
+    }
+  },
+  "entries": {
+    "0x408afe0": {
+      "expected_hex": "04d046e800a064e8fcd700f8",
+      "evidence": "F172: Full name60%; paired +5/-5 Y compensation keeps net baseline shift zero and restores100%.",
+      "use": "name_template"
+    },
+    "0x408b6c0": {
+      "expected_hex": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "evidence": "F173: Replace shortening aliases with four full-wording scale-only shop names; Sickle uses spaces rather than a built-in line break.",
+      "words": [
+        {
+          "hex": "0x0402da64",
+          "assembly": ".word F173 format/map data at byte 0"
+        },
+        {
+          "hex": "0x0408b6e4",
+          "assembly": ".word F173 format/map data at byte 4"
+        },
+        {
+          "hex": "0x0402dba0",
+          "assembly": ".word F173 format/map data at byte 8"
+        },
+        {
+          "hex": "0x0408b708",
+          "assembly": ".word F173 format/map data at byte 12"
+        },
+        {
+          "hex": "0x0402f088",
+          "assembly": ".word F173 format/map data at byte 16"
+        },
+        {
+          "hex": "0x0408b72c",
+          "assembly": ".word F173 format/map data at byte 20"
+        },
+        {
+          "hex": "0x0402e96c",
+          "assembly": ".word F173 format/map data at byte 24"
+        },
+        {
+          "hex": "0x0408b75c",
+          "assembly": ".word F173 format/map data at byte 28"
+        },
+        {
+          "hex": "0x00000000",
+          "assembly": ".word F173 format/map data at byte 32"
+        },
+        {
+          "hex": "0xe832d001",
+          "assembly": ".word F173 format/map data at byte 36"
+        },
+        {
+          "hex": "0x002b0051",
+          "assembly": ".word F173 format/map data at byte 40"
+        },
+        {
+          "hex": "0x00330031",
+          "assembly": ".word F173 format/map data at byte 44"
+        },
+        {
+          "hex": "0x0000002d",
+          "assembly": ".word F173 format/map data at byte 48"
+        },
+        {
+          "hex": "0x00390054",
+          "assembly": ".word F173 format/map data at byte 52"
+        },
+        {
+          "hex": "0x0033003e",
+          "assembly": ".word F173 format/map data at byte 56"
+        },
+        {
+          "hex": "0x00380039",
+          "assembly": ".word F173 format/map data at byte 60"
+        },
+        {
+          "hex": "0xd7ffe83c",
+          "assembly": ".word F173 format/map data at byte 64"
+        },
+        {
+          "hex": "0x0000f800",
+          "assembly": ".word F173 format/map data at byte 68"
+        },
+        {
+          "hex": "0xe82dd002",
+          "assembly": ".word F173 format/map data at byte 72"
+        },
+        {
+          "hex": "0x0039004b",
+          "assembly": ".word F173 format/map data at byte 76"
+        },
+        {
+          "hex": "0x002e0036",
+          "assembly": ".word F173 format/map data at byte 80"
+        },
+        {
+          "hex": "0x0038002f",
+          "assembly": ".word F173 format/map data at byte 84"
+        },
+        {
+          "hex": "0x00460000",
+          "assembly": ".word F173 format/map data at byte 88"
+        },
+        {
+          "hex": "0x002f002f",
+          "assembly": ".word F173 format/map data at byte 92"
+        },
+        {
+          "hex": "0x0036003e",
+          "assembly": ".word F173 format/map data at byte 96"
+        },
+        {
+          "hex": "0xe83c002f",
+          "assembly": ".word F173 format/map data at byte 100"
+        },
+        {
+          "hex": "0xf800d7fe",
+          "assembly": ".word F173 format/map data at byte 104"
+        },
+        {
+          "hex": "0xe832d001",
+          "assembly": ".word F173 format/map data at byte 108"
+        },
+        {
+          "hex": "0x002f0048",
+          "assembly": ".word F173 format/map data at byte 112"
+        },
+        {
+          "hex": "0x00390037",
+          "assembly": ".word F173 format/map data at byte 116"
+        },
+        {
+          "hex": "0x00000038",
+          "assembly": ".word F173 format/map data at byte 120"
+        },
+        {
+          "hex": "0x0033004f",
+          "assembly": ".word F173 format/map data at byte 124"
+        },
+        {
+          "hex": "0x00310038",
+          "assembly": ".word F173 format/map data at byte 128"
+        },
+        {
+          "hex": "0x003d046d",
+          "assembly": ".word F173 format/map data at byte 132"
+        },
+        {
+          "hex": "0x00470000",
+          "assembly": ".word F173 format/map data at byte 136"
+        },
+        {
+          "hex": "0x0039003c",
+          "assembly": ".word F173 format/map data at byte 140"
+        },
+        {
+          "hex": "0x00380041",
+          "assembly": ".word F173 format/map data at byte 144"
+        },
+        {
+          "hex": "0xd7ffe83c",
+          "assembly": ".word F173 format/map data at byte 148"
+        },
+        {
+          "hex": "0x0000f800",
+          "assembly": ".word F173 format/map data at byte 152"
+        },
+        {
+          "hex": "0xe82ed002",
+          "assembly": ".word F173 format/map data at byte 156"
+        },
+        {
+          "hex": "0x00330057",
+          "assembly": ".word F173 format/map data at byte 160"
+        },
+        {
+          "hex": "0x0035002d",
+          "assembly": ".word F173 format/map data at byte 164"
+        },
+        {
+          "hex": "0x002f0036",
+          "assembly": ".word F173 format/map data at byte 168"
+        },
+        {
+          "hex": "0x00390000",
+          "assembly": ".word F173 format/map data at byte 172"
+        },
+        {
+          "hex": "0x00000030",
+          "assembly": ".word F173 format/map data at byte 176"
+        },
+        {
+          "hex": "0x0032003e",
+          "assembly": ".word F173 format/map data at byte 180"
+        },
+        {
+          "hex": "0x0000002f",
+          "assembly": ".word F173 format/map data at byte 184"
+        },
+        {
+          "hex": "0x00380059",
+          "assembly": ".word F173 format/map data at byte 188"
+        },
+        {
+          "hex": "0x002f002e",
+          "assembly": ".word F173 format/map data at byte 192"
+        },
+        {
+          "hex": "0x0041003c",
+          "assembly": ".word F173 format/map data at byte 196"
+        },
+        {
+          "hex": "0x003c0039",
+          "assembly": ".word F173 format/map data at byte 200"
+        },
+        {
+          "hex": "0x002e0036",
+          "assembly": ".word F173 format/map data at byte 204"
+        },
+        {
+          "hex": "0xd7fee83c",
+          "assembly": ".word F173 format/map data at byte 208"
+        },
+        {
+          "hex": "0x0000f800",
+          "assembly": ".word F173 format/map data at byte 212"
+        }
+      ]
+    }
+  }
+}

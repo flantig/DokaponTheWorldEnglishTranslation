@@ -479,7 +479,7 @@ func auditStreams(profilePath string, stdout io.Writer) error {
 		if inline {
 			operation = "reference_inline16"
 		}
-		facts, err := references(documents[0], documents[1], nil, Recipes{Operation: operation, SourceSize: observed.Size, SourceSHA256: observed.SHA256,
+		facts, err := references(documents[0], documents[1], nil, nil, Recipes{Operation: operation, SourceSize: observed.Size, SourceSHA256: observed.SHA256,
 			ScopeSHA256: inputs[2].pin.SHA256, RegistryPatchRef: profile.ObservedFamily, Evidence: profile.Evidence})
 		if err != nil {
 			return err

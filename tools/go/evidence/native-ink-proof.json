@@ -1,0 +1,264 @@
+{
+  "kind": "VERIFIED_PARTIAL_NATIVE_SOURCE_GRID_INK",
+  "at": "2026-11-13T07:06:27.691745+00:00",
+  "base_manifest_sha256": "d1250ba97c103f7883b5a9a3b2cb5d3e4275c4f6bee9ca7d864d8094e220242f",
+  "operational_manifest_sha256": "207d3442baa212233631cbe28550d8df9fcfc80f3cc43c4ce585c79d65cae17e",
+  "contract": "analysis/native-ink-contract.json",
+  "review": "evidence/native-ink-review.json",
+  "verified": {
+    "manual_rows": 22,
+    "nonempty": 13,
+    "known_empty": 5,
+    "unknown": 4,
+    "complete_old_no_atlas_reports_identical": 22,
+    "independent_review_readback": "The independent source reviewer checked all 22 retained candidate reports against the manual expectations and all 22 complete legacy reports against the ZIP baseline. The reviewer did not execute Go.",
+    "baseline": "The complete profile, registry and stdout goldens were captured from the unchanged 830 executable before API edits, then packaged with the independently frozen synthetic TXD and metric ELF. No expected bounding box was derived from candidate output.",
+    "atlas_identity": "One RegistryInput selects a native TXD. Exact names font0, font1 and font2 select pages even when the physical order is reversed. The atlas is indexed and decoded once per report. Every pixel with positive alpha in each full 24x24 tile contributes to its bounds. Candidate metric and atlas provenance remain independent.",
+    "source_guards": {
+      "named_admission_obligations": 12,
+      "obligations_with_executed_concrete_cases": 11,
+      "static_resource_cases": 10,
+      "strict_optional_object_wire_cases": 5,
+      "supplied_measurement_policy_guards": 2,
+      "FIFO": "The existing input-check CLI is reused with a 3-second timeout. The assertion requires a regular-file refusal without stdout and without reaching the timeout.",
+      "during_measurement_mutation_executed": false,
+      "mutation_limit": "The runtime reads the atlas again before output and checks its hash, identity, size and modification time. No existing deterministic test pattern covered a change during measurement, so no timing-sensitive or platform-specific watcher was added. Only 11 of the 12 named obligations have executed cases."
+    },
+    "five_focused_tests": [
+      "TestCLIDryRunAndApply",
+      "TestPilotHistoricalGoldenBytes",
+      "TestPlanRefusals",
+      "TestRecipeSchemaRefusals",
+      "TestRegistryWordingAndNewRecipeNeedsNoHandler"
+    ],
+    "commands_and_results": [
+      {
+        "step": "build-core",
+        "argv": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-o",
+          "/var/tmp/dokapon-native-ink-a24s7u4_/build/final-core",
+          "."
+        ],
+        "started": "2026-11-13T06:53:32.938047+00:00",
+        "wall_seconds": 0.265,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "vet-core",
+        "argv": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "."
+        ],
+        "started": "2026-11-13T06:53:33.202938+00:00",
+        "wall_seconds": 0.465,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "five-focused-core",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-count=1",
+          "-timeout=12m",
+          "-run",
+          "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler",
+          "."
+        ],
+        "started": "2026-11-13T06:53:33.668460+00:00",
+        "wall_seconds": 54.317,
+        "exit_code": 0,
+        "log_sha256": "2a889d1516cf818296267ed98c28b972a4b211b5ed633ec94dac75eaa4e3daeb"
+      },
+      {
+        "step": "native-backend",
+        "argv": [
+          "go",
+          "list",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-f",
+          "{{.CgoFiles}}",
+          "."
+        ],
+        "started": "2026-11-13T06:54:27.985608+00:00",
+        "wall_seconds": 0.032,
+        "exit_code": 0,
+        "log_sha256": "cd5b7b218145a83098f5d17d09a36fbdacfd24327795ce7a83b4f713de5729b9"
+      },
+      {
+        "step": "build-nativefonts",
+        "argv": [
+          "go",
+          "build",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-o",
+          "/var/tmp/dokapon-native-ink-a24s7u4_/build/final-nativefonts",
+          "."
+        ],
+        "started": "2026-11-13T06:54:28.018066+00:00",
+        "wall_seconds": 2.569,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "vet-nativefonts",
+        "argv": [
+          "go",
+          "vet",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "."
+        ],
+        "started": "2026-11-13T06:54:30.586990+00:00",
+        "wall_seconds": 0.815,
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "five-focused-nativefonts",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-tags",
+          "nativefonts",
+          "-count=1",
+          "-timeout=12m",
+          "-run",
+          "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes|TestPlanRefusals|TestRecipeSchemaRefusals|TestRegistryWordingAndNewRecipeNeedsNoHandler",
+          "."
+        ],
+        "started": "2026-11-13T06:54:31.402682+00:00",
+        "wall_seconds": 65.693,
+        "exit_code": 0,
+        "log_sha256": "e02b6334501bef2ff094eaceea49df0387f2ab9461cd20f1ce827e24ab9c8581"
+      },
+      {
+        "step": "focused-race-core",
+        "argv": [
+          "go",
+          "test",
+          "-p",
+          "2",
+          "-race",
+          "-count=1",
+          "-timeout=14m",
+          "-run",
+          "TestCLIDryRunAndApply|TestPilotHistoricalGoldenBytes",
+          "."
+        ],
+        "started": "2026-11-13T06:55:37.095498+00:00",
+        "wall_seconds": 426.04,
+        "exit_code": 0,
+        "log_sha256": "a406c6cd2fe5cf2dc818d3902dc4329a0a15d15cceecac6b4e7fd9767c205411"
+      }
+    ],
+    "hygiene": {
+      "gofmt_all50": true,
+      "scoped_credentials_positive_selfchecked": true,
+      "scoped_whitespace": true,
+      "frozen52_unchanged": true,
+      "deferred": [
+        "full suite",
+        "nativefonts race",
+        "gameplay"
+      ]
+    },
+    "native_backend": "The nativefonts build includes raster_font.go, confirmed through CgoFiles. The font rendering backend is unchanged."
+  },
+  "source_contract_history": {
+    "effective_plan": "v3 c6366d31f070a9d7b5fff43114f10c8ba8cf01996be4b6801b7dc9d0980f1da0",
+    "plan_source_pins": "The effective plan has 34 base pins and 3 distinct additions, for 37 total. The approach reviewer separately checked 36 sources, the manual source list contains 5, and the literal reviewer checked 38. These bounded sets are not additive coverage.",
+    "literal_manual": "ed2109d6a4bbdc9ee01edeee70358a5c758f194f3bd61e679154d3fc544f9c32",
+    "literal_review": "7c4b41d14575c95da73892a99dfc2aa39cb11b43c64f32bcce6fca77e7e4a885",
+    "narrow_precode_correction": "The mapped blank glyph with metrics (24,0,0) advances 3, not -2. Independent literal review corrected that single expectation before code changes; the other 21 rows stayed exact. The existing generic guard against a nonpositive supplied advance is separate. Original rejected plans, the manual and review history remain retained."
+  },
+  "accounting": {
+    "production_files": 49,
+    "production_bytes": 636563,
+    "named_functions": 47,
+    "changed_production_files": [
+      "fit.go",
+      "fit_types.go",
+      "image_types.go",
+      "patch.go",
+      "text_types.go"
+    ],
+    "production_delta_bytes": 6610,
+    "runtime_delta_bytes": 6610,
+    "test_delta_bytes": 7605,
+    "fixture_delta_bytes": 37959,
+    "new_functions_types_helpers_dependencies": 0,
+    "claim": "Five production Go files and one existing test file changed. The historical ordinary review called all six production files; its raw report is retained, and this current accounting gives the precise distinction. This is capability growth, not deletion, relocation or code reduction."
+  },
+  "coverage": "10 of 15 core families are Full, and 76 of 90 milestones are proven. Consumer layout remains 3/6 and consumer_layout.05 remains partial. No milestone, family or script retirement credit was added.",
+  "limits": "These are unscaled source-grid ink measurements for supported literals, SPACE, LINE and PAGE. Numeric or symbolic origins make the whole row unknown. within_profile retains its advance, count and byte meaning. The measurements do not establish installed pairing, GS coverage, physical clipping, scale or FPU behavior, positioned or nested producers, or actual screen fit.",
+  "peer_source_boundary": {
+    "at": "2026-11-13T07:04:59.872602+00:00",
+    "peer_reported_canonical_SHA256": "88bd7db1befad50736ec0b3cea8d95379505fcd95db189ed35d471663050c182",
+    "canonical_pin_path_overlap": {
+      "accepted830": [],
+      "current_scoped": [],
+      "current_report": []
+    },
+    "method": "Resolve only stored accepted/scoped/report pin keys and exact external aliases; no canonical/private/probe bytes read and no historical nested receipt repin.",
+    "disposition": "No overlap. Retain historical snapshots and current frozen52/fixtures unchanged; no canonical reconciliation or data write in this increment."
+  },
+  "deferred": [
+    "full suite",
+    "nativefonts race",
+    "gameplay"
+  ],
+  "protected_resources": "No live game, probe, PINE, controller, profile, card or canonical data was written. No real ISO was patched, and nothing was pushed publicly.",
+  "metadata_review": {
+    "report_sha256": "19ea89702b35ab3e826c396a658b9c208f50227b85d868385ed16102f939d306",
+    "reviewed_metadata_manifest_sha256": "a24223b112a680de1051a3134946f706cbfb99193d4f328144cdcb9eba60d525",
+    "disposition": "No unresolved findings",
+    "finalization_delta": "After frozen metadata review, attach this report and update only review linkage, consolidated proof and their current hash closure. Source, recipes, accounting, requirements and credits remain exactly reviewed."
+  },
+  "current_criterion_assessment": {
+    "status": "ROOT_ACCEPTED_CONSUMER_LAYOUT_05",
+    "at": "2026-11-13T18:40:03Z",
+    "criterion": "consumer_layout.05",
+    "credit": 1,
+    "review": "/var/tmp/dokapon-consumer05-astra-PCHbxRH4/review.md",
+    "review_sha256": "847a96543c278f2c055ceee4dbdc2d8ac17c3a681a21d49685e65139e739c614",
+    "basis": "Approved native source-grid measurement contract:22 synthetic native-format ink golden comparisons and22 complete no-atlas legacy reports; complementary actual native atlas codec/source qualification. Original proof/coverage fields retain their dated partial/zero-credit accounting.",
+    "actual_source": {
+      "contract": "analysis/raw-font-texture-contract.json",
+      "contract_sha256": "37ff92037c9faee3ea3624362908da32d9c730b127a91109941c822c665c9b99",
+      "proof": "evidence/raw-font-codec-proof.json",
+      "proof_sha256": "1f10ec54bdbd47c950e08b09eda96aa17dbd66543013d06d9531357f4143cc97",
+      "atlas_sha256": "776f1a593d3ea18ecc83b2b77c389bdb4497c1ac41efaff7fd8a1575f2180e5e",
+      "qualification": "Pinned complete-build replacement-cache member, not a new original-ISO extraction or combined text measurement"
+    },
+    "unperformed": "No combined actual-atlas plus actual-metric text report was performed or claimed. No additional execution was indispensable under the reviewed criterion.",
+    "limits": "Unscaled source-grid literals/SPACE/LINE/PAGE only. No numeric/symbolic ink, scale/FPU, installed atlas-metric pairing, physical fit, positioned/nested producers or consumer_layout.06 geometry completion. Existing11/12 executed-admission distinction and source-reviewed mutation guard remain unchanged.",
+    "scores": {
+      "milestones": "79/90",
+      "consumer_layout": "5/6",
+      "image_layout": "5/6",
+      "full_families": "10/15"
+    },
+    "operations": "Metadata-only assessment; zero production/runtime/test implementation changes or new functions/types/dependencies. No native/CLI/build/test/Golden/census run or public push; prior operational source/compiled pins unchanged."
+  }
+}

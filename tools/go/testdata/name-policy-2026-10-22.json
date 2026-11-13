@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "scope": "Synthetic replay of exactly the public October22 F172/F173 subset; no native source or acceptance",
+  "source_profile_sha256": "60601734d1f22e4455ea8e428d7e8f1b4818926b20f82f6fe5596543fec60b0e",
+  "source_iso_sha256": "49ab69ace2de5575dea17c3939d0f24280b03a05fb794b525a5ad4dab0041010",
+  "full_profile_target_sha256": "9b148f59549bce900b64a03eb65068c395f1ceaeebf7528cea9c2a8d8d10aac3",
+  "carrier_size": 5087232,
+  "fill_byte": 204,
+  "iso_origin": 653312,
+  "native_delta": 1048448,
+  "sent_offset": 4431872,
+  "sent_base": 67108864,
+  "sent_size": 655360,
+  "source_sha256": "60abd9dc541db81d8767c419b497fb3328b1ad1a54b7dda1d62ee10abe0c6a17",
+  "output_sha256": "892140086e52a0a0f6193caa3e1fc98c52b4988e3b73a51f2aa4cb5558b6cbe9",
+  "declared_bytes": 624,
+  "changed_bytes": 161,
+  "records": [
+    {
+      "finding": "F172",
+      "offset": "0x210884",
+      "before_hex": "74080a0c",
+      "after_hex": "fcb0120c",
+      "why": "Reuse existing full-wording name wrapper in both shop and non-shop comparisons; flatten Sickle line break locally without truncating canonical words.",
+      "vma": "0x271004",
+      "id": "0x271004",
+      "component": "native",
+      "carrier_offset": 1511556
+    },
+    {
+      "finding": "F172",
+      "offset": "0x21089c",
+      "before_hex": "74080a0c",
+      "after_hex": "fcb0120c",
+      "why": "Reuse existing full-wording name wrapper in both shop and non-shop comparisons; flatten Sickle line break locally without truncating canonical words.",
+      "vma": "0x27101c",
+      "id": "0x27101c",
+      "component": "native",
+      "carrier_offset": 1511580
+    },
+    {
+      "finding": "F172",
+      "offset": "0x28fc3c",
+      "before_hex": "74080a0c",
+      "after_hex": "fcb0120c",
+      "why": "Reuse existing full-wording name wrapper in both shop and non-shop comparisons; flatten Sickle line break locally without truncating canonical words.",
+      "vma": "0x2f03bc",
+      "id": "0x2f03bc",
+      "component": "native",
+      "carrier_offset": 2032700
+    },
+    {
+      "finding": "F172",
+      "offset": "0x290164",
+      "before_hex": "74080a0c",
+      "after_hex": "fcb0120c",
+      "why": "Reuse existing full-wording name wrapper in both shop and non-shop comparisons; flatten Sickle line break locally without truncating canonical words.",
+      "vma": "0x2f08e4",
+      "id": "0x2f08e4",
+      "component": "native",
+      "carrier_offset": 2034020
+    },
+    {
+      "finding": "F173",
+      "offset": "0x418f90",
+      "before_hex": "08b00ab819c800d800b04be800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b04be800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b04be800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b04be800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b04be800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b04be800a064e8dcb8f797a9b907b000e004c00350174800b0035000f8",
+      "after_hex": "08b00ab819c800d800b038e800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b038e800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b038e800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b038e800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b038e800a064e8dcb8f797a9b907b000e004c00350174800b003500ab820d000d800b038e800a064e8dcb8f797a9b907b000e004c00350174800b0035000f8",
+      "why": "Six-row fallback shops retain full names at56%; prices, icons, row stride and descriptions unchanged.",
+      "vma": "0x479710",
+      "id": "0x479710",
+      "component": "native",
+      "carrier_offset": 3643280
+    },
+    {
+      "finding": "F173",
+      "offset": "0x419078",
+      "before_hex": "08b00ab819c800d800b050e800a064e8dcb8f797a9b908b000a00ab820d000d800b050e800a064e8dcb8f797a9b908b000a00ab820d000d800b050e800a064e8dcb8f797a9b908b000a00ab820d000d800b050e800a064e8dcb8f797a9b908b000a00ab820d000d800b050e800a064e8dcb8f797a9b908b000a00ab820d000d800b050e800a064e8dcb8f797a9b908b000a000f800000000",
+      "after_hex": "08b00ab819c800d800b038e800a064e8dcb8f797a9b908b000a00ab820d000d800b038e800a064e8dcb8f797a9b908b000a00ab820d000d800b038e800a064e8dcb8f797a9b908b000a00ab820d000d800b038e800a064e8dcb8f797a9b908b000a00ab820d000d800b038e800a064e8dcb8f797a9b908b000a00ab820d000d800b038e800a064e8dcb8f797a9b908b000a000f800000000",
+      "why": "Six-row fallback shops retain full names at56%; prices, icons, row stride and descriptions unchanged.",
+      "vma": "0x4797f8",
+      "id": "0x4797f8",
+      "component": "native",
+      "carrier_offset": 3643512
+    },
+    {
+      "finding": "F173",
+      "offset": "0x44b19c",
+      "before_hex": "03d04be800a064e8fdd700f8",
+      "after_hex": "05d03ce800a064e8fbd700f8",
+      "why": "Full name60%; paired +5/-5 Y compensation keeps net baseline shift zero and restores100%.",
+      "stream_vma": "0x4ab91c",
+      "old": "<d003><e84b><a000><e864><d7fd><f800>",
+      "new": "<d005><e83c><a000><e864><d7fb><f800>",
+      "id": "0x4ab91c",
+      "component": "native",
+      "carrier_offset": 3848604
+    },
+    {
+      "finding": "F173",
+      "offset": "0x44bc8c",
+      "before_hex": "0800093c",
+      "after_hex": "0800093c",
+      "why": "Existing getter now maps only full-wording scale controls; all other canonical names pass unchanged.",
+      "vma": "0x4ac40c",
+      "id": "0x4ac40c",
+      "component": "native",
+      "carrier_offset": 3851404
+    },
+    {
+      "finding": "F173",
+      "offset": "0x44bc90",
+      "before_hex": "d0ac2935",
+      "after_hex": "c0b62935",
+      "why": "Existing getter now maps only full-wording scale controls; all other canonical names pass unchanged.",
+      "vma": "0x4ac410",
+      "id": "0x4ac410",
+      "component": "native",
+      "carrier_offset": 3851408
+    },
+    {
+      "finding": "F172",
+      "offset": "0x5647e0",
+      "before_hex": "04d046e800a064e8fcd700f8",
+      "after_hex": "05d03ce800a064e8fbd700f8",
+      "why": "Full name60%; paired +5/-5 Y compensation keeps net baseline shift zero and restores100%.",
+      "stream_vma": "0x408afe0",
+      "old": "<d004><e846><a000><e864><d7fc><f800>",
+      "new": "<d005><e83c><a000><e864><d7fb><f800>",
+      "id": "0x408afe0",
+      "component": "sent",
+      "carrier_offset": 5001184
+    },
+    {
+      "finding": "F173",
+      "offset": "0x564ec0",
+      "before_hex": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "after_hex": "64da0204e4b60804a0db020408b7080488f002042cb708046ce902045cb708040000000001d032e851002b00310033002d000000540039003e003300390038003ce8ffd700f8000002d02de84b00390036002e002f003800000046002f002f003e0036002f003ce8fed700f801d032e848002f0037003900380000004f003300380031006d043d00000047003c003900410038003ce8ffd700f8000002d02ee8570033002d00350036002f0000003900300000003e0032002f000000590038002e002f003c00410039003c0036002e003ce8fed700f80000",
+      "why": "Replace shortening aliases with four full-wording scale-only shop names; Sickle uses spaces rather than a built-in line break.",
+      "stream_vma": "0x408b6c0",
+      "labels": [
+        {
+          "canonical": "Magic Potion",
+          "display": "<d001><e832>Magic Potion<e83c><d7ff>"
+        },
+        {
+          "canonical": "Golden Beetle",
+          "display": "<d002><e82d>Golden Beetle<e83c><d7fe>"
+        },
+        {
+          "canonical": "Demon King's Crown",
+          "display": "<d001><e832>Demon King's Crown<e83c><d7ff>"
+        },
+        {
+          "canonical": "Sickle of the|Underworld",
+          "display": "<d002><e82e>Sickle of the Underworld<e83c><d7fe>"
+        }
+      ],
+      "id": "0x408b6c0",
+      "component": "sent",
+      "carrier_offset": 5002944
+    }
+  ],
+  "pre_go_freeze_at": "2026-11-13T10:08:56Z",
+  "oracle_method": "Standard shell byte tools only: deterministic CC carrier, direct frozen before/after literal spans, full SHA256 and cmp count before any candidate Go execution. Not a game binary. Original public record fields are preserved in full; this metadata-only v2 does not change any literal span or complete synthetic bytes."
+}

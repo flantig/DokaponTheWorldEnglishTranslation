@@ -47,6 +47,11 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 	if len(sample) != 4 || sample[0] < x || sample[1] < y || sample[2] < 1 || sample[3] < 1 || sample[2] > x+w-sample[0] || sample[3] > y+h-sample[1] {
 		return nil, 0, fmt.Errorf("sampling rectangle must be inside the topology rectangle")
 	}
+	switch spec.Kernel {
+	case "", "cross", "square":
+	default:
+		return nil, 0, fmt.Errorf("unknown footprint kernel %q", spec.Kernel)
+	}
 	var componentSeeds []int
 	if components := spec.Components; components != nil {
 		if components.Connectivity != 4 && components.Connectivity != 8 {
@@ -91,12 +96,18 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 			return nil, 0, fmt.Errorf("footprint clip or exclusion exceeds canvas")
 		}
 	}
-	sets := [3][][]RasterSelection{spec.Any, nil, nil}
+	if spec.GrowThrough != nil && spec.Grow <= 0 {
+		return nil, 0, fmt.Errorf("growth admission requires positive final growth")
+	}
+	sets := [4][][]RasterSelection{spec.Any, nil, nil, nil}
 	if spec.Core != nil {
 		sets[1] = *spec.Core
 	}
 	if spec.Components != nil && spec.Components.Reject != nil {
 		sets[2] = *spec.Components.Reject
+	}
+	if spec.GrowThrough != nil {
+		sets[3] = *spec.GrowThrough
 	}
 	weight := int64(0)
 	for _, groups := range sets {
@@ -122,6 +133,21 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 	if spec.Erode != 0 {
 		weight += 16
 	}
+	if spec.Kernel == "square" {
+		// Each square traversal can inspect twice the neighbors; closing has two passes.
+		if spec.Close != 0 {
+			weight += 32
+		}
+		if spec.Core != nil {
+			weight += 16
+		}
+		if spec.Erode != 0 {
+			weight += 16
+		}
+		if spec.Grow != 0 {
+			weight += 16
+		}
+	}
 	if len(geometry) > 0 {
 		weight += int64(1 + len(geometry))
 	}
@@ -129,13 +155,16 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 	if charged > maxWork {
 		return nil, 0, fmt.Errorf("footprint exceeds bounded pixel work")
 	}
-	masks := [3][]bool{}
+	masks := [4][]bool{}
 	origin := raster.Rect.Min.Add(image.Pt(x, y))
 	for set, groups := range sets {
 		if set == 1 && spec.Core == nil {
 			continue
 		}
 		if set == 2 && (spec.Components == nil || spec.Components.Reject == nil) {
+			continue
+		}
+		if set == 3 && spec.GrowThrough == nil {
 			continue
 		}
 		masks[set] = make([]bool, w*h)
@@ -257,7 +286,7 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 	mask, core := masks[0], masks[1]
 	var err error
 	if spec.Close != 0 {
-		mask, err = transformRasterMask(mask, w, RasterMaskTransform{Kind: "close", Iterations: spec.Close})
+		mask, err = transformRasterMask(mask, w, RasterMaskTransform{Kind: "close", Iterations: spec.Close, Kernel: spec.Kernel})
 		if err != nil {
 			return nil, 0, err
 		}
@@ -282,7 +311,7 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 		if spec.CoreGrow != nil {
 			growth = *spec.CoreGrow
 		}
-		grown, err := transformRasterMask(core, w, RasterMaskTransform{Kind: "dilate", Iterations: growth})
+		grown, err := transformRasterMask(core, w, RasterMaskTransform{Kind: "dilate", Iterations: growth, Kernel: spec.Kernel})
 		if err != nil {
 			return nil, 0, err
 		}
@@ -305,13 +334,13 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 		}
 	}
 	if spec.Erode != 0 {
-		mask, err = transformRasterMask(mask, w, RasterMaskTransform{Kind: "erode", Iterations: spec.Erode})
+		mask, err = transformRasterMask(mask, w, RasterMaskTransform{Kind: "erode", Iterations: spec.Erode, Kernel: spec.Kernel})
 		if err != nil {
 			return nil, 0, err
 		}
 	}
 	if spec.Grow != 0 {
-		mask, err = transformRasterMask(mask, w, RasterMaskTransform{Kind: "dilate", Iterations: spec.Grow})
+		mask, err = transformRasterMask(mask, w, RasterMaskTransform{Kind: "dilate", Iterations: spec.Grow, Kernel: spec.Kernel, Admission: masks[3]})
 		if err != nil {
 			return nil, 0, err
 		}
@@ -343,28 +372,37 @@ func selectRaster(raster *image.NRGBA, spec RasterFootprint, maxWork int64) ([]b
 
 // transformRasterMask returns an owned binary mask; all input bits remain immutable.
 // Component filtering shares one traversal for size, seed membership and tag veto.
-// Component connectivity is explicit; morphology and hole filling stay four-connected.
+// Morphology uses cross or square neighbors; hole filling stays four-connected.
+// Component connectivity is independent of the morphology kernel.
 // Morphology stops at saturation; nonpositive iterations mean until stable.
 // The crop exterior is false, including during erosion and hole classification.
 func transformRasterMask(mask []bool, width int, spec RasterMaskTransform) ([]bool, error) {
 	if width < 1 || width > 4096 || len(mask) < 1 || len(mask) > 1<<20 || len(mask)%width != 0 || len(mask)/width > 4096 {
 		return nil, fmt.Errorf("mask transform requires bounded complete rows")
 	}
+	if spec.Admission != nil && (spec.Kind != "dilate" || spec.Iterations <= 0 || len(spec.Admission) != len(mask)) {
+		return nil, fmt.Errorf("growth admission requires a same-sized mask and positive dilation count")
+	}
 	if spec.Kind != "components" && (spec.Connectivity != 0 || spec.Seeds != nil || spec.Reject != nil || spec.BackgroundSeed != "") {
 		return nil, fmt.Errorf("component criteria require the components transform")
 	}
 	switch spec.Kind {
 	case "dilate", "erode", "close":
+		switch spec.Kernel {
+		case "", "cross", "square":
+		default:
+			return nil, fmt.Errorf("unknown mask morphology kernel %q", spec.Kernel)
+		}
 		if spec.MinimumSize != 0 {
 			return nil, fmt.Errorf("mask morphology takes no component size")
 		}
 	case "fill_holes":
-		if spec.Iterations != 0 || spec.MinimumSize != 0 {
-			return nil, fmt.Errorf("mask hole filling takes no iteration or component count")
+		if spec.Kernel != "" || spec.Iterations != 0 || spec.MinimumSize != 0 {
+			return nil, fmt.Errorf("mask hole filling takes no kernel, iteration or component count")
 		}
 	case "minimum", "components":
-		if spec.Iterations != 0 || math.IsNaN(spec.MinimumSize) || math.IsInf(spec.MinimumSize, 0) {
-			return nil, fmt.Errorf("mask component filtering requires a finite size without iterations")
+		if spec.Kernel != "" || spec.Iterations != 0 || math.IsNaN(spec.MinimumSize) || math.IsInf(spec.MinimumSize, 0) {
+			return nil, fmt.Errorf("mask component filtering requires a finite size without kernel or iterations")
 		}
 	default:
 		return nil, fmt.Errorf("unknown mask transform %q", spec.Kind)
@@ -399,14 +437,17 @@ func transformRasterMask(mask []bool, width int, spec RasterMaskTransform) ([]bo
 		}
 	}
 	if spec.Kind == "close" {
-		grown, err := transformRasterMask(mask, width, RasterMaskTransform{Kind: "dilate", Iterations: spec.Iterations})
+		grown, err := transformRasterMask(mask, width, RasterMaskTransform{Kind: "dilate", Iterations: spec.Iterations, Kernel: spec.Kernel})
 		if err != nil {
 			return nil, err
 		}
-		return transformRasterMask(grown, width, RasterMaskTransform{Kind: "erode", Iterations: spec.Iterations})
+		return transformRasterMask(grown, width, RasterMaskTransform{Kind: "erode", Iterations: spec.Iterations, Kernel: spec.Kernel})
 	}
 	height := len(mask) / width
-	steps := [4]image.Point{{X: -1}, {X: 1}, {Y: -1}, {Y: 1}}
+	steps := []image.Point{{X: -1}, {X: 1}, {Y: -1}, {Y: 1}}
+	if spec.Kernel == "square" {
+		steps = append(steps, image.Pt(-1, -1), image.Pt(1, -1), image.Pt(-1, 1), image.Pt(1, 1))
+	}
 	result := slices.Clone(mask)
 	queue := make([]int, 0, len(mask))
 	if spec.Kind == "minimum" || spec.Kind == "components" {
@@ -470,9 +511,13 @@ func transformRasterMask(mask []bool, width int, spec RasterMaskTransform) ([]bo
 			if !selected {
 				continue
 			}
-			boundary := x == 0 || y == 0 || x == width-1 || y == height-1
-			if !boundary {
-				boundary = !mask[at-1] || !mask[at+1] || !mask[at-width] || !mask[at+width]
+			boundary := false
+			for _, step := range steps {
+				next := image.Pt(x, y).Add(step)
+				if next.X < 0 || next.X >= width || next.Y < 0 || next.Y >= height || !mask[next.Y*width+next.X] {
+					boundary = true
+					break
+				}
 			}
 			if boundary {
 				result[at] = false
@@ -504,7 +549,7 @@ func transformRasterMask(mask []bool, width int, spec RasterMaskTransform) ([]bo
 				at := next.Y*width + next.X
 				switch spec.Kind {
 				case "dilate":
-					if result[at] {
+					if result[at] || spec.Admission != nil && !spec.Admission[at] {
 						continue
 					}
 					result[at] = true
