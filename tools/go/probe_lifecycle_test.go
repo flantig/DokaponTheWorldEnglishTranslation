@@ -68,9 +68,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 	vmStatus := uint32(0)
 	failedReady := slices.Contains(os.Args, "failed-ready")
 	streamVariant := ""
+	gridVariant := ""
 	for _, argument := range os.Args {
 		if strings.HasPrefix(argument, "stream-") {
 			streamVariant = argument
+		}
+		if strings.HasPrefix(argument, "grid-") {
+			gridVariant = argument
 		}
 	}
 	newGame := slices.Contains(os.Args, "scenario-newgame")
@@ -760,6 +764,34 @@ func TestProbeLifecycleChild(t *testing.T) {
 					if !failedReady {
 						mode = 736
 					}
+				case len(payload) == 5 && payload[0] <= 3 && gridVariant != "":
+					address := binary.LittleEndian.Uint32(payload[1:])
+					words := []uint16{76, 51, 60, 43, 79, 43, 62, 43, 69, 70, 71, 0, 0, 0, 0, 0, 82, 47, 66, 62, 70, 43, 45, 53, 72, 47, 54, 0, 0, 0, 0, 0, 83, 79, 0, 0, 0xf800}
+					switch gridVariant {
+					case "grid-glyph":
+						words[0] = 75
+					case "grid-padding":
+						words[11] = 69
+					case "grid-shift":
+						for index := 0; index < 4; index++ {
+							words[12+index], words[16+index] = words[16+index], words[12+index]
+						}
+					case "grid-control":
+						words[0] = 0xb002
+					case "grid-missing-end":
+						words[36] = 0
+					}
+					var field []byte
+					for _, word := range words {
+						field = binary.LittleEndian.AppendUint16(field, word)
+					}
+					width := 1 << payload[0]
+					if address < 0x47ea90 || uint64(address)+uint64(width) > 0x47eada {
+						t.Fatal("unexpected grid storage request", payload)
+					}
+					reply = make([]byte, 5+width)
+					binary.LittleEndian.PutUint32(reply, uint32(len(reply)))
+					copy(reply[5:], field[address-0x47ea90:address-0x47ea90+uint32(width)])
 				case len(payload) == 5 && payload[0] <= 3 && streamVariant != "":
 					address := binary.LittleEndian.Uint32(payload[1:])
 					field := []byte{2, 0xb0, 0, 0xa0, 8, 0xb0, 0x41, 0, 0x39, 0, 0x35, 0, 0x2f, 0, 0, 0, 0x3f, 0, 0x3a, 0, 0xb, 0, 0, 0x10, 0, 0xf8}
@@ -916,21 +948,24 @@ func TestProbeLifecycle(t *testing.T) {
 			Requests       []string        `json:"requests"`
 			StreamRequests []string        `json:"stream_requests"`
 			StreamTokens   []TextToken     `json:"stream_tokens"`
+			GridRequests   []string        `json:"grid_requests"`
+			GridTokens     []TextToken     `json:"grid_tokens"`
 			Cases          []struct {
-				ID           string   `json:"id"`
-				Kind         string   `json:"kind"`
-				Name         string   `json:"name"`
-				Child        string   `json:"child_argument"`
-				Actual       string   `json:"actual_hex"`
-				Replies      []string `json:"replies"`
-				Decoded      string   `json:"decoded"`
-				RowStatus    string   `json:"row_status"`
-				ReportStatus string   `json:"report_status"`
-				Reason       string   `json:"reason"`
-				Refusal      string   `json:"refusal"`
+				ID           string      `json:"id"`
+				Kind         string      `json:"kind"`
+				Name         string      `json:"name"`
+				Child        string      `json:"child_argument"`
+				Actual       string      `json:"actual_hex"`
+				Replies      []string    `json:"replies"`
+				Decoded      string      `json:"decoded"`
+				RowStatus    string      `json:"row_status"`
+				ReportStatus string      `json:"report_status"`
+				Reason       string      `json:"reason"`
+				Refusal      string      `json:"refusal"`
+				Tokens       []TextToken `json:"tokens"`
 			} `json:"cases"`
 		}
-		if json.Unmarshal(literal, &oracle) != nil || len(oracle.Cases) != 7 {
+		if json.Unmarshal(literal, &oracle) != nil || len(oracle.Cases) != 13 {
 			t.Fatal("pre-output storage oracle")
 		}
 		glyphs, err := os.ReadFile("testdata/probe-storage-glyphmap.json")
@@ -962,7 +997,7 @@ func TestProbeLifecycle(t *testing.T) {
 		originalFacts := bytes.Clone(probeObservationData)
 		originalFactsSHA := sha256.Sum256(originalFacts)
 		const currentISO = "83cb765a441a78db8678105bee21b3a435462b11999f061091420d1b9f710b22"
-		if bytes.Count(originalFacts, []byte(currentISO)) != 2 {
+		if bytes.Count(originalFacts, []byte(currentISO)) != 3 {
 			t.Fatal("real source ISO authority differs")
 		}
 		unsupported := profile
@@ -983,10 +1018,15 @@ func TestProbeLifecycle(t *testing.T) {
 		if _, err := runProbeLifecycle(unsupportedRaw); err == nil || err.Error() != "storage address is unqualified for this ISO input" {
 			t.Fatal("real narrative source guard must refuse unsupported ISO", err)
 		}
+		unsupportedStorage.ID = "0x47ea90"
+		unsupportedRaw, _ = json.Marshal(unsupported)
+		if _, err := runProbeLifecycle(unsupportedRaw); err == nil || err.Error() != "storage address is unqualified for this ISO input" {
+			t.Fatal("real grid source guard must refuse unsupported ISO", err)
+		}
 		// Cleanup owns restoration even on Fatal; no other test uses this global concurrently.
 		t.Cleanup(func() {
 			probeObservationData = originalFacts
-			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 2 {
+			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 3 {
 				t.Error("storage source authority was not restored")
 			}
 		})
@@ -994,9 +1034,12 @@ func TestProbeLifecycle(t *testing.T) {
 		for _, expected := range oracle.Cases {
 			selectedStorage := storage
 			requestHex := oracle.Requests
-			if expected.Kind == "narrative" {
+			if expected.Kind == "narrative" || expected.Kind == "positional" {
 				selectedStorage.ID, selectedStorage.Recipe = expected.ID, nil
 				requestHex = oracle.StreamRequests
+				if expected.Kind == "positional" {
+					requestHex = oracle.GridRequests
+				}
 			}
 			selected := profile
 			selected.Root = t.TempDir()
@@ -1041,6 +1084,27 @@ func TestProbeLifecycle(t *testing.T) {
 					t.Fatalf("%s lost literal source control/token facts: %+v", expected.Name, step.Memory.Decoded)
 				}
 			}
+			if expected.Kind == "positional" {
+				if step.Memory.Decoded[0].Kind != "stream" || !reflect.DeepEqual(expected.Tokens, step.Memory.Decoded[0].Tokens) {
+					t.Fatal("grid must preserve acquired cell/SPACE offsets and storedEND")
+				}
+				if expected.Child == "grid-shift" {
+					var before, after []uint16
+					for _, token := range oracle.GridTokens {
+						if token.Kind == "glyph" {
+							before = append(before, token.Word)
+						}
+					}
+					for _, token := range expected.Tokens {
+						if token.Kind == "glyph" {
+							after = append(after, token.Word)
+						}
+					}
+					if !slices.Equal(before, after) || reflect.DeepEqual(expected.Tokens, oracle.GridTokens) {
+						t.Fatal("grid shift witness must retain flattened glyphs but change positions")
+					}
+				}
+			}
 			report := step.Checkpoint
 			if report.Status != expected.ReportStatus || len(report.Rows) != 1 || report.Rows[0].Status != expected.RowStatus || report.Rows[0].Reason != expected.Reason || len(report.Checkpoints) != 0 || len(report.CoveredAreas) != 0 || report.LiveOwnership {
 				t.Fatalf("%s report scope: %+v", expected.Name, report)
@@ -1052,11 +1116,28 @@ func TestProbeLifecycle(t *testing.T) {
 			var evidence ProbeEvidenceBundle
 			_ = json.Unmarshal(data, &evidence)
 			var actual struct {
-				Actual    string `json:"actual_hex"`
-				Narrative string `json:"actual"`
+				Actual   string          `json:"actual_hex"`
+				Observed json.RawMessage `json:"actual"`
+				Expected json.RawMessage `json:"expected"`
 			}
-			if len(evidence.Checks) != 1 || json.Unmarshal(evidence.Checks[0].Data, &actual) != nil || expected.Kind != "narrative" && actual.Actual != expected.Actual || expected.Kind == "narrative" && actual.Narrative != expected.Decoded || evidence.Checks[0].EventID != 1 || len(evidence.Events) != 1 {
+			if len(evidence.Checks) != 1 || json.Unmarshal(evidence.Checks[0].Data, &actual) != nil || evidence.Checks[0].EventID != 1 || len(evidence.Events) != 1 {
 				t.Fatal("storage check did not preserve actual acquired bytes")
+			}
+			switch expected.Kind {
+			case "narrative":
+				var text string
+				if json.Unmarshal(actual.Observed, &text) != nil || text != expected.Decoded {
+					t.Fatal("narrative actual must come from acquired decode")
+				}
+			case "positional":
+				var observedTokens, expectedTokens []TextToken
+				if json.Unmarshal(actual.Observed, &observedTokens) != nil || json.Unmarshal(actual.Expected, &expectedTokens) != nil || !reflect.DeepEqual(observedTokens, expected.Tokens) || !reflect.DeepEqual(expectedTokens, oracle.GridTokens) {
+					t.Fatal("grid expected/actual token ownership differs")
+				}
+			default:
+				if actual.Actual != expected.Actual {
+					t.Fatal("fixed actual must come from acquired bytes")
+				}
 			}
 			rederived, err := reportProbeEvidence(data)
 			if err != nil || !reflect.DeepEqual(rederived, *report) {

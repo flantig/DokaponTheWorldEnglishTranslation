@@ -167,6 +167,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			RecipeID                  string `json:"recipe_id"`
 			RecipeSHA256              string `json:"recipe_sha256"`
 			SpanBytes                 int    `json:"span_bytes"`
+			Cells                     int    `json:"cells"`
+			CellWords                 int    `json:"cell_words"`
 			SourceSpanSHA256          string `json:"source_span_sha256"`
 			ComparisonSourceSHA256    string `json:"comparison_source_sha256"`
 			GlyphmapSHA256            string `json:"glyphmap_sha256"`
@@ -188,9 +190,12 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			if profile.Storage.Recipe == nil || profile.Storage.Recipe.SHA256 != row.RecipeSHA256 {
 				return report, fmt.Errorf("unsupported source-bound storage observation")
 			}
-		case "narrative":
+		case "narrative", "positional":
 			if profile.Storage.Recipe != nil || row.SpanBytes < 2 || row.SpanBytes > 4096 || row.SpanBytes%2 != 0 {
 				return report, fmt.Errorf("stored stream requires its qualified source extent, not an authoring recipe")
+			}
+			if row.Kind == "positional" && (row.Cells < 1 || row.Cells > 2047 || row.CellWords < 1 || row.CellWords > 2047 || row.SpanBytes != 2*(row.Cells*row.CellWords+1)) {
+				return report, fmt.Errorf("stored cell layout differs from its qualified extent")
 			}
 		default:
 			return report, fmt.Errorf("unsupported source-bound storage observation")
@@ -226,6 +231,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var storageGlyphs json.RawMessage
 	var storageExpected string
 	var storageAddress uint32
+	var storageExpectedTokens []TextToken
 	storageBytes := 16
 	if profile.Storage != nil {
 		loaded := map[string][]byte{}
@@ -242,7 +248,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			}
 		}
 		storageGlyphs = loaded["storage-glyphmap"]
-		if _, _, err := glyphMaps(storageGlyphs, true); err != nil {
+		encodingGlyphs, _, err := glyphMaps(storageGlyphs, true)
+		if err != nil {
 			return report, err
 		}
 		var registry Registry
@@ -273,6 +280,32 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 		if matches != 1 || storageExpected == "" {
 			return report, fmt.Errorf("storage requires one canonical registry wording row")
+		}
+		if row.Kind == "positional" {
+			labels := strings.Split(storageExpected, "|")
+			if len(labels) != row.Cells {
+				return report, fmt.Errorf("registry cell count differs from source grid")
+			}
+			for _, label := range labels {
+				encoded, err := encode(label, nil, encodingGlyphs, TextEncodeOptions{})
+				if err != nil || len(encoded) > row.CellWords*2 {
+					return report, fmt.Errorf("registry label exceeds source cell capacity")
+				}
+				for index := 0; index < row.CellWords; index++ {
+					token := TextToken{Kind: "space", Offset: len(storageExpectedTokens) * 2}
+					if index*2 < len(encoded) {
+						token.Word = binary.LittleEndian.Uint16(encoded[index*2:])
+					}
+					if token.Word >= 0x800 {
+						return report, fmt.Errorf("registry grid labels must contain only plain glyph words")
+					}
+					if token.Word != 0 {
+						token.Kind = "glyph"
+					}
+					storageExpectedTokens = append(storageExpectedTokens, token)
+				}
+			}
+			storageExpectedTokens = append(storageExpectedTokens, TextToken{Kind: "end", Word: 0xf800, Offset: row.SpanBytes - 2})
 		}
 		storageAddress = uint32(address)
 	}
@@ -751,7 +784,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						offset += 1 << opcode
 					}
 					decoderKind := row.Kind
-					if row.Kind == "narrative" {
+					if row.Kind == "narrative" || row.Kind == "positional" {
 						decoderKind = "stream"
 					}
 					plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: decoderKind, Requests: readIDs, Glyphmap: storageGlyphs}}
@@ -783,8 +816,31 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					// This event is a storage acquisition, not a displayed-UI or checkpoint witness.
 					eventRaw, _ := json.Marshal(map[string]any{"event": "storage-observed", "event_id": 1, "checkpoint": 0, "time": time.Now().Format("2006-01-02T15:04:05-0700"), "registry_id": profile.Storage.ID, "memory": RegistryInput{Path: memoryPath, Size: int64(len(memoryRaw)), SHA256: memorySHA}, "registry": profile.Storage.Registry, "recipe": profile.Storage.Recipe, "source_iso_sha256": row.SourceISOSHA256, "historical_static_iso_sha256": row.HistoricalStaticISOSHA256, "limits": row.Limits})
 					checkData := map[string]any{"expected": storageExpected, "actual_hex": hex.EncodeToString(actual), "glyphmap": storageGlyphs}
-					if row.Kind == "narrative" {
+					switch row.Kind {
+					case "narrative":
 						checkData = map[string]any{"expected": storageExpected, "actual": *memory.Decoded[0].Text}
+					case "positional":
+						tokens := memory.Decoded[0].Tokens
+						if len(tokens) != row.Cells*row.CellWords+1 {
+							step.Reason = "acquired grid token count differs from source layout"
+							break actions
+						}
+						for index, token := range tokens {
+							if token.Offset != index*2 || len(token.Payload) != 0 {
+								step.Reason = "acquired grid token offsets/payload differ from source layout"
+								break actions
+							}
+							if index == len(tokens)-1 {
+								if token.Kind != "end" || token.Word != 0xf800 {
+									step.Reason = "acquired grid lacks its stored END guard"
+									break actions
+								}
+							} else if token.Word >= 0x800 || token.Kind != "glyph" && token.Kind != "space" {
+								step.Reason = "acquired grid contains a non-cell control word"
+								break actions
+							}
+						}
+						checkData = map[string]any{"expected": storageExpectedTokens, "actual": tokens}
 					}
 					checkRaw, _ := json.Marshal(checkData)
 					evidence := ProbeEvidenceBundle{Version: 1, SourceSchema: "probe-evidence-go-v1", SourceSHA256: "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8", Admission: scenarioAdmission, RunID: admitted.RunID, Session: admitted.Session, ISOSHA256: admitted.ISOSHA256, Epoch: &admitted.Epoch, Cohort: "go-storage-observation-v1", Members: []string{profile.Storage.ID}, Events: []ProbeEvidenceEvent{{Offset: 0, Data: eventRaw}}, Checks: []ProbeEvidenceCheck{{ID: profile.Storage.ID, Kind: row.Kind, SourceSHA256: row.ComparisonSourceSHA256, EventID: 1, Observation: "observed", Data: checkRaw}}}

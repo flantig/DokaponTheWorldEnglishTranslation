@@ -1052,5 +1052,83 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "grid_storage_offline_assessment": {
+    "status": "ROOT_ACCEPTED_ONE_ROW_STORED_GRID_OFFLINE_NO_CRITERION_CREDIT",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-grid-implementation-nFVhNKu5/manifest.json",
+      "sha256": "ab82f9c3a63e56c3b1c018acf09562390f18436bcbd2bdfe7c020859c116eacd",
+      "report": {
+        "path": "report.md",
+        "sha256": "ee58d0a96d1cece207f9719b444f205e11eeb2d2c437d2d69ba2e64c0f19c427"
+      },
+      "members": {
+        "path": "members.sha256",
+        "sha256": "06b7f778865ff78759c0f23253cc8a49a0675801af27f97f0667ba0a6f1c35ca",
+        "count": 35
+      }
+    },
+    "source_snapshot_sha256": "721edd2a9a9f8aa5ea7561ad55b29eecd97a06492130cc161a36343f65c29014",
+    "source_pins_sha256": "6f3883a45222b2e62cfdd716c640371eb5b13af1d8714c39fbd7454ff17711b2",
+    "selection_sha256": "f6ba91fd09aa3a9e4f05619d9f92838e844d34af1b2e296c163029ea7760fef0",
+    "approach_sha256": "6436b1819442c4f143f2e4adb0e43662efd4c2f9c99d5493f69984df36546141",
+    "review": {
+      "path": "/var/tmp/dokapon-astra-audit069-ppjlVwBA/review.md",
+      "sha256": "32358cf8823ba533f8bad57f14789ee30d95d74a28f3466221b67d4543cc6957",
+      "manifest_sha256": "e57acc8c055303cac1f773c4683d2f6fe7a396037901f98a975ea9041c6be79f",
+      "actual_start": "2026-11-14T09:41:42Z",
+      "next_due": "2026-11-14T11:41:42Z"
+    },
+    "pre_output_oracle_sha256": "d956353a7eacc1a6745813eeab902e279adf384583c7a67c5b77f9382e86977e",
+    "contract": "Registry0x47ea90 current83cb stored9x4 glyph/SPACE cells plus END are acquired by nine Read64 and one Read16. Unchanged shared stream decoding supplies actual tokens. Existing lifecycle source-layout validation requires37 ordered tokens at consecutive two-byte offsets,36 glyph/SPACE words below0x800 and END0xf800 at72; existing positional comparison checks complete token structures. Registry owns expected labels including empty cells, separate from acquired bytes. Static source X434/Y30..270 are excluded from Actual.",
+    "verification": {
+      "selected_storage": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags core -run '^TestProbeLifecycle$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 9.837,
+        "log": "first-storage.log"
+      },
+      "core": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags core -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 13.539,
+        "log": "final-core.log"
+      },
+      "nativefonts": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags nativefonts -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 12.733,
+        "log": "final-nativefonts.log"
+      },
+      "build_core": "PASS",
+      "vet_core": "PASS",
+      "build_nativefonts": "PASS",
+      "vet_nativefonts": "PASS",
+      "format": "PASS",
+      "json": "PASS",
+      "scoped_credentials": "PASS",
+      "protected_twelve_sources": "PASS",
+      "main_unchanged": "PASS",
+      "read_decoder_types_unchanged": "PASS",
+      "stable_four_source_members": "PASS",
+      "retention": "Complete raw memory/refusal artifacts were verified before ordinary Go TempDir cleanup. Removed actual payloads are not independently rehashable now; source-independent oracle/history and test logs survive.",
+      "deferred": "Fullsuite/race/story replay and actual native/PINE/uinput/emulator/current profiles/UI/coordinates/arguments/fit/script-equivalence/checkpoint/resource/soak/handover qualification. Nativefonts is a build-tag controlled-peer test, not native emulator acceptance."
+    },
+    "accounting": {
+      "implementation_runtime_bytes": 3663,
+      "test_fixture_bytes": 25492,
+      "production_functions_added": 0,
+      "callbacks_added": 0,
+      "named_types_added": 0,
+      "dependencies_added": 0
+    },
+    "limits": [
+      "Stored glyph/SPACE cell positions and storedEND only; static pen scaffold separate. No runtimeXY/arguments, native/UI/fit/script equivalence/checkpoint/fullcriterion credit.",
+      "Sequential reads are non-atomic; storedEND is a storage guard, not proof of a word copied by the original reader.",
+      "Matching rowPASS leaves overallUNKNOWN with no checkpoints/coverage. Refusal/raw evidence verified before ordinary TempDir cleanup; removed payloads are not freshly rehashable.",
+      "No new parser/kind/helper/function/callback/type/dependency, or actor/control expansion assertion."
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }
