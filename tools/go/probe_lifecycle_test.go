@@ -1,6 +1,7 @@
 package main
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"crypto/sha256"
@@ -1017,7 +1018,7 @@ func TestProbeLifecycle(t *testing.T) {
 		originalFacts := bytes.Clone(probeObservationData)
 		originalFactsSHA := sha256.Sum256(originalFacts)
 		const currentISO = "83cb765a441a78db8678105bee21b3a435462b11999f061091420d1b9f710b22"
-		if bytes.Count(originalFacts, []byte(currentISO)) != 4 {
+		if bytes.Count(originalFacts, []byte(currentISO)) != 5 {
 			t.Fatal("real source ISO authority differs")
 		}
 		unsupported := profile
@@ -1046,7 +1047,7 @@ func TestProbeLifecycle(t *testing.T) {
 		// Cleanup owns restoration even on Fatal; no other test uses this global concurrently.
 		t.Cleanup(func() {
 			probeObservationData = originalFacts
-			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 4 {
+			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 5 {
 				t.Error("storage source authority was not restored")
 			}
 		})
@@ -1307,6 +1308,240 @@ func TestProbeLifecycle(t *testing.T) {
 				forged, _ = json.Marshal(bundle)
 				if _, err := reportProbeEvidence(forged); err == nil {
 					t.Fatal("artifact became claimed runtime usage")
+				}
+			}
+		}
+		// The image uses a real curated native member and an independently approved
+		// PNG. Only ISO directory placement/source pins are a serial test projection.
+		imageLiteral, err := os.ReadFile("testdata/probe-image.json")
+		var imageOracle struct {
+			ID, Contract            string
+			PNG, RGBA, CLUT, Native string
+			Cases                   []struct {
+				Name                                string
+				Acquire                             bool
+				Row, Report, Reason, Refusal, Error string
+			}
+		}
+		var imageFields map[string]json.RawMessage
+		if err != nil || json.Unmarshal(imageLiteral, &imageFields) != nil || json.Unmarshal(imageLiteral, &imageOracle) != nil || len(imageOracle.Cases) != 12 {
+			t.Fatal("pre-output image oracle", err)
+		}
+		_ = json.Unmarshal(imageFields["png_sha256"], &imageOracle.PNG)
+		_ = json.Unmarshal(imageFields["rgba_sha256"], &imageOracle.RGBA)
+		_ = json.Unmarshal(imageFields["clut_sha256"], &imageOracle.CLUT)
+		_ = json.Unmarshal(imageFields["native_sha256"], &imageOracle.Native)
+		archive, err := zip.OpenReader("assets/cmb-members.zip")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var native []byte
+		for _, entry := range archive.File {
+			if entry.Name == "GRAPHIC/EVENT.CMB/event/guide/mini_g02.txd" {
+				reader, err := entry.Open()
+				if err != nil {
+					t.Fatal(err)
+				}
+				native, err = io.ReadAll(io.LimitReader(reader, 263573))
+				_ = reader.Close()
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+		}
+		_ = archive.Close()
+		if len(native) != 263572 || fmt.Sprintf("%x", sha256.Sum256(native)) != imageOracle.Native {
+			t.Fatal("curated native member differs from independent reference")
+		}
+		imageStorage := ProbeStorageSpec{ID: imageOracle.ID}
+		for _, role := range []string{"png", "clut"} {
+			name, digest := "testdata/probe-image.png", imageOracle.PNG
+			if role == "clut" {
+				name, digest = "testdata/probe-image-clut.bin", imageOracle.CLUT
+			}
+			data, err := os.ReadFile(name)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != digest {
+				t.Fatal("approved image fixture", role, err)
+			}
+			path := filepath.Join(sources, "approved-image-"+role)
+			if err := os.WriteFile(path, data, 0400); err != nil {
+				t.Fatal(err)
+			}
+			input := &RegistryInput{Path: path, Size: int64(len(data)), SHA256: digest}
+			if role == "png" {
+				imageStorage.PNG = input
+			} else {
+				imageStorage.CLUT = input
+			}
+		}
+		probeObservationData = bytes.Clone(originalFacts)
+		imageUnsupported := profile
+		imageUnsupported.Storage = &imageStorage
+		imageUnsupported.Root = t.TempDir()
+		_ = os.Chmod(imageUnsupported.Root, 0700)
+		unsupportedImageRaw, _ := json.Marshal(imageUnsupported)
+		if _, err := runProbeLifecycle(unsupportedImageRaw); err == nil || err.Error() != "storage address is unqualified for this ISO input" {
+			t.Fatal("real image source guard failed", err)
+		}
+		// Literal ISO9660/CMB envelope: root17, GRAPHIC18, archive19; member
+		// starts at39009, deliberately unaligned. No second parser supplies Actual.
+		imageISO := make([]byte, 302581)
+		copy(imageISO[16*isoSector:], []byte{1, 'C', 'D', '0', '0', '1', 1})
+		binary.LittleEndian.PutUint16(imageISO[16*isoSector+128:], 2048)
+		binary.BigEndian.PutUint16(imageISO[16*isoSector+130:], 2048)
+		for _, record := range []struct {
+			At, LBA, Size int
+			Name          string
+			Flags         byte
+		}{
+			{16*isoSector + 156, 17, isoSector, "\x00", 2}, {17 * isoSector, 18, isoSector, "GRAPHIC", 2}, {18 * isoSector, 19, 263669, "EVENT.CMB;1", 0},
+		} {
+			n := 33 + len(record.Name)
+			if n%2 != 0 {
+				n++
+			}
+			rec := imageISO[record.At : record.At+n]
+			rec[0], rec[25], rec[32] = byte(n), record.Flags, byte(len(record.Name))
+			binary.LittleEndian.PutUint32(rec[2:], uint32(record.LBA))
+			binary.BigEndian.PutUint32(rec[6:], uint32(record.LBA))
+			binary.LittleEndian.PutUint32(rec[10:], uint32(record.Size))
+			binary.BigEndian.PutUint32(rec[14:], uint32(record.Size))
+			binary.LittleEndian.PutUint16(rec[28:], 1)
+			binary.BigEndian.PutUint16(rec[30:], 1)
+			copy(rec[33:], record.Name)
+		}
+		binary.LittleEndian.PutUint32(imageISO[19*isoSector:], 96)
+		binary.LittleEndian.PutUint32(imageISO[19*isoSector+4:], 1)
+		copy(imageISO[19*isoSector+8:], "event\\guide\\mini_g02.txd")
+		binary.LittleEndian.PutUint32(imageISO[19*isoSector+88:], 1)
+		binary.LittleEndian.PutUint32(imageISO[19*isoSector+92:], 263572)
+		copy(imageISO[39009:], native)
+		var imageBase ProbeEvidenceBundle
+		for _, expected := range imageOracle.Cases {
+			if expected.Acquire {
+				carrier := bytes.Clone(imageISO)
+				if expected.Name == "clut-mismatch" {
+					carrier[39009+262508] ^= 1
+				}
+				if expected.Name == "index-refusal" {
+					carrier[19*isoSector+8] = 'x'
+				}
+				path := filepath.Join(sources, "image-"+expected.Name+".iso")
+				if err := os.WriteFile(path, carrier, 0400); err != nil {
+					t.Fatal(err)
+				}
+				input := RegistryInput{Path: path, Size: int64(len(carrier)), SHA256: fmt.Sprintf("%x", sha256.Sum256(carrier))}
+				var table ProbeObservationTable
+				_ = json.Unmarshal(originalFacts, &table)
+				asset := table.Rows[imageOracle.ID]
+				if asset.SourceISOSHA256 != currentISO || asset.Image.IndexSHA256 != "8772c37a59452a579789b9663f075c8f54917699de5235412edf7ebb92be2eee" || asset.ComparisonSourceSHA256 != imageOracle.Contract || asset.Image.Offset != 3223871619 {
+					t.Fatal("real image authority differs")
+				}
+				asset.SourceISOSHA256 = input.SHA256
+				asset.Image.Offset = 39009
+				asset.Image.IndexSHA256 = fmt.Sprintf("%x", sha256.Sum256(imageISO[19*isoSector:19*isoSector+96]))
+				table.Rows[imageOracle.ID] = asset
+				probeObservationData, _ = json.Marshal(table)
+				selected := profile
+				selected.Root = t.TempDir()
+				_ = os.Chmod(selected.Root, 0700)
+				selected.Storage = &imageStorage
+				selected.Inputs = map[string]RegistryInput{}
+				for role, input := range profile.Inputs {
+					selected.Inputs[role] = input
+				}
+				selected.Inputs["iso"] = input
+				selected.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "initial", Phase: "requested", Nonce: "1-initial"}, {Session: profile.Session, Operation: "observe-storage", Phase: "requested", Nonce: "2-observe-storage"}, {Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+				inputRaw, _ := json.Marshal(selected)
+				outcome, err := runProbeLifecycle(inputRaw)
+				if err != nil || len(outcome.Steps) != 3 || outcome.Steps[2].Status != "COMPLETED" {
+					t.Fatalf("%s image lifecycle: %+v %v", expected.Name, outcome, err)
+				}
+				step := outcome.Steps[1]
+				if expected.Refusal != "" {
+					if outcome.Status != "INCOMPLETE" || !strings.Contains(step.Reason, expected.Refusal) || step.Checkpoint != nil {
+						t.Fatalf("%s image refusal: %+v", expected.Name, step)
+					}
+					continue
+				}
+				if outcome.Status != "COMPLETED" || step.Memory != nil || step.Checkpoint == nil || len(step.Checkpoint.Rows) != 1 || step.Checkpoint.Rows[0].Status != expected.Row || step.Checkpoint.Rows[0].Reason != expected.Reason || step.Checkpoint.Status != expected.Report || len(step.Checkpoint.Checkpoints) != 0 || len(step.Checkpoint.CoveredAreas) != 0 {
+					t.Fatalf("%s image report: %+v", expected.Name, step)
+				}
+				retained, err := os.ReadFile(step.Evidence.Path)
+				if err != nil || len(retained) >= 4<<20 || fmt.Sprintf("%x", sha256.Sum256(retained)) != step.Evidence.SHA256 {
+					t.Fatal("complete image evidence retention/budget", err)
+				}
+				var bundle ProbeEvidenceBundle
+				_ = json.Unmarshal(retained, &bundle)
+				var facts struct {
+					Actual, Expected         []byte
+					ActualCLUT, ExpectedCLUT []byte
+				}
+				var data map[string]json.RawMessage
+				_ = json.Unmarshal(bundle.Checks[0].Data, &data)
+				_ = json.Unmarshal(data["actual_rgba"], &facts.Actual)
+				_ = json.Unmarshal(data["expected_rgba"], &facts.Expected)
+				_ = json.Unmarshal(data["actual_clut"], &facts.ActualCLUT)
+				_ = json.Unmarshal(data["expected_clut"], &facts.ExpectedCLUT)
+				if len(facts.Actual) != 1048576 || len(facts.Expected) != 1048576 || fmt.Sprintf("%x", sha256.Sum256(facts.Expected)) != imageOracle.RGBA || !bytes.Equal(facts.ActualCLUT, carrier[39009+262508:39009+262508+1024]) {
+					t.Fatal("image Actual not complete acquired member/approved independent Expected")
+				}
+				if expected.Name == "match" {
+					if !bytes.Equal(facts.Actual, facts.Expected) || !bytes.Equal(facts.ActualCLUT, facts.ExpectedCLUT) {
+						t.Fatal("full image equality")
+					}
+					imageBase = bundle
+				}
+				readback, err := os.ReadFile(path)
+				if err != nil || !bytes.Equal(readback, carrier) {
+					t.Fatal("image source changed", err)
+				}
+			} else {
+				// Restore the matching source context before saved-only boundary checks.
+				var table ProbeObservationTable
+				_ = json.Unmarshal(probeObservationData, &table)
+				asset := table.Rows[imageOracle.ID]
+				asset.SourceISOSHA256 = imageBase.ISOSHA256
+				table.Rows[imageOracle.ID] = asset
+				probeObservationData, _ = json.Marshal(table)
+				bundle := imageBase
+				bundle.Checks = slices.Clone(imageBase.Checks)
+				var data map[string]json.RawMessage
+				_ = json.Unmarshal(bundle.Checks[0].Data, &data)
+				switch expected.Name {
+				case "pixel-mismatch", "known-fail-missing-clut":
+					var actual []byte
+					_ = json.Unmarshal(data["actual_rgba"], &actual)
+					actual[3] ^= 1
+					data["actual_rgba"], _ = json.Marshal(actual)
+					if expected.Name == "known-fail-missing-clut" {
+						delete(data, "actual_clut")
+					}
+				case "geometry-mismatch":
+					data["actual_width"] = json.RawMessage(`511`)
+				case "missing-actual":
+					delete(data, "actual_rgba")
+				case "short-actual":
+					data["actual_rgba"] = json.RawMessage(`"AA=="`)
+				case "mixed-empty-hex":
+					data["actual_rgba_hex"] = json.RawMessage(`""`)
+				case "mixed-uppercase-hex":
+					data["ACTUAL_RGBA_HEX"] = json.RawMessage(`""`)
+				case "malformed-base64":
+					data["actual_rgba"] = json.RawMessage(`"!"`)
+				}
+				bundle.Checks[0].Data, _ = json.Marshal(data)
+				input, _ := json.Marshal(bundle)
+				if expected.Name == "bundle-budget" {
+					input = append(input, bytes.Repeat([]byte(" "), 4<<20)...)
+				}
+				got, err := reportProbeEvidence(input)
+				if expected.Error != "" {
+					if err == nil || err.Error() != expected.Error {
+						t.Fatalf("%s expected refusal %q got %v", expected.Name, expected.Error, err)
+					}
+				} else if err != nil || got.Status != expected.Report || len(got.Rows) != 1 || got.Rows[0].Status != expected.Row || got.Rows[0].Reason != expected.Reason {
+					t.Fatalf("%s image comparison: %+v %v", expected.Name, got, err)
 				}
 			}
 		}

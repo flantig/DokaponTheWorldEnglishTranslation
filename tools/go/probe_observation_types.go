@@ -19,8 +19,28 @@ type ProbeObservationRow struct {
 	HistoricalStaticISOSHA256 string             `json:"historical_static_iso_sha256"`
 	SourceISOSHA256           string             `json:"source_iso_sha256"`
 	Capacity                  *ProbeCapacitySpec `json:"capacity,omitempty"`
+	Image                     *ProbeImageSpec    `json:"image,omitempty"`
 	Limits                    string             `json:"limits"`
 	Authority                 string             `json:"authority,omitempty"`
+}
+
+// ProbeImageSpec binds one approved asset to a strict archive/member selector.
+// Its palette is native storage, not a palette inferred from a screenshot.
+type ProbeImageSpec struct {
+	Archive      string `json:"archive"`
+	IndexSHA256  string `json:"index_sha256"`
+	Member       string `json:"member"`
+	Selector     string `json:"selector"`
+	Offset       int64  `json:"offset"`
+	Bytes        int64  `json:"bytes"`
+	NativeSHA256 string `json:"native_sha256"`
+	Width        int    `json:"width"`
+	Height       int    `json:"height"`
+	PNGSHA256    string `json:"png_sha256"`
+	RGBASHA256   string `json:"rgba_sha256"`
+	CLUTOffset   int    `json:"clut_offset"`
+	CLUTBytes    int    `json:"clut_bytes"`
+	CLUTSHA256   string `json:"clut_sha256"`
 }
 
 type ProbeCapacitySpec struct {

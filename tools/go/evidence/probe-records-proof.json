@@ -1246,5 +1246,105 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "image_asset_offline_assessment": {
+    "status": "ROOT_ACCEPTED_ONE_NATIVE_ASSET_ARTIFACT_OFFLINE_NO_CRITERION_CREDIT",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-image-implementation-Yp4RQeT1/manifest.json",
+      "sha256": "117cf0276b186d14a51f9e805d8f5d1023ee8383bcc8c27e7c17a1ef1b493f3f",
+      "report": {
+        "path": "report.md",
+        "sha256": "112ffdcc4e5da1390fd13190a6edbab43f58aa5e04930f219856b50b9b6a9d76"
+      },
+      "members": {
+        "path": "members.sha256",
+        "sha256": "120e35118663ecf065e7515ace3b7643ca3d8c67e16f107b27b25f2862181439",
+        "count": 36
+      }
+    },
+    "source_pins": {
+      "path": "source-pins-v2.sha256",
+      "sha256": "74afd7c47c21f70e7c8fc03acfe3856b89c90d7f94fefca46b5b090ae957396e",
+      "paths": 9,
+      "directory": "candidate-v2"
+    },
+    "authority": {
+      "source_manifest": "058264ed5d6068e7c35e2b975c4bfceda3cb7b96ab0cf9671d3e04528b0250bf",
+      "index_addendum": "df0d718a1c6ce1ad0675e494092395fd6b3da5e5b610ab8b81f63dd454599649",
+      "approach": "0e516880ffd1cdb8fd4eb478d1c1120f07b5cdbc251aacb918b0e4459a107d5e",
+      "approved_profile": "2ea30c3f8832a37ad461bab3c4865cd1229727473c3e9787f299adbaacf36f1c"
+    },
+    "history": {
+      "original_source_pins": "2f4b8e529611d5ef0f595d96ddc2cd97d0c7633bd2c71c67db22aaf357154d1a",
+      "oracle_v1": "4df025dc7645a09dacdd4ea1dd59a51927f2ef3b37166a28058bbfc7572e13de",
+      "oracle_v2": "47db0208115abc681da3812b3a5ec270f6665554397cb40c70f8c349eb41a50e",
+      "original_review": "86b2227140365efc82800b6cced31f1e9744c8c35c0ddcd371900a588f0341ad"
+    },
+    "review": {
+      "path": "/var/tmp/dokapon-image-closure-astra-EZ6ps0pD/review.md",
+      "sha256": "b7d2ae0416caa6fa84ebea99bfd457a80d178894d56c6eda0774c7963a647a17"
+    },
+    "contract": "Existing lifecycle acquires one approved catalog asset through normal isoFileExtent/cmbIndex/indexTextures/texture owners. Current83cb source/member/selector and index8772 are qualified; independent approvedPNG and rawCLUT supply Expected, acquired full native member supplies Actual. Stable baseline203 asset identity is used, never a fabricated numeric string-registry ID. Existing image report accepts mutually exclusive standard[]byte/base64 and legacyhex while retaining completeRGBA/geometry/rawCLUT/source equality and the same4MiB whole-bundle bound; historical BatchEhex behavior is unchanged.",
+    "asset": {
+      "id": "image:graphic/event.cmb/event/guide/mini_g02.txd/guide/mini_g02",
+      "approved_recipe": "mini_g02.source-cache-current-approved.v1",
+      "archive": "GRAPHIC/EVENT.CMB",
+      "member": "event\\guide\\mini_g02.txd",
+      "selector": "guide\\mini_g02",
+      "width": 512,
+      "height": 512,
+      "approved_png_sha256": "5499197ad0de203df894f6d78915c87deffa744c40507d931f9f2a3fdfc64f93",
+      "native_sha256": "2b8bb50033834f6373d7fbbd731e06e6fc8f6b4a01e4e8a7b2b96c6ee06640ed",
+      "RGBA_sha256": "c0ecb04a97a1ff90726a6d1b08430fc61df9a5e0ed38806250027fda5a81e088",
+      "raw_CLUT_sha256": "54d9f293f5d0841d330c39dc83c8eb7d06f5e98a3704218a1812e45353db604b",
+      "CMB_index_sha256": "8772c37a59452a579789b9663f075c8f54917699de5235412edf7ebb92be2eee"
+    },
+    "verification": {
+      "receipt": {
+        "path": "verification.json",
+        "sha256": "a73acb6c23a42631c62976f8466b3727780f7b4f7ab21b45ed920936ddd561cf"
+      },
+      "tests": {
+        "selected_v1": 15.336,
+        "core_v1": 18.418,
+        "native_v1": 18.286,
+        "core_intermediate_v2": 18.452,
+        "core_final": 18.763,
+        "native_final": 18.480
+      },
+      "core_native_build_vet": "PASS",
+      "format_json_whitespace_credentials_protected12": "PASS",
+      "main_reader_decoder_unchanged": "PASS",
+      "full_suite": false,
+      "native_execution": false
+    },
+    "closures": {
+      "M1": "Known complete mismatch staysFAIL when rawCLUT is missing; missing evidence cannot erase failure",
+      "M2": "RGBA representation presence is case-normalized; explicit mixed uppercasehex/base64 refuses",
+      "original_fixture_cases": "Unchanged except exact two independently frozen added cases"
+    },
+    "accounting": {
+      "implementation_runtime_delta": 10382,
+      "test_fixture_delta": 82334,
+      "new_functions": 0,
+      "new_callbacks": 0,
+      "new_shared_types": 1,
+      "new_dependencies": 0
+    },
+    "public_projection": {
+      "owned_paths": 9,
+      "exact": true,
+      "preserve_test_baseline": "b77b113d6c046f89a19cc3a073ff81002e0e3b0e",
+      "patch_test_main_readme_not_changed": true
+    },
+    "limits": [
+      "One native-asset artifact rowPASS/overallUNKNOWN, zero checkpoints/coverage. No native/runtime/UI/script/fullcriterion/resource or handover credit. Test actual payloads verified before ordinary TempDir cleanup.",
+      "Native-asset artifact only, not installedRAM/runtime texture/display/nativeCLUT linkage, actor expansion or script parity.",
+      "Source and index identities do not create artwork approval; Expected remains independent. Sequential/source-file safeguards are not an atomic frame or hostile-sameUID guarantee.",
+      "Complete actual evidence assertions precede ordinary TempDir cleanup; removed payloads are not freshly rehashable.",
+      "No long-story/fullsuite/race run is claimed by these focused tests; no new native/device/owner-resource/soak/handover credit."
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }

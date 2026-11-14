@@ -42,6 +42,8 @@ type ProbeStorageSpec struct {
 	Glyphmap RegistryInput  `json:"glyphmap"`
 	Registry RegistryInput  `json:"registry"`
 	Recipe   *RegistryInput `json:"recipe,omitempty"`
+	PNG      *RegistryInput `json:"png,omitempty"`
+	CLUT     *RegistryInput `json:"clut,omitempty"`
 }
 
 type ProbeLifecycleResume struct {

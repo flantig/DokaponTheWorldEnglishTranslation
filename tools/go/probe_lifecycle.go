@@ -171,6 +171,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			return report, fmt.Errorf("unsupported source-bound storage observation")
 		}
 		switch row.Kind {
+		case "image":
+			if row.Image == nil || profile.Storage.Registry != (RegistryInput{}) || profile.Storage.Glyphmap != (RegistryInput{}) || profile.Storage.Recipe != nil || profile.Storage.PNG == nil || profile.Storage.CLUT == nil || profile.Storage.PNG.SHA256 != row.Image.PNGSHA256 || profile.Storage.CLUT.SHA256 != row.Image.CLUTSHA256 {
+				return report, fmt.Errorf("image asset requires its approved PNG and native CLUT without string-registry inputs")
+			}
 		case "code":
 			if profile.Storage.Recipe != nil || profile.Storage.Glyphmap != (RegistryInput{}) || row.Capacity == nil {
 				return report, fmt.Errorf("configured capacity requires source facts without glyph or authoring inputs")
@@ -188,6 +192,9 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			}
 		default:
 			return report, fmt.Errorf("unsupported source-bound storage observation")
+		}
+		if row.Kind != "image" && (profile.Storage.PNG != nil || profile.Storage.CLUT != nil) {
+			return report, fmt.Errorf("image inputs require an approved asset observation")
 		}
 		if profile.Inputs["iso"].SHA256 != row.SourceISOSHA256 {
 			return report, fmt.Errorf("storage address is unqualified for this ISO input")
@@ -221,11 +228,15 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var storageExpected string
 	var storageAddress uint32
 	var storageExpectedTokens []TextToken
+	var storageExpectedRGBA, storageExpectedCLUT []byte
 	storageBytes := 16
 	if profile.Storage != nil {
 		loaded := map[string][]byte{}
 		inputs := map[string]RegistryInput{"storage-registry": profile.Storage.Registry}
-		if observationData.Rows[profile.Storage.ID].Kind != "code" {
+		row := observationData.Rows[profile.Storage.ID]
+		if row.Kind == "image" {
+			inputs = map[string]RegistryInput{"storage-png": *profile.Storage.PNG, "storage-clut": *profile.Storage.CLUT}
+		} else if row.Kind != "code" {
 			inputs["storage-glyphmap"] = profile.Storage.Glyphmap
 		}
 		if profile.Storage.Recipe != nil {
@@ -235,71 +246,79 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			sourceInputs[role] = input
 			roleOrder = append(roleOrder, role)
 			loaded[role], err = readInput(input.Path, 64<<20)
-			if err != nil || int64(len(loaded[role])) != input.Size || fmt.Sprintf("%x", sha256.Sum256(loaded[role])) != input.SHA256 || checkJSON(checkedJSON{raw: loaded[role], allObjects: true, text: true}) != nil {
+			if err != nil || int64(len(loaded[role])) != input.Size || fmt.Sprintf("%x", sha256.Sum256(loaded[role])) != input.SHA256 || row.Kind != "image" && checkJSON(checkedJSON{raw: loaded[role], allObjects: true, text: true}) != nil {
 				return report, fmt.Errorf("storage source input differs: %s", role)
 			}
 		}
-		storageGlyphs = loaded["storage-glyphmap"]
-		encodingGlyphs, _, err := glyphMaps(storageGlyphs, true)
-		if err != nil && observationData.Rows[profile.Storage.ID].Kind != "code" {
-			return report, err
-		}
-		var registry Registry
-		var recipe Recipes
-		row := observationData.Rows[profile.Storage.ID]
-		address, parseErr := strconv.ParseUint(strings.TrimPrefix(row.RecipeID, "0x"), 16, 32)
-		if json.Unmarshal(loaded["storage-registry"], &registry) != nil || parseErr != nil {
-			return report, fmt.Errorf("storage registry/recipe contract differs")
-		}
-		if row.Kind == "fixed" {
-			if json.Unmarshal(loaded["storage-recipe"], &recipe) != nil || recipe.Operation != "fixed_field" {
+		if row.Kind == "image" {
+			pixels, _, decodeErr := decodePNG(loaded["storage-png"], 1<<20)
+			facts := row.Image
+			if decodeErr != nil || pixels.Bounds().Dx() != facts.Width || pixels.Bounds().Dy() != facts.Height || fmt.Sprintf("%x", sha256.Sum256(pixels.Pix)) != facts.RGBASHA256 || len(loaded["storage-clut"]) != facts.CLUTBytes {
+				return report, fmt.Errorf("approved image geometry/RGBA/CLUT differs")
+			}
+			storageExpectedRGBA, storageExpectedCLUT = pixels.Pix, loaded["storage-clut"]
+		} else {
+			storageGlyphs = loaded["storage-glyphmap"]
+			encodingGlyphs, _, err := glyphMaps(storageGlyphs, true)
+			if err != nil && observationData.Rows[profile.Storage.ID].Kind != "code" {
+				return report, err
+			}
+			var registry Registry
+			var recipe Recipes
+			address, parseErr := strconv.ParseUint(strings.TrimPrefix(row.RecipeID, "0x"), 16, 32)
+			if json.Unmarshal(loaded["storage-registry"], &registry) != nil || parseErr != nil {
 				return report, fmt.Errorf("storage registry/recipe contract differs")
 			}
-			entry, exists := recipe.Entries[row.RecipeID]
-			oldBytes, decodeErr := hex.DecodeString(entry.ExpectedHex)
-			if !exists || decodeErr != nil || len(oldBytes) != 16 {
-				return report, fmt.Errorf("storage recipe does not declare the complete16-byte field")
-			}
-		} else {
-			storageBytes = row.SpanBytes
-		}
-		matches := 0
-		for _, entry := range registry.Entries {
-			if entry.ID == row.RecipeID {
-				storageExpected = entry.EN
-				matches++
-			}
-		}
-		if matches != 1 || storageExpected == "" {
-			return report, fmt.Errorf("storage requires one canonical registry wording row")
-		}
-		if row.Kind == "positional" {
-			labels := strings.Split(storageExpected, "|")
-			if len(labels) != row.Cells {
-				return report, fmt.Errorf("registry cell count differs from source grid")
-			}
-			for _, label := range labels {
-				encoded, err := encode(label, nil, encodingGlyphs, TextEncodeOptions{})
-				if err != nil || len(encoded) > row.CellWords*2 {
-					return report, fmt.Errorf("registry label exceeds source cell capacity")
+			if row.Kind == "fixed" {
+				if json.Unmarshal(loaded["storage-recipe"], &recipe) != nil || recipe.Operation != "fixed_field" {
+					return report, fmt.Errorf("storage registry/recipe contract differs")
 				}
-				for index := 0; index < row.CellWords; index++ {
-					token := TextToken{Kind: "space", Offset: len(storageExpectedTokens) * 2}
-					if index*2 < len(encoded) {
-						token.Word = binary.LittleEndian.Uint16(encoded[index*2:])
-					}
-					if token.Word >= 0x800 {
-						return report, fmt.Errorf("registry grid labels must contain only plain glyph words")
-					}
-					if token.Word != 0 {
-						token.Kind = "glyph"
-					}
-					storageExpectedTokens = append(storageExpectedTokens, token)
+				entry, exists := recipe.Entries[row.RecipeID]
+				oldBytes, decodeErr := hex.DecodeString(entry.ExpectedHex)
+				if !exists || decodeErr != nil || len(oldBytes) != 16 {
+					return report, fmt.Errorf("storage recipe does not declare the complete16-byte field")
+				}
+			} else {
+				storageBytes = row.SpanBytes
+			}
+			matches := 0
+			for _, entry := range registry.Entries {
+				if entry.ID == row.RecipeID {
+					storageExpected = entry.EN
+					matches++
 				}
 			}
-			storageExpectedTokens = append(storageExpectedTokens, TextToken{Kind: "end", Word: 0xf800, Offset: row.SpanBytes - 2})
+			if matches != 1 || storageExpected == "" {
+				return report, fmt.Errorf("storage requires one canonical registry wording row")
+			}
+			if row.Kind == "positional" {
+				labels := strings.Split(storageExpected, "|")
+				if len(labels) != row.Cells {
+					return report, fmt.Errorf("registry cell count differs from source grid")
+				}
+				for _, label := range labels {
+					encoded, err := encode(label, nil, encodingGlyphs, TextEncodeOptions{})
+					if err != nil || len(encoded) > row.CellWords*2 {
+						return report, fmt.Errorf("registry label exceeds source cell capacity")
+					}
+					for index := 0; index < row.CellWords; index++ {
+						token := TextToken{Kind: "space", Offset: len(storageExpectedTokens) * 2}
+						if index*2 < len(encoded) {
+							token.Word = binary.LittleEndian.Uint16(encoded[index*2:])
+						}
+						if token.Word >= 0x800 {
+							return report, fmt.Errorf("registry grid labels must contain only plain glyph words")
+						}
+						if token.Word != 0 {
+							token.Kind = "glyph"
+						}
+						storageExpectedTokens = append(storageExpectedTokens, token)
+					}
+				}
+				storageExpectedTokens = append(storageExpectedTokens, TextToken{Kind: "end", Word: 0xf800, Offset: row.SpanBytes - 2})
+			}
+			storageAddress = uint32(address)
 		}
-		storageAddress = uint32(address)
 	}
 	if profile.Scenario != nil {
 		sourceInputs["scenario-glyphmap"] = profile.Scenario.Glyphmap
@@ -764,7 +783,12 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				if effect == "observe-storage" {
 					row := observationData.Rows[profile.Storage.ID]
 					var capacityArtifact *ProbeCapacityArtifact
-					if row.Kind == "code" {
+					var imageData map[string]any
+					if row.Kind == "code" || row.Kind == "image" {
+						sourceKind := "capacity"
+						if row.Kind == "image" {
+							sourceKind = "image"
+						}
 						input := profile.Inputs["iso"]
 						before, err := os.Lstat(input.Path)
 						file, openErr := os.Open(input.Path)
@@ -772,7 +796,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 							if file != nil {
 								_ = file.Close()
 							}
-							step.Reason = "capacity source unavailable"
+							step.Reason = sourceKind + " source unavailable"
 							break actions
 						}
 						opened, err := file.Stat()
@@ -780,91 +804,139 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						count, hashErr := io.Copy(hasher, io.LimitReader(file, input.Size+1))
 						if err != nil || !before.Mode().IsRegular() || !os.SameFile(before, opened) || count != input.Size || hashErr != nil || fmt.Sprintf("%x", hasher.Sum(nil)) != input.SHA256 {
 							_ = file.Close()
-							step.Reason = "capacity source identity/hash differs"
+							step.Reason = sourceKind + " source identity/hash differs"
 							break actions
 						}
-						facts := row.Capacity
-						inspection, inspectErr := inspect(file, nil, &Recipes{Operation: "stream_capacity_observation", SourceSize: input.Size, SourceSHA256: input.SHA256, Evidence: row.Limits, ISOELFOffset: facts.ISOELFOffset, ELFVMADelta: facts.ELFVMADelta, Stream: &facts.Stream})
+						var inspectErr error
+						if row.Kind == "code" {
+							facts := row.Capacity
+							var inspection Inspection
+							inspection, inspectErr = inspect(file, nil, &Recipes{Operation: "stream_capacity_observation", SourceSize: input.Size, SourceSHA256: input.SHA256, Evidence: row.Limits, ISOELFOffset: facts.ISOELFOffset, ELFVMADelta: facts.ELFVMADelta, Stream: &facts.Stream})
+							capacityArtifact = &ProbeCapacityArtifact{Source: input, Offset: inspection.BlobOffset, Bytes: int64(len(inspection.Blob)), SHA256: fmt.Sprintf("%x", sha256.Sum256(inspection.Blob)), Used: inspection.BlobUsed, Cursor: inspection.BlobCursor}
+						} else {
+							facts := row.Image
+							archive, archiveErr := isoFileExtent(file, input.Size, facts.Archive)
+							var members map[string]fileSpan
+							if archiveErr == nil {
+								members, _, archiveErr = cmbIndex(file, archive, facts.IndexSHA256)
+							}
+							member, exists := members[facts.Member]
+							if archiveErr != nil || !exists || member.offset != facts.Offset || member.size != facts.Bytes || member.size < 12 || member.size > 64<<20 || facts.CLUTOffset < 0 || facts.CLUTBytes != 1024 || int64(facts.CLUTOffset)+int64(facts.CLUTBytes) > member.size {
+								inspectErr = fmt.Errorf("image archive/index/member differs: %v", archiveErr)
+							} else {
+								native := make([]byte, int(member.size))
+								_, inspectErr = file.ReadAt(native, member.offset)
+								if inspectErr == nil {
+									nativeSHA := fmt.Sprintf("%x", sha256.Sum256(native))
+									index, indexErr := indexTextures(native)
+									if indexErr != nil {
+										inspectErr = indexErr
+									} else {
+										_, pixels, decodeErr := texture(native, facts.Selector, nil, nil, "", &index)
+										inspectErr = decodeErr
+										if decodeErr == nil {
+											clut := native[facts.CLUTOffset : facts.CLUTOffset+facts.CLUTBytes]
+											imageData = map[string]any{"asset_id": profile.Storage.ID, "recipe_id": row.RecipeID, "width": facts.Width, "height": facts.Height, "format": "RGBA8", "expected_rgba": storageExpectedRGBA, "actual_rgba": pixels.Pix, "expected_clut": storageExpectedCLUT, "actual_clut": clut, "actual_width": pixels.Bounds().Dx(), "actual_height": pixels.Bounds().Dy(), "clut_sha256": facts.CLUTSHA256, "actual_clut_sha256": fmt.Sprintf("%x", sha256.Sum256(clut)), "iso_sha256": input.SHA256, "source": input, "offset": member.offset, "bytes": member.size, "native_sha256": nativeSHA}
+										}
+									}
+								}
+							}
+						}
 						after, statErr := file.Stat()
 						pathAfter, pathErr := os.Lstat(input.Path)
 						_ = file.Close()
 						if statErr != nil || pathErr != nil || !os.SameFile(before, after) || !os.SameFile(before, pathAfter) || before.Size() != after.Size() || before.ModTime() != after.ModTime() {
-							step.Reason = "capacity source changed during inspection"
+							step.Reason = sourceKind + " source changed during inspection"
 							break actions
 						}
 						if inspectErr != nil {
 							step.Reason = inspectErr.Error()
 							break actions
 						}
-						capacityArtifact = &ProbeCapacityArtifact{Source: input, Offset: inspection.BlobOffset, Bytes: int64(len(inspection.Blob)), SHA256: fmt.Sprintf("%x", sha256.Sum256(inspection.Blob)), Used: inspection.BlobUsed, Cursor: inspection.BlobCursor}
 					}
-					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: bundle.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
-					var readIDs []string
-					if row.Kind == "code" {
-						facts := row.Capacity.Stream
-						var shifts []string
-						for site := range facts.WindowSRLWords {
-							shifts = append(shifts, site)
-						}
-						slices.Sort(shifts)
-						sites := append(append(slices.Clone(facts.LoaderVMAs), facts.WindowLUIVMAs...), shifts...)
-						for index, site := range sites {
-							vma, err := number(site)
-							if err != nil {
-								step.Reason = "invalid configured capacity site"
-								break actions
-							}
-							opcode, address := uint8(2), uint32(vma)
-							id := fmt.Sprintf("capacity%d", index)
-							plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
-							plan.Decoders = append(plan.Decoders, ProbeMemoryDecoder{ID: id, Kind: "scalar", Requests: []string{id}})
-						}
-					} else {
-						for offset := 0; offset < storageBytes; {
-							opcode, address := uint8(3), storageAddress+uint32(offset)
-							for 1<<opcode > storageBytes-offset {
-								opcode--
-							}
-							id := fmt.Sprintf("field%d", len(readIDs))
-							readIDs = append(readIDs, id)
-							plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
-							offset += 1 << opcode
-						}
-						decoderKind := row.Kind
-						if row.Kind == "narrative" || row.Kind == "positional" {
-							decoderKind = "stream"
-						}
-						plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: decoderKind, Requests: readIDs, Glyphmap: storageGlyphs}}
-					}
-					planRaw, _ := json.Marshal(plan)
-					runtimeRaw, _ := json.Marshal(scenarioRuntime)
-					memory, err := readProbeMemory(planRaw, runtimeRaw)
-					if err != nil && (row.Kind == "fixed" || len(memory.Observations) != len(plan.Requests)) {
-						step.Reason = err.Error()
-						break actions
-					}
-					step.Memory = &memory
-					memoryRaw, _ := json.Marshal(memory)
-					memoryPath := filepath.Join(profile.Root, "storage-"+request.Nonce+".memory.json")
-					memorySHA := fmt.Sprintf("%x", sha256.Sum256(memoryRaw))
-					if err := writeNewFile(memoryPath, bytes.NewReader(memoryRaw), int64(len(memoryRaw)), memorySHA, 0600); err != nil {
-						step.Reason = err.Error()
-						break actions
-					}
-					if err != nil {
-						step.Reason = err.Error()
-						break actions
-					}
+					var memory ProbeMemoryReport
 					var actual []byte
-					for index, observation := range memory.Observations {
-						var word [8]byte
-						binary.LittleEndian.PutUint64(word[:], observation.Value)
-						actual = append(actual, word[:1<<*plan.Requests[index].Opcode]...)
+					memoryPath, memorySHA := "", ""
+					var memoryRaw []byte
+					if row.Kind != "image" {
+						plan := ProbeMemoryBundle{Version: 1, SourceSHA256: bundle.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
+						var readIDs []string
+						if row.Kind == "code" {
+							facts := row.Capacity.Stream
+							var shifts []string
+							for site := range facts.WindowSRLWords {
+								shifts = append(shifts, site)
+							}
+							slices.Sort(shifts)
+							sites := append(append(slices.Clone(facts.LoaderVMAs), facts.WindowLUIVMAs...), shifts...)
+							for index, site := range sites {
+								vma, err := number(site)
+								if err != nil {
+									step.Reason = "invalid configured capacity site"
+									break actions
+								}
+								opcode, address := uint8(2), uint32(vma)
+								id := fmt.Sprintf("capacity%d", index)
+								plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
+								plan.Decoders = append(plan.Decoders, ProbeMemoryDecoder{ID: id, Kind: "scalar", Requests: []string{id}})
+							}
+						} else {
+							for offset := 0; offset < storageBytes; {
+								opcode, address := uint8(3), storageAddress+uint32(offset)
+								for 1<<opcode > storageBytes-offset {
+									opcode--
+								}
+								id := fmt.Sprintf("field%d", len(readIDs))
+								readIDs = append(readIDs, id)
+								plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
+								offset += 1 << opcode
+							}
+							decoderKind := row.Kind
+							if row.Kind == "narrative" || row.Kind == "positional" {
+								decoderKind = "stream"
+							}
+							plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: decoderKind, Requests: readIDs, Glyphmap: storageGlyphs}}
+						}
+						planRaw, _ := json.Marshal(plan)
+						runtimeRaw, _ := json.Marshal(scenarioRuntime)
+						memory, err = readProbeMemory(planRaw, runtimeRaw)
+						if err != nil && (row.Kind == "fixed" || len(memory.Observations) != len(plan.Requests)) {
+							step.Reason = err.Error()
+							break actions
+						}
+						step.Memory = &memory
+						memoryRaw, _ = json.Marshal(memory)
+						memoryPath = filepath.Join(profile.Root, "storage-"+request.Nonce+".memory.json")
+						memorySHA = fmt.Sprintf("%x", sha256.Sum256(memoryRaw))
+						if err := writeNewFile(memoryPath, bytes.NewReader(memoryRaw), int64(len(memoryRaw)), memorySHA, 0600); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						if err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						for index, observation := range memory.Observations {
+							var word [8]byte
+							binary.LittleEndian.PutUint64(word[:], observation.Value)
+							actual = append(actual, word[:1<<*plan.Requests[index].Opcode]...)
+						}
 					}
 					// This event is a storage acquisition, not a displayed-UI or checkpoint witness.
-					eventRaw, _ := json.Marshal(map[string]any{"event": "storage-observed", "event_id": 1, "checkpoint": 0, "time": time.Now().Format("2006-01-02T15:04:05-0700"), "registry_id": profile.Storage.ID, "memory": RegistryInput{Path: memoryPath, Size: int64(len(memoryRaw)), SHA256: memorySHA}, "registry": profile.Storage.Registry, "recipe": profile.Storage.Recipe, "source_iso_sha256": row.SourceISOSHA256, "historical_static_iso_sha256": row.HistoricalStaticISOSHA256, "limits": row.Limits})
+					eventData := map[string]any{"event": "storage-observed", "event_id": 1, "checkpoint": 0, "time": time.Now().Format("2006-01-02T15:04:05-0700"), "registry_id": profile.Storage.ID, "memory": RegistryInput{Path: memoryPath, Size: int64(len(memoryRaw)), SHA256: memorySHA}, "registry": profile.Storage.Registry, "recipe": profile.Storage.Recipe, "source_iso_sha256": row.SourceISOSHA256, "historical_static_iso_sha256": row.HistoricalStaticISOSHA256, "limits": row.Limits}
+					if row.Kind == "image" {
+						delete(eventData, "registry_id")
+						delete(eventData, "registry")
+						delete(eventData, "memory")
+						eventData["asset_id"], eventData["recipe_id"] = profile.Storage.ID, row.RecipeID
+						eventData["approved_png"], eventData["native_clut"] = profile.Storage.PNG, profile.Storage.CLUT
+						eventData["archive"], eventData["member"], eventData["selector"], eventData["index_sha256"] = row.Image.Archive, row.Image.Member, row.Image.Selector, row.Image.IndexSHA256
+					}
+					eventRaw, _ := json.Marshal(eventData)
 					checkData := map[string]any{"expected": storageExpected, "actual_hex": hex.EncodeToString(actual), "glyphmap": storageGlyphs}
 					switch row.Kind {
+					case "image":
+						checkData = imageData
 					case "code":
 						checkData = map[string]any{"contract": "current-configured-capacity-v1", "actual": memory.Observations, "artifact": capacityArtifact}
 					case "narrative":

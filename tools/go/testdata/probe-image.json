@@ -1,0 +1,97 @@
+{
+  "scope": "Pre-output oracle from separately pinned approved PNG, preserved native CLUT and current member. Portable ISO envelope is declared test data, not native/media replay.",
+  "id": "image:graphic/event.cmb/event/guide/mini_g02.txd/guide/mini_g02",
+  "contract": "2ea30c3f8832a37ad461bab3c4865cd1229727473c3e9787f299adbaacf36f1c",
+  "png_sha256": "5499197ad0de203df894f6d78915c87deffa744c40507d931f9f2a3fdfc64f93",
+  "rgba_sha256": "c0ecb04a97a1ff90726a6d1b08430fc61df9a5e0ed38806250027fda5a81e088",
+  "clut_sha256": "54d9f293f5d0841d330c39dc83c8eb7d06f5e98a3704218a1812e45353db604b",
+  "native_sha256": "2b8bb50033834f6373d7fbbd731e06e6fc8f6b4a01e4e8a7b2b96c6ee06640ed",
+  "native_bytes": 263572,
+  "width": 512,
+  "height": 512,
+  "rgba_bytes": 1048576,
+  "clut_offset": 262508,
+  "clut_bytes": 1024,
+  "fixture": {
+    "sectors": {
+      "pvd": 16,
+      "root": 17,
+      "graphic": 18,
+      "archive": 19
+    },
+    "index_bytes": 96,
+    "member_relative": 1,
+    "member_offset": 39009,
+    "source_bytes": 302581
+  },
+  "cases": [
+    {
+      "name": "match",
+      "acquire": true,
+      "row": "PASS",
+      "report": "UNKNOWN",
+      "reason": ""
+    },
+    {
+      "name": "clut-mismatch",
+      "acquire": true,
+      "row": "FAIL",
+      "report": "FAIL",
+      "reason": "image geometry, source, CLUT or exact RGBA mismatch"
+    },
+    {
+      "name": "index-refusal",
+      "acquire": true,
+      "refusal": "image archive/index/member differs"
+    },
+    {
+      "name": "pixel-mismatch",
+      "row": "FAIL",
+      "report": "FAIL",
+      "reason": "image geometry, source, CLUT or exact RGBA mismatch"
+    },
+    {
+      "name": "geometry-mismatch",
+      "row": "FAIL",
+      "report": "FAIL",
+      "reason": "image geometry, source, CLUT or exact RGBA mismatch"
+    },
+    {
+      "name": "missing-actual",
+      "row": "UNKNOWN",
+      "report": "UNKNOWN",
+      "reason": "missing image observation"
+    },
+    {
+      "name": "short-actual",
+      "row": "FAIL",
+      "report": "FAIL",
+      "reason": "image geometry, source, CLUT or exact RGBA mismatch"
+    },
+    {
+      "name": "mixed-empty-hex",
+      "error": "image RGBA representations are mutually exclusive"
+    },
+    {
+      "name": "malformed-base64",
+      "error": "image comparison requires bounded RGBA8 geometry and exact CLUT"
+    },
+    {
+      "name": "bundle-budget",
+      "error": "probe evidence exceeds its 4MiB input bound"
+    },
+    {
+      "name": "known-fail-missing-clut",
+      "row": "FAIL",
+      "report": "FAIL",
+      "reason": "image geometry, source, CLUT or exact RGBA mismatch; missing native CLUT observation"
+    },
+    {
+      "name": "mixed-uppercase-hex",
+      "error": "image RGBA representations are mutually exclusive"
+    }
+  ],
+  "expected_outcome": "One artifact-only row; zero checkpoints and covered areas. Default matching report stays UNKNOWN. No runtime/UI/native/script credit.",
+  "approval_authority": "profile2ea30c3f and independent753633 reviewed reconstruction current assessment, source058264ed/indexdf0d718a; expected pixels are not produced by the candidate native decoder.",
+  "preservation": "Every acquired source and expected input rehashed before TempDir cleanup. Ordinary test cleanup means those temporary actual evidence files are not later independently rehashable."
+}

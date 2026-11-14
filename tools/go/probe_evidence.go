@@ -342,6 +342,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				}
 			case "image":
 				source = "017edb5f58ba708839fd8e623769b357e3469273f34cb404922382e545067a87"
+				if check.SourceSHA256 == "2ea30c3f8832a37ad461bab3c4865cd1229727473c3e9787f299adbaacf36f1c" {
+					source = check.SourceSHA256
+				}
 			default:
 				return report, fmt.Errorf("unsupported probe comparison kind %q", check.Kind)
 			}
@@ -537,34 +540,94 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 					}
 				case "image":
 					var field struct {
-						Width        int     `json:"width"`
-						Height       int     `json:"height"`
-						ActualWidth  int     `json:"actual_width"`
-						ActualHeight int     `json:"actual_height"`
-						Format       string  `json:"format"`
-						ExpectedHex  string  `json:"expected_rgba_hex"`
-						ActualHex    *string `json:"actual_rgba_hex"`
-						CLUT         string  `json:"clut_sha256"`
-						ActualCLUT   string  `json:"actual_clut_sha256"`
-						ISO          string  `json:"iso_sha256"`
+						Width         int           `json:"width"`
+						Height        int           `json:"height"`
+						ActualWidth   int           `json:"actual_width"`
+						ActualHeight  int           `json:"actual_height"`
+						Format        string        `json:"format"`
+						ExpectedHex   string        `json:"expected_rgba_hex"`
+						ActualHex     *string       `json:"actual_rgba_hex"`
+						CLUT          string        `json:"clut_sha256"`
+						ActualCLUT    string        `json:"actual_clut_sha256"`
+						ISO           string        `json:"iso_sha256"`
+						ExpectedRGBA  []byte        `json:"expected_rgba"`
+						ActualRGBA    *[]byte       `json:"actual_rgba"`
+						ExpectedCLUT  []byte        `json:"expected_clut"`
+						ActualPalette *[]byte       `json:"actual_clut"`
+						AssetID       string        `json:"asset_id"`
+						RecipeID      string        `json:"recipe_id"`
+						Source        RegistryInput `json:"source"`
+						Offset        int64         `json:"offset"`
+						Bytes         int64         `json:"bytes"`
+						NativeSHA256  string        `json:"native_sha256"`
 					}
 					if err := json.Unmarshal(check.Data, &field); err != nil || field.Width < 1 || field.Height < 1 || field.Width > 4096 || field.Height > 4096 || field.Format != "RGBA8" || !hashPattern.MatchString(field.CLUT) {
 						return report, fmt.Errorf("image comparison requires bounded RGBA8 geometry and exact CLUT")
 					}
+					var forms map[string]json.RawMessage
+					_ = json.Unmarshal(check.Data, &forms)
+					var expectedHex, actualHex, expectedBase64, actualBase64 bool
+					for key := range forms {
+						switch strings.ToLower(key) {
+						case "expected_rgba_hex":
+							expectedHex = true
+						case "actual_rgba_hex":
+							actualHex = true
+						case "expected_rgba":
+							expectedBase64 = true
+						case "actual_rgba":
+							actualBase64 = true
+						}
+					}
+					if (expectedHex || actualHex) && (expectedBase64 || actualBase64) {
+						return report, fmt.Errorf("image RGBA representations are mutually exclusive")
+					}
 					expected, decodeErr := hex.DecodeString(field.ExpectedHex)
+					if expectedBase64 {
+						expected, decodeErr = field.ExpectedRGBA, nil
+					}
 					if decodeErr != nil || len(expected) != field.Width*field.Height*4 {
 						return report, fmt.Errorf("image expected bytes differ from RGBA geometry")
 					}
-					if field.ActualHex == nil {
+					var asset *ProbeImageSpec
+					if source != "017edb5f58ba708839fd8e623769b357e3469273f34cb404922382e545067a87" {
+						var table ProbeObservationTable
+						_ = json.Unmarshal(probeObservationData, &table)
+						approved, exists := table.Rows[field.AssetID]
+						asset = approved.Image
+						if !exists || asset == nil || approved.Kind != "image" || field.AssetID != id || approved.RecipeID != field.RecipeID || approved.ComparisonSourceSHA256 != source || !expectedBase64 || approved.SourceISOSHA256 != bundle.ISOSHA256 || field.Width != asset.Width || field.Height != asset.Height || fmt.Sprintf("%x", sha256.Sum256(expected)) != asset.RGBASHA256 || len(field.ExpectedCLUT) != asset.CLUTBytes || fmt.Sprintf("%x", sha256.Sum256(field.ExpectedCLUT)) != asset.CLUTSHA256 || field.CLUT != asset.CLUTSHA256 {
+							return report, fmt.Errorf("image approved-asset contract differs")
+						}
+					}
+					if field.ActualHex == nil && field.ActualRGBA == nil {
 						row.Status, row.Reason = "UNKNOWN", "missing image observation"
 						break
 					}
-					actual, decodeErr := hex.DecodeString(*field.ActualHex)
+					var actual []byte
+					if field.ActualRGBA != nil {
+						actual, decodeErr = *field.ActualRGBA, nil
+					} else {
+						actual, decodeErr = hex.DecodeString(*field.ActualHex)
+					}
 					if decodeErr != nil {
 						return report, fmt.Errorf("image observation must be complete hexadecimal RGBA")
 					}
 					if field.ISO != bundle.ISOSHA256 || field.ActualWidth != field.Width || field.ActualHeight != field.Height || field.ActualCLUT != field.CLUT || !bytes.Equal(expected, actual) {
 						row.Status, row.Reason = "FAIL", "image geometry, source, CLUT or exact RGBA mismatch"
+					}
+					if asset != nil {
+						if field.Source.SHA256 != bundle.ISOSHA256 || field.Source.Size < 1 || field.Offset != asset.Offset || field.Bytes != asset.Bytes || field.NativeSHA256 != asset.NativeSHA256 {
+							row.Status, row.Reason = "FAIL", "image geometry, source, CLUT or exact RGBA mismatch"
+						}
+						if field.ActualPalette == nil {
+							if row.Status == "FAIL" {
+								row.Reason += "; missing native CLUT observation"
+							} else {
+								row.Status, row.Reason = "UNKNOWN", "missing native CLUT observation"
+							}
+						} else if !bytes.Equal(field.ExpectedCLUT, *field.ActualPalette) || fmt.Sprintf("%x", sha256.Sum256(*field.ActualPalette)) != field.ActualCLUT {
+							row.Status, row.Reason = "FAIL", "image geometry, source, CLUT or exact RGBA mismatch"
+						}
 					}
 				}
 			default:
