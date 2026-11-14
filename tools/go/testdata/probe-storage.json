@@ -2,16 +2,33 @@
   "scope": "Independent literal controlled-synthetic storage acquisition, not a current native address/build or displayed-UI qualification",
   "registry_projection_source_sha256": "88bd7db1befad50736ec0b3cea8d95379505fcd95db189ed35d471663050c182",
   "field_oracle": "testdata/fixed-fields.json row0x457e10 and evidence/fixed-field-inventory.json independent_new_hex, frozen before storage producer output",
-  "registry": {"entries": [{"id": "0x457e10", "en": "POOP MAN"}]},
+  "registry": {
+    "entries": [
+      {
+        "id": "0x457e10",
+        "en": "POOP MAN"
+      },
+      {
+        "id": "0x4755f0",
+        "en": "woke up!"
+      }
+    ]
+  },
   "id": "0x457e10",
   "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
-  "requests": ["0900000003107e4500", "0900000003187e4500"],
+  "requests": [
+    "0900000003107e4500",
+    "0900000003187e4500"
+  ],
   "cases": [
     {
       "name": "matching-acquired-field",
       "child_argument": "storage-match",
       "actual_hex": "54005300530054000000510045005200",
-      "replies": ["0d000000005400530053005400", "0d000000000000510045005200"],
+      "replies": [
+        "0d000000005400530053005400",
+        "0d000000000000510045005200"
+      ],
       "decoded": "POOP MAN",
       "row_status": "PASS",
       "report_status": "UNKNOWN",
@@ -21,11 +38,163 @@
       "name": "changed-peer-byte",
       "child_argument": "storage-mismatch",
       "actual_hex": "53005300530054000000510045005200",
-      "replies": ["0d000000005300530053005400", "0d000000000000510045005200"],
+      "replies": [
+        "0d000000005300530053005400",
+        "0d000000000000510045005200"
+      ],
       "decoded": "OOOP MAN",
       "row_status": "FAIL",
       "report_status": "FAIL",
       "reason": "fixed-field text mismatch"
+    },
+    {
+      "name": "matching-acquired-stream",
+      "kind": "narrative",
+      "id": "0x4755f0",
+      "child_argument": "stream-match",
+      "actual_hex": "02b000a008b04100390035002f0000003f003a000b00001000f8",
+      "replies": [
+        "0d0000000002b000a008b04100",
+        "0d00000000390035002f000000",
+        "0d000000003f003a000b000010",
+        "070000000000f8"
+      ],
+      "decoded": "<0xb002><0xa000><0xb008>woke up!//",
+      "row_status": "PASS",
+      "report_status": "UNKNOWN",
+      "reason": ""
+    },
+    {
+      "name": "changed-stream-peer-byte",
+      "kind": "narrative",
+      "id": "0x4755f0",
+      "child_argument": "stream-mismatch",
+      "actual_hex": "02b000a008b03900390035002f0000003f003a000b00001000f8",
+      "replies": [
+        "0d0000000002b000a008b03900",
+        "0d00000000390035002f000000",
+        "0d000000003f003a000b000010",
+        "070000000000f8"
+      ],
+      "decoded": "<0xb002><0xa000><0xb008>ooke up!//",
+      "row_status": "FAIL",
+      "report_status": "FAIL",
+      "reason": "normalized narrative mismatch"
+    },
+    {
+      "name": "early-stream-END",
+      "kind": "narrative",
+      "id": "0x4755f0",
+      "child_argument": "stream-early-end",
+      "actual_hex": "02b000a008b000f8390035002f0000003f003a000b00001000f8",
+      "replies": [
+        "0d0000000002b000a008b000f8",
+        "0d00000000390035002f000000",
+        "0d000000003f003a000b000010",
+        "070000000000f8"
+      ],
+      "refusal": "stored stream requires first END at final byte offset24"
+    },
+    {
+      "name": "missing-stream-END",
+      "kind": "narrative",
+      "id": "0x4755f0",
+      "child_argument": "stream-missing-end",
+      "actual_hex": "02b000a008b04100390035002f0000003f003a000b0000100000",
+      "replies": [
+        "0d0000000002b000a008b04100",
+        "0d00000000390035002f000000",
+        "0d000000003f003a000b000010",
+        "07000000000000"
+      ],
+      "refusal": "unsupported stored stream: missing END"
+    },
+    {
+      "name": "unsupported-stream-control",
+      "kind": "narrative",
+      "id": "0x4755f0",
+      "child_argument": "stream-unknown",
+      "actual_hex": "01e000a008b04100390035002f0000003f003a000b00001000f8",
+      "replies": [
+        "0d0000000001e000a008b04100",
+        "0d00000000390035002f000000",
+        "0d000000003f003a000b000010",
+        "070000000000f8"
+      ],
+      "refusal": "unsupported stored stream token 0xe001 at byte0"
+    }
+  ],
+  "stream_requests": [
+    "0900000003f0554700",
+    "0900000003f8554700",
+    "090000000300564700",
+    "090000000108564700"
+  ],
+  "stream_tokens": [
+    {
+      "Kind": "hl",
+      "Word": 45058,
+      "Offset": 0
+    },
+    {
+      "Kind": "icon",
+      "Word": 40960,
+      "Offset": 2
+    },
+    {
+      "Kind": "hl",
+      "Word": 45064,
+      "Offset": 4
+    },
+    {
+      "Kind": "glyph",
+      "Word": 65,
+      "Offset": 6
+    },
+    {
+      "Kind": "glyph",
+      "Word": 57,
+      "Offset": 8
+    },
+    {
+      "Kind": "glyph",
+      "Word": 53,
+      "Offset": 10
+    },
+    {
+      "Kind": "glyph",
+      "Word": 47,
+      "Offset": 12
+    },
+    {
+      "Kind": "space",
+      "Word": 0,
+      "Offset": 14
+    },
+    {
+      "Kind": "glyph",
+      "Word": 63,
+      "Offset": 16
+    },
+    {
+      "Kind": "glyph",
+      "Word": 58,
+      "Offset": 18
+    },
+    {
+      "Kind": "glyph",
+      "Word": 11,
+      "Offset": 20
+    },
+    {
+      "Kind": "page",
+      "Word": 4096,
+      "Offset": 22
+    },
+    {
+      "Kind": "end",
+      "Word": 63488,
+      "Offset": 24
     }
   ]
 }

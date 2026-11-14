@@ -166,6 +166,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			Kind                      string `json:"kind"`
 			RecipeID                  string `json:"recipe_id"`
 			RecipeSHA256              string `json:"recipe_sha256"`
+			SpanBytes                 int    `json:"span_bytes"`
+			SourceSpanSHA256          string `json:"source_span_sha256"`
 			ComparisonSourceSHA256    string `json:"comparison_source_sha256"`
 			GlyphmapSHA256            string `json:"glyphmap_sha256"`
 			HistoricalStaticISOSHA256 string `json:"historical_static_iso_sha256"`
@@ -178,7 +180,19 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	}
 	if profile.Storage != nil {
 		row, ok := observationData.Rows[profile.Storage.ID]
-		if !ok || row.Kind != "fixed" || profile.Storage.Glyphmap.SHA256 != row.GlyphmapSHA256 || profile.Storage.Recipe.SHA256 != row.RecipeSHA256 {
+		if !ok || profile.Storage.Glyphmap.SHA256 != row.GlyphmapSHA256 {
+			return report, fmt.Errorf("unsupported source-bound storage observation")
+		}
+		switch row.Kind {
+		case "fixed":
+			if profile.Storage.Recipe == nil || profile.Storage.Recipe.SHA256 != row.RecipeSHA256 {
+				return report, fmt.Errorf("unsupported source-bound storage observation")
+			}
+		case "narrative":
+			if profile.Storage.Recipe != nil || row.SpanBytes < 2 || row.SpanBytes > 4096 || row.SpanBytes%2 != 0 {
+				return report, fmt.Errorf("stored stream requires its qualified source extent, not an authoring recipe")
+			}
+		default:
 			return report, fmt.Errorf("unsupported source-bound storage observation")
 		}
 		if profile.Inputs["iso"].SHA256 != row.SourceISOSHA256 {
@@ -212,9 +226,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var storageGlyphs json.RawMessage
 	var storageExpected string
 	var storageAddress uint32
+	storageBytes := 16
 	if profile.Storage != nil {
 		loaded := map[string][]byte{}
-		for role, input := range map[string]RegistryInput{"storage-glyphmap": profile.Storage.Glyphmap, "storage-registry": profile.Storage.Registry, "storage-recipe": profile.Storage.Recipe} {
+		inputs := map[string]RegistryInput{"storage-glyphmap": profile.Storage.Glyphmap, "storage-registry": profile.Storage.Registry}
+		if profile.Storage.Recipe != nil {
+			inputs["storage-recipe"] = *profile.Storage.Recipe
+		}
+		for role, input := range inputs {
 			sourceInputs[role] = input
 			roleOrder = append(roleOrder, role)
 			loaded[role], err = readInput(input.Path, 64<<20)
@@ -230,13 +249,20 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		var recipe Recipes
 		row := observationData.Rows[profile.Storage.ID]
 		address, parseErr := strconv.ParseUint(strings.TrimPrefix(row.RecipeID, "0x"), 16, 32)
-		if json.Unmarshal(loaded["storage-registry"], &registry) != nil || json.Unmarshal(loaded["storage-recipe"], &recipe) != nil || parseErr != nil || recipe.Operation != "fixed_field" {
+		if json.Unmarshal(loaded["storage-registry"], &registry) != nil || parseErr != nil {
 			return report, fmt.Errorf("storage registry/recipe contract differs")
 		}
-		entry, exists := recipe.Entries[row.RecipeID]
-		oldBytes, decodeErr := hex.DecodeString(entry.ExpectedHex)
-		if !exists || decodeErr != nil || len(oldBytes) != 16 {
-			return report, fmt.Errorf("storage recipe does not declare the complete16-byte field")
+		if row.Kind == "fixed" {
+			if json.Unmarshal(loaded["storage-recipe"], &recipe) != nil || recipe.Operation != "fixed_field" {
+				return report, fmt.Errorf("storage registry/recipe contract differs")
+			}
+			entry, exists := recipe.Entries[row.RecipeID]
+			oldBytes, decodeErr := hex.DecodeString(entry.ExpectedHex)
+			if !exists || decodeErr != nil || len(oldBytes) != 16 {
+				return report, fmt.Errorf("storage recipe does not declare the complete16-byte field")
+			}
+		} else {
+			storageBytes = row.SpanBytes
 		}
 		matches := 0
 		for _, entry := range registry.Entries {
@@ -713,15 +739,26 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				if effect == "observe-storage" {
 					row := observationData.Rows[profile.Storage.ID]
 					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: bundle.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
-					for index := uint32(0); index < 2; index++ {
-						opcode, address := uint8(3), storageAddress+index*8
-						plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: fmt.Sprintf("field%d", index), Opcode: &opcode, Address: &address})
+					var readIDs []string
+					for offset := 0; offset < storageBytes; {
+						opcode, address := uint8(3), storageAddress+uint32(offset)
+						for 1<<opcode > storageBytes-offset {
+							opcode--
+						}
+						id := fmt.Sprintf("field%d", len(readIDs))
+						readIDs = append(readIDs, id)
+						plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
+						offset += 1 << opcode
 					}
-					plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: row.Kind, Requests: []string{"field0", "field1"}, Glyphmap: storageGlyphs}}
+					decoderKind := row.Kind
+					if row.Kind == "narrative" {
+						decoderKind = "stream"
+					}
+					plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: decoderKind, Requests: readIDs, Glyphmap: storageGlyphs}}
 					planRaw, _ := json.Marshal(plan)
 					runtimeRaw, _ := json.Marshal(scenarioRuntime)
 					memory, err := readProbeMemory(planRaw, runtimeRaw)
-					if err != nil {
+					if err != nil && (row.Kind == "fixed" || len(memory.Observations) != len(plan.Requests)) {
 						step.Reason = err.Error()
 						break actions
 					}
@@ -733,13 +770,23 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						step.Reason = err.Error()
 						break actions
 					}
-					var actual [16]byte
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					var actual []byte
 					for index, observation := range memory.Observations {
-						binary.LittleEndian.PutUint64(actual[index*8:], observation.Value)
+						var word [8]byte
+						binary.LittleEndian.PutUint64(word[:], observation.Value)
+						actual = append(actual, word[:1<<*plan.Requests[index].Opcode]...)
 					}
 					// This event is a storage acquisition, not a displayed-UI or checkpoint witness.
 					eventRaw, _ := json.Marshal(map[string]any{"event": "storage-observed", "event_id": 1, "checkpoint": 0, "time": time.Now().Format("2006-01-02T15:04:05-0700"), "registry_id": profile.Storage.ID, "memory": RegistryInput{Path: memoryPath, Size: int64(len(memoryRaw)), SHA256: memorySHA}, "registry": profile.Storage.Registry, "recipe": profile.Storage.Recipe, "source_iso_sha256": row.SourceISOSHA256, "historical_static_iso_sha256": row.HistoricalStaticISOSHA256, "limits": row.Limits})
-					checkRaw, _ := json.Marshal(map[string]any{"expected": storageExpected, "actual_hex": hex.EncodeToString(actual[:]), "glyphmap": storageGlyphs})
+					checkData := map[string]any{"expected": storageExpected, "actual_hex": hex.EncodeToString(actual), "glyphmap": storageGlyphs}
+					if row.Kind == "narrative" {
+						checkData = map[string]any{"expected": storageExpected, "actual": *memory.Decoded[0].Text}
+					}
+					checkRaw, _ := json.Marshal(checkData)
 					evidence := ProbeEvidenceBundle{Version: 1, SourceSchema: "probe-evidence-go-v1", SourceSHA256: "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8", Admission: scenarioAdmission, RunID: admitted.RunID, Session: admitted.Session, ISOSHA256: admitted.ISOSHA256, Epoch: &admitted.Epoch, Cohort: "go-storage-observation-v1", Members: []string{profile.Storage.ID}, Events: []ProbeEvidenceEvent{{Offset: 0, Data: eventRaw}}, Checks: []ProbeEvidenceCheck{{ID: profile.Storage.ID, Kind: row.Kind, SourceSHA256: row.ComparisonSourceSHA256, EventID: 1, Observation: "observed", Data: checkRaw}}}
 					evidenceRaw, _ := json.Marshal(evidence)
 					evidencePath := filepath.Join(profile.Root, "storage-"+request.Nonce+".evidence.json")

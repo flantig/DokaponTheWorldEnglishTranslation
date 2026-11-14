@@ -38,10 +38,10 @@ type ProbeLifecycleProfile struct {
 // ProbeStorageSpec selects expected-only source facts. Actual bytes are read
 // from the identity-guarded owned peer, never supplied in this profile.
 type ProbeStorageSpec struct {
-	ID       string        `json:"id"`
-	Glyphmap RegistryInput `json:"glyphmap"`
-	Registry RegistryInput `json:"registry"`
-	Recipe   RegistryInput `json:"recipe"`
+	ID       string         `json:"id"`
+	Glyphmap RegistryInput  `json:"glyphmap"`
+	Registry RegistryInput  `json:"registry"`
+	Recipe   *RegistryInput `json:"recipe,omitempty"`
 }
 
 type ProbeLifecycleResume struct {

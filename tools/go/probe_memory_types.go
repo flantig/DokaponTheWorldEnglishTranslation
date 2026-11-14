@@ -55,6 +55,7 @@ type ProbeMemoryDecoded struct {
 	Player    *ProbeSavedPlayer `json:"player,omitempty"`
 	Cursor    *uint64           `json:"cursor,omitempty"`
 	FrameTags []uint64          `json:"frame_tags,omitempty"`
+	Tokens    []TextToken       `json:"tokens,omitempty"`
 }
 
 type ProbeMemoryReport struct {

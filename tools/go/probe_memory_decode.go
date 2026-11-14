@@ -41,32 +41,69 @@ func decodeProbeMemory(requests map[string]ProbeMemoryRequest, payloads map[stri
 				}
 				result.FrameTags = append(result.FrameTags, values[id])
 			}
-		case "fixed":
+		case "fixed", "stream":
 			_, glyphs, mapErr := glyphMaps(decoder.Glyphmap, true)
-			if mapErr != nil || len(data) != 16 {
+			if decoder.Kind == "fixed" && (mapErr != nil || len(data) != 16) {
 				return decoded, fmt.Errorf("fixed decoder requires16 source bytes and a valid glyphmap")
+			}
+			if decoder.Kind == "stream" && (mapErr != nil || len(data) < 2 || len(data) > 4096 || len(data)%2 != 0) {
+				return decoded, fmt.Errorf("stream decoder requires2..4096 whole source bytes and a valid glyphmap")
 			}
 			next := uint64(*first.Address)
 			for _, id := range decoder.Requests {
 				request := requests[id]
 				if uint64(*request.Address) != next {
+					if decoder.Kind == "stream" {
+						return decoded, fmt.Errorf("stored stream reads must be contiguous")
+					}
 					return decoded, fmt.Errorf("fixed field reads must be contiguous")
 				}
 				next += uint64(1) << *request.Opcode
 			}
-			shape, scanErr := controls(data, TextScanOptions{Decode: true, Glyphs: glyphs, FixedWords: 8})
+			scan := TextScanOptions{Decode: true, Glyphs: glyphs}
+			if decoder.Kind == "fixed" {
+				scan.FixedWords = 8
+			}
+			shape, scanErr := controls(data, scan)
 			if scanErr != nil {
+				if decoder.Kind == "stream" {
+					return decoded, fmt.Errorf("unsupported stored stream: %w", scanErr)
+				}
 				return decoded, fmt.Errorf("unsupported fixed memory field: %w", scanErr)
+			}
+			if decoder.Kind == "stream" && shape.Tokens[len(shape.Tokens)-1].Offset != len(data)-2 {
+				return decoded, fmt.Errorf("stored stream requires first END at final byte offset%d", len(data)-2)
 			}
 			var text strings.Builder
 			for _, token := range shape.Tokens {
-				if token.Word == 0 {
+				switch token.Kind {
+				case "space":
 					text.WriteByte(' ')
-				} else {
+				case "glyph":
 					text.WriteString(glyphs[token.Word])
+				case "line":
+					text.WriteByte('|')
+				case "page":
+					text.WriteString("//")
+				case "end":
+				case "hl", "icon":
+					// Preserve only qualified stored syntax. A000 stays opaque;
+					// this is not substitution or native rendering semantics.
+					if token.Word != 0xa000 && (token.Word < 0xb001 || token.Word > 0xb009) {
+						return decoded, fmt.Errorf("unsupported stored stream token %#x at byte%d", token.Word, token.Offset)
+					}
+					fmt.Fprintf(&text, "<0x%04x>", token.Word)
+				default:
+					return decoded, fmt.Errorf("unsupported stored stream token %#x at byte%d", token.Word, token.Offset)
 				}
 			}
-			value := strings.TrimRight(text.String(), sourceWhitespace)
+			value := text.String()
+			if decoder.Kind == "fixed" {
+				value = strings.TrimRight(value, sourceWhitespace)
+			} else {
+				result.Tokens = shape.Tokens
+				result.Reason = "stored syntax only; A000 is opaque and no native expansion is inferred"
+			}
 			result.Text = &value
 		case "player":
 			if len(data) != 508 || len(decoder.Requests) != 127 {

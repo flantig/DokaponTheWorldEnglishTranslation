@@ -979,5 +979,78 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "narrative_storage_offline_assessment": {
+    "status": "ROOT_ACCEPTED_ONE_ROW_STORED_NARRATIVE_OFFLINE_NO_CRITERION_CREDIT",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-narrative-implementation-5RQhKaiy/manifest.json",
+      "sha256": "37a1b28a161abf9aaf95eb08e4e4a41364d1928702555348152ccf0a6eeee860",
+      "report": {
+        "path": "report.md",
+        "sha256": "45e13474fe86c9061723a1b6565075fa5ee828b66721fa15cdef373f77c09445"
+      },
+      "members": {
+        "path": "members.sha256",
+        "sha256": "9657e4565e08bdd450926a80a407aee0610ae0c13919505d0ac2068ab3067356",
+        "count": 38
+      }
+    },
+    "source_snapshot_sha256": "31af8ed17de2c2b572ea591013bf683d440e9a69b4f9a54204e4edd5fcaa6cbf",
+    "source_pins_sha256": "8083d494a2e8e9fe7d4c1bf15a907dcd05493d4eb0808fc7819dc9e04de865bb",
+    "selection_sha256": "8e26624a431e6d05d909923303721dbc45243c688c85e9613ff388b8307f7d53",
+    "approach_sha256": "bb4137944d064cd92c9ea2f1191d235dd5d05acdc89b7eebc8c51c04eb18379d",
+    "review": {
+      "path": "/var/tmp/dokapon-probe06-narrative-review-astra-nO8Z847v/review.md",
+      "sha256": "98b8941afee96ccecbd17d5cff770304405fa4f6de8a7f2130dac2f518c26b84"
+    },
+    "pre_output_oracle_sha256": "a63fdd35b89a962cf91aa7a5c0e6f40f91a360dda5c5651d2ba5472a7513037d",
+    "contract": "Registry0x4755f0 current83cb initialized26B with first END at24 is acquired through four ordered reads. Explicit stream kind shares existing payload assembly, contiguous-read validation, controls and narrow narrative normalizer; fixed16B remains unchanged. Ordered tokens and literal prefix syntax are retained, A000 expansion stays opaque. Actual acquired bytes and hash-linked memory evidence feed the existing stored-body report comparison, not Expected substitution.",
+    "verification": {
+      "selected_storage": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags core -run '^TestProbeLifecycle$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 5.324,
+        "log": "first-storage.log"
+      },
+      "core": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags core -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 8.601,
+        "log": "final-core.log"
+      },
+      "nativefonts": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags nativefonts -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 8.220,
+        "log": "final-nativefonts.log"
+      },
+      "build_core": "PASS",
+      "vet_core": "PASS",
+      "build_nativefonts": "PASS",
+      "vet_nativefonts": "PASS",
+      "format": "PASS",
+      "json": "PASS",
+      "scoped_credentials": "PASS",
+      "protected_source_readback": "PASS",
+      "main_unchanged": "PASS",
+      "eight_source_members_equal_stable_snapshot": "PASS",
+      "raw_receipts": "Tests verified complete raw memory receipts and safe stop before ordinary Go TempDir cleanup. Deleted actual fixture payloads are not independently rehashable now. The source-independent seven-case literal oracle and all test logs remain.",
+      "deferred": "No full story replay/fullsuite/race/native emulator/PINE/device/current runtime/UI/actor expansion/script parity/fullcriterion or resource agreement claim. Nativefonts is a build-tag variant with controlled Go children/local peers only."
+    },
+    "accounting": {
+      "implementation_runtime_bytes": 4352,
+      "test_fixture_bytes": 6847,
+      "production_functions_added": 0,
+      "callbacks_added": 0,
+      "named_types_added": 0,
+      "dependencies_added": 0
+    },
+    "limits": [
+      "Stored narrative-body only; A000 opaque; non-atomic; no native/UI/dynamic expansion/script parity/checkpoint/fullcriterion credit.",
+      "Matching stored row can PASS while the no-checkpoint overall report remains UNKNOWN. No displayed widget, actor/name expansion or installed-RAM attestation.",
+      "Complete acquisition followed by decoding refusal retains raw memory facts and safe stop without comparison PASS. Product retention was asserted before ordinary TempDir cleanup; removed payloads are not independently rehashable."
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }

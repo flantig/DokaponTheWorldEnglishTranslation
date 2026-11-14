@@ -77,7 +77,7 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 			return report, fmt.Errorf("probe decoders require distinct IDs and declared reads")
 		}
 		decoderIDs[decoder.ID] = true
-		if !slices.Contains([]string{"scalar", "frame_tags", "fixed", "player", "cursor", "texture", "char"}, decoder.Kind) {
+		if !slices.Contains([]string{"scalar", "frame_tags", "fixed", "stream", "player", "cursor", "texture", "char"}, decoder.Kind) {
 			return report, fmt.Errorf("unsupported probe memory decoder %q", decoder.Kind)
 		}
 		for _, id := range decoder.Requests {
