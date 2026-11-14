@@ -29,6 +29,8 @@ func run(args []string, stdout io.Writer) error {
 	fitPath := flags.String("fit-profile", "", "read-only authoring fit profile; separate from patch recipes")
 	auditPath := flags.String("stream-audit-profile", "", "read-only paired stream profile with pinned input paths")
 	texturePath := flags.String("texture-profile", "", "standalone calibrated TXD/PNG authoring profile")
+	probeRecordsPath := flags.String("probe-records", "", "read-only immutable probe record bundle; never controls a runtime")
+	probeEvidencePath := flags.String("probe-evidence", "", "read-only deterministic report of admitted saved probe evidence")
 	snapshot := flags.String("snapshot", "", "artifact snapshot operation: create, list or restore")
 	snapshotDir := flags.String("snapshot-dir", "", "directory of immutable tagged snapshots")
 	tag := flags.String("tag", "", "unique snapshot tag")
@@ -38,6 +40,33 @@ func run(args []string, stdout io.Writer) error {
 	apply := flags.Bool("apply", false, "create a patched copy after preflight")
 	if err := flags.Parse(args); err != nil {
 		return err
+	}
+	if *probeRecordsPath != "" || *probeEvidencePath != "" {
+		path, noun, limit := *probeRecordsPath, "records", int64(1<<20)
+		if *probeEvidencePath != "" {
+			path, noun, limit = *probeEvidencePath, "evidence", 4<<20
+		}
+		if *probeRecordsPath != "" && *probeEvidencePath != "" {
+			return fmt.Errorf("probe records and evidence are mutually exclusive operations")
+		}
+		if flags.NArg() != 0 || *sourcePath != "" || *registryPath != "" || *glyphPath != "" || *fitPath != "" || *auditPath != "" || *texturePath != "" || *snapshot != "" || *snapshotDir != "" || *tag != "" || *commit != "" || *note != "" || len(recipePaths) != 0 || *apply || *output != "" {
+			return fmt.Errorf("probe %s take only their immutable bundle; runtime and write arguments are forbidden", noun)
+		}
+		data, err := readInput(path, limit)
+		if err != nil {
+			return err
+		}
+		var report any
+		switch noun {
+		case "records":
+			report, err = admitProbeRecords(data)
+		case "evidence":
+			report, err = reportProbeEvidence(data)
+		}
+		if err != nil {
+			return err
+		}
+		return json.NewEncoder(stdout).Encode(report)
 	}
 	if *auditPath != "" {
 		if flags.NArg() != 0 || *sourcePath != "" || *registryPath != "" || *glyphPath != "" || *fitPath != "" || *texturePath != "" || *snapshot != "" || *snapshotDir != "" || *tag != "" || *commit != "" || *note != "" || len(recipePaths) != 0 || *apply || *output != "" {

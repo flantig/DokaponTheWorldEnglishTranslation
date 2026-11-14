@@ -5,7 +5,7 @@ English stays in the registry; separate recipe tables hold patch facts. Read
 [MIGRATION.md](MIGRATION.md) for coverage, current evidence, costs and remaining work.
 Resume the persistent goal from [.goal/GOAL.md](.goal/GOAL.md).
 
-The current [v3 coverage](analysis/reusability-coverage.md) is **13/15 fully verified core families (86.67%)**, with two Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 83 proven (92.22%)**, six per family. Probe orchestration and evidence is Partial with **0/6** groups proven in Go. These are capability/checklist counts, not code reuse, effort, time or script migration percentages.
+The current [v3 coverage](analysis/reusability-coverage.md) is **13/15 fully verified core families (86.67%)**, with two Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 85 proven (94.44%)**, six per family. Probe orchestration and evidence is Partial with **2/6** groups proven in Go. These are capability/checklist counts, not code reuse, effort, time or script migration percentages.
 
 The original14 authoring families retain their scoped usable operations. The new full probe workflow has no verified Go orchestration owner. Existing Python remains the sole production owner until identical native acceptance and explicit handover. Starting a story probe, unattended crash/stall detection, bounded recovery, safe stop/resume, preservation and bounded evidence/resource use are required. The probe owner must agree the soak duration, recovery outcomes and budgets before acceptance; earlier three-story tests do not prove unattended acceptance.
 
@@ -13,7 +13,7 @@ The [v1 baseline](analysis/reusability-coverage-baseline.json) remains byte-iden
 
 Raster rendering is6/6 under the [accepted current fixed-data contract](evidence/reconstruction-row-proof.json#current_raster_criterion_assessment): one exact native replay, a separate editable donor/order witness and203 source-bound material dispositions. This does not claim203 native replays, arbitrary generators, pristine provenance or gameplay acceptance.
 
-Next is `probe_orchestration_evidence.01`: preserve production run/profile/session/receipt identity, nonce linkage, path roles and exact refusal order through existing Go owners and sanitized fixtures. Migration is already authorized; runtime handover remains separate.
+The [offline probe proof](evidence/probe-records-proof.json) accepts saved-record admission `.01` through `--probe-records` and deterministic saved-evidence reports `.02` through `--probe-evidence`. Neither opens claimed runtime paths or establishes live ownership. See [the bounded import contract](docs/probe-records.md). Next is `.03`: build/session-bound typed reads and diagnostics, preserving provenance, refusal boundaries and material hook/ABI obligations. Runtime handover remains separate.
 
 Follow [AGENTS.md](AGENTS.md): inspect symbols and callers with Serena, enhance
 existing functions whenever reasonable, and verify the complete change.

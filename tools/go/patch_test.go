@@ -2349,6 +2349,19 @@ func TestPlanAndCopy(t *testing.T) {
 }
 
 func TestPlanRefusals(t *testing.T) {
+	for _, operation := range []string{"records", "evidence"} {
+		for _, extra := range [][]string{{"--apply"}, {"--output", "must-not-exist"}, {"--source", "must-not-open"}, {"--texture-profile", "must-not-open"}, {"--snapshot", "create"}, {"--registry", "must-not-open"}, {"--recipes", "must-not-open"}, {"--glyphmap", "must-not-open"}, {"--fit-profile", "must-not-open"}, {"--stream-audit-profile", "must-not-open"}, {"--note", "forbidden"}, {"--snapshot-dir", "must-not-open"}, {"--tag", "forbidden"}, {"--commit", "forbidden"}, {"positional"}} {
+			var report bytes.Buffer
+			args := append([]string{"--probe-" + operation, "must-not-open"}, extra...)
+			if err := run(args, &report); err == nil || err.Error() != "probe "+operation+" take only their immutable bundle; runtime and write arguments are forbidden" || report.Len() != 0 {
+				t.Fatal("probe record operation admitted conflicting CLI arguments", extra, err, report.String())
+			}
+		}
+	}
+	var conflictingProbeReport bytes.Buffer
+	if err := run([]string{"--probe-records", "must-not-open", "--probe-evidence", "must-not-open"}, &conflictingProbeReport); err == nil || err.Error() != "probe records and evidence are mutually exclusive operations" || conflictingProbeReport.Len() != 0 {
+		t.Fatal("probe operations admitted both immutable bundles", err)
+	}
 	for _, name := range []string{"registry import", "unknown authoring", "missing context", "independent prefix", "missing preimage", "missing encoding pin", "missing byte bound", "physical END", "body setup", "opaque payload", "scale prefix"} {
 		r, registry, glyphs, image := fixture(t, "stream_reflow_format")
 		row := r.Entries["0x100"]

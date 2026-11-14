@@ -1,0 +1,13 @@
+# Offline probe records
+
+`--probe-records bundle.json` reads one immutable bundle (maximum1MiB) and emits a deterministic linkage report. It rejects all other operation, input and write arguments. It never opens the paths claimed inside records, reads process memory or controls a runtime.
+
+Import version1, `text-probe-legacy-2026-11-13`, pins `text_probe_run.py` source5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f. This versions the offline import format, not a field in historical Python records. `testdata/probe-records.json` is the complete sanitized example and independent expected-case table.
+
+A bundle contains project/working/run roots, a context, raw role records, five saved file observations (ISO, private card, source card, settings, BIOS), and process snapshots. Initial admission requires run/profile/config/owned roles. Cold admission adds previous_owned/request/ready ack; previous_ack is optional but must be linked if supplied. Full record digests and input order remain in the report, including opaque legacy diagnostic fields.
+
+`boot_checkpoint` preserves source guard order and rejects replayed nonces. `outer_requested` recognizes the source caller's already-acknowledged matching tuple without a new transition. Decimal nonces must increase at boot but need not be contiguous or fit a machine integer. Cold epochs must change the PID/starttime pair; warm-reset semantics are outside this receipt slice.
+
+Saved readonly/exclusive/path/hash/process observations are evidence claims, not proof of live ownership. Reports always declare `live_ownership:false`. No process signal, file/card/BIOS access, PINE, capture, runtime handover or gameplay acceptance follows. Missing/unsupported evidence is refused; existing Python and the independent card/timeline follower keep their production ownership.
+
+`--probe-evidence bundle.json` accepts a bounded saved-evidence bundle (maximum4MiB), reuses record admission and emits deterministic comparison rows and checkpoint coverage. Fixed fields, narrative, ordered positional observations, code/capacity and full RGBA images preserve native slots, fingerprints and source evidence order. Warm/cold verification and changed progress must precede resumed coverage. Missing, SKIPPED and UNKNOWN observations retain reasons and never count as passing coverage. This remains an offline report, not a live observer or runtime controller.

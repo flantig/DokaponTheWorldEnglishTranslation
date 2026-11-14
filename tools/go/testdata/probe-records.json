@@ -1,0 +1,856 @@
+{
+  "source_contract": "Literal synthetic identities and source-stage failures frozen before candidate comparison. Source: text_probe_run.py prepare_profile238-243, boot_checkpoint273-354 and outer loop860-878. No claimed path exists or may be opened.",
+  "bundle": {
+    "version": 1,
+    "source_schema": "text-probe-legacy-2026-11-13",
+    "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+    "project_root": "/probe-project",
+    "working_directory": "/probe-project",
+    "run_root": "/probe-project/generated/run",
+    "context": "boot_checkpoint",
+    "records": [
+      {
+        "role": "run",
+        "data": {
+          "status": "running",
+          "iso": "generated/frozen/game.iso",
+          "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "run_id": "run",
+          "started_at": "2026-11-13T00:00:00+0000",
+          "runner_pid": 77,
+          "private_profile": {
+            "datapath": "/probe-project/generated/run/profile",
+            "data_root": "/probe-project/generated/run/profile/PCSX2",
+            "source_settings": "/user/inis/PCSX2.ini",
+            "source_settings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "source_card": "/user/memcards/personal.ps2",
+            "source_card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+            "card_initial_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "bios": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN"
+          }
+        }
+      },
+      {
+        "role": "profile",
+        "data": {
+          "datapath": "/probe-project/generated/run/profile",
+          "data_root": "/probe-project/generated/run/profile/PCSX2",
+          "source_settings": "/user/inis/PCSX2.ini",
+          "source_settings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "source_card": "/user/memcards/personal.ps2",
+          "source_card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "card": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+          "card_initial_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "bios": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN"
+        }
+      },
+      {
+        "role": "config",
+        "data": {
+          "session": "00112233445566778899aabbccddeeff",
+          "iso": "/probe-project/generated/frozen/game.iso",
+          "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "profile": "/probe-project/generated/run/profile",
+          "seed": 1234,
+          "scenario": "first-create"
+        }
+      },
+      {
+        "role": "previous_owned",
+        "data": {
+          "pid": 101,
+          "starttime": 1001,
+          "state": "S",
+          "cmdline": [
+            "/usr/bin/pcsx2",
+            "-batch",
+            "-datapath",
+            "/probe-project/generated/run/profile",
+            "/probe-project/generated/frozen/game.iso"
+          ],
+          "session": "00112233445566778899aabbccddeeff",
+          "iso": "/probe-project/generated/frozen/game.iso",
+          "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "profile": "/probe-project/generated/run/profile",
+          "epoch": 2
+        }
+      },
+      {
+        "role": "previous_ack",
+        "data": {
+          "nonce": "2-cold",
+          "phase": "ready",
+          "session": "00112233445566778899aabbccddeeff",
+          "operation": "cold-restart",
+          "epoch": 2,
+          "owned": {
+            "pid": 101,
+            "starttime": 1001,
+            "state": "S",
+            "cmdline": [
+              "/usr/bin/pcsx2",
+              "-batch",
+              "-datapath",
+              "/probe-project/generated/run/profile",
+              "/probe-project/generated/frozen/game.iso"
+            ],
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "profile": "/probe-project/generated/run/profile",
+            "epoch": 2
+          },
+          "card_sha256_before": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "card_sha256_after": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      },
+      {
+        "role": "request",
+        "data": {
+          "nonce": "7-cold",
+          "phase": "requested",
+          "session": "00112233445566778899aabbccddeeff",
+          "operation": "cold-restart"
+        }
+      },
+      {
+        "role": "owned",
+        "data": {
+          "pid": 202,
+          "starttime": 2002,
+          "state": "S",
+          "cmdline": [
+            "/usr/bin/pcsx2",
+            "-batch",
+            "-datapath",
+            "/probe-project/generated/run/profile",
+            "/probe-project/generated/frozen/game.iso"
+          ],
+          "session": "00112233445566778899aabbccddeeff",
+          "iso": "/probe-project/generated/frozen/game.iso",
+          "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "profile": "/probe-project/generated/run/profile",
+          "epoch": 3
+        }
+      },
+      {
+        "role": "ack",
+        "data": {
+          "nonce": "7-cold",
+          "phase": "ready",
+          "session": "00112233445566778899aabbccddeeff",
+          "operation": "cold-restart",
+          "epoch": 3,
+          "owned": {
+            "pid": 202,
+            "starttime": 2002,
+            "state": "S",
+            "cmdline": [
+              "/usr/bin/pcsx2",
+              "-batch",
+              "-datapath",
+              "/probe-project/generated/run/profile",
+              "/probe-project/generated/frozen/game.iso"
+            ],
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "profile": "/probe-project/generated/run/profile",
+            "epoch": 3
+          },
+          "card_sha256_before": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "card_sha256_after": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      }
+    ],
+    "files": [
+      {
+        "role": "iso",
+        "path": "/probe-project/generated/frozen/game.iso",
+        "resolved_path": "/probe-project/generated/frozen/game.iso",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "kind": "regular",
+        "nlink": 1,
+        "symlink": false,
+        "writable": false
+      },
+      {
+        "role": "card",
+        "path": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+        "resolved_path": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "kind": "regular",
+        "nlink": 1,
+        "symlink": false,
+        "writable": true
+      },
+      {
+        "role": "source_card",
+        "path": "/user/memcards/personal.ps2",
+        "resolved_path": "/user/memcards/personal.ps2",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "kind": "regular",
+        "nlink": 1,
+        "symlink": false,
+        "writable": true
+      },
+      {
+        "role": "settings",
+        "path": "/user/inis/PCSX2.ini",
+        "resolved_path": "/user/inis/PCSX2.ini",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "kind": "regular",
+        "nlink": 1,
+        "symlink": false,
+        "writable": true
+      },
+      {
+        "role": "bios",
+        "path": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN",
+        "resolved_path": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "kind": "regular",
+        "nlink": 1,
+        "symlink": false,
+        "writable": false
+      }
+    ],
+    "before_process": {
+      "pid": 101,
+      "starttime": 1001,
+      "state": "S",
+      "cmdline": [
+        "/usr/bin/pcsx2",
+        "-batch",
+        "-datapath",
+        "/probe-project/generated/run/profile",
+        "/probe-project/generated/frozen/game.iso"
+      ]
+    },
+    "after_process": {
+      "pid": 202,
+      "starttime": 2002,
+      "state": "S",
+      "cmdline": [
+        "/usr/bin/pcsx2",
+        "-batch",
+        "-datapath",
+        "/probe-project/generated/run/profile",
+        "/probe-project/generated/frozen/game.iso"
+      ]
+    }
+  },
+  "expected": {
+    "version": 1,
+    "source_schema": "text-probe-legacy-2026-11-13",
+    "status": "recorded-cold-ready",
+    "context": "boot_checkpoint",
+    "run_id": "run",
+    "session": "00112233445566778899aabbccddeeff",
+    "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "epoch": 3,
+    "pid": 202,
+    "starttime": 2002,
+    "nonce": "7-cold",
+    "previous_nonce": "2-cold",
+    "card_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "live_ownership": false,
+    "limits": "Offline legacy-record linkage only; saved observations are not live ownership, runtime authorization, native acceptance or permission to open any claimed path."
+  },
+  "cases": [
+    {
+      "name": "cold complete"
+    },
+    {
+      "name": "outer already acknowledged",
+      "changes": [
+        {
+          "path": [
+            "context"
+          ],
+          "value": "outer_requested"
+        }
+      ],
+      "copy_roles": {
+        "previous_ack": "ack"
+      },
+      "expected": {
+        "status": "already-acknowledged",
+        "context": "outer_requested",
+        "previous_nonce": "7-cold"
+      }
+    },
+    {
+      "name": "initial complete",
+      "remove_roles": [
+        "previous_owned",
+        "previous_ack",
+        "request",
+        "ack"
+      ],
+      "changes": [
+        {
+          "path": [
+            "context"
+          ],
+          "value": "initial"
+        },
+        {
+          "path": [
+            "before_process"
+          ],
+          "value": null
+        },
+        {
+          "role": "owned",
+          "path": [
+            "epoch"
+          ],
+          "value": 0
+        },
+        {
+          "file": "card",
+          "path": [
+            "sha256"
+          ],
+          "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      ],
+      "expected": {
+        "status": "recorded-initial-epoch",
+        "context": "initial",
+        "epoch": 0,
+        "card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "omit_expected": [
+        "nonce",
+        "previous_nonce"
+      ]
+    },
+    {
+      "name": "ended legacy metadata",
+      "changes": [
+        {
+          "role": "run",
+          "path": [
+            "status"
+          ],
+          "value": "ended"
+        }
+      ]
+    },
+    {
+      "name": "no contiguous nonce requirement",
+      "changes": [
+        {
+          "role": "request",
+          "path": [
+            "nonce"
+          ],
+          "value": "70-cold"
+        },
+        {
+          "role": "ack",
+          "path": [
+            "nonce"
+          ],
+          "value": "70-cold"
+        }
+      ],
+      "expected": {
+        "nonce": "70-cold"
+      }
+    },
+    {
+      "name": "unsupported version",
+      "changes": [
+        {
+          "path": [
+            "version"
+          ],
+          "value": 2
+        }
+      ],
+      "error": "unsupported probe record import version or source schema"
+    },
+    {
+      "name": "stale source",
+      "changes": [
+        {
+          "path": [
+            "source_sha256"
+          ],
+          "value": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "error": "unsupported probe record import version or source schema"
+    },
+    {
+      "name": "missing run",
+      "remove_roles": [
+        "run"
+      ],
+      "error": "missing probe record \"run\""
+    },
+    {
+      "name": "missing profile",
+      "remove_roles": [
+        "profile"
+      ],
+      "error": "missing probe record \"profile\""
+    },
+    {
+      "name": "missing config",
+      "remove_roles": [
+        "config"
+      ],
+      "error": "missing probe record \"config\""
+    },
+    {
+      "name": "missing owned",
+      "remove_roles": [
+        "owned"
+      ],
+      "error": "missing probe record \"owned\""
+    },
+    {
+      "name": "missing prior",
+      "remove_roles": [
+        "previous_owned"
+      ],
+      "error": "missing probe record \"previous_owned\""
+    },
+    {
+      "name": "missing request",
+      "remove_roles": [
+        "request"
+      ],
+      "error": "missing probe record \"request\""
+    },
+    {
+      "name": "missing ack",
+      "remove_roles": [
+        "ack"
+      ],
+      "error": "missing probe record \"ack\""
+    },
+    {
+      "name": "duplicate role",
+      "duplicate_role": "run",
+      "error": "duplicate probe record role \"run\"",
+      "remove_roles": [
+        "previous_ack"
+      ]
+    },
+    {
+      "name": "duplicate json key",
+      "duplicate_key": true,
+      "error": "duplicate registry object key \"version\""
+    },
+    {
+      "name": "private path before card error",
+      "changes": [
+        {
+          "role": "config",
+          "path": [
+            "profile"
+          ],
+          "value": "/personal/profile"
+        },
+        {
+          "file": "card",
+          "path": [
+            "nlink"
+          ],
+          "value": 2
+        }
+      ],
+      "error": "checkpoint session/profile is outside its private run"
+    },
+    {
+      "name": "exclusive card before ISO error",
+      "changes": [
+        {
+          "file": "card",
+          "path": [
+            "symlink"
+          ],
+          "value": true
+        },
+        {
+          "file": "iso",
+          "path": [
+            "writable"
+          ],
+          "value": true
+        }
+      ],
+      "error": "checkpoint card is not an exclusive private file"
+    },
+    {
+      "name": "readonly ISO",
+      "changes": [
+        {
+          "file": "iso",
+          "path": [
+            "writable"
+          ],
+          "value": true
+        }
+      ],
+      "error": "checkpoint ISO is not the unchanged frozen candidate"
+    },
+    {
+      "name": "run identity conflict",
+      "changes": [
+        {
+          "role": "run",
+          "path": [
+            "run_id"
+          ],
+          "value": "other-run"
+        }
+      ],
+      "error": "run metadata conflicts with its profile, ISO or run identity"
+    },
+    {
+      "name": "source settings conflict",
+      "changes": [
+        {
+          "file": "settings",
+          "path": [
+            "sha256"
+          ],
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ],
+      "error": "profile receipt conflicts with its saved source identities"
+    },
+    {
+      "name": "request session before snapshot error",
+      "changes": [
+        {
+          "role": "request",
+          "path": [
+            "session"
+          ],
+          "value": "different"
+        },
+        {
+          "path": [
+            "before_process",
+            "starttime"
+          ],
+          "value": 9999
+        }
+      ],
+      "error": "invalid cold restart session/operation/nonce"
+    },
+    {
+      "name": "bad operation",
+      "changes": [
+        {
+          "role": "request",
+          "path": [
+            "operation"
+          ],
+          "value": "warm-restart"
+        }
+      ],
+      "error": "invalid cold restart session/operation/nonce"
+    },
+    {
+      "name": "leading zero nonce",
+      "changes": [
+        {
+          "role": "request",
+          "path": [
+            "nonce"
+          ],
+          "value": "07-cold"
+        }
+      ],
+      "error": "invalid cold restart session/operation/nonce"
+    },
+    {
+      "name": "boot replay before snapshot error",
+      "changes": [
+        {
+          "role": "previous_ack",
+          "path": [
+            "nonce"
+          ],
+          "value": "7-cold"
+        },
+        {
+          "path": [
+            "before_process",
+            "state"
+          ],
+          "value": "Z"
+        }
+      ],
+      "error": "replayed cold restart nonce"
+    },
+    {
+      "name": "stale PID starttime",
+      "changes": [
+        {
+          "path": [
+            "before_process",
+            "starttime"
+          ],
+          "value": 9999
+        }
+      ],
+      "error": "cold restart lost its exact live owned process"
+    },
+    {
+      "name": "wrong datapath",
+      "changes": [
+        {
+          "path": [
+            "before_process",
+            "cmdline"
+          ],
+          "value": [
+            "pcsx2",
+            "-batch",
+            "-datapath",
+            "/wrong",
+            "/probe-project/generated/frozen/game.iso"
+          ]
+        }
+      ],
+      "error": "owned process no longer uses the private profile"
+    },
+    {
+      "name": "error acknowledgement",
+      "changes": [
+        {
+          "role": "ack",
+          "path": [
+            "error"
+          ],
+          "value": "boot failed"
+        }
+      ],
+      "error": "cold restart acknowledgement contains an error: boot failed"
+    },
+    {
+      "name": "incomplete acknowledgement",
+      "changes": [
+        {
+          "role": "ack",
+          "path": [
+            "phase"
+          ],
+          "value": "requested"
+        }
+      ],
+      "error": "cold restart acknowledgement is incomplete or conflicts with request"
+    },
+    {
+      "name": "wrong ack epoch",
+      "changes": [
+        {
+          "role": "ack",
+          "path": [
+            "epoch"
+          ],
+          "value": 4
+        }
+      ],
+      "error": "cold restart acknowledgement conflicts with new epoch"
+    },
+    {
+      "name": "wrong post-flush card",
+      "changes": [
+        {
+          "role": "ack",
+          "path": [
+            "card_sha256_after"
+          ],
+          "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      ],
+      "error": "cold restart acknowledgement conflicts with post-flush card"
+    },
+    {
+      "name": "new observed zombie",
+      "changes": [
+        {
+          "path": [
+            "after_process",
+            "state"
+          ],
+          "value": "Z"
+        }
+      ],
+      "error": "recorded new process does not match owned epoch"
+    },
+    {
+      "name": "missing epoch",
+      "changes": [
+        {
+          "role": "owned",
+          "path": [
+            "epoch"
+          ],
+          "delete": true
+        }
+      ],
+      "error": "owned epoch conflicts with checkpoint session/profile/ISO"
+    },
+    {
+      "name": "null epoch",
+      "changes": [
+        {
+          "role": "owned",
+          "path": [
+            "epoch"
+          ],
+          "value": null
+        }
+      ],
+      "error": "owned epoch conflicts with checkpoint session/profile/ISO"
+    },
+    {
+      "name": "prior epoch conflict",
+      "changes": [
+        {
+          "role": "previous_ack",
+          "path": [
+            "epoch"
+          ],
+          "value": 1
+        }
+      ],
+      "error": "previous acknowledgement conflicts with previous owned epoch"
+    },
+    {
+      "name": "prior PID conflict",
+      "changes": [
+        {
+          "role": "previous_ack",
+          "path": [
+            "owned",
+            "pid"
+          ],
+          "value": 999
+        }
+      ],
+      "error": "previous acknowledgement conflicts with previous owned epoch"
+    },
+    {
+      "name": "prior profile conflict",
+      "changes": [
+        {
+          "role": "previous_ack",
+          "path": [
+            "owned",
+            "profile"
+          ],
+          "value": "/other/profile"
+        }
+      ],
+      "error": "previous acknowledgement conflicts with previous owned epoch"
+    },
+    {
+      "name": "prior card evidence missing",
+      "changes": [
+        {
+          "role": "previous_ack",
+          "path": [
+            "card_sha256_after"
+          ],
+          "delete": true
+        }
+      ],
+      "error": "previous acknowledgement requires card hash evidence"
+    },
+    {
+      "name": "outer conflicting ack",
+      "changes": [
+        {
+          "path": [
+            "context"
+          ],
+          "value": "outer_requested"
+        }
+      ],
+      "error": "outer acknowledgement conflicts with completed request"
+    },
+    {
+      "name": "outside project ISO before request",
+      "changes": [
+        {
+          "role": "config",
+          "path": [
+            "iso"
+          ],
+          "value": "/outside/game.iso"
+        },
+        {
+          "file": "iso",
+          "path": [
+            "path"
+          ],
+          "value": "/outside/game.iso"
+        },
+        {
+          "file": "iso",
+          "path": [
+            "resolved_path"
+          ],
+          "value": "/outside/game.iso"
+        },
+        {
+          "role": "request",
+          "path": [
+            "phase"
+          ],
+          "value": "bad"
+        }
+      ],
+      "error": "checkpoint ISO is outside project root"
+    },
+    {
+      "name": "project relative process ISO",
+      "changes": [
+        {
+          "path": [
+            "before_process",
+            "cmdline"
+          ],
+          "value": [
+            "pcsx2",
+            "-batch",
+            "-datapath",
+            "/probe-project/generated/run/profile",
+            "generated/frozen/game.iso/"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "container process ISO suffix",
+      "changes": [
+        {
+          "path": [
+            "before_process",
+            "cmdline"
+          ],
+          "value": [
+            "pcsx2",
+            "-batch",
+            "-datapath",
+            "/probe-project/generated/run/profile",
+            "/container/generated/frozen/game.iso/"
+          ]
+        }
+      ]
+    }
+  ]
+}

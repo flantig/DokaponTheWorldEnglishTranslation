@@ -1,6 +1,6 @@
 # Granular capability roadmap, v3
 
-All15 core families have six stable acceptance groups each. **83/90 proven (92.22%)**, with **13/15 full families (86.67%)**. Partial, held, unproven and reviewed-disposition groups earn zero. These equal-weight groups are not time, effort, code reuse or historical-script coverage.
+All15 core families have six stable acceptance groups each. **85/90 proven (94.44%)**, with **13/15 full families (86.67%)**. Partial, held, unproven and reviewed-disposition groups earn zero. These equal-weight groups are not time, effort, code reuse or historical-script coverage.
 
 The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations. The other 88 rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. The six probe groups remain 0/6, and the existing Python runtime remains their production owner. Probe work is last.
 
@@ -223,7 +223,7 @@ Next: Maintain named-placement guards; automatic artwork selection is not a new 
 
 Remaining: No unmet clause in the [accepted current fixed-data assessment](../evidence/reconstruction-row-proof.json#current_raster_criterion_assessment). Earlier generator gaps remain historical capabilities, not an instruction to implement unrequested arbitrary generators. One native replay does not imply203 native replays or gameplay approval.
 
-Next: Complete `probe_orchestration_evidence.01` from pinned production run-record/receipt semantics, preserving identity, nonce linkage and exact refusal order through existing shared owners.
+Next: Complete `probe_orchestration_evidence.02` deterministic event/cohort reports under exact source semantics; offline.01 is accepted separately.
 
 ## Specifications, previews and inventory
 
@@ -244,12 +244,12 @@ Next: All six original milestones proven; no new milestone or denominator introd
 
 ## Probe orchestration and evidence
 
-`probe_orchestration_evidence`: 0/6, family status partial.
+`probe_orchestration_evidence`: 2/6, family status partial.
 
 | Stable ID | Requirement | Status | Credit | Evidence |
 |---|---|---|---|---|
-| probe_orchestration_evidence.01 | Run records and ownership receipts | unproven_in_Go | 0 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
-| probe_orchestration_evidence.02 | Checkpoints and acceptance reports | unproven_in_Go | 0 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
+| probe_orchestration_evidence.01 | Run records and ownership receipts | proven | 1 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
+| probe_orchestration_evidence.02 | Checkpoints and acceptance reports | proven | 1 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
 | probe_orchestration_evidence.03 | Typed reads and diagnostics | unproven_in_Go | 0 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
 | probe_orchestration_evidence.04 | Capture and evidence linkage | unproven_in_Go | 0 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
 | probe_orchestration_evidence.05 | Owned runtime lifecycle | unproven_in_Go | 0 | [probe-family-contract-v2.json](probe-family-contract-v2.json), [probe-owner-handoff.json](probe-owner-handoff.json) |
@@ -257,7 +257,7 @@ Next: All six original milestones proven; no new milestone or denominator introd
 
 Remaining: Full owned probe workflow, including unattended operation/recovery and broader original scenario/diagnostic duties, remains unproven in Go.
 
-Next: Inspect pinned production schemas and refusal order, reuse existing Go input/report owners and freeze sanitized fixtures before implementation. Migration is already authorized; the complete .01 contract, not a receipt slice, earns credit.
+Next: Complete .02 event/cohort acceptance using existing shared owners; preserve slots, fingerprints, ordering, warm/cold and SKIPPED/UNKNOWN reasons without granting passing coverage.
 
 
 
@@ -282,3 +282,7 @@ The [consumer diagnostic assessment](consumer-layout-facts.json#current_conditio
 ### Accepted raster fixed-data completion (83/90)
 
 The [canonical assessment](../evidence/reconstruction-row-proof.json#current_raster_criterion_assessment) completes raster6/6 and13/15 Full families. It joins one exact native replay, a separate editable donor/order witness and203 source-bound material decisions. These are distinct evidence units, with no arbitrary-generator, pristine-source or gameplay claim. Next is probe.01; six probe rows remain0/6 and retired image.06 remains zero-credit.
+
+### Current offline probe reports (85/90)
+
+The [canonical saved-evidence assessment](../evidence/probe-records-proof.json#current_report_criterion_assessment) accepts probe.02, with probe2/6 and13/15 Full families. Four probe groups and the retired zero-credit image.06 remain. Next is probe.03 typed reads/diagnostics; saved reports confer no live authenticity or runtime handover.

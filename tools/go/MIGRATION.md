@@ -7,15 +7,15 @@ to shared engines and purpose-grouped profiles/recipes. The [verified crawl](ana
 checked all 410 source hashes and disjoint memberships at its discovery snapshot. Static similarity
 identifies review candidates, not semantic equivalence or safe deletion.
 
-The current [v3 coverage](analysis/reusability-coverage.md) is **13/15 fully verified core families (86.67%)**, with two Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 83 proven (92.22%)**, six per family. Probe orchestration and evidence is Partial with **0/6** groups proven in Go. These are capability/checklist counts, not code reuse, effort, time or script migration percentages.
+The current [v3 coverage](analysis/reusability-coverage.md) is **13/15 fully verified core families (86.67%)**, with two Partial and none Unsupported. The [granular roadmap](analysis/migration-roadmap.md) exposes all **90 acceptance groups: 85 proven (94.44%)**, six per family. Probe orchestration and evidence is Partial with **2/6** groups proven in Go. These are capability/checklist counts, not code reuse, effort, time or script migration percentages.
 
 The original14 authoring families retain their scoped usable operations. The new full probe workflow has no verified Go orchestration owner. Existing Python remains the sole production owner until identical native acceptance and explicit handover. Starting a story probe, unattended crash/stall detection, bounded recovery, safe stop/resume, preservation and bounded evidence/resource use are required. The probe owner must agree the soak duration, recovery outcomes and budgets before acceptance; earlier three-story tests do not prove unattended acceptance.
 
 The [v1 baseline](analysis/reusability-coverage-baseline.json) remains byte-identical. Its accepted808 views preserve **10/14 Full (71.43%)**, **76/84 (90.48%)** and expanded **10/17 (58.82%)** as history. The original three optional runtime groups are retained as non-additive facets of the one new core family, so v2 introduced 15 unique families, which v3 retains. Native hook/counter/ABI duties and fixed-field, narrative, positional-grid, code/hook/capacity and image-state scenario duties remain in scope. No Go/runtime implementation, new native proof, retirement or capability credit follows from this taxonomy update.
 
-Raster rendering is6/6 under the [canonical fixed-data assessment](evidence/reconstruction-row-proof.json#current_raster_criterion_assessment). Seven groups remain uncredited: six probe criteria and the reviewed retired image.06 disposition, which is not an active coding task.
+Raster rendering is6/6 under the [canonical fixed-data assessment](evidence/reconstruction-row-proof.json#current_raster_criterion_assessment). Five groups remain uncredited: four probe criteria and the reviewed retired image.06 disposition, which is not an active coding task.
 
-Next is `probe_orchestration_evidence.01`: preserve production run/profile/session/receipt identity, nonce linkage, path roles and refusal order through shared Go owners and sanitized fixtures. Existing migration authorization applies; runtime handover remains separate.
+The [offline saved-record proof](evidence/probe-records-proof.json) completes probe.01. Next is probe.02, preserving event/cohort slots, fingerprints, order, warm/cold and SKIPPED/UNKNOWN semantics. Saved records do not establish runtime authenticity or handover.
 
 | Capability | Verified shared behavior | Remaining limit |
 |---|---|---|

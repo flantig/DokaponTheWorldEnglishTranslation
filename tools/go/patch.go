@@ -23,6 +23,11 @@ import (
 const sentinelBase uint64 = 0x04000000
 const maxStreamBytes = 8192
 
+// Python source comparators include U+001C–U+001F beyond Go's Unicode spaces.
+const sourceWhitespace = "\t\n\v\f\r\x1c\x1d\x1e\x1f \u0085\u00a0\u1680" +
+	"\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a" +
+	"\u2028\u2029\u202f\u205f\u3000"
+
 var mipsRegisters = strings.Fields("$zero $at $v0 $v1 $a0 $a1 $a2 $a3 $t0 $t1 $t2 $t3 $t4 $t5 $t6 $t7 $s0 $s1 $s2 $s3 $s4 $s5 $s6 $s7 $t8 $t9 $k0 $k1 $gp $sp $fp $ra")
 
 // number parses addresses and words as 32-bit hexadecimal, even without a 0x prefix.
@@ -116,10 +121,6 @@ func encode(text string, prefix []string, glyphs map[rune]uint16, options TextEn
 	if wrapping && !nativeWrapping && (source == nil || options.Columns < 1 || options.Rows < 1) {
 		return nil, fmt.Errorf("character budgets require source context and positive columns/rows")
 	}
-	// Python str.strip includes U+001C–U+001F beyond Go's Unicode whitespace.
-	const sourceWhitespace = "\t\n\v\f\r\x1c\x1d\x1e\x1f \u0085\u00a0\u1680" +
-		"\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a" +
-		"\u2028\u2029\u202f\u205f\u3000"
 	if !terminated && len(prefix) != 0 {
 		return nil, fmt.Errorf("fixed fields cannot have a stream prefix")
 	}

@@ -1580,35 +1580,42 @@
       "id": "probe_orchestration_evidence",
       "title": "Probe orchestration and evidence",
       "accepted_family_status": "partial",
-      "verified_milestones": 0,
+      "verified_milestones": 2,
       "total_milestones": 6,
-      "checklist_percent": 0.0,
+      "checklist_percent": 33.33,
       "milestones": [
         {
           "id": "probe_orchestration_evidence.01",
           "requirement": "Run records and ownership receipts",
           "acceptance": "Versioned metadata, profile receipts and session records validate required identity and nonce linkage, schema/version, path roles and exact error/refusal order; missing, stale, conflicting and duplicate evidence is refused.",
-          "credit": 0,
-          "status": "unproven_in_Go",
+          "credit": 1,
+          "status": "proven",
           "initial_zero_reason": "No verified Go admission contract or owner-approved synthetic receipt oracle.",
           "evidence": [
             "analysis/probe-family-contract-v2.json",
-            "analysis/probe-owner-handoff.json"
+            "analysis/probe-owner-handoff.json",
+            "evidence/probe-records-proof.json",
+            "docs/probe-records.md",
+            "testdata/probe-records.json"
           ],
-          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof.",
+          "detail": "Offline saved-record admission only; no runtimeauthenticity, lifecycle or handover credit."
         },
         {
           "id": "probe_orchestration_evidence.02",
           "requirement": "Checkpoints and acceptance reports",
           "acceptance": "Deterministic event/cohort reports preserve native slots, exact fingerprints, ordered evidence, warm/cold distinctions and unknown outcomes across fixed-field, narrative, positional-grid, code/hook/capacity and image-state comparisons. SKIPPED and UNKNOWN outcomes retain their reasons and source ordering and never count as passing coverage.",
-          "credit": 0,
-          "status": "unproven_in_Go",
+          "credit": 1,
+          "status": "proven",
           "initial_zero_reason": "Existing offline reports do not establish probe event semantics or original scenario cohort parity.",
           "evidence": [
             "analysis/probe-family-contract-v2.json",
-            "analysis/probe-owner-handoff.json"
+            "analysis/probe-owner-handoff.json",
+            "evidence/probe-records-proof.json",
+            "testdata/probe-evidence.json"
           ],
-          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof.",
+          "detail": "Deterministic saved-evidence report only, no live authenticity/later-clausecredit."
         },
         {
           "id": "probe_orchestration_evidence.03",
@@ -1663,8 +1670,8 @@
           "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
         }
       ],
-      "remaining_roadmap": "Full owned probe workflow, including unattended operation/recovery and broader original scenario/diagnostic duties, remains unproven in Go.",
-      "next_achievable_milestone": "Inspect pinned production run/profile/session/receipt semantics and existing Go input/report owners, freeze sanitized identity/nonce/refusal-order fixtures, then complete .01. Existing user migration authorization applies; no artificial approval blocker or runtime handover.",
+      "remaining_roadmap": ".01offlineadmission/.02saved-evidencereportscomplete;typedreads/diagnostics,capture,lifecycle andnativehandover.03-.06remainunproven.",
+      "next_achievable_milestone": "Complete .03 typedread/diagnostic source-contract acceptance; preserve build/session/provenance/refusals and material hook/ABI evidence.",
       "dependencies": [
         "Existing Python runtime owner",
         "Owner-approved sanitized schema and oracle fixtures",
@@ -1729,16 +1736,16 @@
     "fully_verified_families": 13,
     "core_families": 15,
     "family_completion_percent": 86.67,
-    "verified_milestones": 83,
+    "verified_milestones": 85,
     "milestones": 90,
-    "checklist_index_percent": 92.22,
+    "checklist_index_percent": 94.44,
     "warning": "Checklist index is a planning aid; equal-weight groups differ in effort and do not measure reuse or script migration."
   },
   "next_target": {
     "family": "probe_orchestration_evidence",
-    "milestone": "probe_orchestration_evidence.01",
-    "status": "EXACT_RUN_RECORD_OWNERSHIP_RECEIPT_SOURCE_CONTRACT_IMPLEMENTATION_NEXT",
-    "rule": "One criterion, exact unmet checks and finish path. Preserve identity/nonce/path roles/schema/version/refusal order from pinned production source; sanitized tests, shared Go owners, no production handover or artificial approval wait."
+    "milestone": "probe_orchestration_evidence.03",
+    "status": "TYPED_READS_DIAGNOSTICS_SOURCE_CONTRACT_NEXT",
+    "rule": "One exactcriterion; build/sessionbound reads/decoders/provenance/refusals/materialhookandABI evidence. Savedreportsdonotprove liveauthenticity."
   },
   "updated_at": "2026-11-13T23:09:57Z",
   "latest_milestone": {
@@ -2484,5 +2491,18 @@
     "record": "current_raster_criterion_assessment",
     "milestone_credit": 1,
     "family_credit": 1
+  },
+  "latest_probe_records_completion": {
+    "proof": "evidence/probe-records-proof.json",
+    "proof_sha256": "25ca91b59d3c00089b6ab58433ab039ed09e2b72e7e856cf8c39d71ad7018271",
+    "milestone_credit": 1,
+    "family_credit": 0
+  },
+  "latest_probe_evidence_completion": {
+    "proof": "evidence/probe-records-proof.json",
+    "proof_sha256": "25ca91b59d3c00089b6ab58433ab039ed09e2b72e7e856cf8c39d71ad7018271",
+    "record": "current_report_criterion_assessment",
+    "milestone_credit": 1,
+    "family_credit": 0
   }
 }
