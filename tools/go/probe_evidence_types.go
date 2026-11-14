@@ -18,6 +18,31 @@ type ProbeEvidenceBundle struct {
 	Events       []ProbeEvidenceEvent      `json:"events"`
 	Checks       []ProbeEvidenceCheck      `json:"checks"`
 	Captures     []ProbeCaptureObservation `json:"captures,omitempty"`
+	Resume       *ProbeResumeFacts         `json:"resume,omitempty"`
+}
+
+// ProbeResumeFacts is the source resume receipt plus loaded saved artifacts.
+// Pure comparisons do not attest paths: the controller rehashes files first.
+type ProbeResumeFacts struct {
+	ISOSHA256           string                   `json:"iso_sha256"`
+	Seed                *uint64                  `json:"seed"`
+	Artifacts           map[string]RegistryInput `json:"artifacts"`
+	SourceFrameRoot     string                   `json:"source_frame_root"`
+	AcceptedCheckpoints []int                    `json:"accepted_checkpoints"`
+	FailedCheckpoint    int                      `json:"failed_checkpoint"`
+	SaveEvent           int                      `json:"save_event"`
+	ColdLoadEvent       int                      `json:"cold_load_event"`
+	ControlEvent        int                      `json:"control_event"`
+	FailureEvent        int                      `json:"failure_event"`
+	Slot                *int                     `json:"slot"`
+	Actor               *uint32                  `json:"actor"`
+	OriginalControl     *uint32                  `json:"original_control"`
+	Expected            *ProbeSavedState         `json:"expected"`
+	Coverage            []uint32                 `json:"coverage"`
+	ScheduledIntervals  []int                    `json:"scheduled_intervals"`
+	Run                 json.RawMessage          `json:"loaded_run,omitempty"`
+	Sequence            json.RawMessage          `json:"loaded_sequence,omitempty"`
+	Screenshots         map[string]RegistryInput `json:"loaded_screenshots,omitempty"`
 }
 
 type ProbeEvidenceEvent struct {
@@ -75,20 +100,22 @@ type ProbeCheckpointResult struct {
 }
 
 type ProbeEvidenceReport struct {
-	Version       int                     `json:"version"`
-	SourceSchema  string                  `json:"source_schema"`
-	BundleSHA256  string                  `json:"bundle_sha256"`
-	RunID         string                  `json:"run_id"`
-	Session       string                  `json:"session"`
-	ISOSHA256     string                  `json:"iso_sha256"`
-	Epoch         int                     `json:"epoch"`
-	Cohort        string                  `json:"cohort"`
-	Status        string                  `json:"status"`
-	Rows          []ProbeEvidenceResult   `json:"rows"`
-	Checkpoints   []ProbeCheckpointResult `json:"checkpoints"`
-	CoveredAreas  []uint32                `json:"covered_areas"`
-	Events        []ProbeEvidenceEvent    `json:"events"`
-	Captures      []ProbeCaptureLink      `json:"captures,omitempty"`
-	LiveOwnership bool                    `json:"live_ownership"`
-	Limits        string                  `json:"limits"`
+	Version            int                     `json:"version"`
+	SourceSchema       string                  `json:"source_schema"`
+	BundleSHA256       string                  `json:"bundle_sha256"`
+	RunID              string                  `json:"run_id"`
+	Session            string                  `json:"session"`
+	ISOSHA256          string                  `json:"iso_sha256"`
+	Epoch              int                     `json:"epoch"`
+	Cohort             string                  `json:"cohort"`
+	Status             string                  `json:"status"`
+	Rows               []ProbeEvidenceResult   `json:"rows"`
+	Checkpoints        []ProbeCheckpointResult `json:"checkpoints"`
+	CoveredAreas       []uint32                `json:"covered_areas"`
+	Events             []ProbeEvidenceEvent    `json:"events"`
+	Captures           []ProbeCaptureLink      `json:"captures,omitempty"`
+	LiveOwnership      bool                    `json:"live_ownership"`
+	Limits             string                  `json:"limits"`
+	ResumeStatus       string                  `json:"resume_status,omitempty"`
+	ResumeNextInterval *int                    `json:"resume_next_interval,omitempty"`
 }

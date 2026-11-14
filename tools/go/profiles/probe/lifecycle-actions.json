@@ -1,16 +1,216 @@
 {
- "version":1,
- "source_sha256":"5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
- "actions":{
-  "initial":{"from":["new"],"effects":["prepare","pad","launch","verify"],"to":"ready"},
-  "warm":{"from":["ready"],"effects":["quiescent","reset","verify-warm"],"to":"ready"},
-  "cold":{"from":["ready"],"effects":["terminate","flush","backup","launch","verify"],"to":"ready"},
-  "stop":{"from":["ready","unknown"],"effects":["terminate","flush"],"to":"stopped"}
- },
- "warm_command":"tap R3 0.1",
- "warm_settle_ms":1000,
- "warm_widths":[608,588],
- "status_opcode":15,
- "stop_timeout_ms":10000,
- "flush_stable_ms":250
+  "version": 1,
+  "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+  "actions": {
+    "initial": {
+      "from": [
+        "new"
+      ],
+      "effects": [
+        "prepare",
+        "pad",
+        "launch",
+        "verify"
+      ],
+      "to": "ready"
+    },
+    "warm": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "quiescent",
+        "reset",
+        "verify-warm"
+      ],
+      "to": "ready"
+    },
+    "cold": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "terminate",
+        "flush",
+        "backup",
+        "launch",
+        "verify"
+      ],
+      "to": "ready"
+    },
+    "stop": {
+      "from": [
+        "ready",
+        "paused",
+        "unknown"
+      ],
+      "effects": [
+        "terminate",
+        "flush"
+      ],
+      "to": "stopped"
+    },
+    "pause": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "status-running",
+        "toggle-pause",
+        "status-paused"
+      ],
+      "to": "paused"
+    },
+    "unpause": {
+      "from": [
+        "paused"
+      ],
+      "effects": [
+        "status-paused",
+        "toggle-pause",
+        "status-running"
+      ],
+      "to": "ready"
+    },
+    "watch": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "watch-progress"
+      ],
+      "to": "ready"
+    },
+    "recover": {
+      "from": [
+        "stopped"
+      ],
+      "effects": [
+        "backup",
+        "launch",
+        "verify"
+      ],
+      "to": "ready"
+    },
+    "resume": {
+      "from": [
+        "new"
+      ],
+      "effects": [
+        "prepare",
+        "pad",
+        "launch",
+        "verify"
+      ],
+      "to": "ready"
+    }
+  },
+  "warm_command": "tap R3 0.1",
+  "warm_settle_ms": 1000,
+  "warm_widths": [
+    608,
+    588
+  ],
+  "status_opcode": 15,
+  "stop_timeout_ms": 10000,
+  "flush_stable_ms": 250,
+  "pause_command": "tap L3 0.1",
+  "pause_settle_ms": 50,
+  "status_polls": 20,
+  "status_poll_ms": 50,
+  "watch_source_sha256": "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8",
+  "watch_source_policy": {
+    "poll_ms": 1000,
+    "warn_repeats": 200,
+    "terminal_repeats": 1200
+  },
+  "watch_reads": [
+    {
+      "id": "mode",
+      "opcode": 1,
+      "address": 5658652
+    },
+    {
+      "id": "story",
+      "opcode": 1,
+      "address": 5682584
+    },
+    {
+      "id": "week",
+      "opcode": 0,
+      "address": 5681548
+    },
+    {
+      "id": "current",
+      "opcode": 1,
+      "address": 5681552
+    },
+    {
+      "id": "board_options",
+      "opcode": 0,
+      "address": 5679108
+    },
+    {
+      "id": "board_handle",
+      "opcode": 2,
+      "address": 5679104
+    },
+    {
+      "id": "board_cursor",
+      "opcode": 2,
+      "address": 5679112
+    },
+    {
+      "id": "p0-square",
+      "opcode": 0,
+      "address": 5685194
+    },
+    {
+      "id": "p0-money",
+      "opcode": 1,
+      "address": 5685248
+    },
+    {
+      "id": "p1-square",
+      "opcode": 0,
+      "address": 5685702
+    },
+    {
+      "id": "p1-money",
+      "opcode": 1,
+      "address": 5685756
+    },
+    {
+      "id": "p2-square",
+      "opcode": 0,
+      "address": 5686210
+    },
+    {
+      "id": "p2-money",
+      "opcode": 1,
+      "address": 5686264
+    },
+    {
+      "id": "p3-square",
+      "opcode": 0,
+      "address": 5686718
+    },
+    {
+      "id": "p3-money",
+      "opcode": 1,
+      "address": 5686772
+    }
+  ],
+  "progress_order": [
+    "story",
+    "week",
+    "p0-square",
+    "p0-money",
+    "p1-square",
+    "p1-money",
+    "p2-square",
+    "p2-money",
+    "p3-square",
+    "p3-money"
+  ]
 }

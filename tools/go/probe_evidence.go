@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"path/filepath"
 	"reflect"
 	"regexp"
 	"slices"
@@ -591,5 +592,139 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		report.Status = "UNKNOWN"
 	}
 	slices.Sort(report.CoveredAreas)
+	if resume := bundle.Resume; resume != nil {
+		if resume.Seed == nil || resume.Slot == nil || resume.Actor == nil || resume.OriginalControl == nil || *resume.OriginalControl < 1 || *resume.OriginalControl > 3 || resume.Expected == nil || resume.ISOSHA256 != report.ISOSHA256 || len(resume.AcceptedCheckpoints) == 0 || len(resume.ScheduledIntervals) == 0 || len(resume.ScheduledIntervals) >= 4096 || !filepath.IsAbs(resume.SourceFrameRoot) || filepath.Clean(resume.SourceFrameRoot) != resume.SourceFrameRoot {
+			return report, fmt.Errorf("resume requires bounded complete source receipt facts")
+		}
+		var run struct {
+			RunID     string `json:"run_id"`
+			ISO       string `json:"iso_sha256"`
+			End       string `json:"end_reason"`
+			Fail      *bool  `json:"fail"`
+			Cleanup   *bool  `json:"cleanup_complete"`
+			Stopped   *bool  `json:"owned_emulator_stopped"`
+			Card      string `json:"private_card_final_sha256"`
+			Completed []int  `json:"completed_checkpoints"`
+			Profile   struct {
+				Datapath string `json:"datapath"`
+			} `json:"private_profile"`
+			Config struct {
+				Scenario  string  `json:"scenario"`
+				Seed      *uint64 `json:"seed"`
+				Intervals []int   `json:"interval_seconds"`
+				Session   string  `json:"session"`
+			} `json:"checkpoint_config"`
+		}
+		var sequence struct {
+			Status string `json:"status"`
+			ISO    string `json:"iso_sha256"`
+			Runs   []struct {
+				Run    string          `json:"run"`
+				Result json.RawMessage `json:"result"`
+			} `json:"runs"`
+		}
+		if json.Unmarshal(resume.Run, &run) != nil || json.Unmarshal(resume.Sequence, &sequence) != nil || run.Fail == nil || !*run.Fail || run.Cleanup == nil || !*run.Cleanup || run.Stopped == nil || !*run.Stopped || run.ISO != report.ISOSHA256 || run.RunID != report.RunID || run.End != "autoplay_failure" || run.Config.Seed == nil || *run.Config.Seed != *resume.Seed || run.Config.Scenario != "first-create" || run.Config.Session != report.Session || !reflect.DeepEqual(run.Config.Intervals, []int{3600, 10800}) || run.Profile.Datapath != filepath.Join(resume.SourceFrameRoot, "profile") || sequence.Status != "failed" || sequence.ISO != report.ISOSHA256 || len(sequence.Runs) == 0 || sequence.Runs[0].Run != resume.SourceFrameRoot || !hashPattern.MatchString(run.Card) || resume.Artifacts["card"].SHA256 != run.Card {
+			return report, fmt.Errorf("resume prior run, cleanup, card, seed or sequence linkage differs")
+		}
+		var sourceRun, sequenceResult any
+		runDecoder := json.NewDecoder(bytes.NewReader(resume.Run))
+		runDecoder.UseNumber()
+		resultDecoder := json.NewDecoder(bytes.NewReader(sequence.Runs[0].Result))
+		resultDecoder.UseNumber()
+		if runDecoder.Decode(&sourceRun) != nil || resultDecoder.Decode(&sequenceResult) != nil || !reflect.DeepEqual(sourceRun, sequenceResult) {
+			return report, fmt.Errorf("resume sequence does not contain the complete prior run")
+		}
+		var admitted ProbeRecordBundle
+		_ = json.Unmarshal(bundle.Admission, &admitted)
+		if admitted.RunRoot != resume.SourceFrameRoot {
+			return report, fmt.Errorf("resume admitted run root differs")
+		}
+		prefix := []int{}
+		for _, checkpoint := range report.Checkpoints {
+			if checkpoint.Status == "PASS" {
+				prefix = append(prefix, checkpoint.Checkpoint)
+			} else if checkpoint.Checkpoint != resume.FailedCheckpoint || checkpoint.Status == "FAIL" {
+				return report, fmt.Errorf("resume accepted prefix contains inconsistent checkpoint evidence")
+			}
+		}
+		if !reflect.DeepEqual(prefix, resume.AcceptedCheckpoints) || !reflect.DeepEqual(prefix, run.Completed) || resume.FailedCheckpoint != prefix[len(prefix)-1]+1 || !reflect.DeepEqual(resume.Coverage, report.CoveredAreas) {
+			return report, fmt.Errorf("resume accepted prefix or coverage differs from derived events")
+		}
+		for _, row := range report.Rows {
+			if row.Status != "PASS" {
+				return report, fmt.Errorf("resume comparison evidence is incomplete or mismatched")
+			}
+		}
+		var saved, cold, control, failure int = -1, -1, -1, -1
+		created := false
+		schedule := []int{}
+		for index, event := range events {
+			var detail struct {
+				Screenshot string `json:"screenshot"`
+				Interval   *int   `json:"interval_seconds"`
+			}
+			_ = json.Unmarshal(bundle.Events[index].Data, &detail)
+			switch event.EventID {
+			case resume.SaveEvent:
+				saved = index
+			case resume.ColdLoadEvent:
+				cold = index
+			case resume.ControlEvent:
+				control = index
+			case resume.FailureEvent:
+				failure = index
+			}
+			if event.Event == "resumed" && event.Checkpoint == resume.FailedCheckpoint {
+				return report, fmt.Errorf("resume failed checkpoint was already resumed")
+			}
+			if event.Event == "card-data-created" && slices.Contains(prefix, event.Checkpoint) {
+				created = true
+			}
+			if event.Event == "checkpoint-scheduled" {
+				if detail.Interval == nil {
+					return report, fmt.Errorf("resume scheduled event has no interval")
+				}
+				schedule = append(schedule, *detail.Interval)
+			}
+			if slices.Contains(prefix, event.Checkpoint) && (event.Event == "save-complete" || event.Event == "reload-verified") {
+				shot := resume.Screenshots[detail.Screenshot]
+				if detail.Screenshot == "" || filepath.IsAbs(detail.Screenshot) || filepath.Clean(detail.Screenshot) != detail.Screenshot || strings.HasPrefix(detail.Screenshot, "..") || shot.Path != filepath.Join(filepath.Dir(resume.Artifacts["events"].Path), detail.Screenshot) || shot.Size < 1 || !hashPattern.MatchString(shot.SHA256) {
+					return report, fmt.Errorf("resume accepted checkpoint screenshot evidence missing")
+				}
+			}
+		}
+		if !created || saved < 0 || cold < 0 || control < 0 || failure < 0 || !(control < saved && saved < cold && cold < failure) {
+			return report, fmt.Errorf("resume first-create or failed-prefix event order differs")
+		}
+		savedEvent, coldEvent, controlEvent, failureEvent := events[saved], events[cold], events[control], events[failure]
+		if savedEvent.Event != "save-complete" || coldEvent.Event != "load-board" || controlEvent.Event != "takeover-write-ack" || failureEvent.Event != "failure" || savedEvent.Checkpoint != resume.FailedCheckpoint || coldEvent.Checkpoint != resume.FailedCheckpoint || failureEvent.Checkpoint != resume.FailedCheckpoint || savedEvent.Slot == nil || *savedEvent.Slot != *resume.Slot || !reflect.DeepEqual(savedEvent.State, resume.Expected) || !reflect.DeepEqual(coldEvent.State, resume.Expected) {
+			return report, fmt.Errorf("resume saved payload, native slot or failed prefix differs")
+		}
+		var takeover struct {
+			Response [][]*int `json:"response"`
+			Player   *uint32  `json:"player"`
+			Original *uint32  `json:"original_control"`
+		}
+		var failed struct {
+			Error string `json:"error"`
+		}
+		_ = json.Unmarshal(bundle.Events[control].Data, &takeover)
+		_ = json.Unmarshal(bundle.Events[failure].Data, &failed)
+		if takeover.Player == nil || *takeover.Player != *resume.Actor || takeover.Original == nil || *takeover.Original != *resume.OriginalControl || len(takeover.Response) != 1 || len(takeover.Response[0]) != 2 || takeover.Response[0][0] == nil || *takeover.Response[0][0] != 0 || takeover.Response[0][1] != nil || failed.Error != "RuntimeError: missing checkpoint screenshot: load-board" || resume.Expected.Current == nil || *resume.Expected.Current != *resume.Actor || len(resume.Expected.Players) != 4 {
+			return report, fmt.Errorf("resume saved control or failure provenance differs")
+		}
+		for index, player := range resume.Expected.Players {
+			if player.Control == nil || (*player.Control == 0) != (uint32(index) == *resume.Actor) {
+				return report, fmt.Errorf("resume saved actor/control ownership differs")
+			}
+		}
+		intervals, err := probeCheckpointIntervals(*resume.Seed, len(schedule)+1)
+		if err != nil || !reflect.DeepEqual(schedule, resume.ScheduledIntervals) || !reflect.DeepEqual(schedule, intervals[:len(schedule)]) {
+			return report, fmt.Errorf("resume seeded schedule differs from full source draw prefix")
+		}
+		next := intervals[len(schedule)]
+		report.ResumeNextInterval = &next
+		report.ResumeStatus = "QUALIFIED_SAVED_FACTS"
+	}
 	return report, nil
 }

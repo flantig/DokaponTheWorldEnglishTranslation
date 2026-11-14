@@ -1663,10 +1663,13 @@
             "analysis/probe-owner-handoff.json",
             "evidence/probe-records-proof.json",
             "testdata/probe-lifecycle.json",
-            "docs/probe-records.md"
+            "docs/probe-records.md",
+            "testdata/probe-lifecycle-policy.json",
+            "testdata/probe-lifecycle-resume.json",
+            "testdata/probe-checkpoint-intervals.json"
           ],
           "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof.",
-          "detail": "First offline initial/warm/cold/safe-stop slice reviewed with controlled children and Go pad/event-sink source contracts. Remaining lifecycle/recovery and native/owner-policy qualification remain held; credit0."
+          "detail": "Remaining offline lifecycle/pause/watch/recovery and source-bound saved-resume software reviewed. Native/device/material and owner resource/soak/retention qualifications remain held; no Continue/restored-gameplay/.06 or fullcriterion credit."
         },
         {
           "id": "probe_orchestration_evidence.06",
@@ -2506,13 +2509,13 @@
   },
   "latest_probe_records_completion": {
     "proof": "evidence/probe-records-proof.json",
-    "proof_sha256": "2cd649aa41fa449ed182e2a5221e5453e938e4fedeb4307b52bb222a93117722",
+    "proof_sha256": "0f678cf2ec6b49801726294ed8d1accd1f85f3df1afd1d810b3f0783ff9e40d8",
     "milestone_credit": 1,
     "family_credit": 0
   },
   "latest_probe_evidence_completion": {
     "proof": "evidence/probe-records-proof.json",
-    "proof_sha256": "2cd649aa41fa449ed182e2a5221e5453e938e4fedeb4307b52bb222a93117722",
+    "proof_sha256": "0f678cf2ec6b49801726294ed8d1accd1f85f3df1afd1d810b3f0783ff9e40d8",
     "record": "current_report_criterion_assessment",
     "milestone_credit": 1,
     "family_credit": 0

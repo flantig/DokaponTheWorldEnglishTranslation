@@ -1,0 +1,1634 @@
+{
+  "bundle": {
+    "version": 1,
+    "source_schema": "probe-evidence-legacy-2026-11-13",
+    "source_sha256": "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8",
+    "admission": {
+      "version": 1,
+      "source_schema": "text-probe-legacy-2026-11-13",
+      "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+      "project_root": "/probe-project",
+      "working_directory": "/probe-project",
+      "run_root": "/probe-project/generated/run",
+      "context": "boot_checkpoint",
+      "records": [
+        {
+          "role": "run",
+          "data": {
+            "status": "running",
+            "iso": "generated/frozen/game.iso",
+            "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+            "run_id": "run",
+            "started_at": "2026-11-13T00:00:00+0000",
+            "runner_pid": 77,
+            "private_profile": {
+              "datapath": "/probe-project/generated/run/profile",
+              "data_root": "/probe-project/generated/run/profile/PCSX2",
+              "source_settings": "/user/inis/PCSX2.ini",
+              "source_settings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "source_card": "/user/memcards/personal.ps2",
+              "source_card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "card": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+              "card_initial_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "bios": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN"
+            }
+          }
+        },
+        {
+          "role": "profile",
+          "data": {
+            "datapath": "/probe-project/generated/run/profile",
+            "data_root": "/probe-project/generated/run/profile/PCSX2",
+            "source_settings": "/user/inis/PCSX2.ini",
+            "source_settings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "source_card": "/user/memcards/personal.ps2",
+            "source_card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+            "card_initial_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "bios": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN"
+          }
+        },
+        {
+          "role": "config",
+          "data": {
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+            "profile": "/probe-project/generated/run/profile",
+            "seed": 1234,
+            "scenario": "first-create"
+          }
+        },
+        {
+          "role": "previous_owned",
+          "data": {
+            "pid": 101,
+            "starttime": 1001,
+            "state": "S",
+            "cmdline": [
+              "/usr/bin/pcsx2",
+              "-batch",
+              "-datapath",
+              "/probe-project/generated/run/profile",
+              "/probe-project/generated/frozen/game.iso"
+            ],
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+            "profile": "/probe-project/generated/run/profile",
+            "epoch": 2
+          }
+        },
+        {
+          "role": "previous_ack",
+          "data": {
+            "nonce": "2-cold",
+            "phase": "ready",
+            "session": "00112233445566778899aabbccddeeff",
+            "operation": "cold-restart",
+            "epoch": 2,
+            "owned": {
+              "pid": 101,
+              "starttime": 1001,
+              "state": "S",
+              "cmdline": [
+                "/usr/bin/pcsx2",
+                "-batch",
+                "-datapath",
+                "/probe-project/generated/run/profile",
+                "/probe-project/generated/frozen/game.iso"
+              ],
+              "session": "00112233445566778899aabbccddeeff",
+              "iso": "/probe-project/generated/frozen/game.iso",
+              "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+              "profile": "/probe-project/generated/run/profile",
+              "epoch": 2
+            },
+            "card_sha256_before": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card_sha256_after": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "role": "request",
+          "data": {
+            "nonce": "7-cold",
+            "phase": "requested",
+            "session": "00112233445566778899aabbccddeeff",
+            "operation": "cold-restart"
+          }
+        },
+        {
+          "role": "owned",
+          "data": {
+            "pid": 202,
+            "starttime": 2002,
+            "state": "S",
+            "cmdline": [
+              "/usr/bin/pcsx2",
+              "-batch",
+              "-datapath",
+              "/probe-project/generated/run/profile",
+              "/probe-project/generated/frozen/game.iso"
+            ],
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+            "profile": "/probe-project/generated/run/profile",
+            "epoch": 3
+          }
+        },
+        {
+          "role": "ack",
+          "data": {
+            "nonce": "7-cold",
+            "phase": "ready",
+            "session": "00112233445566778899aabbccddeeff",
+            "operation": "cold-restart",
+            "epoch": 3,
+            "owned": {
+              "pid": 202,
+              "starttime": 2002,
+              "state": "S",
+              "cmdline": [
+                "/usr/bin/pcsx2",
+                "-batch",
+                "-datapath",
+                "/probe-project/generated/run/profile",
+                "/probe-project/generated/frozen/game.iso"
+              ],
+              "session": "00112233445566778899aabbccddeeff",
+              "iso": "/probe-project/generated/frozen/game.iso",
+              "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+              "profile": "/probe-project/generated/run/profile",
+              "epoch": 3
+            },
+            "card_sha256_before": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card_sha256_after": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          }
+        }
+      ],
+      "files": [
+        {
+          "role": "iso",
+          "path": "/probe-project/generated/frozen/game.iso",
+          "resolved_path": "/probe-project/generated/frozen/game.iso",
+          "sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": false
+        },
+        {
+          "role": "card",
+          "path": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+          "resolved_path": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+          "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": true
+        },
+        {
+          "role": "source_card",
+          "path": "/user/memcards/personal.ps2",
+          "resolved_path": "/user/memcards/personal.ps2",
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": true
+        },
+        {
+          "role": "settings",
+          "path": "/user/inis/PCSX2.ini",
+          "resolved_path": "/user/inis/PCSX2.ini",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": true
+        },
+        {
+          "role": "bios",
+          "path": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN",
+          "resolved_path": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN",
+          "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": false
+        }
+      ],
+      "before_process": {
+        "pid": 101,
+        "starttime": 1001,
+        "state": "S",
+        "cmdline": [
+          "/usr/bin/pcsx2",
+          "-batch",
+          "-datapath",
+          "/probe-project/generated/run/profile",
+          "/probe-project/generated/frozen/game.iso"
+        ]
+      },
+      "after_process": {
+        "pid": 202,
+        "starttime": 2002,
+        "state": "S",
+        "cmdline": [
+          "/usr/bin/pcsx2",
+          "-batch",
+          "-datapath",
+          "/probe-project/generated/run/profile",
+          "/probe-project/generated/frozen/game.iso"
+        ]
+      }
+    },
+    "run_id": "run",
+    "session": "00112233445566778899aabbccddeeff",
+    "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+    "epoch": 3,
+    "cohort": "source-literal-five-class",
+    "members": [
+      "fixed",
+      "narrative",
+      "grid",
+      "code",
+      "image"
+    ],
+    "events": [
+      {
+        "offset": 0,
+        "data": {
+          "event": "checkpoint-scheduled",
+          "event_id": 1,
+          "checkpoint": 0,
+          "time": "2026-11-13T00:00:00+0000",
+          "interval_seconds": 5326
+        }
+      },
+      {
+        "offset": 8192,
+        "data": {
+          "event": "tutorial-preparation-start",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 2,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 16384,
+        "data": {
+          "event": "save-complete",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 3,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000",
+          "screenshot": "screenshots/e3.png"
+        }
+      },
+      {
+        "offset": 24576,
+        "data": {
+          "event": "reload-start",
+          "method": "warm",
+          "phase": "preparation",
+          "event_id": 4,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 32768,
+        "data": {
+          "event": "tutorial-preparation-image",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 5,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 40960,
+        "data": {
+          "event": "tutorial-preparation-ack",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 6,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 49152,
+        "data": {
+          "event": "tutorial-preparation-complete",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 7,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 57344,
+        "data": {
+          "event": "save-complete",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 8,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000",
+          "screenshot": "screenshots/e8.png"
+        }
+      },
+      {
+        "offset": 65536,
+        "data": {
+          "event": "reload-start",
+          "method": "warm",
+          "phase": "verification",
+          "event_id": 9,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 73728,
+        "data": {
+          "event": "reload-verified",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "method": "warm",
+          "slot": 2,
+          "event_id": 10,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000",
+          "screenshot": "screenshots/e10.png"
+        }
+      },
+      {
+        "offset": 81920,
+        "data": {
+          "event": "reload-start",
+          "method": "cold",
+          "phase": "verification",
+          "event_id": 11,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 90112,
+        "data": {
+          "event": "reload-verified",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "method": "cold",
+          "slot": 2,
+          "event_id": 12,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000",
+          "screenshot": "screenshots/e12.png"
+        }
+      },
+      {
+        "offset": 98304,
+        "data": {
+          "event": "com-handoff-data-main",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "event_id": 13,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 106496,
+        "data": {
+          "event": "story-advanced-after-reload",
+          "event_id": 14,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000",
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 13,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "offset": 114688,
+        "data": {
+          "event": "resumed",
+          "expected": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          },
+          "slot": 2,
+          "coverage": [
+            8
+          ],
+          "event_id": 15,
+          "checkpoint": 1,
+          "time": "2026-11-13T23:00:00+0000"
+        }
+      },
+      {
+        "offset": 131072,
+        "data": {
+          "event": "card-data-created",
+          "event_id": 16,
+          "checkpoint": 1,
+          "time": "2026-11-13T00:01:00+0000"
+        }
+      },
+      {
+        "offset": 139264,
+        "data": {
+          "event": "checkpoint-scheduled",
+          "event_id": 17,
+          "checkpoint": 2,
+          "time": "2026-11-13T00:01:01+0000",
+          "interval_seconds": 10068
+        }
+      },
+      {
+        "offset": 147456,
+        "data": {
+          "event": "takeover-write-ack",
+          "event_id": 18,
+          "checkpoint": 2,
+          "time": "2026-11-13T00:01:02+0000",
+          "player": 0,
+          "original_control": 1,
+          "response": [
+            [
+              0,
+              null
+            ]
+          ]
+        }
+      },
+      {
+        "offset": 155648,
+        "data": {
+          "event": "save-complete",
+          "event_id": 19,
+          "checkpoint": 2,
+          "time": "2026-11-13T00:01:03+0000",
+          "slot": 2,
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "offset": 163840,
+        "data": {
+          "event": "load-board",
+          "event_id": 20,
+          "checkpoint": 2,
+          "time": "2026-11-13T00:01:04+0000",
+          "slot": 2,
+          "state": {
+            "story": 4,
+            "week": 6,
+            "day": 2,
+            "current": 0,
+            "area": 8,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              },
+              {
+                "control": 1,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  1,
+                  2,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "tutorial_flags": 0,
+                "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "offset": 172032,
+        "data": {
+          "event": "failure",
+          "event_id": 21,
+          "checkpoint": 2,
+          "time": "2026-11-13T00:01:05+0000",
+          "error": "RuntimeError: missing checkpoint screenshot: load-board"
+        }
+      }
+    ],
+    "checks": [
+      {
+        "id": "fixed",
+        "kind": "fixed",
+        "source_sha256": "ec3ed1a8d92fbc5502851b5c0a41e2a1afeb8278a02875943165936cae500d99",
+        "event_id": 12,
+        "observation": "observed",
+        "data": {
+          "expected": "AB",
+          "actual_hex": "01000200000000000000000000000000",
+          "glyphmap": {
+            "1": "A",
+            "2": "B"
+          }
+        }
+      },
+      {
+        "id": "narrative",
+        "kind": "narrative",
+        "source_sha256": "c816f9baccffd75c38a2b0fd2dec707c5e194ff50c78896e1abbe7dd8201fded",
+        "event_id": 12,
+        "observation": "observed",
+        "data": {
+          "expected": "A B C",
+          "actual": "A<0x1000>| B// C<PEN 0x00ff>"
+        }
+      },
+      {
+        "id": "grid",
+        "kind": "positional",
+        "source_sha256": "cb34703c7174a3712b3aa1d9f7875a4fc4cf17d24293c47468db9a3d5b132048",
+        "event_id": 12,
+        "observation": "observed",
+        "data": {
+          "expected": [
+            {
+              "Kind": "pen",
+              "Word": 47104,
+              "Offset": 0,
+              "Payload": "CgAUAA=="
+            },
+            {
+              "Kind": "glyph",
+              "Word": 1,
+              "Offset": 6
+            }
+          ],
+          "actual": [
+            {
+              "Kind": "pen",
+              "Word": 47104,
+              "Offset": 0,
+              "Payload": "CgAUAA=="
+            },
+            {
+              "Kind": "glyph",
+              "Word": 1,
+              "Offset": 6
+            }
+          ]
+        }
+      },
+      {
+        "id": "code",
+        "kind": "code",
+        "source_sha256": "69431ad09bfe6af52c384501a75051e3adc74271af01e21019c2e7339805e5fe",
+        "event_id": 12,
+        "observation": "observed",
+        "data": {
+          "site": 3577400,
+          "old": [
+            0
+          ],
+          "new": [
+            135576399
+          ],
+          "actual": [
+            135576399
+          ],
+          "units": "bytes",
+          "capacity_source_sha256": "9124263d85493454d9022c201aa24280e300eb04bbfd75199618c0b677dfa03f",
+          "capacity_bytes": 262144,
+          "actual_capacity_bytes": 262144,
+          "used_bytes": 200000
+        }
+      },
+      {
+        "id": "image",
+        "kind": "image",
+        "source_sha256": "017edb5f58ba708839fd8e623769b357e3469273f34cb404922382e545067a87",
+        "event_id": 12,
+        "observation": "observed",
+        "data": {
+          "width": 2,
+          "height": 1,
+          "actual_width": 2,
+          "actual_height": 1,
+          "format": "RGBA8",
+          "expected_rgba_hex": "ff00000000ff00ff",
+          "actual_rgba_hex": "ff00000000ff00ff",
+          "clut_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "actual_clut_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931"
+        }
+      }
+    ]
+  },
+  "receipt": {
+    "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+    "seed": 20261112,
+    "source_frame_root": "/probe-project/generated/run",
+    "accepted_checkpoints": [
+      1
+    ],
+    "failed_checkpoint": 2,
+    "save_event": 19,
+    "cold_load_event": 20,
+    "control_event": 18,
+    "failure_event": 21,
+    "slot": 2,
+    "actor": 0,
+    "original_control": 1,
+    "expected": {
+      "story": 4,
+      "week": 6,
+      "day": 2,
+      "current": 0,
+      "area": 8,
+      "players": [
+        {
+          "control": 0,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            1,
+            2,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        },
+        {
+          "control": 1,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            1,
+            2,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "tutorial_flags": 0,
+          "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        },
+        {
+          "control": 1,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            1,
+            2,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "tutorial_flags": 0,
+          "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        },
+        {
+          "control": 1,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            1,
+            2,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "tutorial_flags": 0,
+          "tutorial_initialized_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        }
+      ]
+    },
+    "coverage": [
+      8
+    ],
+    "scheduled_intervals": [
+      5326,
+      10068
+    ]
+  },
+  "run": {
+    "run_id": "run",
+    "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+    "end_reason": "autoplay_failure",
+    "fail": true,
+    "cleanup_complete": true,
+    "owned_emulator_stopped": true,
+    "completed_checkpoints": [
+      1
+    ],
+    "private_profile": {
+      "datapath": "/probe-project/generated/run/profile"
+    },
+    "checkpoint_config": {
+      "scenario": "first-create",
+      "seed": 20261112,
+      "interval_seconds": [
+        3600,
+        10800
+      ],
+      "session": "00112233445566778899aabbccddeeff"
+    }
+  },
+  "expected": {
+    "resume_status": "QUALIFIED_SAVED_FACTS",
+    "source_status": "UNKNOWN",
+    "accepted": [
+      1
+    ],
+    "failed": 2,
+    "slot": 2,
+    "prior_epoch": 3,
+    "new_epoch": 4,
+    "next_interval": 7739,
+    "watch_intervals": [
+      5326,
+      10068
+    ]
+  },
+  "refusals": [
+    "artifact-hash",
+    "native-slot",
+    "fingerprint",
+    "control",
+    "event-order",
+    "seeded-prefix",
+    "cleanup",
+    "already-resumed"
+  ],
+  "limits": "Independent source-literal supplemental synthetic fixture atop unchanged .02 cohort. Actual temporary paths/card/ISO bytes are bound at test input construction; no Go output supplies expected report facts. Native/authentic gameplay remains unqualified."
+}

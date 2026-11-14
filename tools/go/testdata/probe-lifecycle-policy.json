@@ -1,0 +1,160 @@
+{
+  "source_policy": {
+    "poll_ms": 1000,
+    "warn_repeats": 200,
+    "terminal_repeats": 1200,
+    "pause_payload": "tap L3 0.1",
+    "pause_settle_ms": 50,
+    "status_polls": 20,
+    "status_poll_ms": 50
+  },
+  "go_policy": {
+    "poll_ms": 1,
+    "warn_repeats": 2,
+    "terminal_repeats": 3,
+    "max_polls": 5,
+    "max_recoveries": 1,
+    "max_distinct_skips": 4
+  },
+  "cases": [
+    {
+      "id": "advance",
+      "child": "watch-advance",
+      "operations": [
+        "initial",
+        "pause",
+        "unpause",
+        "watch",
+        "stop"
+      ],
+      "statuses": [
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED"
+      ],
+      "watch_samples": 5,
+      "watch_repeated": 1,
+      "watch_warning": true,
+      "watch_outcome": "OBSERVED",
+      "skips": [
+        "event or combat instead of board menu"
+      ],
+      "l3_taps": 2
+    },
+    {
+      "id": "mode-only-stall",
+      "child": "watch-stall",
+      "operations": [
+        "initial",
+        "watch",
+        "stop"
+      ],
+      "statuses": [
+        "COMPLETED",
+        "UNKNOWN",
+        "COMPLETED"
+      ],
+      "watch_samples": 4,
+      "watch_repeated": 3,
+      "watch_warning": true,
+      "watch_outcome": "STALLED",
+      "skips": [
+        "event or combat instead of board menu"
+      ],
+      "l3_taps": 0
+    },
+    {
+      "id": "ambiguous-toggle",
+      "child": "toggle-timeout",
+      "operations": [
+        "initial",
+        "pause",
+        "stop",
+        "recover",
+        "stop"
+      ],
+      "statuses": [
+        "COMPLETED",
+        "UNKNOWN",
+        "COMPLETED",
+        "REFUSED",
+        "COMPLETED"
+      ],
+      "last_stop_replay": true,
+      "l3_taps": 1
+    },
+    {
+      "id": "crash-recovery-budget",
+      "child": "watch-crash",
+      "operations": [
+        "initial",
+        "watch",
+        "stop",
+        "recover",
+        "watch",
+        "stop",
+        "recover",
+        "stop"
+      ],
+      "statuses": [
+        "COMPLETED",
+        "UNKNOWN",
+        "COMPLETED",
+        "COMPLETED",
+        "UNKNOWN",
+        "COMPLETED",
+        "REFUSED",
+        "COMPLETED"
+      ],
+      "last_stop_replay": true,
+      "recovery_attempts": 1,
+      "l3_taps": 0
+    },
+    {
+      "id": "per-epoch-recovery",
+      "child": "watch-crash",
+      "max_recoveries": 3,
+      "operations": [
+        "initial",
+        "watch",
+        "stop",
+        "recover",
+        "watch",
+        "stop",
+        "recover",
+        "stop",
+        "recover",
+        "stop"
+      ],
+      "statuses": [
+        "COMPLETED",
+        "UNKNOWN",
+        "COMPLETED",
+        "COMPLETED",
+        "UNKNOWN",
+        "COMPLETED",
+        "COMPLETED",
+        "COMPLETED",
+        "REFUSED",
+        "COMPLETED"
+      ],
+      "last_stop_replay": true,
+      "recovery_attempts": 2,
+      "l3_taps": 0
+    }
+  ],
+  "facts": {
+    "same_owner_pause": true,
+    "unexpected_status_no_second_toggle": true,
+    "mode_excluded_from_progress": true,
+    "changed_story_resets_repeat": true,
+    "source_card_preserved": true,
+    "dead_child_reaped_without_signal": true,
+    "recovery_only_after_exit_and_stable_flush": true,
+    "no_coverage_from_unknown_or_skip": true,
+    "policy_exhaustion_no_launch": true
+  },
+  "limits": "Scaled thresholds are explicit Go test policy. Canonical source1s/200/1200 separately asserted. A bounded watch completion is a finite observation result, not checkpoint/gameplay coverage. No source24skipcap/restartdefault or native/owner agreement is asserted."
+}
