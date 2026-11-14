@@ -14,6 +14,8 @@ type Inspection struct {
 	Blob           []byte
 	BlobOffset     int64
 	Capacity       int64
+	BlobUsed       int64 `json:"blob_used,omitempty"`
+	BlobCursor     int64 `json:"blob_cursor,omitempty"`
 	Advances       map[uint16]int
 	GlyphMetrics   map[uint16][3]byte // Raw source bearings and nominal ink width, before advance collapse.
 	PointerRanges  [][2]uint64

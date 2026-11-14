@@ -35,6 +35,49 @@
       "source_iso_sha256": "83cb765a441a78db8678105bee21b3a435462b11999f061091420d1b9f710b22",
       "authority": "Current83cb initialized9x4 words and storedEND, bound by reader[28a4dc,28a594) d898087b74fa6acc079c27ed95b085993a4a10a4c7b87380acfd6ef03d2b913f and source selection f6ba91fd09aa3a9e4f05619d9f92838e844d34af1b2e296c163029ea7760fef0. Canonical Registry owns labels and empty cells.",
       "limits": "Stored cell words/SPACE positions and storedEND only, via non-atomic sequential reads. Static reader Y parameters30..270/X434 are source evidence, never acquired runtime coordinates or arguments. The storedEND is not copied by the reader. No flattened-widget, physical fit, UI/native, Settings23-run script parity or checkpoint coverage claim."
+    },
+    "0x47e980": {
+      "kind": "code",
+      "recipe_id": "0x47e980",
+      "source_iso_sha256": "83cb765a441a78db8678105bee21b3a435462b11999f061091420d1b9f710b22",
+      "comparison_source_sha256": "a06d800442a077971f4be8b463f3059414659c67b1f49b2e31fee6f71e65ac20",
+      "capacity": {
+        "iso_elf_offset": "0x9f800",
+        "elf_vma_delta": "0xfff80",
+        "stream": {
+          "retail_elf_size": 4430000,
+          "elf_record_offset": "0x82a62",
+          "zero_record_offset": "0x8289c",
+          "zero_end": "0x204d9800",
+          "loader_vmas": [
+            "0x399b30",
+            "0x399b34",
+            "0x399b94",
+            "0x399c0c"
+          ],
+          "window_lui_vmas": [
+            "0x4db4a0",
+            "0x4db4e0"
+          ],
+          "window_srl_words": {
+            "0x2f39d8": "0x00084d02",
+            "0x537418": "0x00084d02",
+            "0x4ad078": "0x00011d02",
+            "0x4ad0a0": "0x00011d02",
+            "0x4ad0c8": "0x00011d02",
+            "0x4ad0f0": "0x00011d02",
+            "0x4ad118": "0x00011d02"
+          }
+        },
+        "loader_bytes": 655360,
+        "window_bytes": 1048576,
+        "artifact_offset": 5085184,
+        "artifact_bytes": 655360,
+        "artifact_sha256": "d7f4eed144178eadc22988fec354f4793c2fd0541131c91360c131cd6cc70364",
+        "artifact_used": 585066,
+        "artifact_cursor": 585072
+      },
+      "limits": "Configured code and serialized artifact facts only. Subject47e980/logical04000030 is not a read address. Thirteen sequential scalar reads are non-atomic. Serialized extent/highwater/cursor are not runtime allocation/usage, free-space ownership, currentSUBST parity, native/UI/checkpoint or script coverage."
     }
   }
 }

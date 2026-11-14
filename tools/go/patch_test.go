@@ -278,6 +278,107 @@ func fixture(t *testing.T, operation string) (Recipes, Registry, []byte, []byte)
 }
 
 func TestPlanAndCopy(t *testing.T) {
+	// Read-only capacity facts do not grant initialized consumer/write admission.
+	{
+		original, registry, glyphs, image := fixture(t, "stream_append")
+		stream := *original.Stream
+		stream.AllowedPointers, stream.AllowedLandings = nil, nil
+		profile := Recipes{Operation: "stream_capacity_observation", SourceSize: original.SourceSize, SourceSHA256: original.SourceSHA256, Evidence: "independent regular initialized fixture", ISOELFOffset: original.ISOELFOffset, ELFVMADelta: original.ELFVMADelta, Stream: &stream}
+		root := t.TempDir()
+		path := filepath.Join(root, "capacity.iso")
+		if err := os.WriteFile(path, image, 0400); err != nil {
+			t.Fatal(err)
+		}
+		file, err := os.Open(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer file.Close()
+		state, err := inspect(file, nil, &profile)
+		if err != nil || state.BlobOffset != 4096 || state.Capacity != 2048 || state.BlobUsed != 6 || state.BlobCursor != 16 || fmt.Sprintf("%x", sha256.Sum256(state.Blob)) != "897dcc8b23187aaa661a363a464c52d3476b9e8f0c13dd949810eb53d1b1a73b" {
+			t.Fatalf("read-only capacity tuple: %+v %v", state, err)
+		}
+		ordinary := original
+		ordinary.Stream = &stream
+		if _, err := inspect(file, nil, &ordinary); err == nil || err.Error() != "missing reviewed consumer ranges" {
+			t.Fatal("ordinary initialized admission must retain consumer gate", err)
+		}
+		for _, kind := range []string{"entries", "growth", "layout", "pointers", "landings", "values", "edits"} {
+			mutant := profile
+			copyStream := stream
+			mutant.Stream = &copyStream
+			var edits []Edit
+			switch kind {
+			case "entries":
+				mutant.Entries = map[string]Recipe{}
+			case "growth":
+				mutant.Growth = &Growth{}
+			case "layout":
+				mutant.Layout = &Layout{}
+			case "pointers":
+				mutant.Stream.AllowedPointers = []AddressRange{}
+			case "landings":
+				mutant.Stream.AllowedLandings = []AddressRange{}
+			case "values":
+				mutant.Values = map[string]string{}
+			case "edits":
+				edits = []Edit{{}}
+			}
+			if _, err := inspect(file, edits, &mutant); err == nil {
+				t.Fatal("observation admitted forbidden claims", kind)
+			}
+		}
+		for _, tables := range [][]Recipes{{profile}, {original, profile}, {profile, original}} {
+			if _, err := plan(tables, registry, glyphs, file); err == nil {
+				t.Fatal("observation entered image plan")
+			}
+			if err := verifySource(file, tables, nil, registry, glyphs); err == nil {
+				t.Fatal("observation entered source transaction verification")
+			}
+			output := filepath.Join(root, "refused.iso")
+			if _, err := patchCopy(file, output, tables, nil, registry, glyphs); err == nil {
+				t.Fatal("observation entered copy writer")
+			}
+			if _, err := os.Lstat(output); !os.IsNotExist(err) {
+				t.Fatal("observation created an output")
+			}
+		}
+		for _, offset := range []int{0x106, 0x146, 0x810, 0x820} {
+			mutant := bytes.Clone(image)
+			mutant[offset] ^= 1
+			badPath := filepath.Join(root, fmt.Sprintf("mutant-%x.iso", offset))
+			_ = os.WriteFile(badPath, mutant, 0400)
+			bad, err := os.Open(badPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			_, err = inspect(bad, nil, &profile)
+			_ = bad.Close()
+			if err == nil {
+				t.Fatal("observation accepted malformed directory/loader/window", offset)
+			}
+		}
+		profileRaw, _ := json.Marshal(profile)
+		registryRaw, _ := json.Marshal(registry)
+		for name, data := range map[string][]byte{"profile.json": profileRaw, "registry.json": registryRaw, "glyphs.json": glyphs} {
+			if err := os.WriteFile(filepath.Join(root, name), data, 0400); err != nil {
+				t.Fatal(err)
+			}
+		}
+		for _, apply := range []bool{false, true} {
+			output := filepath.Join(root, "cli-refused.iso")
+			args := []string{"--source", path, "--recipes", filepath.Join(root, "profile.json"), "--registry", filepath.Join(root, "registry.json"), "--glyphmap", filepath.Join(root, "glyphs.json"), "--output", output}
+			if apply {
+				args = append(args, "--apply")
+			}
+			if err := run(args, io.Discard); err == nil {
+				t.Fatal("CLI admitted observation output/apply")
+			}
+			if _, err := os.Lstat(output); !os.IsNotExist(err) {
+				t.Fatal("CLI observation output exists")
+			}
+		}
+	}
 	// Calibration changes control words deliberately; exact whole-slot word tables
 	// preserve the stream codec's stricter control invariant. These carriers are synthetic.
 	{

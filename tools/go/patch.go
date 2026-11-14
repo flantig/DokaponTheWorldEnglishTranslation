@@ -1128,6 +1128,11 @@ func plan(tables []Recipes, registry Registry, glyphData []byte, source io.Reade
 	if len(tables) == 0 {
 		return nil, fmt.Errorf("no recipe tables")
 	}
+	for _, table := range tables {
+		if table.Operation == "stream_capacity_observation" {
+			return nil, fmt.Errorf("stream_capacity_observation is read-only; image planning refused")
+		}
+	}
 	if len(tables) == 1 && (tables[0].Operation == "cmb_member_replace" || tables[0].Operation == "iso_file_replace") {
 		return planBundle(tables[0], source)
 	}
@@ -1408,7 +1413,7 @@ func plan(tables []Recipes, registry Registry, glyphData []byte, source io.Reade
 				return nil, err
 			}
 			if references == nil {
-				cursor = int64(len(bytes.TrimRight(initialized.Blob, "\x00"))+15) &^ 15
+				cursor = initialized.BlobCursor
 				if cursor > initialized.Capacity {
 					return nil, fmt.Errorf("existing stream content exceeds translation capacity")
 				}
@@ -2004,6 +2009,19 @@ func validateEdits(edits []Edit, size int64) error {
 // No mode verifies the complete image hash; transaction callers retain that check.
 func inspect(image io.ReaderAt, edits []Edit, recipes *Recipes) (Inspection, error) {
 	result := Inspection{States: make([]string, len(edits))}
+	capacityObservation := recipes != nil && recipes.Operation == "stream_capacity_observation"
+	if capacityObservation {
+		if recipes.Stream == nil {
+			return Inspection{}, fmt.Errorf("capacity observation requires its initialized source profile")
+		}
+		stream := recipes.Stream
+		allowedStream := &Stream{RetailELFSize: stream.RetailELFSize, ELFRecordOffset: stream.ELFRecordOffset, ZeroRecordOffset: stream.ZeroRecordOffset, ZeroEnd: stream.ZeroEnd, LoaderVMAs: stream.LoaderVMAs, WindowLUIVMAs: stream.WindowLUIVMAs, WindowSRLWords: stream.WindowSRLWords}
+		allowed := Recipes{Operation: "stream_capacity_observation", SourceSize: recipes.SourceSize, SourceSHA256: recipes.SourceSHA256, Evidence: recipes.Evidence, ISOELFOffset: recipes.ISOELFOffset, ELFVMADelta: recipes.ELFVMADelta, Stream: allowedStream}
+		pin, pinErr := hex.DecodeString(recipes.SourceSHA256)
+		if image == nil || len(edits) != 0 || !reflect.DeepEqual(*recipes, allowed) || recipes.Evidence == "" || pinErr != nil || len(pin) != sha256.Size {
+			return Inspection{}, fmt.Errorf("capacity observation requires an exact read-only source profile without edits or consumer/patch claims")
+		}
+	}
 	if recipes != nil && recipes.Operation == "elf_layout" {
 		allowed := Recipes{Operation: "elf_layout", SourceSize: recipes.SourceSize, SourceSHA256: recipes.SourceSHA256, Evidence: recipes.Evidence, AddressRanges: recipes.AddressRanges, Sentinel: recipes.Sentinel}
 		if image == nil || len(edits) != 0 || !reflect.DeepEqual(*recipes, allowed) || recipes.Evidence == "" || recipes.SourceSize < 52 || recipes.SourceSize > 64<<20 || len(recipes.AddressRanges) > 1024 {
@@ -2405,6 +2423,8 @@ func inspect(image io.ReaderAt, edits []Edit, recipes *Recipes) (Inspection, err
 					if _, err := image.ReadAt(result.Blob, result.BlobOffset); err != nil {
 						return Inspection{}, err
 					}
+					result.BlobUsed = int64(len(bytes.TrimRight(result.Blob, "\x00")))
+					result.BlobCursor = (result.BlobUsed + 15) &^ 15
 				}
 			}
 			if growth := recipes.Growth; growth != nil {
@@ -2589,6 +2609,9 @@ func inspect(image io.ReaderAt, edits []Edit, recipes *Recipes) (Inspection, err
 				input  []AddressRange
 				output *[][2]uint64
 			}{{profile.AllowedPointers, &result.PointerRanges}, {profile.AllowedLandings, &result.LandingRanges}} {
+				if capacityObservation {
+					continue
+				}
 				if len(ranges.input) == 0 {
 					if recipes.Growth != nil {
 						continue
@@ -2729,6 +2752,9 @@ func verifySource(source *os.File, tables []Recipes, edits []Edit, registry Regi
 // and enforces any pinned output SHA-256. Failure removes only its own output inode.
 func patchCopy(source *os.File, output string, tables []Recipes, edits []Edit, registry Registry, glyphData []byte) (digest string, err error) {
 	for _, table := range tables {
+		if table.Operation == "stream_capacity_observation" {
+			return "", fmt.Errorf("stream_capacity_observation is read-only; apply refused")
+		}
 		if table.Operation == "pointer_check" {
 			return "", fmt.Errorf("pointer_check is verification-only; apply refused")
 		}

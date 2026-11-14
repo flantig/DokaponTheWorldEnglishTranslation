@@ -161,22 +161,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	if json.Unmarshal(probeScenarioData, &scenarioData) != nil {
 		return report, fmt.Errorf("invalid built-in scenario facts")
 	}
-	var observationData struct {
-		Rows map[string]struct {
-			Kind                      string `json:"kind"`
-			RecipeID                  string `json:"recipe_id"`
-			RecipeSHA256              string `json:"recipe_sha256"`
-			SpanBytes                 int    `json:"span_bytes"`
-			Cells                     int    `json:"cells"`
-			CellWords                 int    `json:"cell_words"`
-			SourceSpanSHA256          string `json:"source_span_sha256"`
-			ComparisonSourceSHA256    string `json:"comparison_source_sha256"`
-			GlyphmapSHA256            string `json:"glyphmap_sha256"`
-			HistoricalStaticISOSHA256 string `json:"historical_static_iso_sha256"`
-			SourceISOSHA256           string `json:"source_iso_sha256"`
-			Limits                    string `json:"limits"`
-		} `json:"rows"`
-	}
+	var observationData ProbeObservationTable
 	if json.Unmarshal(probeObservationData, &observationData) != nil {
 		return report, fmt.Errorf("invalid built-in observation facts")
 	}
@@ -186,6 +171,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			return report, fmt.Errorf("unsupported source-bound storage observation")
 		}
 		switch row.Kind {
+		case "code":
+			if profile.Storage.Recipe != nil || profile.Storage.Glyphmap != (RegistryInput{}) || row.Capacity == nil {
+				return report, fmt.Errorf("configured capacity requires source facts without glyph or authoring inputs")
+			}
 		case "fixed":
 			if profile.Storage.Recipe == nil || profile.Storage.Recipe.SHA256 != row.RecipeSHA256 {
 				return report, fmt.Errorf("unsupported source-bound storage observation")
@@ -235,7 +224,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	storageBytes := 16
 	if profile.Storage != nil {
 		loaded := map[string][]byte{}
-		inputs := map[string]RegistryInput{"storage-glyphmap": profile.Storage.Glyphmap, "storage-registry": profile.Storage.Registry}
+		inputs := map[string]RegistryInput{"storage-registry": profile.Storage.Registry}
+		if observationData.Rows[profile.Storage.ID].Kind != "code" {
+			inputs["storage-glyphmap"] = profile.Storage.Glyphmap
+		}
 		if profile.Storage.Recipe != nil {
 			inputs["storage-recipe"] = *profile.Storage.Recipe
 		}
@@ -249,7 +241,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 		storageGlyphs = loaded["storage-glyphmap"]
 		encodingGlyphs, _, err := glyphMaps(storageGlyphs, true)
-		if err != nil {
+		if err != nil && observationData.Rows[profile.Storage.ID].Kind != "code" {
 			return report, err
 		}
 		var registry Registry
@@ -771,23 +763,79 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				scenarioRuntime = ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(scenarioAdmission)), SHA256: digest}}
 				if effect == "observe-storage" {
 					row := observationData.Rows[profile.Storage.ID]
+					var capacityArtifact *ProbeCapacityArtifact
+					if row.Kind == "code" {
+						input := profile.Inputs["iso"]
+						before, err := os.Lstat(input.Path)
+						file, openErr := os.Open(input.Path)
+						if err != nil || openErr != nil {
+							if file != nil {
+								_ = file.Close()
+							}
+							step.Reason = "capacity source unavailable"
+							break actions
+						}
+						opened, err := file.Stat()
+						hasher := sha256.New()
+						count, hashErr := io.Copy(hasher, io.LimitReader(file, input.Size+1))
+						if err != nil || !before.Mode().IsRegular() || !os.SameFile(before, opened) || count != input.Size || hashErr != nil || fmt.Sprintf("%x", hasher.Sum(nil)) != input.SHA256 {
+							_ = file.Close()
+							step.Reason = "capacity source identity/hash differs"
+							break actions
+						}
+						facts := row.Capacity
+						inspection, inspectErr := inspect(file, nil, &Recipes{Operation: "stream_capacity_observation", SourceSize: input.Size, SourceSHA256: input.SHA256, Evidence: row.Limits, ISOELFOffset: facts.ISOELFOffset, ELFVMADelta: facts.ELFVMADelta, Stream: &facts.Stream})
+						after, statErr := file.Stat()
+						pathAfter, pathErr := os.Lstat(input.Path)
+						_ = file.Close()
+						if statErr != nil || pathErr != nil || !os.SameFile(before, after) || !os.SameFile(before, pathAfter) || before.Size() != after.Size() || before.ModTime() != after.ModTime() {
+							step.Reason = "capacity source changed during inspection"
+							break actions
+						}
+						if inspectErr != nil {
+							step.Reason = inspectErr.Error()
+							break actions
+						}
+						capacityArtifact = &ProbeCapacityArtifact{Source: input, Offset: inspection.BlobOffset, Bytes: int64(len(inspection.Blob)), SHA256: fmt.Sprintf("%x", sha256.Sum256(inspection.Blob)), Used: inspection.BlobUsed, Cursor: inspection.BlobCursor}
+					}
 					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: bundle.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
 					var readIDs []string
-					for offset := 0; offset < storageBytes; {
-						opcode, address := uint8(3), storageAddress+uint32(offset)
-						for 1<<opcode > storageBytes-offset {
-							opcode--
+					if row.Kind == "code" {
+						facts := row.Capacity.Stream
+						var shifts []string
+						for site := range facts.WindowSRLWords {
+							shifts = append(shifts, site)
 						}
-						id := fmt.Sprintf("field%d", len(readIDs))
-						readIDs = append(readIDs, id)
-						plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
-						offset += 1 << opcode
+						slices.Sort(shifts)
+						sites := append(append(slices.Clone(facts.LoaderVMAs), facts.WindowLUIVMAs...), shifts...)
+						for index, site := range sites {
+							vma, err := number(site)
+							if err != nil {
+								step.Reason = "invalid configured capacity site"
+								break actions
+							}
+							opcode, address := uint8(2), uint32(vma)
+							id := fmt.Sprintf("capacity%d", index)
+							plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
+							plan.Decoders = append(plan.Decoders, ProbeMemoryDecoder{ID: id, Kind: "scalar", Requests: []string{id}})
+						}
+					} else {
+						for offset := 0; offset < storageBytes; {
+							opcode, address := uint8(3), storageAddress+uint32(offset)
+							for 1<<opcode > storageBytes-offset {
+								opcode--
+							}
+							id := fmt.Sprintf("field%d", len(readIDs))
+							readIDs = append(readIDs, id)
+							plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
+							offset += 1 << opcode
+						}
+						decoderKind := row.Kind
+						if row.Kind == "narrative" || row.Kind == "positional" {
+							decoderKind = "stream"
+						}
+						plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: decoderKind, Requests: readIDs, Glyphmap: storageGlyphs}}
 					}
-					decoderKind := row.Kind
-					if row.Kind == "narrative" || row.Kind == "positional" {
-						decoderKind = "stream"
-					}
-					plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: decoderKind, Requests: readIDs, Glyphmap: storageGlyphs}}
 					planRaw, _ := json.Marshal(plan)
 					runtimeRaw, _ := json.Marshal(scenarioRuntime)
 					memory, err := readProbeMemory(planRaw, runtimeRaw)
@@ -817,6 +865,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					eventRaw, _ := json.Marshal(map[string]any{"event": "storage-observed", "event_id": 1, "checkpoint": 0, "time": time.Now().Format("2006-01-02T15:04:05-0700"), "registry_id": profile.Storage.ID, "memory": RegistryInput{Path: memoryPath, Size: int64(len(memoryRaw)), SHA256: memorySHA}, "registry": profile.Storage.Registry, "recipe": profile.Storage.Recipe, "source_iso_sha256": row.SourceISOSHA256, "historical_static_iso_sha256": row.HistoricalStaticISOSHA256, "limits": row.Limits})
 					checkData := map[string]any{"expected": storageExpected, "actual_hex": hex.EncodeToString(actual), "glyphmap": storageGlyphs}
 					switch row.Kind {
+					case "code":
+						checkData = map[string]any{"contract": "current-configured-capacity-v1", "actual": memory.Observations, "artifact": capacityArtifact}
 					case "narrative":
 						checkData = map[string]any{"expected": storageExpected, "actual": *memory.Decoded[0].Text}
 					case "positional":

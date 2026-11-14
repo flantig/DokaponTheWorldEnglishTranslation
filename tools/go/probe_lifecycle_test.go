@@ -69,12 +69,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 	failedReady := slices.Contains(os.Args, "failed-ready")
 	streamVariant := ""
 	gridVariant := ""
+	capacityVariant := ""
 	for _, argument := range os.Args {
 		if strings.HasPrefix(argument, "stream-") {
 			streamVariant = argument
 		}
 		if strings.HasPrefix(argument, "grid-") {
 			gridVariant = argument
+		}
+		if strings.HasPrefix(argument, "capacity-") {
+			capacityVariant = argument
 		}
 	}
 	newGame := slices.Contains(os.Args, "scenario-newgame")
@@ -764,6 +768,22 @@ func TestProbeLifecycleChild(t *testing.T) {
 					if !failedReady {
 						mode = 736
 					}
+				case len(payload) == 5 && payload[0] == 2 && capacityVariant != "":
+					address := binary.LittleEndian.Uint32(payload[1:])
+					words := map[uint32]uint32{0x399b30: 0x3c05000a, 0x399b34: 0x34a50000, 0x399b94: 0x240e0140, 0x399c0c: 0x240e0140, 0x4db4a0: 0x3c090010, 0x4db4e0: 0x3c090010, 0x2f39d8: 0x00084d02, 0x537418: 0x00084d02, 0x4ad078: 0x00011d02, 0x4ad0a0: 0x00011d02, 0x4ad0c8: 0x00011d02, 0x4ad0f0: 0x00011d02, 0x4ad118: 0x00011d02}
+					word, exists := words[address]
+					if !exists {
+						t.Fatal("unexpected configured code address", address)
+					}
+					if capacityVariant == "capacity-window" && address == 0x4db4a0 {
+						word = 0x3c090001
+					}
+					if capacityVariant == "capacity-loader" && address == 0x399b94 {
+						word = 0x240e0141
+					}
+					reply = make([]byte, 9)
+					binary.LittleEndian.PutUint32(reply, 9)
+					binary.LittleEndian.PutUint32(reply[5:], word)
 				case len(payload) == 5 && payload[0] <= 3 && gridVariant != "":
 					address := binary.LittleEndian.Uint32(payload[1:])
 					words := []uint16{76, 51, 60, 43, 79, 43, 62, 43, 69, 70, 71, 0, 0, 0, 0, 0, 82, 47, 66, 62, 70, 43, 45, 53, 72, 47, 54, 0, 0, 0, 0, 0, 83, 79, 0, 0, 0xf800}
@@ -997,7 +1017,7 @@ func TestProbeLifecycle(t *testing.T) {
 		originalFacts := bytes.Clone(probeObservationData)
 		originalFactsSHA := sha256.Sum256(originalFacts)
 		const currentISO = "83cb765a441a78db8678105bee21b3a435462b11999f061091420d1b9f710b22"
-		if bytes.Count(originalFacts, []byte(currentISO)) != 3 {
+		if bytes.Count(originalFacts, []byte(currentISO)) != 4 {
 			t.Fatal("real source ISO authority differs")
 		}
 		unsupported := profile
@@ -1026,7 +1046,7 @@ func TestProbeLifecycle(t *testing.T) {
 		// Cleanup owns restoration even on Fatal; no other test uses this global concurrently.
 		t.Cleanup(func() {
 			probeObservationData = originalFacts
-			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 3 {
+			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 4 {
 				t.Error("storage source authority was not restored")
 			}
 		})
@@ -1142,6 +1162,152 @@ func TestProbeLifecycle(t *testing.T) {
 			rederived, err := reportProbeEvidence(data)
 			if err != nil || !reflect.DeepEqual(rederived, *report) {
 				t.Fatal("saved storage report rederivation", err)
+			}
+		}
+		capacityRaw, err := os.ReadFile("testdata/probe-capacity.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var capacityOracle struct {
+			Code []struct {
+				Site string `json:"site"`
+				Word uint32 `json:"word"`
+			} `json:"code"`
+			Synthetic struct {
+				Size    int    `json:"source_size"`
+				SHA     string `json:"source_sha256"`
+				ZeroEnd string `json:"zero_end"`
+				Offset  int    `json:"blob_offset"`
+				Bytes   int    `json:"blob_bytes"`
+				SHA256  string `json:"blob_sha256"`
+				Used    int    `json:"blob_used"`
+				Cursor  int    `json:"blob_cursor"`
+			} `json:"synthetic"`
+			Cases []struct {
+				Name       string  `json:"name"`
+				Child      string  `json:"child"`
+				Row        string  `json:"row_status"`
+				Report     string  `json:"report_status"`
+				Configured *uint64 `json:"configured"`
+				Reason     string  `json:"reason"`
+			} `json:"cases"`
+		}
+		if json.Unmarshal(capacityRaw, &capacityOracle) != nil || len(capacityOracle.Code) != 13 || len(capacityOracle.Cases) != 3 {
+			t.Fatal("capacity pre-output oracle")
+		}
+		iso := make([]byte, capacityOracle.Synthetic.Size)
+		for _, record := range []struct {
+			Offset    int
+			LBA, Size uint32
+		}{{0x82a62, 319, 5087232}, {0x8289c, 2803, 550912}} {
+			iso[record.Offset] = 34
+			binary.LittleEndian.PutUint32(iso[record.Offset+2:], record.LBA)
+			binary.BigEndian.PutUint32(iso[record.Offset+6:], record.LBA)
+			binary.LittleEndian.PutUint32(iso[record.Offset+10:], record.Size)
+			binary.BigEndian.PutUint32(iso[record.Offset+14:], record.Size)
+		}
+		for _, word := range capacityOracle.Code {
+			address, err := number(word.Site)
+			if err != nil {
+				t.Fatal(err)
+			}
+			binary.LittleEndian.PutUint32(iso[int(address)-0xfff80+0x9f800:], word.Word)
+		}
+		iso[capacityOracle.Synthetic.Offset+capacityOracle.Synthetic.Used-1] = 1
+		if fmt.Sprintf("%x", sha256.Sum256(iso)) != capacityOracle.Synthetic.SHA {
+			t.Fatal("regular synthetic ISO differs from independent byte oracle")
+		}
+		isoPath := filepath.Join(sources, "capacity.iso")
+		if err := os.WriteFile(isoPath, iso, 0400); err != nil {
+			t.Fatal(err)
+		}
+		registryRaw := []byte(`{"entries":[{"id":"0x47e980","en":"Switch to carrying|this instead?","landing_vma":"0x04000030","ref_type":"code_immediate"}]}`)
+		registryPath := filepath.Join(sources, "capacity-registry.json")
+		if err := os.WriteFile(registryPath, registryRaw, 0400); err != nil {
+			t.Fatal(err)
+		}
+		var projected ProbeObservationTable
+		if json.Unmarshal(probeObservationData, &projected) != nil {
+			t.Fatal("capacity test projection")
+		}
+		definition := projected.Rows["0x47e980"]
+		if definition.Capacity == nil || definition.Capacity.Stream.ZeroEnd != "0x204d9800" || definition.Capacity.ArtifactSHA256 != "d7f4eed144178eadc22988fec354f4793c2fd0541131c91360c131cd6cc70364" {
+			t.Fatal("real capacity authority differs")
+		}
+		definition.SourceISOSHA256 = capacityOracle.Synthetic.SHA
+		definition.Capacity.Stream.ZeroEnd = capacityOracle.Synthetic.ZeroEnd
+		definition.Capacity.ArtifactSHA256 = capacityOracle.Synthetic.SHA256
+		projected.Rows["0x47e980"] = definition
+		probeObservationData, _ = json.Marshal(projected)
+		for _, expected := range capacityOracle.Cases {
+			selected := profile
+			selected.Root = t.TempDir()
+			_ = os.Chmod(selected.Root, 0700)
+			selected.Inputs = map[string]RegistryInput{}
+			for role, input := range profile.Inputs {
+				selected.Inputs[role] = input
+			}
+			selected.Inputs["iso"] = RegistryInput{Path: isoPath, Size: int64(len(iso)), SHA256: capacityOracle.Synthetic.SHA}
+			selected.Storage = &ProbeStorageSpec{ID: "0x47e980", Registry: RegistryInput{Path: registryPath, Size: int64(len(registryRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(registryRaw))}}
+			selected.ProgramArgs = append(slices.Clone(profile.ProgramArgs), expected.Child)
+			selected.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "initial", Phase: "requested", Nonce: "1-initial"}, {Session: profile.Session, Operation: "observe-storage", Phase: "requested", Nonce: "2-observe-storage"}, {Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+			input, _ := json.Marshal(selected)
+			outcome, err := runProbeLifecycle(input)
+			if err != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != 3 || outcome.Steps[1].Checkpoint == nil {
+				t.Fatalf("%s capacity acquisition: %+v %v", expected.Name, outcome, err)
+			}
+			step := outcome.Steps[1]
+			if step.Memory == nil || len(step.Memory.Observations) != 13 || len(step.Memory.Decoded) != 13 {
+				t.Fatal("missing actual scalar code observations")
+			}
+			for index, actual := range step.Memory.Observations {
+				word := capacityOracle.Code[index]
+				want := word.Word
+				if expected.Child == "capacity-window" && word.Site == "0x4db4a0" {
+					want = 0x3c090001
+				}
+				if expected.Child == "capacity-loader" && word.Site == "0x399b94" {
+					want = 0x240e0141
+				}
+				request, _ := hex.DecodeString(actual.RequestHex)
+				address, _ := number(word.Site)
+				if len(request) != 9 || request[4] != 2 || uint64(binary.LittleEndian.Uint32(request[5:])) != address || actual.Value != uint64(want) {
+					t.Fatal("capacity scalar site/value differs", index, actual)
+				}
+			}
+			report := step.Checkpoint
+			if report.Status != expected.Report || len(report.Rows) != 1 || report.Rows[0].Status != expected.Row || report.Rows[0].Reason != expected.Reason || !reflect.DeepEqual(report.Rows[0].ConfiguredBytes, expected.Configured) || report.Rows[0].RuntimeAllocation != "UNKNOWN" || report.Rows[0].RuntimeUsed != "UNKNOWN" || len(report.Checkpoints) != 0 || len(report.CoveredAreas) != 0 {
+				t.Fatalf("%s capacity report: %+v", expected.Name, report)
+			}
+			if expected.Configured != nil {
+				artifact := report.Rows[0].Artifact
+				if artifact == nil || artifact.Bytes != int64(capacityOracle.Synthetic.Bytes) || artifact.SHA256 != capacityOracle.Synthetic.SHA256 || artifact.Used != int64(capacityOracle.Synthetic.Used) || artifact.Cursor != int64(capacityOracle.Synthetic.Cursor) {
+					t.Fatal("artifact measurement differs from independent regular file")
+				}
+			}
+			if expected.Child == "capacity-match" {
+				raw, err := os.ReadFile(step.Evidence.Path)
+				if err != nil {
+					t.Fatal(err)
+				}
+				var bundle ProbeEvidenceBundle
+				_ = json.Unmarshal(raw, &bundle)
+				var observation ProbeCapacityObservation
+				_ = json.Unmarshal(bundle.Checks[0].Data, &observation)
+				observation.Artifact.SHA256 = strings.Repeat("0", 64)
+				bundle.Checks[0].Data, _ = json.Marshal(observation)
+				forged, _ := json.Marshal(bundle)
+				refused, err := reportProbeEvidence(forged)
+				if err != nil || refused.Rows[0].Status != "FAIL" {
+					t.Fatal("artifact identity forgery passed", err)
+				}
+				one := uint64(1)
+				observation.RuntimeUsed = &one
+				bundle.Checks[0].Data, _ = json.Marshal(observation)
+				forged, _ = json.Marshal(bundle)
+				if _, err := reportProbeEvidence(forged); err == nil {
+					t.Fatal("artifact became claimed runtime usage")
+				}
 			}
 		}
 	})

@@ -1,0 +1,110 @@
+{
+  "source_contract": "a06d800442a077971f4be8b463f3059414659c67b1f49b2e31fee6f71e65ac20",
+  "scope": "Independent pre-output controlled regular synthetic ISO/13-word oracle; no private/native ISO dependency or runtime allocation.",
+  "subject": "0x47e980",
+  "logical_handle": "0x04000030",
+  "code": [
+    {
+      "site": "0x399b30",
+      "word": 1006960650
+    },
+    {
+      "site": "0x399b34",
+      "word": 883228672
+    },
+    {
+      "site": "0x399b94",
+      "word": 604897600
+    },
+    {
+      "site": "0x399c0c",
+      "word": 604897600
+    },
+    {
+      "site": "0x4db4a0",
+      "word": 1007222800
+    },
+    {
+      "site": "0x4db4e0",
+      "word": 1007222800
+    },
+    {
+      "site": "0x2f39d8",
+      "word": 544002
+    },
+    {
+      "site": "0x4ad078",
+      "word": 72962
+    },
+    {
+      "site": "0x4ad0a0",
+      "word": 72962
+    },
+    {
+      "site": "0x4ad0c8",
+      "word": 72962
+    },
+    {
+      "site": "0x4ad0f0",
+      "word": 72962
+    },
+    {
+      "site": "0x4ad118",
+      "word": 72962
+    },
+    {
+      "site": "0x537418",
+      "word": 544002
+    }
+  ],
+  "synthetic": {
+    "source_size": 6291456,
+    "source_sha256": "36a9ac20e432e7adf76a40737002d98f6f32651640c5e56e97dc98b41d9a1b7c",
+    "zero_end": "0x600000",
+    "blob_offset": 5085184,
+    "blob_bytes": 655360,
+    "blob_sha256": "be2eb01d8080e4f5a0b55cb0e6a3de3a1c1a2a760ac3f906428d93382c094e25",
+    "blob_used": 585066,
+    "blob_cursor": 585072,
+    "nonzero_byte": 1
+  },
+  "small_inspection": {
+    "capacity": 2048,
+    "blob_offset": 4096,
+    "blob_used": 6,
+    "blob_cursor": 16,
+    "blob_sha256": "897dcc8b23187aaa661a363a464c52d3476b9e8f0c13dd949810eb53d1b1a73b"
+  },
+  "cases": [
+    {
+      "name": "acquired-configured-match",
+      "child": "capacity-match",
+      "row_status": "PASS",
+      "report_status": "UNKNOWN",
+      "configured": 655360,
+      "reason": ""
+    },
+    {
+      "name": "changed-acquired-window",
+      "child": "capacity-window",
+      "row_status": "FAIL",
+      "report_status": "FAIL",
+      "configured": 65536,
+      "reason": "configured code or serialized artifact mismatch"
+    },
+    {
+      "name": "inconsistent-acquired-loader",
+      "child": "capacity-loader",
+      "row_status": "UNKNOWN",
+      "report_status": "UNKNOWN",
+      "reason": "unsupported acquired loader configuration"
+    }
+  ],
+  "artifact_mutation": {
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "row_status": "FAIL",
+    "reason": "configured code or serialized artifact mismatch"
+  },
+  "runtime_allocation": "UNKNOWN",
+  "runtime_used": "UNKNOWN"
+}

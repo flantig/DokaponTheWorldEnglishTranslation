@@ -91,11 +91,15 @@ type ProbeSavedPlayer struct {
 }
 
 type ProbeEvidenceResult struct {
-	ID      string `json:"id"`
-	Kind    string `json:"kind,omitempty"`
-	EventID int    `json:"event_id,omitempty"`
-	Status  string `json:"status"`
-	Reason  string `json:"reason,omitempty"`
+	ID                string                 `json:"id"`
+	Kind              string                 `json:"kind,omitempty"`
+	EventID           int                    `json:"event_id,omitempty"`
+	Status            string                 `json:"status"`
+	Reason            string                 `json:"reason,omitempty"`
+	ConfiguredBytes   *uint64                `json:"configured_bytes,omitempty"`
+	Artifact          *ProbeCapacityArtifact `json:"artifact,omitempty"`
+	RuntimeAllocation string                 `json:"runtime_allocation,omitempty"`
+	RuntimeUsed       string                 `json:"runtime_used,omitempty"`
 }
 
 type ProbeCheckpointResult struct {

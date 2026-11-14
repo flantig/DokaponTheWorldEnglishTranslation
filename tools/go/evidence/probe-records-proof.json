@@ -1130,5 +1130,121 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "capacity_offline_assessment": {
+    "status": "ROOT_ACCEPTED_READONLY_CAPACITY_OFFLINE_NO_CRITERION_CREDIT",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-capacity-implementation-lqplsqTS/manifest.json",
+      "sha256": "200827c5f8801f24d516a145500e6b595132037f83a68828d89f7e2c83166832",
+      "report": {
+        "path": "report.md",
+        "sha256": "011040ade5d783f9646f7601a56ddefd8e3389d1c60d61ae3ed8a14c2b07180c"
+      },
+      "members": {
+        "path": "members.sha256",
+        "sha256": "d3be49ca9b169131ce4f46b24ce76c193c7bbef257f92ee28fc04cd8ab2e5fd6",
+        "count": 54
+      }
+    },
+    "source_snapshot_sha256": "2f6ab364ac70732b902fb76289381746f1907e52f61c2bea8a2b7ae390aa6e24",
+    "source_pins_sha256": "56838816cdd1fa8d384749c95bc310f9da3cb001f1a9669f40ee4eadd23f6d66",
+    "source_study_sha256": "3c3efe35f489af92bfc9bda8ed4ab372974587cafbf90d59f501a5e3c0f6a8f2",
+    "source_approach_sha256": "f43338bbd0206baf85ed64055b925e7ad7344893a1e1fd8427504978f1f91771",
+    "boundary_review_sha256": "a9a3f83a8f74363c7c666b2ce844b72ddda9c8e3982789d4ae9e34f796d633b1",
+    "review": {
+      "path": "/var/tmp/dokapon-capacity-source-review-astra-EFqgwSVE/review.md",
+      "sha256": "3d80028f4b967f7d0b2c5ed66ca249401c280b059bfd21a27d1601d40756c3de"
+    },
+    "oracle": {
+      "v1": "108155781ab2d255878742057a7df409a7a1af38d5c4b21448db97aa21f26255",
+      "v2": "31bd0bb1bf97242a3b356f7846e07e046171dc08351ac8a73c02d8f27ca9ee9f"
+    },
+    "contract": "Strict lifecycle-only stream_capacity_observation reuses inspect for the actual initialized ISO artifact without consumer or patch claims. It admits only its exact read-only profile; plan/verifySource/patchCopy and public CLI write paths reject it, while ordinary initialized consumer-range gates remain unchanged. Source/hash qualification remains caller duty. Thirteen acquired scalar words independently derive loader bytes and translation minimum; no Expected substitution. BlobUsed and aligned BlobCursor derive from the inspected resident bytes and the same cursor now serves append planning.",
+    "measurements": {
+      "configured_loader_bytes": 655360,
+      "translation_window_bytes": 1048576,
+      "configured_content_cap_bytes": 655360,
+      "artifact_bytes": 655360,
+      "artifact_nonzero_extent": 585066,
+      "artifact_align16_cursor": 585072,
+      "runtime_allocation": "UNKNOWN",
+      "runtime_usage": "UNKNOWN"
+    },
+    "verification": {
+      "first_shared_compile": {
+        "test": "TestProbeRecords core",
+        "result": "PASS",
+        "seconds": 2.913,
+        "log": "first-compile.log"
+      },
+      "readonly_and_append": {
+        "test": "TestPlanAndCopy core",
+        "result": "PASS",
+        "seconds": 1.324,
+        "log": "first-inspect.log"
+      },
+      "first_capacity": {
+        "test": "TestProbeLifecycle/storage core",
+        "result": "PASS",
+        "seconds": 12.567,
+        "log": "first-capacity.log"
+      },
+      "core": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags core -run '^Test(ProbeRecords|ProbeLifecycle|PlanAndCopy|PlanRefusals)$/^storage$' -count=1 -timeout 180s",
+        "result": "PASS",
+        "seconds": 16.623,
+        "log": "final-core.log"
+      },
+      "nativefonts": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags nativefonts -run '^Test(ProbeRecords|ProbeLifecycle|PlanAndCopy|PlanRefusals)$/^storage$' -count=1 -timeout 180s",
+        "result": "PASS",
+        "seconds": 16.881,
+        "log": "final-nativefonts.log"
+      },
+      "build_core": "PASS",
+      "vet_core": "PASS",
+      "build_nativefonts": "PASS",
+      "vet_nativefonts": "PASS",
+      "format": "PASS",
+      "json": "PASS",
+      "scoped_credentials": "PASS",
+      "protected_twelve_sources": "PASS",
+      "main_read_decoder_unchanged": "PASS",
+      "ten_snapshot_members": "PASS",
+      "public_projection_reported_by_publisher": {
+        "core_seconds": 16.789,
+        "nativefonts_seconds": 16.735,
+        "builds_vets": "PASS",
+        "patch_test_sha256": "0b4eb67ca34fef9a0460b800ae7d6619b4b85b33e1e122eab0328c89510d4b42",
+        "patch_test_bytes": 938195,
+        "scope": "Publicbaseline plus owned TestPlanAndCopy block; excludes three inherited private extras totaling440B. Other9members exact."
+      },
+      "limits": "Focused tests only, not fullsuite/race/story replay/native emulator or resource/handover acceptance. TempDir payload retention is asserted before ordinary cleanup; deleted actual outputs are not independently rehashable now."
+    },
+    "accounting": {
+      "implementation_runtime_bytes": 13672,
+      "owned_test_fixture_bytes": 14784,
+      "private_source_context_test_delta": 15224,
+      "inherited_private_excluded_bytes": 440,
+      "production_functions_added": 0,
+      "callbacks_added": 0,
+      "named_types_added": 5,
+      "dependencies_added": 0
+    },
+    "public_projection": {
+      "other_nine_members": "exact",
+      "patch_test_sha256": "0b4eb67ca34fef9a0460b800ae7d6619b4b85b33e1e122eab0328c89510d4b42",
+      "patch_test_bytes": 938195,
+      "method": "publicbaseline plus owned capacity block;three inherited private hunks excluded"
+    },
+    "limits": [
+      "Configured code and independently inspected artifact only; runtime allocation/usageUNKNOWN,no native/UI/checkpoint/fullcriterion or resource acceptance.",
+      "Logical handle04000030 is never used as a native address. Historical SUBST source69431/912426 behavior is unchanged, not relabelled current code.",
+      "Configured capacity and artifact highwater are not allocation success, RAM usage, consumer ownership or permission to use zero tail. Non-null supplied runtime values refuse.",
+      "Source/file/identity checks are an owned-input boundary, not a race-free hostile sameUID claim. Raw payload assertions precede ordinary TempDir cleanup; removed payloads are not freshly rehashable.",
+      "No new public CLI dispatch, function, callback, decoder kind or dependency. Five types share actual producer/report ownership."
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
@@ -336,6 +337,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				source = "cb34703c7174a3712b3aa1d9f7875a4fc4cf17d24293c47468db9a3d5b132048"
 			case "code":
 				source = "69431ad09bfe6af52c384501a75051e3adc74271af01e21019c2e7339805e5fe"
+				if check.SourceSHA256 == "a06d800442a077971f4be8b463f3059414659c67b1f49b2e31fee6f71e65ac20" {
+					source = check.SourceSHA256
+				}
 			case "image":
 				source = "017edb5f58ba708839fd8e623769b357e3469273f34cb404922382e545067a87"
 			default:
@@ -436,6 +440,80 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 						row.Status, row.Reason = "FAIL", "positional token or scaffold mismatch"
 					}
 				case "code":
+					if check.SourceSHA256 == "a06d800442a077971f4be8b463f3059414659c67b1f49b2e31fee6f71e65ac20" {
+						var observed ProbeCapacityObservation
+						var table ProbeObservationTable
+						if json.Unmarshal(check.Data, &observed) != nil || json.Unmarshal(probeObservationData, &table) != nil || observed.Contract != "current-configured-capacity-v1" || bundle.SourceSchema != "probe-evidence-go-v1" {
+							return report, fmt.Errorf("unsupported current configured-capacity contract")
+						}
+						definition := table.Rows[id]
+						facts := definition.Capacity
+						if facts == nil || definition.Kind != "code" || definition.SourceISOSHA256 != bundle.ISOSHA256 || observed.RuntimeAllocation != nil || observed.RuntimeUsed != nil {
+							return report, fmt.Errorf("configured capacity source differs or claims unmeasured runtime state")
+						}
+						row.RuntimeAllocation, row.RuntimeUsed = "UNKNOWN", "UNKNOWN"
+						if len(observed.Actual) == 0 || observed.Artifact == nil {
+							row.Status, row.Reason = "UNKNOWN", "missing acquired code or inspected artifact"
+							break
+						}
+						var shifts []string
+						for site := range facts.Stream.WindowSRLWords {
+							shifts = append(shifts, site)
+						}
+						slices.Sort(shifts)
+						sites := append(append(slices.Clone(facts.Stream.LoaderVMAs), facts.Stream.WindowLUIVMAs...), shifts...)
+						if len(sites) != 13 || len(observed.Actual) != len(sites) {
+							return report, fmt.Errorf("configured capacity requires all13 ordered code sites")
+						}
+						var words []uint32
+						for index, actual := range observed.Actual {
+							request, requestErr := hex.DecodeString(actual.RequestHex)
+							reply, replyErr := hex.DecodeString(actual.ReplyHex)
+							address, addressErr := number(sites[index])
+							if requestErr != nil || replyErr != nil || addressErr != nil || actual.ID != fmt.Sprintf("capacity%d", index) || len(request) != 9 || len(reply) != 9 || binary.LittleEndian.Uint32(request) != 9 || request[4] != 2 || uint64(binary.LittleEndian.Uint32(request[5:])) != address || binary.LittleEndian.Uint32(reply) != 9 || reply[4] != 0 || uint64(binary.LittleEndian.Uint32(reply[5:])) != actual.Value {
+								return report, fmt.Errorf("configured capacity site/order/wire observation differs")
+							}
+							words = append(words, uint32(actual.Value))
+						}
+						sectors := words[2] & 0xffff
+						loader := uint64(words[0]&0xffff)<<16 | uint64(words[1]&0xffff)
+						if words[0]>>16 != 0x3c05 || words[1]>>16 != 0x34a5 || words[2]>>16 != 0x240e || words[2] != words[3] || sectors == 0 || sectors > 0x7fff || loader != uint64(sectors)*2048 {
+							row.Status, row.Reason = "UNKNOWN", "unsupported acquired loader configuration"
+							break
+						}
+						configured, windowsMatch := loader, true
+						for index, word := range words[4:] {
+							var window uint64
+							if index < 2 {
+								if word>>16 != 0x3c09 || word&0xffff == 0 {
+									row.Status, row.Reason = "UNKNOWN", "unsupported acquired translation LUI"
+									break
+								}
+								window = uint64(word&0xffff) << 16
+							} else {
+								expected, err := number(facts.Stream.WindowSRLWords[sites[index+4]])
+								if err != nil || word>>21 != 0 || word&0x3f != 2 || word>>16&31 == 0 || word>>11&31 == 0 || uint64(word)&0xfffff83f != expected&0xfffff83f {
+									row.Status, row.Reason = "UNKNOWN", "unsupported acquired translation shift"
+									break
+								}
+								window = uint64(1) << ((word >> 6) & 31)
+							}
+							windowsMatch = windowsMatch && window == facts.WindowBytes
+							configured = min(configured, window)
+						}
+						if row.Status != "PASS" {
+							break
+						}
+						row.ConfiguredBytes, row.Artifact = &configured, observed.Artifact
+						artifact := observed.Artifact
+						if artifact.Source.SHA256 != bundle.ISOSHA256 || artifact.Source.Size < 1 || artifact.Offset < 0 || artifact.Bytes < 0 || artifact.Offset > artifact.Source.Size-artifact.Bytes || artifact.Used < 0 || artifact.Used > artifact.Bytes || artifact.Cursor != (artifact.Used+15)&^15 || artifact.Cursor > artifact.Bytes {
+							return report, fmt.Errorf("inspected artifact source/extent/cursor is inconsistent")
+						}
+						if loader != facts.LoaderBytes || !windowsMatch || configured != min(facts.LoaderBytes, facts.WindowBytes) || uint64(artifact.Cursor) > configured || artifact.Offset != facts.ArtifactOffset || artifact.Bytes != facts.ArtifactBytes || artifact.SHA256 != facts.ArtifactSHA256 || artifact.Used != facts.ArtifactUsed || artifact.Cursor != facts.ArtifactCursor {
+							row.Status, row.Reason = "FAIL", "configured code or serialized artifact mismatch"
+						}
+						break
+					}
 					var field struct {
 						Site           *uint32   `json:"site"`
 						Old            []uint32  `json:"old"`
