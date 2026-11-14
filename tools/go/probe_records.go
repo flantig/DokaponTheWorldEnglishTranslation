@@ -32,8 +32,69 @@ func admitProbeRecords(raw []byte) (ProbeRecordReport, error) {
 	if err := decoder.Decode(&bundle); err != nil {
 		return report, err
 	}
+	if bundle.Version == 1 && bundle.SourceSchema == "go-probe-records-v1" && bundle.SourceSHA256 == "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" {
+		if bundle.GoOwner == nil || bundle.Context != "owned_go" || bundle.AfterProcess == nil || len(bundle.Records) != 2 || len(bundle.Files) != 0 {
+			return report, fmt.Errorf("Go probe records require their lifecycle owner and two identity records")
+		}
+		owner := bundle.GoOwner
+		profile := owner.Profile
+		step := owner.Step
+		parts := regexp.MustCompile(`^([1-9][0-9]*)-([a-z-]+)$`).FindStringSubmatch(step.Request.Nonce)
+		linked := false
+		for _, request := range profile.Requests {
+			if reflect.DeepEqual(request, step.Request) {
+				linked = true
+				break
+			}
+		}
+		var contract struct {
+			Actions map[string]struct{ Effects []string }
+		}
+		_ = json.Unmarshal(probeLifecycleActions, &contract)
+		completed, known := contract.Actions[step.Request.Operation]
+		if len(parts) != 3 || parts[2] != step.Request.Operation || !linked || !known || !slices.Equal(completed.Effects, step.Effects) {
+			return report, fmt.Errorf("Go completed request nonce/operation/linkage differs")
+		}
+		var owned ProbeProcessRecord
+		var view ProbeProfileRecord
+		roles := map[string]bool{}
+		for _, record := range bundle.Records {
+			if roles[record.Role] {
+				return report, fmt.Errorf("duplicate Go probe identity role")
+			}
+			roles[record.Role] = true
+			switch record.Role {
+			case "owned":
+				if json.Unmarshal(record.Data, &owned) != nil {
+					return report, fmt.Errorf("malformed Go owned record")
+				}
+			case "profile":
+				if json.Unmarshal(record.Data, &view) != nil {
+					return report, fmt.Errorf("malformed Go profile record")
+				}
+			default:
+				return report, fmt.Errorf("unsupported Go probe identity role")
+			}
+		}
+		facts := profile
+		facts.Requests = nil
+		factsBytes, _ := json.Marshal(facts)
+		dataRoot := filepath.Join(profile.Root, "profile", "PCSX2")
+		if profile.Version != 1 || profile.SourceFormat != "go-owned-lifecycle-v1" || !filepath.IsAbs(profile.Root) || filepath.Clean(profile.Root) != profile.Root || bundle.RunRoot != profile.Root || profile.Session == "" || step.Status != "COMPLETED" || step.Owned == nil || step.ProfileSHA256 != fmt.Sprintf("%x", sha256.Sum256(factsBytes)) || step.Request.Session != profile.Session || step.Request.Phase != "requested" || owned.Epoch == nil || *owned.Epoch != step.Epoch || owned.PID < 1 || owned.Starttime == 0 || !reflect.DeepEqual(*step.Owned, owned) || owned.Session != profile.Session || owned.Profile != filepath.Join(profile.Root, "profile") || owned.ISO != profile.Inputs["iso"].Path || owned.ISOSHA256 != profile.Inputs["iso"].SHA256 || len(owner.CardSHA256) != 64 {
+			return report, fmt.Errorf("Go lifecycle owner/epoch/profile identity differs")
+		}
+		expectedArgs := append(slices.Clone(profile.ProgramArgs), "-datapath", owned.Profile, "-batch", owned.ISO)
+		expectedArgs = append([]string{profile.Program.Path}, expectedArgs...)
+		if !reflect.DeepEqual(owned.Cmdline, expectedArgs) || bundle.AfterProcess.PID != owned.PID || bundle.AfterProcess.Starttime != owned.Starttime || !reflect.DeepEqual(bundle.AfterProcess.Cmdline, owned.Cmdline) || bundle.AfterProcess.State == "" || bundle.AfterProcess.State == "Z" || bundle.AfterProcess.State == "X" || view.Datapath != owned.Profile || view.DataRoot != dataRoot || view.Card != filepath.Join(dataRoot, "memcards", "probe-slot1.ps2") || view.CardInitialSHA256 != profile.Inputs["card"].SHA256 || view.SourceCard != profile.Inputs["card"].Path || view.SourceCardSHA256 != profile.Inputs["card"].SHA256 || view.SourceSettings != profile.Inputs["settings"].Path || view.SourceSettingsSHA256 != profile.Inputs["settings"].SHA256 || view.BIOS != filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path)) {
+			return report, fmt.Errorf("Go probe argv/profile snapshot differs")
+		}
+		return ProbeRecordReport{Version: 1, SourceSchema: bundle.SourceSchema, BundleSHA256: fmt.Sprintf("%x", sha256.Sum256(raw)), Status: "ADMITTED", Context: bundle.Context, RunID: profile.Session, Session: profile.Session, ISOSHA256: owned.ISOSHA256, Epoch: *owned.Epoch, PID: owned.PID, Starttime: owned.Starttime, Nonce: step.Request.Nonce, CardSHA256: owner.CardSHA256, RecordOrder: []string{"profile", "owned"}, RecordSHA256: map[string]string{}, Limits: "Go-produced saved lifecycle facts, not legacy emission or live ownership. Acquisition independently checks actual kernel/process/peer and immutable evidence."}, nil
+	}
 	if bundle.Version != 1 || bundle.SourceSchema != "text-probe-legacy-2026-11-13" || bundle.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" {
 		return report, fmt.Errorf("unsupported probe record import version or source schema")
+	}
+	if bundle.GoOwner != nil {
+		return report, fmt.Errorf("legacy probe records must not contain Go ownership")
 	}
 	if !slices.Contains([]string{"initial", "boot_checkpoint", "outer_requested"}, bundle.Context) {
 		return report, fmt.Errorf("probe record context must be initial, boot_checkpoint or outer_requested")

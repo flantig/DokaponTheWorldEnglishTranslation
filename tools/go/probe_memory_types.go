@@ -32,9 +32,10 @@ type ProbeMemoryDecoder struct {
 // Runtime roots are explicit CLI inputs; no path claimed by an admission bundle
 // is followed. Synthetic peers are confined to an owned private root, never live.
 type ProbeMemoryRuntime struct {
-	Provenance string `json:"provenance"`
-	Root       string `json:"root"`
-	TimeoutMS  int    `json:"timeout_ms"`
+	Provenance string         `json:"provenance"`
+	Root       string         `json:"root"`
+	TimeoutMS  int            `json:"timeout_ms"`
+	Evidence   *RegistryInput `json:"evidence,omitempty"`
 }
 
 type ProbeMemoryObservation struct {

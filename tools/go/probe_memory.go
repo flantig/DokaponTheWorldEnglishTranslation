@@ -104,8 +104,11 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 		if err := decoder.Decode(&runtime); err != nil {
 			return report, err
 		}
-		if !slices.Contains([]string{"synthetic_peer", "live"}, runtime.Provenance) || runtime.TimeoutMS < 1 || runtime.TimeoutMS > 1000 || !filepath.IsAbs(runtime.Root) || filepath.Clean(runtime.Root) != runtime.Root {
+		if !slices.Contains([]string{"synthetic_peer", "live", "owned_go"}, runtime.Provenance) || runtime.TimeoutMS < 1 || runtime.TimeoutMS > 1000 || !filepath.IsAbs(runtime.Root) || filepath.Clean(runtime.Root) != runtime.Root {
 			return report, fmt.Errorf("probe runtime requires explicit provenance, private root and1..1000ms deadline")
+		}
+		if runtime.Provenance != "owned_go" && runtime.Evidence != nil || admission.SourceSchema == "go-probe-records-v1" && runtime.Provenance != "owned_go" {
+			return report, fmt.Errorf("probe runtime producer and evidence format differ")
 		}
 		rootInfo, err = os.Lstat(runtime.Root)
 		if err != nil || !rootInfo.IsDir() || rootInfo.Mode().Perm() != 0700 {
@@ -124,6 +127,9 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 		}
 		var records ProbeRecordBundle
 		_ = json.Unmarshal(plan.Admission, &records)
+		if runtime.Provenance == "owned_go" && (records.GoOwner == nil || plan.BuildSHA256 != records.GoOwner.Profile.Program.SHA256 || runtime.Root != records.GoOwner.Profile.Root) {
+			return report, fmt.Errorf("Go read build differs from lifecycle owner")
+		}
 		for _, record := range records.Records {
 			if record.Role == "owned" {
 				_ = json.Unmarshal(record.Data, &owned)
@@ -147,6 +153,16 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 				return ProbeMemoryReport{}, fmt.Errorf("probe runtime root identity changed")
 			}
 			receiptPath := filepath.Join(runtime.Root, "records.json")
+			if runtime.Provenance == "owned_go" {
+				if admission.SourceSchema != "go-probe-records-v1" || runtime.Evidence == nil {
+					return ProbeMemoryReport{}, fmt.Errorf("Go runtime requires its explicit immutable Go evidence")
+				}
+				rel, err := filepath.Rel(runtime.Root, runtime.Evidence.Path)
+				if err != nil || filepath.IsAbs(rel) || rel == ".." || strings.HasPrefix(rel, ".."+string(filepath.Separator)) || runtime.Evidence.Size != int64(len(plan.Admission)) || runtime.Evidence.SHA256 != fmt.Sprintf("%x", sha256.Sum256(plan.Admission)) {
+					return ProbeMemoryReport{}, fmt.Errorf("Go runtime evidence is outside its owned root or differs")
+				}
+				receiptPath = runtime.Evidence.Path
+			}
 			receiptInfo, receiptErr := os.Lstat(receiptPath)
 			if receiptErr != nil || !receiptInfo.Mode().IsRegular() || receiptInfo.Mode().Perm() != 0600 {
 				return ProbeMemoryReport{}, fmt.Errorf("probe runtime requires a private regular session receipt")
@@ -169,7 +185,7 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 			}
 			if phase == 0 {
 				socketPath := filepath.Join(processRoot, "root/run/user/1000/pcsx2.sock")
-				if runtime.Provenance == "synthetic_peer" {
+				if runtime.Provenance == "synthetic_peer" || runtime.Provenance == "owned_go" {
 					socketPath = filepath.Join(runtime.Root, "peer.sock")
 				}
 				connection, err = net.DialTimeout("unix", socketPath, time.Duration(runtime.TimeoutMS)*time.Millisecond)
@@ -177,7 +193,7 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 					return ProbeMemoryReport{}, fmt.Errorf("probe read-only connection failed: %w", err)
 				}
 				defer connection.Close()
-				if runtime.Provenance == "live" {
+				if runtime.Provenance == "live" || runtime.Provenance == "owned_go" {
 					file, fileErr := connection.(*net.UnixConn).File()
 					if fileErr != nil {
 						return ProbeMemoryReport{}, fileErr
@@ -192,7 +208,7 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 					return ProbeMemoryReport{}, err
 				}
 			} else {
-				report.ProcessGuarded = runtime.Provenance == "live"
+				report.ProcessGuarded = runtime.Provenance == "live" || runtime.Provenance == "owned_go"
 			}
 		}
 		if phase == 1 {

@@ -32,12 +32,15 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	if err := decoder.Decode(&bundle); err != nil {
 		return report, err
 	}
-	if bundle.Version != 1 || bundle.SourceSchema != "probe-evidence-legacy-2026-11-13" || bundle.SourceSHA256 != "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8" {
+	if bundle.Version != 1 || !slices.Contains([]string{"probe-evidence-legacy-2026-11-13", "probe-evidence-go-v1"}, bundle.SourceSchema) || bundle.SourceSHA256 != "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8" {
 		return report, fmt.Errorf("unsupported probe evidence version or source schema")
 	}
 	admission, err := admitProbeRecords(bundle.Admission)
 	if err != nil {
 		return report, fmt.Errorf("probe evidence admission: %w", err)
+	}
+	if (bundle.SourceSchema == "probe-evidence-go-v1") != (admission.SourceSchema == "go-probe-records-v1") {
+		return report, fmt.Errorf("probe evidence producer version differs from admission")
 	}
 	if bundle.RunID != admission.RunID || bundle.Session != admission.Session || bundle.ISOSHA256 != admission.ISOSHA256 || bundle.Epoch == nil || *bundle.Epoch != admission.Epoch {
 		return report, fmt.Errorf("probe evidence identity differs from admitted records")
@@ -527,7 +530,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				return report, fmt.Errorf("capture typed observations cross session, build or sequential UI")
 			}
 			for _, memory := range []*ProbeMemoryReport{before, after} {
-				if memory.Version != 1 || memory.SourceSHA256 != receipt.SourceSHA256 || memory.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(bundle.Admission)) || memory.Provenance == "live" && !memory.ProcessGuarded {
+				if memory.Version != 1 || memory.SourceSHA256 != receipt.SourceSHA256 || memory.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(bundle.Admission)) || (memory.Provenance == "live" || memory.Provenance == "owned_go") && !memory.ProcessGuarded {
 					return report, fmt.Errorf("capture typed observations differ from admitted evidence or process guards")
 				}
 				knownTags, knownUI := false, false

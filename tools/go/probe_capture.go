@@ -58,7 +58,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 	if profile.LockTimeoutMS < 1 || profile.LockTimeoutMS > 10000 || profile.CaptureTimeoutMS < 1 || profile.CaptureTimeoutMS > 10000 || profile.MaxSnapshotFiles < 1 || profile.MaxSnapshotFiles > 256 || profile.MaxImageBytes < 1 || profile.MaxImageBytes > 16<<20 || profile.MaxPixels < 1 || profile.MaxPixels > 1<<20 || profile.MaxRetainedFiles < 2 || profile.MaxRetainedFiles > 1024 || profile.MaxRetainedBytes < 1 || profile.MaxRetainedBytes > 512<<20 {
 		return receipt, fmt.Errorf("capture policy exceeds finite source/resource bounds")
 	}
-	if runtime.Memory.Provenance != "synthetic_peer" && runtime.Memory.Provenance != "live" || runtime.BackendPID < 1 {
+	if runtime.Memory.Provenance != "synthetic_peer" && runtime.Memory.Provenance != "live" && runtime.Memory.Provenance != "owned_go" || runtime.BackendPID < 1 {
 		return receipt, fmt.Errorf("capture requires explicit backend ownership and provenance")
 	}
 	if runtime.Memory.Provenance == "live" && (profile.LockTimeoutMS != 10000 || profile.CaptureTimeoutMS != 10000) {
@@ -99,7 +99,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 			_ = json.Unmarshal(record.Data, &admittedProfile)
 		}
 	}
-	if runtime.Memory.Provenance == "live" && runtime.Snapshots != filepath.Join(admittedProfile.DataRoot, "snaps") {
+	if (runtime.Memory.Provenance == "live" || runtime.Memory.Provenance == "owned_go") && runtime.Snapshots != filepath.Join(admittedProfile.DataRoot, "snaps") {
 		return receipt, fmt.Errorf("capture snapshot root differs from admitted native data root")
 	}
 	dirs := []string{runtime.Memory.Root, runtime.Snapshots, runtime.Output}
@@ -260,7 +260,7 @@ transaction:
 			break
 		}
 		padSocket := "/tmp/claude-1000/dokapon/vpad.sock"
-		if runtime.Memory.Provenance == "synthetic_peer" {
+		if runtime.Memory.Provenance == "synthetic_peer" || runtime.Memory.Provenance == "owned_go" {
 			padSocket = filepath.Join(runtime.Memory.Root, "pad.sock")
 		}
 		padInfo, err := os.Lstat(padSocket)

@@ -103,6 +103,27 @@
         "verify"
       ],
       "to": "ready"
+    },
+    "scenario": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "acquire-board",
+        "status-running",
+        "toggle-pause",
+        "status-paused",
+        "takeover-control",
+        "toggle-pause",
+        "status-running",
+        "verify-human",
+        "select-data",
+        "select-save",
+        "card-save",
+        "capture-save",
+        "report-save"
+      ],
+      "to": "ready"
     }
   },
   "warm_command": "tap R3 0.1",

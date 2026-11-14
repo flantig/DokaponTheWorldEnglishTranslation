@@ -16,6 +16,15 @@ type ProbeRecordBundle struct {
 	Files            []ProbeFileObservation `json:"files"`
 	BeforeProcess    *ProbeProcessRecord    `json:"before_process,omitempty"`
 	AfterProcess     *ProbeProcessRecord    `json:"after_process"`
+	GoOwner          *ProbeGoOwner          `json:"go_owner,omitempty"`
+}
+
+// ProbeGoOwner versions Go-produced lifecycle facts separately from legacy JSON.
+// Admission remains pure; live acquisition must independently revalidate them.
+type ProbeGoOwner struct {
+	Profile    ProbeLifecycleProfile `json:"profile"`
+	Step       ProbeLifecycleStep    `json:"step"`
+	CardSHA256 string                `json:"card_sha256"`
 }
 
 type ProbeRecord struct {

@@ -67,6 +67,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 	watchSample, modeReads, seenPause := 0, 0, 0
 	vmStatus := uint32(0)
 	failedReady := slices.Contains(os.Args, "failed-ready")
+	scenario := slices.Contains(os.Args, "scenario-first-save")
+	if scenario {
+		expires = time.Now().Add(120 * time.Second)
+	}
+	scenarioStage, boardCursor, tabCursor, fileCursor, eventOffset := 0, 0, 0, 0, 0
+	scenarioControl := byte(1)
+	scenarioModeReads := 0
+	scenarioWrites := 0
+	scenarioTrace := []string{}
 	if failedReady {
 		mode = 424
 	}
@@ -80,6 +89,32 @@ func TestProbeLifecycleChild(t *testing.T) {
 	for {
 		if os.Getppid() != parentPID || time.Now().After(expires) {
 			return
+		}
+		if scenario {
+			// The controlled VM observes input independently, as a real renderer
+			// would; capture must not need another memory request to create PNG.
+			events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
+			for offset := 0; offset+24 <= len(events); offset += 24 {
+				if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 316 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+					path := filepath.Join(root, "profile", "PCSX2", "snaps", "first-save.png")
+					if _, err := os.Stat(path); os.IsNotExist(err) {
+						var fixture struct {
+							ImageHex string `json:"image_hex"`
+						}
+						data, _ := os.ReadFile("testdata/probe-capture.json")
+						if json.Unmarshal(data, &fixture) != nil {
+							t.Fatal("capture fixture")
+						}
+						image, err := hex.DecodeString(fixture.ImageHex)
+						if err != nil {
+							t.Fatal(err)
+						}
+						if err := os.WriteFile(path, image, 0600); err != nil {
+							t.Fatal(err)
+						}
+					}
+				}
+			}
 		}
 		select {
 		case <-stopped:
@@ -122,7 +157,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 				break
 			}
 			length := int(binary.LittleEndian.Uint32(header))
-			if length != 5 && length != 9 {
+			if length != 5 && length != 9 && !(scenario && length == 10) {
 				t.Errorf("bad frame size%d", length)
 				break
 			}
@@ -132,92 +167,277 @@ func TestProbeLifecycleChild(t *testing.T) {
 				break
 			}
 			var reply []byte
-			switch {
-			case bytes.Equal(payload, []byte{15}):
+			if scenario {
 				events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
-				pauses := 0
-				for offset := 0; offset+24 <= len(events); offset += 24 {
-					if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 317 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
-						pauses++
+				for ; eventOffset+24 <= len(events); eventOffset += 24 {
+					event := events[eventOffset:]
+					kind, code, value := binary.LittleEndian.Uint16(event[16:]), binary.LittleEndian.Uint16(event[18:]), int32(binary.LittleEndian.Uint32(event[20:]))
+					name := ""
+					if kind == 3 && code == 17 && value != 0 {
+						delta := int(value)
+						name = "DOWN"
+						if value < 0 {
+							name = "UP"
+						}
+						switch scenarioStage {
+						case 0:
+							boardCursor += delta
+						case 1:
+							tabCursor += delta
+						case 2, 6:
+							fileCursor += delta
+						}
+					}
+					if kind == 1 && value == 1 {
+						switch code {
+						case 317:
+							name = "L3"
+						case 305:
+							name = "CIRCLE"
+							switch scenarioStage {
+							case 0:
+								if boardCursor == 4 {
+									scenarioStage = 1
+								}
+							case 1:
+								if tabCursor == 4 {
+									scenarioStage = 2
+								}
+							case 2:
+								if fileCursor == 1 {
+									scenarioStage = 3
+								}
+							case 3:
+								scenarioStage = 5
+							case 5:
+								scenarioStage = 6
+							}
+						case 316:
+							name = "GUIDE"
+						}
+					}
+					if name != "" {
+						scenarioTrace = append(scenarioTrace, name)
 					}
 				}
-				if pauses > seenPause && !toggleTimeout {
-					vmStatus ^= uint32((pauses - seenPause) & 1)
+				trace, _ := json.Marshal(scenarioTrace)
+				_ = os.WriteFile(filepath.Join(root, "scenario-inputs.json"), trace, 0600)
+				memory := map[uint32]byte{}
+				for player := 0; player < 4; player++ {
+					base := uint32(0x56bed0 + 508*player)
+					memory[base] = 1
+					memory[base+241] = []byte{scenarioControl, 2, 3, 1}[player]
+					memory[base+250] = byte(12 + player)
+					for index, word := range []uint32{uint32(65 + player), uint32(66 + player), 0, 0, 0} {
+						for b := 0; b < 4; b++ {
+							memory[base+252+uint32(index*4+b)] = byte(word >> (8 * b))
+						}
+					}
+					for b := 0; b < 4; b++ {
+						memory[base+304+uint32(b)] = byte(uint32(100*(player+1)) >> (8 * b))
+					}
 				}
-				seenPause = pauses
-				reply = []byte{9, 0, 0, 0, 0, 0, 0, 0, 0}
-				binary.LittleEndian.PutUint32(reply[5:], vmStatus)
-			case bytes.Equal(payload, []byte{1, 0x1c, 0x58, 0x56, 0}):
-				modeReads++
-				if (watchAdvance || watchStall || watchCrash) && modeReads > 1 {
-					watchSample++
-					if watchCrash {
+				if scenarioControl == 0 && slices.Contains(os.Args, "owner-race") {
+					memory[0x56bed0+100] = 7
+				}
+				innerWidth := uint32(0x1b0)
+				if scenarioStage != 0 {
+					innerWidth = 0x2e0
+				}
+				for address, value := range map[uint32]uint32{0x56581c: innerWidth, 0x56b598: 1, 0x56a804: 5, 0x56a800: 1, 0x56a808: uint32(boardCursor), 0x56a8e0: 5, 0x56a8e4: 1, 0x56a8e8: 0x200} {
+					for b := 0; b < 4; b++ {
+						memory[address+uint32(b)] = byte(value >> (8 * b))
+					}
+				}
+				texts := map[int]string{19: strings.Repeat("x", 129)}
+				selections := map[int]int{}
+				sources := map[int]uint32{}
+				ready := map[int]byte{}
+				if scenarioStage == 0 {
+					texts[0] = "Move"
+					sources[0] = 0x534bc0
+					if vmStatus == 0 && scenarioControl == 0 && slices.Contains(os.Args, "move-after-resume") {
+						sources[0] = 0x534bc4
+					}
+				}
+				if scenarioStage == 1 {
+					texts[0] = "InfoListHelpOptsSave"
+					selections[0] = tabCursor
+				}
+				if scenarioStage == 2 || scenarioStage == 6 {
+					texts[1] = "File1File2"
+					selections[1] = fileCursor
+					memory[0x570104] = 1
+					for b := 0; b < 4; b++ {
+						memory[0x57011c+uint32(b)] = byte(uint32(1) >> (8 * b))
+					}
+				}
+				if scenarioStage == 3 || scenarioStage == 5 {
+					texts[2] = "Savetoanewfile"
+					if scenarioStage == 5 {
+						texts[2] = "Savecomplete."
+					}
+					ready[2] = 1
+					memory[0x570108] = 1
+					for b := 0; b < 4; b++ {
+						memory[0x57010c+uint32(b)] = byte(uint32(2) >> (8 * b))
+					}
+				}
+				for widget, text := range texts {
+					base := uint32(0x5657a0 + 196*widget)
+					glyphs := uint32(0x300000 + widget*0x10000)
+					nodes := uint32(0x500000 + widget*0x10000)
+					memory[base] = 1
+					memory[base+0x48] = ready[widget]
+					for address, word := range map[uint32]uint32{base + 0x70: sources[widget], base + 0x94: glyphs} {
+						for b := 0; b < 4; b++ {
+							memory[address+uint32(b)] = byte(word >> (8 * b))
+						}
+					}
+					memory[base+0x58] = byte(len(text))
+					memory[base+0x59] = byte(len(text) >> 8)
+					if selection, ok := selections[widget]; ok {
+						cursor := uint32(0x700000 + widget*0x100)
+						for b := 0; b < 4; b++ {
+							memory[base+0xb0+uint32(b)] = byte(cursor >> (8 * b))
+						}
+						memory[cursor] = 1
+						memory[cursor+4] = 8
+						memory[cursor+0x18] = byte(selection)
+					}
+					for index, character := range []byte(text) {
+						node := nodes + uint32(index)*32
+						for b := 0; b < 4; b++ {
+							memory[glyphs+uint32(index)*96+0x18+uint32(b)] = byte(node >> (8 * b))
+						}
+						for b, value := range []byte("char" + strconv.Itoa(int(character))) {
+							memory[node+0x10+uint32(b)] = value
+						}
+						if widget == 0 && index == 0 && slices.Contains(os.Args, "unsupported-ui") {
+							for b, value := range []byte("char2047\x00") {
+								memory[node+0x10+uint32(b)] = value
+							}
+						}
+					}
+				}
+				if len(payload) == 6 && payload[0] == 4 {
+					if binary.LittleEndian.Uint32(payload[1:]) != 0x56bfc1 || payload[5] != 0 || vmStatus != 1 {
+						t.Fatal("unqualified Write8", fmt.Sprintf("%x", payload))
+					}
+					_ = os.WriteFile(filepath.Join(root, "scenario-write.bin"), append(header, payload...), 0600)
+					scenarioControl = 0
+					scenarioWrites++
+					_ = os.WriteFile(filepath.Join(root, "scenario-write-count.txt"), []byte(strconv.Itoa(scenarioWrites)), 0600)
+					if slices.Contains(os.Args, "lost-ack") {
 						_ = connection.Close()
-						return
+						break
 					}
-					mode = 0x1b0
-					if watchSample%2 == 0 {
-						mode = 0x250
+					reply = []byte{5, 0, 0, 0, 0}
+				} else if len(payload) == 5 && payload[0] <= 3 {
+					if binary.LittleEndian.Uint32(payload[1:]) == 0x56581c {
+						if scenarioModeReads == 0 {
+							memory[0x56581c] = 0x60
+							memory[0x56581d] = 2
+						}
+						scenarioModeReads++
+					}
+					width := 1 << payload[0]
+					address := binary.LittleEndian.Uint32(payload[1:])
+					reply = make([]byte, 5+width)
+					binary.LittleEndian.PutUint32(reply, uint32(len(reply)))
+					for b := 0; b < width; b++ {
+						reply[5+b] = memory[address+uint32(b)]
 					}
 				}
-				events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
-				resets := 0
-				for offset := 0; offset+24 <= len(events); offset += 24 {
-					if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 318 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
-						resets++
+			}
+			if reply == nil {
+				switch {
+				case bytes.Equal(payload, []byte{15}):
+					events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
+					pauses := 0
+					for offset := 0; offset+24 <= len(events); offset += 24 {
+						if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 317 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+							pauses++
+						}
 					}
-				}
-				if resets > seenReset {
-					mode = 608
-					seenReset = resets
-				}
-				reply = []byte{7, 0, 0, 0, 0, 0, 0}
-				binary.LittleEndian.PutUint16(reply[5:], mode)
-				if !failedReady {
-					mode = 736
-				}
-			case len(payload) == 5 && payload[0] <= 2:
-				address := binary.LittleEndian.Uint32(payload[1:])
-				value := uint32(0)
-				known := true
-				switch address {
-				case 0x56b598:
-					value = 1
-					if watchAdvance && watchSample >= 4 {
-						value = 2
+					if pauses > seenPause && !toggleTimeout {
+						vmStatus ^= uint32((pauses - seenPause) & 1)
 					}
-				case 0x56b18c, 0x56b190, 0x56a808:
-					value = 0
-				case 0x56a804:
-					value = 5
-				case 0x56a800:
-					value = 1
+					seenPause = pauses
+					reply = []byte{9, 0, 0, 0, 0, 0, 0, 0, 0}
+					binary.LittleEndian.PutUint32(reply[5:], vmStatus)
+				case bytes.Equal(payload, []byte{1, 0x1c, 0x58, 0x56, 0}):
+					modeReads++
+					if (watchAdvance || watchStall || watchCrash) && modeReads > 1 {
+						watchSample++
+						if watchCrash {
+							_ = connection.Close()
+							return
+						}
+						mode = 0x1b0
+						if watchSample%2 == 0 {
+							mode = 0x250
+						}
+					}
+					events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
+					resets := 0
+					for offset := 0; offset+24 <= len(events); offset += 24 {
+						if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 318 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+							resets++
+						}
+					}
+					if resets > seenReset {
+						mode = 608
+						seenReset = resets
+					}
+					reply = []byte{7, 0, 0, 0, 0, 0, 0}
+					binary.LittleEndian.PutUint16(reply[5:], mode)
+					if !failedReady {
+						mode = 736
+					}
+				case len(payload) == 5 && payload[0] <= 2:
+					address := binary.LittleEndian.Uint32(payload[1:])
+					value := uint32(0)
+					known := true
+					switch address {
+					case 0x56b598:
+						value = 1
+						if watchAdvance && watchSample >= 4 {
+							value = 2
+						}
+					case 0x56b18c, 0x56b190, 0x56a808:
+						value = 0
+					case 0x56a804:
+						value = 5
+					case 0x56a800:
+						value = 1
+					default:
+						known = false
+						for player := 0; player < 4; player++ {
+							name := uint32(0x56bfcc + player*0x1fc)
+							if address == name-2 {
+								value = uint32(10 + player)
+								known = true
+							}
+							if address == name+0x34 {
+								value = uint32(1000 + player)
+								known = true
+							}
+						}
+					}
+					if !known {
+						t.Errorf("unexpected source read%x", payload)
+						break
+					}
+					width := 1 << payload[0]
+					reply = make([]byte, 5+width)
+					binary.LittleEndian.PutUint32(reply, uint32(len(reply)))
+					var encoded [4]byte
+					binary.LittleEndian.PutUint32(encoded[:], value)
+					copy(reply[5:], encoded[:width])
 				default:
-					known = false
-					for player := 0; player < 4; player++ {
-						name := uint32(0x56bfcc + player*0x1fc)
-						if address == name-2 {
-							value = uint32(10 + player)
-							known = true
-						}
-						if address == name+0x34 {
-							value = uint32(1000 + player)
-							known = true
-						}
-					}
+					t.Errorf("unexpected read-only request%x", payload)
 				}
-				if !known {
-					t.Errorf("unexpected source read%x", payload)
-					break
-				}
-				width := 1 << payload[0]
-				reply = make([]byte, 5+width)
-				binary.LittleEndian.PutUint32(reply, uint32(len(reply)))
-				var encoded [4]byte
-				binary.LittleEndian.PutUint32(encoded[:], value)
-				copy(reply[5:], encoded[:width])
-			default:
-				t.Errorf("unexpected read-only request%x", payload)
 			}
 			if _, err := connection.Write(reply); err != nil {
 				t.Error(err)
@@ -832,6 +1052,175 @@ func TestProbeLifecycle(t *testing.T) {
 			contents, err := os.ReadFile(artifact.Path)
 			if err != nil || fmt.Sprintf("%x", sha256.Sum256(contents)) != artifact.SHA256 {
 				t.Errorf("%s resume source%s changed", variant, role)
+			}
+		}
+	}
+	// Source-literal player bytes and full semantic report expectations are frozen
+	// independently of this producer. IDs, epochs and PNG bytes remain real facts.
+	scenarioRaw, err := os.ReadFile("testdata/probe-scenario.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var scenarioFixture struct {
+		Players []struct {
+			SHA string `json:"sha256"`
+		} `json:"players_before"`
+		Takeover struct {
+			SHA string `json:"actor0_after_sha256"`
+		} `json:"takeover"`
+		InputOrder []string `json:"expected_input_order"`
+		Report     struct {
+			Status      string                  `json:"status"`
+			Rows        []ProbeEvidenceResult   `json:"rows"`
+			Checkpoints []ProbeCheckpointResult `json:"checkpoints"`
+		} `json:"expected_report"`
+		Refusals []struct {
+			ID     string `json:"id"`
+			Reason string `json:"reason_prefix"`
+			Writes int    `json:"writes"`
+		} `json:"refusal_cases"`
+	}
+	if json.Unmarshal(scenarioRaw, &scenarioFixture) != nil || len(scenarioFixture.Players) != 4 {
+		t.Fatal("source scenario oracle")
+	}
+	scenarioProfile := profile
+	scenarioProfile.Root = t.TempDir()
+	_ = os.Chmod(scenarioProfile.Root, 0700)
+	scenarioProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-first-save")
+	scenarioProfile.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "initial", Phase: "requested", Nonce: "1-initial"}, {Session: profile.Session, Operation: "scenario", Phase: "requested", Nonce: "2-scenario"}, {Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+	glyphs := map[string]string{}
+	for _, character := range "MoveInfoListHelpOptsSavFile12toanewfcm.px" {
+		glyphs[strconv.Itoa(int(character))] = string(character)
+	}
+	glyphRaw, _ := json.Marshal(glyphs)
+	glyphPath := filepath.Join(sources, "scenario-glyphmap.json")
+	if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
+		t.Fatal(err)
+	}
+	scenarioProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, MaxUIReads: 4096}
+	scenarioInput, _ := json.Marshal(scenarioProfile)
+	scenarioResult, scenarioErr := runProbeLifecycle(scenarioInput)
+	for _, step := range scenarioResult.Steps {
+		if step.Owned != nil {
+			if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, profile.Program.SHA256); err == nil {
+				_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+				var status syscall.WaitStatus
+				_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+			}
+		}
+	}
+	if scenarioErr != nil || scenarioResult.Status != "COMPLETED" || len(scenarioResult.Steps) != 3 {
+		t.Fatalf("first producer: %+v %v", scenarioResult, scenarioErr)
+	}
+	produced := scenarioResult.Steps[1]
+	if produced.Status != "COMPLETED" || produced.Capture == nil || produced.Checkpoint == nil {
+		t.Fatalf("first producer facts: %+v", produced)
+	}
+	if produced.Checkpoint.Status != scenarioFixture.Report.Status || !reflect.DeepEqual(produced.Checkpoint.Rows, scenarioFixture.Report.Rows) || !reflect.DeepEqual(produced.Checkpoint.Checkpoints, scenarioFixture.Report.Checkpoints) || len(produced.Checkpoint.CoveredAreas) != 0 || produced.Checkpoint.LiveOwnership {
+		t.Errorf("save-only actual report: %+v", produced.Checkpoint)
+	}
+	if produced.Capture.Status != "CAPTURED" || produced.Capture.Provenance != "owned_go" || produced.Capture.MemoryBefore == nil || !produced.Capture.MemoryBefore.ProcessGuarded || len(produced.Checkpoint.Captures) != 1 || produced.Checkpoint.Captures[0].Status != "ACCEPTED" {
+		t.Errorf("source capture linkage: %+v", produced.Capture)
+	}
+	for player, record := range produced.UI.Saved.Players {
+		expected := scenarioFixture.Players[player].SHA
+		if player == 0 {
+			expected = scenarioFixture.Takeover.SHA
+		}
+		if record.RecordSHA256 != expected || record.TutorialInitializedSHA256 != expected {
+			t.Errorf("player%d full source hash: %+v", player, record)
+		}
+	}
+	longWidget := false
+	for _, widget := range produced.UI.Widgets {
+		if widget.Index == 19 && !widget.Unsupported && widget.Text == strings.Repeat("x", 129) {
+			longWidget = true
+		}
+	}
+	if !longWidget {
+		t.Error("129-glyph source widget did not survive bounded decoder chunks")
+	}
+	admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
+	if _, err := readProbeUI(ProbeUIPlan{Admission: admissionRaw, BuildSHA256: profile.Program.SHA256, Glyphmap: glyphRaw, TimeoutMS: 1000, MaxReads: 1}, ProbeMemoryRuntime{Provenance: "owned_go"}); err == nil || !strings.Contains(err.Error(), "budget") {
+		t.Errorf("UI explicit budget refusal: %v", err)
+	}
+	var inputOrder []string
+	inputTrace, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "scenario-inputs.json"))
+	_ = json.Unmarshal(inputTrace, &inputOrder)
+	if !reflect.DeepEqual(inputOrder, scenarioFixture.InputOrder) {
+		t.Errorf("source input order: %v", inputOrder)
+	}
+	writePacket, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "scenario-write.bin"))
+	if hex.EncodeToString(writePacket) != "0a00000004c1bf560000" {
+		t.Errorf("named Write8 packet: %x", writePacket)
+	}
+	var captureFixture struct {
+		ImageHex string `json:"image_hex"`
+	}
+	captureFixtureRaw, _ := os.ReadFile("testdata/probe-capture.json")
+	_ = json.Unmarshal(captureFixtureRaw, &captureFixture)
+	pngBytes, _ := hex.DecodeString(captureFixture.ImageHex)
+	published, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "captures", produced.Capture.ImagePath))
+	snapshot, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "profile", "PCSX2", "snaps", "first-save.png"))
+	if !bytes.Equal(published, pngBytes) || !bytes.Equal(snapshot, pngBytes) {
+		t.Error("original PNG identity/preservation")
+	}
+	for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request"} {
+		admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
+		var bundle ProbeRecordBundle
+		_ = json.Unmarshal(admissionRaw, &bundle)
+		switch variant {
+		case "blank-nonce":
+			bundle.GoOwner.Step.Request.Nonce = ""
+		case "wrong-operation":
+			bundle.GoOwner.Step.Request.Operation = "warm"
+		case "unlinked-request":
+			bundle.GoOwner.Profile.Requests = nil
+		}
+		bad, _ := json.Marshal(bundle)
+		if _, err := admitProbeRecords(bad); err == nil {
+			t.Error(variant, "admitted")
+		}
+	}
+	for _, refusal := range scenarioFixture.Refusals {
+		candidate := scenarioProfile
+		candidate.Root = t.TempDir()
+		_ = os.Chmod(candidate.Root, 0700)
+		candidate.ProgramArgs = append(slices.Clone(scenarioProfile.ProgramArgs), refusal.ID)
+		if refusal.ID == "read-budget" {
+			spec := *candidate.Scenario
+			spec.MaxUIReads = 1
+			candidate.Scenario = &spec
+		}
+		input, _ := json.Marshal(candidate)
+		outcome, runErr := runProbeLifecycle(input)
+		for _, step := range outcome.Steps {
+			if step.Owned != nil {
+				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
+					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+					var status syscall.WaitStatus
+					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+				}
+			}
+		}
+		if runErr != nil || len(outcome.Steps) != 3 || outcome.Status != "INCOMPLETE" || outcome.Steps[1].Status != "UNKNOWN" || !strings.HasPrefix(outcome.Steps[1].Reason, refusal.Reason) || outcome.Steps[2].Status != "COMPLETED" {
+			t.Fatalf("%s bounded source refusal: %+v %v", refusal.ID, outcome, runErr)
+		}
+		if outcome.Steps[1].Capture != nil || outcome.Steps[1].Checkpoint != nil {
+			t.Error(refusal.ID, "unsafe source became checkpoint")
+		}
+		written, _ := os.ReadFile(filepath.Join(candidate.Root, "scenario-write-count.txt"))
+		count := 0
+		if len(written) > 0 {
+			count, _ = strconv.Atoi(string(written))
+		}
+		if count != refusal.Writes {
+			t.Errorf("%s transaction repeated or omitted: %d", refusal.ID, count)
+		}
+		for _, source := range candidate.Inputs {
+			data, err := os.ReadFile(source.Path)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != source.SHA256 {
+				t.Error(refusal.ID, "original source changed")
 			}
 		}
 	}

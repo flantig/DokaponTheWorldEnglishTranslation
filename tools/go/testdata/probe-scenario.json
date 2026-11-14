@@ -1,0 +1,434 @@
+{
+  "scope": "Independent SYNTHETIC first-producer source oracle, not native records or runtime authority",
+  "record_layout": {
+    "bytes": 508,
+    "stride": 508,
+    "name0_vma": "0x56bfcc",
+    "record0_vma": "0x56bed0",
+    "tutorial_flags": {
+      "offset": 0,
+      "width": 1,
+      "qualification": "PER-RECORD byte0, not a global header flag. GAME_UI_FIELDS has no global tutorial entry."
+    },
+    "control": {
+      "offset": 241,
+      "width": 1,
+      "actor0_address": "0x56bfc1"
+    },
+    "square": {
+      "offset": 250,
+      "width": 1
+    },
+    "name_words": {
+      "offset": 252,
+      "count": 5,
+      "word_width": 4,
+      "stride": 4,
+      "last_word_offset": 268,
+      "end_exclusive": 272,
+      "endian": "little",
+      "qualification": "Exact raw u32 words only. Not fiveu16 or decoded A/B text. No assertion these synthetic words form a valid native display name."
+    },
+    "money": {
+      "offset": 304,
+      "width": 4,
+      "endian": "little",
+      "qualification": "Full read_game_ui uses Read32. The separate compact watch helper uses Read16."
+    }
+  },
+  "players_before": [
+    {
+      "index": 0,
+      "tutorial_flags": 1,
+      "control": 1,
+      "square": 12,
+      "money": 100,
+      "name_words": [
+        65,
+        66,
+        0,
+        0,
+        0
+      ],
+      "sha256": "63d5b4afbd964cee309e87c6d35a3894e1a113ef18591dac8ef753602093b9d0"
+    },
+    {
+      "index": 1,
+      "tutorial_flags": 1,
+      "control": 2,
+      "square": 13,
+      "money": 200,
+      "name_words": [
+        66,
+        67,
+        0,
+        0,
+        0
+      ],
+      "sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+    },
+    {
+      "index": 2,
+      "tutorial_flags": 1,
+      "control": 3,
+      "square": 14,
+      "money": 300,
+      "name_words": [
+        67,
+        68,
+        0,
+        0,
+        0
+      ],
+      "sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+    },
+    {
+      "index": 3,
+      "tutorial_flags": 1,
+      "control": 1,
+      "square": 15,
+      "money": 400,
+      "name_words": [
+        68,
+        69,
+        0,
+        0,
+        0
+      ],
+      "sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+    }
+  ],
+  "unlisted_record_bytes": 0,
+  "takeover": {
+    "actor": 0,
+    "before_control": 1,
+    "after_control": 0,
+    "changed_record_offset": 241,
+    "actor0_after_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+    "other_players": "Byte-identical to before. Each tutorial_initialized_sha256 equals its current record_sha256 because byte0 already has bit1."
+  },
+  "aggregate": {
+    "encoding": "Concatenate complete records in native player index0,1,2,3 order, NOT digest strings",
+    "bytes": 2032,
+    "before_sha256": "c4304694933e8931a9b52d5ff49bc1e6b82271c02d87ec4ce07167cfef292c28",
+    "after_sha256": "4d6518ae7d0fffdccc8ac4a4c95e1f2509d12b211ed9e59b2e62a24a886ac122",
+    "only_difference": "zero-based byte241,1→0"
+  },
+  "SAVE_FIELDS": [
+    "story",
+    "week",
+    "day",
+    "current",
+    "area",
+    "players"
+  ],
+  "header_fields_opcode_address": {
+    "mode": [
+      1,
+      "0x56581c"
+    ],
+    "story": [
+      1,
+      "0x56b598"
+    ],
+    "week": [
+      1,
+      "0x56b18c"
+    ],
+    "day": [
+      0,
+      "0x56b18e"
+    ],
+    "current": [
+      1,
+      "0x56b190"
+    ],
+    "area": [
+      0,
+      "0x56b192"
+    ],
+    "board_cursor": [
+      2,
+      "0x56a808"
+    ],
+    "save_kind": [
+      0,
+      "0x570104"
+    ],
+    "mc_dialog": [
+      2,
+      "0x570108"
+    ],
+    "mc_phase": [
+      0,
+      "0x570114"
+    ],
+    "file_widget": [
+      2,
+      "0x57011c"
+    ],
+    "yesno": [
+      0,
+      "0x579ba6"
+    ],
+    "message_widget": [
+      2,
+      "0x57010c"
+    ],
+    "board_options": [
+      0,
+      "0x56a804"
+    ],
+    "data_context": [
+      2,
+      "0x539dec"
+    ],
+    "data_focus": [
+      2,
+      "0x539df0"
+    ],
+    "board_handle": [
+      2,
+      "0x56a800"
+    ]
+  },
+  "header_units": "Opcode0/1/2/3=unsigned8/16/32/64 little-endian. mode is inner width, not state enum. Full UI week is16bit; default three frame-tag reads use8bit week separately.",
+  "widget": {
+    "base": "0x5657a0",
+    "stride": 196,
+    "count": 20,
+    "active": "flags bit0 set and bit1 clear",
+    "fields": {
+      "flags": [
+        1,
+        0
+      ],
+      "kind": [
+        1,
+        4
+      ],
+      "source": [
+        2,
+        112
+      ],
+      "ready": [
+        0,
+        72
+      ],
+      "page": [
+        0,
+        77
+      ],
+      "glyph_count": [
+        1,
+        88
+      ],
+      "glyphs": [
+        2,
+        148
+      ],
+      "cursor": [
+        2,
+        176
+      ]
+    },
+    "context_offset": 72
+  },
+  "cursor": {
+    "pointer_range_inclusive": [
+      "0x100000",
+      "0x1ffffb0"
+    ],
+    "fields": {
+      "columns": [
+        0,
+        0
+      ],
+      "rows": [
+        1,
+        4
+      ],
+      "col": [
+        1,
+        22
+      ],
+      "row": [
+        1,
+        24
+      ],
+      "col_offset": [
+        1,
+        26
+      ],
+      "row_offset": [
+        1,
+        28
+      ]
+    },
+    "formula": "columns*(row+row_offset)+col+col_offset; unsigned source field values, not assumed signed offsets"
+  },
+  "glyphs": {
+    "max_count": 512,
+    "entry_stride": 96,
+    "node_pointer_offset": 24,
+    "node_label_offsets": [
+      16,
+      24
+    ],
+    "node_label_bytes": 16,
+    "interpretation": "NUL-prefix bytes beginning char followed only by digits; exact digit-string lookup in extracted/glyphmap.json, unknown maps empty. Not narrative stream decoding or direct ASCII codepoint mapping."
+  },
+  "Move_owner": {
+    "source": "0x534bc0",
+    "text": "Move",
+    "ready": 0,
+    "flags_mask3": 1,
+    "identity_fields": [
+      "mode",
+      "story",
+      "week",
+      "day",
+      "current",
+      "area",
+      "board_handle",
+      "board_options",
+      "board_cursor"
+    ],
+    "other_owners": "All four control bytes plus widget source/ready/masked flags reread before write, paused and after unpause"
+  },
+  "PINE": {
+    "takeover_Write8_hex": "0a00000004c1bf560000",
+    "request_bytes": 10,
+    "ok_ack_hex": "0500000000",
+    "ack_bytes": 5,
+    "control_Read8_hex": "0900000000c1bf5600",
+    "readback_zero_hex": "060000000000",
+    "qualification": "Source request size includes length word; opcode4/addressLE/value1byte. Exact live identity and paused ownership required. Lost ack/stale owner is UNKNOWN, no retry/fallback/speculative restoration. These packet bytes are synthetic data only."
+  },
+  "source_tap_wrapper": {
+    "wire_press_seconds": "0.1",
+    "settle_unit": "seconds after successful pad ack",
+    "Data_Down_settle": "0.3",
+    "Circle_settle": "0.5"
+  },
+  "minimum_save_path": [
+    {
+      "stage": "owned board",
+      "condition": "mode0x1b0,current armed actor, actor control0 after guarded takeover"
+    },
+    {
+      "stage": "Data selection",
+      "action": "DOWN until board_cursor4; bound10 attempts, each wire0.1+settle0.3, reacquire and remainboard"
+    },
+    {
+      "stage": "Data MAIN",
+      "action": "CIRCLE0.1+settle0.5; wait mode0x2e0,data_context0,data_focus0,mc_dialog0 and InfoListHelpOptsSave text"
+    },
+    {
+      "stage": "Save tab",
+      "action": "DOWN until tabs selection4, bound5 attempts; then CIRCLE0.1+settle0.5"
+    },
+    {
+      "stage": "native file",
+      "action": "When mc_dialog0, file_widget selection0→target1 needs DOWN0.1+settle0.3. At target1 source records file-selected with capture then CIRCLE0.1+settle0.5"
+    },
+    {
+      "stage": "questions and I/O",
+      "action": "Question yesno must0 before Circle; UP0.1+settle0.3 otherwise. Saving/Creating busy ready0 gets NO input; source waits0.5. Ready1 may be Circle-gated warning."
+    },
+    {
+      "stage": "save completion",
+      "action": "Observe Savecomplete. ready1, acknowledge Circle0.1+settle0.5, then return to file menu with completed flag before source save-complete capture/fullstate. Returning earlier after selection refuses."
+    }
+  ],
+  "file_identity": {
+    "source_slot_field_zero_based": 1,
+    "cursor_selection_zero_based": 1,
+    "native_file_number_one_based": 2,
+    "meaning": "Second native file, nondefault File2; occupied source test label File1File2, empty row may be NewFile. Hardware memory-card Slot1 is a separate port/profile role, not this file index."
+  },
+  "checkpoint_limit": "Save/PNG/full fingerprint alone never establishes full .02 checkpoint: paired warm+cold reload and changed advancement are still required. No .06/native/handover/owner-limit credit.",
+  "expected_headers": {
+    "story": 1,
+    "week": 0,
+    "day": 0,
+    "current": 0,
+    "area": 0
+  },
+  "expected_input_order": [
+    "L3",
+    "L3",
+    "DOWN",
+    "DOWN",
+    "DOWN",
+    "DOWN",
+    "CIRCLE",
+    "DOWN",
+    "DOWN",
+    "DOWN",
+    "DOWN",
+    "CIRCLE",
+    "DOWN",
+    "CIRCLE",
+    "CIRCLE",
+    "CIRCLE",
+    "GUIDE"
+  ],
+  "expected_report": {
+    "status": "UNKNOWN",
+    "rows": [
+      {
+        "id": "paired-checkpoint",
+        "status": "UNKNOWN",
+        "reason": "missing required comparison"
+      }
+    ],
+    "checkpoints": [
+      {
+        "checkpoint": 1,
+        "slot": 1,
+        "area": 0,
+        "warm": false,
+        "cold": false,
+        "advanced": false,
+        "status": "UNKNOWN",
+        "reason": "incomplete checkpoint"
+      }
+    ],
+    "covered_areas": [],
+    "live_ownership": false,
+    "capture_status": "ACCEPTED",
+    "event": "save-complete",
+    "event_id": 1,
+    "display_file": 2,
+    "hardware_card_slot": 1
+  },
+  "test_limits": "Literal source-independent projected full semantic report. Runtime bundle/receipt hashes, process IDs, wall-clock and owned absolute paths are checked through existing linkage and normalized separately. 129 glyph tooltip proves bounded chunking; originalPNG reused exact frozen probe-capture oracle. No paired reload/advance, native or full .06 claim.",
+  "refusal_cases": [
+    {
+      "id": "unsupported-ui",
+      "reason_prefix": "source board/Move/task context is not eligible",
+      "writes": 0
+    },
+    {
+      "id": "read-budget",
+      "reason_prefix": "UI acquisition read/deadline budget exhausted",
+      "writes": 0
+    },
+    {
+      "id": "owner-race",
+      "reason_prefix": "source owner changed during takeover",
+      "writes": 1
+    },
+    {
+      "id": "lost-ack",
+      "reason_prefix": "named takeover acknowledgement unknown:",
+      "writes": 1
+    },
+    {
+      "id": "move-after-resume",
+      "reason_prefix": "source Move owner changed after resume",
+      "writes": 1
+    }
+  ]
+}

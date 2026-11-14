@@ -28,6 +28,7 @@ type ProbeLifecycleProfile struct {
 	Policy         *ProbeLifecyclePolicy    `json:"go_policy,omitempty"`
 	Seed           *uint64                  `json:"checkpoint_seed,omitempty"`
 	Resume         *ProbeLifecycleResume    `json:"resume,omitempty"`
+	Scenario       *ProbeScenarioSpec       `json:"scenario,omitempty"`
 }
 
 type ProbeLifecycleResume struct {
@@ -79,6 +80,9 @@ type ProbeLifecycleStep struct {
 	ExitedBeforeStop     bool                  `json:"exited_before_stop,omitempty"`
 	ScheduledIntervals   []int                 `json:"scheduled_intervals,omitempty"`
 	ResumeEvidenceSHA256 string                `json:"resume_evidence_sha256,omitempty"`
+	UI                   *ProbeUIState         `json:"ui,omitempty"`
+	Capture              *ProbeCaptureReceipt  `json:"capture,omitempty"`
+	Checkpoint           *ProbeEvidenceReport  `json:"checkpoint,omitempty"`
 }
 
 type ProbeLifecycleReport struct {
