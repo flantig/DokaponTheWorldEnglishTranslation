@@ -4203,6 +4203,12 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		if preserved, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(preserved, guardData) {
 			t.Fatal("root-intake reports changed source", err)
 		}
+		// Intake fixtures are complete before the later dry-run directory guard.
+		for _, path := range []string{"root-guard-source.bin", "root-guard.json", "root-guard-registry.json", "root-guard-glyphs.json", "root-duplicate.json", "root-selective-nested.json"} {
+			if err := os.Remove(filepath.Join(dir, path)); err != nil {
+				t.Fatal(err)
+			}
+		}
 	}
 	var inputCLIPath string // Reuse the bounded-input CLI for later resource guards.
 	bundledFixtures := make(map[string]map[string][]byte)
