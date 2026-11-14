@@ -183,6 +183,72 @@
         "verify-warm"
       ],
       "to": "ready"
+    },
+    "newgame": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-newgame",
+        "select-newgame",
+        "front-end",
+        "boot-handoff",
+        "wait-board"
+      ],
+      "to": "ready"
+    },
+    "prepare-scenario": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "acquire-board",
+        "status-running",
+        "toggle-pause",
+        "status-paused",
+        "takeover-control",
+        "toggle-pause",
+        "status-running",
+        "verify-human",
+        "emit-preparation-start",
+        "select-data",
+        "select-save",
+        "card-save",
+        "capture-preparation-save"
+      ],
+      "to": "ready"
+    },
+    "prepare-load": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-load",
+        "select-continue",
+        "card-preview",
+        "capture-preview",
+        "preview-dwell",
+        "card-prepare-load",
+        "capture-preparation-image",
+        "ack-preparation-image",
+        "emit-preparation-ack",
+        "card-load-prepared",
+        "emit-preparation-complete"
+      ],
+      "to": "ready"
+    },
+    "resave": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-resave",
+        "select-data",
+        "select-save",
+        "card-save",
+        "capture-save"
+      ],
+      "to": "ready"
     }
   },
   "warm_command": "tap R3 0.1",

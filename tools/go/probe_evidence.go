@@ -532,8 +532,21 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				switch event.Event {
 				case "save-complete":
 					wanted = "initial"
+					for _, earlier := range events {
+						if earlier.EventID >= event.EventID {
+							break
+						}
+						if earlier.Event == "tutorial-preparation-start" {
+							wanted = "newgame"
+						}
+						if earlier.Event == "tutorial-preparation-complete" {
+							wanted = "prepare-load"
+						}
+					}
 				case "continue-preview", "reload-verified":
 					wanted = event.Method + "-load"
+				case "tutorial-preparation-image":
+					wanted = "warm-load"
 				case "com-handoff-data-main", "story-advanced-after-reload":
 					wanted = "load"
 				}
@@ -650,6 +663,11 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		}
 		var warm, cold *ProbeCaptureReceipt
 		required := map[string]bool{"save-complete": false, "continue-preview/warm": false, "continue-preview/cold": false, "reload-verified/warm": false, "reload-verified/cold": false, "com-handoff-data-main": false, "story-advanced-after-reload": false}
+		for _, event := range events {
+			if event.Event == "tutorial-preparation-start" {
+				required["tutorial-preparation-image"] = false
+			}
+		}
 		for _, event := range events {
 			key := event.Event
 			if event.Event == "continue-preview" || event.Event == "reload-verified" {

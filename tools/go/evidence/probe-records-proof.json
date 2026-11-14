@@ -683,5 +683,93 @@
       "selection": "TestProbeRecords|TestProbeLifecycle|TestPlanRefusals|TestPlanAndCopy",
       "native_operations": 0
     }
+  },
+  "newgame_preparation_offline_assessment": {
+    "status": "ROOT_ACCEPTED_NEWGAME_PREPARATION_OFFLINE_SLICE_NO_CRITERION_CREDIT",
+    "criterion": "probe_orchestration_evidence.06",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-newgame-implementation-GFWNRTL3/manifest.json",
+      "sha256": "441ba1db46eb0cf2b50dab5c214d125c57dfa250ee896228e8c20fb0343c1ea6",
+      "source_manifest_sha256": "cd962966800cfa402c417e50498dbb0f68463b1e79bbc782c34d2b1c8c17ed59",
+      "owned_snapshots": 8
+    },
+    "review": {
+      "path": "/var/tmp/dokapon-astra-audit067-BFRHUGlq/review.md",
+      "sha256": "5e54cbb7b5898e0d61e2cf10d050783e42a6550e3bd2ac31738f3976c5353412",
+      "audit_manifest_sha256": "27c88a91b37e0cebb0c98fcfcbb780be734f07b0fc099b97a2ee5425ee640326"
+    },
+    "source_authorities": {
+      "autoplay_sha256": "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8",
+      "text_probe_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f"
+    },
+    "oracle": {
+      "manifest": "/var/tmp/dokapon-probe06-newgame-oracle-XMrraXO8/manifest.json",
+      "manifest_sha256": "a61522711e267326e2bbb165854f84487762fb66cf77501a6ed65d4b89d90372",
+      "fixture_sha256": "3fb8f300e6573167d1f4dab96d9ee166e53ad25776baea586d76fe8525be8234",
+      "independent_full_report_sha256": "b4e018fd779f8db7700a10301ab268adc07f45181b0f05b74c1645233d4aa75f",
+      "final_card_sha256": "4b12f21cc9264ab765a008bfed8c393c0f46bd6887a1978f052d5ac9bf256161",
+      "frozen_before_output": true
+    },
+    "contract": "Controlled NewGame infers actor2 from unique human/fresh equal-square intro, performs source-bound boot handoff then board takeover. Provisional File2 Save and actual preparation Load initialize only the actor tutorial flag BEFORE qualified help image capture/reread/one ack; final resave feeds the ordinary paired checkpoint. Full report PASS with17events/10captures and exact independent final synthetic card. File2 index1 is distinct from hardware card Slot1.",
+    "source_closure": {
+      "comparison": "/var/tmp/dokapon-probe06-newgame-comparison-xxo9JRk6/review.md",
+      "sha256": "2d1cf5aaedaa711bc672f4b9a1e6365a1a94b7d54113ac4c116a4a58c510a39c",
+      "finding": "M1 closed: image construction waits250ms/no input until source-ready widget0/kind9/ready1, then strict exact texture/owner/full-state proof; no ordinary image-load waiver"
+    },
+    "verification": {
+      "environment": "nice19/GOMAXPROCS2/-p2",
+      "core": {
+        "command": "go test -p 2 -tags core -run '^Test(ProbeRecords|ProbeLifecycle|PlanRefusals)$' -count=1 -timeout 1500s",
+        "status": "PASS",
+        "seconds": 550.468,
+        "log_sha256": "3337096788b23d4a40fa9e27205b480318f2bb43029073279099972f25d6a7d8"
+      },
+      "nativefonts": {
+        "command": "go test -p 2 -tags nativefonts -run '^Test(ProbeRecords|ProbeLifecycle|ReviewCards|ReviewPartPlacement|ReviewTimeline)$' -count=1 -timeout 1500s",
+        "status": "PASS",
+        "seconds": 558.089,
+        "log_sha256": "7919dfaebed9defb9a4e71ae2b209bc193986cb3efc0bbbeb9599b01ecfaaae6"
+      },
+      "core_nativefonts_build_vet": "PASS",
+      "format_json_whitespace": "CLEAN",
+      "credentials": "NO_MATCHES",
+      "candidate_protected_preservation": "PASS",
+      "binary_manifest_sha256": "5fee81a343422b69bb383afd8e77083d2a0ec929933e13fdbaab82ee322c8e10",
+      "module_manifest_sha256": "14cb4da3bb8506b6f7f205ca2278cbc414850855d7ccce48f610c1a416ae1f04",
+      "go_sum": "ABSENT_NO_NEW_DEPENDENCIES",
+      "full_suite_race": "DEFERRED"
+    },
+    "positive": {
+      "report_status": "PASS",
+      "events": 17,
+      "captures": 10,
+      "normalized_report_and_card": "EXACT_INDEPENDENT_FIXTURE",
+      "receipt_sha256": "9a74a1073789a4447f11f667fd0c6da7ad05a4fe1941da81b832a687dda08318",
+      "evidence_sha256": "9db4310a3010b7eb71f74b24b920893d0c5937f37c2970364bd67d1de0b3d49b",
+      "payload_cleanup": "Ordinary test cleanup after assertions; no independent rehash of removed outputs claimed"
+    },
+    "failure_history": {
+      "first_fixture_path_failure_sha256": "08ed88f794a112ee8eb04d3c9f3ef01f1bf37c69480cec1f4daabfb7366a469f",
+      "bounded_child_cursor_unknown_sha256": "6745c47d0078cd035fdac2773b285a1861772bfc6323b175102aba317a0ae677",
+      "both_preserved": true,
+      "second_failure_cleanup": "Final owned stop/flush COMPLETED; later effects REFUSED"
+    },
+    "accounting": {
+      "implementation_runtime_growth_bytes": 12062,
+      "test_fixture_growth_bytes": 131738,
+      "new_functions": 0,
+      "new_types": 0,
+      "new_dependencies": 0,
+      "reduction_claim": false
+    },
+    "limits": [
+      "Broader source three-story/cohort producer",
+      "Actual native03–06 qualification and restored gameplay",
+      "Original owner sequence plus terminal cleanup plus separate release",
+      "Resource/retention/soak owner agreement",
+      "Whole criterion and milestone credit"
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }
