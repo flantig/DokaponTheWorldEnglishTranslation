@@ -261,6 +261,15 @@
         "report-story"
       ],
       "to": "ready"
+    },
+    "observe-storage": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "observe-storage"
+      ],
+      "to": "ready"
     }
   },
   "warm_command": "tap R3 0.1",

@@ -913,5 +913,71 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "storage_offline_assessment": {
+    "status": "ROOT_ACCEPTED_OPT_IN_STORAGE_OFFLINE_SOFTWARE_NO_CRITERION_CREDIT",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-storage-implementation-3KJZlKqb/manifest.json",
+      "sha256": "5fcacb885cf5d1a7fd3d8faa5f5cd5ef4753c8c69767a6df033ddbc6ebc17493",
+      "report": {
+        "path": "report.md",
+        "sha256": "ae369b9d85edd4c1f91ffc5c9f488e1347384993b3689ef685d141d23428a2bb"
+      },
+      "members": {
+        "path": "members.sha256",
+        "sha256": "d3c1fdf891e71c061fbc7d9cd711b2b24bf12226b5d36b1833657cd86de6e1bc",
+        "count": 37
+      }
+    },
+    "source_snapshot_sha256": "e1adb1d8848dc850ed2eb8c83c5e74d3e99542b86eca007aaa5c1ae3a61d83f9",
+    "source_pins_sha256": "b30aa06fb226e3dabab5b47a62d7613ae359f98e47de2066b422dd5dd3c4eff3",
+    "source_qualification_sha256": "87358b4d123b138a2ec7f02f6341467a60c07802cdcfbb592add0220e18bb722",
+    "pre_output_oracle_sha256": "eb8b393ded0ab52ea79e297d40c44b15ac6f483931d62b9558637e0271e22cd3",
+    "review": {
+      "path": "/var/tmp/dokapon-probe06-storage-review-astra-Vhs1NPEg/review.md",
+      "sha256": "c4aff425f2a517ab597b58cd3d7ee9f55db370fd05a35a9c5c2528f09ceab718",
+      "scope": "Exact e1adb1 source snapshot; no unresolved material finding. No native/fullcriterion acceptance."
+    },
+    "contract": "Opt-in observe-storage resolves stable registry ID0x457e10 through the pinned fixed-field recipe and supplied hash-bound Registry/glyphmap. Existing owned admission and two ordered Read64 replies acquire actual16 bytes, hash-link the memory result to the event and reuse the existing report comparator. The exact83cb ISO guard precedes acquisition; no expected-byte substitution or new reader/report owner.",
+    "verification": {
+      "core_test": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags core -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 4.475,
+        "log": "final-core-stable.log"
+      },
+      "nativefonts_test": {
+        "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags nativefonts -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
+        "result": "PASS",
+        "seconds": 4.444,
+        "log": "final-nativefonts-stable.log"
+      },
+      "build_core": "PASS",
+      "vet_core": "PASS",
+      "build_nativefonts": "PASS",
+      "vet_nativefonts": "PASS",
+      "format": "PASS",
+      "json": "PASS",
+      "scoped_credentials": "PASS",
+      "protected_source_readback": "PASS",
+      "main_unchanged": "PASS",
+      "prior_attempt": "first-storage.log preserves an invalid -timeout60s invocation, exit2 before any test execution. second-storage.log is the first actual selected producer PASS1.566s. Initial final-core/native logs4.481/4.598 preceded the final explicit non-atomic limit text and restoration digest assertion; stable logs above bind final source.",
+      "deferred": "No full story replay/fullsuite/race/native emulator/PINE/device/runtime/UI qualification. Nativefonts is a build-tag test variant using owned controlled children and peers only."
+    },
+    "accounting": {
+      "implementation_runtime_bytes": 8607,
+      "test_fixture_bytes": 28731,
+      "production_functions_added": 0,
+      "named_types_added": 1,
+      "test_callbacks_added": 2
+    },
+    "limits": [
+      "Storage-only; non-atomic. No actual native/RAM/displayedUI/checkpoint/fullcriterion or resource agreement claim.",
+      "Two sequential Read64 requests are non-atomic. ISO/process identity does not attest installed RAM or displayed rename UI.",
+      "Portable tests substitute only the guarded ISO authority under registered all-exit restoration, not a native83cb execution.",
+      "One fixed row may PASS while the no-checkpoint overall report stays UNKNOWN; zero checkpoints or gameplay coverage."
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }

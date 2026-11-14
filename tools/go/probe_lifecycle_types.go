@@ -11,6 +11,9 @@ var probeLifecycleActions []byte
 //go:embed profiles/probe/pad-layout.json
 var probePadLayout []byte
 
+//go:embed profiles/probe/observations.json
+var probeObservationData []byte
+
 // ProbeLifecycleProfile declares one pinned program and owned input roles.
 // The initial slice is a bounded direct-child transaction, not production handover.
 type ProbeLifecycleProfile struct {
@@ -29,6 +32,16 @@ type ProbeLifecycleProfile struct {
 	Seed           *uint64                  `json:"checkpoint_seed,omitempty"`
 	Resume         *ProbeLifecycleResume    `json:"resume,omitempty"`
 	Scenario       *ProbeScenarioSpec       `json:"scenario,omitempty"`
+	Storage        *ProbeStorageSpec        `json:"storage_observation,omitempty"`
+}
+
+// ProbeStorageSpec selects expected-only source facts. Actual bytes are read
+// from the identity-guarded owned peer, never supplied in this profile.
+type ProbeStorageSpec struct {
+	ID       string        `json:"id"`
+	Glyphmap RegistryInput `json:"glyphmap"`
+	Registry RegistryInput `json:"registry"`
+	Recipe   RegistryInput `json:"recipe"`
 }
 
 type ProbeLifecycleResume struct {

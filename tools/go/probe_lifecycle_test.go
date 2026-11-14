@@ -754,6 +754,17 @@ func TestProbeLifecycleChild(t *testing.T) {
 					if !failedReady {
 						mode = 736
 					}
+				case len(payload) == 5 && payload[0] == 3 && (slices.Contains(os.Args, "storage-match") || slices.Contains(os.Args, "storage-mismatch")):
+					address := binary.LittleEndian.Uint32(payload[1:])
+					field := []byte{0x54, 0, 0x53, 0, 0x53, 0, 0x54, 0, 0, 0, 0x51, 0, 0x45, 0, 0x52, 0}
+					if slices.Contains(os.Args, "storage-mismatch") {
+						field[0] = 0x53
+					}
+					if address != 0x457e10 && address != 0x457e18 {
+						t.Fatal("unexpected fixed storage address", address)
+					}
+					reply = []byte{13, 0, 0, 0, 0}
+					reply = append(reply, field[address-0x457e10:address-0x457e10+8]...)
 				case len(payload) == 5 && payload[0] <= 2:
 					address := binary.LittleEndian.Uint32(payload[1:])
 					value := uint32(0)
@@ -865,6 +876,126 @@ func TestProbeLifecycle(t *testing.T) {
 		profile.Inputs[role] = RegistryInput{Path: path, Size: int64(len(content)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(content)))}
 	}
 	t.Setenv("DOKAPON_PROBE_LIFECYCLE_CHILD", "1")
+	// Storage has no scenario/UI transaction. Keep it selectable without replaying
+	// the long baseline or three-story cohort; child and input setup stay shared.
+	t.Run("storage", func(t *testing.T) {
+		literal, err := os.ReadFile("testdata/probe-storage.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var oracle struct {
+			Registry    json.RawMessage `json:"registry"`
+			ID          string          `json:"id"`
+			GlyphmapSHA string          `json:"glyphmap_sha256"`
+			Requests    []string        `json:"requests"`
+			Cases       []struct {
+				Name         string   `json:"name"`
+				Child        string   `json:"child_argument"`
+				Actual       string   `json:"actual_hex"`
+				Replies      []string `json:"replies"`
+				Decoded      string   `json:"decoded"`
+				RowStatus    string   `json:"row_status"`
+				ReportStatus string   `json:"report_status"`
+				Reason       string   `json:"reason"`
+			} `json:"cases"`
+		}
+		if json.Unmarshal(literal, &oracle) != nil || len(oracle.Cases) != 2 {
+			t.Fatal("pre-output storage oracle")
+		}
+		glyphs, err := os.ReadFile("testdata/probe-storage-glyphmap.json")
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(glyphs)) != oracle.GlyphmapSHA {
+			t.Fatal("fixed source glyphmap", err)
+		}
+		recipe, err := os.ReadFile("recipes/fixed-fields.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		storage := ProbeStorageSpec{ID: oracle.ID}
+		for role, data := range map[string][]byte{"glyphmap": glyphs, "registry": oracle.Registry, "recipe": recipe} {
+			path := filepath.Join(sources, "storage-"+role+".json")
+			if err := os.WriteFile(path, data, 0400); err != nil {
+				t.Fatal(err)
+			}
+			input := RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+			switch role {
+			case "glyphmap":
+				storage.Glyphmap = input
+			case "registry":
+				storage.Registry = input
+			case "recipe":
+				storage.Recipe = input
+			}
+		}
+		// This serial test projects only the immutable source ISO guard onto a
+		// genuinely hashed tiny fixture, without a product override or private ISO dependency.
+		originalFacts := bytes.Clone(probeObservationData)
+		originalFactsSHA := sha256.Sum256(originalFacts)
+		const currentISO = "83cb765a441a78db8678105bee21b3a435462b11999f061091420d1b9f710b22"
+		if bytes.Count(originalFacts, []byte(currentISO)) != 1 {
+			t.Fatal("real source ISO authority differs")
+		}
+		unsupported := profile
+		unsupported.Root = t.TempDir()
+		_ = os.Chmod(unsupported.Root, 0700)
+		unsupported.Storage = &storage
+		unsupportedRaw, _ := json.Marshal(unsupported)
+		if _, err := runProbeLifecycle(unsupportedRaw); err == nil || err.Error() != "storage address is unqualified for this ISO input" {
+			t.Fatal("real source guard must refuse unsupported ISO before acquisition", err)
+		}
+		if _, err := os.Lstat(filepath.Join(unsupported.Root, "profile")); !os.IsNotExist(err) {
+			t.Fatal("unsupported source must not create an owned profile")
+		}
+		// Cleanup owns restoration even on Fatal; no other test uses this global concurrently.
+		t.Cleanup(func() {
+			probeObservationData = originalFacts
+			if sha256.Sum256(probeObservationData) != originalFactsSHA || bytes.Count(probeObservationData, []byte(currentISO)) != 1 {
+				t.Error("storage source authority was not restored")
+			}
+		})
+		probeObservationData = bytes.Replace(originalFacts, []byte(currentISO), []byte(profile.Inputs["iso"].SHA256), 1)
+		for _, expected := range oracle.Cases {
+			selected := profile
+			selected.Root = t.TempDir()
+			_ = os.Chmod(selected.Root, 0700)
+			selected.Storage = &storage
+			selected.ProgramArgs = append(slices.Clone(profile.ProgramArgs), expected.Child)
+			selected.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "initial", Phase: "requested", Nonce: "1-initial"}, {Session: profile.Session, Operation: "observe-storage", Phase: "requested", Nonce: "2-observe-storage"}, {Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+			input, _ := json.Marshal(selected)
+			outcome, err := runProbeLifecycle(input)
+			if err != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != 3 || outcome.Steps[1].Status != "COMPLETED" || outcome.Steps[2].Status != "COMPLETED" {
+				t.Fatalf("%s storage transaction: %+v, %v", expected.Name, outcome, err)
+			}
+			step := outcome.Steps[1]
+			if step.Memory == nil || step.Checkpoint == nil || step.Evidence == nil || !step.Memory.ProcessGuarded || step.Memory.Provenance != "owned_go" || len(step.Memory.Observations) != 2 || len(step.Memory.Decoded) != 1 || step.Memory.Decoded[0].Text == nil || *step.Memory.Decoded[0].Text != expected.Decoded {
+				t.Fatalf("%s missing acquired storage facts: %+v", expected.Name, step)
+			}
+			for index, observed := range step.Memory.Observations {
+				if observed.RequestHex != oracle.Requests[index] || observed.ReplyHex != expected.Replies[index] {
+					t.Fatalf("%s independent wire oracle: %+v", expected.Name, observed)
+				}
+			}
+			report := step.Checkpoint
+			if report.Status != expected.ReportStatus || len(report.Rows) != 1 || report.Rows[0].Status != expected.RowStatus || report.Rows[0].Reason != expected.Reason || len(report.Checkpoints) != 0 || len(report.CoveredAreas) != 0 || report.LiveOwnership {
+				t.Fatalf("%s report scope: %+v", expected.Name, report)
+			}
+			data, err := os.ReadFile(step.Evidence.Path)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != step.Evidence.SHA256 || int64(len(data)) != step.Evidence.Size {
+				t.Fatal("storage evidence identity", err)
+			}
+			var evidence ProbeEvidenceBundle
+			_ = json.Unmarshal(data, &evidence)
+			var actual struct {
+				Actual string `json:"actual_hex"`
+			}
+			if len(evidence.Checks) != 1 || json.Unmarshal(evidence.Checks[0].Data, &actual) != nil || actual.Actual != expected.Actual || evidence.Checks[0].EventID != 1 || len(evidence.Events) != 1 {
+				t.Fatal("storage check did not preserve actual acquired bytes")
+			}
+			rederived, err := reportProbeEvidence(data)
+			if err != nil || !reflect.DeepEqual(rederived, *report) {
+				t.Fatal("saved storage report rederivation", err)
+			}
+		}
+	})
 	t.Run("baseline", func(t *testing.T) {
 		requestRaw, _ := json.Marshal(profile)
 		report, err := runProbeLifecycle(requestRaw)

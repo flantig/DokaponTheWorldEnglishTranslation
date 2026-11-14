@@ -1,0 +1,31 @@
+{
+  "scope": "Independent literal controlled-synthetic storage acquisition, not a current native address/build or displayed-UI qualification",
+  "registry_projection_source_sha256": "88bd7db1befad50736ec0b3cea8d95379505fcd95db189ed35d471663050c182",
+  "field_oracle": "testdata/fixed-fields.json row0x457e10 and evidence/fixed-field-inventory.json independent_new_hex, frozen before storage producer output",
+  "registry": {"entries": [{"id": "0x457e10", "en": "POOP MAN"}]},
+  "id": "0x457e10",
+  "glyphmap_sha256": "a662eb2f1e76182daf9a02080fecea85da8bcfd76e1621e1112be5caf2442b7d",
+  "requests": ["0900000003107e4500", "0900000003187e4500"],
+  "cases": [
+    {
+      "name": "matching-acquired-field",
+      "child_argument": "storage-match",
+      "actual_hex": "54005300530054000000510045005200",
+      "replies": ["0d000000005400530053005400", "0d000000000000510045005200"],
+      "decoded": "POOP MAN",
+      "row_status": "PASS",
+      "report_status": "UNKNOWN",
+      "reason": ""
+    },
+    {
+      "name": "changed-peer-byte",
+      "child_argument": "storage-mismatch",
+      "actual_hex": "53005300530054000000510045005200",
+      "replies": ["0d000000005300530053005400", "0d000000000000510045005200"],
+      "decoded": "OOOP MAN",
+      "row_status": "FAIL",
+      "report_status": "FAIL",
+      "reason": "fixed-field text mismatch"
+    }
+  ]
+}

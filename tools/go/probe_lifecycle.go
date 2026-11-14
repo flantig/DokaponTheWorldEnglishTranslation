@@ -161,6 +161,30 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	if json.Unmarshal(probeScenarioData, &scenarioData) != nil {
 		return report, fmt.Errorf("invalid built-in scenario facts")
 	}
+	var observationData struct {
+		Rows map[string]struct {
+			Kind                      string `json:"kind"`
+			RecipeID                  string `json:"recipe_id"`
+			RecipeSHA256              string `json:"recipe_sha256"`
+			ComparisonSourceSHA256    string `json:"comparison_source_sha256"`
+			GlyphmapSHA256            string `json:"glyphmap_sha256"`
+			HistoricalStaticISOSHA256 string `json:"historical_static_iso_sha256"`
+			SourceISOSHA256           string `json:"source_iso_sha256"`
+			Limits                    string `json:"limits"`
+		} `json:"rows"`
+	}
+	if json.Unmarshal(probeObservationData, &observationData) != nil {
+		return report, fmt.Errorf("invalid built-in observation facts")
+	}
+	if profile.Storage != nil {
+		row, ok := observationData.Rows[profile.Storage.ID]
+		if !ok || row.Kind != "fixed" || profile.Storage.Glyphmap.SHA256 != row.GlyphmapSHA256 || profile.Storage.Recipe.SHA256 != row.RecipeSHA256 {
+			return report, fmt.Errorf("unsupported source-bound storage observation")
+		}
+		if profile.Inputs["iso"].SHA256 != row.SourceISOSHA256 {
+			return report, fmt.Errorf("storage address is unqualified for this ISO input")
+		}
+	}
 	if profile.Scenario != nil {
 		if _, ok := scenarioData.Rows[profile.Scenario.ID]; !ok || profile.Scenario.TimeoutMS < 1 || profile.Scenario.TimeoutMS > 180000 || profile.Scenario.MaxUIReads < 1 || profile.Scenario.MaxUIReads > 32768 {
 			return report, fmt.Errorf("unsupported bounded scenario")
@@ -185,6 +209,47 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	}
 	sourceInputs["program"] = profile.Program
 	var scenarioGlyphs json.RawMessage
+	var storageGlyphs json.RawMessage
+	var storageExpected string
+	var storageAddress uint32
+	if profile.Storage != nil {
+		loaded := map[string][]byte{}
+		for role, input := range map[string]RegistryInput{"storage-glyphmap": profile.Storage.Glyphmap, "storage-registry": profile.Storage.Registry, "storage-recipe": profile.Storage.Recipe} {
+			sourceInputs[role] = input
+			roleOrder = append(roleOrder, role)
+			loaded[role], err = readInput(input.Path, 64<<20)
+			if err != nil || int64(len(loaded[role])) != input.Size || fmt.Sprintf("%x", sha256.Sum256(loaded[role])) != input.SHA256 || checkJSON(checkedJSON{raw: loaded[role], allObjects: true, text: true}) != nil {
+				return report, fmt.Errorf("storage source input differs: %s", role)
+			}
+		}
+		storageGlyphs = loaded["storage-glyphmap"]
+		if _, _, err := glyphMaps(storageGlyphs, true); err != nil {
+			return report, err
+		}
+		var registry Registry
+		var recipe Recipes
+		row := observationData.Rows[profile.Storage.ID]
+		address, parseErr := strconv.ParseUint(strings.TrimPrefix(row.RecipeID, "0x"), 16, 32)
+		if json.Unmarshal(loaded["storage-registry"], &registry) != nil || json.Unmarshal(loaded["storage-recipe"], &recipe) != nil || parseErr != nil || recipe.Operation != "fixed_field" {
+			return report, fmt.Errorf("storage registry/recipe contract differs")
+		}
+		entry, exists := recipe.Entries[row.RecipeID]
+		oldBytes, decodeErr := hex.DecodeString(entry.ExpectedHex)
+		if !exists || decodeErr != nil || len(oldBytes) != 16 {
+			return report, fmt.Errorf("storage recipe does not declare the complete16-byte field")
+		}
+		matches := 0
+		for _, entry := range registry.Entries {
+			if entry.ID == row.RecipeID {
+				storageExpected = entry.EN
+				matches++
+			}
+		}
+		if matches != 1 || storageExpected == "" {
+			return report, fmt.Errorf("storage requires one canonical registry wording row")
+		}
+		storageAddress = uint32(address)
+	}
 	if profile.Scenario != nil {
 		sourceInputs["scenario-glyphmap"] = profile.Scenario.Glyphmap
 		roleOrder = append(roleOrder, "scenario-glyphmap")
@@ -370,7 +435,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 	}
 	var checkpointDue, postClearSince time.Time
-	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish)$`)
+	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage)$`)
 	for _, request := range profile.Requests {
 		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: owned, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
 		// Current source bytes and role identities precede effects, not supplied claims.
@@ -518,6 +583,9 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		if slices.Contains([]string{"scenario", "newgame", "prepare-scenario"}, request.Operation) && profile.Scenario == nil {
 			return report, fmt.Errorf("scenario request requires its pinned source recipe")
 		}
+		if request.Operation == "observe-storage" && profile.Storage == nil {
+			return report, fmt.Errorf("storage request requires its pinned source recipe")
+		}
 		if slices.Contains([]string{"load", "prepare-load", "resave", "warm-load", "cold-load", "restore", "finish"}, request.Operation) && (profile.Scenario == nil || scenarioSaved == nil) {
 			step.Reason = "checkpoint action lacks the source Save context"
 			report.Status = "INCOMPLETE"
@@ -586,7 +654,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				effect = "emit-card-witness"
 			}
 			switch effect {
-			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal":
+			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage":
 				if owned == nil || lastOwnedStep.Status != "COMPLETED" {
 					step.Reason = "scenario requires completed current ownership"
 					break actions
@@ -630,7 +698,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				ownedRaw, _ := json.Marshal(owned)
 				bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", ProjectRoot: profile.Root, WorkingDirectory: profile.Root, RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewRaw}, {Role: "owned", Data: ownedRaw}}, AfterProcess: &observed, GoOwner: &ProbeGoOwner{Profile: profile, Step: lastOwnedStep, CardSHA256: fmt.Sprintf("%x", sha256.Sum256(card))}}
 				scenarioAdmission, _ = json.Marshal(bundle)
-				if _, err := admitProbeRecords(scenarioAdmission); err != nil {
+				admitted, err := admitProbeRecords(scenarioAdmission)
+				if err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
@@ -641,6 +710,53 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				scenarioRuntime = ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(scenarioAdmission)), SHA256: digest}}
+				if effect == "observe-storage" {
+					row := observationData.Rows[profile.Storage.ID]
+					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: bundle.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
+					for index := uint32(0); index < 2; index++ {
+						opcode, address := uint8(3), storageAddress+index*8
+						plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: fmt.Sprintf("field%d", index), Opcode: &opcode, Address: &address})
+					}
+					plan.Decoders = []ProbeMemoryDecoder{{ID: profile.Storage.ID, Kind: row.Kind, Requests: []string{"field0", "field1"}, Glyphmap: storageGlyphs}}
+					planRaw, _ := json.Marshal(plan)
+					runtimeRaw, _ := json.Marshal(scenarioRuntime)
+					memory, err := readProbeMemory(planRaw, runtimeRaw)
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					step.Memory = &memory
+					memoryRaw, _ := json.Marshal(memory)
+					memoryPath := filepath.Join(profile.Root, "storage-"+request.Nonce+".memory.json")
+					memorySHA := fmt.Sprintf("%x", sha256.Sum256(memoryRaw))
+					if err := writeNewFile(memoryPath, bytes.NewReader(memoryRaw), int64(len(memoryRaw)), memorySHA, 0600); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					var actual [16]byte
+					for index, observation := range memory.Observations {
+						binary.LittleEndian.PutUint64(actual[index*8:], observation.Value)
+					}
+					// This event is a storage acquisition, not a displayed-UI or checkpoint witness.
+					eventRaw, _ := json.Marshal(map[string]any{"event": "storage-observed", "event_id": 1, "checkpoint": 0, "time": time.Now().Format("2006-01-02T15:04:05-0700"), "registry_id": profile.Storage.ID, "memory": RegistryInput{Path: memoryPath, Size: int64(len(memoryRaw)), SHA256: memorySHA}, "registry": profile.Storage.Registry, "recipe": profile.Storage.Recipe, "source_iso_sha256": row.SourceISOSHA256, "historical_static_iso_sha256": row.HistoricalStaticISOSHA256, "limits": row.Limits})
+					checkRaw, _ := json.Marshal(map[string]any{"expected": storageExpected, "actual_hex": hex.EncodeToString(actual[:]), "glyphmap": storageGlyphs})
+					evidence := ProbeEvidenceBundle{Version: 1, SourceSchema: "probe-evidence-go-v1", SourceSHA256: "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8", Admission: scenarioAdmission, RunID: admitted.RunID, Session: admitted.Session, ISOSHA256: admitted.ISOSHA256, Epoch: &admitted.Epoch, Cohort: "go-storage-observation-v1", Members: []string{profile.Storage.ID}, Events: []ProbeEvidenceEvent{{Offset: 0, Data: eventRaw}}, Checks: []ProbeEvidenceCheck{{ID: profile.Storage.ID, Kind: row.Kind, SourceSHA256: row.ComparisonSourceSHA256, EventID: 1, Observation: "observed", Data: checkRaw}}}
+					evidenceRaw, _ := json.Marshal(evidence)
+					evidencePath := filepath.Join(profile.Root, "storage-"+request.Nonce+".evidence.json")
+					evidenceSHA := fmt.Sprintf("%x", sha256.Sum256(evidenceRaw))
+					if err := writeNewFile(evidencePath, bytes.NewReader(evidenceRaw), int64(len(evidenceRaw)), evidenceSHA, 0600); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					comparison, err := reportProbeEvidence(evidenceRaw)
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					step.Checkpoint = &comparison
+					step.Evidence = &RegistryInput{Path: evidencePath, Size: int64(len(evidenceRaw)), SHA256: evidenceSHA}
+					break
+				}
 				scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
 				if effect == "qualify-terminal" {
 					scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.WaitTimeoutMS) * time.Millisecond)
