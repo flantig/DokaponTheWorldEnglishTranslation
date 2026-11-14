@@ -45,36 +45,39 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	if bundle.RunID != admission.RunID || bundle.Session != admission.Session || bundle.ISOSHA256 != admission.ISOSHA256 || bundle.Epoch == nil || *bundle.Epoch != admission.Epoch {
 		return report, fmt.Errorf("probe evidence identity differs from admitted records")
 	}
-	if strings.TrimSpace(bundle.Cohort) == "" || len(bundle.Cohort) > 128 || len(bundle.Members) < 1 || len(bundle.Members) > 256 || len(bundle.Checks) > 256 || len(bundle.Events) < 1 || len(bundle.Events) > 4096 {
+	checkpointOnly := bundle.SourceSchema == "probe-evidence-go-v1" && bundle.Cohort == "go-checkpoint-only-v1"
+	if strings.TrimSpace(bundle.Cohort) == "" || len(bundle.Cohort) > 128 || !checkpointOnly && len(bundle.Members) < 1 || checkpointOnly && (len(bundle.Members) != 0 || len(bundle.Checks) != 0) || len(bundle.Members) > 256 || len(bundle.Checks) > 256 || len(bundle.Events) < 1 || len(bundle.Events) > 4096 {
 		return report, fmt.Errorf("probe evidence requires a bounded nonempty cohort, membership and event stream")
 	}
 	report = ProbeEvidenceReport{Version: 1, SourceSchema: bundle.SourceSchema, BundleSHA256: fmt.Sprintf("%x", sha256.Sum256(raw)), RunID: admission.RunID, Session: admission.Session, ISOSHA256: admission.ISOSHA256, Epoch: admission.Epoch, Cohort: bundle.Cohort, Status: "PASS", Rows: []ProbeEvidenceResult{}, Checkpoints: []ProbeCheckpointResult{}, CoveredAreas: []uint32{}, Events: bundle.Events, Limits: "Qualified saved observations only; narrative normalization does not prove controls/layout, code facts do not prove ABI, and exact RGBA does not approve artwork. Coverage requires the source progress tuple to change before resumed, not live runtime authenticity."}
 	hashPattern := regexp.MustCompile(`^[0-9a-f]{64}$`)
 	var events []struct {
-		Event      string           `json:"event"`
-		EventID    int              `json:"event_id"`
-		Checkpoint int              `json:"checkpoint"`
-		Time       string           `json:"time"`
-		State      *ProbeSavedState `json:"state"`
-		Expected   *ProbeSavedState `json:"expected"`
-		Slot       *int             `json:"slot"`
-		Method     string           `json:"method"`
-		Phase      string           `json:"phase"`
+		Event          string           `json:"event"`
+		EventID        int              `json:"event_id"`
+		Checkpoint     int              `json:"checkpoint"`
+		Time           string           `json:"time"`
+		State          *ProbeSavedState `json:"state"`
+		Expected       *ProbeSavedState `json:"expected"`
+		Slot           *int             `json:"slot"`
+		Method         string           `json:"method"`
+		Phase          string           `json:"phase"`
+		PreviewSamples int              `json:"successful_preview_samples"`
 	}
 	eventCheckpoint := map[int]int{}
 	var previousEnd int64 = -1
 	previousID, previousCheckpoint := 0, 0
 	for _, saved := range bundle.Events {
 		var event struct {
-			Event      string           `json:"event"`
-			EventID    int              `json:"event_id"`
-			Checkpoint int              `json:"checkpoint"`
-			Time       string           `json:"time"`
-			State      *ProbeSavedState `json:"state"`
-			Expected   *ProbeSavedState `json:"expected"`
-			Slot       *int             `json:"slot"`
-			Method     string           `json:"method"`
-			Phase      string           `json:"phase"`
+			Event          string           `json:"event"`
+			EventID        int              `json:"event_id"`
+			Checkpoint     int              `json:"checkpoint"`
+			Time           string           `json:"time"`
+			State          *ProbeSavedState `json:"state"`
+			Expected       *ProbeSavedState `json:"expected"`
+			Slot           *int             `json:"slot"`
+			Method         string           `json:"method"`
+			Phase          string           `json:"phase"`
+			PreviewSamples int              `json:"successful_preview_samples"`
 		}
 		if err := json.Unmarshal(saved.Data, &event); err != nil {
 			return report, err
@@ -204,6 +207,10 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				problem = "unknown reload phase"
 			}
 		case "reload-verified":
+			if checkpointOnly && event.PreviewSamples != 40 {
+				problem = "reload lacks all40 successful source preview samples"
+				break
+			}
 			if checkpoint.Baseline == nil || event.State == nil || event.Slot == nil || checkpoint.Phase != "verification" || checkpoint.Method != event.Method {
 				problem = "reload verification order or phase mismatch"
 				break
@@ -477,6 +484,8 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	}
 	// Strict acquisition linkage is an extra data phase; legacy outcomes stay exact.
 	seenCaptures := map[string]bool{}
+	capturedEvents := map[int]ProbeCaptureReceipt{}
+	var precedingCapture *ProbeCaptureReceipt
 	lastCaptureEvent := 0
 	var captureRecords ProbeRecordBundle
 	_ = json.Unmarshal(bundle.Admission, &captureRecords)
@@ -488,13 +497,67 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	}
 	for _, capture := range bundle.Captures {
 		receipt := capture.Receipt
+		transitionOperation := ""
+		captureAdmission := admission
+		captureAdmissionRaw := bundle.Admission
+		if len(capture.Admission) > 0 {
+			if !checkpointOnly {
+				return report, fmt.Errorf("per-capture admission requires the Go checkpoint cohort")
+			}
+			qualified, err := admitProbeRecords(capture.Admission)
+			if err != nil {
+				return report, err
+			}
+			var currentRecords ProbeRecordBundle
+			_ = json.Unmarshal(capture.Admission, &currentRecords)
+			if qualified.SourceSchema != "go-probe-records-v1" || qualified.RunID != admission.RunID || qualified.Session != admission.Session || qualified.ISOSHA256 != admission.ISOSHA256 || qualified.Epoch > admission.Epoch || currentRecords.GoOwner == nil || captureRecords.GoOwner == nil || currentRecords.GoOwner.Profile.Root != captureRecords.GoOwner.Profile.Root || currentRecords.GoOwner.Profile.Program != captureRecords.GoOwner.Profile.Program || !reflect.DeepEqual(currentRecords.GoOwner.Profile.Inputs, captureRecords.GoOwner.Profile.Inputs) || !reflect.DeepEqual(currentRecords.GoOwner.Profile.ProgramArgs, captureRecords.GoOwner.Profile.ProgramArgs) || receipt.BuildSHA256 != currentRecords.GoOwner.Profile.Program.SHA256 {
+				return report, fmt.Errorf("capture admission crosses Go owner lineage")
+			}
+			transitionOperation = currentRecords.GoOwner.Step.Request.Operation
+			captureAdmission, captureAdmissionRaw = qualified, capture.Admission
+			for _, record := range currentRecords.Records {
+				if record.Role == "owned" {
+					_ = json.Unmarshal(record.Data, &captureOwned)
+				}
+			}
+		} else if checkpointOnly {
+			return report, fmt.Errorf("checkpoint capture lacks its actual epoch admission")
+		}
+		if checkpointOnly {
+			for _, event := range events {
+				if event.EventID != receipt.EventID {
+					continue
+				}
+				wanted := ""
+				switch event.Event {
+				case "save-complete":
+					wanted = "initial"
+				case "continue-preview", "reload-verified":
+					wanted = event.Method + "-load"
+				case "com-handoff-data-main", "story-advanced-after-reload":
+					wanted = "load"
+				}
+				if wanted == "" || transitionOperation != wanted {
+					return report, fmt.Errorf("checkpoint capture lacks its completed source owner operation")
+				}
+			}
+		}
 		if seenCaptures[receipt.CaptureID] || receipt.CaptureID == "" || receipt.EventID < lastCaptureEvent {
 			return report, fmt.Errorf("capture receipts require distinct IDs and source order")
 		}
 		seenCaptures[receipt.CaptureID], lastCaptureEvent = true, receipt.EventID
-		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != admission.RunID || receipt.Session != admission.Session || receipt.Epoch != admission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != admission.ISOSHA256 || eventCheckpoint[receipt.EventID] != receipt.Checkpoint || checkpoints[receipt.Checkpoint] == nil {
+		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != captureAdmission.RunID || receipt.Session != captureAdmission.Session || receipt.Epoch != captureAdmission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != captureAdmission.ISOSHA256 || eventCheckpoint[receipt.EventID] != receipt.Checkpoint || checkpoints[receipt.Checkpoint] == nil {
 			return report, fmt.Errorf("capture receipt differs from admitted identity or source event")
 		}
+		if checkpointOnly && precedingCapture != nil {
+			if receipt.Epoch < precedingCapture.Epoch || receipt.Epoch > precedingCapture.Epoch+1 || receipt.Epoch == precedingCapture.Epoch && (receipt.PID != precedingCapture.PID || receipt.Starttime != precedingCapture.Starttime) || receipt.Epoch == precedingCapture.Epoch+1 && receipt.PID == precedingCapture.PID {
+				return report, fmt.Errorf("checkpoint capture epoch/process transition differs")
+			}
+			if receipt.Epoch == precedingCapture.Epoch+1 && transitionOperation != "cold-load" {
+				return report, fmt.Errorf("new capture epoch lacks completed cold ownership")
+			}
+		}
+		precedingCapture = &receipt
 		logBytes, err := hex.DecodeString(receipt.LogHex)
 		if err != nil || fmt.Sprintf("%x", sha256.Sum256(logBytes)) != receipt.LogSHA256 || receipt.LogOffset < 0 {
 			return report, fmt.Errorf("capture source log bytes or hash differ")
@@ -530,7 +593,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				return report, fmt.Errorf("capture typed observations cross session, build or sequential UI")
 			}
 			for _, memory := range []*ProbeMemoryReport{before, after} {
-				if memory.Version != 1 || memory.SourceSHA256 != receipt.SourceSHA256 || memory.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(bundle.Admission)) || (memory.Provenance == "live" || memory.Provenance == "owned_go") && !memory.ProcessGuarded {
+				if memory.Version != 1 || memory.SourceSHA256 != receipt.SourceSHA256 || memory.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(captureAdmissionRaw)) || (memory.Provenance == "live" || memory.Provenance == "owned_go") && !memory.ProcessGuarded {
 					return report, fmt.Errorf("capture typed observations differ from admitted evidence or process guards")
 				}
 				knownTags, knownUI := false, false
@@ -562,6 +625,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				return report, fmt.Errorf("capture original PNG geometry differs")
 			}
 			link.Status, link.Reason, link.ImagePath, link.ImageSHA256 = "ACCEPTED", "", receipt.ImagePath, receipt.ImageSHA256
+			capturedEvents[receipt.EventID] = receipt
 		case "UNKNOWN", "REFUSED":
 			if strings.TrimSpace(receipt.Reason) == "" {
 				return report, fmt.Errorf("unavailable capture requires its source reason")
@@ -577,6 +641,45 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			}
 			if report.Status != "FAIL" {
 				report.Status = "UNKNOWN"
+			}
+		}
+	}
+	if checkpointOnly {
+		if len(checkpointOrder) != 1 {
+			return report, fmt.Errorf("checkpoint-only scope requires one actual checkpoint")
+		}
+		var warm, cold *ProbeCaptureReceipt
+		required := map[string]bool{"save-complete": false, "continue-preview/warm": false, "continue-preview/cold": false, "reload-verified/warm": false, "reload-verified/cold": false, "com-handoff-data-main": false, "story-advanced-after-reload": false}
+		for _, event := range events {
+			key := event.Event
+			if event.Event == "continue-preview" || event.Event == "reload-verified" {
+				key += "/" + event.Method
+			}
+			if _, ok := required[key]; ok {
+				receipt, exists := capturedEvents[event.EventID]
+				required[key] = exists
+				if exists && key == "reload-verified/warm" {
+					saved := receipt
+					warm = &saved
+				}
+				if exists && key == "reload-verified/cold" {
+					saved := receipt
+					cold = &saved
+				}
+			}
+		}
+		complete := true
+		for _, present := range required {
+			complete = complete && present
+		}
+		if warm != nil && cold != nil && (cold.Epoch != warm.Epoch+1 || cold.PID == warm.PID || cold.BuildSHA256 != warm.BuildSHA256) {
+			return report, fmt.Errorf("checkpoint cold capture does not follow verified warm owner")
+		}
+		if !complete {
+			for _, checkpoint := range checkpoints {
+				if checkpoint.Result.Status != "FAIL" {
+					checkpoint.Result.Status, checkpoint.Result.Reason = "UNKNOWN", "required checkpoint capture missing"
+				}
 			}
 		}
 	}

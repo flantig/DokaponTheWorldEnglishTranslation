@@ -1,12 +1,75 @@
 {
- "version":1,
- "source_sha256":"f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8",
- "rows":{"first-save-nondefault":{"file_index":1,"display_file":2,"hardware_card_slot":1,"data_cursor":4,"data_attempts":10,"save_tab":4,"save_attempts":5,"card_attempts":360,"poll_ms":500,"idle_poll_ms":250,"settle_ms":500}},
- "move_source":5458880,
- "control_base":5685185,"player_stride":508,
- "data_text":"InfoListHelpOptsSave",
- "prompts":["Checkingthememorycard","Thereisnodata","Createnewdata","Creatingnewdata","Newdatawascreated","OverwriteFile","Savetoanewfile","Saving.","Savecomplete.","LoadFile","Loading.","Loadcomplete."],
- "takeover":{"opcode":4,"width":1,"required_status":1,"target_control":0},
- "restore":{"opcode":4,"width":1,"require_paired_reload":true,"required_data_context":0,"required_data_focus":0},
- "limits":"First source-controlled fake-VM Save producer only. File index1/displayFile2/hardwarecardSlot1 are distinct. No native or restored-gameplay acceptance."
+  "version": 1,
+  "source_sha256": "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8",
+  "rows": {
+    "first-save-nondefault": {
+      "file_index": 1,
+      "display_file": 2,
+      "hardware_card_slot": 1,
+      "data_cursor": 4,
+      "data_attempts": 10,
+      "save_tab": 4,
+      "save_attempts": 5,
+      "card_attempts": 360,
+      "poll_ms": 500,
+      "idle_poll_ms": 250,
+      "settle_ms": 500
+    }
+  },
+  "move_source": 5458880,
+  "control_base": 5685185,
+  "player_stride": 508,
+  "data_text": "InfoListHelpOptsSave",
+  "prompts": [
+    "Checkingthememorycard",
+    "Thereisnodata",
+    "Createnewdata",
+    "Creatingnewdata",
+    "Newdatawascreated",
+    "OverwriteFile",
+    "Savetoanewfile",
+    "Saving.",
+    "Savecomplete.",
+    "LoadFile",
+    "Loading.",
+    "Loadcomplete."
+  ],
+  "takeover": {
+    "opcode": 4,
+    "width": 1,
+    "required_status": 1,
+    "target_control": 0
+  },
+  "restore": {
+    "opcode": 4,
+    "width": 1,
+    "require_paired_reload": true,
+    "required_data_context": 0,
+    "required_data_focus": 0
+  },
+  "limits": "First source-controlled fake-VM Save producer only. File index1/displayFile2/hardwarecardSlot1 are distinct. No native or restored-gameplay acceptance.",
+  "reload": {
+    "boot_mode": 608,
+    "movie_mode": 588,
+    "continue_target": 2,
+    "title_prefix": "NewGameFreeBattleContinue",
+    "title_attempts": 600,
+    "preview_samples": 40,
+    "preview_poll_ms": 250,
+    "title_timeout_ms": 150000,
+    "advance_timeout_ms": 120000,
+    "boot_message_source": 5462176
+  },
+  "quiescence_policy": {
+    "kind": "explicit-Go-profile",
+    "stable_ms": "profile.quiet_ms",
+    "deadline_ms": "profile.quiet_ms+profile.ready_timeout_ms",
+    "poll_ms": 10,
+    "source_reference_only": {
+      "stable_ms": 15000,
+      "deadline_ms": 60000,
+      "poll_ms": 1000
+    },
+    "native_timing_parity": "UNQUALIFIED"
+  }
 }

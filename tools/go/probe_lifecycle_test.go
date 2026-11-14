@@ -67,19 +67,41 @@ func TestProbeLifecycleChild(t *testing.T) {
 	watchSample, modeReads, seenPause := 0, 0, 0
 	vmStatus := uint32(0)
 	failedReady := slices.Contains(os.Args, "failed-ready")
-	scenario := slices.Contains(os.Args, "scenario-first-save")
+	paired := slices.Contains(os.Args, "scenario-paired")
+	scenario := slices.Contains(os.Args, "scenario-first-save") || paired
 	if scenario {
 		expires = time.Now().Add(120 * time.Second)
+	}
+	if paired {
+		expires = time.Now().Add(600 * time.Second)
 	}
 	scenarioStage, boardCursor, tabCursor, fileCursor, eventOffset := 0, 0, 0, 0, 0
 	scenarioControl := byte(1)
 	scenarioModeReads := 0
 	scenarioWrites := 0
 	scenarioTrace := []string{}
+	var loadedRecords, loadedHeaders []byte
+	var playerData []byte
+	titleCursor, advanceAtMode := 0, 0
+	peerPreviewSamples := 0
+	prefixTampered := false
 	if failedReady {
 		mode = 424
 	}
 	padBytes, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
+	if paired {
+		for _, name := range pending {
+			if strings.HasPrefix(name, "5-cold-load") {
+				scenarioStage = 8
+				scenarioControl = 2
+				eventOffset = len(padBytes)
+			}
+		}
+		prior, _ := os.ReadFile(filepath.Join(root, "scenario-inputs.json"))
+		_ = json.Unmarshal(prior, &scenarioTrace)
+		priorWrites, _ := os.ReadFile(filepath.Join(root, "scenario-write-count.txt"))
+		scenarioWrites, _ = strconv.Atoi(string(priorWrites))
+	}
 	seenReset := 0
 	for offset := 0; offset+24 <= len(padBytes); offset += 24 {
 		if binary.LittleEndian.Uint16(padBytes[offset+16:]) == 1 && binary.LittleEndian.Uint16(padBytes[offset+18:]) == 318 && binary.LittleEndian.Uint32(padBytes[offset+20:]) == 1 {
@@ -94,9 +116,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 			// The controlled VM observes input independently, as a real renderer
 			// would; capture must not need another memory request to create PNG.
 			events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
+			guideCount := 0
 			for offset := 0; offset+24 <= len(events); offset += 24 {
 				if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 316 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
-					path := filepath.Join(root, "profile", "PCSX2", "snaps", "first-save.png")
+					guideCount++
+					name := "first-save.png"
+					if guideCount > 1 {
+						name = fmt.Sprintf("capture-%d.png", guideCount)
+					}
+					path := filepath.Join(root, "profile", "PCSX2", "snaps", name)
 					if _, err := os.Stat(path); os.IsNotExist(err) {
 						var fixture struct {
 							ImageHex string `json:"image_hex"`
@@ -123,7 +151,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 			if err != nil || len(data) == 0 {
 				t.Fatalf("private card: %v", err)
 			}
-			data[0]++
+			if !paired {
+				data[0]++
+			}
 			file, err := os.OpenFile(card, os.O_WRONLY|os.O_TRUNC, 0600)
 			if err != nil {
 				t.Fatal(err)
@@ -148,6 +178,8 @@ func TestProbeLifecycleChild(t *testing.T) {
 			t.Fatal(err)
 		}
 		_ = connection.SetDeadline(time.Now().Add(time.Second))
+		frameIndex := 0
+		var firstFrame []byte
 		for {
 			header := make([]byte, 4)
 			if _, err := io.ReadFull(connection, header); err != nil {
@@ -166,6 +198,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 				t.Error(err)
 				break
 			}
+			if frameIndex == 0 {
+				firstFrame = bytes.Clone(payload)
+			}
+			if paired && scenarioStage == 9 && frameIndex == 1 && bytes.Equal(firstFrame, []byte{1, 0x1c, 0x58, 0x56, 0}) && bytes.Equal(payload, []byte{2, 8, 1, 0x57, 0}) {
+				peerPreviewSamples++
+			}
 			var reply []byte
 			if scenario {
 				events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
@@ -180,22 +218,34 @@ func TestProbeLifecycleChild(t *testing.T) {
 							name = "UP"
 						}
 						switch scenarioStage {
-						case 0:
+						case 0, 12:
 							boardCursor += delta
 						case 1:
 							tabCursor += delta
-						case 2, 6:
+						case 2, 6, 9:
 							fileCursor += delta
+						case 8:
+							titleCursor += delta
 						}
 					}
 					if kind == 1 && value == 1 {
 						switch code {
 						case 317:
 							name = "L3"
+						case 318:
+							name = "R3"
+							if paired {
+								scenarioStage = 8
+								titleCursor = 0
+								fileCursor = 0
+								scenarioControl = 2
+								loadedRecords = nil
+								loadedHeaders = nil
+							}
 						case 305:
 							name = "CIRCLE"
 							switch scenarioStage {
-							case 0:
+							case 0, 12:
 								if boardCursor == 4 {
 									scenarioStage = 1
 								}
@@ -208,9 +258,54 @@ func TestProbeLifecycleChild(t *testing.T) {
 									scenarioStage = 3
 								}
 							case 3:
+								if paired {
+									cardPath := filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2")
+									card, err := os.ReadFile(cardPath)
+									if err != nil || len(card) != 4112 || len(playerData) != 2032 {
+										t.Fatal("controlled card source layout")
+									}
+									binary.LittleEndian.PutUint32(card[2060:], 1)
+									copy(card[2080:], playerData)
+									file, err := os.OpenFile(cardPath, os.O_WRONLY|os.O_TRUNC, 0600)
+									if err != nil {
+										t.Fatal(err)
+									}
+									_, err = file.Write(card)
+									if err == nil {
+										err = file.Sync()
+									}
+									_ = file.Close()
+									if err != nil {
+										t.Fatal(err)
+									}
+								}
 								scenarioStage = 5
 							case 5:
 								scenarioStage = 6
+							case 8:
+								if titleCursor == 2 {
+									scenarioStage = 9
+									fileCursor = 0
+									peerPreviewSamples = 0
+								}
+							case 9:
+								if fileCursor == 1 {
+									if paired && peerPreviewSamples != 40 {
+										t.Fatalf("Load before all40 successful preview exchanges: %d", peerPreviewSamples)
+									}
+									scenarioStage = 10
+								}
+							case 10:
+								card, err := os.ReadFile(filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+								if err != nil || len(card) != 4112 {
+									t.Fatal("controlled Load card")
+								}
+								loadedHeaders = bytes.Clone(card[2060:2080])
+								loadedRecords = bytes.Clone(card[2080:])
+								scenarioControl = loadedRecords[241]
+								scenarioStage = 12
+								boardCursor = 0
+								tabCursor = 0
 							}
 						case 316:
 							name = "GUIDE"
@@ -222,7 +317,30 @@ func TestProbeLifecycleChild(t *testing.T) {
 				}
 				trace, _ := json.Marshal(scenarioTrace)
 				_ = os.WriteFile(filepath.Join(root, "scenario-inputs.json"), trace, 0600)
+				if paired && slices.Contains(os.Args, "tampered-prefix") && !prefixTampered && scenarioStage == 6 {
+					if _, err := os.Stat(filepath.Join(root, "save-report.json")); err == nil {
+						file, err := os.OpenFile(filepath.Join(root, "events.jsonl"), os.O_WRONLY, 0600)
+						if err != nil {
+							t.Fatal(err)
+						}
+						_, err = file.WriteAt([]byte{'['}, 0)
+						if err == nil {
+							err = file.Sync()
+						}
+						_ = file.Close()
+						if err != nil {
+							t.Fatal(err)
+						}
+						prefixTampered = true
+					}
+				}
 				memory := map[uint32]byte{}
+				if paired && advanceAtMode > 0 && len(payload) == 5 && binary.LittleEndian.Uint32(payload[1:]) == 0x56581c && scenarioModeReads+1 >= advanceAtMode {
+					loadedRecords[250] = 13
+					scenarioStage = 12
+					boardCursor = 0
+					advanceAtMode = 0
+				}
 				for player := 0; player < 4; player++ {
 					base := uint32(0x56bed0 + 508*player)
 					memory[base] = 1
@@ -237,23 +355,49 @@ func TestProbeLifecycleChild(t *testing.T) {
 						memory[base+304+uint32(b)] = byte(uint32(100*(player+1)) >> (8 * b))
 					}
 				}
+				if paired && len(loadedRecords) == 2032 {
+					for offset, value := range loadedRecords {
+						memory[0x56bed0+uint32(offset)] = value
+					}
+				}
+				playerData = make([]byte, 2032)
+				for offset := range playerData {
+					playerData[offset] = memory[0x56bed0+uint32(offset)]
+				}
 				if scenarioControl == 0 && slices.Contains(os.Args, "owner-race") {
 					memory[0x56bed0+100] = 7
 				}
 				innerWidth := uint32(0x1b0)
-				if scenarioStage != 0 {
+				if scenarioStage != 0 && scenarioStage != 12 {
 					innerWidth = 0x2e0
+				}
+				if scenarioStage >= 8 && scenarioStage <= 10 {
+					innerWidth = 0x260
 				}
 				for address, value := range map[uint32]uint32{0x56581c: innerWidth, 0x56b598: 1, 0x56a804: 5, 0x56a800: 1, 0x56a808: uint32(boardCursor), 0x56a8e0: 5, 0x56a8e4: 1, 0x56a8e8: 0x200} {
 					for b := 0; b < 4; b++ {
 						memory[address+uint32(b)] = byte(value >> (8 * b))
 					}
 				}
+				if paired && scenarioStage >= 8 && scenarioStage <= 10 {
+					memory[0x56b598] = 0
+				}
+				if paired && len(loadedHeaders) == 20 {
+					for index, address := range []uint32{0x56b598, 0x56b18c, 0x56b18e, 0x56b190, 0x56b192} {
+						width := 2
+						if index == 2 || index == 4 {
+							width = 1
+						}
+						for b := 0; b < width; b++ {
+							memory[address+uint32(b)] = loadedHeaders[index*4+b]
+						}
+					}
+				}
 				texts := map[int]string{19: strings.Repeat("x", 129)}
 				selections := map[int]int{}
 				sources := map[int]uint32{}
 				ready := map[int]byte{}
-				if scenarioStage == 0 {
+				if scenarioStage == 0 || scenarioStage == 12 {
 					texts[0] = "Move"
 					sources[0] = 0x534bc0
 					if vmStatus == 0 && scenarioControl == 0 && slices.Contains(os.Args, "move-after-resume") {
@@ -264,18 +408,27 @@ func TestProbeLifecycleChild(t *testing.T) {
 					texts[0] = "InfoListHelpOptsSave"
 					selections[0] = tabCursor
 				}
-				if scenarioStage == 2 || scenarioStage == 6 {
+				if scenarioStage == 8 {
+					texts[0] = "NewGameFreeBattleContinue"
+					selections[0] = titleCursor
+				}
+				if scenarioStage == 2 || scenarioStage == 6 || scenarioStage == 9 {
 					texts[1] = "File1File2"
 					selections[1] = fileCursor
-					memory[0x570104] = 1
+					if scenarioStage != 9 {
+						memory[0x570104] = 1
+					}
 					for b := 0; b < 4; b++ {
 						memory[0x57011c+uint32(b)] = byte(uint32(1) >> (8 * b))
 					}
 				}
-				if scenarioStage == 3 || scenarioStage == 5 {
+				if scenarioStage == 3 || scenarioStage == 5 || scenarioStage == 10 {
 					texts[2] = "Savetoanewfile"
 					if scenarioStage == 5 {
 						texts[2] = "Savecomplete."
+					}
+					if scenarioStage == 10 {
+						texts[2] = "LoadFile"
 					}
 					ready[2] = 1
 					memory[0x570108] = 1
@@ -321,11 +474,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				if len(payload) == 6 && payload[0] == 4 {
-					if binary.LittleEndian.Uint32(payload[1:]) != 0x56bfc1 || payload[5] != 0 || vmStatus != 1 {
+					restore := paired && payload[5] == 1 && scenarioStage == 1 && vmStatus == 0 && scenarioControl == 0
+					if binary.LittleEndian.Uint32(payload[1:]) != 0x56bfc1 || !restore && (payload[5] != 0 || vmStatus != 1) {
 						t.Fatal("unqualified Write8", fmt.Sprintf("%x", payload))
 					}
 					_ = os.WriteFile(filepath.Join(root, "scenario-write.bin"), append(header, payload...), 0600)
-					scenarioControl = 0
+					scenarioControl = payload[5]
+					if restore {
+						loadedRecords[241] = 1
+						advanceAtMode = scenarioModeReads + 2
+					}
 					scenarioWrites++
 					_ = os.WriteFile(filepath.Join(root, "scenario-write-count.txt"), []byte(strconv.Itoa(scenarioWrites)), 0600)
 					if slices.Contains(os.Args, "lost-ack") {
@@ -443,6 +601,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 				t.Error(err)
 				break
 			}
+			frameIndex++
 		}
 		_ = connection.Close()
 	}
@@ -1223,5 +1382,200 @@ func TestProbeLifecycle(t *testing.T) {
 				t.Error(refusal.ID, "original source changed")
 			}
 		}
+	}
+	// The independent paired oracle predates any producer output. A real Load in
+	// this controlled VM restores RAM from its private File2 bytes, not a PASS flag.
+	pairedOracleRaw, err := os.ReadFile("testdata/probe-paired.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var pairedOracle struct {
+		States         map[string]ProbeSavedState `json:"states"`
+		ExpectedReport json.RawMessage            `json:"full_normalized_report"`
+	}
+	if json.Unmarshal(pairedOracleRaw, &pairedOracle) != nil {
+		t.Fatal("paired oracle")
+	}
+	pairedProfile := profile
+	// Full source UI reads bracket quiescence; this cohort uses the existing
+	// bounded10s readiness policy, while the small legacy child retains2s.
+	pairedProfile.ReadyTimeoutMS = 10000
+	pairedProfile.Root = t.TempDir()
+	_ = os.Chmod(pairedProfile.Root, 0700)
+	pairedProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-paired")
+	pairedProfile.Inputs = map[string]RegistryInput{}
+	for role, input := range profile.Inputs {
+		pairedProfile.Inputs[role] = input
+	}
+	initialCard, err := os.ReadFile("testdata/probe-paired-card-initial.bin")
+	if err != nil {
+		t.Fatal(err)
+	}
+	pairedCardPath := filepath.Join(sources, "paired-card.bin")
+	if err := os.WriteFile(pairedCardPath, initialCard, 0400); err != nil {
+		t.Fatal(err)
+	}
+	pairedProfile.Inputs["card"] = RegistryInput{Path: pairedCardPath, Size: int64(len(initialCard)), SHA256: fmt.Sprintf("%x", sha256.Sum256(initialCard))}
+	pairedGlyphs := map[string]string{}
+	for character := 32; character < 127; character++ {
+		pairedGlyphs[strconv.Itoa(character)] = string(rune(character))
+	}
+	pairedGlyphRaw, _ := json.Marshal(pairedGlyphs)
+	pairedGlyphPath := filepath.Join(sources, "paired-glyphmap.json")
+	if err := os.WriteFile(pairedGlyphPath, pairedGlyphRaw, 0400); err != nil {
+		t.Fatal(err)
+	}
+	pairedProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: pairedGlyphPath, Size: int64(len(pairedGlyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(pairedGlyphRaw))}, TimeoutMS: 180000, MaxUIReads: 4096}
+	pairedProfile.Requests = nil
+	for index, operation := range []string{"initial", "scenario", "warm-load", "load", "cold-load", "load", "restore", "stop"} {
+		pairedProfile.Requests = append(pairedProfile.Requests, ProbeLifecycleRequest{Session: profile.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", index+1, operation)})
+	}
+	pairedInput, _ := json.Marshal(pairedProfile)
+	pairedResult, pairedErr := runProbeLifecycle(pairedInput)
+	for _, step := range pairedResult.Steps {
+		if step.Owned != nil {
+			if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, pairedProfile.Program.SHA256); err == nil {
+				_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+				var status syscall.WaitStatus
+				_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+			}
+		}
+	}
+	if pairedErr != nil || pairedResult.Status != "COMPLETED" || len(pairedResult.Steps) != 8 {
+		for _, step := range pairedResult.Steps {
+			t.Logf("paired %s %s: %s effects=%v", step.Request.Nonce, step.Status, step.Reason, step.Effects)
+		}
+		for _, name := range []string{"child-epoch-0.log", "child-epoch-1.log"} {
+			log, _ := os.ReadFile(filepath.Join(pairedProfile.Root, name))
+			t.Logf("%s: %s", name, log)
+		}
+		t.Fatalf("paired producer %s %v", pairedResult.Status, pairedErr)
+	}
+	if pairedResult.Steps[3].PreviewSamples != 40 || pairedResult.Steps[5].PreviewSamples != 40 || pairedResult.Steps[0].Owned.PID == pairedResult.Steps[4].Owned.PID || pairedResult.Steps[4].Epoch != 1 {
+		t.Fatal("paired preview or cold ownership")
+	}
+	finalStep := pairedResult.Steps[6]
+	if finalStep.Checkpoint == nil || finalStep.Evidence == nil {
+		t.Fatal("paired report/evidence missing")
+	}
+	evidenceRaw, err := os.ReadFile(finalStep.Evidence.Path)
+	if err != nil || int64(len(evidenceRaw)) != finalStep.Evidence.Size || fmt.Sprintf("%x", sha256.Sum256(evidenceRaw)) != finalStep.Evidence.SHA256 {
+		t.Fatal("paired immutable evidence binding")
+	}
+	var evidence ProbeEvidenceBundle
+	if json.Unmarshal(evidenceRaw, &evidence) != nil {
+		t.Fatal("paired saved evidence")
+	}
+	logBytes, err := os.ReadFile(filepath.Join(pairedProfile.Root, "events.jsonl"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, event := range evidence.Events {
+		end := event.Offset + int64(len(event.Data))
+		if event.Offset < 0 || end > int64(len(logBytes)) || !bytes.Equal(logBytes[event.Offset:end], event.Data) {
+			t.Fatal("paired source journal prefix/offset differs")
+		}
+	}
+	for index, capture := range evidence.Captures {
+		admission, err := admitProbeRecords(capture.Admission)
+		if err != nil {
+			t.Fatal(err)
+		}
+		receiptRaw, _ := json.Marshal(capture.Receipt)
+		if capture.Receipt.PID != admission.PID || capture.Receipt.Epoch != admission.Epoch || capture.Receipt.MemoryBefore.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(capture.Admission)) || fmt.Sprintf("%x", sha256.Sum256(receiptRaw)) != finalStep.Checkpoint.Captures[index].ReceiptSHA256 {
+			t.Fatal("paired actual owner/hash linkage")
+		}
+		image, _ := hex.DecodeString(capture.ImageHex)
+		published, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "captures", capture.Receipt.ImagePath))
+		if !bytes.Equal(image, published) || fmt.Sprintf("%x", sha256.Sum256(image)) != capture.Receipt.ImageSHA256 {
+			t.Fatal("paired PNG source identity")
+		}
+	}
+	actualRaw, _ := json.Marshal(finalStep.Checkpoint)
+	var normalized map[string]any
+	_ = json.Unmarshal(actualRaw, &normalized)
+	if normalized["bundle_sha256"] != fmt.Sprintf("%x", sha256.Sum256(evidenceRaw)) {
+		t.Fatal("paired full report bundle hash")
+	}
+	normalized["bundle_sha256"] = "NORMALIZED_BUNDLE_SHA256"
+	for _, value := range normalized["events"].([]any) {
+		row := value.(map[string]any)
+		row["offset"] = float64(0)
+		row["data"].(map[string]any)["time"] = "NORMALIZED_TIME"
+	}
+	for _, value := range normalized["captures"].([]any) {
+		value.(map[string]any)["receipt_sha256"] = "NORMALIZED_RECEIPT_SHA256"
+	}
+	var expected map[string]any
+	_ = json.Unmarshal(pairedOracle.ExpectedReport, &expected)
+	if !reflect.DeepEqual(normalized, expected) {
+		actual, _ := json.Marshal(normalized)
+		t.Fatalf("paired full normalized report differs: %s", actual)
+	}
+	savedCard, _ := os.ReadFile("testdata/probe-paired-card-saved.bin")
+	actualCard, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+	if !bytes.Equal(actualCard, savedCard) {
+		t.Fatal("paired exact File2 persistence/original File1 sentinel")
+	}
+	if !reflect.DeepEqual(finalStep.UI.Saved, pairedOracle.States["advanced"]) {
+		t.Fatal("paired actual advancement footprint")
+	}
+	for _, variant := range []string{"wrong-slot", "changed-fingerprint", "incomplete-pair", "missing-capture", "out-of-order", "stale-epoch"} {
+		var mutant ProbeEvidenceBundle
+		_ = json.Unmarshal(evidenceRaw, &mutant)
+		switch variant {
+		case "wrong-slot", "changed-fingerprint":
+			var row map[string]any
+			_ = json.Unmarshal(mutant.Events[3].Data, &row)
+			if variant == "wrong-slot" {
+				row["slot"] = float64(0)
+			} else {
+				row["state"].(map[string]any)["players"].([]any)[3].(map[string]any)["record_sha256"] = strings.Repeat("f", 64)
+			}
+			mutant.Events[3].Data, _ = json.Marshal(row)
+		case "incomplete-pair":
+			mutant.Events = append(mutant.Events[:6], mutant.Events[7:]...)
+			mutant.Captures = append(mutant.Captures[:4], mutant.Captures[5:]...)
+		case "missing-capture":
+			mutant.Captures = mutant.Captures[1:]
+		case "out-of-order":
+			mutant.Events[7], mutant.Events[8] = mutant.Events[8], mutant.Events[7]
+		case "stale-epoch":
+			mutant.Captures[3].Admission = mutant.Captures[1].Admission
+		}
+		mutantRaw, _ := json.Marshal(mutant)
+		result, err := reportProbeEvidence(mutantRaw)
+		if err == nil && result.Status == "PASS" {
+			t.Error(variant, "unsafe paired evidence accepted")
+		}
+	}
+	prefixProfile := pairedProfile
+	prefixProfile.Root = t.TempDir()
+	_ = os.Chmod(prefixProfile.Root, 0700)
+	prefixProfile.ProgramArgs = append(slices.Clone(pairedProfile.ProgramArgs), "tampered-prefix")
+	prefixProfile.Requests = append(slices.Clone(pairedProfile.Requests[:3]), ProbeLifecycleRequest{Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "4-stop"})
+	prefixRaw, _ := json.Marshal(prefixProfile)
+	prefixResult, prefixErr := runProbeLifecycle(prefixRaw)
+	for _, step := range prefixResult.Steps {
+		if step.Owned != nil {
+			if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, prefixProfile.Program.SHA256); err == nil {
+				_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+				var status syscall.WaitStatus
+				_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+			}
+		}
+	}
+	if prefixErr != nil || len(prefixResult.Steps) != 4 || prefixResult.Status != "INCOMPLETE" || prefixResult.Steps[2].Status != "UNKNOWN" || prefixResult.Steps[2].Reason != "owned event prefix or identity changed" || !reflect.DeepEqual(prefixResult.Steps[2].Effects, []string{"quiescent"}) || prefixResult.Steps[3].Status != "COMPLETED" {
+		t.Fatalf("tampered prefix refusal: %+v %v", prefixResult, prefixErr)
+	}
+	traceRaw, _ := os.ReadFile(filepath.Join(prefixProfile.Root, "scenario-inputs.json"))
+	var prefixTrace []string
+	_ = json.Unmarshal(traceRaw, &prefixTrace)
+	if slices.Contains(prefixTrace, "R3") {
+		t.Fatal("tampered journal reached reset effect")
+	}
+	originalCard, _ := os.ReadFile(pairedCardPath)
+	if !bytes.Equal(originalCard, initialCard) {
+		t.Fatal("paired original card changed")
 	}
 }

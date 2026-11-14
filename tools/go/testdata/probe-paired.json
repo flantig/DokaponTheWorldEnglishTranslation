@@ -1,0 +1,2383 @@
+{
+  "version": 1,
+  "scope": "Independent source-literal SYNTHETIC paired checkpoint oracle, not PS2 card format or native evidence",
+  "source_fields": [
+    "story",
+    "week",
+    "day",
+    "current",
+    "area",
+    "players"
+  ],
+  "header_u32_le": [
+    1,
+    0,
+    0,
+    0,
+    0
+  ],
+  "record_bytes": 508,
+  "player_count": 4,
+  "name_word_width": 4,
+  "name_word_stride": 4,
+  "file_identity": {
+    "selection_index": 1,
+    "native_file_number": 2,
+    "hardware_card_slot": 1
+  },
+  "card": {
+    "file": "card-initial.bin",
+    "magic": "GOPCARD1",
+    "bytes": 4112,
+    "slot_bytes": 2052,
+    "slot0_offset": 8,
+    "slot0_fill": 165,
+    "slot1_offset": 2060,
+    "slot1_initial_fill": 0,
+    "saved_file": "card-saved.bin",
+    "saved_slot_payload": "20-byte u32LE header followed by players-saved.bin",
+    "after_load_restore_advance": "Card remains byte-identical to card-saved.bin; these operations alter RAM only"
+  },
+  "binary_sha256": {
+    "card-initial.bin": "1439bd6b9eae7b0ab1475dea18f076a79f572a3c5c5b77c0ff929eaea646a874",
+    "card-saved.bin": "aba5ec51860747665fceb0921ee240e516548be07f6b329ac3c1abebdbb85486",
+    "headers-bootstrap.bin": "de47c9b27eb8d300dbb5f2c353e632c393262cf06340c4fa7f1b40c4cbd36f90",
+    "headers-saved.bin": "21fc3f955c14305ed66b2f6064de082e8447f29048da3ab7c5c01090c1b722ab",
+    "player-0-advanced.bin": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a",
+    "player-0-bootstrap.bin": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329",
+    "player-0-restored.bin": "63d5b4afbd964cee309e87c6d35a3894e1a113ef18591dac8ef753602093b9d0",
+    "player-0-saved.bin": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+    "player-1-advanced.bin": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+    "player-1-bootstrap.bin": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+    "player-1-restored.bin": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+    "player-1-saved.bin": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+    "player-2-advanced.bin": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+    "player-2-bootstrap.bin": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+    "player-2-restored.bin": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+    "player-2-saved.bin": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+    "player-3-advanced.bin": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+    "player-3-bootstrap.bin": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+    "player-3-restored.bin": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+    "player-3-saved.bin": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+    "players-advanced.bin": "b212ef107db89fdc2136c92bcfcd292a70d5d484cf2ef682ef56c74705ea9ec9",
+    "players-bootstrap.bin": "cff5f8f8c24cf5f2e9ec686c39d9a867c99fd541a3eff6b4b5f279fea9f657e6",
+    "players-restored.bin": "c4304694933e8931a9b52d5ff49bc1e6b82271c02d87ec4ce07167cfef292c28",
+    "players-saved.bin": "4d6518ae7d0fffdccc8ac4a4c95e1f2509d12b211ed9e59b2e62a24a886ac122",
+    "restore-write8.bin": "fc70ff5c7e7c0d4ac871ec92543caff44544c9a4dd80486a237b213540be135b"
+  },
+  "states": {
+    "saved": {
+      "story": 1,
+      "week": 0,
+      "day": 0,
+      "current": 0,
+      "area": 0,
+      "players": [
+        {
+          "control": 0,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            65,
+            66,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+        },
+        {
+          "control": 2,
+          "square": 13,
+          "money": 200,
+          "name_words": [
+            66,
+            67,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+        },
+        {
+          "control": 3,
+          "square": 14,
+          "money": 300,
+          "name_words": [
+            67,
+            68,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+        },
+        {
+          "control": 1,
+          "square": 15,
+          "money": 400,
+          "name_words": [
+            68,
+            69,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+        }
+      ]
+    },
+    "restored": {
+      "story": 1,
+      "week": 0,
+      "day": 0,
+      "current": 0,
+      "area": 0,
+      "players": [
+        {
+          "control": 1,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            65,
+            66,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "63d5b4afbd964cee309e87c6d35a3894e1a113ef18591dac8ef753602093b9d0",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "63d5b4afbd964cee309e87c6d35a3894e1a113ef18591dac8ef753602093b9d0"
+        },
+        {
+          "control": 2,
+          "square": 13,
+          "money": 200,
+          "name_words": [
+            66,
+            67,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+        },
+        {
+          "control": 3,
+          "square": 14,
+          "money": 300,
+          "name_words": [
+            67,
+            68,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+        },
+        {
+          "control": 1,
+          "square": 15,
+          "money": 400,
+          "name_words": [
+            68,
+            69,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+        }
+      ]
+    },
+    "advanced": {
+      "story": 1,
+      "week": 0,
+      "day": 0,
+      "current": 0,
+      "area": 0,
+      "players": [
+        {
+          "control": 1,
+          "square": 13,
+          "money": 100,
+          "name_words": [
+            65,
+            66,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a"
+        },
+        {
+          "control": 2,
+          "square": 13,
+          "money": 200,
+          "name_words": [
+            66,
+            67,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+        },
+        {
+          "control": 3,
+          "square": 14,
+          "money": 300,
+          "name_words": [
+            67,
+            68,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+        },
+        {
+          "control": 1,
+          "square": 15,
+          "money": 400,
+          "name_words": [
+            68,
+            69,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+        }
+      ]
+    },
+    "bootstrap": {
+      "story": 0,
+      "week": 0,
+      "day": 0,
+      "current": 0,
+      "area": 0,
+      "players": [
+        {
+          "control": 2,
+          "square": 12,
+          "money": 100,
+          "name_words": [
+            65,
+            66,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329"
+        },
+        {
+          "control": 2,
+          "square": 13,
+          "money": 200,
+          "name_words": [
+            66,
+            67,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+        },
+        {
+          "control": 3,
+          "square": 14,
+          "money": 300,
+          "name_words": [
+            67,
+            68,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+        },
+        {
+          "control": 1,
+          "square": 15,
+          "money": 400,
+          "name_words": [
+            68,
+            69,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+          "tutorial_flags": 1,
+          "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+        }
+      ]
+    }
+  },
+  "capture_lineage": [
+    {
+      "id": "save-2-scenario",
+      "event": 1,
+      "epoch": 0,
+      "owner_step": "1-initial"
+    },
+    {
+      "id": "capture-preview-4-load",
+      "event": 3,
+      "epoch": 0,
+      "owner_step": "3-warm-load"
+    },
+    {
+      "id": "capture-reload-4-load",
+      "event": 4,
+      "epoch": 0,
+      "owner_step": "3-warm-load"
+    },
+    {
+      "id": "capture-preview-6-load",
+      "event": 6,
+      "epoch": 1,
+      "owner_step": "5-cold-load"
+    },
+    {
+      "id": "capture-reload-6-load",
+      "event": 7,
+      "epoch": 1,
+      "owner_step": "5-cold-load"
+    },
+    {
+      "id": "capture-handoff-7-restore",
+      "event": 8,
+      "epoch": 1,
+      "owner_step": "6-load"
+    },
+    {
+      "id": "capture-advance-7-restore",
+      "event": 9,
+      "epoch": 1,
+      "owner_step": "6-load"
+    }
+  ],
+  "expected_report": {
+    "status": "PASS",
+    "rows": [],
+    "checkpoints": [
+      {
+        "checkpoint": 1,
+        "slot": 1,
+        "area": 0,
+        "warm": true,
+        "cold": true,
+        "advanced": true,
+        "status": "PASS"
+      }
+    ],
+    "covered_areas": [
+      0
+    ],
+    "live_ownership": false,
+    "capture_ids": [
+      "save-2-scenario",
+      "capture-preview-4-load",
+      "capture-reload-4-load",
+      "capture-preview-6-load",
+      "capture-reload-6-load",
+      "capture-handoff-7-restore",
+      "capture-advance-7-restore"
+    ],
+    "events": [
+      {
+        "offset": 0,
+        "data": {
+          "event": "save-complete",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 1,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-start",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "warm",
+          "phase": "verification",
+          "event_id": 2,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "continue-preview",
+          "epoch": 0,
+          "state": {
+            "story": 0,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 2,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "warm",
+          "phase": "verification",
+          "event_id": 3,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-verified",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "warm",
+          "phase": "verification",
+          "successful_preview_samples": 40,
+          "event_id": 4,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-start",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "cold",
+          "phase": "verification",
+          "event_id": 5,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "continue-preview",
+          "epoch": 1,
+          "state": {
+            "story": 0,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 2,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "cold",
+          "phase": "verification",
+          "event_id": 6,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-verified",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "cold",
+          "phase": "verification",
+          "successful_preview_samples": 40,
+          "event_id": 7,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "com-handoff-data-main",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 8,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "story-advanced-after-reload",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 1,
+                "square": 13,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 9,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "resumed",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 1,
+                "square": 13,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "expected": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 10,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      }
+    ]
+  },
+  "full_normalized_report": {
+    "version": 1,
+    "source_schema": "probe-evidence-go-v1",
+    "bundle_sha256": "NORMALIZED_BUNDLE_SHA256",
+    "run_id": "offline-lifecycle",
+    "session": "offline-lifecycle",
+    "iso_sha256": "69270f240754da99257b6f63cb3859e6344909a2d49fcb040b8e4ce29c15e931",
+    "epoch": 1,
+    "cohort": "go-checkpoint-only-v1",
+    "status": "PASS",
+    "rows": [],
+    "checkpoints": [
+      {
+        "checkpoint": 1,
+        "slot": 1,
+        "area": 0,
+        "warm": true,
+        "cold": true,
+        "advanced": true,
+        "status": "PASS"
+      }
+    ],
+    "covered_areas": [
+      0
+    ],
+    "events": [
+      {
+        "offset": 0,
+        "data": {
+          "event": "save-complete",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 1,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-start",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "warm",
+          "phase": "verification",
+          "event_id": 2,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "continue-preview",
+          "epoch": 0,
+          "state": {
+            "story": 0,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 2,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "warm",
+          "phase": "verification",
+          "event_id": 3,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-verified",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "warm",
+          "phase": "verification",
+          "successful_preview_samples": 40,
+          "event_id": 4,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-start",
+          "epoch": 0,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "cold",
+          "phase": "verification",
+          "event_id": 5,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "continue-preview",
+          "epoch": 1,
+          "state": {
+            "story": 0,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 2,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3eee5fd9d99aab9013cefa461d0d6561ec4c4075cf06665e0fd4739cc1147329"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "cold",
+          "phase": "verification",
+          "event_id": 6,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "reload-verified",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "method": "cold",
+          "phase": "verification",
+          "successful_preview_samples": 40,
+          "event_id": 7,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "com-handoff-data-main",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 8,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "story-advanced-after-reload",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 1,
+                "square": 13,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 9,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      },
+      {
+        "offset": 0,
+        "data": {
+          "event": "resumed",
+          "epoch": 1,
+          "state": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 1,
+                "square": 13,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "e65949b519d730b9c191a2f05f7a9391709b0d212042f9115af64c5e4a43579a"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "expected": {
+            "story": 1,
+            "week": 0,
+            "day": 0,
+            "current": 0,
+            "area": 0,
+            "players": [
+              {
+                "control": 0,
+                "square": 12,
+                "money": 100,
+                "name_words": [
+                  65,
+                  66,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "385c65d228d129707bdda3a40179d2184bebc22fc02e1500358ccae59caa2544"
+              },
+              {
+                "control": 2,
+                "square": 13,
+                "money": 200,
+                "name_words": [
+                  66,
+                  67,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "d4f67a98f3a75f49457cf1167f19ed3bfa201c8017a929c9bb2dcc725c36678d"
+              },
+              {
+                "control": 3,
+                "square": 14,
+                "money": 300,
+                "name_words": [
+                  67,
+                  68,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "3cdd3f01e789b97ad0de53ad35d491fca4bfc2a6cd300b3333b52339290500b4"
+              },
+              {
+                "control": 1,
+                "square": 15,
+                "money": 400,
+                "name_words": [
+                  68,
+                  69,
+                  0,
+                  0,
+                  0
+                ],
+                "record_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d",
+                "tutorial_flags": 1,
+                "tutorial_initialized_sha256": "04994283782816f03883c813271828ee6540b4b1bb49fdad56a48b4f6309172d"
+              }
+            ]
+          },
+          "event_id": 10,
+          "checkpoint": 1,
+          "time": "NORMALIZED_TIME",
+          "slot": 1,
+          "display_file": 2,
+          "hardware_card_slot": 1,
+          "actor": 0,
+          "original_control": 1
+        }
+      }
+    ],
+    "captures": [
+      {
+        "capture_id": "save-2-scenario",
+        "event_id": 1,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "save-2-scenario.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      },
+      {
+        "capture_id": "capture-preview-4-load",
+        "event_id": 3,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "capture-preview-4-load.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      },
+      {
+        "capture_id": "capture-reload-4-load",
+        "event_id": 4,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "capture-reload-4-load.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      },
+      {
+        "capture_id": "capture-preview-6-load",
+        "event_id": 6,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "capture-preview-6-load.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      },
+      {
+        "capture_id": "capture-reload-6-load",
+        "event_id": 7,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "capture-reload-6-load.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      },
+      {
+        "capture_id": "capture-handoff-7-restore",
+        "event_id": 8,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "capture-handoff-7-restore.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      },
+      {
+        "capture_id": "capture-advance-7-restore",
+        "event_id": 9,
+        "checkpoint": 1,
+        "status": "ACCEPTED",
+        "receipt_sha256": "NORMALIZED_RECEIPT_SHA256",
+        "provenance": "owned_go",
+        "image_path": "capture-advance-7-restore.png",
+        "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc"
+      }
+    ],
+    "live_ownership": false,
+    "limits": "Qualified saved observations only; narrative normalization does not prove controls/layout, code facts do not prove ABI, and exact RGBA does not approve artwork. Coverage requires the source progress tuple to change before resumed, not live runtime authenticity."
+  },
+  "normalization": {
+    "bundle_sha256": "Verify actual bundle SHA then replace with NORMALIZED_BUNDLE_SHA256",
+    "receipt_sha256": "Verify each actual serialized receipt SHA and linkage before replacing with NORMALIZED_RECEIPT_SHA256",
+    "event_time": "Validate actual source timestamp/order before replacing with NORMALIZED_TIME",
+    "event_offset": "Validate actual strict byte offsets/log slice hashes before replacing each offset with zero",
+    "pid_start": "WARM_PID/WARM_START for epoch0; distinct COLD_PID/COLD_START for epoch1, actual observed values must satisfy admission first",
+    "invariant": "No other field removal or normalization; source_schema/epoch/cohort/states/fields/full fingerprints/phase/method/event order/capture IDs remain exact"
+  },
+  "preserved_refusals": {
+    "legacy_empty_members": "Still refused; exception requires BOTH explicit known Go source schema and checkpoint-only cohort",
+    "save_only": "UNKNOWN until warm+cold+handoff+changed advancement+resumed and all seven captures qualify",
+    "warm": "Same PID/start/epoch, actual completed warm owner",
+    "cold": "Changed PID AND starttime, epoch1, actual completed cold owner",
+    "unsafe": "Unlinked/missing capture, absent changed progress, partial or altered reload state cannot establish PASS"
+  }
+}

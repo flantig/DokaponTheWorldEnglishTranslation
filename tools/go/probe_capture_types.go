@@ -74,8 +74,9 @@ type ProbeCaptureReceipt struct {
 }
 
 type ProbeCaptureObservation struct {
-	Receipt  ProbeCaptureReceipt `json:"receipt"`
-	ImageHex string              `json:"image_hex,omitempty"`
+	Receipt   ProbeCaptureReceipt `json:"receipt"`
+	ImageHex  string              `json:"image_hex,omitempty"`
+	Admission json.RawMessage     `json:"admission,omitempty"`
 }
 
 type ProbeCaptureLink struct {

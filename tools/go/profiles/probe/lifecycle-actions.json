@@ -124,6 +124,65 @@
         "report-save"
       ],
       "to": "ready"
+    },
+    "load": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-load",
+        "select-continue",
+        "card-preview",
+        "capture-preview",
+        "preview-dwell",
+        "card-load",
+        "capture-reload",
+        "report-pair"
+      ],
+      "to": "ready"
+    },
+    "cold-load": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "quiescent",
+        "emit-reload-start",
+        "terminate",
+        "flush",
+        "backup",
+        "launch",
+        "verify"
+      ],
+      "to": "ready"
+    },
+    "restore": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-handoff",
+        "select-data",
+        "capture-handoff",
+        "restore-control",
+        "wait-advance",
+        "capture-advance",
+        "emit-resumed",
+        "report-checkpoint"
+      ],
+      "to": "ready"
+    },
+    "warm-load": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "quiescent",
+        "emit-reload-start",
+        "reset",
+        "verify-warm"
+      ],
+      "to": "ready"
     }
   },
   "warm_command": "tap R3 0.1",

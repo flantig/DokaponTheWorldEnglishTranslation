@@ -83,6 +83,8 @@ type ProbeLifecycleStep struct {
 	UI                   *ProbeUIState         `json:"ui,omitempty"`
 	Capture              *ProbeCaptureReceipt  `json:"capture,omitempty"`
 	Checkpoint           *ProbeEvidenceReport  `json:"checkpoint,omitempty"`
+	PreviewSamples       int                   `json:"preview_samples,omitempty"`
+	Evidence             *RegistryInput        `json:"evidence,omitempty"`
 }
 
 type ProbeLifecycleReport struct {
