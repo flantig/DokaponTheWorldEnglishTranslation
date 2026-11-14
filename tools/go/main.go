@@ -31,6 +31,10 @@ func run(args []string, stdout io.Writer) error {
 	texturePath := flags.String("texture-profile", "", "standalone calibrated TXD/PNG authoring profile")
 	probeRecordsPath := flags.String("probe-records", "", "read-only immutable probe record bundle; never controls a runtime")
 	probeEvidencePath := flags.String("probe-evidence", "", "read-only deterministic report of admitted saved probe evidence")
+	probeMemoryPath := flags.String("probe-memory", "", "read-only source-bound saved or explicit owned PINE read plan")
+	probeRuntimePath := flags.String("probe-memory-runtime", "", "explicit private-root runtime descriptor; requires --probe-memory")
+	probeCapturePath := flags.String("probe-capture", "", "one serialized original-PNG capture with linked typed evidence")
+	probeCaptureRuntime := flags.String("probe-capture-runtime", "", "explicit owned capture roots/backend; requires --probe-capture")
 	snapshot := flags.String("snapshot", "", "artifact snapshot operation: create, list or restore")
 	snapshotDir := flags.String("snapshot-dir", "", "directory of immutable tagged snapshots")
 	tag := flags.String("tag", "", "unique snapshot tag")
@@ -41,10 +45,28 @@ func run(args []string, stdout io.Writer) error {
 	if err := flags.Parse(args); err != nil {
 		return err
 	}
-	if *probeRecordsPath != "" || *probeEvidencePath != "" {
+	if *probeRuntimePath != "" && *probeMemoryPath == "" {
+		return fmt.Errorf("probe memory runtime requires its own read plan")
+	}
+	if (*probeCapturePath != "") != (*probeCaptureRuntime != "") {
+		return fmt.Errorf("probe capture requires its explicit runtime descriptor")
+	}
+	if *probeRecordsPath != "" || *probeEvidencePath != "" || *probeMemoryPath != "" || *probeCapturePath != "" {
 		path, noun, limit := *probeRecordsPath, "records", int64(1<<20)
 		if *probeEvidencePath != "" {
 			path, noun, limit = *probeEvidencePath, "evidence", 4<<20
+		}
+		if *probeMemoryPath != "" {
+			path, noun, limit = *probeMemoryPath, "memory", 4<<20
+			if *probeRecordsPath != "" || *probeEvidencePath != "" {
+				return fmt.Errorf("probe records, evidence and memory are mutually exclusive operations")
+			}
+		}
+		if *probeCapturePath != "" {
+			if *probeRecordsPath != "" || *probeEvidencePath != "" || *probeMemoryPath != "" {
+				return fmt.Errorf("probe capture is separate from read-only probe operations")
+			}
+			path, noun, limit = *probeCapturePath, "capture", 4<<20
 		}
 		if *probeRecordsPath != "" && *probeEvidencePath != "" {
 			return fmt.Errorf("probe records and evidence are mutually exclusive operations")
@@ -62,6 +84,21 @@ func run(args []string, stdout io.Writer) error {
 			report, err = admitProbeRecords(data)
 		case "evidence":
 			report, err = reportProbeEvidence(data)
+		case "memory":
+			var runtimeData []byte
+			if *probeRuntimePath != "" {
+				runtimeData, err = readInput(*probeRuntimePath, 65536)
+				if err != nil {
+					return err
+				}
+			}
+			report, err = readProbeMemory(data, runtimeData)
+		case "capture":
+			runtimeData, readErr := readInput(*probeCaptureRuntime, 65536)
+			if readErr != nil {
+				return readErr
+			}
+			report, err = captureProbeEvidence(data, runtimeData)
 		}
 		if err != nil {
 			return err

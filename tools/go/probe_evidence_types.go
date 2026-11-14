@@ -5,18 +5,19 @@ import "encoding/json"
 // ProbeEvidenceBundle binds saved JSONL observations to admitted run records.
 // Membership is explicit; an absent comparison remains UNKNOWN, never an empty pass.
 type ProbeEvidenceBundle struct {
-	Version      int                  `json:"version"`
-	SourceSchema string               `json:"source_schema"`
-	SourceSHA256 string               `json:"source_sha256"`
-	Admission    json.RawMessage      `json:"admission"`
-	RunID        string               `json:"run_id"`
-	Session      string               `json:"session"`
-	ISOSHA256    string               `json:"iso_sha256"`
-	Epoch        *int                 `json:"epoch"`
-	Cohort       string               `json:"cohort"`
-	Members      []string             `json:"members"`
-	Events       []ProbeEvidenceEvent `json:"events"`
-	Checks       []ProbeEvidenceCheck `json:"checks"`
+	Version      int                       `json:"version"`
+	SourceSchema string                    `json:"source_schema"`
+	SourceSHA256 string                    `json:"source_sha256"`
+	Admission    json.RawMessage           `json:"admission"`
+	RunID        string                    `json:"run_id"`
+	Session      string                    `json:"session"`
+	ISOSHA256    string                    `json:"iso_sha256"`
+	Epoch        *int                      `json:"epoch"`
+	Cohort       string                    `json:"cohort"`
+	Members      []string                  `json:"members"`
+	Events       []ProbeEvidenceEvent      `json:"events"`
+	Checks       []ProbeEvidenceCheck      `json:"checks"`
+	Captures     []ProbeCaptureObservation `json:"captures,omitempty"`
 }
 
 type ProbeEvidenceEvent struct {
@@ -87,6 +88,7 @@ type ProbeEvidenceReport struct {
 	Checkpoints   []ProbeCheckpointResult `json:"checkpoints"`
 	CoveredAreas  []uint32                `json:"covered_areas"`
 	Events        []ProbeEvidenceEvent    `json:"events"`
+	Captures      []ProbeCaptureLink      `json:"captures,omitempty"`
 	LiveOwnership bool                    `json:"live_ownership"`
 	Limits        string                  `json:"limits"`
 }

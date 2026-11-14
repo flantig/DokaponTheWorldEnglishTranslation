@@ -13,7 +13,7 @@ The [v1 baseline](analysis/reusability-coverage-baseline.json) remains byte-iden
 
 Raster rendering is6/6 under the [accepted current fixed-data contract](evidence/reconstruction-row-proof.json#current_raster_criterion_assessment): one exact native replay, a separate editable donor/order witness and203 source-bound material dispositions. This does not claim203 native replays, arbitrary generators, pristine provenance or gameplay acceptance.
 
-The [offline probe proof](evidence/probe-records-proof.json) accepts saved-record admission `.01` through `--probe-records` and deterministic saved-evidence reports `.02` through `--probe-evidence`. Neither opens claimed runtime paths or establishes live ownership. See [the bounded import contract](docs/probe-records.md). Next is `.03`: build/session-bound typed reads and diagnostics, preserving provenance, refusal boundaries and material hook/ABI obligations. Runtime handover remains separate.
+The [offline probe proof](evidence/probe-records-proof.json) accepts saved-record admission `.01` through `--probe-records` and deterministic saved-evidence reports `.02` through `--probe-evidence`. Reviewed `.03` typed-read and `.04` serialized original-PNG capture previews now have saved/local-peer tests, but native/current-diagnostic qualification, owner-agreed limits and resize/JPEG parity remain held. Neither preview earns criterion credit or transfers the production controller. See [the bounded contract and preview limits](docs/probe-records.md). Next implementation planning is `.05`; `.03` and `.04` remain open. Runtime handover is separate.
 
 Follow [AGENTS.md](AGENTS.md): inspect symbols and callers with Serena, enhance
 existing functions whenever reasonable, and verify the complete change.

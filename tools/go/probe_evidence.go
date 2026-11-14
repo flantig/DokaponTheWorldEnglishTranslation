@@ -471,6 +471,111 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			report.Status = row.Status
 		}
 	}
+	// Strict acquisition linkage is an extra data phase; legacy outcomes stay exact.
+	seenCaptures := map[string]bool{}
+	lastCaptureEvent := 0
+	var captureRecords ProbeRecordBundle
+	_ = json.Unmarshal(bundle.Admission, &captureRecords)
+	var captureOwned ProbeProcessRecord
+	for _, record := range captureRecords.Records {
+		if record.Role == "owned" {
+			_ = json.Unmarshal(record.Data, &captureOwned)
+		}
+	}
+	for _, capture := range bundle.Captures {
+		receipt := capture.Receipt
+		if seenCaptures[receipt.CaptureID] || receipt.CaptureID == "" || receipt.EventID < lastCaptureEvent {
+			return report, fmt.Errorf("capture receipts require distinct IDs and source order")
+		}
+		seenCaptures[receipt.CaptureID], lastCaptureEvent = true, receipt.EventID
+		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != admission.RunID || receipt.Session != admission.Session || receipt.Epoch != admission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != admission.ISOSHA256 || eventCheckpoint[receipt.EventID] != receipt.Checkpoint || checkpoints[receipt.Checkpoint] == nil {
+			return report, fmt.Errorf("capture receipt differs from admitted identity or source event")
+		}
+		logBytes, err := hex.DecodeString(receipt.LogHex)
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(logBytes)) != receipt.LogSHA256 || receipt.LogOffset < 0 {
+			return report, fmt.Errorf("capture source log bytes or hash differ")
+		}
+		var logged, selected any
+		if err := json.Unmarshal(logBytes, &logged); err != nil {
+			return report, err
+		}
+		for index, event := range events {
+			if event.EventID == receipt.EventID {
+				_ = json.Unmarshal(bundle.Events[index].Data, &selected)
+				if bundle.Events[index].Offset != receipt.LogOffset {
+					return report, fmt.Errorf("capture source log offset differs")
+				}
+			}
+		}
+		if !reflect.DeepEqual(logged, selected) {
+			return report, fmt.Errorf("capture log does not contain its selected source event")
+		}
+		encoded, _ := json.Marshal(receipt)
+		link := ProbeCaptureLink{CaptureID: receipt.CaptureID, EventID: receipt.EventID, Checkpoint: receipt.Checkpoint, Status: "UNKNOWN", Reason: receipt.Reason, ReceiptSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), Provenance: receipt.Provenance}
+		switch receipt.Status {
+		case "CAPTURED":
+			if receipt.MemoryBefore == nil || receipt.MemoryAfter == nil || receipt.GuideCommand != "tap GUIDE 0.05" || receipt.Representation != "original-png" {
+				return report, fmt.Errorf("complete capture lacks original image or typed observations")
+			}
+			ack, err := hex.DecodeString(receipt.GuideAckHex)
+			if err != nil || strings.TrimSpace(string(ack)) != "ok" {
+				return report, fmt.Errorf("complete capture lacks screenshot acknowledgement")
+			}
+			before, after := receipt.MemoryBefore, receipt.MemoryAfter
+			if before.Session != receipt.Session || before.Epoch != receipt.Epoch || before.BuildSHA256 != receipt.BuildSHA256 || before.ISOSHA256 != receipt.ISOSHA256 || after.ISOSHA256 != before.ISOSHA256 || after.Session != before.Session || after.Epoch != before.Epoch || after.BuildSHA256 != before.BuildSHA256 || after.SessionEvidenceSHA256 != before.SessionEvidenceSHA256 || before.Provenance != receipt.Provenance || after.Provenance != receipt.Provenance || !reflect.DeepEqual(before.Decoded, after.Decoded) {
+				return report, fmt.Errorf("capture typed observations cross session, build or sequential UI")
+			}
+			for _, memory := range []*ProbeMemoryReport{before, after} {
+				if memory.Version != 1 || memory.SourceSHA256 != receipt.SourceSHA256 || memory.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(bundle.Admission)) || memory.Provenance == "live" && !memory.ProcessGuarded {
+					return report, fmt.Errorf("capture typed observations differ from admitted evidence or process guards")
+				}
+				knownTags, knownUI := false, false
+				for _, decoded := range memory.Decoded {
+					if decoded.Status != "KNOWN" {
+						continue
+					}
+					switch decoded.Kind {
+					case "frame_tags":
+						knownTags = len(decoded.FrameTags) == 3
+					case "player":
+						knownUI = knownUI || decoded.Player != nil
+					case "cursor":
+						knownUI = knownUI || decoded.Cursor != nil
+					case "fixed", "texture", "char":
+						knownUI = knownUI || decoded.Text != nil
+					}
+				}
+				if !knownTags || !knownUI || len(memory.Observations) == 0 {
+					return report, fmt.Errorf("capture requires positive source frame tags and decoded UI")
+				}
+			}
+			imageBytes, err := hex.DecodeString(capture.ImageHex)
+			if err != nil || int64(len(imageBytes)) != receipt.ImageBytes || fmt.Sprintf("%x", sha256.Sum256(imageBytes)) != receipt.ImageSHA256 || receipt.ImagePath != receipt.CaptureID+".png" {
+				return report, fmt.Errorf("capture original image bytes or path differ")
+			}
+			raster, _, err := decodePNG(imageBytes, 1<<20)
+			if err != nil || raster.Bounds().Dx() != receipt.Width || raster.Bounds().Dy() != receipt.Height {
+				return report, fmt.Errorf("capture original PNG geometry differs")
+			}
+			link.Status, link.Reason, link.ImagePath, link.ImageSHA256 = "ACCEPTED", "", receipt.ImagePath, receipt.ImageSHA256
+		case "UNKNOWN", "REFUSED":
+			if strings.TrimSpace(receipt.Reason) == "" {
+				return report, fmt.Errorf("unavailable capture requires its source reason")
+			}
+		default:
+			return report, fmt.Errorf("unsupported capture receipt outcome")
+		}
+		report.Captures = append(report.Captures, link)
+		if link.Status != "ACCEPTED" {
+			checkpoint := checkpoints[receipt.Checkpoint]
+			if checkpoint.Result.Status != "FAIL" {
+				checkpoint.Result.Status, checkpoint.Result.Reason = "UNKNOWN", "capture evidence unavailable"
+			}
+			if report.Status != "FAIL" {
+				report.Status = "UNKNOWN"
+			}
+		}
+	}
 	for _, id := range checkpointOrder {
 		checkpoint := checkpoints[id]
 		if checkpoint.Result.Status == "PASS" && checkpoint.Result.Area != nil && !slices.Contains(report.CoveredAreas, *checkpoint.Result.Area) {

@@ -1,0 +1,311 @@
+{
+  "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+  "pad_source_sha256": "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36",
+  "profile": {
+    "version": 1,
+    "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+    "pad_source_sha256": "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36",
+    "capture_id": "capture-one",
+    "event_id": 11,
+    "checkpoint": 1,
+    "log_offset": 81920,
+    "max_snapshot_files": 8,
+    "max_image_bytes": 4096,
+    "max_pixels": 16,
+    "max_retained_files": 8,
+    "max_retained_bytes": 8388608,
+    "lock_timeout_ms": 1000,
+    "capture_timeout_ms": 1000
+  },
+  "receipt": {
+    "version": 1,
+    "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+    "pad_source_sha256": "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36",
+    "capture_id": "capture-one",
+    "event_id": 11,
+    "checkpoint": 1,
+    "run_id": "run",
+    "session": "00112233445566778899aabbccddeeff",
+    "epoch": 3,
+    "pid": 202,
+    "starttime": 2002,
+    "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "provenance": "synthetic_peer",
+    "status": "CAPTURED",
+    "lock_budget_ms": 1000,
+    "capture_budget_ms": 1000,
+    "guide_command": "tap GUIDE 0.05",
+    "guide_ack_hex": "6f6b",
+    "snapshot": "new.png",
+    "snapshot_preserved": true,
+    "image_path": "capture-one.png",
+    "width": 2,
+    "height": 1,
+    "log_offset": 81920,
+    "representation": "original-png",
+    "derivatives": "Pillow RGB/default640x480 resize and JPEG parity unqualified; no derivative produced",
+    "policy_status": "profile-caps-enforced; native owner retention/resource agreement pending",
+    "image_sha256": "453d0d0a470fdd560fe5e15da227e2aa3ec4a2c7542440aafbdf870846cb2ffc",
+    "image_bytes": 305
+  },
+  "cases": [
+    {
+      "name": "capture original with guarded before-after memory",
+      "capture": true,
+      "status": "CAPTURED",
+      "omit_expected": []
+    },
+    {
+      "name": "separate lock and capture budgets",
+      "capture": true,
+      "fault": "capture_separate_budgets",
+      "status": "CAPTURED",
+      "omit_expected": [],
+      "capture_id": "capture-budget",
+      "expected": {
+        "capture_id": "capture-budget",
+        "image_path": "capture-budget.png"
+      }
+    },
+    {
+      "name": "partial file becomes complete",
+      "capture": true,
+      "fault": "capture_partial_then_complete",
+      "status": "CAPTURED",
+      "omit_expected": [],
+      "capture_id": "capture-partial",
+      "expected": {
+        "capture_id": "capture-partial",
+        "image_path": "capture-partial.png"
+      }
+    },
+    {
+      "name": "partial file timeout retained",
+      "capture": true,
+      "fault": "capture_partial_timeout",
+      "status": "UNKNOWN",
+      "reason": "capture deadline expired without a complete stable PNG",
+      "omit_expected": [
+        "image_path",
+        "image_sha256",
+        "image_bytes",
+        "width",
+        "height",
+        "memory_after"
+      ],
+      "expected": {
+        "capture_budget_ms": 200
+      }
+    },
+    {
+      "name": "no new PNG timeout",
+      "capture": true,
+      "fault": "capture_no_image",
+      "status": "UNKNOWN",
+      "reason": "capture deadline expired without a complete stable PNG",
+      "omit_expected": [
+        "image_path",
+        "image_sha256",
+        "image_bytes",
+        "width",
+        "height",
+        "memory_after",
+        "snapshot"
+      ],
+      "expected": {
+        "capture_budget_ms": 200
+      }
+    },
+    {
+      "name": "bad screenshot acknowledgement",
+      "capture": true,
+      "fault": "capture_bad_ack",
+      "status": "UNKNOWN",
+      "reason": "capture trigger acknowledgement unknown",
+      "omit_expected": [
+        "image_path",
+        "image_sha256",
+        "image_bytes",
+        "width",
+        "height",
+        "memory_after",
+        "snapshot"
+      ],
+      "expected": {
+        "guide_ack_hex": "6e6f"
+      }
+    },
+    {
+      "name": "late ambiguous PNG before publication",
+      "capture": true,
+      "fault": "capture_ambiguous",
+      "status": "UNKNOWN",
+      "reason": "ambiguous fresh snapshots",
+      "omit_expected": [
+        "image_path"
+      ]
+    },
+    {
+      "name": "source log changed during capture",
+      "capture": true,
+      "fault": "capture_changed_log",
+      "status": "REFUSED",
+      "reason": "capture source log changed",
+      "omit_expected": [
+        "image_path"
+      ]
+    },
+    {
+      "name": "captured PNG changed during post-read",
+      "capture": true,
+      "fault": "capture_changed_image",
+      "status": "REFUSED",
+      "reason": "captured PNG changed before publication",
+      "omit_expected": [
+        "image_path"
+      ]
+    },
+    {
+      "name": "cross-session capture refused",
+      "capture": true,
+      "fault": "capture_cross_session",
+      "status": "REFUSED",
+      "reason": "capture post-read: probe runtime admitted session evidence changed",
+      "omit_expected": [
+        "image_path",
+        "memory_after"
+      ]
+    },
+    {
+      "name": "retention exhausted before trigger",
+      "capture": true,
+      "fault": "capture_capacity",
+      "omit_expected": [
+        "guide_command",
+        "guide_ack_hex",
+        "snapshot",
+        "image_path",
+        "image_sha256",
+        "image_bytes",
+        "width",
+        "height",
+        "memory_before",
+        "memory_after"
+      ],
+      "status": "UNKNOWN",
+      "reason": "capture retention capacity exhausted before trigger",
+      "no_guide": true,
+      "no_persist": true
+    },
+    {
+      "name": "scalar-only capture plan refuses before GUIDE",
+      "capture": true,
+      "fault": "capture_scalar_only",
+      "error": "capture plan requires source frame tags and UI decoders",
+      "no_guide": true
+    },
+    {
+      "name": "unsupported UI is not a positive capture",
+      "capture": true,
+      "fault": "capture_unsupported_ui",
+      "status": "UNKNOWN",
+      "reason": "capture lacks known source frame tags or decoded UI",
+      "no_guide": true,
+      "omit_expected": [
+        "guide_command",
+        "guide_ack_hex",
+        "snapshot",
+        "image_path",
+        "image_sha256",
+        "image_bytes",
+        "width",
+        "height",
+        "memory_after"
+      ],
+      "expected_memory_decoded": [
+        {
+          "id": "tags",
+          "kind": "frame_tags",
+          "status": "KNOWN",
+          "frame_tags": [
+            120,
+            11,
+            7
+          ]
+        },
+        {
+          "id": "bad-ui",
+          "kind": "cursor",
+          "status": "UNSUPPORTED",
+          "reason": "native cursor pointer outside source bounds"
+        }
+      ]
+    },
+    {
+      "name": "failed lock admits no persistent output",
+      "capture": true,
+      "fault": "capture_lock_timeout",
+      "status": "UNKNOWN",
+      "reason": "capture lock timeout",
+      "no_guide": true,
+      "no_persist": true,
+      "expected": {
+        "lock_budget_ms": 30
+      },
+      "omit_expected": [
+        "guide_command",
+        "guide_ack_hex",
+        "snapshot",
+        "image_path",
+        "image_sha256",
+        "image_bytes",
+        "width",
+        "height",
+        "memory_before",
+        "memory_after"
+      ]
+    }
+  ],
+  "image_hex": "89504e470d0a1a0a0000000d4948445200000002000000010806000000f4227f8a000000206348524d00007a26000080840000fa00000080e8000075300000ea6000003a98000017709cba513c00000006624b474400ff00ff00ffa0bda7930000000774494d4507ea0b0e003800fb9b689d0000002574455874646174653a63726561746500323032362d31312d31345430303a35363a30302b30303a3030e336dcad0000002574455874646174653a6d6f6469667900323032362d31312d31345430303a35363a30302b30303a3030926b64110000002874455874646174653a74696d657374616d7000323032362d31312d31345430303a35363a30302b30303a3030c57e45ce000000114944415408d763f8cfc0f09f81e1ff7f000ff903fd78ee6d8e0000000049454e44ae426082",
+  "link_cases": [
+    {
+      "name": "accepted original capture",
+      "status": "PASS"
+    },
+    {
+      "name": "unavailable capture never covers",
+      "status": "UNKNOWN",
+      "mutate": "unknown"
+    },
+    {
+      "name": "wrong capture session",
+      "error": "capture receipt differs from admitted identity or source event",
+      "mutate": "session"
+    },
+    {
+      "name": "swapped original image",
+      "error": "capture original image bytes or path differ",
+      "mutate": "image"
+    },
+    {
+      "name": "empty decoded observations refuse",
+      "mutate": "empty_decoded",
+      "error": "capture requires positive source frame tags and decoded UI"
+    },
+    {
+      "name": "empty wire observations refuse",
+      "mutate": "empty_observations",
+      "error": "capture requires positive source frame tags and decoded UI"
+    },
+    {
+      "name": "unbound matching evidence hashes refuse",
+      "mutate": "evidence_hash",
+      "error": "capture typed observations differ from admitted evidence or process guards"
+    },
+    {
+      "name": "live claim without process guards refuses",
+      "mutate": "live_guard",
+      "error": "capture typed observations differ from admitted evidence or process guards"
+    }
+  ]
+}

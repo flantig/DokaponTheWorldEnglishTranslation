@@ -2349,10 +2349,14 @@ func TestPlanAndCopy(t *testing.T) {
 }
 
 func TestPlanRefusals(t *testing.T) {
-	for _, operation := range []string{"records", "evidence"} {
+	for _, operation := range []string{"records", "evidence", "memory", "capture"} {
 		for _, extra := range [][]string{{"--apply"}, {"--output", "must-not-exist"}, {"--source", "must-not-open"}, {"--texture-profile", "must-not-open"}, {"--snapshot", "create"}, {"--registry", "must-not-open"}, {"--recipes", "must-not-open"}, {"--glyphmap", "must-not-open"}, {"--fit-profile", "must-not-open"}, {"--stream-audit-profile", "must-not-open"}, {"--note", "forbidden"}, {"--snapshot-dir", "must-not-open"}, {"--tag", "forbidden"}, {"--commit", "forbidden"}, {"positional"}} {
 			var report bytes.Buffer
-			args := append([]string{"--probe-" + operation, "must-not-open"}, extra...)
+			args := []string{"--probe-" + operation, "must-not-open"}
+			if operation == "capture" {
+				args = append(args, "--probe-capture-runtime", "must-not-open")
+			}
+			args = append(args, extra...)
 			if err := run(args, &report); err == nil || err.Error() != "probe "+operation+" take only their immutable bundle; runtime and write arguments are forbidden" || report.Len() != 0 {
 				t.Fatal("probe record operation admitted conflicting CLI arguments", extra, err, report.String())
 			}
@@ -2361,6 +2365,30 @@ func TestPlanRefusals(t *testing.T) {
 	var conflictingProbeReport bytes.Buffer
 	if err := run([]string{"--probe-records", "must-not-open", "--probe-evidence", "must-not-open"}, &conflictingProbeReport); err == nil || err.Error() != "probe records and evidence are mutually exclusive operations" || conflictingProbeReport.Len() != 0 {
 		t.Fatal("probe operations admitted both immutable bundles", err)
+	}
+	for _, operation := range []string{"records", "evidence"} {
+		var report bytes.Buffer
+		if err := run([]string{"--probe-memory", "must-not-open", "--probe-" + operation, "must-not-open"}, &report); err == nil || err.Error() != "probe records, evidence and memory are mutually exclusive operations" || report.Len() != 0 {
+			t.Fatal("probe memory admitted a competing operation", err)
+		}
+	}
+	for _, args := range [][]string{{"--probe-memory-runtime", "must-not-open"}, {"--probe-records", "must-not-open", "--probe-memory-runtime", "must-not-open"}, {"--probe-evidence", "must-not-open", "--probe-memory-runtime", "must-not-open"}} {
+		var report bytes.Buffer
+		if err := run(args, &report); err == nil || err.Error() != "probe memory runtime requires its own read plan" || report.Len() != 0 {
+			t.Fatal("probe runtime descriptor lost its plan linkage", err)
+		}
+	}
+	for _, operation := range []string{"records", "evidence", "memory"} {
+		var report bytes.Buffer
+		if err := run([]string{"--probe-capture", "must-not-open", "--probe-capture-runtime", "must-not-open", "--probe-" + operation, "must-not-open"}, &report); err == nil || err.Error() != "probe capture is separate from read-only probe operations" || report.Len() != 0 {
+			t.Fatal("capture admitted a competing operation", err)
+		}
+	}
+	for _, args := range [][]string{{"--probe-capture", "must-not-open"}, {"--probe-capture-runtime", "must-not-open"}} {
+		var report bytes.Buffer
+		if err := run(args, &report); err == nil || err.Error() != "probe capture requires its explicit runtime descriptor" || report.Len() != 0 {
+			t.Fatal("capture omitted its explicit runtime descriptor", err)
+		}
 	}
 	for _, name := range []string{"registry import", "unknown authoring", "missing context", "independent prefix", "missing preimage", "missing encoding pin", "missing byte bound", "physical END", "body setup", "opaque payload", "scale prefix"} {
 		r, registry, glyphs, image := fixture(t, "stream_reflow_format")

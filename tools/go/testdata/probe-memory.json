@@ -1,0 +1,3715 @@
+{
+  "bundle": {
+    "version": 1,
+    "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+    "admission": {
+      "version": 1,
+      "source_schema": "text-probe-legacy-2026-11-13",
+      "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+      "project_root": "/probe-project",
+      "working_directory": "/probe-project",
+      "run_root": "/probe-project/generated/run",
+      "context": "boot_checkpoint",
+      "records": [
+        {
+          "role": "run",
+          "data": {
+            "status": "running",
+            "iso": "generated/frozen/game.iso",
+            "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "run_id": "run",
+            "started_at": "2026-11-13T00:00:00+0000",
+            "runner_pid": 77,
+            "private_profile": {
+              "datapath": "/probe-project/generated/run/profile",
+              "data_root": "/probe-project/generated/run/profile/PCSX2",
+              "source_settings": "/user/inis/PCSX2.ini",
+              "source_settings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "source_card": "/user/memcards/personal.ps2",
+              "source_card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "card": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+              "card_initial_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "bios": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN"
+            }
+          }
+        },
+        {
+          "role": "profile",
+          "data": {
+            "datapath": "/probe-project/generated/run/profile",
+            "data_root": "/probe-project/generated/run/profile/PCSX2",
+            "source_settings": "/user/inis/PCSX2.ini",
+            "source_settings_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "source_card": "/user/memcards/personal.ps2",
+            "source_card_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+            "card_initial_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "bios": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN"
+          }
+        },
+        {
+          "role": "config",
+          "data": {
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "profile": "/probe-project/generated/run/profile",
+            "seed": 1234,
+            "scenario": "first-create"
+          }
+        },
+        {
+          "role": "previous_owned",
+          "data": {
+            "pid": 101,
+            "starttime": 1001,
+            "state": "S",
+            "cmdline": [
+              "/usr/bin/pcsx2",
+              "-batch",
+              "-datapath",
+              "/probe-project/generated/run/profile",
+              "/probe-project/generated/frozen/game.iso"
+            ],
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "profile": "/probe-project/generated/run/profile",
+            "epoch": 2
+          }
+        },
+        {
+          "role": "previous_ack",
+          "data": {
+            "nonce": "2-cold",
+            "phase": "ready",
+            "session": "00112233445566778899aabbccddeeff",
+            "operation": "cold-restart",
+            "epoch": 2,
+            "owned": {
+              "pid": 101,
+              "starttime": 1001,
+              "state": "S",
+              "cmdline": [
+                "/usr/bin/pcsx2",
+                "-batch",
+                "-datapath",
+                "/probe-project/generated/run/profile",
+                "/probe-project/generated/frozen/game.iso"
+              ],
+              "session": "00112233445566778899aabbccddeeff",
+              "iso": "/probe-project/generated/frozen/game.iso",
+              "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "profile": "/probe-project/generated/run/profile",
+              "epoch": 2
+            },
+            "card_sha256_before": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card_sha256_after": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        },
+        {
+          "role": "request",
+          "data": {
+            "nonce": "7-cold",
+            "phase": "requested",
+            "session": "00112233445566778899aabbccddeeff",
+            "operation": "cold-restart"
+          }
+        },
+        {
+          "role": "owned",
+          "data": {
+            "pid": 202,
+            "starttime": 2002,
+            "state": "S",
+            "cmdline": [
+              "/usr/bin/pcsx2",
+              "-batch",
+              "-datapath",
+              "/probe-project/generated/run/profile",
+              "/probe-project/generated/frozen/game.iso"
+            ],
+            "session": "00112233445566778899aabbccddeeff",
+            "iso": "/probe-project/generated/frozen/game.iso",
+            "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "profile": "/probe-project/generated/run/profile",
+            "epoch": 3
+          }
+        },
+        {
+          "role": "ack",
+          "data": {
+            "nonce": "7-cold",
+            "phase": "ready",
+            "session": "00112233445566778899aabbccddeeff",
+            "operation": "cold-restart",
+            "epoch": 3,
+            "owned": {
+              "pid": 202,
+              "starttime": 2002,
+              "state": "S",
+              "cmdline": [
+                "/usr/bin/pcsx2",
+                "-batch",
+                "-datapath",
+                "/probe-project/generated/run/profile",
+                "/probe-project/generated/frozen/game.iso"
+              ],
+              "session": "00112233445566778899aabbccddeeff",
+              "iso": "/probe-project/generated/frozen/game.iso",
+              "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "profile": "/probe-project/generated/run/profile",
+              "epoch": 3
+            },
+            "card_sha256_before": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "card_sha256_after": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          }
+        }
+      ],
+      "files": [
+        {
+          "role": "iso",
+          "path": "/probe-project/generated/frozen/game.iso",
+          "resolved_path": "/probe-project/generated/frozen/game.iso",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": false
+        },
+        {
+          "role": "card",
+          "path": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+          "resolved_path": "/probe-project/generated/run/profile/PCSX2/memcards/probe-slot1.ps2",
+          "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": true
+        },
+        {
+          "role": "source_card",
+          "path": "/user/memcards/personal.ps2",
+          "resolved_path": "/user/memcards/personal.ps2",
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": true
+        },
+        {
+          "role": "settings",
+          "path": "/user/inis/PCSX2.ini",
+          "resolved_path": "/user/inis/PCSX2.ini",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": true
+        },
+        {
+          "role": "bios",
+          "path": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN",
+          "resolved_path": "/probe-project/generated/run/profile/PCSX2/bios/test.BIN",
+          "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "kind": "regular",
+          "nlink": 1,
+          "symlink": false,
+          "writable": false
+        }
+      ],
+      "before_process": {
+        "pid": 101,
+        "starttime": 1001,
+        "state": "S",
+        "cmdline": [
+          "/usr/bin/pcsx2",
+          "-batch",
+          "-datapath",
+          "/probe-project/generated/run/profile",
+          "/probe-project/generated/frozen/game.iso"
+        ]
+      },
+      "after_process": {
+        "pid": 202,
+        "starttime": 2002,
+        "state": "S",
+        "cmdline": [
+          "/usr/bin/pcsx2",
+          "-batch",
+          "-datapath",
+          "/probe-project/generated/run/profile",
+          "/probe-project/generated/frozen/game.iso"
+        ]
+      }
+    },
+    "build_sha256": "17270e7d17c272c6022959e4ccbd677c2986b3074bbb1a3fde09ecd44d3fd183",
+    "requests": [
+      {
+        "id": "mode",
+        "opcode": 1,
+        "address": 5658652
+      },
+      {
+        "id": "story",
+        "opcode": 1,
+        "address": 5682584
+      },
+      {
+        "id": "week",
+        "opcode": 0,
+        "address": 5681548
+      },
+      {
+        "id": "high",
+        "opcode": 3,
+        "address": 33554424
+      },
+      {
+        "id": "unaligned",
+        "opcode": 1,
+        "address": 1
+      },
+      {
+        "id": "fixed0",
+        "opcode": 3,
+        "address": 5690000
+      },
+      {
+        "id": "fixed1",
+        "opcode": 3,
+        "address": 5690008
+      },
+      {
+        "id": "player0",
+        "opcode": 2,
+        "address": 5684944
+      },
+      {
+        "id": "player1",
+        "opcode": 2,
+        "address": 5684948
+      },
+      {
+        "id": "player2",
+        "opcode": 2,
+        "address": 5684952
+      },
+      {
+        "id": "player3",
+        "opcode": 2,
+        "address": 5684956
+      },
+      {
+        "id": "player4",
+        "opcode": 2,
+        "address": 5684960
+      },
+      {
+        "id": "player5",
+        "opcode": 2,
+        "address": 5684964
+      },
+      {
+        "id": "player6",
+        "opcode": 2,
+        "address": 5684968
+      },
+      {
+        "id": "player7",
+        "opcode": 2,
+        "address": 5684972
+      },
+      {
+        "id": "player8",
+        "opcode": 2,
+        "address": 5684976
+      },
+      {
+        "id": "player9",
+        "opcode": 2,
+        "address": 5684980
+      },
+      {
+        "id": "player10",
+        "opcode": 2,
+        "address": 5684984
+      },
+      {
+        "id": "player11",
+        "opcode": 2,
+        "address": 5684988
+      },
+      {
+        "id": "player12",
+        "opcode": 2,
+        "address": 5684992
+      },
+      {
+        "id": "player13",
+        "opcode": 2,
+        "address": 5684996
+      },
+      {
+        "id": "player14",
+        "opcode": 2,
+        "address": 5685000
+      },
+      {
+        "id": "player15",
+        "opcode": 2,
+        "address": 5685004
+      },
+      {
+        "id": "player16",
+        "opcode": 2,
+        "address": 5685008
+      },
+      {
+        "id": "player17",
+        "opcode": 2,
+        "address": 5685012
+      },
+      {
+        "id": "player18",
+        "opcode": 2,
+        "address": 5685016
+      },
+      {
+        "id": "player19",
+        "opcode": 2,
+        "address": 5685020
+      },
+      {
+        "id": "player20",
+        "opcode": 2,
+        "address": 5685024
+      },
+      {
+        "id": "player21",
+        "opcode": 2,
+        "address": 5685028
+      },
+      {
+        "id": "player22",
+        "opcode": 2,
+        "address": 5685032
+      },
+      {
+        "id": "player23",
+        "opcode": 2,
+        "address": 5685036
+      },
+      {
+        "id": "player24",
+        "opcode": 2,
+        "address": 5685040
+      },
+      {
+        "id": "player25",
+        "opcode": 2,
+        "address": 5685044
+      },
+      {
+        "id": "player26",
+        "opcode": 2,
+        "address": 5685048
+      },
+      {
+        "id": "player27",
+        "opcode": 2,
+        "address": 5685052
+      },
+      {
+        "id": "player28",
+        "opcode": 2,
+        "address": 5685056
+      },
+      {
+        "id": "player29",
+        "opcode": 2,
+        "address": 5685060
+      },
+      {
+        "id": "player30",
+        "opcode": 2,
+        "address": 5685064
+      },
+      {
+        "id": "player31",
+        "opcode": 2,
+        "address": 5685068
+      },
+      {
+        "id": "player32",
+        "opcode": 2,
+        "address": 5685072
+      },
+      {
+        "id": "player33",
+        "opcode": 2,
+        "address": 5685076
+      },
+      {
+        "id": "player34",
+        "opcode": 2,
+        "address": 5685080
+      },
+      {
+        "id": "player35",
+        "opcode": 2,
+        "address": 5685084
+      },
+      {
+        "id": "player36",
+        "opcode": 2,
+        "address": 5685088
+      },
+      {
+        "id": "player37",
+        "opcode": 2,
+        "address": 5685092
+      },
+      {
+        "id": "player38",
+        "opcode": 2,
+        "address": 5685096
+      },
+      {
+        "id": "player39",
+        "opcode": 2,
+        "address": 5685100
+      },
+      {
+        "id": "player40",
+        "opcode": 2,
+        "address": 5685104
+      },
+      {
+        "id": "player41",
+        "opcode": 2,
+        "address": 5685108
+      },
+      {
+        "id": "player42",
+        "opcode": 2,
+        "address": 5685112
+      },
+      {
+        "id": "player43",
+        "opcode": 2,
+        "address": 5685116
+      },
+      {
+        "id": "player44",
+        "opcode": 2,
+        "address": 5685120
+      },
+      {
+        "id": "player45",
+        "opcode": 2,
+        "address": 5685124
+      },
+      {
+        "id": "player46",
+        "opcode": 2,
+        "address": 5685128
+      },
+      {
+        "id": "player47",
+        "opcode": 2,
+        "address": 5685132
+      },
+      {
+        "id": "player48",
+        "opcode": 2,
+        "address": 5685136
+      },
+      {
+        "id": "player49",
+        "opcode": 2,
+        "address": 5685140
+      },
+      {
+        "id": "player50",
+        "opcode": 2,
+        "address": 5685144
+      },
+      {
+        "id": "player51",
+        "opcode": 2,
+        "address": 5685148
+      },
+      {
+        "id": "player52",
+        "opcode": 2,
+        "address": 5685152
+      },
+      {
+        "id": "player53",
+        "opcode": 2,
+        "address": 5685156
+      },
+      {
+        "id": "player54",
+        "opcode": 2,
+        "address": 5685160
+      },
+      {
+        "id": "player55",
+        "opcode": 2,
+        "address": 5685164
+      },
+      {
+        "id": "player56",
+        "opcode": 2,
+        "address": 5685168
+      },
+      {
+        "id": "player57",
+        "opcode": 2,
+        "address": 5685172
+      },
+      {
+        "id": "player58",
+        "opcode": 2,
+        "address": 5685176
+      },
+      {
+        "id": "player59",
+        "opcode": 2,
+        "address": 5685180
+      },
+      {
+        "id": "player60",
+        "opcode": 2,
+        "address": 5685184
+      },
+      {
+        "id": "player61",
+        "opcode": 2,
+        "address": 5685188
+      },
+      {
+        "id": "player62",
+        "opcode": 2,
+        "address": 5685192
+      },
+      {
+        "id": "player63",
+        "opcode": 2,
+        "address": 5685196
+      },
+      {
+        "id": "player64",
+        "opcode": 2,
+        "address": 5685200
+      },
+      {
+        "id": "player65",
+        "opcode": 2,
+        "address": 5685204
+      },
+      {
+        "id": "player66",
+        "opcode": 2,
+        "address": 5685208
+      },
+      {
+        "id": "player67",
+        "opcode": 2,
+        "address": 5685212
+      },
+      {
+        "id": "player68",
+        "opcode": 2,
+        "address": 5685216
+      },
+      {
+        "id": "player69",
+        "opcode": 2,
+        "address": 5685220
+      },
+      {
+        "id": "player70",
+        "opcode": 2,
+        "address": 5685224
+      },
+      {
+        "id": "player71",
+        "opcode": 2,
+        "address": 5685228
+      },
+      {
+        "id": "player72",
+        "opcode": 2,
+        "address": 5685232
+      },
+      {
+        "id": "player73",
+        "opcode": 2,
+        "address": 5685236
+      },
+      {
+        "id": "player74",
+        "opcode": 2,
+        "address": 5685240
+      },
+      {
+        "id": "player75",
+        "opcode": 2,
+        "address": 5685244
+      },
+      {
+        "id": "player76",
+        "opcode": 2,
+        "address": 5685248
+      },
+      {
+        "id": "player77",
+        "opcode": 2,
+        "address": 5685252
+      },
+      {
+        "id": "player78",
+        "opcode": 2,
+        "address": 5685256
+      },
+      {
+        "id": "player79",
+        "opcode": 2,
+        "address": 5685260
+      },
+      {
+        "id": "player80",
+        "opcode": 2,
+        "address": 5685264
+      },
+      {
+        "id": "player81",
+        "opcode": 2,
+        "address": 5685268
+      },
+      {
+        "id": "player82",
+        "opcode": 2,
+        "address": 5685272
+      },
+      {
+        "id": "player83",
+        "opcode": 2,
+        "address": 5685276
+      },
+      {
+        "id": "player84",
+        "opcode": 2,
+        "address": 5685280
+      },
+      {
+        "id": "player85",
+        "opcode": 2,
+        "address": 5685284
+      },
+      {
+        "id": "player86",
+        "opcode": 2,
+        "address": 5685288
+      },
+      {
+        "id": "player87",
+        "opcode": 2,
+        "address": 5685292
+      },
+      {
+        "id": "player88",
+        "opcode": 2,
+        "address": 5685296
+      },
+      {
+        "id": "player89",
+        "opcode": 2,
+        "address": 5685300
+      },
+      {
+        "id": "player90",
+        "opcode": 2,
+        "address": 5685304
+      },
+      {
+        "id": "player91",
+        "opcode": 2,
+        "address": 5685308
+      },
+      {
+        "id": "player92",
+        "opcode": 2,
+        "address": 5685312
+      },
+      {
+        "id": "player93",
+        "opcode": 2,
+        "address": 5685316
+      },
+      {
+        "id": "player94",
+        "opcode": 2,
+        "address": 5685320
+      },
+      {
+        "id": "player95",
+        "opcode": 2,
+        "address": 5685324
+      },
+      {
+        "id": "player96",
+        "opcode": 2,
+        "address": 5685328
+      },
+      {
+        "id": "player97",
+        "opcode": 2,
+        "address": 5685332
+      },
+      {
+        "id": "player98",
+        "opcode": 2,
+        "address": 5685336
+      },
+      {
+        "id": "player99",
+        "opcode": 2,
+        "address": 5685340
+      },
+      {
+        "id": "player100",
+        "opcode": 2,
+        "address": 5685344
+      },
+      {
+        "id": "player101",
+        "opcode": 2,
+        "address": 5685348
+      },
+      {
+        "id": "player102",
+        "opcode": 2,
+        "address": 5685352
+      },
+      {
+        "id": "player103",
+        "opcode": 2,
+        "address": 5685356
+      },
+      {
+        "id": "player104",
+        "opcode": 2,
+        "address": 5685360
+      },
+      {
+        "id": "player105",
+        "opcode": 2,
+        "address": 5685364
+      },
+      {
+        "id": "player106",
+        "opcode": 2,
+        "address": 5685368
+      },
+      {
+        "id": "player107",
+        "opcode": 2,
+        "address": 5685372
+      },
+      {
+        "id": "player108",
+        "opcode": 2,
+        "address": 5685376
+      },
+      {
+        "id": "player109",
+        "opcode": 2,
+        "address": 5685380
+      },
+      {
+        "id": "player110",
+        "opcode": 2,
+        "address": 5685384
+      },
+      {
+        "id": "player111",
+        "opcode": 2,
+        "address": 5685388
+      },
+      {
+        "id": "player112",
+        "opcode": 2,
+        "address": 5685392
+      },
+      {
+        "id": "player113",
+        "opcode": 2,
+        "address": 5685396
+      },
+      {
+        "id": "player114",
+        "opcode": 2,
+        "address": 5685400
+      },
+      {
+        "id": "player115",
+        "opcode": 2,
+        "address": 5685404
+      },
+      {
+        "id": "player116",
+        "opcode": 2,
+        "address": 5685408
+      },
+      {
+        "id": "player117",
+        "opcode": 2,
+        "address": 5685412
+      },
+      {
+        "id": "player118",
+        "opcode": 2,
+        "address": 5685416
+      },
+      {
+        "id": "player119",
+        "opcode": 2,
+        "address": 5685420
+      },
+      {
+        "id": "player120",
+        "opcode": 2,
+        "address": 5685424
+      },
+      {
+        "id": "player121",
+        "opcode": 2,
+        "address": 5685428
+      },
+      {
+        "id": "player122",
+        "opcode": 2,
+        "address": 5685432
+      },
+      {
+        "id": "player123",
+        "opcode": 2,
+        "address": 5685436
+      },
+      {
+        "id": "player124",
+        "opcode": 2,
+        "address": 5685440
+      },
+      {
+        "id": "player125",
+        "opcode": 2,
+        "address": 5685444
+      },
+      {
+        "id": "player126",
+        "opcode": 2,
+        "address": 5685448
+      },
+      {
+        "id": "columns",
+        "opcode": 0,
+        "address": 25165824
+      },
+      {
+        "id": "column",
+        "opcode": 1,
+        "address": 25165846
+      },
+      {
+        "id": "row",
+        "opcode": 1,
+        "address": 25165848
+      },
+      {
+        "id": "column_offset",
+        "opcode": 1,
+        "address": 25165850
+      },
+      {
+        "id": "row_offset",
+        "opcode": 1,
+        "address": 25165852
+      },
+      {
+        "id": "primitive",
+        "opcode": 2,
+        "address": 5658688
+      },
+      {
+        "id": "texture",
+        "opcode": 2,
+        "address": 27262984
+      },
+      {
+        "id": "name0",
+        "opcode": 3,
+        "address": 27328528
+      },
+      {
+        "id": "name1",
+        "opcode": 3,
+        "address": 27328536
+      },
+      {
+        "id": "name2",
+        "opcode": 3,
+        "address": 27328544
+      },
+      {
+        "id": "name3",
+        "opcode": 3,
+        "address": 27328552
+      },
+      {
+        "id": "node",
+        "opcode": 2,
+        "address": 28311576
+      },
+      {
+        "id": "label0",
+        "opcode": 3,
+        "address": 28377104
+      },
+      {
+        "id": "label1",
+        "opcode": 3,
+        "address": 28377112
+      }
+    ],
+    "replies": [
+      "07000000007800",
+      "07000000000b00",
+      "060000000007",
+      "0d000000000000000000000080",
+      "07000000002a00",
+      "0d000000000100020000000000",
+      "0d000000000000000000000000",
+      "090000000080000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "090000000000000000",
+      "060000000004",
+      "07000000000200",
+      "07000000000300",
+      "07000000000100",
+      "07000000000100",
+      "09000000000000a001",
+      "09000000000000a101",
+      "0d000000007465787475726573",
+      "0d000000005c68656c705f696c",
+      "0d000000006c75737430300000",
+      "0d000000000000000000000000",
+      "09000000000000b101",
+      "0d000000006368617231000000",
+      "0d000000000000000000000000"
+    ],
+    "decoders": [
+      {
+        "id": "tags",
+        "kind": "frame_tags",
+        "requests": [
+          "mode",
+          "story",
+          "week"
+        ]
+      },
+      {
+        "id": "high",
+        "kind": "scalar",
+        "requests": [
+          "high"
+        ]
+      },
+      {
+        "id": "unaligned",
+        "kind": "scalar",
+        "requests": [
+          "unaligned"
+        ]
+      },
+      {
+        "id": "name",
+        "kind": "fixed",
+        "requests": [
+          "fixed0",
+          "fixed1"
+        ],
+        "glyphmap": {
+          "1": "A",
+          "2": "B"
+        }
+      },
+      {
+        "id": "player",
+        "kind": "player",
+        "requests": [
+          "player0",
+          "player1",
+          "player2",
+          "player3",
+          "player4",
+          "player5",
+          "player6",
+          "player7",
+          "player8",
+          "player9",
+          "player10",
+          "player11",
+          "player12",
+          "player13",
+          "player14",
+          "player15",
+          "player16",
+          "player17",
+          "player18",
+          "player19",
+          "player20",
+          "player21",
+          "player22",
+          "player23",
+          "player24",
+          "player25",
+          "player26",
+          "player27",
+          "player28",
+          "player29",
+          "player30",
+          "player31",
+          "player32",
+          "player33",
+          "player34",
+          "player35",
+          "player36",
+          "player37",
+          "player38",
+          "player39",
+          "player40",
+          "player41",
+          "player42",
+          "player43",
+          "player44",
+          "player45",
+          "player46",
+          "player47",
+          "player48",
+          "player49",
+          "player50",
+          "player51",
+          "player52",
+          "player53",
+          "player54",
+          "player55",
+          "player56",
+          "player57",
+          "player58",
+          "player59",
+          "player60",
+          "player61",
+          "player62",
+          "player63",
+          "player64",
+          "player65",
+          "player66",
+          "player67",
+          "player68",
+          "player69",
+          "player70",
+          "player71",
+          "player72",
+          "player73",
+          "player74",
+          "player75",
+          "player76",
+          "player77",
+          "player78",
+          "player79",
+          "player80",
+          "player81",
+          "player82",
+          "player83",
+          "player84",
+          "player85",
+          "player86",
+          "player87",
+          "player88",
+          "player89",
+          "player90",
+          "player91",
+          "player92",
+          "player93",
+          "player94",
+          "player95",
+          "player96",
+          "player97",
+          "player98",
+          "player99",
+          "player100",
+          "player101",
+          "player102",
+          "player103",
+          "player104",
+          "player105",
+          "player106",
+          "player107",
+          "player108",
+          "player109",
+          "player110",
+          "player111",
+          "player112",
+          "player113",
+          "player114",
+          "player115",
+          "player116",
+          "player117",
+          "player118",
+          "player119",
+          "player120",
+          "player121",
+          "player122",
+          "player123",
+          "player124",
+          "player125",
+          "player126"
+        ]
+      },
+      {
+        "id": "cursor",
+        "kind": "cursor",
+        "requests": [
+          "columns",
+          "column",
+          "row",
+          "column_offset",
+          "row_offset"
+        ]
+      },
+      {
+        "id": "texture",
+        "kind": "texture",
+        "requests": [
+          "primitive",
+          "texture",
+          "name0",
+          "name1",
+          "name2",
+          "name3"
+        ]
+      },
+      {
+        "id": "char",
+        "kind": "char",
+        "requests": [
+          "node",
+          "label0",
+          "label1"
+        ],
+        "glyphmap": {
+          "1": "A"
+        }
+      }
+    ]
+  },
+  "expected": {
+    "version": 1,
+    "source_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+    "build_sha256": "17270e7d17c272c6022959e4ccbd677c2986b3074bbb1a3fde09ecd44d3fd183",
+    "session": "00112233445566778899aabbccddeeff",
+    "epoch": 3,
+    "iso_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "provenance": "saved",
+    "process_guarded": false,
+    "observations": [
+      {
+        "id": "mode",
+        "request_hex": "09000000011c585600",
+        "reply_hex": "07000000007800",
+        "value": 120
+      },
+      {
+        "id": "story",
+        "request_hex": "090000000198b55600",
+        "reply_hex": "07000000000b00",
+        "value": 11
+      },
+      {
+        "id": "week",
+        "request_hex": "09000000008cb15600",
+        "reply_hex": "060000000007",
+        "value": 7
+      },
+      {
+        "id": "high",
+        "request_hex": "0900000003f8ffff01",
+        "reply_hex": "0d000000000000000000000080",
+        "value": 9223372036854775808
+      },
+      {
+        "id": "unaligned",
+        "request_hex": "090000000101000000",
+        "reply_hex": "07000000002a00",
+        "value": 42
+      },
+      {
+        "id": "fixed0",
+        "request_hex": "090000000390d25600",
+        "reply_hex": "0d000000000100020000000000",
+        "value": 131073
+      },
+      {
+        "id": "fixed1",
+        "request_hex": "090000000398d25600",
+        "reply_hex": "0d000000000000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player0",
+        "request_hex": "0900000002d0be5600",
+        "reply_hex": "090000000080000000",
+        "value": 128
+      },
+      {
+        "id": "player1",
+        "request_hex": "0900000002d4be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player2",
+        "request_hex": "0900000002d8be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player3",
+        "request_hex": "0900000002dcbe5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player4",
+        "request_hex": "0900000002e0be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player5",
+        "request_hex": "0900000002e4be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player6",
+        "request_hex": "0900000002e8be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player7",
+        "request_hex": "0900000002ecbe5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player8",
+        "request_hex": "0900000002f0be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player9",
+        "request_hex": "0900000002f4be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player10",
+        "request_hex": "0900000002f8be5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player11",
+        "request_hex": "0900000002fcbe5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player12",
+        "request_hex": "090000000200bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player13",
+        "request_hex": "090000000204bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player14",
+        "request_hex": "090000000208bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player15",
+        "request_hex": "09000000020cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player16",
+        "request_hex": "090000000210bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player17",
+        "request_hex": "090000000214bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player18",
+        "request_hex": "090000000218bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player19",
+        "request_hex": "09000000021cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player20",
+        "request_hex": "090000000220bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player21",
+        "request_hex": "090000000224bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player22",
+        "request_hex": "090000000228bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player23",
+        "request_hex": "09000000022cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player24",
+        "request_hex": "090000000230bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player25",
+        "request_hex": "090000000234bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player26",
+        "request_hex": "090000000238bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player27",
+        "request_hex": "09000000023cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player28",
+        "request_hex": "090000000240bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player29",
+        "request_hex": "090000000244bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player30",
+        "request_hex": "090000000248bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player31",
+        "request_hex": "09000000024cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player32",
+        "request_hex": "090000000250bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player33",
+        "request_hex": "090000000254bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player34",
+        "request_hex": "090000000258bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player35",
+        "request_hex": "09000000025cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player36",
+        "request_hex": "090000000260bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player37",
+        "request_hex": "090000000264bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player38",
+        "request_hex": "090000000268bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player39",
+        "request_hex": "09000000026cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player40",
+        "request_hex": "090000000270bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player41",
+        "request_hex": "090000000274bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player42",
+        "request_hex": "090000000278bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player43",
+        "request_hex": "09000000027cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player44",
+        "request_hex": "090000000280bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player45",
+        "request_hex": "090000000284bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player46",
+        "request_hex": "090000000288bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player47",
+        "request_hex": "09000000028cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player48",
+        "request_hex": "090000000290bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player49",
+        "request_hex": "090000000294bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player50",
+        "request_hex": "090000000298bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player51",
+        "request_hex": "09000000029cbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player52",
+        "request_hex": "0900000002a0bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player53",
+        "request_hex": "0900000002a4bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player54",
+        "request_hex": "0900000002a8bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player55",
+        "request_hex": "0900000002acbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player56",
+        "request_hex": "0900000002b0bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player57",
+        "request_hex": "0900000002b4bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player58",
+        "request_hex": "0900000002b8bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player59",
+        "request_hex": "0900000002bcbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player60",
+        "request_hex": "0900000002c0bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player61",
+        "request_hex": "0900000002c4bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player62",
+        "request_hex": "0900000002c8bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player63",
+        "request_hex": "0900000002ccbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player64",
+        "request_hex": "0900000002d0bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player65",
+        "request_hex": "0900000002d4bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player66",
+        "request_hex": "0900000002d8bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player67",
+        "request_hex": "0900000002dcbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player68",
+        "request_hex": "0900000002e0bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player69",
+        "request_hex": "0900000002e4bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player70",
+        "request_hex": "0900000002e8bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player71",
+        "request_hex": "0900000002ecbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player72",
+        "request_hex": "0900000002f0bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player73",
+        "request_hex": "0900000002f4bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player74",
+        "request_hex": "0900000002f8bf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player75",
+        "request_hex": "0900000002fcbf5600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player76",
+        "request_hex": "090000000200c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player77",
+        "request_hex": "090000000204c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player78",
+        "request_hex": "090000000208c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player79",
+        "request_hex": "09000000020cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player80",
+        "request_hex": "090000000210c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player81",
+        "request_hex": "090000000214c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player82",
+        "request_hex": "090000000218c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player83",
+        "request_hex": "09000000021cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player84",
+        "request_hex": "090000000220c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player85",
+        "request_hex": "090000000224c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player86",
+        "request_hex": "090000000228c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player87",
+        "request_hex": "09000000022cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player88",
+        "request_hex": "090000000230c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player89",
+        "request_hex": "090000000234c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player90",
+        "request_hex": "090000000238c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player91",
+        "request_hex": "09000000023cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player92",
+        "request_hex": "090000000240c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player93",
+        "request_hex": "090000000244c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player94",
+        "request_hex": "090000000248c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player95",
+        "request_hex": "09000000024cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player96",
+        "request_hex": "090000000250c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player97",
+        "request_hex": "090000000254c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player98",
+        "request_hex": "090000000258c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player99",
+        "request_hex": "09000000025cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player100",
+        "request_hex": "090000000260c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player101",
+        "request_hex": "090000000264c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player102",
+        "request_hex": "090000000268c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player103",
+        "request_hex": "09000000026cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player104",
+        "request_hex": "090000000270c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player105",
+        "request_hex": "090000000274c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player106",
+        "request_hex": "090000000278c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player107",
+        "request_hex": "09000000027cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player108",
+        "request_hex": "090000000280c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player109",
+        "request_hex": "090000000284c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player110",
+        "request_hex": "090000000288c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player111",
+        "request_hex": "09000000028cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player112",
+        "request_hex": "090000000290c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player113",
+        "request_hex": "090000000294c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player114",
+        "request_hex": "090000000298c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player115",
+        "request_hex": "09000000029cc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player116",
+        "request_hex": "0900000002a0c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player117",
+        "request_hex": "0900000002a4c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player118",
+        "request_hex": "0900000002a8c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player119",
+        "request_hex": "0900000002acc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player120",
+        "request_hex": "0900000002b0c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player121",
+        "request_hex": "0900000002b4c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player122",
+        "request_hex": "0900000002b8c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player123",
+        "request_hex": "0900000002bcc05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player124",
+        "request_hex": "0900000002c0c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player125",
+        "request_hex": "0900000002c4c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "player126",
+        "request_hex": "0900000002c8c05600",
+        "reply_hex": "090000000000000000",
+        "value": 0
+      },
+      {
+        "id": "columns",
+        "request_hex": "090000000000008001",
+        "reply_hex": "060000000004",
+        "value": 4
+      },
+      {
+        "id": "column",
+        "request_hex": "090000000116008001",
+        "reply_hex": "07000000000200",
+        "value": 2
+      },
+      {
+        "id": "row",
+        "request_hex": "090000000118008001",
+        "reply_hex": "07000000000300",
+        "value": 3
+      },
+      {
+        "id": "column_offset",
+        "request_hex": "09000000011a008001",
+        "reply_hex": "07000000000100",
+        "value": 1
+      },
+      {
+        "id": "row_offset",
+        "request_hex": "09000000011c008001",
+        "reply_hex": "07000000000100",
+        "value": 1
+      },
+      {
+        "id": "primitive",
+        "request_hex": "090000000240585600",
+        "reply_hex": "09000000000000a001",
+        "value": 27262976
+      },
+      {
+        "id": "texture",
+        "request_hex": "09000000020800a001",
+        "reply_hex": "09000000000000a101",
+        "value": 27328512
+      },
+      {
+        "id": "name0",
+        "request_hex": "09000000031000a101",
+        "reply_hex": "0d000000007465787475726573",
+        "value": 8315178135800276340
+      },
+      {
+        "id": "name1",
+        "request_hex": "09000000031800a101",
+        "reply_hex": "0d000000005c68656c705f696c",
+        "value": 7811879965110397020
+      },
+      {
+        "id": "name2",
+        "request_hex": "09000000032000a101",
+        "reply_hex": "0d000000006c75737430300000",
+        "value": 52984670287212
+      },
+      {
+        "id": "name3",
+        "request_hex": "09000000032800a101",
+        "reply_hex": "0d000000000000000000000000",
+        "value": 0
+      },
+      {
+        "id": "node",
+        "request_hex": "09000000021800b001",
+        "reply_hex": "09000000000000b101",
+        "value": 28377088
+      },
+      {
+        "id": "label0",
+        "request_hex": "09000000031000b101",
+        "reply_hex": "0d000000006368617231000000",
+        "value": 212372383843
+      },
+      {
+        "id": "label1",
+        "request_hex": "09000000031800b101",
+        "reply_hex": "0d000000000000000000000000",
+        "value": 0
+      }
+    ],
+    "decoded": [
+      {
+        "id": "tags",
+        "kind": "frame_tags",
+        "status": "KNOWN",
+        "frame_tags": [
+          120,
+          11,
+          7
+        ]
+      },
+      {
+        "id": "high",
+        "kind": "scalar",
+        "status": "KNOWN",
+        "value": 9223372036854775808
+      },
+      {
+        "id": "unaligned",
+        "kind": "scalar",
+        "status": "KNOWN",
+        "value": 42
+      },
+      {
+        "id": "name",
+        "kind": "fixed",
+        "status": "KNOWN",
+        "text": "AB"
+      },
+      {
+        "id": "player",
+        "kind": "player",
+        "status": "KNOWN",
+        "player": {
+          "control": 0,
+          "square": 0,
+          "money": 0,
+          "name_words": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "record_sha256": "3076f3e93c1e77a16ca17879a55c1f9f172b3ad2f6936203761bce2e3124355e",
+          "tutorial_flags": 128,
+          "tutorial_initialized_sha256": "4ae91a92e37f2105c0c22efe0591ac631948d4d3d6d437bc8eb923376bde1625"
+        }
+      },
+      {
+        "id": "cursor",
+        "kind": "cursor",
+        "status": "KNOWN",
+        "cursor": 19
+      },
+      {
+        "id": "texture",
+        "kind": "texture",
+        "status": "KNOWN",
+        "text": "textures\\help_illust00"
+      },
+      {
+        "id": "char",
+        "kind": "char",
+        "status": "KNOWN",
+        "text": "A"
+      }
+    ],
+    "limits": "Sequential source-bound reads, not atomic UI state, visual verification, hook ABI proof or runtime handover. Synthetic peer provenance is never native qualification."
+  },
+  "cases": [
+    {
+      "name": "owner literal widths and finite decoders",
+      "changes": []
+    },
+    {
+      "name": "wrong packet length",
+      "changes": [
+        {
+          "path": [
+            "replies",
+            "0"
+          ],
+          "value": "06000000007800"
+        }
+      ],
+      "error": "unexpected probe packet length"
+    },
+    {
+      "name": "failed packet status",
+      "changes": [
+        {
+          "path": [
+            "replies",
+            "0"
+          ],
+          "value": "07000000017800"
+        }
+      ],
+      "error": "probe memory read failed"
+    },
+    {
+      "name": "truncated packet",
+      "changes": [
+        {
+          "path": [
+            "replies",
+            "0"
+          ],
+          "value": "070000000078"
+        }
+      ],
+      "error": "unexpected probe packet length"
+    },
+    {
+      "name": "write opcode rejected",
+      "changes": [
+        {
+          "path": [
+            "requests",
+            "0",
+            "opcode"
+          ],
+          "value": 4
+        }
+      ],
+      "error": "probe memory permits only read opcodes0..3"
+    },
+    {
+      "name": "status opcode rejected",
+      "changes": [
+        {
+          "path": [
+            "requests",
+            "0",
+            "opcode"
+          ],
+          "value": 15
+        }
+      ],
+      "error": "probe memory permits only read opcodes0..3"
+    },
+    {
+      "name": "read beyond EE RAM",
+      "changes": [
+        {
+          "path": [
+            "requests",
+            "3",
+            "address"
+          ],
+          "value": 33554425
+        }
+      ],
+      "error": "probe memory address outside EE RAM"
+    },
+    {
+      "name": "incomplete player record",
+      "changes": [
+        {
+          "path": [
+            "decoders",
+            "4",
+            "requests"
+          ],
+          "value": [
+            "player0"
+          ]
+        }
+      ],
+      "error": "player decoder requires the complete508-byte native record"
+    },
+    {
+      "name": "malformed fixed field",
+      "changes": [
+        {
+          "path": [
+            "decoders",
+            "3",
+            "requests"
+          ],
+          "value": [
+            "fixed0"
+          ]
+        }
+      ],
+      "error": "fixed decoder requires16 source bytes and a valid glyphmap"
+    },
+    {
+      "name": "unknown decoder",
+      "changes": [
+        {
+          "path": [
+            "decoders",
+            "0",
+            "kind"
+          ],
+          "value": "arbitrary"
+        }
+      ],
+      "error": "unsupported probe memory decoder \"arbitrary\""
+    },
+    {
+      "name": "diagnostic source word mismatch",
+      "changes": [
+        {
+          "path": [
+            "word_guards"
+          ],
+          "value": {
+            "player0": 129
+          }
+        },
+        {
+          "path": [
+            "diagnostic_version"
+          ],
+          "value": "literal-v1"
+        }
+      ],
+      "error": "probe diagnostic word guard differs at player0"
+    },
+    {
+      "name": "source-invalid cursor is unsupported",
+      "changes": [
+        {
+          "path": [
+            "decoders",
+            "5",
+            "requests"
+          ],
+          "value": [
+            "unaligned"
+          ]
+        }
+      ],
+      "expected": {
+        "decoded": [
+          {
+            "id": "tags",
+            "kind": "frame_tags",
+            "status": "KNOWN",
+            "frame_tags": [
+              120,
+              11,
+              7
+            ]
+          },
+          {
+            "id": "high",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 9223372036854775808
+          },
+          {
+            "id": "unaligned",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 42
+          },
+          {
+            "id": "name",
+            "kind": "fixed",
+            "status": "KNOWN",
+            "text": "AB"
+          },
+          {
+            "id": "player",
+            "kind": "player",
+            "status": "KNOWN",
+            "player": {
+              "control": 0,
+              "square": 0,
+              "money": 0,
+              "name_words": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "record_sha256": "3076f3e93c1e77a16ca17879a55c1f9f172b3ad2f6936203761bce2e3124355e",
+              "tutorial_flags": 128,
+              "tutorial_initialized_sha256": "4ae91a92e37f2105c0c22efe0591ac631948d4d3d6d437bc8eb923376bde1625"
+            }
+          },
+          {
+            "id": "cursor",
+            "kind": "cursor",
+            "status": "UNSUPPORTED",
+            "reason": "native cursor pointer outside source bounds"
+          },
+          {
+            "id": "texture",
+            "kind": "texture",
+            "status": "KNOWN",
+            "text": "textures\\help_illust00"
+          },
+          {
+            "id": "char",
+            "kind": "char",
+            "status": "KNOWN",
+            "text": "A"
+          }
+        ]
+      }
+    },
+    {
+      "name": "source-invalid image pointer is unsupported",
+      "changes": [
+        {
+          "path": [
+            "decoders",
+            "6",
+            "requests"
+          ],
+          "value": [
+            "unaligned"
+          ]
+        }
+      ],
+      "expected": {
+        "decoded": [
+          {
+            "id": "tags",
+            "kind": "frame_tags",
+            "status": "KNOWN",
+            "frame_tags": [
+              120,
+              11,
+              7
+            ]
+          },
+          {
+            "id": "high",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 9223372036854775808
+          },
+          {
+            "id": "unaligned",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 42
+          },
+          {
+            "id": "name",
+            "kind": "fixed",
+            "status": "KNOWN",
+            "text": "AB"
+          },
+          {
+            "id": "player",
+            "kind": "player",
+            "status": "KNOWN",
+            "player": {
+              "control": 0,
+              "square": 0,
+              "money": 0,
+              "name_words": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "record_sha256": "3076f3e93c1e77a16ca17879a55c1f9f172b3ad2f6936203761bce2e3124355e",
+              "tutorial_flags": 128,
+              "tutorial_initialized_sha256": "4ae91a92e37f2105c0c22efe0591ac631948d4d3d6d437bc8eb923376bde1625"
+            }
+          },
+          {
+            "id": "cursor",
+            "kind": "cursor",
+            "status": "KNOWN",
+            "cursor": 19
+          },
+          {
+            "id": "texture",
+            "kind": "texture",
+            "status": "UNSUPPORTED",
+            "reason": "native image primitive outside source bounds"
+          },
+          {
+            "id": "char",
+            "kind": "char",
+            "status": "KNOWN",
+            "text": "A"
+          }
+        ]
+      }
+    },
+    {
+      "name": "source-invalid char pointer is unsupported",
+      "changes": [
+        {
+          "path": [
+            "decoders",
+            "7",
+            "requests"
+          ],
+          "value": [
+            "unaligned"
+          ]
+        }
+      ],
+      "expected": {
+        "decoded": [
+          {
+            "id": "tags",
+            "kind": "frame_tags",
+            "status": "KNOWN",
+            "frame_tags": [
+              120,
+              11,
+              7
+            ]
+          },
+          {
+            "id": "high",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 9223372036854775808
+          },
+          {
+            "id": "unaligned",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 42
+          },
+          {
+            "id": "name",
+            "kind": "fixed",
+            "status": "KNOWN",
+            "text": "AB"
+          },
+          {
+            "id": "player",
+            "kind": "player",
+            "status": "KNOWN",
+            "player": {
+              "control": 0,
+              "square": 0,
+              "money": 0,
+              "name_words": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "record_sha256": "3076f3e93c1e77a16ca17879a55c1f9f172b3ad2f6936203761bce2e3124355e",
+              "tutorial_flags": 128,
+              "tutorial_initialized_sha256": "4ae91a92e37f2105c0c22efe0591ac631948d4d3d6d437bc8eb923376bde1625"
+            }
+          },
+          {
+            "id": "cursor",
+            "kind": "cursor",
+            "status": "KNOWN",
+            "cursor": 19
+          },
+          {
+            "id": "texture",
+            "kind": "texture",
+            "status": "KNOWN",
+            "text": "textures\\help_illust00"
+          },
+          {
+            "id": "char",
+            "kind": "char",
+            "status": "UNSUPPORTED",
+            "reason": "native glyph node outside source bounds"
+          }
+        ]
+      }
+    },
+    {
+      "name": "source unterminated texture name is unsupported",
+      "changes": [
+        {
+          "path": [
+            "replies",
+            "141"
+          ],
+          "value": "0d000000007878787878787878"
+        },
+        {
+          "path": [
+            "replies",
+            "142"
+          ],
+          "value": "0d000000007878787878787878"
+        },
+        {
+          "path": [
+            "replies",
+            "143"
+          ],
+          "value": "0d000000007878787878787878"
+        },
+        {
+          "path": [
+            "replies",
+            "144"
+          ],
+          "value": "0d000000007878787878787878"
+        }
+      ],
+      "expected": {
+        "decoded": [
+          {
+            "id": "tags",
+            "kind": "frame_tags",
+            "status": "KNOWN",
+            "frame_tags": [
+              120,
+              11,
+              7
+            ]
+          },
+          {
+            "id": "high",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 9223372036854775808
+          },
+          {
+            "id": "unaligned",
+            "kind": "scalar",
+            "status": "KNOWN",
+            "value": 42
+          },
+          {
+            "id": "name",
+            "kind": "fixed",
+            "status": "KNOWN",
+            "text": "AB"
+          },
+          {
+            "id": "player",
+            "kind": "player",
+            "status": "KNOWN",
+            "player": {
+              "control": 0,
+              "square": 0,
+              "money": 0,
+              "name_words": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "record_sha256": "3076f3e93c1e77a16ca17879a55c1f9f172b3ad2f6936203761bce2e3124355e",
+              "tutorial_flags": 128,
+              "tutorial_initialized_sha256": "4ae91a92e37f2105c0c22efe0591ac631948d4d3d6d437bc8eb923376bde1625"
+            }
+          },
+          {
+            "id": "cursor",
+            "kind": "cursor",
+            "status": "KNOWN",
+            "cursor": 19
+          },
+          {
+            "id": "texture",
+            "kind": "texture",
+            "status": "UNSUPPORTED",
+            "reason": "native texture name lacks ASCII terminator"
+          },
+          {
+            "id": "char",
+            "kind": "char",
+            "status": "KNOWN",
+            "text": "A"
+          }
+        ],
+        "observations": [
+          {
+            "id": "mode",
+            "request_hex": "09000000011c585600",
+            "reply_hex": "07000000007800",
+            "value": 120
+          },
+          {
+            "id": "story",
+            "request_hex": "090000000198b55600",
+            "reply_hex": "07000000000b00",
+            "value": 11
+          },
+          {
+            "id": "week",
+            "request_hex": "09000000008cb15600",
+            "reply_hex": "060000000007",
+            "value": 7
+          },
+          {
+            "id": "high",
+            "request_hex": "0900000003f8ffff01",
+            "reply_hex": "0d000000000000000000000080",
+            "value": 9223372036854775808
+          },
+          {
+            "id": "unaligned",
+            "request_hex": "090000000101000000",
+            "reply_hex": "07000000002a00",
+            "value": 42
+          },
+          {
+            "id": "fixed0",
+            "request_hex": "090000000390d25600",
+            "reply_hex": "0d000000000100020000000000",
+            "value": 131073
+          },
+          {
+            "id": "fixed1",
+            "request_hex": "090000000398d25600",
+            "reply_hex": "0d000000000000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player0",
+            "request_hex": "0900000002d0be5600",
+            "reply_hex": "090000000080000000",
+            "value": 128
+          },
+          {
+            "id": "player1",
+            "request_hex": "0900000002d4be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player2",
+            "request_hex": "0900000002d8be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player3",
+            "request_hex": "0900000002dcbe5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player4",
+            "request_hex": "0900000002e0be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player5",
+            "request_hex": "0900000002e4be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player6",
+            "request_hex": "0900000002e8be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player7",
+            "request_hex": "0900000002ecbe5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player8",
+            "request_hex": "0900000002f0be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player9",
+            "request_hex": "0900000002f4be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player10",
+            "request_hex": "0900000002f8be5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player11",
+            "request_hex": "0900000002fcbe5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player12",
+            "request_hex": "090000000200bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player13",
+            "request_hex": "090000000204bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player14",
+            "request_hex": "090000000208bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player15",
+            "request_hex": "09000000020cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player16",
+            "request_hex": "090000000210bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player17",
+            "request_hex": "090000000214bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player18",
+            "request_hex": "090000000218bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player19",
+            "request_hex": "09000000021cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player20",
+            "request_hex": "090000000220bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player21",
+            "request_hex": "090000000224bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player22",
+            "request_hex": "090000000228bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player23",
+            "request_hex": "09000000022cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player24",
+            "request_hex": "090000000230bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player25",
+            "request_hex": "090000000234bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player26",
+            "request_hex": "090000000238bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player27",
+            "request_hex": "09000000023cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player28",
+            "request_hex": "090000000240bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player29",
+            "request_hex": "090000000244bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player30",
+            "request_hex": "090000000248bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player31",
+            "request_hex": "09000000024cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player32",
+            "request_hex": "090000000250bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player33",
+            "request_hex": "090000000254bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player34",
+            "request_hex": "090000000258bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player35",
+            "request_hex": "09000000025cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player36",
+            "request_hex": "090000000260bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player37",
+            "request_hex": "090000000264bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player38",
+            "request_hex": "090000000268bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player39",
+            "request_hex": "09000000026cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player40",
+            "request_hex": "090000000270bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player41",
+            "request_hex": "090000000274bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player42",
+            "request_hex": "090000000278bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player43",
+            "request_hex": "09000000027cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player44",
+            "request_hex": "090000000280bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player45",
+            "request_hex": "090000000284bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player46",
+            "request_hex": "090000000288bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player47",
+            "request_hex": "09000000028cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player48",
+            "request_hex": "090000000290bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player49",
+            "request_hex": "090000000294bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player50",
+            "request_hex": "090000000298bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player51",
+            "request_hex": "09000000029cbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player52",
+            "request_hex": "0900000002a0bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player53",
+            "request_hex": "0900000002a4bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player54",
+            "request_hex": "0900000002a8bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player55",
+            "request_hex": "0900000002acbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player56",
+            "request_hex": "0900000002b0bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player57",
+            "request_hex": "0900000002b4bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player58",
+            "request_hex": "0900000002b8bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player59",
+            "request_hex": "0900000002bcbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player60",
+            "request_hex": "0900000002c0bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player61",
+            "request_hex": "0900000002c4bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player62",
+            "request_hex": "0900000002c8bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player63",
+            "request_hex": "0900000002ccbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player64",
+            "request_hex": "0900000002d0bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player65",
+            "request_hex": "0900000002d4bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player66",
+            "request_hex": "0900000002d8bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player67",
+            "request_hex": "0900000002dcbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player68",
+            "request_hex": "0900000002e0bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player69",
+            "request_hex": "0900000002e4bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player70",
+            "request_hex": "0900000002e8bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player71",
+            "request_hex": "0900000002ecbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player72",
+            "request_hex": "0900000002f0bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player73",
+            "request_hex": "0900000002f4bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player74",
+            "request_hex": "0900000002f8bf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player75",
+            "request_hex": "0900000002fcbf5600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player76",
+            "request_hex": "090000000200c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player77",
+            "request_hex": "090000000204c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player78",
+            "request_hex": "090000000208c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player79",
+            "request_hex": "09000000020cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player80",
+            "request_hex": "090000000210c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player81",
+            "request_hex": "090000000214c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player82",
+            "request_hex": "090000000218c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player83",
+            "request_hex": "09000000021cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player84",
+            "request_hex": "090000000220c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player85",
+            "request_hex": "090000000224c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player86",
+            "request_hex": "090000000228c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player87",
+            "request_hex": "09000000022cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player88",
+            "request_hex": "090000000230c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player89",
+            "request_hex": "090000000234c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player90",
+            "request_hex": "090000000238c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player91",
+            "request_hex": "09000000023cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player92",
+            "request_hex": "090000000240c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player93",
+            "request_hex": "090000000244c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player94",
+            "request_hex": "090000000248c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player95",
+            "request_hex": "09000000024cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player96",
+            "request_hex": "090000000250c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player97",
+            "request_hex": "090000000254c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player98",
+            "request_hex": "090000000258c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player99",
+            "request_hex": "09000000025cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player100",
+            "request_hex": "090000000260c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player101",
+            "request_hex": "090000000264c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player102",
+            "request_hex": "090000000268c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player103",
+            "request_hex": "09000000026cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player104",
+            "request_hex": "090000000270c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player105",
+            "request_hex": "090000000274c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player106",
+            "request_hex": "090000000278c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player107",
+            "request_hex": "09000000027cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player108",
+            "request_hex": "090000000280c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player109",
+            "request_hex": "090000000284c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player110",
+            "request_hex": "090000000288c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player111",
+            "request_hex": "09000000028cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player112",
+            "request_hex": "090000000290c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player113",
+            "request_hex": "090000000294c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player114",
+            "request_hex": "090000000298c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player115",
+            "request_hex": "09000000029cc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player116",
+            "request_hex": "0900000002a0c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player117",
+            "request_hex": "0900000002a4c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player118",
+            "request_hex": "0900000002a8c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player119",
+            "request_hex": "0900000002acc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player120",
+            "request_hex": "0900000002b0c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player121",
+            "request_hex": "0900000002b4c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player122",
+            "request_hex": "0900000002b8c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player123",
+            "request_hex": "0900000002bcc05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player124",
+            "request_hex": "0900000002c0c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player125",
+            "request_hex": "0900000002c4c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "player126",
+            "request_hex": "0900000002c8c05600",
+            "reply_hex": "090000000000000000",
+            "value": 0
+          },
+          {
+            "id": "columns",
+            "request_hex": "090000000000008001",
+            "reply_hex": "060000000004",
+            "value": 4
+          },
+          {
+            "id": "column",
+            "request_hex": "090000000116008001",
+            "reply_hex": "07000000000200",
+            "value": 2
+          },
+          {
+            "id": "row",
+            "request_hex": "090000000118008001",
+            "reply_hex": "07000000000300",
+            "value": 3
+          },
+          {
+            "id": "column_offset",
+            "request_hex": "09000000011a008001",
+            "reply_hex": "07000000000100",
+            "value": 1
+          },
+          {
+            "id": "row_offset",
+            "request_hex": "09000000011c008001",
+            "reply_hex": "07000000000100",
+            "value": 1
+          },
+          {
+            "id": "primitive",
+            "request_hex": "090000000240585600",
+            "reply_hex": "09000000000000a001",
+            "value": 27262976
+          },
+          {
+            "id": "texture",
+            "request_hex": "09000000020800a001",
+            "reply_hex": "09000000000000a101",
+            "value": 27328512
+          },
+          {
+            "id": "name0",
+            "request_hex": "09000000031000a101",
+            "reply_hex": "0d000000007878787878787878",
+            "value": 8680820740569200760
+          },
+          {
+            "id": "name1",
+            "request_hex": "09000000031800a101",
+            "reply_hex": "0d000000007878787878787878",
+            "value": 8680820740569200760
+          },
+          {
+            "id": "name2",
+            "request_hex": "09000000032000a101",
+            "reply_hex": "0d000000007878787878787878",
+            "value": 8680820740569200760
+          },
+          {
+            "id": "name3",
+            "request_hex": "09000000032800a101",
+            "reply_hex": "0d000000007878787878787878",
+            "value": 8680820740569200760
+          },
+          {
+            "id": "node",
+            "request_hex": "09000000021800b001",
+            "reply_hex": "09000000000000b101",
+            "value": 28377088
+          },
+          {
+            "id": "label0",
+            "request_hex": "09000000031000b101",
+            "reply_hex": "0d000000006368617231000000",
+            "value": 212372383843
+          },
+          {
+            "id": "label1",
+            "request_hex": "09000000031800b101",
+            "reply_hex": "0d000000000000000000000000",
+            "value": 0
+          }
+        ]
+      }
+    }
+  ]
+}
