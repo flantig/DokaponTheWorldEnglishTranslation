@@ -1,0 +1,16 @@
+{
+ "version":1,
+ "source_sha256":"5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+ "actions":{
+  "initial":{"from":["new"],"effects":["prepare","pad","launch","verify"],"to":"ready"},
+  "warm":{"from":["ready"],"effects":["quiescent","reset","verify-warm"],"to":"ready"},
+  "cold":{"from":["ready"],"effects":["terminate","flush","backup","launch","verify"],"to":"ready"},
+  "stop":{"from":["ready","unknown"],"effects":["terminate","flush"],"to":"stopped"}
+ },
+ "warm_command":"tap R3 0.1",
+ "warm_settle_ms":1000,
+ "warm_widths":[608,588],
+ "status_opcode":15,
+ "stop_timeout_ms":10000,
+ "flush_stable_ms":250
+}

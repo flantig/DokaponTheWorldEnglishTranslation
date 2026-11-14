@@ -1,0 +1,147 @@
+{
+  "source_format": "go-owned-lifecycle-v1",
+  "source_authority": {
+    "run_sha256": "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f",
+    "reload_sha256": "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8",
+    "pad_abi_manifest": "8a695ea8fab7646570cd9b8d495c06873f7ace2d190f0f79b86a885c6d1f6b9a"
+  },
+  "settings": "[Folders]\nBios=bios\nSnapshots=snaps\nSavestates=sstates\nMemoryCards=memcards\nLogs=logs\nCheats=cheats\nPatches=patches\nUserResources=resources\nCache=cache\nTextures=textures\nInputProfiles=inputprofiles\nVideos=videos\nDebuggerLayouts=debuggerlayouts\nDebuggerSettings=debuggersettings\n[Filenames]\nBIOS=bios.bin\n[MemoryCards]\nSlot1_Enable=true\nSlot1_Filename=probe-slot1.ps2\nSlot2_Enable=false\n[Hotkeys]\nResetVM=SDL-0/RightStick\nTogglePause=SDL-0/LeftStick\n",
+  "source_card": "initial-card",
+  "post_cold_card": "jnitial-card",
+  "post_stop_card": "knitial-card",
+  "requests": [
+    {
+      "session": "offline-lifecycle",
+      "operation": "initial",
+      "phase": "requested",
+      "nonce": "1-initial"
+    },
+    {
+      "session": "offline-lifecycle",
+      "operation": "initial",
+      "phase": "requested",
+      "nonce": "1-initial"
+    },
+    {
+      "session": "offline-lifecycle",
+      "operation": "warm",
+      "phase": "requested",
+      "nonce": "2-warm"
+    },
+    {
+      "session": "offline-lifecycle",
+      "operation": "cold",
+      "phase": "requested",
+      "nonce": "3-cold"
+    },
+    {
+      "session": "wrong-session",
+      "operation": "stop",
+      "phase": "requested",
+      "nonce": "4-stop"
+    },
+    {
+      "session": "offline-lifecycle",
+      "operation": "stop",
+      "phase": "acknowledged",
+      "nonce": "4-stop"
+    },
+    {
+      "session": "offline-lifecycle",
+      "operation": "stop",
+      "phase": "requested",
+      "nonce": "4-stop"
+    }
+  ],
+  "expected_status": [
+    "COMPLETED",
+    "COMPLETED",
+    "COMPLETED",
+    "COMPLETED",
+    "REFUSED",
+    "REFUSED",
+    "COMPLETED"
+  ],
+  "expected_epoch": [
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1
+  ],
+  "expected_reasons": [
+    "",
+    "",
+    "",
+    "",
+    "lifecycle request session differs",
+    "lifecycle request phase is not requested",
+    ""
+  ],
+  "expected_effects": [
+    [
+      "prepare",
+      "pad",
+      "launch",
+      "verify"
+    ],
+    [
+      "prepare",
+      "pad",
+      "launch",
+      "verify"
+    ],
+    [
+      "quiescent",
+      "reset",
+      "verify-warm"
+    ],
+    [
+      "terminate",
+      "flush",
+      "backup",
+      "launch",
+      "verify"
+    ],
+    [],
+    [],
+    [
+      "terminate",
+      "flush"
+    ]
+  ],
+  "warm": {
+    "payload": "tap R3 0.1",
+    "settle_ms": 1000,
+    "saved_width": 736,
+    "boot_width": 608,
+    "same_pid_starttime": true
+  },
+  "receipt_contract": {
+    "pending_before_effect": true,
+    "directory_fsync_before_effect": true,
+    "exclusive_immutable": true,
+    "pending_retry_status": "UNKNOWN",
+    "pending_retry_reason": "durable pending effect prevents replay",
+    "source_cards_unchanged": true,
+    "cold_postflush_may_differ": true,
+    "postflush_stable_ms": 250
+  },
+  "pad_setup_sha256": "5944a876e045e25065b1f79ab0332719722ff16d8df2d78add26e12202655da2",
+  "pad_axes_sha256": "437913e48669cc7600376daaefc388214466fa5b5799917eb04256fd4daf89a1",
+  "pad_events_sha256": "34a574971242c6703428de21cce6d7521632f5e28bfe4d5ee5436c230d4e3787",
+  "pad_hat_sha256": "0d0b60647bcb7d38c356ad22db3348ed413db3fbab8ab4046d34b31352d371da",
+  "pad_trigger_sha256": "2d80c62a7221a16dcdb4a96f581350f2d9468ffb4b32135eb694fb7f52a154ae",
+  "limits": "Independent literal controlled-child/peer/card-flush and primary-header event oracles. No native device, emulator, BIOS/SDL enumeration or full lifecycle criterion acceptance. Go pad command framing requires half-close; prevalidated finite tap subset intentionally differs from permissive legacy parser. Runtime PID/build hashes bind actual controlled child rather than literal fixed PID.",
+  "failed_ready": {
+    "width": 424,
+    "initial_status": "UNKNOWN",
+    "initial_reason": "owned boot/quiescence observation timed out",
+    "stop_status": "COMPLETED",
+    "post_stop_card": "jnitial-card",
+    "source_card_unchanged": true,
+    "owned_child_exited": true
+  }
+}

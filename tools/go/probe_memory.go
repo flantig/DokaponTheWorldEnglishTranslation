@@ -7,11 +7,9 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net"
 	"os"
 	"path/filepath"
-	"reflect"
 	"regexp"
 	"slices"
 	"strconv"
@@ -162,60 +160,12 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 			if receiptErr != nil || !bytes.Equal(receipt, plan.Admission) {
 				return ProbeMemoryReport{}, fmt.Errorf("probe runtime admitted session evidence changed")
 			}
-			procRoot := "/proc"
+			if _, err := observeProbeProcess(runtime, owned.PID, &owned, plan.BuildSHA256); err != nil {
+				return ProbeMemoryReport{}, err
+			}
+			processRoot := filepath.Join("/proc", strconv.Itoa(owned.PID))
 			if runtime.Provenance == "synthetic_peer" {
-				procRoot = filepath.Join(runtime.Root, "proc")
-			}
-			processRoot := filepath.Join(procRoot, strconv.Itoa(owned.PID))
-			if runtime.Provenance == "synthetic_peer" {
-				for _, path := range []string{procRoot, processRoot, filepath.Join(processRoot, "stat"), filepath.Join(processRoot, "cmdline"), filepath.Join(processRoot, "exe")} {
-					info, err := os.Lstat(path)
-					if err != nil || info.Mode()&os.ModeSymlink != 0 {
-						return ProbeMemoryReport{}, fmt.Errorf("synthetic probe process paths must not traverse symlinks")
-					}
-				}
-			}
-			statFile, statErr := os.Open(filepath.Join(processRoot, "stat"))
-			if statErr != nil {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime process stat unavailable")
-			}
-			statBytes, readErr := io.ReadAll(io.LimitReader(statFile, 65537))
-			_ = statFile.Close()
-			end := bytes.LastIndexByte(statBytes, ')')
-			fields := []string{}
-			if end >= 0 {
-				fields = strings.Fields(string(statBytes[end+1:]))
-			}
-			if readErr != nil || len(statBytes) > 65536 || len(fields) < 20 || fields[0] == "Z" || fields[0] == "X" {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime process identity is stale")
-			}
-			starttime, parseErr := strconv.ParseUint(fields[19], 10, 64)
-			pidText, _, _ := strings.Cut(string(statBytes), " ")
-			pid, parsePIDErr := strconv.Atoi(pidText)
-			if parseErr != nil || parsePIDErr != nil || pid != owned.PID || starttime != owned.Starttime {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime process identity is stale")
-			}
-			cmdFile, cmdErr := os.Open(filepath.Join(processRoot, "cmdline"))
-			if cmdErr != nil {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime process command unavailable")
-			}
-			cmdBytes, cmdErr := io.ReadAll(io.LimitReader(cmdFile, 65537))
-			_ = cmdFile.Close()
-			cmdline := strings.Split(strings.TrimSuffix(string(cmdBytes), "\x00"), "\x00")
-			if cmdErr != nil || len(cmdBytes) > 65536 || !reflect.DeepEqual(cmdline, owned.Cmdline) {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime process command changed")
-			}
-			executable, exeErr := os.Open(filepath.Join(processRoot, "exe"))
-			if exeErr != nil {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime executable unavailable")
-			}
-			before, exeErr := executable.Stat()
-			hasher := sha256.New()
-			count, hashErr := io.Copy(hasher, io.LimitReader(executable, (256<<20)+1))
-			after, afterErr := executable.Stat()
-			_ = executable.Close()
-			if exeErr != nil || hashErr != nil || afterErr != nil || !before.Mode().IsRegular() || count < 1 || count > 256<<20 || count != before.Size() || before.Size() != after.Size() || before.ModTime() != after.ModTime() || fmt.Sprintf("%x", hasher.Sum(nil)) != plan.BuildSHA256 {
-				return ProbeMemoryReport{}, fmt.Errorf("probe runtime executable build differs")
+				processRoot = filepath.Join(runtime.Root, "proc", strconv.Itoa(owned.PID))
 			}
 			if phase == 0 {
 				socketPath := filepath.Join(processRoot, "root/run/user/1000/pcsx2.sock")
@@ -262,17 +212,10 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 					return ProbeMemoryReport{}, fmt.Errorf("probe packet requires hexadecimal bytes")
 				}
 			} else {
-				if _, err := io.Copy(connection, bytes.NewReader(requestBytes)); err != nil {
-					return ProbeMemoryReport{}, fmt.Errorf("probe request failed: %w", err)
-				}
-				if _, err := io.ReadFull(connection, reply[:4]); err != nil {
-					return ProbeMemoryReport{}, fmt.Errorf("incomplete probe packet: %w", err)
-				}
-				if binary.LittleEndian.Uint32(reply) != uint32(len(reply)) {
-					return ProbeMemoryReport{}, fmt.Errorf("unexpected probe packet length")
-				}
-				if _, err := io.ReadFull(connection, reply[4:]); err != nil {
-					return ProbeMemoryReport{}, fmt.Errorf("incomplete probe packet: %w", err)
+				var frameErr error
+				reply, frameErr = exchangeProbeFrame(connection, requestBytes, len(reply))
+				if frameErr != nil {
+					return ProbeMemoryReport{}, frameErr
 				}
 			}
 			if len(reply) != 5+width || binary.LittleEndian.Uint32(reply) != uint32(5+width) {

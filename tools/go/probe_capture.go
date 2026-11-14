@@ -294,6 +294,11 @@ transaction:
 		_ = pad.SetDeadline(deadline)
 		receipt.GuideCommand = "tap GUIDE 0.05"
 		_, sendErr := io.Copy(pad, strings.NewReader(receipt.GuideCommand))
+		// The Go backend frames one command by half-close; legacy one-read peers
+		// receive the same complete payload before replying.
+		if sendErr == nil {
+			sendErr = pad.(*net.UnixConn).CloseWrite()
+		}
 		ack, ackErr := io.ReadAll(io.LimitReader(pad, 257))
 		_ = pad.Close()
 		receipt.GuideAckHex = hex.EncodeToString(ack)

@@ -2349,7 +2349,7 @@ func TestPlanAndCopy(t *testing.T) {
 }
 
 func TestPlanRefusals(t *testing.T) {
-	for _, operation := range []string{"records", "evidence", "memory", "capture"} {
+	for _, operation := range []string{"records", "evidence", "memory", "capture", "lifecycle"} {
 		for _, extra := range [][]string{{"--apply"}, {"--output", "must-not-exist"}, {"--source", "must-not-open"}, {"--texture-profile", "must-not-open"}, {"--snapshot", "create"}, {"--registry", "must-not-open"}, {"--recipes", "must-not-open"}, {"--glyphmap", "must-not-open"}, {"--fit-profile", "must-not-open"}, {"--stream-audit-profile", "must-not-open"}, {"--note", "forbidden"}, {"--snapshot-dir", "must-not-open"}, {"--tag", "forbidden"}, {"--commit", "forbidden"}, {"positional"}} {
 			var report bytes.Buffer
 			args := []string{"--probe-" + operation, "must-not-open"}
@@ -2363,6 +2363,16 @@ func TestPlanRefusals(t *testing.T) {
 		}
 	}
 	var conflictingProbeReport bytes.Buffer
+	for _, operation := range []string{"records", "evidence", "memory", "capture"} {
+		var report bytes.Buffer
+		args := []string{"--probe-lifecycle", "must-not-open", "--probe-" + operation, "must-not-open"}
+		if operation == "capture" {
+			args = append(args, "--probe-capture-runtime", "must-not-open")
+		}
+		if err := run(args, &report); err == nil || err.Error() != "probe lifecycle is separate from other probe operations" || report.Len() != 0 {
+			t.Fatal("lifecycle admitted a competing operation", operation, err)
+		}
+	}
 	if err := run([]string{"--probe-records", "must-not-open", "--probe-evidence", "must-not-open"}, &conflictingProbeReport); err == nil || err.Error() != "probe records and evidence are mutually exclusive operations" || conflictingProbeReport.Len() != 0 {
 		t.Fatal("probe operations admitted both immutable bundles", err)
 	}

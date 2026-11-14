@@ -271,5 +271,91 @@
       "Capability growth, not a reduction. Scores stay85/90, probe2/6 and13/15Full; neither preview completes a criterion."
     ],
     "criterion_credit": 0
+  },
+  "offline_lifecycle_slice": {
+    "status": "ROOT_ACCEPTED_FIRST_OFFLINE_SLICE_NO_CRITERION_CREDIT",
+    "criterion": "probe_orchestration_evidence.05",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe05-implementation-QdriFIEC/manifest.json",
+      "sha256": "f72fdf3926811b9732392eab5aecdbac12862b411b8f81c14ba18e733d3fd0bc",
+      "source_manifest_sha256": "e1e764082d4a3e49e3c0949df6e0ff2aafce689d89edd090c6f41bd0f6ee341c"
+    },
+    "review": {
+      "path": "/var/tmp/dokapon-probe05-first-final-astra-LOVBdWrs/review.md",
+      "sha256": "ab80d5d82ece44b30b3d6926d92668cb4ba06a0ab9528ff69e5d7ead5885d184"
+    },
+    "owners": [
+      "runProbeLifecycle",
+      "serveProbePad",
+      "observeProbeProcess",
+      "exchangeProbeFrame",
+      "readProbeMemory",
+      "captureProbeEvidence",
+      "writeNewFile"
+    ],
+    "contract": "Initial private profile and controlled owned-ready, same-child warm, distinct-child cold with post-exit stable card bytes, and identity-revalidated safe stop. Immutable pending/completed receipts prevent effect replay, including unknown-phase cleanup of an already established child.",
+    "pad_scope": "Go-owned Linux x86_64 uinput data/event encoding and owned local event sink; actual device creation/SDL/native behavior not qualified. Go framed half-close protocol is explicit; all intended owned clients adapted, legacy endpoints unchanged.",
+    "independent_ABI": {
+      "path": "/var/tmp/dokapon-probe05-uinput-oracle-hSXm0U0q/manifest.json",
+      "sha256": "8a695ea8fab7646570cd9b8d495c06873f7ace2d190f0f79b86a885c6d1f6b9a"
+    },
+    "verification": {
+      "accepted_core_seconds": 6.955,
+      "accepted_nativefonts_seconds": 12.906,
+      "both_build_vet_format_pins": "PASS",
+      "basis": "Immutable accepted candidate and independent review, separate curated-public verification below"
+    },
+    "accounting": {
+      "accepted_implementation_runtime_data_growth_bytes": 43037,
+      "test_fixture_growth_bytes": 21289,
+      "new_production_functions": 4,
+      "shared_extractions": 2,
+      "new_test_functions": 2,
+      "new_DTOs": 6,
+      "new_dependencies": 0,
+      "claim": "Capability growth, not reduction or fullcriterion credit"
+    },
+    "test_boundaries": "Persistent gated controlled-child entry and lifecycle orchestration parent have distinct responsibilities; no production fake mode. Existing saved/local-peer owners retain their tested contracts.",
+    "failure_history_reference": "Immutable candidate.failure_history: first native-test status143 cause UNKNOWN; exact guarded controlled child TERM/absence verified. Transient empty proc argv now awaits full identity within the original shared ready deadline, with no reset or ambiguous-effect retry.",
+    "public_projection": {
+      "source_pins": {
+        "probe_process.go": "0ded42c6140eba6ce395495342ffcab4c155df38fc876adbc1c8228421f9d54f",
+        "probe_wire.go": "9c3abad9abf0fee4a60fdd73a7f27dacf8735d7b3a0251d4369f27f2ed69bdd3",
+        "probe_memory.go": "0a4b2c8da36b884e0afa14859e89554b5c3d4207de31670407d3598202ce7850",
+        "probe_pad.go": "471a96f217d539b52958585c502c8d14836c325c8f232caae8c55e3473114e72",
+        "probe_lifecycle.go": "c441a5cf5494ebc76d5686f2ead0059cde3aada8c614b0280422fecbd1164d15",
+        "probe_lifecycle_types.go": "ff269d6aa711f0ae144facf3f5a777a647004842a52440fef9917fb2f95fe58c",
+        "probe_lifecycle_test.go": "fce376dde97e29c7892efc7566c943c02d12801f188be1ea430c9992425bd68e",
+        "probe_capture.go": "df7c82760874778e7858e25ad76c9db3a4d8669b44c48d102da112a25343bc6c",
+        "main.go": "f94033cdb15e868ea54cfec3521852a0a9c00c388ba7e733f52b6ff22e021491",
+        "patch_test.go": "87fa6f79389ce6d98a9aee53fb64f524dcd057e453b948089edf6367e323f19e",
+        "testdata/probe-lifecycle.json": "9967eba408e9aa4ebba78d1c92d5a2953ca390dd8c5c51b1a136b9aaa7bc2745",
+        "profiles/probe/lifecycle-actions.json": "b836b4a33b3609cf45e30e72af6038997a13a25b37ddf809eba637c3ee094ee4",
+        "profiles/probe/pad-layout.json": "f68172a16034a5caac013d09cee1468f24ccdacf3f3fc6c4a439fee8414ee34d"
+      },
+      "basis": "Frozen first-slice snapshots only, excludes unreviewed render route/couplings, unrelated wholeCLI hunks, private runtime material and later mutable controller work",
+      "production": {
+        "files": 62,
+        "bytes": 814892,
+        "named_functions": 55
+      },
+      "production_delta_bytes": 40109,
+      "runtime_data_delta_bytes": 2921,
+      "implementation_runtime_delta_bytes": 43030,
+      "accepted_context_delta_bytes": 43037,
+      "qualification": "Public measurement is separate from accepted-context accounting; no reduction claimed for the7-byte context difference.",
+      "core_focused_seconds": 8.465,
+      "native_focused_seconds": 8.312,
+      "selection": "TestProbeRecords,TestProbeLifecycle,TestPlanRefusals,TestPlanAndCopy",
+      "both_build_vet_testcompile": "PASS",
+      "native_operations": 0
+    },
+    "limits": [
+      "First OFFLINE initial/warm/cold/safe-stop slice only; pause/resume, watchdog/recovery/attempt/skip remain unfinished here.",
+      ".03/.04/.05 native, current diagnostic/source/material and owner-agreed resource qualifications remain held.",
+      "Actual native use requires the other owner completed three-story sequence, verified terminal/cleanup, fresh guards and separate release. Existing Python remains the production controller.",
+      "No runtime/emulator/PINE/uinput/ISO/current card operation or fullsuite/race claim follows from controlled-child/local-peer tests."
+    ],
+    "criterion_credit": 0
   }
 }

@@ -1660,9 +1660,13 @@
           "initial_zero_reason": "No verified Go lifecycle replacement; existing Python remains operational owner.",
           "evidence": [
             "analysis/probe-family-contract-v2.json",
-            "analysis/probe-owner-handoff.json"
+            "analysis/probe-owner-handoff.json",
+            "evidence/probe-records-proof.json",
+            "testdata/probe-lifecycle.json",
+            "docs/probe-records.md"
           ],
-          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof."
+          "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof.",
+          "detail": "First offline initial/warm/cold/safe-stop slice reviewed with controlled children and Go pad/event-sink source contracts. Remaining lifecycle/recovery and native/owner-policy qualification remain held; credit0."
         },
         {
           "id": "probe_orchestration_evidence.06",
@@ -2502,13 +2506,13 @@
   },
   "latest_probe_records_completion": {
     "proof": "evidence/probe-records-proof.json",
-    "proof_sha256": "2e345df0eed4ff1bfd02fb1ea5956becc169931ae3f08174201e0d3fb5108461",
+    "proof_sha256": "2cd649aa41fa449ed182e2a5221e5453e938e4fedeb4307b52bb222a93117722",
     "milestone_credit": 1,
     "family_credit": 0
   },
   "latest_probe_evidence_completion": {
     "proof": "evidence/probe-records-proof.json",
-    "proof_sha256": "2e345df0eed4ff1bfd02fb1ea5956becc169931ae3f08174201e0d3fb5108461",
+    "proof_sha256": "2cd649aa41fa449ed182e2a5221e5453e938e4fedeb4307b52bb222a93117722",
     "record": "current_report_criterion_assessment",
     "milestone_credit": 1,
     "family_credit": 0

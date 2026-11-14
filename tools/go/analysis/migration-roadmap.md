@@ -2,7 +2,7 @@
 
 All15 core families have six stable acceptance groups each. **85/90 proven (94.44%)**, with **13/15 full families (86.67%)**. Partial, held, unproven and reviewed-disposition groups earn zero. These equal-weight groups are not time, effort, code reuse or historical-script coverage.
 
-The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations. The other 88 rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. Probe remains2/6, and Python remains its production owner. The reviewed typed-read and serialized-capture previews are documented in [the offline proof](../evidence/probe-records-proof.json); `.03` and `.04` remain uncredited pending native/source qualification and the stated capture limits. No controller handover follows.
+The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations. The other 88 rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. Probe remains2/6, and Python remains its production owner. Reviewed typed-read, capture and first lifecycle-slice previews are documented in [the offline proof](../evidence/probe-records-proof.json); `.03`–`.05` remain uncredited pending their exact native/source, remaining lifecycle and owner-policy gates. No controller handover follows.
 
 ## Guarded patching
 
