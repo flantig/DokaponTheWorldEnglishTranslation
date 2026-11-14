@@ -576,7 +576,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 					}
 				}
-				texts := map[int]string{19: strings.Repeat("x", 129)}
+				texts := map[int]string{}
+				if !paired && scenarioStage == 6 {
+					texts[19] = strings.Repeat("x", 129)
+				}
 				selections := map[int]int{}
 				sources := map[int]uint32{}
 				ready := map[int]byte{}
