@@ -249,6 +249,18 @@
         "capture-save"
       ],
       "to": "ready"
+    },
+    "finish": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-terminal",
+        "wait-terminal",
+        "capture-terminal",
+        "report-story"
+      ],
+      "to": "ready"
     }
   },
   "warm_command": "tap R3 0.1",

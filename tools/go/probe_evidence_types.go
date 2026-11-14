@@ -19,6 +19,16 @@ type ProbeEvidenceBundle struct {
 	Checks       []ProbeEvidenceCheck      `json:"checks"`
 	Captures     []ProbeCaptureObservation `json:"captures,omitempty"`
 	Resume       *ProbeResumeFacts         `json:"resume,omitempty"`
+	Story        *ProbeStoryFacts          `json:"story,omitempty"`
+}
+
+// ProbeStoryFacts selects one source recipe's final saved-evidence gate.
+// Actual process disposal/card promotion remains the sequence owner's I/O duty.
+type ProbeStoryFacts struct {
+	Recipe          string `json:"recipe"`
+	Phase           string `json:"phase"`
+	TerminalEventID int    `json:"terminal_event_id"`
+	PostClearMS     int64  `json:"postclear_ms"`
 }
 
 // ProbeResumeFacts is the source resume receipt plus loaded saved artifacts.

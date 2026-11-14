@@ -80,5 +80,27 @@
     "image_mode": 471,
     "image_texture": "textures\\help_illust00",
     "max_front_end_ms": 1200000
-  }
+  },
+  "recipes": {
+    "first-create": {
+      "start_file": 0,
+      "alternate": false,
+      "required": "card-data-created"
+    },
+    "new-game-overwrite": {
+      "start_file": 0,
+      "alternate": false,
+      "required": "overwrite-confirmed"
+    },
+    "alternate-slots": {
+      "start_file": 1,
+      "alternate": true,
+      "required": "both-slots"
+    }
+  },
+  "sequence_order": [
+    "first-create",
+    "new-game-overwrite",
+    "alternate-slots"
+  ]
 }

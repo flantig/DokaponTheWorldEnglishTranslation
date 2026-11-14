@@ -45,39 +45,62 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	if bundle.RunID != admission.RunID || bundle.Session != admission.Session || bundle.ISOSHA256 != admission.ISOSHA256 || bundle.Epoch == nil || *bundle.Epoch != admission.Epoch {
 		return report, fmt.Errorf("probe evidence identity differs from admitted records")
 	}
-	checkpointOnly := bundle.SourceSchema == "probe-evidence-go-v1" && bundle.Cohort == "go-checkpoint-only-v1"
+	storyOnly := bundle.SourceSchema == "probe-evidence-go-v1" && bundle.Cohort == "go-story-checkpoints-v1"
+	checkpointOnly := bundle.SourceSchema == "probe-evidence-go-v1" && (bundle.Cohort == "go-checkpoint-only-v1" || storyOnly)
+	var storyData struct {
+		Recipes map[string]ProbeStoryRecipe `json:"recipes"`
+	}
+	if json.Unmarshal(probeScenarioData, &storyData) != nil {
+		return report, fmt.Errorf("invalid story recipe facts")
+	}
+	var storyRecipe ProbeStoryRecipe
+	if bundle.Story != nil {
+		storyRecipe = storyData.Recipes[bundle.Story.Recipe]
+	}
+	if storyOnly && (bundle.Story == nil || storyRecipe.Required == "") || !storyOnly && bundle.Story != nil {
+		return report, fmt.Errorf("unsupported explicit story evidence scope")
+	}
+	if storyOnly && (bundle.Story.Phase != "checkpoint" && bundle.Story.Phase != "complete" || bundle.Story.Phase == "checkpoint" && bundle.Story.TerminalEventID != 0 || bundle.Story.Phase == "complete" && bundle.Story.TerminalEventID < 1) {
+		return report, fmt.Errorf("story phase/terminal membership differs")
+	}
 	if strings.TrimSpace(bundle.Cohort) == "" || len(bundle.Cohort) > 128 || !checkpointOnly && len(bundle.Members) < 1 || checkpointOnly && (len(bundle.Members) != 0 || len(bundle.Checks) != 0) || len(bundle.Members) > 256 || len(bundle.Checks) > 256 || len(bundle.Events) < 1 || len(bundle.Events) > 4096 {
 		return report, fmt.Errorf("probe evidence requires a bounded nonempty cohort, membership and event stream")
 	}
 	report = ProbeEvidenceReport{Version: 1, SourceSchema: bundle.SourceSchema, BundleSHA256: fmt.Sprintf("%x", sha256.Sum256(raw)), RunID: admission.RunID, Session: admission.Session, ISOSHA256: admission.ISOSHA256, Epoch: admission.Epoch, Cohort: bundle.Cohort, Status: "PASS", Rows: []ProbeEvidenceResult{}, Checkpoints: []ProbeCheckpointResult{}, CoveredAreas: []uint32{}, Events: bundle.Events, Limits: "Qualified saved observations only; narrative normalization does not prove controls/layout, code facts do not prove ABI, and exact RGBA does not approve artwork. Coverage requires the source progress tuple to change before resumed, not live runtime authenticity."}
 	hashPattern := regexp.MustCompile(`^[0-9a-f]{64}$`)
 	var events []struct {
-		Event          string           `json:"event"`
-		EventID        int              `json:"event_id"`
-		Checkpoint     int              `json:"checkpoint"`
-		Time           string           `json:"time"`
-		State          *ProbeSavedState `json:"state"`
-		Expected       *ProbeSavedState `json:"expected"`
-		Slot           *int             `json:"slot"`
-		Method         string           `json:"method"`
-		Phase          string           `json:"phase"`
-		PreviewSamples int              `json:"successful_preview_samples"`
+		Event          string            `json:"event"`
+		EventID        int               `json:"event_id"`
+		Checkpoint     int               `json:"checkpoint"`
+		Time           string            `json:"time"`
+		State          *ProbeSavedState  `json:"state"`
+		Expected       *ProbeSavedState  `json:"expected"`
+		Slot           *int              `json:"slot"`
+		Method         string            `json:"method"`
+		Phase          string            `json:"phase"`
+		PreviewSamples int               `json:"successful_preview_samples"`
+		Mode           *uint64           `json:"mode,omitempty"`
+		Prompt         *ProbeUIWidget    `json:"prompt,omitempty"`
+		PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
 	}
 	eventCheckpoint := map[int]int{}
 	var previousEnd int64 = -1
 	previousID, previousCheckpoint := 0, 0
 	for _, saved := range bundle.Events {
 		var event struct {
-			Event          string           `json:"event"`
-			EventID        int              `json:"event_id"`
-			Checkpoint     int              `json:"checkpoint"`
-			Time           string           `json:"time"`
-			State          *ProbeSavedState `json:"state"`
-			Expected       *ProbeSavedState `json:"expected"`
-			Slot           *int             `json:"slot"`
-			Method         string           `json:"method"`
-			Phase          string           `json:"phase"`
-			PreviewSamples int              `json:"successful_preview_samples"`
+			Event          string            `json:"event"`
+			EventID        int               `json:"event_id"`
+			Checkpoint     int               `json:"checkpoint"`
+			Time           string            `json:"time"`
+			State          *ProbeSavedState  `json:"state"`
+			Expected       *ProbeSavedState  `json:"expected"`
+			Slot           *int              `json:"slot"`
+			Method         string            `json:"method"`
+			Phase          string            `json:"phase"`
+			PreviewSamples int               `json:"successful_preview_samples"`
+			Mode           *uint64           `json:"mode,omitempty"`
+			Prompt         *ProbeUIWidget    `json:"prompt,omitempty"`
+			PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
 		}
 		if err := json.Unmarshal(saved.Data, &event); err != nil {
 			return report, err
@@ -514,6 +537,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				return report, fmt.Errorf("capture admission crosses Go owner lineage")
 			}
 			transitionOperation = currentRecords.GoOwner.Step.Request.Operation
+			if storyOnly && (!reflect.DeepEqual(currentRecords.GoOwner.Profile.Scenario, captureRecords.GoOwner.Profile.Scenario) || !reflect.DeepEqual(currentRecords.GoOwner.Profile.Seed, captureRecords.GoOwner.Profile.Seed) || currentRecords.GoOwner.Profile.Scenario == nil || currentRecords.GoOwner.Profile.Scenario.Recipe != bundle.Story.Recipe) {
+				return report, fmt.Errorf("story capture crosses recipe/cadence contract")
+			}
 			captureAdmission, captureAdmissionRaw = qualified, capture.Admission
 			for _, record := range currentRecords.Records {
 				if record.Role == "owned" {
@@ -532,11 +558,20 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				switch event.Event {
 				case "save-complete":
 					wanted = "initial"
+					if storyOnly {
+						wanted = "newgame"
+						if event.Checkpoint > 1 {
+							wanted = "restore"
+						}
+					}
 					for _, earlier := range events {
 						if earlier.EventID >= event.EventID {
 							break
 						}
-						if earlier.Event == "tutorial-preparation-start" {
+						if earlier.Checkpoint != event.Checkpoint {
+							continue
+						}
+						if earlier.Event == "tutorial-preparation-start" && !storyOnly {
 							wanted = "newgame"
 						}
 						if earlier.Event == "tutorial-preparation-complete" {
@@ -549,6 +584,10 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 					wanted = "warm-load"
 				case "com-handoff-data-main", "story-advanced-after-reload":
 					wanted = "load"
+				case "story-target-reached":
+					if storyOnly {
+						wanted = "restore"
+					}
 				}
 				if wanted == "" || transitionOperation != wanted {
 					return report, fmt.Errorf("checkpoint capture lacks its completed source owner operation")
@@ -658,45 +697,56 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		}
 	}
 	if checkpointOnly {
-		if len(checkpointOrder) != 1 {
+		if !storyOnly && len(checkpointOrder) != 1 {
 			return report, fmt.Errorf("checkpoint-only scope requires one actual checkpoint")
 		}
-		var warm, cold *ProbeCaptureReceipt
-		required := map[string]bool{"save-complete": false, "continue-preview/warm": false, "continue-preview/cold": false, "reload-verified/warm": false, "reload-verified/cold": false, "com-handoff-data-main": false, "story-advanced-after-reload": false}
-		for _, event := range events {
-			if event.Event == "tutorial-preparation-start" {
-				required["tutorial-preparation-image"] = false
-			}
-		}
-		for _, event := range events {
-			key := event.Event
-			if event.Event == "continue-preview" || event.Event == "reload-verified" {
-				key += "/" + event.Method
-			}
-			if _, ok := required[key]; ok {
-				receipt, exists := capturedEvents[event.EventID]
-				required[key] = exists
-				if exists && key == "reload-verified/warm" {
-					saved := receipt
-					warm = &saved
+		for _, number := range checkpointOrder {
+			var warm, cold *ProbeCaptureReceipt
+			required := map[string]bool{"save-complete": false, "continue-preview/warm": false, "continue-preview/cold": false, "reload-verified/warm": false, "reload-verified/cold": false, "com-handoff-data-main": false, "story-advanced-after-reload": false}
+			for _, event := range events {
+				if event.Checkpoint != number {
+					continue
 				}
-				if exists && key == "reload-verified/cold" {
-					saved := receipt
-					cold = &saved
+				if event.Event == "tutorial-preparation-start" {
+					required["tutorial-preparation-image"] = false
 				}
 			}
-		}
-		complete := true
-		for _, present := range required {
-			complete = complete && present
-		}
-		if warm != nil && cold != nil && (cold.Epoch != warm.Epoch+1 || cold.PID == warm.PID || cold.BuildSHA256 != warm.BuildSHA256) {
-			return report, fmt.Errorf("checkpoint cold capture does not follow verified warm owner")
-		}
-		if !complete {
-			for _, checkpoint := range checkpoints {
-				if checkpoint.Result.Status != "FAIL" {
-					checkpoint.Result.Status, checkpoint.Result.Reason = "UNKNOWN", "required checkpoint capture missing"
+			for _, event := range events {
+				if event.Checkpoint != number {
+					continue
+				}
+				key := event.Event
+				if event.Event == "continue-preview" || event.Event == "reload-verified" {
+					key += "/" + event.Method
+				}
+				if _, ok := required[key]; ok {
+					receipt, exists := capturedEvents[event.EventID]
+					required[key] = exists
+					if exists && key == "reload-verified/warm" {
+						saved := receipt
+						warm = &saved
+					}
+					if exists && key == "reload-verified/cold" {
+						saved := receipt
+						cold = &saved
+					}
+				}
+			}
+			complete := true
+			for _, present := range required {
+				complete = complete && present
+			}
+			if warm != nil && cold != nil && (cold.Epoch != warm.Epoch+1 || cold.PID == warm.PID || cold.BuildSHA256 != warm.BuildSHA256) {
+				return report, fmt.Errorf("checkpoint cold capture does not follow verified warm owner")
+			}
+			if !complete {
+				for _, checkpoint := range checkpoints {
+					if checkpoint.Result.Checkpoint != number {
+						continue
+					}
+					if checkpoint.Result.Status != "FAIL" {
+						checkpoint.Result.Status, checkpoint.Result.Reason = "UNKNOWN", "required checkpoint capture missing"
+					}
 				}
 			}
 		}
@@ -716,6 +766,54 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		report.Status = "UNKNOWN"
 	}
 	slices.Sort(report.CoveredAreas)
+	if storyOnly && bundle.Story.TerminalEventID > 0 {
+		created, overwritten, terminal := false, false, false
+		slots := map[int]bool{}
+		for _, event := range events {
+			checkpoint := checkpoints[event.Checkpoint]
+			if checkpoint == nil || checkpoint.Result.Status != "PASS" {
+				continue
+			}
+			if event.Slot != nil {
+				slots[*event.Slot] = true
+			}
+			_, hasYesNo := event.PromptHeaders["yesno"]
+			_, hasMessage := event.PromptHeaders["message_widget"]
+			if event.Prompt != nil && hasYesNo && hasMessage && !event.Prompt.Unsupported && event.Prompt.Flags&3 == 1 && event.PromptHeaders["mode"] == 0x2e0 && event.PromptHeaders["mc_dialog"] != 0 && event.PromptHeaders["message_widget"] == uint64(event.Prompt.Index) {
+				created = created || event.Event == "card-data-created" && strings.HasPrefix(event.Prompt.Text, "Newdatawascreated") && event.Prompt.Ready == 1
+				overwritten = overwritten || event.Event == "overwrite-confirmed" && strings.HasPrefix(event.Prompt.Text, "OverwriteFile") && event.PromptHeaders["yesno"] == 0
+			}
+			if event.EventID == bundle.Story.TerminalEventID && event.Event == "story-target-reached" && event.State != nil {
+				_, captured := capturedEvents[event.EventID]
+				cleared := *event.State.Story == 49 && event.Mode != nil && *event.Mode == 0x280 && bundle.Story.PostClearMS >= 60000
+				for _, player := range event.State.Players {
+					cleared = cleared && *player.Control == 0
+				}
+				terminal = captured && (*event.State.Story >= 50 || cleared) && event.EventID == events[len(events)-1].EventID
+			}
+		}
+		witness := storyRecipe.Required == "card-data-created" && created || storyRecipe.Required == "overwrite-confirmed" && overwritten || storyRecipe.Required == "both-slots" && slots[0] && slots[1]
+		if !terminal || !witness || len(report.Checkpoints) == 0 {
+			if report.Status != "FAIL" {
+				report.Status = "UNKNOWN"
+			}
+			report.CoveredAreas = []uint32{}
+		}
+	}
+	if storyOnly {
+		if bundle.Story.PostClearMS < 0 || bundle.Story.PostClearMS > 86400000 {
+			return report, fmt.Errorf("postclear observation exceeds bounded source scope")
+		}
+		wanted := storyRecipe.StartFile
+		for index, checkpoint := range report.Checkpoints {
+			if checkpoint.Checkpoint != index+1 || checkpoint.Slot == nil || *checkpoint.Slot != wanted {
+				return report, fmt.Errorf("story checkpoint/file sequence differs")
+			}
+			if checkpoint.Status == "PASS" && storyRecipe.Alternate {
+				wanted = 1 - wanted
+			}
+		}
+	}
 	if resume := bundle.Resume; resume != nil {
 		if resume.Seed == nil || resume.Slot == nil || resume.Actor == nil || resume.OriginalControl == nil || *resume.OriginalControl < 1 || *resume.OriginalControl > 3 || resume.Expected == nil || resume.ISOSHA256 != report.ISOSHA256 || len(resume.AcceptedCheckpoints) == 0 || len(resume.ScheduledIntervals) == 0 || len(resume.ScheduledIntervals) >= 4096 || !filepath.IsAbs(resume.SourceFrameRoot) || filepath.Clean(resume.SourceFrameRoot) != resume.SourceFrameRoot {
 			return report, fmt.Errorf("resume requires bounded complete source receipt facts")

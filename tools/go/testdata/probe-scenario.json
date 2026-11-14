@@ -429,6 +429,12 @@
       "id": "move-after-resume",
       "reason_prefix": "source Move owner changed after resume",
       "writes": 1
+    },
+    {
+      "id": "pre-acquisition-delay",
+      "reason_prefix": "source scenario deadline expired",
+      "writes": 1,
+      "continues_after_acquisition": true
     }
   ]
 }

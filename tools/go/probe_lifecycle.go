@@ -135,6 +135,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		Stride      uint32 `json:"player_stride"`
 		DataText    string `json:"data_text"`
 		Prompts     []string
+		Recipes     map[string]ProbeStoryRecipe `json:"recipes"`
 		NewGame     struct {
 			TitleTarget   uint64 `json:"title_target"`
 			NarrationMode uint64 `json:"narration_mode"`
@@ -163,6 +164,13 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	if profile.Scenario != nil {
 		if _, ok := scenarioData.Rows[profile.Scenario.ID]; !ok || profile.Scenario.TimeoutMS < 1 || profile.Scenario.TimeoutMS > 180000 || profile.Scenario.MaxUIReads < 1 || profile.Scenario.MaxUIReads > 32768 {
 			return report, fmt.Errorf("unsupported bounded scenario")
+		}
+		if profile.Scenario.Recipe != "" {
+			if _, ok := scenarioData.Recipes[profile.Scenario.Recipe]; !ok || profile.Seed == nil || profile.Scenario.WaitTimeoutMS < 1 || profile.Scenario.WaitTimeoutMS > 86400000 || profile.Resume != nil {
+				return report, fmt.Errorf("unsupported bounded story recipe or resume")
+			}
+		} else if profile.Scenario.Calibration || profile.Scenario.WaitTimeoutMS != 0 {
+			return report, fmt.Errorf("story calibration/wait policy requires its explicit recipe")
 		}
 	}
 	report = ProbeLifecycleReport{Version: 1, SourceFormat: profile.SourceFormat, Session: profile.Session, Status: "COMPLETED", Steps: []ProbeLifecycleStep{}, SourceSHA256: map[string]string{}, PadLayoutSHA256: fmt.Sprintf("%x", sha256.Sum256(probePadLayout)), Limits: "Offline Go-owned direct-child/event-sink lifecycle and qualified saved-source resume. No native emulator/device/SDL/BIOS/card acceptance, legacy fixed-file IPC compatibility, Continue/restored-state proof, gameplay coverage or full.05 credit. Resource/soak agreement and native qualification remain pending."}
@@ -348,7 +356,21 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	scenarioActor, originalControl := -1, uint32(0)
 	fileSelected, saveCompleted := false, false
 	var scenarioDeadline time.Time
-	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore)$`)
+	checkpointNumber, acceptedCheckpoint := 0, 0
+	checkpointFileIndex := 1
+	pendingPromptKind := ""
+	var pendingPrompt *ProbeUIWidget
+	var pendingPromptHeaders map[string]uint64
+	seenPromptWitness := map[string]bool{}
+	scenarioFileIndex := 1
+	if profile.Scenario != nil {
+		scenarioFileIndex = scenarioData.Rows[profile.Scenario.ID].FileIndex
+		if profile.Scenario.Recipe != "" {
+			scenarioFileIndex = scenarioData.Recipes[profile.Scenario.Recipe].StartFile
+		}
+	}
+	var checkpointDue, postClearSince time.Time
+	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish)$`)
 	for _, request := range profile.Requests {
 		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: owned, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
 		// Current source bytes and role identities precede effects, not supplied claims.
@@ -496,7 +518,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		if slices.Contains([]string{"scenario", "newgame", "prepare-scenario"}, request.Operation) && profile.Scenario == nil {
 			return report, fmt.Errorf("scenario request requires its pinned source recipe")
 		}
-		if slices.Contains([]string{"load", "prepare-load", "resave", "warm-load", "cold-load", "restore"}, request.Operation) && (profile.Scenario == nil || scenarioSaved == nil) {
+		if slices.Contains([]string{"load", "prepare-load", "resave", "warm-load", "cold-load", "restore", "finish"}, request.Operation) && (profile.Scenario == nil || scenarioSaved == nil) {
 			step.Reason = "checkpoint action lacks the source Save context"
 			report.Status = "INCOMPLETE"
 			report.Steps = append(report.Steps, step)
@@ -557,8 +579,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				step.Reason = "pending directory durability failed"
 				break
 			}
+			// Prompt observations share the same serialized journal publisher. The
+			// admitted planned effect remains card-save, including across repeats.
+			plannedEffect := effect
+			if pendingPromptKind != "" {
+				effect = "emit-card-witness"
+			}
 			switch effect {
-			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave":
+			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal":
 				if owned == nil || lastOwnedStep.Status != "COMPLETED" {
 					step.Reason = "scenario requires completed current ownership"
 					break actions
@@ -614,6 +642,9 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				scenarioRuntime = ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(scenarioAdmission)), SHA256: digest}}
 				scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
+				if effect == "qualify-terminal" {
+					scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.WaitTimeoutMS) * time.Millisecond)
+				}
 				if effect == "qualify-newgame" {
 					timeout := profile.Scenario.FrontEndTimeoutMS
 					if timeout == 0 {
@@ -643,6 +674,35 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					step.UI = &scenarioUI
 					break
 				}
+				if profile.Scenario.Recipe != "" {
+					if !gameplayStarted {
+						if scenarioUI.Headers["story"] < 1 || scenarioUI.Headers["story"] > 49 {
+							step.Reason = "checkpoint outside source gameplay interval"
+							break actions
+						}
+						intervals, err := probeCheckpointIntervals(*profile.Seed, 1, profile.Scenario.Calibration)
+						if err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						scheduledIntervals = intervals
+						gameplayStarted = true
+						checkpointDue = time.Now().Add(time.Duration(intervals[0]) * time.Second)
+					}
+					if time.Until(checkpointDue) > time.Duration(profile.Scenario.WaitTimeoutMS)*time.Millisecond {
+						step.Reason = "recipe due exceeds explicit wait budget"
+						break actions
+					}
+					for time.Now().Before(checkpointDue) {
+						time.Sleep(min(time.Second, time.Until(checkpointDue)))
+						scenarioUI, err = readProbeUI(ProbeUIPlan{Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256, Glyphmap: scenarioGlyphs, TimeoutMS: 10000, MaxReads: profile.Scenario.MaxUIReads}, scenarioRuntime)
+						if err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+					}
+					step.ScheduledIntervals = slices.Clone(scheduledIntervals)
+				}
 				scenarioActor = int(scenarioUI.Headers["current"])
 				move := false
 				for _, widget := range scenarioUI.Widgets {
@@ -660,15 +720,25 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				originalControl = *scenarioUI.Saved.Players[scenarioActor].Control
 				if profile.Seed != nil && !gameplayStarted {
-					intervals, err := probeCheckpointIntervals(*profile.Seed, 1)
+					intervals, err := probeCheckpointIntervals(*profile.Seed, 1, profile.Scenario.Calibration)
 					if err != nil {
 						step.Reason = err.Error()
 						break actions
 					}
 					scheduledIntervals = intervals
 					gameplayStarted = true
+					checkpointDue = time.Now().Add(time.Duration(intervals[0]) * time.Second)
 					step.ScheduledIntervals = slices.Clone(intervals)
 				}
+				checkpointNumber++
+				checkpointFileIndex = scenarioFileIndex
+				// Waiting for a scheduled, eligible turn is separate from the
+				// acquired UI transaction's bounded takeover/Save budget.
+				scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
+				warmVerified, coldVerified, restored = false, false, false
+				preparedState = nil
+				preparationAcknowledged = false
+				scenarioSaved = nil
 				fileSelected, saveCompleted = false, false
 				step.UI = &scenarioUI
 			case "takeover-control", "restore-control", "boot-handoff":
@@ -804,7 +874,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				if effect == "restore-control" {
 					restored = true
 				}
-			case "verify-human", "select-data", "select-save", "card-save", "select-continue", "select-newgame", "front-end", "wait-board", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "ack-preparation-image", "wait-advance":
+			case "verify-human", "select-data", "select-save", "card-save", "select-continue", "select-newgame", "front-end", "wait-board", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "ack-preparation-image", "wait-advance", "wait-terminal":
 				if repeats == 0 && (effect == "front-end" || effect == "wait-board") {
 					scenarioDeadline = frontEndDeadline
 				}
@@ -828,7 +898,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				step.UI = &ui
-				loading := effect == "select-continue" || effect == "select-newgame" || effect == "front-end" || effect == "wait-board" || effect == "card-preview" || effect == "preview-dwell" || effect == "card-load" || effect == "card-prepare-load" || effect == "card-load-prepared" || effect == "ack-preparation-image"
+				loading := effect == "wait-terminal" || effect == "select-continue" || effect == "select-newgame" || effect == "front-end" || effect == "wait-board" || effect == "card-preview" || effect == "preview-dwell" || effect == "card-load" || effect == "card-prepare-load" || effect == "card-load-prepared" || effect == "ack-preparation-image"
 				if !loading && effect != "wait-advance" && (ui.Headers["current"] != uint64(scenarioActor) || *ui.Saved.Players[scenarioActor].Control != 0) {
 					step.Reason = "source human actor changed"
 					break actions
@@ -843,9 +913,31 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					}
 				}
 				row := scenarioData.Rows[profile.Scenario.ID]
+				row.FileIndex, row.DisplayFile = scenarioFileIndex, scenarioFileIndex+1
 				command := ""
 				selectingFile := false
 				switch effect {
+				case "wait-terminal":
+					if profile.Scenario.Recipe == "" || acceptedCheckpoint < 1 {
+						step.Reason = "terminal requires accepted recipe checkpoint"
+						break actions
+					}
+					postClear := ui.Headers["story"] == 49 && ui.Headers["mode"] == 0x280
+					for _, player := range ui.Saved.Players {
+						postClear = postClear && player.Control != nil && *player.Control == 0
+					}
+					if postClear {
+						if postClearSince.IsZero() {
+							postClearSince = time.Now()
+						}
+					} else {
+						postClearSince = time.Time{}
+					}
+					if ui.Headers["story"] >= 50 || !postClearSince.IsZero() && time.Since(postClearSince) >= 60*time.Second {
+						break
+					}
+					time.Sleep(time.Second)
+					repeatEffect = true
 				case "front-end":
 					mode := ui.Headers["mode"]
 					if mode != lastFrontMode {
@@ -1053,8 +1145,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						command = "CIRCLE"
 					} else {
 						command = "DOWN"
+						repeatEffect = true
 					}
-					repeatEffect = true
+					// The acknowledged Save-tab Circle enters card(), which can
+					// begin with creation I/O/dialogs before any file menu exists.
 				case "card-save", "card-preview", "card-load", "card-prepare-load", "card-load-prepared":
 					if (effect == "card-prepare-load" || effect == "card-load-prepared") && ui.Headers["mode"] == scenarioData.NewGame.ImageMode {
 						image := false
@@ -1125,6 +1219,23 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						if !known {
 							step.Reason = "unrecognized source card prompt"
 							break actions
+						}
+						if profile.Scenario.Recipe != "" {
+							kind := ""
+							if effect == "card-save" && strings.HasPrefix(prompt.Text, "OverwriteFile") && ui.Headers["yesno"] == 0 {
+								kind = "overwrite-confirmed"
+							}
+							if effect == "card-save" && strings.HasPrefix(prompt.Text, "Newdatawascreated") && prompt.Ready == 1 {
+								kind = "card-data-created"
+							}
+							if kind != "" && !seenPromptWitness[fmt.Sprintf("%d:%s", checkpointNumber, kind)] {
+								pendingPromptKind = kind
+								observed := *prompt
+								pendingPrompt = &observed
+								pendingPromptHeaders = map[string]uint64{"mode": ui.Headers["mode"], "mc_dialog": ui.Headers["mc_dialog"], "yesno": ui.Headers["yesno"], "message_widget": ui.Headers["message_widget"]}
+								repeatEffect = true
+								break
+							}
 						}
 						busy := strings.HasPrefix(prompt.Text, "Saving.") || strings.HasPrefix(prompt.Text, "Creatingnewdata") || strings.HasPrefix(prompt.Text, "Loading.")
 						question := strings.HasPrefix(prompt.Text, "Createnewdata") || strings.HasPrefix(prompt.Text, "OverwriteFile") || strings.HasPrefix(prompt.Text, "Savetoanewfile") || strings.HasPrefix(prompt.Text, "LoadFile")
@@ -1252,7 +1363,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					previewSamples++
 				}
 				step.PreviewSamples = previewSamples
-			case "capture-save", "capture-preparation-save", "capture-preparation-image", "emit-preparation-start", "emit-preparation-ack", "emit-preparation-complete", "capture-preview", "capture-reload", "capture-handoff", "capture-advance", "emit-resumed", "emit-reload-start":
+			case "capture-save", "capture-preparation-save", "capture-preparation-image", "emit-preparation-start", "emit-preparation-ack", "emit-preparation-complete", "capture-preview", "capture-reload", "capture-handoff", "capture-advance", "emit-resumed", "emit-reload-start", "capture-terminal", "emit-card-witness":
 				if effect == "emit-preparation-start" {
 					if step.UI == nil || scenarioActor < 0 || *step.UI.Saved.Players[scenarioActor].TutorialFlags&1 != 0 {
 						step.Reason = "preparation requires source uninitialized owned actor"
@@ -1268,17 +1379,32 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					preparedState = &initialized
 					preparationAcknowledged = false
 				}
-				if effect != "emit-preparation-start" && !saveCompleted || scenarioSaved == nil || scenarioActor < 0 || originalControl == 0 {
+				isPrompt := effect == "emit-card-witness"
+				if !isPrompt && (effect != "emit-preparation-start" && !saveCompleted || scenarioSaved == nil) || scenarioActor < 0 || originalControl == 0 {
 					step.Reason = "capture requires source-confirmed nondefault save"
 					break actions
 				}
 				row := scenarioData.Rows[profile.Scenario.ID]
+				row.FileIndex, row.DisplayFile = checkpointFileIndex, checkpointFileIndex+1
 				eventKind := map[string]string{"capture-save": "save-complete", "capture-preparation-save": "save-complete", "emit-preparation-start": "tutorial-preparation-start", "capture-preparation-image": "tutorial-preparation-image", "emit-preparation-ack": "tutorial-preparation-ack", "emit-preparation-complete": "tutorial-preparation-complete", "capture-preview": "continue-preview", "capture-reload": "reload-verified", "capture-handoff": "com-handoff-data-main", "capture-advance": "story-advanced-after-reload", "emit-resumed": "resumed", "emit-reload-start": "reload-start"}[effect]
 				if effect != "capture-save" && step.UI == nil {
 					step.Reason = "checkpoint event lacks current acquired UI"
 					break actions
 				}
-				event := map[string]any{"event": eventKind, "event_id": len(scenarioEvents) + 1, "checkpoint": 1, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700"), "state": scenarioSaved, "slot": row.FileIndex, "display_file": row.DisplayFile, "hardware_card_slot": row.CardSlot, "actor": scenarioActor, "original_control": originalControl, "epoch": epoch}
+				if effect == "capture-terminal" {
+					eventKind = "story-target-reached"
+				}
+				if isPrompt {
+					eventKind = pendingPromptKind
+				}
+				event := map[string]any{"event": eventKind, "event_id": len(scenarioEvents) + 1, "checkpoint": checkpointNumber, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700"), "state": scenarioSaved, "slot": row.FileIndex, "display_file": row.DisplayFile, "hardware_card_slot": row.CardSlot, "actor": scenarioActor, "original_control": originalControl, "epoch": epoch}
+				if effect == "capture-terminal" {
+					event["mode"] = step.UI.Headers["mode"]
+				}
+				if isPrompt {
+					event["prompt"] = pendingPrompt
+					event["prompt_headers"] = pendingPromptHeaders
+				}
 				if effect != "capture-save" {
 					event["state"] = step.UI.Saved
 				}
@@ -1361,6 +1487,12 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				scenarioEvents = append(scenarioEvents, ProbeEvidenceEvent{Offset: int64(logOffset), Data: log})
+				if isPrompt {
+					seenPromptWitness[fmt.Sprintf("%d:%s", checkpointNumber, pendingPromptKind)] = true
+					pendingPromptKind = ""
+					repeatEffect = true
+					break
+				}
 				if effect == "emit-preparation-complete" {
 					if !preparationAcknowledged || preparedState == nil || !reflect.DeepEqual(step.UI.Saved, *preparedState) {
 						step.Reason = "preparation completed with changed saved state"
@@ -1373,7 +1505,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break
 				}
 				if effect == "emit-resumed" {
-					if profile.Seed != nil {
+					if profile.Seed != nil && profile.Scenario.Recipe == "" {
 						intervals, err := probeCheckpointIntervals(*profile.Seed, len(scheduledIntervals)+1)
 						if err != nil {
 							step.Reason = err.Error()
@@ -1412,7 +1544,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				if effect != "capture-save" && effect != "capture-preparation-save" {
 					captureID = effect + "-" + request.Nonce
 				}
-				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(scenarioEvents), Checkpoint: 1, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
+				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(scenarioEvents), Checkpoint: checkpointNumber, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
 				captureRuntime := ProbeCaptureRuntime{Memory: scenarioRuntime, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
 				captureRaw, _ := json.Marshal(captureProfile)
 				runtimeRaw, _ := json.Marshal(captureRuntime)
@@ -1431,7 +1563,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				scenarioCaptures = append(scenarioCaptures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(image), Admission: bytes.Clone(scenarioAdmission)})
-			case "report-save", "report-pair", "report-checkpoint":
+			case "report-save", "report-pair", "report-checkpoint", "report-story":
 				if step.Capture == nil || step.Capture.Status != "CAPTURED" || len(scenarioEvent) == 0 {
 					step.Reason = "save report requires its captured event"
 					break actions
@@ -1443,11 +1575,22 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				currentEpoch := epoch
 				bundle := ProbeEvidenceBundle{Version: 1, SourceSchema: "probe-evidence-go-v1", SourceSHA256: "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8", Admission: scenarioAdmission, RunID: profile.Session, Session: profile.Session, ISOSHA256: profile.Inputs["iso"].SHA256, Epoch: &currentEpoch, Cohort: profile.Scenario.ID, Members: []string{"paired-checkpoint"}, Events: []ProbeEvidenceEvent{{Offset: 0, Data: append(bytes.Clone(scenarioEvent), '\n')}}, Captures: []ProbeCaptureObservation{{Receipt: *step.Capture, ImageHex: hex.EncodeToString(image)}}}
-				if effect != "report-save" {
+				if effect != "report-save" || profile.Scenario.Recipe != "" {
 					bundle.Cohort = "go-checkpoint-only-v1"
 					bundle.Members = nil
 					bundle.Events = scenarioEvents
 					bundle.Captures = scenarioCaptures
+					if profile.Scenario.Recipe != "" {
+						bundle.Cohort = "go-story-checkpoints-v1"
+						bundle.Story = &ProbeStoryFacts{Recipe: profile.Scenario.Recipe, Phase: "checkpoint"}
+						if effect == "report-story" {
+							bundle.Story.Phase = "complete"
+							bundle.Story.TerminalEventID = len(scenarioEvents)
+							if !postClearSince.IsZero() {
+								bundle.Story.PostClearMS = time.Since(postClearSince).Milliseconds()
+							}
+						}
+					}
 				}
 				bundleRaw, _ := json.Marshal(bundle)
 				if effect != "report-save" {
@@ -1465,17 +1608,31 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				step.Checkpoint = &result
-				if effect == "report-save" && (result.Status != "UNKNOWN" || len(result.Checkpoints) != 1 || result.Checkpoints[0].Warm || result.Checkpoints[0].Cold || result.Checkpoints[0].Advanced || len(result.CoveredAreas) != 0) {
+				if effect == "report-save" && (result.Status != "UNKNOWN" || len(result.Checkpoints) != checkpointNumber || result.Checkpoints[len(result.Checkpoints)-1].Warm || result.Checkpoints[len(result.Checkpoints)-1].Cold || result.Checkpoints[len(result.Checkpoints)-1].Advanced || profile.Scenario.Recipe == "" && len(result.CoveredAreas) != 0) {
 					step.Reason = "save-only evidence cannot accept a paired checkpoint"
 					break actions
 				}
-				if effect == "report-checkpoint" && (result.Status != "PASS" || len(result.Checkpoints) != 1 || !result.Checkpoints[0].Warm || !result.Checkpoints[0].Cold || !result.Checkpoints[0].Advanced) {
+				if (effect == "report-checkpoint" || effect == "report-story") && (result.Status != "PASS" || len(result.Checkpoints) != checkpointNumber || !result.Checkpoints[len(result.Checkpoints)-1].Warm || !result.Checkpoints[len(result.Checkpoints)-1].Cold || !result.Checkpoints[len(result.Checkpoints)-1].Advanced) {
 					step.Reason = "actual checkpoint evidence is incomplete or inconsistent"
 					break actions
 				}
+				if effect == "report-checkpoint" && profile.Scenario.Recipe != "" {
+					acceptedCheckpoint = checkpointNumber
+					intervals, err := probeCheckpointIntervals(*profile.Seed, len(scheduledIntervals)+1, profile.Scenario.Calibration)
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					scheduledIntervals = intervals
+					step.ScheduledIntervals = slices.Clone(intervals)
+					checkpointDue = time.Now().Add(time.Duration(intervals[len(intervals)-1]) * time.Second)
+					if scenarioData.Recipes[profile.Scenario.Recipe].Alternate {
+						scenarioFileIndex = 1 - scenarioFileIndex
+					}
+				}
 				resultRaw, _ := json.Marshal(result)
 				resultName := "save-report.json"
-				if effect != "report-save" {
+				if effect != "report-save" || profile.Scenario.Recipe != "" {
 					resultName = request.Nonce + "-report.json"
 				}
 				if err := writeNewFile(filepath.Join(profile.Root, resultName), bytes.NewReader(resultRaw), int64(len(resultRaw)), fmt.Sprintf("%x", sha256.Sum256(resultRaw)), 0600); err != nil {
@@ -1742,13 +1899,17 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						step.Memory = &memory
 						step.Samples++
 						if !gameplayStarted && profile.Seed != nil && values["story"] >= 1 && values["story"] <= 49 {
-							intervals, err := probeCheckpointIntervals(*profile.Seed, len(scheduledIntervals)+1)
+							calibration := profile.Scenario != nil && profile.Scenario.Calibration
+							intervals, err := probeCheckpointIntervals(*profile.Seed, len(scheduledIntervals)+1, calibration)
 							if err != nil || !slices.Equal(intervals[:len(scheduledIntervals)], scheduledIntervals) {
 								step.Reason = "checkpoint schedule prefix differs"
 								break actions
 							}
 							scheduledIntervals = intervals
 							gameplayStarted = true
+							if profile.Scenario != nil && profile.Scenario.Recipe != "" {
+								checkpointDue = time.Now().Add(time.Duration(intervals[len(intervals)-1]) * time.Second)
+							}
 						}
 						step.ScheduledIntervals = slices.Clone(scheduledIntervals)
 						progress := []uint64{}
@@ -1824,12 +1985,15 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 							} else {
 								matched := false
 								for _, widget := range ui.Widgets {
-									if uint64(widget.Index) == ui.Headers["file_widget"] && widget.Selection != nil && *widget.Selection == 1 && !widget.Unsupported {
+									if uint64(widget.Index) == ui.Headers["file_widget"] && widget.Selection != nil && *widget.Selection == uint64(checkpointFileIndex) && !widget.Unsupported {
 										matched = true
 									}
 								}
 								if ui.Headers["save_kind"] != 1 || !matched {
 									step.Reason = "warm quiescence lost File2 owner"
+									if profile.Scenario.Recipe != "" {
+										step.Reason = "warm quiescence lost declared game-file owner"
+									}
 									break actions
 								}
 							}
@@ -1992,6 +2156,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				step.Reason = "unsupported lifecycle action"
 				break actions
 			}
+			effect = plannedEffect
 			if !repeatEffect {
 				step.Effects = append(step.Effects, effect)
 			}

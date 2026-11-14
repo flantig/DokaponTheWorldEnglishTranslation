@@ -5,8 +5,9 @@ import "fmt"
 // probeCheckpointIntervals reproduces the pinned runner's Python integer-seeded
 // MT19937 randint(3600,10800) prefix. uint64 is an explicit supported seed subset;
 // zero has one zero limb. The API deliberately exposes no general PRNG state.
-func probeCheckpointIntervals(seed uint64, count int) ([]int, error) {
-	if count < 0 || count > 4096 {
+// The sole optional variant is explicit source calibration randint(0,0).
+func probeCheckpointIntervals(seed uint64, count int, calibration ...bool) ([]int, error) {
+	if count < 0 || count > 4096 || len(calibration) > 1 {
 		return nil, fmt.Errorf("checkpoint schedule count outside0..4096")
 	}
 	key := []uint32{uint32(seed)}
@@ -62,9 +63,13 @@ func probeCheckpointIntervals(seed uint64, count int) ([]int, error) {
 		word ^= (word << 7) & 0x9d2c5680
 		word ^= (word << 15) & 0xefc60000
 		word ^= word >> 18
-		value := word >> 19
-		if value < 7201 {
-			intervals = append(intervals, 3600+int(value))
+		value, bound, minimum := word>>19, uint32(7201), 3600
+		if len(calibration) == 1 && calibration[0] {
+			// Python _randbelow(1) still draws/rejects one bit, not zero bits.
+			value, bound, minimum = word>>31, 1, 0
+		}
+		if value < bound {
+			intervals = append(intervals, minimum+int(value))
 		}
 	}
 	return intervals, nil

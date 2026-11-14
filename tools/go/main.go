@@ -36,6 +36,7 @@ func run(args []string, stdout io.Writer) error {
 	probeCapturePath := flags.String("probe-capture", "", "one serialized original-PNG capture with linked typed evidence")
 	probeCaptureRuntime := flags.String("probe-capture-runtime", "", "explicit owned capture roots/backend; requires --probe-capture")
 	probeLifecyclePath := flags.String("probe-lifecycle", "", "bounded owned lifecycle profile; direct-child/event-sink offline slice")
+	probeSequencePath := flags.String("probe-sequence", "", "three immutable source-recipe profiles with verified postflush card carry")
 	snapshot := flags.String("snapshot", "", "artifact snapshot operation: create, list or restore")
 	snapshotDir := flags.String("snapshot-dir", "", "directory of immutable tagged snapshots")
 	tag := flags.String("tag", "", "unique snapshot tag")
@@ -52,8 +53,14 @@ func run(args []string, stdout io.Writer) error {
 	if (*probeCapturePath != "") != (*probeCaptureRuntime != "") {
 		return fmt.Errorf("probe capture requires its explicit runtime descriptor")
 	}
-	if *probeRecordsPath != "" || *probeEvidencePath != "" || *probeMemoryPath != "" || *probeCapturePath != "" || *probeLifecyclePath != "" {
+	if *probeRecordsPath != "" || *probeEvidencePath != "" || *probeMemoryPath != "" || *probeCapturePath != "" || *probeLifecyclePath != "" || *probeSequencePath != "" {
 		path, noun, limit := *probeRecordsPath, "records", int64(1<<20)
+		if *probeSequencePath != "" {
+			if *probeRecordsPath != "" || *probeEvidencePath != "" || *probeMemoryPath != "" || *probeCapturePath != "" || *probeLifecyclePath != "" {
+				return fmt.Errorf("probe sequence is separate from other probe operations")
+			}
+			path, noun, limit = *probeSequencePath, "sequence", 4<<20
+		}
 		if *probeLifecyclePath != "" {
 			if *probeRecordsPath != "" || *probeEvidencePath != "" || *probeMemoryPath != "" || *probeCapturePath != "" {
 				return fmt.Errorf("probe lifecycle is separate from other probe operations")
@@ -108,6 +115,8 @@ func run(args []string, stdout io.Writer) error {
 			report, err = captureProbeEvidence(data, runtimeData)
 		case "lifecycle":
 			report, err = runProbeLifecycle(data)
+		case "sequence":
+			report, err = runProbeSequence(data)
 		}
 		if err != nil {
 			return err

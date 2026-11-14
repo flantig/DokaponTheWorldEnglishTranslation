@@ -771,5 +771,147 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "sequence_offline_assessment": {
+    "status": "ROOT_ACCEPTED_THREE_RECIPE_OFFLINE_SOFTWARE_NO_CRITERION_CREDIT",
+    "criterion": "probe_orchestration_evidence.06",
+    "candidate": {
+      "path": "/var/tmp/dokapon-probe06-sequence-implementation-knFch2kI/manifest.json",
+      "sha256": "a670a13fa77bae5d15cc7fd6430d0811cb87f3094a65e6e85158cd7506103c15",
+      "report_sha256": "0e69757e4a26519c56e291afb783154c376638a6d7c68f9e8f92128c91f9c3c4",
+      "members_sha256": "a3e2adb82c9c93a8974d18e6b596b4c4505a50892f833fabf77a47ef31c2ecc7",
+      "owned_snapshots": 17
+    },
+    "source_epoch": {
+      "manifest": "/var/tmp/dokapon-probe06-sequence-source-2HIj6bpN/manifest.json",
+      "sha256": "2d4e6d44d9c40daf5d8c997c65ba1d8ae869ad28cca772afaf77b2022c7ed027",
+      "owned_count": 17,
+      "candidate_manifest": "candidate.sha256",
+      "candidate_manifest_sha256": "0437a61f794ec6f66994e51079526f7493611fc2a67ee61af8dd138d4e41c4f4",
+      "protected_manifest_sha256": "43fab5af7cdeb5f4d5122e317c5b6294bedadec15f1411957c1a1726fb3bfc78",
+      "private_main_reverse_projection_sha256": "9db43125cc9feac0cc1e0346bb479f06d89f38c321e39fe9e2dd8c5e6e53b6e3",
+      "live_snapshot_final_checks": "PASS"
+    },
+    "review": {
+      "path": "/var/tmp/dokapon-astra-audit068-Fe1hmnor/review.md",
+      "sha256": "adb7ecedb4339f8a52bae10ccd4d26a3e801ea159e3f278ba432259a431e4bd9",
+      "manifest_sha256": "e28ee1fc66d089c67a49451d9beccbcbab8fdd579dd868a56bd5cc798096c766",
+      "scope": "Frozen production/runtime source; final shared verification binds the unchanged source"
+    },
+    "independent_oracle": {
+      "manifest_sha256": "cbde619e226410c1f27ed66b70315b8bfd369eea46cc35f11c38e74203dab2a7",
+      "fixture_sha256": "2df72b888128fc9be40d1bb65cb814076f0c725226e571d45896a467ee88d5d1",
+      "cadence_sha256": "92ac6db4e5760fe2bc11ae4f4129d130a0405c13845ce8457a65d4dbe9692794",
+      "frozen_before_output": true,
+      "expected_target_repin": false
+    },
+    "positive": {
+      "runs": 3,
+      "memberships": 4,
+      "recipes": [
+        "first-create",
+        "new-game-overwrite",
+        "alternate-slots"
+      ],
+      "accepted_slots": [
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "terminal_epochs": [
+        1,
+        1,
+        2
+      ],
+      "events": [
+        20,
+        12,
+        22
+      ],
+      "captures": [
+        11,
+        8,
+        15
+      ],
+      "cards": [
+        "daa4421b521b0eb8d5ff851e4f3ba0858da073bc579670ee698045e4c88e788c",
+        "768beb92e8ef81579def79d5b6b8293105f8a1b0cff9aeb77bb5eb77e5691623",
+        "6c25adf1680216ea759711dfe03679a8507c8b63ffe936159d440ea97a58ff5e",
+        "cea8bf5ba616fea63dcca66aa3a823b41a63d6106094e5f1c64c71575d8a3f6f"
+      ],
+      "report_card_outer_comparison": "EXACT_INDEPENDENT",
+      "hardware_card_slot": 1,
+      "calibration": "Explicit selected randint(0,0), actual MT1bit rejection; normal defaults unchanged"
+    },
+    "verification": {
+      "selected_sequence": {
+        "seconds": 806.852,
+        "status": "PASS",
+        "log": "fifth-sequence.log",
+        "sha256": "0ba934042776ed95cc260992660b1ed5a2ea06078794e12f1497649e902703b9"
+      },
+      "shared_core": {
+        "seconds": 1376.265,
+        "status": "PASS",
+        "tests": "TestProbeRecords|TestProbeLifecycle(all subtests)|TestPlanRefusals",
+        "log": "final-core.log",
+        "sha256": "5026fe7237f430bdcf82196dd38586d6ae857c1c623c78aa7b6d41f4a9e8ca25"
+      },
+      "focused_nativefonts": {
+        "seconds": 8.864,
+        "status": "PASS",
+        "tests": "TestProbeRecords|TestReviewCards|TestReviewPartPlacement|TestReviewTimeline",
+        "log": "focused-nativefonts.log",
+        "sha256": "98fb724baa1cf4d7e9079ae994d86ac0f97fa50e79682e8df9a6bd3e491b2877"
+      },
+      "both_builds_vets_native_test_compile": "PASS",
+      "format_json_credentials": "CLEAN_NO_MATCHES",
+      "environment": "nice19/GOMAXPROCS2/Go-p2",
+      "full_suite_race": "DEFERRED",
+      "removed_payloads": "Test assertions before ordinary cleanup; no fresh removed-output hashing claim"
+    },
+    "accounting": {
+      "path": "accounting.tsv",
+      "sha256": "14b90c52a5e744dbbc50e00a6de41cdc0d83bdafd23fad3841dd3b13a0c5a1b6",
+      "implementation_runtime_data_delta_bytes": 25078,
+      "tests_fixture_delta_bytes": 322777,
+      "new_production_functions": [
+        "runProbeSequence"
+      ],
+      "new_function_file_bytes": 8939,
+      "new_test_callbacks": 2,
+      "new_test_named_functions": 0,
+      "new_dependencies": 0,
+      "second_fsm": false,
+      "reduction_claim": false
+    },
+    "history": {
+      "preserved_failures": [
+        "first-sequence.log",
+        "second-sequence.log",
+        "third-sequence.log",
+        "fourth-sequence.log",
+        "m1-baseline.log"
+      ],
+      "duplicate_replay_status": "STOPPED_REDUNDANT_NOT_PASS_OR_CODE_FAILURE",
+      "duplicate_stop_reason_sha256": "e79e2e6c2df527a74a66b478a3bc2b14dd5d20a63cb7edb40162fff572f64b15"
+    },
+    "contract": "Three immutable recipes reuse the existing lifecycle owner. A synthetic GOPCARD1 card carries only after successful terminal stop, cleanup and postflush. Creation, overwrite and both-file witnesses yield four passing controlled checkpoint memberships and source story50 observations, not native stories or broader producer coverage.",
+    "limits": [
+      "No actual native emulator/PINE/uinput/original card/ISO/probe operations",
+      "No broader five-class producer observation coverage",
+      "No native three-story/device/installed-version/ABI qualification",
+      "No resource/retention/soak or handover acceptance",
+      "No full criterion credit"
+    ],
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }

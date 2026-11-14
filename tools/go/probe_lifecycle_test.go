@@ -68,6 +68,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 	vmStatus := uint32(0)
 	failedReady := slices.Contains(os.Args, "failed-ready")
 	newGame := slices.Contains(os.Args, "scenario-newgame")
+	sequenceRun := 0
+	for index := 1; index <= 3; index++ {
+		if slices.Contains(os.Args, fmt.Sprintf("sequence-run%d", index)) {
+			sequenceRun = index
+			newGame = true
+		}
+	}
 	paired := slices.Contains(os.Args, "scenario-paired") || newGame
 	scenario := slices.Contains(os.Args, "scenario-first-save") || paired
 	if scenario {
@@ -84,9 +91,21 @@ func TestProbeLifecycleChild(t *testing.T) {
 	introSamples := 0
 	preparationAcks := 0
 	preparationImageSamples := 0
+	baseSquare := byte(9)
+	if sequenceRun > 0 {
+		baseSquare = byte(9 + 10*(sequenceRun-1))
+	}
+	expectedFile := 1
+	if sequenceRun == 1 || sequenceRun == 2 {
+		expectedFile = 0
+	}
+	gameDataCreated, overwriting := sequenceRun != 1, false
 	if newGame {
 		activeActor = 2
 		tutorialFlag = 0
+		if sequenceRun > 1 {
+			tutorialFlag = 1
+		}
 		scenarioControl = 2
 		scenarioStage = 8
 	}
@@ -108,6 +127,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 				scenarioStage = 8
 				scenarioControl = 2
 				eventOffset = len(padBytes)
+			}
+			if sequenceRun == 3 && strings.HasPrefix(name, "12-cold-load-") {
+				expectedFile = 0
 			}
 		}
 		prior, _ := os.ReadFile(filepath.Join(root, "scenario-inputs.json"))
@@ -213,6 +235,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 			}
 			if frameIndex == 0 {
 				firstFrame = bytes.Clone(payload)
+				if slices.Contains(os.Args, "pre-acquisition-delay") {
+					_, started := os.Stat(filepath.Join(root, "go-records-2-scenario.json"))
+					_, completed := os.Stat(filepath.Join(root, "receipts", "2-scenario-00-acquire-board.complete.json"))
+					if started == nil && os.IsNotExist(completed) {
+						time.Sleep(500 * time.Millisecond)
+					}
+				}
 			}
 			if paired && scenarioStage == 9 && frameIndex == 1 && bytes.Equal(firstFrame, []byte{1, 0x1c, 0x58, 0x56, 0}) && bytes.Equal(payload, []byte{2, 8, 1, 0x57, 0}) {
 				peerPreviewSamples++
@@ -256,6 +285,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 								scenarioControl = 2
 								if newGame {
 									tutorialFlag = 0
+									if sequenceRun > 1 {
+										tutorialFlag = 1
+									}
 								}
 								loadedRecords = nil
 								loadedHeaders = nil
@@ -270,11 +302,23 @@ func TestProbeLifecycleChild(t *testing.T) {
 							case 1:
 								if tabCursor == 4 {
 									scenarioStage = 2
+									if !gameDataCreated {
+										scenarioStage = 26
+										yesNoCursor = 0
+									}
 								}
 							case 2:
-								if fileCursor == 1 {
+								if fileCursor == expectedFile {
 									scenarioStage = 3
 									yesNoCursor = 0
+									if sequenceRun > 0 {
+										card, _ := os.ReadFile(filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+										offset := 8 + fileCursor*2052
+										if len(card) != 4112 {
+											t.Fatal("sequence card size")
+										}
+										overwriting = !bytes.Equal(card[offset:offset+2052], make([]byte, 2052))
+									}
 								}
 							case 3:
 								if paired {
@@ -283,9 +327,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 									if err != nil || len(card) != 4112 || len(playerData) != 2032 {
 										t.Fatal("controlled card source layout")
 									}
-									binary.LittleEndian.PutUint32(card[2060:], 1)
-									binary.LittleEndian.PutUint32(card[2072:], uint32(activeActor))
-									copy(card[2080:], playerData)
+									offset := 2060
+									if sequenceRun > 0 {
+										offset = 8 + fileCursor*2052
+									}
+									binary.LittleEndian.PutUint32(card[offset:], 1)
+									binary.LittleEndian.PutUint32(card[offset+12:], uint32(activeActor))
+									copy(card[offset+20:], playerData)
 									file, err := os.OpenFile(cardPath, os.O_WRONLY|os.O_TRUNC, 0600)
 									if err != nil {
 										t.Fatal(err)
@@ -314,7 +362,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 									peerPreviewSamples = 0
 								}
 							case 9:
-								if fileCursor == 1 {
+								if fileCursor == expectedFile {
 									if paired && peerPreviewSamples != 40 {
 										t.Fatalf("Load before all40 successful preview exchanges: %d", peerPreviewSamples)
 									}
@@ -326,8 +374,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 								if err != nil || len(card) != 4112 {
 									t.Fatal("controlled Load card")
 								}
-								loadedHeaders = bytes.Clone(card[2060:2080])
-								loadedRecords = bytes.Clone(card[2080:])
+								offset := 2060
+								if sequenceRun > 0 {
+									offset = 8 + fileCursor*2052
+								}
+								loadedHeaders = bytes.Clone(card[offset : offset+20])
+								loadedRecords = bytes.Clone(card[offset+20 : offset+2052])
 								scenarioControl = loadedRecords[activeActor*508+241]
 								scenarioStage = 12
 								if newGame && loadedRecords[activeActor*508]&1 == 0 {
@@ -361,6 +413,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 								preparationAcks++
 								_ = os.WriteFile(filepath.Join(root, "preparation-acks.txt"), []byte(strconv.Itoa(preparationAcks)), 0600)
 								scenarioStage = 12
+							case 26:
+								scenarioStage = 27
+							case 27:
+								gameDataCreated = true
+								scenarioStage = 2
 							}
 						case 316:
 							name = "GUIDE"
@@ -397,7 +454,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 					preparationImageSamples++
 				}
 				if paired && advanceAtMode > 0 && len(payload) == 5 && binary.LittleEndian.Uint32(payload[1:]) == 0x56581c && scenarioModeReads+1 >= advanceAtMode {
-					if newGame {
+					if sequenceRun > 0 {
+						loadedRecords[activeActor*508+250]++
+						scenarioStage = 12
+						boardCursor = 0
+						tabCursor = 0
+						if sequenceRun == 3 {
+							expectedFile = 1 - expectedFile
+						}
+					} else if newGame {
 						loadedRecords[activeActor*508+250] = 10
 					} else {
 						loadedRecords[250] = 13
@@ -413,15 +478,18 @@ func TestProbeLifecycleChild(t *testing.T) {
 					memory[base+250] = byte(12 + player)
 					if newGame {
 						memory[base+241] = []byte{1, 2, scenarioControl, 1}[player]
-						memory[base+250] = 9
+						memory[base+250] = baseSquare
 						if player == activeActor {
 							memory[base] = tutorialFlag
 						}
 						if scenarioStage == 24 && introSamples < 2 && player == 3 {
-							memory[base+250] = 10
+							memory[base+250] = baseSquare + 1
 						}
 					}
 					for index, word := range []uint32{uint32(65 + player), uint32(66 + player), 0, 0, 0} {
+						if sequenceRun > 1 && player == 0 && index == 0 {
+							word = uint32(65 + 10*(sequenceRun-1))
+						}
 						for b := 0; b < 4; b++ {
 							memory[base+252+uint32(index*4+b)] = byte(word >> (8 * b))
 						}
@@ -461,6 +529,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 				if scenarioStage == 25 {
 					innerWidth = 0x1d7
 				}
+				if scenarioStage == 26 || scenarioStage == 27 {
+					innerWidth = 0x2e0
+				}
 				for address, value := range map[uint32]uint32{0x56581c: innerWidth, 0x56b598: 1, 0x56b190: uint32(activeActor), 0x579ba6: yesNoCursor, 0x56a804: 5, 0x56a800: 1, 0x56a808: uint32(boardCursor), 0x56a8e0: 5, 0x56a8e4: 1, 0x56a8e8: 0x200 + uint32(activeActor)} {
 					for b := 0; b < 4; b++ {
 						memory[address+uint32(b)] = byte(value >> (8 * b))
@@ -478,6 +549,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 						for b := 0; b < width; b++ {
 							memory[address+uint32(b)] = loadedHeaders[index*4+b]
+						}
+					}
+				}
+				if sequenceRun > 0 {
+					pendingRows, _ := os.ReadDir(filepath.Join(root, "receipts"))
+					for _, entry := range pendingRows {
+						if strings.Contains(entry.Name(), "-finish-") && strings.HasSuffix(entry.Name(), ".pending.json") {
+							memory[0x56b598] = 50
+							memory[0x56b599] = 0
 						}
 					}
 				}
@@ -510,8 +590,17 @@ func TestProbeLifecycleChild(t *testing.T) {
 						memory[0x57011c+uint32(b)] = byte(uint32(1) >> (8 * b))
 					}
 				}
-				if scenarioStage == 3 || scenarioStage == 5 || scenarioStage == 10 {
+				if scenarioStage == 3 || scenarioStage == 5 || scenarioStage == 10 || scenarioStage == 26 || scenarioStage == 27 {
 					texts[2] = "Savetoanewfile"
+					if sequenceRun > 0 && scenarioStage == 3 && overwriting {
+						texts[2] = "OverwriteFile1"
+					}
+					if scenarioStage == 26 {
+						texts[2] = "Createnewdata"
+					}
+					if scenarioStage == 27 {
+						texts[2] = "Newdatawascreated"
+					}
 					if scenarioStage == 5 {
 						texts[2] = "Savecomplete."
 					}
@@ -586,6 +675,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					_ = os.WriteFile(filepath.Join(root, "scenario-write.bin"), append(header, payload...), 0600)
 					scenarioControl = payload[5]
+					if len(loadedRecords) == 2032 {
+						loadedRecords[activeActor*508+241] = payload[5]
+					}
 					if bootHandoff {
 						scenarioStage = 0
 					}
@@ -773,961 +865,1203 @@ func TestProbeLifecycle(t *testing.T) {
 		profile.Inputs[role] = RegistryInput{Path: path, Size: int64(len(content)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(content)))}
 	}
 	t.Setenv("DOKAPON_PROBE_LIFECYCLE_CHILD", "1")
-	requestRaw, _ := json.Marshal(profile)
-	report, err := runProbeLifecycle(requestRaw)
-	var failedExpected struct {
-		InitialStatus string `json:"initial_status"`
-		InitialReason string `json:"initial_reason"`
-		StopStatus    string `json:"stop_status"`
-		PostStopCard  string `json:"post_stop_card"`
-	}
-	if json.Unmarshal(fields["failed_ready"], &failedExpected) != nil {
-		t.Fatal("failed-ready pre-output oracle")
-	}
-	failedProfile := profile
-	failedProfile.Root = t.TempDir()
-	_ = os.Chmod(failedProfile.Root, 0700)
-	failedProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "failed-ready")
-	failedProfile.Requests = []ProbeLifecycleRequest{fixture.Requests[0], fixture.Requests[len(fixture.Requests)-1]}
-	failedProfile.ReadyTimeoutMS = 200
-	failedRaw, _ := json.Marshal(failedProfile)
-	failedReport, failedErr := runProbeLifecycle(failedRaw)
-	for _, outcome := range []ProbeLifecycleReport{report, failedReport} {
-		for _, step := range outcome.Steps {
-			if strings.HasPrefix(step.Reason, "launched child identity differs") {
-				for _, childRoot := range []string{root, failedProfile.Root} {
-					log, _ := os.ReadFile(filepath.Join(childRoot, "child-epoch-0.log"))
-					t.Logf("controlled child startup log: %s", log)
-				}
-			}
+	t.Run("baseline", func(t *testing.T) {
+		requestRaw, _ := json.Marshal(profile)
+		report, err := runProbeLifecycle(requestRaw)
+		var failedExpected struct {
+			InitialStatus string `json:"initial_status"`
+			InitialReason string `json:"initial_reason"`
+			StopStatus    string `json:"stop_status"`
+			PostStopCard  string `json:"post_stop_card"`
 		}
-	}
-	// Cleanup only our controlled test executable if a regression left it alive.
-	// It never targets a shared emulator or adopts another process.
-	for _, step := range append(slices.Clone(report.Steps), failedReport.Steps...) {
-		if step.Owned != nil {
-			if _, observeErr := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, profile.Program.SHA256); observeErr == nil {
-				_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-				var status syscall.WaitStatus
-				_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-			}
+		if json.Unmarshal(fields["failed_ready"], &failedExpected) != nil {
+			t.Fatal("failed-ready pre-output oracle")
 		}
-	}
-	if err != nil {
-		t.Fatal(err)
-	}
-	if failedErr != nil || failedReport.Status != "INCOMPLETE" || len(failedReport.Steps) != 2 {
-		t.Fatalf("failed-ready outcome: %+v %v", failedReport, failedErr)
-	}
-	if failedReport.Steps[0].Status != failedExpected.InitialStatus || failedReport.Steps[0].Reason != failedExpected.InitialReason || failedReport.Steps[1].Status != failedExpected.StopStatus || !reflect.DeepEqual(failedReport.Steps[1].Effects, []string{"terminate", "flush"}) || failedReport.Steps[1].CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(failedExpected.PostStopCard))) {
-		t.Errorf("safe stop after failed-ready: %+v", failedReport)
-	}
-	if len(report.Steps) != len(fixture.ExpectedStatus) {
-		t.Fatalf("steps: %+v", report)
-	}
-	for index, step := range report.Steps {
-		if step.Status != fixture.ExpectedStatus[index] || step.Epoch != fixture.ExpectedEpoch[index] || step.Reason != fixture.ExpectedReasons[index] || !reflect.DeepEqual(step.Effects, fixture.ExpectedEffects[index]) {
-			t.Errorf("step%d: %+v", index, step)
-		}
-	}
-	if report.Status != "INCOMPLETE" || !report.Steps[1].Replayed {
-		t.Errorf("explicit refusals/replay lost: %+v", report)
-	}
-	first, warm, cold, stop := report.Steps[0], report.Steps[2], report.Steps[3], report.Steps[6]
-	if first.Owned == nil || warm.Owned == nil || cold.Owned == nil {
-		t.Fatalf("missing actual ownership: %+v", report)
-	}
-	if first.Owned.PID != warm.Owned.PID || first.Owned.Starttime != warm.Owned.Starttime || first.Owned.PID == cold.Owned.PID {
-		t.Error("warm/cold process distinction")
-	}
-	if first.WidthAfter == nil || *first.WidthAfter != 608 || warm.WidthBefore == nil || *warm.WidthBefore != 736 || warm.WidthAfter == nil || *warm.WidthAfter != 608 {
-		t.Error("boot/saved/reset width observations")
-	}
-	if cold.CardBefore != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.SourceCard))) || cold.CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostColdCard))) || stop.CardBefore != cold.CardAfter || stop.CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostStopCard))) {
-		t.Errorf("changed postflush hashes: cold%+v stop%+v", cold, stop)
-	}
-	for role, input := range profile.Inputs {
-		data, err := os.ReadFile(input.Path)
-		if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != input.SHA256 {
-			t.Errorf("source%s changed", role)
-		}
-	}
-	for _, owned := range []*ProbeProcessRecord{first.Owned, cold.Owned} {
-		data, err := os.ReadFile(filepath.Join(root, fmt.Sprintf("child-evidence-%d.json", owned.PID)))
-		if err != nil {
-			t.Fatal(err)
-		}
-		var child struct {
-			PID           int
-			Argv, Pending []string
-		}
-		if json.Unmarshal(data, &child) != nil || child.PID != owned.PID || !reflect.DeepEqual(child.Argv, owned.Cmdline) || !slices.Contains(child.Pending, map[bool]string{false: "1-initial-02-launch.pending.json", true: "3-cold-03-launch.pending.json"}[owned.PID == cold.Owned.PID]) {
-			t.Errorf("pre-effect child witness: %s", data)
-		}
-	}
-	entries, err := os.ReadDir(filepath.Join(root, "receipts"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(entries) != 33 {
-		t.Errorf("durable receipt count%d want33", len(entries))
-	}
-	var completeCount, pendingCount int
-	for _, entry := range entries {
-		if strings.HasSuffix(entry.Name(), ".pending.json") {
-			pendingCount++
-			paired := strings.TrimSuffix(entry.Name(), ".pending.json") + ".complete.json"
-			if _, err := os.Stat(filepath.Join(root, "receipts", paired)); err != nil {
-				t.Error(err)
-			}
-		}
-		if strings.HasSuffix(entry.Name(), ".complete.json") {
-			completeCount++
-		}
-	}
-	if pendingCount != 14 || completeCount != 18 {
-		t.Errorf("durable effects%d/%d", pendingCount, completeCount)
-	}
-	beforeEntries := len(entries)
-	replay, err := runProbeLifecycle(requestRaw)
-	if err != nil {
-		t.Fatal(err)
-	}
-	for index, step := range replay.Steps {
-		if fixture.ExpectedStatus[index] == "COMPLETED" && !step.Replayed {
-			t.Errorf("not replay%d: %+v", index, step)
-		}
-	}
-	entries, _ = os.ReadDir(filepath.Join(root, "receipts"))
-	if len(entries) != beforeEntries {
-		t.Error("replay created effects")
-	}
-	pendingPath := filepath.Join(root, "receipts", "5-warm-00-quiescent.pending.json")
-	if err := os.WriteFile(pendingPath, []byte(`{"phase":"pending"}`), 0600); err != nil {
-		t.Fatal(err)
-	}
-	profile.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "warm", Phase: "requested", Nonce: "5-warm"}, fixture.Requests[len(fixture.Requests)-1]}
-	pendingRaw, _ := json.Marshal(profile)
-	pendingReport, err := runProbeLifecycle(pendingRaw)
-	if err != nil || pendingReport.Steps[0].Status != "UNKNOWN" || pendingReport.Steps[0].Reason != "durable pending effect prevents replay" || !pendingReport.Steps[1].Replayed {
-		t.Errorf("pending cannot retry: %+v %v", pendingReport, err)
-	}
-	// C-global source/header oracle comparisons use only an owned event file.
-	padRoot := t.TempDir()
-	_ = os.Chmod(padRoot, 0700)
-	ctx, cancel := context.WithCancel(context.Background())
-	ready, done := make(chan error, 1), make(chan error, 1)
-	go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink"}, ready, done)
-	if err := <-ready; err != nil {
-		cancel()
-		t.Fatal(err)
-	}
-	commands := []string{"tap CROSS 0.01", "tap UP 0.01", "tap L2 0.01", "tap CROSS NaN"}
-	for index, command := range commands {
-		connection, err := net.DialUnix("unix", nil, &net.UnixAddr{Name: filepath.Join(padRoot, "pad.sock"), Net: "unix"})
-		if err != nil {
-			cancel()
-			t.Fatal(err)
-		}
-		_ = connection.SetDeadline(time.Now().Add(2 * time.Second))
-		_, err = io.WriteString(connection, command)
-		if err == nil {
-			err = connection.CloseWrite()
-		}
-		ack, readErr := io.ReadAll(io.LimitReader(connection, 257))
-		_ = connection.Close()
-		expected := "ok\n"
-		if index == 3 {
-			expected = "err invalid owned pad command\n"
-		}
-		if err != nil || readErr != nil || string(ack) != expected {
-			t.Errorf("pad command%s %q %v %v", command, ack, err, readErr)
-		}
-	}
-	cancel()
-	if err := <-done; err != nil {
-		t.Fatal(err)
-	}
-	events, err := os.ReadFile(filepath.Join(padRoot, "pad-events.bin"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(events) != 288 {
-		t.Fatalf("event bytes%d", len(events))
-	}
-	for index, expected := range []string{fixture.PadEventsSHA, fixture.PadHatSHA, fixture.PadTriggerSHA} {
-		if fmt.Sprintf("%x", sha256.Sum256(events[index*96:(index+1)*96])) != expected {
-			t.Errorf("independent ABI event%d mismatch", index)
-		}
-	}
-	metadata, err := os.ReadFile(filepath.Join(padRoot, "pad-device.json"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	var device struct {
-		Setup string `json:"setup_hex"`
-		Axes  string `json:"axes_hex"`
-	}
-	if json.Unmarshal(metadata, &device) != nil {
-		t.Fatal("pad metadata")
-	}
-	for encoded, expected := range map[string]string{device.Setup: fixture.PadSetupSHA, device.Axes: fixture.PadAxesSHA} {
-		data, err := hex.DecodeString(encoded)
-		if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != expected {
-			t.Error("primary-header setup/axis oracle mismatch")
-		}
-	}
-	if _, err := os.Lstat(filepath.Join(padRoot, "pad.sock")); !os.IsNotExist(err) {
-		t.Error("owned pad socket survived cleanup")
-	}
-	var cadence struct {
-		Prefixes []struct {
-			Seed      string `json:"seed_uint64_decimal"`
-			Count     int
-			Intervals []int
-			Next      int
-		}
-		Long struct {
-			Seed      string `json:"seed_uint64_decimal"`
-			Count     int
-			Intervals []int
-			Next      int
-			SHA       string `json:"uint32_le_sha256"`
-		} `json:"long_stream"`
-	}
-	cadenceRaw, err := os.ReadFile("testdata/probe-checkpoint-intervals.json")
-	if err != nil || json.Unmarshal(cadenceRaw, &cadence) != nil {
-		t.Fatal("independent cadence fixture", err)
-	}
-	for _, sample := range cadence.Prefixes {
-		seed, err := strconv.ParseUint(sample.Seed, 10, 64)
-		if err != nil {
-			t.Fatal(err)
-		}
-		got, err := probeCheckpointIntervals(seed, sample.Count+1)
-		if err != nil || len(got) != sample.Count+1 || !reflect.DeepEqual(got[:sample.Count], sample.Intervals) || got[sample.Count] != sample.Next {
-			t.Fatalf("CPython prefix%s: %v %v", sample.Seed, got, err)
-		}
-	}
-	longSeed, err := strconv.ParseUint(cadence.Long.Seed, 10, 64)
-	if err != nil {
-		t.Fatal(err)
-	}
-	long, err := probeCheckpointIntervals(longSeed, cadence.Long.Count+1)
-	if err != nil || len(long) != 701 {
-		t.Fatal("long cadence", err)
-	}
-	encodedIntervals := make([]byte, cadence.Long.Count*4)
-	for index, value := range long[:cadence.Long.Count] {
-		binary.LittleEndian.PutUint32(encodedIntervals[index*4:], uint32(value))
-	}
-	if !reflect.DeepEqual(long[:cadence.Long.Count], cadence.Long.Intervals) || long[cadence.Long.Count] != cadence.Long.Next || fmt.Sprintf("%x", sha256.Sum256(encodedIntervals)) != cadence.Long.SHA {
-		t.Fatal("independent twist/rejection/continuation cadence")
-	}
-	for _, count := range []int{-1, 4097} {
-		if _, err := probeCheckpointIntervals(0, count); err == nil {
-			t.Error("unbounded cadence count admitted")
-		}
-	}
-	var policyFixture struct {
-		Policy ProbeLifecyclePolicy `json:"go_policy"`
-		Cases  []struct {
-			ID, Child            string
-			Operations, Statuses []string
-			Samples              int    `json:"watch_samples"`
-			Repeated             int    `json:"watch_repeated"`
-			Warning              bool   `json:"watch_warning"`
-			Outcome              string `json:"watch_outcome"`
-			Skips                []string
-			Taps                 int  `json:"l3_taps"`
-			Replay               bool `json:"last_stop_replay"`
-			Recoveries           int  `json:"recovery_attempts"`
-			MaxRecoveries        int  `json:"max_recoveries"`
-		}
-	}
-	policyRaw, err := os.ReadFile("testdata/probe-lifecycle-policy.json")
-	if err != nil || json.Unmarshal(policyRaw, &policyFixture) != nil {
-		t.Fatal("source policy fixture", err)
-	}
-	var actionFacts struct {
-		Source struct {
-			PollMS   int `json:"poll_ms"`
-			Warn     int `json:"warn_repeats"`
-			Terminal int `json:"terminal_repeats"`
-		} `json:"watch_source_policy"`
-		Pause  string `json:"pause_command"`
-		Settle int    `json:"pause_settle_ms"`
-		Polls  int    `json:"status_polls"`
-		PollMS int    `json:"status_poll_ms"`
-	}
-	if json.Unmarshal(probeLifecycleActions, &actionFacts) != nil || actionFacts.Source.PollMS != 1000 || actionFacts.Source.Warn != 200 || actionFacts.Source.Terminal != 1200 || actionFacts.Pause != "tap L3 0.1" || actionFacts.Settle != 50 || actionFacts.Polls != 20 || actionFacts.PollMS != 50 {
-		t.Fatal("canonical source policy changed")
-	}
-	for _, sample := range policyFixture.Cases {
-		candidate := profile
-		candidate.Root = t.TempDir()
-		_ = os.Chmod(candidate.Root, 0700)
-		policy := policyFixture.Policy
-		if sample.MaxRecoveries > 0 {
-			policy.MaxRecoveries = sample.MaxRecoveries
-		}
-		candidate.Policy = &policy
-		candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), sample.Child)
-		candidate.Requests = nil
-		lastStop := ""
-		for index, operation := range sample.Operations {
-			nonce := fmt.Sprintf("%d-%s", index+1, operation)
-			if operation == "stop" {
-				if sample.Replay && index == len(sample.Operations)-1 {
-					nonce = lastStop
-				} else {
-					lastStop = nonce
-				}
-			}
-			candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: candidate.Session, Operation: operation, Phase: "requested", Nonce: nonce})
-		}
-		input, _ := json.Marshal(candidate)
-		outcome, err := runProbeLifecycle(input)
-		for _, step := range outcome.Steps {
-			if step.Owned != nil {
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
-					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-					var status syscall.WaitStatus
-					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-				}
-			}
-		}
-		if err != nil || len(outcome.Steps) != len(sample.Statuses) {
-			t.Fatalf("%s: %+v %v", sample.ID, outcome, err)
-		}
-		for index, step := range outcome.Steps {
-			if step.Status != sample.Statuses[index] {
-				t.Errorf("%s step%d: %+v", sample.ID, index, step)
-			}
-			if step.Status == "UNKNOWN" && step.Reason == "" {
-				t.Error("unknown reason lost")
-			}
-		}
-		if sample.Replay && !outcome.Steps[len(outcome.Steps)-1].Replayed {
-			t.Error("completed safe stop repeated")
-		}
-		if sample.Samples > 0 {
+		failedProfile := profile
+		failedProfile.Root = t.TempDir()
+		_ = os.Chmod(failedProfile.Root, 0700)
+		failedProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "failed-ready")
+		failedProfile.Requests = []ProbeLifecycleRequest{fixture.Requests[0], fixture.Requests[len(fixture.Requests)-1]}
+		failedProfile.ReadyTimeoutMS = 200
+		failedRaw, _ := json.Marshal(failedProfile)
+		failedReport, failedErr := runProbeLifecycle(failedRaw)
+		for _, outcome := range []ProbeLifecycleReport{report, failedReport} {
 			for _, step := range outcome.Steps {
-				if step.Request.Operation == "watch" {
-					if step.Samples != sample.Samples || step.Repeated != sample.Repeated || step.Warning != sample.Warning || step.WatchOutcome != sample.Outcome || !reflect.DeepEqual(step.Skips, sample.Skips) {
-						t.Errorf("%s typed watch %+v", sample.ID, step)
+				if strings.HasPrefix(step.Reason, "launched child identity differs") {
+					for _, childRoot := range []string{root, failedProfile.Root} {
+						log, _ := os.ReadFile(filepath.Join(childRoot, "child-epoch-0.log"))
+						t.Logf("controlled child startup log: %s", log)
 					}
 				}
 			}
 		}
-		if sample.ID == "advance" {
-			paused, resumed := outcome.Steps[1], outcome.Steps[2]
-			if paused.VMStatusBefore == nil || *paused.VMStatusBefore != 0 || paused.VMStatusAfter == nil || *paused.VMStatusAfter != 1 || resumed.VMStatusBefore == nil || *resumed.VMStatusBefore != 1 || resumed.VMStatusAfter == nil || *resumed.VMStatusAfter != 0 || paused.Owned.PID != resumed.Owned.PID {
-				t.Error("guarded same-owner pause/unpause")
-			}
-		}
-		if sample.Recoveries > 0 {
-			if !outcome.Steps[2].ExitedBeforeStop || !outcome.Steps[5].ExitedBeforeStop || outcome.Steps[3].RecoveryAttempts != 1 || outcome.Steps[3].Epoch != 1 {
-				t.Errorf("crash disposal/recovery budget: %+v", outcome)
-			}
-			if sample.ID == "crash-recovery-budget" && outcome.Steps[6].Reason != "explicit Go recovery budget exhausted" {
-				t.Errorf("recovery budget bypass: %+v", outcome)
-			}
-			if sample.ID == "per-epoch-recovery" && (outcome.Steps[6].RecoveryAttempts != 2 || outcome.Steps[6].Epoch != 2 || outcome.Steps[8].Reason != "recovery requires proved disposal after a read-only failure") {
-				t.Errorf("prior failure reused by later epoch: %+v", outcome)
-			}
-		}
-		events, err := os.ReadFile(filepath.Join(candidate.Root, "pad-events.bin"))
-		if err != nil {
-			t.Fatal(err)
-		}
-		taps := 0
-		for offset := 0; offset+24 <= len(events); offset += 24 {
-			if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 317 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
-				taps++
-			}
-		}
-		if taps != sample.Taps {
-			t.Errorf("%s L3 effects%d want%d", sample.ID, taps, sample.Taps)
-		}
-		for role, input := range candidate.Inputs {
-			content, err := os.ReadFile(input.Path)
-			if err != nil || fmt.Sprintf("%x", sha256.Sum256(content)) != input.SHA256 {
-				t.Errorf("%s source%s changed", sample.ID, role)
-			}
-		}
-	}
-	resumeRaw, err := os.ReadFile("testdata/probe-lifecycle-resume.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	var resumeNames struct{ Refusals []string }
-	if json.Unmarshal(resumeRaw, &resumeNames) != nil {
-		t.Fatal("resume fixture")
-	}
-	for _, variant := range append([]string{"valid"}, resumeNames.Refusals...) {
-		var source struct {
-			Bundle   ProbeEvidenceBundle
-			Receipt  ProbeResumeFacts
-			Run      map[string]any
-			Expected struct {
-				Epoch     int   `json:"new_epoch"`
-				Next      int   `json:"next_interval"`
-				Intervals []int `json:"watch_intervals"`
-			}
-		}
-		if json.Unmarshal(resumeRaw, &source) != nil {
-			t.Fatal("source resume fixture")
-		}
-		priorRoot := t.TempDir()
-		_ = os.Chmod(priorRoot, 0700)
-		if err := os.MkdirAll(filepath.Join(priorRoot, "checkpoints", "screenshots"), 0700); err != nil {
-			t.Fatal(err)
-		}
-		if variant == "native-slot" {
-			value := 3
-			source.Receipt.Slot = &value
-		}
-		if variant == "control" {
-			value := uint32(2)
-			source.Receipt.OriginalControl = &value
-		}
-		if variant == "cleanup" {
-			source.Run["cleanup_complete"] = false
-		}
-		if variant == "event-order" {
-			source.Bundle.Events[17], source.Bundle.Events[18] = source.Bundle.Events[18], source.Bundle.Events[17]
-		}
-		if variant == "seeded-prefix" {
-			source.Receipt.ScheduledIntervals[0]++
-			var event map[string]any
-			_ = json.Unmarshal(source.Bundle.Events[0].Data, &event)
-			event["interval_seconds"] = 5327
-			source.Bundle.Events[0].Data, _ = json.Marshal(event)
-		}
-		if variant == "fingerprint" {
-			var event map[string]any
-			_ = json.Unmarshal(source.Bundle.Events[18].Data, &event)
-			state := event["state"].(map[string]any)
-			state["players"].([]any)[0].(map[string]any)["money"] = 101
-			source.Bundle.Events[18].Data, _ = json.Marshal(event)
-		}
-		if variant == "already-resumed" {
-			event, _ := json.Marshal(map[string]any{"event": "resumed", "event_id": 22, "checkpoint": 2, "time": "2026-11-13T00:01:06+0000", "slot": 2, "expected": source.Receipt.Expected})
-			source.Bundle.Events = append(source.Bundle.Events, ProbeEvidenceEvent{Data: event})
-		}
-		var pngBytes bytes.Buffer
-		if err := png.Encode(&pngBytes, image.NewNRGBA(image.Rect(0, 0, 1, 1))); err != nil {
-			t.Fatal(err)
-		}
-		var eventBytes bytes.Buffer
-		for _, saved := range source.Bundle.Events {
-			var compact bytes.Buffer
-			if err := json.Compact(&compact, saved.Data); err != nil {
-				t.Fatal(err)
-			}
-			eventBytes.Write(compact.Bytes())
-			eventBytes.WriteByte('\n')
-			var event struct {
-				Checkpoint int
-				Screenshot string
-			}
-			_ = json.Unmarshal(saved.Data, &event)
-			if event.Checkpoint == 1 && event.Screenshot != "" {
-				if err := os.WriteFile(filepath.Join(priorRoot, "checkpoints", event.Screenshot), pngBytes.Bytes(), 0400); err != nil {
-					t.Fatal(err)
+		// Cleanup only our controlled test executable if a regression left it alive.
+		// It never targets a shared emulator or adopts another process.
+		for _, step := range append(slices.Clone(report.Steps), failedReport.Steps...) {
+			if step.Owned != nil {
+				if _, observeErr := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, profile.Program.SHA256); observeErr == nil {
+					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+					var status syscall.WaitStatus
+					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
 				}
 			}
 		}
-		card := []byte(fixture.PostColdCard)
-		cardSHA := fmt.Sprintf("%x", sha256.Sum256(card))
-		source.Run["private_card_final_sha256"] = cardSHA
-		runData, _ := json.Marshal(source.Run)
-		sequenceData, _ := json.Marshal(map[string]any{"status": "failed", "iso_sha256": source.Receipt.ISOSHA256, "runs": []any{map[string]any{"run": source.Receipt.SourceFrameRoot, "result": source.Run}}})
-		source.Receipt.Artifacts = map[string]RegistryInput{}
-		for role, data := range map[string][]byte{"run": runData, "sequence": sequenceData, "events": eventBytes.Bytes(), "card": card} {
-			path := filepath.Join(priorRoot, role+".json")
-			if role == "events" {
-				path = filepath.Join(priorRoot, "checkpoints", "events.jsonl")
-			}
-			if role == "card" {
-				path = filepath.Join(priorRoot, "card.ps2")
-			}
-			if err := os.WriteFile(path, data, 0400); err != nil {
-				t.Fatal(err)
-			}
-			source.Receipt.Artifacts[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+		if err != nil {
+			t.Fatal(err)
 		}
-		receiptData, _ := json.Marshal(source.Receipt)
-		source.Bundle.Events = nil // The actual pinned JSONL is the sole event authority.
-		evidenceData, _ := json.Marshal(source.Bundle)
-		metadata := map[string]RegistryInput{}
-		for role, data := range map[string][]byte{"receipt": receiptData, "evidence": evidenceData} {
-			path := filepath.Join(priorRoot, role+".json")
-			if err := os.WriteFile(path, data, 0400); err != nil {
-				t.Fatal(err)
-			}
-			metadata[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+		if failedErr != nil || failedReport.Status != "INCOMPLETE" || len(failedReport.Steps) != 2 {
+			t.Fatalf("failed-ready outcome: %+v %v", failedReport, failedErr)
 		}
-		candidate := profile
-		candidate.Root = t.TempDir()
-		_ = os.Chmod(candidate.Root, 0700)
-		candidate.Session = "new-resume-session"
-		candidate.Seed = source.Receipt.Seed
-		candidate.Policy = &policyFixture.Policy
-		candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "watch-advance")
-		candidate.Inputs = map[string]RegistryInput{}
+		if failedReport.Steps[0].Status != failedExpected.InitialStatus || failedReport.Steps[0].Reason != failedExpected.InitialReason || failedReport.Steps[1].Status != failedExpected.StopStatus || !reflect.DeepEqual(failedReport.Steps[1].Effects, []string{"terminate", "flush"}) || failedReport.Steps[1].CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(failedExpected.PostStopCard))) {
+			t.Errorf("safe stop after failed-ready: %+v", failedReport)
+		}
+		if len(report.Steps) != len(fixture.ExpectedStatus) {
+			t.Fatalf("steps: %+v", report)
+		}
+		for index, step := range report.Steps {
+			if step.Status != fixture.ExpectedStatus[index] || step.Epoch != fixture.ExpectedEpoch[index] || step.Reason != fixture.ExpectedReasons[index] || !reflect.DeepEqual(step.Effects, fixture.ExpectedEffects[index]) {
+				t.Errorf("step%d: %+v", index, step)
+			}
+		}
+		if report.Status != "INCOMPLETE" || !report.Steps[1].Replayed {
+			t.Errorf("explicit refusals/replay lost: %+v", report)
+		}
+		first, warm, cold, stop := report.Steps[0], report.Steps[2], report.Steps[3], report.Steps[6]
+		if first.Owned == nil || warm.Owned == nil || cold.Owned == nil {
+			t.Fatalf("missing actual ownership: %+v", report)
+		}
+		if first.Owned.PID != warm.Owned.PID || first.Owned.Starttime != warm.Owned.Starttime || first.Owned.PID == cold.Owned.PID {
+			t.Error("warm/cold process distinction")
+		}
+		if first.WidthAfter == nil || *first.WidthAfter != 608 || warm.WidthBefore == nil || *warm.WidthBefore != 736 || warm.WidthAfter == nil || *warm.WidthAfter != 608 {
+			t.Error("boot/saved/reset width observations")
+		}
+		if cold.CardBefore != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.SourceCard))) || cold.CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostColdCard))) || stop.CardBefore != cold.CardAfter || stop.CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostStopCard))) {
+			t.Errorf("changed postflush hashes: cold%+v stop%+v", cold, stop)
+		}
 		for role, input := range profile.Inputs {
-			candidate.Inputs[role] = input
-		}
-		candidate.Inputs["card"] = source.Receipt.Artifacts["card"]
-		candidate.Resume = &ProbeLifecycleResume{Root: priorRoot, Receipt: metadata["receipt"], Evidence: metadata["evidence"]}
-		if variant == "artifact-hash" {
-			candidate.Resume.Evidence.SHA256 = strings.Repeat("0", 64)
-		}
-		candidate.Requests = []ProbeLifecycleRequest{{Session: candidate.Session, Operation: "resume", Phase: "requested", Nonce: "1-resume"}, {Session: candidate.Session, Operation: "watch", Phase: "requested", Nonce: "2-watch"}, {Session: candidate.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
-		input, _ := json.Marshal(candidate)
-		outcome, runErr := runProbeLifecycle(input)
-		for _, step := range outcome.Steps {
-			if step.Owned != nil {
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
-					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-					var status syscall.WaitStatus
-					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-				}
+			data, err := os.ReadFile(input.Path)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != input.SHA256 {
+				t.Errorf("source%s changed", role)
 			}
 		}
-		if variant == "valid" {
-			if runErr != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != 3 {
-				t.Fatalf("valid bound resume: %+v %v", outcome, runErr)
-			}
-			if outcome.Steps[0].Epoch != source.Expected.Epoch || outcome.Steps[0].ResumeEvidenceSHA256 == "" || !reflect.DeepEqual(outcome.Steps[1].ScheduledIntervals, source.Expected.Intervals) || outcome.Steps[2].CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostStopCard))) {
-				t.Errorf("resume preservation/draw prefix: %+v", outcome)
-			}
-		} else {
-			if runErr == nil && (len(outcome.Steps) == 0 || outcome.Steps[0].Status != "REFUSED") {
-				t.Errorf("%s invalid resume admitted: %+v", variant, outcome)
-			}
-			if _, err := os.Lstat(filepath.Join(candidate.Root, "profile")); !os.IsNotExist(err) {
-				t.Errorf("%s invalid resume mutated profile", variant)
-			}
-			entries, _ := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
-			if len(entries) != 0 {
-				t.Errorf("%s invalid resume emitted effect receipts", variant)
-			}
-		}
-		for role, artifact := range source.Receipt.Artifacts {
-			contents, err := os.ReadFile(artifact.Path)
-			if err != nil || fmt.Sprintf("%x", sha256.Sum256(contents)) != artifact.SHA256 {
-				t.Errorf("%s resume source%s changed", variant, role)
-			}
-		}
-	}
-	// Source-literal player bytes and full semantic report expectations are frozen
-	// independently of this producer. IDs, epochs and PNG bytes remain real facts.
-	scenarioRaw, err := os.ReadFile("testdata/probe-scenario.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	var scenarioFixture struct {
-		Players []struct {
-			SHA string `json:"sha256"`
-		} `json:"players_before"`
-		Takeover struct {
-			SHA string `json:"actor0_after_sha256"`
-		} `json:"takeover"`
-		InputOrder []string `json:"expected_input_order"`
-		Report     struct {
-			Status      string                  `json:"status"`
-			Rows        []ProbeEvidenceResult   `json:"rows"`
-			Checkpoints []ProbeCheckpointResult `json:"checkpoints"`
-		} `json:"expected_report"`
-		Refusals []struct {
-			ID     string `json:"id"`
-			Reason string `json:"reason_prefix"`
-			Writes int    `json:"writes"`
-		} `json:"refusal_cases"`
-	}
-	if json.Unmarshal(scenarioRaw, &scenarioFixture) != nil || len(scenarioFixture.Players) != 4 {
-		t.Fatal("source scenario oracle")
-	}
-	scenarioProfile := profile
-	scenarioProfile.Root = t.TempDir()
-	_ = os.Chmod(scenarioProfile.Root, 0700)
-	scenarioProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-first-save")
-	scenarioProfile.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "initial", Phase: "requested", Nonce: "1-initial"}, {Session: profile.Session, Operation: "scenario", Phase: "requested", Nonce: "2-scenario"}, {Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
-	glyphs := map[string]string{}
-	for _, character := range "MoveInfoListHelpOptsSavFile12toanewfcm.px" {
-		glyphs[strconv.Itoa(int(character))] = string(character)
-	}
-	glyphRaw, _ := json.Marshal(glyphs)
-	glyphPath := filepath.Join(sources, "scenario-glyphmap.json")
-	if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
-		t.Fatal(err)
-	}
-	scenarioProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, MaxUIReads: 4096}
-	scenarioInput, _ := json.Marshal(scenarioProfile)
-	scenarioResult, scenarioErr := runProbeLifecycle(scenarioInput)
-	for _, step := range scenarioResult.Steps {
-		if step.Owned != nil {
-			if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, profile.Program.SHA256); err == nil {
-				_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-				var status syscall.WaitStatus
-				_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-			}
-		}
-	}
-	if scenarioErr != nil || scenarioResult.Status != "COMPLETED" || len(scenarioResult.Steps) != 3 {
-		t.Fatalf("first producer: %+v %v", scenarioResult, scenarioErr)
-	}
-	produced := scenarioResult.Steps[1]
-	if produced.Status != "COMPLETED" || produced.Capture == nil || produced.Checkpoint == nil {
-		t.Fatalf("first producer facts: %+v", produced)
-	}
-	if produced.Checkpoint.Status != scenarioFixture.Report.Status || !reflect.DeepEqual(produced.Checkpoint.Rows, scenarioFixture.Report.Rows) || !reflect.DeepEqual(produced.Checkpoint.Checkpoints, scenarioFixture.Report.Checkpoints) || len(produced.Checkpoint.CoveredAreas) != 0 || produced.Checkpoint.LiveOwnership {
-		t.Errorf("save-only actual report: %+v", produced.Checkpoint)
-	}
-	if produced.Capture.Status != "CAPTURED" || produced.Capture.Provenance != "owned_go" || produced.Capture.MemoryBefore == nil || !produced.Capture.MemoryBefore.ProcessGuarded || len(produced.Checkpoint.Captures) != 1 || produced.Checkpoint.Captures[0].Status != "ACCEPTED" {
-		t.Errorf("source capture linkage: %+v", produced.Capture)
-	}
-	for player, record := range produced.UI.Saved.Players {
-		expected := scenarioFixture.Players[player].SHA
-		if player == 0 {
-			expected = scenarioFixture.Takeover.SHA
-		}
-		if record.RecordSHA256 != expected || record.TutorialInitializedSHA256 != expected {
-			t.Errorf("player%d full source hash: %+v", player, record)
-		}
-	}
-	longWidget := false
-	for _, widget := range produced.UI.Widgets {
-		if widget.Index == 19 && !widget.Unsupported && widget.Text == strings.Repeat("x", 129) {
-			longWidget = true
-		}
-	}
-	if !longWidget {
-		t.Error("129-glyph source widget did not survive bounded decoder chunks")
-	}
-	admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
-	if _, err := readProbeUI(ProbeUIPlan{Admission: admissionRaw, BuildSHA256: profile.Program.SHA256, Glyphmap: glyphRaw, TimeoutMS: 1000, MaxReads: 1}, ProbeMemoryRuntime{Provenance: "owned_go"}); err == nil || !strings.Contains(err.Error(), "budget") {
-		t.Errorf("UI explicit budget refusal: %v", err)
-	}
-	var inputOrder []string
-	inputTrace, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "scenario-inputs.json"))
-	_ = json.Unmarshal(inputTrace, &inputOrder)
-	if !reflect.DeepEqual(inputOrder, scenarioFixture.InputOrder) {
-		t.Errorf("source input order: %v", inputOrder)
-	}
-	writePacket, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "scenario-write.bin"))
-	if hex.EncodeToString(writePacket) != "0a00000004c1bf560000" {
-		t.Errorf("named Write8 packet: %x", writePacket)
-	}
-	var captureFixture struct {
-		ImageHex string `json:"image_hex"`
-	}
-	captureFixtureRaw, _ := os.ReadFile("testdata/probe-capture.json")
-	_ = json.Unmarshal(captureFixtureRaw, &captureFixture)
-	pngBytes, _ := hex.DecodeString(captureFixture.ImageHex)
-	published, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "captures", produced.Capture.ImagePath))
-	snapshot, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "profile", "PCSX2", "snaps", "first-save.png"))
-	if !bytes.Equal(published, pngBytes) || !bytes.Equal(snapshot, pngBytes) {
-		t.Error("original PNG identity/preservation")
-	}
-	for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request"} {
-		admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
-		var bundle ProbeRecordBundle
-		_ = json.Unmarshal(admissionRaw, &bundle)
-		switch variant {
-		case "blank-nonce":
-			bundle.GoOwner.Step.Request.Nonce = ""
-		case "wrong-operation":
-			bundle.GoOwner.Step.Request.Operation = "warm"
-		case "unlinked-request":
-			bundle.GoOwner.Profile.Requests = nil
-		}
-		bad, _ := json.Marshal(bundle)
-		if _, err := admitProbeRecords(bad); err == nil {
-			t.Error(variant, "admitted")
-		}
-	}
-	for _, refusal := range scenarioFixture.Refusals {
-		candidate := scenarioProfile
-		candidate.Root = t.TempDir()
-		_ = os.Chmod(candidate.Root, 0700)
-		candidate.ProgramArgs = append(slices.Clone(scenarioProfile.ProgramArgs), refusal.ID)
-		if refusal.ID == "read-budget" {
-			spec := *candidate.Scenario
-			spec.MaxUIReads = 1
-			candidate.Scenario = &spec
-		}
-		input, _ := json.Marshal(candidate)
-		outcome, runErr := runProbeLifecycle(input)
-		for _, step := range outcome.Steps {
-			if step.Owned != nil {
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
-					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-					var status syscall.WaitStatus
-					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-				}
-			}
-		}
-		if runErr != nil || len(outcome.Steps) != 3 || outcome.Status != "INCOMPLETE" || outcome.Steps[1].Status != "UNKNOWN" || !strings.HasPrefix(outcome.Steps[1].Reason, refusal.Reason) || outcome.Steps[2].Status != "COMPLETED" {
-			t.Fatalf("%s bounded source refusal: %+v %v", refusal.ID, outcome, runErr)
-		}
-		if outcome.Steps[1].Capture != nil || outcome.Steps[1].Checkpoint != nil {
-			t.Error(refusal.ID, "unsafe source became checkpoint")
-		}
-		written, _ := os.ReadFile(filepath.Join(candidate.Root, "scenario-write-count.txt"))
-		count := 0
-		if len(written) > 0 {
-			count, _ = strconv.Atoi(string(written))
-		}
-		if count != refusal.Writes {
-			t.Errorf("%s transaction repeated or omitted: %d", refusal.ID, count)
-		}
-		for _, source := range candidate.Inputs {
-			data, err := os.ReadFile(source.Path)
-			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != source.SHA256 {
-				t.Error(refusal.ID, "original source changed")
-			}
-		}
-	}
-	// The independent paired oracle predates any producer output. A real Load in
-	// this controlled VM restores RAM from its private File2 bytes, not a PASS flag.
-	for _, cohort := range []string{"newgame", "paired"} {
-		pairedOracleRaw, err := os.ReadFile("testdata/probe-" + cohort + ".json")
-		if err != nil {
-			t.Fatal(err)
-		}
-		var pairedOracle struct {
-			States         map[string]ProbeSavedState `json:"states"`
-			ExpectedReport json.RawMessage            `json:"full_normalized_report"`
-		}
-		if json.Unmarshal(pairedOracleRaw, &pairedOracle) != nil {
-			t.Fatal("paired oracle")
-		}
-		pairedProfile := profile
-		// Full source UI reads bracket quiescence; this cohort uses the existing
-		// bounded10s readiness policy, while the small legacy child retains2s.
-		pairedProfile.ReadyTimeoutMS = 10000
-		pairedProfile.Root = t.TempDir()
-		_ = os.Chmod(pairedProfile.Root, 0700)
-		pairedProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-"+cohort)
-		pairedProfile.Inputs = map[string]RegistryInput{}
-		for role, input := range profile.Inputs {
-			pairedProfile.Inputs[role] = input
-		}
-		initialCard, err := os.ReadFile("testdata/probe-paired-card-initial.bin")
-		if err != nil {
-			t.Fatal(err)
-		}
-		pairedCardPath := filepath.Join(sources, cohort+"-card.bin")
-		if err := os.WriteFile(pairedCardPath, initialCard, 0400); err != nil {
-			t.Fatal(err)
-		}
-		pairedProfile.Inputs["card"] = RegistryInput{Path: pairedCardPath, Size: int64(len(initialCard)), SHA256: fmt.Sprintf("%x", sha256.Sum256(initialCard))}
-		pairedGlyphs := map[string]string{}
-		for character := 32; character < 127; character++ {
-			pairedGlyphs[strconv.Itoa(character)] = string(rune(character))
-		}
-		pairedGlyphRaw, _ := json.Marshal(pairedGlyphs)
-		pairedGlyphPath := filepath.Join(sources, cohort+"-glyphmap.json")
-		if err := os.WriteFile(pairedGlyphPath, pairedGlyphRaw, 0400); err != nil {
-			t.Fatal(err)
-		}
-		pairedProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: pairedGlyphPath, Size: int64(len(pairedGlyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(pairedGlyphRaw))}, TimeoutMS: 180000, MaxUIReads: 4096}
-		pairedProfile.Requests = nil
-		operations := []string{"initial", "scenario", "warm-load", "load", "cold-load", "load", "restore", "stop"}
-		warmIndex, coldIndex, coldLoadIndex, finalIndex := 3, 4, 5, 6
-		if cohort == "newgame" {
-			pairedProfile.Scenario.NoTutorial = true
-			pairedProfile.Scenario.FrontEndTimeoutMS = 120000
-			operations = []string{"initial", "newgame", "prepare-scenario", "warm-load", "prepare-load", "resave", "warm-load", "load", "cold-load", "load", "restore", "stop"}
-			warmIndex, coldIndex, coldLoadIndex, finalIndex = 7, 8, 9, 10
-		}
-		for index, operation := range operations {
-			pairedProfile.Requests = append(pairedProfile.Requests, ProbeLifecycleRequest{Session: profile.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", index+1, operation)})
-		}
-		pairedInput, _ := json.Marshal(pairedProfile)
-		pairedResult, pairedErr := runProbeLifecycle(pairedInput)
-		for _, step := range pairedResult.Steps {
-			if step.Owned != nil {
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, pairedProfile.Program.SHA256); err == nil {
-					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-					var status syscall.WaitStatus
-					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-				}
-			}
-		}
-		if pairedErr != nil || pairedResult.Status != "COMPLETED" || len(pairedResult.Steps) != len(operations) {
-			for _, step := range pairedResult.Steps {
-				t.Logf("paired %s %s: %s effects=%v", step.Request.Nonce, step.Status, step.Reason, step.Effects)
-			}
-			for _, name := range []string{"child-epoch-0.log", "child-epoch-1.log"} {
-				log, _ := os.ReadFile(filepath.Join(pairedProfile.Root, name))
-				t.Logf("%s: %s", name, log)
-			}
-			t.Fatalf("paired producer %s %v", pairedResult.Status, pairedErr)
-		}
-		if pairedResult.Steps[warmIndex].PreviewSamples != 40 || pairedResult.Steps[coldLoadIndex].PreviewSamples != 40 || pairedResult.Steps[0].Owned.PID == pairedResult.Steps[coldIndex].Owned.PID || pairedResult.Steps[coldIndex].Epoch != 1 {
-			t.Fatal("paired preview or cold ownership")
-		}
-		finalStep := pairedResult.Steps[finalIndex]
-		if finalStep.Checkpoint == nil || finalStep.Evidence == nil {
-			t.Fatal("paired report/evidence missing")
-		}
-		evidenceRaw, err := os.ReadFile(finalStep.Evidence.Path)
-		if err != nil || int64(len(evidenceRaw)) != finalStep.Evidence.Size || fmt.Sprintf("%x", sha256.Sum256(evidenceRaw)) != finalStep.Evidence.SHA256 {
-			t.Fatal("paired immutable evidence binding")
-		}
-		var evidence ProbeEvidenceBundle
-		if json.Unmarshal(evidenceRaw, &evidence) != nil {
-			t.Fatal("paired saved evidence")
-		}
-		logBytes, err := os.ReadFile(filepath.Join(pairedProfile.Root, "events.jsonl"))
-		if err != nil {
-			t.Fatal(err)
-		}
-		for _, event := range evidence.Events {
-			end := event.Offset + int64(len(event.Data))
-			if event.Offset < 0 || end > int64(len(logBytes)) || !bytes.Equal(logBytes[event.Offset:end], event.Data) {
-				t.Fatal("paired source journal prefix/offset differs")
-			}
-		}
-		for index, capture := range evidence.Captures {
-			admission, err := admitProbeRecords(capture.Admission)
+		for _, owned := range []*ProbeProcessRecord{first.Owned, cold.Owned} {
+			data, err := os.ReadFile(filepath.Join(root, fmt.Sprintf("child-evidence-%d.json", owned.PID)))
 			if err != nil {
 				t.Fatal(err)
 			}
-			receiptRaw, _ := json.Marshal(capture.Receipt)
-			if capture.Receipt.PID != admission.PID || capture.Receipt.Epoch != admission.Epoch || capture.Receipt.MemoryBefore.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(capture.Admission)) || fmt.Sprintf("%x", sha256.Sum256(receiptRaw)) != finalStep.Checkpoint.Captures[index].ReceiptSHA256 {
-				t.Fatal("paired actual owner/hash linkage")
+			var child struct {
+				PID           int
+				Argv, Pending []string
 			}
-			image, _ := hex.DecodeString(capture.ImageHex)
-			published, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "captures", capture.Receipt.ImagePath))
-			if !bytes.Equal(image, published) || fmt.Sprintf("%x", sha256.Sum256(image)) != capture.Receipt.ImageSHA256 {
-				t.Fatal("paired PNG source identity")
+			if json.Unmarshal(data, &child) != nil || child.PID != owned.PID || !reflect.DeepEqual(child.Argv, owned.Cmdline) || !slices.Contains(child.Pending, map[bool]string{false: "1-initial-02-launch.pending.json", true: "3-cold-03-launch.pending.json"}[owned.PID == cold.Owned.PID]) {
+				t.Errorf("pre-effect child witness: %s", data)
 			}
 		}
-		actualRaw, _ := json.Marshal(finalStep.Checkpoint)
-		var normalized map[string]any
-		_ = json.Unmarshal(actualRaw, &normalized)
-		if normalized["bundle_sha256"] != fmt.Sprintf("%x", sha256.Sum256(evidenceRaw)) {
-			t.Fatal("paired full report bundle hash")
+		entries, err := os.ReadDir(filepath.Join(root, "receipts"))
+		if err != nil {
+			t.Fatal(err)
 		}
-		normalized["bundle_sha256"] = "NORMALIZED_BUNDLE_SHA256"
-		for _, value := range normalized["events"].([]any) {
-			row := value.(map[string]any)
-			row["offset"] = float64(0)
-			row["data"].(map[string]any)["time"] = "NORMALIZED_TIME"
+		if len(entries) != 33 {
+			t.Errorf("durable receipt count%d want33", len(entries))
 		}
-		for _, value := range normalized["captures"].([]any) {
-			value.(map[string]any)["receipt_sha256"] = "NORMALIZED_RECEIPT_SHA256"
-		}
-		var expected map[string]any
-		_ = json.Unmarshal(pairedOracle.ExpectedReport, &expected)
-		if !reflect.DeepEqual(normalized, expected) {
-			actual, _ := json.Marshal(normalized)
-			t.Fatalf("paired full normalized report differs: %s", actual)
-		}
-		cardFixture := "testdata/probe-paired-card-saved.bin"
-		if cohort == "newgame" {
-			cardFixture = "testdata/probe-newgame-card-final.bin"
-		}
-		savedCard, _ := os.ReadFile(cardFixture)
-		actualCard, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
-		if !bytes.Equal(actualCard, savedCard) {
-			t.Fatal("paired exact File2 persistence/original File1 sentinel")
-		}
-		if !reflect.DeepEqual(finalStep.UI.Saved, pairedOracle.States["advanced"]) {
-			t.Fatal("paired actual advancement footprint")
-		}
-		if cohort == "newgame" {
-			acks, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "preparation-acks.txt"))
-			if string(acks) != "1" {
-				t.Fatal("preparation must acknowledge exactly once")
-			}
-			for _, variant := range []string{"missing-preparation-image", "ack-before-image", "uninitialized-image", "missing-final-resave"} {
-				var mutant ProbeEvidenceBundle
-				_ = json.Unmarshal(evidenceRaw, &mutant)
-				switch variant {
-				case "missing-preparation-image":
-					mutant.Captures = append(mutant.Captures[:2], mutant.Captures[3:]...)
-				case "ack-before-image":
-					mutant.Events[4], mutant.Events[5] = mutant.Events[5], mutant.Events[4]
-				case "uninitialized-image":
-					var row map[string]any
-					_ = json.Unmarshal(mutant.Events[4].Data, &row)
-					row["state"] = pairedOracle.States["initial"]
-					mutant.Events[4].Data, _ = json.Marshal(row)
-				case "missing-final-resave":
-					mutant.Events = append(mutant.Events[:7], mutant.Events[8:]...)
-				}
-				mutantRaw, _ := json.Marshal(mutant)
-				result, err := reportProbeEvidence(mutantRaw)
-				if err == nil && result.Status == "PASS" {
-					t.Error(variant, "unsafe preparation evidence accepted")
+		var completeCount, pendingCount int
+		for _, entry := range entries {
+			if strings.HasSuffix(entry.Name(), ".pending.json") {
+				pendingCount++
+				paired := strings.TrimSuffix(entry.Name(), ".pending.json") + ".complete.json"
+				if _, err := os.Stat(filepath.Join(root, "receipts", paired)); err != nil {
+					t.Error(err)
 				}
 			}
-			continue
+			if strings.HasSuffix(entry.Name(), ".complete.json") {
+				completeCount++
+			}
 		}
-		for _, variant := range []string{"wrong-slot", "changed-fingerprint", "incomplete-pair", "missing-capture", "out-of-order", "stale-epoch"} {
-			var mutant ProbeEvidenceBundle
-			_ = json.Unmarshal(evidenceRaw, &mutant)
-			switch variant {
-			case "wrong-slot", "changed-fingerprint":
-				var row map[string]any
-				_ = json.Unmarshal(mutant.Events[3].Data, &row)
-				if variant == "wrong-slot" {
-					row["slot"] = float64(0)
-				} else {
-					row["state"].(map[string]any)["players"].([]any)[3].(map[string]any)["record_sha256"] = strings.Repeat("f", 64)
+		if pendingCount != 14 || completeCount != 18 {
+			t.Errorf("durable effects%d/%d", pendingCount, completeCount)
+		}
+		beforeEntries := len(entries)
+		replay, err := runProbeLifecycle(requestRaw)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for index, step := range replay.Steps {
+			if fixture.ExpectedStatus[index] == "COMPLETED" && !step.Replayed {
+				t.Errorf("not replay%d: %+v", index, step)
+			}
+		}
+		entries, _ = os.ReadDir(filepath.Join(root, "receipts"))
+		if len(entries) != beforeEntries {
+			t.Error("replay created effects")
+		}
+		pendingPath := filepath.Join(root, "receipts", "5-warm-00-quiescent.pending.json")
+		if err := os.WriteFile(pendingPath, []byte(`{"phase":"pending"}`), 0600); err != nil {
+			t.Fatal(err)
+		}
+		profile.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "warm", Phase: "requested", Nonce: "5-warm"}, fixture.Requests[len(fixture.Requests)-1]}
+		pendingRaw, _ := json.Marshal(profile)
+		pendingReport, err := runProbeLifecycle(pendingRaw)
+		if err != nil || pendingReport.Steps[0].Status != "UNKNOWN" || pendingReport.Steps[0].Reason != "durable pending effect prevents replay" || !pendingReport.Steps[1].Replayed {
+			t.Errorf("pending cannot retry: %+v %v", pendingReport, err)
+		}
+		// C-global source/header oracle comparisons use only an owned event file.
+		padRoot := t.TempDir()
+		_ = os.Chmod(padRoot, 0700)
+		ctx, cancel := context.WithCancel(context.Background())
+		ready, done := make(chan error, 1), make(chan error, 1)
+		go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink"}, ready, done)
+		if err := <-ready; err != nil {
+			cancel()
+			t.Fatal(err)
+		}
+		commands := []string{"tap CROSS 0.01", "tap UP 0.01", "tap L2 0.01", "tap CROSS NaN"}
+		for index, command := range commands {
+			connection, err := net.DialUnix("unix", nil, &net.UnixAddr{Name: filepath.Join(padRoot, "pad.sock"), Net: "unix"})
+			if err != nil {
+				cancel()
+				t.Fatal(err)
+			}
+			_ = connection.SetDeadline(time.Now().Add(2 * time.Second))
+			_, err = io.WriteString(connection, command)
+			if err == nil {
+				err = connection.CloseWrite()
+			}
+			ack, readErr := io.ReadAll(io.LimitReader(connection, 257))
+			_ = connection.Close()
+			expected := "ok\n"
+			if index == 3 {
+				expected = "err invalid owned pad command\n"
+			}
+			if err != nil || readErr != nil || string(ack) != expected {
+				t.Errorf("pad command%s %q %v %v", command, ack, err, readErr)
+			}
+		}
+		cancel()
+		if err := <-done; err != nil {
+			t.Fatal(err)
+		}
+		events, err := os.ReadFile(filepath.Join(padRoot, "pad-events.bin"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(events) != 288 {
+			t.Fatalf("event bytes%d", len(events))
+		}
+		for index, expected := range []string{fixture.PadEventsSHA, fixture.PadHatSHA, fixture.PadTriggerSHA} {
+			if fmt.Sprintf("%x", sha256.Sum256(events[index*96:(index+1)*96])) != expected {
+				t.Errorf("independent ABI event%d mismatch", index)
+			}
+		}
+		metadata, err := os.ReadFile(filepath.Join(padRoot, "pad-device.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var device struct {
+			Setup string `json:"setup_hex"`
+			Axes  string `json:"axes_hex"`
+		}
+		if json.Unmarshal(metadata, &device) != nil {
+			t.Fatal("pad metadata")
+		}
+		for encoded, expected := range map[string]string{device.Setup: fixture.PadSetupSHA, device.Axes: fixture.PadAxesSHA} {
+			data, err := hex.DecodeString(encoded)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != expected {
+				t.Error("primary-header setup/axis oracle mismatch")
+			}
+		}
+		if _, err := os.Lstat(filepath.Join(padRoot, "pad.sock")); !os.IsNotExist(err) {
+			t.Error("owned pad socket survived cleanup")
+		}
+		var cadence struct {
+			Prefixes []struct {
+				Seed      string `json:"seed_uint64_decimal"`
+				Count     int
+				Intervals []int
+				Next      int
+			}
+			Long struct {
+				Seed      string `json:"seed_uint64_decimal"`
+				Count     int
+				Intervals []int
+				Next      int
+				SHA       string `json:"uint32_le_sha256"`
+			} `json:"long_stream"`
+		}
+		cadenceRaw, err := os.ReadFile("testdata/probe-checkpoint-intervals.json")
+		if err != nil || json.Unmarshal(cadenceRaw, &cadence) != nil {
+			t.Fatal("independent cadence fixture", err)
+		}
+		for _, sample := range cadence.Prefixes {
+			seed, err := strconv.ParseUint(sample.Seed, 10, 64)
+			if err != nil {
+				t.Fatal(err)
+			}
+			got, err := probeCheckpointIntervals(seed, sample.Count+1)
+			if err != nil || len(got) != sample.Count+1 || !reflect.DeepEqual(got[:sample.Count], sample.Intervals) || got[sample.Count] != sample.Next {
+				t.Fatalf("CPython prefix%s: %v %v", sample.Seed, got, err)
+			}
+		}
+		longSeed, err := strconv.ParseUint(cadence.Long.Seed, 10, 64)
+		if err != nil {
+			t.Fatal(err)
+		}
+		long, err := probeCheckpointIntervals(longSeed, cadence.Long.Count+1)
+		if err != nil || len(long) != 701 {
+			t.Fatal("long cadence", err)
+		}
+		encodedIntervals := make([]byte, cadence.Long.Count*4)
+		for index, value := range long[:cadence.Long.Count] {
+			binary.LittleEndian.PutUint32(encodedIntervals[index*4:], uint32(value))
+		}
+		if !reflect.DeepEqual(long[:cadence.Long.Count], cadence.Long.Intervals) || long[cadence.Long.Count] != cadence.Long.Next || fmt.Sprintf("%x", sha256.Sum256(encodedIntervals)) != cadence.Long.SHA {
+			t.Fatal("independent twist/rejection/continuation cadence")
+		}
+		for _, count := range []int{-1, 4097} {
+			if _, err := probeCheckpointIntervals(0, count); err == nil {
+				t.Error("unbounded cadence count admitted")
+			}
+		}
+		var policyFixture struct {
+			Policy ProbeLifecyclePolicy `json:"go_policy"`
+			Cases  []struct {
+				ID, Child            string
+				Operations, Statuses []string
+				Samples              int    `json:"watch_samples"`
+				Repeated             int    `json:"watch_repeated"`
+				Warning              bool   `json:"watch_warning"`
+				Outcome              string `json:"watch_outcome"`
+				Skips                []string
+				Taps                 int  `json:"l3_taps"`
+				Replay               bool `json:"last_stop_replay"`
+				Recoveries           int  `json:"recovery_attempts"`
+				MaxRecoveries        int  `json:"max_recoveries"`
+			}
+		}
+		policyRaw, err := os.ReadFile("testdata/probe-lifecycle-policy.json")
+		if err != nil || json.Unmarshal(policyRaw, &policyFixture) != nil {
+			t.Fatal("source policy fixture", err)
+		}
+		var actionFacts struct {
+			Source struct {
+				PollMS   int `json:"poll_ms"`
+				Warn     int `json:"warn_repeats"`
+				Terminal int `json:"terminal_repeats"`
+			} `json:"watch_source_policy"`
+			Pause  string `json:"pause_command"`
+			Settle int    `json:"pause_settle_ms"`
+			Polls  int    `json:"status_polls"`
+			PollMS int    `json:"status_poll_ms"`
+		}
+		if json.Unmarshal(probeLifecycleActions, &actionFacts) != nil || actionFacts.Source.PollMS != 1000 || actionFacts.Source.Warn != 200 || actionFacts.Source.Terminal != 1200 || actionFacts.Pause != "tap L3 0.1" || actionFacts.Settle != 50 || actionFacts.Polls != 20 || actionFacts.PollMS != 50 {
+			t.Fatal("canonical source policy changed")
+		}
+		for _, sample := range policyFixture.Cases {
+			candidate := profile
+			candidate.Root = t.TempDir()
+			_ = os.Chmod(candidate.Root, 0700)
+			policy := policyFixture.Policy
+			if sample.MaxRecoveries > 0 {
+				policy.MaxRecoveries = sample.MaxRecoveries
+			}
+			candidate.Policy = &policy
+			candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), sample.Child)
+			candidate.Requests = nil
+			lastStop := ""
+			for index, operation := range sample.Operations {
+				nonce := fmt.Sprintf("%d-%s", index+1, operation)
+				if operation == "stop" {
+					if sample.Replay && index == len(sample.Operations)-1 {
+						nonce = lastStop
+					} else {
+						lastStop = nonce
+					}
 				}
-				mutant.Events[3].Data, _ = json.Marshal(row)
-			case "incomplete-pair":
-				mutant.Events = append(mutant.Events[:6], mutant.Events[7:]...)
-				mutant.Captures = append(mutant.Captures[:4], mutant.Captures[5:]...)
-			case "missing-capture":
-				mutant.Captures = mutant.Captures[1:]
-			case "out-of-order":
-				mutant.Events[7], mutant.Events[8] = mutant.Events[8], mutant.Events[7]
-			case "stale-epoch":
-				mutant.Captures[3].Admission = mutant.Captures[1].Admission
+				candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: candidate.Session, Operation: operation, Phase: "requested", Nonce: nonce})
 			}
-			mutantRaw, _ := json.Marshal(mutant)
-			result, err := reportProbeEvidence(mutantRaw)
-			if err == nil && result.Status == "PASS" {
-				t.Error(variant, "unsafe paired evidence accepted")
+			input, _ := json.Marshal(candidate)
+			outcome, err := runProbeLifecycle(input)
+			for _, step := range outcome.Steps {
+				if step.Owned != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
+						_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+						var status syscall.WaitStatus
+						_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+					}
+				}
+			}
+			if err != nil || len(outcome.Steps) != len(sample.Statuses) {
+				t.Fatalf("%s: %+v %v", sample.ID, outcome, err)
+			}
+			for index, step := range outcome.Steps {
+				if step.Status != sample.Statuses[index] {
+					t.Errorf("%s step%d: %+v", sample.ID, index, step)
+				}
+				if step.Status == "UNKNOWN" && step.Reason == "" {
+					t.Error("unknown reason lost")
+				}
+			}
+			if sample.Replay && !outcome.Steps[len(outcome.Steps)-1].Replayed {
+				t.Error("completed safe stop repeated")
+			}
+			if sample.Samples > 0 {
+				for _, step := range outcome.Steps {
+					if step.Request.Operation == "watch" {
+						if step.Samples != sample.Samples || step.Repeated != sample.Repeated || step.Warning != sample.Warning || step.WatchOutcome != sample.Outcome || !reflect.DeepEqual(step.Skips, sample.Skips) {
+							t.Errorf("%s typed watch %+v", sample.ID, step)
+						}
+					}
+				}
+			}
+			if sample.ID == "advance" {
+				paused, resumed := outcome.Steps[1], outcome.Steps[2]
+				if paused.VMStatusBefore == nil || *paused.VMStatusBefore != 0 || paused.VMStatusAfter == nil || *paused.VMStatusAfter != 1 || resumed.VMStatusBefore == nil || *resumed.VMStatusBefore != 1 || resumed.VMStatusAfter == nil || *resumed.VMStatusAfter != 0 || paused.Owned.PID != resumed.Owned.PID {
+					t.Error("guarded same-owner pause/unpause")
+				}
+			}
+			if sample.Recoveries > 0 {
+				if !outcome.Steps[2].ExitedBeforeStop || !outcome.Steps[5].ExitedBeforeStop || outcome.Steps[3].RecoveryAttempts != 1 || outcome.Steps[3].Epoch != 1 {
+					t.Errorf("crash disposal/recovery budget: %+v", outcome)
+				}
+				if sample.ID == "crash-recovery-budget" && outcome.Steps[6].Reason != "explicit Go recovery budget exhausted" {
+					t.Errorf("recovery budget bypass: %+v", outcome)
+				}
+				if sample.ID == "per-epoch-recovery" && (outcome.Steps[6].RecoveryAttempts != 2 || outcome.Steps[6].Epoch != 2 || outcome.Steps[8].Reason != "recovery requires proved disposal after a read-only failure") {
+					t.Errorf("prior failure reused by later epoch: %+v", outcome)
+				}
+			}
+			events, err := os.ReadFile(filepath.Join(candidate.Root, "pad-events.bin"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			taps := 0
+			for offset := 0; offset+24 <= len(events); offset += 24 {
+				if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 317 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+					taps++
+				}
+			}
+			if taps != sample.Taps {
+				t.Errorf("%s L3 effects%d want%d", sample.ID, taps, sample.Taps)
+			}
+			for role, input := range candidate.Inputs {
+				content, err := os.ReadFile(input.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(content)) != input.SHA256 {
+					t.Errorf("%s source%s changed", sample.ID, role)
+				}
 			}
 		}
-		prefixProfile := pairedProfile
-		prefixProfile.Root = t.TempDir()
-		_ = os.Chmod(prefixProfile.Root, 0700)
-		prefixProfile.ProgramArgs = append(slices.Clone(pairedProfile.ProgramArgs), "tampered-prefix")
-		prefixProfile.Requests = append(slices.Clone(pairedProfile.Requests[:3]), ProbeLifecycleRequest{Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "4-stop"})
-		prefixRaw, _ := json.Marshal(prefixProfile)
-		prefixResult, prefixErr := runProbeLifecycle(prefixRaw)
-		for _, step := range prefixResult.Steps {
+		resumeRaw, err := os.ReadFile("testdata/probe-lifecycle-resume.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var resumeNames struct{ Refusals []string }
+		if json.Unmarshal(resumeRaw, &resumeNames) != nil {
+			t.Fatal("resume fixture")
+		}
+		for _, variant := range append([]string{"valid"}, resumeNames.Refusals...) {
+			var source struct {
+				Bundle   ProbeEvidenceBundle
+				Receipt  ProbeResumeFacts
+				Run      map[string]any
+				Expected struct {
+					Epoch     int   `json:"new_epoch"`
+					Next      int   `json:"next_interval"`
+					Intervals []int `json:"watch_intervals"`
+				}
+			}
+			if json.Unmarshal(resumeRaw, &source) != nil {
+				t.Fatal("source resume fixture")
+			}
+			priorRoot := t.TempDir()
+			_ = os.Chmod(priorRoot, 0700)
+			if err := os.MkdirAll(filepath.Join(priorRoot, "checkpoints", "screenshots"), 0700); err != nil {
+				t.Fatal(err)
+			}
+			if variant == "native-slot" {
+				value := 3
+				source.Receipt.Slot = &value
+			}
+			if variant == "control" {
+				value := uint32(2)
+				source.Receipt.OriginalControl = &value
+			}
+			if variant == "cleanup" {
+				source.Run["cleanup_complete"] = false
+			}
+			if variant == "event-order" {
+				source.Bundle.Events[17], source.Bundle.Events[18] = source.Bundle.Events[18], source.Bundle.Events[17]
+			}
+			if variant == "seeded-prefix" {
+				source.Receipt.ScheduledIntervals[0]++
+				var event map[string]any
+				_ = json.Unmarshal(source.Bundle.Events[0].Data, &event)
+				event["interval_seconds"] = 5327
+				source.Bundle.Events[0].Data, _ = json.Marshal(event)
+			}
+			if variant == "fingerprint" {
+				var event map[string]any
+				_ = json.Unmarshal(source.Bundle.Events[18].Data, &event)
+				state := event["state"].(map[string]any)
+				state["players"].([]any)[0].(map[string]any)["money"] = 101
+				source.Bundle.Events[18].Data, _ = json.Marshal(event)
+			}
+			if variant == "already-resumed" {
+				event, _ := json.Marshal(map[string]any{"event": "resumed", "event_id": 22, "checkpoint": 2, "time": "2026-11-13T00:01:06+0000", "slot": 2, "expected": source.Receipt.Expected})
+				source.Bundle.Events = append(source.Bundle.Events, ProbeEvidenceEvent{Data: event})
+			}
+			var pngBytes bytes.Buffer
+			if err := png.Encode(&pngBytes, image.NewNRGBA(image.Rect(0, 0, 1, 1))); err != nil {
+				t.Fatal(err)
+			}
+			var eventBytes bytes.Buffer
+			for _, saved := range source.Bundle.Events {
+				var compact bytes.Buffer
+				if err := json.Compact(&compact, saved.Data); err != nil {
+					t.Fatal(err)
+				}
+				eventBytes.Write(compact.Bytes())
+				eventBytes.WriteByte('\n')
+				var event struct {
+					Checkpoint int
+					Screenshot string
+				}
+				_ = json.Unmarshal(saved.Data, &event)
+				if event.Checkpoint == 1 && event.Screenshot != "" {
+					if err := os.WriteFile(filepath.Join(priorRoot, "checkpoints", event.Screenshot), pngBytes.Bytes(), 0400); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			card := []byte(fixture.PostColdCard)
+			cardSHA := fmt.Sprintf("%x", sha256.Sum256(card))
+			source.Run["private_card_final_sha256"] = cardSHA
+			runData, _ := json.Marshal(source.Run)
+			sequenceData, _ := json.Marshal(map[string]any{"status": "failed", "iso_sha256": source.Receipt.ISOSHA256, "runs": []any{map[string]any{"run": source.Receipt.SourceFrameRoot, "result": source.Run}}})
+			source.Receipt.Artifacts = map[string]RegistryInput{}
+			for role, data := range map[string][]byte{"run": runData, "sequence": sequenceData, "events": eventBytes.Bytes(), "card": card} {
+				path := filepath.Join(priorRoot, role+".json")
+				if role == "events" {
+					path = filepath.Join(priorRoot, "checkpoints", "events.jsonl")
+				}
+				if role == "card" {
+					path = filepath.Join(priorRoot, "card.ps2")
+				}
+				if err := os.WriteFile(path, data, 0400); err != nil {
+					t.Fatal(err)
+				}
+				source.Receipt.Artifacts[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+			}
+			receiptData, _ := json.Marshal(source.Receipt)
+			source.Bundle.Events = nil // The actual pinned JSONL is the sole event authority.
+			evidenceData, _ := json.Marshal(source.Bundle)
+			metadata := map[string]RegistryInput{}
+			for role, data := range map[string][]byte{"receipt": receiptData, "evidence": evidenceData} {
+				path := filepath.Join(priorRoot, role+".json")
+				if err := os.WriteFile(path, data, 0400); err != nil {
+					t.Fatal(err)
+				}
+				metadata[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+			}
+			candidate := profile
+			candidate.Root = t.TempDir()
+			_ = os.Chmod(candidate.Root, 0700)
+			candidate.Session = "new-resume-session"
+			candidate.Seed = source.Receipt.Seed
+			candidate.Policy = &policyFixture.Policy
+			candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "watch-advance")
+			candidate.Inputs = map[string]RegistryInput{}
+			for role, input := range profile.Inputs {
+				candidate.Inputs[role] = input
+			}
+			candidate.Inputs["card"] = source.Receipt.Artifacts["card"]
+			candidate.Resume = &ProbeLifecycleResume{Root: priorRoot, Receipt: metadata["receipt"], Evidence: metadata["evidence"]}
+			if variant == "artifact-hash" {
+				candidate.Resume.Evidence.SHA256 = strings.Repeat("0", 64)
+			}
+			candidate.Requests = []ProbeLifecycleRequest{{Session: candidate.Session, Operation: "resume", Phase: "requested", Nonce: "1-resume"}, {Session: candidate.Session, Operation: "watch", Phase: "requested", Nonce: "2-watch"}, {Session: candidate.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+			input, _ := json.Marshal(candidate)
+			outcome, runErr := runProbeLifecycle(input)
+			for _, step := range outcome.Steps {
+				if step.Owned != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
+						_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+						var status syscall.WaitStatus
+						_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+					}
+				}
+			}
+			if variant == "valid" {
+				if runErr != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != 3 {
+					t.Fatalf("valid bound resume: %+v %v", outcome, runErr)
+				}
+				if outcome.Steps[0].Epoch != source.Expected.Epoch || outcome.Steps[0].ResumeEvidenceSHA256 == "" || !reflect.DeepEqual(outcome.Steps[1].ScheduledIntervals, source.Expected.Intervals) || outcome.Steps[2].CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostStopCard))) {
+					t.Errorf("resume preservation/draw prefix: %+v", outcome)
+				}
+			} else {
+				if runErr == nil && (len(outcome.Steps) == 0 || outcome.Steps[0].Status != "REFUSED") {
+					t.Errorf("%s invalid resume admitted: %+v", variant, outcome)
+				}
+				if _, err := os.Lstat(filepath.Join(candidate.Root, "profile")); !os.IsNotExist(err) {
+					t.Errorf("%s invalid resume mutated profile", variant)
+				}
+				entries, _ := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+				if len(entries) != 0 {
+					t.Errorf("%s invalid resume emitted effect receipts", variant)
+				}
+			}
+			for role, artifact := range source.Receipt.Artifacts {
+				contents, err := os.ReadFile(artifact.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(contents)) != artifact.SHA256 {
+					t.Errorf("%s resume source%s changed", variant, role)
+				}
+			}
+		}
+		// Source-literal player bytes and full semantic report expectations are frozen
+		// independently of this producer. IDs, epochs and PNG bytes remain real facts.
+		scenarioRaw, err := os.ReadFile("testdata/probe-scenario.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var scenarioFixture struct {
+			Players []struct {
+				SHA string `json:"sha256"`
+			} `json:"players_before"`
+			Takeover struct {
+				SHA string `json:"actor0_after_sha256"`
+			} `json:"takeover"`
+			InputOrder []string `json:"expected_input_order"`
+			Report     struct {
+				Status      string                  `json:"status"`
+				Rows        []ProbeEvidenceResult   `json:"rows"`
+				Checkpoints []ProbeCheckpointResult `json:"checkpoints"`
+			} `json:"expected_report"`
+			Refusals []struct {
+				ID        string `json:"id"`
+				Reason    string `json:"reason_prefix"`
+				Writes    int    `json:"writes"`
+				Continues bool   `json:"continues_after_acquisition"`
+			} `json:"refusal_cases"`
+		}
+		if json.Unmarshal(scenarioRaw, &scenarioFixture) != nil || len(scenarioFixture.Players) != 4 {
+			t.Fatal("source scenario oracle")
+		}
+		scenarioProfile := profile
+		scenarioProfile.Root = t.TempDir()
+		_ = os.Chmod(scenarioProfile.Root, 0700)
+		scenarioProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-first-save")
+		scenarioProfile.Requests = []ProbeLifecycleRequest{{Session: profile.Session, Operation: "initial", Phase: "requested", Nonce: "1-initial"}, {Session: profile.Session, Operation: "scenario", Phase: "requested", Nonce: "2-scenario"}, {Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+		glyphs := map[string]string{}
+		for _, character := range "MoveInfoListHelpOptsSavFile12toanewfcm.px" {
+			glyphs[strconv.Itoa(int(character))] = string(character)
+		}
+		glyphRaw, _ := json.Marshal(glyphs)
+		glyphPath := filepath.Join(sources, "scenario-glyphmap.json")
+		if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
+			t.Fatal(err)
+		}
+		scenarioProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, MaxUIReads: 4096}
+		scenarioInput, _ := json.Marshal(scenarioProfile)
+		scenarioResult, scenarioErr := runProbeLifecycle(scenarioInput)
+		for _, step := range scenarioResult.Steps {
 			if step.Owned != nil {
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, prefixProfile.Program.SHA256); err == nil {
+				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, profile.Program.SHA256); err == nil {
 					_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
 					var status syscall.WaitStatus
 					_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
 				}
 			}
 		}
-		if prefixErr != nil || len(prefixResult.Steps) != 4 || prefixResult.Status != "INCOMPLETE" || prefixResult.Steps[2].Status != "UNKNOWN" || prefixResult.Steps[2].Reason != "owned event prefix or identity changed" || !reflect.DeepEqual(prefixResult.Steps[2].Effects, []string{"quiescent"}) || prefixResult.Steps[3].Status != "COMPLETED" {
-			t.Fatalf("tampered prefix refusal: %+v %v", prefixResult, prefixErr)
+		if scenarioErr != nil || scenarioResult.Status != "COMPLETED" || len(scenarioResult.Steps) != 3 {
+			t.Fatalf("first producer: %+v %v", scenarioResult, scenarioErr)
 		}
-		traceRaw, _ := os.ReadFile(filepath.Join(prefixProfile.Root, "scenario-inputs.json"))
-		var prefixTrace []string
-		_ = json.Unmarshal(traceRaw, &prefixTrace)
-		if slices.Contains(prefixTrace, "R3") {
-			t.Fatal("tampered journal reached reset effect")
+		produced := scenarioResult.Steps[1]
+		if produced.Status != "COMPLETED" || produced.Capture == nil || produced.Checkpoint == nil {
+			t.Fatalf("first producer facts: %+v", produced)
 		}
-		originalCard, _ := os.ReadFile(pairedCardPath)
-		if !bytes.Equal(originalCard, initialCard) {
-			t.Fatal("paired original card changed")
+		if produced.Checkpoint.Status != scenarioFixture.Report.Status || !reflect.DeepEqual(produced.Checkpoint.Rows, scenarioFixture.Report.Rows) || !reflect.DeepEqual(produced.Checkpoint.Checkpoints, scenarioFixture.Report.Checkpoints) || len(produced.Checkpoint.CoveredAreas) != 0 || produced.Checkpoint.LiveOwnership {
+			t.Errorf("save-only actual report: %+v", produced.Checkpoint)
 		}
+		if produced.Capture.Status != "CAPTURED" || produced.Capture.Provenance != "owned_go" || produced.Capture.MemoryBefore == nil || !produced.Capture.MemoryBefore.ProcessGuarded || len(produced.Checkpoint.Captures) != 1 || produced.Checkpoint.Captures[0].Status != "ACCEPTED" {
+			t.Errorf("source capture linkage: %+v", produced.Capture)
+		}
+		for player, record := range produced.UI.Saved.Players {
+			expected := scenarioFixture.Players[player].SHA
+			if player == 0 {
+				expected = scenarioFixture.Takeover.SHA
+			}
+			if record.RecordSHA256 != expected || record.TutorialInitializedSHA256 != expected {
+				t.Errorf("player%d full source hash: %+v", player, record)
+			}
+		}
+		longWidget := false
+		for _, widget := range produced.UI.Widgets {
+			if widget.Index == 19 && !widget.Unsupported && widget.Text == strings.Repeat("x", 129) {
+				longWidget = true
+			}
+		}
+		if !longWidget {
+			t.Error("129-glyph source widget did not survive bounded decoder chunks")
+		}
+		admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
+		if _, err := readProbeUI(ProbeUIPlan{Admission: admissionRaw, BuildSHA256: profile.Program.SHA256, Glyphmap: glyphRaw, TimeoutMS: 1000, MaxReads: 1}, ProbeMemoryRuntime{Provenance: "owned_go"}); err == nil || !strings.Contains(err.Error(), "budget") {
+			t.Errorf("UI explicit budget refusal: %v", err)
+		}
+		var inputOrder []string
+		inputTrace, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "scenario-inputs.json"))
+		_ = json.Unmarshal(inputTrace, &inputOrder)
+		if !reflect.DeepEqual(inputOrder, scenarioFixture.InputOrder) {
+			t.Errorf("source input order: %v", inputOrder)
+		}
+		writePacket, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "scenario-write.bin"))
+		if hex.EncodeToString(writePacket) != "0a00000004c1bf560000" {
+			t.Errorf("named Write8 packet: %x", writePacket)
+		}
+		var captureFixture struct {
+			ImageHex string `json:"image_hex"`
+		}
+		captureFixtureRaw, _ := os.ReadFile("testdata/probe-capture.json")
+		_ = json.Unmarshal(captureFixtureRaw, &captureFixture)
+		pngBytes, _ := hex.DecodeString(captureFixture.ImageHex)
+		published, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "captures", produced.Capture.ImagePath))
+		snapshot, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "profile", "PCSX2", "snaps", "first-save.png"))
+		if !bytes.Equal(published, pngBytes) || !bytes.Equal(snapshot, pngBytes) {
+			t.Error("original PNG identity/preservation")
+		}
+		for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request"} {
+			admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
+			var bundle ProbeRecordBundle
+			_ = json.Unmarshal(admissionRaw, &bundle)
+			switch variant {
+			case "blank-nonce":
+				bundle.GoOwner.Step.Request.Nonce = ""
+			case "wrong-operation":
+				bundle.GoOwner.Step.Request.Operation = "warm"
+			case "unlinked-request":
+				bundle.GoOwner.Profile.Requests = nil
+			}
+			bad, _ := json.Marshal(bundle)
+			if _, err := admitProbeRecords(bad); err == nil {
+				t.Error(variant, "admitted")
+			}
+		}
+		for _, refusal := range scenarioFixture.Refusals {
+			candidate := scenarioProfile
+			candidate.Root = t.TempDir()
+			_ = os.Chmod(candidate.Root, 0700)
+			candidate.ProgramArgs = append(slices.Clone(scenarioProfile.ProgramArgs), refusal.ID)
+			if refusal.ID == "read-budget" {
+				spec := *candidate.Scenario
+				spec.MaxUIReads = 1
+				candidate.Scenario = &spec
+			}
+			if refusal.ID == "pre-acquisition-delay" {
+				spec := *candidate.Scenario
+				spec.TimeoutMS = 6000
+				candidate.Scenario = &spec
+			}
+			input, _ := json.Marshal(candidate)
+			outcome, runErr := runProbeLifecycle(input)
+			for _, step := range outcome.Steps {
+				if step.Owned != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
+						_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+						var status syscall.WaitStatus
+						_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+					}
+				}
+			}
+			continued := refusal.Continues && len(outcome.Steps) == 3 && outcome.Steps[1].Status == "COMPLETED" && outcome.Steps[1].Reason == ""
+			if runErr != nil || len(outcome.Steps) != 3 || !continued && (outcome.Status != "INCOMPLETE" || outcome.Steps[1].Status != "UNKNOWN" || !strings.HasPrefix(outcome.Steps[1].Reason, refusal.Reason)) || outcome.Steps[2].Status != "COMPLETED" {
+				t.Fatalf("%s bounded source refusal: %+v %v", refusal.ID, outcome, runErr)
+			}
+			if !continued && (outcome.Steps[1].Capture != nil || outcome.Steps[1].Checkpoint != nil) {
+				t.Error(refusal.ID, "unsafe source became checkpoint")
+			}
+			if refusal.ID == "pre-acquisition-delay" && !slices.Contains(outcome.Steps[1].Effects, "verify-human") {
+				t.Fatal("expired pre-acquisition budget consumed the fresh transaction budget")
+			}
+			if refusal.Continues {
+				before, _ := os.Stat(filepath.Join(candidate.Root, "receipts", "2-scenario-00-acquire-board.pending.json"))
+				after, _ := os.Stat(filepath.Join(candidate.Root, "receipts", "2-scenario-00-acquire-board.complete.json"))
+				if before == nil || after == nil || after.ModTime().Sub(before.ModTime()) <= time.Duration(candidate.Scenario.TimeoutMS)*time.Millisecond {
+					t.Fatal("witness did not expire pre-acquisition budget")
+				}
+			}
+			written, _ := os.ReadFile(filepath.Join(candidate.Root, "scenario-write-count.txt"))
+			count := 0
+			if len(written) > 0 {
+				count, _ = strconv.Atoi(string(written))
+			}
+			if count != refusal.Writes {
+				t.Errorf("%s transaction repeated or omitted: %d", refusal.ID, count)
+			}
+			for _, source := range candidate.Inputs {
+				data, err := os.ReadFile(source.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != source.SHA256 {
+					t.Error(refusal.ID, "original source changed")
+				}
+			}
+		}
+	})
+	// The independent paired oracle predates any producer output. A real Load in
+	// this controlled VM restores RAM from its private File2 bytes, not a PASS flag.
+	type cohortRun struct {
+		Profile     ProbeLifecycleProfile
+		Result      ProbeLifecycleReport
+		Oracle      json.RawMessage
+		CardFixture string
+	}
+	for _, cohort := range []string{"sequence", "newgame", "paired"} {
+		t.Run(cohort, func(t *testing.T) {
+			pairedOracleRaw, err := os.ReadFile("testdata/probe-" + cohort + ".json")
+			if err != nil {
+				t.Fatal(err)
+			}
+			var pairedOracle struct {
+				States         map[string]ProbeSavedState `json:"states"`
+				ExpectedReport json.RawMessage            `json:"full_normalized_report"`
+				Runs           []json.RawMessage          `json:"runs"`
+				Outer          json.RawMessage            `json:"outer_projection"`
+			}
+			if json.Unmarshal(pairedOracleRaw, &pairedOracle) != nil {
+				t.Fatal("paired oracle")
+			}
+			pairedProfile := profile
+			// Full source UI reads bracket quiescence; this cohort uses the existing
+			// bounded10s readiness policy, while the small legacy child retains2s.
+			pairedProfile.ReadyTimeoutMS = 10000
+			pairedProfile.Root = t.TempDir()
+			_ = os.Chmod(pairedProfile.Root, 0700)
+			pairedProfile.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-"+cohort)
+			pairedProfile.Inputs = map[string]RegistryInput{}
+			for role, input := range profile.Inputs {
+				pairedProfile.Inputs[role] = input
+			}
+			initialCardPath := "testdata/probe-paired-card-initial.bin"
+			if cohort == "sequence" {
+				initialCardPath = "testdata/probe-sequence-card-H0.bin"
+			}
+			initialCard, err := os.ReadFile(initialCardPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			pairedCardPath := filepath.Join(sources, cohort+"-card.bin")
+			if err := os.WriteFile(pairedCardPath, initialCard, 0400); err != nil {
+				t.Fatal(err)
+			}
+			pairedProfile.Inputs["card"] = RegistryInput{Path: pairedCardPath, Size: int64(len(initialCard)), SHA256: fmt.Sprintf("%x", sha256.Sum256(initialCard))}
+			pairedGlyphs := map[string]string{}
+			for character := 32; character < 127; character++ {
+				pairedGlyphs[strconv.Itoa(character)] = string(rune(character))
+			}
+			pairedGlyphRaw, _ := json.Marshal(pairedGlyphs)
+			pairedGlyphPath := filepath.Join(sources, cohort+"-glyphmap.json")
+			if err := os.WriteFile(pairedGlyphPath, pairedGlyphRaw, 0400); err != nil {
+				t.Fatal(err)
+			}
+			pairedProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: pairedGlyphPath, Size: int64(len(pairedGlyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(pairedGlyphRaw))}, TimeoutMS: 180000, MaxUIReads: 4096}
+			pairedProfile.Requests = nil
+			operations := []string{"initial", "scenario", "warm-load", "load", "cold-load", "load", "restore", "stop"}
+			warmIndex, coldIndex, coldLoadIndex, finalIndex := 3, 4, 5, 6
+			if cohort == "newgame" {
+				pairedProfile.Scenario.NoTutorial = true
+				pairedProfile.Scenario.FrontEndTimeoutMS = 120000
+				operations = []string{"initial", "newgame", "prepare-scenario", "warm-load", "prepare-load", "resave", "warm-load", "load", "cold-load", "load", "restore", "stop"}
+				warmIndex, coldIndex, coldLoadIndex, finalIndex = 7, 8, 9, 10
+			}
+			for index, operation := range operations {
+				pairedProfile.Requests = append(pairedProfile.Requests, ProbeLifecycleRequest{Session: profile.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", index+1, operation)})
+			}
+			var records []cohortRun
+			var sequenceSpec ProbeSequenceSpec
+			var sequenceResult ProbeSequenceReport
+			var pairedErr error
+			if cohort == "sequence" {
+				sequenceSpec = ProbeSequenceSpec{Version: 1, SourceFormat: "go-probe-sequence-v1", Root: pairedProfile.Root, Seed: 17}
+				for index, recipe := range []string{"first-create", "new-game-overwrite", "alternate-slots"} {
+					candidate := pairedProfile
+					candidate.Root = filepath.Join(sequenceSpec.Root, fmt.Sprintf("run-%d", index+1))
+					_ = os.Mkdir(candidate.Root, 0700)
+					candidate.Session = fmt.Sprintf("sequence-test-run-%d", index+1)
+					candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-newgame", fmt.Sprintf("sequence-run%d", index+1))
+					candidate.Inputs = map[string]RegistryInput{}
+					for role, input := range pairedProfile.Inputs {
+						candidate.Inputs[role] = input
+					}
+					if index > 0 {
+						candidate.Inputs["card"] = RegistryInput{}
+					}
+					seed := uint64(17 + index)
+					candidate.Seed = &seed
+					spec := *pairedProfile.Scenario
+					spec.Recipe = recipe
+					spec.Calibration = true
+					spec.WaitTimeoutMS = 180000
+					spec.NoTutorial = true
+					spec.FrontEndTimeoutMS = 120000
+					candidate.Scenario = &spec
+					ops := []string{"initial", "newgame", "scenario", "warm-load", "load", "cold-load", "load", "restore", "finish", "stop"}
+					if index == 0 {
+						ops = []string{"initial", "newgame", "prepare-scenario", "warm-load", "prepare-load", "resave", "warm-load", "load", "cold-load", "load", "restore", "finish", "stop"}
+					}
+					if index == 2 {
+						ops = []string{"initial", "newgame", "scenario", "warm-load", "load", "cold-load", "load", "restore", "scenario", "warm-load", "load", "cold-load", "load", "restore", "finish", "stop"}
+					}
+					candidate.Requests = nil
+					for ordinal, operation := range ops {
+						candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: candidate.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", ordinal+1, operation)})
+					}
+					sequenceSpec.Profiles = append(sequenceSpec.Profiles, candidate)
+				}
+				input, _ := json.Marshal(sequenceSpec)
+				sequenceResult, pairedErr = runProbeSequence(input)
+				for index, row := range sequenceResult.Runs {
+					profileRaw, _ := os.ReadFile(row.Profile.Path)
+					var actualProfile ProbeLifecycleProfile
+					_ = json.Unmarshal(profileRaw, &actualProfile)
+					if int64(len(profileRaw)) != row.Profile.Size || fmt.Sprintf("%x", sha256.Sum256(profileRaw)) != row.Profile.SHA256 {
+						t.Fatal("sequence frozen profile hash")
+					}
+					expectedProfile := sequenceSpec.Profiles[index]
+					expectedProfile.Inputs = map[string]RegistryInput{}
+					for role, input := range sequenceSpec.Profiles[index].Inputs {
+						expectedProfile.Inputs[role] = input
+					}
+					if index > 0 {
+						expectedProfile.Inputs["card"] = *sequenceResult.Runs[index-1].Carry
+					}
+					if !reflect.DeepEqual(actualProfile, expectedProfile) {
+						t.Fatal("sequence immutable profile/card succession")
+					}
+					records = append(records, cohortRun{Profile: actualProfile, Result: row.Lifecycle, Oracle: pairedOracle.Runs[index], CardFixture: fmt.Sprintf("testdata/probe-sequence-card-H%d.bin", index+1)})
+				}
+				if pairedErr != nil || sequenceResult.Status != "PASS" || len(records) != 3 {
+					for _, row := range sequenceResult.Runs {
+						t.Logf("recipe %s initial-card %s carry %+v", row.Recipe, row.InitialCardSHA256, row.Carry)
+						for _, step := range row.Lifecycle.Steps {
+							t.Log(step.Request.Nonce, step.Status, step.Reason, step.Effects)
+						}
+					}
+					t.Fatalf("source sequence: %s %s %v", sequenceResult.Status, sequenceResult.Reason, pairedErr)
+				}
+				projection := map[string]any{"version": sequenceResult.Version, "source_format": sequenceResult.SourceFormat, "status": sequenceResult.Status, "limits": sequenceResult.Limits}
+				for _, key := range []string{"recipes", "initial_card_sha256", "carry_sha256", "request_counts", "terminal_epochs", "checkpoint_slots", "checkpoint_counts", "event_counts", "capture_counts", "accepted_selected_interval_prefixes"} {
+					projection[key] = []any{}
+				}
+				for _, row := range sequenceResult.Runs {
+					last := row.Lifecycle.Steps[len(row.Lifecycle.Steps)-2]
+					slots := []int{}
+					for _, checkpoint := range last.Checkpoint.Checkpoints {
+						slots = append(slots, *checkpoint.Slot)
+					}
+					prefix := []int{}
+					for _, step := range row.Lifecycle.Steps {
+						if step.Request.Operation == "restore" {
+							prefix = step.ScheduledIntervals
+						}
+					}
+					for key, value := range map[string]any{"recipes": row.Recipe, "initial_card_sha256": row.InitialCardSHA256, "carry_sha256": row.Carry.SHA256, "request_counts": len(row.Lifecycle.Steps), "terminal_epochs": last.Epoch, "checkpoint_slots": slots, "checkpoint_counts": len(slots), "event_counts": len(last.Checkpoint.Events), "capture_counts": len(last.Checkpoint.Captures), "accepted_selected_interval_prefixes": prefix} {
+						projection[key] = append(projection[key].([]any), value)
+					}
+				}
+				projectionRaw, _ := json.Marshal(projection)
+				var actualOuter, expectedOuter map[string]any
+				_ = json.Unmarshal(projectionRaw, &actualOuter)
+				_ = json.Unmarshal(pairedOracle.Outer, &expectedOuter)
+				if !reflect.DeepEqual(actualOuter, expectedOuter) {
+					t.Fatalf("source sequence outer projection differs: %s", projectionRaw)
+				}
+			} else {
+				pairedInput, _ := json.Marshal(pairedProfile)
+				result, err := runProbeLifecycle(pairedInput)
+				pairedErr = err
+				cardFixture := "testdata/probe-paired-card-saved.bin"
+				if cohort == "newgame" {
+					cardFixture = "testdata/probe-newgame-card-final.bin"
+				}
+				records = []cohortRun{{Profile: pairedProfile, Result: result, Oracle: pairedOracleRaw, CardFixture: cardFixture}}
+			}
+			for runIndex, record := range records {
+				pairedProfile, pairedResult := record.Profile, record.Result
+				pairedOracle.States = nil
+				_ = json.Unmarshal(record.Oracle, &pairedOracle)
+				operations := pairedProfile.Requests
+				for _, step := range pairedResult.Steps {
+					if step.Owned != nil {
+						if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, pairedProfile.Program.SHA256); err == nil {
+							_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+							var status syscall.WaitStatus
+							_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+						}
+					}
+				}
+				if pairedErr != nil || pairedResult.Status != "COMPLETED" || len(pairedResult.Steps) != len(operations) {
+					for _, step := range pairedResult.Steps {
+						t.Logf("paired %s %s: %s effects=%v", step.Request.Nonce, step.Status, step.Reason, step.Effects)
+					}
+					for _, name := range []string{"child-epoch-0.log", "child-epoch-1.log"} {
+						log, _ := os.ReadFile(filepath.Join(pairedProfile.Root, name))
+						t.Logf("%s: %s", name, log)
+					}
+					t.Fatalf("paired producer %s %v", pairedResult.Status, pairedErr)
+				}
+				if cohort != "sequence" && (pairedResult.Steps[warmIndex].PreviewSamples != 40 || pairedResult.Steps[coldLoadIndex].PreviewSamples != 40 || pairedResult.Steps[0].Owned.PID == pairedResult.Steps[coldIndex].Owned.PID || pairedResult.Steps[coldIndex].Epoch != 1) {
+					t.Fatal("paired preview or cold ownership")
+				}
+				if cohort == "sequence" {
+					finalIndex = len(pairedResult.Steps) - 2
+					for _, step := range pairedResult.Steps {
+						if (step.Request.Operation == "load" || step.Request.Operation == "prepare-load") && step.PreviewSamples != 40 {
+							t.Fatal("sequence Load without40samples")
+						}
+					}
+				}
+				finalStep := pairedResult.Steps[finalIndex]
+				if finalStep.Checkpoint == nil || finalStep.Evidence == nil {
+					t.Fatal("paired report/evidence missing")
+				}
+				evidenceRaw, err := os.ReadFile(finalStep.Evidence.Path)
+				if err != nil || int64(len(evidenceRaw)) != finalStep.Evidence.Size || fmt.Sprintf("%x", sha256.Sum256(evidenceRaw)) != finalStep.Evidence.SHA256 {
+					t.Fatal("paired immutable evidence binding")
+				}
+				var evidence ProbeEvidenceBundle
+				if json.Unmarshal(evidenceRaw, &evidence) != nil {
+					t.Fatal("paired saved evidence")
+				}
+				logBytes, err := os.ReadFile(filepath.Join(pairedProfile.Root, "events.jsonl"))
+				if err != nil {
+					t.Fatal(err)
+				}
+				for _, event := range evidence.Events {
+					end := event.Offset + int64(len(event.Data))
+					if event.Offset < 0 || end > int64(len(logBytes)) || !bytes.Equal(logBytes[event.Offset:end], event.Data) {
+						t.Fatal("paired source journal prefix/offset differs")
+					}
+				}
+				for index, capture := range evidence.Captures {
+					admission, err := admitProbeRecords(capture.Admission)
+					if err != nil {
+						t.Fatal(err)
+					}
+					receiptRaw, _ := json.Marshal(capture.Receipt)
+					if capture.Receipt.PID != admission.PID || capture.Receipt.Epoch != admission.Epoch || capture.Receipt.MemoryBefore.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(capture.Admission)) || fmt.Sprintf("%x", sha256.Sum256(receiptRaw)) != finalStep.Checkpoint.Captures[index].ReceiptSHA256 {
+						t.Fatal("paired actual owner/hash linkage")
+					}
+					image, _ := hex.DecodeString(capture.ImageHex)
+					published, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "captures", capture.Receipt.ImagePath))
+					if !bytes.Equal(image, published) || fmt.Sprintf("%x", sha256.Sum256(image)) != capture.Receipt.ImageSHA256 {
+						t.Fatal("paired PNG source identity")
+					}
+				}
+				actualRaw, _ := json.Marshal(finalStep.Checkpoint)
+				var normalized map[string]any
+				_ = json.Unmarshal(actualRaw, &normalized)
+				if normalized["bundle_sha256"] != fmt.Sprintf("%x", sha256.Sum256(evidenceRaw)) {
+					t.Fatal("paired full report bundle hash")
+				}
+				normalized["bundle_sha256"] = "NORMALIZED_BUNDLE_SHA256"
+				for _, value := range normalized["events"].([]any) {
+					row := value.(map[string]any)
+					row["offset"] = float64(0)
+					row["data"].(map[string]any)["time"] = "NORMALIZED_TIME"
+				}
+				for _, value := range normalized["captures"].([]any) {
+					value.(map[string]any)["receipt_sha256"] = "NORMALIZED_RECEIPT_SHA256"
+				}
+				var expected map[string]any
+				_ = json.Unmarshal(pairedOracle.ExpectedReport, &expected)
+				if !reflect.DeepEqual(normalized, expected) {
+					actual, _ := json.Marshal(normalized)
+					t.Fatalf("paired full normalized report differs: %s", actual)
+				}
+				cardFixture := record.CardFixture
+				savedCard, _ := os.ReadFile(cardFixture)
+				actualCard, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+				if !bytes.Equal(actualCard, savedCard) {
+					t.Fatal("paired exact File2 persistence/original File1 sentinel")
+				}
+				stateKey := "advanced"
+				if cohort == "sequence" {
+					stateKey = "terminal"
+				}
+				if !reflect.DeepEqual(finalStep.UI.Saved, pairedOracle.States[stateKey]) {
+					t.Fatal("paired actual advancement footprint")
+				}
+				if cohort == "sequence" {
+					row := sequenceResult.Runs[runIndex]
+					carry, _ := os.ReadFile(row.Carry.Path)
+					if !bytes.Equal(carry, savedCard) || row.Carry.SHA256 != fmt.Sprintf("%x", sha256.Sum256(carry)) || row.InitialCardSHA256 != pairedProfile.Inputs["card"].SHA256 {
+						t.Fatal("actual postflush carry binding")
+					}
+					for _, variant := range []string{"wrong-recipe", "wrong-slot", "missing-terminal", "out-of-order", "unproved-prompt"} {
+						if variant == "unproved-prompt" && runIndex == 2 {
+							continue
+						}
+						var mutant ProbeEvidenceBundle
+						_ = json.Unmarshal(evidenceRaw, &mutant)
+						switch variant {
+						case "wrong-recipe":
+							mutant.Story.Recipe = "alternate-slots"
+							if runIndex == 2 {
+								mutant.Story.Recipe = "first-create"
+							}
+						case "wrong-slot":
+							var row map[string]any
+							_ = json.Unmarshal(mutant.Events[0].Data, &row)
+							row["slot"] = float64(1)
+							if runIndex == 2 {
+								row["slot"] = float64(0)
+							}
+							mutant.Events[0].Data, _ = json.Marshal(row)
+						case "missing-terminal":
+							mutant.Story.TerminalEventID = 0
+						case "out-of-order":
+							mutant.Events[0], mutant.Events[1] = mutant.Events[1], mutant.Events[0]
+						case "unproved-prompt":
+							for index, event := range mutant.Events {
+								var row map[string]any
+								_ = json.Unmarshal(event.Data, &row)
+								if row["event"] == "card-data-created" || row["event"] == "overwrite-confirmed" {
+									delete(row, "prompt")
+									mutant.Events[index].Data, _ = json.Marshal(row)
+								}
+							}
+						}
+						mutantRaw, _ := json.Marshal(mutant)
+						outcome, err := reportProbeEvidence(mutantRaw)
+						if err == nil && outcome.Status == "PASS" {
+							t.Error(variant, "promoted incomplete source story")
+						}
+					}
+					continue
+				}
+				if cohort == "newgame" {
+					acks, _ := os.ReadFile(filepath.Join(pairedProfile.Root, "preparation-acks.txt"))
+					if string(acks) != "1" {
+						t.Fatal("preparation must acknowledge exactly once")
+					}
+					for _, variant := range []string{"missing-preparation-image", "ack-before-image", "uninitialized-image", "missing-final-resave"} {
+						var mutant ProbeEvidenceBundle
+						_ = json.Unmarshal(evidenceRaw, &mutant)
+						switch variant {
+						case "missing-preparation-image":
+							mutant.Captures = append(mutant.Captures[:2], mutant.Captures[3:]...)
+						case "ack-before-image":
+							mutant.Events[4], mutant.Events[5] = mutant.Events[5], mutant.Events[4]
+						case "uninitialized-image":
+							var row map[string]any
+							_ = json.Unmarshal(mutant.Events[4].Data, &row)
+							row["state"] = pairedOracle.States["initial"]
+							mutant.Events[4].Data, _ = json.Marshal(row)
+						case "missing-final-resave":
+							mutant.Events = append(mutant.Events[:7], mutant.Events[8:]...)
+						}
+						mutantRaw, _ := json.Marshal(mutant)
+						result, err := reportProbeEvidence(mutantRaw)
+						if err == nil && result.Status == "PASS" {
+							t.Error(variant, "unsafe preparation evidence accepted")
+						}
+					}
+					return
+				}
+				for _, variant := range []string{"wrong-slot", "changed-fingerprint", "incomplete-pair", "missing-capture", "out-of-order", "stale-epoch"} {
+					var mutant ProbeEvidenceBundle
+					_ = json.Unmarshal(evidenceRaw, &mutant)
+					switch variant {
+					case "wrong-slot", "changed-fingerprint":
+						var row map[string]any
+						_ = json.Unmarshal(mutant.Events[3].Data, &row)
+						if variant == "wrong-slot" {
+							row["slot"] = float64(0)
+						} else {
+							row["state"].(map[string]any)["players"].([]any)[3].(map[string]any)["record_sha256"] = strings.Repeat("f", 64)
+						}
+						mutant.Events[3].Data, _ = json.Marshal(row)
+					case "incomplete-pair":
+						mutant.Events = append(mutant.Events[:6], mutant.Events[7:]...)
+						mutant.Captures = append(mutant.Captures[:4], mutant.Captures[5:]...)
+					case "missing-capture":
+						mutant.Captures = mutant.Captures[1:]
+					case "out-of-order":
+						mutant.Events[7], mutant.Events[8] = mutant.Events[8], mutant.Events[7]
+					case "stale-epoch":
+						mutant.Captures[3].Admission = mutant.Captures[1].Admission
+					}
+					mutantRaw, _ := json.Marshal(mutant)
+					result, err := reportProbeEvidence(mutantRaw)
+					if err == nil && result.Status == "PASS" {
+						t.Error(variant, "unsafe paired evidence accepted")
+					}
+				}
+				prefixProfile := pairedProfile
+				prefixProfile.Root = t.TempDir()
+				_ = os.Chmod(prefixProfile.Root, 0700)
+				prefixProfile.ProgramArgs = append(slices.Clone(pairedProfile.ProgramArgs), "tampered-prefix")
+				prefixProfile.Requests = append(slices.Clone(pairedProfile.Requests[:3]), ProbeLifecycleRequest{Session: profile.Session, Operation: "stop", Phase: "requested", Nonce: "4-stop"})
+				prefixRaw, _ := json.Marshal(prefixProfile)
+				prefixResult, prefixErr := runProbeLifecycle(prefixRaw)
+				for _, step := range prefixResult.Steps {
+					if step.Owned != nil {
+						if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, prefixProfile.Program.SHA256); err == nil {
+							_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+							var status syscall.WaitStatus
+							_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+						}
+					}
+				}
+				if prefixErr != nil || len(prefixResult.Steps) != 4 || prefixResult.Status != "INCOMPLETE" || prefixResult.Steps[2].Status != "UNKNOWN" || prefixResult.Steps[2].Reason != "owned event prefix or identity changed" || !reflect.DeepEqual(prefixResult.Steps[2].Effects, []string{"quiescent"}) || prefixResult.Steps[3].Status != "COMPLETED" {
+					t.Fatalf("tampered prefix refusal: %+v %v", prefixResult, prefixErr)
+				}
+				traceRaw, _ := os.ReadFile(filepath.Join(prefixProfile.Root, "scenario-inputs.json"))
+				var prefixTrace []string
+				_ = json.Unmarshal(traceRaw, &prefixTrace)
+				if slices.Contains(prefixTrace, "R3") {
+					t.Fatal("tampered journal reached reset effect")
+				}
+				originalCard, _ := os.ReadFile(pairedCardPath)
+				if !bytes.Equal(originalCard, initialCard) {
+					t.Fatal("paired original card changed")
+				}
+			}
+			if cohort == "sequence" {
+				original, _ := os.ReadFile(pairedCardPath)
+				if !bytes.Equal(original, initialCard) {
+					t.Fatal("sequence original H0 mutated")
+				}
+				input, _ := json.Marshal(sequenceSpec)
+				if _, err := runProbeSequence(input); err == nil {
+					t.Fatal("pending/source prefix replay admitted")
+				}
+				for _, variant := range []string{"wrong-carry-claim", "failed-first-run"} {
+					var mutant ProbeSequenceSpec
+					_ = json.Unmarshal(input, &mutant)
+					mutant.Root = t.TempDir()
+					_ = os.Chmod(mutant.Root, 0700)
+					for index := range mutant.Profiles {
+						mutant.Profiles[index].Root = filepath.Join(mutant.Root, fmt.Sprintf("run-%d", index+1))
+						_ = os.Mkdir(mutant.Profiles[index].Root, 0700)
+					}
+					if variant == "wrong-carry-claim" {
+						mutant.Profiles[1].Inputs["card"] = mutant.Profiles[0].Inputs["card"]
+					} else {
+						mutant.Profiles[0].Scenario.MaxUIReads = 1
+					}
+					mutantRaw, _ := json.Marshal(mutant)
+					outcome, err := runProbeSequence(mutantRaw)
+					if variant == "wrong-carry-claim" {
+						if err == nil || len(outcome.Runs) != 0 {
+							t.Fatal("unqualified carry claim reached execution")
+						}
+					} else if err != nil || outcome.Status != "INCOMPLETE" || len(outcome.Runs) != 1 || outcome.Runs[0].Carry != nil {
+						t.Fatal("failed source run promoted carry/next profile")
+					}
+					for _, name := range []string{"carry-1.ps2", "run-2-profile.json"} {
+						if _, err := os.Lstat(filepath.Join(mutant.Root, name)); !os.IsNotExist(err) {
+							t.Fatal("failed source run published", name)
+						}
+					}
+				}
+			}
+		})
 	}
 }
