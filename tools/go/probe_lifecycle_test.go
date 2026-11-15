@@ -159,7 +159,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 		}
 	}
 	for {
-		if os.Getppid() != parentPID || time.Now().After(expires) {
+		currentParent := os.Getppid()
+		expired := time.Now().After(expires)
+		if currentParent != parentPID || expired {
+			fmt.Fprintf(os.Stderr, "controlled child return: parent_loss=%t expected_parent=%d actual_parent=%d expired=%t expires=%s\n", currentParent != parentPID, parentPID, currentParent, expired, expires.Format(time.RFC3339Nano))
 			return
 		}
 		if scenario {
@@ -2420,10 +2423,28 @@ func TestProbeLifecycle(t *testing.T) {
 					records = append(records, cohortRun{Profile: actualProfile, Result: row.Lifecycle, Oracle: pairedOracle.Runs[index], CardFixture: fmt.Sprintf("testdata/probe-sequence-card-H%d.bin", index+1)})
 				}
 				if pairedErr != nil || sequenceResult.Status != "PASS" || len(records) != 3 {
-					for _, row := range sequenceResult.Runs {
+					for index, row := range sequenceResult.Runs {
 						t.Logf("recipe %s initial-card %s carry %+v", row.Recipe, row.InitialCardSHA256, row.Carry)
 						for _, step := range row.Lifecycle.Steps {
-							t.Log(step.Request.Nonce, step.Status, step.Reason, step.Effects)
+							t.Logf("%s %s reason=%s effects=%v epoch=%d exited_before_stop=%t", step.Request.Nonce, step.Status, step.Reason, step.Effects, step.Epoch, step.ExitedBeforeStop)
+						}
+						// Roots were decoded and hash-checked from row.Profile.Path above.
+						// Three known epochs, at most4096 bytes each, survive TempDir cleanup.
+						for epoch := 0; epoch <= 2; epoch++ {
+							path := filepath.Join(records[index].Profile.Root, fmt.Sprintf("child-epoch-%d.log", epoch))
+							file, err := os.OpenFile(path, os.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK, 0)
+							if err != nil {
+								t.Logf("%s open_error=%v", path, err)
+								continue
+							}
+							info, err := file.Stat()
+							if err != nil || !info.Mode().IsRegular() {
+								t.Logf("%s not_regular_or_stat_error=%v close_error=%v", path, err, file.Close())
+								continue
+							}
+							data, readErr := io.ReadAll(io.LimitReader(file, 4096))
+							closeErr := file.Close()
+							t.Logf("%s size=%d truncated=%t read_error=%v close_error=%v: %q", path, info.Size(), info.Size() > int64(len(data)), readErr, closeErr, data)
 						}
 					}
 					t.Fatalf("source sequence: %s %s %v", sequenceResult.Status, sequenceResult.Reason, pairedErr)
