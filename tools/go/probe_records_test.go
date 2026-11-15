@@ -571,6 +571,7 @@ func TestProbeRecords(t *testing.T) {
 		peerResult := make(chan error, 1)
 		var guideCommands []string
 		go func() {
+			defer close(peerResult)
 			if heldLock != nil {
 				time.Sleep(650 * time.Millisecond)
 				_ = syscall.Flock(int(heldLock.Fd()), syscall.LOCK_UN)
@@ -776,11 +777,14 @@ func TestProbeRecords(t *testing.T) {
 		if padListener != nil {
 			_ = padListener.Close()
 		}
+		peerErr := <-peerResult
+		// The peer sends once; channel closure joins its deferred cleanup.
+		<-peerResult
 		if heldLock != nil {
 			_ = heldLock.Close()
 		}
-		if err := <-peerResult; err != nil {
-			t.Fatal(test.Name, "peer failed", err)
+		if peerErr != nil {
+			t.Fatal(test.Name, "peer failed", peerErr)
 		}
 		if test.Error != "" {
 			if readErr == nil || !strings.HasPrefix(readErr.Error(), test.Error) {
