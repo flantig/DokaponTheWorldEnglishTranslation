@@ -2,6 +2,20 @@ package main
 
 import "encoding/json"
 
+const probeOrdinaryFrameEventKind = "go-frame-capture"
+const probeOrdinaryFrameCohort = "go-frame-only-v1"
+const probeCaptureIDPattern = "^[A-Za-z0-9_-]{1,64}$"
+
+// ProbeCaptureEvent is the shared source-log identity, not an acquisition policy.
+// Checkpoint is a pointer so an explicit ordinary zero cannot mean missing/null.
+type ProbeCaptureEvent struct {
+	Event      string `json:"event"`
+	EventID    int    `json:"event_id"`
+	Checkpoint *int   `json:"checkpoint"`
+	CaptureID  string `json:"capture_id,omitempty"`
+	Time       string `json:"time,omitempty"`
+}
+
 // ProbeCaptureProfile pins one source event and finite acquisition budgets.
 // Caps are enforced policy, not a claim of owner-agreed native retention limits.
 type ProbeCaptureProfile struct {

@@ -644,6 +644,7 @@ func TestProbeRecords(t *testing.T) {
 		Cases    []struct {
 			Name, Fault, Error    string
 			Capture               bool
+			Ordinary              bool
 			Status, Reason        string
 			CaptureID             string `json:"capture_id"`
 			Expected              map[string]json.RawMessage
@@ -664,6 +665,7 @@ func TestProbeRecords(t *testing.T) {
 	peerCases := []struct {
 		Name, Fault, Error    string
 		Capture               bool
+		Ordinary              bool
 		Status, Reason        string
 		CaptureID             string `json:"capture_id"`
 		Expected              map[string]json.RawMessage
@@ -683,9 +685,43 @@ func TestProbeRecords(t *testing.T) {
 		{Name: "build changed after read", Fault: "build_after", Error: "probe runtime executable build differs"},
 	}
 	peerCases = append(peerCases, captureFixture.Cases...)
+	compatibility := captureFixture.Cases[0]
+	compatibility.Name, compatibility.Fault = "positive checkpoint ignores ordinary-only field types", "capture_positive_extra_types"
+	peerCases = append(peerCases, compatibility)
+	for _, row := range []struct {
+		Name, Fault, Error string
+	}{
+		{Name: "ordinary original PNG acquisition"},
+		{Name: "ordinary missing profile checkpoint", Fault: "ordinary_profile_missing", Error: "missing required object key"},
+		{Name: "ordinary null profile checkpoint", Fault: "ordinary_profile_null", Error: "input must omit unused fields instead of null"},
+		{Name: "ordinary missing event checkpoint", Fault: "ordinary_event_missing", Error: "capture source event identity differs"},
+		{Name: "ordinary null event checkpoint", Fault: "ordinary_event_null", Error: "capture source event identity differs"},
+		{Name: "ordinary negative checkpoint", Fault: "ordinary_negative", Error: "capture requires stable ID and bounded source event slice"},
+		{Name: "ordinary kind with positive checkpoint", Fault: "ordinary_positive", Error: "ordinary capture requires explicit checkpoint zero"},
+		{Name: "ordinary old event kind at zero", Fault: "ordinary_wrong_kind", Error: "ordinary capture source kind or capture ID differs"},
+		{Name: "ordinary wrong capture ID", Fault: "ordinary_wrong_id", Error: "ordinary capture source kind or capture ID differs"},
+		{Name: "ordinary missing capture ID", Fault: "ordinary_missing_id", Error: "ordinary capture source kind or capture ID differs"},
+		{Name: "ordinary bad timestamp", Fault: "ordinary_bad_time", Error: "ordinary capture source time differs"},
+		{Name: "ordinary missing timestamp", Fault: "ordinary_missing_time", Error: "ordinary capture source time differs"},
+		{Name: "ordinary wrong event ID", Fault: "ordinary_wrong_event_id", Error: "capture source event identity differs"},
+	} {
+		ordinary := captureFixture.Cases[0]
+		ordinary.Name, ordinary.Fault, ordinary.Ordinary = row.Name, row.Fault, true
+		if row.Fault != "" {
+			ordinary.Error, ordinary.NoGuide, ordinary.NoPersist = row.Error, true, true
+		}
+		peerCases = append(peerCases, ordinary)
+	}
+	for _, ordinary := range captureFixture.Cases {
+		if ordinary.Fault == "capture_no_image" {
+			ordinary.Name, ordinary.Ordinary = "ordinary unavailable acquisition", true
+			peerCases = append(peerCases, ordinary)
+		}
+	}
 	// One peer goroutine services the same PINE packets and, for capture cases,
 	// the fixed GUIDE service between the two sequential read batches.
 	var frameCaptureBase json.RawMessage
+	var ordinaryCaptureBase json.RawMessage
 	for _, test := range peerCases {
 		var plan ProbeMemoryBundle
 		if err := json.Unmarshal(memoryFixture.Bundle, &plan); err != nil {
@@ -753,6 +789,14 @@ func TestProbeRecords(t *testing.T) {
 		var heldLock *os.File
 		profile := captureFixture.Profile
 		profile.Memory = raw
+		if test.Ordinary {
+			profile.Checkpoint = 0
+			if test.Fault == "ordinary_positive" {
+				profile.Checkpoint = 1
+			} else if test.Fault == "ordinary_negative" {
+				profile.Checkpoint = -1
+			}
+		}
 		if test.CaptureID != "" {
 			profile.CaptureID = test.CaptureID
 		}
@@ -775,12 +819,41 @@ func TestProbeRecords(t *testing.T) {
 				event := value.(map[string]any)
 				data := event["data"].(map[string]any)
 				if int(data["event_id"].(float64)) == profile.EventID {
+					if test.Fault == "capture_positive_extra_types" {
+						data["capture_id"], data["time"] = map[string]any{"ordinary-only": true}, []any{123, false}
+					}
 					logData, err = json.Marshal(data)
 					if err != nil {
 						t.Fatal(err)
 					}
 					logData = append(logData, '\n')
 				}
+			}
+			if test.Ordinary {
+				event := map[string]any{"event": "go-frame-capture", "event_id": profile.EventID, "checkpoint": profile.Checkpoint, "capture_id": profile.CaptureID, "time": "2026-11-16T00:00:00+0000"}
+				switch test.Fault {
+				case "ordinary_event_missing":
+					delete(event, "checkpoint")
+				case "ordinary_event_null":
+					event["checkpoint"] = nil
+				case "ordinary_wrong_kind":
+					event["event"] = "save-complete"
+				case "ordinary_wrong_id":
+					event["capture_id"] = "another-capture"
+				case "ordinary_missing_id":
+					delete(event, "capture_id")
+				case "ordinary_bad_time":
+					event["time"] = "not-a-source-timestamp"
+				case "ordinary_missing_time":
+					delete(event, "time")
+				case "ordinary_wrong_event_id":
+					event["event_id"] = profile.EventID + 1
+				}
+				logData, err = json.Marshal(event)
+				if err != nil {
+					t.Fatal(err)
+				}
+				logData = append(logData, '\n')
 			}
 			if len(logData) == 0 {
 				t.Fatal("missing literal capture source event")
@@ -816,6 +889,7 @@ func TestProbeRecords(t *testing.T) {
 		}
 		peerResult := make(chan error, 1)
 		var guideCommands []string
+		memoryPackets := 0
 		go func() {
 			defer close(peerResult)
 			if heldLock != nil {
@@ -844,6 +918,7 @@ func TestProbeRecords(t *testing.T) {
 						peerResult <- err
 						return
 					}
+					memoryPackets++
 					if binary.LittleEndian.Uint32(packet) != 9 || packet[4] != *request.Opcode || binary.LittleEndian.Uint32(packet[5:]) != *request.Address {
 						peerResult <- fmt.Errorf("wrong request packet %x", packet)
 						return
@@ -995,6 +1070,21 @@ func TestProbeRecords(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
+			if test.Fault == "ordinary_profile_missing" || test.Fault == "ordinary_profile_null" {
+				var document map[string]json.RawMessage
+				if json.Unmarshal(profileRaw, &document) != nil {
+					t.Fatal("ordinary profile fixture")
+				}
+				if test.Fault == "ordinary_profile_missing" {
+					delete(document, "checkpoint")
+				} else {
+					document["checkpoint"] = json.RawMessage(`null`)
+				}
+				profileRaw, err = json.Marshal(document)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
 			captureRuntime, err := json.Marshal(ProbeCaptureRuntime{Memory: memoryRuntime, Snapshots: snapshots, Output: output, BackendPID: os.Getpid()})
 			if err != nil {
 				t.Fatal(err)
@@ -1038,6 +1128,12 @@ func TestProbeRecords(t *testing.T) {
 			}
 			if len(report.Observations) != 0 || len(guideCommands) != 0 {
 				t.Fatal(test.Name, "failed preflight returned observations or triggered GUIDE")
+			}
+			if test.Ordinary {
+				entries, err := os.ReadDir(output)
+				if err != nil || len(entries) != 0 || memoryPackets != 0 || captured.GuideCommand != "" || captured.MemoryBefore != nil || captured.MemoryAfter != nil {
+					t.Fatal(test.Name, "malformed ordinary request caused effects", err)
+				}
 			}
 			continue
 		}
@@ -1108,6 +1204,9 @@ func TestProbeRecords(t *testing.T) {
 		expected["build_sha256"] = plan.BuildSHA256
 		expected["log_sha256"] = profile.LogSHA256
 		expected["log_hex"] = hex.EncodeToString(logData)
+		if test.Ordinary {
+			expected["checkpoint"] = json.Number("0")
+		}
 		for _, key := range test.OmitExpected {
 			delete(expected, key)
 		}
@@ -1164,13 +1263,20 @@ func TestProbeRecords(t *testing.T) {
 			}
 		}
 		if test.Status == "CAPTURED" {
-			if frameCaptureBase == nil {
+			if test.Ordinary {
+				ordinaryCaptureBase, _ = json.Marshal(captured)
+			} else if frameCaptureBase == nil {
 				frameCaptureBase, _ = json.Marshal(captured)
 			}
 			published, err := os.ReadFile(filepath.Join(output, profile.CaptureID+".png"))
 			snapshot, sourceErr := os.ReadFile(filepath.Join(snapshots, "new.png"))
 			if err != nil || sourceErr != nil || !bytes.Equal(published, originalPNG) || !bytes.Equal(snapshot, originalPNG) {
 				t.Fatal(test.Name, "original PNG identity or preservation differs")
+			}
+			if test.Ordinary || test.Fault == "capture_positive_extra_types" {
+				// Frame-only consumption is separate; the positive producer historically
+				// ignored ordinary-only fields while report timestamps remain strict.
+				continue
 			}
 			for _, linkCase := range captureFixture.LinkCases {
 				var evidence map[string]any
@@ -1602,5 +1708,186 @@ func TestProbeRecords(t *testing.T) {
 	if _, err := reportProbeEvidence(crossRaw); err == nil || err.Error() != "frame comparison crosses actual process/session/epoch identity" {
 		t.Fatal("exact new cross-epoch comparison guard", err)
 	}
-
+	// Actual ordinary acquisition above uses the synthetic legacy memory peer.
+	// Reuse the independent saved-Go admission scaffold for consumer-only cases;
+	// this is not another acquisition or a claim of native Go runtime lineage.
+	if len(ordinaryCaptureBase) == 0 {
+		t.Fatal("ordinary consumer lacks controlled acquisition scaffold")
+	}
+	var ordinaryRecords ProbeRecordBundle
+	if json.Unmarshal(frameGoAdmission, &ordinaryRecords) != nil || ordinaryRecords.GoOwner == nil || ordinaryRecords.GoOwner.Step.Owned == nil {
+		t.Fatal("ordinary saved-Go admission scaffold")
+	}
+	ordinaryOwned := ordinaryRecords.GoOwner.Step.Owned
+	ordinaryBase := frameBaseBundle
+	ordinaryBase.SourceSchema, ordinaryBase.Cohort, ordinaryBase.Admission = "probe-evidence-go-v1", "go-frame-only-v1", bytes.Clone(frameGoAdmission)
+	ordinaryBase.RunID, ordinaryBase.Session, ordinaryBase.ISOSHA256, ordinaryBase.Epoch = ordinaryOwned.Session, ordinaryOwned.Session, ordinaryOwned.ISOSHA256, ordinaryOwned.Epoch
+	ordinaryBase.Members, ordinaryBase.Checks, ordinaryBase.Story, ordinaryBase.Resume = nil, nil, nil, nil
+	ordinaryBase.Events, ordinaryBase.Captures, ordinaryBase.FrameComparisons = nil, nil, nil
+	ordinaryOffset := int64(81920)
+	for i, sourceID := range []string{"uniform-0", "uniform-3"} {
+		var receipt ProbeCaptureReceipt
+		if json.Unmarshal(ordinaryCaptureBase, &receipt) != nil {
+			t.Fatal("ordinary controlled receipt")
+		}
+		receipt.CaptureID, receipt.EventID, receipt.Checkpoint = fmt.Sprintf("ordinary-%d", i), 11+i*26, 0
+		receipt.RunID, receipt.Session, receipt.Epoch, receipt.PID, receipt.Starttime = ordinaryBase.RunID, ordinaryBase.Session, *ordinaryBase.Epoch, ordinaryOwned.PID, ordinaryOwned.Starttime
+		receipt.ISOSHA256, receipt.BuildSHA256 = ordinaryBase.ISOSHA256, ordinaryRecords.GoOwner.Profile.Program.SHA256
+		for _, memory := range []*ProbeMemoryReport{receipt.MemoryBefore, receipt.MemoryAfter} {
+			memory.Session, memory.Epoch, memory.ISOSHA256, memory.BuildSHA256 = receipt.Session, receipt.Epoch, receipt.ISOSHA256, receipt.BuildSHA256
+			memory.SessionEvidenceSHA256 = fmt.Sprintf("%x", sha256.Sum256(ordinaryBase.Admission))
+		}
+		log, _ := json.Marshal(map[string]any{"event": "go-frame-capture", "event_id": receipt.EventID, "checkpoint": 0, "capture_id": receipt.CaptureID, "time": "2026-11-16T00:00:00+0000"})
+		log = append(log, '\n')
+		receipt.LogHex, receipt.LogSHA256, receipt.LogOffset = hex.EncodeToString(log), fmt.Sprintf("%x", sha256.Sum256(log)), ordinaryOffset
+		source := frameSources[frameSourceIndices[sourceID]]
+		receipt.ImagePath, receipt.ImageSHA256, receipt.ImageBytes, receipt.Width, receipt.Height = receipt.CaptureID+".png", source.PNGSHA256, int64(len(framePNGs[sourceID])), source.Width, source.Height
+		ordinaryBase.Events = append(ordinaryBase.Events, ProbeEvidenceEvent{Offset: ordinaryOffset, Data: log})
+		ordinaryBase.Captures = append(ordinaryBase.Captures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(framePNGs[sourceID])})
+		ordinaryOffset += int64(len(log)) + 113 // Selected slices preserve real gaps, not array-index IDs/offsets.
+	}
+	ordinaryBase.FrameComparisons = []ProbeFrameComparison{{CaptureID: "ordinary-0"}, {CaptureID: "ordinary-1", PreviousCaptureID: "ordinary-0"}}
+	ordinaryRaw, _ := json.Marshal(ordinaryBase)
+	ordinaryBefore := bytes.Clone(ordinaryRaw)
+	ordinaryReport, err := reportProbeEvidence(ordinaryRaw)
+	if err != nil || !bytes.Equal(ordinaryRaw, ordinaryBefore) || ordinaryReport.Status != "PASS" || ordinaryReport.LiveOwnership || len(ordinaryReport.Checkpoints) != 0 || len(ordinaryReport.CoveredAreas) != 0 || len(ordinaryReport.Rows) != 0 || len(ordinaryReport.Captures) != 2 || len(ordinaryReport.FrameComparisons) != 2 || len(ordinaryReport.Events) != 2 || !strings.Contains(ordinaryReport.Limits, "PASS means one-to-one accepted event/receipt membership, not checkpoint, native or retention coverage") {
+		t.Fatal("gapped ordinary saved report", err)
+	}
+	for i, event := range ordinaryReport.Events {
+		if event.Offset != ordinaryBase.Events[i].Offset || !bytes.Equal(bytes.TrimSpace(event.Data), bytes.TrimSpace(ordinaryBase.Events[i].Data)) {
+			t.Fatal("ordinary report changed selected source IDs/offsets/time/body")
+		}
+	}
+	for _, capture := range ordinaryReport.Captures {
+		if capture.Status != "ACCEPTED" || capture.Checkpoint != 0 {
+			t.Fatal("ordinary raw acceptance differs", capture)
+		}
+	}
+	first, changed := ordinaryReport.FrameComparisons[0], ordinaryReport.FrameComparisons[1]
+	if first.Status != "AVAILABLE" || first.MeanRGBDifference == nil || *first.MeanRGBDifference != 999 || first.SumAbsRGB != nil || changed.Status != "AVAILABLE" || changed.MeanRGBDifference == nil || math.Float64bits(*changed.MeanRGBDifference) != 0x3ff0000000000000 || changed.SumAbsRGB == nil || *changed.SumAbsRGB != 9216 {
+		t.Fatal("ordinary saved frame arithmetic differs", first, changed)
+	}
+	for _, fault := range []string{"unknown", "refused", "empty-events", "empty-captures", "missing-event", "missing-receipt", "extra-event", "duplicate-event", "duplicate-event-capture", "duplicate-receipt", "duplicate-receipt-event", "missing-checkpoint", "null-checkpoint", "positive-checkpoint", "wrong-kind", "wrong-capture-id", "bad-time", "missing-cohort", "empty-cohort", "checkpoint-cohort", "story-cohort", "non-Go", "members", "checks", "story", "resume"} {
+		var bundle ProbeEvidenceBundle
+		if json.Unmarshal(ordinaryRaw, &bundle) != nil {
+			t.Fatal("ordinary saved report clone")
+		}
+		if fault != "unknown" && fault != "refused" {
+			bundle.FrameComparisons = nil // Target ordinary structural guards, not missing frame-request references.
+		}
+		var event map[string]json.RawMessage
+		if json.Unmarshal(bundle.Events[1].Data, &event) != nil {
+			t.Fatal("ordinary selected source event")
+		}
+		switch fault {
+		case "unknown", "refused":
+			bundle.Captures[1].Receipt.Status, bundle.Captures[1].Receipt.Reason = strings.ToUpper(fault), "ordinary acquisition unavailable"
+			bundle.Captures[1].Receipt.MemoryAfter, bundle.Captures[1].ImageHex = nil, ""
+		case "empty-events":
+			bundle.Events = nil
+		case "empty-captures":
+			bundle.Captures = nil
+		case "missing-event":
+			bundle.Captures[1].Receipt.EventID = 99
+		case "missing-receipt":
+			bundle.Captures = bundle.Captures[:1]
+		case "extra-event":
+			bundle.Events = append(bundle.Events, ProbeEvidenceEvent{Offset: ordinaryOffset + 101, Data: json.RawMessage(`{"event":"go-frame-capture","event_id":99,"checkpoint":0,"capture_id":"ordinary-unmatched","time":"2026-11-16T00:00:00+0000"}`)})
+		case "duplicate-event":
+			event["event_id"] = json.RawMessage(`11`)
+		case "duplicate-event-capture":
+			event["capture_id"] = json.RawMessage(`"ordinary-0"`)
+		case "duplicate-receipt":
+			bundle.Captures[1].Receipt.CaptureID = "ordinary-0"
+		case "duplicate-receipt-event":
+			bundle.Captures[1].Receipt.EventID = 11
+		case "missing-checkpoint":
+			delete(event, "checkpoint")
+		case "null-checkpoint":
+			event["checkpoint"] = json.RawMessage(`null`)
+		case "positive-checkpoint":
+			event["checkpoint"] = json.RawMessage(`1`)
+			bundle.Captures[1].Receipt.Checkpoint = 1
+		case "wrong-kind":
+			event["event"] = json.RawMessage(`"health"`)
+		case "wrong-capture-id":
+			event["capture_id"] = json.RawMessage(`"ordinary-wrong"`)
+		case "bad-time":
+			event["time"] = json.RawMessage(`"not-a-timestamp"`)
+		case "empty-cohort":
+			bundle.Cohort = ""
+		case "checkpoint-cohort":
+			bundle.Cohort = "go-checkpoint-only-v1"
+		case "story-cohort":
+			bundle.Cohort = "go-story-checkpoints-v1"
+		case "non-Go":
+			bundle.SourceSchema, bundle.Admission = frameBaseBundle.SourceSchema, bytes.Clone(frameBaseBundle.Admission)
+			bundle.RunID, bundle.Session, bundle.ISOSHA256, bundle.Epoch = frameBaseBundle.RunID, frameBaseBundle.Session, frameBaseBundle.ISOSHA256, frameBaseBundle.Epoch
+			var legacy ProbeCaptureReceipt
+			if json.Unmarshal(ordinaryCaptureBase, &legacy) != nil {
+				t.Fatal("ordinary legacy admission source")
+			}
+			for i := range bundle.Captures {
+				receipt := &bundle.Captures[i].Receipt
+				receipt.RunID, receipt.Session, receipt.Epoch, receipt.PID, receipt.Starttime, receipt.ISOSHA256, receipt.BuildSHA256 = legacy.RunID, legacy.Session, legacy.Epoch, legacy.PID, legacy.Starttime, legacy.ISOSHA256, legacy.BuildSHA256
+				for _, memory := range []*ProbeMemoryReport{receipt.MemoryBefore, receipt.MemoryAfter} {
+					memory.Session, memory.Epoch, memory.ISOSHA256, memory.BuildSHA256 = legacy.Session, legacy.Epoch, legacy.ISOSHA256, legacy.BuildSHA256
+					memory.SessionEvidenceSHA256 = fmt.Sprintf("%x", sha256.Sum256(bundle.Admission))
+				}
+			}
+		case "members":
+			bundle.Members = []string{"ordinary-is-not-a-comparison"}
+		case "checks":
+			bundle.Checks = []ProbeEvidenceCheck{{ID: "ordinary-is-not-a-comparison"}}
+		case "story":
+			bundle.Story = &ProbeStoryFacts{}
+		case "resume":
+			bundle.Resume = &ProbeResumeFacts{}
+		}
+		if slices.Contains([]string{"duplicate-event", "duplicate-event-capture", "missing-checkpoint", "null-checkpoint", "positive-checkpoint", "wrong-kind", "wrong-capture-id", "bad-time"}, fault) {
+			log, _ := json.Marshal(event)
+			log = append(log, '\n')
+			bundle.Events[1].Data = log
+			bundle.Captures[1].Receipt.LogHex, bundle.Captures[1].Receipt.LogSHA256 = hex.EncodeToString(log), fmt.Sprintf("%x", sha256.Sum256(log))
+		}
+		input, _ := json.Marshal(bundle)
+		if fault == "missing-cohort" {
+			var document map[string]json.RawMessage
+			if json.Unmarshal(input, &document) != nil {
+				t.Fatal("ordinary missing-cohort wire fixture")
+			}
+			delete(document, "cohort")
+			input, _ = json.Marshal(document)
+		}
+		before := bytes.Clone(input)
+		got, err := reportProbeEvidence(input)
+		if !bytes.Equal(input, before) {
+			t.Fatal(fault, "ordinary report mutated source bytes")
+		}
+		if fault != "unknown" && fault != "refused" {
+			if err == nil {
+				t.Fatal(fault, "malformed ordinary saved report was accepted")
+			}
+			continue
+		}
+		if err != nil || got.Status != "UNKNOWN" || len(got.Captures) != 2 || got.Captures[1].Status != "UNKNOWN" || got.Captures[1].Reason != "ordinary acquisition unavailable" || len(got.Checkpoints) != 0 || len(got.CoveredAreas) != 0 || len(got.FrameComparisons) != 2 || got.FrameComparisons[1].Status != "UNKNOWN" || got.FrameComparisons[1].MeanRGBDifference != nil || got.FrameComparisons[1].SumAbsRGB != nil {
+			t.Fatal(fault, "unavailable ordinary capture produced coverage/arithmetic or lost its source outcome", err)
+		}
+	}
+	oldZero := frameBaseBundle
+	oldZero.Captures, oldZero.FrameComparisons = nil, nil
+	oldZero.Events = slices.Clone(frameBaseBundle.Events)
+	for i, saved := range oldZero.Events {
+		var event map[string]json.RawMessage
+		if json.Unmarshal(saved.Data, &event) != nil {
+			t.Fatal("legacy zero-checkpoint source")
+		}
+		event["checkpoint"] = json.RawMessage(`0`)
+		oldZero.Events[i].Data, _ = json.Marshal(event)
+	}
+	oldZeroRaw, _ := json.Marshal(oldZero)
+	oldZeroReport, err := reportProbeEvidence(oldZeroRaw)
+	if err != nil || oldZeroReport.Status != "UNKNOWN" || len(oldZeroReport.Checkpoints) != 0 {
+		t.Fatal("ordinary scope changed preexisting zero-checkpoint outcome", err)
+	}
 }

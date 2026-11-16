@@ -47,6 +47,13 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	if bundle.RunID != admission.RunID || bundle.Session != admission.Session || bundle.ISOSHA256 != admission.ISOSHA256 || bundle.Epoch == nil || *bundle.Epoch != admission.Epoch {
 		return report, fmt.Errorf("probe evidence identity differs from admitted records")
 	}
+	frameOnly := bundle.SourceSchema == "probe-evidence-go-v1" && bundle.Cohort == probeOrdinaryFrameCohort
+	if bundle.Cohort == probeOrdinaryFrameCohort && !frameOnly {
+		return report, fmt.Errorf("ordinary frame cohort requires Go evidence admission")
+	}
+	if frameOnly && (len(bundle.Captures) == 0 || len(bundle.Captures) != len(bundle.Events) || len(bundle.Members) != 0 || len(bundle.Checks) != 0 || bundle.Resume != nil) {
+		return report, fmt.Errorf("ordinary frame cohort requires one receipt per selected event and no checkpoint comparisons/resume")
+	}
 	storyOnly := bundle.SourceSchema == "probe-evidence-go-v1" && bundle.Cohort == "go-story-checkpoints-v1"
 	checkpointOnly := bundle.SourceSchema == "probe-evidence-go-v1" && (bundle.Cohort == "go-checkpoint-only-v1" || storyOnly)
 	var storyData struct {
@@ -65,10 +72,14 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	if storyOnly && (bundle.Story.Phase != "checkpoint" && bundle.Story.Phase != "complete" || bundle.Story.Phase == "checkpoint" && bundle.Story.TerminalEventID != 0 || bundle.Story.Phase == "complete" && bundle.Story.TerminalEventID < 1) {
 		return report, fmt.Errorf("story phase/terminal membership differs")
 	}
-	if strings.TrimSpace(bundle.Cohort) == "" || len(bundle.Cohort) > 128 || !checkpointOnly && len(bundle.Members) < 1 || checkpointOnly && (len(bundle.Members) != 0 || len(bundle.Checks) != 0) || len(bundle.Members) > 256 || len(bundle.Checks) > 256 || len(bundle.Events) < 1 || len(bundle.Events) > 4096 {
+	if strings.TrimSpace(bundle.Cohort) == "" || len(bundle.Cohort) > 128 || !checkpointOnly && !frameOnly && len(bundle.Members) < 1 || (checkpointOnly || frameOnly) && (len(bundle.Members) != 0 || len(bundle.Checks) != 0) || len(bundle.Members) > 256 || len(bundle.Checks) > 256 || len(bundle.Events) < 1 || len(bundle.Events) > 4096 {
 		return report, fmt.Errorf("probe evidence requires a bounded nonempty cohort, membership and event stream")
 	}
 	report = ProbeEvidenceReport{Version: 1, SourceSchema: bundle.SourceSchema, BundleSHA256: fmt.Sprintf("%x", sha256.Sum256(raw)), RunID: admission.RunID, Session: admission.Session, ISOSHA256: admission.ISOSHA256, Epoch: admission.Epoch, Cohort: bundle.Cohort, Status: "PASS", Rows: []ProbeEvidenceResult{}, Checkpoints: []ProbeCheckpointResult{}, CoveredAreas: []uint32{}, Events: bundle.Events, Limits: "Qualified saved observations only; narrative normalization does not prove controls/layout, code facts do not prove ABI, and exact RGBA does not approve artwork. Coverage requires the source progress tuple to change before resumed, not live runtime authenticity."}
+	if frameOnly {
+		report.Limits += " Selected ordinary Go attempts only: PASS means one-to-one accepted event/receipt membership, not checkpoint, native or retention coverage."
+	}
+
 	hashPattern := regexp.MustCompile(`^[0-9a-f]{64}$`)
 	var events []struct {
 		Event          string            `json:"event"`
@@ -86,6 +97,12 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
 	}
 	eventCheckpoint := map[int]int{}
+	var ordinaryEvents map[int]ProbeCaptureEvent
+	var ordinaryCaptureIDs map[string]bool
+	if frameOnly {
+		ordinaryEvents = map[int]ProbeCaptureEvent{}
+		ordinaryCaptureIDs = map[string]bool{}
+	}
 	var previousEnd int64 = -1
 	previousID, previousCheckpoint := 0, 0
 	for _, saved := range bundle.Events {
@@ -128,6 +145,14 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 					return report, fmt.Errorf("probe evidence state requires every SAVE_FIELD and four complete player fingerprints")
 				}
 			}
+		}
+		if frameOnly {
+			var ordinary ProbeCaptureEvent
+			if err := json.Unmarshal(saved.Data, &ordinary); err != nil || ordinary.Event != probeOrdinaryFrameEventKind || ordinary.Checkpoint == nil || *ordinary.Checkpoint != 0 || !regexp.MustCompile(probeCaptureIDPattern).MatchString(ordinary.CaptureID) || ordinaryCaptureIDs[ordinary.CaptureID] {
+				return report, fmt.Errorf("ordinary frame selected event kind/checkpoint/capture ID differs")
+			}
+			ordinaryCaptureIDs[ordinary.CaptureID] = true
+			ordinaryEvents[ordinary.EventID] = ordinary
 		}
 		previousEnd = saved.Offset + int64(len(saved.Data))
 		previousID = event.EventID
@@ -769,7 +794,8 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		if frameIndices != nil {
 			frameIndices[receipt.CaptureID] = captureIndex
 		}
-		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != captureAdmission.RunID || receipt.Session != captureAdmission.Session || receipt.Epoch != captureAdmission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != captureAdmission.ISOSHA256 || eventCheckpoint[receipt.EventID] != receipt.Checkpoint || checkpoints[receipt.Checkpoint] == nil {
+		selectedCheckpoint, selectedEventExists := eventCheckpoint[receipt.EventID]
+		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != captureAdmission.RunID || receipt.Session != captureAdmission.Session || receipt.Epoch != captureAdmission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != captureAdmission.ISOSHA256 || !selectedEventExists || selectedCheckpoint != receipt.Checkpoint || !frameOnly && checkpoints[receipt.Checkpoint] == nil || frameOnly && (receipt.Checkpoint != 0 || ordinaryEvents[receipt.EventID].CaptureID != receipt.CaptureID) {
 			return report, fmt.Errorf("capture receipt differs from admitted identity or source event")
 		}
 		if checkpointOnly && precedingCapture != nil {
@@ -908,7 +934,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		}
 		if link.Status != "ACCEPTED" {
 			checkpoint := checkpoints[receipt.Checkpoint]
-			if checkpoint.Result.Status != "FAIL" {
+			if checkpoint != nil && checkpoint.Result.Status != "FAIL" {
 				checkpoint.Result.Status, checkpoint.Result.Reason = "UNKNOWN", "capture evidence unavailable"
 			}
 			if report.Status != "FAIL" {
@@ -1024,7 +1050,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			report.Status = status
 		}
 	}
-	if len(report.Checkpoints) == 0 && report.Status == "PASS" {
+	if !frameOnly && len(report.Checkpoints) == 0 && report.Status == "PASS" {
 		report.Status = "UNKNOWN"
 	}
 	slices.Sort(report.CoveredAreas)

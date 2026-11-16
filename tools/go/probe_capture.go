@@ -46,7 +46,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 	if profile.Version != 1 || profile.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || profile.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" {
 		return receipt, fmt.Errorf("unsupported capture version or backend source")
 	}
-	if !regexp.MustCompile(`^[A-Za-z0-9_-]{1,64}$`).MatchString(profile.CaptureID) || profile.EventID < 1 || profile.Checkpoint < 1 || profile.LogOffset < 0 || profile.LogBytes < 1 || profile.LogBytes > 1<<20 {
+	if !regexp.MustCompile(probeCaptureIDPattern).MatchString(profile.CaptureID) || profile.EventID < 1 || profile.Checkpoint < 0 || profile.LogOffset < 0 || profile.LogBytes < 1 || profile.LogBytes > 1<<20 {
 		return receipt, fmt.Errorf("capture requires stable ID and bounded source event slice")
 	}
 	if profile.LockTimeoutMS == 0 {
@@ -137,17 +137,33 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 	if readErr != nil || fmt.Sprintf("%x", sha256.Sum256(logData)) != profile.LogSHA256 || logData[len(logData)-1] != '\n' {
 		return receipt, fmt.Errorf("capture source log slice differs")
 	}
+	// Positive checkpoint logs historically ignored all fields except this header.
 	var event struct {
-		EventID    int    `json:"event_id"`
-		Checkpoint int    `json:"checkpoint"`
 		Event      string `json:"event"`
+		EventID    int    `json:"event_id"`
+		Checkpoint *int   `json:"checkpoint"`
 	}
 	if err := checkJSON(checkedJSON{raw: logData, allObjects: true, text: true}); err != nil {
 		return receipt, err
 	}
-	if err := json.Unmarshal(logData, &event); err != nil || event.EventID != profile.EventID || event.Checkpoint != profile.Checkpoint || event.Event == "" {
+	if err := json.Unmarshal(logData, &event); err != nil || event.EventID != profile.EventID || event.Checkpoint == nil || *event.Checkpoint != profile.Checkpoint || event.Event == "" {
 		return receipt, fmt.Errorf("capture source event identity differs")
 	}
+	if profile.Checkpoint == 0 {
+		if err := checkJSON(checkedJSON{raw: raw, requiredByDepth: map[int][]string{1: {"checkpoint"}}, nonNullByDepth: map[int][]string{1: {"checkpoint"}}, aliasesByDepth: map[int][]string{1: {"checkpoint"}}}); err != nil {
+			return receipt, err
+		}
+		var ordinary ProbeCaptureEvent
+		if err := json.Unmarshal(logData, &ordinary); err != nil || event.Event != probeOrdinaryFrameEventKind || ordinary.CaptureID != profile.CaptureID {
+			return receipt, fmt.Errorf("ordinary capture source kind or capture ID differs")
+		}
+		if _, err := time.Parse("2006-01-02T15:04:05-0700", ordinary.Time); err != nil {
+			return receipt, fmt.Errorf("ordinary capture source time differs")
+		}
+	} else if event.Event == probeOrdinaryFrameEventKind {
+		return receipt, fmt.Errorf("ordinary capture requires explicit checkpoint zero")
+	}
+
 	receipt = ProbeCaptureReceipt{Version: 1, SourceSHA256: profile.SourceSHA256, PadSourceSHA256: profile.PadSourceSHA256, CaptureID: profile.CaptureID, EventID: profile.EventID, Checkpoint: profile.Checkpoint, RunID: admission.RunID, Session: admission.Session, Epoch: admission.Epoch, PID: owned.PID, Starttime: owned.Starttime, ISOSHA256: admission.ISOSHA256, BuildSHA256: memoryPlan.BuildSHA256, Provenance: runtime.Memory.Provenance, Status: "UNKNOWN", Reason: "capture did not complete", StartedAt: time.Now().UTC().Format(time.RFC3339Nano), LockBudgetMS: profile.LockTimeoutMS, CaptureBudgetMS: profile.CaptureTimeoutMS, SnapshotPreserved: true, LogOffset: profile.LogOffset, LogSHA256: profile.LogSHA256, LogHex: hex.EncodeToString(logData), Representation: "original-png", Derivatives: "Pillow RGB/default640x480 resize and JPEG parity unqualified; no derivative produced", PolicyStatus: "profile-caps-enforced; native owner retention/resource agreement pending"}
 	lockPath := filepath.Join(filepath.Dir(runtime.Snapshots), "capture.lock")
 	lock, err := os.OpenFile(lockPath, os.O_CREATE|os.O_RDWR|syscall.O_NOFOLLOW, 0600)
