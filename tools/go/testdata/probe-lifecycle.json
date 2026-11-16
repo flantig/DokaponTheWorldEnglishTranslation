@@ -143,5 +143,210 @@
     "post_stop_card": "jnitial-card",
     "source_card_unchanged": true,
     "owned_child_exited": true
-  }
+  },
+  "native_settings": "[Folders]\nBios=bios\nSnapshots=snaps\nSavestates=sstates\nMemoryCards=memcards\nLogs=logs\nCheats=cheats\nPatches=patches\nUserResources=resources\nCache=cache\nTextures=textures\nInputProfiles=inputprofiles\nVideos=videos\nDebuggerLayouts=debuggerlayouts\nDebuggerSettings=debuggersettings\n[Filenames]\nBIOS=bios.bin\n[MemoryCards]\nSlot1_Enable=true\nSlot1_Filename=probe-slot1.ps2\nSlot2_Enable=false\n[Hotkeys]\nScreenshot=SDL-0/Guide\nResetVM=SDL-0/RightStick\nTogglePause=SDL-0/LeftStick\n[InputSources]\nSDL=true\n[Pad]\nMultitapPort1=false\nMultitapPort2=false\n[Pad1]\nType=DualShock2\nCross=SDL-0/FaceSouth\nCircle=SDL-0/FaceEast\nSquare=SDL-0/FaceWest\nTriangle=SDL-0/FaceNorth\nL1=SDL-0/LeftShoulder\nR1=SDL-0/RightShoulder\nSelect=SDL-0/Back\nStart=SDL-0/Start\nL2=SDL-0/+LeftTrigger\nR2=SDL-0/+RightTrigger\nUp=SDL-0/DPadUp\nDown=SDL-0/DPadDown\nLeft=SDL-0/DPadLeft\nRight=SDL-0/DPadRight\n[Pad2]\nType=NotConnected\n[Pad3]\nType=NotConnected\n[Pad4]\nType=NotConnected\n[Pad5]\nType=NotConnected\n[Pad6]\nType=NotConnected\n[Pad7]\nType=NotConnected\n[Pad8]\nType=NotConnected\n",
+  "native_settings_cases": [
+    {
+      "name": "native-valid",
+      "backend": "uinput",
+      "reason": "private profile already exists or cannot be created"
+    },
+    {
+      "name": "sink-default",
+      "backend": "",
+      "reason": "private profile already exists or cannot be created"
+    },
+    {
+      "name": "sink-explicit",
+      "backend": "event-sink",
+      "reason": "private profile already exists or cannot be created"
+    },
+    {
+      "name": "unsupported",
+      "backend": "native",
+      "error": "unsupported owned pad backend"
+    },
+    {
+      "name": "face",
+      "backend": "uinput",
+      "from": "FaceSouth",
+      "to": "A",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "face-east",
+      "backend": "uinput",
+      "from": "FaceEast",
+      "to": "B",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "face-west",
+      "backend": "uinput",
+      "from": "FaceWest",
+      "to": "X",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "face-north",
+      "backend": "uinput",
+      "from": "FaceNorth",
+      "to": "Y",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "hat",
+      "backend": "uinput",
+      "from": "DPadUp",
+      "to": "Hat0North",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "trigger",
+      "backend": "uinput",
+      "from": "+LeftTrigger",
+      "to": "-LeftTrigger",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "trigger-right",
+      "backend": "uinput",
+      "from": "+RightTrigger",
+      "to": "RightTrigger",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "guide",
+      "backend": "uinput",
+      "from": "Screenshot=SDL-0/Guide",
+      "to": "Screenshot=SDL-1/Guide",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "pause",
+      "backend": "uinput",
+      "from": "TogglePause=SDL-0/LeftStick",
+      "to": "TogglePause=SDL-0/RightStick",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "reset",
+      "backend": "uinput",
+      "from": "ResetVM=SDL-0/RightStick",
+      "to": "ResetVM=SDL-0/LeftStick",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "sdl-disabled",
+      "backend": "uinput",
+      "from": "SDL=true",
+      "to": "SDL=false",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "pad-type",
+      "backend": "uinput",
+      "from": "Type=DualShock2",
+      "to": "Type=NotConnected",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "multitap",
+      "backend": "uinput",
+      "from": "MultitapPort1=false",
+      "to": "MultitapPort1=true",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "extra-port",
+      "backend": "uinput",
+      "from": "[Pad8]\nType=NotConnected",
+      "to": "[Pad8]\nType=DualShock2",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "duplicate-empty",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=\nCross=SDL-0/FaceSouth",
+      "reason": "settings template is not normalized"
+    },
+    {
+      "name": "case-alias",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-0/FaceSouth\ncross=SDL-0/FaceSouth",
+      "reason": "settings template is not normalized"
+    },
+    {
+      "name": "section-alias",
+      "backend": "uinput",
+      "from": "[Pad1]",
+      "to": "[pad1]",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "chord",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-0/FaceSouth & Keyboard/A",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "alternative",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-0/FaceSouth&SDL-0/FaceEast",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "other-index",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-1/FaceSouth",
+      "reason": "private settings contract differs"
+    },
+    {
+      "name": "extra-game-stick",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-0/FaceSouth\nL3=SDL-0/LeftStick",
+      "reason": "native settings have an extra input consumer"
+    },
+    {
+      "name": "extra-analog",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-0/FaceSouth\nAnalog=SDL-0/Guide",
+      "reason": "native settings have an extra input consumer"
+    },
+    {
+      "name": "extra-macro",
+      "backend": "uinput",
+      "from": "Cross=SDL-0/FaceSouth",
+      "to": "Cross=SDL-0/FaceSouth\nMacro1Binds=Cross",
+      "reason": "native settings have an extra input consumer"
+    },
+    {
+      "name": "extra-hotkey",
+      "backend": "uinput",
+      "from": "Screenshot=SDL-0/Guide",
+      "to": "Screenshot=SDL-0/Guide\nShutdown=SDL-0/Guide",
+      "reason": "native settings have an extra input consumer"
+    },
+    {
+      "name": "extra-consumer",
+      "backend": "uinput",
+      "from": "[Pad8]\nType=NotConnected",
+      "to": "[Pad8]\nType=NotConnected\n[Other]\nInput=SDL-0/FaceSouth",
+      "reason": "native settings have an extra input consumer"
+    },
+    {
+      "name": "extra-source",
+      "backend": "uinput",
+      "from": "SDL=true",
+      "to": "SDL=true\nXInput=true",
+      "reason": "native settings have an extra input consumer"
+    }
+  ]
 }

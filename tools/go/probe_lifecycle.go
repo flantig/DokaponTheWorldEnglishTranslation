@@ -25,7 +25,7 @@ import (
 
 // runProbeLifecycle owns one bounded direct-child session. Immutable pending
 // receipts are directory-synced before effects; incomplete effects never replay.
-// This slice uses an owned event sink, not an emulator/uinput handover or a soak.
+// Native pad selection validates a fixed settings contract, without qualifying hardware.
 func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var report ProbeLifecycleReport
 	if len(raw) == 0 || len(raw) > 1<<20 {
@@ -42,6 +42,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	}
 	if profile.Version != 1 || profile.SourceFormat != "go-owned-lifecycle-v1" || len(profile.Requests) < 1 || len(profile.Requests) > 32 || len(profile.Session) < 1 || len(profile.Session) > 128 || strings.TrimSpace(profile.Session) != profile.Session || len(profile.ProgramArgs) > 16 {
 		return report, fmt.Errorf("unsupported lifecycle version or bounded session/request contract")
+	}
+	padBackend := profile.PadBackend
+	switch padBackend {
+	case "":
+		padBackend = "event-sink"
+	case "event-sink", "uinput":
+	default:
+		return report, fmt.Errorf("unsupported owned pad backend")
 	}
 	if profile.Requests[len(profile.Requests)-1].Operation != "stop" {
 		return report, fmt.Errorf("bounded lifecycle slice must end with an explicit stop request")
@@ -451,6 +459,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 		resumeEvidence.Resume = resumeFacts
 	}
+	if padBackend == "uinput" {
+		report.Limits = "Explicit uinput configuration with a fixed source-level SDL3 settings contract. Installed emulator, SDL device association, input calibration, Guide/pause/reset consumption, native scenarios, owner resource/soak agreement and handover remain unqualified."
+	}
+
 	profileDir := filepath.Join(profile.Root, "profile")
 	dataRoot := filepath.Join(profileDir, "PCSX2")
 	cardPath := filepath.Join(dataRoot, "memcards", "probe-slot1.ps2")
@@ -1987,7 +1999,25 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				required := map[string]string{"Folders.Bios": "bios", "Folders.Snapshots": "snaps", "Folders.Savestates": "sstates", "Folders.MemoryCards": "memcards", "Folders.Logs": "logs", "Folders.Cheats": "cheats", "Folders.Patches": "patches", "Folders.UserResources": "resources", "Folders.Cache": "cache", "Folders.Textures": "textures", "Folders.InputProfiles": "inputprofiles", "Folders.Videos": "videos", "Folders.DebuggerLayouts": "debuggerlayouts", "Folders.DebuggerSettings": "debuggersettings", "Filenames.BIOS": filepath.Base(profile.Inputs["bios"].Path), "MemoryCards.Slot1_Enable": "true", "MemoryCards.Slot1_Filename": "probe-slot1.ps2", "MemoryCards.Slot2_Enable": "false", "Hotkeys.ResetVM": "SDL-0/RightStick", "Hotkeys.TogglePause": "SDL-0/LeftStick"}
+				if padBackend == "uinput" {
+					var layout ProbePadLayout
+					if err := json.Unmarshal(probePadLayout, &layout); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					for _, button := range layout.Buttons {
+						required[button.SettingsKey] = button.SDLBinding
+					}
+					required["InputSources.SDL"] = "true"
+					required["Pad1.Type"] = "DualShock2"
+					required["Pad.MultitapPort1"] = "false"
+					required["Pad.MultitapPort2"] = "false"
+					for port := 2; port <= 8; port++ {
+						required[fmt.Sprintf("Pad%d.Type", port)] = "NotConnected"
+					}
+				}
 				values := map[string]string{}
+				nativeKeys := map[string]bool{}
 				section := ""
 				for _, line := range strings.Split(string(settings), "\n") {
 					line = strings.TrimSpace(line)
@@ -2000,10 +2030,13 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					}
 					key, value, found := strings.Cut(line, "=")
 					name := section + "." + strings.TrimSpace(key)
-					if !found || values[name] != "" {
+					_, duplicate := values[name]
+					folded := strings.ToLower(name)
+					if !found || duplicate || padBackend == "uinput" && nativeKeys[folded] {
 						step.Reason = "settings template is not normalized"
 						break actions
 					}
+					nativeKeys[folded] = true
 					values[name] = strings.TrimSpace(value)
 				}
 				for key, value := range required {
@@ -2013,6 +2046,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					}
 				}
 				for key, value := range values {
+					if padBackend == "uinput" {
+						folded := strings.ToLower(key)
+						_, canonical := required[key]
+						if !canonical && value != "" && (strings.HasPrefix(folded, "pad") || strings.HasPrefix(folded, "hotkeys.") || strings.HasPrefix(folded, "inputsources.") && value != "false" || strings.Contains(strings.ToLower(value), "sdl-")) {
+							step.Reason = "native settings have an extra input consumer: " + key
+							break actions
+						}
+					}
 					if key != "Hotkeys.ResetVM" && key != "Hotkeys.TogglePause" && (strings.Contains(value, "SDL-0/RightStick") || strings.Contains(value, "SDL-0/LeftStick")) {
 						step.Reason = "private control hotkey overlaps game input"
 						break actions
@@ -2050,7 +2091,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					}
 				}
 			case "pad":
-				go serveProbePad(ctx, ProbePadSpec{Root: profile.Root, Backend: "event-sink"}, padReady, padDone)
+				go serveProbePad(ctx, ProbePadSpec{Root: profile.Root, Backend: padBackend}, padReady, padDone)
 				if err := <-padReady; err != nil {
 					_ = <-padDone
 					step.Reason = "pad service failed: " + err.Error()

@@ -21,6 +21,7 @@ type ProbeLifecycleProfile struct {
 	SourceFormat   string                   `json:"source_format"`
 	Root           string                   `json:"root"`
 	Session        string                   `json:"session"`
+	PadBackend     string                   `json:"pad_backend,omitempty"`
 	Program        RegistryInput            `json:"program"`
 	ProgramArgs    []string                 `json:"program_args"`
 	Inputs         map[string]RegistryInput `json:"inputs"`
@@ -126,4 +127,24 @@ type ProbeLifecycleEffect struct {
 type ProbePadSpec struct {
 	Root    string
 	Backend string
+}
+
+// ProbePadLayout shares the fixed native settings contract and emitted input ABI.
+type ProbePadLayout struct {
+	Version              int
+	Name                 string
+	Phys                 string
+	Bus, Vendor, Product uint16
+	DeviceVersion        uint16 `json:"device_version"`
+	MaxEffects           uint32 `json:"max_effects"`
+	Buttons              map[string]struct {
+		Type, Code  uint16
+		SettingsKey string `json:"settings_key"`
+		SDLBinding  string `json:"sdl_binding"`
+		Down        int32
+	}
+	Axes []struct {
+		Code                 uint16
+		Min, Max, Fuzz, Flat int32
+	}
 }

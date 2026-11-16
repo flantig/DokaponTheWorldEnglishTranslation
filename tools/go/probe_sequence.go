@@ -50,7 +50,20 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 	recipes := recipeData.SequenceOrder
 	sessions := map[string]bool{}
 	roots := map[string]bool{}
+	padBackend := ""
 	for index, profile := range spec.Profiles {
+		effectiveBackend := profile.PadBackend
+		switch effectiveBackend {
+		case "":
+			effectiveBackend = "event-sink"
+		case "event-sink", "uinput":
+		default:
+			return report, fmt.Errorf("unsupported owned pad backend")
+		}
+		if index > 0 && effectiveBackend != padBackend {
+			return report, fmt.Errorf("sequence pad backend differs")
+		}
+		padBackend = effectiveBackend
 		if profile.Scenario == nil || profile.Scenario.Recipe != recipes[index] || profile.SourceFormat != "go-owned-lifecycle-v1" || profile.Version != 1 || profile.Resume != nil || profile.Seed == nil || *profile.Seed != spec.Seed+uint64(index) || profile.Session == "" || sessions[profile.Session] || roots[profile.Root] || len(profile.Inputs) != 4 || len(profile.Requests) < 1 || len(profile.Requests) > 32 || profile.Requests[0].Operation != "initial" || profile.Requests[len(profile.Requests)-1].Operation != "stop" {
 			return report, fmt.Errorf("sequence recipe/profile/session/request boundary differs")
 		}

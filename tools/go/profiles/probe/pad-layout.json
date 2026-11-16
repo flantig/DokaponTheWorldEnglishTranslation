@@ -10,87 +10,121 @@
     "CROSS": {
       "type": 1,
       "code": 304,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Cross",
+      "sdl_binding": "SDL-0/FaceSouth"
     },
     "CIRCLE": {
       "type": 1,
       "code": 305,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Circle",
+      "sdl_binding": "SDL-0/FaceEast"
     },
     "SQUARE": {
       "type": 1,
       "code": 307,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Square",
+      "sdl_binding": "SDL-0/FaceWest"
     },
     "TRIANGLE": {
       "type": 1,
       "code": 308,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Triangle",
+      "sdl_binding": "SDL-0/FaceNorth"
     },
     "L1": {
       "type": 1,
       "code": 310,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.L1",
+      "sdl_binding": "SDL-0/LeftShoulder"
     },
     "R1": {
       "type": 1,
       "code": 311,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.R1",
+      "sdl_binding": "SDL-0/RightShoulder"
     },
     "SELECT": {
       "type": 1,
       "code": 314,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Select",
+      "sdl_binding": "SDL-0/Back"
     },
     "START": {
       "type": 1,
       "code": 315,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Start",
+      "sdl_binding": "SDL-0/Start"
     },
     "GUIDE": {
       "type": 1,
       "code": 316,
-      "down": 1
+      "down": 1,
+      "settings_key": "Hotkeys.Screenshot",
+      "sdl_binding": "SDL-0/Guide"
     },
     "L3": {
       "type": 1,
       "code": 317,
-      "down": 1
+      "down": 1,
+      "settings_key": "Hotkeys.TogglePause",
+      "sdl_binding": "SDL-0/LeftStick"
     },
     "R3": {
       "type": 1,
       "code": 318,
-      "down": 1
+      "down": 1,
+      "settings_key": "Hotkeys.ResetVM",
+      "sdl_binding": "SDL-0/RightStick"
     },
     "L2": {
       "type": 3,
       "code": 2,
-      "down": 255
+      "down": 255,
+      "settings_key": "Pad1.L2",
+      "sdl_binding": "SDL-0/+LeftTrigger"
     },
     "R2": {
       "type": 3,
       "code": 5,
-      "down": 255
+      "down": 255,
+      "settings_key": "Pad1.R2",
+      "sdl_binding": "SDL-0/+RightTrigger"
     },
     "UP": {
       "type": 3,
       "code": 17,
-      "down": -1
+      "down": -1,
+      "settings_key": "Pad1.Up",
+      "sdl_binding": "SDL-0/DPadUp"
     },
     "DOWN": {
       "type": 3,
       "code": 17,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Down",
+      "sdl_binding": "SDL-0/DPadDown"
     },
     "LEFT": {
       "type": 3,
       "code": 16,
-      "down": -1
+      "down": -1,
+      "settings_key": "Pad1.Left",
+      "sdl_binding": "SDL-0/DPadLeft"
     },
     "RIGHT": {
       "type": 3,
       "code": 16,
-      "down": 1
+      "down": 1,
+      "settings_key": "Pad1.Right",
+      "sdl_binding": "SDL-0/DPadRight"
     }
   },
   "axes": [
@@ -148,5 +182,6 @@
     }
   ],
   "phys": "py-evdev-uinput",
-  "max_effects": 96
+  "max_effects": 96,
+  "pcsx2_contract_commit": "e4af1c424451c6b65c5c387404315cef77e9901b"
 }

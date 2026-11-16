@@ -26,22 +26,7 @@ import (
 // half-close after one bounded legacy command payload; every effect gets an ack.
 // Cancellation releases held inputs and only this service's own socket/device.
 func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, done chan<- error) {
-	var layout struct {
-		Version              int
-		Name                 string
-		Phys                 string
-		Bus, Vendor, Product uint16
-		DeviceVersion        uint16 `json:"device_version"`
-		MaxEffects           uint32 `json:"max_effects"`
-		Buttons              map[string]struct {
-			Type, Code uint16
-			Down       int32
-		}
-		Axes []struct {
-			Code                 uint16
-			Min, Max, Fuzz, Flat int32
-		}
-	}
+	var layout ProbePadLayout
 	if err := json.Unmarshal(probePadLayout, &layout); err != nil {
 		ready <- err
 		done <- err

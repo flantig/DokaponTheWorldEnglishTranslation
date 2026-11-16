@@ -960,6 +960,118 @@ func TestProbeLifecycle(t *testing.T) {
 		}
 		profile.Inputs[role] = RegistryInput{Path: path, Size: int64(len(content)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(content)))}
 	}
+	// Every native case stops at preparation, before any device or child can exist.
+	var nativeSettings string
+	var nativeCases []struct {
+		Name, Backend, From, To, Reason, Error string
+	}
+	if json.Unmarshal(fields["native_settings"], &nativeSettings) != nil || json.Unmarshal(fields["native_settings_cases"], &nativeCases) != nil || len(nativeCases) != 30 {
+		t.Fatal("literal native settings oracle")
+	}
+	for _, row := range nativeCases {
+		candidate := profile
+		candidate.PadBackend = row.Backend
+		candidate.Root = t.TempDir()
+		_ = os.Chmod(candidate.Root, 0700)
+		if err := os.Mkdir(filepath.Join(candidate.Root, "profile"), 0700); err != nil {
+			t.Fatal(err)
+		}
+		settings := nativeSettings
+		if row.From != "" {
+			if strings.Count(settings, row.From) != 1 {
+				t.Fatal(row.Name, "mutation is not unique")
+			}
+			settings = strings.Replace(settings, row.From, row.To, 1)
+		}
+		path := filepath.Join(sources, row.Name+".ini")
+		if err := os.WriteFile(path, []byte(settings), 0400); err != nil {
+			t.Fatal(err)
+		}
+		candidate.Inputs = map[string]RegistryInput{}
+		for role, input := range profile.Inputs {
+			candidate.Inputs[role] = input
+		}
+		candidate.Inputs["settings"] = RegistryInput{Path: path, Size: int64(len(settings)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(settings)))}
+		candidate.Requests = []ProbeLifecycleRequest{fixture.Requests[0], fixture.Requests[len(fixture.Requests)-1]}
+		input, _ := json.Marshal(candidate)
+		result, err := runProbeLifecycle(input)
+		if row.Error != "" {
+			if err == nil || err.Error() != row.Error {
+				t.Fatalf("%s early refusal: %v", row.Name, err)
+			}
+			if entries, _ := os.ReadDir(candidate.Root); len(entries) != 1 {
+				t.Fatal(row.Name, "unsupported backend produced effects")
+			}
+		} else if err != nil || len(result.Steps) != 2 || !strings.HasPrefix(result.Steps[0].Reason, row.Reason) {
+			t.Fatalf("%s preparation: %+v %v", row.Name, result, err)
+		}
+		for _, name := range []string{"pad.sock", "pad-events.bin", "pad-device.json", "child-epoch-0.log", "owned.json"} {
+			if _, err := os.Lstat(filepath.Join(candidate.Root, name)); !os.IsNotExist(err) {
+				t.Fatal(row.Name, "preparation reached pad/child", name)
+			}
+		}
+		if entries, _ := os.ReadDir(filepath.Join(candidate.Root, "profile")); len(entries) != 0 {
+			t.Fatal(row.Name, "preparation copied profile inputs")
+		}
+		for role, source := range candidate.Inputs {
+			readback, err := os.ReadFile(source.Path)
+			if err != nil || fmt.Sprintf("%x", sha256.Sum256(readback)) != source.SHA256 {
+				t.Fatal(row.Name, role, "source input changed", err)
+			}
+		}
+	}
+	// Exercise effective backend agreement before sequence locks, pending files or runs.
+	for _, variant := range []string{"unsupported", "mixed", "default-equivalent"} {
+		spec := ProbeSequenceSpec{Version: 1, SourceFormat: "go-probe-sequence-v1", Root: t.TempDir(), Seed: 17}
+		_ = os.Chmod(spec.Root, 0700)
+		for index, recipe := range []string{"first-create", "new-game-overwrite", "alternate-slots"} {
+			candidate := profile
+			candidate.Root = filepath.Join(spec.Root, fmt.Sprintf("run-%d", index))
+			_ = os.Mkdir(candidate.Root, 0700)
+			candidate.Session = fmt.Sprintf("native-boundary-%d", index)
+			candidate.Scenario = &ProbeScenarioSpec{Recipe: recipe}
+			seed := spec.Seed + uint64(index)
+			candidate.Seed = &seed
+			candidate.Requests = []ProbeLifecycleRequest{fixture.Requests[0], fixture.Requests[len(fixture.Requests)-1]}
+			candidate.Inputs = map[string]RegistryInput{}
+			for role, input := range profile.Inputs {
+				candidate.Inputs[role] = input
+			}
+			if index > 0 {
+				candidate.Inputs["card"] = RegistryInput{}
+			}
+			if index == 1 {
+				switch variant {
+				case "unsupported":
+					candidate.PadBackend = "native"
+				case "mixed":
+					candidate.PadBackend = "uinput"
+				case "default-equivalent":
+					candidate.PadBackend = "event-sink"
+				}
+			}
+			spec.Profiles = append(spec.Profiles, candidate)
+		}
+		// The existing source-lineage guard is the safe next boundary for defaults.
+		if variant == "default-equivalent" {
+			spec.Profiles[2].Program.SHA256 = strings.Repeat("0", 64)
+		}
+		input, _ := json.Marshal(spec)
+		_, err := runProbeSequence(input)
+		expected := "unsupported owned pad backend"
+		switch variant {
+		case "mixed":
+			expected = "sequence pad backend differs"
+		case "default-equivalent":
+			expected = "sequence source/build/input lineage differs"
+		}
+		if err == nil || err.Error() != expected {
+			t.Fatal(variant, "sequence backend boundary", err)
+		}
+		if entries, _ := os.ReadDir(spec.Root); len(entries) != 3 {
+			t.Fatal(variant, "sequence backend check produced effects")
+		}
+	}
 	t.Setenv("DOKAPON_PROBE_LIFECYCLE_CHILD", "1")
 	// Storage has no scenario/UI transaction. Keep it selectable without replaying
 	// the long baseline or three-story cohort; child and input setup stay shared.
@@ -2214,7 +2326,7 @@ func TestProbeLifecycle(t *testing.T) {
 		if !bytes.Equal(published, pngBytes) || !bytes.Equal(snapshot, pngBytes) {
 			t.Error("original PNG identity/preservation")
 		}
-		for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request"} {
+		for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request", "unsupported-backend", "changed-backend-hash"} {
 			admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))
 			var bundle ProbeRecordBundle
 			_ = json.Unmarshal(admissionRaw, &bundle)
@@ -2223,12 +2335,18 @@ func TestProbeLifecycle(t *testing.T) {
 				bundle.GoOwner.Step.Request.Nonce = ""
 			case "wrong-operation":
 				bundle.GoOwner.Step.Request.Operation = "warm"
+			case "unsupported-backend":
+				bundle.GoOwner.Profile.PadBackend = "native"
+			case "changed-backend-hash":
+				bundle.GoOwner.Profile.PadBackend = "event-sink"
 			case "unlinked-request":
 				bundle.GoOwner.Profile.Requests = nil
 			}
 			bad, _ := json.Marshal(bundle)
 			if _, err := admitProbeRecords(bad); err == nil {
 				t.Error(variant, "admitted")
+			} else if variant == "unsupported-backend" && err.Error() != "unsupported owned pad backend" {
+				t.Error(variant, "did not reach declared backend guard", err)
 			}
 		}
 		for _, refusal := range scenarioFixture.Refusals {

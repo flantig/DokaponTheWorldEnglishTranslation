@@ -437,7 +437,7 @@
       "runtime_data_growth_bytes": 2992,
       "implementation_runtime_growth_bytes": 33256,
       "core_focused_seconds": 18.035,
-      "native_focused_seconds": 18.010,
+      "native_focused_seconds": 18.01,
       "selection": "TestProbeRecords,TestProbeLifecycle,TestPlanRefusals,TestPlanAndCopy",
       "both_build_vet_testcompile": "PASS",
       "native_operations": 0
@@ -1021,7 +1021,7 @@
       "nativefonts": {
         "command": "nice -n 19 env GOMAXPROCS=2 go test -p 2 -tags nativefonts -run '^TestProbe(Records|Lifecycle)$/^storage$' -count=1 -timeout 120s",
         "result": "PASS",
-        "seconds": 8.220,
+        "seconds": 8.22,
         "log": "final-nativefonts.log"
       },
       "build_core": "PASS",
@@ -1310,7 +1310,7 @@
         "native_v1": 18.286,
         "core_intermediate_v2": 18.452,
         "core_final": 18.763,
-        "native_final": 18.480
+        "native_final": 18.48
       },
       "core_native_build_vet": "PASS",
       "format_json_whitespace_credentials_protected12": "PASS",
@@ -1346,5 +1346,97 @@
     ],
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "native_pad_offline_assessment": {
+    "status": "SOFTWARE_VERIFIED_FINAL_REVIEW_PENDING",
+    "finding": "Audit072-M1 sole lifecycle pad caller hardcoded event-sink; existing uinput backend was unreachable.",
+    "scope": "Optional explicit uinput selection through existing lifecycle owner; event-sink remains the effective omitted/empty/explicit default. Raw declared profiles are not rewritten; existing profile identity includes the optional field.",
+    "authority": {
+      "official_commit": "e4af1c424451c6b65c5c387404315cef77e9901b",
+      "SDLInputSource": {
+        "url": "https://github.com/PCSX2/pcsx2/blob/e4af1c424451c6b65c5c387404315cef77e9901b/pcsx2/Input/SDLInputSource.cpp",
+        "sha256": "d6898477a8d2bb87f87789e4d000c37314f6baab2a9ff507d1e1609bd28759d7",
+        "facts": "Positional FaceSouth/East/West/North, shoulders, DPad, Back/Start/Guide/sticks, positive trigger axes. Legacy A/B/X/Y migration inspects the real gamepad and does not supply static proof."
+      },
+      "Pad": {
+        "sha256": "711f3d4664850f51f8ce338692d620fdb2b1cab8ef6d00e74c5e339de19170ab"
+      },
+      "PadDualshock2": {
+        "sha256": "20cceae70d295e1fbaeba61ebb7fa80588124bbdbb143f8e757fd8ac626e1a64"
+      },
+      "approach_capsule": "/var/tmp/dokapon-native-pad-wiring/approach.txt",
+      "approach_sha256": "528442ea2bcc31a6a459bdec67e4f9f4dccc77ef9204dabb3c7e0f8ea6da1298",
+      "GS": {
+        "url": "https://github.com/PCSX2/pcsx2/blob/e4af1c424451c6b65c5c387404315cef77e9901b/pcsx2/GS/GS.cpp#L1095-L1102",
+        "sha256": "15b891271dcde2ae01f2093b6c9154c7899499d80ff503c3df60ea8876abf8af",
+        "facts": "g_gs_hotkeys registers Screenshot and queues GSQueueSnapshot on button release."
+      },
+      "InputManager": {
+        "url": "https://github.com/PCSX2/pcsx2/blob/e4af1c424451c6b65c5c387404315cef77e9901b/pcsx2/Input/InputManager.cpp#L841-L853",
+        "sha256": "04c5ce182928bc1658dcccd7f06c81b43ae719e022f256d6f57fa076de68ff52",
+        "facts": "Line145 includes g_gs_hotkeys; AddHotkeyBindings reads every registered name under Hotkeys. Combined with the GS owner, this establishes Hotkeys.Screenshot at the pinned revision."
+      }
+    },
+    "contract": {
+      "bindings": "Existing pad-layout button rows own settings_key/sdl_binding, exact positional gameplay and Screenshot/Guide, TogglePause/LeftStick, ResetVM/RightStick. Native config requires SDL=true, Pad1 DualShock2, Pad2..8 NotConnected, multitaps false. Extra nonempty controller/macro/hotkey/enabled-source/SDL consumers, duplicates including empty-first, case aliases, chords, alternatives and other SDL indices refuse.",
+      "order": "Unsupported lifecycle backend refuses before locks/receipts; settings validate in prepare before profile directory/copies/pad/device/child. Sequence effective-backend agreement occurs before locks/pending/runs. Saved Go-owner admission refuses unsupported declarations; profile identity hashes keep literal declarations.",
+      "event_sink": "Existing output/setup/axis/input oracles remain unchanged; duplicate empty-first INI keys now correctly refuse."
+    },
+    "source_pins": {
+      "probe_lifecycle.go": "7f903d980f22143ea3d2d6619d3299b6e5b491fff71c8dc85d00c045447ef883",
+      "probe_lifecycle_types.go": "dfe163aab87d3ca7be2dbc8c23c4bf8062b918fbcbbeadd520cdb870d381ce02",
+      "probe_pad.go": "678901aa44bd643b3526d9c20b40708c682879382f90ed5c2873763a24844202",
+      "probe_sequence.go": "57ecbf9712f3213c44ace2a1e57c39fea04bd9b51ffd86a07f88a49098e884ec",
+      "probe_records.go": "38f54f96f49540e0f55ddd268f5e40403f2e1ed6c69526b8114059664483fb5b",
+      "profiles/probe/pad-layout.json": "e74354aedeb888a583b2c4239f71f5aa9572eacd44f48fe3e268ffac937b5025",
+      "probe_lifecycle_test.go": "298e51e4d555e64399485c47dd5fac520b7bb147b4ffb270ef1305f39a0ecdae",
+      "testdata/probe-lifecycle.json": "1809a32d6e9c826e67fed713fcb0eb7b03d4af7f1b16e2a9719e9114b2dd7d6f"
+    },
+    "verification": {
+      "native_settings_cases": 30,
+      "sequence_backend_cases": 3,
+      "saved_owner_mutations": 2,
+      "lifecycle_baseline": "PASS73.837s final retained lifecycle-final.log, exact ^TestProbeLifecycle$/^baseline$. This invocation executes the30settings+3sequence outer boundary assertions plus the unchanged sink baseline and saved-owner mutation table. The earlier2.591s terminal-only result has no retained independent log and is not relied upon.",
+      "records": "PASS2.883s exact ^TestProbeRecords$",
+      "build": "PASS go build -p2",
+      "vet": "PASS go vet -p2 ./...",
+      "gofmt": "PASS owned Go files",
+      "canceled_run": {
+        "selector": "^(TestProbeLifecycle|TestProbeRecords)$/(baseline|)$",
+        "result": "Canceled143 after empty alternative unintentionally selected all subtests, including controlled synthetic sequence. Incomplete, not a full-suite/sequence pass or product failure.",
+        "receipt": "/var/tmp/dokapon-native-pad-wiring/selector-cancellation.txt",
+        "cleanup": "Three exact owned PIDs absent; two known synthetic temporary roots moved reversibly to retained canceled/ capsule. Native resources untouched."
+      }
+    },
+    "accounting": {
+      "runtime": {
+        "before": 160478,
+        "after": 164371,
+        "delta": 3893
+      },
+      "tests": {
+        "before": 121752,
+        "after": 133551,
+        "delta": 11799
+      },
+      "functions_added": 0,
+      "callbacks_added": 0,
+      "types_added": 1,
+      "dependencies_added": 0,
+      "claim": "Capability growth, not reduction. The one ProbePadLayout type relocates the existing anonymous layout to share settings and device facts.",
+      "metadata_accounting": "Separate exact docs/evidence/metadata byte counts are retained in the frozen source manifest, avoiding self-referential size claims."
+    },
+    "milestone_credit": 0,
+    "family_credit": 0,
+    "limits": [
+      "No uinput device or real emulator executed.",
+      "Actual installed PCSX2/SDL0 device association, button/hat/axis calibration, Guide capture, pause/reset and exclusive consumption remain unqualified.",
+      "Broader required cohort inventory, owner resource/soak/retention agreement and native handover remain held.",
+      "Focused software passes are not a complete test/race suite; previous unrelated diagnostic failure history remains unchanged."
+    ],
+    "final_evidence_addendum": {
+      "scope": "Exact pinned Screenshot registration and INI owner readbacks only; runtime/test source bytes unchanged. No new tests or device execution.",
+      "receipt": "/var/tmp/dokapon-native-pad-wiring/citation-addendum.json"
+    }
   }
 }
