@@ -1438,5 +1438,48 @@
       "scope": "Exact pinned Screenshot registration and INI owner readbacks only; runtime/test source bytes unchanged. No new tests or device execution.",
       "receipt": "/var/tmp/dokapon-native-pad-wiring/citation-addendum.json"
     }
+  },
+  "process_exit_offline_assessment": {
+    "status": "FOCUSED_SOFTWARE_VERIFIED_FINAL_REVIEW_PENDING",
+    "finding": "Audit073-M1 current approved Flatpak integration remains required; nonchild native exit must not be inferred from arbitrary errors/ECHILD.",
+    "contract": "Existing observeProbeProcess wraps standard os.ErrProcessDone only for prior expected positive PID/starttime with missing process stat or parsed matching Z/X. Setup-root, symlink, malformed/PID/starttime reuse, permission and later argv/executable failures remain nonsentinel errors. Existing live readers reject every error. Existing runProbeSequence requires explicit errors.Is instead of treating any error as stopped. Direct-child lifecycle Wait4 remains unchanged.",
+    "source_pins": {
+      "probe_process.go": "1a383966d213173e9c0b93d8ca067d6853bdf6635733c776859fe0207b51e2d2",
+      "probe_sequence.go": "941a1dea20f026ee86d91f79c3988f554a9fc7c04c6cce685a46b9a7fc0b5827",
+      "probe_records_test.go": "c3c5b86e4aa05ef2d6d95e3b037a6886d15f4f5693739a559797108e4b033405",
+      "probe_lifecycle_test.go": "bd159f52bf35b2898d22ab98102108cc8b6c1d09f07a9e087ea4066c9556a2d6",
+      "testdata/probe-memory.json": "06d0093be5244caafc69e70e92ff240c8642c982fc7d3b14e6b303267cf0c3e7"
+    },
+    "verification": {
+      "records": "PASS2.859s;19literal synthetic process-exit cases plus existing pure/read/capture oracles",
+      "lifecycle": "PASS72.835s corrected exact ^TestProbeLifecycle$/^baseline$, retained lifecycle-corrected.log",
+      "core": "build/vet PASS",
+      "nativefonts": "build/vet PASS",
+      "fixture_preservation": "Independent byte-prefix check confirms every original memory fixture byte before final root brace remains identical to publica71177e; only exit_cases appended. No old uint64 literal/golden changed.",
+      "failure_history": "Initial fixture JSON reserialization rounded uint64 literals and failed existing golden before new cases. Restored exact original fixture text. Subsequent baseline FAIL71.009s exposed an existing timing witness:10connections*500ms onlyguarantees5s against6s assertion. Astra independently reviewed700ms delay, now7s aggregate,<1s perconnection,<10s UI;6s threshold/verify-human/continued assertions retained.",
+      "failure_receipt": "/var/tmp/dokapon-exit-boundary/failed-check-history.json",
+      "elapsed_witness_correction": "Only existing TestProbeLifecycleChild delay500ms→700ms. No production timeout/budget altered."
+    },
+    "accounting": {
+      "runtime": {
+        "before": 12705,
+        "after": 13521,
+        "delta": 816
+      },
+      "tests": {
+        "before": 250666,
+        "after": 255836,
+        "delta": 5170
+      },
+      "functions_added": 0,
+      "types_added": 0,
+      "callbacks_added": 0,
+      "dependencies_added": 0,
+      "qualification": "First confirmed-exit software boundary and corrected independent timing witness; capability growth, not deletion or full Flatpak/native acceptance."
+    },
+    "remaining_software": "Current Flatpak launcher/runtime identity separation, exact newly created emulator adoption, source ISO/profile/log grants, actual early-epoch private-directory evidence, namespace PINE and nonchild stop/reaping/flush integration remain required through existing owners. Host XDG override/direct-child substitution is rejected.",
+    "native_execution": false,
+    "milestone_credit": 0,
+    "family_credit": 0
   }
 }

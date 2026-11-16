@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"maps"
@@ -282,9 +283,13 @@ func TestProbeRecords(t *testing.T) {
 		t.Fatal(err)
 	}
 	var memoryFixture struct {
-		Bundle   json.RawMessage
-		Expected json.RawMessage
-		Cases    []struct {
+		Bundle    json.RawMessage
+		Expected  json.RawMessage
+		ExitCases []struct {
+			Name, State, Fault string
+			Error, Done        bool
+		} `json:"exit_cases"`
+		Cases []struct {
 			Name    string
 			Changes []struct {
 				Path  []string
@@ -386,6 +391,71 @@ func TestProbeRecords(t *testing.T) {
 		var cli bytes.Buffer
 		if err := run([]string{"--probe-memory", path}, &cli); err != nil || strings.TrimSpace(cli.String()) != string(encoded) {
 			t.Fatal(test.Name, "memory CLI differs", err)
+		}
+	}
+	if len(memoryFixture.ExitCases) != 19 {
+		t.Fatal("literal process-exit cases")
+	}
+	for _, row := range memoryFixture.ExitCases {
+		root := t.TempDir()
+		processRoot := filepath.Join(root, "proc", "421")
+		if row.Fault != "missing-proc-root" {
+			if err := os.Mkdir(filepath.Join(root, "proc"), 0700); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if row.Fault != "missing-process" && row.Fault != "missing-proc-root" {
+			if err := os.MkdirAll(processRoot, 0700); err != nil {
+				t.Fatal(err)
+			}
+			stat := fmt.Sprintf("421 (probe peer) %s %s123 0\n", row.State, strings.Repeat("0 ", 18))
+			switch row.Fault {
+			case "malformed":
+				stat = "421 (probe peer) Z broken\n"
+			case "wrong-pid":
+				stat = strings.Replace(stat, "421 (", "422 (", 1)
+			}
+			for name, data := range map[string]string{"stat": stat, "cmdline": "fixture-program\x00", "exe": "fixture-build"} {
+				if name == "stat" && (row.Fault == "missing-stat" || row.Fault == "nil-expected-missing" || row.Fault == "missing-stat-symlink-exe") || name == "cmdline" && row.Fault == "missing-cmdline" || name == "exe" && row.Fault == "missing-exe" {
+					continue
+				}
+				if name == "cmdline" && row.Fault == "changed-cmdline" || name == "exe" && row.Fault == "changed-exe" {
+					data = "changed"
+				}
+				if name == "exe" && row.Fault == "missing-stat-symlink-exe" {
+					if err := os.Symlink("stat", filepath.Join(processRoot, name)); err != nil {
+						t.Fatal(err)
+					}
+					continue
+				}
+				if err := os.WriteFile(filepath.Join(processRoot, name), []byte(data), 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if row.Fault == "permission-stat" {
+				if os.Geteuid() == 0 {
+					t.Log("root bypasses fixture file permissions")
+					continue
+				}
+				if err := os.Chmod(filepath.Join(processRoot, "stat"), 0000); err != nil {
+					t.Fatal(err)
+				}
+			}
+		}
+		expected := &ProbeProcessRecord{PID: 421, Starttime: 123, Cmdline: []string{"fixture-program"}}
+		switch row.Fault {
+		case "nil-expected", "nil-expected-missing":
+			expected = nil
+		case "invalid-pid":
+			expected.PID = 422
+		case "invalid-start":
+			expected.Starttime = 0
+		case "reused":
+			expected.Starttime++
+		}
+		_, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "synthetic_peer", Root: root}, 421, expected, fmt.Sprintf("%x", sha256.Sum256([]byte("fixture-build"))))
+		if (err != nil) != row.Error || errors.Is(err, os.ErrProcessDone) != row.Done {
+			t.Fatalf("%s process-exit classification: %v", row.Name, err)
 		}
 	}
 	captureData, err := os.ReadFile("testdata/probe-capture.json")

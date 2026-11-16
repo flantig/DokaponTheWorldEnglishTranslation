@@ -3711,5 +3711,137 @@
         ]
       }
     }
+  ],
+  "exit_cases": [
+    {
+      "name": "live",
+      "state": "S",
+      "error": false,
+      "done": false
+    },
+    {
+      "name": "missing-stat",
+      "state": "S",
+      "fault": "missing-stat",
+      "error": true,
+      "done": true
+    },
+    {
+      "name": "missing-process",
+      "state": "S",
+      "fault": "missing-process",
+      "error": true,
+      "done": true
+    },
+    {
+      "name": "matching-zombie",
+      "state": "Z",
+      "error": true,
+      "done": true
+    },
+    {
+      "name": "matching-dead",
+      "state": "X",
+      "error": true,
+      "done": true
+    },
+    {
+      "name": "nil-expected-zombie",
+      "state": "Z",
+      "fault": "nil-expected",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "nil-expected-missing",
+      "state": "S",
+      "fault": "nil-expected-missing",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "invalid-expected-pid",
+      "state": "Z",
+      "fault": "invalid-pid",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "invalid-expected-start",
+      "state": "Z",
+      "fault": "invalid-start",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "reused-zombie",
+      "state": "Z",
+      "fault": "reused",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "malformed-stat",
+      "state": "Z",
+      "fault": "malformed",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "wrong-stat-pid",
+      "state": "Z",
+      "fault": "wrong-pid",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "permission-stat",
+      "state": "S",
+      "fault": "permission-stat",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "missing-cmdline",
+      "state": "S",
+      "fault": "missing-cmdline",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "missing-exe",
+      "state": "S",
+      "fault": "missing-exe",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "changed-cmdline",
+      "state": "S",
+      "fault": "changed-cmdline",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "changed-exe",
+      "state": "S",
+      "fault": "changed-exe",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "missing-stat-symlink-exe",
+      "state": "S",
+      "fault": "missing-stat-symlink-exe",
+      "error": true,
+      "done": false
+    },
+    {
+      "name": "missing-proc-root",
+      "state": "S",
+      "fault": "missing-proc-root",
+      "error": true,
+      "done": false
+    }
   ]
 }

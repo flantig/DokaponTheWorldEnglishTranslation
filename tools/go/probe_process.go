@@ -14,7 +14,8 @@ import (
 
 // observeProbeProcess is the shared kernel-observation contract. A nil expected
 // identity permits only an explicitly launched child to be observed for adoption;
-// callers still bind its argv. No saved receipt establishes kernel ownership.
+// callers still bind its argv. For a prior identity, os.ErrProcessDone denotes only
+// absent stat or matching terminal state. Other errors never establish exit.
 func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbeProcessRecord, build string) (ProbeProcessRecord, error) {
 	var observed ProbeProcessRecord
 	procRoot := "/proc"
@@ -22,9 +23,13 @@ func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbePro
 		procRoot = filepath.Join(runtime.Root, "proc")
 	}
 	processRoot := filepath.Join(procRoot, strconv.Itoa(pid))
+	hasExpectedIdentity := expected != nil && pid > 0 && expected.PID == pid && expected.Starttime > 0
 	if runtime.Provenance == "synthetic_peer" {
 		for _, path := range []string{procRoot, processRoot, filepath.Join(processRoot, "stat"), filepath.Join(processRoot, "cmdline"), filepath.Join(processRoot, "exe")} {
 			info, err := os.Lstat(path)
+			if err != nil && path != procRoot && os.IsNotExist(err) && hasExpectedIdentity {
+				continue
+			}
 			if err != nil || info.Mode()&os.ModeSymlink != 0 {
 				return observed, fmt.Errorf("synthetic probe process paths must not traverse symlinks")
 			}
@@ -32,6 +37,10 @@ func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbePro
 	}
 	statFile, statErr := os.Open(filepath.Join(processRoot, "stat"))
 	if statErr != nil {
+		root, rootErr := os.Lstat(procRoot)
+		if os.IsNotExist(statErr) && hasExpectedIdentity && rootErr == nil && root.IsDir() {
+			return observed, fmt.Errorf("probe runtime process stat unavailable: %w", os.ErrProcessDone)
+		}
 		return observed, fmt.Errorf("probe runtime process stat unavailable")
 	}
 	statBytes, readErr := io.ReadAll(io.LimitReader(statFile, 65537))
@@ -41,13 +50,19 @@ func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbePro
 	if end >= 0 {
 		fields = strings.Fields(string(statBytes[end+1:]))
 	}
-	if readErr != nil || len(statBytes) > 65536 || len(fields) < 20 || fields[0] == "Z" || fields[0] == "X" {
+	if readErr != nil || len(statBytes) > 65536 || len(fields) < 20 {
 		return observed, fmt.Errorf("probe runtime process identity is stale")
 	}
 	starttime, parseErr := strconv.ParseUint(fields[19], 10, 64)
 	pidText, _, _ := strings.Cut(string(statBytes), " ")
 	actualPID, parsePIDErr := strconv.Atoi(pidText)
-	if parseErr != nil || parsePIDErr != nil || actualPID != pid || expected != nil && starttime != expected.Starttime {
+	if parseErr != nil || parsePIDErr != nil || actualPID != pid || expected != nil && (expected.PID != pid || expected.Starttime == 0 || starttime != expected.Starttime) {
+		return observed, fmt.Errorf("probe runtime process identity is stale")
+	}
+	if fields[0] == "Z" || fields[0] == "X" {
+		if hasExpectedIdentity {
+			return observed, fmt.Errorf("probe runtime process identity is stale: %w", os.ErrProcessDone)
+		}
 		return observed, fmt.Errorf("probe runtime process identity is stale")
 	}
 	observed = ProbeProcessRecord{PID: pid, Starttime: starttime, State: fields[0]}

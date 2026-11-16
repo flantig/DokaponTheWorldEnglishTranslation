@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -151,8 +152,8 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 			report.Reason = "sequence lacks actual terminal/checkpoint/stopped-card evidence"
 			return report, nil
 		}
-		if _, err := observeProbeProcess(ProbeMemoryRuntime{}, stop.Owned.PID, stop.Owned, profile.Program.SHA256); err == nil {
-			report.Reason = "owned process remains after stop"
+		if _, err := observeProbeProcess(ProbeMemoryRuntime{}, stop.Owned.PID, stop.Owned, profile.Program.SHA256); !errors.Is(err, os.ErrProcessDone) {
+			report.Reason = "owned process exit is unconfirmed after stop"
 			return report, nil
 		}
 		evidenceRaw, err := readInput(story.Evidence.Path, 4<<20)

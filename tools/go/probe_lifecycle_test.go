@@ -257,7 +257,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 					_, started := os.Stat(filepath.Join(root, "go-records-2-scenario.json"))
 					_, completed := os.Stat(filepath.Join(root, "receipts", "2-scenario-00-acquire-board.complete.json"))
 					if started == nil && os.IsNotExist(completed) {
-						time.Sleep(500 * time.Millisecond)
+						time.Sleep(700 * time.Millisecond)
 					}
 				}
 			}
