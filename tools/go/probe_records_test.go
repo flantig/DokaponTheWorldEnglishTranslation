@@ -716,6 +716,10 @@ func TestProbeRecords(t *testing.T) {
 			Name, Fault, Error    string
 			Capture               bool
 			Ordinary              bool
+			Managed               bool
+			Calls                 int
+			Mode                  uint16
+			Failure               ProbeCaptureFailureKind
 			Status, Reason        string
 			CaptureID             string `json:"capture_id"`
 			Expected              map[string]json.RawMessage
@@ -737,6 +741,10 @@ func TestProbeRecords(t *testing.T) {
 		Name, Fault, Error    string
 		Capture               bool
 		Ordinary              bool
+		Managed               bool
+		Calls                 int
+		Mode                  uint16
+		Failure               ProbeCaptureFailureKind
 		Status, Reason        string
 		CaptureID             string `json:"capture_id"`
 		Expected              map[string]json.RawMessage
@@ -758,6 +766,9 @@ func TestProbeRecords(t *testing.T) {
 	peerCases = append(peerCases, captureFixture.Cases...)
 	compatibility := captureFixture.Cases[0]
 	compatibility.Name, compatibility.Fault = "positive checkpoint ignores ordinary-only field types", "capture_positive_extra_types"
+	peerCases = append(peerCases, compatibility)
+	compatibility = captureFixture.Cases[0]
+	compatibility.Name, compatibility.Fault = "raw output-directory mode change retains existing behavior", "capture_output_mode"
 	peerCases = append(peerCases, compatibility)
 	for _, row := range []struct {
 		Name, Fault, Error string
@@ -789,17 +800,104 @@ func TestProbeRecords(t *testing.T) {
 			peerCases = append(peerCases, ordinary)
 		}
 	}
+	for _, row := range []struct {
+		Name, Fault, Error, Status, Reason string
+		Mode                               uint16
+		Calls                              int
+		NoGuide                            bool
+		Failure                            ProbeCaptureFailureKind
+	}{
+		{Name: "managed repeated mode-zero tags without UI", Calls: 2, Status: "SAMPLED"},
+		{Name: "managed non-gameplay tags without player", Mode: 65535, Status: "SAMPLED"},
+		{Name: "managed stopped synthetic process state", Fault: "managed_stopped", Mode: 120, Status: "SAMPLED"},
+		{Name: "managed wrong request address", Fault: "managed_address", Error: "managed capture tag requests differ from source", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed extra decoder", Fault: "managed_decoder", Error: "managed capture requires ordinary admitted Go epoch and canonical tag plan", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed legacy records reject Go owner", Fault: "managed_legacy_go_owner", Error: "legacy probe records must not contain Go ownership", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed synthetic rejects saved Go provenance", Fault: "managed_go_synthetic", Error: "managed synthetic fixture requires legacy admission without Go ownership", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed positive checkpoint", Fault: "ordinary_positive", Error: "managed capture requires ordinary admitted Go epoch and canonical tag plan", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed missing ordinary event ID", Fault: "ordinary_missing_id", Error: "ordinary capture source kind or capture ID differs", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed snapshot outside admitted data root", Fault: "managed_snapshot_root", Error: "capture snapshot root differs from admitted native data root", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed wrong owned backend peer", Fault: "managed_wrong_peer", Status: "REFUSED", Reason: "capture backend is not the declared owned peer", NoGuide: true, Failure: probeCaptureAuthority},
+		{Name: "managed unsupported PNG mode preserved", Fault: "managed_palette", Status: "UNKNOWN", Reason: "managed normalization supports only8-bit Gray/RGB/RGBA PNG", Failure: probeCaptureObservation},
+		{Name: "managed normalization capacity preserved", Fault: "managed_intermediate", Status: "UNKNOWN", Reason: "managed normalization capacity: resize intermediate exceeds bounds", Failure: probeCaptureResource},
+		{Name: "managed PNG pixel capacity preserved", Fault: "managed_pixels", Status: "UNKNOWN", Reason: "fresh PNG exceeds pixel budget", Failure: probeCaptureResource},
+		{Name: "managed partial PNG preserved", Fault: "capture_partial_timeout", Status: "UNKNOWN", Reason: "capture deadline expired without a complete stable PNG", Failure: probeCaptureAuthority},
+		{Name: "managed absent PNG", Fault: "capture_no_image", Status: "UNKNOWN", Reason: "capture deadline expired without a complete stable PNG", Failure: probeCaptureAuthority},
+		{Name: "managed uncertain GUIDE acknowledgement", Fault: "capture_bad_ack", Status: "UNKNOWN", Reason: "capture trigger acknowledgement unknown", Failure: probeCaptureAuthority},
+		{Name: "managed late ambiguous PNG preserved", Fault: "capture_ambiguous", Status: "UNKNOWN", Reason: "ambiguous fresh snapshots", Failure: probeCaptureAuthority},
+		{Name: "managed source log mutation preserved", Fault: "capture_changed_log", Status: "REFUSED", Reason: "capture source log changed", Failure: probeCaptureAuthority},
+		{Name: "managed selected PNG mutation preserved", Fault: "capture_changed_image", Status: "REFUSED", Reason: "captured PNG changed before publication", Failure: probeCaptureAuthority},
+		{Name: "managed epoch admission mutation preserved", Fault: "capture_cross_session", Status: "REFUSED", Reason: "capture post-read: probe runtime admitted session evidence changed", Failure: probeCaptureAuthority},
+		{Name: "managed native hardlink preserved", Fault: "managed_hardlink", Status: "REFUSED", Reason: "managed snapshot deletion authority is unavailable", Failure: probeCaptureAuthority},
+		{Name: "managed frame tag drift preserved", Fault: "managed_tag_drift", Status: "UNKNOWN", Reason: "frame tags changed across sequential capture", Failure: probeCaptureObservation},
+		{Name: "managed authority takes precedence over tag drift", Fault: "managed_tag_log_drift", Status: "REFUSED", Reason: "capture source log changed", Failure: probeCaptureAuthority},
+		{Name: "managed output directory loses private mode", Fault: "managed_output_mode", Status: "REFUSED", Reason: "managed capture root privacy changed", Failure: probeCaptureAuthority},
+		{Name: "managed snapshot parent loses private mode", Fault: "managed_snapshot_parent_mode", Status: "REFUSED", Reason: "managed capture root privacy changed", Failure: probeCaptureAuthority},
+	} {
+		managed := captureFixture.Cases[0]
+		managed.Name, managed.Fault, managed.Error = row.Name, row.Fault, row.Error
+		managed.Status, managed.Reason = row.Status, row.Reason
+		managed.Managed, managed.Ordinary, managed.NoPersist = true, true, true
+		managed.Calls, managed.Mode, managed.Failure, managed.NoGuide = max(1, row.Calls), row.Mode, row.Failure, row.NoGuide
+		peerCases = append(peerCases, managed)
+	}
 	// One peer goroutine services the same PINE packets and, for capture cases,
 	// the fixed GUIDE service between the two sequential read batches.
 	var frameCaptureBase json.RawMessage
 	var ordinaryCaptureBase json.RawMessage
 	for _, test := range peerCases {
+		root := t.TempDir()
+		projectRoot := root
+		if test.Managed {
+			root = filepath.Join(projectRoot, "generated", "run")
+			if err := os.MkdirAll(root, 0700); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if err := os.Chmod(root, 0700); err != nil {
+			t.Fatal(err)
+		}
 		var plan ProbeMemoryBundle
 		if err := json.Unmarshal(memoryFixture.Bundle, &plan); err != nil {
 			t.Fatal(err)
 		}
 		replies := slices.Clone(plan.Replies)
 		plan.Replies = nil
+		if test.Managed {
+			// Synthetic legacy admission remains synthetic, including its fake proc tree.
+			plan.Admission = json.RawMessage(strings.ReplaceAll(string(plan.Admission), "/probe-project", projectRoot))
+			plan.Requests = slices.Clone(plan.Requests[:3])
+			replies = slices.Clone(replies[:3])
+			for index := range plan.Requests {
+				plan.Requests[index].ID = fmt.Sprintf("tag%d", index)
+			}
+			reply, err := hex.DecodeString(replies[0])
+			if err != nil {
+				t.Fatal(err)
+			}
+			binary.LittleEndian.PutUint16(reply[5:], test.Mode)
+			replies[0] = hex.EncodeToString(reply)
+			plan.Decoders = []ProbeMemoryDecoder{{ID: "source-tags", Kind: "frame_tags", Requests: []string{"tag0", "tag1", "tag2"}}}
+			switch test.Fault {
+			case "managed_address":
+				address := uint32(0x56581e)
+				plan.Requests[0].Address = &address
+			case "managed_decoder":
+				plan.Decoders = append(plan.Decoders, ProbeMemoryDecoder{ID: "extra", Kind: "scalar", Requests: []string{"tag0"}})
+			case "managed_legacy_go_owner":
+				var legacy, saved ProbeRecordBundle
+				if json.Unmarshal(plan.Admission, &legacy) != nil || json.Unmarshal(frameGoAdmission, &saved) != nil || saved.GoOwner == nil {
+					t.Fatal("managed incompatible ownership scaffold")
+				}
+				legacy.GoOwner = saved.GoOwner
+				plan.Admission, err = json.Marshal(legacy)
+				if err != nil {
+					t.Fatal(err)
+				}
+			case "managed_go_synthetic":
+				plan.Admission = bytes.Clone(frameGoAdmission)
+			}
+		}
 		switch test.Fault {
 		case "capture_scalar_only":
 			plan.Decoders = []ProbeMemoryDecoder{{ID: "only-scalar", Kind: "scalar", Requests: []string{"high"}}}
@@ -835,15 +933,14 @@ func TestProbeRecords(t *testing.T) {
 				}
 			}
 		}
-		root := t.TempDir()
-		if err := os.Chmod(root, 0700); err != nil {
-			t.Fatal(err)
-		}
 		processRoot := filepath.Join(root, "proc", strconv.Itoa(owned.PID))
 		if err := os.MkdirAll(processRoot, 0700); err != nil {
 			t.Fatal(err)
 		}
 		statText := fmt.Sprintf("%d (probe peer) S %s%d 0\n", owned.PID, strings.Repeat("0 ", 18), owned.Starttime)
+		if test.Fault == "managed_stopped" {
+			statText = strings.Replace(statText, ") S ", ") T ", 1)
+		}
 		if test.Fault == "stale_before" {
 			statText = strings.Replace(statText, fmt.Sprintf("%d 0\n", owned.Starttime), fmt.Sprintf("%d 0\n", owned.Starttime+1), 1)
 		}
@@ -872,6 +969,35 @@ func TestProbeRecords(t *testing.T) {
 			profile.CaptureID = test.CaptureID
 		}
 		snapshots, output := filepath.Join(root, "snaps"), filepath.Join(root, "captures")
+		capturePNG := originalPNG
+		if test.Managed {
+			snapshots = filepath.Join(root, "profile", "PCSX2", "snaps")
+			if test.Fault == "managed_snapshot_root" {
+				snapshots = filepath.Join(root, "snaps")
+			}
+			if err := os.MkdirAll(filepath.Dir(snapshots), 0700); err != nil {
+				t.Fatal(err)
+			}
+			profile.MaxSnapshotFiles, profile.MaxRetainedFiles, profile.MaxRetainedBytes = 2, 2, 1
+			if test.Fault == "capture_ambiguous" {
+				profile.MaxSnapshotFiles = 3
+			}
+			var source image.Image = &image.NRGBA{Pix: []byte{3, 0, 0, 0}, Stride: 4, Rect: image.Rect(0, 0, 1, 1)}
+			switch test.Fault {
+			case "managed_palette":
+				source = image.NewPaletted(image.Rect(0, 0, 1, 1), color.Palette{color.NRGBA{R: 3, A: 255}})
+			case "managed_intermediate":
+				source = image.NewNRGBA(image.Rect(0, 0, 32, 2048))
+				profile.MaxPixels, profile.MaxImageBytes = 1<<20, 16<<20
+			case "managed_pixels":
+				source = image.NewNRGBA(image.Rect(0, 0, 5, 5))
+			}
+			var encoded bytes.Buffer
+			if err := png.Encode(&encoded, source); err != nil {
+				t.Fatal(err)
+			}
+			capturePNG = encoded.Bytes()
+		}
 		var logData []byte
 		if test.Capture {
 			for _, path := range []string{snapshots, output} {
@@ -969,7 +1095,7 @@ func TestProbeRecords(t *testing.T) {
 			}
 			rounds := 1
 			if test.Capture {
-				rounds = 2
+				rounds = 2 * max(1, test.Calls)
 			}
 			for round := 0; round < rounds; round++ {
 				connection, err := listener.AcceptUnix()
@@ -998,6 +1124,9 @@ func TestProbeRecords(t *testing.T) {
 					if err != nil {
 						peerResult <- err
 						return
+					}
+					if test.Managed && round%2 == 1 && index == 0 && (test.Fault == "managed_tag_drift" || test.Fault == "managed_tag_log_drift") {
+						binary.LittleEndian.PutUint16(reply[5:], test.Mode+1)
 					}
 					if index == 0 {
 						switch test.Fault {
@@ -1030,7 +1159,7 @@ func TestProbeRecords(t *testing.T) {
 						case "build_after":
 							err = os.WriteFile(filepath.Join(processRoot, "exe"), []byte("different-build"), 0600)
 						}
-						if round == 1 {
+						if round%2 == 1 {
 							switch test.Fault {
 							case "capture_changed_log":
 								err = os.WriteFile(filepath.Join(root, "events.jsonl"), []byte("changed"), 0600)
@@ -1038,6 +1167,12 @@ func TestProbeRecords(t *testing.T) {
 								err = os.WriteFile(filepath.Join(snapshots, "new.png"), []byte("changed"), 0600)
 							case "capture_ambiguous":
 								err = os.WriteFile(filepath.Join(snapshots, "other.png"), originalPNG, 0600)
+							case "managed_tag_log_drift":
+								err = os.WriteFile(filepath.Join(root, "events.jsonl"), []byte("changed"), 0600)
+							case "capture_output_mode", "managed_output_mode":
+								err = os.Chmod(output, 0755)
+							case "managed_snapshot_parent_mode":
+								err = os.Chmod(filepath.Dir(snapshots), 0755)
 							}
 						}
 						if err != nil {
@@ -1052,7 +1187,7 @@ func TestProbeRecords(t *testing.T) {
 						}
 					}
 				}
-				if test.Capture && round == 0 {
+				if test.Capture && round%2 == 0 {
 					if test.NoGuide {
 						peerResult <- nil
 						return
@@ -1092,13 +1227,19 @@ func TestProbeRecords(t *testing.T) {
 					if test.Fault == "capture_separate_budgets" {
 						time.Sleep(650 * time.Millisecond)
 					}
-					data := originalPNG
+					data := capturePNG
 					if test.Fault == "capture_partial_timeout" || test.Fault == "capture_partial_then_complete" {
-						data = originalPNG[:8]
+						data = capturePNG[:8]
 					}
 					if err := os.WriteFile(filepath.Join(snapshots, "new.png"), data, 0600); err != nil {
 						peerResult <- err
 						return
+					}
+					if test.Fault == "managed_hardlink" {
+						if err := os.Link(filepath.Join(snapshots, "new.png"), filepath.Join(root, "native-alias.bin")); err != nil {
+							peerResult <- err
+							return
+						}
 					}
 					if test.Fault == "capture_partial_timeout" {
 						peerResult <- nil
@@ -1134,47 +1275,94 @@ func TestProbeRecords(t *testing.T) {
 		}
 		var report ProbeMemoryReport
 		var captured ProbeCaptureReceipt
+		var managed ProbeFrameSample
 		var readErr error
 		callStart := time.Now()
 		if test.Capture {
-			profileRaw, err := json.Marshal(profile)
-			if err != nil {
-				t.Fatal(err)
-			}
-			if test.Fault == "ordinary_profile_missing" || test.Fault == "ordinary_profile_null" {
-				var document map[string]json.RawMessage
-				if json.Unmarshal(profileRaw, &document) != nil {
-					t.Fatal("ordinary profile fixture")
+			for attempt := 0; attempt < max(1, test.Calls); attempt++ {
+				if attempt > 0 {
+					profile.CaptureID = fmt.Sprintf("managed-repeat-%d", attempt)
+					profile.EventID++
+					logData, err = json.Marshal(ProbeCaptureEvent{Event: probeOrdinaryFrameEventKind, EventID: profile.EventID, Checkpoint: &profile.Checkpoint, CaptureID: profile.CaptureID, Time: "2026-11-16T00:00:00+0000"})
+					if err != nil {
+						t.Fatal(err)
+					}
+					logData = append(logData, '\n')
+					profile.LogBytes, profile.LogSHA256 = len(logData), fmt.Sprintf("%x", sha256.Sum256(logData))
+					if err := os.WriteFile(filepath.Join(root, "events.jsonl"), append(make([]byte, profile.LogOffset), logData...), 0600); err != nil {
+						t.Fatal(err)
+					}
 				}
-				if test.Fault == "ordinary_profile_missing" {
-					delete(document, "checkpoint")
-				} else {
-					document["checkpoint"] = json.RawMessage(`null`)
-				}
-				profileRaw, err = json.Marshal(document)
+				profileRaw, err := json.Marshal(profile)
 				if err != nil {
 					t.Fatal(err)
 				}
-			}
-			captureRuntime, err := json.Marshal(ProbeCaptureRuntime{Memory: memoryRuntime, Snapshots: snapshots, Output: output, BackendPID: os.Getpid()})
-			if err != nil {
-				t.Fatal(err)
-			}
-			if test.Fault == "" {
-				profilePath, runtimePath := filepath.Join(root, "capture-profile.json"), filepath.Join(root, "capture-runtime.json")
-				if err := os.WriteFile(profilePath, profileRaw, 0600); err != nil {
+				if test.Fault == "ordinary_profile_missing" || test.Fault == "ordinary_profile_null" {
+					var document map[string]json.RawMessage
+					if json.Unmarshal(profileRaw, &document) != nil {
+						t.Fatal("ordinary profile fixture")
+					}
+					if test.Fault == "ordinary_profile_missing" {
+						delete(document, "checkpoint")
+					} else {
+						document["checkpoint"] = json.RawMessage(`null`)
+					}
+					profileRaw, err = json.Marshal(document)
+					if err != nil {
+						t.Fatal(err)
+					}
+				}
+				backendPID := os.Getpid()
+				if test.Fault == "managed_wrong_peer" {
+					backendPID++
+				}
+				captureRuntime, err := json.Marshal(ProbeCaptureRuntime{Memory: memoryRuntime, Snapshots: snapshots, Output: output, BackendPID: backendPID})
+				if err != nil {
 					t.Fatal(err)
 				}
-				if err := os.WriteFile(runtimePath, captureRuntime, 0600); err != nil {
-					t.Fatal(err)
+				if test.Fault == "" && !test.Managed {
+					profilePath, runtimePath := filepath.Join(root, "capture-profile.json"), filepath.Join(root, "capture-runtime.json")
+					if err := os.WriteFile(profilePath, profileRaw, 0600); err != nil {
+						t.Fatal(err)
+					}
+					if err := os.WriteFile(runtimePath, captureRuntime, 0600); err != nil {
+						t.Fatal(err)
+					}
+					var cli bytes.Buffer
+					readErr = run([]string{"--probe-capture", profilePath, "--probe-capture-runtime", runtimePath}, &cli)
+					if readErr == nil {
+						readErr = json.Unmarshal(cli.Bytes(), &captured)
+					}
+				} else {
+					var outputSample *ProbeFrameSample
+					if test.Managed {
+						managed = ProbeFrameSample{Normalized: image.NewNRGBA(image.Rect(0, 0, 1, 1)), Sample: []byte{255}, Facts: ProbeFrameComparisonResult{Status: "poison"}}
+						outputSample = &managed
+					}
+					captured, readErr = captureProbeEvidence(profileRaw, captureRuntime, outputSample)
+					if test.Managed {
+						if readErr != nil || captured.Status != "SAMPLED" {
+							if !reflect.DeepEqual(managed, ProbeFrameSample{}) {
+								t.Fatal(test.Name, "failed managed transaction retained poisoned/usable carrier")
+							}
+						} else {
+							sourceRGB := []byte{3, 0, 0}
+							if managed.Normalized == nil || managed.Normalized.Bounds() != image.Rect(0, 0, 640, 480) || !bytes.Equal(managed.Normalized.Pix, bytes.Repeat([]byte{3, 0, 0, 255}, 640*480)) || !bytes.Equal(managed.Sample, bytes.Repeat(sourceRGB, 64*48)) {
+								t.Fatal(test.Name, "managed hidden-RGB normalization/sample differs")
+							}
+							if managed.Facts.Status != "AVAILABLE" || managed.Facts.CaptureID != profile.CaptureID || managed.Facts.SourceRGBSHA256 != fmt.Sprintf("%x", sha256.Sum256(sourceRGB)) || managed.Facts.NormalizedRGBSHA256 != fmt.Sprintf("%x", sha256.Sum256(bytes.Repeat(sourceRGB, 640*480))) || managed.Facts.ComparisonRGBSHA256 != fmt.Sprintf("%x", sha256.Sum256(bytes.Repeat(sourceRGB, 64*48))) || managed.Facts.MeanRGBDifference != nil || managed.Facts.SumAbsRGB != nil {
+								t.Fatal(test.Name, "managed independent constant RGB hashes or comparison-free facts differ")
+							}
+							if _, err := os.Lstat(filepath.Join(snapshots, "new.png")); !os.IsNotExist(err) {
+								t.Fatal(test.Name, "successful transient source remains before next transaction", err)
+							}
+						}
+						entries, err := os.ReadDir(output)
+						if err != nil || len(entries) != 0 {
+							t.Fatal(test.Name, "managed transaction wrote raw output files", err)
+						}
+					}
 				}
-				var cli bytes.Buffer
-				readErr = run([]string{"--probe-capture", profilePath, "--probe-capture-runtime", runtimePath}, &cli)
-				if readErr == nil {
-					readErr = json.Unmarshal(cli.Bytes(), &captured)
-				}
-			} else {
-				captured, readErr = captureProbeEvidence(profileRaw, captureRuntime)
 			}
 		} else {
 			report, readErr = readProbeMemory(raw, runtimeRaw)
@@ -1197,6 +1385,9 @@ func TestProbeRecords(t *testing.T) {
 			if readErr == nil || !strings.HasPrefix(readErr.Error(), test.Error) {
 				t.Fatalf("%s: got %v, want prefix %q", test.Name, readErr, test.Error)
 			}
+			if test.Managed && (captured.ManagedFailure != test.Failure || !reflect.DeepEqual(managed, ProbeFrameSample{})) {
+				t.Fatal(test.Name, "managed preflight failure classification/carrier differs")
+			}
 			if len(report.Observations) != 0 || len(guideCommands) != 0 {
 				t.Fatal(test.Name, "failed preflight returned observations or triggered GUIDE")
 			}
@@ -1210,6 +1401,19 @@ func TestProbeRecords(t *testing.T) {
 		}
 		if readErr != nil {
 			t.Fatal(test.Name, readErr)
+		}
+		if test.Fault == "capture_output_mode" || test.Fault == "managed_output_mode" || test.Fault == "managed_snapshot_parent_mode" {
+			directory := output
+			if test.Fault == "managed_snapshot_parent_mode" {
+				directory = filepath.Dir(snapshots)
+			}
+			info, err := os.Lstat(directory)
+			if err != nil || info.Mode().Perm() != 0755 {
+				t.Fatal(test.Name, "controlled directory mutation did not occur", err)
+			}
+			if err := os.Chmod(directory, 0700); err != nil {
+				t.Fatal(err)
+			}
 		}
 		var expectedMemory struct {
 			Observations []ProbeMemoryObservation
@@ -1230,7 +1434,7 @@ func TestProbeRecords(t *testing.T) {
 			}
 			continue
 		}
-		if test.NoGuide && (len(guideCommands) != 0 || captured.GuideCommand != "") || !test.NoGuide && (len(guideCommands) != 1 || guideCommands[0] != "tap GUIDE 0.05") {
+		if test.NoGuide && (len(guideCommands) != 0 || captured.GuideCommand != "") || !test.NoGuide && (len(guideCommands) != max(1, test.Calls) || guideCommands[0] != "tap GUIDE 0.05") {
 			t.Fatal(test.Name, "capture trigger count or command differs")
 		}
 		if captured.Status != test.Status || captured.Reason != test.Reason {
@@ -1244,6 +1448,49 @@ func TestProbeRecords(t *testing.T) {
 		old, err := os.ReadFile(filepath.Join(snapshots, "old.png"))
 		if err != nil || !bytes.Equal(old, originalPNG) {
 			t.Fatal(test.Name, "preexisting snapshot changed")
+		}
+		if test.Managed {
+			encoded, err := json.Marshal(captured)
+			if err != nil || bytes.Contains(encoded, []byte(`"managed_failure"`)) || captured.Provenance != "synthetic_peer" || captured.ImagePath != "" || captured.ManagedFailure != test.Failure {
+				t.Fatal(test.Name, "transient receipt classification/provenance/raw-output contract differs", err)
+			}
+			if captured.Status == "SAMPLED" {
+				if captured.SnapshotPreserved || captured.ImageSHA256 != fmt.Sprintf("%x", sha256.Sum256(capturePNG)) || captured.ImageBytes != int64(len(capturePNG)) || captured.Width != 1 || captured.Height != 1 || captured.MemoryBefore == nil || captured.MemoryAfter == nil {
+					t.Fatal(test.Name, "transient receipt source identity or completed guards differ")
+				}
+				for _, observed := range []*ProbeMemoryReport{captured.MemoryBefore, captured.MemoryAfter} {
+					if observed.Provenance != "synthetic_peer" || observed.ProcessGuarded || len(observed.Observations) != 3 || len(observed.Decoded) != 1 || observed.Decoded[0].ID != "source-tags" || observed.Decoded[0].Kind != "frame_tags" || !slices.Equal(observed.Decoded[0].FrameTags, []uint64{uint64(test.Mode), 11, 7}) {
+						t.Fatal(test.Name, "managed tags-only transaction gained a player/native requirement or claim")
+					}
+				}
+				if memoryPackets != 6*max(1, test.Calls) {
+					t.Fatal(test.Name, "managed transaction did not repeat fresh before/after reads")
+				}
+			} else {
+				if !captured.SnapshotPreserved || !reflect.DeepEqual(managed, ProbeFrameSample{}) {
+					t.Fatal(test.Name, "failed transient transaction claims deletion or exposes a sample")
+				}
+				source, err := os.ReadFile(filepath.Join(snapshots, "new.png"))
+				switch test.Fault {
+				case "capture_no_image", "capture_bad_ack", "managed_wrong_peer":
+					if !os.IsNotExist(err) {
+						t.Fatal(test.Name, "fixture unexpectedly created an untriggered PNG", err)
+					}
+				case "capture_partial_timeout":
+					if err != nil || !bytes.Equal(source, capturePNG[:8]) {
+						t.Fatal(test.Name, "managed failed partial was removed or changed", err)
+					}
+				case "capture_changed_image":
+					if err != nil || string(source) != "changed" {
+						t.Fatal(test.Name, "managed rejected changed source was removed", err)
+					}
+				default:
+					if err != nil || !bytes.Equal(source, capturePNG) {
+						t.Fatal(test.Name, "managed unsuccessful source was removed or changed", err)
+					}
+				}
+			}
+			continue
 		}
 		if !slices.Contains(test.OmitExpected, "memory_before") && (captured.MemoryBefore == nil || !reflect.DeepEqual(captured.MemoryBefore.Decoded, expectedMemory.Decoded)) {
 			actualDecoded, _ := json.Marshal(captured.MemoryBefore)

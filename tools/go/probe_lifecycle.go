@@ -2039,7 +2039,7 @@ requests:
 				captureRuntime := ProbeCaptureRuntime{Memory: scenarioRuntime, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
 				captureRaw, _ := json.Marshal(captureProfile)
 				runtimeRaw, _ := json.Marshal(captureRuntime)
-				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw)
+				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw, nil)
 				step.Capture = &receipt
 				if ordinary {
 					if receipt.Version != 1 || receipt.CaptureID != captureID || receipt.EventID != len(journal.Events) || receipt.Checkpoint != 0 || receipt.LogOffset != int64(logOffset) || receipt.LogSHA256 != captureProfile.LogSHA256 {

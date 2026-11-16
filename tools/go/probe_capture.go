@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -12,6 +13,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"slices"
 	"strings"
 	"syscall"
 	"time"
@@ -19,9 +21,15 @@ import (
 
 // captureProbeEvidence performs one serialized screenshot transaction. Lock wait
 // and capture have separate source budgets; uncertain attempts are not retried.
-// Original PNGs and failed partials remain intact. No resize/JPEG parity follows.
-func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
+// A nil managed output preserves original PNGs/partials and the raw contract.
+// Internal managed callers reserve transient input/working bytes before calling;
+// only fully checked, unlinked samples populate the output. This is no run quota.
+func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample) (ProbeCaptureReceipt, error) {
 	var receipt ProbeCaptureReceipt
+	if managed != nil {
+		*managed = ProbeFrameSample{}
+		receipt.ManagedFailure = probeCaptureAuthority
+	}
 	if len(raw) == 0 || len(raw) > 4<<20 || len(runtimeRaw) == 0 || len(runtimeRaw) > 65536 {
 		return receipt, fmt.Errorf("capture requires bounded profile and explicit runtime descriptor")
 	}
@@ -80,7 +88,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 			declaredUI = true
 		}
 	}
-	if !declaredTags || !declaredUI {
+	if !declaredTags || managed == nil && !declaredUI {
 		return receipt, fmt.Errorf("capture plan requires source frame tags and UI decoders")
 	}
 	admission, err := admitProbeRecords(memoryPlan.Admission)
@@ -99,10 +107,46 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 			_ = json.Unmarshal(record.Data, &admittedProfile)
 		}
 	}
-	if (runtime.Memory.Provenance == "live" || runtime.Memory.Provenance == "owned_go") && runtime.Snapshots != filepath.Join(admittedProfile.DataRoot, "snaps") {
+	if managed != nil {
+		if profile.Checkpoint != 0 || memoryPlan.Version != 1 || memoryPlan.SourceSHA256 != profile.SourceSHA256 || len(memoryPlan.WordGuards) != 0 || memoryPlan.DiagnosticVersion != "" || len(memoryPlan.Requests) != 3 || len(memoryPlan.Decoders) != 1 {
+			return receipt, fmt.Errorf("managed capture requires ordinary admitted Go epoch and canonical tag plan")
+		}
+		switch runtime.Memory.Provenance {
+		case "owned_go":
+			if records.GoOwner == nil || owned.Epoch == nil || *owned.Epoch != admission.Epoch || memoryPlan.BuildSHA256 != records.GoOwner.Profile.Program.SHA256 {
+				return receipt, fmt.Errorf("managed capture lacks its admitted Go epoch")
+			}
+		case "synthetic_peer":
+			if admission.SourceSchema != "text-probe-legacy-2026-11-13" || records.GoOwner != nil {
+				return receipt, fmt.Errorf("managed synthetic fixture requires legacy admission without Go ownership")
+			}
+		default:
+			return receipt, fmt.Errorf("managed capture requires owned Go or explicit synthetic provenance")
+		}
+		for index, field := range []struct {
+			Opcode  uint8
+			Address uint32
+		}{{1, 0x56581c}, {1, 0x56b598}, {0, 0x56b18c}} {
+			read := memoryPlan.Requests[index]
+			if read.ID != fmt.Sprintf("tag%d", index) || read.Opcode == nil || read.Address == nil || *read.Opcode != field.Opcode || *read.Address != field.Address {
+				return receipt, fmt.Errorf("managed capture tag requests differ from source")
+			}
+		}
+		decoder := memoryPlan.Decoders[0]
+		if decoder.ID != "source-tags" || decoder.Kind != "frame_tags" || !slices.Equal(decoder.Requests, []string{"tag0", "tag1", "tag2"}) || len(decoder.Glyphmap) != 0 {
+			return receipt, fmt.Errorf("managed capture requires one canonical frame-tags decoder")
+		}
+	}
+	if (managed != nil || runtime.Memory.Provenance == "live" || runtime.Memory.Provenance == "owned_go") && runtime.Snapshots != filepath.Join(admittedProfile.DataRoot, "snaps") {
 		return receipt, fmt.Errorf("capture snapshot root differs from admitted native data root")
 	}
 	dirs := []string{runtime.Memory.Root, runtime.Snapshots, runtime.Output}
+	if managed != nil {
+		parent := filepath.Dir(runtime.Snapshots)
+		if !slices.Contains(dirs, parent) {
+			dirs = append(dirs, parent)
+		}
+	}
 	var directoryInfo []os.FileInfo
 	for _, directory := range dirs {
 		info, err := os.Lstat(directory)
@@ -164,7 +208,12 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 		return receipt, fmt.Errorf("ordinary capture requires explicit checkpoint zero")
 	}
 
-	receipt = ProbeCaptureReceipt{Version: 1, SourceSHA256: profile.SourceSHA256, PadSourceSHA256: profile.PadSourceSHA256, CaptureID: profile.CaptureID, EventID: profile.EventID, Checkpoint: profile.Checkpoint, RunID: admission.RunID, Session: admission.Session, Epoch: admission.Epoch, PID: owned.PID, Starttime: owned.Starttime, ISOSHA256: admission.ISOSHA256, BuildSHA256: memoryPlan.BuildSHA256, Provenance: runtime.Memory.Provenance, Status: "UNKNOWN", Reason: "capture did not complete", StartedAt: time.Now().UTC().Format(time.RFC3339Nano), LockBudgetMS: profile.LockTimeoutMS, CaptureBudgetMS: profile.CaptureTimeoutMS, SnapshotPreserved: true, LogOffset: profile.LogOffset, LogSHA256: profile.LogSHA256, LogHex: hex.EncodeToString(logData), Representation: "original-png", Derivatives: "Pillow RGB/default640x480 resize and JPEG parity unqualified; no derivative produced", PolicyStatus: "profile-caps-enforced; native owner retention/resource agreement pending"}
+	receipt = ProbeCaptureReceipt{ManagedFailure: receipt.ManagedFailure, Version: 1, SourceSHA256: profile.SourceSHA256, PadSourceSHA256: profile.PadSourceSHA256, CaptureID: profile.CaptureID, EventID: profile.EventID, Checkpoint: profile.Checkpoint, RunID: admission.RunID, Session: admission.Session, Epoch: admission.Epoch, PID: owned.PID, Starttime: owned.Starttime, ISOSHA256: admission.ISOSHA256, BuildSHA256: memoryPlan.BuildSHA256, Provenance: runtime.Memory.Provenance, Status: "UNKNOWN", Reason: "capture did not complete", StartedAt: time.Now().UTC().Format(time.RFC3339Nano), LockBudgetMS: profile.LockTimeoutMS, CaptureBudgetMS: profile.CaptureTimeoutMS, SnapshotPreserved: true, LogOffset: profile.LogOffset, LogSHA256: profile.LogSHA256, LogHex: hex.EncodeToString(logData), Representation: "original-png", Derivatives: "Pillow RGB/default640x480 resize and JPEG parity unqualified; no derivative produced", PolicyStatus: "profile-caps-enforced; native owner retention/resource agreement pending"}
+	if managed != nil {
+		receipt.Representation = "transient-rgb640"
+		receipt.Derivatives = "RGB640 and RGB64 in memory only; no JPEG or compatibility claim"
+		receipt.PolicyStatus = "internal-managed; native caps enforced; whole-run reservation is caller precondition"
+	}
 	lockPath := filepath.Join(filepath.Dir(runtime.Snapshots), "capture.lock")
 	lock, err := os.OpenFile(lockPath, os.O_CREATE|os.O_RDWR|syscall.O_NOFOLLOW, 0600)
 	if err != nil {
@@ -177,6 +226,9 @@ func captureProbeEvidence(raw, runtimeRaw []byte) (ProbeCaptureReceipt, error) {
 	}
 	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
 	var imageData []byte
+	var pending ProbeFrameSample
+	managedIssue := ""
+	managedIssueKind := ProbeCaptureFailureKind("")
 	outputAdmitted := false
 transaction:
 	for {
@@ -201,31 +253,33 @@ transaction:
 		deadline := time.Now().Add(time.Duration(profile.CaptureTimeoutMS) * time.Millisecond)
 		// Check capacity under the shared lock so queued captures cannot all
 		// reserve the same remaining space before an earlier capture publishes.
-		outputDir, err := os.Open(runtime.Output)
-		if err != nil {
-			return receipt, err
-		}
-		entries, scanErr := outputDir.ReadDir(profile.MaxRetainedFiles + 1)
-		_ = outputDir.Close()
-		if scanErr != nil && scanErr != io.EOF {
-			return receipt, scanErr
-		}
-		totalBytes := int64(0)
-		for _, entry := range entries {
-			info, err := os.Lstat(filepath.Join(runtime.Output, entry.Name()))
-			if err != nil || !info.Mode().IsRegular() {
-				return receipt, fmt.Errorf("capture output contains an unsupported entry")
+		if managed == nil {
+			outputDir, err := os.Open(runtime.Output)
+			if err != nil {
+				return receipt, err
 			}
-			totalBytes += info.Size()
-			if entry.Name() == imageName || entry.Name() == receiptName {
-				return receipt, fmt.Errorf("capture ID already has an output; no retry or overwrite")
+			entries, scanErr := outputDir.ReadDir(profile.MaxRetainedFiles + 1)
+			_ = outputDir.Close()
+			if scanErr != nil && scanErr != io.EOF {
+				return receipt, scanErr
 			}
+			totalBytes := int64(0)
+			for _, entry := range entries {
+				info, err := os.Lstat(filepath.Join(runtime.Output, entry.Name()))
+				if err != nil || !info.Mode().IsRegular() {
+					return receipt, fmt.Errorf("capture output contains an unsupported entry")
+				}
+				totalBytes += info.Size()
+				if entry.Name() == imageName || entry.Name() == receiptName {
+					return receipt, fmt.Errorf("capture ID already has an output; no retry or overwrite")
+				}
+			}
+			if len(entries)+2 > profile.MaxRetainedFiles || profile.MaxImageBytes+(4<<20) > profile.MaxRetainedBytes-totalBytes {
+				receipt.Reason = "capture retention capacity exhausted before trigger"
+				break
+			}
+			outputAdmitted = true
 		}
-		if len(entries)+2 > profile.MaxRetainedFiles || profile.MaxImageBytes+(4<<20) > profile.MaxRetainedBytes-totalBytes {
-			receipt.Reason = "capture retention capacity exhausted before trigger"
-			break
-		}
-		outputAdmitted = true
 		baseline := map[string]os.FileInfo{}
 		snapshotDir, err := os.Open(runtime.Snapshots)
 		if err != nil {
@@ -236,6 +290,9 @@ transaction:
 		_ = snapshotDir.Close()
 		if err != nil && err != io.EOF || len(old) >= profile.MaxSnapshotFiles {
 			receipt.Reason = "snapshot inventory has no fresh-file capacity"
+			if managed != nil && (err == nil || err == io.EOF) {
+				receipt.ManagedFailure = probeCaptureResource
+			}
 			break
 		}
 		for _, entry := range old {
@@ -271,7 +328,7 @@ transaction:
 				knownUI = knownUI || decoded.Text != nil
 			}
 		}
-		if !knownTags || !knownUI || len(before.Observations) == 0 {
+		if !knownTags || managed == nil && !knownUI || len(before.Observations) == 0 {
 			receipt.Reason = "capture lacks known source frame tags or decoded UI"
 			break
 		}
@@ -343,6 +400,9 @@ transaction:
 			_ = directory.Close()
 			if scanErr != nil && scanErr != io.EOF || len(entries) > profile.MaxSnapshotFiles {
 				receipt.Reason = "snapshot file budget exceeded"
+				if managed != nil && (scanErr == nil || scanErr == io.EOF) {
+					receipt.ManagedFailure = probeCaptureResource
+				}
 				break transaction
 			}
 			var candidates []string
@@ -377,12 +437,15 @@ transaction:
 				}
 				if observed.Size() > profile.MaxImageBytes {
 					receipt.Reason = "fresh PNG exceeds byte budget"
+					if managed != nil {
+						receipt.ManagedFailure = probeCaptureResource
+					}
 					break transaction
 				}
 				data, err := readInput(path, profile.MaxImageBytes)
 				if err == nil {
 					raster, _, decodeErr := decodePNG(data, profile.MaxPixels)
-					if decodeErr == nil {
+					if decodeErr == nil || managed != nil && errors.Is(decodeErr, errPNGPixelBudget) {
 						capturedInfo, err = os.Lstat(path)
 						if err != nil {
 							receipt.Reason = "fresh snapshot disappeared"
@@ -396,9 +459,24 @@ transaction:
 						}
 						receipt.ImageSHA256 = fmt.Sprintf("%x", sha256.Sum256(data))
 						receipt.ImageBytes = int64(len(data))
-						receipt.Width = raster.Bounds().Dx()
-						receipt.Height = raster.Bounds().Dy()
 						imageData = data
+						if decodeErr != nil {
+							managedIssue, managedIssueKind = "fresh PNG exceeds pixel budget", probeCaptureResource
+						} else {
+							receipt.Width = raster.Bounds().Dx()
+							receipt.Height = raster.Bounds().Dy()
+							if managed != nil {
+								if data[24] != 8 || !slices.Contains([]byte{0, 2, 6}, data[25]) {
+									managedIssue, managedIssueKind = "managed normalization supports only8-bit Gray/RGB/RGBA PNG", probeCaptureObservation
+								} else {
+									var normalizeErr error
+									pending.Normalized, pending.Sample, pending.Facts, normalizeErr = normalizeProbeFrame(raster)
+									if normalizeErr != nil {
+										managedIssue, managedIssueKind = "managed normalization capacity: "+normalizeErr.Error(), probeCaptureResource
+									}
+								}
+							}
+						}
 						break
 					}
 				}
@@ -418,14 +496,26 @@ transaction:
 			break
 		}
 		if !reflect.DeepEqual(before.Decoded, after.Decoded) {
-			receipt.Reason = "decoded UI changed across sequential capture"
-			break
+			if managed == nil {
+				receipt.Reason = "decoded UI changed across sequential capture"
+				break
+			}
+			if managedIssue == "" {
+				managedIssue, managedIssueKind = "frame tags changed across sequential capture", probeCaptureObservation
+			}
 		}
 		for index, path := range dirs {
 			info, err := os.Lstat(path)
 			if err != nil || !os.SameFile(directoryInfo[index], info) {
 				receipt.Status, receipt.Reason = "REFUSED", "capture root identity changed"
 				break transaction
+			}
+			if managed != nil {
+				stat, ok := info.Sys().(*syscall.Stat_t)
+				if !ok || stat.Uid != uint32(os.Getuid()) || !info.IsDir() || info.Mode().Perm() != 0700 {
+					receipt.Status, receipt.Reason = "REFUSED", "managed capture root privacy changed"
+					break transaction
+				}
 			}
 		}
 		currentLog, err := os.Lstat(logPath)
@@ -469,8 +559,45 @@ transaction:
 			receipt.Status, receipt.Reason = "REFUSED", "captured PNG changed before publication"
 			break
 		}
-		if time.Now().After(deadline) {
+		expired := time.Now().After(deadline)
+		if managed == nil && expired {
 			receipt.Reason = "capture deadline expired before publication"
+			break
+		}
+		if managed != nil {
+			stat, ok := current.Sys().(*syscall.Stat_t)
+			resolved, resolveErr := filepath.EvalSymlinks(path)
+			if !ok || stat.Uid != uint32(os.Getuid()) || stat.Nlink != 1 || resolveErr != nil || resolved != path || !current.Mode().IsRegular() {
+				receipt.Status, receipt.Reason = "REFUSED", "managed snapshot deletion authority is unavailable"
+				break
+			}
+			if managedIssue != "" {
+				receipt.Reason, receipt.ManagedFailure = managedIssue, managedIssueKind
+				break
+			}
+			if expired {
+				receipt.Reason, receipt.ManagedFailure = "capture deadline expired before managed cleanup", probeCaptureObservation
+				break
+			}
+			if err := os.Remove(path); err != nil {
+				receipt.Status, receipt.Reason = "REFUSED", "managed snapshot unlink failed"
+				break
+			}
+			receipt.SnapshotPreserved = false
+			directory, err := os.Open(runtime.Snapshots)
+			if err != nil {
+				receipt.Status, receipt.Reason = "REFUSED", "managed snapshot directory unavailable after unlink"
+				break
+			}
+			syncErr := directory.Sync()
+			closeErr := directory.Close()
+			if syncErr != nil || closeErr != nil {
+				receipt.Status, receipt.Reason = "REFUSED", "managed snapshot deletion durability unknown"
+				break
+			}
+			pending.Facts.CaptureID = profile.CaptureID
+			*managed = pending
+			receipt.Status, receipt.Reason, receipt.ManagedFailure = "SAMPLED", "", ""
 			break
 		}
 		if err := writeNewFile(filepath.Join(runtime.Output, imageName), bytes.NewReader(imageData), int64(len(imageData)), receipt.ImageSHA256, 0600); err != nil {
@@ -482,6 +609,9 @@ transaction:
 		break
 	}
 	receipt.FinishedAt = time.Now().UTC().Format(time.RFC3339Nano)
+	if managed != nil {
+		return receipt, nil
+	}
 	if !outputAdmitted {
 		// Failed lock/quota admission grants no persistent artifact capacity.
 		return receipt, nil
