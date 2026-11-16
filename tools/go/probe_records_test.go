@@ -1,6 +1,7 @@
 package main
 
 import (
+	"archive/zip"
 	"bytes"
 	"crypto/sha256"
 	"encoding/binary"
@@ -8,8 +9,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"image"
+	"image/color"
+	"image/png"
 	"io"
 	"maps"
+	"math"
 	"net"
 	"os"
 	"path/filepath"
@@ -533,6 +538,7 @@ func TestProbeRecords(t *testing.T) {
 			t.Fatalf("%s startup prefix: complete=%v err=%v", row.Name, complete, err)
 		}
 	}
+	var frameGoAdmission json.RawMessage
 	for _, row := range flatpakFixture.AdmissionCases {
 		profileBytes, _ := json.Marshal(flatpakFixture.Profile)
 		var profile ProbeLifecycleProfile
@@ -572,6 +578,9 @@ func TestProbeRecords(t *testing.T) {
 		viewBytes, _ := json.Marshal(view)
 		bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewBytes}, {Role: "owned", Data: ownedBytes}}, AfterProcess: &owned, GoOwner: &ProbeGoOwner{Profile: profile, Step: step, CardSHA256: strings.Repeat("3", 64)}}
 		raw, _ := json.Marshal(bundle)
+		if row.Fault == "" {
+			frameGoAdmission = bytes.Clone(raw)
+		}
 		report, err := admitProbeRecords(raw)
 		if (err != nil) != row.Error || !row.Error && (report.Status != "ADMITTED" || report.LiveOwnership) {
 			t.Fatalf("%s saved Flatpak admission: %v", row.Name, err)
@@ -676,6 +685,7 @@ func TestProbeRecords(t *testing.T) {
 	peerCases = append(peerCases, captureFixture.Cases...)
 	// One peer goroutine services the same PINE packets and, for capture cases,
 	// the fixed GUIDE service between the two sequential read batches.
+	var frameCaptureBase json.RawMessage
 	for _, test := range peerCases {
 		var plan ProbeMemoryBundle
 		if err := json.Unmarshal(memoryFixture.Bundle, &plan); err != nil {
@@ -1154,6 +1164,9 @@ func TestProbeRecords(t *testing.T) {
 			}
 		}
 		if test.Status == "CAPTURED" {
+			if frameCaptureBase == nil {
+				frameCaptureBase, _ = json.Marshal(captured)
+			}
 			published, err := os.ReadFile(filepath.Join(output, profile.CaptureID+".png"))
 			snapshot, sourceErr := os.ReadFile(filepath.Join(snapshots, "new.png"))
 			if err != nil || sourceErr != nil || !bytes.Equal(published, originalPNG) || !bytes.Equal(snapshot, originalPNG) {
@@ -1244,4 +1257,350 @@ func TestProbeRecords(t *testing.T) {
 			}
 		}
 	}
+	// Independent Pillow RGB conversion and resize/mean facts are saved data.
+	// Reuse a previously qualified capture, without any additional acquisition.
+	if len(frameCaptureBase) == 0 {
+		t.Fatal("frame cases lack an existing qualified capture")
+	}
+	frameZipData, err := os.ReadFile("testdata/probe-frame-normalization.zip")
+	if err != nil || fmt.Sprintf("%x", sha256.Sum256(frameZipData)) != "5fc1cc91c1056c7f035642a07321b5cec1b6618d1b921de03a9c670b247126fc" {
+		t.Fatal("frame oracle ZIP", err)
+	}
+	frameZip, err := zip.NewReader(bytes.NewReader(frameZipData), int64(len(frameZipData)))
+	if err != nil || len(frameZip.File) != 14 {
+		t.Fatal("frame oracle members", err)
+	}
+	indexFile, err := frameZip.Open("index.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	frameIndex, err := io.ReadAll(indexFile)
+	_ = indexFile.Close()
+	if err != nil {
+		t.Fatal(err)
+	}
+	var frameOracle struct {
+		Comparisons []struct {
+			ID              string
+			CurrentID       string `json:"current_id"`
+			PreviousID      string `json:"previous_id"`
+			SumAbsRGB       uint64 `json:"sum_abs_rgb"`
+			MeanFloat64Bits string `json:"mean_float64_bits"`
+		}
+	}
+	var frameSources []struct {
+		ID                      string
+		PNGFile                 string `json:"png_file"`
+		PNGSHA256               string `json:"png_sha256"`
+		ConvertedRGB3SHA256     string `json:"converted_rgb3_sha256"`
+		Normalized640RGB3SHA256 string `json:"normalized640_rgb3_sha256"`
+		Sample64RGB3SHA256      string `json:"sample64_rgb3_sha256"`
+		Width, Height           int
+	}
+	var sourceIndex struct{ Sources json.RawMessage }
+	if json.Unmarshal(frameIndex, &frameOracle) != nil || json.Unmarshal(frameIndex, &sourceIndex) != nil || json.Unmarshal(sourceIndex.Sources, &frameSources) != nil || len(frameSources) != 13 || len(frameOracle.Comparisons) != 12 {
+		t.Fatal("frame oracle index")
+	}
+	framePNGs := map[string][]byte{}
+	frameSourceIndices := map[string]int{}
+	for i, source := range frameSources {
+		file, err := frameZip.Open(source.PNGFile)
+		if err != nil {
+			t.Fatal(err)
+		}
+		data, err := io.ReadAll(file)
+		_ = file.Close()
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != source.PNGSHA256 {
+			t.Fatal(source.ID, "frame PNG pin", err)
+		}
+		framePNGs[source.ID], frameSourceIndices[source.ID] = data, i
+	}
+	var baseFrameReceipt ProbeCaptureReceipt
+	if err := json.Unmarshal(frameCaptureBase, &baseFrameReceipt); err != nil {
+		t.Fatal(err)
+	}
+	var frameBaseBundle ProbeEvidenceBundle
+	if err := json.Unmarshal(evidenceFixture.Bundle, &frameBaseBundle); err != nil {
+		t.Fatal(err)
+	}
+	// Match the existing evidence fixture's canonical admission serialization,
+	// preserving integer literals while retaining the capture's original hash.
+	var frameAdmissionDocument any
+	frameAdmissionDecoder := json.NewDecoder(bytes.NewReader(frameBaseBundle.Admission))
+	frameAdmissionDecoder.UseNumber()
+	if err := frameAdmissionDecoder.Decode(&frameAdmissionDocument); err != nil {
+		t.Fatal(err)
+	}
+	frameBaseBundle.Admission, _ = json.Marshal(frameAdmissionDocument)
+	if baseFrameReceipt.MemoryBefore.SessionEvidenceSHA256 != fmt.Sprintf("%x", sha256.Sum256(frameBaseBundle.Admission)) {
+		t.Fatal("saved frame admission fixture does not match captured evidence hash")
+	}
+	frameStageChecks, framePairChecks := 0, 0
+	for _, source := range frameSources {
+		bundle := frameBaseBundle
+		receipt := baseFrameReceipt
+		receipt.CaptureID = "frame-first-" + source.ID
+		receipt.ImagePath = receipt.CaptureID + ".png"
+		receipt.ImageSHA256, receipt.ImageBytes, receipt.Width, receipt.Height = source.PNGSHA256, int64(len(framePNGs[source.ID])), source.Width, source.Height
+		bundle.Captures = []ProbeCaptureObservation{{Receipt: receipt, ImageHex: hex.EncodeToString(framePNGs[source.ID])}}
+		bundle.FrameComparisons = []ProbeFrameComparison{{CaptureID: receipt.CaptureID}}
+		raw, _ := json.Marshal(bundle)
+		before := bytes.Clone(raw)
+		got, err := reportProbeEvidence(raw)
+		if err != nil || len(got.FrameComparisons) != 1 || !bytes.Equal(raw, before) {
+			t.Fatal(source.ID, "first frame analysis", err)
+		}
+		facts := got.FrameComparisons[0]
+		if facts.Status != "AVAILABLE" || facts.SourceRGBSHA256 != source.ConvertedRGB3SHA256 || facts.NormalizedRGBSHA256 != source.Normalized640RGB3SHA256 || facts.ComparisonRGBSHA256 != source.Sample64RGB3SHA256 || facts.MeanRGBDifference == nil || *facts.MeanRGBDifference != 999 || facts.SumAbsRGB != nil {
+			t.Fatalf("%s independent RGB stages/first999 differ: %+v", source.ID, facts)
+		}
+		bundle.FrameComparisons = nil
+		noRequest, _ := json.Marshal(bundle)
+		plain, err := reportProbeEvidence(noRequest)
+		got.FrameComparisons = nil
+		got.BundleSHA256 = plain.BundleSHA256
+		plainJSON, _ := json.Marshal(plain)
+		compatibleJSON, _ := json.Marshal(got)
+		if err != nil || plain.FrameComparisons != nil || !reflect.DeepEqual(got, plain) || !bytes.Equal(plainJSON, compatibleJSON) || bytes.Contains(plainJSON, []byte("frame_comparisons")) {
+			t.Fatal(source.ID, "omitted frame analysis changed existing report", err)
+		}
+		frameStageChecks += 3
+	}
+	for _, pair := range frameOracle.Comparisons {
+		bundle := frameBaseBundle
+		pairSources := []string{pair.CurrentID}
+		if pair.PreviousID != "" {
+			pairSources = append([]string{pair.PreviousID}, pairSources...)
+		}
+		for i, id := range pairSources {
+			source := frameSources[frameSourceIndices[id]]
+			receipt := baseFrameReceipt
+			receipt.CaptureID = fmt.Sprintf("frame-%s-%d", pair.ID, i)
+			receipt.ImagePath = receipt.CaptureID + ".png"
+			receipt.ImageSHA256, receipt.ImageBytes, receipt.Width, receipt.Height = source.PNGSHA256, int64(len(framePNGs[id])), source.Width, source.Height
+			bundle.Captures = append(bundle.Captures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(framePNGs[id])})
+		}
+		bundle.FrameComparisons = []ProbeFrameComparison{{CaptureID: bundle.Captures[len(bundle.Captures)-1].Receipt.CaptureID}}
+		if pair.PreviousID != "" {
+			bundle.FrameComparisons[0].PreviousCaptureID = bundle.Captures[0].Receipt.CaptureID
+		}
+		raw, _ := json.Marshal(bundle)
+		got, err := reportProbeEvidence(raw)
+		if err != nil || len(got.FrameComparisons) != 1 {
+			t.Fatal(pair.ID, "frame pair", err)
+		}
+		facts := got.FrameComparisons[0]
+		bits, err := strconv.ParseUint(pair.MeanFloat64Bits, 16, 64)
+		if err != nil || facts.Status != "AVAILABLE" || facts.MeanRGBDifference == nil || math.Float64bits(*facts.MeanRGBDifference) != bits {
+			t.Fatalf("%s independent mean differs: %+v", pair.ID, facts)
+		}
+		if pair.PreviousID == "" {
+			if facts.SumAbsRGB != nil || *facts.MeanRGBDifference != 999 {
+				t.Fatal(pair.ID, "missing predecessor fabricated sum")
+			}
+		} else {
+			if facts.SumAbsRGB == nil || *facts.SumAbsRGB != pair.SumAbsRGB || facts.PreviousComparisonRGBSHA256 != frameSources[frameSourceIndices[pair.PreviousID]].Sample64RGB3SHA256 {
+				t.Fatal(pair.ID, "independent sum/predecessor differs")
+			}
+			if bundle.Captures[0].Receipt.CaptureID == bundle.Captures[1].Receipt.CaptureID {
+				t.Fatal("same source image is not same capture")
+			}
+		}
+		framePairChecks++
+	}
+	if frameStageChecks != 39 || framePairChecks != 12 {
+		t.Fatal("independent frame oracle coverage", frameStageChecks, framePairChecks)
+	}
+	// Multiple current captures may share one explicitly selected predecessor.
+	multi := frameBaseBundle
+	for i, id := range []string{"uniform-0", "uniform-3", "uniform-6"} {
+		source := frameSources[frameSourceIndices[id]]
+		receipt := baseFrameReceipt
+		receipt.CaptureID = fmt.Sprintf("frame-shared-%d", i)
+		receipt.ImagePath = receipt.CaptureID + ".png"
+		receipt.ImageSHA256, receipt.ImageBytes, receipt.Width, receipt.Height = source.PNGSHA256, int64(len(framePNGs[id])), source.Width, source.Height
+		multi.Captures = append(multi.Captures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(framePNGs[id])})
+	}
+	multi.FrameComparisons = []ProbeFrameComparison{{CaptureID: "frame-shared-0"}, {CaptureID: "frame-shared-1", PreviousCaptureID: "frame-shared-0"}, {CaptureID: "frame-shared-2", PreviousCaptureID: "frame-shared-0"}}
+	multiRaw, _ := json.Marshal(multi)
+	multiReport, err := reportProbeEvidence(multiRaw)
+	if err != nil || len(multiReport.FrameComparisons) != 3 || *multiReport.FrameComparisons[0].MeanRGBDifference != 999 || *multiReport.FrameComparisons[1].MeanRGBDifference != 1 || *multiReport.FrameComparisons[2].MeanRGBDifference != 2 {
+		t.Fatal("multiple frame pairs/shared predecessor", err)
+	}
+	for _, fault := range []string{"absent-current", "absent-previous", "self", "forward", "duplicate-current", "too-many", "current-unavailable", "previous-unavailable", "first-current-unavailable", "gray16", "palette", "intermediate-budget", "cross-pid", "cross-session", "cross-epoch", "cross-build", "cross-provenance"} {
+		encoded, _ := json.Marshal(multi)
+		var bundle ProbeEvidenceBundle
+		if err := json.Unmarshal(encoded, &bundle); err != nil {
+			t.Fatal(err)
+		}
+		bundle.FrameComparisons = []ProbeFrameComparison{{CaptureID: "frame-shared-1", PreviousCaptureID: "frame-shared-0"}}
+		expectedError := true
+		switch fault {
+		case "absent-current":
+			bundle.FrameComparisons[0].CaptureID = "absent"
+		case "absent-previous":
+			bundle.FrameComparisons[0].PreviousCaptureID = "absent"
+		case "self":
+			bundle.FrameComparisons[0].PreviousCaptureID = "frame-shared-1"
+		case "forward":
+			bundle.FrameComparisons[0].CaptureID = "frame-shared-0"
+			bundle.FrameComparisons[0].PreviousCaptureID = "frame-shared-1"
+		case "duplicate-current":
+			bundle.FrameComparisons = append(bundle.FrameComparisons, bundle.FrameComparisons[0])
+		case "too-many":
+			bundle.FrameComparisons = make([]ProbeFrameComparison, 257)
+		case "cross-pid":
+			bundle.Captures[1].Receipt.PID++
+		case "cross-session":
+			bundle.Captures[1].Receipt.Session = "other"
+		case "cross-epoch":
+			bundle.Captures[1].Receipt.Epoch++
+		case "cross-build":
+			bundle.Captures[1].Receipt.BuildSHA256 = strings.Repeat("f", 64)
+		case "cross-provenance":
+			bundle.Captures[1].Receipt.Provenance = "other"
+		case "current-unavailable", "previous-unavailable", "first-current-unavailable":
+			expectedError = false
+			if fault == "first-current-unavailable" {
+				bundle.FrameComparisons[0].PreviousCaptureID = ""
+			}
+			at := 1
+			if fault == "previous-unavailable" {
+				at = 0
+			}
+			bundle.Captures[at].Receipt.Status, bundle.Captures[at].Receipt.Reason = "UNKNOWN", "source unavailable"
+		case "gray16", "palette", "intermediate-budget":
+			expectedError = false
+			var raster image.Image = image.NewGray16(image.Rect(0, 0, 1, 1))
+			if fault == "palette" {
+				raster = image.NewPaletted(image.Rect(0, 0, 1, 1), color.Palette{color.Black, color.White})
+			}
+			if fault == "intermediate-budget" {
+				raster = image.NewNRGBA(image.Rect(0, 0, 50, 4096))
+			}
+			var buffer bytes.Buffer
+			if err := png.Encode(&buffer, raster); err != nil {
+				t.Fatal(err)
+			}
+			data := buffer.Bytes()
+			bundle.Captures[1].ImageHex = hex.EncodeToString(data)
+			bundle.Captures[1].Receipt.ImageBytes = int64(len(data))
+			bundle.Captures[1].Receipt.ImageSHA256 = fmt.Sprintf("%x", sha256.Sum256(data))
+			bundle.Captures[1].Receipt.Width, bundle.Captures[1].Receipt.Height = raster.Bounds().Dx(), raster.Bounds().Dy()
+		}
+		raw, _ := json.Marshal(bundle)
+		got, err := reportProbeEvidence(raw)
+		if (err != nil) != expectedError {
+			t.Fatal(fault, "frame structural/availability result", err)
+		}
+		if expectedError {
+			continue
+		}
+		if len(got.FrameComparisons) != 1 || got.FrameComparisons[0].Status != "UNKNOWN" || got.FrameComparisons[0].MeanRGBDifference != nil || got.FrameComparisons[0].SumAbsRGB != nil {
+			t.Fatal(fault, "unavailable analysis fabricated numerical facts")
+		}
+		bundle.FrameComparisons = nil
+		raw, _ = json.Marshal(bundle)
+		plain, err := reportProbeEvidence(raw)
+		got.FrameComparisons = nil
+		got.BundleSHA256 = plain.BundleSHA256
+		if err != nil || !reflect.DeepEqual(got, plain) {
+			t.Fatal(fault, "frame unavailability changed raw capture/report", err)
+		}
+		if fault == "gray16" || fault == "palette" || fault == "intermediate-budget" {
+			if plain.Captures[1].Status != "ACCEPTED" {
+				t.Fatal(fault, "rawaccepted image suppressed")
+			}
+		}
+	}
+
+	// A valid saved-Go warm/cold pair must pass raw linkage before the new
+	// comparison identity guard can be tested independently of old refusals.
+	pairedData, err := os.ReadFile("testdata/probe-paired.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var paired struct {
+		Report struct{ Events []ProbeEvidenceEvent } `json:"full_normalized_report"`
+	}
+	if json.Unmarshal(pairedData, &paired) != nil || len(paired.Report.Events) != 10 || len(frameGoAdmission) == 0 {
+		t.Fatal("saved Go cross-epoch source scaffold")
+	}
+	cross := frameBaseBundle
+	cross.SourceSchema = "probe-evidence-go-v1"
+	cross.Cohort = "go-checkpoint-only-v1"
+	cross.Members = nil
+	cross.Checks = nil
+	cross.Captures = nil
+	cross.Events = nil
+	var sourceOffset int64
+	for _, saved := range paired.Report.Events {
+		var event map[string]json.RawMessage
+		if json.Unmarshal(saved.Data, &event) != nil {
+			t.Fatal("paired source event")
+		}
+		event["time"] = json.RawMessage(`"2026-11-16T00:00:00+0000"`)
+		data, _ := json.Marshal(event)
+		cross.Events = append(cross.Events, ProbeEvidenceEvent{Offset: sourceOffset, Data: data})
+		sourceOffset += int64(len(data))
+	}
+	var actionFacts struct {
+		Actions map[string]struct{ Effects []string }
+	}
+	if json.Unmarshal(probeLifecycleActions, &actionFacts) != nil {
+		t.Fatal("saved Go operation facts")
+	}
+	for epoch, operation := range []string{"warm-load", "cold-load"} {
+		var records ProbeRecordBundle
+		if json.Unmarshal(frameGoAdmission, &records) != nil {
+			t.Fatal("saved Go admission scaffold")
+		}
+		owned := *records.GoOwner.Step.Owned
+		owned.PID, owned.Starttime, owned.Epoch = 421+epoch, uint64(123+epoch), &epoch
+		request := ProbeLifecycleRequest{Session: records.GoOwner.Profile.Session, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", 3+epoch*2, operation), Operation: operation}
+		records.GoOwner.Profile.Requests = []ProbeLifecycleRequest{request}
+		records.GoOwner.Step.Request, records.GoOwner.Step.Effects, records.GoOwner.Step.Epoch, records.GoOwner.Step.Owned = request, actionFacts.Actions[operation].Effects, epoch, &owned
+		records.GoOwner.Step.Startup.Path = filepath.Join(records.RunRoot, fmt.Sprintf("startup-epoch-%d.json", epoch))
+		records.GoOwner.Step.Launcher.PID, records.GoOwner.Step.Launcher.Starttime = 321+epoch, uint64(100+epoch)
+		records.AfterProcess = &owned
+		for i, record := range records.Records {
+			if record.Role == "owned" {
+				records.Records[i].Data, _ = json.Marshal(owned)
+			}
+		}
+		admission, _ := json.Marshal(records)
+		if _, err := admitProbeRecords(admission); err != nil {
+			t.Fatal("saved Go epoch admission", epoch, err)
+		}
+		var receipt ProbeCaptureReceipt
+		if json.Unmarshal(frameCaptureBase, &receipt) != nil {
+			t.Fatal("capture scaffold")
+		}
+		receipt.CaptureID = fmt.Sprintf("frame-epoch-%d", epoch)
+		receipt.EventID = 3 + epoch*3
+		receipt.Checkpoint = 1
+		receipt.RunID, receipt.Session, receipt.Epoch, receipt.PID, receipt.Starttime = owned.Session, owned.Session, epoch, owned.PID, owned.Starttime
+		receipt.ISOSHA256, receipt.BuildSHA256 = owned.ISOSHA256, records.GoOwner.Profile.Program.SHA256
+		for _, memory := range []*ProbeMemoryReport{receipt.MemoryBefore, receipt.MemoryAfter} {
+			memory.Session, memory.Epoch, memory.ISOSHA256, memory.BuildSHA256 = receipt.Session, epoch, receipt.ISOSHA256, receipt.BuildSHA256
+			memory.SessionEvidenceSHA256 = fmt.Sprintf("%x", sha256.Sum256(admission))
+		}
+		selected := cross.Events[receipt.EventID-1]
+		receipt.LogHex, receipt.LogSHA256, receipt.LogOffset = hex.EncodeToString(selected.Data), fmt.Sprintf("%x", sha256.Sum256(selected.Data)), selected.Offset
+		imageData := framePNGs["uniform-0"]
+		receipt.ImagePath, receipt.ImageBytes, receipt.ImageSHA256, receipt.Width, receipt.Height = receipt.CaptureID+".png", int64(len(imageData)), fmt.Sprintf("%x", sha256.Sum256(imageData)), 1, 1
+		cross.Captures = append(cross.Captures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(imageData), Admission: admission})
+		cross.Admission, cross.RunID, cross.Session, cross.ISOSHA256, cross.Epoch = admission, owned.Session, owned.Session, owned.ISOSHA256, &epoch
+	}
+	crossRaw, _ := json.Marshal(cross)
+	crossBaseline, err := reportProbeEvidence(crossRaw)
+	if err != nil || len(crossBaseline.Captures) != 2 || crossBaseline.Captures[0].Status != "ACCEPTED" || crossBaseline.Captures[1].Status != "ACCEPTED" {
+		t.Fatal("valid raw cross-epoch baseline", err)
+	}
+	cross.FrameComparisons = []ProbeFrameComparison{{CaptureID: "frame-epoch-1", PreviousCaptureID: "frame-epoch-0"}}
+	crossRaw, _ = json.Marshal(cross)
+	if _, err := reportProbeEvidence(crossRaw); err == nil || err.Error() != "frame comparison crosses actual process/session/epoch identity" {
+		t.Fatal("exact new cross-epoch comparison guard", err)
+	}
+
 }

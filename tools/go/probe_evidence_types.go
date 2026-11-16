@@ -5,21 +5,44 @@ import "encoding/json"
 // ProbeEvidenceBundle binds saved JSONL observations to admitted run records.
 // Membership is explicit; an absent comparison remains UNKNOWN, never an empty pass.
 type ProbeEvidenceBundle struct {
-	Version      int                       `json:"version"`
-	SourceSchema string                    `json:"source_schema"`
-	SourceSHA256 string                    `json:"source_sha256"`
-	Admission    json.RawMessage           `json:"admission"`
-	RunID        string                    `json:"run_id"`
-	Session      string                    `json:"session"`
-	ISOSHA256    string                    `json:"iso_sha256"`
-	Epoch        *int                      `json:"epoch"`
-	Cohort       string                    `json:"cohort"`
-	Members      []string                  `json:"members"`
-	Events       []ProbeEvidenceEvent      `json:"events"`
-	Checks       []ProbeEvidenceCheck      `json:"checks"`
-	Captures     []ProbeCaptureObservation `json:"captures,omitempty"`
-	Resume       *ProbeResumeFacts         `json:"resume,omitempty"`
-	Story        *ProbeStoryFacts          `json:"story,omitempty"`
+	Version          int                       `json:"version"`
+	SourceSchema     string                    `json:"source_schema"`
+	SourceSHA256     string                    `json:"source_sha256"`
+	Admission        json.RawMessage           `json:"admission"`
+	RunID            string                    `json:"run_id"`
+	Session          string                    `json:"session"`
+	ISOSHA256        string                    `json:"iso_sha256"`
+	Epoch            *int                      `json:"epoch"`
+	Cohort           string                    `json:"cohort"`
+	Members          []string                  `json:"members"`
+	Events           []ProbeEvidenceEvent      `json:"events"`
+	Checks           []ProbeEvidenceCheck      `json:"checks"`
+	Captures         []ProbeCaptureObservation `json:"captures,omitempty"`
+	FrameComparisons []ProbeFrameComparison    `json:"frame_comparisons,omitempty"`
+	Resume           *ProbeResumeFacts         `json:"resume,omitempty"`
+	Story            *ProbeStoryFacts          `json:"story,omitempty"`
+}
+
+// ProbeFrameComparison selects saved captures for numerical analysis only.
+// An empty predecessor selects the source's missing-previous sentinel.
+type ProbeFrameComparison struct {
+	CaptureID         string `json:"capture_id"`
+	PreviousCaptureID string `json:"previous_capture_id,omitempty"`
+}
+
+// ProbeFrameComparisonResult reports RGB3 stage hashes and optional pair facts.
+// UNKNOWN analysis never changes raw capture acceptance or checkpoint coverage.
+type ProbeFrameComparisonResult struct {
+	CaptureID                   string   `json:"capture_id"`
+	PreviousCaptureID           string   `json:"previous_capture_id,omitempty"`
+	Status                      string   `json:"status"`
+	Reason                      string   `json:"reason,omitempty"`
+	SourceRGBSHA256             string   `json:"source_rgb_sha256,omitempty"`
+	NormalizedRGBSHA256         string   `json:"normalized_rgb_sha256,omitempty"`
+	ComparisonRGBSHA256         string   `json:"comparison_rgb_sha256,omitempty"`
+	PreviousComparisonRGBSHA256 string   `json:"previous_comparison_rgb_sha256,omitempty"`
+	SumAbsRGB                   *uint64  `json:"sum_abs_rgb,omitempty"`
+	MeanRGBDifference           *float64 `json:"mean_rgb_difference,omitempty"`
 }
 
 // ProbeStoryFacts selects one source recipe's final saved-evidence gate.
@@ -114,22 +137,23 @@ type ProbeCheckpointResult struct {
 }
 
 type ProbeEvidenceReport struct {
-	Version            int                     `json:"version"`
-	SourceSchema       string                  `json:"source_schema"`
-	BundleSHA256       string                  `json:"bundle_sha256"`
-	RunID              string                  `json:"run_id"`
-	Session            string                  `json:"session"`
-	ISOSHA256          string                  `json:"iso_sha256"`
-	Epoch              int                     `json:"epoch"`
-	Cohort             string                  `json:"cohort"`
-	Status             string                  `json:"status"`
-	Rows               []ProbeEvidenceResult   `json:"rows"`
-	Checkpoints        []ProbeCheckpointResult `json:"checkpoints"`
-	CoveredAreas       []uint32                `json:"covered_areas"`
-	Events             []ProbeEvidenceEvent    `json:"events"`
-	Captures           []ProbeCaptureLink      `json:"captures,omitempty"`
-	LiveOwnership      bool                    `json:"live_ownership"`
-	Limits             string                  `json:"limits"`
-	ResumeStatus       string                  `json:"resume_status,omitempty"`
-	ResumeNextInterval *int                    `json:"resume_next_interval,omitempty"`
+	Version            int                          `json:"version"`
+	SourceSchema       string                       `json:"source_schema"`
+	BundleSHA256       string                       `json:"bundle_sha256"`
+	RunID              string                       `json:"run_id"`
+	Session            string                       `json:"session"`
+	ISOSHA256          string                       `json:"iso_sha256"`
+	Epoch              int                          `json:"epoch"`
+	Cohort             string                       `json:"cohort"`
+	Status             string                       `json:"status"`
+	Rows               []ProbeEvidenceResult        `json:"rows"`
+	Checkpoints        []ProbeCheckpointResult      `json:"checkpoints"`
+	CoveredAreas       []uint32                     `json:"covered_areas"`
+	Events             []ProbeEvidenceEvent         `json:"events"`
+	Captures           []ProbeCaptureLink           `json:"captures,omitempty"`
+	FrameComparisons   []ProbeFrameComparisonResult `json:"frame_comparisons,omitempty"`
+	LiveOwnership      bool                         `json:"live_ownership"`
+	Limits             string                       `json:"limits"`
+	ResumeStatus       string                       `json:"resume_status,omitempty"`
+	ResumeNextInterval *int                         `json:"resume_next_interval,omitempty"`
 }

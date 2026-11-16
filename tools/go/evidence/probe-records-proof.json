@@ -1600,5 +1600,136 @@
       "Owner resource/soak/recovery/retention gates and broader requiredcohort denominator remain held.",
       "85/90,probe2/6,13/15Full unchanged. Original PNG versus legacy derivative scope choice remains unaccepted."
     ]
+  },
+  "frame_analysis_offline_assessment": {
+    "status": "VERIFIED_OPTIONAL_SAVED_FRAME_NUMERICS_NO_CAPTURE_RETIREMENT",
+    "criterion_credit": 0,
+    "owner": "reportProbeEvidence",
+    "source_contract": {
+      "numerical_source": {
+        "path": "../text_probe_run.py",
+        "sha256": "b2bbad7ab5afed9440f9496038dd5356266bdd40cb2da5f5bf9971ffdfcc5b1f",
+        "scope": "RGB before defaultBICUBIC640x480, then64x48 and integer RGB absolute sum/9216. Explicit missing selected predecessor sentinel999."
+      },
+      "reference": "Pillow12.3.0/CPython3.14.7 finite independent reference",
+      "raw_import": "Archived5439 capture/record schemas and their existing acceptance guards remain unchanged; numerical source version does not establish archived/historical runtime parity."
+    },
+    "requests": {
+      "field": "frame_comparisons",
+      "fields": [
+        "capture_id",
+        "previous_capture_id"
+      ],
+      "bounds": "At most256, reusing existing reportcomparison bound; unique current IDs, no more requests than savedcaptures.",
+      "lineage": "Predecessor earlier in source capturearray, equalEventID permitted. Same RunID/Session/Epoch/PID/Starttime/ISOHash/BuildHash/Provenance; matching images never substitute for identity.",
+      "missing_previous": "Only an explicit empty predecessor on an accepted successfully normalized current capture yields mean999, nilsum. No first-native/retained-frame assertion."
+    },
+    "outputs": {
+      "optional": true,
+      "stage_hashes": [
+        "source_rgb_sha256",
+        "normalized_rgb_sha256",
+        "comparison_rgb_sha256",
+        "previous_comparison_rgb_sha256"
+      ],
+      "pair": "sum_abs_rgb uint64 plus mean_rgb_difference=float64(sum)/9216; validzero pointers remain present.",
+      "availability": "Unsupported acceptedPNG mode/intermediate capacity or unavailable current/previous gives UNKNOWN analysis without numerical sum/mean. Current normalization hashes may remain when only predecessor unavailable.",
+      "raw_behavior": "Raw capture acceptance/checkpoints/report status unchanged; no capture suppressed. Structurally invalid references/order/identity refuse. Omittedrequests preserve nilfield, serialized output and DeepEqual."
+    },
+    "implementation": {
+      "mode_guard": "Only IHDR8-bit colortypes0,2,6 are reference-qualified for optionalanalysis; other validPNG stays rawACCEPTED.",
+      "cache": "Only referenced64x48RGB3 samples and hash/resultfacts persist; source/640intermediates drop per capture.",
+      "functions_added": 0,
+      "types_added": [
+        "ProbeFrameComparison",
+        "ProbeFrameComparisonResult"
+      ],
+      "dependencies_added": 0,
+      "io_added": false,
+      "capture_state_changes": false
+    },
+    "oracle": {
+      "parent": "/var/tmp/dokapon-bicubic-oracle-LjajJ39T/frame-working/frozen/frame-oracle.json",
+      "parent_sha256": "03793b792a634838b1babc5125d52ee520fbf35fd2b10bb2d28ed5e57fcbdecb",
+      "frozen_at_utc": "2026-11-16T04:57:58Z",
+      "pre_edit_report_sha256": "033af70f144611e0eb491fce3837852e4f5ce23f362ca77389c8e5825069d935",
+      "reference_driver": {
+        "bytes": 17888,
+        "sha256": "4ad738c0720b98b44b1ea946356c8bbf675b21ebb67a8026e6a369c1078c2281",
+        "production_dependency": false
+      },
+      "freeze_receipt": "/var/tmp/dokapon-bicubic-oracle-LjajJ39T/frame-working/frame-freeze-receipt.json",
+      "freeze_receipt_sha256": "9fee39225faac07dd782826b9c80e43e5fc22aa472e0e028e659feaba232be59",
+      "fixture": "testdata/probe-frame-normalization.zip",
+      "fixture_sha256": "5fc1cc91c1056c7f035642a07321b5cec1b6618d1b921de03a9c670b247126fc",
+      "fixture_bytes": 821544,
+      "pngs": 13,
+      "rgb_stage_facts": 39,
+      "comparison_facts": 12,
+      "packaging": "Metadata-only pnghex→png_file=index+13sourcePNGmembers; all PNG bytes/numeric literals/meanbits and inverse parent identity independently verified. Parent expectedfacts predate report changes; no Go outputs used.",
+      "packaging_receipt_sha256": "9cfb67e4203fd3cdc616c31b1c8bcabe47e322b122a88eebfb7b61345c9ef970",
+      "private_packager_bytes": 5917
+    },
+    "verification": {
+      "records_private_race": "PASS19.838s, no DATA RACE",
+      "records_private_log_sha256": "0e3367c45ac2c7cf6f9c9eac1770a7846a595ce24d8ccd2f8f69414158de9958",
+      "records_public": "PASS4.562s exactisolatedprojection including publicCLI serialization",
+      "records_public_log_sha256": "0bcfddf214f1e8f3cf8d4b6e35e8b827a6c980e4f7ca390bde0848774b143854",
+      "core_nativefonts": "build/vet PASS exactpublicprojection97091",
+      "assertions": [
+        "39independent RGB3 stagehashes and12mean/sentinel bitfacts",
+        "Distinctchronological capture IDs for equal sourceimages",
+        "Multiplepairs sharing a predecessor, validzero vsnilunavailable pointers",
+        "No-request nil/serializedJSON/DeepEqual compatibility",
+        "Unavailablecurrent/previous/explicitmissingPrev, validGray16/palette/intermediate-budget PNG retain rawacceptance",
+        "Missing/self/forward/duplicate/boundedrequests refuse",
+        "Pure savedGo warmEpoch0/coldEpoch1 captures both rawACCEPTED before exactnewFramepairidentity error; no lifecycle replay"
+      ],
+      "failures_retained": [
+        {
+          "result": "FAIL5.285s before frame math",
+          "log": "/var/tmp/dokapon-frame-report/records-first-admission-failure.log",
+          "cause": "New typed test scaffold preserved pretty admissionbytes while qualified captured evidence hashed canonical producerbytes.",
+          "fix": "UseNumber canonicalserialization matches existingproducer path and verifies originalcaptured hash; no productionguard or expectednumeric change."
+        },
+        {
+          "result": "FAIL14.895s",
+          "log": "/var/tmp/dokapon-frame-report/records-missing-previous-fixture-failure.log",
+          "cause": "Testbuilder treated explicit no-previous999 oracle row as emptyPNG predecessor.",
+          "fix": "Honor existing explicitmissing predecessor semantics; all numerical oracles unchanged."
+        }
+      ],
+      "test_scope": "Existing controlled Unix peers and temporary fixture files; new frame cases are saved-data calculations. No native emulator, device or other-session runtime/profile/card/log/screenshot access."
+    },
+    "source_pins": {
+      "probe_evidence.go": "3d01d16a8de1f685a19a2a99fc2eecac1e3edf4535b2811c00388a1bace6dc69",
+      "probe_evidence_types.go": "ceaf7454d69104deb79a9f649cb6896c4803c1f9710141eedc3509dd28dcec31",
+      "probe_records_test.go": "d8d14fc4260da879ffd6e47a28d7e9a5a61a5bc5fa48252de9cb76c5a74ff2ad"
+    },
+    "accounting": {
+      "runtime_bytes_delta": 7011,
+      "test_code_bytes_delta": 17274,
+      "testdata_bytes_delta": 821544,
+      "reference_driver_bytes_separate": 17888,
+      "packager_bytes_separate": 5917,
+      "functions_added": 0,
+      "types_added": 2,
+      "callbacks_added": 0,
+      "dependencies_added": 0,
+      "production_go": {
+        "files": 70,
+        "bytes": 1019331,
+        "named_functions": 63
+      },
+      "qualification": "Capability growth, not deletion/retirement. Recipe/import/config included; tests/independentreference/evidence overhead separate."
+    },
+    "review": "Existing-owner/types/mode/lineage/cache plan, provisionalsource and exactportablepackage reviewed byAstra with no material finding. Finalexactpublication disposition recorded separately.",
+    "limits": [
+      "No acquisition, retention scheduling/selection, prev-retained advancement, threshold verdict, JPEG encoder/output parity or capturebudget change.",
+      "No native/current installed source/device/Guide/UI/soak/resource/retention/handover acceptance.",
+      "Saved mathematical facts confer no live ownership; rawPNG-only retirement choice remains unaccepted.",
+      "85/90,probe2/6,13/15Full unchanged; fullgoalactive."
+    ],
+    "source_pin_scope": "Exact curated public projection; source and Records test members are identical to the private tested owner bytes."
   }
 }

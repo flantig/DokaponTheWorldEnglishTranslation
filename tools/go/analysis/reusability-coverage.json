@@ -1030,9 +1030,9 @@
     "../../skills/STRING-REGISTRY.md": "f5e20cfe73ae61ec2b083f12df50bcca5b95938c449492e55cc9e5f08c497d10",
     ".goal/USAGE-CHECK.md": "3e444f3c4f4f29184b12eb9592fba2eb0f92c1e168af7fd0f4eb79ef7948954a",
     "ARCHITECTURE.html": "8683b76ec216457b63dd05ce6563fcdb3104986337fd3b36868de5d6b2c85d3e",
-    "ARCHITECTURE.md": "964d77bb61a8c223f0f294a25e0e69a34d56141e2140e9ad75fe7efcdd64f4a8",
+    "ARCHITECTURE.md": "7657a00572d7836c39821d765eef4d6fb2b2c612601a21367543cca6e2e97476",
     "MIGRATION.md": "d35ca09cbdffdf54bcedb0b0733123de6e9093e85f7022c193a98a64d1331a83",
-    "README.md": "bbd397495ed8c320906b13c953874766f8613a1244beb5fe33171b1ae77a42a8",
+    "README.md": "14268b51f002404321fc984a0c16f23e8bac103910b99a2e5262d998dc86f314",
     "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
     "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838",
     "analysis/asset-comparison-decision.json": "a5c804100d12ea1e2ef63903ee58b273f5ca5b0b2075c2758dcc2972c0a40096",
@@ -1822,14 +1822,14 @@
     "testdata/pointer-consumer-v2-fixture.zip": "e7e2c927c7d48c4e668b104aacc15af556f6c0891d8cfd4a01b8f618449cf1bc",
     "analysis/raster-current-baseline203.json": "767e42ca68dafa653c37bb7b08f628d32dacc392b94ca0f25b173ce01201dd03",
     "evidence/raster-fixed-data-review.md": "753633368889d35de09df90f636615367a5259b7efc182b1a124d36009568e06",
-    "evidence/probe-records-proof.json": "16391c57cdcd5463d9e5087c0cabfd07daf17c118ce8380ae797ee32c60ada7c",
+    "evidence/probe-records-proof.json": "297caae307d2f4b3d97874c33c253f97ad69d6c31a2fec8f4270e2799d884d09",
     "probe_records.go": "c1ac53471aad48f7460c2311741247857610420f20c71c84770f470033ab9803",
     "probe_records_types.go": "ba14c5a3430a00d756f687b07ca81d4e9e9997b2d7fb9603b98ee3bae71476dd",
-    "probe_records_test.go": "63915d0b77c3173abaaa650cc658011b6510a0d576e3147dd3c2744d42d6df7e",
+    "probe_records_test.go": "d8d14fc4260da879ffd6e47a28d7e9a5a61a5bc5fa48252de9cb76c5a74ff2ad",
     "testdata/probe-records.json": "6cf436bb5db7076ff95f5c0e54e14629d4822d5c44cb79f1858af72d9f2baf05",
-    "docs/probe-records.md": "697ec28edeef314e06b625bfffddd59393c674763201b7afbe7979493c422eea",
-    "probe_evidence.go": "033af70f144611e0eb491fce3837852e4f5ce23f362ca77389c8e5825069d935",
-    "probe_evidence_types.go": "40b8b7c8d34db0e8a777c7554993759f5074d80b0b7cdb4e8dd2c49de29da632",
+    "docs/probe-records.md": "abe81aab0e8a8fa14bc48c95a378930c6d5dca57b7f9c7c44c05c668da5623b1",
+    "probe_evidence.go": "3d01d16a8de1f685a19a2a99fc2eecac1e3edf4535b2811c00388a1bace6dc69",
+    "probe_evidence_types.go": "ceaf7454d69104deb79a9f649cb6896c4803c1f9710141eedc3509dd28dcec31",
     "testdata/probe-evidence.json": "e3532f5b76e7c2745ef073215ea1917dfe809afe7deccc2d56d47629923ae990",
     "probe_memory.go": "b91b770838a8845e47be7274a45c9922af41be631eac7e68f88c220968fe8325",
     "probe_memory_types.go": "acdcc0b9586aed7996ced7dd59683c88fd5b0e1558936a5a1f9086de1e12b83b",
@@ -1878,7 +1878,8 @@
     "testdata/probe-image.json": "47db0208115abc681da3812b3a5ec270f6665554397cb40c70f8c349eb41a50e",
     "testdata/probe-image.png": "5499197ad0de203df894f6d78915c87deffa744c40507d931f9f2a3fdfc64f93",
     "testdata/probe-flatpak.json": "53222884470e50640bf791d3125041155d2c8376377800570ebb62b27975baaf",
-    "testdata/raster-bicubic.zip": "164f3238048a930eae06d83b5e6ddf33af9828474aa503d855d31d791efb0271"
+    "testdata/raster-bicubic.zip": "164f3238048a930eae06d83b5e6ddf33af9828474aa503d855d31d791efb0271",
+    "testdata/probe-frame-normalization.zip": "5fc1cc91c1056c7f035642a07321b5cec1b6618d1b921de03a9c670b247126fc"
   },
   "limitations": [
     "Unweighted broad-family completion, not fraction of code reused or proof of readability/DRY. It does not mean only this fraction of the mod can be rebuilt.",
@@ -3959,6 +3960,11 @@
       "bytes": 1012320,
       "named_functions": 63
     },
+    "counts_unchanged": true
+  },
+  "latest_frame_analysis_increment": {
+    "assessment": "evidence/probe-records-proof.json#frame_analysis_offline_assessment",
+    "status": "OPTIONAL_SAVED_NUMERICS_VERIFIED_NO_CAPTURE_RETIREMENT",
     "counts_unchanged": true
   }
 }

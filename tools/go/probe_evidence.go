@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"image"
 	"path/filepath"
 	"reflect"
 	"regexp"
@@ -646,6 +647,32 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			report.Status = row.Status
 		}
 	}
+	// Optional frame requests reuse the report's 256-comparison bound. Only compact
+	// referenced samples survive each capture; omitted requests allocate no cache.
+	var frameReferences map[string]bool
+	var frameIndices map[string]int
+	var framePixels map[string][]byte
+	var frameFacts map[string]ProbeFrameComparisonResult
+	if len(bundle.FrameComparisons) > 0 {
+		if len(bundle.FrameComparisons) > 256 || len(bundle.FrameComparisons) > len(bundle.Captures) {
+			return report, fmt.Errorf("frame comparisons exceed the report comparison/capture bound")
+		}
+		frameReferences = map[string]bool{}
+		frameIndices = map[string]int{}
+		framePixels = map[string][]byte{}
+		frameFacts = map[string]ProbeFrameComparisonResult{}
+		currents := map[string]bool{}
+		for _, request := range bundle.FrameComparisons {
+			if request.CaptureID == "" || currents[request.CaptureID] || request.CaptureID == request.PreviousCaptureID {
+				return report, fmt.Errorf("frame comparisons require distinct current IDs and a different predecessor")
+			}
+			currents[request.CaptureID] = true
+			frameReferences[request.CaptureID] = true
+			if request.PreviousCaptureID != "" {
+				frameReferences[request.PreviousCaptureID] = true
+			}
+		}
+	}
 	// Strict acquisition linkage is an extra data phase; legacy outcomes stay exact.
 	seenCaptures := map[string]bool{}
 	capturedEvents := map[int]ProbeCaptureReceipt{}
@@ -659,7 +686,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			_ = json.Unmarshal(record.Data, &captureOwned)
 		}
 	}
-	for _, capture := range bundle.Captures {
+	for captureIndex, capture := range bundle.Captures {
 		receipt := capture.Receipt
 		transitionOperation := ""
 		captureAdmission := admission
@@ -739,6 +766,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			return report, fmt.Errorf("capture receipts require distinct IDs and source order")
 		}
 		seenCaptures[receipt.CaptureID], lastCaptureEvent = true, receipt.EventID
+		if frameIndices != nil {
+			frameIndices[receipt.CaptureID] = captureIndex
+		}
 		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != captureAdmission.RunID || receipt.Session != captureAdmission.Session || receipt.Epoch != captureAdmission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != captureAdmission.ISOSHA256 || eventCheckpoint[receipt.EventID] != receipt.Checkpoint || checkpoints[receipt.Checkpoint] == nil {
 			return report, fmt.Errorf("capture receipt differs from admitted identity or source event")
 		}
@@ -817,6 +847,52 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			if err != nil || raster.Bounds().Dx() != receipt.Width || raster.Bounds().Dy() != receipt.Height {
 				return report, fmt.Errorf("capture original PNG geometry differs")
 			}
+			if frameReferences[receipt.CaptureID] {
+				facts := ProbeFrameComparisonResult{CaptureID: receipt.CaptureID, Status: "UNKNOWN"}
+				if imageBytes[24] != 8 || !slices.Contains([]byte{0, 2, 6}, imageBytes[25]) {
+					facts.Reason = "frame analysis reference supports only8-bit Gray/RGB/RGBA PNG"
+				} else {
+					// Pillow converts to RGB before either resize: discard alpha,
+					// including on hidden RGB, rather than compositing on a background.
+					for at := 3; at < len(raster.Pix); at += 4 {
+						raster.Pix[at] = 255
+					}
+					current := raster
+					var hashes [3]string
+					var sample []byte
+					for stage, size := range []image.Point{raster.Bounds().Size(), {640, 480}, {64, 48}} {
+						if stage > 0 {
+							resized, resizeErr := resizeRaster(current, size.X, size.Y, "bicubic", nil)
+							if resizeErr != nil {
+								facts.Reason = "frame normalization unavailable: " + resizeErr.Error()
+								break
+							}
+							current = resized.(*image.NRGBA)
+						}
+						hasher := sha256.New()
+						row := make([]byte, size.X*3)
+						if stage == 2 {
+							sample = make([]byte, size.X*size.Y*3)
+						}
+						for y := 0; y < size.Y; y++ {
+							for x := 0; x < size.X; x++ {
+								copy(row[x*3:x*3+3], current.Pix[y*current.Stride+x*4:y*current.Stride+x*4+3])
+							}
+							_, _ = hasher.Write(row)
+							if stage == 2 {
+								copy(sample[y*len(row):(y+1)*len(row)], row)
+							}
+						}
+						hashes[stage] = fmt.Sprintf("%x", hasher.Sum(nil))
+					}
+					if facts.Reason == "" {
+						facts.Status = "AVAILABLE"
+						facts.SourceRGBSHA256, facts.NormalizedRGBSHA256, facts.ComparisonRGBSHA256 = hashes[0], hashes[1], hashes[2]
+						framePixels[receipt.CaptureID] = sample
+					}
+				}
+				frameFacts[receipt.CaptureID] = facts
+			}
 			link.Status, link.Reason, link.ImagePath, link.ImageSHA256 = "ACCEPTED", "", receipt.ImagePath, receipt.ImageSHA256
 			capturedEvents[receipt.EventID] = receipt
 		case "UNKNOWN", "REFUSED":
@@ -827,6 +903,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			return report, fmt.Errorf("unsupported capture receipt outcome")
 		}
 		report.Captures = append(report.Captures, link)
+		if frameReferences[receipt.CaptureID] && link.Status != "ACCEPTED" {
+			frameFacts[receipt.CaptureID] = ProbeFrameComparisonResult{CaptureID: receipt.CaptureID, Status: "UNKNOWN", Reason: "capture unavailable: " + receipt.Reason}
+		}
 		if link.Status != "ACCEPTED" {
 			checkpoint := checkpoints[receipt.Checkpoint]
 			if checkpoint.Result.Status != "FAIL" {
@@ -837,6 +916,48 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			}
 		}
 	}
+	for _, request := range bundle.FrameComparisons {
+		currentIndex, exists := frameIndices[request.CaptureID]
+		if !exists {
+			return report, fmt.Errorf("frame comparison current capture is absent")
+		}
+		result := frameFacts[request.CaptureID]
+		result.PreviousCaptureID = request.PreviousCaptureID
+		if request.PreviousCaptureID != "" {
+			previousIndex, exists := frameIndices[request.PreviousCaptureID]
+			if !exists || previousIndex >= currentIndex {
+				return report, fmt.Errorf("frame comparison predecessor is absent or not earlier in capture order")
+			}
+			current, previous := bundle.Captures[currentIndex].Receipt, bundle.Captures[previousIndex].Receipt
+			if current.RunID != previous.RunID || current.Session != previous.Session || current.Epoch != previous.Epoch || current.PID != previous.PID || current.Starttime != previous.Starttime || current.ISOSHA256 != previous.ISOSHA256 || current.BuildSHA256 != previous.BuildSHA256 || current.Provenance != previous.Provenance {
+				return report, fmt.Errorf("frame comparison crosses actual process/session/epoch identity")
+			}
+			if result.Status == "AVAILABLE" && frameFacts[request.PreviousCaptureID].Status != "AVAILABLE" {
+				result.Status, result.Reason = "UNKNOWN", "predecessor frame analysis unavailable"
+			}
+			if result.Status == "AVAILABLE" {
+				currentPixels, previousPixels := framePixels[request.CaptureID], framePixels[request.PreviousCaptureID]
+				var sum uint64
+				for at, value := range currentPixels {
+					difference := int(value) - int(previousPixels[at])
+					if difference < 0 {
+						difference = -difference
+					}
+					sum += uint64(difference)
+				}
+				mean := float64(sum) / float64(64*48*3)
+				result.SumAbsRGB, result.MeanRGBDifference = &sum, &mean
+				result.PreviousComparisonRGBSHA256 = frameFacts[request.PreviousCaptureID].ComparisonRGBSHA256
+			}
+		} else if result.Status == "AVAILABLE" {
+			// This is an explicit missing-selected-predecessor fact, not proof
+			// of the first native or retained frame.
+			mean := float64(999)
+			result.MeanRGBDifference = &mean
+		}
+		report.FrameComparisons = append(report.FrameComparisons, result)
+	}
+
 	if checkpointOnly {
 		if !storyOnly && len(checkpointOrder) != 1 {
 			return report, fmt.Errorf("checkpoint-only scope requires one actual checkpoint")
