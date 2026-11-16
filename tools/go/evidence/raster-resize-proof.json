@@ -141,5 +141,130 @@
   "frozen_snapshot": "/var/tmp/dokapon-raster-resize-sealed-53uxadsx",
   "ordinary_review_sha256": "da942c986dc9f70684ff013ae3928ba6020e6ccfbb023f358a4a51ac55c5e637",
   "ordinary_review_markdown_sha256": "f916c3a7a8ab342c9060835ead34ade4ab04666d91d73a36c62f3170c4f0f817",
-  "root_review_acceptance": "All43 current source/data pins equal independently reviewed freeze; all23 private artifact hashes and primary sources verified. Root also directly compared all8803 coefficients/all1362 starts to independent tables. This foundation receives no workflow/migration credit."
+  "root_review_acceptance": "All43 current source/data pins equal independently reviewed freeze; all23 private artifact hashes and primary sources verified. Root also directly compared all8803 coefficients/all1362 starts to independent tables. This foundation receives no workflow/migration credit.",
+  "bicubic_offline_assessment": {
+    "status": "VERIFIED_FINITE_BICUBIC_KERNEL_ONLY_NO_CAPTURE_RETIREMENT",
+    "scope": "Existing resizeRaster kernel only, no capture conversion/JPEG/change metric/frame retention wiring or retirement.",
+    "source_contract": {
+      "Pillow_Resample_c": {
+        "version": "12.3.0",
+        "url": "https://raw.githubusercontent.com/python-pillow/Pillow/12.3.0/src/libImaging/Resample.c",
+        "sha256": "808c212d03289b9ab70fad67168da1b14ed8dd74f1607c7a7278c50cbc1ae0ab",
+        "support": 2,
+        "cubic_a": -0.5,
+        "evaluation": "Source-order piecewise polynomial; explicit float64 product rounding prevents cross-statement Go FMA."
+      },
+      "Go_float_operators": "https://go.dev/ref/spec#Floating_point_operators",
+      "legacy_probe": {
+        "source": "../text_probe_run.py",
+        "sha256": "b2bbad7ab5afed9440f9496038dd5356266bdd40cb2da5f5bf9971ffdfcc5b1f",
+        "scope": "RGB before default BICUBIC640x480, then BICUBIC64x48 change metric. Source facts only; this increment does not implement its controller."
+      }
+    },
+    "owner": "resizeRaster",
+    "unchanged": [
+      "NEAREST sampling/crop/straightRGBA path",
+      "LANCZOS weight body",
+      "Shared signedQ22 normalization/rounding, clipping, pass order and alpha handling",
+      "All current dimension/storage/intermediate refusals and nearest-only crop"
+    ],
+    "oracle": {
+      "pre_edit_kernel_sha256": "8a21096d86b588c7370ee0618de679052ce86e56dc6d6bdd472af44682f2ee63",
+      "path": "testdata/raster-bicubic.zip",
+      "sha256": "164f3238048a930eae06d83b5e6ddf33af9828474aa503d855d31d791efb0271",
+      "bytes": 828767,
+      "vectors": 19,
+      "members": 39,
+      "modes": {
+        "Gray": 9,
+        "RGBA": 6,
+        "RGB": 4
+      },
+      "vectors_json_sha256": "d6e41d61f54bc113c3bf1a403ae174b80481649960604b82abd2912ad0d104bb",
+      "generation": "Independent installed Pillow12.3.0/CPython3.14.7 C-API driver, no Go resize output used. DefaultRGB equals explicitBICUBIC, actual two-stage640x480→64x48 bytes, PNG/raw/ZIPCRC/member hashes and repeated generation verified.",
+      "storage": "RGB3 reference bytes/hashes distinct from expanded opaqueNRGBA4 bytes used by existing golden loader. PNGs are lossless reference storage, not legacy output-format evidence.",
+      "receipt": "/var/tmp/dokapon-bicubic-oracle-LjajJ39T/freeze-receipt.json",
+      "receipt_sha256": "127393aa5eba72ecd0b43998be371700af7958e89b29aa0c7472fe03da25e4ce",
+      "private_reference_driver": {
+        "bytes": 14192,
+        "sha256": "06375a390fa28e543c67506e8dcd65e7f906bc8dfd8ee23dd7bdd22f7760cd3b",
+        "production_dependency": false
+      },
+      "failure_qualification": "First proof-only compile diagnostic retained in reference receipt from tool output; initial scratch stderr was overwritten, not an immutable raw failure log.",
+      "pixels_frozen_at_utc": "2026-11-16T04:39:11Z",
+      "original_pre_Go_archive": {
+        "sha256": "c13329f258bbea331d023e41282b1ddccc27e2f8e9517d72da459f7543e66819",
+        "bytes": 828772,
+        "vectors_json_sha256": "fb9abf80b49aee9c94a5ba5c310d15e45ebb8c482a122367386f7248cd825600",
+        "receipt": "/var/tmp/dokapon-bicubic-oracle-LjajJ39T/freeze-receipt.json",
+        "receipt_sha256": "127393aa5eba72ecd0b43998be371700af7958e89b29aa0c7472fe03da25e4ce"
+      },
+      "descriptor_repair": {
+        "timing": "AFTER failed candidate test, not a pre-implementation wholearchive freeze",
+        "scope": "Only19source_rect descriptors changed to actual zero-origin PNG IHDR bounds. All38PNG member bytes/rawSHA and every other manifestfield remain identical to originalpre-Go c133archive. No numerical oracle regeneration or Go resize values used.",
+        "receipt": "/var/tmp/dokapon-bicubic-oracle-LjajJ39T/corrected/correction-receipt.json",
+        "receipt_sha256": "80aa33558943a80eb6fd64490a828ce0a8c31539b2e869ff97beac8b21b9e96d",
+        "reference_driver_bytes": 14441,
+        "reference_driver_sha256": "dac15138a1421dae0184f7d29e8933996d19265ee54b429645ad53ea2a51e2ec",
+        "nonzero_origin_coverage": false
+      }
+    },
+    "verification": {
+      "status": "PASS",
+      "preserved_archives": {
+        "testdata/raster-resampling.zip": "1ff4ba495241d12e72f4c3d09f5e841a1aa86bfea739bea38e9db69ce4bf9a61",
+        "testdata/raster-nearest.zip": "65a3505a9e8388527cccc6e78d25da9f77be5e07f4230e370581fca7a7a2e665"
+      },
+      "prior_vectors": 144,
+      "new_vectors": 19,
+      "functions_or_closures_added": 0,
+      "failure_history": {
+        "old_projection": {
+          "result": "Old baseline-only race189.792s PASS, not candidate evidence",
+          "cause": "Initial cwd-relative copy failed before newarchive/testupdate; shell continued oldboundedGolden.",
+          "receipt": "/var/tmp/dokapon-bicubic-kernel/projection-diagnostic.json"
+        },
+        "first_actual_candidate": {
+          "result": "FAIL-race77.781s before numericalcomparison",
+          "cause": "First sourcePNG5x5 but descriptor[3,5,8,10] had no encoded paddedparent; SubImagezeroheight correctly refused.",
+          "log_sha256": "e21b51a4c428c5d2464a08901e13d642c1ea7dc227816f86cf2566e8c34f8af4",
+          "disposition": "Metadata-only descriptor repair independently verified, kernelunchanged5595d987."
+        }
+      },
+      "golden_race": {
+        "command": "GOMAXPROCS=2 GORACE=atexit_sleep_ms=0 go test -race -p2 -run '^TestPilotHistoricalGoldenBytes$' -count=1 .",
+        "seconds": 189.489,
+        "log": "/var/tmp/dokapon-bicubic-kernel/corrected-candidate-golden-race.log",
+        "log_sha256": "75d65d97431cb59e6b52e3b9081a7d07ee5ce6438e1e30c5630f61ddd893ce9f",
+        "source_pins": "/var/tmp/dokapon-bicubic-kernel/corrected-candidate-source-pins.json",
+        "scope": "All existing HistoricalGolden cases and134LANCZOS/10NEAREST/19BICUBIC vectors, source preservation/fresh outputs and bicubic crop refusal. No data race."
+      },
+      "build_vet": "Core/nativefonts build/vet PASS on unchanged kernel5595; final test change only corrected archive SHA literal.",
+      "current_kernel_sha256": "5595d9873cd7b1cb5faf7fe65e485361f1ebf63db0701445c956e784ed56777d",
+      "public_test_sha256": "c4f1f4d0f07f9139f5852ad33e42ebb2ced317db46c7f78a6ce3e3c0cb0d55e2"
+    },
+    "accounting": {
+      "runtime_bytes_delta": 629,
+      "test_code_bytes_delta": 187,
+      "testdata_bytes_delta": 828767,
+      "functions_added": 0,
+      "types_added": 0,
+      "dependencies_added": 0,
+      "qualification": "Numerical capability growth. Fixture/reference overhead separately reported, no deletion or completed migration claim.",
+      "current_private_reference_driver_bytes_separate": 14441,
+      "original_numerical_reference_driver_bytes_separate": 14192,
+      "production_go": {
+        "files": 70,
+        "bytes": 1012320,
+        "named_functions": 63
+      }
+    },
+    "review": "Astra existing-owner/arithmetic/kernel/oracle and exact descriptor-repair reviews found no material issue. Frozen final publication disposition is recorded separately in the publication receipt; periodic074 timing is unchanged.",
+    "limits": [
+      "RGB oracle starts with RGB bytes and proves resizing after conversion, not conversion from source PNG.",
+      "No capture, JPEG encoder parity, mean-difference thresholds, retention state, native/window/gameplay or handover proof.",
+      "Existing1M-pixel source/LANCZOS/BICUBIC bounds remain; no claim for larger source screenshots.",
+      "No original/private runtime image read or modified, no native execution, no criterion credit.85/90,probe2/6,13/15Full unchanged."
+    ]
+  }
 }

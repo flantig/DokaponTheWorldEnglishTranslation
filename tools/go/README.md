@@ -238,12 +238,14 @@ Stable-ID JSON, decoded statuses, ZIP-relative links and LF CSV are intentional
 normalized views; historical serialized bytes are not promised. Full migration
 and gameplay remain separate.
 
-The shared image resampler supports explicit LANCZOS for existing authoring and
-NEAREST for previews. NEAREST preserves straight RGBA, including hidden RGB,
+The shared image resampler supports explicit LANCZOS for existing authoring,
+NEAREST for previews, and source-bound BICUBIC numerical resizing. Independent
+Pillow RGB, RGBA and Gray vectors cover the shared kernel; PNG-to-RGB conversion,
+JPEG output, capture change metrics and frame retention remain separate. NEAREST preserves straight RGBA, including hidden RGB,
 and can sample a cropped view with transparent padding outside the source.
 Thumbnail variants preserve aspect ratio with the original floor/ceil error rule
 and never enlarge the source. Preview output has a separate16M-pixel/16384-axis
-bound; existing LANCZOS limits stay unchanged.
+bound; existing LANCZOS limits also apply to BICUBIC and stay unchanged.
 
 The [410-source pattern crawl](analysis/pattern-crawl-verification.json) informs
 [a small capability-based toolkit](analysis/reusable-toolkit-plan.json), rather

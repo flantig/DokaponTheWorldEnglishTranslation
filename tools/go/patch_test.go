@@ -17357,6 +17357,7 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 	}{
 		{"testdata/raster-resampling.zip", "1ff4ba495241d12e72f4c3d09f5e841a1aa86bfea739bea38e9db69ce4bf9a61", 134},
 		{"testdata/raster-nearest.zip", "65a3505a9e8388527cccc6e78d25da9f77be5e07f4230e370581fca7a7a2e665", 10},
+		{"testdata/raster-bicubic.zip", "164f3238048a930eae06d83b5e6ddf33af9828474aa503d855d31d791efb0271", 19},
 	} {
 		bundleData, err := os.ReadFile(fixture.Path)
 		if err != nil || fmt.Sprintf("%x", sha256.Sum256(bundleData)) != fixture.SHA256 {
@@ -17574,6 +17575,7 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 		}{
 			{"unknown filter", "linear", 1, 1, nil},
 			{"crop on lanczos", "lanczos", 1, 1, &image.Rectangle{Max: image.Pt(1, 1)}},
+			{"crop on bicubic", "bicubic", 1, 1, &image.Rectangle{Max: image.Pt(1, 1)}},
 			{"zero output", "nearest", 0, 1, nil},
 			{"negative output", "nearest", 1, -1, nil},
 			{"large axis", "nearest", 16385, 1, nil},

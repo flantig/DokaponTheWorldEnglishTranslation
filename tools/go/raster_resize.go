@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// resizeRaster matches Pillow 12.3 LANCZOS or NEAREST for Gray and NRGBA.
+// resizeRaster matches Pillow 12.3 LANCZOS, BICUBIC or NEAREST for Gray and NRGBA.
 // It returns a fresh image at origin zero and leaves source pixels/padding intact.
 // Q22 rounding, clipped byte intermediates and premultiplied filtering are part
 // of the artwork contract; identity preserves hidden RGB before any conversion.
@@ -32,8 +32,8 @@ func resizeRaster(source image.Image, width, height int, filter string, crop *im
 	}
 	w, h := bounds.Dx(), bounds.Dy()
 	filter, thumbnail := strings.CutPrefix(filter, "thumbnail-")
-	if filter != "lanczos" && filter != "nearest" || crop != nil && (filter != "nearest" || thumbnail) {
-		return nil, fmt.Errorf("resize requires lanczos or nearest; crop requires nearest")
+	if filter != "lanczos" && filter != "bicubic" && filter != "nearest" || crop != nil && (filter != "nearest" || thumbnail) {
+		return nil, fmt.Errorf("resize requires lanczos, bicubic or nearest; crop requires nearest")
 	}
 	for i, size := range []image.Point{{w, h}, {width, height}} {
 		axisLimit, pixelLimit := 4096, 1<<20
@@ -138,6 +138,10 @@ func resizeRaster(source image.Image, width, height int, filter string, crop *im
 			}
 		}
 	}
+	filterSupport := 3.0
+	if filter == "bicubic" {
+		filterSupport = 2
+	}
 	for _, axis := range order {
 		inputSize, outputSize := w, width
 		outWidth, outHeight := width, h
@@ -150,7 +154,7 @@ func resizeRaster(source image.Image, width, height int, filter string, crop *im
 		}
 		scale := float64(inputSize) / float64(outputSize)
 		filterScale := max(scale, 1)
-		support, inverseScale := 3*filterScale, 1/filterScale
+		support, inverseScale := filterSupport*filterScale, 1/filterScale
 		starts := make([]int, outputSize)
 		coefficients := make([][]int64, outputSize)
 		for at := 0; at < outputSize; at++ {
@@ -162,7 +166,23 @@ func resizeRaster(source image.Image, width, height int, filter string, crop *im
 			for i := range weights {
 				x := (float64(i+start) - center + 0.5) * inverseScale
 				weight := 0.0
-				if x >= -3 && x < 3 {
+				if filter == "bicubic" {
+					if x < 0 {
+						x = -x
+					}
+					const a = -0.5
+					// Explicit conversions preserve Pillow's binary64 product rounding;
+					// Go otherwise permits fused multiply-add across statements.
+					if x < 1 {
+						weight = float64((a+2.0)*x) - (a + 3.0)
+						weight = float64(weight * x)
+						weight = float64(weight*x) + 1
+					} else if x < 2 {
+						weight = float64((x-5)*x) + 8
+						weight = float64(weight*x) - 4
+						weight = float64(weight * a)
+					}
+				} else if x >= -3 && x < 3 {
 					weight = 1
 					if x != 0 {
 						angle := x * math.Pi

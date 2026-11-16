@@ -283,10 +283,12 @@ paint and ordered composition; `renderRuns` owns native glyph/style and fixed-si
 inline-icon slot geometry. `composeCells` copies immutable original RGBA icons
 after each line, with full source/destination containment,
 and `resizeRaster` is the shared numerical resampler. Existing rendering selects
-LANCZOS explicitly; preview NEAREST copies straight channels with source-ordered
+LANCZOS explicitly. BICUBIC shares the numerical coefficient/pass/alpha pipeline
+with its pinned support2 kernel; probe capture/retention wiring remains separate.
+Preview NEAREST copies straight channels with source-ordered
 binary64 sampling. Optional nearest crop coordinates are relative to source
 content, with zero padding outside it and no padded-input allocation. Its larger
-16M-pixel output budget is separate from the unchanged 1M-pixel LANCZOS and source
+16M-pixel output budget is separate from the unchanged 1M-pixel LANCZOS/BICUBIC and source
 bounds. Pinned TrueType sources reuse the same styled run path. Finite masked
 row/column reconstruction now shares the ordered compositor; other donor
 algorithms remain open. The shared native font backend is described below. `indexTextures` now supplies raw native headers to a read-only
