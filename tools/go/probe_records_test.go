@@ -28,6 +28,77 @@ import (
 )
 
 func TestProbeRecords(t *testing.T) {
+	for _, fault := range []string{"valid", "prefix", "mode", "hardlink", "identity", "ordinal", "capacity", "preexisting"} {
+		root := t.TempDir()
+		path := filepath.Join(root, "events.jsonl")
+		journal := ProbeEventJournal{Events: []ProbeEvidenceEvent{}}
+		first := json.RawMessage(`{"event":"sample","event_id":1}`)
+		if fault == "preexisting" {
+			if err := os.WriteFile(path, []byte("foreign\n"), 0600); err != nil {
+				t.Fatal(err)
+			}
+			if _, err := publishProbeEvent(root, &journal, first); err == nil || len(journal.Bytes) != 0 || journal.Info != nil || len(journal.Events) != 0 {
+				t.Fatalf("preexisting journal was acknowledged: %+v %v", journal, err)
+			}
+			continue
+		}
+		published, err := publishProbeEvent(root, &journal, first)
+		if err != nil || published.Offset != 0 || !bytes.Equal(published.Data, append(bytes.Clone(first), '\n')) || len(journal.Events) != 1 || journal.Info == nil {
+			t.Fatalf("initial journal acknowledgement: %+v %v", published, err)
+		}
+		before, beforeInfo := bytes.Clone(journal.Bytes), journal.Info
+		second := json.RawMessage(`{"event":"sample","event_id":2}`)
+		switch fault {
+		case "prefix":
+			err = os.WriteFile(path, []byte("foreign\n"), 0600)
+		case "mode":
+			err = os.Chmod(path, 0400)
+		case "hardlink":
+			err = os.Link(path, filepath.Join(root, "second-link"))
+		case "identity":
+			err = os.Rename(path, filepath.Join(root, "original"))
+			if err == nil {
+				err = os.WriteFile(path, before, 0600)
+			}
+		case "ordinal":
+			second = json.RawMessage(`{"event":"sample","event_id":4}`)
+		case "capacity":
+			second = json.RawMessage(`{"event_id":2,"padding":"` + strings.Repeat("x", 4<<20) + `"}`)
+		}
+		if err != nil {
+			t.Fatal(err)
+		}
+		diskBefore, err := os.ReadFile(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		published, err = publishProbeEvent(root, &journal, second)
+		if fault == "valid" {
+			expected := append(bytes.Clone(before), append(bytes.Clone(second), '\n')...)
+			if err != nil || published.Offset != int64(len(before)) || !bytes.Equal(journal.Bytes, expected) || len(journal.Events) != 2 || !os.SameFile(beforeInfo, journal.Info) {
+				t.Fatalf("append journal acknowledgement: %+v %v", published, err)
+			}
+		} else {
+			diskAfter, readErr := os.ReadFile(path)
+			if err == nil || readErr != nil || !bytes.Equal(before, journal.Bytes) || !bytes.Equal(diskBefore, diskAfter) || len(journal.Events) != 1 || !os.SameFile(beforeInfo, journal.Info) {
+				t.Fatalf("journal %s advanced without acknowledgement: %v %v", fault, err, readErr)
+			}
+		}
+	}
+	for _, width := range []int{0, 64*48*3 - 1, 64*48*3 + 1} {
+		if _, _, err := compareProbeFrames(make([]byte, width), make([]byte, 64*48*3)); err == nil {
+			t.Fatalf("frame pair accepted current length%d", width)
+		}
+		if _, _, err := compareProbeFrames(make([]byte, 64*48*3), make([]byte, width)); err == nil {
+			t.Fatalf("frame pair accepted previous length%d", width)
+		}
+	}
+	for _, value := range []byte{0, 255} {
+		sum, mean, err := compareProbeFrames(bytes.Repeat([]byte{value}, 64*48*3), make([]byte, 64*48*3))
+		if err != nil || sum != uint64(value)*9216 || mean != float64(value) {
+			t.Fatalf("frame pair literal extremes: %d %v %v", sum, mean, err)
+		}
+	}
 	data, err := os.ReadFile("testdata/probe-records.json")
 	if err != nil {
 		t.Fatal(err)

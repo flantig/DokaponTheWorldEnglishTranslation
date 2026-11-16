@@ -606,12 +606,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var scenarioRuntime ProbeMemoryRuntime
 	var scenarioSaved *ProbeSavedState
 	var scenarioEvent json.RawMessage
-	journalEvents := []ProbeEvidenceEvent{}
+	journal := ProbeEventJournal{Events: []ProbeEvidenceEvent{}}
 	scenarioEvents := []ProbeEvidenceEvent{}
 	scenarioCaptures := []ProbeCaptureObservation{}
 	var captureDirInfo os.FileInfo
-	var scenarioLog []byte
-	var scenarioLogInfo os.FileInfo
 	loadMethod := ""
 	warmVerified, coldVerified, restored := false, false, false
 	previewSamples := 0
@@ -1885,7 +1883,7 @@ requests:
 				} else if effect != "capture-save" && effect != "capture-preparation-save" {
 					captureID = effect + "-" + request.Nonce
 				}
-				event := map[string]any{"event": probeOrdinaryFrameEventKind, "event_id": len(journalEvents) + 1, "checkpoint": 0, "capture_id": captureID, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700")}
+				event := map[string]any{"event": probeOrdinaryFrameEventKind, "event_id": len(journal.Events) + 1, "checkpoint": 0, "capture_id": captureID, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700")}
 				if ordinary {
 					if frameActor < 0 || frameActor > 3 {
 						step.Reason = "ordinary frame lacks its admitted current player"
@@ -1925,7 +1923,7 @@ requests:
 					if isPrompt {
 						eventKind = pendingPromptKind
 					}
-					event = map[string]any{"event": eventKind, "event_id": len(journalEvents) + 1, "checkpoint": checkpointNumber, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700"), "state": scenarioSaved, "slot": row.FileIndex, "display_file": row.DisplayFile, "hardware_card_slot": row.CardSlot, "actor": scenarioActor, "original_control": originalControl, "epoch": epoch}
+					event = map[string]any{"event": eventKind, "event_id": len(journal.Events) + 1, "checkpoint": checkpointNumber, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700"), "state": scenarioSaved, "slot": row.FileIndex, "display_file": row.DisplayFile, "hardware_card_slot": row.CardSlot, "actor": scenarioActor, "original_control": originalControl, "epoch": epoch}
 					if effect == "capture-terminal" {
 						event["mode"] = step.UI.Headers["mode"]
 					}
@@ -1962,62 +1960,14 @@ requests:
 					}
 				}
 				scenarioEvent, _ = json.Marshal(event)
-				log := append(bytes.Clone(scenarioEvent), '\n')
-				logOffset := len(scenarioLog)
-				logPath := filepath.Join(profile.Root, "events.jsonl")
-				if len(scenarioLog) == 0 {
-					if err := writeNewFile(logPath, bytes.NewReader(log), int64(len(log)), fmt.Sprintf("%x", sha256.Sum256(log)), 0600); err != nil {
-						step.Reason = err.Error()
-						break actions
-					}
-					var err error
-					scenarioLogInfo, err = os.Lstat(logPath)
-					if err != nil {
-						step.Reason = "new event journal identity unavailable"
-						break actions
-					}
-				} else {
-					prior, err := readInput(logPath, 4<<20)
-					info, statErr := os.Lstat(logPath)
-					if err != nil || statErr != nil || !os.SameFile(info, scenarioLogInfo) || !bytes.Equal(prior, scenarioLog) || info.Mode().Perm() != 0600 {
-						step.Reason = "owned event prefix or identity changed"
-						break actions
-					}
-					stat, ok := info.Sys().(*syscall.Stat_t)
-					if !ok || stat.Nlink != 1 || len(prior)+len(log) > 4<<20 {
-						step.Reason = "owned event journal exceeds exclusive bounded contract"
-						break actions
-					}
-					file, err := os.OpenFile(logPath, os.O_WRONLY|os.O_APPEND, 0600)
-					if err != nil {
-						step.Reason = err.Error()
-						break actions
-					}
-					opened, statErr := file.Stat()
-					if statErr != nil || !os.SameFile(info, opened) || opened.Size() != int64(len(prior)) {
-						_ = file.Close()
-						step.Reason = "event journal changed before append"
-						break actions
-					}
-					_, err = io.Copy(file, bytes.NewReader(log))
-					if err == nil {
-						err = file.Sync()
-					}
-					closeErr := file.Close()
-					if err != nil || closeErr != nil {
-						step.Reason = "event append is partial or durability unknown"
-						break actions
-					}
-				}
-				scenarioLog = append(scenarioLog, log...)
-				readback, err := readInput(logPath, 4<<20)
-				if err != nil || !bytes.Equal(readback, scenarioLog) {
-					step.Reason = "event append readback differs"
+				published, err := publishProbeEvent(profile.Root, &journal, scenarioEvent)
+				if err != nil {
+					step.Reason = err.Error()
 					break actions
 				}
-				journalEvents = append(journalEvents, ProbeEvidenceEvent{Offset: int64(logOffset), Data: log})
+				log, logOffset := published.Data, published.Offset
 				if !ordinary {
-					scenarioEvents = append(scenarioEvents, journalEvents[len(journalEvents)-1])
+					scenarioEvents = append(scenarioEvents, journal.Events[len(journal.Events)-1])
 				}
 				if effect == "emit-card-witness" {
 					seenPromptWitness[fmt.Sprintf("%d:%s", checkpointNumber, pendingPromptKind)] = true
@@ -2085,14 +2035,14 @@ requests:
 				}
 				memory.Decoders = append(memory.Decoders, ProbeMemoryDecoder{ID: "source-player", Kind: "player", Requests: playerIDs})
 				memoryRaw, _ := json.Marshal(memory)
-				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(journalEvents), Checkpoint: captureCheckpoint, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
+				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(journal.Events), Checkpoint: captureCheckpoint, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
 				captureRuntime := ProbeCaptureRuntime{Memory: scenarioRuntime, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
 				captureRaw, _ := json.Marshal(captureProfile)
 				runtimeRaw, _ := json.Marshal(captureRuntime)
 				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw)
 				step.Capture = &receipt
 				if ordinary {
-					if receipt.Version != 1 || receipt.CaptureID != captureID || receipt.EventID != len(journalEvents) || receipt.Checkpoint != 0 || receipt.LogOffset != int64(logOffset) || receipt.LogSHA256 != captureProfile.LogSHA256 {
+					if receipt.Version != 1 || receipt.CaptureID != captureID || receipt.EventID != len(journal.Events) || receipt.Checkpoint != 0 || receipt.LogOffset != int64(logOffset) || receipt.LogSHA256 != captureProfile.LogSHA256 {
 						step.Reason = fmt.Sprintf("ordinary capture lacks its bound receipt: %v", err)
 						break actions
 					}
@@ -2149,7 +2099,7 @@ requests:
 						bundle.Story = &ProbeStoryFacts{Recipe: profile.Scenario.Recipe, Phase: "checkpoint"}
 						if effect == "report-story" {
 							bundle.Story.Phase = "complete"
-							bundle.Story.TerminalEventID = len(journalEvents)
+							bundle.Story.TerminalEventID = len(journal.Events)
 							if !postClearSince.IsZero() {
 								bundle.Story.PostClearMS = time.Since(postClearSince).Milliseconds()
 							}
@@ -2958,4 +2908,80 @@ requests:
 		report.Status = "INCOMPLETE"
 	}
 	return report, runErr
+}
+
+// publishProbeEvent appends to the serialized owner's admitted private journal.
+// A partial write or failed durability/readback is fatal to that owner: callers
+// must not retry or advance the all-event ordinal from an unacknowledged append.
+func publishProbeEvent(root string, journal *ProbeEventJournal, event json.RawMessage) (ProbeEvidenceEvent, error) {
+	var published ProbeEvidenceEvent
+	var header struct {
+		EventID int `json:"event_id"`
+	}
+	if journal == nil || json.Unmarshal(event, &header) != nil || header.EventID != len(journal.Events)+1 {
+		return published, fmt.Errorf("event journal requires its next all-event ordinal")
+	}
+	log := append(bytes.Clone(event), '\n')
+	if len(log) > 4<<20 || len(journal.Bytes) > (4<<20)-len(log) {
+		return published, fmt.Errorf("owned event journal exceeds exclusive bounded contract")
+	}
+	logPath := filepath.Join(root, "events.jsonl")
+	info := journal.Info
+	if len(journal.Bytes) == 0 {
+		if err := writeNewFile(logPath, bytes.NewReader(log), int64(len(log)), fmt.Sprintf("%x", sha256.Sum256(log)), 0600); err != nil {
+			return published, err
+		}
+		var err error
+		info, err = os.Lstat(logPath)
+		if err != nil {
+			return published, fmt.Errorf("new event journal identity unavailable")
+		}
+	} else {
+		prior, err := readInput(logPath, 4<<20)
+		current, statErr := os.Lstat(logPath)
+		if err != nil || statErr != nil || info == nil || !os.SameFile(current, info) || !bytes.Equal(prior, journal.Bytes) || current.Mode().Perm() != 0600 {
+			return published, fmt.Errorf("owned event prefix or identity changed")
+		}
+		stat, ok := current.Sys().(*syscall.Stat_t)
+		if !ok || stat.Nlink != 1 {
+			return published, fmt.Errorf("owned event journal exceeds exclusive bounded contract")
+		}
+		file, err := os.OpenFile(logPath, os.O_WRONLY|os.O_APPEND, 0600)
+		if err != nil {
+			return published, err
+		}
+		opened, statErr := file.Stat()
+		if statErr != nil || !os.SameFile(current, opened) || opened.Size() != int64(len(prior)) {
+			_ = file.Close()
+			return published, fmt.Errorf("event journal changed before append")
+		}
+		_, err = io.Copy(file, bytes.NewReader(log))
+		if err == nil {
+			err = file.Sync()
+		}
+		closeErr := file.Close()
+		if err != nil || closeErr != nil {
+			return published, fmt.Errorf("event append is partial or durability unknown")
+		}
+	}
+	// A newly created directory entry must also be durable before acknowledging.
+	directory, err := os.Open(root)
+	if err != nil {
+		return published, err
+	}
+	err = directory.Sync()
+	closeErr := directory.Close()
+	if err != nil || closeErr != nil {
+		return published, fmt.Errorf("event journal directory durability unknown")
+	}
+	next := append(bytes.Clone(journal.Bytes), log...)
+	readback, err := readInput(logPath, 4<<20)
+	current, statErr := os.Lstat(logPath)
+	if err != nil || statErr != nil || !os.SameFile(info, current) || !bytes.Equal(readback, next) {
+		return published, fmt.Errorf("event append readback differs")
+	}
+	published = ProbeEvidenceEvent{Offset: int64(len(journal.Bytes)), Data: log}
+	journal.Bytes, journal.Info = next, info
+	journal.Events = append(journal.Events, published)
+	return published, nil
 }

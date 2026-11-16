@@ -7,7 +7,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"image"
 	"path/filepath"
 	"reflect"
 	"regexp"
@@ -878,42 +877,12 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				if imageBytes[24] != 8 || !slices.Contains([]byte{0, 2, 6}, imageBytes[25]) {
 					facts.Reason = "frame analysis reference supports only8-bit Gray/RGB/RGBA PNG"
 				} else {
-					// Pillow converts to RGB before either resize: discard alpha,
-					// including on hidden RGB, rather than compositing on a background.
-					for at := 3; at < len(raster.Pix); at += 4 {
-						raster.Pix[at] = 255
-					}
-					current := raster
-					var hashes [3]string
-					var sample []byte
-					for stage, size := range []image.Point{raster.Bounds().Size(), {640, 480}, {64, 48}} {
-						if stage > 0 {
-							resized, resizeErr := resizeRaster(current, size.X, size.Y, "bicubic", nil)
-							if resizeErr != nil {
-								facts.Reason = "frame normalization unavailable: " + resizeErr.Error()
-								break
-							}
-							current = resized.(*image.NRGBA)
-						}
-						hasher := sha256.New()
-						row := make([]byte, size.X*3)
-						if stage == 2 {
-							sample = make([]byte, size.X*size.Y*3)
-						}
-						for y := 0; y < size.Y; y++ {
-							for x := 0; x < size.X; x++ {
-								copy(row[x*3:x*3+3], current.Pix[y*current.Stride+x*4:y*current.Stride+x*4+3])
-							}
-							_, _ = hasher.Write(row)
-							if stage == 2 {
-								copy(sample[y*len(row):(y+1)*len(row)], row)
-							}
-						}
-						hashes[stage] = fmt.Sprintf("%x", hasher.Sum(nil))
-					}
-					if facts.Reason == "" {
-						facts.Status = "AVAILABLE"
-						facts.SourceRGBSHA256, facts.NormalizedRGBSHA256, facts.ComparisonRGBSHA256 = hashes[0], hashes[1], hashes[2]
+					_, sample, normalizedFacts, normalizeErr := normalizeProbeFrame(raster)
+					if normalizeErr != nil {
+						facts.Reason = "frame normalization unavailable: " + normalizeErr.Error()
+					} else {
+						normalizedFacts.CaptureID = receipt.CaptureID
+						facts = normalizedFacts
 						framePixels[receipt.CaptureID] = sample
 					}
 				}
@@ -963,15 +932,10 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			}
 			if result.Status == "AVAILABLE" {
 				currentPixels, previousPixels := framePixels[request.CaptureID], framePixels[request.PreviousCaptureID]
-				var sum uint64
-				for at, value := range currentPixels {
-					difference := int(value) - int(previousPixels[at])
-					if difference < 0 {
-						difference = -difference
-					}
-					sum += uint64(difference)
+				sum, mean, err := compareProbeFrames(currentPixels, previousPixels)
+				if err != nil {
+					return report, err
 				}
-				mean := float64(sum) / float64(64*48*3)
 				result.SumAbsRGB, result.MeanRGBDifference = &sum, &mean
 				result.PreviousComparisonRGBSHA256 = frameFacts[request.PreviousCaptureID].ComparisonRGBSHA256
 			}

@@ -3,7 +3,16 @@ package main
 import (
 	_ "embed"
 	"encoding/json"
+	"os"
 )
+
+// ProbeEventJournal is serialized lifecycle-owned publication state. Projection
+// into checkpoint or managed frame evidence belongs to its caller.
+type ProbeEventJournal struct {
+	Bytes  []byte
+	Info   os.FileInfo
+	Events []ProbeEvidenceEvent
+}
 
 //go:embed profiles/probe/lifecycle-actions.json
 var probeLifecycleActions []byte
