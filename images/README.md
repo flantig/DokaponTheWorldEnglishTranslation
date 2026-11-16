@@ -33,5 +33,9 @@ untouched original artwork. They are storage textures, not necessarily the final
 screen layout; the game may tint, crop or composite them. Applied status does
 not guarantee every screen has been visually verified in-game.
 
+The [November 15 image audit](../docs/audits/2026-11/2026-11-15-image-source-review.json)
+covers every PNG and records stale artwork, pending approvals and unresolved
+details. Its findings do not establish native fit or approve replacements.
+
 Source build SHA-256:
 `817962e211e7d17fa2d04383c3b698a275ee41e114900743bf1fceca554226c3`.

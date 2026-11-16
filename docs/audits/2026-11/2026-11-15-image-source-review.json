@@ -1,0 +1,1284 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-11-15",
+  "scope": "All 224 published PNGs, source provenance and bounded visual review. This report records findings without replacing artwork or granting new approval.",
+  "baseline": {
+    "commit": "36dc26c70de73280530f4cc19ec2902af153cab9",
+    "manifest": "images/manifest.json",
+    "manifest_sha256": "f9fda700afb39dbc271436d95a60811a5ca8ac9c5edb98dba257cc28230eddb1",
+    "join_key": "file; dimensions, PNG/pixel/palette hashes and physical source identity remain authoritative in the manifest"
+  },
+  "coverage": {
+    "image_count": 224,
+    "tracked_nonimage_paths": [
+      "images/README.md",
+      "images/manifest.json"
+    ],
+    "all_actual_png_hashes_and_dimensions_match_manifest": true,
+    "all_physical_source_identities_match_recorded_proofs": true,
+    "all_have_identical_development_png_variants": true,
+    "recorded_source_hash_matches": 222,
+    "disposition_counts": {
+      "bounded_no_obvious_issue": 218,
+      "intentional_pending_approval": 1,
+      "stale": 3,
+      "unresolved": 2
+    }
+  },
+  "interpretation": {
+    "bounded_no_obvious_issue": "No additional obvious wording/layout inconsistency found in the bounded review. Not fresh owner approval, exhaustive English certification or native fit verification.",
+    "stale": "User-confirmed design issue or divergence from a reviewed later private source; see individual finding for approval limits.",
+    "intentional_pending_approval": "Known retained artwork with a replacement preview awaiting owner approval.",
+    "unresolved": "Semantic identification or glyph interpretation remains unproven; no approved correction established.",
+    "recorded_source_hash_match": "Both public manifest pixel and palette hashes equal the recorded latest source proof. This is source parity, not approval or design correctness."
+  },
+  "evidence_contract": "Paths under development_workspace identify source documentation or proofs outside this public repository. Audit artifact names identify the reconciled frozen review inputs. Their hashes pin evidence without distributing private overlays, runtime files or artwork candidates.",
+  "audit_artifacts": [
+    {
+      "file": "complete-exact-source-inventory.json",
+      "sha256": "ec7c34acef7954cea9bab93032766a4c7dc218822ab2bce672dfbee6da523cd7"
+    },
+    {
+      "file": "complete-visual-review.json",
+      "sha256": "8d94306654439d01307b64514bd365542b7cf649556e6c6909e7d892d8a2cc86"
+    },
+    {
+      "file": "summary.json",
+      "sha256": "7d91059cc0df460091d55cee1cf94da7b7d6a26575185ea4b55e5907532f7abe"
+    }
+  ],
+  "development_workspace_evidence": [
+    {
+      "file": "generated/work/user-issues-2026-11-12/glossary-corpus.json",
+      "sha256": "40b26e616272d041291783faca69a0bc88e21f610d501ceefc6c8ef5715c2e60",
+      "role": "Current source proof and semantic records; all 224 sources joined by normalized archive/entry/texture identity."
+    },
+    {
+      "file": "tools/go/analysis/raster-current-baseline203.json",
+      "sha256": "767e42ca68dafa653c37bb7b08f628d32dacc392b94ca0f25b173ce01201dd03",
+      "role": "Preservation lineage only; not new owner approval."
+    },
+    {
+      "file": "docs/TRANSLATION-DECISIONS.md",
+      "sha256": "dca743ec58d0abc7d06381d28d0409543136a4a3d1f0391da39cdec6fccce3ce"
+    },
+    {
+      "file": "docs/STATUS.md",
+      "sha256": "e3a21116653bacb2d9e04f68b9b7180c7135c8dd83da48e12650699baafee2b6"
+    },
+    {
+      "file": "generated/art/extracted-font-collection/preview-updated/patch-plan.json",
+      "sha256": "c95cc733f80bd8aa8a6de45eb027d445330b2921c56c87c274b61eb1abc773bc"
+    },
+    {
+      "file": "generated/art/extracted-font-collection/preview-updated/patch-receipt.json",
+      "sha256": "4d411d8d498de61dfbf8ed0ae4e7e54396782fec295443cb3f5bd1b6ebcd7077"
+    },
+    {
+      "file": "generated/work/user-issues-2026-11-12/nickname-image-proposal/nickname-image-preflight.json",
+      "sha256": "7534bb26e7798cb34bd346b935cd3679c3904239b3c84be4113b65ae8bb60451"
+    },
+    {
+      "file": "generated/work/user-issues-2026-11-12/confirmed-fixes-candidate-verification.json",
+      "sha256": "da1f7e47cc6e1b20e6e6a30af3ef9835719917ace785dd3874a70b96e3904346"
+    },
+    {
+      "file": "generated/work/user-issues-2026-11-12/confirmed-fixes-review1.json",
+      "sha256": "0ddf02b9e6c074b4dc6cc1f0d117ecc0bbee9ac02d547e78bb861ba640d6d628"
+    },
+    {
+      "file": "generated/work/user-issues-2026-11-12/confirmed-fixes-review2.json",
+      "sha256": "e6b02f6ba01ab5e01db27389499269636c3dd019bfb482559b1041827a6f752e"
+    }
+  ],
+  "findings": [
+    {
+      "file": "images/minigame-titles/mini_t5.png",
+      "finding": "User-confirmed outdated SURVIVE title layout relative to updated mini_g09. The title still matches recorded native pixels, demonstrating that source parity does not establish design currency.",
+      "approved_replacement": null,
+      "next_step": "Prepare a correction through the title source owner. mini_g09 is a separate rule texture and must not be copied over this title."
+    },
+    {
+      "file": "images/tutorials/help_illust03.png",
+      "finding": "Public tutorial says Name. Reviewed later private candidate says Nickname; candidate lineage and exact readback are recorded, but distinct owner preview approval and native acceptance were not established.",
+      "private_candidate": {
+        "file": "generated/work/user-issues-2026-11-12/nickname-image-proposal/help_illust03.png",
+        "png_sha256": "3f01967c2a9f9433b70141b5cf95fe1dbbef9079add5d3a1e14679401d8089b4",
+        "pixel_sha256": "d04805804a1af62c0fe3383deb4f95ad1ef46577779f0aeb223e4367f674f4a4",
+        "changed_rgb_pixels": 1115
+      },
+      "approved_replacement": null
+    },
+    {
+      "file": "images/tutorials/help_illust04.png",
+      "finding": "Public tutorial says Name. Reviewed later private candidate says Nickname; candidate lineage and exact readback are recorded, but distinct owner preview approval and native acceptance were not established.",
+      "private_candidate": {
+        "file": "generated/work/user-issues-2026-11-12/nickname-image-proposal/help_illust04.png",
+        "png_sha256": "db028e62a1804ae0611d3259fe219ff0249c3b74a7425addd3a1ef7e131c45c3",
+        "pixel_sha256": "619dbd91196feb2517b482ede4c94c1a2accdfcdbf16655f957fb95166510720",
+        "changed_rgb_pixels": 1096
+      },
+      "approved_replacement": null
+    },
+    {
+      "file": "images/hud-and-menus/win_p.png",
+      "finding": "Large Japanese weekday glyphs remain intentionally above English subtitles. The English weekday redraw is preview-only pending owner approval. The applied ALL/CLOSED alignment is a separate accepted correction.",
+      "approved_replacement": null
+    },
+    {
+      "file": "images/hud-and-menus/vs_set.png",
+      "finding": "Five kanji badges remain explicitly unresolved in the source corpus. Their semantic owner must be identified before changing them.",
+      "approved_replacement": null
+    },
+    {
+      "file": "images/hud-and-menus/tx_win_w.png",
+      "finding": "The red fourth-ranking glyph visually resembles Japanese do compared with 4 in related ranking textures. This is an unconfirmed visual hypothesis; no approved correction was located.",
+      "approved_replacement": null
+    }
+  ],
+  "approved_correction_checks": {
+    "evidence": "October 16 owner decisions and frozen patch plan/receipt above",
+    "keys": [
+      "mini_g06",
+      "mini_g09",
+      "mini_g10",
+      "race",
+      "ev_illust29",
+      "help_illust01"
+    ],
+    "result": "All six public pixel hashes and their approved source PNG hashes match the frozen correction proofs. Older race/SURVIVE/NOT30/battle-label inputs do not override these decisions."
+  },
+  "limitations": [
+    "No runtime interaction or native fit verification was performed.",
+    "All 78 world-event headlines were visually checked; tiny decorative paper filler was untranscribable and is not certified English.",
+    "Byte-identical development PNG variants establish provenance only; arbitrary older variant matches were not treated as approval.",
+    "No image replacements, new artwork approvals, manifest revisions or native backend changes are part of this audit."
+  ],
+  "images": [
+    {
+      "file": "images/awards/prize0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize10.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize7.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize8.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/awards/prize9.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/button.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/gameset.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/jikai.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/kojityu_etc.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/kojityu_sys.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/mini_dan.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/mini_esc.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/mini_foo.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/mini_sta.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/op_p.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/ready.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/sale.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/survive.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/tx_win_w.png",
+      "disposition": "unresolved",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/vs_set.png",
+      "disposition": "unresolved",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/win_d.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/win_fw.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/win_p.png",
+      "disposition": "intentional_pending_approval",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/win_p2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/hud-and-menus/win_w.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_7.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_8.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-areas/area_9.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt0-dokapon-castle.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt1-tokyo.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt10-poland.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt11-germany.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt12-czechia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt13-belgium.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt14-france.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt15-italy.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt16-greece.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt17-spain.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt18-britain.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt19-moscow.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt2-sapporo.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt20-mari-el.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt21-taymyr.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt22-udmurtia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt23-buryatia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt24-sakha.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt25-chersky.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt26-kamchatka.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt27-sakhalin.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt28-vancouver.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt29-fort-smith.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt3-china.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt30-montreal.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt31-l-a.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt32-chicago.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt33-n-y.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt34-washington.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt35-dallas.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt36-hawaii.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt37-mexico.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt38-costa-rica.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt39-colombia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt4-thailand.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt40-peru.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt41-brazil.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt42-bolivia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt43-chile.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt44-uruguay.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt45-venezuela.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt46-new-zealand.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt47-sydney.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt48-melbourne.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt49-southern-cross.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt5-mongolia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt50-wyndham.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt51-algeria.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt52-ghana.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt53-congo.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt54-ethiopia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt55-kenya.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt56-egypt.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt57-zambia.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt58-tanzania.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt59-madagascar.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt6-india.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt60-item-shop.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt61-weapon-shop.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt62-magic-shop.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt63-job-center.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt64-church.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt65-dragon-s-cave.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt66-haunted-mansion.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt67-cave-of-flames.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt68-jungle-ruins.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt69-world-s-navel.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt7-sri-lanka.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt70-royal-tomb.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt71-north-pole.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt72-south-pole.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt73-temple-of-mu.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt8-pakistan.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/map-plates/vlg_plt9-korea.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g01.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g02.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g03.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g04.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g05.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g06.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g07.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g08.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g09.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g10.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g11.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-rules/mini_g12.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/casino.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/dk-1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/f_title.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/food_t.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/mini_t2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/mini_t4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/mini_t5.png",
+      "disposition": "stale",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/mini_t7.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/minigame-titles/race.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/title-and-map-logos/allmap_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/title-and-map-logos/allmap_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/title-and-map-logos/title.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/tutorials/ev_illust29.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/tutorials/help_illust00.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/tutorials/help_illust01.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/tutorials/help_illust02.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/tutorials/help_illust03.png",
+      "disposition": "stale",
+      "recorded_source_hash_match": false
+    },
+    {
+      "file": "images/tutorials/help_illust04.png",
+      "disposition": "stale",
+      "recorded_source_hash_match": false
+    },
+    {
+      "file": "images/tutorials/help_illust05.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_carnival_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_close.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_fire_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_housaku.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaito_7.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_kaso.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_keiki.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_maturi_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_monsb.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_monsg.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_muraup_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_panic.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_plague.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_quake.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_restra.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_saigai_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_sale.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_strike.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_torna_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_0.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_1.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_2.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_3.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_4.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_5.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_utern_6.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_volun.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    },
+    {
+      "file": "images/world-events/n_wcarnival.png",
+      "disposition": "bounded_no_obvious_issue",
+      "recorded_source_hash_match": true
+    }
+  ],
+  "independent_reconciliation": {
+    "reviewer": "Astra",
+    "delivery": "Read-only review delivered as a message; no separate artifact or artifact hash.",
+    "conclusion": "Inventory, visual review and summary reconcile with no denominator or classification defect: 3 stale, 1 intentional pending approval, 2 unresolved and 218 bounded no-obvious-issue; bounded review is not fresh approval."
+  }
+}
