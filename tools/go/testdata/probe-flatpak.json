@@ -1,0 +1,274 @@
+{
+  "profile": {
+    "version": 1,
+    "source_format": "go-owned-lifecycle-v1",
+    "root": "/fixture/generated/session",
+    "session": "fixture",
+    "program": {
+      "path": "/fixture/bin/native",
+      "size": 1,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "program_args": [],
+    "flatpak": {
+      "launcher": {
+        "path": "/fixture/bin/flatpak",
+        "size": 1,
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "project_root": "/fixture",
+      "runtime_argv0": "pcsx2-qt"
+    },
+    "inputs": {
+      "iso": {
+        "path": "/fixture/generated/work/fixture.iso",
+        "size": 1,
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "settings": {
+        "path": "/fixture/source/settings.ini",
+        "size": 1,
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "bios": {
+        "path": "/fixture/source/bios.bin",
+        "size": 1,
+        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      "card": {
+        "path": "/fixture/source/card.ps2",
+        "size": 1,
+        "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      }
+    },
+    "requests": [
+      {
+        "nonce": "1-initial",
+        "phase": "requested",
+        "session": "fixture",
+        "operation": "initial"
+      }
+    ],
+    "ready_timeout_ms": 10000,
+    "stop_timeout_ms": 10000,
+    "quiet_ms": 1
+  },
+  "launch_args": [
+    "run",
+    "--filesystem=/fixture/generated/work:ro",
+    "--filesystem=/fixture/generated/session/profile:rw",
+    "net.pcsx2.PCSX2",
+    "-batch",
+    "-datapath",
+    "/fixture/generated/session/profile",
+    "-logfile",
+    "/fixture/generated/session/profile/emulog.txt",
+    "/fixture/generated/work/fixture.iso"
+  ],
+  "native_args": [
+    "pcsx2-qt",
+    "-batch",
+    "-datapath",
+    "/fixture/generated/session/profile",
+    "-logfile",
+    "/fixture/generated/session/profile/emulog.txt",
+    "/fixture/generated/work/fixture.iso"
+  ],
+  "plan_cases": [
+    {
+      "name": "valid",
+      "fault": "",
+      "error": false
+    },
+    {
+      "name": "missing expected native argv0",
+      "fault": "argv0",
+      "error": true
+    },
+    {
+      "name": "project escape",
+      "fault": "project",
+      "error": true
+    },
+    {
+      "name": "ISO outside approved work/scratch",
+      "fault": "iso",
+      "error": true
+    },
+    {
+      "name": "launcher grant override",
+      "fault": "grant",
+      "error": true
+    },
+    {
+      "name": "runtime profile override",
+      "fault": "runtime-prefix",
+      "error": true
+    },
+    {
+      "name": "missing launcher pin",
+      "fault": "launcher-hash",
+      "error": true
+    },
+    {
+      "name": "native argv0 is observation only",
+      "fault": "",
+      "error": false
+    }
+  ],
+  "admission_cases": [
+    {
+      "name": "valid",
+      "fault": "",
+      "error": false
+    },
+    {
+      "name": "launcher cannot replace native argv",
+      "fault": "native-argv",
+      "error": true
+    },
+    {
+      "name": "missing launcher",
+      "fault": "launcher",
+      "error": true
+    },
+    {
+      "name": "missing startup",
+      "fault": "startup",
+      "error": true
+    },
+    {
+      "name": "wrong startup epoch",
+      "fault": "startup-epoch",
+      "error": true
+    },
+    {
+      "name": "missing native endpoint",
+      "fault": "endpoint",
+      "error": true
+    },
+    {
+      "name": "missing native environment digest",
+      "fault": "environment",
+      "error": true
+    },
+    {
+      "name": "literal profile hash changed",
+      "fault": "profile-hash",
+      "error": true
+    },
+    {
+      "name": "native reused birth",
+      "fault": "native-birth",
+      "error": true
+    }
+  ],
+  "startup_cases": [
+    {
+      "name": "empty",
+      "log": "",
+      "complete": false,
+      "error": false
+    },
+    {
+      "name": "unterminated fourth line",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /fixture/generated/session/profile/PCSX2/snaps\nMemoryCards Directory: /fixture/generated/session/profile/PCSX2/memcards",
+      "complete": false,
+      "error": false
+    },
+    {
+      "name": "append completes fourth line",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /fixture/generated/session/profile/PCSX2/snaps\nMemoryCards Directory: /fixture/generated/session/profile/PCSX2/memcards\n",
+      "complete": true,
+      "error": false
+    },
+    {
+      "name": "three complete labels",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /fixture/generated/session/profile/PCSX2/snaps\n",
+      "complete": false,
+      "error": false
+    },
+    {
+      "name": "conflicting duplicate",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /fixture/generated/session/profile/PCSX2/snaps\nMemoryCards Directory: /fixture/generated/session/profile/PCSX2/memcards\nBIOS Directory: /foreign/bios\n",
+      "complete": false,
+      "error": true
+    },
+    {
+      "name": "wrong private directory",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /foreign/snaps\nMemoryCards Directory: /fixture/generated/session/profile/PCSX2/memcards\n",
+      "complete": false,
+      "error": true
+    },
+    {
+      "name": "same duplicate is consistent",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /fixture/generated/session/profile/PCSX2/snaps\nMemoryCards Directory: /fixture/generated/session/profile/PCSX2/memcards\nDataRoot Directory: /fixture/generated/session/profile/PCSX2\n",
+      "complete": true,
+      "error": false
+    },
+    {
+      "name": "partial later text ignored",
+      "log": "DataRoot Directory: /fixture/generated/session/profile/PCSX2\nBIOS Directory: /fixture/generated/session/profile/PCSX2/bios\nSnapshots Directory: /fixture/generated/session/profile/PCSX2/snaps\nMemoryCards Directory: /fixture/generated/session/profile/PCSX2/memcards\nBIOS Directory: /foreign",
+      "complete": true,
+      "error": false
+    }
+  ],
+  "selector_cases": [
+    {
+      "name": "native qualified",
+      "fault": "",
+      "matched": 1,
+      "unqualified": 0,
+      "error": false
+    },
+    {
+      "name": "different launcher build",
+      "fault": "build",
+      "matched": 0,
+      "unqualified": 1,
+      "error": true
+    },
+    {
+      "name": "wrong expected native argv",
+      "fault": "argv",
+      "matched": 0,
+      "unqualified": 1,
+      "error": true
+    },
+    {
+      "name": "older native is not adopted",
+      "fault": "birth",
+      "matched": 0,
+      "unqualified": 1,
+      "error": true
+    },
+    {
+      "name": "unrelated comm ignored",
+      "fault": "unrelated",
+      "matched": 0,
+      "unqualified": 0,
+      "error": false
+    },
+    {
+      "name": "source zombie excluded",
+      "fault": "zombie",
+      "matched": 0,
+      "unqualified": 0,
+      "error": false
+    },
+    {
+      "name": "synthetic comm symlink refuses",
+      "fault": "comm-link",
+      "matched": 0,
+      "unqualified": 0,
+      "error": true
+    },
+    {
+      "name": "synthetic environ symlink refuses",
+      "fault": "environ-link",
+      "matched": 0,
+      "unqualified": 1,
+      "error": true
+    }
+  ]
+}

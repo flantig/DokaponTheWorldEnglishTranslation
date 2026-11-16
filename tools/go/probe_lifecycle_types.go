@@ -22,6 +22,7 @@ type ProbeLifecycleProfile struct {
 	Root           string                   `json:"root"`
 	Session        string                   `json:"session"`
 	PadBackend     string                   `json:"pad_backend,omitempty"`
+	Flatpak        *ProbeFlatpakLaunch      `json:"flatpak,omitempty"`
 	Program        RegistryInput            `json:"program"`
 	ProgramArgs    []string                 `json:"program_args"`
 	Inputs         map[string]RegistryInput `json:"inputs"`
@@ -34,6 +35,26 @@ type ProbeLifecycleProfile struct {
 	Resume         *ProbeLifecycleResume    `json:"resume,omitempty"`
 	Scenario       *ProbeScenarioSpec       `json:"scenario,omitempty"`
 	Storage        *ProbeStorageSpec        `json:"storage_observation,omitempty"`
+}
+
+// ProbeFlatpakLaunch separates the submitted launcher from the emulator artifact.
+// ISOAlias is only the source portal spelling; the ordinary host ISO is unchanged.
+type ProbeFlatpakLaunch struct {
+	Launcher       RegistryInput            `json:"launcher"`
+	LauncherArgs   []string                 `json:"launcher_args,omitempty"`
+	ProjectRoot    string                   `json:"project_root"`
+	ISOAlias       string                   `json:"iso_alias,omitempty"`
+	RuntimeArgv0   string                   `json:"runtime_argv0"`
+	BIOSCompanions map[string]RegistryInput `json:"bios_companions,omitempty"`
+}
+
+// ProbeStartupFacts freezes current-epoch evidence emitted by the owned runtime.
+type ProbeStartupFacts struct {
+	Epoch       int                 `json:"epoch"`
+	Native      ProbeProcessRecord  `json:"native"`
+	Launcher    *ProbeProcessRecord `json:"launcher"`
+	Directories map[string]string   `json:"directories"`
+	Log         RegistryInput       `json:"log"`
 }
 
 // ProbeStorageSpec selects expected-only source facts. Actual bytes are read
@@ -79,6 +100,8 @@ type ProbeLifecycleStep struct {
 	Replayed             bool                  `json:"replayed,omitempty"`
 	Epoch                int                   `json:"epoch"`
 	Owned                *ProbeProcessRecord   `json:"owned,omitempty"`
+	Launcher             *ProbeProcessRecord   `json:"launcher,omitempty"`
+	Startup              *RegistryInput        `json:"startup,omitempty"`
 	CardBefore           string                `json:"card_sha256_before,omitempty"`
 	CardAfter            string                `json:"card_sha256_after,omitempty"`
 	WidthBefore          *uint64               `json:"window_width_before,omitempty"`

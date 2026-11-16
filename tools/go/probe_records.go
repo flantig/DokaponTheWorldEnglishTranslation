@@ -88,8 +88,18 @@ func admitProbeRecords(raw []byte) (ProbeRecordReport, error) {
 		if profile.Version != 1 || profile.SourceFormat != "go-owned-lifecycle-v1" || !filepath.IsAbs(profile.Root) || filepath.Clean(profile.Root) != profile.Root || bundle.RunRoot != profile.Root || profile.Session == "" || step.Status != "COMPLETED" || step.Owned == nil || step.ProfileSHA256 != fmt.Sprintf("%x", sha256.Sum256(factsBytes)) || step.Request.Session != profile.Session || step.Request.Phase != "requested" || owned.Epoch == nil || *owned.Epoch != step.Epoch || owned.PID < 1 || owned.Starttime == 0 || !reflect.DeepEqual(*step.Owned, owned) || owned.Session != profile.Session || owned.Profile != filepath.Join(profile.Root, "profile") || owned.ISO != profile.Inputs["iso"].Path || owned.ISOSHA256 != profile.Inputs["iso"].SHA256 || len(owner.CardSHA256) != 64 {
 			return report, fmt.Errorf("Go lifecycle owner/epoch/profile identity differs")
 		}
-		expectedArgs := append(slices.Clone(profile.ProgramArgs), "-datapath", owned.Profile, "-batch", owned.ISO)
-		expectedArgs = append([]string{profile.Program.Path}, expectedArgs...)
+		_, _, expectedArgs, planErr := planProbeLaunch(profile)
+		if planErr != nil {
+			return report, planErr
+		}
+		if native := profile.Flatpak; native != nil {
+			if native.RuntimeArgv0 == "" || native.ProjectRoot == "" || step.Launcher == nil || step.Launcher.PID < 1 || step.Launcher.Starttime == 0 || step.Startup == nil || step.Startup.Path != filepath.Join(profile.Root, fmt.Sprintf("startup-epoch-%d.json", step.Epoch)) || step.Startup.Size < 1 || len(step.Startup.SHA256) != 64 || !filepath.IsAbs(owned.PINESocket) || filepath.Clean(owned.PINESocket) != owned.PINESocket || len(owned.EnvironmentSHA256) != 64 || len(native.Launcher.SHA256) != 64 {
+				return report, fmt.Errorf("Go Flatpak launcher/native/startup facts differ")
+			}
+
+		} else if owned.PINESocket != "" || owned.EnvironmentSHA256 != "" || step.Launcher != nil || step.Startup != nil {
+			return report, fmt.Errorf("direct child facts contain a different launcher contract")
+		}
 		if !reflect.DeepEqual(owned.Cmdline, expectedArgs) || bundle.AfterProcess.PID != owned.PID || bundle.AfterProcess.Starttime != owned.Starttime || !reflect.DeepEqual(bundle.AfterProcess.Cmdline, owned.Cmdline) || bundle.AfterProcess.State == "" || bundle.AfterProcess.State == "Z" || bundle.AfterProcess.State == "X" || view.Datapath != owned.Profile || view.DataRoot != dataRoot || view.Card != filepath.Join(dataRoot, "memcards", "probe-slot1.ps2") || view.CardInitialSHA256 != profile.Inputs["card"].SHA256 || view.SourceCard != profile.Inputs["card"].Path || view.SourceCardSHA256 != profile.Inputs["card"].SHA256 || view.SourceSettings != profile.Inputs["settings"].Path || view.SourceSettingsSHA256 != profile.Inputs["settings"].SHA256 || view.BIOS != filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path)) {
 			return report, fmt.Errorf("Go probe argv/profile snapshot differs")
 		}

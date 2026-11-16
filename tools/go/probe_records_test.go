@@ -458,6 +458,172 @@ func TestProbeRecords(t *testing.T) {
 			t.Fatalf("%s process-exit classification: %v", row.Name, err)
 		}
 	}
+	// Flatpak contracts are literal offline facts, never permission to enumerate host processes.
+	flatpakData, err := os.ReadFile("testdata/probe-flatpak.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var flatpakFixture struct {
+		Profile    ProbeLifecycleProfile
+		LaunchArgs []string `json:"launch_args"`
+		NativeArgs []string `json:"native_args"`
+		PlanCases  []struct {
+			Name, Fault string
+			Error       bool
+		} `json:"plan_cases"`
+		AdmissionCases []struct {
+			Name, Fault string
+			Error       bool
+		} `json:"admission_cases"`
+		StartupCases []struct {
+			Name, Log       string
+			Complete, Error bool
+		} `json:"startup_cases"`
+		SelectorCases []struct {
+			Name, Fault          string
+			Matched, Unqualified int
+			Error                bool
+		} `json:"selector_cases"`
+	}
+	if err := json.Unmarshal(flatpakData, &flatpakFixture); err != nil {
+		t.Fatal(err)
+	}
+	for _, row := range flatpakFixture.PlanCases {
+		profileBytes, _ := json.Marshal(flatpakFixture.Profile)
+		var profile ProbeLifecycleProfile
+		if err := json.Unmarshal(profileBytes, &profile); err != nil {
+			t.Fatal(err)
+		}
+		switch row.Fault {
+		case "argv0":
+			profile.Flatpak.RuntimeArgv0 = ""
+		case "project":
+			profile.Flatpak.ProjectRoot = "/elsewhere"
+		case "iso":
+			input := profile.Inputs["iso"]
+			input.Path = "/fixture/source/fixture.iso"
+			profile.Inputs["iso"] = input
+		case "grant":
+			profile.Flatpak.LauncherArgs = []string{"--filesystem=/"}
+		case "runtime-prefix":
+			profile.ProgramArgs = []string{"-datapath=/foreign"}
+		case "launcher-hash":
+			profile.Flatpak.Launcher.SHA256 = ""
+		}
+		before, _ := json.Marshal(profile)
+		launchProgram, args, nativeArgs, err := planProbeLaunch(profile)
+		after, _ := json.Marshal(profile)
+		if (err != nil) != row.Error || !bytes.Equal(before, after) {
+			t.Fatalf("%s launch plan/mutation: %v", row.Name, err)
+		}
+		if !row.Error && (launchProgram != profile.Flatpak.Launcher || !slices.Equal(args, flatpakFixture.LaunchArgs) || !slices.Equal(nativeArgs, flatpakFixture.NativeArgs)) {
+			t.Fatalf("%s literal launch/native argv differs", row.Name)
+		}
+	}
+	directProfile := flatpakFixture.Profile
+	directProfile.Flatpak = nil
+	directProfile.ProgramArgs = []string{"-existing-prefix"}
+	_, directArgs, directNative, directErr := planProbeLaunch(directProfile)
+	if directErr != nil || !slices.Equal(directArgs, []string{"-existing-prefix", "-datapath", "/fixture/generated/session/profile", "-batch", "/fixture/generated/work/fixture.iso"}) || !slices.Equal(directNative, append([]string{directProfile.Program.Path}, directArgs...)) {
+		t.Fatal("direct launch order changed", directErr)
+	}
+	for _, row := range flatpakFixture.StartupCases {
+		paths, complete, err := validateProbeStartup([]byte(row.Log), "/fixture/generated/session/profile/PCSX2")
+		if (err != nil) != row.Error || complete != row.Complete || paths["Snapshots"] != "/fixture/generated/session/profile/PCSX2/snaps" {
+			t.Fatalf("%s startup prefix: complete=%v err=%v", row.Name, complete, err)
+		}
+	}
+	for _, row := range flatpakFixture.AdmissionCases {
+		profileBytes, _ := json.Marshal(flatpakFixture.Profile)
+		var profile ProbeLifecycleProfile
+		if err := json.Unmarshal(profileBytes, &profile); err != nil {
+			t.Fatal(err)
+		}
+		epoch := 0
+		owned := ProbeProcessRecord{PID: 421, Starttime: 123, State: "S", Cmdline: slices.Clone(flatpakFixture.NativeArgs), Session: profile.Session, ISO: profile.Inputs["iso"].Path, ISOSHA256: profile.Inputs["iso"].SHA256, Profile: filepath.Join(profile.Root, "profile"), Epoch: &epoch, PINESocket: "/tmp/fixture-runtime/pcsx2.sock", EnvironmentSHA256: strings.Repeat("1", 64)}
+		launcher := ProbeProcessRecord{PID: 321, Starttime: 100, State: "S", Cmdline: []string{"bwrap", "--source-wrapper"}}
+		startup := RegistryInput{Path: filepath.Join(profile.Root, "startup-epoch-0.json"), Size: 1, SHA256: strings.Repeat("2", 64)}
+		step := ProbeLifecycleStep{Request: profile.Requests[0], Status: "COMPLETED", Epoch: 0, Owned: &owned, Launcher: &launcher, Startup: &startup, Effects: []string{"prepare", "pad", "launch", "verify"}}
+		facts := profile
+		facts.Requests = nil
+		factsBytes, _ := json.Marshal(facts)
+		step.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(factsBytes))
+		switch row.Fault {
+		case "native-argv":
+			owned.Cmdline = []string{profile.Flatpak.Launcher.Path, "run", probeFlatpakAppID}
+		case "launcher":
+			step.Launcher = nil
+		case "startup":
+			step.Startup = nil
+		case "startup-epoch":
+			startup.Path = filepath.Join(profile.Root, "startup-epoch-1.json")
+		case "endpoint":
+			owned.PINESocket = ""
+		case "environment":
+			owned.EnvironmentSHA256 = ""
+		case "profile-hash":
+			step.ProfileSHA256 = strings.Repeat("0", 64)
+		case "native-birth":
+			owned.Starttime = 0
+		}
+		dataRoot := filepath.Join(profile.Root, "profile", "PCSX2")
+		view := ProbeProfileRecord{Datapath: owned.Profile, DataRoot: dataRoot, SourceSettings: profile.Inputs["settings"].Path, SourceSettingsSHA256: profile.Inputs["settings"].SHA256, SourceCard: profile.Inputs["card"].Path, SourceCardSHA256: profile.Inputs["card"].SHA256, Card: filepath.Join(dataRoot, "memcards", "probe-slot1.ps2"), CardInitialSHA256: profile.Inputs["card"].SHA256, BIOS: filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path))}
+		ownedBytes, _ := json.Marshal(owned)
+		viewBytes, _ := json.Marshal(view)
+		bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewBytes}, {Role: "owned", Data: ownedBytes}}, AfterProcess: &owned, GoOwner: &ProbeGoOwner{Profile: profile, Step: step, CardSHA256: strings.Repeat("3", 64)}}
+		raw, _ := json.Marshal(bundle)
+		report, err := admitProbeRecords(raw)
+		if (err != nil) != row.Error || !row.Error && (report.Status != "ADMITTED" || report.LiveOwnership) {
+			t.Fatalf("%s saved Flatpak admission: %v", row.Name, err)
+		}
+	}
+	for _, row := range flatpakFixture.SelectorCases {
+		root := t.TempDir()
+		processRoot := filepath.Join(root, "proc", "421")
+		if err := os.MkdirAll(processRoot, 0700); err != nil {
+			t.Fatal(err)
+		}
+		state, comm, executable, argv, notBefore := "S", "pcsx2-qt\n", "native-build", "pcsx2-qt\x00", uint64(100)
+		switch row.Fault {
+		case "build":
+			executable = "launcher-build"
+		case "argv":
+			argv = "flatpak\x00"
+		case "birth":
+			notBefore = 124
+		case "unrelated":
+			comm = "unrelated\n"
+		case "zombie":
+			state = "Z"
+		}
+		for name, data := range map[string]string{"stat": fmt.Sprintf("421 (pcsx2-qt) %s %s123 0\n", state, strings.Repeat("0 ", 18)), "comm": comm, "exe": executable, "cmdline": argv, "environ": "XDG_RUNTIME_DIR=/tmp/fixture-runtime\x00"} {
+			if err := os.WriteFile(filepath.Join(processRoot, name), []byte(data), 0600); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if row.Fault == "comm-link" || row.Fault == "environ-link" {
+			name := strings.TrimSuffix(row.Fault, "-link")
+			if err := os.Remove(filepath.Join(processRoot, name)); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.Symlink("stat", filepath.Join(processRoot, name)); err != nil {
+				t.Fatal(err)
+			}
+		}
+		runtime := ProbeMemoryRuntime{Provenance: "synthetic_flatpak", Root: root}
+		build := fmt.Sprintf("%x", sha256.Sum256([]byte("native-build")))
+		matched, unqualified, err := selectProbeProcesses(runtime, []int{421}, build, []string{"pcsx2-qt"}, notBefore)
+		if (err != nil) != row.Error || len(matched) != row.Matched || len(unqualified) != row.Unqualified {
+			t.Fatalf("%s selector: matched=%d unqualified=%d err=%v", row.Name, len(matched), len(unqualified), err)
+		}
+		if len(matched) > 0 && (matched[0].PINESocket != "/tmp/fixture-runtime/pcsx2.sock" || len(matched[0].EnvironmentSHA256) != 64) {
+			t.Fatal("synthetic native namespace facts missing")
+		}
+		processes := ProbeLifecycleProcesses{Launched: true, Candidates: matched, Unqualified: unqualified}
+		if _, err := terminateProbeProcesses(&processes, runtime, build, time.Millisecond); err == nil || !strings.Contains(err.Error(), "never authorize signaling") || processes.CleanupAttempts != 0 {
+			t.Fatal("synthetic facts crossed signaling boundary", err)
+		}
+	}
 	captureData, err := os.ReadFile("testdata/probe-capture.json")
 	if err != nil {
 		t.Fatal(err)

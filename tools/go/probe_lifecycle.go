@@ -7,6 +7,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -22,6 +23,89 @@ import (
 	"syscall"
 	"time"
 )
+
+// planProbeLaunch is the lexical launch contract shared by lifecycle, saved
+// admission and sequence preflight. It opens no paths and preserves literal profiles.
+func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput, args []string, nativeArgs []string, err error) {
+	launchProgram = profile.Program
+	args = append(slices.Clone(profile.ProgramArgs), "-datapath", filepath.Join(profile.Root, "profile"), "-batch", profile.Inputs["iso"].Path)
+	nativeArgs = append([]string{profile.Program.Path}, args...)
+	if len(profile.ProgramArgs) > 16 {
+		return launchProgram, args, nativeArgs, fmt.Errorf("program argument prefix exceeds bounded contract")
+	}
+	if profile.Flatpak == nil {
+		return launchProgram, args, nativeArgs, nil
+	}
+	var launcherArgs []string
+	launchISO := profile.Inputs["iso"].Path
+	if native := profile.Flatpak; native != nil {
+		if len(native.LauncherArgs) > 16 || native.Launcher.Size < 1 || len(native.Launcher.SHA256) != 64 || !filepath.IsAbs(native.Launcher.Path) || filepath.Clean(native.Launcher.Path) != native.Launcher.Path || native.RuntimeArgv0 == "" || len(native.RuntimeArgv0) > 4096 || strings.TrimSpace(native.RuntimeArgv0) != native.RuntimeArgv0 || strings.ContainsAny(native.RuntimeArgv0, "\x00\r\n") {
+			return launchProgram, args, nativeArgs, fmt.Errorf("unsupported bounded Flatpak launch contract")
+		}
+		project := native.ProjectRoot
+		rootRel, rootErr := filepath.Rel(native.ProjectRoot, profile.Root)
+		isoRel, isoErr := filepath.Rel(native.ProjectRoot, launchISO)
+		if !filepath.IsAbs(project) || filepath.Clean(project) != project || rootErr != nil || !strings.HasPrefix(rootRel, "generated"+string(os.PathSeparator)) || isoErr != nil || isoRel == ".." || strings.HasPrefix(isoRel, ".."+string(os.PathSeparator)) {
+			return launchProgram, args, nativeArgs, fmt.Errorf("Flatpak source/profile mapping escapes its explicit project")
+		}
+		for _, arguments := range [][]string{native.LauncherArgs, profile.ProgramArgs} {
+			for _, argument := range arguments {
+				option := strings.ToLower(strings.TrimLeft(argument, "-"))
+				if argument == "" || len(argument) > 4096 || strings.ContainsAny(argument, "\x00\r\n") || strings.TrimSpace(argument) != argument || !strings.HasPrefix(argument, "-") || strings.HasPrefix(option, "filesystem") || strings.HasPrefix(option, "env") || strings.HasPrefix(option, "command") || strings.HasPrefix(option, "datapath") || strings.HasPrefix(option, "logfile") || strings.HasPrefix(option, "batch") || strings.HasPrefix(option, "portable") || strings.HasPrefix(option, "elf") || strings.HasPrefix(option, "bios") {
+					return launchProgram, args, nativeArgs, fmt.Errorf("launch prefix overrides canonical grants or runtime identity")
+				}
+			}
+		}
+		if native.ISOAlias != "" {
+			portal := filepath.Join("/run/user", strconv.Itoa(os.Getuid()), "doc") + string(os.PathSeparator)
+			if !filepath.IsAbs(native.ISOAlias) || filepath.Clean(native.ISOAlias) != native.ISOAlias || !strings.HasPrefix(native.ISOAlias, portal) || !strings.HasSuffix(native.ISOAlias, string(os.PathSeparator)+isoRel) {
+				return launchProgram, args, nativeArgs, fmt.Errorf("unsupported source portal ISO spelling")
+			}
+			launchISO = native.ISOAlias
+		} else if !strings.HasPrefix(isoRel, filepath.Join("generated", "work")+string(os.PathSeparator)) && !strings.HasPrefix(isoRel, filepath.Join("generated", "scratch")+string(os.PathSeparator)) {
+			return launchProgram, args, nativeArgs, fmt.Errorf("Flatpak direct ISO grant requires source generated/work or generated/scratch")
+		}
+		privateProfile := filepath.Join(profile.Root, "profile")
+		nativeArgs = append([]string{native.RuntimeArgv0}, profile.ProgramArgs...)
+		nativeArgs = append(nativeArgs, "-batch", "-datapath", privateProfile, "-logfile", filepath.Join(privateProfile, "emulog.txt"), launchISO)
+		launcherArgs = append(slices.Clone(native.LauncherArgs), "run")
+		if native.ISOAlias == "" {
+			launcherArgs = append(launcherArgs, "--filesystem="+filepath.Dir(launchISO)+":ro")
+		}
+		launcherArgs = append(launcherArgs, "--filesystem="+privateProfile+":rw", probeFlatpakAppID)
+		launcherArgs = append(launcherArgs, nativeArgs[1:]...)
+	}
+	return profile.Flatpak.Launcher, launcherArgs, nativeArgs, nil
+}
+
+// validateProbeStartup checks the four source directory labels in complete log
+// lines. Missing labels mean startup is still pending; conflicting paths refuse.
+// File identity and immutable snapshot ownership belong to the caller.
+func validateProbeStartup(log []byte, dataRoot string) (paths map[string]string, complete bool, err error) {
+	paths = map[string]string{"DataRoot": dataRoot, "BIOS": filepath.Join(dataRoot, "bios"), "Snapshots": filepath.Join(dataRoot, "snaps"), "MemoryCards": filepath.Join(dataRoot, "memcards")}
+	if len(log) > 4<<20 || !filepath.IsAbs(dataRoot) || filepath.Clean(dataRoot) != dataRoot {
+		return paths, false, fmt.Errorf("startup prefix exceeds its canonical bounded contract")
+	}
+	lastLine := bytes.LastIndexByte(log, '\n')
+	if lastLine < 0 {
+		return paths, false, nil
+	}
+	seen := map[string]bool{}
+	for _, line := range strings.Split(string(log[:lastLine+1]), "\n") {
+		for label, expected := range paths {
+			key := label + " Directory: "
+			index := strings.Index(line, key)
+			if index < 0 {
+				continue
+			}
+			if filepath.Clean(strings.TrimSpace(line[index+len(key):])) != expected {
+				return paths, false, fmt.Errorf("emulator ignored private %s directory", label)
+			}
+			seen[label] = true
+		}
+	}
+	return paths, len(seen) == len(paths), nil
+}
 
 // runProbeLifecycle owns one bounded direct-child session. Immutable pending
 // receipts are directory-synced before effects; incomplete effects never replay.
@@ -63,7 +147,11 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	if profile.QuietMS == 0 {
 		profile.QuietMS = 15000
 	}
-	if profile.ReadyTimeoutMS < 1 || profile.ReadyTimeoutMS > 10000 || profile.StopTimeoutMS < 1 || profile.StopTimeoutMS > 10000 || profile.QuietMS < 1 || profile.QuietMS > 15000 {
+	readyLimit := 10000
+	if profile.Flatpak != nil {
+		readyLimit = 60000
+	}
+	if profile.ReadyTimeoutMS < 1 || profile.ReadyTimeoutMS > readyLimit || profile.StopTimeoutMS < 1 || profile.StopTimeoutMS > 10000 || profile.QuietMS < 1 || profile.QuietMS > 15000 {
 		return report, fmt.Errorf("lifecycle deadlines exceed bounded first-slice limits")
 	}
 	if len(profile.Inputs) != 4 {
@@ -75,6 +163,16 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	for _, role := range []string{"iso", "settings", "bios", "card"} {
 		if profile.Inputs[role].Path == "" {
 			return report, fmt.Errorf("missing lifecycle input role %s", role)
+		}
+	}
+	launchProgram, launchArgs, nativeArgs, err := planProbeLaunch(profile)
+	if err != nil {
+		return report, err
+	}
+	if native := profile.Flatpak; native != nil {
+		project, err := filepath.EvalSymlinks(native.ProjectRoot)
+		if err != nil || project != native.ProjectRoot {
+			return report, fmt.Errorf("Flatpak project root is not canonical")
 		}
 	}
 	rootInfo, err := os.Lstat(profile.Root)
@@ -231,6 +329,28 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		sourceInputs[role] = input
 	}
 	sourceInputs["program"] = profile.Program
+	if native := profile.Flatpak; native != nil {
+		sourceInputs["launcher"] = native.Launcher
+		roleOrder = append(roleOrder, "launcher")
+		companions := []string{}
+		mainStem := strings.TrimSuffix(filepath.Base(profile.Inputs["bios"].Path), filepath.Ext(profile.Inputs["bios"].Path))
+		for name, input := range native.BIOSCompanions {
+			if filepath.Base(name) != name || !strings.EqualFold(strings.TrimSuffix(name, filepath.Ext(name)), mainStem) || input.Path != filepath.Join(filepath.Dir(profile.Inputs["bios"].Path), name) || input.Path == profile.Inputs["bios"].Path {
+				return report, fmt.Errorf("BIOS companion is outside the pinned source stem")
+			}
+			role := "bios:" + name
+			sourceInputs[role] = input
+			companions = append(companions, role)
+		}
+		sort.Strings(companions)
+		roleOrder = append(roleOrder, companions...)
+		if native.ISOAlias != "" {
+			input := profile.Inputs["iso"]
+			input.Path = native.ISOAlias
+			sourceInputs["portal-iso"] = input
+			roleOrder = append(roleOrder, "portal-iso")
+		}
+	}
 	var scenarioGlyphs json.RawMessage
 	var storageGlyphs json.RawMessage
 	var storageExpected string
@@ -467,8 +587,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	dataRoot := filepath.Join(profileDir, "PCSX2")
 	cardPath := filepath.Join(dataRoot, "memcards", "probe-slot1.ps2")
 	phase, epoch, lastNonce := "new", 0, uint64(0)
-	var owned *ProbeProcessRecord
-	var child *exec.Cmd
+	processes := ProbeLifecycleProcesses{}
+	var runErr error
 	var readyDeadline time.Time
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -518,15 +638,20 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	}
 	var checkpointDue, postClearSince time.Time
 	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage)$`)
+requests:
 	for _, request := range profile.Requests {
-		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: owned, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
+		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: processes.Native, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
+		if profile.Flatpak != nil {
+			step.Launcher = processes.Launcher
+			step.Startup = processes.Startup
+		}
 		// Current source bytes and role identities precede effects, not supplied claims.
 		sourceOK := true
 		for _, role := range roleOrder {
 			input := sourceInputs[role]
 			info, statErr := os.Lstat(input.Path)
 			canonical, canonicalErr := filepath.EvalSymlinks(input.Path)
-			if statErr != nil || canonicalErr != nil || !filepath.IsAbs(input.Path) || canonical != input.Path || !info.Mode().IsRegular() || input.Size < 1 || input.Size > 8<<30 || info.Size() != input.Size || len(input.SHA256) != 64 || role != "program" && info.Mode().Perm()&0222 != 0 {
+			if statErr != nil || canonicalErr != nil || !filepath.IsAbs(input.Path) || canonical != input.Path || !info.Mode().IsRegular() || input.Size < 1 || input.Size > 8<<30 || info.Size() != input.Size || len(input.SHA256) != 64 || role != "program" && role != "launcher" && info.Mode().Perm()&0222 != 0 {
 				step.Reason = "lifecycle input role identity differs: " + role
 				sourceOK = false
 				break
@@ -565,7 +690,8 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			data, _ := json.Marshal(resumeEvidence)
 			qualified, err := reportProbeEvidence(data)
 			if err != nil || qualified.ResumeStatus != "QUALIFIED_SAVED_FACTS" || qualified.ISOSHA256 != profile.Inputs["iso"].SHA256 || qualified.Session == profile.Session {
-				return report, fmt.Errorf("saved resume qualification failed: %w", err)
+				runErr = fmt.Errorf("saved resume qualification failed: %w", err)
+				break requests
 			}
 			epoch = qualified.Epoch + 1
 			step.Epoch = epoch
@@ -620,10 +746,12 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 		existing, err := os.ReadDir(receiptDir)
 		if err != nil {
-			return report, err
+			runErr = err
+			break requests
 		}
 		if len(existing) > 512 {
-			return report, fmt.Errorf("lifecycle receipt budget exceeded")
+			runErr = fmt.Errorf("lifecycle receipt budget exceeded")
+			break requests
 		}
 		pending := false
 		for _, entry := range existing {
@@ -650,7 +778,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			report.Steps = append(report.Steps, step)
 			continue
 		}
-		if request.Operation == "stop" && phase == "unknown" && (owned == nil || child == nil) {
+		if request.Operation == "stop" && phase == "unknown" && !processes.Launched {
 			step.Reason = "safe stop requires an established owned child"
 			report.Status = "INCOMPLETE"
 			report.Steps = append(report.Steps, step)
@@ -663,10 +791,12 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			continue
 		}
 		if slices.Contains([]string{"scenario", "newgame", "prepare-scenario"}, request.Operation) && profile.Scenario == nil {
-			return report, fmt.Errorf("scenario request requires its pinned source recipe")
+			runErr = fmt.Errorf("scenario request requires its pinned source recipe")
+			break requests
 		}
 		if request.Operation == "observe-storage" && profile.Storage == nil {
-			return report, fmt.Errorf("storage request requires its pinned source recipe")
+			runErr = fmt.Errorf("storage request requires its pinned source recipe")
+			break requests
 		}
 		if slices.Contains([]string{"load", "prepare-load", "resave", "warm-load", "cold-load", "restore", "finish"}, request.Operation) && (profile.Scenario == nil || scenarioSaved == nil) {
 			step.Reason = "checkpoint action lacks the source Save context"
@@ -676,16 +806,18 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 		if request.Operation == "resume" {
 			if !resumeVerified {
-				return report, fmt.Errorf("resume requires qualified bound saved artifacts")
+				runErr = fmt.Errorf("resume requires qualified bound saved artifacts")
+				break requests
 			}
 			if _, err := os.Lstat(profileDir); !os.IsNotExist(err) {
-				return report, fmt.Errorf("resume destination is not a fresh profile")
+				runErr = fmt.Errorf("resume destination is not a fresh profile")
+				break requests
 			}
 		}
 		if request.Operation == "recover" {
 			if profile.Policy == nil || recoveryAttempts >= profile.Policy.MaxRecoveries {
 				step.Reason = "explicit Go recovery budget exhausted"
-			} else if !readFailure || ambiguousFailure || lastSafeCardSHA == "" || child != nil || owned != nil {
+			} else if !readFailure || ambiguousFailure || lastSafeCardSHA == "" || processes.Command != nil || processes.Native != nil {
 				step.Reason = "recovery requires proved disposal after a read-only failure"
 			} else {
 				data, err := readInput(cardPath, 64<<20)
@@ -737,7 +869,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			}
 			switch effect {
 			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage":
-				if owned == nil || lastOwnedStep.Status != "COMPLETED" {
+				if processes.Native == nil || lastOwnedStep.Status != "COMPLETED" {
 					step.Reason = "scenario requires completed current ownership"
 					break actions
 				}
@@ -765,7 +897,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					step.Reason = "final resave lacks completed preparation"
 					break actions
 				}
-				observed, err := observeProbeProcess(ProbeMemoryRuntime{}, owned.PID, owned, profile.Program.SHA256)
+				observed, err := observeProbeProcess(ProbeMemoryRuntime{}, processes.Native.PID, processes.Native, profile.Program.SHA256)
 				if err != nil {
 					step.Reason = err.Error()
 					break actions
@@ -777,7 +909,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				view := ProbeProfileRecord{Datapath: profileDir, DataRoot: dataRoot, SourceSettings: profile.Inputs["settings"].Path, SourceSettingsSHA256: profile.Inputs["settings"].SHA256, SourceCard: profile.Inputs["card"].Path, SourceCardSHA256: profile.Inputs["card"].SHA256, Card: cardPath, CardInitialSHA256: profile.Inputs["card"].SHA256, BIOS: filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path))}
 				viewRaw, _ := json.Marshal(view)
-				ownedRaw, _ := json.Marshal(owned)
+				ownedRaw, _ := json.Marshal(processes.Native)
 				bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", ProjectRoot: profile.Root, WorkingDirectory: profile.Root, RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewRaw}, {Role: "owned", Data: ownedRaw}}, AfterProcess: &observed, GoOwner: &ProbeGoOwner{Profile: profile, Step: lastOwnedStep, CardSHA256: fmt.Sprintf("%x", sha256.Sum256(card))}}
 				scenarioAdmission, _ = json.Marshal(bundle)
 				admitted, err := admitProbeRecords(scenarioAdmission)
@@ -1095,7 +1227,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				fileSelected, saveCompleted = false, false
 				step.UI = &scenarioUI
 			case "takeover-control", "restore-control", "boot-handoff":
-				if owned == nil || scenarioActor < 0 || scenarioActor >= 4 || len(scenarioAdmission) == 0 {
+				if processes.Native == nil || scenarioActor < 0 || scenarioActor >= 4 || len(scenarioAdmission) == 0 {
 					step.Reason = "named control transaction has no qualified owner"
 					break actions
 				}
@@ -1140,11 +1272,15 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					step.Reason = "source widget/player owner changed before takeover"
 					break actions
 				}
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, owned.PID, owned, profile.Program.SHA256); err != nil {
+				if _, err := observeProbeProcess(ProbeMemoryRuntime{}, processes.Native.PID, processes.Native, profile.Program.SHA256); err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
-				connection, err := net.DialTimeout("unix", filepath.Join(profile.Root, "peer.sock"), time.Second)
+				pinePath := filepath.Join(profile.Root, "peer.sock")
+				if processes.Native.PINESocket != "" {
+					pinePath = filepath.Join("/proc", strconv.Itoa(processes.Native.PID), "root", strings.TrimPrefix(processes.Native.PINESocket, "/"))
+				}
+				connection, err := net.DialTimeout("unix", pinePath, time.Second)
 				if err != nil {
 					step.Reason = err.Error()
 					break actions
@@ -1158,7 +1294,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				credentials, credentialErr := syscall.GetsockoptUcred(int(peer.Fd()), syscall.SOL_SOCKET, syscall.SO_PEERCRED)
 				_ = peer.Close()
-				if credentialErr != nil || int(credentials.Pid) != owned.PID || credentials.Uid != uint32(os.Getuid()) {
+				if credentialErr != nil || int(credentials.Pid) != processes.Native.PID || credentials.Uid != uint32(os.Getuid()) {
 					_ = connection.Close()
 					step.Reason = "named control transaction peer differs"
 					break actions
@@ -1198,7 +1334,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 				if effect == "boot-handoff" {
-					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, owned.PID, owned, profile.Program.SHA256); err != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, processes.Native.PID, processes.Native, profile.Program.SHA256); err != nil {
 						step.Reason = err.Error()
 						break actions
 					}
@@ -1643,7 +1779,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				if command != "" {
 					for _, button := range strings.Split(command, ",") {
-						if _, err := observeProbeProcess(ProbeMemoryRuntime{}, owned.PID, owned, profile.Program.SHA256); err != nil {
+						if _, err := observeProbeProcess(ProbeMemoryRuntime{}, processes.Native.PID, processes.Native, profile.Program.SHA256); err != nil {
 							step.Reason = err.Error()
 							break actions
 						}
@@ -2016,6 +2152,17 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						required[fmt.Sprintf("Pad%d.Type", port)] = "NotConnected"
 					}
 				}
+				if profile.Flatpak != nil {
+					required["EmuCore.EnablePINE"] = "true"
+					required["EmuCore.PINESlot"] = probePINEDefaultSlot
+					required["UI.StartFullscreen"] = "false"
+					required["UI.SetupWizardIncomplete"] = "false"
+					for _, port := range []int{1, 2} {
+						for _, slot := range []int{2, 3, 4} {
+							required[fmt.Sprintf("MemoryCards.Multitap%d_Slot%d_Enable", port, slot)] = "false"
+						}
+					}
+				}
 				values := map[string]string{}
 				nativeKeys := map[string]bool{}
 				section := ""
@@ -2059,8 +2206,29 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						break actions
 					}
 				}
+				if profile.Flatpak != nil {
+					entries, err := os.ReadDir(filepath.Dir(profile.Inputs["bios"].Path))
+					if err != nil {
+						step.Reason = "source BIOS companions unavailable"
+						break actions
+					}
+					stem := strings.TrimSuffix(filepath.Base(profile.Inputs["bios"].Path), filepath.Ext(profile.Inputs["bios"].Path))
+					for _, entry := range entries {
+						if entry.Name() != filepath.Base(profile.Inputs["bios"].Path) && strings.EqualFold(strings.TrimSuffix(entry.Name(), filepath.Ext(entry.Name())), stem) {
+							if _, pinned := profile.Flatpak.BIOSCompanions[entry.Name()]; !pinned {
+								step.Reason = "source BIOS companion is not pinned: " + entry.Name()
+								break actions
+							}
+						}
+					}
+				}
 				if err := os.Mkdir(profileDir, 0700); err != nil {
 					step.Reason = "private profile already exists or cannot be created"
+					break actions
+				}
+				ignore := []byte("*\n")
+				if err := writeNewFile(filepath.Join(profileDir, ".gitignore"), bytes.NewReader(ignore), int64(len(ignore)), fmt.Sprintf("%x", sha256.Sum256(ignore)), 0400); err != nil {
+					step.Reason = err.Error()
 					break actions
 				}
 				for _, name := range []string{"inis", "bios", "memcards", "snaps", "logs", "sstates", "cache", "cheats", "patches", "resources", "textures", "inputprofiles", "videos", "debuggerlayouts", "debuggersettings"} {
@@ -2069,13 +2237,19 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 						break actions
 					}
 				}
-				for _, copyRole := range []string{"settings", "bios", "card"} {
-					input := profile.Inputs[copyRole]
+				copyRoles := []string{"settings", "bios", "card"}
+				for _, role := range roleOrder {
+					if strings.HasPrefix(role, "bios:") {
+						copyRoles = append(copyRoles, role)
+					}
+				}
+				for _, copyRole := range copyRoles {
+					input := sourceInputs[copyRole]
 					target := cardPath
 					if copyRole == "settings" {
 						target = filepath.Join(dataRoot, "inis", "PCSX2.ini")
 					}
-					if copyRole == "bios" {
+					if copyRole == "bios" || strings.HasPrefix(copyRole, "bios:") {
 						target = filepath.Join(dataRoot, "bios", filepath.Base(input.Path))
 					}
 					source, err := os.Open(input.Path)
@@ -2099,58 +2273,111 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				padStarted = true
 			case "launch":
-				if child != nil {
-					step.Reason = "a child is already owned"
+				if processes.Command != nil || processes.Native != nil || len(processes.Candidates) > 0 || len(processes.Unqualified) > 0 {
+					step.Reason = "a child or uncertain runtime is already owned"
 					break actions
 				}
 				if request.Operation == "cold" || request.Operation == "cold-load" || request.Operation == "recover" {
 					epoch++
 				}
-				args := append(slices.Clone(profile.ProgramArgs), "-datapath", profileDir, "-batch", profile.Inputs["iso"].Path)
-				child = exec.Command(profile.Program.Path, args...)
-				child.Env = append(os.Environ(), "DOKAPON_PROBE_SESSION_ROOT="+profile.Root)
+				processes = ProbeLifecycleProcesses{Epoch: epoch}
+				args := slices.Clone(launchArgs)
+				program := launchProgram.Path
+				if native := profile.Flatpak; native != nil {
+					before, uncertain, err := selectProbeProcesses(ProbeMemoryRuntime{}, nil, profile.Program.SHA256, nil, 0)
+					if err != nil || len(before) != 0 || len(uncertain) != 0 {
+						step.Reason = "source native owner already exists or is uncertain"
+						break actions
+					}
+					queryContext, queryCancel := context.WithTimeout(ctx, 10*time.Second)
+					query := exec.CommandContext(queryContext, native.Launcher.Path, append(slices.Clone(native.LauncherArgs), "ps", "--columns=application")...)
+					var listing bytes.Buffer
+					query.Stdout = &listing
+					query.Stderr = io.Discard
+					queryErr := query.Run()
+					queryCancel()
+					if queryErr != nil || slices.Contains(strings.Fields(listing.String()), probeFlatpakAppID) {
+						step.Reason = "source Flatpak app is already present or unavailable"
+						break actions
+					}
+					logPath := filepath.Join(profileDir, "emulog.txt")
+					if _, err := os.Lstat(logPath); err == nil {
+						prior := filepath.Join(profileDir, fmt.Sprintf("emulog-epoch-%d.txt", epoch-1))
+						if _, err := os.Lstat(prior); !os.IsNotExist(err) {
+							step.Reason = "epoch log preservation target already exists"
+							break actions
+						}
+						if err := os.Rename(logPath, prior); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+					} else if !os.IsNotExist(err) {
+						step.Reason = "epoch log identity unavailable"
+						break actions
+					}
+					program, args = launchProgram.Path, slices.Clone(launchArgs)
+				}
+				processes.Command = exec.Command(program, args...)
+				processes.Command.Env = append(os.Environ(), "DOKAPON_PROBE_SESSION_ROOT="+profile.Root)
+				if profile.Flatpak != nil {
+					processes.Command.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
+				}
 				log, err := os.OpenFile(filepath.Join(profile.Root, fmt.Sprintf("child-epoch-%d.log", epoch)), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
 				if err != nil {
-					child = nil
+					processes.Command = nil
 					step.Reason = err.Error()
 					break actions
 				}
-				child.Stdout, child.Stderr = log, log
-				if err := child.Start(); err != nil {
+				processes.Command.Stdout, processes.Command.Stderr = log, log
+				if err := processes.Command.Start(); err != nil {
 					_ = log.Close()
-					child = nil
+					processes.Command = nil
 					step.Reason = "child launch failed: " + err.Error()
 					break actions
 				}
 				_ = log.Close()
+				processes.Launched = true
+				processes.BootstrapPending = true
 				readyDeadline = time.Now().Add(time.Duration(profile.ReadyTimeoutMS) * time.Millisecond)
-				// exec startup can briefly expose an empty /proc cmdline. Wait for
-				// the exact identity, never adopt a partial or mismatched command.
 				var observed ProbeProcessRecord
-				for {
-					observed, err = observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, child.Process.Pid, nil, profile.Program.SHA256)
-					if err == nil && reflect.DeepEqual(observed.Cmdline, child.Args) || !time.Now().Before(readyDeadline) {
-						break
+				for time.Now().Before(readyDeadline) {
+					if profile.Flatpak == nil {
+						observed, err = observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, processes.Command.Process.Pid, nil, profile.Program.SHA256)
+						if err == nil && slices.Equal(observed.Cmdline, processes.Command.Args) {
+							processes.Launcher = &observed
+							break
+						}
+					} else {
+						launcher, observeErr := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_launcher", Root: profile.Root}, processes.Command.Process.Pid, nil, "")
+						if observeErr == nil || launcher.PID == processes.Command.Process.Pid && launcher.Starttime > 0 && (launcher.State == "Z" || launcher.State == "X") {
+							processes.Launcher = &launcher
+						}
+						if processes.Launcher != nil {
+							processes.Candidates, processes.Unqualified, err = selectProbeProcesses(ProbeMemoryRuntime{}, nil, profile.Program.SHA256, nativeArgs, processes.Launcher.Starttime)
+							if err == nil && len(processes.Candidates) == 1 && len(processes.Unqualified) == 0 {
+								observed = processes.Candidates[0]
+								processes.Candidates = nil
+								break
+							}
+						}
 					}
 					time.Sleep(10 * time.Millisecond)
 				}
-				if err != nil || !reflect.DeepEqual(observed.Cmdline, child.Args) {
-					step.Reason = "launched child identity differs"
-					if err != nil {
-						step.Reason += ": " + err.Error()
-					} else {
-						step.Reason += fmt.Sprintf(": observed command %q does not match launched argv %q", observed.Cmdline, child.Args)
-					}
+				if observed.PID < 1 || profile.Flatpak == nil && (err != nil || !slices.Equal(observed.Cmdline, processes.Command.Args)) {
+					step.Reason = "launched emulator identity is not uniquely qualified"
 					break actions
 				}
 				observed.Session, observed.Profile, observed.ISO, observed.ISOSHA256 = profile.Session, profileDir, profile.Inputs["iso"].Path, profile.Inputs["iso"].SHA256
 				currentEpoch := epoch
 				observed.Epoch = &currentEpoch
-				owned = &observed
-				step.Owned = owned
-				step.Epoch = epoch
+				processes.Native = &observed
+				step.Owned, step.Epoch = processes.Native, epoch
+				if profile.Flatpak != nil {
+					step.Launcher = processes.Launcher
+				}
+
 			case "verify", "verify-warm", "quiescent", "status-running", "status-paused", "watch-progress":
-				if owned == nil {
+				if processes.Native == nil {
 					step.Reason = "no owned child for observation"
 					break actions
 				}
@@ -2181,11 +2408,77 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				var previousProgress []uint64
 				verified := false
 				for polls := 0; polls < pollLimit && time.Now().Before(deadline); polls++ {
-					if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, owned.PID, owned, profile.Program.SHA256); err != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, processes.Native.PID, processes.Native, profile.Program.SHA256); err != nil {
 						step.Reason = err.Error()
 						break actions
 					}
-					connection, err := net.DialTimeout("unix", filepath.Join(profile.Root, "peer.sock"), 100*time.Millisecond)
+					if profile.Flatpak != nil && processes.Startup == nil {
+						logPath := filepath.Join(profileDir, "emulog.txt")
+						info, statErr := os.Lstat(logPath)
+						if os.IsNotExist(statErr) {
+							time.Sleep(10 * time.Millisecond)
+							continue
+						}
+						resolved, resolveErr := filepath.EvalSymlinks(logPath)
+						if statErr != nil || resolveErr != nil || resolved != logPath || !info.Mode().IsRegular() {
+							step.Reason = "current epoch startup log identity differs"
+							break actions
+						}
+						logFile, openErr := os.Open(logPath)
+						if openErr != nil {
+							step.Reason = openErr.Error()
+							break actions
+						}
+						opened, fileErr := logFile.Stat()
+						if fileErr != nil || !os.SameFile(info, opened) || !opened.Mode().IsRegular() {
+							_ = logFile.Close()
+							step.Reason = "startup log handle identity changed"
+							break actions
+						}
+						logBytes, readErr := io.ReadAll(io.LimitReader(logFile, (4<<20)+1))
+						after, afterErr := logFile.Stat()
+						_ = logFile.Close()
+						current, currentErr := os.Lstat(logPath)
+						if readErr != nil || afterErr != nil || currentErr != nil || !os.SameFile(opened, current) || after.Size() < opened.Size() || len(logBytes) > 4<<20 {
+							step.Reason = "startup log prefix identity or capacity changed"
+							break actions
+						}
+						lastLine := bytes.LastIndexByte(logBytes, '\n')
+						if lastLine < 0 {
+							time.Sleep(10 * time.Millisecond)
+							continue
+						}
+						logBytes = logBytes[:lastLine+1]
+						paths, complete, startupErr := validateProbeStartup(logBytes, dataRoot)
+						if startupErr != nil {
+							step.Reason = startupErr.Error()
+							break actions
+						}
+						if !complete {
+							time.Sleep(10 * time.Millisecond)
+							continue
+						}
+						snapshot := filepath.Join(profile.Root, fmt.Sprintf("startup-epoch-%d.log", epoch))
+						logSHA := fmt.Sprintf("%x", sha256.Sum256(logBytes))
+						if err := writeNewFile(snapshot, bytes.NewReader(logBytes), int64(len(logBytes)), logSHA, 0400); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						facts, _ := json.Marshal(ProbeStartupFacts{Epoch: epoch, Native: *processes.Native, Launcher: processes.Launcher, Directories: paths, Log: RegistryInput{Path: snapshot, Size: int64(len(logBytes)), SHA256: logSHA}})
+						path := filepath.Join(profile.Root, fmt.Sprintf("startup-epoch-%d.json", epoch))
+						digest := fmt.Sprintf("%x", sha256.Sum256(facts))
+						if err := writeNewFile(path, bytes.NewReader(facts), int64(len(facts)), digest, 0400); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						processes.Startup = &RegistryInput{Path: path, Size: int64(len(facts)), SHA256: digest}
+					}
+					step.Startup = processes.Startup
+					pinePath := filepath.Join(profile.Root, "peer.sock")
+					if processes.Native.PINESocket != "" {
+						pinePath = filepath.Join("/proc", strconv.Itoa(processes.Native.PID), "root", strings.TrimPrefix(processes.Native.PINESocket, "/"))
+					}
+					connection, err := net.DialTimeout("unix", pinePath, 100*time.Millisecond)
 					if err != nil {
 						time.Sleep(10 * time.Millisecond)
 						continue
@@ -2199,7 +2492,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					}
 					credentials, credentialErr := syscall.GetsockoptUcred(int(peerFile.Fd()), syscall.SOL_SOCKET, syscall.SO_PEERCRED)
 					_ = peerFile.Close()
-					if credentialErr != nil || int(credentials.Pid) != owned.PID || credentials.Uid != uint32(os.Getuid()) {
+					if credentialErr != nil || int(credentials.Pid) != processes.Native.PID || credentials.Uid != uint32(os.Getuid()) {
 						_ = connection.Close()
 						step.Reason = "PINE peer is not the owned child"
 						break actions
@@ -2411,11 +2704,11 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 					break actions
 				}
 			case "reset", "toggle-pause":
-				if owned == nil {
+				if processes.Native == nil {
 					step.Reason = "warm reset has no owned child"
 					break actions
 				}
-				if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, owned.PID, owned, profile.Program.SHA256); err != nil {
+				if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, processes.Native.PID, processes.Native, profile.Program.SHA256); err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
@@ -2439,64 +2732,25 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				}
 				time.Sleep(time.Duration(settle) * time.Millisecond)
 			case "terminate":
-				if owned == nil || child == nil {
-					step.Reason = "no current owned child to stop"
-					break actions
-				}
-				observed, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: profile.Root}, owned.PID, owned, profile.Program.SHA256)
-				if err != nil {
-					// Reaping a known direct child proves disposal without signaling
-					// a stale/replaced PID. A live mismatching process is never killed.
-					var status syscall.WaitStatus
-					pid, waitErr := syscall.Wait4(child.Process.Pid, &status, syscall.WNOHANG, nil)
-					if waitErr == nil && pid == owned.PID && child.Process.Pid == owned.PID {
-						step.ExitedBeforeStop = true
-						_ = child.Process.Release()
-						child, owned = nil, nil
-						break
-					}
-					step.Reason = err.Error()
-					break actions
-				}
-				if observed.Profile != "" && observed.Profile != profileDir {
-					step.Reason = "owned profile changed"
-					break actions
-				}
-				data, err := readInput(cardPath, 64<<20)
-				if err != nil {
-					step.Reason = err.Error()
-					break actions
-				}
-				step.CardBefore = fmt.Sprintf("%x", sha256.Sum256(data))
-				if err := child.Process.Signal(syscall.SIGTERM); err != nil {
-					step.Reason = "owned graceful stop failed: " + err.Error()
-					break actions
-				}
-				stopped := false
-				deadline := time.Now().Add(time.Duration(profile.StopTimeoutMS) * time.Millisecond)
-				for time.Now().Before(deadline) {
-					var status syscall.WaitStatus
-					pid, err := syscall.Wait4(owned.PID, &status, syscall.WNOHANG, nil)
+				if processes.Native != nil {
+					data, err := readInput(cardPath, 64<<20)
 					if err != nil {
-						step.Reason = "owned wait failed: " + err.Error()
+						step.Reason = err.Error()
 						break actions
 					}
-					if pid == owned.PID {
-						stopped = true
-						break
-					}
-					time.Sleep(10 * time.Millisecond)
+					step.CardBefore = fmt.Sprintf("%x", sha256.Sum256(data))
 				}
-				if !stopped {
-					step.Reason = "owned graceful stop timed out; no replacement"
+				processes.BootstrapPending = false
+				var err error
+				step.ExitedBeforeStop, err = terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
+				if err != nil {
+					step.Reason = err.Error()
 					break actions
 				}
-				_ = child.Process.Release()
-				child = nil
-				owned = nil
+
 			case "flush":
-				if child != nil {
-					step.Reason = "card flush requires confirmed process exit"
+				if !processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) > 0 {
+					step.Reason = "card flush requires confirmed native exit and launcher disposal"
 					break actions
 				}
 				file, err := os.Open(cardPath)
@@ -2594,6 +2848,9 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 				ambiguousFailure = true
 			}
 		}
+		if step.Status == "COMPLETED" && slices.Contains([]string{"initial", "resume", "cold", "cold-load", "recover"}, request.Operation) {
+			processes.BootstrapPending = false
+		}
 		if step.Status != "COMPLETED" {
 			report.Status = "INCOMPLETE"
 		}
@@ -2602,14 +2859,19 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 		report.Steps = append(report.Steps, step)
 	}
+	if processes.BootstrapPending {
+		_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
+		runErr = errors.Join(runErr, cleanupErr)
+		report.Status = "INCOMPLETE"
+	}
 	cancel()
 	if padStarted {
 		if err := <-padDone; err != nil {
 			report.Status = "INCOMPLETE"
 		}
 	}
-	if child != nil {
+	if processes.Command != nil || processes.Native != nil || len(processes.Candidates) > 0 || len(processes.Unqualified) > 0 || runErr != nil {
 		report.Status = "INCOMPLETE"
 	}
-	return report, nil
+	return report, runErr
 }

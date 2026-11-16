@@ -68,7 +68,10 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 		if profile.Scenario == nil || profile.Scenario.Recipe != recipes[index] || profile.SourceFormat != "go-owned-lifecycle-v1" || profile.Version != 1 || profile.Resume != nil || profile.Seed == nil || *profile.Seed != spec.Seed+uint64(index) || profile.Session == "" || sessions[profile.Session] || roots[profile.Root] || len(profile.Inputs) != 4 || len(profile.Requests) < 1 || len(profile.Requests) > 32 || profile.Requests[0].Operation != "initial" || profile.Requests[len(profile.Requests)-1].Operation != "stop" {
 			return report, fmt.Errorf("sequence recipe/profile/session/request boundary differs")
 		}
-		if profile.Program != spec.Profiles[0].Program || profile.Inputs["iso"] != spec.Profiles[0].Inputs["iso"] || profile.Inputs["settings"] != spec.Profiles[0].Inputs["settings"] || profile.Inputs["bios"] != spec.Profiles[0].Inputs["bios"] {
+		if _, _, _, err := planProbeLaunch(profile); err != nil {
+			return report, err
+		}
+		if !reflect.DeepEqual(profile.Flatpak, spec.Profiles[0].Flatpak) || profile.Program != spec.Profiles[0].Program || profile.Inputs["iso"] != spec.Profiles[0].Inputs["iso"] || profile.Inputs["settings"] != spec.Profiles[0].Inputs["settings"] || profile.Inputs["bios"] != spec.Profiles[0].Inputs["bios"] {
 			return report, fmt.Errorf("sequence source/build/input lineage differs")
 		}
 		if index > 0 && profile.Inputs["card"] != (RegistryInput{}) {

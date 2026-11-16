@@ -1481,5 +1481,124 @@
     "native_execution": false,
     "milestone_credit": 0,
     "family_credit": 0
+  },
+  "flatpak_offline_assessment": {
+    "status": "CONTROLLED_COMPONENTS_VERIFIED_REAL_FLATPAK_UNEXECUTED",
+    "criterion_credit": 0,
+    "native_release": false,
+    "source_contract": {
+      "current_launcher": {
+        "path": "../autoplay_all_com.py",
+        "sha256": "10c43784827dfdecb7dae9c0db34e7cc5c75bbe96083d369d35a4907e1ea39c4",
+        "scope": "boot131-223 Flatpak source grants,10s instance query, private startup directory evidence"
+      },
+      "current_parent": {
+        "path": "../text_probe_run.py",
+        "sha256": "b2bbad7ab5afed9440f9496038dd5356266bdd40cb2da5f5bf9971ffdfcc5b1f",
+        "scope": "Any livePCSX2 collision refusal, separate native identity and stop-before-flush"
+      },
+      "pine": {
+        "revision": "e4af1c424451c6b65c5c387404315cef77e9901b",
+        "file": "pcsx2/PINE.cpp",
+        "sha256": "62fd277f98d11e8a9f91f92488f51a3b7ea0663e5f54fdf8e8dac40ab9303965",
+        "scope": "Exact native environment XDG_RUNTIME_DIR or/tmp, default28011 pcsx2.sock"
+      },
+      "flatpak_pid": {
+        "revision": "e6febd3396c351f2f34fd7e61e293d543cf53528",
+        "url": "https://github.com/flatpak/flatpak/blob/e6febd3396c351f2f34fd7e61e293d543cf53528/common/flatpak-instance.c#L245-L295",
+        "sha256": "55bf534e451214e9d141f864a0b7a6f86399ffbb9a20a5cc0fd65dd0875e0b8a",
+        "scope": "ps PID/child-pid represent wrapper/sandbox supervisor, never assigned as native"
+      }
+    },
+    "ownership": {
+      "program": "Pinned emulator artifact remains build authority; expected sandbox argv0 is distinct from hostartifact path.",
+      "launcher": "Pinned submitted command, actual kernel wrapper image and owned direct-child reap are separate facts.",
+      "native": "Unique new sourcecandidate with exact build/argv/birth/profile/ISO, bounded environment and immutable endpoint; unqualified candidates never signaled.",
+      "startup": "Source four private paths from complete active log lines freeze to readonly currentepoch log+metadata before acquisition.",
+      "termination": "Linux-amd64 pidfd_open434 before identity validation, pidfd_send_signal424 only/no numericfallback. Explicit ErrProcessDone proves every exact native exit; launcher Wait4 independently proves reaping. Both plus no unresolved writer required before flush.",
+      "failure": "BootstrapPending cleanup only before durable readiness. Post-ready recoverable errors preserve explicit stop/resume. Partial established launches may finish cleanup; original failure survives disposal result."
+    },
+    "shared_functions": {
+      "added": [
+        "planProbeLaunch",
+        "selectProbeProcesses",
+        "terminateProbeProcesses",
+        "validateProbeStartup"
+      ],
+      "rationale": [
+        "Pure lexical launch derivation replaces lifecycle/admission/sequence copies without IO or literal-profile mutation.",
+        "One process selector shares prelaunch collision and exact adoption; retained candidate facts feed the common failure cleanup owner.",
+        "One termination owner replaces prior direct branch and bootstrap failure finalization.",
+        "One domain startup validator replaces producer+saved-reader parsing; readInput retains immutable file ownership."
+      ]
+    },
+    "types_added": [
+      "ProbeFlatpakLaunch",
+      "ProbeLifecycleProcesses",
+      "ProbeStartupFacts"
+    ],
+    "source_pins": {
+      "probe_process.go": "7055a842b21c0bf00eefc27e799bd762d7f2a18addac7439c983396d84ea9ba3",
+      "probe_lifecycle.go": "3beb2402a5cc9cf18f6c33b57cd6a56dcff82d3e4c2aa2ca246fe3516f3a3d03",
+      "probe_lifecycle_types.go": "15d9283d48656e8c6388bd8dc8e1e66615f82f66d2f88cb3a3d9341648a66e14",
+      "probe_memory.go": "b91b770838a8845e47be7274a45c9922af41be631eac7e68f88c220968fe8325",
+      "probe_records.go": "c1ac53471aad48f7460c2311741247857610420f20c71c84770f470033ab9803",
+      "probe_records_types.go": "ba14c5a3430a00d756f687b07ca81d4e9e9997b2d7fb9603b98ee3bae71476dd",
+      "probe_sequence.go": "713ca2459b66638bb5eee27777eb995c11e129e011510aa7ad5a99e57b11063f",
+      "probe_lifecycle_test.go": "71c7df4be927b82b12dba881dfddafcc1ee1d2404c59a397fb740d3be4715408",
+      "probe_records_test.go": "63915d0b77c3173abaaa650cc658011b6510a0d576e3147dd3c2744d42d6df7e",
+      "testdata/probe-flatpak.json": "53222884470e50640bf791d3125041155d2c8376377800570ebb62b27975baaf"
+    },
+    "verification": {
+      "records_private": "PASS-race5.171s; literal plans/admission/startup-prefix/synthetic sourcecandidate cases plus existing Records oracles",
+      "lifecycle": "PASS-race137.80s,baseline131.58s exact ^TestProbeLifecycle$/^baseline$, GORACE=atexit_sleep_ms=0, source budgets unchanged, no data race",
+      "lifecycle_receipt": {
+        "path": "/var/tmp/dokapon-image-source-audit/lifecycle-fixture-m3-verification.json",
+        "sha256": "7a42842dbc0720bf561e4a28df286a8bba7192dda6ea516b777b29c962f40d37"
+      },
+      "lifecycle_log_sha256": "f3e26367b00165856c634f09dcedc5d94b786024eddc46bed9052a57f5b3ca70",
+      "core_nativefonts": "build/vet PASS",
+      "covered": [
+        "Known owned native PID survives separate launcher exit",
+        "Shared namespace reader through/proc/PID/root and private childXDG, correct and wrong SO_PEERCRED peerPID",
+        "pidfd graceful native exit/card flush; controller-loss noflush",
+        "Native already proved exited/cleared, remaining launcher reap and idempotence",
+        "Different synthetic native/launcher build payloads and wrongargv/birth/terminal/symlink refusal",
+        "Four complete startup labels, empty/incomplete/appended fourthline, consistent/conflicting duplicate and wrongpath"
+      ],
+      "fixture_scope": "Self-reexec uses one binary for real fixturePIDs. Distinct build authorities are synthetic literals. Startup/launcher/admission scaffold is test input, not actual Flatpak startup producer.",
+      "failures_retained": [
+        "First fixture readiness assertion sampled matching shared executable before native exec; exact argv readiness fixed.",
+        "Second fixture exposed real post-signal live-stat/environment-disappearance race; bounded poll now continues to explicit sentinel, no inferred exit."
+      ],
+      "retention": "Worker logs/receipts retained. TempDir payloads followed ordinary cleanup, no removed-payload freshhash claim.",
+      "records_projection": "PASS-race5.177s on exact isolated public projection; core/nativefonts build/vet PASS"
+    },
+    "review": {
+      "audit": "074",
+      "actual_start_utc": "2026-11-16T04:05:55Z",
+      "actual_end_utc": "2026-11-16T04:14:20Z",
+      "next_due_utc": "2026-11-16T06:05:55Z",
+      "findings": "M1 query deadline/M2 append-safe startup/M3 partial cleanup source closed in reviewed supplement; final exact artifact review pending."
+    },
+    "accounting": {
+      "runtime_bytes_delta": 28456,
+      "tests_and_literal_data_bytes_delta": 33162,
+      "functions_added": 4,
+      "types_added": 3,
+      "callbacks_added": 0,
+      "dependencies_added": 0,
+      "production_go_files": 70,
+      "production_go_bytes": 1011691,
+      "production_named_functions": 63,
+      "qualification": "Capability growth, not deletion or relocation savings. Runtime/import/config together; test/evidence metadata separately."
+    },
+    "limits": [
+      "Full lifecycle Flatpak/global discovery/adoption and actual startup producer are unexecuted. A fake CLI still requires protected unrelated host process inspection; no product test-only override or weakened global foreignowner refusal.",
+      "No real emulator/device/PINE/current profile/card/log/screenshot access; no native story complete or Go handover.",
+      "Installed version/native build/SDL device-index/calibration/Guide/pause-reset/exclusive consumption remain unqualified.",
+      "Owner resource/soak/recovery/retention gates and broader requiredcohort denominator remain held.",
+      "85/90,probe2/6,13/15Full unchanged. Original PNG versus legacy derivative scope choice remains unaccepted."
+    ]
   }
 }

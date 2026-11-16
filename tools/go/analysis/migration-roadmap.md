@@ -2,7 +2,7 @@
 
 All15 core families have six stable acceptance groups each. **85/90 proven (94.44%)**, with **13/15 full families (86.67%)**. Partial, held, unproven and reviewed-disposition groups earn zero. These equal-weight groups are not time, effort, code reuse or historical-script coverage.
 
-The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations. The other 88 rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. Probe remains2/6, and Python remains its production owner. Offline typed reads, capture, lifecycle, Continue/New Game, paired reload/advance, a controlled three-recipe sequence and storage/image observations are documented in [the offline proof](../evidence/probe-records-proof.json); `.03`–`.06` remain uncredited pending native/source/material, broader cohort and owner-policy gates. Optional native-pad wiring has fixed offline settings guards. Current approved Flatpak launch/adoption/namespace and exit integration remain required software work; native qualification and handover remain held.
+The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations. The other 88 rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. Probe remains2/6, and Python remains its production owner. Offline typed reads, capture, lifecycle, Continue/New Game, paired reload/advance, a controlled three-recipe sequence and storage/image observations are documented in [the offline proof](../evidence/probe-records-proof.json); `.03`–`.06` remain uncredited pending native/source/material, broader cohort and owner-policy gates. Optional native-pad wiring has fixed offline settings guards. Current-source Flatpak launch/adoption/namespace and exit integration is wired through shared owners with controlled component evidence; real Flatpak/global discovery/startup production, native qualification and handover remain held.
 
 ## Guarded patching
 
@@ -257,7 +257,7 @@ Next: All six original milestones proven; no new milestone or denominator introd
 
 Remaining: Full owned probe workflow, including unattended operation/recovery and broader original scenario/diagnostic duties, remains unproven in Go.
 
-Next: Complete the source-bound .05 Flatpak launcher/runtime ownership, namespace transport and confirmed exit/private-path integration through existing owners. The shared exit-fact boundary is only a first step; native execution, owner agreement and criterion credit remain held.
+Next: Qualify the source-bound .05 Flatpak launch/adoption/startup producer in an authorized native window, retaining global foreign-owner refusal and exact namespace/exit/private-path guards. Controlled components and offline facts do not establish full native workflow, owner agreement or criterion credit.
 
 
 

@@ -8,12 +8,14 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/png"
 	"io"
 	"net"
 	"os"
+	"os/exec"
 	"os/signal"
 	"path/filepath"
 	"reflect"
@@ -36,12 +38,74 @@ func TestProbeLifecycleChild(t *testing.T) {
 	if root == "" {
 		t.Fatal("missing controlled root")
 	}
+	role := os.Getenv("DOKAPON_PROBE_FIXTURE_ROLE")
+	if role != "" {
+		if role != "launcher" && role != "native" || os.Getenv("XDG_RUNTIME_DIR") != filepath.Join(root, "xdg") {
+			t.Fatal("controlled launcher requires its private runtime directory")
+		}
+		if err := syscall.SetNonblock(3, true); err != nil {
+			t.Fatal("missing controlled lifetime pipe", err)
+		}
+	}
+	if role == "launcher" {
+		executable, err := os.Executable()
+		if err != nil {
+			t.Fatal(err)
+		}
+		child := exec.Command(executable, os.Args[1:]...)
+		child.Args[0] = "pcsx2-fixture"
+		for _, entry := range os.Environ() {
+			if !strings.HasPrefix(entry, "DOKAPON_PROBE_FIXTURE_ROLE=") {
+				child.Env = append(child.Env, entry)
+			}
+		}
+		child.Env = append(child.Env, "DOKAPON_PROBE_FIXTURE_ROLE=native")
+		controller := os.NewFile(3, "controlled-lifetime")
+		defer controller.Close()
+		child.ExtraFiles = []*os.File{controller}
+		child.Stdout, child.Stderr = os.Stdout, os.Stderr
+		if err := child.Start(); err != nil {
+			t.Fatal(err)
+		}
+		defer child.Process.Release()
+		witness, _ := json.Marshal(map[string]any{"launcher_pid": os.Getpid(), "native_pid": child.Process.Pid, "native_args": child.Args})
+		if err := os.WriteFile(filepath.Join(root, "launcher-native.json"), witness, 0600); err != nil {
+			t.Fatal(err)
+		}
+		deadline := time.Now().Add(30 * time.Second)
+		for time.Now().Before(deadline) {
+			if _, err := os.Stat(filepath.Join(root, "release-launcher")); err == nil {
+				return
+			} else if !os.IsNotExist(err) {
+				t.Fatal(err)
+			}
+			var data [1]byte
+			count, err := syscall.Read(3, data[:])
+			if count == 0 && err == nil {
+				return
+			}
+			if count > 0 || err != syscall.EAGAIN && err != syscall.EINTR {
+				t.Fatal("controlled lifetime pipe changed", count, err)
+			}
+			time.Sleep(10 * time.Millisecond)
+		}
+		t.Fatal("controlled launcher release timed out")
+	}
+	if role == "native" {
+		if err := os.WriteFile("/proc/self/comm", []byte("pcsx2-fixture"), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
 	stopped := make(chan os.Signal, 1)
 	parentPID := os.Getppid()
 	expires := time.Now().Add(30 * time.Second)
 	signal.Notify(stopped, syscall.SIGTERM)
 	defer signal.Stop(stopped)
-	listener, err := net.ListenUnix("unix", &net.UnixAddr{Name: filepath.Join(root, "peer.sock"), Net: "unix"})
+	socketPath := filepath.Join(root, "peer.sock")
+	if role == "native" {
+		socketPath = filepath.Join(os.Getenv("XDG_RUNTIME_DIR"), "pcsx2.sock")
+	}
+	listener, err := net.ListenUnix("unix", &net.UnixAddr{Name: socketPath, Net: "unix"})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,7 +120,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 			pending = append(pending, entry.Name())
 		}
 	}
-	evidence, _ := json.Marshal(map[string]any{"pid": os.Getpid(), "argv": os.Args, "pending": pending})
+	childEvidence := map[string]any{"pid": os.Getpid(), "argv": os.Args, "pending": pending}
+	if role == "native" {
+		childEvidence["launcher_pid"] = parentPID
+	}
+	evidence, _ := json.Marshal(childEvidence)
 	if err := os.WriteFile(filepath.Join(root, fmt.Sprintf("child-evidence-%d.json", os.Getpid())), evidence, 0600); err != nil {
 		t.Fatal(err)
 	}
@@ -161,8 +229,18 @@ func TestProbeLifecycleChild(t *testing.T) {
 	for {
 		currentParent := os.Getppid()
 		expired := time.Now().After(expires)
-		if currentParent != parentPID || expired {
-			fmt.Fprintf(os.Stderr, "controlled child return: parent_loss=%t expected_parent=%d actual_parent=%d expired=%t expires=%s\n", currentParent != parentPID, parentPID, currentParent, expired, expires.Format(time.RFC3339Nano))
+		parentLost := currentParent != parentPID
+		if role == "native" {
+			// The launcher may exit; EOF still detects loss of the original controller.
+			var data [1]byte
+			count, err := syscall.Read(3, data[:])
+			parentLost = count == 0 && err == nil
+			if count > 0 || err != nil && err != syscall.EAGAIN && err != syscall.EINTR {
+				t.Fatal("controlled lifetime pipe changed", count, err)
+			}
+		}
+		if parentLost || expired {
+			fmt.Fprintf(os.Stderr, "controlled child return: parent_loss=%t expected_parent=%d actual_parent=%d expired=%t expires=%s\n", parentLost, parentPID, currentParent, expired, expires.Format(time.RFC3339Nano))
 			return
 		}
 		if scenario {
@@ -1665,6 +1743,232 @@ func TestProbeLifecycle(t *testing.T) {
 		}
 	})
 	t.Run("baseline", func(t *testing.T) {
+		// Exercise split ownership with only our known fixture PID, never host enumeration.
+		for _, controllerLoss := range []bool{false, true} {
+			fixtureProject := t.TempDir()
+			fixtureRoot := filepath.Join(fixtureProject, "generated", "s")
+			xdg := filepath.Join(fixtureRoot, "xdg")
+			dataRoot := filepath.Join(fixtureRoot, "profile", "PCSX2")
+			cardPath := filepath.Join(dataRoot, "memcards", "probe-slot1.ps2")
+			isoPath := filepath.Join(fixtureProject, "generated", "work", "fixture.iso")
+			for _, directory := range []string{xdg, filepath.Join(fixtureRoot, "receipts"), filepath.Dir(cardPath), filepath.Join(dataRoot, "bios"), filepath.Join(dataRoot, "snaps"), filepath.Dir(isoPath)} {
+				if err := os.MkdirAll(directory, 0700); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := os.WriteFile(cardPath, []byte(fixture.SourceCard), 0600); err != nil {
+				t.Fatal(err)
+			}
+			iso, err := os.ReadFile(profile.Inputs["iso"].Path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := os.WriteFile(isoPath, iso, 0400); err != nil {
+				t.Fatal(err)
+			}
+			controllerRead, controllerWrite, err := os.Pipe()
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer controllerRead.Close()
+			defer controllerWrite.Close()
+			launcher := exec.Command(executable, profile.ProgramArgs...)
+			launcher.Args[0] = "controlled-launcher"
+			launcher.Args = append(launcher.Args, "-batch", "-datapath", filepath.Join(fixtureRoot, "profile"), "-logfile", filepath.Join(fixtureRoot, "profile", "emulog.txt"), isoPath)
+			for _, entry := range os.Environ() {
+				if !strings.HasPrefix(entry, "DOKAPON_PROBE_SESSION_ROOT=") && !strings.HasPrefix(entry, "DOKAPON_PROBE_FIXTURE_ROLE=") && !strings.HasPrefix(entry, "XDG_RUNTIME_DIR=") {
+					launcher.Env = append(launcher.Env, entry)
+				}
+			}
+			launcher.Env = append(launcher.Env, "DOKAPON_PROBE_SESSION_ROOT="+fixtureRoot, "DOKAPON_PROBE_FIXTURE_ROLE=launcher", "XDG_RUNTIME_DIR="+xdg)
+			launcher.ExtraFiles = []*os.File{controllerRead}
+			launcher.Stdout, launcher.Stderr = os.Stdout, os.Stderr
+			if err := launcher.Start(); err != nil {
+				t.Fatal(err)
+			}
+			defer launcher.Wait()
+			defer launcher.Process.Kill()
+			_ = controllerRead.Close()
+			var witness struct {
+				LauncherPID int      `json:"launcher_pid"`
+				NativePID   int      `json:"native_pid"`
+				NativeArgs  []string `json:"native_args"`
+			}
+			var launcherIdentity ProbeProcessRecord
+			var candidates, uncertain []ProbeProcessRecord
+			var selectionErr error
+			ready := false
+			deadline := time.Now().Add(5 * time.Second)
+			for time.Now().Before(deadline) {
+				launcherIdentity, err = observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_launcher"}, launcher.Process.Pid, nil, profile.Program.SHA256)
+				data, readErr := os.ReadFile(filepath.Join(fixtureRoot, "launcher-native.json"))
+				if err == nil && slices.Equal(launcherIdentity.Cmdline, launcher.Args) && readErr == nil && json.Unmarshal(data, &witness) == nil && witness.NativePID > 0 {
+					candidates, uncertain, selectionErr = selectProbeProcesses(ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, []int{witness.NativePID}, profile.Program.SHA256, witness.NativeArgs, launcherIdentity.Starttime)
+					if selectionErr == nil && len(candidates) == 1 && len(uncertain) == 0 && candidates[0].PINESocket == filepath.Join(xdg, "pcsx2.sock") {
+						childData, readErr := os.ReadFile(filepath.Join(fixtureRoot, fmt.Sprintf("child-evidence-%d.json", witness.NativePID)))
+						socket, socketErr := os.Lstat(candidates[0].PINESocket)
+						if readErr == nil && json.Valid(childData) && socketErr == nil && socket.Mode()&os.ModeSocket != 0 {
+							ready = true
+							break
+						}
+					}
+				}
+				time.Sleep(10 * time.Millisecond)
+			}
+			if !ready || err != nil || selectionErr != nil || len(candidates) != 1 || len(uncertain) != 0 || witness.LauncherPID != launcher.Process.Pid || witness.NativePID == witness.LauncherPID || !slices.Equal(launcherIdentity.Cmdline, launcher.Args) {
+				t.Fatalf("controlled split ownership ready=%t launcher=%+v expected=%q witness=%+v candidates=%+v uncertain=%+v %v %v", ready, launcherIdentity, launcher.Args, witness, candidates, uncertain, err, selectionErr)
+			}
+			native := candidates[0]
+			expectedArgs := append([]string{"pcsx2-fixture"}, profile.ProgramArgs...)
+			expectedArgs = append(expectedArgs, "-batch", "-datapath", filepath.Join(fixtureRoot, "profile"), "-logfile", filepath.Join(fixtureRoot, "profile", "emulog.txt"), isoPath)
+			if native.PINESocket != filepath.Join(xdg, "pcsx2.sock") || len(native.EnvironmentSHA256) != 64 || !slices.Equal(native.Cmdline, expectedArgs) {
+				t.Fatal("native endpoint/argv did not come from the private process", native)
+			}
+			for _, mismatch := range []string{"argv", "starttime"} {
+				args, notBefore := expectedArgs, launcherIdentity.Starttime
+				if mismatch == "argv" {
+					args = launcher.Args
+				} else {
+					notBefore = native.Starttime + 1
+				}
+				matched, refused, err := selectProbeProcesses(ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, []int{native.PID}, profile.Program.SHA256, args, notBefore)
+				if err == nil || len(matched) != 0 || len(refused) != 1 || refused[0].PID != native.PID {
+					t.Fatal("native identity mismatch accepted", mismatch, matched, refused, err)
+				}
+			}
+			synthetic := ProbeLifecycleProcesses{Launched: true, Native: &native}
+			if _, err := terminateProbeProcesses(&synthetic, ProbeMemoryRuntime{Provenance: "synthetic_flatpak", Root: fixtureRoot}, profile.Program.SHA256, time.Second); err == nil || synthetic.CleanupAttempts != 0 {
+				t.Fatal("synthetic facts reached signaling", err)
+			}
+			childData, err := os.ReadFile(filepath.Join(fixtureRoot, fmt.Sprintf("child-evidence-%d.json", native.PID)))
+			var nativeWitness struct {
+				PID         int
+				Argv        []string
+				LauncherPID int `json:"launcher_pid"`
+			}
+			if err != nil || json.Unmarshal(childData, &nativeWitness) != nil || nativeWitness.PID != native.PID || nativeWitness.LauncherPID != launcherIdentity.PID || !slices.Equal(nativeWitness.Argv, expectedArgs) {
+				t.Fatal("independent native child witness differs", string(childData), err)
+			}
+			if err := os.WriteFile(filepath.Join(fixtureRoot, "release-launcher"), []byte("release"), 0600); err != nil {
+				t.Fatal(err)
+			}
+			deadline = time.Now().Add(3 * time.Second)
+			for time.Now().Before(deadline) {
+				_, err = observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_launcher"}, launcherIdentity.PID, &launcherIdentity, profile.Program.SHA256)
+				if errors.Is(err, os.ErrProcessDone) {
+					break
+				}
+				time.Sleep(10 * time.Millisecond)
+			}
+			if !errors.Is(err, os.ErrProcessDone) {
+				t.Fatal("launcher did not exit independently", err)
+			}
+			if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_flatpak"}, native.PID, &native, profile.Program.SHA256); err != nil {
+				t.Fatal("native did not survive launcher exit", err)
+			}
+			fixtureProfile := profile
+			fixtureProfile.Root = fixtureRoot
+			fixtureProfile.Flatpak = &ProbeFlatpakLaunch{Launcher: profile.Program, LauncherArgs: profile.ProgramArgs, ProjectRoot: fixtureProject, RuntimeArgv0: expectedArgs[0]}
+			fixtureProfile.Inputs = map[string]RegistryInput{}
+			for role, input := range profile.Inputs {
+				fixtureProfile.Inputs[role] = input
+			}
+			fixtureProfile.Inputs["iso"] = RegistryInput{Path: isoPath, Size: int64(len(iso)), SHA256: fmt.Sprintf("%x", sha256.Sum256(iso))}
+			epoch := 0
+			native.Session, native.Profile, native.ISO, native.ISOSHA256, native.Epoch = fixtureProfile.Session, filepath.Join(fixtureRoot, "profile"), isoPath, fixtureProfile.Inputs["iso"].SHA256, &epoch
+			view := ProbeProfileRecord{Datapath: native.Profile, DataRoot: dataRoot, SourceSettings: profile.Inputs["settings"].Path, SourceSettingsSHA256: profile.Inputs["settings"].SHA256, SourceCard: profile.Inputs["card"].Path, SourceCardSHA256: profile.Inputs["card"].SHA256, Card: cardPath, CardInitialSHA256: profile.Inputs["card"].SHA256, BIOS: filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path))}
+			// Literal startup scaffolding admits this reader test, not a Flatpak boot.
+			directories := map[string]string{"DataRoot": dataRoot, "BIOS": filepath.Join(dataRoot, "bios"), "Snapshots": filepath.Join(dataRoot, "snaps"), "MemoryCards": filepath.Join(dataRoot, "memcards")}
+			var startupLog strings.Builder
+			for _, label := range []string{"DataRoot", "BIOS", "Snapshots", "MemoryCards"} {
+				fmt.Fprintf(&startupLog, "%s Directory: %s\n", label, directories[label])
+			}
+			log := RegistryInput{Path: filepath.Join(fixtureRoot, "startup-epoch-0.log"), Size: int64(startupLog.Len()), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(startupLog.String())))}
+			if err := os.WriteFile(log.Path, []byte(startupLog.String()), 0400); err != nil {
+				t.Fatal(err)
+			}
+			startup, _ := json.Marshal(map[string]any{"epoch": epoch, "native": native, "launcher": launcherIdentity, "directories": directories, "log": log})
+			startupInput := RegistryInput{Path: filepath.Join(fixtureRoot, "startup-epoch-0.json"), Size: int64(len(startup)), SHA256: fmt.Sprintf("%x", sha256.Sum256(startup))}
+			if err := os.WriteFile(startupInput.Path, startup, 0400); err != nil {
+				t.Fatal(err)
+			}
+			facts := fixtureProfile
+			facts.Requests = nil
+			factsRaw, _ := json.Marshal(facts)
+			step := ProbeLifecycleStep{ProfileSHA256: fmt.Sprintf("%x", sha256.Sum256(factsRaw)), Request: fixtureProfile.Requests[0], Status: "COMPLETED", Epoch: epoch, Owned: &native, Launcher: &launcherIdentity, Startup: &startupInput, Effects: fixture.ExpectedEffects[0]}
+			viewRaw, _ := json.Marshal(view)
+			ownedRaw, _ := json.Marshal(native)
+			observed, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_flatpak"}, native.PID, &native, profile.Program.SHA256)
+			if err != nil {
+				t.Fatal(err)
+			}
+			admission, _ := json.Marshal(ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", ProjectRoot: fixtureRoot, WorkingDirectory: fixtureRoot, RunRoot: fixtureRoot, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewRaw}, {Role: "owned", Data: ownedRaw}}, AfterProcess: &observed, GoOwner: &ProbeGoOwner{Profile: fixtureProfile, Step: step, CardSHA256: profile.Inputs["card"].SHA256}})
+			evidence := RegistryInput{Path: filepath.Join(fixtureRoot, "records.json"), Size: int64(len(admission)), SHA256: fmt.Sprintf("%x", sha256.Sum256(admission))}
+			if err := os.WriteFile(evidence.Path, admission, 0600); err != nil {
+				t.Fatal(err)
+			}
+			opcode, address := uint8(2), uint32(0x56a800)
+			memoryPlan, _ := json.Marshal(ProbeMemoryBundle{Version: 1, SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", Admission: admission, BuildSHA256: profile.Program.SHA256, Requests: []ProbeMemoryRequest{{ID: "story", Opcode: &opcode, Address: &address}}, Decoders: []ProbeMemoryDecoder{{ID: "story", Kind: "scalar", Requests: []string{"story"}}}})
+			memoryRuntime, _ := json.Marshal(ProbeMemoryRuntime{Provenance: "owned_go", Root: fixtureRoot, TimeoutMS: 1000, Evidence: &evidence})
+			read, err := readProbeMemory(memoryPlan, memoryRuntime)
+			if err != nil || !read.ProcessGuarded || read.Provenance != "owned_go" || len(read.Observations) != 1 || read.Observations[0].Value != 1 {
+				t.Fatal("owned namespace reader failed after launcher exit", read, err)
+			}
+			heldSocket := native.PINESocket + ".held"
+			if err := os.Rename(native.PINESocket, heldSocket); err != nil {
+				t.Fatal(err)
+			}
+			wrongPeer, err := net.ListenUnix("unix", &net.UnixAddr{Name: native.PINESocket, Net: "unix"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			_, peerErr := readProbeMemory(memoryPlan, memoryRuntime)
+			_ = wrongPeer.Close()
+			restoreErr := os.Rename(heldSocket, native.PINESocket)
+			if peerErr == nil || peerErr.Error() != "probe socket peer is not the exact owned process" || restoreErr != nil {
+				t.Fatal("owned namespace peer mismatch accepted", peerErr, restoreErr)
+			}
+			state := ProbeLifecycleProcesses{Command: launcher, Launcher: &launcherIdentity, Native: &native, Candidates: candidates, Launched: true}
+			if state.NativeExited || state.LauncherReaped {
+				t.Fatal("launcher exit prematurely granted cleanup completion")
+			}
+			if controllerLoss {
+				_ = controllerWrite.Close()
+				deadline = time.Now().Add(3 * time.Second)
+				for time.Now().Before(deadline) {
+					_, err = observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_flatpak"}, native.PID, &native, profile.Program.SHA256)
+					if errors.Is(err, os.ErrProcessDone) {
+						break
+					}
+					time.Sleep(10 * time.Millisecond)
+				}
+				if !errors.Is(err, os.ErrProcessDone) {
+					t.Fatal("native ignored original controller loss", err)
+				}
+				// Recovery may retain only the unreaped launcher after native exit is proved.
+				state.Native, state.Candidates, state.NativeExited = nil, nil, true
+				if state.Command == nil || state.LauncherReaped {
+					t.Fatal("partial cleanup lost the remaining launcher")
+				}
+			}
+			exitedBefore, err := terminateProbeProcesses(&state, ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, profile.Program.SHA256, 5*time.Second)
+			if err != nil || exitedBefore || !state.NativeExited || !state.LauncherReaped || state.Command != nil || state.Native != nil || len(state.Candidates) != 0 {
+				t.Fatalf("split cleanup incomplete: %+v before=%t %v", state, exitedBefore, err)
+			}
+			expectedCard := []byte(fixture.SourceCard)
+			if !controllerLoss {
+				expectedCard[0]++
+			}
+			card, err := os.ReadFile(cardPath)
+			if err != nil || !bytes.Equal(card, expectedCard) {
+				t.Fatal("card readback before confirmed native exit/launcher disposal differs", string(card), err)
+			}
+			if _, err := terminateProbeProcesses(&state, ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, profile.Program.SHA256, time.Second); err != nil || state.CleanupAttempts != 1 {
+				t.Fatal("confirmed cleanup was not idempotent", err)
+			}
+			_ = controllerWrite.Close()
+			t.Logf("split fixture controller_loss=%t launcher=%d native=%d native_exited=%t launcher_reaped=%t card_sha256=%x", controllerLoss, launcherIdentity.PID, native.PID, state.NativeExited, state.LauncherReaped, sha256.Sum256(card))
+		}
 		requestRaw, _ := json.Marshal(profile)
 		report, err := runProbeLifecycle(requestRaw)
 		var failedExpected struct {

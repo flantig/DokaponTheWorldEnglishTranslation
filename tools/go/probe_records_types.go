@@ -75,15 +75,17 @@ type ProbeConfigRecord struct {
 
 // This is the common saved process shape used by owned epochs and ready acks.
 type ProbeProcessRecord struct {
-	PID       int      `json:"pid"`
-	Starttime uint64   `json:"starttime"`
-	State     string   `json:"state"`
-	Cmdline   []string `json:"cmdline"`
-	Session   string   `json:"session,omitempty"`
-	ISO       string   `json:"iso,omitempty"`
-	ISOSHA256 string   `json:"iso_sha256,omitempty"`
-	Profile   string   `json:"profile,omitempty"`
-	Epoch     *int     `json:"epoch,omitempty"`
+	PID               int      `json:"pid"`
+	Starttime         uint64   `json:"starttime"`
+	State             string   `json:"state"`
+	Cmdline           []string `json:"cmdline"`
+	Session           string   `json:"session,omitempty"`
+	ISO               string   `json:"iso,omitempty"`
+	ISOSHA256         string   `json:"iso_sha256,omitempty"`
+	Profile           string   `json:"profile,omitempty"`
+	Epoch             *int     `json:"epoch,omitempty"`
+	PINESocket        string   `json:"pine_socket,omitempty"`
+	EnvironmentSHA256 string   `json:"environment_sha256,omitempty"`
 }
 
 type ProbeHandshakeRecord struct {

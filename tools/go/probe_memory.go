@@ -10,6 +10,7 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	"reflect"
 	"regexp"
 	"slices"
 	"strconv"
@@ -92,6 +93,7 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 	var rootInfo os.FileInfo
 	var sessionInfo os.FileInfo
 	var connection net.Conn
+	var records ProbeRecordBundle
 	if len(runtimeRaw) > 0 {
 		if len(runtimeRaw) > 65536 {
 			return report, fmt.Errorf("probe runtime descriptor exceeds64KiB")
@@ -125,7 +127,6 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 		if len(plan.Replies) != 0 {
 			return report, fmt.Errorf("runtime acquisition must not supply saved replies")
 		}
-		var records ProbeRecordBundle
 		_ = json.Unmarshal(plan.Admission, &records)
 		if runtime.Provenance == "owned_go" && (records.GoOwner == nil || plan.BuildSHA256 != records.GoOwner.Profile.Program.SHA256 || runtime.Root != records.GoOwner.Profile.Root) {
 			return report, fmt.Errorf("Go read build differs from lifecycle owner")
@@ -176,6 +177,28 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 			if receiptErr != nil || !bytes.Equal(receipt, plan.Admission) {
 				return ProbeMemoryReport{}, fmt.Errorf("probe runtime admitted session evidence changed")
 			}
+			if runtime.Provenance == "owned_go" && records.GoOwner.Profile.Flatpak != nil {
+				input := records.GoOwner.Step.Startup
+				info, err := os.Lstat(input.Path)
+				data, readErr := readInput(input.Path, 4<<20)
+				if err != nil || !info.Mode().IsRegular() || info.Mode().Perm()&0222 != 0 || readErr != nil || int64(len(data)) != input.Size || fmt.Sprintf("%x", sha256.Sum256(data)) != input.SHA256 || checkJSON(checkedJSON{raw: data, allObjects: true, text: true}) != nil {
+					return ProbeMemoryReport{}, fmt.Errorf("owned startup evidence changed")
+				}
+				var startup ProbeStartupFacts
+				if json.Unmarshal(data, &startup) != nil || startup.Epoch != admission.Epoch || !reflect.DeepEqual(startup.Native, owned) || !reflect.DeepEqual(startup.Launcher, records.GoOwner.Step.Launcher) || startup.Log.Path != filepath.Join(runtime.Root, fmt.Sprintf("startup-epoch-%d.log", admission.Epoch)) {
+					return ProbeMemoryReport{}, fmt.Errorf("owned startup epoch/runtime linkage differs")
+				}
+				logInfo, statErr := os.Lstat(startup.Log.Path)
+				log, logErr := readInput(startup.Log.Path, 4<<20)
+				if statErr != nil || !logInfo.Mode().IsRegular() || logInfo.Mode().Perm()&0222 != 0 || logErr != nil || int64(len(log)) != startup.Log.Size || fmt.Sprintf("%x", sha256.Sum256(log)) != startup.Log.SHA256 {
+					return ProbeMemoryReport{}, fmt.Errorf("owned startup log snapshot changed")
+				}
+				dataRoot := filepath.Join(runtime.Root, "profile", "PCSX2")
+				paths, complete, startupErr := validateProbeStartup(log, dataRoot)
+				if startupErr != nil || !complete || len(log) == 0 || log[len(log)-1] != '\n' || !reflect.DeepEqual(startup.Directories, paths) {
+					return ProbeMemoryReport{}, fmt.Errorf("owned startup directory evidence differs: %v", startupErr)
+				}
+			}
 			if _, err := observeProbeProcess(runtime, owned.PID, &owned, plan.BuildSHA256); err != nil {
 				return ProbeMemoryReport{}, err
 			}
@@ -185,7 +208,12 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 			}
 			if phase == 0 {
 				socketPath := filepath.Join(processRoot, "root/run/user/1000/pcsx2.sock")
-				if runtime.Provenance == "synthetic_peer" || runtime.Provenance == "owned_go" {
+				if runtime.Provenance == "owned_go" && records.GoOwner.Profile.Flatpak != nil {
+					if owned.PINESocket == "" || !filepath.IsAbs(owned.PINESocket) || filepath.Clean(owned.PINESocket) != owned.PINESocket {
+						return ProbeMemoryReport{}, fmt.Errorf("owned namespace endpoint is unavailable")
+					}
+					socketPath = filepath.Join(processRoot, "root", strings.TrimPrefix(owned.PINESocket, "/"))
+				} else if runtime.Provenance == "synthetic_peer" || runtime.Provenance == "owned_go" {
 					socketPath = filepath.Join(runtime.Root, "peer.sock")
 				}
 				connection, err = net.DialTimeout("unix", socketPath, time.Duration(runtime.TimeoutMS)*time.Millisecond)
