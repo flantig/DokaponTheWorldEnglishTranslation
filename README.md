@@ -6,7 +6,7 @@ Dokapon the World.
 - [Translation registry](registry/string-registry.json): 5,544 source/translation
   records, with implementation notes and verification status.
 - [Terminology glossary](registry/glossary.json): shared names and terminology.
-- [Reviewed glossary](docs/translation/glossary-reviewed.json): 1,612 meanings and
+- [Reviewed glossary](registry/glossary-reviewed.json): 1,612 meanings and
   7,194 source occurrences, reviewed November 13, 2026.
 - [Translated images](images/): 224 PNGs organized by their role in the game.
 - [Image manifest](images/manifest.json): source locations, dimensions and hashes.
