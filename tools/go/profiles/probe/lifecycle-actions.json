@@ -262,6 +262,17 @@
       ],
       "to": "ready"
     },
+    "observe-frame": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "admit-frame",
+        "capture-frame",
+        "report-frame"
+      ],
+      "to": "ready"
+    },
     "observe-storage": {
       "from": [
         "ready"

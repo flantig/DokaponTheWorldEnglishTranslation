@@ -169,6 +169,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 	scenarioStage, boardCursor, tabCursor, fileCursor, eventOffset := 0, 0, 0, 0, 0
 	scenarioControl := byte(1)
 	activeActor := 0
+	frameCurrentReads := 0
 	tutorialFlag := byte(1)
 	yesNoCursor := uint32(0)
 	introSamples := 0
@@ -254,6 +255,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 					name := "first-save.png"
 					if guideCount > 1 {
 						name = fmt.Sprintf("capture-%d.png", guideCount)
+					}
+					if slices.Contains(os.Args, "frame-no-image") {
+						continue // Keep the real GUIDE service/ack; omit only the controlled PNG.
 					}
 					path := filepath.Join(root, "profile", "PCSX2", "snaps", name)
 					if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -801,6 +805,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					width := 1 << payload[0]
 					address := binary.LittleEndian.Uint32(payload[1:])
+					if address == 0x56b190 && slices.Contains(os.Args, "frame-selector-drift") {
+						frameCurrentReads++
+						if frameCurrentReads >= 2 {
+							// Selection saw actor0; both complete capture batches see actor1.
+							memory[address] = 1
+						}
+					}
 					reply = make([]byte, 5+width)
 					binary.LittleEndian.PutUint32(reply, uint32(len(reply)))
 					for b := 0; b < width; b++ {
@@ -2629,6 +2640,160 @@ func TestProbeLifecycle(t *testing.T) {
 		snapshot, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "profile", "PCSX2", "snaps", "first-save.png"))
 		if !bytes.Equal(published, pngBytes) || !bytes.Equal(snapshot, pngBytes) {
 			t.Error("original PNG identity/preservation")
+		}
+		for _, row := range []struct {
+			Name, Fault         string
+			Interleave, Recover bool
+		}{
+			{Name: "ordinary first directory"},
+			{Name: "ordinary before and after save", Interleave: true},
+			{Name: "ordinary stable selector mismatch", Fault: "frame-selector-drift"},
+			{Name: "ordinary unavailable then explicit recovery", Fault: "frame-no-image", Recover: true},
+		} {
+			candidate := profile
+			candidate.Root = t.TempDir()
+			_ = os.Chmod(candidate.Root, 0700)
+			candidate.Scenario = nil
+			candidate.ProgramArgs = slices.Clone(scenarioProfile.ProgramArgs)
+			if row.Fault != "" {
+				candidate.ProgramArgs = append(candidate.ProgramArgs, row.Fault)
+			}
+			operations := []string{"initial", "observe-frame", "stop"}
+			if row.Interleave {
+				candidate.Scenario = scenarioProfile.Scenario
+				operations = []string{"initial", "observe-frame", "scenario", "observe-frame", "stop"}
+			}
+			if row.Recover {
+				candidate.Policy = &ProbeLifecyclePolicy{PollMS: 1, WarnRepeats: 1, TerminalRepeats: 2, MaxPolls: 1, MaxRecoveries: 1, MaxDistinctSkips: 1}
+				operations = []string{"initial", "observe-frame", "stop", "recover", "stop"}
+			}
+			candidate.Requests = nil
+			for i, operation := range operations {
+				candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: candidate.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", i+1, operation)})
+			}
+			input, _ := json.Marshal(candidate)
+			result, err := runProbeLifecycle(input)
+			wantStatus := "COMPLETED"
+			if row.Fault != "" {
+				wantStatus = "INCOMPLETE"
+			}
+			if err != nil || result.Status != wantStatus || len(result.Steps) != len(operations) {
+				t.Fatalf("%s lifecycle: %+v %v", row.Name, result, err)
+			}
+			journal, err := os.ReadFile(filepath.Join(candidate.Root, "events.jsonl"))
+			if err != nil {
+				t.Fatal(row.Name, "journal", err)
+			}
+			journalRows := bytes.Split(bytes.TrimSpace(journal), []byte{'\n'})
+			for i, raw := range journalRows {
+				var event ProbeCaptureEvent
+				if json.Unmarshal(raw, &event) != nil || event.EventID != i+1 {
+					t.Fatal(row.Name, "journal ordinal", i)
+				}
+			}
+			ordinaryCount := 0
+			for i, step := range result.Steps {
+				if step.Request.Operation != "observe-frame" {
+					if step.Status != "COMPLETED" {
+						t.Fatal(row.Name, "nonframe action failed", step)
+					}
+					continue
+				}
+				ordinaryCount++
+				if step.Capture == nil || step.Checkpoint != nil || step.Evidence == nil || step.Evidence.Path != filepath.Join(candidate.Root, step.Request.Nonce+"-evidence.json") {
+					t.Fatal(row.Name, "ordinary result roles", step)
+				}
+				capture := step.Capture
+				ack, ackErr := hex.DecodeString(capture.GuideAckHex)
+				if capture.Checkpoint != 0 || capture.CaptureID == "" || capture.GuideCommand != "tap GUIDE 0.05" || ackErr != nil || !bytes.Equal(bytes.TrimSpace(ack), []byte("ok")) || capture.MemoryBefore == nil || !capture.MemoryBefore.ProcessGuarded || capture.Provenance != "owned_go" {
+					t.Fatal(row.Name, "ordinary guarded acquisition", capture)
+				}
+				log, err := hex.DecodeString(capture.LogHex)
+				if err != nil || capture.LogOffset < 0 || capture.LogOffset > int64(len(journal)-len(log)) || !bytes.Equal(journal[capture.LogOffset:capture.LogOffset+int64(len(log))], log) {
+					t.Fatal(row.Name, "actual ordinary journal slice", err)
+				}
+				var event ProbeCaptureEvent
+				if json.Unmarshal(log, &event) != nil || event.Event != "go-frame-capture" || event.Checkpoint == nil || *event.Checkpoint != 0 || event.CaptureID != capture.CaptureID || event.EventID != capture.EventID {
+					t.Fatal(row.Name, "ordinary source event binding", event)
+				}
+				if i == 1 && (capture.EventID != 1 || capture.LogOffset != 0) {
+					t.Fatal(row.Name, "ordinary was not first journal/directory owner")
+				}
+				info, err := os.Stat(step.Evidence.Path)
+				evidence, readErr := os.ReadFile(step.Evidence.Path)
+				var bundle ProbeEvidenceBundle
+				if err != nil || readErr != nil || info.Mode().Perm() != 0400 || int64(len(evidence)) != step.Evidence.Size || fmt.Sprintf("%x", sha256.Sum256(evidence)) != step.Evidence.SHA256 || json.Unmarshal(evidence, &bundle) != nil || bundle.Cohort != "go-frame-only-v1" || len(bundle.Events) != 1 || len(bundle.Captures) != 1 || bundle.Captures[0].Admission != nil || len(bundle.Members) != 0 || len(bundle.Checks) != 0 || bundle.Story != nil || bundle.Resume != nil || bundle.Events[0].Offset != capture.LogOffset {
+					t.Fatal(row.Name, "immutable ordinary input bundle", err, readErr)
+				}
+				var persisted ProbeCaptureReceipt
+				receiptBytes, receiptErr := os.ReadFile(filepath.Join(candidate.Root, "captures", capture.CaptureID+".json"))
+				if receiptErr != nil || json.Unmarshal(receiptBytes, &persisted) != nil || !reflect.DeepEqual(persisted, *capture) {
+					t.Fatal(row.Name, "persisted ordinary receipt", receiptErr)
+				}
+				var report ProbeEvidenceReport
+				reportBytes, reportErr := os.ReadFile(filepath.Join(candidate.Root, step.Request.Nonce+"-report.json"))
+				if reportErr != nil || json.Unmarshal(reportBytes, &report) != nil || len(report.Captures) != 1 || len(report.Checkpoints) != 0 || len(report.CoveredAreas) != 0 || report.LiveOwnership || !strings.Contains(report.Limits, "not checkpoint, native or retention coverage") {
+					t.Fatal(row.Name, "ordinary persisted report scope", reportErr)
+				}
+				if row.Fault == "frame-no-image" {
+					if step.Status != "UNKNOWN" || !strings.HasPrefix(step.Reason, "ordinary frame is unavailable:") || capture.Status != "UNKNOWN" || bundle.Captures[0].ImageHex != "" || report.Status != "UNKNOWN" || report.Captures[0].Status != "UNKNOWN" {
+						t.Fatal(row.Name, "unavailable source evidence lost", step, report)
+					}
+				} else {
+					image, imageErr := os.ReadFile(filepath.Join(candidate.Root, "captures", capture.ImagePath))
+					snapshot, snapshotErr := os.ReadFile(filepath.Join(candidate.Root, "profile", "PCSX2", "snaps", capture.Snapshot))
+					if imageErr != nil || snapshotErr != nil || !bytes.Equal(image, pngBytes) || !bytes.Equal(snapshot, pngBytes) || bundle.Captures[0].ImageHex != hex.EncodeToString(pngBytes) || capture.Status != "CAPTURED" || report.Status != "PASS" || report.Captures[0].Status != "ACCEPTED" {
+						t.Fatal(row.Name, "actual ordinary image/receipt/report", imageErr, snapshotErr)
+					}
+					if row.Fault == "frame-selector-drift" {
+						if step.Status != "UNKNOWN" || step.Reason != "ordinary frame selected player changed before capture" || capture.MemoryAfter == nil || capture.MemoryBefore.Decoded[0].Value == nil || *capture.MemoryBefore.Decoded[0].Value != 1 || !reflect.DeepEqual(capture.MemoryBefore.Decoded, capture.MemoryAfter.Decoded) {
+							t.Fatal(row.Name, "new selector guard was not isolated from capture DeepEqual", step)
+						}
+					} else if step.Status != "COMPLETED" {
+						t.Fatal(row.Name, "valid ordinary action failed", step)
+					}
+				}
+			}
+			wantOrdinary := 1
+			if row.Interleave {
+				wantOrdinary = 2
+			}
+			if ordinaryCount != wantOrdinary {
+				t.Fatal(row.Name, "ordinary count", ordinaryCount)
+			}
+			if row.Interleave {
+				save := result.Steps[2]
+				if save.Capture == nil || save.Capture.Checkpoint != 1 || save.Capture.LogOffset <= 0 || save.Checkpoint == nil || save.Checkpoint.Status != "UNKNOWN" || len(save.Checkpoint.Captures) != 1 || save.Checkpoint.Captures[0].CaptureID != save.Capture.CaptureID || len(save.Checkpoint.Checkpoints) != 1 || len(save.Checkpoint.CoveredAreas) != 0 {
+					t.Fatal(row.Name, "ordinary changed required save capture/report", save)
+				}
+				for _, saved := range save.Checkpoint.Events {
+					var event ProbeCaptureEvent
+					if json.Unmarshal(saved.Data, &event) != nil || event.Event == "go-frame-capture" || event.EventID <= 1 || saved.Offset <= 0 {
+						t.Fatal(row.Name, "checkpoint projection relabeled ordinary events", event)
+					}
+				}
+				if result.Steps[3].Capture.EventID <= save.Capture.EventID || result.Steps[3].Capture.LogOffset <= save.Capture.LogOffset {
+					t.Fatal(row.Name, "after-save ordinary order")
+				}
+			}
+			if row.Recover && (result.Steps[3].RecoveryAttempts != 1 || result.Steps[3].Epoch != 1 || result.Steps[3].Owned == nil || result.Steps[3].Owned.PID == result.Steps[0].Owned.PID) {
+				t.Fatal(row.Name, "explicit recovery did not retain ownership/epoch rules", result.Steps[3])
+			}
+			last := result.Steps[len(result.Steps)-1]
+			card, cardErr := os.ReadFile(filepath.Join(candidate.Root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+			if last.Status != "COMPLETED" || last.ExitedBeforeStop || cardErr != nil || fmt.Sprintf("%x", sha256.Sum256(card)) != last.CardAfter {
+				t.Fatal(row.Name, "guarded stop/postflush hash", last, cardErr)
+			}
+			for _, step := range result.Steps {
+				if (step.Request.Operation == "initial" || step.Request.Operation == "recover") && step.Owned != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: candidate.Root}, step.Owned.PID, step.Owned, candidate.Program.SHA256); !errors.Is(err, os.ErrProcessDone) {
+						t.Fatal(row.Name, "owned fixture did not exit", err)
+					}
+				}
+			}
+			if _, err := os.Lstat(filepath.Join(candidate.Root, "pad.sock")); !os.IsNotExist(err) {
+				t.Fatal(row.Name, "owned pad endpoint survived", err)
+			}
 		}
 		for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request", "unsupported-backend", "changed-backend-hash"} {
 			admissionRaw, _ := os.ReadFile(filepath.Join(scenarioProfile.Root, "go-records-2-scenario.json"))

@@ -1838,5 +1838,89 @@
       "No scheduler, automatic ordinaryevent emission, retention selection, JPEG or sourceinput deletion changes.",
       "85/90,probe2/6,13/15Full unchanged; fullgoal active and broader obligations preserved."
     ]
+  },
+  "observe_frame_offline_assessment": {
+    "status": "OFFLINE_CONTROLLED_IMPLEMENTED_ZERO_CREDIT",
+    "criterion_credit": 0,
+    "contract": "Optional observe-frame ready-state lifecycle action through the existing owned admission, source-selector read, journal, capture and report owners. One ordinary attempt has checkpoint0 and a CID bound before event append; it requires no Scenario and cannot accept a checkpoint.",
+    "shared_owners": [
+      "runProbeLifecycle",
+      "admitProbeRecords",
+      "readProbeMemory",
+      "captureProbeEvidence",
+      "reportProbeEvidence"
+    ],
+    "source": {
+      "base": "ab12e0f52ecd842a0d50070ccbbcc2d6260d53f7",
+      "lifecycle_sha256": "1509e5e25e206cdc9361ce643aeaf4d0c379f8240b154a8978e1c424601465d6",
+      "actions_sha256": "a99612b7f15e54be2d64b2d6319493649e1f65faee61a0310698a294a6b5e4e5",
+      "lifecycle_test_sha256": "76c0efdb28cee9eec9822b1f0a9509b62e09171f206226155f1ad5d04a62da4e"
+    },
+    "invariants": {
+      "selection": "Request-local source current scalar must be0..3; the selected player/tag capture plan includes current in both sequential memory batches. Stable pre/post current differing from the earlier selected player preserves the raw CAPTURED receipt/report but makes the stepUNKNOWN.",
+      "journal": "All-event IDs/offsets are immutable. Checkpoint reports select checkpoint slices without renumbering; ordinary receipts never enter scenarioCaptures. Story terminal ID remains the all-journal ID. The initial save report uses its actual receipt offset.",
+      "directory": "The lifecycle records the identity of the private0700 capture directory it creates. Reuse requires that identity, not prior receipt counts.",
+      "availability": "Valid bound UNKNOWN/REFUSED receipts reach saved input and report with no image read. No valid receipt means no fabricated report. Raw receipt status is preserved.",
+      "failure": "Ordinary failure enters the watch-style readFailure/unknown phase, preserving previous ambiguity. There is no automatic native termination; explicit stop/card proof remains mandatory for recovery.",
+      "outputs": "Step.Evidence is the saved input bundle, Step.Capture is the actual receipt, Step.Checkpoint absent. Frame integrity is not atomic screenshot/game-state correspondence or native/gameplay proof.",
+      "budgets": "Existing collector caps count PNG and capture-receipt files only. Journals, lifecycle effect receipts, evidence input and reports are outside those caps; no whole-session quota/retention claim."
+    },
+    "growth": {
+      "functions_added": 0,
+      "types_added": 0,
+      "dependencies_added": 0,
+      "kind": "Capability growth in shared existing owners; no deletion or retirement claim.",
+      "runtime_and_data_bytes": 4197,
+      "test_bytes": 9746,
+      "production": {
+        "files": 70,
+        "bytes": 1026610,
+        "named_functions": 63
+      }
+    },
+    "verification": {
+      "status": "FOCUSED_CHECKS_PASS",
+      "records_race": "PASS21.960s isolatedpubliccandidate",
+      "records_log": "/var/tmp/dokapon-observe-frame/public-records-race.log",
+      "compile_diagnostic": "/var/tmp/dokapon-observe-frame/first-compile-diagnostic.json",
+      "production_builds": "Core/nativefonts PASS on exact1509/a996 publiccandidate; logs retained outside worktree.",
+      "controlled_lifecycle_race": "PASS200.739s, no DATA RACE; exact focused baseline, unchanged5m cap/deadlines.",
+      "failed_attempts": [
+        {
+          "session": 9213,
+          "result": "FAIL86.706s new assertion",
+          "log": "/var/tmp/dokapon-observe-frame-tests-njBasqSs/lifecycle-race.log",
+          "log_sha256": "72be0bb2a02bcc40af12a9c3756a3adbe25b04f2e25ff9322b92bf6ddbef3243",
+          "test_sha256": "19c58e61a453354746f452d1fb17fc29b33693ba24de80d9697f75752d9568a4",
+          "cause": "Test expected Records fakepeer ack6f6b instead of real Go pad6f6b0a. Actual first ordinary receipt CAPTURED/owned_go. Existing protocol accepts decoded whitespace-trimmed ok.",
+          "repair": "Only test assertion changed to hex decode with error check and TrimSpace==ok; no production/expected capture/deadline changes."
+        }
+      ],
+      "controlled_receipt": "/var/tmp/dokapon-observe-frame-tests-njBasqSs/verification.json",
+      "controlled_receipt_sha256": "878c2d357f5da4e0dd590c355b4a603624bc6b86b8d93e834f49317322e69f2d",
+      "controlled_race_log_sha256": "5795f10ed1816ef995b5300007e37009491a118065465b4577b115ce61f12eb4",
+      "controlled_cases": [
+        "NoScenario initial/ordinary/stop with owned_go acquisition, saved input/report and first private directory creation.",
+        "Ordinary before and after actual save: journal event1/2/3, real nonzero save-report offset and independent ordinary receipts.",
+        "Initial selected0 versus stable capture pre/post1: raw CAPTURED receipt/integrity PASS preserved, lifecycle stepUNKNOWN.",
+        "Missing image: bound UNKNOWN receipt/no image retained in saved input/report, then explicit stop/recover/stop."
+      ],
+      "scope": "Actual runProbeLifecycle through owned_go controlled test executable/Unix peers and temporary profile/card/log/capture files, not native emulator or other-session runtime access. Recipe-empty interleave executes single-event report-save; cumulative pair/checkpoint/story projection is source-reviewed only. Relevant unchanged baseline included; no full suite, full Flatpak/global discovery or story replay.",
+      "source_pin_readbacks": 11,
+      "records_log_sha256": "9f4c95977cde73194dcd53ffa5a938a2f712aa1d0a2805ae10f6afdbac7a731d",
+      "records_scope": "Records-race uses exact1509/a996 production and unchanged4e5b Records tests; compiled before the orthogonal final Lifecycle test additions. Final build/vet covers the released test source, without repeating Lifecycle.",
+      "core_nativefonts": "Core/nativefonts build and vet PASS on exact public projection; final vet includes released76c0efdb test source."
+    },
+    "review": {
+      "approach": "Astra read-only pre-edit disposition accepts existing owners with unknown-receipt persistence and read-only failure corrections.",
+      "provisional": "Astra found no material source issue on immutable1509e5e2/a99612b7. Exact final artifact closure is recorded in the publication receipt, separately from periodic075 timing.",
+      "test_source": "Astra no material assertion/reuse finding on19c58 source; ACK-only correction76c0efdb matches source contract. Interleaving executes Recipe-empty single-event report-save actual-offset path. Cumulative pair/checkpoint/story projection is source-reviewed, not executed by those new interleaving rows."
+    },
+    "holds": [
+      "Real Flatpak/global collision discovery/adoption/startup production and native device/PINE/gameplay execution remain unqualified.",
+      "No scheduler/cadence/all-waits/last-selected-health/quota/retention/JPEG/transient-PNG deletion work is completed by this single action.",
+      "Original PNG artifacts remain preserved; PNG-only retirement and native handover are unaccepted.",
+      "Scores85/90, probe2/6,13/15Full unchanged; full goal and broader cohort/owner obligations remain active."
+    ]
   }
 }

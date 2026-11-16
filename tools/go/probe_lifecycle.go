@@ -202,8 +202,9 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		return report, fmt.Errorf("lifecycle receipts require a private directory")
 	}
 	var table struct {
-		Version int
-		Actions map[string]struct {
+		Version      int
+		SourceSHA256 string `json:"source_sha256"`
+		Actions      map[string]struct {
 			From    []string
 			Effects []string
 			To      string
@@ -605,8 +606,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var scenarioRuntime ProbeMemoryRuntime
 	var scenarioSaved *ProbeSavedState
 	var scenarioEvent json.RawMessage
+	journalEvents := []ProbeEvidenceEvent{}
 	scenarioEvents := []ProbeEvidenceEvent{}
 	scenarioCaptures := []ProbeCaptureObservation{}
+	var captureDirInfo os.FileInfo
 	var scenarioLog []byte
 	var scenarioLogInfo os.FileInfo
 	loadMethod := ""
@@ -637,10 +640,11 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 	}
 	var checkpointDue, postClearSince time.Time
-	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage)$`)
+	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage|observe-frame)$`)
 requests:
 	for _, request := range profile.Requests {
 		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: processes.Native, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
+		frameActor, frameReason := -1, ""
 		if profile.Flatpak != nil {
 			step.Launcher = processes.Launcher
 			step.Startup = processes.Startup
@@ -868,7 +872,7 @@ requests:
 				effect = "emit-card-witness"
 			}
 			switch effect {
-			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage":
+			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage", "admit-frame":
 				if processes.Native == nil || lastOwnedStep.Status != "COMPLETED" {
 					step.Reason = "scenario requires completed current ownership"
 					break actions
@@ -924,6 +928,27 @@ requests:
 					break actions
 				}
 				scenarioRuntime = ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(scenarioAdmission)), SHA256: digest}}
+				if effect == "admit-frame" {
+					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: table.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
+					for _, read := range table.WatchReads {
+						if read.ID == "current" {
+							plan.Requests = append(plan.Requests, read)
+						}
+					}
+					plan.Decoders = []ProbeMemoryDecoder{{ID: "current", Kind: "scalar", Requests: []string{"current"}}}
+					planRaw, _ := json.Marshal(plan)
+					runtimeRaw, _ := json.Marshal(scenarioRuntime)
+					memory, err := readProbeMemory(planRaw, runtimeRaw)
+					if err != nil || len(memory.Decoded) != 1 || memory.Decoded[0].Status != "KNOWN" || memory.Decoded[0].Value == nil || *memory.Decoded[0].Value > 3 {
+						step.Reason = "ordinary frame current player is unavailable or outside 0..3"
+						if err != nil {
+							step.Reason += ": " + err.Error()
+						}
+						break actions
+					}
+					frameActor = int(*memory.Decoded[0].Value)
+					break
+				}
 				if effect == "observe-storage" {
 					row := observationData.Rows[profile.Storage.ID]
 					var capacityArtifact *ProbeCapacityArtifact
@@ -1852,74 +1877,89 @@ requests:
 					previewSamples++
 				}
 				step.PreviewSamples = previewSamples
-			case "capture-save", "capture-preparation-save", "capture-preparation-image", "emit-preparation-start", "emit-preparation-ack", "emit-preparation-complete", "capture-preview", "capture-reload", "capture-handoff", "capture-advance", "emit-resumed", "emit-reload-start", "capture-terminal", "emit-card-witness":
-				if effect == "emit-preparation-start" {
-					if step.UI == nil || scenarioActor < 0 || *step.UI.Saved.Players[scenarioActor].TutorialFlags&1 != 0 {
-						step.Reason = "preparation requires source uninitialized owned actor"
+			case "capture-save", "capture-preparation-save", "capture-preparation-image", "emit-preparation-start", "emit-preparation-ack", "emit-preparation-complete", "capture-preview", "capture-reload", "capture-handoff", "capture-advance", "emit-resumed", "emit-reload-start", "capture-terminal", "emit-card-witness", "capture-frame":
+				ordinary := effect == "capture-frame"
+				captureID := "save-" + request.Nonce
+				if ordinary {
+					captureID = "frame-" + request.Nonce
+				} else if effect != "capture-save" && effect != "capture-preparation-save" {
+					captureID = effect + "-" + request.Nonce
+				}
+				event := map[string]any{"event": probeOrdinaryFrameEventKind, "event_id": len(journalEvents) + 1, "checkpoint": 0, "capture_id": captureID, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700")}
+				if ordinary {
+					if frameActor < 0 || frameActor > 3 {
+						step.Reason = "ordinary frame lacks its admitted current player"
 						break actions
 					}
-					saved := step.UI.Saved
-					scenarioSaved = &saved
-					encoded, _ := json.Marshal(saved)
-					var initialized ProbeSavedState
-					_ = json.Unmarshal(encoded, &initialized)
-					*initialized.Players[scenarioActor].TutorialFlags |= 1
-					initialized.Players[scenarioActor].RecordSHA256 = initialized.Players[scenarioActor].TutorialInitializedSHA256
-					preparedState = &initialized
-					preparationAcknowledged = false
-				}
-				isPrompt := effect == "emit-card-witness"
-				if !isPrompt && (effect != "emit-preparation-start" && !saveCompleted || scenarioSaved == nil) || scenarioActor < 0 || originalControl == 0 {
-					step.Reason = "capture requires source-confirmed nondefault save"
-					break actions
-				}
-				row := scenarioData.Rows[profile.Scenario.ID]
-				row.FileIndex, row.DisplayFile = checkpointFileIndex, checkpointFileIndex+1
-				eventKind := map[string]string{"capture-save": "save-complete", "capture-preparation-save": "save-complete", "emit-preparation-start": "tutorial-preparation-start", "capture-preparation-image": "tutorial-preparation-image", "emit-preparation-ack": "tutorial-preparation-ack", "emit-preparation-complete": "tutorial-preparation-complete", "capture-preview": "continue-preview", "capture-reload": "reload-verified", "capture-handoff": "com-handoff-data-main", "capture-advance": "story-advanced-after-reload", "emit-resumed": "resumed", "emit-reload-start": "reload-start"}[effect]
-				if effect != "capture-save" && step.UI == nil {
-					step.Reason = "checkpoint event lacks current acquired UI"
-					break actions
-				}
-				if effect == "capture-terminal" {
-					eventKind = "story-target-reached"
-				}
-				if isPrompt {
-					eventKind = pendingPromptKind
-				}
-				event := map[string]any{"event": eventKind, "event_id": len(scenarioEvents) + 1, "checkpoint": checkpointNumber, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700"), "state": scenarioSaved, "slot": row.FileIndex, "display_file": row.DisplayFile, "hardware_card_slot": row.CardSlot, "actor": scenarioActor, "original_control": originalControl, "epoch": epoch}
-				if effect == "capture-terminal" {
-					event["mode"] = step.UI.Headers["mode"]
-				}
-				if isPrompt {
-					event["prompt"] = pendingPrompt
-					event["prompt_headers"] = pendingPromptHeaders
-				}
-				if effect != "capture-save" {
-					event["state"] = step.UI.Saved
-				}
-				if effect == "capture-preview" || effect == "capture-reload" {
-					event["method"] = loadMethod
-					event["phase"] = "verification"
-					if request.Operation == "prepare-load" {
-						event["phase"] = "preparation"
+				} else {
+					if effect == "emit-preparation-start" {
+						if step.UI == nil || scenarioActor < 0 || *step.UI.Saved.Players[scenarioActor].TutorialFlags&1 != 0 {
+							step.Reason = "preparation requires source uninitialized owned actor"
+							break actions
+						}
+						saved := step.UI.Saved
+						scenarioSaved = &saved
+						encoded, _ := json.Marshal(saved)
+						var initialized ProbeSavedState
+						_ = json.Unmarshal(encoded, &initialized)
+						*initialized.Players[scenarioActor].TutorialFlags |= 1
+						initialized.Players[scenarioActor].RecordSHA256 = initialized.Players[scenarioActor].TutorialInitializedSHA256
+						preparedState = &initialized
+						preparationAcknowledged = false
 					}
-				}
-				if effect == "emit-reload-start" {
-					event["method"] = strings.TrimSuffix(request.Operation, "-load")
-					event["phase"] = "verification"
-					if preparedState != nil && !preparationAcknowledged {
-						event["phase"] = "preparation"
-					}
-				}
-				if effect == "capture-reload" {
-					event["successful_preview_samples"] = previewSamples
-				}
-				if effect == "emit-resumed" {
-					if !restored {
-						step.Reason = "resumed lacks guarded restoration"
+					isPrompt := effect == "emit-card-witness"
+					if !isPrompt && (effect != "emit-preparation-start" && !saveCompleted || scenarioSaved == nil) || scenarioActor < 0 || originalControl == 0 {
+						step.Reason = "capture requires source-confirmed nondefault save"
 						break actions
 					}
-					event["expected"] = scenarioSaved
+					row := scenarioData.Rows[profile.Scenario.ID]
+					row.FileIndex, row.DisplayFile = checkpointFileIndex, checkpointFileIndex+1
+					eventKind := map[string]string{"capture-save": "save-complete", "capture-preparation-save": "save-complete", "emit-preparation-start": "tutorial-preparation-start", "capture-preparation-image": "tutorial-preparation-image", "emit-preparation-ack": "tutorial-preparation-ack", "emit-preparation-complete": "tutorial-preparation-complete", "capture-preview": "continue-preview", "capture-reload": "reload-verified", "capture-handoff": "com-handoff-data-main", "capture-advance": "story-advanced-after-reload", "emit-resumed": "resumed", "emit-reload-start": "reload-start"}[effect]
+					if effect != "capture-save" && step.UI == nil {
+						step.Reason = "checkpoint event lacks current acquired UI"
+						break actions
+					}
+					if effect == "capture-terminal" {
+						eventKind = "story-target-reached"
+					}
+					if isPrompt {
+						eventKind = pendingPromptKind
+					}
+					event = map[string]any{"event": eventKind, "event_id": len(journalEvents) + 1, "checkpoint": checkpointNumber, "time": time.Now().UTC().Format("2006-01-02T15:04:05-0700"), "state": scenarioSaved, "slot": row.FileIndex, "display_file": row.DisplayFile, "hardware_card_slot": row.CardSlot, "actor": scenarioActor, "original_control": originalControl, "epoch": epoch}
+					if effect == "capture-terminal" {
+						event["mode"] = step.UI.Headers["mode"]
+					}
+					if isPrompt {
+						event["prompt"] = pendingPrompt
+						event["prompt_headers"] = pendingPromptHeaders
+					}
+					if effect != "capture-save" {
+						event["state"] = step.UI.Saved
+					}
+					if effect == "capture-preview" || effect == "capture-reload" {
+						event["method"] = loadMethod
+						event["phase"] = "verification"
+						if request.Operation == "prepare-load" {
+							event["phase"] = "preparation"
+						}
+					}
+					if effect == "emit-reload-start" {
+						event["method"] = strings.TrimSuffix(request.Operation, "-load")
+						event["phase"] = "verification"
+						if preparedState != nil && !preparationAcknowledged {
+							event["phase"] = "preparation"
+						}
+					}
+					if effect == "capture-reload" {
+						event["successful_preview_samples"] = previewSamples
+					}
+					if effect == "emit-resumed" {
+						if !restored {
+							step.Reason = "resumed lacks guarded restoration"
+							break actions
+						}
+						event["expected"] = scenarioSaved
+					}
 				}
 				scenarioEvent, _ = json.Marshal(event)
 				log := append(bytes.Clone(scenarioEvent), '\n')
@@ -1975,8 +2015,11 @@ requests:
 					step.Reason = "event append readback differs"
 					break actions
 				}
-				scenarioEvents = append(scenarioEvents, ProbeEvidenceEvent{Offset: int64(logOffset), Data: log})
-				if isPrompt {
+				journalEvents = append(journalEvents, ProbeEvidenceEvent{Offset: int64(logOffset), Data: log})
+				if !ordinary {
+					scenarioEvents = append(scenarioEvents, journalEvents[len(journalEvents)-1])
+				}
+				if effect == "emit-card-witness" {
 					seenPromptWitness[fmt.Sprintf("%d:%s", checkpointNumber, pendingPromptKind)] = true
 					pendingPromptKind = ""
 					repeatEffect = true
@@ -2007,11 +2050,24 @@ requests:
 					break
 				}
 				captureRoot := filepath.Join(profile.Root, "captures")
-				if err := os.Mkdir(captureRoot, 0700); err != nil && !(len(scenarioCaptures) > 0 && os.IsExist(err)) {
-					step.Reason = err.Error()
+				createErr := os.Mkdir(captureRoot, 0700)
+				captureInfo, statErr := os.Lstat(captureRoot)
+				if statErr != nil || createErr != nil && (!os.IsExist(createErr) || captureDirInfo == nil) || !captureInfo.IsDir() || captureInfo.Mode().Perm() != 0700 || captureDirInfo != nil && !os.SameFile(captureInfo, captureDirInfo) {
+					step.Reason = "capture directory is not the owned private directory"
 					break actions
 				}
+				captureDirInfo = captureInfo
 				memory := ProbeMemoryBundle{Version: 1, SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
+				actor, captureCheckpoint := scenarioActor, checkpointNumber
+				if ordinary {
+					actor, captureCheckpoint = frameActor, 0
+					for _, read := range table.WatchReads {
+						if read.ID == "current" {
+							memory.Requests = append(memory.Requests, read)
+						}
+					}
+					memory.Decoders = append(memory.Decoders, ProbeMemoryDecoder{ID: "current", Kind: "scalar", Requests: []string{"current"}})
+				}
 				for index, field := range []struct {
 					Opcode  uint8
 					Address uint32
@@ -2022,23 +2078,34 @@ requests:
 				memory.Decoders = append(memory.Decoders, ProbeMemoryDecoder{ID: "source-tags", Kind: "frame_tags", Requests: []string{"tag0", "tag1", "tag2"}})
 				playerIDs := []string{}
 				for offset := uint32(0); offset < 508; offset += 4 {
-					opcode, address := uint8(2), uint32(0x56bed0)+uint32(scenarioActor)*508+offset
+					opcode, address := uint8(2), uint32(0x56bed0)+uint32(actor)*508+offset
 					id := fmt.Sprintf("player-%d", offset)
 					playerIDs = append(playerIDs, id)
 					memory.Requests = append(memory.Requests, ProbeMemoryRequest{ID: id, Opcode: &opcode, Address: &address})
 				}
 				memory.Decoders = append(memory.Decoders, ProbeMemoryDecoder{ID: "source-player", Kind: "player", Requests: playerIDs})
 				memoryRaw, _ := json.Marshal(memory)
-				captureID := "save-" + request.Nonce
-				if effect != "capture-save" && effect != "capture-preparation-save" {
-					captureID = effect + "-" + request.Nonce
-				}
-				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(scenarioEvents), Checkpoint: checkpointNumber, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
+				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(journalEvents), Checkpoint: captureCheckpoint, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
 				captureRuntime := ProbeCaptureRuntime{Memory: scenarioRuntime, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
 				captureRaw, _ := json.Marshal(captureProfile)
 				runtimeRaw, _ := json.Marshal(captureRuntime)
 				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw)
 				step.Capture = &receipt
+				if ordinary {
+					if receipt.Version != 1 || receipt.CaptureID != captureID || receipt.EventID != len(journalEvents) || receipt.Checkpoint != 0 || receipt.LogOffset != int64(logOffset) || receipt.LogSHA256 != captureProfile.LogSHA256 {
+						step.Reason = fmt.Sprintf("ordinary capture lacks its bound receipt: %v", err)
+						break actions
+					}
+					if err != nil || receipt.Status != "CAPTURED" {
+						frameReason = "ordinary frame is unavailable: " + receipt.Reason
+						if err != nil {
+							frameReason += ": " + err.Error()
+						}
+					} else if receipt.MemoryBefore == nil || len(receipt.MemoryBefore.Decoded) == 0 || receipt.MemoryBefore.Decoded[0].ID != "current" || receipt.MemoryBefore.Decoded[0].Value == nil || *receipt.MemoryBefore.Decoded[0].Value != uint64(frameActor) {
+						frameReason = "ordinary frame selected player changed before capture"
+					}
+					break
+				}
 				if err != nil || receipt.Status != "CAPTURED" {
 					step.Reason = "save original-PNG capture is unknown: " + receipt.Reason
 					if err != nil {
@@ -2052,19 +2119,27 @@ requests:
 					break actions
 				}
 				scenarioCaptures = append(scenarioCaptures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(image), Admission: bytes.Clone(scenarioAdmission)})
-			case "report-save", "report-pair", "report-checkpoint", "report-story":
-				if step.Capture == nil || step.Capture.Status != "CAPTURED" || len(scenarioEvent) == 0 {
+			case "report-save", "report-pair", "report-checkpoint", "report-story", "report-frame":
+				ordinary := effect == "report-frame"
+				if step.Capture == nil || !ordinary && step.Capture.Status != "CAPTURED" || len(scenarioEvent) == 0 {
 					step.Reason = "save report requires its captured event"
 					break actions
 				}
-				image, err := readInput(filepath.Join(profile.Root, "captures", step.Capture.ImagePath), 16<<20)
-				if err != nil {
-					step.Reason = err.Error()
-					break actions
+				var image []byte
+				if step.Capture.Status == "CAPTURED" {
+					var err error
+					image, err = readInput(filepath.Join(profile.Root, "captures", step.Capture.ImagePath), 16<<20)
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
 				}
 				currentEpoch := epoch
-				bundle := ProbeEvidenceBundle{Version: 1, SourceSchema: "probe-evidence-go-v1", SourceSHA256: "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8", Admission: scenarioAdmission, RunID: profile.Session, Session: profile.Session, ISOSHA256: profile.Inputs["iso"].SHA256, Epoch: &currentEpoch, Cohort: profile.Scenario.ID, Members: []string{"paired-checkpoint"}, Events: []ProbeEvidenceEvent{{Offset: 0, Data: append(bytes.Clone(scenarioEvent), '\n')}}, Captures: []ProbeCaptureObservation{{Receipt: *step.Capture, ImageHex: hex.EncodeToString(image)}}}
-				if effect != "report-save" || profile.Scenario.Recipe != "" {
+				bundle := ProbeEvidenceBundle{Version: 1, SourceSchema: "probe-evidence-go-v1", SourceSHA256: "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8", Admission: scenarioAdmission, RunID: profile.Session, Session: profile.Session, ISOSHA256: profile.Inputs["iso"].SHA256, Epoch: &currentEpoch, Cohort: probeOrdinaryFrameCohort, Events: []ProbeEvidenceEvent{{Offset: step.Capture.LogOffset, Data: append(bytes.Clone(scenarioEvent), '\n')}}, Captures: []ProbeCaptureObservation{{Receipt: *step.Capture, ImageHex: hex.EncodeToString(image)}}}
+				if !ordinary {
+					bundle.Cohort, bundle.Members = profile.Scenario.ID, []string{"paired-checkpoint"}
+				}
+				if !ordinary && (effect != "report-save" || profile.Scenario.Recipe != "") {
 					bundle.Cohort = "go-checkpoint-only-v1"
 					bundle.Members = nil
 					bundle.Events = scenarioEvents
@@ -2074,7 +2149,7 @@ requests:
 						bundle.Story = &ProbeStoryFacts{Recipe: profile.Scenario.Recipe, Phase: "checkpoint"}
 						if effect == "report-story" {
 							bundle.Story.Phase = "complete"
-							bundle.Story.TerminalEventID = len(scenarioEvents)
+							bundle.Story.TerminalEventID = len(journalEvents)
 							if !postClearSince.IsZero() {
 								bundle.Story.PostClearMS = time.Since(postClearSince).Milliseconds()
 							}
@@ -2096,7 +2171,9 @@ requests:
 					step.Reason = err.Error()
 					break actions
 				}
-				step.Checkpoint = &result
+				if !ordinary {
+					step.Checkpoint = &result
+				}
 				if effect == "report-save" && (result.Status != "UNKNOWN" || len(result.Checkpoints) != checkpointNumber || result.Checkpoints[len(result.Checkpoints)-1].Warm || result.Checkpoints[len(result.Checkpoints)-1].Cold || result.Checkpoints[len(result.Checkpoints)-1].Advanced || profile.Scenario.Recipe == "" && len(result.CoveredAreas) != 0) {
 					step.Reason = "save-only evidence cannot accept a paired checkpoint"
 					break actions
@@ -2121,12 +2198,19 @@ requests:
 				}
 				resultRaw, _ := json.Marshal(result)
 				resultName := "save-report.json"
-				if effect != "report-save" || profile.Scenario.Recipe != "" {
+				if ordinary || effect != "report-save" || profile.Scenario.Recipe != "" {
 					resultName = request.Nonce + "-report.json"
 				}
 				if err := writeNewFile(filepath.Join(profile.Root, resultName), bytes.NewReader(resultRaw), int64(len(resultRaw)), fmt.Sprintf("%x", sha256.Sum256(resultRaw)), 0600); err != nil {
 					step.Reason = err.Error()
 					break actions
+				}
+				if ordinary {
+					if frameReason != "" {
+						step.Reason = frameReason
+					} else if result.Status != "PASS" {
+						step.Reason = "ordinary frame integrity is unavailable"
+					}
 				}
 			case "prepare":
 				settings, err := readInput(profile.Inputs["settings"].Path, 1<<20)
@@ -2842,7 +2926,7 @@ requests:
 			}
 		} else {
 			phase = "unknown"
-			if request.Operation == "watch" {
+			if request.Operation == "watch" || request.Operation == "observe-frame" {
 				readFailure = true
 			} else if request.Operation != "stop" {
 				ambiguousFailure = true
