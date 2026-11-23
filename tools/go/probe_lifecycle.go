@@ -2372,6 +2372,10 @@ requests:
 					step.Reason = err.Error()
 					break actions
 				}
+				if profile.Flatpak != nil && (int64(len(settings)) != profile.Inputs["settings"].Size || fmt.Sprintf("%x", sha256.Sum256(settings)) != profile.Inputs["settings"].SHA256) {
+					step.Reason = "source settings changed before private preparation"
+					break actions
+				}
 				required := map[string]string{"Folders.Bios": "bios", "Folders.Snapshots": "snaps", "Folders.Savestates": "sstates", "Folders.MemoryCards": "memcards", "Folders.Logs": "logs", "Folders.Cheats": "cheats", "Folders.Patches": "patches", "Folders.UserResources": "resources", "Folders.Cache": "cache", "Folders.Textures": "textures", "Folders.InputProfiles": "inputprofiles", "Folders.Videos": "videos", "Folders.DebuggerLayouts": "debuggerlayouts", "Folders.DebuggerSettings": "debuggersettings", "Filenames.BIOS": filepath.Base(profile.Inputs["bios"].Path), "MemoryCards.Slot1_Enable": "true", "MemoryCards.Slot1_Filename": "probe-slot1.ps2", "MemoryCards.Slot2_Enable": "false", "Hotkeys.ResetVM": "SDL-0/RightStick", "Hotkeys.TogglePause": "SDL-0/LeftStick"}
 				if padBackend == "uinput" {
 					var layout ProbePadLayout
@@ -2425,25 +2429,59 @@ requests:
 				values := map[string]string{}
 				nativeKeys := map[string]bool{}
 				section := ""
-				for _, line := range strings.Split(string(settings), "\n") {
-					line = strings.TrimSpace(line)
+				uiInsertAt, offset := -1, 0
+				uiLineEnding := "\n"
+				for _, rawLine := range strings.SplitAfter(string(settings), "\n") {
+					offset += len(rawLine)
+					line := strings.TrimSpace(rawLine)
 					if line == "" || strings.HasPrefix(line, ";") || strings.HasPrefix(line, "#") {
 						continue
 					}
 					if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
 						section = line[1 : len(line)-1]
+						if profile.Flatpak != nil && strings.EqualFold(section, "UI") {
+							if section != "UI" {
+								step.Reason = "private settings UI section is ambiguous"
+								break actions
+							}
+							if uiInsertAt < 0 && strings.HasSuffix(rawLine, "\n") {
+								uiInsertAt = offset
+								if strings.HasSuffix(rawLine, "\r\n") {
+									uiLineEnding = "\r\n"
+								}
+							}
+						}
 						continue
 					}
 					key, value, found := strings.Cut(line, "=")
 					name := section + "." + strings.TrimSpace(key)
 					_, duplicate := values[name]
 					folded := strings.ToLower(name)
+					if profile.Flatpak != nil && folded == "ui.settingsversion" && (name != "UI.SettingsVersion" || nativeKeys[folded]) {
+						step.Reason = "private settings version is ambiguous"
+						break actions
+					}
 					if !found || duplicate || (padBackend == "uinput" || padBackend == "private-x11") && nativeKeys[folded] {
 						step.Reason = "settings template is not normalized"
 						break actions
 					}
 					nativeKeys[folded] = true
 					values[name] = strings.TrimSpace(value)
+				}
+				if profile.Flatpak != nil {
+					version, present := values["UI.SettingsVersion"]
+					if present && version != "1" {
+						step.Reason = "private settings version is unsupported"
+						break actions
+					}
+					if !present {
+						if uiInsertAt < 0 {
+							step.Reason = "private settings UI section is unavailable"
+							break actions
+						}
+						// PCSX2 2.8.2 blocks on a reset/abort dialog without this key.
+						settings = slices.Concat(settings[:uiInsertAt], []byte("SettingsVersion=1"+uiLineEnding), settings[uiInsertAt:])
+					}
 				}
 				for key, value := range required {
 					if values[key] != value {
@@ -2511,13 +2549,23 @@ requests:
 					if copyRole == "bios" || strings.HasPrefix(copyRole, "bios:") {
 						target = filepath.Join(dataRoot, "bios", filepath.Base(input.Path))
 					}
-					source, err := os.Open(input.Path)
-					if err != nil {
-						step.Reason = err.Error()
-						break actions
+					var source io.Reader
+					var sourceFile *os.File
+					if copyRole == "settings" && profile.Flatpak != nil {
+						source = bytes.NewReader(settings)
+						input.Size, input.SHA256 = int64(len(settings)), fmt.Sprintf("%x", sha256.Sum256(settings))
+					} else {
+						sourceFile, err = os.Open(input.Path)
+						if err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						source = sourceFile
 					}
 					err = writeProbeArtifact(artifactBudget, artifactClass, target, source, input.Size, input.SHA256, 0600)
-					_ = source.Close()
+					if sourceFile != nil {
+						_ = sourceFile.Close()
+					}
 					if err != nil {
 						step.Reason = err.Error()
 						break actions

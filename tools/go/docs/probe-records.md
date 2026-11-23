@@ -170,6 +170,11 @@ display. This fresh Flatpak profile requires a nondefault PINE slot and accepts
 only initial/newgame/scenario/observe-frame/watch/stop requests. Loading a copied
 card alone does not bypass the existing same-run scenario save condition.
 
+The pinned PCSX2 2.8.2 Flatpak needs `UI.SettingsVersion=1`. Private preparation
+inserts a genuinely missing key into its generated INI, preserving the verified
+seed and other bytes/line endings. Explicit supported version1 remains identical;
+blank, unsupported or ambiguous version keys refuse before profile creation.
+
 Before launch, the authenticated private-server connection disables the exact
 Xephyr physical keyboard/mouse forwarders. Setup binds their distinct IDs by
 keyboard/mouse role only after both change from enabled attached slaves to

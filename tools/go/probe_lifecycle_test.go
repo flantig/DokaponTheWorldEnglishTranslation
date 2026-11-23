@@ -1189,24 +1189,61 @@ func TestProbeLifecycle(t *testing.T) {
 	var nativeSettings string
 	var nativeCases []struct {
 		Name, Backend, From, To, Reason, Error string
+		Flatpak, PrivateSettings, CRLF         bool
 	}
 	if json.Unmarshal(fields["native_settings"], &nativeSettings) != nil || json.Unmarshal(fields["native_settings_cases"], &nativeCases) != nil || len(nativeCases) != 30 {
 		t.Fatal("literal native settings oracle")
 	}
+	for _, version := range []string{"missing", "1", "blank", "0", "2", "case", "duplicate", "repeat-ui", "crlf", "prelaunch-cap"} {
+		row := nativeCases[0]
+		row.Name, row.Backend, row.From, row.To, row.Error = "flatpak-version-"+version, "event-sink", "", "", ""
+		row.Flatpak, row.PrivateSettings = true, version == "missing" || version == "1" || version == "repeat-ui" || version == "crlf"
+		row.Reason = "private settings version is unsupported"
+		switch version {
+		case "missing", "crlf":
+			row.Reason = "pad service failed: "
+			row.CRLF = version == "crlf"
+		case "1", "0", "2":
+			row.From, row.To = "[UI]\n", "[UI]\nSettingsVersion="+version+"\n"
+			if version == "1" {
+				row.Reason = "pad service failed: "
+			}
+		case "blank":
+			row.From, row.To = "[UI]\n", "[UI]\nSettingsVersion=\n"
+		case "case":
+			row.From, row.To, row.Reason = "[UI]\n", "[UI]\nsettingsversion=1\n", "private settings version is ambiguous"
+		case "duplicate":
+			row.From, row.To, row.Reason = "[UI]\n", "[UI]\nSettingsVersion=1\nSettingsVersion=1\n", "private settings version is ambiguous"
+		case "repeat-ui":
+			row.From, row.To, row.Reason = "[UI]\n", "[UI]\nSettingsVersion=1\n[UI]\n", "pad service failed: "
+		case "prelaunch-cap":
+			row.PrivateSettings, row.Reason = true, "effect completion publication failed"
+		}
+		nativeCases = append(nativeCases, row)
+	}
 	for _, row := range nativeCases {
+		prelaunchCap := row.Name == "flatpak-version-prelaunch-cap"
 		candidate := profile
 		candidate.PadBackend = row.Backend
 		candidate.Root = t.TempDir()
 		_ = os.Chmod(candidate.Root, 0700)
-		if err := os.Mkdir(filepath.Join(candidate.Root, "profile"), 0700); err != nil {
-			t.Fatal(err)
+		if !row.Flatpak {
+			if err := os.Mkdir(filepath.Join(candidate.Root, "profile"), 0700); err != nil {
+				t.Fatal(err)
+			}
 		}
 		settings := nativeSettings
+		if row.Flatpak {
+			settings += "[UI]\nStartFullscreen=false\nSetupWizardIncomplete=false\n[EmuCore]\nEnablePINE=true\nPINESlot=28011\n[MemoryCards]\nMultitap1_Slot2_Enable=false\nMultitap1_Slot3_Enable=false\nMultitap1_Slot4_Enable=false\nMultitap2_Slot2_Enable=false\nMultitap2_Slot3_Enable=false\nMultitap2_Slot4_Enable=false\n"
+		}
 		if row.From != "" {
 			if strings.Count(settings, row.From) != 1 {
 				t.Fatal(row.Name, "mutation is not unique")
 			}
 			settings = strings.Replace(settings, row.From, row.To, 1)
+		}
+		if row.CRLF {
+			settings = strings.ReplaceAll(settings, "\n", "\r\n")
 		}
 		path := filepath.Join(sources, row.Name+".ini")
 		if err := os.WriteFile(path, []byte(settings), 0400); err != nil {
@@ -1217,6 +1254,38 @@ func TestProbeLifecycle(t *testing.T) {
 			candidate.Inputs[role] = input
 		}
 		candidate.Inputs["settings"] = RegistryInput{Path: path, Size: int64(len(settings)), SHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(settings)))}
+		if row.Flatpak {
+			project := candidate.Root
+			if err := os.MkdirAll(filepath.Join(project, "generated", "work"), 0700); err != nil {
+				t.Fatal(err)
+			}
+			candidate.Root = filepath.Join(project, "generated", strings.Repeat("r", 96))
+			if prelaunchCap {
+				candidate.Root = filepath.Join(project, "generated", "cap")
+			}
+			if !prelaunchCap && len(filepath.Join(candidate.Root, "pad.sock")) <= 107 {
+				t.Fatal("preparation test must refuse before any launcher through the Unix pathname bound")
+			}
+			if err := os.Mkdir(candidate.Root, 0700); err != nil {
+				t.Fatal(err)
+			}
+			if prelaunchCap {
+				candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 60, MaxRetainedFrames: 16, MaxManagedFiles: 64, MaxManagedBytes: 256 << 20, MaxJournalBytes: 1 << 20}
+				for index := 0; index < 45; index++ {
+					if err := os.WriteFile(filepath.Join(candidate.Root, fmt.Sprintf("owned-%02d", index)), []byte("x"), 0600); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			iso := candidate.Inputs["iso"]
+			iso.Path = filepath.Join(project, "generated", "work", "source.iso")
+			if err := os.WriteFile(iso.Path, []byte("synthetic-iso"), 0400); err != nil {
+				t.Fatal(err)
+			}
+			candidate.Inputs["iso"] = iso
+			candidate.ProgramArgs = []string{}
+			candidate.Flatpak = &ProbeFlatpakLaunch{ProjectRoot: project, Launcher: candidate.Inputs["settings"], RuntimeArgv0: "pcsx2-qt"}
+		}
 		candidate.Requests = []ProbeLifecycleRequest{fixture.Requests[0], fixture.Requests[len(fixture.Requests)-1]}
 		input, _ := json.Marshal(candidate)
 		result, err := runProbeLifecycle(input)
@@ -1231,11 +1300,40 @@ func TestProbeLifecycle(t *testing.T) {
 			t.Fatalf("%s preparation: %+v %v", row.Name, result, err)
 		}
 		for _, name := range []string{"pad.sock", "pad-events.bin", "pad-device.json", "child-epoch-0.log", "owned.json"} {
+			if row.PrivateSettings && (name == "pad-events.bin" || name == "pad-device.json") {
+				continue
+			}
 			if _, err := os.Lstat(filepath.Join(candidate.Root, name)); !os.IsNotExist(err) {
 				t.Fatal(row.Name, "preparation reached pad/child", name)
 			}
 		}
-		if entries, _ := os.ReadDir(filepath.Join(candidate.Root, "profile")); len(entries) != 0 {
+		if row.PrivateSettings {
+			expected := settings
+			if row.From == "" {
+				ending := "\n"
+				if row.CRLF {
+					ending = "\r\n"
+				}
+				expected = strings.Replace(expected, "[UI]"+ending, "[UI]"+ending+"SettingsVersion=1"+ending, 1)
+			}
+			actual, err := os.ReadFile(filepath.Join(candidate.Root, "profile", "PCSX2", "inis", "PCSX2.ini"))
+			expectedEffects := []string{"prepare"}
+			if prelaunchCap {
+				expectedEffects = append(expectedEffects, "pad")
+			}
+			if err != nil || string(actual) != expected || !slices.Equal(result.Steps[0].Effects, expectedEffects) {
+				t.Fatal(row.Name, "private Flatpak version output differs or reached launch", err, result.Steps[0])
+			}
+			if prelaunchCap {
+				if result.Steps[1].Reason != "safe stop requires an established owned child" || result.Status != "INCOMPLETE" {
+					t.Fatal("actual prelaunch failure changed its stop refusal", result.Steps[1])
+				}
+			}
+		} else if row.Flatpak {
+			if _, err := os.Lstat(filepath.Join(candidate.Root, "profile")); !os.IsNotExist(err) {
+				t.Fatal(row.Name, "invalid version created a private profile", err)
+			}
+		} else if entries, _ := os.ReadDir(filepath.Join(candidate.Root, "profile")); len(entries) != 0 {
 			t.Fatal(row.Name, "preparation copied profile inputs")
 		}
 		for role, source := range candidate.Inputs {
@@ -1243,6 +1341,9 @@ func TestProbeLifecycle(t *testing.T) {
 			if err != nil || fmt.Sprintf("%x", sha256.Sum256(readback)) != source.SHA256 {
 				t.Fatal(row.Name, role, "source input changed", err)
 			}
+		}
+		if row.Flatpak {
+			t.Logf("%s actual Flatpak preparation: private_settings=%t source_unchanged=true effects=%v", row.Name, row.PrivateSettings, result.Steps[0].Effects)
 		}
 	}
 	// Exercise effective backend agreement before sequence locks, pending files or runs.
