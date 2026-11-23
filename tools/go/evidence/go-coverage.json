@@ -606,6 +606,41 @@
       "native_state": "TIFF restored pair and real pointer retained; false reference removed."
     },
     "tools/apply_controller_pointer_fixes_2026-09-07.py": {
+      "responsibility_proofs": {
+        "state": "DRAFT binding only; existing historical retirement retained; no new credit",
+        "study": {
+          "path": "analysis/pattern-crawl-text_binary.json",
+          "sha256": "32307e349bdff47dde0442f8988029da76d2f1aa0704becd029417152f5cd707",
+          "pointer": "/scripts/6",
+          "source_sha256": "222d7ab2c2efcc9c5398ea1107d92c3efd8b689deb5050a544806d1bb4122bda",
+          "source_availability": "Studied refusal-stub identity; source file not packaged in this public tree",
+          "former_source": ["/historical_reference/sha256", "/historical_reference/commit"],
+          "responsibilities": ["/historical_reference/behavior"],
+          "effects": ["/historical_reference/call_evidence"],
+          "guards": ["/exceptions", "/unknowns"],
+          "stub_refusal": ["/evidence", "/called_evidence"]
+        },
+        "evidence": [{
+          "path": "evidence/native-probe-guarded-copy-proof.json",
+          "sha256": "aa68c8f586d32a3e7c2139d32757d55c5e8a7855b0300b96a6079885a263b1b7",
+          "at": "2026-10-18T23:11:59.256936+00:00",
+          "effects": ["/checks/14/complete_output_equals_original_write_effects", "/checks/14/outside_bytes_and_original_source_preserved"],
+          "guards": ["/checks/14/existing_output_refused_without_change", "/checks/14/negative_checks"],
+          "scope": ["/limits"]
+        }],
+        "uncovered": {
+          "retirement_proof": {
+            "path": "evidence/three-native-writer-retirement-checkpoint.json",
+            "sha256": "fff4fb5044942f3103ff790a9017e9fd6e397867d248ca5a4ec857295d27d6f4",
+            "at": "2026-10-19T00:02:33.652592+00:00",
+            "pointer": "/scope/completed_historical/0",
+            "review_scope": ["/verification/ordinary_code_review_findings", "/limits"],
+            "availability": "Private/local historical checkpoint read only; absent from this public tree, not publicly verifiable"
+          },
+          "callers": "Study records the refusal stub, not complete historical/manual/external caller closure",
+          "scope": "Synthetic copy evidence is not retirement review or current/native controller qualification; historical semantics remain discovery only"
+        }
+      },
       "status": "reviewed completed/superseded historical workflow; execution retired",
       "legacy_run": "reference-only",
       "contract": "evidence/three-native-writer-retirement-checkpoint.json",
@@ -679,6 +714,61 @@
       "verification_state": "VERIFIED narrow withdrawal: independent final-source review and focused test pass; broad rerun 4041 passed/68 failed from separately classified existing fixture/snapshot debt."
     },
     "tools/build_registry_csv.py": {
+      "responsibility_proofs": {
+        "state": "DRAFT binding only; existing partial status retained; no new credit",
+        "study": {
+          "path": "analysis/pattern-crawl-iso_registry_reports.json",
+          "sha256": "c810b37ecbf3e5039f020b9934fbd9bbe04920af875828fe6cca8250db2f10e4",
+          "pointer": "/scripts/57",
+          "source_sha256": "2e70eb95d24d8e44156d6e759b6f0eb4a0fd29e16ed0bd7d3ad1c9fba32dfcf3",
+          "source_availability": "Historical source identity; source file not packaged in this public tree",
+          "responsibilities": ["/capabilities"],
+          "callers": ["/evidence", "/delegates"],
+          "unknowns": ["/unknowns"]
+        },
+        "evidence": [
+          {
+            "path": "analysis/registry-export-contract.json",
+            "sha256": "c3312135ce0c89d0445157cb9d43e12763f83be5d2db5185a490ae20536786cf",
+            "at": "2026-10-20T21:21:05.297684+00:00",
+            "responsibilities": ["/historical_csv", "/recommended_scope"],
+            "effects": ["/historical_csv/bytes", "/historical_csv/rows"],
+            "guards": ["/selected_scope_validation"],
+            "scope": ["/historical_status/selected_increment", "/source_pin_qualification"]
+          },
+          {
+            "path": "evidence/registry-export-proof.json",
+            "sha256": "42b19209ad774825c853143f215162f921d074b897b0a0cade07e975a0e88935",
+            "at": "2026-10-20T21:27:40.664044+00:00",
+            "effects": ["/canonical_flow"],
+            "scope": ["/contract", "/limits"]
+          },
+          {
+            "path": "evidence/registry-export-review.json",
+            "sha256": "98c80fdc699ad4f997109fce60146a137aa9065e477ae37b32912d3bbd2cadab",
+            "at": "2026-10-20T21:26:51.082167+00:00",
+            "review_scope": ["/result", "/assessment", "/limits"]
+          },
+          {
+            "path": "analysis/registry-export-disposition.json",
+            "sha256": "05c629fec58af08013fd983a392f41b1d1762aab0e2240ee9fb9fb7221894023",
+            "at": "2026-10-20T21:32:32.893134+00:00",
+            "callers": ["/source_and_callers"],
+            "scope": ["/deliberate_changes_and_holds"]
+          },
+          {
+            "path": "evidence/registry-export-disposition-proof.json",
+            "sha256": "5c1acf9b3acdef7a88c79263e28dd925da741d63827b28f6b498a097f79f1d47",
+            "at": "2026-10-20T21:35:37.797576+00:00",
+            "responsibilities": ["/source_and_effects"],
+            "scope": ["/status", "/limits", "/ledger/legacy_execution_policy_changed"]
+          }
+        ],
+        "uncovered": {
+          "callers": "Retained launcher/provider and textual leads are not complete migrated caller closure",
+          "scope": "Accepted records are dated flat-scalar CSV evidence, not qualification of every later source revision; historical CLI/defaults/overwrite/coercions and status/glossary/flow/native responsibilities remain outside this binding"
+        }
+      },
       "status": "partial behavior or reference evidence only",
       "coverage": "Shared Go offline registry CSV projection verified: all entries regardless status, numeric ID sorting with original ID spelling, ordered columns, historical UTF-8/quoting/CRLF and embedded CR/LF bytes. Independent canonical 5544-row output matches exactly (3674934 bytes) within the declared flat scalar domain.",
       "runtime": "Existing authorRegistry with registry_export, ordered RegistryColumns and recipes/reports/registry-export.json; run/writeNewFile retain shared preview and exclusive publication. No per-script function, helper, handler, writer or dependency.",
