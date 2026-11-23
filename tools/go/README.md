@@ -592,6 +592,28 @@ with nearest sampling before physical permissions are checked. Omission means1;
 null, nonpositive values and scale on metric cells refuse. These capabilities do
 not establish the secondary seven-day source pairing or visual/native approval.
 
+The [seven-day recipe](profiles/textures/hud-weekdays.json) now reproduces the
+historical preview using the same extended font, canonical registry IDs and
+poststyle2x cells. It pins historical `win_p.txd` member `fd508c7a` (encoded
+pixels `4428c075`), recovered from the October6 backup. The current `6164eddb`
+member is a different source and refuses. All seven glyph masks, complete RGBA,
+decoded indices, exterior pixels/indices, CLUT and other TXD bytes are checked
+against the [archived preview fixture](testdata/weekday-render.json).
+The original five-cell recipe still reproduces its exact approved whole TXD.
+No current shipping, artwork, visual or ISO-placement approval follows.
+
+To reproduce the standalone historical outputs from this directory, extract
+`source.txd` and `source.png` from `testdata/weekday-render.zip` into a new
+`generated/weekday-preview/` directory. Render `candidate.txd` with the seven-day
+recipe, then export `candidate.png` using
+[the pinned export profile](profiles/textures/hud-weekdays-export.json).
+Use `source.png` with the [1x](profiles/previews/hud-weekdays-1x.json) and
+[3x](profiles/previews/hud-weekdays-3x.json) comparison profiles to publish the
+captioned sheets. Each step uses the existing `--source`, `--texture-profile`,
+`--apply --output` command; outputs must be new paths. The comparison steps need
+the native-font build and existing bundled caption font. Both sheets match the
+archived pixels; PNG compression is separate from pixel equality.
+
 The [native-font scaling foundation](evidence/raster-resize-proof.json) now has
 one pure [resizer](raster_resize.go) for Gray glyphs and RGBA word layers. It
 matches134 frozen pixel cases and8,803 independent filter coefficients, including

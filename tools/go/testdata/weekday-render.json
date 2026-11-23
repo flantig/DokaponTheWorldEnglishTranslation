@@ -1,0 +1,31 @@
+{
+  "bundle": "testdata/weekday-render.zip",
+  "bundle_sha256": "7c9ef5de26a1598dea21f6de55e9be309d64ac2d63c8eebead5ba6b4ef3eef60",
+  "profile": "profiles/textures/hud-weekdays.json",
+  "historical_source": {
+    "iso_sha256": "2b6043a43e778285b2650090aa9dd94cbb2d9b2b32e8cdf3955f7771b0f42705",
+    "archive": "GRAPHIC/SYSTEM.CMB",
+    "member": "system\\win_p.txd",
+    "index_sha256": "e5a9df08ffac1849633186095c493c66237281b31bd6d9b3f17cddfd929bac46",
+    "member_sha256": "fd508c7a1eb457d139b8c9462ed1089505bcb81576bd3d1b8f9a980e49e124d5",
+    "encoded_pixel_sha256": "4428c0758b66447e07eb6e064436bc5948df2cc1c0e5e9d3292a4093cdbaf9e6",
+    "clut_sha256": "ee9fac4f9106e59e08a8da388a6d75eac77bf7fc8d05d2194729bd8d2aab78b1",
+    "source_png_sha256": "90419a1f54b2ffb339723da909c1d9ad71f902c7dcbddfd3cb963c5714df6306",
+    "source_rgba_sha256": "2e1e0df734e139b0c254bf54a85574c7b866a434d72030eae89753d13538636b"
+  },
+  "expected": {
+    "png_sha256": "ac50500a4a4d15794fb986eb7935b6ecfcbd733cfca47cf9653b6023a0689598",
+    "rgba_sha256": "fc4e34ef8e38881d80c503ce1bcfa36bcef14c836497145a19b7ce99a98fcbbc",
+    "preview_1_rgba_sha256": "fddd4319d3b522a2d9e3320ee9a0014d0463c2c8e3aa62ff4ae4fabd30ec1732",
+    "preview_3_rgba_sha256": "b0ffacd81dea859046745f49e9f62d3ce2a0cdbba249599aa50766bb5a722481",
+    "alpha_bbox_per_cell": [
+      2,
+      18,
+      46,
+      46
+    ],
+    "old_font_gray_prefix_sha256": "0125253232b633d14197fd8f6809eebf2ac6a29dd9d864a8fb1bbe19dc897fae"
+  },
+  "palette_policy": "Keep source index for identical RGBA, otherwise first nearest logical CLUT index, as legacy and shared Go codec. Actual source has256 unique RGBA entries, exactly one transparent index247; all final style colors match exact unique entries.",
+  "scope": "Historical preview caller only. Exact current shipping member6164/bb5f differs and must refuse this pinned profile. No artwork approval, ISO application, emulator/runtime or visual qualification."
+}

@@ -15765,6 +15765,7 @@ func TestRegistryWordingAndNewRecipeNeedsNoHandler(t *testing.T) {
 		ExpectedKey    string `json:"expected_key"`
 		TXD            string `json:"txd_sha256"`
 		Profile        string
+		Font, Atlas    string
 	}
 	oracle, err := os.ReadFile("testdata/bitmap-render.json")
 	if err != nil || json.Unmarshal(oracle, &bitmap) != nil {
@@ -15970,6 +15971,291 @@ func TestRegistryWordingAndNewRecipeNeedsNoHandler(t *testing.T) {
 	}
 	if current, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(current, members["source"]) {
 		t.Fatal("registry render changed source", err)
+	}
+	{
+		var oracle struct {
+			Bundle    string
+			BundleSHA string `json:"bundle_sha256"`
+			Profile   string
+			Source    struct {
+				Member string `json:"member_sha256"`
+				Pixels string `json:"encoded_pixel_sha256"`
+				CLUT   string `json:"clut_sha256"`
+				RGBA   string `json:"source_rgba_sha256"`
+			} `json:"historical_source"`
+			Expected struct {
+				RGBA    string `json:"rgba_sha256"`
+				OldFont string `json:"old_font_gray_prefix_sha256"`
+			} `json:"expected"`
+		}
+		facts, err := os.ReadFile("testdata/weekday-render.json")
+		if err != nil || json.Unmarshal(facts, &oracle) != nil {
+			t.Fatal("weekday oracle", err)
+		}
+		capsule, err := os.ReadFile(oracle.Bundle)
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(capsule)) != oracle.BundleSHA {
+			t.Fatal("weekday capsule identity", err)
+		}
+		archive, err := zip.NewReader(bytes.NewReader(capsule), int64(len(capsule)))
+		if err != nil {
+			t.Fatal(err)
+		}
+		files := make(map[string][]byte)
+		for _, member := range archive.File {
+			reader, err := member.Open()
+			if err != nil {
+				t.Fatal(err)
+			}
+			body, readErr := io.ReadAll(io.LimitReader(reader, 1<<20))
+			closeErr := reader.Close()
+			if readErr != nil || closeErr != nil {
+				t.Fatal(readErr, closeErr)
+			}
+			files[member.Name] = body
+		}
+		native := files["source.txd"]
+		if len(native) != 263580 || fmt.Sprintf("%x", sha256.Sum256(native)) != oracle.Source.Member || fmt.Sprintf("%x", sha256.Sum256(native[292:262436])) != oracle.Source.Pixels || fmt.Sprintf("%x", sha256.Sum256(native[262516:263540])) != oracle.Source.CLUT {
+			t.Fatal("weekday historical native/CLUT identity")
+		}
+		profileData, err := os.ReadFile(oracle.Profile)
+		var profile TextureProfile
+		if err != nil || json.Unmarshal(profileData, &profile) != nil || len(profile.Render.Cells) != 7 {
+			t.Fatal("weekday profile", err)
+		}
+		registryPath := filepath.Join(filepath.Dir(oracle.Profile), profile.Render.Registry.Path)
+		registryData, err := os.ReadFile(registryPath)
+		var registry Registry
+		if err != nil || json.Unmarshal(registryData, &registry) != nil {
+			t.Fatal(err)
+		}
+		wording := make(map[uint64]string)
+		for _, entry := range registry.Entries {
+			id, err := number(entry.ID)
+			if err != nil {
+				t.Fatal(err)
+			}
+			wording[id] = entry.EN
+		}
+		fontData, err := os.ReadFile(bitmap.Font)
+		var font RasterFont
+		if err != nil || json.Unmarshal(fontData, &font) != nil || len(font.Glyphs) != 19 {
+			t.Fatal("shared weekday font", err)
+		}
+		fontPNG, err := os.ReadFile(bitmap.Atlas)
+		if err != nil {
+			t.Fatal(err)
+		}
+		decodedFont, err := png.Decode(bytes.NewReader(fontPNG))
+		if err != nil {
+			t.Fatal(err)
+		}
+		atlas, ok := decodedFont.(*image.Gray)
+		if !ok || atlas.Rect != image.Rect(0, 0, 114, 12) {
+			t.Fatal("extended grayscale atlas")
+		}
+		var oldGlyphs []byte
+		for y := 0; y < 12; y++ {
+			oldGlyphs = append(oldGlyphs, atlas.Pix[y*atlas.Stride:y*atlas.Stride+66]...)
+		}
+		if fmt.Sprintf("%x", sha256.Sum256(oldGlyphs)) != oracle.Expected.OldFont {
+			t.Fatal("existing glyph mask changed")
+		}
+		originalPNG, err := png.Decode(bytes.NewReader(files["source.png"]))
+		if err != nil {
+			t.Fatal(err)
+		}
+		expectedPNG, err := png.Decode(bytes.NewReader(files["expected.png"]))
+		if err != nil {
+			t.Fatal(err)
+		}
+		_, original, err := texture(native, profile.Texture, nil, nil, "", nil)
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(original.Pix)) != oracle.Source.RGBA {
+			t.Fatal("weekday source pairing", err)
+		}
+		sourcePath, output := filepath.Join(dir, "weekday-source.txd"), filepath.Join(dir, "weekday-rendered.txd")
+		if err := os.WriteFile(sourcePath, native, 0600); err != nil {
+			t.Fatal(err)
+		}
+		out.Reset()
+		if err := authorTexture(sourcePath, oracle.Profile, output, true, &out); err != nil {
+			t.Fatal(err)
+		}
+		artifact, err := os.ReadFile(output)
+		if err != nil {
+			t.Fatal(err)
+		}
+		_, candidate, err := texture(artifact, profile.Texture, nil, nil, "", nil)
+		if err != nil || fmt.Sprintf("%x", sha256.Sum256(candidate.Pix)) != oracle.Expected.RGBA {
+			t.Fatal("complete weekday preview RGBA", err)
+		}
+		if !bytes.Equal(native[:292], artifact[:292]) || !bytes.Equal(native[262436:], artifact[262436:]) {
+			t.Fatal("weekday changed metadata/CLUT")
+		}
+		palette := make([]color.NRGBA, 256)
+		unique := make(map[color.NRGBA]byte)
+		for logical := range palette {
+			physical := logical
+			switch logical % 32 / 8 {
+			case 1:
+				physical += 8
+			case 2:
+				physical -= 8
+			}
+			raw := native[262516+physical*4 : 262520+physical*4]
+			pixel := color.NRGBA{raw[0], raw[1], raw[2], uint8(min(255, int(raw[3])*2))}
+			if _, exists := unique[pixel]; exists {
+				t.Fatal("historical CLUT uniqueness assumption changed")
+			}
+			palette[logical], unique[pixel] = pixel, byte(logical)
+		}
+		seen := make([]bool, 512*512)
+		for y := 0; y < 512; y++ {
+			for x := 0; x < 512; x++ {
+				want := color.NRGBAModel.Convert(expectedPNG.At(x, y)).(color.NRGBA)
+				if candidate.NRGBAAt(x, y) != want || original.NRGBAAt(x, y) != color.NRGBAModel.Convert(originalPNG.At(x, y)).(color.NRGBA) {
+					t.Fatal("weekday independent PNG pairing", x, y)
+				}
+				// Source layout is independently calibrated; uniqueness makes the PNG an exact index oracle.
+				at := (y/16)*8192 + (x/16)*32 + ((2*(y/4)+y%2)%8)*1024 + ((x+((y+2)/4%2)*4)%8)*4 + (y/2)%2 + 2*((x/8)%2)
+				if seen[at] {
+					t.Fatal("weekday index map aliases")
+				}
+				seen[at] = true
+				old := native[292+at]
+				if palette[old] != original.NRGBAAt(x, y) {
+					t.Fatal("weekday decoded source index", x, y)
+				}
+				index, exists := unique[want]
+				if !exists {
+					t.Fatal("weekday expected color absent from CLUT", x, y)
+				}
+				if want == palette[old] {
+					index = old
+				}
+				if artifact[292+at] != index {
+					t.Fatal("weekday old-preserve/new-index identity", x, y)
+				}
+				if !(y >= 208 && y < 272 && x < 336) && (artifact[292+at] != old || want != original.NRGBAAt(x, y)) {
+					t.Fatal("weekday exterior index/RGBA changed", x, y)
+				}
+			}
+		}
+		for day, cell := range profile.Render.Cells {
+			id, err := number(*cell.RegistryID)
+			if err != nil || id != 0x535a3c+uint64(day)*4 || cell.ID != *cell.RegistryID || cell.Text != "" || !cell.Uppercase || cell.Scale == nil || *cell.Scale != 2 {
+				t.Fatal("weekday canonical binding", day, err)
+			}
+			word := strings.ToUpper(wording[id])
+			if len([]rune(word)) != 3 {
+				t.Fatal("weekday canonical word", id)
+			}
+			box := image.Rectangle{}
+			for y := 0; y < 64; y++ {
+				for x := 0; x < 48; x++ {
+					p := candidate.NRGBAAt(day*48+x, 208+y)
+					if p.A != 0 {
+						box = box.Union(image.Rect(x, y, x+1, y+1))
+					}
+					if p != candidate.NRGBAAt(day*48+(x/2)*2, 208+(y/2)*2) {
+						t.Fatal("weekday non-nearest physical block")
+					}
+				}
+			}
+			if box != image.Rect(2, 18, 46, 46) {
+				t.Fatal("weekday alpha bbox", day, box)
+			}
+			for letter, ch := range []rune(word) {
+				glyph := font.Glyphs[string(ch)].Rect
+				if len(glyph) != 4 {
+					t.Fatal("weekday missing glyph", ch)
+				}
+				for y := 0; y < 12; y++ {
+					for x := 0; x < 6; x++ {
+						pixel := candidate.NRGBAAt(day*48+2*(2+letter*7+x), 208+2*(10+y))
+						ink := pixel == (color.NRGBA{uint8(cell.Fill[0]), uint8(cell.Fill[1]), uint8(cell.Fill[2]), 255}) || pixel == (color.NRGBA{uint8(cell.Shade[0]), uint8(cell.Shade[1]), uint8(cell.Shade[2]), 255})
+						if ink != (atlas.GrayAt(glyph[0]+x, glyph[1]+y).Y != 0) {
+							t.Fatal("weekday semantic letter mask", day, ch, x, y)
+						}
+					}
+				}
+			}
+		}
+		out.Reset()
+		if err := authorTexture(literalPath, oracle.Profile, filepath.Join(dir, "current-weekday-refused.txd"), true, &out); err == nil || out.Len() != 0 {
+			t.Fatal("historical weekday profile accepted current member", err)
+		}
+		if _, err := os.Stat(filepath.Join(dir, "current-weekday-refused.txd")); !os.IsNotExist(err) {
+			t.Fatal("weekday refusal published", err)
+		}
+		beforePath, afterPath := filepath.Join(dir, "weekday-before.png"), filepath.Join(dir, "weekday-after.png")
+		if err := os.WriteFile(beforePath, files["source.png"], 0600); err != nil {
+			t.Fatal(err)
+		}
+		out.Reset()
+		if err := authorTexture(output, "profiles/textures/hud-weekdays-export.json", afterPath, true, &out); err != nil {
+			t.Fatal("weekday rendered PNG export", err)
+		}
+		for _, scale := range []int{1, 3} {
+			profilePath := fmt.Sprintf("profiles/previews/hud-weekdays-%dx.json", scale)
+			data, err := os.ReadFile(profilePath)
+			var comparison map[string]any
+			if err != nil || json.Unmarshal(data, &comparison) != nil {
+				t.Fatal("weekday comparison recipe", err)
+			}
+			comparison["png"] = afterPath
+			font := comparison["preview"].(map[string]any)["font"].(map[string]any)
+			font["path"], err = filepath.Abs(filepath.Join(filepath.Dir(profilePath), font["path"].(string)))
+			if err != nil {
+				t.Fatal(err)
+			}
+			wire, err := json.Marshal(comparison)
+			if err != nil {
+				t.Fatal(err)
+			}
+			path, output := filepath.Join(dir, "weekday-comparison.json"), filepath.Join(dir, fmt.Sprintf("weekday-preview-%d.png", scale))
+			if err := os.WriteFile(path, wire, 0600); err != nil {
+				t.Fatal(err)
+			}
+			out.Reset()
+			err = authorTexture(beforePath, path, output, true, &out)
+			if err != nil && strings.Contains(err.Error(), "-tags nativefonts") {
+				if _, err := os.Stat(output); !os.IsNotExist(err) {
+					t.Fatal("disabled preview wrote output")
+				}
+				continue
+			}
+			if err != nil {
+				t.Fatal("weekday preview", err)
+			}
+			pngData, err := os.ReadFile(output)
+			if err != nil {
+				t.Fatal(err)
+			}
+			preview, err := png.Decode(bytes.NewReader(pngData))
+			if err != nil {
+				t.Fatal(err)
+			}
+			want, err := png.Decode(bytes.NewReader(files[fmt.Sprintf("preview-%d.png", scale)]))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if preview.Bounds() != want.Bounds() {
+				t.Fatal("weekday preview geometry")
+			}
+			for y := 0; y < want.Bounds().Dy(); y++ {
+				for x := 0; x < want.Bounds().Dx(); x++ {
+					if preview.At(x, y) != want.At(x, y) {
+						t.Fatal("weekday independent preview pixel", scale, x, y)
+					}
+				}
+			}
+		}
+		if current, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(current, native) {
+			t.Fatal("weekday source mutated", err)
+		}
+		if current, err := os.ReadFile(registryPath); err != nil || !bytes.Equal(current, registryData) {
+			t.Fatal("canonical registry mutated", err)
+		}
 	}
 }
 
