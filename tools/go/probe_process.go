@@ -25,6 +25,8 @@ const probePINEDefaultSlot = "28011"
 // ProbeLifecycleProcesses keeps launcher disposal separate from emulator exit.
 // Only Native/Candidates have passed the exact runtime identity contract.
 type ProbeLifecycleProcesses struct {
+	Budget           *ProbeArtifactBudget
+	ArtifactClass    ProbeArtifactClass
 	Command          *exec.Cmd
 	Launcher         *ProbeProcessRecord
 	Native           *ProbeProcessRecord
@@ -328,8 +330,22 @@ func terminateProbeProcesses(state *ProbeLifecycleProcesses, runtime ProbeMemory
 		result = errors.Join(result, fmt.Errorf("native exit and launcher disposal are not both proven"))
 	}
 	detail, _ := json.Marshal(map[string]any{"native_exited": state.NativeExited, "launcher_reaped": state.LauncherReaped, "remaining_owned": state.Candidates, "unqualified": state.Unqualified, "post_signal_observation_errors": observationErrors, "error": fmt.Sprint(result)})
+	if state.Budget != nil && state.NativeExited && state.LauncherReaped {
+		peer := filepath.Join(runtime.Root, "peer.sock")
+		if _, granted := state.Budget.NativeFiles[peer]; granted {
+			if _, err := os.Lstat(peer); os.IsNotExist(err) {
+				delete(state.Budget.NativeFiles, peer)
+				claim := ProbeArtifactClaim{ID: "native:" + peer, Path: peer, Class: probeArtifactNative}
+				// Retain exposure after ordinary exhaustion. The finalizer writer
+				// still rechecks all authority, and card flush must remain possible.
+				if !state.Budget.ordinaryExceeded {
+					result = errors.Join(result, accountProbeArtifacts(state.Budget, probeArtifactRelease, []ProbeArtifactClaim{claim}))
+				}
+			}
+		}
+	}
 	path := filepath.Join(runtime.Root, fmt.Sprintf("cleanup-epoch-%d-%d.json", state.Epoch, state.CleanupAttempts))
-	if err := writeNewFile(path, bytes.NewReader(detail), int64(len(detail)), fmt.Sprintf("%x", sha256.Sum256(detail)), 0600); err != nil {
+	if err := writeProbeArtifact(state.Budget, state.ArtifactClass, path, bytes.NewReader(detail), int64(len(detail)), fmt.Sprintf("%x", sha256.Sum256(detail)), 0600); err != nil {
 		result = errors.Join(result, err)
 	}
 	return exitedBeforeStop, result

@@ -197,7 +197,7 @@ func snapshotArtifacts(options SnapshotOptions, stdout io.Writer) error {
 		if options.Operation == "create" {
 			output = filepath.Join(tagPath, "artifact.bin")
 		}
-		if err := writeNewFile(output, source, n, digest, 0o600); err != nil {
+		if _, err := writeNewFile(output, nil, source, n, digest, 0o600); err != nil {
 			return err
 		}
 		if options.Operation == "create" {
@@ -206,7 +206,7 @@ func snapshotArtifacts(options SnapshotOptions, stdout io.Writer) error {
 				return err
 			}
 			body = append(body, '\n')
-			if err := writeNewFile(filepath.Join(tagPath, "receipt.json"), bytes.NewReader(body), int64(len(body)), fmt.Sprintf("%x", sha256.Sum256(body)), 0o600); err != nil {
+			if _, err := writeNewFile(filepath.Join(tagPath, "receipt.json"), nil, bytes.NewReader(body), int64(len(body)), fmt.Sprintf("%x", sha256.Sum256(body)), 0o600); err != nil {
 				return err
 			}
 			for _, path := range []string{tagPath, options.Directory} {

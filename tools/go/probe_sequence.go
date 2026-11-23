@@ -97,7 +97,7 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 		return report, fmt.Errorf("sequence already has an owner")
 	}
 	defer syscall.Flock(int(lock.Fd()), syscall.LOCK_UN)
-	if err := writeNewFile(filepath.Join(spec.Root, "sequence.pending.json"), bytes.NewReader(raw), int64(len(raw)), fmt.Sprintf("%x", sha256.Sum256(raw)), 0400); err != nil {
+	if _, err := writeNewFile(filepath.Join(spec.Root, "sequence.pending.json"), nil, bytes.NewReader(raw), int64(len(raw)), fmt.Sprintf("%x", sha256.Sum256(raw)), 0400); err != nil {
 		return report, fmt.Errorf("pending sequence prevents replay: %w", err)
 	}
 	directory, err := os.Open(spec.Root)
@@ -120,7 +120,7 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 		profileRaw, _ := json.Marshal(profile)
 		profilePath := filepath.Join(spec.Root, fmt.Sprintf("run-%d-profile.json", index+1))
 		profileSHA := fmt.Sprintf("%x", sha256.Sum256(profileRaw))
-		if err := writeNewFile(profilePath, bytes.NewReader(profileRaw), int64(len(profileRaw)), profileSHA, 0400); err != nil {
+		if _, err := writeNewFile(profilePath, nil, bytes.NewReader(profileRaw), int64(len(profileRaw)), profileSHA, 0400); err != nil {
 			return report, err
 		}
 		directory, err := os.Open(spec.Root)
@@ -191,7 +191,7 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 			return report, nil
 		}
 		carryPath := filepath.Join(spec.Root, fmt.Sprintf("carry-%d.ps2", index+1))
-		if err := writeNewFile(carryPath, bytes.NewReader(card), int64(len(card)), stop.CardAfter, 0400); err != nil {
+		if _, err := writeNewFile(carryPath, nil, bytes.NewReader(card), int64(len(card)), stop.CardAfter, 0400); err != nil {
 			return report, err
 		}
 		directory, err = os.Open(spec.Root)

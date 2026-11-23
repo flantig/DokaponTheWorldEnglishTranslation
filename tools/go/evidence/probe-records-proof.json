@@ -2063,5 +2063,246 @@
     },
     "review": "Astra exact MC1-3 source closure145464 and test/evidence closure0a146efd/469efc71 no new material finding. Final artifact closure is recorded separately in publication receipt; periodic076 timing remains07:46:23–07:47:24, next09:46:23.",
     "remaining": "Cooperative4s+work sampler across watch and ALL waits including acquire-board; lastSELECTED/minchange2/visual1/epoch/health/storage/gap policy; whole managed artifact/nativegrowth/reservation/lifetime bounds; JPEG82+CSV/default75 checkpoint/bypass and successful-publication acknowledgements; all native/fullstory/soak/resource/handover duties remain. No JPEG equivalence threshold or PNG-only retirement accepted."
+  },
+  "sampler_offline_assessment": {
+    "at": "2026-11-23T00:34:43Z",
+    "status": "CONTROLLED_LINUX_SOFTWARE_VERIFIED_EXPERIMENTAL_ZERO_CREDIT",
+    "criterion_credit": 0,
+    "family_credit": 0,
+    "scope": "Existing Linux lifecycle opt-in cooperative sampler; Windows support planned, no platform API implemented or qualified by this increment",
+    "contract": {
+      "policy": "Explicit run-time, retained-frame, managed-file, managed-byte and journal-byte bounds; omission preserves raw route",
+      "cadence": "One cooperative tick in existing waits and action hook; next attempt four seconds after complete attempt work; enclosing wait deadlines preserved",
+      "selection": "Mean comparison to last selected acknowledged frame, visual1/selected2, absent predecessor999, cold epoch resets predecessor",
+      "publication": "Nominal Go JPEG82 timeline+frames.csv and JPEG75 checkpoint derivative; checkpoint bypass does not change ordinary predecessor/CSV",
+      "durability": "Generic factual exclusive writer with optional caller-owned parent; lifecycle wrapper reserve/sync/commit; one create-journal commit; final JPEG/CSV/event acknowledgment gates selected state",
+      "failure_and_resources": "Authority/resource fatal, only verified observations can retain accounted native input; conservative software ledger and request-derived finalizer headroom, not kernel quotas",
+      "replay": "Same-invocation repeated watch/cold; completed new-invocation summary restore has zero sampling; partial sampled continuation refuses",
+      "clock": "Starts after first owned-ready epoch admission/publication, boot excluded; cooperative cap can observe in-flight completion after elapsed limit, not a kernel timer"
+    },
+    "source_pins": {
+      "main.go": "e28281266742ed791470c57b73a91a967133ac8e2e332fa3ffdba4c968eb6dd2",
+      "outputs.go": "aedfecd3d94575a9646d417dc3604879b70c46b111eb694392a314ae3df8868e",
+      "patch_test.go": "3a28313fecd2d309b0a2a9c18cbdcc1a1776d49beaace25cae446c2e68a48245",
+      "probe_artifact_budget.go": "95580aa701e0edac46704ece345d5f5eeb11187c781a82a5897fded5679919a3",
+      "probe_artifact_write.go": "6586bc00463bff1252bda085c6a8e413e8017a23dde395dc3108ec386b50f693",
+      "probe_capture.go": "b3a091e12c5498898a7762837a17356779844a49a4f9fdb6ec3ddec54bd44ae9",
+      "probe_capture_types.go": "64b053e1832720149781bf3324f197f558f51373f5af348a66e8fa4606586166",
+      "probe_frame_publish.go": "66f59c41a23b48ad0808565a98a9a07e7ca80af1f6d3e01521264614f360fe43",
+      "probe_lifecycle.go": "5341870b305d80b2fdcbfb2d6a4bc465de190ab9701a37c166cfa1decec01c9b",
+      "probe_lifecycle_test.go": "8faaf9b6ae590019f36c0322c9b955d748728515348b2f731a88248931614762",
+      "probe_lifecycle_types.go": "906cc1a3b8179ec9294b47fa1e3da35422acd4487adb434bb170be1b9283adde",
+      "probe_pad.go": "80db47049fe25f151797564332981ea89c0f935315b1d5a27c2f68810c964e1a",
+      "probe_process.go": "118944a9b810ccc69e492ba992eb91a960a0f46b80419c99c3aea554994073dc",
+      "probe_records_test.go": "490be6b42726972a90a58756e2ba1fe2ecfc77b126eb77d82a52fe94efbb2180",
+      "probe_sampler.go": "f230011731c0e0aa6bcca8cbb78be623c413f9f0cf497f9d902700324993ff87",
+      "probe_sampler_types.go": "3fb5f010281e60988d9e5f13dd8b496f36b456fe3fb26db344b1f02032b85693",
+      "probe_sequence.go": "245d7ed7754ac82660832798274c879a576499a4410bf60d04bf9319efab218c",
+      "probe_storage.go": "6ea295943c1f7214b0a4a88eae1be0b7a37fe28fae45b828a48f27ca75abbcbb",
+      "registry_authoring.go": "0e5403bf302a27f7d2d3dc6c752faec0964dc4e2b5b85c8ae68e9e12f599f89f",
+      "snapshots.go": "701fe8810c09378b85345d437872141c79d3b93f51d8bcae889c809a6bf8667d",
+      "texture_authoring.go": "abc959284b4fe6300c81b4a05b299465ab291b037b2931f53c5a0183bc562f0c",
+      "texture_contacts.go": "28654910c6965fe3f4c96edae421f0d698846c2d6ba8ccf8140710051300d030",
+      "texture_manifest.go": "105d362c1009b9843384e36198f244681937462518b4a7daeba49264c8166793"
+    },
+    "verification": {
+      "fresh_public_records_writer_race": {
+        "status": "PASS",
+        "seconds": 27.800,
+        "exit": 0,
+        "timeout": "8m unchanged",
+        "command": "GOMAXPROCS=2 nice -n 10 go test -race -count=1 -timeout=8m -run ^(TestProbeRecords|TestMisalignedTargetAndWriterBoundary)$ .",
+        "log_sha256": "e2255e31e99d50ae3eeea40161eb3aa007a8265a570437b1ac378fdd70df31a5",
+        "input_test_sha256": "8faaf9b6ae590019f36c0322c9b955d748728515348b2f731a88248931614762",
+        "inputs": "All23 current source pins stable before/after",
+        "scope": "Saved records, synthetic peers and owned temporary files; existing writer/storage boundary assertions"
+      },
+      "fresh_public_lifecycle_baseline_race": {
+        "status": "PASS",
+        "seconds": 424.404,
+        "exit": 0,
+        "timeout": "8m unchanged",
+        "GORACE": "unset/default",
+        "command": "GOMAXPROCS=2 nice -n 10 go test -race -count=1 -timeout=8m -run ^TestProbeLifecycle$/^baseline$ .",
+        "log_sha256": "1fd9683fc37509b636c47a32242ebafa68e9115b6ee5863c0bd2911c45823427",
+        "source_manifest_sha256": "a86d131bc245be2501a2c0c3ba55cc9980d95f5c8351c335cd9064971e86a656",
+        "input_test_sha256": "8faaf9b6ae590019f36c0322c9b955d748728515348b2f731a88248931614762",
+        "inputs": "All23 source pins stable before/after",
+        "scope": "Full unfiltered controlled baseline, all existing baseline cases plus five sampler rows; gated fixture children only, no real emulator"
+      },
+      "core_nativefonts_build_vet": {
+        "core_build": "PASS90243",
+        "nativefonts_build": "PASS90243",
+        "production_inputs": "All77 production Go, module and7 embedded profile inputs unchanged after those builds; subsequent fixes modify test source only",
+        "core_vet": "PASS final94253 on sourcev4",
+        "nativefonts_vet": "PASS final94253 on sourcev4",
+        "toolchain": "go1.26.6-X:nodwarf5 linux/amd64 CGO_ENABLED=1"
+      },
+      "static": "gofmt, scoped whitespace, added-line credentials, index/working-tree equality,861 current scoped pins and81 Go/test/module inputs/totals PASS; no global historical-pin reconciliation claim",
+      "full_suite": "NOT_RUN",
+      "retained_failed_lifecycle_baseline_race": {
+        "status": "FAIL",
+        "seconds": 360.409,
+        "exit": 1,
+        "log_sha256": "fe4fd20dc1582fb65e6e75a72c3fb4569c4b9ee51448aca73d66c2256808571d",
+        "source_pins_unchanged": true,
+        "failure": "Existing crash-recovery-budget and per-epoch-recovery assertions require ExitedBeforeStop true for both crash stops; report records false while stop/recovery/status/budget assertions otherwise pass",
+        "native": "Not executed",
+        "timeout": "8m unchanged"
+      },
+      "fixture_failure_disposition": {
+        "classification": "Preexisting fixture orderly-exit timing defect",
+        "evidence": "Remote baseline and failed candidate close peer then return normally. GORACE unset; official Go default atexit_sleep_ms1000 can delay actual exit after EOF. Production stop correctly reported live process before signaling.",
+        "primary_reference": "https://go.dev/doc/articles/race_detector#Options",
+        "fix": "Existing gated exec-owned fixture checks listener.Close first, leaving accepted connection open, then selfSIGKILL; no production signaling/cleanup change",
+        "preserved": "All parent assertions, budgets, deadlines and standard race failure behavior",
+        "old_test_sha256": "88e2dc7f100a38453bda91ad324dc528774c8041303359ca0296648318896f1a",
+        "new_test_sha256": "8faaf9b6ae590019f36c0322c9b955d748728515348b2f731a88248931614762"
+      },
+      "first_public_records_writer_race": {
+        "status": "PASS",
+        "seconds": 27.684,
+        "command": "GOMAXPROCS=2 nice -n 10 go test -race -count=1 -timeout=8m -run ^(TestProbeRecords|TestMisalignedTargetAndWriterBoundary)$ .",
+        "inputs": "Exact23 source pins matched before/after",
+        "scope": "Saved records, synthetic peers and owned temporary files; boundary tests extend existing test function",
+        "input_test_sha256": "88e2dc7f100a38453bda91ad324dc528774c8041303359ca0296648318896f1a"
+      },
+      "retained_second_failed_lifecycle_baseline_race": {
+        "status": "FAIL",
+        "seconds": 226.814,
+        "input_test_sha256": "f834763f30bb4ae9b15f96cc5bdeb3dd9e2bd1df7756d118c22427dcd39d85be",
+        "log_sha256": "50d0206bd6ca7ecf94b8fa923c7d9c28e590195eacb2000862129377e4dc25a3",
+        "causes": "Fixture actual-crash bypassed deferred listener unlink, breaking subsequent bind; inner-wait12s profile could not guarantee two admitted captures/UI reads"
+      },
+      "actual_crash_listener_reproducer": {
+        "status": "PASS",
+        "scope": "First and recovery gated fixture both bind/reply/die137, listener pathname absent; accepted connection not explicitly closed",
+        "qualification": "Fixture-owned pathname cleanup only; not native crash/stale-socket qualification"
+      },
+      "inner_wait_profile": {
+        "old_seconds": 12,
+        "derived_seconds": 70,
+        "formula": "2*4s waits+2*(10s lock+10s capture)+2*10s initial/loop UI reads+2s bookkeeping",
+        "source_clock": "After first epoch admission, not boot",
+        "retained12s_diagnostic": "NONQUALIFYING FAIL20.436s, firstPINE5.849808792/capture6.290184457/ACK6.383723872, only1sample",
+        "preliminary60s": "Superseded before execution because initial UI10s bound was omitted",
+        "calibration": {
+          "status": "NONQUALIFYING_PASS_SELECTED_ROW_ONLY",
+          "package_seconds": 79.690,
+          "log_sha256": "7b48955a385643abc4badf8ee3a158561faeda9498cddc3cdaa29f8a9498d9cb",
+          "summary": {
+            "status": "INCOMPLETE",
+            "frames": {
+              "status": "UNKNOWN",
+              "codec_qualification": "go-image-jpeg-unqualified",
+              "policy": {
+                "max_run_seconds": 70,
+                "max_retained_frames": 32,
+                "max_managed_files": 4096,
+                "max_managed_bytes": 536870912,
+                "max_journal_bytes": 8388608
+              },
+              "epoch": 0,
+              "attempts": 11,
+              "sample_successes": 11,
+              "epoch_captures": 11,
+              "selected_commits": 1,
+              "checkpoint_commits": 0,
+              "pine_errors": 0,
+              "capture_errors": 0,
+              "last_pine_seconds": 69.703679508,
+              "last_sample_seconds": 70.144569277,
+              "last_visual_seconds": 6.3058682059999995,
+              "last_selected_seconds": 6.402064445,
+              "last_mean": 0,
+              "previous_comparison_hash": "8748f3c16c6e9a62213a24903443251ae03fe4046bf8c67dfba733a2c2af2c31",
+              "last_jpeg": "f0001.jpg",
+              "last_jpeg_sha256": "a28718849c68ab498d52cda9217e28902cd97aa3eacb368d30cb41b13f23873e",
+              "health_events": 6,
+              "failure": "frame sampler run-time budget exhausted",
+              "limits": "Cooperative owned-artifact accounting; native growth is observed, not a kernel quota. Go JPEG nominal quality82 timeline/75 checkpoint is not qualified as Pillow equivalent. Frame integrity does not establish gameplay/native coverage."
+            },
+            "steps": [
+              {
+                "operation": "initial",
+                "status": "COMPLETED",
+                "reason": null,
+                "effects": [
+                  "prepare",
+                  "pad",
+                  "launch",
+                  "verify"
+                ],
+                "epoch": 0
+              },
+              {
+                "operation": "scenario",
+                "status": "UNKNOWN",
+                "reason": "frame sampler run-time budget exhausted",
+                "effects": [],
+                "epoch": 0
+              },
+              {
+                "operation": "stop",
+                "status": "COMPLETED",
+                "reason": null,
+                "effects": [
+                  "terminate",
+                  "flush"
+                ],
+                "epoch": 0
+              }
+            ]
+          },
+          "scope": "Disposable isolated test selection, all production bytes and selected assertions unchanged; never a baseline pass or public skip mode"
+        },
+        "preserved": "Per-operationdeadlines, >=2sample, safeSTOP/card/innerwait/effect assertions and full suite8m cap"
+      }
+    },
+    "review": {
+      "periodic": "079 actual23:38:23–23:39:31UTC, reviewed initial23source-manifesta39851/patch85ab35 only. New coordinator transcription summary5d0aad46 is not recovered original; final exact artifact review remains pending.",
+      "final_artifact": "The final exact artifact review and disposition belong to the separate publication receipt; periodic079 source review is separate, not publication approval",
+      "next_due_at_utc": "2026-11-23T01:38:23Z"
+    },
+    "accounting": {
+      "kind": "Capability growth, no reduction or retirement",
+      "production_go_files_before": 71,
+      "production_go_files_after": 77,
+      "production_go_bytes_before": 1035716,
+      "production_go_bytes_after": 1114947,
+      "production_go_byte_delta": 79231,
+      "named_functions_before": 66,
+      "named_functions_after": 73,
+      "new_named_functions": 7,
+      "test_files_before": 3,
+      "test_files_after": 3,
+      "test_bytes_before": 1185578,
+      "test_bytes_after": 1230017,
+      "test_byte_delta": 44439,
+      "module_byte_delta": 0,
+      "recipe_byte_delta": 0,
+      "metadata": "Measured separately in final publication artifact; broader input accounting not fully reconciled",
+      "projection": "PUBLIC candidate only; complete current source/test/module inventory for this projection, not all private overlays or full410/global input accounting"
+    },
+    "historical_evidence": {
+      "lost": "Prior temporary public logs/manifests/receipts absent; no recovered bytes or terminal result claimed",
+      "retained_statements_only": "Private Lifecycle356.214s and Records26.971s are historical testimony; fresh public results above are separate",
+      "unexplained": "Earlier save-timeout296.316s remains unexplained/nonreproduced; no timeout or assertion relaxed"
+    },
+    "remaining": [
+      "Windows probe implementation and qualification",
+      "Native acquisition and real Flatpak startup/discovery qualification",
+      "JPEG equivalence/tolerance against Pillow",
+      "Full stories and soak",
+      "Owner resource/retention policy and handover",
+      "Complete410 responsibility proof and broader input accounting reconciliation",
+      "Partial OS writes, directory-sync/unlink failures and foreign-UID injections remain unexecuted or source-reviewed, not newly qualified"
+    ],
+    "scores_unchanged": {
+      "milestones": "85/90",
+      "probe": "2/6",
+      "full_families": "13/15"
+    },
+    "source_pins_scope": "Current PUBLIC projection only; private review route/files, reconciliation fields and other overlays are excluded"
   }
 }

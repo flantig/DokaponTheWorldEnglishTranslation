@@ -2065,5 +2065,472 @@
     "new_compact_fixture_files": 3,
     "accounted_inputs": 380,
     "scope": "Data and test capability growth. Tests, metadata, proof/review and private artifacts are separate overhead. No deletion or code-reduction claim."
+  },
+  "latest_sampler_increment": {
+    "at": "2026-11-23T00:34:43Z",
+    "status": "COMPLETE_CURRENT_GO_TEST_MODULE_ONLY_BROADER_RECONCILIATION_INCOMPLETE",
+    "base_commit": "b8b7db7adf8644bbc0cb0b9fee900c41b35b8feb",
+    "historical_groups": "Existing groups and aggregate fields retain historical source epochs. In particular production_go49/669526 and go_tests1/888449 are not current totals. Recipe/profile/fixture/executed-evidence reconciliation remains incomplete.",
+    "current": {
+      "production_go": {
+        "files": 77,
+        "bytes": 1114947,
+        "named_functions": 73
+      },
+      "go_tests": {
+        "files": 3,
+        "bytes": 1230017
+      },
+      "go_module": {
+        "files": 1,
+        "bytes": 30
+      },
+      "items": [
+        {
+          "path": "cmb.go",
+          "bytes": 11674,
+          "sha256": "5868b48f9923c6975227d03d3b124e6aa9aac653dadbd8144a48f9b0989efabb"
+        },
+        {
+          "path": "fit.go",
+          "bytes": 14160,
+          "sha256": "0b4045f21bd1b06754697e58a0e2b15434d17660a0c4905ef1b64413e9ef14bc"
+        },
+        {
+          "path": "fit_types.go",
+          "bytes": 3114,
+          "sha256": "bf8ca34c165d2be3fbed3eef1098caf701656a3959e6a83e1585d083d93c898e"
+        },
+        {
+          "path": "glyphs.go",
+          "bytes": 1342,
+          "sha256": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933"
+        },
+        {
+          "path": "image_types.go",
+          "bytes": 2752,
+          "sha256": "3bc753a4a53bd0857bca9fcd02fafe933cb1168dc1911042075e8c2fbc5e52b9"
+        },
+        {
+          "path": "input_types.go",
+          "bytes": 1241,
+          "sha256": "c98f6a3be0a6004d493561b11e838164ca9a4466af40afe8840a351e00d07686"
+        },
+        {
+          "path": "inputs.go",
+          "bytes": 5450,
+          "sha256": "e475b60804b68bc3e726919da0bca763b988034412ed1dcc4d45b0cf20084601"
+        },
+        {
+          "path": "instruction_forms.go",
+          "bytes": 2023,
+          "sha256": "66334ddddd37425008c1bbb9a76ba5defe74bd771c76bdf50fdf31cad987b835"
+        },
+        {
+          "path": "instruction_index.go",
+          "bytes": 18634,
+          "sha256": "170a08404b8598ec3c1723c976fac63c235c72fc0d2f02bfa6964ed80ef76e3a"
+        },
+        {
+          "path": "instruction_types.go",
+          "bytes": 3612,
+          "sha256": "922df17098ab23513a10033d26cb5d34e14f9e79b431ac1582cf78ec7b9be323"
+        },
+        {
+          "path": "main.go",
+          "bytes": 36334,
+          "sha256": "e28281266742ed791470c57b73a91a967133ac8e2e332fa3ffdba4c968eb6dd2"
+        },
+        {
+          "path": "outputs.go",
+          "bytes": 3391,
+          "sha256": "aedfecd3d94575a9646d417dc3604879b70c46b111eb694392a314ae3df8868e"
+        },
+        {
+          "path": "patch.go",
+          "bytes": 122457,
+          "sha256": "67ff3f7a6ca15ae9d535f6b1f0c485fb4aa17f403cf2b330e88d96d0a8bc6cb4"
+        },
+        {
+          "path": "patch_test.go",
+          "bytes": 946259,
+          "sha256": "3a28313fecd2d309b0a2a9c18cbdcc1a1776d49beaace25cae446c2e68a48245"
+        },
+        {
+          "path": "pointer_flow.go",
+          "bytes": 12412,
+          "sha256": "baaf843ae42c2b14c332b2353bf229e0496f5a131357c546830e9e6ff397d163"
+        },
+        {
+          "path": "probe_artifact_budget.go",
+          "bytes": 18835,
+          "sha256": "95580aa701e0edac46704ece345d5f5eeb11187c781a82a5897fded5679919a3"
+        },
+        {
+          "path": "probe_artifact_write.go",
+          "bytes": 2618,
+          "sha256": "6586bc00463bff1252bda085c6a8e413e8017a23dde395dc3108ec386b50f693"
+        },
+        {
+          "path": "probe_capture.go",
+          "bytes": 28858,
+          "sha256": "b3a091e12c5498898a7762837a17356779844a49a4f9fdb6ec3ddec54bd44ae9"
+        },
+        {
+          "path": "probe_capture_types.go",
+          "bytes": 6179,
+          "sha256": "64b053e1832720149781bf3324f197f558f51373f5af348a66e8fa4606586166"
+        },
+        {
+          "path": "probe_checkpoint_intervals.go",
+          "bytes": 2354,
+          "sha256": "0eec9ecb552ac0981e282f8e9d997feb37d413d77a9d3a901822cf2a403fa019"
+        },
+        {
+          "path": "probe_evidence.go",
+          "bytes": 60478,
+          "sha256": "60647c774c2683d8ed6923936857846303f619a681dd933c074dc364c818814b"
+        },
+        {
+          "path": "probe_evidence_types.go",
+          "bytes": 8072,
+          "sha256": "ceaf7454d69104deb79a9f649cb6896c4803c1f9710141eedc3509dd28dcec31"
+        },
+        {
+          "path": "probe_frame.go",
+          "bytes": 2245,
+          "sha256": "ac2d29cb78fa9659233fce191e6bf5e54c6b510d3a37fdb6c52c16f250be5d73"
+        },
+        {
+          "path": "probe_frame_publish.go",
+          "bytes": 14123,
+          "sha256": "66f59c41a23b48ad0808565a98a9a07e7ca80af1f6d3e01521264614f360fe43"
+        },
+        {
+          "path": "probe_lifecycle.go",
+          "bytes": 156913,
+          "sha256": "5341870b305d80b2fdcbfb2d6a4bc465de190ab9701a37c166cfa1decec01c9b"
+        },
+        {
+          "path": "probe_lifecycle_test.go",
+          "bytes": 172404,
+          "sha256": "8faaf9b6ae590019f36c0322c9b955d748728515348b2f731a88248931614762"
+        },
+        {
+          "path": "probe_lifecycle_types.go",
+          "bytes": 8369,
+          "sha256": "906cc1a3b8179ec9294b47fa1e3da35422acd4487adb434bb170be1b9283adde"
+        },
+        {
+          "path": "probe_memory.go",
+          "bytes": 14099,
+          "sha256": "b91b770838a8845e47be7274a45c9922af41be631eac7e68f88c220968fe8325"
+        },
+        {
+          "path": "probe_memory_decode.go",
+          "bytes": 9142,
+          "sha256": "387170b49d9d5edaf09dd697c9cd55a3da74dc316d27586c186b58fbf2df1b21"
+        },
+        {
+          "path": "probe_memory_types.go",
+          "bytes": 3274,
+          "sha256": "acdcc0b9586aed7996ced7dd59683c88fd5b0e1558936a5a1f9086de1e12b83b"
+        },
+        {
+          "path": "probe_observation_types.go",
+          "bytes": 3301,
+          "sha256": "f09b9fdef998395c11a01f02fb6523e018f6623265003751589ed8a4e076f9ca"
+        },
+        {
+          "path": "probe_pad.go",
+          "bytes": 10750,
+          "sha256": "80db47049fe25f151797564332981ea89c0f935315b1d5a27c2f68810c964e1a"
+        },
+        {
+          "path": "probe_process.go",
+          "bytes": 14689,
+          "sha256": "118944a9b810ccc69e492ba992eb91a960a0f46b80419c99c3aea554994073dc"
+        },
+        {
+          "path": "probe_records.go",
+          "bytes": 20716,
+          "sha256": "c1ac53471aad48f7460c2311741247857610420f20c71c84770f470033ab9803"
+        },
+        {
+          "path": "probe_records_test.go",
+          "bytes": 111354,
+          "sha256": "490be6b42726972a90a58756e2ba1fe2ecfc77b126eb77d82a52fe94efbb2180"
+        },
+        {
+          "path": "probe_records_types.go",
+          "bytes": 5129,
+          "sha256": "ba14c5a3430a00d756f687b07ca81d4e9e9997b2d7fb9603b98ee3bae71476dd"
+        },
+        {
+          "path": "probe_sampler.go",
+          "bytes": 8488,
+          "sha256": "f230011731c0e0aa6bcca8cbb78be623c413f9f0cf497f9d902700324993ff87"
+        },
+        {
+          "path": "probe_sampler_types.go",
+          "bytes": 3520,
+          "sha256": "3fb5f010281e60988d9e5f13dd8b496f36b456fe3fb26db344b1f02032b85693"
+        },
+        {
+          "path": "probe_scenario_types.go",
+          "bytes": 989,
+          "sha256": "c9bd72b4049aed71e27d86f9de70750109d46f6ef97e22fa9707b6b712b610a6"
+        },
+        {
+          "path": "probe_sequence.go",
+          "bytes": 9549,
+          "sha256": "245d7ed7754ac82660832798274c879a576499a4410bf60d04bf9319efab218c"
+        },
+        {
+          "path": "probe_sequence_types.go",
+          "bytes": 1239,
+          "sha256": "9f72bdd6ec1a027c8c12fc33e1803a1a7423d1cc9b536ac937635d2f7c4cc89a"
+        },
+        {
+          "path": "probe_storage.go",
+          "bytes": 3009,
+          "sha256": "6ea295943c1f7214b0a4a88eae1be0b7a37fe28fae45b828a48f27ca75abbcbb"
+        },
+        {
+          "path": "probe_ui.go",
+          "bytes": 13930,
+          "sha256": "d347156fe4ef9455ce7d50dfca97e7937dafbaa147ae935a2d355949c22760dc"
+        },
+        {
+          "path": "probe_ui_types.go",
+          "bytes": 1777,
+          "sha256": "a8388d8df9609ef501fe734a6a3e2548b11663c611c9c0737ea2be4d02ac9a05"
+        },
+        {
+          "path": "probe_wire.go",
+          "bytes": 1438,
+          "sha256": "84969060f1b38a4fdd9b48a7ddafd519a5d7f547c389711af1a6f0bb97bca653"
+        },
+        {
+          "path": "raster.go",
+          "bytes": 21641,
+          "sha256": "15d043dd862ccc78f1ff4d81a77e6e3152387d3f8f306678916bb04a0aeeabbc"
+        },
+        {
+          "path": "raster_font.go",
+          "bytes": 7847,
+          "sha256": "2ca9fea5ab1364c833bb45162bd8317e24a7ef74fba6720ced8e09503f863971"
+        },
+        {
+          "path": "raster_font_disabled.go",
+          "bytes": 379,
+          "sha256": "99b5b8b211aedbed32e3c35c11eed9fb9e04ed6583b466fe711d0377fa3b871d"
+        },
+        {
+          "path": "raster_mask.go",
+          "bytes": 18745,
+          "sha256": "05c62e16e20c2a63b261389272c0647f9ba60c08943bb887051b3f7a813c12ee"
+        },
+        {
+          "path": "raster_mask_types.go",
+          "bytes": 3927,
+          "sha256": "fbc2a9561338513dc1941bc94f253cf3949e58a7b4fe2a7461a92d7d89cf4476"
+        },
+        {
+          "path": "raster_png.go",
+          "bytes": 2979,
+          "sha256": "ad0780f018feb014005df054731030a8e7b5a574d09391bae0d1872437c6ecbe"
+        },
+        {
+          "path": "raster_reconstruction.go",
+          "bytes": 4548,
+          "sha256": "08d61937dc7053193404e561d122f20ba79724fd7a6903efc7545540cd7a4a9d"
+        },
+        {
+          "path": "raster_reconstruction_types.go",
+          "bytes": 1853,
+          "sha256": "fe93295aae18dbca31cdc2d6b79d3f2532ca84a536db04a3aeb5333fddd7a6f8"
+        },
+        {
+          "path": "raster_resize.go",
+          "bytes": 7903,
+          "sha256": "5595d9873cd7b1cb5faf7fe65e485361f1ebf63db0701445c956e784ed56777d"
+        },
+        {
+          "path": "raster_runs.go",
+          "bytes": 18951,
+          "sha256": "e7c5ca19c972cf2028bcd285c3add559abc2f1e180346b48c2a66d4d50cc6874"
+        },
+        {
+          "path": "raster_types.go",
+          "bytes": 5588,
+          "sha256": "20a11dd5735a9f7105022b3696aaa32fc97998e7f1f7d7f6045dce71f6cdf0b9"
+        },
+        {
+          "path": "recipe_types.go",
+          "bytes": 6673,
+          "sha256": "1a914d1bdfb4cf84ccc017cafa60d3da8fa692c242b68bad94784c5a6739b8df"
+        },
+        {
+          "path": "reference_flow_types.go",
+          "bytes": 3300,
+          "sha256": "4aa2e26d90e66facb764c712cbe0c2fd7a28ae5b91c4011517cd1671ba4449b5"
+        },
+        {
+          "path": "reference_geometry.go",
+          "bytes": 4165,
+          "sha256": "602c42bb8f462c74e1339646c55f73767aa83169b810abf325354f5bbf0bf70a"
+        },
+        {
+          "path": "reference_types.go",
+          "bytes": 9320,
+          "sha256": "b9c751b394614b96eca0a80ae63e7d631d1db49c094cebfb8b6d6462480f3887"
+        },
+        {
+          "path": "references.go",
+          "bytes": 69346,
+          "sha256": "2554a80dcb4e1c65011556c7bc5103572f9113f60d6d501da7d6d76a7e063527"
+        },
+        {
+          "path": "register_flow.go",
+          "bytes": 11419,
+          "sha256": "b9b2af04fd4e72a9c80691b55c89f2ac52b1770b48344d9352231e5cf25bd5d6"
+        },
+        {
+          "path": "register_flow_types.go",
+          "bytes": 2829,
+          "sha256": "5c062e55c0b0f7c6302d192e955ab48b02a81ce4d010192ba34f4c9a0ef48dbf"
+        },
+        {
+          "path": "registry_authoring.go",
+          "bytes": 69124,
+          "sha256": "0e5403bf302a27f7d2d3dc6c752faec0964dc4e2b5b85c8ae68e9e12f599f89f"
+        },
+        {
+          "path": "registry_human.go",
+          "bytes": 5711,
+          "sha256": "3cf8e22ca6f5dde3ecb18297cc9ad8cd6fa7e936513a5e2b1a4a11b89676eae8"
+        },
+        {
+          "path": "registry_types.go",
+          "bytes": 3339,
+          "sha256": "290af23dd6a6bde6699d6be43dbc754ae31214f50717441f5a465e718f0d18f0"
+        },
+        {
+          "path": "snapshot_types.go",
+          "bytes": 885,
+          "sha256": "68a0afc300f69974f90ba609db2e9ed9d2f5f548acaf9e9affe5f7497a124645"
+        },
+        {
+          "path": "snapshots.go",
+          "bytes": 8513,
+          "sha256": "701fe8810c09378b85345d437872141c79d3b93f51d8bcae889c809a6bf8667d"
+        },
+        {
+          "path": "stream_audit.go",
+          "bytes": 30191,
+          "sha256": "16c958418d86e2d41bd18281d7db75d7e96539834379e59373cf8b4c03dac5a3"
+        },
+        {
+          "path": "stream_audit_types.go",
+          "bytes": 6085,
+          "sha256": "2d0a6c03c3ca9260b1c72375a8c768d991eb9fac923f4e3bc6dcd3376fefa8ef"
+        },
+        {
+          "path": "text_types.go",
+          "bytes": 3330,
+          "sha256": "b355a6054b9829f6ff4cea09627afb4275f65b9a869226f173544b27a96d6822"
+        },
+        {
+          "path": "texture.go",
+          "bytes": 15967,
+          "sha256": "1de2b087ace442a5b0ab52e9609daf382952c4a2f81972d8b0caa146507e5bed"
+        },
+        {
+          "path": "texture_authoring.go",
+          "bytes": 33712,
+          "sha256": "abc959284b4fe6300c81b4a05b299465ab291b037b2931f53c5a0183bc562f0c"
+        },
+        {
+          "path": "texture_contacts.go",
+          "bytes": 23649,
+          "sha256": "28654910c6965fe3f4c96edae421f0d698846c2d6ba8ccf8140710051300d030"
+        },
+        {
+          "path": "texture_discovery.go",
+          "bytes": 4573,
+          "sha256": "4ae69b59684cb0e3e21e30497ea038fcc78d349ffc24dee7d447ab18253fe83c"
+        },
+        {
+          "path": "texture_index.go",
+          "bytes": 3877,
+          "sha256": "7a8357642030616017c4a123a436cfd3f7786e17cbcb660511c3d6b2a118ea65"
+        },
+        {
+          "path": "texture_manifest.go",
+          "bytes": 8955,
+          "sha256": "105d362c1009b9843384e36198f244681937462518b4a7daeba49264c8166793"
+        },
+        {
+          "path": "texture_palette.go",
+          "bytes": 6243,
+          "sha256": "6410379752400526f09417fb968afc1f14e8475bd113f949ffe24def8610addb"
+        },
+        {
+          "path": "texture_types.go",
+          "bytes": 8394,
+          "sha256": "723db520fa02a67a3728368e728a009d6c3953597a22702fb2efb18f9a1bd40e"
+        },
+        {
+          "path": "wrap.go",
+          "bytes": 8307,
+          "sha256": "d31e7d02af42f9f06baebc9ea362f42d49f0280cc7b807edfa908a734d46c6e1"
+        },
+        {
+          "path": "go.mod",
+          "bytes": 30,
+          "sha256": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9"
+        }
+      ]
+    },
+    "baseline": {
+      "production_go": {
+        "files": 71,
+        "bytes": 1035716,
+        "named_functions": 66
+      },
+      "go_tests": {
+        "files": 3,
+        "bytes": 1185578
+      },
+      "go_module": {
+        "files": 1,
+        "bytes": 30
+      }
+    },
+    "owned_increment": {
+      "production_go": {
+        "files": 6,
+        "bytes": 79231,
+        "named_functions": 7
+      },
+      "go_tests": {
+        "files": 0,
+        "bytes": 44439
+      },
+      "go_module": {
+        "files": 0,
+        "bytes": 0
+      },
+      "recipe_tables": {
+        "files": 0,
+        "bytes": 0
+      }
+    },
+    "metadata_overhead": "Separate final publication artifact ledger; not included in runtime source growth",
+    "qualification": "All current Go/test/module inputs listed, including imports/adapters/types; no full toolkit-input total, whole410 proof, reduction or retirement claim",
+    "fixture_correction": "Includes existing gated actual-crash/listener correction, unchanged frame-fact predicate with fuller diagnostics and derived70s innerwait profile; all per-operationdeadlines/assertions/8m suite cap retained. Productionbytes unchanged.",
+    "projection": "PUBLIC candidate only; unpublished review/reconciliation overlays are outside this inventory",
+    "verification": "Controlled public Lifecycle-baseline race424.404s and Records+WriterBoundary race27.800s; core/nativefonts build and finalvets pass. Fullsuite/native/Windows not executed or qualified here."
   }
 }

@@ -1602,7 +1602,7 @@ func authorRegistry(source *os.File, tables []Recipes, registryRecipeData []byte
 	}
 	outputHash := fmt.Sprintf("%x", sha256.Sum256(encoded.Bytes()))
 	if options.Apply {
-		if err := writeNewFile(options.Output, bytes.NewReader(encoded.Bytes()), int64(encoded.Len()), outputHash, 0o600); err != nil {
+		if _, err := writeNewFile(options.Output, nil, bytes.NewReader(encoded.Bytes()), int64(encoded.Len()), outputHash, 0o600); err != nil {
 			return err
 		}
 	}

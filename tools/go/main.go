@@ -112,7 +112,7 @@ func run(args []string, stdout io.Writer) error {
 			if readErr != nil {
 				return readErr
 			}
-			report, err = captureProbeEvidence(data, runtimeData, nil)
+			report, err = captureProbeEvidence(data, runtimeData, nil, nil)
 		case "lifecycle":
 			report, err = runProbeLifecycle(data)
 		case "sequence":

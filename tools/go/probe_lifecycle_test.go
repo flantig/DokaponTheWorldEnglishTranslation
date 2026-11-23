@@ -11,6 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"image"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"net"
@@ -221,8 +222,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 		priorWrites, _ := os.ReadFile(filepath.Join(root, "scenario-write-count.txt"))
 		scenarioWrites, _ = strconv.Atoi(string(priorWrites))
 	}
-	seenReset := 0
+	seenReset, renderedGuides := 0, 0
 	for offset := 0; offset+24 <= len(padBytes); offset += 24 {
+		if binary.LittleEndian.Uint16(padBytes[offset+16:]) == 1 && binary.LittleEndian.Uint16(padBytes[offset+18:]) == 316 && binary.LittleEndian.Uint32(padBytes[offset+20:]) == 1 {
+			renderedGuides++
+		}
 		if binary.LittleEndian.Uint16(padBytes[offset+16:]) == 1 && binary.LittleEndian.Uint16(padBytes[offset+18:]) == 318 && binary.LittleEndian.Uint32(padBytes[offset+20:]) == 1 {
 			seenReset++
 		}
@@ -252,6 +256,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 			for offset := 0; offset+24 <= len(events); offset += 24 {
 				if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 316 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
 					guideCount++
+					// Cleanup of a rendered PNG must not replay its past GUIDE, including after boot.
+					if guideCount <= renderedGuides {
+						continue
+					}
+					renderedGuides = guideCount
 					name := "first-save.png"
 					if guideCount > 1 {
 						name = fmt.Sprintf("capture-%d.png", guideCount)
@@ -268,12 +277,33 @@ func TestProbeLifecycleChild(t *testing.T) {
 						if json.Unmarshal(data, &fixture) != nil {
 							t.Fatal("capture fixture")
 						}
-						image, err := hex.DecodeString(fixture.ImageHex)
+						imageBytes, err := hex.DecodeString(fixture.ImageHex)
 						if err != nil {
 							t.Fatal(err)
 						}
-						if err := os.WriteFile(path, image, 0600); err != nil {
+						if slices.Contains(os.Args, "frame-checkpoint-contrast") {
+							journal, err := os.ReadFile(filepath.Join(root, "events.jsonl"))
+							last := bytes.TrimSpace(journal)
+							last = last[bytes.LastIndexByte(last, '\n')+1:]
+							var event ProbeCaptureEvent
+							if err != nil || json.Unmarshal(last, &event) != nil {
+								t.Fatal("controlled contrast source event", err)
+							}
+							if event.Checkpoint != nil && *event.Checkpoint > 0 {
+								var contrasting bytes.Buffer
+								if err := png.Encode(&contrasting, &image.NRGBA{Pix: []byte{255, 17, 33, 255}, Stride: 4, Rect: image.Rect(0, 0, 1, 1)}); err != nil {
+									t.Fatal(err)
+								}
+								imageBytes = contrasting.Bytes()
+							}
+						}
+						if err := os.WriteFile(path, imageBytes, 0600); err != nil {
 							t.Fatal(err)
+						}
+						if guideCount == 1 && slices.Contains(os.Args, "frame-csv-conflict") {
+							if err := os.WriteFile(filepath.Join(root, "frames.csv"), []byte("controlled CSV conflict\n"), 0600); err != nil {
+								t.Fatal(err)
+							}
 						}
 					}
 				}
@@ -527,8 +557,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 						scenarioTrace = append(scenarioTrace, name)
 					}
 				}
-				trace, _ := json.Marshal(scenarioTrace)
-				_ = os.WriteFile(filepath.Join(root, "scenario-inputs.json"), trace, 0600)
+				if !slices.Contains(os.Args, "frame-no-trace") {
+					trace, _ := json.Marshal(scenarioTrace)
+					_ = os.WriteFile(filepath.Join(root, "scenario-inputs.json"), trace, 0600)
+				}
 				if paired && slices.Contains(os.Args, "tampered-prefix") && !prefixTampered && scenarioStage == 6 {
 					if _, err := os.Stat(filepath.Join(root, "save-report.json")); err == nil {
 						file, err := os.OpenFile(filepath.Join(root, "events.jsonl"), os.O_WRONLY, 0600)
@@ -789,7 +821,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 						advanceAtMode = scenarioModeReads + 2
 					}
 					scenarioWrites++
-					_ = os.WriteFile(filepath.Join(root, "scenario-write-count.txt"), []byte(strconv.Itoa(scenarioWrites)), 0600)
+					if !slices.Contains(os.Args, "frame-no-trace") {
+						_ = os.WriteFile(filepath.Join(root, "scenario-write-count.txt"), []byte(strconv.Itoa(scenarioWrites)), 0600)
+					}
 					if slices.Contains(os.Args, "lost-ack") {
 						_ = connection.Close()
 						break
@@ -840,7 +874,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 					if (watchAdvance || watchStall || watchCrash) && modeReads > 1 {
 						watchSample++
 						if watchCrash {
-							_ = connection.Close()
+							// Unlink only the listener; accepted-peer EOF must follow the actual crash.
+							if err := listener.Close(); err != nil {
+								t.Fatal("controlled crash listener", err)
+							}
+							if err := syscall.Kill(os.Getpid(), syscall.SIGKILL); err != nil {
+								t.Fatal("controlled crash signal", err)
+							}
 							return
 						}
 						mode = 0x1b0
@@ -2120,72 +2160,93 @@ func TestProbeLifecycle(t *testing.T) {
 			t.Errorf("pending cannot retry: %+v %v", pendingReport, err)
 		}
 		// C-global source/header oracle comparisons use only an owned event file.
-		padRoot := t.TempDir()
-		_ = os.Chmod(padRoot, 0700)
-		ctx, cancel := context.WithCancel(context.Background())
-		ready, done := make(chan error, 1), make(chan error, 1)
-		go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink"}, ready, done)
-		if err := <-ready; err != nil {
-			cancel()
-			t.Fatal(err)
-		}
-		commands := []string{"tap CROSS 0.01", "tap UP 0.01", "tap L2 0.01", "tap CROSS NaN"}
-		for index, command := range commands {
-			connection, err := net.DialUnix("unix", nil, &net.UnixAddr{Name: filepath.Join(padRoot, "pad.sock"), Net: "unix"})
-			if err != nil {
+		for _, extent := range []int64{0, 48, 96} {
+			padRoot := t.TempDir()
+			_ = os.Chmod(padRoot, 0700)
+			ctx, cancel := context.WithCancel(context.Background())
+			ready, done := make(chan error, 1), make(chan error, 1)
+			go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink", MaxEventBytes: extent}, ready, done)
+			if err := <-ready; err != nil {
 				cancel()
 				t.Fatal(err)
 			}
-			_ = connection.SetDeadline(time.Now().Add(2 * time.Second))
-			_, err = io.WriteString(connection, command)
-			if err == nil {
-				err = connection.CloseWrite()
+			commands := []string{"tap CROSS 0.01", "tap UP 0.01", "tap L2 0.01", "tap CROSS NaN"}
+			if extent != 0 {
+				commands = []string{"tap GUIDE 0.01"}
 			}
-			ack, readErr := io.ReadAll(io.LimitReader(connection, 257))
-			_ = connection.Close()
-			expected := "ok\n"
-			if index == 3 {
-				expected = "err invalid owned pad command\n"
+			for index, command := range commands {
+				connection, err := net.DialUnix("unix", nil, &net.UnixAddr{Name: filepath.Join(padRoot, "pad.sock"), Net: "unix"})
+				if err != nil {
+					cancel()
+					t.Fatal(err)
+				}
+				_ = connection.SetDeadline(time.Now().Add(2 * time.Second))
+				_, err = io.WriteString(connection, command)
+				if err == nil {
+					err = connection.CloseWrite()
+				}
+				ack, readErr := io.ReadAll(io.LimitReader(connection, 257))
+				_ = connection.Close()
+				expected := "ok\n"
+				if index == 3 {
+					expected = "err invalid owned pad command\n"
+				}
+				if extent == 48 {
+					expected = "err input extent refused\n"
+				}
+				if err != nil || readErr != nil || string(ack) != expected {
+					t.Errorf("pad command%s %q %v %v", command, ack, err, readErr)
+				}
 			}
-			if err != nil || readErr != nil || string(ack) != expected {
-				t.Errorf("pad command%s %q %v %v", command, ack, err, readErr)
+			cancel()
+			padErr := <-done
+			if extent == 48 {
+				if padErr == nil || padErr.Error() != "owned pad command and release headroom exceed its reservation" {
+					t.Fatal("insufficient GUIDE down/up extent did not refuse before input", padErr)
+				}
+			} else if padErr != nil {
+				t.Fatal(padErr)
 			}
-		}
-		cancel()
-		if err := <-done; err != nil {
-			t.Fatal(err)
-		}
-		events, err := os.ReadFile(filepath.Join(padRoot, "pad-events.bin"))
-		if err != nil {
-			t.Fatal(err)
-		}
-		if len(events) != 288 {
-			t.Fatalf("event bytes%d", len(events))
-		}
-		for index, expected := range []string{fixture.PadEventsSHA, fixture.PadHatSHA, fixture.PadTriggerSHA} {
-			if fmt.Sprintf("%x", sha256.Sum256(events[index*96:(index+1)*96])) != expected {
-				t.Errorf("independent ABI event%d mismatch", index)
+			events, err := os.ReadFile(filepath.Join(padRoot, "pad-events.bin"))
+			if err != nil {
+				t.Fatal(err)
 			}
-		}
-		metadata, err := os.ReadFile(filepath.Join(padRoot, "pad-device.json"))
-		if err != nil {
-			t.Fatal(err)
-		}
-		var device struct {
-			Setup string `json:"setup_hex"`
-			Axes  string `json:"axes_hex"`
-		}
-		if json.Unmarshal(metadata, &device) != nil {
-			t.Fatal("pad metadata")
-		}
-		for encoded, expected := range map[string]string{device.Setup: fixture.PadSetupSHA, device.Axes: fixture.PadAxesSHA} {
-			data, err := hex.DecodeString(encoded)
-			if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != expected {
-				t.Error("primary-header setup/axis oracle mismatch")
+			if extent == 0 && len(events) != 288 {
+				t.Fatalf("event bytes%d", len(events))
 			}
-		}
-		if _, err := os.Lstat(filepath.Join(padRoot, "pad.sock")); !os.IsNotExist(err) {
-			t.Error("owned pad socket survived cleanup")
+			if extent == 0 {
+				for index, expected := range []string{fixture.PadEventsSHA, fixture.PadHatSHA, fixture.PadTriggerSHA} {
+					if fmt.Sprintf("%x", sha256.Sum256(events[index*96:(index+1)*96])) != expected {
+						t.Errorf("independent ABI event%d mismatch", index)
+					}
+				}
+			} else if extent == 48 {
+				if len(events) != 0 {
+					t.Fatal("48-byte extent emitted GUIDE down or cleanup input before refusal", len(events))
+				}
+			} else if len(events) != 96 || binary.LittleEndian.Uint16(events[16:]) != 1 || binary.LittleEndian.Uint16(events[18:]) != 316 || binary.LittleEndian.Uint32(events[20:]) != 1 || binary.LittleEndian.Uint16(events[64:]) != 1 || binary.LittleEndian.Uint16(events[66:]) != 316 || binary.LittleEndian.Uint32(events[68:]) != 0 {
+				t.Fatal("96-byte extent did not complete GUIDE down/up and clear held state within cap", len(events))
+			}
+			metadata, err := os.ReadFile(filepath.Join(padRoot, "pad-device.json"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			var device struct {
+				Setup string `json:"setup_hex"`
+				Axes  string `json:"axes_hex"`
+			}
+			if json.Unmarshal(metadata, &device) != nil {
+				t.Fatal("pad metadata")
+			}
+			for encoded, expected := range map[string]string{device.Setup: fixture.PadSetupSHA, device.Axes: fixture.PadAxesSHA} {
+				data, err := hex.DecodeString(encoded)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != expected {
+					t.Error("primary-header setup/axis oracle mismatch")
+				}
+			}
+			if _, err := os.Lstat(filepath.Join(padRoot, "pad.sock")); !os.IsNotExist(err) {
+				t.Error("owned pad socket survived cleanup")
+			}
 		}
 		var cadence struct {
 			Prefixes []struct {
@@ -2793,6 +2854,349 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			if _, err := os.Lstat(filepath.Join(candidate.Root, "pad.sock")); !os.IsNotExist(err) {
 				t.Fatal(row.Name, "owned pad endpoint survived", err)
+			}
+		}
+		for _, offset := range []time.Duration{-time.Nanosecond, 0, time.Nanosecond} {
+			now := time.Date(2026, 11, 16, 0, 0, 0, 0, time.UTC)
+			policy := ProbeFramePolicy{MaxRunSeconds: 900}
+			candidate := profile
+			candidate.Frames = &policy
+			state := ProbeFrameRun{Policy: policy, Ready: true, Started: now.Add(-300 * time.Second), EpochStarted: now.Add(-120 * time.Second), NextAttempt: now.Add(time.Second), NextStorage: now.Add(time.Second), NextHealth: now.Add(time.Second)}
+			journal := ProbeEventJournal{}
+			err := sampleProbeFrame(candidate, &journal, &state, now.Add(offset))
+			if offset > 0 {
+				if err == nil || err.Error() != "frame sampler successful capture gap exceeded120s" || state.Summary.Status != "UNKNOWN" {
+					t.Fatal("strict capture gap boundary", offset, err)
+				}
+			} else if err != nil {
+				t.Fatal("not-due tick at/before exact gap boundary", offset, err)
+			}
+			if state.Summary.Attempts != 0 || state.Summary.SampleSuccesses != 0 || state.Previous != nil || journal.Bytes != nil || len(journal.Events) != 0 {
+				t.Fatal("clock-only tick caused acquisition/publication effects", offset)
+			}
+		}
+		for _, lateFailure := range []bool{false, true} {
+			candidate := profile
+			candidate.Root = t.TempDir()
+			if err := os.Chmod(candidate.Root, 0700); err != nil {
+				t.Fatal(err)
+			}
+			policy := ProbeFramePolicy{MaxRunSeconds: 60, MaxRetainedFrames: 4, MaxManagedFiles: 64, MaxManagedBytes: 8 << 20, MaxJournalBytes: 8 << 20}
+			if lateFailure {
+				policy.MaxJournalBytes = 256
+			}
+			candidate.Frames = &policy
+			rootInfo, err := os.Lstat(candidate.Root)
+			if err != nil {
+				t.Fatal(err)
+			}
+			snapshots := filepath.Join(candidate.Root, "snaps")
+			if err := os.Mkdir(snapshots, 0700); err != nil {
+				t.Fatal(err)
+			}
+			snapshotInfo, err := os.Lstat(snapshots)
+			if err != nil {
+				t.Fatal(err)
+			}
+			budget := ProbeArtifactBudget{MaxFiles: policy.MaxManagedFiles, MaxBytes: policy.MaxManagedBytes, Roots: map[string]os.FileInfo{candidate.Root: rootInfo}, SnapshotRoots: map[string]os.FileInfo{snapshots: snapshotInfo}}
+			journal := ProbeEventJournal{Budget: &budget, MaxBytes: policy.MaxJournalBytes}
+			csv := []byte("frame,t,mode,story,week\n")
+			csvPath := filepath.Join(candidate.Root, "frames.csv")
+			if err := os.WriteFile(csvPath, csv, 0600); err != nil {
+				t.Fatal(err)
+			}
+			csvInfo, err := os.Lstat(csvPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			started := time.Now()
+			state := ProbeFrameRun{Policy: policy, Budget: &budget, Started: started, CSV: csv, CSVInfo: csvInfo, Runtime: ProbeCaptureRuntime{Snapshots: snapshots}, CardPath: filepath.Join(candidate.Root, "card.ps2")}
+			parent := json.RawMessage(`{"event":"go-frame-capture","event_id":1,"checkpoint":0,"capture_id":"publisher-fixture","time":"2026-11-16T00:00:00+0000"}`)
+			published, err := publishProbeEvent(candidate.Root, &journal, parent)
+			if err != nil {
+				t.Fatal("publisher source event", err)
+			}
+			sample := ProbeFrameSample{Normalized: &image.NRGBA{Pix: bytes.Repeat([]byte{3, 0, 0, 255}, 640*480), Stride: 640 * 4, Rect: image.Rect(0, 0, 640, 480)}, Sample: bytes.Repeat([]byte{3, 0, 0}, 64*48), Facts: ProbeFrameComparisonResult{Status: "AVAILABLE"}}
+			sample.Facts.ComparisonRGBSHA256 = fmt.Sprintf("%x", sha256.Sum256(sample.Sample))
+			receipt := ProbeCaptureReceipt{CaptureID: "publisher-fixture", EventID: 1, Session: candidate.Session, Status: "SAMPLED", LogOffset: published.Offset, LogHex: hex.EncodeToString(published.Data), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(published.Data)), MemoryBefore: &ProbeMemoryReport{Observations: []ProbeMemoryObservation{{ID: "tag0", Value: 0}, {ID: "tag1", Value: 1}, {ID: "tag2", Value: 2}}}}
+			err = publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(time.Second))
+			if lateFailure {
+				if err == nil || !strings.HasPrefix(err.Error(), "frame journal acknowledgment:") || state.Summary.PendingJPEG != "f0001.jpg" || state.Summary.PendingJPEGSHA256 == "" || !state.Summary.PendingCSV || state.Summary.SelectedCommits != 0 || state.Previous != nil || !state.LastSelected.IsZero() || state.Summary.LastJPEG != "" || len(journal.Events) != 1 {
+					t.Fatal("late journal refusal lost durable partial facts or advanced selection", state.Summary, err)
+				}
+				persistedCSV, readErr := os.ReadFile(csvPath)
+				jpegBytes, imageErr := os.ReadFile(filepath.Join(candidate.Root, state.Summary.PendingJPEG))
+				if readErr != nil || imageErr != nil || !bytes.Equal(persistedCSV, state.CSV) || len(bytes.Split(bytes.TrimSpace(persistedCSV), []byte{'\n'})) != 2 || fmt.Sprintf("%x", sha256.Sum256(jpegBytes)) != state.Summary.PendingJPEGSHA256 {
+					t.Fatal("late refusal lost JPEG/CSV acknowledged bytes", readErr, imageErr)
+				}
+				if err := publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(2*time.Second)); err == nil || !strings.Contains(err.Error(), "no partial transaction") {
+					t.Fatal("partial frame transaction was replayable", err)
+				}
+				continue
+			}
+			if err != nil || state.Summary.SelectedCommits != 1 || !bytes.Equal(state.Previous, sample.Sample) || state.Summary.PendingJPEG != "" || state.Summary.PendingCSV {
+				t.Fatal("publisher acknowledged ordinary baseline", state.Summary, err)
+			}
+			selectedCSV, selectedAt := bytes.Clone(state.CSV), state.LastSelected
+			parent = json.RawMessage(`{"event":"save-complete","event_id":3,"checkpoint":1,"capture_id":{"legacy":"ignored"},"time":[0,false]}`)
+			published, err = publishProbeEvent(candidate.Root, &journal, parent)
+			if err != nil {
+				t.Fatal("checkpoint publisher source event", err)
+			}
+			receipt.Checkpoint, receipt.EventID, receipt.Status = 1, 3, "CAPTURED"
+			receipt.LogOffset, receipt.LogHex, receipt.LogSHA256 = published.Offset, hex.EncodeToString(published.Data), fmt.Sprintf("%x", sha256.Sum256(published.Data))
+			if err := publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(2*time.Second)); err != nil || state.Summary.CheckpointCommits != 1 || state.Summary.SelectedCommits != 1 || !bytes.Equal(state.Previous, sample.Sample) || !state.LastSelected.Equal(selectedAt) || !bytes.Equal(state.CSV, selectedCSV) {
+				t.Fatal("identical checkpoint did not bypass filtering without changing ordinary baseline", state.Summary, err)
+			}
+		}
+		for _, row := range []struct {
+			Name, Fault                  string
+			InnerWait, Reset, Checkpoint bool
+		}{
+			{Name: "sampler stable capture health"},
+			{Name: "sampler cold epoch predecessor reset", Reset: true},
+			{Name: "sampler services real acquire-board wait", InnerWait: true},
+			{Name: "sampler CSV acknowledgement gates selected baseline", Fault: "frame-csv-conflict"},
+			{Name: "sampler checkpoint derivative preserves ordinary baseline", Checkpoint: true},
+		} {
+			candidate := profile
+			candidate.Root = t.TempDir()
+			if err := os.Chmod(candidate.Root, 0700); err != nil {
+				t.Fatal(err)
+			}
+			candidate.ProgramArgs = append(slices.Clone(scenarioProfile.ProgramArgs), "frame-no-trace")
+			if row.Fault != "" {
+				candidate.ProgramArgs = append(candidate.ProgramArgs, row.Fault)
+			}
+			candidate.Scenario = nil
+			candidate.Policy = &ProbeLifecyclePolicy{PollMS: 1000, WarnRepeats: 12, TerminalRepeats: 14, MaxPolls: 11, MaxRecoveries: 1, MaxDistinctSkips: 4}
+			candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 90, MaxRetainedFrames: 32, MaxManagedFiles: 4096, MaxManagedBytes: 512 << 20, MaxJournalBytes: 8 << 20}
+			operations := []string{"initial", "watch", "stop"}
+			if row.Reset {
+				candidate.Policy.MaxPolls = 6
+				operations = []string{"initial", "watch", "cold", "watch", "stop"}
+			}
+			if row.InnerWait {
+				// Two 20s capture bounds, two 10s UI reads and two 4s waits, plus 2s bookkeeping.
+				candidate.Frames.MaxRunSeconds = 70
+				seed := uint64(17)
+				candidate.Seed = &seed
+				spec := *scenarioProfile.Scenario
+				spec.Recipe, spec.WaitTimeoutMS = "first-create", 86400000
+				candidate.Scenario = &spec
+				operations = []string{"initial", "scenario", "stop"}
+			}
+			if row.Checkpoint {
+				candidate.Policy.MaxPolls = 6
+				candidate.Scenario = scenarioProfile.Scenario
+				candidate.ProgramArgs = append(candidate.ProgramArgs, "frame-checkpoint-contrast")
+				operations = []string{"initial", "watch", "scenario", "watch", "stop"}
+			}
+			candidate.Requests = nil
+			for ordinal, operation := range operations {
+				candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: candidate.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", ordinal+1, operation)})
+			}
+			input, err := json.Marshal(candidate)
+			if err != nil {
+				t.Fatal(err)
+			}
+			result, err := runProbeLifecycle(input)
+			wantStatus := "COMPLETED"
+			if row.InnerWait || row.Fault != "" {
+				wantStatus = "INCOMPLETE"
+			}
+			frames := result.Frames
+			csv, csvErr := os.ReadFile(filepath.Join(candidate.Root, "frames.csv"))
+			missingFrameFacts := frames != nil && row.Fault == "" && (frames.SampleSuccesses < 2 || frames.EpochCaptures < 1 || frames.LastSampleSeconds == nil || frames.LastSelectedSeconds == nil || frames.PreviousComparisonHash == "" || frames.LastJPEG == "" || frames.LastJPEGSHA256 == "" || csvErr != nil || !bytes.HasPrefix(csv, []byte("frame,t,mode,story,week\n")))
+			if err != nil || result.Status != wantStatus || len(result.Steps) != len(operations) || frames == nil || frames.CodecQualification != "go-image-jpeg-unqualified" || missingFrameFacts {
+				encoded, encodeErr := json.Marshal(result)
+				t.Logf("%s full lifecycle report: %s (marshal=%v)", row.Name, encoded, encodeErr)
+				if frames != nil && frames.LastSelectedSeconds != nil {
+					t.Logf("%s timing: run_limit=%ds selected_ack=%.9fs next_attempt_not_before=%.9fs final_observed=%s", row.Name, candidate.Frames.MaxRunSeconds, *frames.LastSelectedSeconds, *frames.LastSelectedSeconds+4, time.Now().UTC().Format(time.RFC3339Nano))
+				}
+				for _, name := range []string{"events.jsonl", "pad-events.bin", "child-epoch-0.log"} {
+					path := filepath.Join(candidate.Root, name)
+					info, statErr := os.Lstat(path)
+					if statErr != nil || !info.Mode().IsRegular() {
+						t.Logf("%s diagnostic %s unavailable: %v", row.Name, name, statErr)
+						continue
+					}
+					file, openErr := os.Open(path)
+					if openErr != nil {
+						t.Logf("%s diagnostic %s open: %v", row.Name, name, openErr)
+						continue
+					}
+					data, readErr := io.ReadAll(io.LimitReader(file, (1<<20)+1))
+					closeErr := file.Close()
+					truncated := len(data) > 1<<20
+					if truncated {
+						data = data[:1<<20]
+					}
+					if name == "pad-events.bin" {
+						t.Logf("%s diagnostic %s truncated=%t read=%v close=%v hex=%x", row.Name, name, truncated, readErr, closeErr, data)
+					} else {
+						t.Logf("%s diagnostic %s truncated=%t read=%v close=%v bytes=%q", row.Name, name, truncated, readErr, closeErr, data)
+					}
+				}
+				t.Fatalf("%s lifecycle/codec/frame facts status=%s want=%s missing_frame_facts=%t: %v", row.Name, result.Status, wantStatus, missingFrameFacts, err)
+			}
+			if row.Fault != "" {
+				if frames.SampleSuccesses != 1 || frames.SelectedCommits != 0 || frames.PreviousComparisonHash != "" || frames.LastSelectedSeconds != nil || frames.LastJPEG != "" || frames.Failure == "" || csvErr != nil || string(csv) != "controlled CSV conflict\n" {
+					t.Fatal(row.Name, "unacknowledged publication advanced selected baseline", frames, csvErr)
+				}
+			} else {
+				selected := uint64(1)
+				if row.Reset {
+					selected = 2
+				}
+				if frames.SelectedCommits != selected || len(bytes.Split(bytes.TrimSpace(csv), []byte{'\n'})) != int(selected)+1 {
+					t.Fatal(row.Name, "stable sampling changed selected count/CSV", frames, string(csv))
+				}
+				jpegBytes, imageErr := os.ReadFile(filepath.Join(candidate.Root, frames.LastJPEG))
+				decoded, decodeErr := jpeg.DecodeConfig(bytes.NewReader(jpegBytes))
+				if imageErr != nil || decodeErr != nil || decoded.Width != 640 || decoded.Height != 480 || fmt.Sprintf("%x", sha256.Sum256(jpegBytes)) != frames.LastJPEGSHA256 {
+					t.Fatal(row.Name, "selected JPEG geometry/hash", imageErr, decodeErr)
+				}
+				if row.Reset {
+					before, after := result.Steps[1].Frames, result.Steps[3].Frames
+					if before == nil || after == nil || before.LastMean == nil || after.LastMean == nil || *before.LastMean != 999 || *after.LastMean != 999 || before.SelectedCommits != 1 || after.SelectedCommits != 2 || before.Epoch != 0 || after.Epoch != 1 || after.EpochCaptures != 1 || before.PreviousComparisonHash != after.PreviousComparisonHash {
+						t.Fatal(row.Name, "cold epoch did not reset only its comparison baseline", before, after)
+					}
+					cold := result.Steps[2]
+					if cold.Request.Operation != "cold" || cold.Status != "COMPLETED" || cold.Epoch != 1 || cold.Owned == nil || result.Steps[0].Owned == nil || cold.Owned.PID == result.Steps[0].Owned.PID || cold.CardBefore == "" || cold.CardAfter == "" {
+						t.Fatal(row.Name, "epoch reset lacked the healthy stop/flush/backup/fresh-launch transition", cold)
+					}
+				} else if frames.LastMean == nil || *frames.LastMean != 0 || *frames.LastSampleSeconds <= *frames.LastSelectedSeconds {
+					t.Fatal(row.Name, "stable below-threshold sample did not refresh capture health only", frames)
+				}
+			}
+			if row.InnerWait {
+				waiting := result.Steps[1]
+				if waiting.Status != "UNKNOWN" || waiting.Frames == nil || waiting.Frames.SampleSuccesses < 2 || len(waiting.Effects) != 0 || waiting.Reason == "" || len(waiting.ScheduledIntervals) != 0 {
+					t.Fatal(row.Name, "did not fail within actual long acquire-board wait", waiting)
+				}
+				entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+				if err != nil {
+					t.Fatal(err)
+				}
+				for _, entry := range entries {
+					if strings.Contains(entry.Name(), "2-scenario") && entry.Name() != "2-scenario-00-acquire-board.pending.json" && entry.Name() != "2-scenario-00-acquire-board.complete.json" {
+						t.Fatal(row.Name, "frame tick emitted a lifecycle effect artifact", entry.Name())
+					}
+				}
+			}
+			if row.Checkpoint {
+				checkpoint := result.Steps[2]
+				if frames.CheckpointCommits != 1 || checkpoint.Capture == nil || checkpoint.Checkpoint == nil || checkpoint.Checkpoint.Status != "UNKNOWN" || result.Steps[1].Frames.PreviousComparisonHash != frames.PreviousComparisonHash {
+					t.Fatal(row.Name, "checkpoint derivative changed ordinary predecessor or coverage", frames, checkpoint)
+				}
+				derivative, err := os.ReadFile(filepath.Join(candidate.Root, "checkpoint-frames", checkpoint.Capture.CaptureID+".jpg"))
+				geometry, format, decodeErr := image.DecodeConfig(bytes.NewReader(derivative))
+				if err != nil || decodeErr != nil || format != "jpeg" || geometry.Width != 640 || geometry.Height != 480 {
+					t.Fatal(row.Name, "checkpoint JPEG derivative", err, decodeErr)
+				}
+				ordinaryBytes, ordinaryErr := os.ReadFile(filepath.Join(candidate.Root, frames.LastJPEG))
+				checkpointImage, checkpointErr := jpeg.Decode(bytes.NewReader(derivative))
+				ordinaryImage, ordinaryDecodeErr := jpeg.Decode(bytes.NewReader(ordinaryBytes))
+				if ordinaryErr != nil || checkpointErr != nil || ordinaryDecodeErr != nil || checkpoint.Capture.ImageSHA256 == fmt.Sprintf("%x", sha256.Sum256(pngBytes)) {
+					t.Fatal(row.Name, "checkpoint contrast source/decoding", ordinaryErr, checkpointErr, ordinaryDecodeErr)
+				}
+				checkpointRed, _, _, _ := checkpointImage.At(320, 240).RGBA()
+				ordinaryRed, _, _, _ := ordinaryImage.At(320, 240).RGBA()
+				if checkpointRed < 240*257 || ordinaryRed >= 200*257 {
+					t.Fatal(row.Name, "checkpoint contrast did not survive separate JPEG derivatives", checkpointRed, ordinaryRed)
+				}
+			}
+			last := result.Steps[len(result.Steps)-1]
+			card, cardErr := os.ReadFile(filepath.Join(candidate.Root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+			stopStatus := "COMPLETED"
+			if row.Fault == "frame-csv-conflict" {
+				stopStatus = "UNKNOWN"
+				if last.Reason == "" {
+					t.Fatal(row.Name, "CSV authority refusal lost its stop evidence error")
+				}
+			}
+			if last.Request.Operation != "stop" || last.Status != stopStatus || !slices.Equal(last.Effects, []string{"terminate", "flush"}) || last.ExitedBeforeStop || cardErr != nil || fmt.Sprintf("%x", sha256.Sum256(card)) != last.CardAfter {
+				t.Fatal(row.Name, "sampler failure blocked explicit stop/final card flush", last, cardErr)
+			}
+			for _, step := range result.Steps {
+				if step.Owned != nil && (step.Request.Operation == "initial" || step.Request.Operation == "cold") {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child", Root: candidate.Root}, step.Owned.PID, step.Owned, candidate.Program.SHA256); !errors.Is(err, os.ErrProcessDone) {
+						t.Fatal(row.Name, "sampler retained its owned fixture process", err)
+					}
+				}
+			}
+			if _, err := os.Lstat(filepath.Join(candidate.Root, "pad.sock")); !os.IsNotExist(err) {
+				t.Fatal(row.Name, "sampler retained its owned pad endpoint", err)
+			}
+			if !row.InnerWait && !row.Checkpoint && row.Fault == "" {
+				var inventories [2]map[string]string
+				for pass := range inventories {
+					if pass == 1 {
+						replayed, err := runProbeLifecycle(input)
+						if err != nil || replayed.Status != result.Status || !reflect.DeepEqual(replayed.Frames, result.Frames) || len(replayed.Steps) != len(result.Steps) {
+							t.Fatal(row.Name, "completed sampled replay changed final facts", replayed, err)
+						}
+						for index, step := range replayed.Steps {
+							if !step.Replayed || step.Status != result.Steps[index].Status || !reflect.DeepEqual(step.Frames, result.Steps[index].Frames) {
+								t.Fatal(row.Name, "completed sampled replay changed saved per-step facts", index, step)
+							}
+						}
+					}
+					inventories[pass] = map[string]string{}
+					rootInfo, err := os.Lstat(candidate.Root)
+					if err != nil {
+						t.Fatal(row.Name, "completed replay root identity", err)
+					}
+					rootStat, ok := rootInfo.Sys().(*syscall.Stat_t)
+					if !ok {
+						t.Fatal(row.Name, "completed replay root identity unavailable")
+					}
+					inventories[pass][candidate.Root] = fmt.Sprintf("%d:%d:%o:%d", rootStat.Dev, rootStat.Ino, rootInfo.Mode(), rootInfo.ModTime().UnixNano())
+					pending := []string{candidate.Root}
+					for len(pending) > 0 {
+						directory := pending[0]
+						pending = pending[1:]
+						entries, err := os.ReadDir(directory)
+						if err != nil {
+							t.Fatal(row.Name, "completed replay inventory", err)
+						}
+						for _, entry := range entries {
+							path := filepath.Join(directory, entry.Name())
+							info, err := os.Lstat(path)
+							if err != nil || len(inventories[pass]) >= 4096 {
+								t.Fatal(row.Name, "completed replay bounded artifact inventory", err)
+							}
+							stat, ok := info.Sys().(*syscall.Stat_t)
+							if !ok {
+								t.Fatal(row.Name, "completed replay artifact identity unavailable")
+							}
+							pin := fmt.Sprintf("%d:%d:%o:%d", stat.Dev, stat.Ino, info.Mode(), info.ModTime().UnixNano())
+							if info.IsDir() {
+								pending = append(pending, path)
+							} else {
+								if !info.Mode().IsRegular() || info.Size() < 0 || info.Size() > 16<<20 {
+									t.Fatal(row.Name, "completed replay artifact is not a bounded regular file")
+								}
+								file, err := os.Open(path)
+								if err != nil {
+									t.Fatal(row.Name, "completed replay artifact unavailable", err)
+								}
+								data, readErr := io.ReadAll(io.LimitReader(file, (16<<20)+1))
+								opened, statErr := file.Stat()
+								closeErr := file.Close()
+								if readErr != nil || statErr != nil || closeErr != nil || !os.SameFile(info, opened) || int64(len(data)) != info.Size() || opened.Size() != info.Size() || opened.ModTime() != info.ModTime() {
+									t.Fatal(row.Name, "completed replay artifact bytes changed or unavailable", readErr, statErr, closeErr)
+								}
+								pin += fmt.Sprintf(":%d:%x", len(data), sha256.Sum256(data))
+							}
+							inventories[pass][path] = pin
+						}
+					}
+				}
+				if !reflect.DeepEqual(inventories[0], inventories[1]) {
+					t.Fatal(row.Name, "completed sampled replay changed GUIDE/journal/effect or other owned artifacts")
+				}
 			}
 		}
 		for _, variant := range []string{"blank-nonce", "wrong-operation", "unlinked-request", "unsupported-backend", "changed-backend-hash"} {

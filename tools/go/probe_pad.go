@@ -26,6 +26,9 @@ import (
 // half-close after one bounded legacy command payload; every effect gets an ack.
 // Cancellation releases held inputs and only this service's own socket/device.
 func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, done chan<- error) {
+	if spec.Published != nil {
+		*spec.Published = ProbeArtifactClaim{}
+	}
 	var layout ProbePadLayout
 	if err := json.Unmarshal(probePadLayout, &layout); err != nil {
 		ready <- err
@@ -154,7 +157,18 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 		done <- result
 		return
 	}
-	err = writeNewFile(filepath.Join(spec.Root, "pad-device.json"), bytes.NewReader(planBytes), int64(len(planBytes)), fmt.Sprintf("%x", sha256.Sum256(planBytes)), 0600)
+	planSHA := fmt.Sprintf("%x", sha256.Sum256(planBytes))
+	verified, err := writeNewFile(filepath.Join(spec.Root, "pad-device.json"), spec.DeviceParent, bytes.NewReader(planBytes), int64(len(planBytes)), planSHA, 0600)
+	if err == nil && spec.Published != nil {
+		if spec.DeviceParent == nil {
+			err = fmt.Errorf("accounted pad setup requires its pinned parent")
+		} else {
+			err = spec.DeviceParent.Sync()
+		}
+		if err == nil {
+			*spec.Published = ProbeArtifactClaim{ID: "artifact:" + filepath.Join(spec.Root, "pad-device.json"), Path: filepath.Join(spec.Root, "pad-device.json"), Class: probeArtifactNormal, MaxFinalBytes: uint64(len(planBytes)), ExpectedInfo: verified, ExpectedSHA256: planSHA}
+		}
+	}
 	if err != nil {
 		if created {
 			_, _, _ = syscall.Syscall(syscall.SYS_IOCTL, device.Fd(), 0x5502, 0)
@@ -245,6 +259,19 @@ service:
 			_ = client.Close()
 			continue
 		}
+		if spec.MaxEventBytes > 0 && spec.Backend == "event-sink" {
+			info, statErr := device.Stat()
+			needed := int64(len(names)+len(held)) * 48
+			if duration > 0 {
+				needed += int64(len(names)) * 48
+			}
+			if statErr != nil || info.Size() < 0 || needed > spec.MaxEventBytes || info.Size() > spec.MaxEventBytes-needed {
+				result = fmt.Errorf("owned pad command and release headroom exceed its reservation")
+				_, _ = io.WriteString(client, "err input extent refused\n")
+				_ = client.Close()
+				break service
+			}
+		}
 		for stage := 0; stage < 2; stage++ {
 			if stage == 1 && duration > 0 {
 				timer := time.NewTimer(duration)
@@ -259,12 +286,19 @@ service:
 				value := int32(0)
 				if stage == 0 && duration > 0 {
 					value = button.Down
-					held[name] = true
 				}
 				event := make([]byte, 48)
 				binary.LittleEndian.PutUint16(event[16:], button.Type)
 				binary.LittleEndian.PutUint16(event[18:], button.Code)
 				binary.LittleEndian.PutUint32(event[20:], uint32(value))
+				if spec.MaxEventBytes > 0 && spec.Backend == "event-sink" {
+					info, statErr := device.Stat()
+					if statErr != nil || info.Size() < 0 || info.Size() > spec.MaxEventBytes-int64(len(event)) {
+						result = fmt.Errorf("owned pad event extent exceeded its reservation")
+						reply = "err input extent refused\n"
+						break
+					}
+				}
 				if _, err := io.Copy(device, bytes.NewReader(event)); err != nil {
 					result = err
 					reply = "err input effect uncertain\n"
@@ -272,6 +306,8 @@ service:
 				}
 				if stage == 1 || duration == 0 {
 					delete(held, name)
+				} else {
+					held[name] = true
 				}
 			}
 			if result != nil {

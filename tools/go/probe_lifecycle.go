@@ -138,6 +138,9 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	if profile.Requests[len(profile.Requests)-1].Operation != "stop" {
 		return report, fmt.Errorf("bounded lifecycle slice must end with an explicit stop request")
 	}
+	if frames := profile.Frames; frames != nil && (frames.MaxRunSeconds == 0 || frames.MaxRunSeconds > 7*24*3600 || frames.MaxRetainedFrames == 0 || frames.MaxRetainedFrames > 1<<20 || frames.MaxManagedFiles < 64 || frames.MaxManagedFiles > 1<<20 || frames.MaxManagedBytes < 128<<20 || frames.MaxManagedBytes > 1<<40 || frames.MaxJournalBytes < 1024 || frames.MaxJournalBytes > 1<<30 || frames.MaxJournalBytes > frames.MaxManagedBytes/2) {
+		return report, fmt.Errorf("invalid explicit frame sampling duration/resource limits")
+	}
 	if profile.ReadyTimeoutMS == 0 {
 		profile.ReadyTimeoutMS = 10000
 	}
@@ -607,6 +610,49 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var scenarioSaved *ProbeSavedState
 	var scenarioEvent json.RawMessage
 	journal := ProbeEventJournal{Events: []ProbeEvidenceEvent{}}
+	var frameRun *ProbeFrameRun
+	var artifactBudget *ProbeArtifactBudget
+	artifactClass := probeArtifactNormal
+	sampledReplay := false
+	if profile.Frames != nil {
+		completed := 0
+		for _, request := range profile.Requests {
+			if _, err := os.Lstat(filepath.Join(receiptDir, request.Nonce+".complete.json")); err == nil {
+				completed++
+			} else if !os.IsNotExist(err) {
+				return report, err
+			}
+		}
+		if completed != 0 && completed != len(profile.Requests) {
+			return report, fmt.Errorf("sampled lifecycle continuation needs an independently admitted run; partial saved state cannot reset ordinals or comparison samples")
+		}
+		sampledReplay = completed == len(profile.Requests)
+	}
+	if profile.Frames != nil && !sampledReplay {
+		// Each admitted stop needs pending/completed effect records, a completed
+		// step and cleanup facts. Two more records cover automatic disposal.
+		finalizerFiles := uint64(2)
+		for _, request := range profile.Requests {
+			if request.Operation == "stop" {
+				finalizerFiles += uint64(2*len(table.Actions["stop"].Effects) + 2)
+			}
+		}
+		finalizerBytes := finalizerFiles * probeFinalizerArtifactBytes
+		if finalizerFiles >= profile.Frames.MaxManagedFiles || finalizerBytes >= profile.Frames.MaxManagedBytes {
+			return report, fmt.Errorf("frame budget cannot withhold admitted stop/finalization evidence")
+		}
+		artifactBudget = &ProbeArtifactBudget{MaxFiles: profile.Frames.MaxManagedFiles, MaxBytes: profile.Frames.MaxManagedBytes, FinalizerFiles: finalizerFiles, FinalizerBytes: finalizerBytes, Roots: map[string]os.FileInfo{profile.Root: rootInfo}, NativeFiles: map[string]os.FileInfo{}, SnapshotRoots: map[string]os.FileInfo{}}
+		journal.Budget, journal.MaxBytes = artifactBudget, profile.Frames.MaxJournalBytes
+		frameRun = &ProbeFrameRun{Policy: *profile.Frames, Budget: artifactBudget, CardPath: cardPath, Summary: ProbeFrameSummary{Status: "ACTIVE", CodecQualification: "go-image-jpeg-unqualified", Policy: *profile.Frames, Limits: "Cooperative owned-artifact accounting; native growth is observed, not a kernel quota. Go JPEG nominal quality82 timeline/75 checkpoint is not qualified as Pillow equivalent. Frame integrity does not establish gameplay/native coverage."}}
+		if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, nil); err != nil {
+			return report, err
+		}
+		if minimum, err := observeProbeStorage(artifactBudget, []string{profile.Root}); err != nil || minimum < 2<<30 {
+			return report, fmt.Errorf("frame sampler initial storage unavailable or below2GiB reserve: %v", err)
+		}
+	} else if sampledReplay {
+		frameRun = &ProbeFrameRun{Policy: *profile.Frames}
+	}
 	scenarioEvents := []ProbeEvidenceEvent{}
 	scenarioCaptures := []ProbeCaptureObservation{}
 	var captureDirInfo os.FileInfo
@@ -642,7 +688,22 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 requests:
 	for _, request := range profile.Requests {
 		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: processes.Native, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
+		artifactClass = probeArtifactNormal
+		journal.Finalizing = false
+		if request.Operation == "stop" {
+			artifactClass = probeArtifactFinalizer
+			journal.Finalizing = true
+			if frameRun != nil {
+				frameRun.Ready, frameRun.Finalizing = false, true
+			}
+		} else if frameRun != nil && frameRun.Summary.Failure != "" {
+			step.Reason = "frame sampler failed; only explicit stop remains admitted"
+			report.Status = "INCOMPLETE"
+			report.Steps = append(report.Steps, step)
+			continue
+		}
 		frameActor, frameReason := -1, ""
+		frameEpochReady := false
 		if profile.Flatpak != nil {
 			step.Launcher = processes.Launcher
 			step.Startup = processes.Startup
@@ -737,6 +798,9 @@ requests:
 			} else {
 				step = saved
 				step.Replayed = true
+				if sampledReplay && saved.Frames != nil {
+					frameRun.Summary = *saved.Frames
+				}
 			}
 			report.Steps = append(report.Steps, step)
 			continue
@@ -840,9 +904,16 @@ requests:
 		lastNonce = ordinal
 		requestBytes, _ := json.Marshal(request)
 		requestSHA := fmt.Sprintf("%x", sha256.Sum256(requestBytes))
+		var stopPublicationErr error
 	actions:
 		for index, repeats := 0, 0; index < len(action.Effects); {
 			effect := action.Effects[index]
+			if frameRun != nil && frameRun.Ready && !frameRun.Finalizing {
+				if err := sampleProbeFrame(profile, &journal, frameRun, time.Now()); err != nil {
+					step.Reason = err.Error()
+					break actions
+				}
+			}
 			repeatEffect := false
 			pendingRow := ProbeLifecycleEffect{Version: 1, Session: profile.Session, Nonce: request.Nonce, RequestSHA256: requestSHA, Action: effect, Phase: "pending"}
 			pendingData, _ := json.Marshal(pendingRow)
@@ -850,9 +921,12 @@ requests:
 			if repeats > 0 {
 				effectBase += fmt.Sprintf("-repeat%d", repeats)
 			}
-			if err := writeNewFile(filepath.Join(receiptDir, effectBase+".pending.json"), bytes.NewReader(pendingData), int64(len(pendingData)), fmt.Sprintf("%x", sha256.Sum256(pendingData)), 0600); err != nil {
-				step.Reason = "pending effect publication failed"
-				break
+			if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(receiptDir, effectBase+".pending.json"), bytes.NewReader(pendingData), int64(len(pendingData)), fmt.Sprintf("%x", sha256.Sum256(pendingData)), 0600); err != nil {
+				if request.Operation != "stop" || frameRun == nil {
+					step.Reason = "pending effect publication failed"
+					break
+				}
+				stopPublicationErr = errors.Join(stopPublicationErr, err)
 			}
 			directory, err := os.Open(receiptDir)
 			if err == nil {
@@ -860,8 +934,11 @@ requests:
 				_ = directory.Close()
 			}
 			if err != nil {
-				step.Reason = "pending directory durability failed"
-				break
+				if request.Operation != "stop" || frameRun == nil {
+					step.Reason = "pending directory durability failed"
+					break
+				}
+				stopPublicationErr = errors.Join(stopPublicationErr, err)
 			}
 			// Prompt observations share the same serialized journal publisher. The
 			// admitted planned effect remains card-save, including across repeats.
@@ -909,11 +986,11 @@ requests:
 					step.Reason = err.Error()
 					break actions
 				}
-				view := ProbeProfileRecord{Datapath: profileDir, DataRoot: dataRoot, SourceSettings: profile.Inputs["settings"].Path, SourceSettingsSHA256: profile.Inputs["settings"].SHA256, SourceCard: profile.Inputs["card"].Path, SourceCardSHA256: profile.Inputs["card"].SHA256, Card: cardPath, CardInitialSHA256: profile.Inputs["card"].SHA256, BIOS: filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path))}
-				viewRaw, _ := json.Marshal(view)
-				ownedRaw, _ := json.Marshal(processes.Native)
-				bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", ProjectRoot: profile.Root, WorkingDirectory: profile.Root, RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewRaw}, {Role: "owned", Data: ownedRaw}}, AfterProcess: &observed, GoOwner: &ProbeGoOwner{Profile: profile, Step: lastOwnedStep, CardSHA256: fmt.Sprintf("%x", sha256.Sum256(card))}}
-				scenarioAdmission, _ = json.Marshal(bundle)
+				scenarioAdmission, err = buildProbeGoAdmission(profile, lastOwnedStep, processes.Native, observed, fmt.Sprintf("%x", sha256.Sum256(card)))
+				if err != nil {
+					step.Reason = err.Error()
+					break actions
+				}
 				admitted, err := admitProbeRecords(scenarioAdmission)
 				if err != nil {
 					step.Reason = err.Error()
@@ -921,7 +998,7 @@ requests:
 				}
 				path := filepath.Join(profile.Root, "go-records-"+request.Nonce+".json")
 				digest := fmt.Sprintf("%x", sha256.Sum256(scenarioAdmission))
-				if err := writeNewFile(path, bytes.NewReader(scenarioAdmission), int64(len(scenarioAdmission)), digest, 0600); err != nil {
+				if err := writeProbeArtifact(artifactBudget, artifactClass, path, bytes.NewReader(scenarioAdmission), int64(len(scenarioAdmission)), digest, 0600); err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
@@ -1026,7 +1103,7 @@ requests:
 					memoryPath, memorySHA := "", ""
 					var memoryRaw []byte
 					if row.Kind != "image" {
-						plan := ProbeMemoryBundle{Version: 1, SourceSHA256: bundle.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
+						plan := ProbeMemoryBundle{Version: 1, SourceSHA256: table.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
 						var readIDs []string
 						if row.Kind == "code" {
 							facts := row.Capacity.Stream
@@ -1075,7 +1152,7 @@ requests:
 						memoryRaw, _ = json.Marshal(memory)
 						memoryPath = filepath.Join(profile.Root, "storage-"+request.Nonce+".memory.json")
 						memorySHA = fmt.Sprintf("%x", sha256.Sum256(memoryRaw))
-						if err := writeNewFile(memoryPath, bytes.NewReader(memoryRaw), int64(len(memoryRaw)), memorySHA, 0600); err != nil {
+						if err := writeProbeArtifact(artifactBudget, artifactClass, memoryPath, bytes.NewReader(memoryRaw), int64(len(memoryRaw)), memorySHA, 0600); err != nil {
 							step.Reason = err.Error()
 							break actions
 						}
@@ -1136,7 +1213,7 @@ requests:
 					evidenceRaw, _ := json.Marshal(evidence)
 					evidencePath := filepath.Join(profile.Root, "storage-"+request.Nonce+".evidence.json")
 					evidenceSHA := fmt.Sprintf("%x", sha256.Sum256(evidenceRaw))
-					if err := writeNewFile(evidencePath, bytes.NewReader(evidenceRaw), int64(len(evidenceRaw)), evidenceSHA, 0600); err != nil {
+					if err := writeProbeArtifact(artifactBudget, artifactClass, evidencePath, bytes.NewReader(evidenceRaw), int64(len(evidenceRaw)), evidenceSHA, 0600); err != nil {
 						step.Reason = err.Error()
 						break actions
 					}
@@ -1202,7 +1279,10 @@ requests:
 						break actions
 					}
 					for time.Now().Before(checkpointDue) {
-						time.Sleep(min(time.Second, time.Until(checkpointDue)))
+						if err := waitProbeFrame(profile, &journal, frameRun, min(time.Second, time.Until(checkpointDue))); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						scenarioUI, err = readProbeUI(ProbeUIPlan{Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256, Glyphmap: scenarioGlyphs, TimeoutMS: 10000, MaxReads: profile.Scenario.MaxUIReads}, scenarioRuntime)
 						if err != nil {
 							step.Reason = err.Error()
@@ -1448,7 +1528,10 @@ requests:
 					if ui.Headers["story"] >= 50 || !postClearSince.IsZero() && time.Since(postClearSince) >= 60*time.Second {
 						break
 					}
-					time.Sleep(time.Second)
+					if err := waitProbeFrame(profile, &journal, frameRun, time.Second); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
 					repeatEffect = true
 				case "front-end":
 					mode := ui.Headers["mode"]
@@ -1479,7 +1562,10 @@ requests:
 							scenarioUI = ui
 							break
 						}
-						time.Sleep(time.Second)
+						if err := waitProbeFrame(profile, &journal, frameRun, time.Second); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						repeatEffect = true
 						break
 					}
@@ -1523,7 +1609,10 @@ requests:
 					if eligible && move {
 						break
 					}
-					time.Sleep(250 * time.Millisecond)
+					if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
 					repeatEffect = true
 				case "select-continue", "select-newgame":
 					if repeats >= scenarioData.Reload.TitleAttempts {
@@ -1583,7 +1672,10 @@ requests:
 					}
 					repeatEffect = true
 					if command == "" {
-						time.Sleep(250 * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 					}
 				case "wait-advance":
 					if !restored || scenarioSaved == nil {
@@ -1596,7 +1688,10 @@ requests:
 						changed = changed || *record.Square != *before.Players[player].Square || *record.Money != *before.Players[player].Money
 					}
 					if !changed {
-						time.Sleep(250 * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						repeatEffect = true
 					}
 				case "verify-human":
@@ -1670,7 +1765,10 @@ requests:
 							image = image || !widget.Unsupported && widget.Index == 0 && widget.Kind == 9 && widget.Ready == 1 && widget.Flags&3 == 1 && widget.ImageTexture == scenarioData.NewGame.ImageTexture
 						}
 						if !ready {
-							time.Sleep(250 * time.Millisecond)
+							if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
 							repeatEffect = true
 							break
 						}
@@ -1681,7 +1779,10 @@ requests:
 						if effect == "card-prepare-load" && !preparationAcknowledged {
 							break
 						}
-						time.Sleep(250 * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						repeatEffect = true
 						break
 					}
@@ -1752,7 +1853,10 @@ requests:
 						busy := strings.HasPrefix(prompt.Text, "Saving.") || strings.HasPrefix(prompt.Text, "Creatingnewdata") || strings.HasPrefix(prompt.Text, "Loading.")
 						question := strings.HasPrefix(prompt.Text, "Createnewdata") || strings.HasPrefix(prompt.Text, "OverwriteFile") || strings.HasPrefix(prompt.Text, "Savetoanewfile") || strings.HasPrefix(prompt.Text, "LoadFile")
 						if busy && prompt.Ready != 1 {
-							time.Sleep(time.Duration(row.PollMS) * time.Millisecond)
+							if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(row.PollMS)*time.Millisecond); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
 						} else if question && ui.Headers["yesno"] != 0 {
 							command = "UP"
 						} else if question || prompt.Ready == 1 {
@@ -1761,7 +1865,10 @@ requests:
 							}
 							command = "CIRCLE"
 						} else {
-							time.Sleep(time.Duration(row.IdlePollMS) * time.Millisecond)
+							if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(row.IdlePollMS)*time.Millisecond); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
 						}
 						repeatEffect = true
 					} else {
@@ -1841,7 +1948,10 @@ requests:
 								}
 							}
 						}
-						time.Sleep(time.Duration(settle) * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(settle)*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 					}
 				}
 			case "preview-dwell":
@@ -1850,7 +1960,10 @@ requests:
 					break actions
 				}
 				for previewSamples < scenarioData.Reload.PreviewSamples {
-					time.Sleep(time.Duration(scenarioData.Reload.PreviewPollMS) * time.Millisecond)
+					if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(scenarioData.Reload.PreviewPollMS)*time.Millisecond); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
 					if !time.Now().Before(scenarioDeadline) {
 						step.Reason = "preview dwell deadline exhausted"
 						break actions
@@ -2036,10 +2149,18 @@ requests:
 				memory.Decoders = append(memory.Decoders, ProbeMemoryDecoder{ID: "source-player", Kind: "player", Requests: playerIDs})
 				memoryRaw, _ := json.Marshal(memory)
 				captureProfile := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(journal.Events), Checkpoint: captureCheckpoint, LogOffset: int64(logOffset), LogBytes: len(log), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(log)), MaxSnapshotFiles: 16, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 32, MaxRetainedBytes: 256 << 20, LockTimeoutMS: 1000, CaptureTimeoutMS: 3000}
+				if artifactBudget != nil {
+					if frameRun.Summary.SelectedCommits+frameRun.Summary.CheckpointCommits >= frameRun.Policy.MaxRetainedFrames {
+						step.Reason = "frame sampler retained-frame budget exhausted"
+						frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", step.Reason
+						break actions
+					}
+					captureProfile.MaxSnapshotFiles, captureProfile.MaxRetainedFiles, captureProfile.MaxRetainedBytes = 256, 1024, 512<<20
+				}
 				captureRuntime := ProbeCaptureRuntime{Memory: scenarioRuntime, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
 				captureRaw, _ := json.Marshal(captureProfile)
 				runtimeRaw, _ := json.Marshal(captureRuntime)
-				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw, nil)
+				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw, nil, artifactBudget)
 				step.Capture = &receipt
 				if ordinary {
 					if receipt.Version != 1 || receipt.CaptureID != captureID || receipt.EventID != len(journal.Events) || receipt.Checkpoint != 0 || receipt.LogOffset != int64(logOffset) || receipt.LogSHA256 != captureProfile.LogSHA256 {
@@ -2067,6 +2188,29 @@ requests:
 				if err != nil {
 					step.Reason = err.Error()
 					break actions
+				}
+				if frameRun != nil {
+					if len(image) < 26 || image[24] != 8 || !slices.Contains([]byte{0, 2, 6}, image[25]) {
+						step.Reason = "checkpoint JPEG supports only qualified8-bit Gray/RGB/RGBA input"
+						frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", step.Reason
+						break actions
+					}
+					raster, _, decodeErr := decodePNG(image, 1<<20)
+					if decodeErr != nil {
+						step.Reason = decodeErr.Error()
+						break actions
+					}
+					normalized, pixels, facts, normalizeErr := normalizeProbeFrame(raster)
+					if normalizeErr != nil {
+						step.Reason = normalizeErr.Error()
+						break actions
+					}
+					facts.CaptureID = receipt.CaptureID
+					if err := publishProbeFrame(profile, &journal, frameRun, ProbeFrameSample{Normalized: normalized, Sample: pixels, Facts: facts}, receipt, time.Now()); err != nil {
+						step.Reason = err.Error()
+						frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", step.Reason
+						break actions
+					}
 				}
 				scenarioCaptures = append(scenarioCaptures, ProbeCaptureObservation{Receipt: receipt, ImageHex: hex.EncodeToString(image), Admission: bytes.Clone(scenarioAdmission)})
 			case "report-save", "report-pair", "report-checkpoint", "report-story", "report-frame":
@@ -2099,7 +2243,7 @@ requests:
 						bundle.Story = &ProbeStoryFacts{Recipe: profile.Scenario.Recipe, Phase: "checkpoint"}
 						if effect == "report-story" {
 							bundle.Story.Phase = "complete"
-							bundle.Story.TerminalEventID = len(journal.Events)
+							bundle.Story.TerminalEventID = step.Capture.EventID
 							if !postClearSince.IsZero() {
 								bundle.Story.PostClearMS = time.Since(postClearSince).Milliseconds()
 							}
@@ -2110,7 +2254,7 @@ requests:
 				if effect != "report-save" {
 					path := filepath.Join(profile.Root, request.Nonce+"-evidence.json")
 					hash := fmt.Sprintf("%x", sha256.Sum256(bundleRaw))
-					if err := writeNewFile(path, bytes.NewReader(bundleRaw), int64(len(bundleRaw)), hash, 0400); err != nil {
+					if err := writeProbeArtifact(artifactBudget, artifactClass, path, bytes.NewReader(bundleRaw), int64(len(bundleRaw)), hash, 0400); err != nil {
 						step.Reason = err.Error()
 						break actions
 					}
@@ -2151,7 +2295,7 @@ requests:
 				if ordinary || effect != "report-save" || profile.Scenario.Recipe != "" {
 					resultName = request.Nonce + "-report.json"
 				}
-				if err := writeNewFile(filepath.Join(profile.Root, resultName), bytes.NewReader(resultRaw), int64(len(resultRaw)), fmt.Sprintf("%x", sha256.Sum256(resultRaw)), 0600); err != nil {
+				if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(profile.Root, resultName), bytes.NewReader(resultRaw), int64(len(resultRaw)), fmt.Sprintf("%x", sha256.Sum256(resultRaw)), 0600); err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
@@ -2261,7 +2405,7 @@ requests:
 					break actions
 				}
 				ignore := []byte("*\n")
-				if err := writeNewFile(filepath.Join(profileDir, ".gitignore"), bytes.NewReader(ignore), int64(len(ignore)), fmt.Sprintf("%x", sha256.Sum256(ignore)), 0400); err != nil {
+				if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(profileDir, ".gitignore"), bytes.NewReader(ignore), int64(len(ignore)), fmt.Sprintf("%x", sha256.Sum256(ignore)), 0400); err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
@@ -2291,7 +2435,7 @@ requests:
 						step.Reason = err.Error()
 						break actions
 					}
-					err = writeNewFile(target, source, input.Size, input.SHA256, 0600)
+					err = writeProbeArtifact(artifactBudget, artifactClass, target, source, input.Size, input.SHA256, 0600)
 					_ = source.Close()
 					if err != nil {
 						step.Reason = err.Error()
@@ -2299,14 +2443,63 @@ requests:
 					}
 				}
 			case "pad":
-				go serveProbePad(ctx, ProbePadSpec{Root: profile.Root, Backend: padBackend}, padReady, padDone)
-				if err := <-padReady; err != nil {
+				if artifactBudget != nil {
+					for _, name := range []string{"pad-events.bin", "pad.sock"} {
+						path := filepath.Join(profile.Root, name)
+						artifactBudget.NativeFiles[path] = nil
+						extent := uint64(0)
+						if name == "pad-events.bin" {
+							extent = 64 << 20
+						}
+						if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{{ID: "native:" + path, Path: path, Class: probeArtifactNative, MaxFinalBytes: extent}}); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+					}
+				}
+				padSpec := ProbePadSpec{Root: profile.Root, Backend: padBackend}
+				var publishedPad ProbeArtifactClaim
+				if artifactBudget != nil {
+					claim := ProbeArtifactClaim{ID: "artifact:" + filepath.Join(profile.Root, "pad-device.json"), Path: filepath.Join(profile.Root, "pad-device.json"), Class: probeArtifactNormal, MaxFinalBytes: 4 << 20}
+					if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					parent, err := os.Open(profile.Root)
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					opened, statErr := parent.Stat()
+					if statErr != nil || !os.SameFile(rootInfo, opened) {
+						parent.Close()
+						step.Reason = "owned pad parent changed"
+						break actions
+					}
+					padSpec.DeviceParent, padSpec.Published, padSpec.MaxEventBytes = parent, &publishedPad, 64<<20
+				}
+				go serveProbePad(ctx, padSpec, padReady, padDone)
+				padErr := <-padReady
+				if padSpec.DeviceParent != nil {
+					padErr = errors.Join(padErr, padSpec.DeviceParent.Close())
+				}
+				if padErr != nil {
+					cancel()
 					_ = <-padDone
-					step.Reason = "pad service failed: " + err.Error()
+					step.Reason = "pad service failed: " + padErr.Error()
 					break actions
 				}
 				padStarted = true
+				if artifactBudget != nil {
+					if err := accountProbeArtifacts(artifactBudget, probeArtifactCommit, []ProbeArtifactClaim{publishedPad}); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+				}
 			case "launch":
+				if frameRun != nil {
+					frameRun.Ready = false
+				}
 				if processes.Command != nil || processes.Native != nil || len(processes.Candidates) > 0 || len(processes.Unqualified) > 0 {
 					step.Reason = "a child or uncertain runtime is already owned"
 					break actions
@@ -2314,7 +2507,43 @@ requests:
 				if request.Operation == "cold" || request.Operation == "cold-load" || request.Operation == "recover" {
 					epoch++
 				}
-				processes = ProbeLifecycleProcesses{Epoch: epoch}
+				processes = ProbeLifecycleProcesses{Epoch: epoch, Budget: artifactBudget, ArtifactClass: artifactClass}
+				if artifactBudget != nil {
+					snapshots := filepath.Join(dataRoot, "snaps")
+					if artifactBudget.SnapshotRoots[snapshots] == nil {
+						pin, err := os.Lstat(snapshots)
+						if err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						artifactBudget.SnapshotRoots[snapshots] = pin
+					}
+					if minimum, err := observeProbeStorage(artifactBudget, []string{profile.Root, snapshots, filepath.Dir(cardPath)}); err != nil || minimum < 2<<30 {
+						step.Reason = fmt.Sprintf("frame sampler launch storage unavailable or below2GiB reserve: %v", err)
+						frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", step.Reason
+						break actions
+					}
+					cardPin := artifactBudget.observed[cardPath]
+					if cardPin == nil {
+						step.Reason = "frame sampler lacks acknowledged private card"
+						break actions
+					}
+					artifactBudget.NativeFiles[cardPath] = cardPin
+					if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{{ID: "artifact:" + cardPath, Path: cardPath, Class: probeArtifactNormal, MaxFinalBytes: 64 << 20, ExpectedInfo: cardPin}}); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					for _, path := range []string{filepath.Join(profile.Root, "peer.sock"), filepath.Join(profile.Root, fmt.Sprintf("child-epoch-%d.log", epoch)), filepath.Join(profileDir, "emulog.txt")} {
+						if prior := artifactBudget.NativeFiles[path]; prior != nil {
+							continue
+						}
+						artifactBudget.NativeFiles[path] = nil
+						if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{{ID: "native:" + path, Path: path, Class: probeArtifactNative, MaxFinalBytes: 16 << 20}}); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+					}
+				}
 				args := slices.Clone(launchArgs)
 				program := launchProgram.Path
 				if native := profile.Flatpak; native != nil {
@@ -2395,7 +2624,10 @@ requests:
 							}
 						}
 					}
-					time.Sleep(10 * time.Millisecond)
+					if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
 				}
 				if observed.PID < 1 || profile.Flatpak == nil && (err != nil || !slices.Equal(observed.Cmdline, processes.Command.Args)) {
 					step.Reason = "launched emulator identity is not uniquely qualified"
@@ -2450,7 +2682,10 @@ requests:
 						logPath := filepath.Join(profileDir, "emulog.txt")
 						info, statErr := os.Lstat(logPath)
 						if os.IsNotExist(statErr) {
-							time.Sleep(10 * time.Millisecond)
+							if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
 							continue
 						}
 						resolved, resolveErr := filepath.EvalSymlinks(logPath)
@@ -2479,7 +2714,10 @@ requests:
 						}
 						lastLine := bytes.LastIndexByte(logBytes, '\n')
 						if lastLine < 0 {
-							time.Sleep(10 * time.Millisecond)
+							if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
 							continue
 						}
 						logBytes = logBytes[:lastLine+1]
@@ -2489,19 +2727,22 @@ requests:
 							break actions
 						}
 						if !complete {
-							time.Sleep(10 * time.Millisecond)
+							if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
 							continue
 						}
 						snapshot := filepath.Join(profile.Root, fmt.Sprintf("startup-epoch-%d.log", epoch))
 						logSHA := fmt.Sprintf("%x", sha256.Sum256(logBytes))
-						if err := writeNewFile(snapshot, bytes.NewReader(logBytes), int64(len(logBytes)), logSHA, 0400); err != nil {
+						if err := writeProbeArtifact(artifactBudget, artifactClass, snapshot, bytes.NewReader(logBytes), int64(len(logBytes)), logSHA, 0400); err != nil {
 							step.Reason = err.Error()
 							break actions
 						}
 						facts, _ := json.Marshal(ProbeStartupFacts{Epoch: epoch, Native: *processes.Native, Launcher: processes.Launcher, Directories: paths, Log: RegistryInput{Path: snapshot, Size: int64(len(logBytes)), SHA256: logSHA}})
 						path := filepath.Join(profile.Root, fmt.Sprintf("startup-epoch-%d.json", epoch))
 						digest := fmt.Sprintf("%x", sha256.Sum256(facts))
-						if err := writeNewFile(path, bytes.NewReader(facts), int64(len(facts)), digest, 0400); err != nil {
+						if err := writeProbeArtifact(artifactBudget, artifactClass, path, bytes.NewReader(facts), int64(len(facts)), digest, 0400); err != nil {
 							step.Reason = err.Error()
 							break actions
 						}
@@ -2514,7 +2755,10 @@ requests:
 					}
 					connection, err := net.DialTimeout("unix", pinePath, 100*time.Millisecond)
 					if err != nil {
-						time.Sleep(10 * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						continue
 					}
 					_ = connection.SetDeadline(time.Now().Add(100 * time.Millisecond))
@@ -2568,7 +2812,10 @@ requests:
 							step.Reason = "owned observation failed: " + err.Error()
 							break actions
 						}
-						time.Sleep(10 * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						continue
 					}
 					vmStatus := binary.LittleEndian.Uint32(status[5:])
@@ -2592,7 +2839,10 @@ requests:
 							step.Reason = "unexpected VM status during guarded toggle"
 							break actions
 						}
-						time.Sleep(time.Duration(table.StatusPollMS) * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(table.StatusPollMS)*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						continue
 					}
 					if vmStatus != 0 {
@@ -2667,7 +2917,10 @@ requests:
 							verified = true
 							break
 						}
-						time.Sleep(time.Duration(profile.Policy.PollMS) * time.Millisecond)
+						if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(profile.Policy.PollMS)*time.Millisecond); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
 						continue
 					}
 					width := values["mode"]
@@ -2731,7 +2984,10 @@ requests:
 						verified = true
 						break
 					}
-					time.Sleep(10 * time.Millisecond)
+					if err := waitProbeFrame(profile, &journal, frameRun, 10*time.Millisecond); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
 				}
 				if !verified {
 					step.Reason = "owned boot/quiescence observation timed out"
@@ -2764,8 +3020,15 @@ requests:
 					step.Reason = "warm reset effect is ambiguous"
 					break actions
 				}
-				time.Sleep(time.Duration(settle) * time.Millisecond)
+				if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(settle)*time.Millisecond); err != nil {
+					step.Reason = err.Error()
+					break actions
+				}
 			case "terminate":
+				processes.ArtifactClass = artifactClass
+				if frameRun != nil {
+					frameRun.Ready = false
+				}
 				if processes.Native != nil {
 					data, err := readInput(cardPath, 64<<20)
 					if err != nil {
@@ -2778,8 +3041,11 @@ requests:
 				var err error
 				step.ExitedBeforeStop, err = terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
 				if err != nil {
-					step.Reason = err.Error()
-					break actions
+					if frameRun == nil || request.Operation != "stop" || !processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) != 0 {
+						step.Reason = err.Error()
+						break actions
+					}
+					stopPublicationErr = errors.Join(stopPublicationErr, err)
 				}
 
 			case "flush":
@@ -2804,7 +3070,10 @@ requests:
 					break actions
 				}
 				post := fmt.Sprintf("%x", sha256.Sum256(data))
-				time.Sleep(250 * time.Millisecond)
+				if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
+					step.Reason = err.Error()
+					break actions
+				}
 				stable, err := readInput(cardPath, 64<<20)
 				if err != nil || fmt.Sprintf("%x", sha256.Sum256(stable)) != post {
 					step.Reason = "private card still changing after exit"
@@ -2812,13 +3081,25 @@ requests:
 				}
 				step.CardAfter = post
 				lastSafeCardSHA = post
+				if artifactBudget != nil {
+					if minimum, err := observeProbeStorage(artifactBudget, []string{profile.Root, filepath.Join(dataRoot, "snaps"), filepath.Dir(cardPath)}); err != nil || minimum < 2<<30 {
+						spaceErr := fmt.Errorf("frame sampler final storage unavailable or below2GiB reserve: %v", err)
+						frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", spaceErr.Error()
+						if request.Operation == "stop" {
+							stopPublicationErr = errors.Join(stopPublicationErr, spaceErr)
+						} else {
+							step.Reason = spaceErr.Error()
+							break actions
+						}
+					}
+				}
 			case "backup":
 				data, err := readInput(cardPath, 64<<20)
 				if err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
-				if err := writeNewFile(filepath.Join(receiptDir, request.Nonce+".flushed-card"), bytes.NewReader(data), int64(len(data)), step.CardAfter, 0600); err != nil {
+				if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(receiptDir, request.Nonce+".flushed-card"), bytes.NewReader(data), int64(len(data)), step.CardAfter, 0600); err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
@@ -2834,9 +3115,12 @@ requests:
 			detail, _ := json.Marshal(step)
 			pendingRow.Details = detail
 			completeData, _ := json.Marshal(pendingRow)
-			if err := writeNewFile(filepath.Join(receiptDir, effectBase+".complete.json"), bytes.NewReader(completeData), int64(len(completeData)), fmt.Sprintf("%x", sha256.Sum256(completeData)), 0600); err != nil {
-				step.Reason = "effect completion publication failed"
-				break
+			if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(receiptDir, effectBase+".complete.json"), bytes.NewReader(completeData), int64(len(completeData)), fmt.Sprintf("%x", sha256.Sum256(completeData)), 0600); err != nil {
+				if request.Operation != "stop" || frameRun == nil {
+					step.Reason = "effect completion publication failed"
+					break
+				}
+				stopPublicationErr = errors.Join(stopPublicationErr, err)
 			}
 			directory, err = os.Open(receiptDir)
 			if err == nil {
@@ -2844,8 +3128,11 @@ requests:
 				_ = directory.Close()
 			}
 			if err != nil {
-				step.Reason = "effect completion durability failed"
-				break
+				if request.Operation != "stop" || frameRun == nil {
+					step.Reason = "effect completion durability failed"
+					break
+				}
+				stopPublicationErr = errors.Join(stopPublicationErr, err)
 			}
 			if repeatEffect {
 				repeats++
@@ -2854,6 +3141,9 @@ requests:
 				repeats = 0
 			}
 		}
+		if stopPublicationErr != nil && step.Reason == "" {
+			step.Reason = "stop evidence publication is unknown: " + stopPublicationErr.Error()
+		}
 		if step.Reason == "" && len(step.Effects) == len(action.Effects) {
 			step.Status = "COMPLETED"
 			if request.Operation == "recover" {
@@ -2861,8 +3151,67 @@ requests:
 			}
 			phase = action.To
 			step.Epoch = epoch
+			if frameRun != nil && step.Status == "COMPLETED" && slices.Contains([]string{"initial", "resume", "cold", "cold-load", "recover"}, request.Operation) {
+				// A completed owned-ready epoch admits immutable facts once. Every
+				// acquisition still repeats the process, peer, source and epoch guards.
+				frameRun.Previous = nil
+				frameRun.Summary.Epoch, frameRun.Summary.EpochCaptures, frameRun.Summary.PreviousComparisonHash = epoch, 0, ""
+				epochSummary := frameRun.Summary
+				step.Frames = &epochSummary
+				observed, observeErr := observeProbeProcess(ProbeMemoryRuntime{}, processes.Native.PID, processes.Native, profile.Program.SHA256)
+				card, cardErr := readInput(cardPath, 64<<20)
+				admission, admissionErr := buildProbeGoAdmission(profile, step, processes.Native, observed, fmt.Sprintf("%x", sha256.Sum256(card)))
+				if observeErr != nil || cardErr != nil || admissionErr != nil {
+					frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", fmt.Sprintf("frame sampler epoch admission failed: %v", errors.Join(observeErr, cardErr, admissionErr))
+				} else {
+					captureRoot := filepath.Join(profile.Root, "captures")
+					createErr := os.Mkdir(captureRoot, 0700)
+					captureInfo, captureErr := os.Lstat(captureRoot)
+					snapshotInfo, snapshotErr := os.Lstat(filepath.Join(dataRoot, "snaps"))
+					if createErr != nil && (!os.IsExist(createErr) || captureDirInfo == nil) || captureErr != nil || snapshotErr != nil || !captureInfo.IsDir() || captureInfo.Mode().Perm() != 0700 || captureDirInfo != nil && !os.SameFile(captureDirInfo, captureInfo) {
+						frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", "frame sampler private capture roots unavailable"
+					} else {
+						captureDirInfo = captureInfo
+						artifactBudget.Roots[captureRoot] = captureInfo
+						artifactBudget.SnapshotRoots[filepath.Join(dataRoot, "snaps")] = snapshotInfo
+						path := filepath.Join(profile.Root, fmt.Sprintf("go-records-frame-epoch%d.json", epoch))
+						digest := fmt.Sprintf("%x", sha256.Sum256(admission))
+						initErr := writeProbeArtifact(artifactBudget, probeArtifactNormal, path, bytes.NewReader(admission), int64(len(admission)), digest, 0600)
+						if initErr == nil && frameRun.CSV == nil {
+							header := []byte("frame,t,mode,story,week\n")
+							initErr = writeProbeArtifact(artifactBudget, probeArtifactNormal, filepath.Join(profile.Root, "frames.csv"), bytes.NewReader(header), int64(len(header)), fmt.Sprintf("%x", sha256.Sum256(header)), 0600)
+							if initErr == nil {
+								frameRun.CSV, frameRun.CSVInfo = header, artifactBudget.observed[filepath.Join(profile.Root, "frames.csv")]
+							}
+						}
+						if initErr != nil {
+							frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", "frame sampler epoch publication failed: "+initErr.Error()
+						} else {
+							now := time.Now()
+							if frameRun.Started.IsZero() {
+								frameRun.Started = now
+								frameRun.NextHealth, frameRun.NextStorage = now.Add(10*time.Second), now
+							}
+							frameRun.Admission = admission
+							frameRun.Runtime = ProbeCaptureRuntime{Memory: ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(admission)), SHA256: digest}}, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
+							frameRun.Ready, frameRun.Finalizing, frameRun.EpochStarted = false, false, now
+							frameEpochReady = true
+							frameRun.NextAttempt, frameRun.Previous = now.Add(4*time.Second), nil
+							frameRun.Summary.Epoch, frameRun.Summary.EpochCaptures = epoch, 0
+							frameRun.Summary.PreviousComparisonHash = ""
+						}
+					}
+				}
+				if frameRun.Summary.Failure != "" {
+					step.Status, step.Reason, report.Status, phase = "UNKNOWN", frameRun.Summary.Failure, "INCOMPLETE", "unknown"
+				}
+			}
+			if frameRun != nil {
+				frames := frameRun.Summary
+				step.Frames = &frames
+			}
 			completeData, _ := json.Marshal(step)
-			if err := writeNewFile(completePath, bytes.NewReader(completeData), int64(len(completeData)), fmt.Sprintf("%x", sha256.Sum256(completeData)), 0600); err != nil {
+			if err := writeProbeArtifact(artifactBudget, artifactClass, completePath, bytes.NewReader(completeData), int64(len(completeData)), fmt.Sprintf("%x", sha256.Sum256(completeData)), 0600); err != nil {
 				step.Status, step.Reason = "UNKNOWN", "operation completion publication failed"
 			} else {
 				directory, err := os.Open(receiptDir)
@@ -2876,7 +3225,7 @@ requests:
 			}
 		} else {
 			phase = "unknown"
-			if request.Operation == "watch" || request.Operation == "observe-frame" {
+			if request.Operation == "watch" || request.Operation == "observe-frame" || frameRun != nil && frameRun.Summary.Failure != "" {
 				readFailure = true
 			} else if request.Operation != "stop" {
 				ambiguousFailure = true
@@ -2885,15 +3234,28 @@ requests:
 		if step.Status == "COMPLETED" && slices.Contains([]string{"initial", "resume", "cold", "cold-load", "recover"}, request.Operation) {
 			processes.BootstrapPending = false
 		}
+		if frameEpochReady {
+			if step.Status == "COMPLETED" {
+				frameRun.Ready, frameRun.NextAttempt = true, time.Now().Add(4*time.Second)
+			} else {
+				frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", "frame sampler owned-ready completion is not durable"
+			}
+		}
 		if step.Status != "COMPLETED" {
 			report.Status = "INCOMPLETE"
 		}
 		if step.Status == "COMPLETED" && step.Owned != nil {
 			lastOwnedStep = step
 		}
+		if frameRun != nil {
+			frames := frameRun.Summary
+			step.Frames = &frames
+			report.Frames = &frames
+		}
 		report.Steps = append(report.Steps, step)
 	}
-	if processes.BootstrapPending {
+	if processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
+		processes.ArtifactClass = probeArtifactFinalizer
 		_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
 		runErr = errors.Join(runErr, cleanupErr)
 		report.Status = "INCOMPLETE"
@@ -2907,7 +3269,45 @@ requests:
 	if processes.Command != nil || processes.Native != nil || len(processes.Candidates) > 0 || len(processes.Unqualified) > 0 || runErr != nil {
 		report.Status = "INCOMPLETE"
 	}
+	if frameRun != nil {
+		if frameRun.Summary.Failure == "" {
+			frameRun.Summary.Status = "COMPLETED"
+			if !sampledReplay && (!processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) != 0) {
+				frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", "frame sampler final owned disposal remains unknown"
+				report.Status = "INCOMPLETE"
+			}
+			if frameRun.Summary.SampleSuccesses == 0 || frameRun.Summary.SelectedCommits == 0 {
+				frameRun.Summary.Status = "UNKNOWN"
+				frameRun.Summary.Failure = "frame sampler lacks a successful retained frame"
+				report.Status = "INCOMPLETE"
+			}
+		}
+		frames := frameRun.Summary
+		report.Frames = &frames
+	}
 	return report, runErr
+}
+
+// buildProbeGoAdmission shares the factual lifecycle bundle construction. Fresh
+// kernel/card observations remain caller-owned; this builder acquires no files.
+func buildProbeGoAdmission(profile ProbeLifecycleProfile, step ProbeLifecycleStep, owned *ProbeProcessRecord, observed ProbeProcessRecord, cardSHA256 string) (json.RawMessage, error) {
+	if owned == nil {
+		return nil, fmt.Errorf("Go admission requires completed native ownership")
+	}
+	profileDir := filepath.Join(profile.Root, "profile")
+	dataRoot := filepath.Join(profileDir, "PCSX2")
+	view := ProbeProfileRecord{Datapath: profileDir, DataRoot: dataRoot, SourceSettings: profile.Inputs["settings"].Path, SourceSettingsSHA256: profile.Inputs["settings"].SHA256, SourceCard: profile.Inputs["card"].Path, SourceCardSHA256: profile.Inputs["card"].SHA256, Card: filepath.Join(dataRoot, "memcards", "probe-slot1.ps2"), CardInitialSHA256: profile.Inputs["card"].SHA256, BIOS: filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path))}
+	viewRaw, _ := json.Marshal(view)
+	ownedRaw, _ := json.Marshal(owned)
+	bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", ProjectRoot: profile.Root, WorkingDirectory: profile.Root, RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewRaw}, {Role: "owned", Data: ownedRaw}}, AfterProcess: &observed, GoOwner: &ProbeGoOwner{Profile: profile, Step: step, CardSHA256: cardSHA256}}
+	raw, err := json.Marshal(bundle)
+	if err != nil {
+		return nil, err
+	}
+	if _, err := admitProbeRecords(raw); err != nil {
+		return nil, err
+	}
+	return raw, nil
 }
 
 // publishProbeEvent appends to the serialized owner's admitted private journal.
@@ -2922,22 +3322,50 @@ func publishProbeEvent(root string, journal *ProbeEventJournal, event json.RawMe
 		return published, fmt.Errorf("event journal requires its next all-event ordinal")
 	}
 	log := append(bytes.Clone(event), '\n')
-	if len(log) > 4<<20 || len(journal.Bytes) > (4<<20)-len(log) {
+	limit := journal.MaxBytes
+	if limit == 0 {
+		limit = 4 << 20
+	}
+	if uint64(len(log)) > limit || uint64(len(journal.Bytes)) > limit-uint64(len(log)) {
 		return published, fmt.Errorf("owned event journal exceeds exclusive bounded contract")
 	}
 	logPath := filepath.Join(root, "events.jsonl")
-	info := journal.Info
-	if len(journal.Bytes) == 0 {
-		if err := writeNewFile(logPath, bytes.NewReader(log), int64(len(log)), fmt.Sprintf("%x", sha256.Sum256(log)), 0600); err != nil {
+	class := probeArtifactNormal
+	if journal.Finalizing {
+		class = probeArtifactFinalizer
+	}
+	claim := ProbeArtifactClaim{ID: "artifact:" + logPath, Path: logPath, Class: class, MaxFinalBytes: uint64(len(journal.Bytes) + len(log))}
+	var directory *os.File
+	if journal.Budget != nil {
+		if err := accountProbeArtifacts(journal.Budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
 			return published, err
 		}
 		var err error
-		info, err = os.Lstat(logPath)
+		directory, err = os.Open(root)
 		if err != nil {
-			return published, fmt.Errorf("new event journal identity unavailable")
+			return published, err
+		}
+		defer directory.Close()
+		opened, statErr := directory.Stat()
+		if pin := journal.Budget.Roots[root]; statErr != nil || pin == nil || !os.SameFile(pin, opened) || !opened.IsDir() || opened.Mode().Perm() != 0700 {
+			return published, fmt.Errorf("event journal parent authority differs")
+		}
+		stat, ok := opened.Sys().(*syscall.Stat_t)
+		if !ok || stat.Uid != uint32(os.Getuid()) {
+			return published, fmt.Errorf("event journal parent owner differs")
+		}
+	}
+	info := journal.Info
+	if len(journal.Bytes) == 0 {
+		var err error
+		// This owner performs the single accounting commit for both create and
+		// append. The generic writer returns facts, not another budget commit.
+		info, err = writeNewFile(logPath, directory, bytes.NewReader(log), int64(len(log)), fmt.Sprintf("%x", sha256.Sum256(log)), 0600)
+		if err != nil {
+			return published, err
 		}
 	} else {
-		prior, err := readInput(logPath, 4<<20)
+		prior, err := readInput(logPath, int64(limit))
 		current, statErr := os.Lstat(logPath)
 		if err != nil || statErr != nil || info == nil || !os.SameFile(current, info) || !bytes.Equal(prior, journal.Bytes) || current.Mode().Perm() != 0600 {
 			return published, fmt.Errorf("owned event prefix or identity changed")
@@ -2946,7 +3374,16 @@ func publishProbeEvent(root string, journal *ProbeEventJournal, event json.RawMe
 		if !ok || stat.Nlink != 1 {
 			return published, fmt.Errorf("owned event journal exceeds exclusive bounded contract")
 		}
-		file, err := os.OpenFile(logPath, os.O_WRONLY|os.O_APPEND, 0600)
+		var file *os.File
+		if directory == nil {
+			file, err = os.OpenFile(logPath, os.O_WRONLY|os.O_APPEND, 0600)
+		} else {
+			var fd int
+			fd, err = syscall.Openat(int(directory.Fd()), filepath.Base(logPath), syscall.O_WRONLY|syscall.O_APPEND|syscall.O_NOFOLLOW, 0600)
+			if err == nil {
+				file = os.NewFile(uintptr(fd), logPath)
+			}
+		}
 		if err != nil {
 			return published, err
 		}
@@ -2965,9 +3402,12 @@ func publishProbeEvent(root string, journal *ProbeEventJournal, event json.RawMe
 		}
 	}
 	// A newly created directory entry must also be durable before acknowledging.
-	directory, err := os.Open(root)
-	if err != nil {
-		return published, err
+	var err error
+	if directory == nil {
+		directory, err = os.Open(root)
+		if err != nil {
+			return published, err
+		}
 	}
 	err = directory.Sync()
 	closeErr := directory.Close()
@@ -2975,13 +3415,19 @@ func publishProbeEvent(root string, journal *ProbeEventJournal, event json.RawMe
 		return published, fmt.Errorf("event journal directory durability unknown")
 	}
 	next := append(bytes.Clone(journal.Bytes), log...)
-	readback, err := readInput(logPath, 4<<20)
+	readback, err := readInput(logPath, int64(limit))
 	current, statErr := os.Lstat(logPath)
 	if err != nil || statErr != nil || !os.SameFile(info, current) || !bytes.Equal(readback, next) {
 		return published, fmt.Errorf("event append readback differs")
 	}
+	if journal.Budget != nil {
+		claim.ExpectedInfo, claim.ExpectedSHA256 = current, fmt.Sprintf("%x", sha256.Sum256(next))
+		if err := accountProbeArtifacts(journal.Budget, probeArtifactCommit, []ProbeArtifactClaim{claim}); err != nil {
+			return published, err
+		}
+	}
 	published = ProbeEvidenceEvent{Offset: int64(len(journal.Bytes)), Data: log}
-	journal.Bytes, journal.Info = next, info
+	journal.Bytes, journal.Info = next, current
 	journal.Events = append(journal.Events, published)
 	return published, nil
 }

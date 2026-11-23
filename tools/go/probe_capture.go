@@ -24,7 +24,7 @@ import (
 // A nil managed output preserves original PNGs/partials and the raw contract.
 // Internal managed callers reserve transient input/working bytes before calling;
 // only fully checked, unlinked samples populate the output. This is no run quota.
-func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample) (ProbeCaptureReceipt, error) {
+func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample, budget *ProbeArtifactBudget) (ProbeCaptureReceipt, error) {
 	var receipt ProbeCaptureReceipt
 	if managed != nil {
 		*managed = ProbeFrameSample{}
@@ -215,6 +215,16 @@ func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample) (Pr
 		receipt.PolicyStatus = "internal-managed; native caps enforced; whole-run reservation is caller precondition"
 	}
 	lockPath := filepath.Join(filepath.Dir(runtime.Snapshots), "capture.lock")
+	if budget != nil {
+		if _, err := os.Lstat(lockPath); os.IsNotExist(err) {
+			empty := []byte{}
+			if err := writeProbeArtifact(budget, probeArtifactNormal, lockPath, bytes.NewReader(empty), 0, fmt.Sprintf("%x", sha256.Sum256(empty)), 0600); err != nil {
+				return receipt, err
+			}
+		} else if err != nil {
+			return receipt, err
+		}
+	}
 	lock, err := os.OpenFile(lockPath, os.O_CREATE|os.O_RDWR|syscall.O_NOFOLLOW, 0600)
 	if err != nil {
 		return receipt, err
@@ -279,6 +289,13 @@ transaction:
 				break
 			}
 			outputAdmitted = true
+			if budget != nil {
+				claims := []ProbeArtifactClaim{{ID: "artifact:" + filepath.Join(runtime.Output, imageName), Path: filepath.Join(runtime.Output, imageName), Class: probeArtifactNormal, MaxFinalBytes: uint64(profile.MaxImageBytes)}, {ID: "artifact:" + filepath.Join(runtime.Output, receiptName), Path: filepath.Join(runtime.Output, receiptName), Class: probeArtifactNormal, MaxFinalBytes: 4 << 20}, {ID: "raw-native:" + profile.CaptureID, Path: runtime.Snapshots, Class: probeArtifactNative, MaxFinalBytes: uint64(profile.MaxImageBytes)}}
+				if err := accountProbeArtifacts(budget, probeArtifactReserve, claims); err != nil {
+					receipt.Status, receipt.Reason = "REFUSED", "capture artifact reservation: "+err.Error()
+					return receipt, err
+				}
+			}
 		}
 		baseline := map[string]os.FileInfo{}
 		snapshotDir, err := os.Open(runtime.Snapshots)
@@ -306,6 +323,9 @@ transaction:
 		memoryRuntime := runtime.Memory
 		memoryRuntime.TimeoutMS = min(memoryRuntime.TimeoutMS, int(time.Until(deadline).Milliseconds()))
 		memoryRaw, _ := json.Marshal(memoryRuntime)
+		if managed != nil {
+			receipt.ManagedPineAttempted = true
+		}
 		before, err := readProbeMemory(profile.Memory, memoryRaw)
 		if err != nil {
 			receipt.Status, receipt.Reason = "REFUSED", "capture pre-read: "+err.Error()
@@ -331,6 +351,9 @@ transaction:
 		if !knownTags || managed == nil && !knownUI || len(before.Observations) == 0 {
 			receipt.Reason = "capture lacks known source frame tags or decoded UI"
 			break
+		}
+		if managed != nil {
+			receipt.ManagedPineAt = time.Now()
 		}
 		padSocket := "/tmp/claude-1000/dokapon/vpad.sock"
 		if runtime.Memory.Provenance == "synthetic_peer" || runtime.Memory.Provenance == "owned_go" {
@@ -600,7 +623,28 @@ transaction:
 			receipt.Status, receipt.Reason, receipt.ManagedFailure = "SAMPLED", "", ""
 			break
 		}
-		if err := writeNewFile(filepath.Join(runtime.Output, imageName), bytes.NewReader(imageData), int64(len(imageData)), receipt.ImageSHA256, 0600); err != nil {
+		if budget != nil {
+			file, openErr := os.Open(path)
+			if openErr != nil {
+				return receipt, openErr
+			}
+			opened, statErr := file.Stat()
+			syncErr := file.Sync()
+			closeErr := file.Close()
+			directory, dirErr := os.Open(runtime.Snapshots)
+			if dirErr == nil {
+				dirErr = directory.Sync()
+				dirErr = errors.Join(dirErr, directory.Close())
+			}
+			if statErr != nil || syncErr != nil || closeErr != nil || dirErr != nil || !os.SameFile(current, opened) {
+				return receipt, fmt.Errorf("raw native snapshot durability/identity unavailable")
+			}
+			claim := ProbeArtifactClaim{ID: "raw-native:" + profile.CaptureID, Path: path, Class: probeArtifactNative, ExpectedInfo: opened, ExpectedSHA256: receipt.ImageSHA256}
+			if err := accountProbeArtifacts(budget, probeArtifactCommit, []ProbeArtifactClaim{claim}); err != nil {
+				return receipt, err
+			}
+		}
+		if err := writeProbeArtifact(budget, probeArtifactNormal, filepath.Join(runtime.Output, imageName), bytes.NewReader(imageData), int64(len(imageData)), receipt.ImageSHA256, 0600); err != nil {
 			receipt.Status, receipt.Reason = "REFUSED", "capture image publication failed: "+err.Error()
 			break
 		}
@@ -623,7 +667,7 @@ transaction:
 	if len(encoded) > 4<<20 {
 		return receipt, fmt.Errorf("capture receipt exceeds4MiB budget")
 	}
-	if err := writeNewFile(filepath.Join(runtime.Output, receiptName), bytes.NewReader(encoded), int64(len(encoded)), fmt.Sprintf("%x", sha256.Sum256(encoded)), 0600); err != nil {
+	if err := writeProbeArtifact(budget, probeArtifactNormal, filepath.Join(runtime.Output, receiptName), bytes.NewReader(encoded), int64(len(encoded)), fmt.Sprintf("%x", sha256.Sum256(encoded)), 0600); err != nil {
 		return receipt, err
 	}
 	return receipt, nil

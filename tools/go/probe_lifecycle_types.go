@@ -9,9 +9,12 @@ import (
 // ProbeEventJournal is serialized lifecycle-owned publication state. Projection
 // into checkpoint or managed frame evidence belongs to its caller.
 type ProbeEventJournal struct {
-	Bytes  []byte
-	Info   os.FileInfo
-	Events []ProbeEvidenceEvent
+	Bytes      []byte
+	Info       os.FileInfo
+	Events     []ProbeEvidenceEvent
+	MaxBytes   uint64
+	Budget     *ProbeArtifactBudget
+	Finalizing bool
 }
 
 //go:embed profiles/probe/lifecycle-actions.json
@@ -40,6 +43,7 @@ type ProbeLifecycleProfile struct {
 	StopTimeoutMS  int                      `json:"stop_timeout_ms"`
 	QuietMS        int                      `json:"quiet_ms"`
 	Policy         *ProbeLifecyclePolicy    `json:"go_policy,omitempty"`
+	Frames         *ProbeFramePolicy        `json:"frame_sampling,omitempty"`
 	Seed           *uint64                  `json:"checkpoint_seed,omitempty"`
 	Resume         *ProbeLifecycleResume    `json:"resume,omitempty"`
 	Scenario       *ProbeScenarioSpec       `json:"scenario,omitempty"`
@@ -102,6 +106,7 @@ type ProbeLifecycleRequest struct {
 }
 
 type ProbeLifecycleStep struct {
+	Frames               *ProbeFrameSummary    `json:"frame_sampling,omitempty"`
 	ProfileSHA256        string                `json:"profile_sha256"`
 	Request              ProbeLifecycleRequest `json:"request"`
 	Status               string                `json:"status"`
@@ -136,6 +141,7 @@ type ProbeLifecycleStep struct {
 }
 
 type ProbeLifecycleReport struct {
+	Frames          *ProbeFrameSummary   `json:"frame_sampling,omitempty"`
 	Version         int                  `json:"version"`
 	SourceFormat    string               `json:"source_format"`
 	Session         string               `json:"session"`
@@ -157,8 +163,11 @@ type ProbeLifecycleEffect struct {
 }
 
 type ProbePadSpec struct {
-	Root    string
-	Backend string
+	DeviceParent  *os.File
+	Published     *ProbeArtifactClaim
+	MaxEventBytes int64
+	Root          string
+	Backend       string
 }
 
 // ProbePadLayout shares the fixed native settings contract and emitted input ABI.

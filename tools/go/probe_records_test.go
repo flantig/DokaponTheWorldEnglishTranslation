@@ -28,10 +28,339 @@ import (
 )
 
 func TestProbeRecords(t *testing.T) {
-	for _, fault := range []string{"valid", "prefix", "mode", "hardlink", "identity", "ordinal", "capacity", "preexisting"} {
+	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "directory-bound", "large-maxfiles"} {
+		root := t.TempDir()
+		if err := os.Chmod(root, 0700); err != nil {
+			t.Fatal(err)
+		}
+		path := filepath.Join(root, "artifact")
+		if err := os.WriteFile(path, []byte("base"), 0600); err != nil {
+			t.Fatal(err)
+		}
+		rootInfo, err := os.Lstat(root)
+		if err != nil {
+			t.Fatal(err)
+		}
+		info, err := os.Lstat(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		budget := ProbeArtifactBudget{MaxFiles: 4, MaxBytes: 100, FinalizerFiles: 1, FinalizerBytes: 20, Roots: map[string]os.FileInfo{root: rootInfo}, NativeFiles: map[string]os.FileInfo{}, SnapshotRoots: map[string]os.FileInfo{}}
+		claim := ProbeArtifactClaim{ID: "writer", Path: path, MaxFinalBytes: 50}
+		other := ProbeArtifactClaim{ID: "other", Path: filepath.Join(root, "other"), MaxFinalBytes: 30}
+		if fault == "directory-bound" {
+			for index := 0; index < 4; index++ {
+				if err := os.Mkdir(filepath.Join(root, strconv.Itoa(index)), 0700); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err == nil || len(budget.claims) != 0 {
+				t.Fatalf("empty directory inventory escaped proof limit: %v", err)
+			}
+			continue
+		}
+		if fault == "large-maxfiles" {
+			budget.MaxFiles = ^uint64(0)
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
+				t.Fatalf("large configured limit overflowed bounded inventory: %v", err)
+			}
+			continue
+		}
+		if fault == "native-socket" || fault == "foreign-socket" {
+			claim.Path, claim.Class, claim.MaxFinalBytes = filepath.Join(root, "peer.sock"), probeArtifactNative, 0
+			if fault == "native-socket" {
+				budget.NativeFiles[claim.Path] = nil
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
+					t.Fatal(err)
+				}
+			}
+			listener, err := net.ListenUnix("unix", &net.UnixAddr{Name: claim.Path, Net: "unix"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			err = accountProbeArtifacts(&budget, probeArtifactReserve, nil)
+			if fault == "foreign-socket" {
+				closeErr := listener.Close()
+				if err == nil || closeErr != nil {
+					t.Fatalf("unregistered socket admitted: %v %v", err, closeErr)
+				}
+				continue
+			}
+			if err != nil || budget.NativeFiles[claim.Path] == nil || budget.held[claim.Path] != 0 {
+				listener.Close()
+				t.Fatalf("exact owned socket was not counted/pinned: %v", err)
+			}
+			claim.ExpectedInfo, err = os.Lstat(claim.Path)
+			if err != nil {
+				listener.Close()
+				t.Fatal(err)
+			}
+			claim.ExpectedSHA256 = fmt.Sprintf("%x", sha256.Sum256(nil))
+			if err := accountProbeArtifacts(&budget, probeArtifactCommit, []ProbeArtifactClaim{claim}); err == nil || !budget.active[claim.ID] {
+				listener.Close()
+				t.Fatal("socket commit was read or acknowledged")
+			}
+			if err := listener.Close(); err != nil {
+				t.Fatal(err)
+			}
+			delete(budget.NativeFiles, claim.Path) // Caller has exact writer-exit/absence ACK.
+			if err := accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{claim}); err != nil || len(budget.claims) != 0 {
+				t.Fatalf("owned socket absence was not released: %v", err)
+			}
+			continue
+		}
+		if fault == "finalizer-after-overage" || fault == "finalizer-after-files" {
+			budget.NativeFiles[path] = info
+			claim.Class = probeArtifactNative
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
+				t.Fatal(err)
+			}
+			if fault == "finalizer-after-overage" {
+				if err := os.WriteFile(path, bytes.Repeat([]byte("n"), 81), 0600); err != nil {
+					t.Fatal(err)
+				}
+			} else {
+				for index := 0; index < 3; index++ {
+					if err := os.WriteFile(filepath.Join(root, strconv.Itoa(index)), []byte("n"), 0600); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err == nil || !budget.ordinaryExceeded {
+				t.Fatal("ordinary overage was not retained/refused")
+			}
+			other.Class, other.MaxFinalBytes = probeArtifactFinalizer, 20
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err != nil || !budget.ordinaryExceeded {
+				t.Fatalf("ordinary overage consumed reserved finalizer capacity: %v", err)
+			}
+			data := []byte("terminal")
+			if err := os.WriteFile(other.Path, data, 0600); err != nil {
+				t.Fatal(err)
+			}
+			other.ExpectedInfo, err = os.Lstat(other.Path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			other.ExpectedSHA256 = fmt.Sprintf("%x", sha256.Sum256(data))
+			if err := accountProbeArtifacts(&budget, probeArtifactCommit, []ProbeArtifactClaim{other}); err != nil || !budget.ordinaryExceeded || budget.claims[other.ID].MaxFinalBytes != 8 {
+				t.Fatalf("finalizer durability acknowledgement blocked by ordinary overage: %v", err)
+			}
+			other.ID, other.Path = "excess-finalizer", filepath.Join(root, "excess")
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err == nil {
+				t.Fatal("finalizer file exhaustion was ignored during overage")
+			}
+			other.Class = probeArtifactNormal
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err == nil || !budget.ordinaryExceeded {
+				t.Fatal("finalization released ordinary overage to normal work")
+			}
+			continue
+		}
+		if strings.HasPrefix(fault, "snapshot-") {
+			snaps := filepath.Join(root, "snaps")
+			if err := os.Mkdir(snaps, 0700); err != nil {
+				t.Fatal(err)
+			}
+			old := filepath.Join(snaps, "old.png")
+			if err := os.WriteFile(old, []byte("old"), 0600); err != nil {
+				t.Fatal(err)
+			}
+			snapshotInfo, err := os.Lstat(snaps)
+			if err != nil {
+				t.Fatal(err)
+			}
+			budget.SnapshotRoots[snaps] = snapshotInfo
+			budget.Roots[snaps] = snapshotInfo // Nested root must not duplicate inventory.
+			claim.Path, claim.Class, claim.MaxFinalBytes = snaps, probeArtifactNative, 10
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
+				t.Fatal(fault, err)
+			}
+			fresh := filepath.Join(snaps, "native.png")
+			if err := os.WriteFile(fresh, []byte("new"), 0600); err != nil {
+				t.Fatal(err)
+			}
+			if fault == "snapshot-extra" {
+				if err := os.WriteFile(filepath.Join(snaps, "foreign.png"), []byte("x"), 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if fault == "snapshot-baseline" {
+				if err := os.WriteFile(old, []byte("changed"), 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			err = accountProbeArtifacts(&budget, probeArtifactReserve, nil)
+			if fault == "snapshot-extra" || fault == "snapshot-baseline" {
+				if err == nil || budget.claims[claim.ID].MaxFinalBytes != 10 {
+					t.Fatalf("%s lost conservative reservation: %v", fault, err)
+				}
+				continue
+			}
+			if err != nil {
+				t.Fatal(fault, err)
+			}
+			if fault == "snapshot-commit" {
+				claim.Path = fresh
+				claim.ExpectedInfo, err = os.Lstat(fresh)
+				if err != nil {
+					t.Fatal(err)
+				}
+				claim.ExpectedSHA256 = fmt.Sprintf("%x", sha256.Sum256([]byte("new")))
+				if err := accountProbeArtifacts(&budget, probeArtifactCommit, []ProbeArtifactClaim{claim}); err != nil || budget.claims[claim.ID].Path != fresh || budget.claims[claim.ID].MaxFinalBytes != 3 || len(budget.snapshotBaseline) != 0 {
+					t.Fatalf("snapshot commit did not bind writer identity: %v", err)
+				}
+			} else {
+				if fault != "snapshot-unremoved" {
+					if err := os.Remove(fresh); err != nil {
+						t.Fatal(err)
+					}
+				}
+				claim.ExpectedInfo = snapshotInfo
+				err = accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{claim})
+				if (err != nil) != (fault == "snapshot-unremoved") || err == nil && (len(budget.claims) != 0 || len(budget.held) != 2) {
+					t.Fatalf("%s release ignored baseline/new-file proof: %v %+v", fault, err, budget.held)
+				}
+			}
+			continue
+		}
+		switch fault {
+		case "ordinary-files":
+			budget.MaxFiles = 2
+			claim = other
+		case "ordinary-bytes":
+			claim = other
+			claim.MaxFinalBytes = 77
+		case "finalizer-files":
+			claim = other
+			claim.Class, claim.MaxFinalBytes = probeArtifactFinalizer, 10
+		case "finalizer-bytes":
+			claim = other
+			claim.Class, claim.MaxFinalBytes = probeArtifactFinalizer, 21
+		case "native-growth", "native-overflow":
+			claim.Class = probeArtifactNative
+			budget.NativeFiles[path] = info
+		case "native-settings":
+			claim.Class = probeArtifactNative
+		case "symlink":
+			if err := os.Symlink(path, filepath.Join(root, "alias")); err != nil {
+				t.Fatal(err)
+			}
+		case "hardlink":
+			if err := os.Link(path, filepath.Join(root, "alias")); err != nil {
+				t.Fatal(err)
+			}
+		}
+		err = accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim})
+		if slices.Contains([]string{"ordinary-files", "ordinary-bytes", "finalizer-bytes", "native-settings", "symlink", "hardlink"}, fault) {
+			if err == nil || len(budget.claims) != 0 {
+				t.Fatalf("%s unsafe reservation admitted: %v", fault, err)
+			}
+			continue
+		}
+		if err != nil {
+			t.Fatal(fault, err)
+		}
+		switch fault {
+		case "overlap":
+			claim.MaxFinalBytes = 25
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil || budget.claims[claim.ID].MaxFinalBytes != 50 {
+				t.Fatalf("same-ID reserve shrank outstanding exposure: %v", err)
+			}
+			claim.ID = "second-writer"
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim, other}); err != nil {
+				t.Fatalf("same-path claims double-counted observed bytes: %v", err)
+			}
+		case "append-shrink", "commit-no-proof", "commit-hash", "commit-inode":
+			if fault == "commit-inode" {
+				if err := os.Rename(path, filepath.Join(root, "original")); err != nil {
+					t.Fatal(err)
+				}
+			}
+			data := []byte("appended")
+			if err := os.WriteFile(path, data, 0600); err != nil {
+				t.Fatal(err)
+			}
+			claim.ExpectedInfo, err = os.Lstat(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			claim.ExpectedSHA256 = fmt.Sprintf("%x", sha256.Sum256(data))
+			if fault == "commit-no-proof" {
+				claim.ExpectedInfo = nil
+			}
+			if fault == "commit-hash" {
+				claim.ExpectedSHA256 = strings.Repeat("0", 64)
+			}
+			err = accountProbeArtifacts(&budget, probeArtifactCommit, []ProbeArtifactClaim{claim})
+			if fault == "append-shrink" {
+				other.MaxFinalBytes = 72
+				if err != nil || accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}) != nil || budget.claims[claim.ID].MaxFinalBytes != 8 {
+					t.Fatalf("append commit did not shrink after writer proof: %v", err)
+				}
+			} else if err == nil || budget.claims[claim.ID].MaxFinalBytes != 50 {
+				t.Fatalf("%s released unproved reservation: %v", fault, err)
+			}
+		case "release-present", "release-absent":
+			if fault == "release-absent" {
+				if err := os.Remove(path); err != nil {
+					t.Fatal(err)
+				}
+			}
+			err = accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{claim})
+			if (err != nil) != (fault == "release-present") || err == nil && (len(budget.claims) != 0 || len(budget.held) != 0) {
+				t.Fatalf("%s ignored absence proof: %v", fault, err)
+			}
+		case "finalizer-files":
+			claim.ID, claim.Path = "second-finalizer", filepath.Join(root, "second")
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err == nil || len(budget.claims) != 1 {
+				t.Fatalf("finalizer file pool exceeded: %v", err)
+			}
+		case "finalizer-reserved":
+			other.MaxFinalBytes = 20
+			other.Class = probeArtifactFinalizer
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err != nil {
+				t.Fatal(err)
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{other}); err != nil {
+				t.Fatal(err)
+			}
+			other.ID, other.Path, other.Class, other.MaxFinalBytes = "jpeg", filepath.Join(root, "image.jpg"), probeArtifactNormal, 31
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err == nil {
+				t.Fatal("ordinary image spent reserved finalizer bytes")
+			}
+		case "native-growth", "native-overflow":
+			size := 60
+			if fault == "native-overflow" {
+				size = 81
+			}
+			if err := os.WriteFile(path, bytes.Repeat([]byte("n"), size), 0600); err != nil {
+				t.Fatal(err)
+			}
+			err = accountProbeArtifacts(&budget, probeArtifactReserve, nil)
+			if (err != nil) != (fault == "native-overflow") || budget.held[path] != uint64(size) || budget.claims[claim.ID].MaxFinalBytes != 50 {
+				t.Fatalf("%s growth not retained separately: %v %+v", fault, err, budget.held)
+			}
+			if fault == "native-growth" {
+				other.MaxFinalBytes = 21
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err == nil {
+					t.Fatal("native observed growth hidden by smaller reservation")
+				}
+			}
+		}
+	}
+	for _, fault := range []string{"valid", "budget-valid", "prefix", "mode", "hardlink", "identity", "ordinal", "capacity", "preexisting"} {
 		root := t.TempDir()
 		path := filepath.Join(root, "events.jsonl")
 		journal := ProbeEventJournal{Events: []ProbeEvidenceEvent{}}
+		if fault == "budget-valid" {
+			if err := os.Chmod(root, 0700); err != nil {
+				t.Fatal(err)
+			}
+			pin, err := os.Lstat(root)
+			if err != nil {
+				t.Fatal(err)
+			}
+			journal.Budget = &ProbeArtifactBudget{MaxFiles: 8, MaxBytes: 8 << 20, Roots: map[string]os.FileInfo{root: pin}}
+		}
 		first := json.RawMessage(`{"event":"sample","event_id":1}`)
 		if fault == "preexisting" {
 			if err := os.WriteFile(path, []byte("foreign\n"), 0600); err != nil {
@@ -73,7 +402,7 @@ func TestProbeRecords(t *testing.T) {
 			t.Fatal(err)
 		}
 		published, err = publishProbeEvent(root, &journal, second)
-		if fault == "valid" {
+		if fault == "valid" || fault == "budget-valid" {
 			expected := append(bytes.Clone(before), append(bytes.Clone(second), '\n')...)
 			if err != nil || published.Offset != int64(len(before)) || !bytes.Equal(journal.Bytes, expected) || len(journal.Events) != 2 || !os.SameFile(beforeInfo, journal.Info) {
 				t.Fatalf("append journal acknowledgement: %+v %v", published, err)
@@ -1339,7 +1668,7 @@ func TestProbeRecords(t *testing.T) {
 						managed = ProbeFrameSample{Normalized: image.NewNRGBA(image.Rect(0, 0, 1, 1)), Sample: []byte{255}, Facts: ProbeFrameComparisonResult{Status: "poison"}}
 						outputSample = &managed
 					}
-					captured, readErr = captureProbeEvidence(profileRaw, captureRuntime, outputSample)
+					captured, readErr = captureProbeEvidence(profileRaw, captureRuntime, outputSample, nil)
 					if test.Managed {
 						if readErr != nil || captured.Status != "SAMPLED" {
 							if !reflect.DeepEqual(managed, ProbeFrameSample{}) {

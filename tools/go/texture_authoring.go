@@ -429,7 +429,7 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 		}
 		digest := fmt.Sprintf("%x", sha256.Sum256(encoded.Bytes()))
 		if apply {
-			if err := writeNewFile(output, bytes.NewReader(encoded.Bytes()), int64(encoded.Len()), digest, 0o644); err != nil {
+			if _, err := writeNewFile(output, nil, bytes.NewReader(encoded.Bytes()), int64(encoded.Len()), digest, 0o644); err != nil {
 				return err
 			}
 		}
@@ -722,7 +722,7 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 	}
 	artifactHash := fmt.Sprintf("%x", sha256.Sum256(artifact))
 	if apply {
-		if err := writeNewFile(output, bytes.NewReader(artifact), int64(len(artifact)), artifactHash, 0o644); err != nil {
+		if _, err := writeNewFile(output, nil, bytes.NewReader(artifact), int64(len(artifact)), artifactHash, 0o644); err != nil {
 			return err
 		}
 	}

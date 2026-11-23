@@ -223,7 +223,7 @@ func manifestTextures(sourcePath, profilePath, output string, profile TexturePro
 	}
 	bundleDigest := fmt.Sprintf("%x", sha256.Sum256(bundle.Bytes()))
 	if apply {
-		if err := writeNewFile(output, bytes.NewReader(bundle.Bytes()), int64(bundle.Len()), bundleDigest, 0600); err != nil {
+		if _, err := writeNewFile(output, nil, bytes.NewReader(bundle.Bytes()), int64(bundle.Len()), bundleDigest, 0600); err != nil {
 			return err
 		}
 	}

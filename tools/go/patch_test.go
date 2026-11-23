@@ -26,6 +26,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"syscall"
 	"testing"
 	"time"
 )
@@ -10482,7 +10483,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 			Digest string
 		}{{"short", 32, digest}, {"long", 30, digest}, {"digest", 31, strings.Repeat("0", 64)}, {"invalid digest", 31, "abc"}, {"negative size", -1, digest}} {
 			path := filepath.Join(snapshotDir, "stream-"+vector.Name)
-			if err := writeNewFile(path, bytes.NewReader(data), vector.Size, vector.Digest, 0o600); err == nil {
+			if _, err := writeNewFile(path, nil, bytes.NewReader(data), vector.Size, vector.Digest, 0o600); err == nil {
 				t.Fatal("stream publication accepted invalid preimage", vector.Name)
 			}
 			if _, err := os.Stat(path); !os.IsNotExist(err) {
@@ -20518,6 +20519,208 @@ func TestPilotHistoricalGoldenBytes(t *testing.T) {
 }
 
 func TestMisalignedTargetAndWriterBoundary(t *testing.T) {
+	for _, fault := range []string{"storage-valid-duplicate", "storage-snapshot-pin", "storage-mode", "storage-replaced", "storage-unpinned", "storage-symlink", "storage-empty", "storage-nil-budget", "storage-conflicting-pins"} {
+		root := t.TempDir()
+		path := filepath.Join(root, "owned")
+		if err := os.Mkdir(path, 0700); err != nil {
+			t.Fatal(err)
+		}
+		pin, err := os.Lstat(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		budget := &ProbeArtifactBudget{Roots: map[string]os.FileInfo{path: pin}, SnapshotRoots: map[string]os.FileInfo{}}
+		paths := []string{path, path}
+		switch fault {
+		case "storage-snapshot-pin":
+			budget.Roots = nil
+			budget.SnapshotRoots[path] = pin
+		case "storage-mode":
+			if err := os.Chmod(path, 0755); err != nil {
+				t.Fatal(err)
+			}
+		case "storage-replaced":
+			if err := os.Rename(path, filepath.Join(root, "original")); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.Mkdir(path, 0700); err != nil {
+				t.Fatal(err)
+			}
+		case "storage-unpinned":
+			budget.Roots = nil
+		case "storage-symlink":
+			alias := filepath.Join(root, "alias")
+			if err := os.Symlink(path, alias); err != nil {
+				t.Fatal(err)
+			}
+			paths = []string{alias}
+			budget.Roots[alias] = pin
+		case "storage-empty":
+			paths = nil
+		case "storage-nil-budget":
+			budget = nil
+		case "storage-conflicting-pins":
+			other := filepath.Join(root, "other")
+			if err := os.Mkdir(other, 0700); err != nil {
+				t.Fatal(err)
+			}
+			otherInfo, err := os.Lstat(other)
+			if err != nil {
+				t.Fatal(err)
+			}
+			budget.SnapshotRoots[path] = otherInfo
+		}
+		before, err := os.Lstat(root)
+		if err != nil {
+			t.Fatal(err)
+		}
+		entriesBefore, err := os.ReadDir(root)
+		if err != nil {
+			t.Fatal(err)
+		}
+		free, err := observeProbeStorage(budget, paths)
+		valid := fault == "storage-valid-duplicate" || fault == "storage-snapshot-pin"
+		if (err == nil) != valid || !valid && free != 0 {
+			t.Fatalf("%s storage admission/minimum: %d %v", fault, free, err)
+		}
+		if valid {
+			var disk syscall.Statfs_t
+			if statErr := syscall.Statfs(path, &disk); statErr != nil || disk.Bsize <= 0 || disk.Blocks > ^uint64(0)/uint64(disk.Bsize) || free > disk.Blocks*uint64(disk.Bsize) || free%uint64(disk.Bsize) != 0 {
+				t.Fatalf("%s storage facts are not available bytes within capacity: %d %v", fault, free, statErr)
+			}
+		}
+		after, statErr := os.Lstat(root)
+		entriesAfter, readErr := os.ReadDir(root)
+		if statErr != nil || readErr != nil || !os.SameFile(before, after) || before.Mode() != after.Mode() || before.ModTime() != after.ModTime() || len(entriesBefore) != len(entriesAfter) {
+			t.Fatalf("%s storage observation changed its private fixture: %v %v", fault, statErr, readErr)
+		}
+	}
+	for _, fault := range []string{"nil-success", "pinned-success", "pinned-rename", "pinned-rename-short", "pinned-replacement", "nil-symlink-parent", "nil-search-write-parent", "nil-short", "pinned-short", "pinned-digest", "nil-preexisting", "pinned-preexisting", "wrapper-success", "wrapper-digest", "wrapper-cap", "wrapper-nil"} {
+		root := t.TempDir()
+		if err := os.Chmod(root, 0700); err != nil {
+			t.Fatal(err)
+		}
+		parentPath := filepath.Join(root, "parent")
+		if err := os.Mkdir(parentPath, 0700); err != nil {
+			t.Fatal(err)
+		}
+		parent, err := os.Open(parentPath)
+		if err != nil {
+			t.Fatal(err)
+		}
+		path := filepath.Join(parentPath, "writer.bin")
+		actual := path
+		if strings.HasPrefix(fault, "pinned-rename") || fault == "pinned-replacement" {
+			owned := filepath.Join(root, "owned")
+			if err := os.Rename(parentPath, owned); err != nil {
+				parent.Close()
+				t.Fatal(err)
+			}
+			actual = filepath.Join(owned, "writer.bin")
+			if fault == "pinned-replacement" {
+				if err := os.Mkdir(parentPath, 0700); err != nil {
+					parent.Close()
+					t.Fatal(err)
+				}
+			}
+		}
+		if fault == "nil-symlink-parent" || fault == "wrapper-nil" {
+			alias := filepath.Join(root, "alias")
+			if err := os.Symlink(parentPath, alias); err != nil {
+				parent.Close()
+				t.Fatal(err)
+			}
+			path = filepath.Join(alias, "writer.bin")
+		}
+		payload := []byte("writer-facts")
+		size := int64(len(payload))
+		digest := fmt.Sprintf("%x", sha256.Sum256(payload))
+		if strings.HasSuffix(fault, "short") {
+			size++
+		}
+		if strings.HasSuffix(fault, "digest") {
+			digest = strings.Repeat("0", 64)
+		}
+		if strings.HasSuffix(fault, "preexisting") {
+			if err := os.WriteFile(actual, []byte("foreign"), 0600); err != nil {
+				parent.Close()
+				t.Fatal(err)
+			}
+		}
+		var verified os.FileInfo
+		var writeErr error
+		var budget *ProbeArtifactBudget
+		if fault == "nil-search-write-parent" {
+			if err := os.Chmod(parentPath, 0300); err != nil {
+				parent.Close()
+				t.Fatal(err)
+			}
+		}
+		if strings.HasPrefix(fault, "wrapper-") {
+			if fault != "wrapper-nil" {
+				rootInfo, err := os.Lstat(root)
+				if err != nil {
+					parent.Close()
+					t.Fatal(err)
+				}
+				budget = &ProbeArtifactBudget{MaxFiles: 4, MaxBytes: 100, FinalizerFiles: 1, FinalizerBytes: 20, Roots: map[string]os.FileInfo{root: rootInfo}}
+				if fault == "wrapper-cap" {
+					budget.MaxBytes, budget.FinalizerBytes = 2, 0
+				}
+			}
+			writeErr = writeProbeArtifact(budget, probeArtifactNormal, path, bytes.NewReader(payload), size, digest, 0600)
+			if budget != nil {
+				verified = budget.observed[path]
+			}
+		} else {
+			var pinned *os.File
+			if strings.HasPrefix(fault, "pinned-") {
+				pinned = parent
+			}
+			verified, writeErr = writeNewFile(path, pinned, bytes.NewReader(payload), size, digest, 0600)
+		}
+		if fault == "nil-search-write-parent" {
+			if err := os.Chmod(parentPath, 0700); err != nil {
+				parent.Close()
+				t.Fatal(err)
+			}
+		}
+		_, parentErr := parent.Stat()
+		closeErr := parent.Close()
+		if parentErr != nil || closeErr != nil {
+			t.Fatalf("%s generic writer closed caller parent: %v %v", fault, parentErr, closeErr)
+		}
+		if strings.HasSuffix(fault, "short") || strings.HasSuffix(fault, "digest") || fault == "wrapper-cap" {
+			_, statErr := os.Lstat(actual)
+			if writeErr == nil || verified != nil || !os.IsNotExist(statErr) {
+				t.Fatalf("%s published facts or retained owned failed file: %v %+v %v", fault, writeErr, verified, statErr)
+			}
+			if fault == "wrapper-digest" && (!budget.active["artifact:"+path] || budget.claims["artifact:"+path].MaxFinalBytes != uint64(len(payload))) {
+				t.Fatal("failed lifecycle writer released uncertain reservation")
+			}
+			continue
+		}
+		if strings.HasSuffix(fault, "preexisting") {
+			data, readErr := os.ReadFile(actual)
+			if writeErr == nil || verified != nil || readErr != nil || string(data) != "foreign" {
+				t.Fatalf("%s preexisting output changed: %v %+v %v", fault, writeErr, verified, readErr)
+			}
+			continue
+		}
+		data, readErr := os.ReadFile(actual)
+		info, statErr := os.Lstat(actual)
+		if writeErr != nil || readErr != nil || statErr != nil || !bytes.Equal(data, payload) || fault != "wrapper-nil" && (verified == nil || !os.SameFile(verified, info) || verified.Size() != int64(len(payload))) {
+			t.Fatalf("%s exact writer facts/readback: %v %v %v %+v", fault, writeErr, readErr, statErr, verified)
+		}
+		if fault == "pinned-replacement" {
+			if _, err := os.Lstat(path); !os.IsNotExist(err) {
+				t.Fatal("pinned writer created output in replacement directory", err)
+			}
+		}
+		if fault == "wrapper-success" && (budget.active["artifact:"+path] || budget.claims["artifact:"+path].MaxFinalBytes != uint64(len(payload)) || budget.Roots[parentPath] == nil) {
+			t.Fatal("lifecycle writer did not commit its writer inode and parent pin")
+		}
+	}
 	// Every operation reserves its full extent before the following edit is checked.
 	for _, edit := range []Edit{
 		{Operation: "stream_pointer", Old: []byte{0x10, 0, 0, 0}, New: []byte{0x20, 0, 0, 4}},
