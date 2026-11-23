@@ -1525,6 +1525,10 @@ func TestProbeLifecycle(t *testing.T) {
 		candidate.Inputs = maps.Clone(profile.Inputs)
 		candidate.Inputs["card"] = RegistryInput{Path: cardPath, Size: int64(len(card)), SHA256: fmt.Sprintf("%x", sha256.Sum256(card))}
 		candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 30000, FrontEndTimeoutMS: 30000, NoTutorial: true, MaxUIReads: 4096}
+		if variant == "ready" || variant == "unready" || variant == "empty" {
+			// The aggregate front-end includes wait-board after the acknowledged boot handoff.
+			candidate.Scenario.FrontEndTimeoutMS = 120000
+		}
 		if variant == "busy" {
 			candidate.Scenario.FrontEndTimeoutMS = 1000
 		}
