@@ -643,6 +643,9 @@ transaction:
 				break
 			}
 			pending.Facts.CaptureID = profile.CaptureID
+			// Transfer the same verified bounded buffer, after durable native unlink.
+			// The sampler may retain one witness; it never rereads the snapshot path.
+			pending.OriginalPNG = imageData
 			*managed = pending
 			receipt.Status, receipt.Reason, receipt.ManagedFailure = "SAMPLED", "", ""
 			break

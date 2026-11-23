@@ -13,11 +13,12 @@ const probeFinalizerArtifactBytes uint64 = 16 << 20
 // ProbeFramePolicy is an explicit cooperative-run budget, not owner acceptance
 // or a kernel quota. No finite capture-count default substitutes for a full run.
 type ProbeFramePolicy struct {
-	MaxRunSeconds     uint64 `json:"max_run_seconds"`
-	MaxRetainedFrames uint64 `json:"max_retained_frames"`
-	MaxManagedFiles   uint64 `json:"max_managed_files"`
-	MaxManagedBytes   uint64 `json:"max_managed_bytes"`
-	MaxJournalBytes   uint64 `json:"max_journal_bytes"`
+	MaxRunSeconds         uint64 `json:"max_run_seconds"`
+	MaxRetainedFrames     uint64 `json:"max_retained_frames"`
+	MaxManagedFiles       uint64 `json:"max_managed_files"`
+	MaxManagedBytes       uint64 `json:"max_managed_bytes"`
+	MaxJournalBytes       uint64 `json:"max_journal_bytes"`
+	RetainFirstRawWitness bool   `json:"retain_first_raw_witness,omitempty"`
 }
 
 // ProbeFrameSummary distinguishes successful sampling from retained publication.

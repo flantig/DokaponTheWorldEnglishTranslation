@@ -168,6 +168,28 @@ func publishProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal
 	if err := accountProbeArtifacts(state.Budget, probeArtifactCommit, []ProbeArtifactClaim{jpegClaim}); err != nil {
 		return fmt.Errorf("frame JPEG commit: %w", err)
 	}
+	witness := state.Policy.RetainFirstRawWitness && !checkpoint && state.Summary.SelectedCommits == 0
+	var witnessReceipt []byte
+	if witness {
+		if receipt.Provenance != "owned_go" || receipt.Representation != "transient-rgb640" || receipt.SnapshotPreserved || receipt.ImagePath != "" || len(sample.OriginalPNG) == 0 || len(sample.OriginalPNG) > 16<<20 || int64(len(sample.OriginalPNG)) != receipt.ImageBytes || fmt.Sprintf("%x", sha256.Sum256(sample.OriginalPNG)) != receipt.ImageSHA256 {
+			return fmt.Errorf("first ordinary witness lacks its exact verified managed PNG")
+		}
+		witnessReceipt, err = json.Marshal(receipt)
+		if err != nil || len(witnessReceipt) > 4<<20 {
+			return fmt.Errorf("first ordinary witness receipt is unavailable or exceeds4MiB")
+		}
+		// PendingJPEG makes every later failure terminal. Keep both reservations
+		// charged until their guarded writes commit; never retry a partial witness.
+		claims := []ProbeArtifactClaim{{ID: "artifact:" + filepath.Join(profile.Root, "f0001.source.png"), Path: filepath.Join(profile.Root, "f0001.source.png"), Class: probeArtifactNormal, MaxFinalBytes: uint64(len(sample.OriginalPNG))}, {ID: "artifact:" + filepath.Join(profile.Root, "f0001.source.json"), Path: filepath.Join(profile.Root, "f0001.source.json"), Class: probeArtifactNormal, MaxFinalBytes: uint64(len(witnessReceipt))}}
+		if err := accountProbeArtifacts(state.Budget, probeArtifactReserve, claims); err != nil {
+			return fmt.Errorf("first ordinary witness reservation: %w", err)
+		}
+		for index, data := range [][]byte{sample.OriginalPNG, witnessReceipt} {
+			if err := writeProbeArtifact(state.Budget, probeArtifactNormal, claims[index].Path, bytes.NewReader(data), int64(len(data)), fmt.Sprintf("%x", sha256.Sum256(data)), 0600); err != nil {
+				return fmt.Errorf("first ordinary witness write failed; reservation retained: %w", err)
+			}
+		}
+	}
 	elapsed := completed.Sub(state.Started).Seconds()
 	var mode, story, week uint64
 	if !checkpoint {
@@ -247,6 +269,10 @@ func publishProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal
 	event := map[string]any{"event": kind, "event_id": len(journal.Events) + 1, "parent_event_id": receipt.EventID, "capture_id": receipt.CaptureID, "checkpoint": receipt.Checkpoint, "epoch": receipt.Epoch, "session": receipt.Session, "time": completed.UTC().Format(time.RFC3339Nano), "t": elapsed, "jpeg": relative, "jpeg_sha256": jpegSHA, "jpeg_quality": quality, "codec_qualification": "go-image-jpeg-unqualified", "comparison": sample.Facts}
 	if !checkpoint {
 		event["mode"], event["story"], event["week"] = mode, story, week
+	}
+	if witness {
+		event["source_png"], event["source_png_sha256"], event["source_png_bytes"] = "f0001.source.png", receipt.ImageSHA256, len(sample.OriginalPNG)
+		event["source_receipt"], event["source_receipt_sha256"], event["source_receipt_bytes"] = "f0001.source.json", fmt.Sprintf("%x", sha256.Sum256(witnessReceipt)), len(witnessReceipt)
 	}
 	eventBytes, err := json.Marshal(event)
 	if err != nil {

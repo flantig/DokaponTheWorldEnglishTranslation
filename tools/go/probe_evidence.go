@@ -7,6 +7,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"image/jpeg"
 	"path/filepath"
 	"reflect"
 	"regexp"
@@ -710,6 +711,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	capturedEvents := map[int]ProbeCaptureReceipt{}
 	var precedingCapture *ProbeCaptureReceipt
 	lastCaptureEvent := 0
+	seenSampledWitness := false
 	var captureRecords ProbeRecordBundle
 	_ = json.Unmarshal(bundle.Admission, &captureRecords)
 	var captureOwned ProbeProcessRecord
@@ -845,13 +847,29 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		}
 		encoded, _ := json.Marshal(receipt)
 		link := ProbeCaptureLink{CaptureID: receipt.CaptureID, EventID: receipt.EventID, Checkpoint: receipt.Checkpoint, Status: "UNKNOWN", Reason: receipt.Reason, ReceiptSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), Provenance: receipt.Provenance}
+		sampledWitness := receipt.Status == "SAMPLED"
+		if sampledWitness {
+			if !frameOnly || seenSampledWitness || captureOwner == nil || captureOwner.Profile.Frames == nil || !captureOwner.Profile.Frames.RetainFirstRawWitness || receipt.Provenance != "owned_go" || receipt.Checkpoint != 0 || receipt.ImagePath != "" || receipt.SnapshotPreserved || capture.WitnessEvent == nil || capture.WitnessJPEGHex == "" {
+				return report, fmt.Errorf("sampled witness requires its single opted-in first ordinary selection")
+			}
+			seenSampledWitness = true
+			if receipt.BuildSHA256 != captureOwner.Profile.Program.SHA256 {
+				return report, fmt.Errorf("sampled witness executable differs from its admitted owner")
+			}
+		} else if capture.WitnessEvent != nil || capture.WitnessJPEGHex != "" {
+			return report, fmt.Errorf("raw capture cannot carry a managed sampled witness")
+		}
 		switch receipt.Status {
-		case "CAPTURED":
+		case "CAPTURED", "SAMPLED":
 			command := "tap GUIDE 0.05"
 			if privateX11 {
 				command += " " + receipt.CaptureID
 			}
-			if receipt.MemoryBefore == nil || receipt.MemoryAfter == nil || receipt.GuideCommand != command || receipt.Representation != "original-png" {
+			representation := "original-png"
+			if sampledWitness {
+				representation = "transient-rgb640"
+			}
+			if receipt.MemoryBefore == nil || receipt.MemoryAfter == nil || receipt.GuideCommand != command || receipt.Representation != representation {
 				return report, fmt.Errorf("complete capture lacks original image or typed observations")
 			}
 			ack, err := hex.DecodeString(receipt.GuideAckHex)
@@ -888,19 +906,119 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 						knownUI = knownUI || decoded.Text != nil
 					}
 				}
-				if !knownTags || !knownUI || len(memory.Observations) == 0 {
+				if !knownTags || !sampledWitness && !knownUI || len(memory.Observations) == 0 {
 					return report, fmt.Errorf("capture requires positive source frame tags and decoded UI")
+				}
+				if sampledWitness && (len(memory.Observations) != 3 || len(memory.Decoded) != 1 || memory.Decoded[0].ID != "source-tags" || memory.Decoded[0].Kind != "frame_tags") {
+					return report, fmt.Errorf("sampled witness requires only its canonical three source tags")
+				}
+				if sampledWitness {
+					// Reuse the saved memory owner for packet framing, values, widths
+					// and the decoder's canonical source addresses. Nil runtime is pure.
+					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: receipt.SourceSHA256, Admission: captureAdmissionRaw, BuildSHA256: receipt.BuildSHA256, Decoders: []ProbeMemoryDecoder{{ID: "source-tags", Kind: "frame_tags", Requests: []string{"tag0", "tag1", "tag2"}}}}
+					for _, observation := range memory.Observations {
+						packet, err := hex.DecodeString(observation.RequestHex)
+						if err != nil || len(packet) != 9 {
+							return report, fmt.Errorf("sampled witness lacks its source read packet")
+						}
+						opcode, address := packet[4], binary.LittleEndian.Uint32(packet[5:])
+						plan.Requests = append(plan.Requests, ProbeMemoryRequest{ID: observation.ID, Opcode: &opcode, Address: &address})
+						plan.Replies = append(plan.Replies, observation.ReplyHex)
+					}
+					planBytes, _ := json.Marshal(plan)
+					verified, err := readProbeMemory(planBytes, nil)
+					if err != nil || !reflect.DeepEqual(verified.Observations, memory.Observations) || !reflect.DeepEqual(verified.Decoded, memory.Decoded) {
+						return report, fmt.Errorf("sampled witness source read transcript differs")
+					}
 				}
 			}
 			imageBytes, err := hex.DecodeString(capture.ImageHex)
-			if err != nil || int64(len(imageBytes)) != receipt.ImageBytes || fmt.Sprintf("%x", sha256.Sum256(imageBytes)) != receipt.ImageSHA256 || receipt.ImagePath != receipt.CaptureID+".png" {
+			if err != nil || len(imageBytes) > 16<<20 || int64(len(imageBytes)) != receipt.ImageBytes || fmt.Sprintf("%x", sha256.Sum256(imageBytes)) != receipt.ImageSHA256 || !sampledWitness && receipt.ImagePath != receipt.CaptureID+".png" {
 				return report, fmt.Errorf("capture original image bytes or path differ")
 			}
 			raster, _, err := decodePNG(imageBytes, 1<<20)
 			if err != nil || raster.Bounds().Dx() != receipt.Width || raster.Bounds().Dy() != receipt.Height {
 				return report, fmt.Errorf("capture original PNG geometry differs")
 			}
-			if frameReferences[receipt.CaptureID] {
+			if sampledWitness {
+				var selected struct {
+					Event              string                     `json:"event"`
+					EventID            int                        `json:"event_id"`
+					ParentEventID      int                        `json:"parent_event_id"`
+					CaptureID          string                     `json:"capture_id"`
+					Checkpoint         *int                       `json:"checkpoint"`
+					Epoch              *int                       `json:"epoch"`
+					Session            string                     `json:"session"`
+					Time               string                     `json:"time"`
+					Elapsed            float64                    `json:"t"`
+					JPEG               string                     `json:"jpeg"`
+					JPEGSHA            string                     `json:"jpeg_sha256"`
+					Quality            int                        `json:"jpeg_quality"`
+					Codec              string                     `json:"codec_qualification"`
+					SourcePNG          string                     `json:"source_png"`
+					SourcePNGSHA       string                     `json:"source_png_sha256"`
+					SourcePNGBytes     int64                      `json:"source_png_bytes"`
+					SourceReceipt      string                     `json:"source_receipt"`
+					SourceReceiptSHA   string                     `json:"source_receipt_sha256"`
+					SourceReceiptBytes int64                      `json:"source_receipt_bytes"`
+					Mode               *uint64                    `json:"mode"`
+					Story              *uint64                    `json:"story"`
+					Week               *uint64                    `json:"week"`
+					Comparison         ProbeFrameComparisonResult `json:"comparison"`
+				}
+				retained := capture.WitnessEvent
+				if receipt.EventID == int(^uint(0)>>1) || receipt.LogOffset > (1<<63-1)-int64(len(logBytes)) {
+					return report, fmt.Errorf("sampled witness source event range overflows")
+				}
+				ackOffset := receipt.LogOffset + int64(len(logBytes))
+				if checkJSON(checkedJSON{raw: retained.Data, allObjects: true, text: true}) != nil || json.Unmarshal(retained.Data, &selected) != nil || retained.Offset != ackOffset || selected.Event != "go-frame-retained" || selected.EventID != receipt.EventID+1 || selected.ParentEventID != receipt.EventID || selected.CaptureID != receipt.CaptureID || selected.Checkpoint == nil || *selected.Checkpoint != 0 || selected.Epoch == nil || *selected.Epoch != receipt.Epoch || selected.Session != receipt.Session || selected.Elapsed < 0 || selected.Elapsed > float64(captureOwner.Profile.Frames.MaxRunSeconds) {
+					return report, fmt.Errorf("sampled witness selected event crosses source identity or ordinal")
+				}
+				var ackLine bytes.Buffer
+				if json.Compact(&ackLine, retained.Data) != nil || ackOffset > (1<<63-1)-int64(ackLine.Len())-1 {
+					return report, fmt.Errorf("sampled witness acknowledgement range overflows")
+				}
+				ackEnd := ackOffset + int64(ackLine.Len()) + 1
+				for _, saved := range bundle.Events {
+					var source ProbeCaptureEvent
+					var line bytes.Buffer
+					if json.Unmarshal(saved.Data, &source) != nil || json.Compact(&line, saved.Data) != nil || saved.Offset > (1<<63-1)-int64(line.Len())-1 {
+						return report, fmt.Errorf("sampled witness saved source range differs")
+					}
+					line.WriteByte('\n')
+					if source.EventID == receipt.EventID && !bytes.Equal(line.Bytes(), logBytes) || source.EventID == selected.EventID || saved.Offset < ackEnd && saved.Offset+int64(line.Len()) > ackOffset {
+						return report, fmt.Errorf("sampled witness conflicts with actual saved source bytes")
+					}
+				}
+				finished, finishErr := time.Parse(time.RFC3339Nano, receipt.FinishedAt)
+				selectedAt, timeErr := time.Parse(time.RFC3339Nano, selected.Time)
+				if finishErr != nil || timeErr != nil || selectedAt.Before(finished) || selected.JPEG != "f0001.jpg" || selected.SourcePNG != "f0001.source.png" || selected.SourceReceipt != "f0001.source.json" || selected.SourcePNGSHA != receipt.ImageSHA256 || selected.SourcePNGBytes != receipt.ImageBytes || selected.SourceReceiptSHA != fmt.Sprintf("%x", sha256.Sum256(encoded)) || selected.SourceReceiptBytes != int64(len(encoded)) || selected.Quality != 82 || selected.Codec != "go-image-jpeg-unqualified" {
+					return report, fmt.Errorf("sampled witness artifact or completion facts differ")
+				}
+				for index, observation := range before.Observations {
+					if observation.ID != fmt.Sprintf("tag%d", index) || observation.Value > 0xffffffff || observation.Value != before.Decoded[0].FrameTags[index] || after.Observations[index].ID != observation.ID || after.Observations[index].Value != observation.Value {
+						return report, fmt.Errorf("sampled witness source tag observations differ")
+					}
+				}
+				if selected.Mode == nil || *selected.Mode != before.Observations[0].Value || selected.Story == nil || *selected.Story != before.Observations[1].Value || selected.Week == nil || *selected.Week != before.Observations[2].Value+1 || imageBytes[24] != 8 || !slices.Contains([]byte{0, 2, 6}, imageBytes[25]) {
+					return report, fmt.Errorf("sampled witness selected tags or PNG mode differ")
+				}
+				normalized, sample, facts, normalizeErr := normalizeProbeFrame(raster)
+				facts.CaptureID = receipt.CaptureID
+				if normalizeErr != nil || !reflect.DeepEqual(selected.Comparison, facts) {
+					return report, fmt.Errorf("sampled witness normalization lineage differs")
+				}
+				jpegBytes, jpegErr := hex.DecodeString(capture.WitnessJPEGHex)
+				var reproduced bytes.Buffer
+				if jpegErr != nil || len(jpegBytes) > 4<<20 || fmt.Sprintf("%x", sha256.Sum256(jpegBytes)) != selected.JPEGSHA || jpeg.Encode(&reproduced, normalized, &jpeg.Options{Quality: 82}) != nil || !bytes.Equal(jpegBytes, reproduced.Bytes()) {
+					return report, fmt.Errorf("sampled witness Q82 JPEG bytes do not derive from the same PNG")
+				}
+				if frameReferences[receipt.CaptureID] {
+					facts.CaptureID = receipt.CaptureID
+					frameFacts[receipt.CaptureID], framePixels[receipt.CaptureID] = facts, sample
+				}
+			}
+			if frameReferences[receipt.CaptureID] && !sampledWitness {
 				facts := ProbeFrameComparisonResult{CaptureID: receipt.CaptureID, Status: "UNKNOWN"}
 				if imageBytes[24] != 8 || !slices.Contains([]byte{0, 2, 6}, imageBytes[25]) {
 					facts.Reason = "frame analysis reference supports only8-bit Gray/RGB/RGBA PNG"
@@ -917,6 +1035,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				frameFacts[receipt.CaptureID] = facts
 			}
 			link.Status, link.Reason, link.ImagePath, link.ImageSHA256 = "ACCEPTED", "", receipt.ImagePath, receipt.ImageSHA256
+			if sampledWitness {
+				link.ImagePath = "f0001.source.png"
+			}
 			capturedEvents[receipt.EventID] = receipt
 		case "UNKNOWN", "REFUSED":
 			if strings.TrimSpace(receipt.Reason) == "" {
@@ -938,6 +1059,9 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				report.Status = "UNKNOWN"
 			}
 		}
+	}
+	if seenSampledWitness {
+		report.Limits += " The optional SAMPLED witness binds saved same-PNG Go Q82 lineage only; it supplies no decoded UI, independent Pillow parity or live native qualification."
 	}
 	for _, request := range bundle.FrameComparisons {
 		currentIndex, exists := frameIndices[request.CaptureID]

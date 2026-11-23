@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"image/jpeg"
 	"image/png"
 	"io"
 	"maps"
@@ -989,6 +990,135 @@ func TestProbeRecords(t *testing.T) {
 	if <-ready == nil || <-done == nil {
 		t.Fatal("private pad accepted absent pinned credentials/native binding")
 	}
+	// Shared publication/accounting fixtures need no child process or lifecycle run.
+	{
+		profile := flatpakFixture.Profile
+		for _, row := range []struct{ LateFailure, Witness bool }{{}, {LateFailure: true}, {Witness: true}, {LateFailure: true, Witness: true}} {
+			lateFailure := row.LateFailure
+			candidate := profile
+			candidate.Root = t.TempDir()
+			if err := os.Chmod(candidate.Root, 0700); err != nil {
+				t.Fatal(err)
+			}
+			policy := ProbeFramePolicy{MaxRunSeconds: 60, MaxRetainedFrames: 4, MaxManagedFiles: 64, MaxManagedBytes: 8 << 20, MaxJournalBytes: 8 << 20}
+			policy.RetainFirstRawWitness = row.Witness
+			if lateFailure {
+				policy.MaxJournalBytes = 256
+			}
+			candidate.Frames = &policy
+			rootInfo, err := os.Lstat(candidate.Root)
+			if err != nil {
+				t.Fatal(err)
+			}
+			snapshots := filepath.Join(candidate.Root, "snaps")
+			if err := os.Mkdir(snapshots, 0700); err != nil {
+				t.Fatal(err)
+			}
+			snapshotInfo, err := os.Lstat(snapshots)
+			if err != nil {
+				t.Fatal(err)
+			}
+			budget := ProbeArtifactBudget{MaxFiles: policy.MaxManagedFiles, MaxBytes: policy.MaxManagedBytes, Roots: map[string]os.FileInfo{candidate.Root: rootInfo}, SnapshotRoots: map[string]os.FileInfo{snapshots: snapshotInfo}}
+			journal := ProbeEventJournal{Budget: &budget, MaxBytes: policy.MaxJournalBytes}
+			csv := []byte("frame,t,mode,story,week\n")
+			csvPath := filepath.Join(candidate.Root, "frames.csv")
+			if err := os.WriteFile(csvPath, csv, 0600); err != nil {
+				t.Fatal(err)
+			}
+			csvInfo, err := os.Lstat(csvPath)
+			if err != nil {
+				t.Fatal(err)
+			}
+			started := time.Now()
+			state := ProbeFrameRun{Policy: policy, Budget: &budget, Started: started, CSV: csv, CSVInfo: csvInfo, Runtime: ProbeCaptureRuntime{Snapshots: snapshots}, CardPath: filepath.Join(candidate.Root, "card.ps2")}
+			parent := json.RawMessage(`{"event":"go-frame-capture","event_id":1,"checkpoint":0,"capture_id":"publisher-fixture","time":"2026-11-16T00:00:00+0000"}`)
+			published, err := publishProbeEvent(candidate.Root, &journal, parent)
+			if err != nil {
+				t.Fatal("publisher source event", err)
+			}
+			sample := ProbeFrameSample{Normalized: &image.NRGBA{Pix: bytes.Repeat([]byte{3, 0, 0, 255}, 640*480), Stride: 640 * 4, Rect: image.Rect(0, 0, 640, 480)}, Sample: bytes.Repeat([]byte{3, 0, 0}, 64*48), Facts: ProbeFrameComparisonResult{Status: "AVAILABLE"}}
+			sample.Facts.ComparisonRGBSHA256 = fmt.Sprintf("%x", sha256.Sum256(sample.Sample))
+			receipt := ProbeCaptureReceipt{CaptureID: "publisher-fixture", EventID: 1, Session: candidate.Session, Status: "SAMPLED", LogOffset: published.Offset, LogHex: hex.EncodeToString(published.Data), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(published.Data)), MemoryBefore: &ProbeMemoryReport{Observations: []ProbeMemoryObservation{{ID: "tag0", Value: 0}, {ID: "tag1", Value: 1}, {ID: "tag2", Value: 2}}}}
+			if row.Witness {
+				var original bytes.Buffer
+				if err := png.Encode(&original, sample.Normalized); err != nil {
+					t.Fatal(err)
+				}
+				sample.OriginalPNG = original.Bytes()
+				receipt.Provenance, receipt.Representation = "owned_go", "transient-rgb640"
+				receipt.ImageSHA256, receipt.ImageBytes = fmt.Sprintf("%x", sha256.Sum256(sample.OriginalPNG)), int64(len(sample.OriginalPNG))
+			}
+			err = publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(time.Second))
+			witnessBefore := map[string][]byte{}
+			for _, name := range []string{"f0001.source.png", "f0001.source.json"} {
+				data, readErr := os.ReadFile(filepath.Join(candidate.Root, name))
+				if row.Witness {
+					if readErr != nil || budget.held[filepath.Join(candidate.Root, name)] != uint64(len(data)) {
+						t.Fatal("witness bytes lost conservative accounting", name, readErr)
+					}
+					witnessBefore[name] = data
+				} else if !os.IsNotExist(readErr) {
+					t.Fatal("default publisher wrote a raw witness", name, readErr)
+				}
+			}
+			if row.Witness {
+				canonical, _ := json.Marshal(receipt)
+				if !bytes.Equal(witnessBefore["f0001.source.png"], sample.OriginalPNG) || !bytes.Equal(witnessBefore["f0001.source.json"], canonical) {
+					t.Fatal("witness differs from exact original buffer/unchanged SAMPLED receipt")
+				}
+			}
+			if lateFailure {
+				if err == nil || !strings.HasPrefix(err.Error(), "frame journal acknowledgment:") || state.Summary.PendingJPEG != "f0001.jpg" || state.Summary.PendingJPEGSHA256 == "" || !state.Summary.PendingCSV || state.Summary.SelectedCommits != 0 || state.Previous != nil || !state.LastSelected.IsZero() || state.Summary.LastJPEG != "" || len(journal.Events) != 1 {
+					t.Fatal("late journal refusal lost durable partial facts or advanced selection", state.Summary, err)
+				}
+				persistedCSV, readErr := os.ReadFile(csvPath)
+				jpegBytes, imageErr := os.ReadFile(filepath.Join(candidate.Root, state.Summary.PendingJPEG))
+				if readErr != nil || imageErr != nil || !bytes.Equal(persistedCSV, state.CSV) || len(bytes.Split(bytes.TrimSpace(persistedCSV), []byte{'\n'})) != 2 || fmt.Sprintf("%x", sha256.Sum256(jpegBytes)) != state.Summary.PendingJPEGSHA256 {
+					t.Fatal("late refusal lost JPEG/CSV acknowledged bytes", readErr, imageErr)
+				}
+				if err := publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(2*time.Second)); err == nil || !strings.Contains(err.Error(), "no partial transaction") {
+					t.Fatal("partial frame transaction was replayable", err)
+				}
+				continue
+			}
+			if err != nil || state.Summary.SelectedCommits != 1 || !bytes.Equal(state.Previous, sample.Sample) || state.Summary.PendingJPEG != "" || state.Summary.PendingCSV {
+				t.Fatal("publisher acknowledged ordinary baseline", state.Summary, err)
+			}
+			selectedCSV, selectedAt := bytes.Clone(state.CSV), state.LastSelected
+			parent = json.RawMessage(`{"event":"save-complete","event_id":3,"checkpoint":1,"capture_id":{"legacy":"ignored"},"time":[0,false]}`)
+			published, err = publishProbeEvent(candidate.Root, &journal, parent)
+			if err != nil {
+				t.Fatal("checkpoint publisher source event", err)
+			}
+			receipt.Checkpoint, receipt.EventID, receipt.Status = 1, 3, "CAPTURED"
+			receipt.LogOffset, receipt.LogHex, receipt.LogSHA256 = published.Offset, hex.EncodeToString(published.Data), fmt.Sprintf("%x", sha256.Sum256(published.Data))
+			if err := publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(2*time.Second)); err != nil || state.Summary.CheckpointCommits != 1 || state.Summary.SelectedCommits != 1 || !bytes.Equal(state.Previous, sample.Sample) || !state.LastSelected.Equal(selectedAt) || !bytes.Equal(state.CSV, selectedCSV) {
+				t.Fatal("identical checkpoint did not bypass filtering without changing ordinary baseline", state.Summary, err)
+			}
+			if row.Witness {
+				// The single run-wide selection count survives an epoch change.
+				state.Summary.Epoch++
+				receipt.Epoch = state.Summary.Epoch
+				receipt.Checkpoint, receipt.EventID, receipt.Status = 0, 5, "SAMPLED"
+				receipt.CaptureID = "publisher-next-epoch"
+				parent = json.RawMessage(`{"event":"go-frame-capture","event_id":5,"checkpoint":0,"capture_id":"publisher-next-epoch","time":"2026-11-16T00:00:00+0000"}`)
+				published, err = publishProbeEvent(candidate.Root, &journal, parent)
+				if err != nil {
+					t.Fatal(err)
+				}
+				receipt.LogOffset, receipt.LogHex, receipt.LogSHA256 = published.Offset, hex.EncodeToString(published.Data), fmt.Sprintf("%x", sha256.Sum256(published.Data))
+				if err := publishProbeFrame(candidate, &journal, &state, sample, receipt, started.Add(3*time.Second)); err != nil || state.Summary.SelectedCommits != 2 {
+					t.Fatal("next epoch ordinary publication", err)
+				}
+				for name, before := range witnessBefore {
+					after, err := os.ReadFile(filepath.Join(candidate.Root, name))
+					if err != nil || !bytes.Equal(before, after) {
+						t.Fatal("later epoch replaced the first run witness", name, err)
+					}
+				}
+			}
+		}
+	}
 	directProfile := flatpakFixture.Profile
 	directProfile.Flatpak = nil
 	directProfile.ProgramArgs = []string{"-existing-prefix"}
@@ -1290,6 +1420,8 @@ func TestProbeRecords(t *testing.T) {
 	// the fixed GUIDE service between the two sequential read batches.
 	var frameCaptureBase json.RawMessage
 	var ordinaryCaptureBase json.RawMessage
+	var managedCaptureBase json.RawMessage
+	var managedPNGBase []byte
 	for _, test := range peerCases {
 		root := t.TempDir()
 		projectRoot := root
@@ -1792,6 +1924,11 @@ func TestProbeRecords(t *testing.T) {
 							}
 						} else {
 							sourceRGB := []byte{3, 0, 0}
+							if !bytes.Equal(managed.OriginalPNG, capturePNG) {
+								t.Fatal(test.Name, "managed witness carrier differs from exact input bytes")
+							}
+							managedCaptureBase, _ = json.Marshal(captured)
+							managedPNGBase = bytes.Clone(managed.OriginalPNG)
 							if managed.Normalized == nil || managed.Normalized.Bounds() != image.Rect(0, 0, 640, 480) || !bytes.Equal(managed.Normalized.Pix, bytes.Repeat([]byte{3, 0, 0, 255}, 640*480)) || !bytes.Equal(managed.Sample, bytes.Repeat(sourceRGB, 64*48)) {
 								t.Fatal(test.Name, "managed hidden-RGB normalization/sample differs")
 							}
@@ -2756,6 +2893,132 @@ func TestProbeRecords(t *testing.T) {
 		got, err := reportProbeEvidence(raw)
 		if (err != nil) != (fault != "") || fault == "" && (got.Status != "PASS" || got.LiveOwnership || len(got.Captures) != 2) {
 			t.Fatal("saved private F8 linkage", fault, err)
+		}
+	}
+	for _, fault := range []string{"", "second-ordinal", "raw-byte", "jpeg-byte", "capture", "epoch", "parent", "tags", "receipt", "normalization", "preserved", "extra-UI", "disabled", "gapped-id", "gapped-offset", "parent-raw", "build", "width-u16", "width-u8", "request", "reply", "comparison-history"} {
+		var bundle ProbeEvidenceBundle
+		_ = json.Unmarshal(ordinaryRaw, &bundle)
+		bundle.Captures, bundle.Events = bundle.Captures[:1], bundle.Events[:1]
+		bundle.FrameComparisons = []ProbeFrameComparison{{CaptureID: bundle.Captures[0].Receipt.CaptureID}}
+		var records ProbeRecordBundle
+		_ = json.Unmarshal(bundle.Admission, &records)
+		records.GoOwner.Profile.Frames = &ProbeFramePolicy{MaxRunSeconds: 60, MaxRetainedFrames: 4, MaxManagedFiles: 64, MaxManagedBytes: 128 << 20, MaxJournalBytes: 8 << 20, RetainFirstRawWitness: fault != "disabled"}
+		facts := records.GoOwner.Profile
+		facts.Requests = nil
+		factsBytes, _ := json.Marshal(facts)
+		records.GoOwner.Step.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(factsBytes))
+		bundle.Admission, _ = json.Marshal(records)
+		capture := &bundle.Captures[0]
+		oldReceipt := capture.Receipt
+		capture.Receipt = ProbeCaptureReceipt{}
+		if json.Unmarshal(managedCaptureBase, &capture.Receipt) != nil || len(managedPNGBase) == 0 {
+			t.Fatal("witness fixture lacks its actual managed acquisition")
+		}
+		capture.ImageHex = hex.EncodeToString(managedPNGBase)
+		receipt := &capture.Receipt
+		receipt.CaptureID, receipt.EventID, receipt.Checkpoint = oldReceipt.CaptureID, oldReceipt.EventID, oldReceipt.Checkpoint
+		receipt.RunID, receipt.Session, receipt.Epoch, receipt.PID, receipt.Starttime, receipt.ISOSHA256, receipt.BuildSHA256 = oldReceipt.RunID, oldReceipt.Session, oldReceipt.Epoch, oldReceipt.PID, oldReceipt.Starttime, oldReceipt.ISOSHA256, oldReceipt.BuildSHA256
+		receipt.LogHex, receipt.LogSHA256, receipt.LogOffset = oldReceipt.LogHex, oldReceipt.LogSHA256, oldReceipt.LogOffset
+		receipt.Provenance = "owned_go"
+		if fault == "build" {
+			receipt.BuildSHA256 = strings.Repeat("d", 64)
+		}
+		tags := slices.Clone(receipt.MemoryBefore.Decoded[0].FrameTags)
+		if len(tags) != 3 {
+			t.Fatal("saved witness scaffold has no source tags")
+		}
+		for _, memory := range []*ProbeMemoryReport{receipt.MemoryBefore, receipt.MemoryAfter} {
+			memory.Provenance, memory.ProcessGuarded = "owned_go", true
+			memory.Session, memory.Epoch, memory.ISOSHA256, memory.BuildSHA256 = receipt.Session, receipt.Epoch, receipt.ISOSHA256, receipt.BuildSHA256
+			memory.SessionEvidenceSHA256 = fmt.Sprintf("%x", sha256.Sum256(bundle.Admission))
+			// Keep the actual managed source's request/reply packets. These are
+			// saved-consumer fixtures, with synthetic ownership claims only.
+			switch fault {
+			case "width-u16":
+				tags[0], memory.Observations[0].Value, memory.Decoded[0].FrameTags[0] = 65536, 65536, 65536
+			case "width-u8":
+				tags[2], memory.Observations[2].Value, memory.Decoded[0].FrameTags[2] = 256, 256, 256
+			case "request":
+				packet, _ := hex.DecodeString(memory.Observations[0].RequestHex)
+				packet[5] ^= 1
+				memory.Observations[0].RequestHex = hex.EncodeToString(packet)
+			case "reply":
+				packet, _ := hex.DecodeString(memory.Observations[2].ReplyHex)
+				packet[4] = 1
+				memory.Observations[2].ReplyHex = hex.EncodeToString(packet)
+			}
+		}
+		if fault == "parent-raw" {
+			data, _ := hex.DecodeString(receipt.LogHex)
+			data = append([]byte{' '}, data...)
+			receipt.LogHex, receipt.LogSHA256 = hex.EncodeToString(data), fmt.Sprintf("%x", sha256.Sum256(data))
+		}
+		if fault == "preserved" {
+			receipt.SnapshotPreserved = true
+		}
+		if fault == "extra-UI" {
+			receipt.MemoryBefore.Decoded = append(receipt.MemoryBefore.Decoded, ProbeMemoryDecoded{ID: "unrelated-player", Kind: "player", Status: "KNOWN", Player: &ProbeSavedPlayer{}})
+			receipt.MemoryAfter.Decoded = slices.Clone(receipt.MemoryBefore.Decoded)
+		}
+		rawPNG, _ := hex.DecodeString(capture.ImageHex)
+		raster, _, err := decodePNG(rawPNG, 1<<20)
+		if err != nil {
+			t.Fatal(err)
+		}
+		normalized, _, comparison, err := normalizeProbeFrame(raster)
+		if err != nil {
+			t.Fatal(err)
+		}
+		comparison.CaptureID = receipt.CaptureID
+		var jpegBytes bytes.Buffer
+		if err := jpeg.Encode(&jpegBytes, normalized, &jpeg.Options{Quality: 82}); err != nil {
+			t.Fatal(err)
+		}
+		capture.WitnessJPEGHex = hex.EncodeToString(jpegBytes.Bytes())
+		canonical, _ := json.Marshal(receipt)
+		finished, _ := time.Parse(time.RFC3339Nano, receipt.FinishedAt)
+		selected := map[string]any{"event": "go-frame-retained", "event_id": receipt.EventID + 1, "parent_event_id": receipt.EventID, "capture_id": receipt.CaptureID, "checkpoint": 0, "epoch": receipt.Epoch, "session": receipt.Session, "time": finished.Add(time.Second).Format(time.RFC3339Nano), "t": 1, "jpeg": "f0001.jpg", "jpeg_sha256": fmt.Sprintf("%x", sha256.Sum256(jpegBytes.Bytes())), "jpeg_quality": 82, "codec_qualification": "go-image-jpeg-unqualified", "source_png": "f0001.source.png", "source_png_sha256": receipt.ImageSHA256, "source_png_bytes": receipt.ImageBytes, "source_receipt": "f0001.source.json", "source_receipt_sha256": fmt.Sprintf("%x", sha256.Sum256(canonical)), "source_receipt_bytes": len(canonical), "mode": tags[0], "story": tags[1], "week": tags[2] + 1, "comparison": comparison}
+		switch fault {
+		case "second-ordinal":
+			selected["jpeg"] = "f0002.jpg"
+		case "raw-byte":
+			rawPNG[len(rawPNG)-1] ^= 1
+			capture.ImageHex = hex.EncodeToString(rawPNG)
+		case "jpeg-byte":
+			changed := bytes.Clone(jpegBytes.Bytes())
+			changed[len(changed)-1] ^= 1
+			capture.WitnessJPEGHex = hex.EncodeToString(changed)
+			selected["jpeg_sha256"] = fmt.Sprintf("%x", sha256.Sum256(changed))
+		case "capture":
+			selected["capture_id"] = "other-attempt"
+		case "epoch":
+			selected["epoch"] = receipt.Epoch + 1
+		case "parent":
+			selected["parent_event_id"] = receipt.EventID + 1
+		case "tags":
+			selected["week"] = tags[2] + 2
+		case "receipt":
+			selected["source_receipt_sha256"] = strings.Repeat("f", 64)
+		case "normalization":
+			comparison.NormalizedRGBSHA256 = strings.Repeat("f", 64)
+			selected["comparison"] = comparison
+		case "gapped-id":
+			selected["event_id"] = receipt.EventID + 2
+		case "comparison-history":
+			mean, sum := float64(999), uint64(123)
+			comparison.PreviousCaptureID, comparison.MeanRGBDifference, comparison.SumAbsRGB = "fabricated-predecessor", &mean, &sum
+			selected["comparison"] = comparison
+		}
+		selectedBytes, _ := json.Marshal(selected)
+		logBytes, _ := hex.DecodeString(receipt.LogHex)
+		capture.WitnessEvent = &ProbeEvidenceEvent{Offset: receipt.LogOffset + int64(len(logBytes)), Data: selectedBytes}
+		if fault == "gapped-offset" {
+			capture.WitnessEvent.Offset += 11
+		}
+		raw, _ := json.Marshal(bundle)
+		got, err := reportProbeEvidence(raw)
+		if (err != nil) != (fault != "") || fault == "" && (got.Status != "PASS" || got.LiveOwnership || len(got.Checkpoints) != 0 || len(got.Captures) != 1 || got.Captures[0].ImagePath != "f0001.source.png") {
+			t.Fatal("saved same ordinary PNG/Q82 witness", fault, err)
 		}
 	}
 	for _, fault := range []string{"unknown", "refused", "empty-events", "empty-captures", "missing-event", "missing-receipt", "extra-event", "duplicate-event", "duplicate-event-capture", "duplicate-receipt", "duplicate-receipt-event", "missing-checkpoint", "null-checkpoint", "positive-checkpoint", "wrong-kind", "wrong-capture-id", "bad-time", "missing-cohort", "empty-cohort", "checkpoint-cohort", "story-cohort", "non-Go", "members", "checks", "story", "resume"} {

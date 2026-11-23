@@ -18,9 +18,10 @@ const (
 // Its caller reserves transient native/working bytes before requesting capture;
 // neither this carrier nor per-call capture caps establish a whole-run quota.
 type ProbeFrameSample struct {
-	Normalized *image.NRGBA
-	Sample     []byte
-	Facts      ProbeFrameComparisonResult
+	OriginalPNG []byte `json:"-"`
+	Normalized  *image.NRGBA
+	Sample      []byte
+	Facts       ProbeFrameComparisonResult
 }
 
 const probeOrdinaryFrameEventKind = "go-frame-capture"
@@ -115,9 +116,11 @@ type ProbeCaptureReceipt struct {
 }
 
 type ProbeCaptureObservation struct {
-	Receipt   ProbeCaptureReceipt `json:"receipt"`
-	ImageHex  string              `json:"image_hex,omitempty"`
-	Admission json.RawMessage     `json:"admission,omitempty"`
+	Receipt        ProbeCaptureReceipt `json:"receipt"`
+	ImageHex       string              `json:"image_hex,omitempty"`
+	Admission      json.RawMessage     `json:"admission,omitempty"`
+	WitnessEvent   *ProbeEvidenceEvent `json:"witness_event,omitempty"`
+	WitnessJPEGHex string              `json:"witness_jpeg_hex,omitempty"`
 }
 
 type ProbeCaptureLink struct {

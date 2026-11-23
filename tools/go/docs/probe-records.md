@@ -190,3 +190,35 @@ This is an F8 key-release acknowledgement, not screenshot completion; the
 existing bounded PNG transaction, PINE peer, epoch/log/root guards and source
 positive-checkpoint save conditions still apply. Legacy SDL receipt fields,
 source pins and command/ACK semantics remain unchanged.
+### Optional first ordinary raw witness
+
+`frame_sampling.retain_first_raw_witness` defaults to false. When enabled, only
+the first selected ordinary frame in the whole run also writes
+`f0001.source.png` and `f0001.source.json`. Cold epochs do not reset the existing
+run-wide selected count. The PNG is the exact bounded input buffer used by that
+managed acquisition, transferred only after its final guards and durable native
+snapshot unlink. It is not another capture, a hardlink or a snapshot-directory
+copy. The sidecar preserves the complete original SAMPLED/transient-rgb640
+receipt, including empty ImagePath and SnapshotPreserved:false.
+
+After the existing PendingJPEG marker, the publisher reserves both files before
+their guarded writes (PNG at most16MiB, receipt at most4MiB). The acknowledged
+ordinary Q82 event links both canonical paths, SHA256 values and sizes to its
+source capture/event/session/epoch, tags, normalization hashes and JPEG. Failure
+keeps the transaction partial and conservatively charged; another frame cannot
+retry or replace that first witness. The default native unlink and file outputs
+remain unchanged when the option is false. Positive Q75 checkpoints are separate.
+
+Saved `ProbeCaptureObservation` may supply `witness_event` (the actual retained
+journal slice/offset) and `witness_jpeg_hex` alongside its existing typed receipt
+and original `image_hex`. Only one opted-in first-ordinal SAMPLED witness is
+accepted in the ordinary cohort. Its canonical sidecar digest, exact three-tag
+observations, source and selected events, PNG and actual Q82 JPEG must agree.
+The selected acknowledgement must immediately follow the exact parent log line
+in both event ID and byte offset. The saved memory owner revalidates the actual
+u16/u16/u8 source request/reply packets against the admitted executable build.
+The verifier normalizes that PNG and reproduces the exact Go quality82 bytes;
+this proves saved lineage, not independent Pillow codec parity or live ownership.
+The existing4MiB total saved-bundle limit still applies and may refuse a large
+witness payload. No UI from a different image is attached; positive CAPTURED
+save receipts retain their own typed UI/log/outcome requirements.

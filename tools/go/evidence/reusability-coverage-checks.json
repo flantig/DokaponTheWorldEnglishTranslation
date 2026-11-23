@@ -33,7 +33,7 @@
     "analysis/fit-line-count-contract.json": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc",
     "analysis/fit-line-count-oracle-erratum.json": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3",
     "analysis/fit-line-count-reuse-decision.json": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714",
-    "analysis/go-current-input-accounting.json": "e2fce4085786f1e5a2f5e853a253db9a9c05ea22ab9273d6b85eae95658a9f0a",
+    "analysis/go-current-input-accounting.json": "8d7078c35c717900036b64e2888a61cac7aabbfc6d721f35d9faa5f7a41f01db",
     "analysis/inline-icons-reuse-decision.json": "7220f120359530fe540098a00a80d1f18d47f7022d35257de23fd222ed5bc656",
     "analysis/migration-roadmap.json": "f86a80e733adb58112a1c33f248b207fdcaea0406071f7ce42d8d68c518c25f1",
     "analysis/native-raster-reuse-decision.json": "24413cf3cc56b63701d6d6bd5a54921e8937cff5933810163b5c908020c75134",
@@ -58,7 +58,7 @@
     "analysis/registry-insert-contract.json": "404bc6ae2fdbe715863359adabaa3120268ec6c8c92d65ed7dcd2b4f5634e7bb",
     "analysis/registry-status-contract.json": "b9c32c8d0b1951013092bd847f8370bbaa79448d6a4f75b7747897871f4905bb",
     "analysis/registry-status-reuse-decision.json": "f9171e2646c2dcb888da69e186defe3e6ff9ff99827da55d829a7476e67a5f92",
-    "analysis/reusability-coverage.json": "e5c1bc29f8f2f62743965f67fdc66ba5a9128b380471efd54b95f883302dfacc",
+    "analysis/reusability-coverage.json": "88c6bf2ecf3cfc1a6ff1e4d7859a0953bc3c7203e82428451d754a99d032badc",
     "analysis/reusability-coverage.md": "dbb1405648eec01901558f956fff7d9c1dffa662d264398f62a947a343ee68a2",
     "analysis/reusable-toolkit-plan.json": "2d6a3b503545aa69389ea30e083b5cac4c53aae65ca7ee552f7a11288e2a5ada",
     "analysis/sixth-family-closure-review.json": "863c904dec6b563c9f5e6568e857c267b0bfbf8914e3747c7efb3317f798340a",
@@ -707,16 +707,16 @@
     "evidence/probe-records-proof.json": "3d85d6edff971ad49d314d5f5ab207d0d49fb43b99103515dceeb9a1451f7f5a",
     "probe_records.go": "49182571c2e21058856a85566fed2507002773497488fffc345a73afb906c630",
     "probe_records_types.go": "9d273bca5942921e8c50f0345c21f3b56a178d7ce9ff8de9eff5a6d4c20dfaae",
-    "probe_records_test.go": "d441c8b0311b5b475d85dc2c8b966e86a7fb52bceee702adf262aef65907b52b",
+    "probe_records_test.go": "c0c169a93f549049a8d926dfa2ccb166d99aad080cdc4e6f59c19a87ac695689",
     "testdata/probe-records.json": "6cf436bb5db7076ff95f5c0e54e14629d4822d5c44cb79f1858af72d9f2baf05",
-    "docs/probe-records.md": "bf981cc2d25a67c20190c0b67510741ee4d68c4724fa01cbb9f2108bdd49007e",
-    "probe_evidence.go": "b27f226b981ef35d54fca6c90f3915409e76ff4b99ca96e58fcba56842411db6",
+    "docs/probe-records.md": "2890aae049c5a375d951632280e581cb3adcadd8cc472fb04cbc065cccc09078",
+    "probe_evidence.go": "3fc300784889f97b49bb54a0d0653c746d8e05091e85ddd09a248fe5793d6871",
     "probe_evidence_types.go": "40b8b7c8d34db0e8a777c7554993759f5074d80b0b7cdb4e8dd2c49de29da632",
     "testdata/probe-evidence.json": "e3532f5b76e7c2745ef073215ea1917dfe809afe7deccc2d56d47629923ae990",
     "probe_memory.go": "8ecfa073e83ca766b82af4f7ebcedb7de5ba5ac8e395207e1bcca8dcd3c7ed07",
     "probe_memory_types.go": "439ae31c0e350e97702f81dfa2cfc0efd45322b5c51b9430bf74f209d45e847d",
-    "probe_capture.go": "16c7e8df0d939493d1bcfec0602aa3c9af1a9d07ad9c99c090775c7b75061798",
-    "probe_capture_types.go": "4fa792909e4938f6f7ddb489bd64a739e8170a457294d57406cb114ca56ce97e",
+    "probe_capture.go": "f2f0ebc6989b7d74dfe98be1f2597e19576ac96eb94bf4dbd2c16c6ee96cbc12",
+    "probe_capture_types.go": "b6ae4da10f92e029c1763596bffe47714de6385cf9dfdeb5d9b0f2a67b504123",
     "testdata/probe-memory.json": "697b44a58492974262b7fd020271e6ba26bb4363fa69b02937e00fb25f9e4ed1",
     "testdata/probe-capture.json": "18790910463c05b55c5d4fabd1e1c0972d9b4425bc6e14b0c6dccabe8f12ce64",
     "probe_process.go": "2b475b8e78637e73a7999efc275206bc85bc0caf05a754b176aabf0f6311cddc",
@@ -724,7 +724,7 @@
     "probe_pad.go": "e66c4f1715626217c4bfd6b23e395cf87f9670e47d35027763d38d592922cab9",
     "probe_lifecycle.go": "6da193528cf25ccd50245aed9a1d351bbbe4e330a1695c35b12e8889ac262c02",
     "probe_lifecycle_types.go": "24a78eac2f8903530dcae0a12061b90f6cb4c95faf2736fbf0cea181a81bb861",
-    "probe_lifecycle_test.go": "51ac6108ae5efb35e865623404c2b6f7123ff11c2c475c40d6ea8a11a7c15f66",
+    "probe_lifecycle_test.go": "c6d2bceb169116f7293b9d1328d1ad83b25a9ea9312ef66f9d6b5a7450f1bdcc",
     "testdata/probe-lifecycle.json": "9967eba408e9aa4ebba78d1c92d5a2953ca390dd8c5c51b1a136b9aaa7bc2745",
     "profiles/probe/lifecycle-actions.json": "4b92f57cfc141b1551624549a30fd823de5e8d72ee0ae120eef7af4dbd4bd5f6",
     "profiles/probe/pad-layout.json": "b083cf1e0e99f3e8e7c7a7c7ddce84c373c04995be64448183fdb924c4afbf5f",
@@ -760,7 +760,7 @@
     "testdata/probe-image.json": "47db0208115abc681da3812b3a5ec270f6665554397cb40c70f8c349eb41a50e",
     "testdata/probe-image.png": "5499197ad0de203df894f6d78915c87deffa744c40507d931f9f2a3fdfc64f93",
     "probe_sampler.go": "04a15824c64c45c706ed97c7b1a98f55f581e7370f27d9e7b38b95732adfd067",
-    "probe_sampler_types.go": "5006bc1c5ce60e15acf34ffb7c1debea97dd1ba611f403df20d94155fa970c8c",
+    "probe_sampler_types.go": "3a0ea50ed651a3b557646866e940312bca086788ec94adbd0068dceac6812ca4",
     "go.mod": "612d42d8803a68a12eb4877c18937e5bde0a7dd6ca01387ee89d01a20212c40f",
     "fonts/hud-labels.json": "7d817618be1ddcb8ed03b07d69d1696ea63d56476370cbfb8592e7939f7215ce",
     "fonts/hud-labels.png": "dbf8e9919630215d87221615d1b54eda3a06f7c8075305edbf955993b6f670ca",
@@ -773,7 +773,8 @@
     "testdata/weekday-render.zip": "7c9ef5de26a1598dea21f6de55e9be309d64ac2d63c8eebead5ba6b4ef3eef60",
     "testdata/probe-flatpak.json": "4a6107d93bddab8f205d3c1e07bd11734bc4490ab52ef52ea22772c617ea770f",
     "probe_pad_x11.go": "786b4a6cf4a39680188a2964135fd84f738bad04ecef77f28bec78faef3e1602",
-    "probe_pad_x11_disabled.go": "cec76d7a4de36d9055bac1eaa28c0a9f9c4afb30d0ad1e1ad43202784fe1f282"
+    "probe_pad_x11_disabled.go": "cec76d7a4de36d9055bac1eaa28c0a9f9c4afb30d0ad1e1ad43202784fe1f282",
+    "probe_frame_publish.go": "fcfc34ec68b41364a48b2837abea46a51fc7edd15bb8d51fc5e4c92294672147"
   },
   "prior_checkpoints": [
     {
@@ -4228,5 +4229,5 @@
     "native_executions": 0,
     "artifact_path_context": "Relative ../v1 log/binary paths below belong to the local worker receiptv2 directory; they are not published repository artifacts"
   },
-  "current_verification_scope": "2026-11-23 optionalprivate-X11source: actualTestProbeRecords andTestMisalignedTargetAndWriterBoundary coreRACE29.193s andnativex11normal6.000s PASS;core/nativex11/combinednativefonts+nativex11 build/vetPASS. Whole12-actioncontrollednewgame cohort TIMEOUT240.010s,UNVERIFIED; fullsuite/nativecontrols/save/JPEGqualification NOTRUN. PriorA2package28.158s WriterselectionUNCONFIRMED (retainedcommandabsent); immutablehistorypreserved. No newmilestonecredit."
+  "current_verification_scope": "2026-11-23 opt-in first ordinary raw-witness source: actual TestProbeRecords and TestMisalignedTargetAndWriterBoundary core RACE35.826s and nativex11 normal6.767s PASS; core/nativex11/combined nativefonts+nativex11 build/vet PASS. Exact worker source055778 and all986 AS-TESTED inputs independently verified; current integration983 identical plus only3 current metadata owner differences. No reruns inferred from metadata. Earlier optional private-X11 whole12-action controlled newgame cohort TIMEOUT240.010s UNVERIFIED retained; priorA2 Records28.158s Writer selection UNCONFIRMED (retained command absent). Fullsuite/native/Pillow parity NOTRUN. No milestone credit."
 }
