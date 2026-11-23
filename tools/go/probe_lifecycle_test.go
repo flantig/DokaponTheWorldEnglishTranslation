@@ -1321,6 +1321,10 @@ func TestProbeLifecycle(t *testing.T) {
 			if prelaunchCap {
 				expectedEffects = append(expectedEffects, "pad")
 			}
+			proof := result.Steps[0].Evidence
+			if proof == nil || proof.Path != filepath.Join(candidate.Root, "profile", "PCSX2", "inis", "PCSX2.ini") || proof.Size != int64(len(expected)) || proof.SHA256 != fmt.Sprintf("%x", sha256.Sum256([]byte(expected))) {
+				t.Fatal(row.Name, "prepared settings evidence differs from acknowledged writer bytes", proof)
+			}
 			if err != nil || string(actual) != expected || !slices.Equal(result.Steps[0].Effects, expectedEffects) {
 				t.Fatal(row.Name, "private Flatpak version output differs or reached launch", err, result.Steps[0])
 			}

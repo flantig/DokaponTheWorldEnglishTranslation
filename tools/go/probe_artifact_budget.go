@@ -50,6 +50,7 @@ type ProbeArtifactClaim struct {
 type ProbeArtifactBudget struct {
 	MaxFiles, MaxBytes, FinalizerFiles, FinalizerBytes uint64
 	Roots, NativeFiles, SnapshotRoots                  map[string]os.FileInfo
+	NativeSettings                                     *ProbeNativeSettings
 	claims                                             map[string]ProbeArtifactClaim
 	active                                             map[string]bool
 	observed                                           map[string]os.FileInfo
@@ -112,6 +113,18 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 	}
 	current := map[string]os.FileInfo{}
 	visited := map[string]os.FileInfo{}
+	settingsPath, settingsTemp := "", ""
+	if settings := budget.NativeSettings; settings != nil {
+		reserved := budget.active[settings.Prepared.ID] && budget.claims[settings.Prepared.ID].MaxFinalBytes == 1<<20
+		for _, claim := range claims {
+			if action == probeArtifactReserve && claim.ID == settings.Prepared.ID && claim.Path == settings.Prepared.Path && claim.MaxFinalBytes == 1<<20 {
+				reserved = true
+			}
+		}
+		if settings.Armed || reserved {
+			settingsPath = settings.Prepared.Path
+		}
+	}
 	directoryIDs := map[[2]uint64]string{}
 	for len(queue) != 0 {
 		directory := queue[0]
@@ -163,6 +176,10 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 			if err != nil {
 				return fmt.Errorf("artifact inventory entry unavailable: %s", path)
 			}
+			settingsCandidate := settingsPath != "" && filepath.Dir(path) == filepath.Dir(settingsPath) && strings.HasPrefix(path, settingsPath+".")
+			if settingsCandidate && (!budget.NativeSettings.Armed || !info.Mode().IsRegular()) {
+				return fmt.Errorf("native settings staging file is not admitted: %s", path)
+			}
 			if info.IsDir() {
 				if _, snapshot := budget.SnapshotRoots[directory]; snapshot {
 					return fmt.Errorf("artifact snapshot root contains a directory")
@@ -183,6 +200,29 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 				return fmt.Errorf("artifact is not an exclusive owned regular file: %s", path)
 			}
 			current[path] = info
+			if settingsCandidate {
+				suffix := strings.TrimPrefix(path, settingsPath+".")
+				if len(suffix) != 6 || strings.Trim(suffix, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") != "" || !info.Mode().IsRegular() || info.Mode().Perm() != 0600 || info.Size() > 1<<20 || settingsTemp != "" {
+					return fmt.Errorf("native settings staging file exceeds its exact slot: %s", path)
+				}
+				settingsTemp = path
+				if !os.SameFile(budget.NativeSettings.Parent, visited[directory]) || info.Mode().Perm() != 0600 {
+					return fmt.Errorf("native settings staging parent differs")
+				}
+				if prior := budget.observed[path]; prior != nil && !os.SameFile(prior, info) {
+					return fmt.Errorf("native settings staging inode changed: %s", path)
+				}
+				// Measured native exposure survives a later semantic/action refusal;
+				// this discovery does not accept a new destination identity.
+				if budget.held == nil {
+					budget.held = map[string]uint64{}
+				}
+				if budget.observed == nil {
+					budget.observed = map[string]os.FileInfo{}
+				}
+				budget.held[path] = max(budget.held[path], uint64(info.Size()))
+				budget.observed[path] = info
+			}
 			if len(current) > 1<<20 {
 				return fmt.Errorf("artifact file inventory exceeds its proof limit")
 			}
@@ -234,15 +274,29 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 			return fmt.Errorf("native artifact inode changed: %s", path)
 		}
 	}
+	if settingsPath != "" {
+		if info := current[settingsPath]; info != nil {
+			if budget.held == nil {
+				budget.held = map[string]uint64{}
+			}
+			// A refused semantic replacement can still have consumed real bytes.
+			budget.held[settingsPath] = max(budget.held[settingsPath], uint64(info.Size()))
+		}
+		verified, err := validateProbeNativeSettings(budget.NativeSettings, current[settingsPath])
+		if err != nil {
+			return err
+		}
+		current[settingsPath] = verified
+	}
 	for path, prior := range budget.observed {
 		info := current[path]
 		if info == nil {
 			continue // Retain exposure until an explicit absence acknowledgment.
 		}
-		if !os.SameFile(prior, info) {
+		if path != settingsPath && !os.SameFile(prior, info) {
 			return fmt.Errorf("observed artifact inode changed: %s", path)
 		}
-		mutable := false
+		mutable := path == settingsPath || path == settingsTemp
 		if _, ok := budget.NativeFiles[path]; ok {
 			mutable = true
 		}
@@ -288,7 +342,17 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		held[path] = max(held[path], size)
 	}
 	// Discovery can only increase retained exposure, including on later failures.
-	budget.observed, budget.held = maps.Clone(observed), maps.Clone(held)
+	discovered := maps.Clone(observed)
+	if settingsPath != "" {
+		// A semantically accepted replacement is still provisional until the
+		// action and final directory guards succeed. Exposure may only grow.
+		if prior := budget.observed[settingsPath]; prior != nil {
+			discovered[settingsPath] = prior
+		} else {
+			delete(discovered, settingsPath)
+		}
+	}
+	budget.observed, budget.held = discovered, maps.Clone(held)
 	for id, baseline := range baselines {
 		claim := staged[id]
 		fresh := ""
@@ -445,6 +509,18 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 	classes := map[string]ProbeArtifactClass{}
 	var ordinaryFiles, ordinaryBytes, finalizerFiles, finalizerBytes uint64
 	ordinaryExceeded := budget.ordinaryExceeded
+	if settingsPath != "" {
+		// Reserve the maximum two-file save overlap before the writer starts.
+		// Destination capacity belongs to its existing exact-file reservation.
+		claim, present := staged[budget.NativeSettings.Prepared.ID]
+		if !present || !active[claim.ID] || claim.Path != settingsPath || claim.Class != probeArtifactNormal || claim.MaxFinalBytes != 1<<20 {
+			return fmt.Errorf("native settings lack their exact destination reservation")
+		}
+		if budget.MaxBytes-budget.FinalizerBytes < 1<<20 {
+			return fmt.Errorf("native settings temporary slot exceeds ordinary capacity")
+		}
+		ordinaryFiles, ordinaryBytes = 1, 1<<20
+	}
 	for id, claim := range staged {
 		path := claim.Path
 		if baselines[id] != nil {
@@ -462,6 +538,9 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		classes[path] = claim.Class
 	}
 	for path, size := range exposure {
+		if path == settingsTemp {
+			continue // Its live exposure is already charged to the one-MiB slot.
+		}
 		if classes[path] == probeArtifactFinalizer {
 			finalizerFiles++
 			if size > budget.FinalizerBytes-finalizerBytes {
@@ -495,6 +574,37 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		stat, ok := info.Sys().(*syscall.Stat_t)
 		if !ok || stat.Uid != uint32(os.Getuid()) {
 			return fmt.Errorf("artifact directory owner changed during accounting: %s", directory)
+		}
+	}
+	if settingsPath != "" {
+		prior := current[settingsPath]
+		info, err := os.Lstat(settingsPath)
+		if err != nil || !os.SameFile(prior, info) || prior.Size() != info.Size() || prior.ModTime() != info.ModTime() || prior.Mode() != info.Mode() {
+			return fmt.Errorf("native settings changed before accounting acknowledgment")
+		}
+		stat, ok := info.Sys().(*syscall.Stat_t)
+		if !ok || stat.Uid != uint32(os.Getuid()) || stat.Nlink != 1 {
+			return fmt.Errorf("native settings ownership changed before acknowledgment")
+		}
+		if settingsTemp != "" {
+			info, err := os.Lstat(settingsTemp)
+			if err != nil || !os.SameFile(current[settingsTemp], info) || !info.Mode().IsRegular() || info.Mode().Perm() != 0600 || info.Size() < 0 || info.Size() > 1<<20 {
+				return fmt.Errorf("native settings staging identity changed before acknowledgment")
+			}
+			stat, ok := info.Sys().(*syscall.Stat_t)
+			if !ok || stat.Uid != uint32(os.Getuid()) || stat.Nlink != 1 {
+				return fmt.Errorf("native settings staging ownership changed before acknowledgment")
+			}
+			observed[settingsTemp] = info
+			held[settingsTemp] = max(held[settingsTemp], uint64(info.Size()))
+		}
+		parent, err := os.Lstat(filepath.Dir(settingsPath))
+		if err != nil || !os.SameFile(budget.NativeSettings.Parent, parent) || !parent.IsDir() || parent.Mode().Perm() != 0700 {
+			return fmt.Errorf("native settings parent changed before acknowledgment")
+		}
+		parentStat, ok := parent.Sys().(*syscall.Stat_t)
+		if !ok || parentStat.Uid != uint32(os.Getuid()) {
+			return fmt.Errorf("native settings parent owner changed before acknowledgment")
 		}
 	}
 	budget.claims, budget.active = staged, active

@@ -30,7 +30,7 @@ import (
 )
 
 func TestProbeRecords(t *testing.T) {
-	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "retire-no-proof", "retire-wrong-inode", "retire-replaced", "retire-overage", "retire-overage-ordinary", "retire-before-launch", "directory-bound", "large-maxfiles"} {
+	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "retire-no-proof", "retire-wrong-inode", "retire-replaced", "retire-overage", "retire-overage-ordinary", "retire-before-launch", "directory-bound", "large-maxfiles", "settings-rename", "settings-temp", "settings-key", "settings-missing", "settings-extra", "settings-alias", "settings-parent", "settings-symlink", "settings-hardlink", "settings-size", "settings-rollback", "settings-temp-cap", "settings-pad-retire", "settings-prelaunch-temp", "settings-temp-dir"} {
 		root := t.TempDir()
 		if err := os.Chmod(root, 0700); err != nil {
 			t.Fatal(err)
@@ -50,6 +50,191 @@ func TestProbeRecords(t *testing.T) {
 		budget := ProbeArtifactBudget{MaxFiles: 4, MaxBytes: 100, FinalizerFiles: 1, FinalizerBytes: 20, Roots: map[string]os.FileInfo{root: rootInfo}, NativeFiles: map[string]os.FileInfo{}, SnapshotRoots: map[string]os.FileInfo{}}
 		claim := ProbeArtifactClaim{ID: "writer", Path: path, MaxFinalBytes: 50}
 		other := ProbeArtifactClaim{ID: "other", Path: filepath.Join(root, "other"), MaxFinalBytes: 30}
+		if strings.HasPrefix(fault, "settings-") {
+			budget.MaxFiles, budget.MaxBytes, budget.FinalizerFiles, budget.FinalizerBytes = 32, 8<<20, 2, 1<<20
+			parent := filepath.Join(root, "inis")
+			if err := os.Mkdir(parent, 0700); err != nil {
+				t.Fatal(err)
+			}
+			config := filepath.Join(parent, "PCSX2.ini")
+			initial := []byte("[UI]\nSettingsVersion=1\n[Hotkeys]\nResetVM=\n[EmuCore]\nPINESlot=28094\n[Folders]\nMemoryCards=memcards\n")
+			if err := writeProbeArtifact(&budget, probeArtifactNormal, config, bytes.NewReader(initial), int64(len(initial)), fmt.Sprintf("%x", sha256.Sum256(initial)), 0600); err != nil {
+				t.Fatal(fault, err)
+			}
+			values, _, _, err := parseProbeSettings(initial, "private-x11", true)
+			if err != nil {
+				t.Fatal(err)
+			}
+			policy := &ProbeNativeSettings{Prepared: budget.claims["artifact:"+config], Parent: budget.Roots[parent], Values: values, Backend: "private-x11"}
+			budget.NativeSettings = policy
+			if _, err := validateProbeNativeSettings(policy, policy.Prepared.ExpectedInfo); err != nil {
+				t.Fatal("initial settings handoff", err)
+			}
+			reservation := policy.Prepared
+			reservation.MaxFinalBytes = 1 << 20
+			if fault == "settings-prelaunch-temp" {
+				if err := os.WriteFile(config+".ABC123", nil, 0600); err != nil {
+					t.Fatal(err)
+				}
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{reservation}); err == nil || policy.Armed || budget.active[reservation.ID] {
+					t.Fatal("preexisting temporary gained writer authority", err)
+				}
+				continue
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{reservation}); err != nil {
+				t.Fatal("settings overlap reservation", err)
+			}
+			policy.Armed = true
+			before := budget.observed[config]
+			normalized := "[UI]\r\nSettingsVersion = 1\r\nMainWindowGeometry = AQ==\r\n[UI]\r\nMainWindowState = Ag==\r\n[Hotkeys]\r\nResetVM = \r\n[EmuCore]\r\nPINESlot = 28094\r\n[Folders]\r\nMemoryCards = memcards\r\n[GameListTableView]\r\nHeaderState = Aw==\r\n"
+			switch fault {
+			case "settings-key":
+				normalized = strings.Replace(normalized, "PINESlot = 28094", "PINESlot = 28011", 1)
+			case "settings-missing":
+				normalized = strings.Replace(normalized, "ResetVM = \r\n", "", 1)
+			case "settings-extra":
+				normalized += "[Other]\nForeign=true\n"
+			case "settings-alias":
+				normalized = strings.Replace(normalized, "PINESlot =", "pineslot =", 1)
+			case "settings-size":
+				normalized += strings.Repeat(" ", 1<<20)
+			}
+			temporary := config + ".ABC123"
+			if fault == "settings-temp-dir" {
+				if err := os.Mkdir(temporary, 0700); err != nil {
+					t.Fatal(err)
+				}
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err == nil || !os.SameFile(before, budget.observed[config]) {
+					t.Fatal("staging directory bypassed regular-file slot", err)
+				}
+				continue
+			}
+			if err := os.WriteFile(temporary, nil, 0600); err != nil {
+				t.Fatal(err)
+			}
+			if fault == "settings-temp" || fault == "settings-temp-cap" {
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil {
+					t.Fatal("empty live temporary", err)
+				}
+				if err := os.WriteFile(temporary, []byte("partial save"), 0600); err != nil {
+					t.Fatal(err)
+				}
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil || budget.held[temporary] != uint64(len("partial save")) {
+					t.Fatal("growing temporary slot", err)
+				}
+				if fault == "settings-temp-cap" {
+					budget.MaxFiles = uint64(len(budget.held)) + budget.FinalizerFiles
+					if err := os.Remove(temporary); err != nil {
+						t.Fatal(err)
+					}
+					if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err == nil || budget.held[temporary] != uint64(len("partial save")) || !budget.ordinaryExceeded {
+						t.Fatal("disappeared temporary lost exposure or future slot", err)
+					}
+					continue
+				}
+			}
+			if err := os.WriteFile(temporary, []byte(normalized), 0600); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.Rename(temporary, config); err != nil {
+				t.Fatal(err)
+			}
+			switch fault {
+			case "settings-parent":
+				if err := os.Rename(parent, parent+"-old"); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.Mkdir(parent, 0700); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(config, []byte(normalized), 0600); err != nil {
+					t.Fatal(err)
+				}
+			case "settings-symlink", "settings-hardlink":
+				if err := os.Rename(config, config+"-foreign"); err != nil {
+					t.Fatal(err)
+				}
+				if fault == "settings-symlink" {
+					err = os.Symlink(config+"-foreign", config)
+				} else {
+					err = os.Link(config+"-foreign", config)
+				}
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+			if fault == "settings-key" {
+				if err := os.WriteFile(config+".DEF456", []byte("retained"), 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			claimsBefore, activeBefore, nativeBefore := maps.Clone(budget.claims), maps.Clone(budget.active), maps.Clone(budget.NativeFiles)
+			requested := []ProbeArtifactClaim(nil)
+			if fault == "settings-rollback" {
+				requested = []ProbeArtifactClaim{{ID: "", Path: config}}
+			}
+			err = accountProbeArtifacts(&budget, probeArtifactReserve, requested)
+			refused := fault != "settings-rename" && fault != "settings-temp" && fault != "settings-pad-retire"
+			if (err != nil) != refused {
+				t.Fatal(fault, "settings replacement admission", err)
+			}
+			if refused {
+				if fault == "settings-size" && budget.held[config] != uint64(len(normalized)) {
+					t.Fatal("oversized replacement lost measured high-water exposure")
+				}
+				if fault == "settings-key" && budget.held[config+".DEF456"] != uint64(len("retained")) {
+					t.Fatal("semantic refusal erased measured staging exposure")
+				}
+				if !os.SameFile(before, budget.observed[config]) || !reflect.DeepEqual(claimsBefore, budget.claims) || !reflect.DeepEqual(activeBefore, budget.active) || !reflect.DeepEqual(nativeBefore, budget.NativeFiles) {
+					t.Fatal(fault, "refusal published replacement authority")
+				}
+				continue
+			}
+			if os.SameFile(before, budget.observed[config]) || policy.Prepared.ExpectedSHA256 != fmt.Sprintf("%x", sha256.Sum256(initial)) || budget.claims[reservation.ID].MaxFinalBytes != 1<<20 {
+				t.Fatal("normalized replacement lost original proof or destination capacity")
+			}
+			if fault == "settings-temp" && budget.held[temporary] != uint64(len("partial save")) {
+				t.Fatal("renamed temporary exposure was silently retired")
+			}
+			if fault == "settings-pad-retire" {
+				pad := filepath.Join(root, "pad.sock")
+				padClaim := ProbeArtifactClaim{ID: "native:" + pad, Path: pad, Class: probeArtifactNative}
+				budget.NativeFiles[pad] = nil
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{padClaim}); err != nil {
+					t.Fatal(err)
+				}
+				listener, err := net.ListenUnix("unix", &net.UnixAddr{Name: pad, Net: "unix"})
+				if err != nil {
+					t.Fatal(err)
+				}
+				listener.SetUnlinkOnClose(false)
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil {
+					listener.Close()
+					t.Fatal(err)
+				}
+				padClaim.ExpectedInfo = budget.NativeFiles[pad]
+				if err := listener.Close(); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.Remove(pad); err != nil {
+					t.Fatal(err)
+				}
+				directory, err := os.Open(root)
+				if err != nil {
+					t.Fatal(err)
+				}
+				err = directory.Sync()
+				err = errors.Join(err, directory.Close())
+				if err != nil {
+					t.Fatal(err)
+				}
+				budget.finalizing = true
+				if err := accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{padClaim}); err != nil {
+					t.Fatal("config normalization blocked exact pad retirement", err)
+				}
+			}
+			continue
+		}
 		if fault == "directory-bound" {
 			for index := 0; index < 4; index++ {
 				if err := os.Mkdir(filepath.Join(root, strconv.Itoa(index)), 0700); err != nil {

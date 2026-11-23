@@ -160,7 +160,8 @@ One approved mini_g02 native-asset artifact now supplies actual fullRGBA and raw
 Linux builds with CGO and `-tags nativex11` can select `pad_backend: "private-x11"`.
 The optional SDK uses `pkg-config` packages `xcb`, `xcb-res`, `xcb-xinput`,
 `xcb-xtest` and `x11`; the default build refuses this backend before effects.
-This source capability has not yet been exercised against native Xephyr/PCSX2.
+R3 completed native private-pad setup and emulator launch; its log reached game
+boot, but Go readiness, keys, F8 and capture remained unqualified.
 
 `private_x11` pins `display`, `authority` (path/size/SHA256), `server_program`
 (path/size/SHA256) and `server` (the actual Xephyr PID/start/argv observation).
@@ -174,6 +175,22 @@ The pinned PCSX2 2.8.2 Flatpak needs `UI.SettingsVersion=1`. Private preparation
 inserts a genuinely missing key into its generated INI, preserving the verified
 seed and other bytes/line endings. Explicit supported version1 remains identical;
 blank, unsupported or ambiguous version keys refuse before profile creation.
+The prepare effect records the generated INI's acknowledged writer size/hash;
+the original seed identity remains separate. At sampled Flatpak launch, the
+exact prepared INI and its private parent pass to a bounded native writer role.
+PCSX2 saves through `PCSX2.ini.XXXXXX` and atomic rename. Stable exclusive0600
+readback must preserve every prepared section/key/value, including empty bindings;
+only `UI.MainWindowGeometry`, `UI.MainWindowState` and
+`GameListTableView.HeaderState` may be added. Case aliases and foreign keys refuse.
+The destination and one concurrent six-alphanumeric save temporary each reserve
+one file/one MiB before launch. A live temporary uses that slot once; every
+observed disappeared temporary retains its measured high-water exposure until
+the bounded run ends, so repeated saves can exhaust the configured cap.
+Unstable reads, preexisting staging files and changed parent authority refuse.
+This is a cooperative exact-path contract, not proof of which process wrote an
+inode. Other native pins, immutable outputs and screenshot baselines stay strict.
+R3's prior INI guard and cascading socket publication refusal are preserved
+historical failures; this source change still needs a separately admitted native run.
 
 Before launch, the authenticated private-server connection disables the exact
 Xephyr physical keyboard/mouse forwarders. Setup binds their distinct IDs by

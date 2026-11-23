@@ -2426,47 +2426,10 @@ requests:
 						}
 					}
 				}
-				values := map[string]string{}
-				nativeKeys := map[string]bool{}
-				section := ""
-				uiInsertAt, offset := -1, 0
-				uiLineEnding := "\n"
-				for _, rawLine := range strings.SplitAfter(string(settings), "\n") {
-					offset += len(rawLine)
-					line := strings.TrimSpace(rawLine)
-					if line == "" || strings.HasPrefix(line, ";") || strings.HasPrefix(line, "#") {
-						continue
-					}
-					if strings.HasPrefix(line, "[") && strings.HasSuffix(line, "]") {
-						section = line[1 : len(line)-1]
-						if profile.Flatpak != nil && strings.EqualFold(section, "UI") {
-							if section != "UI" {
-								step.Reason = "private settings UI section is ambiguous"
-								break actions
-							}
-							if uiInsertAt < 0 && strings.HasSuffix(rawLine, "\n") {
-								uiInsertAt = offset
-								if strings.HasSuffix(rawLine, "\r\n") {
-									uiLineEnding = "\r\n"
-								}
-							}
-						}
-						continue
-					}
-					key, value, found := strings.Cut(line, "=")
-					name := section + "." + strings.TrimSpace(key)
-					_, duplicate := values[name]
-					folded := strings.ToLower(name)
-					if profile.Flatpak != nil && folded == "ui.settingsversion" && (name != "UI.SettingsVersion" || nativeKeys[folded]) {
-						step.Reason = "private settings version is ambiguous"
-						break actions
-					}
-					if !found || duplicate || (padBackend == "uinput" || padBackend == "private-x11") && nativeKeys[folded] {
-						step.Reason = "settings template is not normalized"
-						break actions
-					}
-					nativeKeys[folded] = true
-					values[name] = strings.TrimSpace(value)
+				values, uiInsertAt, uiLineEnding, err := parseProbeSettings(settings, padBackend, profile.Flatpak != nil)
+				if err != nil {
+					step.Reason = err.Error()
+					break actions
 				}
 				if profile.Flatpak != nil {
 					version, present := values["UI.SettingsVersion"]
@@ -2481,6 +2444,7 @@ requests:
 						}
 						// PCSX2 2.8.2 blocks on a reset/abort dialog without this key.
 						settings = slices.Concat(settings[:uiInsertAt], []byte("SettingsVersion=1"+uiLineEnding), settings[uiInsertAt:])
+						values["UI.SettingsVersion"] = "1"
 					}
 				}
 				for key, value := range required {
@@ -2569,6 +2533,12 @@ requests:
 					if err != nil {
 						step.Reason = err.Error()
 						break actions
+					}
+					if copyRole == "settings" && profile.Flatpak != nil {
+						step.Evidence = &RegistryInput{Path: target, Size: input.Size, SHA256: input.SHA256}
+						if artifactBudget != nil {
+							artifactBudget.NativeSettings = &ProbeNativeSettings{Prepared: artifactBudget.claims["artifact:"+target], Parent: artifactBudget.Roots[filepath.Dir(target)], Values: values, Backend: padBackend}
+						}
 					}
 				}
 			case "pad":
@@ -2730,6 +2700,15 @@ requests:
 				if profile.Flatpak != nil {
 					processes.Command.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
 				}
+				if profile.Flatpak != nil && artifactBudget != nil && artifactBudget.NativeSettings != nil && !artifactBudget.NativeSettings.Armed {
+					settings := artifactBudget.NativeSettings
+					claim := settings.Prepared
+					claim.MaxFinalBytes = 1 << 20
+					if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+				}
 				log, err := os.OpenFile(filepath.Join(profile.Root, fmt.Sprintf("child-epoch-%d.log", epoch)), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
 				if err != nil {
 					processes.Command = nil
@@ -2744,6 +2723,9 @@ requests:
 					break actions
 				}
 				_ = log.Close()
+				if profile.Flatpak != nil && artifactBudget != nil && artifactBudget.NativeSettings != nil {
+					artifactBudget.NativeSettings.Armed = true
+				}
 				processes.Launched = true
 				processes.BootstrapPending = true
 				readyDeadline = time.Now().Add(time.Duration(profile.ReadyTimeoutMS) * time.Millisecond)
