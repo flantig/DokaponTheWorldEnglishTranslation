@@ -135,6 +135,9 @@ func composeCells(base *image.NRGBA, atlas *image.Gray, font RasterFont, composi
 	rectangles := make([]image.Rectangle, 0, len(cells))
 	cellIndices := make(map[string]int)
 	for i, cell := range cells {
+		if cell.RegistryID != nil || cell.Uppercase {
+			return nil, nil, fmt.Errorf("bitmap registry text must be resolved before composition")
+		}
 		_, duplicate := cellIndices[cell.ID]
 		if cell.ID == "" || len(cell.ID) > 128 || !utf8.ValidString(cell.ID) || duplicate || len(cell.Rect) != 4 {
 			return nil, nil, fmt.Errorf("invalid bitmap cell identity, text, rectangle or colors")
@@ -171,6 +174,12 @@ func composeCells(base *image.NRGBA, atlas *image.Gray, font RasterFont, composi
 		}
 		rect := image.Rect(x, y, x+w, y+h).Add(base.Rect.Min)
 		paint := image.Rect(x, y, x+w, y+h).Add(base.Rect.Min)
+		if cell.Scale != nil {
+			if metric || *cell.Scale < 1 || w%*cell.Scale != 0 || h%*cell.Scale != 0 {
+				return nil, nil, fmt.Errorf("pixel cell scale must be positive and divide its physical dimensions")
+			}
+			w, h = w / *cell.Scale, h / *cell.Scale
+		}
 		if metric && len(cell.Background) == 0 {
 			paint = image.Rectangle{}
 			if cell.BackgroundRect != nil {
@@ -428,7 +437,11 @@ func composeCells(base *image.NRGBA, atlas *image.Gray, font RasterFont, composi
 		i := cellIndices[id]
 		cell := cells[i]
 		layout := layouts[i]
-		tile := image.NewNRGBA(image.Rect(0, 0, layout.bounds.Dx(), layout.bounds.Dy()))
+		scale := 1
+		if cell.Scale != nil {
+			scale = *cell.Scale
+		}
+		tile := image.NewNRGBA(image.Rect(0, 0, layout.bounds.Dx()/scale, layout.bounds.Dy()/scale))
 		background := color.NRGBA{255, 255, 255, 0}
 		if metric && len(cell.Background) != 0 {
 			background = color.NRGBA{uint8(cell.Background[0]), uint8(cell.Background[1]), uint8(cell.Background[2]), uint8(cell.Background[3])}
@@ -526,6 +539,13 @@ func composeCells(base *image.NRGBA, atlas *image.Gray, font RasterFont, composi
 					}
 				}
 			}
+		}
+		if scale != 1 {
+			resized, err := resizeRaster(tile, layout.bounds.Dx(), layout.bounds.Dy(), "nearest", nil)
+			if err != nil {
+				return nil, nil, err
+			}
+			tile = resized.(*image.NRGBA) // NRGBA nearest retains raw channels, including transparent RGB.
 		}
 		if allow != nil {
 			for y := 0; y < tile.Rect.Dy(); y++ {

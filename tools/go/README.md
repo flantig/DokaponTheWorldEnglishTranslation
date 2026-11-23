@@ -578,6 +578,20 @@ is verified; the bounded native run integration below adds antialiasing and
 colored text. Other styles, TTF and donor reconstruction remain in progress. This adds12,694 bytes across code and runtime data, including
 one justified function; test and fixture costs are separate.
 
+Pixel cells may use `registry_id` instead of `text`, with a pinned
+`render.registry` resource (`path`, `size`, `sha256`, relative to the profile).
+Optional `uppercase: true` changes presentation of the resolved English only.
+The registry stays read-only; missing/blank wording, ambiguous numeric IDs,
+conflicting text sources and unused bindings refuse. The captured registry bytes
+are rechecked before publication or a successful preview. The CLI still refuses
+combining `--texture-profile` with `--registry`.
+The canonical lower-case `cells` key is required; aliases and duplicate declarations refuse.
+Optional pixel-cell `scale` is a positive integer dividing both physical rectangle
+dimensions. The complete logical cell, including outline and shade, is enlarged
+with nearest sampling before physical permissions are checked. Omission means1;
+null, nonpositive values and scale on metric cells refuse. These capabilities do
+not establish the secondary seven-day source pairing or visual/native approval.
+
 The [native-font scaling foundation](evidence/raster-resize-proof.json) now has
 one pure [resizer](raster_resize.go) for Gray glyphs and RGBA word layers. It
 matches134 frozen pixel cases and8,803 independent filter coefficients, including

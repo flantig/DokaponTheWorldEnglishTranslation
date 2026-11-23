@@ -15729,7 +15729,7 @@ func TestCLIDryRunAndApply(t *testing.T) {
 }
 
 func TestRegistryWordingAndNewRecipeNeedsNoHandler(t *testing.T) {
-	r, registry, glyphs, image := fixture(t, "same_length_stream")
+	r, registry, glyphs, sourceImage := fixture(t, "same_length_stream")
 	first, err := plan([]Recipes{r}, registry, glyphs, nil)
 	if err != nil {
 		t.Fatal(err)
@@ -15745,8 +15745,8 @@ func TestRegistryWordingAndNewRecipeNeedsNoHandler(t *testing.T) {
 	entry := registry.Entries[0]
 	entry.ID = "0x20"
 	registry.Entries = append(registry.Entries, entry)
-	copy(image[32:], []byte{4, 0, 0, 0xf8})
-	r.SourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(image))
+	copy(sourceImage[32:], []byte{4, 0, 0, 0xf8})
+	r.SourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(sourceImage))
 	r.Entries["0x20"] = Recipe{ExpectedHex: "040000f8", Evidence: "fourth recipe, same operation"}
 	edits, err := plan([]Recipes{r}, registry, glyphs, nil)
 	if err != nil || len(edits) != 2 {
@@ -15756,6 +15756,221 @@ func TestRegistryWordingAndNewRecipeNeedsNoHandler(t *testing.T) {
 		t.Fatal("unstable plan ordering")
 	}
 
+	// Archived approved pixels independently pin styling before the physical 2x expansion.
+	dir := t.TempDir()
+	var bitmap struct {
+		SourceBundle   string `json:"source_bundle"`
+		SourceKey      string `json:"source_key"`
+		ExpectedBundle string `json:"expected_bundle"`
+		ExpectedKey    string `json:"expected_key"`
+		TXD            string `json:"txd_sha256"`
+		Profile        string
+	}
+	oracle, err := os.ReadFile("testdata/bitmap-render.json")
+	if err != nil || json.Unmarshal(oracle, &bitmap) != nil {
+		t.Fatal("bitmap registry oracle", err)
+	}
+	members := make(map[string][]byte)
+	for _, input := range []struct{ name, path, key string }{{"source", bitmap.SourceBundle, bitmap.SourceKey}, {"expected", bitmap.ExpectedBundle, bitmap.ExpectedKey}} {
+		archive, err := zip.OpenReader(input.path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		reader, err := archive.Open(input.key)
+		if err != nil {
+			t.Fatal(err)
+		}
+		body, readErr := io.ReadAll(io.LimitReader(reader, 1<<20))
+		closeErr := reader.Close()
+		if readErr != nil || closeErr != nil {
+			t.Fatal(readErr, closeErr)
+		}
+		members[input.name] = body
+		if err := archive.Close(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if fmt.Sprintf("%x", sha256.Sum256(members["expected"])) != bitmap.TXD {
+		t.Fatal("approved bitmap identity")
+	}
+	profileData, err := os.ReadFile(bitmap.Profile)
+	var profile TextureProfile
+	if err != nil || json.Unmarshal(profileData, &profile) != nil {
+		t.Fatal(err)
+	}
+	sourcePath := filepath.Join(dir, "source.txd")
+	if err := os.WriteFile(sourcePath, members["source"], 0600); err != nil {
+		t.Fatal(err)
+	}
+	var out bytes.Buffer
+	literalPath := filepath.Join(dir, "literal.txd")
+	if err := authorTexture(sourcePath, bitmap.Profile, literalPath, true, &out); err != nil {
+		t.Fatal(err)
+	}
+	literal, err := os.ReadFile(literalPath)
+	if err != nil || !bytes.Equal(literal, members["expected"]) {
+		t.Fatal("literal five-pill compatibility", err)
+	}
+	_, approved, err := texture(literal, profile.Texture, nil, nil, "", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, base, err := texture(members["source"], profile.Texture, nil, nil, "", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	originalCell := profile.Render.Cells[0]
+	profile.Render.Font, err = filepath.Abs(filepath.Join(filepath.Dir(bitmap.Profile), profile.Render.Font))
+	if err != nil {
+		t.Fatal(err)
+	}
+	registryPath := filepath.Join(dir, "registry.json")
+	registryData := []byte(`{"entries":[{"id":"0x01","en":"all"}]}`)
+	ref, scale := "1", 2
+	cell := originalCell
+	cell.Rect, cell.Text, cell.RegistryID, cell.Uppercase, cell.Scale = []int{0, 0, 60, 34}, "", &ref, true, &scale
+	profile.Render.Cells = []BitmapCell{cell}
+	profile.Render.Registry = &RegistryInput{Path: "registry.json", Size: int64(len(registryData)), SHA256: fmt.Sprintf("%x", sha256.Sum256(registryData))}
+	boundPath := filepath.Join(dir, "bound.json")
+	for _, mutation := range []string{"valid", "same reference twice", "opaque metadata", "unknown ID", "blank EN", "duplicate numeric ID", "missing registry", "unused registry", "literal conflict", "zero scale", "negative scale", "indivisible scale", "scale null", "uppercase null", "uppercase without reference", "registry pin", "registry size", "explicit empty text", "binding alias", "cells alias", "EN alias", "ID alias", "entries alias", "physical allow", "metric scale"} {
+		wire, err := json.Marshal(profile)
+		var changed TextureProfile
+		if err != nil || json.Unmarshal(wire, &changed) != nil {
+			t.Fatal(err)
+		}
+		data := bytes.Clone(registryData)
+		switch mutation {
+		case "opaque metadata":
+			data = []byte(`{"entries":[{"id":"1","en":"all"}],"metadata":[{"EN":"opaque","ID":"opaque"}]}`)
+		case "same reference twice":
+			extra := changed.Render.Cells[0]
+			extra.ID, extra.Rect = "reused", []int{60, 0, 60, 34}
+			changed.Render.Cells = append(changed.Render.Cells, extra)
+		case "unknown ID":
+			*changed.Render.Cells[0].RegistryID = "2"
+		case "blank EN":
+			data = []byte(`{"entries":[{"id":"1","en":" "}]}`)
+		case "duplicate numeric ID":
+			data = []byte(`{"entries":[{"id":"1","en":"all"},{"id":"0x01","en":"all"}]}`)
+		case "EN alias":
+			data = []byte(`{"entries":[{"id":"1","en":"all","EN":"shop"}]}`)
+		case "ID alias":
+			data = []byte(`{"entries":[{"id":"2","ID":"1","en":"all"}]}`)
+		case "entries alias":
+			data = []byte(`{"entries":[],"Entries":[{"id":"1","en":"all"}]}`)
+		case "missing registry":
+			changed.Render.Registry = nil
+		case "unused registry":
+			changed.Render.Cells[0].RegistryID = nil
+			changed.Render.Cells[0].Uppercase = false
+			changed.Render.Cells[0].Text = "ALL"
+		case "literal conflict":
+			changed.Render.Cells[0].Text = "ALL"
+		case "zero scale":
+			*changed.Render.Cells[0].Scale = 0
+		case "negative scale":
+			*changed.Render.Cells[0].Scale = -1
+		case "indivisible scale":
+			*changed.Render.Cells[0].Scale = 3
+		case "uppercase without reference":
+			changed.Render.Registry = nil
+			changed.Render.Cells[0].RegistryID = nil
+			changed.Render.Cells[0].Text = "ALL"
+		case "registry pin":
+			changed.Render.Registry.SHA256 = strings.Repeat("0", 64)
+		case "registry size":
+			changed.Render.Registry.Size++
+		case "physical allow":
+			changed.Render.Reconstruction = &RasterReconstruction{Allow: [][]int{{0, 0, 30, 17}}}
+		}
+		if !bytes.Equal(data, registryData) {
+			changed.Render.Registry.Size, changed.Render.Registry.SHA256 = int64(len(data)), fmt.Sprintf("%x", sha256.Sum256(data))
+		}
+		wire, err = json.Marshal(changed)
+		if err != nil {
+			t.Fatal(err)
+		}
+		switch mutation {
+		case "scale null":
+			wire = bytes.Replace(wire, []byte(`"scale":2`), []byte(`"scale":null`), 1)
+		case "uppercase null":
+			wire = bytes.Replace(wire, []byte(`"uppercase":true`), []byte(`"uppercase":null`), 1)
+		case "explicit empty text":
+			wire = bytes.Replace(wire, []byte(`"registry_id":`), []byte(`"text":"","registry_id":`), 1)
+		case "binding alias":
+			wire = bytes.Replace(wire, []byte(`"registry_id":`), []byte(`"Registry_ID":`), 1)
+		case "cells alias":
+			wire = bytes.Replace(wire, []byte(`"cells":[`), []byte(`"Cells":[{},{}],"cells":[`), 1)
+		case "metric scale":
+			metricCell := BitmapCell{ID: "metric", Rect: []int{0, 0, 60, 34}, Scale: &scale, Runs: []BitmapRun{{Text: "A", Fill: []int{255, 255, 255, 255}}}, Layout: &BitmapRunLayout{At: []float64{30, 17}, Size: 12, MaxWidth: 60, ScaleX: 1}}
+			metricFont := RasterFont{Em: 3, Ascent: 3, CapHeight: 3, Glyphs: map[string]BitmapGlyph{"A": {Rect: []int{0, 0, 3, 3}, Advance: 3}}}
+			metricAtlas := image.NewGray(image.Rect(0, 0, 3, 3))
+			metricAtlas.SetGray(1, 1, color.Gray{255})
+			if got, _, err := composeCells(base, metricAtlas, metricFont, RasterComposition{Cells: []BitmapCell{metricCell}}); err == nil || got != nil || !strings.Contains(err.Error(), "pixel cell scale") {
+				t.Fatal("metric pixel scale admitted", err)
+			}
+			continue
+		}
+		if err := os.WriteFile(registryPath, data, 0600); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(boundPath, wire, 0600); err != nil {
+			t.Fatal(err)
+		}
+		output := filepath.Join(dir, mutation+".txd")
+		out.Reset()
+		if mutation == "valid" {
+			if err := authorTexture(sourcePath, boundPath, "", false, &out); err != nil {
+				t.Fatal("bound preview", err)
+			}
+			if _, err := os.Stat(output); !os.IsNotExist(err) {
+				t.Fatal("bound preview wrote output", err)
+			}
+			out.Reset()
+		}
+		err = authorTexture(sourcePath, boundPath, output, true, &out)
+		if mutation != "valid" && mutation != "same reference twice" && mutation != "opaque metadata" {
+			if err == nil || out.Len() != 0 {
+				t.Fatal("registry/scale mutation admitted", mutation, err)
+			}
+			if _, err := os.Stat(output); !os.IsNotExist(err) {
+				t.Fatal("registry refusal published", mutation, err)
+			}
+			if mutation == "physical allow" && !strings.Contains(err.Error(), "outside allow") {
+				t.Fatal("physical containment did not reach scaled allow check", err)
+			}
+			continue
+		}
+		if err != nil {
+			t.Fatal(mutation, err)
+		}
+		artifact, err := os.ReadFile(output)
+		if err != nil {
+			t.Fatal(err)
+		}
+		_, got, err := texture(artifact, profile.Texture, nil, nil, "", nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for y := 0; y < base.Rect.Dy(); y++ {
+			for x := 0; x < base.Rect.Dx(); x++ {
+				want := base.NRGBAAt(x, y)
+				if y < 34 && (x < 60 || mutation == "same reference twice" && x < 120) {
+					want = approved.NRGBAAt(originalCell.Rect[0]+(x%60)/2, originalCell.Rect[1]+y/2)
+				}
+				if got.NRGBAAt(x, y) != want {
+					t.Fatal("poststyle scale/physical exterior differs", mutation, x, y)
+				}
+			}
+		}
+		var report map[string]any
+		if json.Unmarshal(out.Bytes(), &report) != nil || report["registry_sha256"] != changed.Render.Registry.SHA256 {
+			t.Fatal("bound registry provenance", out.String())
+		}
+	}
+	if current, err := os.ReadFile(sourcePath); err != nil || !bytes.Equal(current, members["source"]) {
+		t.Fatal("registry render changed source", err)
+	}
 }
 
 func TestPilotHistoricalGoldenBytes(t *testing.T) {

@@ -29,6 +29,7 @@ type BitmapGlyph struct {
 type RasterRender struct {
 	Font        string         `json:"font,omitempty"`
 	FontSHA256  string         `json:"font_sha256,omitempty"`
+	Registry    *RegistryInput `json:"registry,omitempty"`
 	Permissions *RegistryInput `json:"permissions,omitempty"` // Shared rectangle facts; local steps remain in Reconstruction.
 	RasterComposition
 }
@@ -46,6 +47,9 @@ type BitmapCell struct {
 	ID         string           `json:"id"`
 	Rect       []int            `json:"rect"`
 	Text       string           `json:"text,omitempty"`
+	RegistryID *string          `json:"registry_id,omitempty"`
+	Uppercase  bool             `json:"uppercase,omitempty"`
+	Scale      *int             `json:"scale,omitempty"` // Pixel cells style at logical size before integer nearest scaling.
 	Fill       []int            `json:"fill,omitempty"`
 	Shade      []int            `json:"shade,omitempty"`
 	Runs       []BitmapRun      `json:"runs,omitempty"`

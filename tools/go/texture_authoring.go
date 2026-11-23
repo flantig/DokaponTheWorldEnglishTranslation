@@ -48,13 +48,15 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 		return err
 	}
 	var fields map[string]json.RawMessage
+	var renderFields map[string]json.RawMessage
 	var maskData json.RawMessage
 	_ = json.Unmarshal(profileData, &fields)
 	for key, raw := range fields {
 		if strings.EqualFold(key, "render") {
-			if err := checkJSON(checkedJSON{raw: raw, aliasesByDepth: map[int][]string{1: {"permissions", "reconstruction"}}, nonNullByDepth: map[int][]string{1: {"permissions"}}}); err != nil {
+			if err := checkJSON(checkedJSON{raw: raw, aliasesByDepth: map[int][]string{1: {"permissions", "reconstruction", "registry", "cells"}}, nonNullByDepth: map[int][]string{1: {"permissions", "registry"}}}); err != nil {
 				return err
 			}
+			_ = json.Unmarshal(raw, &renderFields)
 		}
 	}
 	for key := range fields {
@@ -176,6 +178,45 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 		return fmt.Errorf("pixel policy requires rgba without a palette policy")
 	}
 	if render := profile.Render; render != nil {
+		var rawCells []json.RawMessage
+		_ = json.Unmarshal(renderFields["cells"], &rawCells)
+		references := 0
+		for i, raw := range rawCells {
+			keys := []string{"registry_id", "uppercase", "scale"}
+			if err := checkJSON(checkedJSON{raw: raw, aliasesByDepth: map[int][]string{1: keys}, nonNullByDepth: map[int][]string{1: keys}}); err != nil {
+				return err
+			}
+			var declared map[string]json.RawMessage
+			_ = json.Unmarshal(raw, &declared)
+			cell := render.Cells[i]
+			if cell.RegistryID == nil {
+				if _, present := declared["uppercase"]; present {
+					return fmt.Errorf("uppercase requires a registry text reference")
+				}
+				continue
+			}
+			if cell.Text != "" || strings.TrimSpace(*cell.RegistryID) == "" || cell.Layout != nil || cell.Group != nil || len(cell.Runs) != 0 {
+				return fmt.Errorf("registry text requires one nonempty ID without literal text or metric runs")
+			}
+			for key := range declared {
+				if strings.EqualFold(key, "text") {
+					return fmt.Errorf("registry text conflicts with literal text")
+				}
+			}
+			references++
+		}
+		if (render.Registry != nil) != (references > 0) {
+			return fmt.Errorf("render registry requires at least one text reference, and references require their registry")
+		}
+		if render.Registry != nil {
+			keys := []string{"path", "size", "sha256"}
+			if err := checkJSON(checkedJSON{raw: renderFields["registry"], allObjects: true, text: true, nonNull: true, aliasesByDepth: map[int][]string{1: keys}, fieldsByDepth: map[int][]string{1: keys}, requiredByDepth: map[int][]string{1: keys}}); err != nil {
+				return err
+			}
+			if strings.TrimSpace(render.Registry.Path) == "" || render.Registry.Size < 1 || render.Registry.Size > 64<<20 {
+				return fmt.Errorf("render registry requires a bounded pinned input")
+			}
+		}
 		if render.Permissions != nil && render.Reconstruction == nil {
 			return fmt.Errorf("shared permissions require reconstruction steps")
 		}
@@ -184,8 +225,7 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 			return fmt.Errorf("bitmap rendering requires a font and cells without PNG, rectangles or palette generation")
 		}
 		if render.Reconstruction != nil {
-			var renderFields, reconstructionFields map[string]json.RawMessage
-			_ = json.Unmarshal(fields["render"], &renderFields)
+			var reconstructionFields map[string]json.RawMessage
 			_ = json.Unmarshal(renderFields["reconstruction"], &reconstructionFields)
 			maskData = reconstructionFields["masks"]
 			var erases []json.RawMessage
@@ -193,7 +233,7 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 			// Check owned objects separately: icon IDs at the same depth remain data.
 			documents := []checkedJSON{
 				{raw: profileData, allObjects: true, text: true, nonNull: true, aliasesByDepth: map[int][]string{1: {"render"}}},
-				{raw: fields["render"], aliasesByDepth: map[int][]string{1: {"font", "font_sha256", "permissions", "icons", "cells", "reconstruction", "order"}}},
+				{raw: fields["render"], aliasesByDepth: map[int][]string{1: {"font", "font_sha256", "registry", "permissions", "icons", "cells", "reconstruction", "order"}}},
 				{raw: renderFields["reconstruction"], aliasesByDepth: map[int][]string{1: {"allow", "exclude", "allow_add", "masks", "erases"}}},
 			}
 			if render.Permissions != nil {
@@ -238,6 +278,9 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 	}
 	if profile.Render != nil && profile.Render.Permissions != nil {
 		pins = append(pins, profile.Render.Permissions.SHA256)
+	}
+	if profile.Render != nil && profile.Render.Registry != nil {
+		pins = append(pins, profile.Render.Registry.SHA256)
 	}
 	if profile.Contacts != nil {
 		pins = append(pins, profile.Contacts.Font.SHA256)
@@ -681,6 +724,8 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 			}
 		}
 	}
+	var registryPath string
+	var registryData []byte
 	if profile.Render != nil {
 		atlas, ok := candidate.(*image.Gray)
 		if len(profile.Render.Cells) > 0 && font.TrueType == nil && !ok {
@@ -694,7 +739,58 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 		if err != nil {
 			return err
 		}
-		candidate, rectangles, err = composeCells(base, atlas, font, profile.Render.RasterComposition)
+		composition := profile.Render.RasterComposition
+		if input := profile.Render.Registry; input != nil {
+			if font.Em != 0 || font.TrueType != nil {
+				return fmt.Errorf("registry cell text requires a pixel font")
+			}
+			registryPath = input.Path
+			if !filepath.IsAbs(registryPath) {
+				registryPath = filepath.Join(filepath.Dir(profilePath), registryPath)
+			}
+			registryData, err = readInput(registryPath, 64<<20)
+			if err != nil || int64(len(registryData)) != input.Size || fmt.Sprintf("%x", sha256.Sum256(registryData)) != input.SHA256 {
+				return fmt.Errorf("render registry identity mismatch: %v", err)
+			}
+			if err := checkJSON(checkedJSON{raw: registryData, text: true, aliasesByDepth: map[int][]string{1: {"entries"}}}); err != nil {
+				return err
+			}
+			var registryFields map[string]json.RawMessage
+			_ = json.Unmarshal(registryData, &registryFields)
+			if err := checkJSON(checkedJSON{raw: registryFields["entries"], aliasesByDepth: map[int][]string{2: {"id", "en"}}}); err != nil {
+				return err
+			}
+			var registry Registry
+			if err := json.Unmarshal(registryData, &registry); err != nil || registry.Entries == nil {
+				return fmt.Errorf("render registry requires an entries array")
+			}
+			byID := make(map[uint64]RegistryEntry)
+			for _, entry := range registry.Entries {
+				id, err := number(entry.ID)
+				if _, duplicate := byID[id]; err != nil || duplicate {
+					return fmt.Errorf("invalid or duplicate render registry ID %q", entry.ID)
+				}
+				byID[id] = entry
+			}
+			composition.Cells = slices.Clone(composition.Cells)
+			for i := range composition.Cells {
+				cell := &composition.Cells[i]
+				if cell.RegistryID == nil {
+					continue
+				}
+				id, err := number(*cell.RegistryID)
+				entry, present := byID[id]
+				if err != nil || !present || strings.TrimSpace(entry.EN) == "" {
+					return fmt.Errorf("unknown or blank render registry text %q", *cell.RegistryID)
+				}
+				cell.Text = entry.EN
+				if cell.Uppercase {
+					cell.Text = strings.ToUpper(cell.Text)
+				}
+				cell.RegistryID, cell.Uppercase = nil, false
+			}
+		}
+		candidate, rectangles, err = composeCells(base, atlas, font, composition)
 		if err != nil {
 			return err
 		}
@@ -721,6 +817,12 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 		artifact = encoded.Bytes()
 	}
 	artifactHash := fmt.Sprintf("%x", sha256.Sum256(artifact))
+	if registryData != nil {
+		current, err := readInput(registryPath, 64<<20)
+		if err != nil || !bytes.Equal(current, registryData) {
+			return fmt.Errorf("render registry changed before publication: %v", err)
+		}
+	}
 	if apply {
 		if _, err := writeNewFile(output, nil, bytes.NewReader(artifact), int64(len(artifact)), artifactHash, 0o644); err != nil {
 			return err
@@ -741,6 +843,9 @@ func authorTexture(sourcePath, profilePath, output string, apply bool, stdout io
 	}
 	if profile.Render != nil && profile.Render.Permissions != nil {
 		report["permissions_sha256"] = profile.Render.Permissions.SHA256
+	}
+	if profile.Render != nil && profile.Render.Registry != nil {
+		report["registry_sha256"], report["registry_bytes"] = profile.Render.Registry.SHA256, len(registryData)
 	}
 	if profile.Render != nil && profile.Render.Font != "" {
 		report["font_sha256"] = profile.Render.FontSHA256
