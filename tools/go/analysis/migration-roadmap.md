@@ -288,7 +288,7 @@ Next: All six original milestones proven; no new milestone or denominator introd
 
 Remaining: Full owned probe workflow, including unattended operation/recovery and broader original scenario/diagnostic duties, remains unproven in Go.
 
-Next: Qualify the source-bound .05 Flatpak launch/adoption/startup producer in an authorized native window, retaining global foreign-owner refusal and exact namespace/exit/private-path guards. Controlled components and offline facts do not establish full native workflow, owner agreement or criterion credit.
+Next: Qualify Linux .04 capture/evidence linkage through an owner-operated current-source native comparison and agreed retention/resource limits, using the published final-epoch/gap and bounded-refusal owners. Continue independent offline reuse while native authority is held. Windows work is parked for its later handoff; controlled software facts do not establish native acceptance or criterion credit.
 
 
 

@@ -55,6 +55,35 @@ The internal ManagedFailure enum is excluded from JSON. Unverified memory/GUIDE 
 
 The earlier capture and foundation descriptions above document their pre-sampler scope. The optional `frame_sampling` object on the existing lifecycle profile now requires explicit positive `max_run_seconds`, `max_retained_frames`, `max_managed_files`, `max_managed_bytes` and `max_journal_bytes` budgets. Omission keeps the ordinary raw capture route. This is an experimental Linux software increment. Windows probe support is planned under the current requirement, with no Windows API implemented or qualified by this increment.
 
+These fields have no automatic defaults. The following validation bounds use
+integer seconds, counts or bytes (KiB=2^10, MiB=2^20, GiB=2^30, TiB=2^40). They are
+admission ceilings, not recommended settings or accepted owner resource limits.
+The [lifecycle owner](../probe_lifecycle.go) validates these fields; the shared
+[artifact accountant](../probe_artifact_budget.go) enforces observed/reserved exposure.
+
+| Field | Unit | Inclusive validation range |
+|---|---|---|
+| `max_run_seconds` | seconds | 1 to 604,800 (seven days) |
+| `max_retained_frames` | selected timeline plus checkpoint JPEG count | 1 to 1,048,576 |
+| `max_managed_files` | all accounted managed files | 64 to 1,048,576 |
+| `max_managed_bytes` | accounted observed/reserved artifact bytes | 128 MiB to 1 TiB |
+| `max_journal_bytes` | event-journal bytes | 1 KiB to 1 GiB, and at most half `max_managed_bytes` |
+
+The request list also reserves stop/finalization capacity before ordinary work:
+two files plus `2 * stop_effect_count + 2` files for every explicit stop request,
+with 16 MiB reserved per file. The current stop table has two effects, so one stop
+reserves eight files/128MiB. Both total caps must exceed the resulting reserve;
+the 128 MiB validation minimum alone cannot admit that one-stop profile. This
+reserve is unavailable to ordinary capture work. Budget selection therefore
+requires the actual request/artifact footprint and explicit owner agreement.
+
+Selected JPEGs, checkpoint JPEGs, CSV and journals remain preserved. Reaching a
+duration, frame, file or byte cap refuses the affected sampling/publication work and keeps failed
+or uncertain evidence/reservations; reserved finalization may remain available.
+This is not rolling deletion or automatic normal completion. Native capture,
+stalled/partial behavior and the chosen resource/retention limits still need
+owner-operated qualification; the software accounting is not a kernel quota.
+
 One cooperative tick serves the existing lifecycle waits and action hook. The sampler run clock starts after the first owned-ready epoch admission and publication, with bootstrap governed by its separate profile deadlines. In-flight work can finish after the elapsed cap; enforcement occurs at cooperative ticks, not through a kernel timer. Each completed acquisition/publication attempt schedules its next attempt after four seconds, preserving the enclosing wait's deadline. Health and storage observations have separate clocks; free-space checks include the run root, snapshot root and card parent. Successful managed capture gaps exceeding120 seconds fail the sampler. A cold owned-ready epoch resets its comparison predecessor while run time, retained ordinals and budgets continue. These are source-defined software policies, not an accepted native soak or resource agreement.
 
 Final completion also requires a successful capture in the final owned epoch. Lifetime captures from an earlier epoch cannot satisfy that condition. The same tick owner checks the final120-second capture gap after stop/flush and before saving the completed stop's frame facts. Its `final_capture_gap_seconds` observation is preserved for replay; a saved summary without that observation cannot establish final capture health. A health failure preserves the original failure reason and permits guarded owned cleanup. This does not change early missing-PNG, decode or lock failures into retryable observations: a GUIDE acknowledgement does not establish screenshot completion or rule out a late native file.
