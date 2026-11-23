@@ -365,7 +365,7 @@ service:
 					}
 					observed, inputErr := emitProbeX11(workCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, []string{key}, value != 0, &forwarderIDs)
 					if inputErr != nil {
-						result = inputErr
+						result = fmt.Errorf("primary private keyboard effect logical_key=%q pressed=%t capture_id=%q: %w", name, value != 0, captureID, inputErr)
 						reply = "err private keyboard effect uncertain\n"
 						break
 					}
@@ -440,7 +440,7 @@ service:
 		_, releaseErr := emitProbeX11(cleanupCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, keys, false, &forwarderIDs)
 		cleanupCancel()
 		if releaseErr != nil {
-			result = errors.Join(result, fmt.Errorf("private keyboard release is uncertain: %w", releaseErr))
+			result = errors.Join(result, fmt.Errorf("emergency private keyboard release is uncertain logical_keys=%q: %w", heldNames, releaseErr))
 		}
 		heldNames = nil
 	}

@@ -1501,6 +1501,71 @@ func TestProbeRecords(t *testing.T) {
 	if _, err := emitProbeX11(context.Background(), ProbeX11Spec{}, nil, "", nil, false, nil); err == nil {
 		t.Fatal("private X11 accepted an unbounded operation")
 	}
+	if probeX11Available {
+		// Exercise the actual dial boundary without a server, authentication or input.
+		root := t.TempDir()
+		display := ":diagnostic-" + filepath.Base(root)
+		if _, err := os.Lstat(filepath.Join("/tmp/.X11-unix", "X"+display[1:])); !os.IsNotExist(err) {
+			t.Fatal("diagnostic display must be absent", err)
+		}
+		executable, err := os.ReadFile("/proc/self/exe")
+		if err != nil {
+			t.Fatal(err)
+		}
+		build := fmt.Sprintf("%x", sha256.Sum256(executable))
+		self, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child"}, os.Getpid(), nil, build)
+		if err != nil {
+			t.Fatal(err)
+		}
+		authority := binary.BigEndian.AppendUint16(nil, 65535)
+		for _, field := range [][]byte{nil, []byte(display[1:]), []byte("MIT-MAGIC-COOKIE-1"), make([]byte, 16)} {
+			authority = binary.BigEndian.AppendUint16(authority, uint16(len(field)))
+			authority = append(authority, field...)
+		}
+		authPath := filepath.Join(root, "authority")
+		if err := os.WriteFile(authPath, authority, 0600); err != nil {
+			t.Fatal(err)
+		}
+		spec := ProbeX11Spec{Display: display, Server: self, ServerProgram: RegistryInput{SHA256: build}, Authority: RegistryInput{Path: authPath, Size: int64(len(authority)), SHA256: fmt.Sprintf("%x", sha256.Sum256(authority))}}
+		for _, pressed := range []bool{true, false} {
+			pins := [2]uint16{6, 7}
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			_, err := emitProbeX11(ctx, spec, &self, build, []string{"F8"}, pressed, &pins)
+			cancel()
+			if !errors.Is(err, syscall.ENOENT) || !strings.Contains(err.Error(), fmt.Sprintf("keys=[\"F8\"] pressed=%t", pressed)) || pins != [2]uint16{6, 7} {
+				t.Fatal("private input dial lost edge, cause or forwarder identity", pressed, err, pins)
+			}
+			var remaining, preflight, dial time.Duration
+			for _, field := range strings.Fields(err.Error()) {
+				name, value, _ := strings.Cut(field, "=")
+				switch name {
+				case "remaining_at_dial", "preflight_elapsed", "dial_elapsed":
+					value = strings.TrimSuffix(value, ":")
+					duration, parseErr := time.ParseDuration(value)
+					if parseErr != nil {
+						t.Fatal("unreadable monotonic dial diagnostic", field, parseErr)
+					}
+					switch name {
+					case "remaining_at_dial":
+						remaining = duration
+					case "preflight_elapsed":
+						preflight = duration
+					case "dial_elapsed":
+						dial = duration
+					}
+				}
+			}
+			if remaining <= 0 || remaining > time.Second || preflight <= 0 || dial <= 0 || remaining+preflight > time.Second {
+				t.Fatal("incoherent dial timing", remaining, preflight, dial, err)
+			}
+		}
+		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(-time.Second))
+		_, err = emitProbeX11(ctx, spec, &self, build, []string{"F8"}, false, &[2]uint16{6, 7})
+		cancel()
+		if err == nil || !strings.Contains(err.Error(), "live bounded deadline") || strings.Contains(err.Error(), "remaining_at_dial") {
+			t.Fatal("expired entry was confused with a dial failure", err)
+		}
+	}
 	for _, row := range []struct {
 		Pins   *[2]uint16
 		Target *ProbeProcessRecord

@@ -25,6 +25,7 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -38,6 +39,7 @@ const probeX11Available = true
 // floating state. Later effects only read those service-local pins, never adopt.
 func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRecord, build string, keys []string, pressed bool, forwarderIDs *[2]uint16) (ProbeX11Effect, error) {
 	var effect ProbeX11Effect
+	preflightStarted := time.Now()
 	if _, bounded := ctx.Deadline(); !bounded || ctx.Err() != nil {
 		return effect, fmt.Errorf("private X11 operation requires a live bounded deadline")
 	}
@@ -108,9 +110,13 @@ func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRe
 	}
 	socketPath := filepath.Join("/tmp/.X11-unix", "X"+strings.TrimPrefix(spec.Display, ":"))
 	dialer := net.Dialer{}
+	// Sample once so remaining budget and preflight duration share a monotonic
+	// boundary. A negative remainder distinguishes exhausted preflight from ENOENT.
+	dialStarted := time.Now()
+	deadline, _ := ctx.Deadline()
 	connection, err := dialer.DialContext(ctx, "unix", socketPath)
 	if err != nil {
-		return effect, fmt.Errorf("private X11 socket unavailable: %w", err)
+		return effect, fmt.Errorf("private X11 socket unavailable keys=%q pressed=%t remaining_at_dial=%s preflight_elapsed=%s dial_elapsed=%s: %w", keys, pressed, deadline.Sub(dialStarted), dialStarted.Sub(preflightStarted), time.Since(dialStarted), err)
 	}
 	socket := connection.(*net.UnixConn)
 	defer socket.Close()
