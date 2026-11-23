@@ -750,6 +750,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	scenarioActor, originalControl := -1, uint32(0)
 	fileSelected, saveCompleted := false, false
 	fileDialogSeen, fileSelectionRetries := false, 0
+	boardIdentityFields := [...]string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"}
 	var scenarioDeadline time.Time
 	checkpointNumber, acceptedCheckpoint := 0, 0
 	checkpointFileIndex := 1
@@ -1426,7 +1427,7 @@ requests:
 					}
 				}
 				candidateMatches := true
-				for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
+				for _, key := range boardIdentityFields {
 					candidateMatches = candidateMatches && candidateHeaders[key] == scenarioUI.Headers[key]
 				}
 				move := false
@@ -1438,9 +1439,6 @@ requests:
 					// effects before returning to the same bounded candidate wait.
 					retryAcquisition = true
 					step.UI = &scenarioUI
-					if !slices.Contains(step.Skips, "paused board candidate changed or Move/task not ready") {
-						step.Skips = append(step.Skips, "paused board candidate changed or Move/task not ready")
-					}
 					break
 				}
 				originalControl = *scenarioUI.Saved.Players[scenarioActor].Control
@@ -1493,7 +1491,7 @@ requests:
 					scenarioUI = fresh
 				}
 				ownerChanged := false
-				for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
+				for _, key := range boardIdentityFields {
 					if fresh.Headers[key] != scenarioUI.Headers[key] {
 						ownerChanged = true
 					}
@@ -1545,9 +1543,6 @@ requests:
 					if ownerChanged && knownMove && knownControls && reflect.DeepEqual(knownSaved, fresh.Saved) && reflect.DeepEqual(knownRecords, fresh.PlayerRecords) && reflect.DeepEqual(knownWidgets, fresh.Widgets) {
 						retryAcquisition = true
 						step.UI = &fresh
-						if !slices.Contains(step.Skips, "paused board candidate changed or Move/task not ready") {
-							step.Skips = append(step.Skips, "paused board candidate changed or Move/task not ready")
-						}
 						break
 					}
 				}
@@ -1907,7 +1902,7 @@ requests:
 						step.Reason = "source Move owner changed after resume"
 						break actions
 					}
-					for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
+					for _, key := range boardIdentityFields {
 						if ui.Headers[key] != scenarioUI.Headers[key] {
 							step.Reason = "source owner changed after unpause"
 							break actions
@@ -3588,6 +3583,9 @@ requests:
 			default:
 				step.Reason = "unsupported lifecycle action"
 				break actions
+			}
+			if retryAcquisition && (effect == "acquire-board" || effect == "takeover-control") && !slices.Contains(step.Skips, "paused board candidate changed or Move/task not ready") {
+				step.Skips = append(step.Skips, "paused board candidate changed or Move/task not ready")
 			}
 			effect = plannedEffect
 			if !repeatEffect && !retryAcquisition {
