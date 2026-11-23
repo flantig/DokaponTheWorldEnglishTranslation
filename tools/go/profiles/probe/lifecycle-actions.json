@@ -282,6 +282,43 @@
         "observe-storage"
       ],
       "to": "ready"
+    },
+    "load-saved": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-load",
+        "select-continue",
+        "card-preview",
+        "preview-dwell",
+        "card-load"
+      ],
+      "to": "ready"
+    },
+    "select-saved-file": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-saved",
+        "select-data",
+        "select-save",
+        "select-file"
+      ],
+      "to": "ready"
+    },
+    "restore-saved": {
+      "from": [
+        "ready"
+      ],
+      "effects": [
+        "qualify-handoff",
+        "select-data",
+        "restore-control",
+        "wait-advance"
+      ],
+      "to": "ready"
     }
   },
   "warm_command": "tap R3 0.1",

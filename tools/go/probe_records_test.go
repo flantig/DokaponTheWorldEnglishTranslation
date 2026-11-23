@@ -1405,13 +1405,34 @@ func TestProbeRecords(t *testing.T) {
 	_ = json.Unmarshal(privateBytes, &privateProfile)
 	privateProfile.PadBackend, privateProfile.Flatpak.PINESlot = "private-x11", 28012
 	privateProfile.PrivateX11 = &ProbeX11Spec{Display: ":89", Authority: RegistryInput{Path: "/fixture/private.auth", Size: 58, SHA256: strings.Repeat("a", 64)}, ServerProgram: RegistryInput{Path: "/fixture/Xephyr", Size: 128, SHA256: strings.Repeat("b", 64)}, Server: ProbeProcessRecord{PID: 399, Starttime: 77, State: "S", Cmdline: []string{"/fixture/Xephyr", ":89", "-screen", "1024x768", "-auth", "/fixture/private.auth", "-nolisten", "tcp", "-no-host-grab", "-noreset"}}}
-	for _, fault := range []string{"", "warm", "cold", "recover", "resume", "resume-no-seed", "resume-not-first", "recover-no-budget", "default-slot", "display", "server", "reset", "credential", "wrong-backend", "unsupported-operation"} {
+	for _, fault := range []string{"", "warm", "cold", "pause", "unpause", "load-saved", "select-saved-file", "restore-saved", "saved-no-resume", "saved-no-scenario", "saved-no-seed", "unused-warm-load", "unused-cold-load", "unused-restore", "recover", "resume", "resume-no-seed", "resume-not-first", "recover-no-budget", "default-slot", "display", "server", "reset", "credential", "wrong-backend", "unsupported-operation"} {
 		encoded, _ := json.Marshal(privateProfile)
 		var profile ProbeLifecycleProfile
 		_ = json.Unmarshal(encoded, &profile)
 		switch fault {
-		case "warm", "cold":
+		case "warm", "cold", "pause", "unpause":
 			profile.Requests = []ProbeLifecycleRequest{{Operation: "initial"}, {Operation: fault}, {Operation: "stop"}}
+		case "load-saved", "select-saved-file", "restore-saved", "saved-no-resume", "saved-no-scenario", "saved-no-seed":
+			_ = json.Unmarshal([]byte(`{"root":"/fixture/prior"}`), &profile.Resume)
+			seed := uint64(23)
+			profile.Seed = &seed
+			profile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault"}
+			operation := fault
+			if strings.HasPrefix(fault, "saved-no-") {
+				operation = "load-saved"
+			}
+			profile.Requests = []ProbeLifecycleRequest{{Operation: "resume"}, {Operation: operation}, {Operation: "stop"}}
+			switch fault {
+			case "saved-no-resume":
+				profile.Resume = nil
+			case "saved-no-scenario":
+				profile.Scenario = nil
+			case "saved-no-seed":
+				profile.Seed = nil
+			}
+		case "unused-warm-load", "unused-cold-load", "unused-restore":
+			profile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault"}
+			profile.Requests = []ProbeLifecycleRequest{{Operation: "initial"}, {Operation: strings.TrimPrefix(fault, "unused-")}, {Operation: "stop"}}
 		case "recover", "recover-no-budget":
 			profile.Requests = []ProbeLifecycleRequest{{Operation: "initial"}, {Operation: "observe-frame"}, {Operation: "stop"}, {Operation: "recover"}, {Operation: "stop"}}
 			if fault == "recover" {
@@ -1445,7 +1466,7 @@ func TestProbeRecords(t *testing.T) {
 		before, _ := json.Marshal(profile)
 		_, argv, native, err := planProbeLaunch(profile)
 		after, _ := json.Marshal(profile)
-		supported := slices.Contains([]string{"", "warm", "cold", "recover", "resume"}, fault)
+		supported := slices.Contains([]string{"", "warm", "cold", "pause", "unpause", "load-saved", "select-saved-file", "restore-saved", "recover", "resume"}, fault)
 		if (err == nil) != supported || !bytes.Equal(before, after) {
 			t.Fatal("private keyboard plan/refusal/mutation", fault, err)
 		}

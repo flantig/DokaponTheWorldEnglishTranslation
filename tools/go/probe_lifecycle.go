@@ -47,7 +47,11 @@ func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput
 		}
 		for index, request := range profile.Requests {
 			switch request.Operation {
-			case "initial", "newgame", "scenario", "observe-frame", "watch", "stop", "warm", "cold":
+			case "initial", "newgame", "scenario", "observe-frame", "watch", "stop", "warm", "cold", "pause", "unpause":
+			case "load-saved", "select-saved-file", "restore-saved":
+				if profile.Resume == nil || profile.Scenario == nil || profile.Seed == nil {
+					return launchProgram, nil, nil, fmt.Errorf("saved lifecycle actions require qualified resume inputs and a source scenario")
+				}
 			case "resume":
 				if index != 0 || profile.Resume == nil || profile.Seed == nil {
 					return launchProgram, nil, nil, fmt.Errorf("private resume requires its existing saved-facts contract")
@@ -767,7 +771,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 		}
 	}
 	var checkpointDue, postClearSince time.Time
-	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage|observe-frame)$`)
+	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|load-saved|select-saved-file|restore-saved|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage|observe-frame)$`)
 requests:
 	for requestIndex, request := range profile.Requests {
 		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: processes.Native, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
@@ -943,11 +947,17 @@ requests:
 			runErr = fmt.Errorf("scenario request requires its pinned source recipe")
 			break requests
 		}
+		if slices.Contains([]string{"load-saved", "select-saved-file", "restore-saved"}, request.Operation) && (!resumeVerified || resumeFacts == nil || profile.Scenario == nil) {
+			step.Reason = "saved lifecycle action lacks qualified source facts"
+			report.Status = "INCOMPLETE"
+			report.Steps = append(report.Steps, step)
+			continue
+		}
 		if request.Operation == "observe-storage" && profile.Storage == nil {
 			runErr = fmt.Errorf("storage request requires its pinned source recipe")
 			break requests
 		}
-		if slices.Contains([]string{"load", "prepare-load", "resave", "warm-load", "cold-load", "restore", "finish"}, request.Operation) && (profile.Scenario == nil || scenarioSaved == nil) {
+		if slices.Contains([]string{"load", "prepare-load", "resave", "warm-load", "cold-load", "restore", "finish", "select-saved-file", "restore-saved"}, request.Operation) && (profile.Scenario == nil || scenarioSaved == nil) {
 			step.Reason = "checkpoint action lacks the source Save context"
 			report.Status = "INCOMPLETE"
 			report.Steps = append(report.Steps, step)
@@ -1038,7 +1048,7 @@ requests:
 				effect = "emit-card-witness"
 			}
 			switch effect {
-			case "wait-board", "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage", "admit-frame":
+			case "wait-board", "acquire-board", "qualify-load", "qualify-saved", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage", "admit-frame":
 				if processes.Native == nil || lastOwnedStep.Status != "COMPLETED" {
 					step.Reason = "scenario requires completed current ownership"
 					break actions
@@ -1046,7 +1056,33 @@ requests:
 				if effect == "qualify-load" {
 					loadMethod = lastOwnedStep.Request.Operation
 					loadMethod = strings.TrimSuffix(loadMethod, "-load")
-					if scenarioSaved == nil || loadMethod != "warm" && loadMethod != "cold" || loadMethod == "cold" && !warmVerified {
+					if request.Operation == "load-saved" {
+						// Historical payload is an expectation only. Find the most
+						// recent durable boot/reset in this actual native epoch.
+						loadMethod = ""
+						for prior := len(report.Steps) - 1; prior >= 0; prior-- {
+							candidate := report.Steps[prior]
+							if candidate.Status != "COMPLETED" || candidate.Owned == nil || candidate.Owned.PID != processes.Native.PID || candidate.Owned.Starttime != processes.Native.Starttime || candidate.Epoch != epoch {
+								break
+							}
+							if candidate.Request.Operation == "load-saved" {
+								break
+							}
+							if slices.Contains([]string{"resume", "warm", "cold"}, candidate.Request.Operation) {
+								loadMethod = candidate.Request.Operation
+								break
+							}
+						}
+						if loadMethod == "resume" {
+							loadMethod = "boot"
+						}
+						if loadMethod != "boot" && loadMethod != "warm" && loadMethod != "cold" || loadMethod == "cold" && !warmVerified || loadMethod != "boot" && scenarioSaved == nil || resumeFacts.Slot == nil || *resumeFacts.Slot < 0 || resumeFacts.Actor == nil || *resumeFacts.Actor > 3 || resumeFacts.OriginalControl == nil || *resumeFacts.OriginalControl < 1 || *resumeFacts.OriginalControl > 3 {
+							step.Reason = "saved Load lacks a fresh durable boot/reset and bounded source owner"
+							break actions
+						}
+						scenarioActor, originalControl = int(*resumeFacts.Actor), *resumeFacts.OriginalControl
+						scenarioFileIndex, checkpointFileIndex = *resumeFacts.Slot, *resumeFacts.Slot
+					} else if scenarioSaved == nil || loadMethod != "warm" && loadMethod != "cold" || loadMethod == "cold" && !warmVerified {
 						step.Reason = "load lacks the completed source warm/cold transition"
 						break actions
 					}
@@ -1054,7 +1090,7 @@ requests:
 						step.Reason = "preparation Load lacks exact initialized-state contract"
 						break actions
 					}
-					if request.Operation != "prepare-load" && (scenarioSaved.Players[scenarioActor].TutorialFlags == nil || *scenarioSaved.Players[scenarioActor].TutorialFlags&1 == 0) {
+					if request.Operation != "prepare-load" && request.Operation != "load-saved" && (scenarioSaved.Players[scenarioActor].TutorialFlags == nil || *scenarioSaved.Players[scenarioActor].TutorialFlags&1 == 0) {
 						step.Reason = "ordinary paired reload does not admit uninitialized tutorial actors"
 						break actions
 					}
@@ -1095,6 +1131,13 @@ requests:
 				if err != nil {
 					step.Reason = err.Error()
 					break actions
+				}
+				if slices.Contains([]string{"load-saved", "select-saved-file", "restore-saved"}, request.Operation) {
+					if admitted.CardSHA256 != profile.Inputs["card"].SHA256 {
+						step.Reason = "saved lifecycle private card differs from qualified copied bytes"
+						break actions
+					}
+					step.CardBefore = admitted.CardSHA256
 				}
 				if effect == "admit-frame" {
 					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: table.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
@@ -1410,6 +1453,10 @@ requests:
 					}
 				}
 				if effect != "acquire-board" {
+					if effect == "qualify-saved" && (scenarioSaved == nil || scenarioActor < 0 || scenarioActor > 3 || scenarioUI.Headers["current"] != uint64(scenarioActor) || !reflect.DeepEqual(scenarioUI.Saved, *scenarioSaved) || *scenarioUI.Saved.Players[scenarioActor].Control != 0) {
+						step.Reason = "saved file navigation lacks its fresh restored human payload"
+						break actions
+					}
 					fileSelected = false
 					fileDialogSeen, fileSelectionRetries = false, 0
 					if effect == "qualify-resave" {
@@ -1671,7 +1718,7 @@ requests:
 				if effect == "restore-control" {
 					restored = true
 				}
-			case "verify-human", "select-data", "select-save", "card-save", "select-continue", "select-newgame", "front-end", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "ack-preparation-image", "wait-advance", "wait-terminal":
+			case "verify-human", "select-data", "select-save", "select-file", "card-save", "select-continue", "select-newgame", "front-end", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "ack-preparation-image", "wait-advance", "wait-terminal":
 				if repeats == 0 && effect == "front-end" {
 					scenarioDeadline = frontEndDeadline
 				}
@@ -1695,6 +1742,14 @@ requests:
 					break actions
 				}
 				step.UI = &ui
+				if request.Operation == "select-saved-file" && (scenarioSaved == nil || !reflect.DeepEqual(ui.Saved, *scenarioSaved)) {
+					step.Reason = "saved file navigation payload changed before input"
+					break actions
+				}
+				if request.Operation == "select-saved-file" && ui.Headers["mc_dialog"] != 0 {
+					step.Reason = "saved file navigation refuses card dialogs"
+					break actions
+				}
 				loading := effect == "wait-terminal" || effect == "select-continue" || effect == "select-newgame" || effect == "front-end" || effect == "card-preview" || effect == "preview-dwell" || effect == "card-load" || effect == "card-prepare-load" || effect == "card-load-prepared" || effect == "ack-preparation-image"
 				if !loading && effect != "wait-advance" && (ui.Headers["current"] != uint64(scenarioActor) || *ui.Saved.Players[scenarioActor].Control != 0) {
 					step.Reason = "source human actor changed"
@@ -1713,6 +1768,7 @@ requests:
 				row.FileIndex, row.DisplayFile = scenarioFileIndex, scenarioFileIndex+1
 				command := ""
 				selectingFile := false
+				confirmingLoad := false
 				switch effect {
 				case "wait-terminal":
 					if profile.Scenario.Recipe == "" || acceptedCheckpoint < 1 {
@@ -1962,7 +2018,11 @@ requests:
 					}
 					// The acknowledged Save-tab Circle enters card(), which can
 					// begin with creation I/O/dialogs before any file menu exists.
-				case "card-save", "card-preview", "card-load", "card-prepare-load", "card-load-prepared":
+				case "card-save", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "select-file":
+					if effect == "select-file" && (ui.Headers["mc_dialog"] != 0 || ui.Headers["save_kind"] != 1 || scenarioSaved == nil || !reflect.DeepEqual(ui.Saved, *scenarioSaved)) {
+						step.Reason = "saved file selection requires unchanged owned payload and a non-dialog Save FILE menu"
+						break actions
+					}
 					if (effect == "card-prepare-load" || effect == "card-load-prepared") && ui.Headers["mode"] == scenarioData.NewGame.ImageMode {
 						image := false
 						ready := false
@@ -1993,7 +2053,14 @@ requests:
 						break
 					}
 					if (effect == "card-load" || effect == "card-load-prepared") && ui.Headers["mode"] == 0x1b0 && ui.Headers["story"] > 0 {
+						if request.Operation == "load-saved" && (!fileSelected || !fileDialogSeen) {
+							step.Reason = "saved Load lacks its acknowledged file selection and confirmation"
+							break actions
+						}
 						expected := scenarioSaved
+						if request.Operation == "load-saved" && loadMethod == "boot" {
+							expected = resumeFacts.Expected
+						}
 						if effect == "card-load-prepared" {
 							expected = preparedState
 						}
@@ -2002,6 +2069,48 @@ requests:
 							break actions
 						}
 						if effect == "card-load-prepared" {
+							break
+						}
+						if request.Operation == "load-saved" {
+							if ui.Headers["story"] > 49 || ui.Headers["current"] != uint64(scenarioActor) {
+								step.Reason = "saved Load has no bounded owned human board"
+								break actions
+							}
+							for actor, player := range ui.Saved.Players {
+								if player.Control == nil || actor == scenarioActor && *player.Control != 0 || actor != scenarioActor && (*player.Control < 1 || *player.Control > 3) {
+									step.Reason = "saved Load actor or other control owner differs"
+									break actions
+								}
+							}
+							menuReady := ui.Headers["board_options"] == 5 && ui.Headers["board_handle"] == 1 && ui.Headers["board_cursor"] == 0
+							move := false
+							if menuReady {
+								for _, widget := range ui.Widgets {
+									if widget.Source == scenarioData.MoveSource && widget.Unsupported {
+										step.Reason = "saved Load selected Move owner is unsupported"
+										break actions
+									}
+									move = move || !widget.Unsupported && widget.Source == scenarioData.MoveSource && widget.Text == "Move" && widget.Ready == 0 && widget.Flags&3 == 1
+								}
+							}
+							if !menuReady || !move {
+								if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(row.IdlePollMS)*time.Millisecond); err != nil {
+									step.Reason = err.Error()
+									break actions
+								}
+								repeatEffect = true
+								break
+							}
+							if loadMethod == "warm" {
+								warmVerified = true
+							} else if loadMethod == "cold" && warmVerified {
+								coldVerified = true
+							} else if loadMethod != "boot" {
+								step.Reason = "saved Load reset verification order differs"
+								break actions
+							}
+							saved := ui.Saved
+							scenarioSaved, scenarioUI = &saved, ui
 							break
 						}
 						if loadMethod == "warm" {
@@ -2015,7 +2124,7 @@ requests:
 						break
 					}
 					wantedMode := uint64(0x2e0)
-					if effect != "card-save" {
+					if effect != "card-save" && effect != "select-file" {
 						wantedMode = 0x260
 					}
 					if repeats >= row.CardAttempts || ui.Headers["mode"] != wantedMode {
@@ -2023,7 +2132,7 @@ requests:
 						break actions
 					}
 					if ui.Headers["mc_dialog"] != 0 {
-						if fileSelected {
+						if fileSelected && request.Operation != "load-saved" {
 							fileDialogSeen = true
 						}
 						var prompt *ProbeUIWidget
@@ -2041,6 +2150,18 @@ requests:
 						if !known {
 							step.Reason = "unrecognized source card prompt"
 							break actions
+						}
+						if effect != "card-save" && (strings.HasPrefix(prompt.Text, "Create") || strings.HasPrefix(prompt.Text, "Creating") || strings.HasPrefix(prompt.Text, "Newdata") || strings.HasPrefix(prompt.Text, "Overwrite") || strings.HasPrefix(prompt.Text, "Saveto") || strings.HasPrefix(prompt.Text, "Saving.") || strings.HasPrefix(prompt.Text, "Savecomplete.")) {
+							step.Reason = "Load refuses a mutating card prompt"
+							break actions
+						}
+						if request.Operation == "load-saved" {
+							loadPrompt := "LoadFile" + strconv.Itoa(row.FileIndex+1) + "?"
+							confirmingLoad = effect == "card-load" && fileSelected && prompt.Text == loadPrompt
+							if !strings.HasPrefix(prompt.Text, "Checkingthememorycard") && !confirmingLoad && !strings.HasPrefix(prompt.Text, "Loading.") && !strings.HasPrefix(prompt.Text, "Loadcomplete.") {
+								step.Reason = "Load refuses nonmatching or mutating card prompt"
+								break actions
+							}
 						}
 						if profile.Scenario.Recipe != "" {
 							kind := ""
@@ -2107,7 +2228,7 @@ requests:
 							scenarioSaved = &saved
 							break
 						}
-						if effect == "card-preview" && *menu.Selection == uint64(row.FileIndex) {
+						if (effect == "card-preview" || effect == "select-file") && *menu.Selection == uint64(row.FileIndex) {
 							break
 						}
 						if *menu.Selection != uint64(row.FileIndex) {
@@ -2149,6 +2270,9 @@ requests:
 							fileSelected = true
 							fileDialogSeen, fileSelectionRetries = false, 0
 						}
+						if confirmingLoad && button == "CIRCLE" {
+							fileDialogSeen = true
+						}
 						if effect == "ack-preparation-image" {
 							preparationAcknowledged = true
 						}
@@ -2172,7 +2296,11 @@ requests:
 					}
 				}
 			case "preview-dwell":
-				if scenarioSaved == nil || fileSelected {
+				expected := scenarioSaved
+				if request.Operation == "load-saved" && loadMethod == "boot" {
+					expected = resumeFacts.Expected
+				}
+				if expected == nil || fileSelected {
 					step.Reason = "preview dwell lacks unconfirmed File2"
 					break actions
 				}
@@ -3656,6 +3784,22 @@ requests:
 			}
 			if retryAcquisition && (effect == "acquire-board" || effect == "takeover-control") && !slices.Contains(step.Skips, "paused board candidate changed or Move/task not ready") {
 				step.Skips = append(step.Skips, "paused board candidate changed or Move/task not ready")
+			}
+			if index == len(action.Effects)-1 && !repeatEffect && slices.Contains([]string{"load-saved", "select-saved-file", "restore-saved"}, request.Operation) {
+				card, err := readInput(cardPath, 64<<20)
+				if err != nil || step.CardBefore == "" || fmt.Sprintf("%x", sha256.Sum256(card)) != step.CardBefore {
+					step.Reason = "saved lifecycle card changed during the owned transition"
+					break actions
+				}
+				step.CardAfter = step.CardBefore
+				facts, _ := json.Marshal(map[string]any{"operation": request.Operation, "method": loadMethod, "session": profile.Session, "epoch": epoch, "owned": processes.Native, "resume_receipt": profile.Resume.Receipt, "expected": resumeFacts.Expected, "observed": step.UI, "actor": scenarioActor, "original_control": originalControl, "native_file_index": checkpointFileIndex, "card_sha256_before": step.CardBefore, "card_sha256_after": step.CardAfter, "warm_load_verified": warmVerified, "cold_load_verified": coldVerified, "restored": restored, "limits": "Current owned saved-card lifecycle evidence; no fresh Save/checkpoint/Pillow qualification."})
+				path := filepath.Join(receiptDir, request.Nonce+".saved-lifecycle.json")
+				digest := fmt.Sprintf("%x", sha256.Sum256(facts))
+				if err := writeProbeArtifact(artifactBudget, artifactClass, path, bytes.NewReader(facts), int64(len(facts)), digest, 0600); err != nil {
+					step.Reason = err.Error()
+					break actions
+				}
+				step.Evidence = &RegistryInput{Path: path, Size: int64(len(facts)), SHA256: digest}
 			}
 			effect = plannedEffect
 			if !repeatEffect && !retryAcquisition {

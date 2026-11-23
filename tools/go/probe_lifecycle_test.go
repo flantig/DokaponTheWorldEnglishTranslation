@@ -202,7 +202,8 @@ func TestProbeLifecycleChild(t *testing.T) {
 			newGame = true
 		}
 	}
-	paired := slices.Contains(os.Args, "scenario-paired") || newGame
+	savedResume := slices.Contains(os.Args, "scenario-saved-resume")
+	paired := slices.Contains(os.Args, "scenario-paired") || newGame || savedResume
 	scenario := slices.Contains(os.Args, "scenario-first-save") || paired
 	if scenario {
 		expires = time.Now().Add(120 * time.Second)
@@ -211,6 +212,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 		expires = time.Now().Add(600 * time.Second)
 	}
 	scenarioStage, boardCursor, tabCursor, fileCursor, eventOffset := 0, 0, 0, 0, 0
+	if savedResume {
+		scenarioStage = 8
+	}
 	choiceVariant := ""
 	for _, argument := range os.Args {
 		if strings.HasPrefix(argument, "save-dialog-") {
@@ -233,6 +237,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 		baseSquare = byte(9 + 10*(sequenceRun-1))
 	}
 	expectedFile := 1
+	if savedResume {
+		expectedFile = 0
+	}
 	if sequenceRun == 1 || sequenceRun == 2 {
 		expectedFile = 0
 	}
@@ -260,7 +267,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 	padBytes, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
 	if paired {
 		for _, name := range pending {
-			if strings.Contains(name, "-cold-load-") {
+			if strings.Contains(name, "-cold-load-") || savedResume && strings.Contains(name, "-cold-") {
 				scenarioStage = 8
 				scenarioControl = 2
 				eventOffset = len(padBytes)
@@ -489,6 +496,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 			if paired && scenarioStage == 9 && frameIndex == 1 && bytes.Equal(firstFrame, []byte{1, 0x1c, 0x58, 0x56, 0}) && bytes.Equal(payload, []byte{2, 8, 1, 0x57, 0}) {
 				peerPreviewSamples++
 			}
+			if savedResume && scenarioStage == 9 && peerPreviewSamples == 40 && slices.Contains(os.Args, "saved-early-board") {
+				if _, err := os.Lstat(filepath.Join(root, "receipts", "4-load-saved-04-card-load.pending.json")); err == nil {
+					card, err := os.ReadFile(filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
+					if err != nil || len(card) != 4112 {
+						t.Fatal("early board card", err)
+					}
+					loadedHeaders, loadedRecords = bytes.Clone(card[8:28]), bytes.Clone(card[28:2060])
+					scenarioControl, scenarioStage, introSamples = loadedRecords[241], 12, 2
+				}
+			}
 			var reply []byte
 			if scenario {
 				events, _ := os.ReadFile(filepath.Join(root, "pad-events.bin"))
@@ -537,6 +554,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 							}
 						case 305:
 							name = "CIRCLE"
+							if savedResume && (scenarioStage == 2 || scenarioStage == 10 && (slices.Contains(os.Args, "saved-wrong-file") || slices.Contains(os.Args, "saved-save-prompt") || slices.Contains(os.Args, "saved-creating")) || scenarioStage == 9 && introSamples > 0 && slices.Contains(os.Args, "saved-premature")) {
+								_ = os.WriteFile(filepath.Join(root, "saved-forbidden-confirm.txt"), []byte(strconv.Itoa(scenarioStage)), 0600)
+								t.Fatal("forbidden saved-route confirmation", scenarioStage)
+							}
 							switch scenarioStage {
 							case 0, 12:
 								if boardCursor == 4 {
@@ -633,8 +654,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 									scenarioStage = 9
 									fileCursor = 0
 									peerPreviewSamples = 0
+									if savedResume {
+										introSamples = 0
+									}
 								}
 							case 9:
+								if savedResume && introSamples == 0 {
+									introSamples++
+									_ = os.WriteFile(filepath.Join(root, "saved-checking-ack.txt"), []byte("Checking before preview, no file selected"), 0600)
+									break
+								}
 								if fileCursor == expectedFile {
 									if choiceVariant == "delayed-selection" {
 										fileLoadAttempts++
@@ -655,11 +684,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 									t.Fatal("controlled Load card")
 								}
 								offset := 2060
-								if sequenceRun > 0 {
+								if sequenceRun > 0 || savedResume {
 									offset = 8 + fileCursor*2052
 								}
 								loadedHeaders = bytes.Clone(card[offset : offset+20])
 								loadedRecords = bytes.Clone(card[offset+20 : offset+2052])
+								if savedResume {
+									introSamples = 0
+									_ = os.WriteFile(filepath.Join(root, "saved-loaded-slot.txt"), []byte(strconv.Itoa(fileCursor)), 0600)
+								}
 								scenarioControl = loadedRecords[activeActor*508+241]
 								scenarioStage = 12
 								if newGame && loadedRecords[activeActor*508]&1 == 0 {
@@ -814,6 +847,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				if paired && len(loadedRecords) == 2032 {
+					if savedResume && slices.Contains(os.Args, "saved-fingerprint") {
+						loadedRecords[304] = 101
+					}
+					if savedResume && slices.Contains(os.Args, "saved-navigation-stale") && !ackInjected {
+						if _, err := os.Lstat(filepath.Join(root, "receipts", "5-select-saved-file-00-qualify-saved.pending.json")); err == nil {
+							loadedRecords[304] = 101
+							ackInjected = true
+						}
+					}
 					for offset, value := range loadedRecords {
 						memory[0x56bed0+uint32(offset)] = value
 					}
@@ -863,6 +905,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 						memory[address+uint32(b)] = byte(value >> (8 * b))
 					}
 				}
+				if savedResume && scenarioStage == 12 && scenarioControl == 0 && introSamples < 2 {
+					// The original boot reload can reach board RAM before its Move menu.
+					if introSamples < 2 {
+						memory[0x56a800] = 0
+					}
+				}
 				if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && (acquisitionPauses == 1 || acquisitionPauses == 2) {
 					// The first candidate was already lost before submission;
 					// the second loses its handle across the owned pause.
@@ -892,6 +940,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 					}
 				}
+				prematureQuestion := false
+				if savedResume && scenarioStage == 9 && slices.Contains(os.Args, "saved-premature") {
+					_, err := os.Lstat(filepath.Join(root, "receipts", "4-load-saved-02-card-preview.pending.json"))
+					prematureQuestion = err == nil
+				}
 				texts := map[int]string{}
 				if !paired && scenarioStage == 6 {
 					texts[19] = strings.Repeat("x", 129)
@@ -902,6 +955,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 				if scenarioStage == 0 || scenarioStage == 12 {
 					texts[0] = "Move"
 					sources[0] = 0x534bc0
+					if savedResume && scenarioStage == 12 && introSamples < 2 {
+						delete(texts, 0)
+						delete(sources, 0)
+					}
 					if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && acquisitionPauses == 1 {
 						// R7: cursor0 candidacy drifted to3 with an unsupported canonical Move.
 						memory[0x56a808] = 3
@@ -928,7 +985,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						memory[0x57011c+uint32(b)] = byte(uint32(1) >> (8 * b))
 					}
 				}
-				if scenarioStage == 3 || scenarioStage == 5 || scenarioStage == 10 || scenarioStage == 26 || scenarioStage == 27 {
+				if scenarioStage == 3 || scenarioStage == 5 || scenarioStage == 10 || scenarioStage == 26 || scenarioStage == 27 || savedResume && (scenarioStage == 9 && (introSamples == 0 || prematureQuestion) || scenarioStage == 2 && slices.Contains(os.Args, "saved-select-dialog")) {
 					texts[2] = "Savetoanewfile"
 					if sequenceRun > 0 && scenarioStage == 3 && overwriting {
 						texts[2] = "OverwriteFile1"
@@ -944,6 +1001,27 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					if scenarioStage == 10 {
 						texts[2] = "LoadFile"
+						if savedResume {
+							texts[2] = "LoadFile1?"
+							if slices.Contains(os.Args, "saved-wrong-file") {
+								texts[2] = "LoadFile2?"
+							}
+							if slices.Contains(os.Args, "saved-save-prompt") {
+								texts[2] = "OverwriteFile1?"
+							}
+							if slices.Contains(os.Args, "saved-creating") {
+								texts[2] = "Creatingnewdata"
+							}
+						}
+					}
+					if savedResume && scenarioStage == 9 {
+						texts[2] = "LoadFile1?"
+						if introSamples == 0 {
+							texts[2] = "Checkingthememorycard(PS2).Donotremovethememorycard(PS2)."
+						}
+					}
+					if savedResume && scenarioStage == 2 {
+						texts[2] = "OverwriteFile1?"
 					}
 					ready[2] = 1
 					memory[0x570108] = 1
@@ -1022,6 +1100,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 						memory[cursor] = 1
 						memory[cursor+4] = 8
+						if savedResume && text == "File1File2" {
+							memory[cursor+4] = 0
+						}
 						memory[cursor+0x18] = byte(selection)
 					}
 					if startupVariant != "" && !startupAcknowledged && scenarioStage == 8 && sources[widget] != 0 && text != "" {
@@ -1084,7 +1165,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 					if acquisitionRetry && payload[5] == 0 && (acquisitionPauses != 5 || acquisitionPolls < 260 || delayedResume != 0) {
 						t.Fatal("takeover before bounded compact wait and checked resume", acquisitionPolls, acquisitionPauses, delayedResume)
 					}
-					restore := paired && payload[5] == 1 && scenarioStage == 1 && vmStatus == 0 && scenarioControl == 0
+					restore := paired && (payload[5] == 1 && !savedResume || payload[5] == 3 && savedResume) && scenarioStage == 1 && vmStatus == 0 && scenarioControl == 0
 					bootHandoff := newGame && payload[5] == 1 && scenarioStage == 24 && vmStatus == 0 && scenarioControl == 0
 					if binary.LittleEndian.Uint32(payload[1:]) != uint32(0x56bfc1+activeActor*508) || !restore && !bootHandoff && (payload[5] != 0 || vmStatus != 1) {
 						t.Fatal("unqualified Write8", fmt.Sprintf("%x", payload))
@@ -1098,7 +1179,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						scenarioStage = 0
 					}
 					if restore {
-						loadedRecords[activeActor*508+241] = 1
+						loadedRecords[activeActor*508+241] = payload[5]
 						advanceAtMode = scenarioModeReads + 2
 					}
 					scenarioWrites++
@@ -1111,6 +1192,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					reply = []byte{5, 0, 0, 0, 0}
 				} else if len(payload) == 5 && payload[0] <= 3 {
+					if savedResume && scenarioStage == 12 && binary.LittleEndian.Uint32(payload[1:]) == 0x56581c {
+						introSamples++
+					}
 					if binary.LittleEndian.Uint32(payload[1:]) == 0x56581c {
 						if scenarioModeReads == 0 {
 							memory[0x56581c] = 0x60
@@ -2745,6 +2829,313 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 		}
 	})
+	// Reuse this existing owner independently of the unrelated baseline.
+	var policyFixture struct {
+		Policy ProbeLifecyclePolicy `json:"go_policy"`
+	}
+	policyRaw, err := os.ReadFile("testdata/probe-lifecycle-policy.json")
+	if err != nil || json.Unmarshal(policyRaw, &policyFixture) != nil {
+		t.Fatal("resume policy fixture", err)
+	}
+	resumeRaw, err := os.ReadFile("testdata/probe-lifecycle-resume.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var resumeNames struct{ Refusals []string }
+	if json.Unmarshal(resumeRaw, &resumeNames) != nil {
+		t.Fatal("resume fixture")
+	}
+	for _, variant := range append([]string{"valid", "boot", "boot-wrong-file", "boot-save-prompt", "boot-creating", "boot-premature", "boot-early-board", "boot-fingerprint", "boot-navigation-stale", "boot-select-dialog"}, resumeNames.Refusals...) {
+		t.Run("resume/"+variant, func(t *testing.T) {
+			var source struct {
+				Bundle   ProbeEvidenceBundle
+				Receipt  ProbeResumeFacts
+				Run      map[string]any
+				Expected struct {
+					Epoch     int   `json:"new_epoch"`
+					Next      int   `json:"next_interval"`
+					Intervals []int `json:"watch_intervals"`
+				}
+			}
+			if json.Unmarshal(resumeRaw, &source) != nil {
+				t.Fatal("source resume fixture")
+			}
+			var savedCard []byte
+			if strings.HasPrefix(variant, "boot") {
+				// The independent paired oracle owns both complete raw records
+				// and decoded payload. Only its synthetic native file is relocated.
+				pairedRaw, err := os.ReadFile("testdata/probe-paired.json")
+				var pairedFacts struct{ States map[string]ProbeSavedState }
+				if err != nil || json.Unmarshal(pairedRaw, &pairedFacts) != nil {
+					t.Fatal("saved lifecycle paired oracle", err)
+				}
+				expected := pairedFacts.States["saved"]
+				expected.Story, expected.Week, expected.Day, expected.Current, expected.Area = source.Receipt.Expected.Story, source.Receipt.Expected.Week, source.Receipt.Expected.Day, source.Receipt.Expected.Current, source.Receipt.Expected.Area
+				source.Receipt.Expected = &expected
+				slot, control := 0, uint32(3)
+				source.Receipt.Slot, source.Receipt.OriginalControl = &slot, &control
+				savedCard, err = os.ReadFile("testdata/probe-paired-card-saved.bin")
+				if err != nil || len(savedCard) != 4112 {
+					t.Fatal("saved lifecycle card oracle", err)
+				}
+				copy(savedCard[8:2060], savedCard[2060:4112])
+				for index, value := range []*uint32{expected.Story, expected.Week, expected.Day, expected.Current, expected.Area} {
+					binary.LittleEndian.PutUint32(savedCard[8+index*4:], *value)
+				}
+				for index, event := range source.Bundle.Events {
+					var facts map[string]json.RawMessage
+					_ = json.Unmarshal(event.Data, &facts)
+					var id int
+					_ = json.Unmarshal(facts["event_id"], &id)
+					if id == source.Receipt.SaveEvent || id == source.Receipt.ColdLoadEvent {
+						facts["state"], _ = json.Marshal(expected)
+						facts["slot"], _ = json.Marshal(slot)
+					}
+					if id == source.Receipt.ControlEvent {
+						facts["original_control"], _ = json.Marshal(control)
+					}
+					source.Bundle.Events[index].Data, _ = json.Marshal(facts)
+				}
+			}
+			priorRoot := t.TempDir()
+			_ = os.Chmod(priorRoot, 0700)
+			if err := os.MkdirAll(filepath.Join(priorRoot, "checkpoints", "screenshots"), 0700); err != nil {
+				t.Fatal(err)
+			}
+			if variant == "native-slot" {
+				value := 3
+				source.Receipt.Slot = &value
+			}
+			if variant == "control" {
+				value := uint32(2)
+				source.Receipt.OriginalControl = &value
+			}
+			if variant == "cleanup" {
+				source.Run["cleanup_complete"] = false
+			}
+			if variant == "event-order" {
+				source.Bundle.Events[17], source.Bundle.Events[18] = source.Bundle.Events[18], source.Bundle.Events[17]
+			}
+			if variant == "seeded-prefix" {
+				source.Receipt.ScheduledIntervals[0]++
+				var event map[string]any
+				_ = json.Unmarshal(source.Bundle.Events[0].Data, &event)
+				event["interval_seconds"] = 5327
+				source.Bundle.Events[0].Data, _ = json.Marshal(event)
+			}
+			if variant == "fingerprint" {
+				var event map[string]any
+				_ = json.Unmarshal(source.Bundle.Events[18].Data, &event)
+				state := event["state"].(map[string]any)
+				state["players"].([]any)[0].(map[string]any)["money"] = 101
+				source.Bundle.Events[18].Data, _ = json.Marshal(event)
+			}
+			if variant == "already-resumed" {
+				event, _ := json.Marshal(map[string]any{"event": "resumed", "event_id": 22, "checkpoint": 2, "time": "2026-11-13T00:01:06+0000", "slot": 2, "expected": source.Receipt.Expected})
+				source.Bundle.Events = append(source.Bundle.Events, ProbeEvidenceEvent{Data: event})
+			}
+			var pngBytes bytes.Buffer
+			if err := png.Encode(&pngBytes, image.NewNRGBA(image.Rect(0, 0, 1, 1))); err != nil {
+				t.Fatal(err)
+			}
+			var eventBytes bytes.Buffer
+			for _, saved := range source.Bundle.Events {
+				var compact bytes.Buffer
+				if err := json.Compact(&compact, saved.Data); err != nil {
+					t.Fatal(err)
+				}
+				eventBytes.Write(compact.Bytes())
+				eventBytes.WriteByte('\n')
+				var event struct {
+					Checkpoint int
+					Screenshot string
+				}
+				_ = json.Unmarshal(saved.Data, &event)
+				if event.Checkpoint == 1 && event.Screenshot != "" {
+					if err := os.WriteFile(filepath.Join(priorRoot, "checkpoints", event.Screenshot), pngBytes.Bytes(), 0400); err != nil {
+						t.Fatal(err)
+					}
+				}
+			}
+			card := []byte(fixture.PostColdCard)
+			if savedCard != nil {
+				card = savedCard
+			}
+			cardSHA := fmt.Sprintf("%x", sha256.Sum256(card))
+			source.Run["private_card_final_sha256"] = cardSHA
+			runData, _ := json.Marshal(source.Run)
+			sequenceData, _ := json.Marshal(map[string]any{"status": "failed", "iso_sha256": source.Receipt.ISOSHA256, "runs": []any{map[string]any{"run": source.Receipt.SourceFrameRoot, "result": source.Run}}})
+			source.Receipt.Artifacts = map[string]RegistryInput{}
+			for role, data := range map[string][]byte{"run": runData, "sequence": sequenceData, "events": eventBytes.Bytes(), "card": card} {
+				path := filepath.Join(priorRoot, role+".json")
+				if role == "events" {
+					path = filepath.Join(priorRoot, "checkpoints", "events.jsonl")
+				}
+				if role == "card" {
+					path = filepath.Join(priorRoot, "card.ps2")
+				}
+				if err := os.WriteFile(path, data, 0400); err != nil {
+					t.Fatal(err)
+				}
+				source.Receipt.Artifacts[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+			}
+			receiptData, _ := json.Marshal(source.Receipt)
+			source.Bundle.Events = nil // The actual pinned JSONL is the sole event authority.
+			evidenceData, _ := json.Marshal(source.Bundle)
+			metadata := map[string]RegistryInput{}
+			for role, data := range map[string][]byte{"receipt": receiptData, "evidence": evidenceData} {
+				path := filepath.Join(priorRoot, role+".json")
+				if err := os.WriteFile(path, data, 0400); err != nil {
+					t.Fatal(err)
+				}
+				metadata[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
+			}
+			candidate := profile
+			candidate.Root = t.TempDir()
+			_ = os.Chmod(candidate.Root, 0700)
+			candidate.Session = "new-resume-session"
+			candidate.Seed = source.Receipt.Seed
+			candidate.Policy = &policyFixture.Policy
+			candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "watch-advance")
+			candidate.Inputs = map[string]RegistryInput{}
+			for role, input := range profile.Inputs {
+				candidate.Inputs[role] = input
+			}
+			candidate.Inputs["card"] = source.Receipt.Artifacts["card"]
+			candidate.Resume = &ProbeLifecycleResume{Root: priorRoot, Receipt: metadata["receipt"], Evidence: metadata["evidence"]}
+			if variant == "artifact-hash" {
+				candidate.Resume.Evidence.SHA256 = strings.Repeat("0", 64)
+			}
+			candidate.Requests = []ProbeLifecycleRequest{{Session: candidate.Session, Operation: "resume", Phase: "requested", Nonce: "1-resume"}, {Session: candidate.Session, Operation: "watch", Phase: "requested", Nonce: "2-watch"}, {Session: candidate.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
+			if strings.HasPrefix(variant, "boot") {
+				candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-saved-resume")
+				if variant != "boot" {
+					candidate.ProgramArgs = append(candidate.ProgramArgs, "saved-"+strings.TrimPrefix(variant, "boot-"))
+				}
+				glyphs := map[string]string{}
+				for character := 32; character < 127; character++ {
+					glyphs[strconv.Itoa(character)] = string(rune(character))
+				}
+				glyphRaw, _ := json.Marshal(glyphs)
+				glyphPath := filepath.Join(sources, "saved-resume-glyphmap-"+variant+".json")
+				if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
+					t.Fatal(err)
+				}
+				candidate.ReadyTimeoutMS = 10000
+				candidate.QuietMS = 20
+				candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, WaitTimeoutMS: 60000, MaxUIReads: 4096}
+				candidate.Requests = nil
+				for ordinal, operation := range []string{"resume", "pause", "unpause", "load-saved", "select-saved-file", "warm", "load-saved", "cold", "load-saved", "restore-saved", "stop"} {
+					candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: candidate.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", ordinal+1, operation)})
+				}
+			}
+			if strings.HasPrefix(variant, "boot-") {
+				last := 4
+				if variant == "boot-navigation-stale" || variant == "boot-select-dialog" {
+					last = 5
+				}
+				candidate.Requests = append(candidate.Requests[:last:last], candidate.Requests[len(candidate.Requests)-1])
+			}
+			input, _ := json.Marshal(candidate)
+			outcome, runErr := runProbeLifecycle(input)
+			for _, step := range outcome.Steps {
+				if step.Owned != nil {
+					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
+						_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
+						var status syscall.WaitStatus
+						_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
+					}
+				}
+			}
+			if strings.HasPrefix(variant, "boot-") {
+				failure := outcome.Steps[len(outcome.Steps)-2]
+				written, _ := os.ReadFile(filepath.Join(candidate.Root, "scenario-write-count.txt"))
+				expectedReason := map[string]string{"boot-wrong-file": "Load refuses nonmatching or mutating card prompt", "boot-save-prompt": "Load refuses a mutating card prompt", "boot-creating": "Load refuses a mutating card prompt", "boot-premature": "Load refuses nonmatching or mutating card prompt", "boot-early-board": "saved Load lacks its acknowledged file selection and confirmation", "boot-fingerprint": "loaded source fingerprint or complete preview dwell differs", "boot-navigation-stale": "saved file navigation lacks its fresh restored human payload", "boot-select-dialog": "saved file navigation refuses card dialogs"}[variant]
+				expectedOperation := "load-saved"
+				if variant == "boot-navigation-stale" || variant == "boot-select-dialog" {
+					expectedOperation = "select-saved-file"
+				}
+				_, forbidden := os.Lstat(filepath.Join(candidate.Root, "saved-forbidden-confirm.txt"))
+				events, eventErr := os.ReadFile(filepath.Join(candidate.Root, "pad-events.bin"))
+				confirmations := 0
+				for offset := 0; offset+24 <= len(events); offset += 24 {
+					if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 305 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+						confirmations++
+					}
+				}
+				if runErr != nil || outcome.Status == "COMPLETED" || failure.Request.Operation != expectedOperation || failure.Status == "COMPLETED" || failure.Reason != expectedReason || len(failure.Effects) != map[string]int{"boot-wrong-file": 4, "boot-save-prompt": 4, "boot-creating": 4, "boot-premature": 2, "boot-early-board": 4, "boot-fingerprint": 4, "boot-navigation-stale": 0, "boot-select-dialog": 3}[variant] || !os.IsNotExist(forbidden) || eventErr != nil || confirmations != map[string]int{"boot-wrong-file": 3, "boot-save-prompt": 3, "boot-creating": 3, "boot-premature": 2, "boot-early-board": 2, "boot-fingerprint": 4, "boot-navigation-stale": 4, "boot-select-dialog": 6}[variant] || outcome.Steps[len(outcome.Steps)-1].Status != "COMPLETED" || string(written) != "" && string(written) != "0" {
+					full, _ := json.Marshal(outcome)
+					t.Fatalf("%s did not refuse before control writes with owned stop: %s %v", variant, full, runErr)
+				}
+				t.Logf("%s live refusal: %s; acknowledged effects=%v Circle presses=%d, no control write, stop completed", variant, failure.Reason, failure.Effects, confirmations)
+			} else if variant == "boot" {
+				if runErr != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != len(candidate.Requests) {
+					full, _ := json.Marshal(outcome)
+					for _, step := range outcome.Steps {
+						path := filepath.Join(candidate.Root, fmt.Sprintf("child-epoch-%d.log", step.Epoch))
+						if data, err := os.ReadFile(path); err == nil {
+							t.Logf("bounded child log tail epoch%d: %s", step.Epoch, data[max(0, len(data)-4096):])
+						}
+					}
+					t.Fatalf("saved lifecycle boot/full transition: %s %v", full, runErr)
+				}
+				selectedRaw, selectedErr := os.ReadFile(filepath.Join(candidate.Root, "receipts", "5-select-saved-file-03-select-file.complete.json"))
+				var selectedReceipt ProbeLifecycleEffect
+				var selectedState ProbeLifecycleStep
+				if selectedErr != nil || json.Unmarshal(selectedRaw, &selectedReceipt) != nil || selectedReceipt.Phase != "complete" || selectedReceipt.Action != "select-file" || json.Unmarshal(selectedReceipt.Details, &selectedState) != nil || selectedState.UI == nil {
+					t.Fatal("saved File receipt", selectedErr)
+				}
+				zeroRows := false
+				for _, widget := range selectedState.UI.Widgets {
+					zeroRows = zeroRows || uint64(widget.Index) == selectedState.UI.Headers["file_widget"] && widget.Text == "File1File2" && widget.Rows != nil && *widget.Rows == 0 && widget.Selection != nil && *widget.Selection == 0
+				}
+				if !zeroRows || !reflect.DeepEqual(selectedState.UI, outcome.Steps[4].UI) {
+					t.Fatal("actual saved File1 receipt must retain rows0/selection0", selectedState.UI)
+				}
+				t.Log("actual select-file complete receipt: native File1 selection0 rows0, no Save confirmation")
+				for _, index := range []int{3, 4, 6, 8, 9} {
+					step := outcome.Steps[index]
+					if step.Status != "COMPLETED" || step.Evidence == nil || step.Checkpoint != nil || step.CardBefore != cardSHA || step.CardAfter != cardSHA {
+						t.Fatal("saved lifecycle lacks separate current evidence/card preservation", index, step)
+					}
+				}
+				if outcome.Steps[5].Owned.PID != outcome.Steps[3].Owned.PID || outcome.Steps[5].Epoch != outcome.Steps[3].Epoch || outcome.Steps[7].Owned.PID == outcome.Steps[5].Owned.PID || outcome.Steps[7].Epoch != outcome.Steps[5].Epoch+1 || outcome.Steps[10].CardAfter != cardSHA {
+					t.Fatal("saved lifecycle reset/relaunch/stop identity differs", outcome)
+				}
+				written, _ := os.ReadFile(filepath.Join(candidate.Root, "scenario-write-count.txt"))
+				checking, _ := os.ReadFile(filepath.Join(candidate.Root, "saved-checking-ack.txt"))
+				loaded, _ := os.ReadFile(filepath.Join(candidate.Root, "saved-loaded-slot.txt"))
+				if len(checking) == 0 || string(written) != "1" || string(loaded) != "0" || outcome.Steps[9].UI == nil || *outcome.Steps[9].UI.Saved.Players[0].Control != 3 {
+					t.Fatal("saved resume did not use declared File1 and one guarded COM restore", string(written), string(loaded), outcome.Steps[9])
+				}
+				t.Log("qualified resume -> real File1 boot Load -> pause/unpause -> selected file/warm Load -> fresh cold Load -> one COM restore/advance/owned stop, no new Save")
+			} else if variant == "valid" {
+				if runErr != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != 3 {
+					t.Fatalf("valid bound resume: %+v %v", outcome, runErr)
+				}
+				if outcome.Steps[0].Epoch != source.Expected.Epoch || outcome.Steps[0].ResumeEvidenceSHA256 == "" || !reflect.DeepEqual(outcome.Steps[1].ScheduledIntervals, source.Expected.Intervals) || outcome.Steps[2].CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostStopCard))) {
+					t.Errorf("resume preservation/draw prefix: %+v", outcome)
+				}
+			} else {
+				if runErr == nil && (len(outcome.Steps) == 0 || outcome.Steps[0].Status != "REFUSED") {
+					t.Errorf("%s invalid resume admitted: %+v", variant, outcome)
+				}
+				if _, err := os.Lstat(filepath.Join(candidate.Root, "profile")); !os.IsNotExist(err) {
+					t.Errorf("%s invalid resume mutated profile", variant)
+				}
+				entries, _ := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+				if len(entries) != 0 {
+					t.Errorf("%s invalid resume emitted effect receipts", variant)
+				}
+			}
+			for role, artifact := range source.Receipt.Artifacts {
+				contents, err := os.ReadFile(artifact.Path)
+				if err != nil || fmt.Sprintf("%x", sha256.Sum256(contents)) != artifact.SHA256 {
+					t.Errorf("%s resume source%s changed", variant, role)
+				}
+			}
+		})
+	}
 	t.Run("baseline", func(t *testing.T) {
 		// Exercise split ownership with only our known fixture PID, never host enumeration.
 		for _, controllerLoss := range []bool{false, true} {
@@ -3408,172 +3799,6 @@ func TestProbeLifecycle(t *testing.T) {
 				content, err := os.ReadFile(input.Path)
 				if err != nil || fmt.Sprintf("%x", sha256.Sum256(content)) != input.SHA256 {
 					t.Errorf("%s source%s changed", sample.ID, role)
-				}
-			}
-		}
-		resumeRaw, err := os.ReadFile("testdata/probe-lifecycle-resume.json")
-		if err != nil {
-			t.Fatal(err)
-		}
-		var resumeNames struct{ Refusals []string }
-		if json.Unmarshal(resumeRaw, &resumeNames) != nil {
-			t.Fatal("resume fixture")
-		}
-		for _, variant := range append([]string{"valid"}, resumeNames.Refusals...) {
-			var source struct {
-				Bundle   ProbeEvidenceBundle
-				Receipt  ProbeResumeFacts
-				Run      map[string]any
-				Expected struct {
-					Epoch     int   `json:"new_epoch"`
-					Next      int   `json:"next_interval"`
-					Intervals []int `json:"watch_intervals"`
-				}
-			}
-			if json.Unmarshal(resumeRaw, &source) != nil {
-				t.Fatal("source resume fixture")
-			}
-			priorRoot := t.TempDir()
-			_ = os.Chmod(priorRoot, 0700)
-			if err := os.MkdirAll(filepath.Join(priorRoot, "checkpoints", "screenshots"), 0700); err != nil {
-				t.Fatal(err)
-			}
-			if variant == "native-slot" {
-				value := 3
-				source.Receipt.Slot = &value
-			}
-			if variant == "control" {
-				value := uint32(2)
-				source.Receipt.OriginalControl = &value
-			}
-			if variant == "cleanup" {
-				source.Run["cleanup_complete"] = false
-			}
-			if variant == "event-order" {
-				source.Bundle.Events[17], source.Bundle.Events[18] = source.Bundle.Events[18], source.Bundle.Events[17]
-			}
-			if variant == "seeded-prefix" {
-				source.Receipt.ScheduledIntervals[0]++
-				var event map[string]any
-				_ = json.Unmarshal(source.Bundle.Events[0].Data, &event)
-				event["interval_seconds"] = 5327
-				source.Bundle.Events[0].Data, _ = json.Marshal(event)
-			}
-			if variant == "fingerprint" {
-				var event map[string]any
-				_ = json.Unmarshal(source.Bundle.Events[18].Data, &event)
-				state := event["state"].(map[string]any)
-				state["players"].([]any)[0].(map[string]any)["money"] = 101
-				source.Bundle.Events[18].Data, _ = json.Marshal(event)
-			}
-			if variant == "already-resumed" {
-				event, _ := json.Marshal(map[string]any{"event": "resumed", "event_id": 22, "checkpoint": 2, "time": "2026-11-13T00:01:06+0000", "slot": 2, "expected": source.Receipt.Expected})
-				source.Bundle.Events = append(source.Bundle.Events, ProbeEvidenceEvent{Data: event})
-			}
-			var pngBytes bytes.Buffer
-			if err := png.Encode(&pngBytes, image.NewNRGBA(image.Rect(0, 0, 1, 1))); err != nil {
-				t.Fatal(err)
-			}
-			var eventBytes bytes.Buffer
-			for _, saved := range source.Bundle.Events {
-				var compact bytes.Buffer
-				if err := json.Compact(&compact, saved.Data); err != nil {
-					t.Fatal(err)
-				}
-				eventBytes.Write(compact.Bytes())
-				eventBytes.WriteByte('\n')
-				var event struct {
-					Checkpoint int
-					Screenshot string
-				}
-				_ = json.Unmarshal(saved.Data, &event)
-				if event.Checkpoint == 1 && event.Screenshot != "" {
-					if err := os.WriteFile(filepath.Join(priorRoot, "checkpoints", event.Screenshot), pngBytes.Bytes(), 0400); err != nil {
-						t.Fatal(err)
-					}
-				}
-			}
-			card := []byte(fixture.PostColdCard)
-			cardSHA := fmt.Sprintf("%x", sha256.Sum256(card))
-			source.Run["private_card_final_sha256"] = cardSHA
-			runData, _ := json.Marshal(source.Run)
-			sequenceData, _ := json.Marshal(map[string]any{"status": "failed", "iso_sha256": source.Receipt.ISOSHA256, "runs": []any{map[string]any{"run": source.Receipt.SourceFrameRoot, "result": source.Run}}})
-			source.Receipt.Artifacts = map[string]RegistryInput{}
-			for role, data := range map[string][]byte{"run": runData, "sequence": sequenceData, "events": eventBytes.Bytes(), "card": card} {
-				path := filepath.Join(priorRoot, role+".json")
-				if role == "events" {
-					path = filepath.Join(priorRoot, "checkpoints", "events.jsonl")
-				}
-				if role == "card" {
-					path = filepath.Join(priorRoot, "card.ps2")
-				}
-				if err := os.WriteFile(path, data, 0400); err != nil {
-					t.Fatal(err)
-				}
-				source.Receipt.Artifacts[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
-			}
-			receiptData, _ := json.Marshal(source.Receipt)
-			source.Bundle.Events = nil // The actual pinned JSONL is the sole event authority.
-			evidenceData, _ := json.Marshal(source.Bundle)
-			metadata := map[string]RegistryInput{}
-			for role, data := range map[string][]byte{"receipt": receiptData, "evidence": evidenceData} {
-				path := filepath.Join(priorRoot, role+".json")
-				if err := os.WriteFile(path, data, 0400); err != nil {
-					t.Fatal(err)
-				}
-				metadata[role] = RegistryInput{Path: path, Size: int64(len(data)), SHA256: fmt.Sprintf("%x", sha256.Sum256(data))}
-			}
-			candidate := profile
-			candidate.Root = t.TempDir()
-			_ = os.Chmod(candidate.Root, 0700)
-			candidate.Session = "new-resume-session"
-			candidate.Seed = source.Receipt.Seed
-			candidate.Policy = &policyFixture.Policy
-			candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "watch-advance")
-			candidate.Inputs = map[string]RegistryInput{}
-			for role, input := range profile.Inputs {
-				candidate.Inputs[role] = input
-			}
-			candidate.Inputs["card"] = source.Receipt.Artifacts["card"]
-			candidate.Resume = &ProbeLifecycleResume{Root: priorRoot, Receipt: metadata["receipt"], Evidence: metadata["evidence"]}
-			if variant == "artifact-hash" {
-				candidate.Resume.Evidence.SHA256 = strings.Repeat("0", 64)
-			}
-			candidate.Requests = []ProbeLifecycleRequest{{Session: candidate.Session, Operation: "resume", Phase: "requested", Nonce: "1-resume"}, {Session: candidate.Session, Operation: "watch", Phase: "requested", Nonce: "2-watch"}, {Session: candidate.Session, Operation: "stop", Phase: "requested", Nonce: "3-stop"}}
-			input, _ := json.Marshal(candidate)
-			outcome, runErr := runProbeLifecycle(input)
-			for _, step := range outcome.Steps {
-				if step.Owned != nil {
-					if _, err := observeProbeProcess(ProbeMemoryRuntime{}, step.Owned.PID, step.Owned, candidate.Program.SHA256); err == nil {
-						_ = syscall.Kill(step.Owned.PID, syscall.SIGTERM)
-						var status syscall.WaitStatus
-						_, _ = syscall.Wait4(step.Owned.PID, &status, 0, nil)
-					}
-				}
-			}
-			if variant == "valid" {
-				if runErr != nil || outcome.Status != "COMPLETED" || len(outcome.Steps) != 3 {
-					t.Fatalf("valid bound resume: %+v %v", outcome, runErr)
-				}
-				if outcome.Steps[0].Epoch != source.Expected.Epoch || outcome.Steps[0].ResumeEvidenceSHA256 == "" || !reflect.DeepEqual(outcome.Steps[1].ScheduledIntervals, source.Expected.Intervals) || outcome.Steps[2].CardAfter != fmt.Sprintf("%x", sha256.Sum256([]byte(fixture.PostStopCard))) {
-					t.Errorf("resume preservation/draw prefix: %+v", outcome)
-				}
-			} else {
-				if runErr == nil && (len(outcome.Steps) == 0 || outcome.Steps[0].Status != "REFUSED") {
-					t.Errorf("%s invalid resume admitted: %+v", variant, outcome)
-				}
-				if _, err := os.Lstat(filepath.Join(candidate.Root, "profile")); !os.IsNotExist(err) {
-					t.Errorf("%s invalid resume mutated profile", variant)
-				}
-				entries, _ := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
-				if len(entries) != 0 {
-					t.Errorf("%s invalid resume emitted effect receipts", variant)
-				}
-			}
-			for role, artifact := range source.Receipt.Artifacts {
-				contents, err := os.ReadFile(artifact.Path)
-				if err != nil || fmt.Sprintf("%x", sha256.Sum256(contents)) != artifact.SHA256 {
-					t.Errorf("%s resume source%s changed", variant, role)
 				}
 			}
 		}

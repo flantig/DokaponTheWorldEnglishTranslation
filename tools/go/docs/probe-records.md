@@ -138,6 +138,37 @@ The current offline batch adds guarded pause/resume, bounded watch/recovery/atte
 
 Saved artifacts and card restoration into a fresh owned root/epoch are not actual Continue, restored gameplay or a `.06` scenario producer. Native device/profile/material acceptance, owner resource/soak/retention agreement, `.03` diagnostic/native qualification and `.04` native/derivative gaps remain held. Go policy caps are explicit, not a claimed legacy24-skip cap or automatic-restart default. The [same proof](../evidence/probe-records-proof.json) preserves both accepted source epochs, closed review findings and the earlier status143 failure with UNKNOWN cause. No native command or handover is supplied here; `.05` remains uncredited.
 
+The guarded saved-card lifecycle extends a qualified `resume` without treating
+its archived fingerprint as current RAM. Set `resume` to the pinned receipt and
+evidence under a readonly source root, keep the admitted seed, use a different
+session and fresh private destination, and supply the existing `scenario`
+glyphmap/read bounds. The admitted resume receipt owns the native file index
+(including index0/File1); the first-Save recipe's default File2 does not override it.
+The private backend also admits the existing `pause` and `unpause` operations.
+
+| Operation | Required current evidence and behavior |
+| --- | --- |
+| `load-saved` | Follows durable `resume`, `warm` or `cold` for the same current owner. Drives Continue, preview of the declared file,40 successful250ms dwell reads, acknowledged selection and the exact numbered Load confirmation. Then it waits without input for supported Move and checks the complete saved fingerprint, human actor and other controls. Boot Load establishes current saved context; only actual warm/cold transitions can establish their respective reload facts. |
+| `select-saved-file` | Requires that current restored context. Rechecks the full payload before navigation, reaches Data/Save FILE and the declared selection, then stops without confirming Save. Every dialog is refused. |
+| `restore-saved` | Requires both real warm and cold Load verification in this lineage. Reuses Data MAIN validation, the single original-control write with ACK/readback, and bounded changed advancement. |
+
+A typical preservation sequence is `resume → pause → unpause → load-saved →
+select-saved-file → warm → load-saved → cold → load-saved → restore-saved → stop`.
+Warm reset requires the selected Save FILE state and stable private card; cold
+requires exact old-process disposal, flush and a newly verified epoch. Source
+card bytes remain readonly, and the private card must preserve the admitted hash
+through these saved lifecycle operations and stop. Load refuses premature or
+wrong-file questions and Create, Creating, Overwrite and Save prompts; the
+existing actual Save operation retains its separate confirmation contract.
+
+Each completed saved operation links its own `nonce.saved-lifecycle.json` receipt
+to the current session, epoch, native identity, admitted source, full observed
+payload, declared native file and before/after card hashes. It does not set
+`saveCompleted`, create a checkpoint or substitute archival facts for a new Save,
+paired `.06` captures or native acceptance. Native lifecycle, crash/recovery,
+resource-policy and preservation qualification still require actual owned-run
+evidence; adding these routes alone earns no criterion credit.
+
 The first `.06` offline producer now drives a controlled fake VM through board, Data MAIN and Save to nondefault File2 (selection index1, separate from hardware card Slot1). Source-bound UI acquisition shares the observer, framing and pure decoder; it preserves public read limits. Named private Write8/readback, genuine Go-produced record linkage, actual original-PNG capture and full player fingerprints feed the existing `.02` report. Tests retain the qualified Move tuple after unpause and distinguish busy500ms from other nonready250ms source dwell.
 
 For that first-Save source epoch, save and capture evidence are positive, while its actual full checkpoint stays **UNKNOWN** with no passing coverage until paired warm/cold verification and changed advancement exist. Continue, restored gameplay, broader scenarios/stories, native/device acceptance, owner resource/soak limits and handover remain held. This is original PNG only, without Pillow/JPEG equivalence. [The same proof](../evidence/probe-records-proof.json) pins the first-producer epoch and preserves its earlier test failures. The score remains **85/90**, probe **2/6**.
