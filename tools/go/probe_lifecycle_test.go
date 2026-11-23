@@ -140,6 +140,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 	acquisitionRetry := slices.Contains(os.Args, "acquisition-retry")
 	acquisitionReceiptBound := slices.Contains(os.Args, "acquisition-receipt-bound")
 	acquisitionUnexplained := slices.Contains(os.Args, "acquisition-unexplained")
+	acquisitionUnsupported := slices.Contains(os.Args, "acquisition-unsupported")
 	var uiHeaderRequest []byte
 	if acquisitionRetry {
 		var source struct{ Headers map[string][]uint32 }
@@ -841,9 +842,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 				if scenarioStage == 0 || scenarioStage == 12 {
 					texts[0] = "Move"
 					sources[0] = 0x534bc0
-					if acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && acquisitionPauses == 1 {
-						// A known pre-write candidate miss must resume before retrying.
-						sources[0] = 0x534bc4
+					if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && acquisitionPauses == 1 {
+						// R7: cursor0 candidacy drifted to3 with an unsupported canonical Move.
+						memory[0x56a808] = 3
 					}
 					if vmStatus == 0 && scenarioControl == 0 && slices.Contains(os.Args, "move-after-resume") {
 						sources[0] = 0x534bc4
@@ -995,7 +996,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						for b, value := range []byte("char" + strconv.Itoa(int(character))) {
 							memory[node+0x10+uint32(b)] = value
 						}
-						if widget == 0 && index == 0 && slices.Contains(os.Args, "unsupported-ui") {
+						if widget == 0 && index == 0 && (slices.Contains(os.Args, "unsupported-ui") || acquisitionUnsupported || acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && acquisitionPauses == 1) {
 							for b, value := range []byte("char2047\x00") {
 								memory[node+0x10+uint32(b)] = value
 							}
@@ -1074,7 +1075,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						if uiBatch {
 							acquisitionPolls++
 						}
-						if acquisitionPolls < 260 && !acquisitionReceiptBound && !acquisitionUnexplained {
+						if acquisitionPolls < 260 && !acquisitionReceiptBound && !acquisitionUnexplained && !acquisitionUnsupported {
 							memory[address], memory[address+1] = 0x60, 2
 						}
 						if acquisitionReceiptBound && uiBatch && acquisitionPolls == 1 {
@@ -1709,7 +1710,7 @@ func TestProbeLifecycle(t *testing.T) {
 	// Keep the slow, real polling/resource regression separately selectable.
 	// The child rejects takeover until two held misses have resumed successfully.
 	t.Run("acquisition", func(t *testing.T) {
-		for _, variant := range []string{"retry", "receipt-bound", "unexplained-byte"} {
+		for _, variant := range []string{"retry", "unsupported-move", "receipt-bound", "unexplained-byte"} {
 			candidate := profile
 			candidate.Root = t.TempDir()
 			if err := os.Chmod(candidate.Root, 0700); err != nil {
@@ -1727,6 +1728,11 @@ func TestProbeLifecycle(t *testing.T) {
 				candidate.ProgramArgs = append(candidate.ProgramArgs, "acquisition-receipt-bound")
 				candidate.Scenario.WaitTimeoutMS = 5000
 			}
+			if variant == "unsupported-move" {
+				candidate.Frames = nil
+				candidate.ProgramArgs = append(candidate.ProgramArgs, "acquisition-unsupported")
+				candidate.Scenario.WaitTimeoutMS = 5000
+			}
 			if variant == "unexplained-byte" {
 				candidate.Frames = nil
 				candidate.ProgramArgs = append(candidate.ProgramArgs, "acquisition-unexplained")
@@ -1738,6 +1744,14 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			input, _ := json.Marshal(candidate)
 			result, err := runProbeLifecycle(input)
+			if variant == "unsupported-move" {
+				_, writeErr := os.Lstat(filepath.Join(candidate.Root, "scenario-write.bin"))
+				if err != nil || result.Status != "INCOMPLETE" || len(result.Steps) != 3 || result.Steps[1].Reason != "source board/Move/task context is not eligible" || result.Steps[2].Status != "COMPLETED" || !os.IsNotExist(writeErr) || len(result.Steps[1].Skips) != 0 {
+					t.Fatal("stable unsupported Move must refuse without retry/write and retain stop", result, err, writeErr)
+				}
+				t.Log("stable canonical Move char2047 refused without retry or takeover; stop completed")
+				continue
+			}
 			if variant == "unexplained-byte" {
 				_, writeErr := os.Lstat(filepath.Join(candidate.Root, "scenario-write.bin"))
 				if err != nil || result.Status != "INCOMPLETE" || len(result.Steps) != 3 || result.Steps[1].Reason != "source widget/player owner changed before takeover" || result.Steps[2].Status != "COMPLETED" || !os.IsNotExist(writeErr) {
@@ -1788,6 +1802,7 @@ func TestProbeLifecycle(t *testing.T) {
 				t.Fatal("receipt reserve exceeded", len(entries), err)
 			}
 			waitReceipts, heldReceipts, resumeReceipts := 0, 0, 0
+			driftWithUnsupportedMove := false
 			for _, entry := range entries {
 				if strings.HasPrefix(entry.Name(), "2-scenario-00-wait-board") {
 					waitReceipts++
@@ -1807,12 +1822,23 @@ func TestProbeLifecycle(t *testing.T) {
 				}
 				if strings.HasPrefix(entry.Name(), "2-scenario-04-acquire-board") {
 					heldReceipts++
+					if strings.HasSuffix(entry.Name(), ".complete.json") {
+						data, _ := os.ReadFile(filepath.Join(candidate.Root, "receipts", entry.Name()))
+						var effect ProbeLifecycleEffect
+						var held ProbeLifecycleStep
+						if json.Unmarshal(data, &effect) != nil || json.Unmarshal(effect.Details, &held) != nil || held.UI == nil {
+							t.Fatal("held candidate receipt lost full UI", entry.Name())
+						}
+						for _, widget := range held.UI.Widgets {
+							driftWithUnsupportedMove = driftWithUnsupportedMove || held.UI.Headers["board_cursor"] == 3 && widget.Source == 0x534bc0 && widget.Unsupported
+						}
+					}
 				}
 				if strings.HasPrefix(entry.Name(), "2-scenario-07-status-running") {
 					resumeReceipts++
 				}
 			}
-			if waitReceipts != 6 || heldReceipts != 6 || resumeReceipts != 6 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
+			if !driftWithUnsupportedMove || waitReceipts != 6 || heldReceipts != 6 || resumeReceipts != 6 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
 				t.Fatal("polls must share one receipt pair per candidate and service sampler", waitReceipts, heldReceipts, resumeReceipts, result.Frames, result.Steps[1].Skips)
 			}
 			admission, err := os.ReadFile(filepath.Join(candidate.Root, "go-records-2-scenario.json"))

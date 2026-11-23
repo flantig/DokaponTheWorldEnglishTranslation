@@ -1430,6 +1430,12 @@ requests:
 				for _, key := range boardIdentityFields {
 					candidateMatches = candidateMatches && candidateHeaders[key] == scenarioUI.Headers[key]
 				}
+				if !candidateMatches {
+					// A changed candidate must resume before its Move widgets matter.
+					retryAcquisition = true
+					step.UI = &scenarioUI
+					break
+				}
 				move := false
 				for _, widget := range scenarioUI.Widgets {
 					if widget.Source == scenarioData.MoveSource && widget.Unsupported {
@@ -1438,7 +1444,7 @@ requests:
 					}
 					move = move || !widget.Unsupported && widget.Source == scenarioData.MoveSource && widget.Text == "Move" && widget.Ready == 0 && widget.Flags&3 == 1
 				}
-				if !candidateMatches || scenarioUI.Headers["mode"] != 0x1b0 || scenarioUI.Headers["board_options"] != 5 || scenarioUI.Headers["board_handle"] != 1 || scenarioUI.Headers["board_cursor"] != 0 || !move || !scenarioUI.BoardAIReady {
+				if scenarioUI.Headers["mode"] != 0x1b0 || scenarioUI.Headers["board_options"] != 5 || scenarioUI.Headers["board_handle"] != 1 || scenarioUI.Headers["board_cursor"] != 0 || !move || !scenarioUI.BoardAIReady {
 					// No control write has occurred. Reuse the checked unpause
 					// effects before returning to the same bounded candidate wait.
 					retryAcquisition = true
