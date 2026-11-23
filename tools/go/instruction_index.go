@@ -183,9 +183,12 @@ func indexInstructions(data []byte, profile Recipes) (ReferenceReport, error) {
 					effects.GPRMayWrite = append(effects.GPRMayWrite, rt)
 					effects.GPRMustWrite = append(effects.GPRMustWrite, rt)
 				case op == 0:
+					// SRL/SUBU produce a word32 result sign-extended into low64 bits; non-word
+					// inputs make it undefined. Roles alone prove neither values nor128-bit ABI.
 					switch {
-					case fn == 0 && rs == 0:
-						if sa == 0 {
+					case (fn == 0 || fn == 2) && rs == 0:
+						// SRL has word-value restrictions and never proves an origin copy, even at sa0.
+						if fn == 0 && sa == 0 {
 							row.transfer = &instructionTransfer{kind: "copy", source: rt, destination: rd}
 						}
 						effects.GPRReads = append(effects.GPRReads, rt)
@@ -200,8 +203,8 @@ func indexInstructions(data []byte, profile Recipes) (ReferenceReport, error) {
 						effects.GPRReads = append(effects.GPRReads, source)
 						effects.GPRMayWrite = append(effects.GPRMayWrite, rd)
 						effects.GPRMustWrite = append(effects.GPRMustWrite, rd)
-					case fn == 0x21 && sa == 0:
-						// ADDU has known operands; two nonzero inputs do not prove a pointer copy.
+					case (fn == 0x21 || fn == 0x23) && sa == 0:
+						// These word operations have known roles, not pointer arithmetic transfers.
 						effects.GPRReads = append(effects.GPRReads, rs, rt)
 						effects.GPRMayWrite = append(effects.GPRMayWrite, rd)
 						effects.GPRMustWrite = append(effects.GPRMustWrite, rd)

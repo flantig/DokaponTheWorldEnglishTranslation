@@ -4344,6 +4344,94 @@ func TestCLIDryRunAndApply(t *testing.T) {
 		if err := json.Unmarshal(bundledFixtures[bundle.Path][bundle.Member], &indexFixture); err != nil || len(indexFixture.Cases) != bundle.Cases || len(indexFixture.Refusals) != bundle.Refusals {
 			t.Fatal("independent instruction index fixture", err)
 		}
+		if bundle.Member == "instruction-addu.json" {
+			// Reuse the independent one-word ELF carrier; expected roles are literal ISA facts.
+			carrier, err := hex.DecodeString(indexFixture.CarrierHex)
+			if err != nil || len(carrier) != 0x104 {
+				t.Fatal("word-role ELF carrier", err)
+			}
+			for _, row := range []struct {
+				name          string
+				word          uint32
+				reads, writes []uint32
+				unsupported   bool
+			}{
+				{"subu-current-helper-overlap", 0x00c84023, []uint32{6, 8}, []uint32{8}, false},
+				{"subu-discarded-destination", 0x00c80023, []uint32{6, 8}, []uint32{}, false},
+				{"subu-zero-rt", 0x01004823, []uint32{8}, []uint32{9}, false},
+				{"subu-zero-rs", 0x00084823, []uint32{8}, []uint32{9}, false},
+				{"subu-zero-sources", 0x00004823, []uint32{}, []uint32{9}, false},
+				{"subu-same-sources", 0x01084823, []uint32{8}, []uint32{9}, false},
+				{"srl-current-helper-sa20", 0x00084d02, []uint32{8}, []uint32{9}, false},
+				{"srl-sa0", 0x00084802, []uint32{8}, []uint32{9}, false},
+				{"srl-sa31", 0x00084fc2, []uint32{8}, []uint32{9}, false},
+				{"srl-source-destination-overlap", 0x00084002, []uint32{8}, []uint32{8}, false},
+				{"srl-discarded-destination", 0x00080502, []uint32{8}, []uint32{}, false},
+				{"srl-zero-source", 0x00004d02, []uint32{}, []uint32{9}, false},
+				{"subu-reserved-sa", 0x00c84063, nil, nil, true},
+				{"srl-reserved-rs", 0x00284d02, nil, nil, true},
+				{"sub-not-admitted", 0x00c84022, nil, nil, true},
+				{"dsubu-not-admitted", 0x00c8402f, nil, nil, true},
+				{"sra-not-admitted", 0x00084d03, nil, nil, true},
+				{"srlv-not-admitted", 0x01084806, nil, nil, true},
+			} {
+				body := slices.Clone(carrier)
+				binary.LittleEndian.PutUint32(body[0x100:], row.word)
+				profile := Recipes{Operation: "instruction_index", SourceSize: int64(len(body)), SourceSHA256: fmt.Sprintf("%x", sha256.Sum256(body)), Evidence: "Independent canonical R5900 SUBU/SRL operand roles; no arithmetic-value oracle", References: &ReferenceScan{FileRange: AddressRange{Start: "0x100", End: "0x104"}}}
+				report, err := references(body, nil, nil, nil, profile)
+				if err != nil || report.InstructionIndex == nil || len(report.InstructionIndex.Instructions) != 1 {
+					t.Fatal("word-role report", row.name, err)
+				}
+				got := report.InstructionIndex.Instructions[0]
+				status := "known_finite_GPR_operands"
+				if row.unsupported {
+					status = "unsupported_or_not_modelled"
+				}
+				if got.Operands.Status != status || !reflect.DeepEqual(got.Operands.GPRReads, row.reads) || !reflect.DeepEqual(got.Operands.GPRMayWrite, row.writes) || !reflect.DeepEqual(got.Operands.GPRMustWrite, row.writes) || len(got.Operands.IncomingPreservation) != 0 || got.transfer != nil || got.Control != nil {
+					t.Fatalf("word-role facts or invented origin transfer %s: %+v", row.name, got)
+				}
+			}
+			for _, row := range []struct {
+				name                 string
+				word, source, result uint32
+			}{
+				{"subu-current-helper", 0x00c84023, 6, 8},
+				{"subu-zero-rt-stays-unknown", 0x01004823, 8, 9},
+				{"srl-current-helper", 0x00084d02, 8, 9},
+				{"srl-zero-shift-stays-unknown", 0x00084002, 8, 8},
+			} {
+				body := append(slices.Clone(carrier[:0x100]), make([]byte, 16)...)
+				binary.LittleEndian.PutUint32(body[0x44:], 16)
+				binary.LittleEndian.PutUint32(body[0x48:], 16)
+				for i, word := range []uint32{row.word, row.result<<21 | 11<<11 | 0x25, 0x08040002, 0} { // OR t3,result,zero; bounded local J/NOP loop.
+					binary.LittleEndian.PutUint32(body[0x100+4*i:], word)
+				}
+				profile := Recipes{Operation: "instruction_index", SourceSize: int64(len(body)), SourceSHA256: fmt.Sprintf("%x", sha256.Sum256(body)), Evidence: "Independent def/use and conservative pointer-loss graph", References: &ReferenceScan{FileRange: AddressRange{Start: "0x100", End: "0x110"}}, RegisterFlow: &RegisterFlowSpec{EntryVMAs: []string{"0x100000"}, Queries: map[string]RegisterFlowQuery{
+					"read-before-overwrite": {Kind: "reads_before_kill", Register: row.source, VMA: "0x100000", Context: "normal", MaxVisitedStates: 32},
+					"result-use":            {Kind: "uses_after", Register: row.result, VMA: "0x100000", Context: "normal", MaxVisitedStates: 32},
+					"definition":            {Kind: "reaching_defs", Register: row.result, VMA: "0x100004", Context: "normal", MaxVisitedStates: 32},
+					"origin":                {Kind: "pointer_consumers", SeedPhase: "before", Register: row.source, VMA: "0x100000", Context: "normal", MaxVisitedStates: 32},
+				}}}
+				report, err := references(body, nil, nil, nil, profile)
+				if err != nil || report.InstructionIndex == nil || report.InstructionIndex.RegisterFlow == nil {
+					t.Fatal("word-role graph", row.name, err)
+				}
+				queries := report.InstructionIndex.RegisterFlow.Queries
+				for _, query := range []struct {
+					name string
+					site uint32
+				}{{"read-before-overwrite", 0x100000}, {"result-use", 0x100004}, {"definition", 0x100000}} {
+					got := queries[query.name]
+					if !got.CompleteWithinAssertedScope || !slices.Equal(got.KnownFactSites, []uint32{query.site}) {
+						t.Fatal("word-role def/use graph", row.name, query.name, got)
+					}
+				}
+				origin := queries["origin"]
+				if origin.CompleteWithinAssertedScope || !slices.Equal(origin.IncompleteReasons, []string{"unsupported_origin_transfer"}) || origin.Consumer == nil || len(origin.Consumer.Events) != 1 || origin.Consumer.Events[0].Kind != "provenance_loss" || origin.Consumer.Events[0].VMA != 0x100000 || origin.Consumer.Events[0].Register != row.source {
+					t.Fatal("arithmetic origin was guessed", row.name, origin)
+				}
+			}
+		}
 		for _, fixture := range indexFixture.Cases {
 			if bundle.Member == "pointer-consumers.json" {
 				if added := containerFacts.LegacyAdditions[fixture.Name]; len(added) != 0 {
