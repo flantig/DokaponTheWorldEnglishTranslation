@@ -183,7 +183,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 	if scenario {
 		expires = time.Now().Add(120 * time.Second)
 	}
-	if paired {
+	if paired || acquisitionRetry {
 		expires = time.Now().Add(600 * time.Second)
 	}
 	scenarioStage, boardCursor, tabCursor, fileCursor, eventOffset := 0, 0, 0, 0, 0
@@ -1732,6 +1732,24 @@ func TestProbeLifecycle(t *testing.T) {
 				continue
 			}
 			if err != nil || result.Status != "COMPLETED" || len(result.Steps) != 3 || result.Steps[1].Capture == nil || result.Steps[1].Capture.Status != "CAPTURED" || result.Steps[2].Status != "COMPLETED" {
+				failure, marshalErr := json.Marshal(result)
+				t.Logf("complete acquisition failure JSON (marshal error=%v): %s", marshalErr, failure)
+				facts, factsErr := readInput(factsPath, 64<<10)
+				t.Logf("controlled acquisition facts (read error=%v): %s", factsErr, facts)
+				var tail []byte
+				log, logErr := os.Open(filepath.Join(candidate.Root, "child-epoch-0.log"))
+				if logErr == nil {
+					var info os.FileInfo
+					info, logErr = log.Stat()
+					if logErr == nil {
+						_, logErr = log.Seek(max(int64(0), info.Size()-8192), io.SeekStart)
+					}
+					if logErr == nil {
+						tail, logErr = io.ReadAll(io.LimitReader(log, 8192))
+					}
+					_ = log.Close()
+				}
+				t.Logf("controlled child stderr tail (at most8192 bytes, read error=%v): %s", logErr, tail)
 				t.Fatalf("bounded held acquisition: %+v %v", result, err)
 			}
 			if result.Steps[1].Capture.Checkpoint != 1 || result.Steps[1].Checkpoint == nil || len(result.Steps[1].Checkpoint.Checkpoints) != 1 || result.Steps[1].Checkpoint.Checkpoints[0].Checkpoint != 1 {
@@ -3777,17 +3795,27 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			if row.InnerWait {
 				waiting := result.Steps[1]
-				if waiting.Status != "UNKNOWN" || waiting.Frames == nil || waiting.Frames.SampleSuccesses < 2 || len(waiting.Effects) != 0 || waiting.Reason == "" || len(waiting.ScheduledIntervals) != 0 {
+				// The independent probe-sequence cadence oracle binds seed17 to
+				// 7876s. Compact gameplay starts that once-only watch schedule;
+				// the unchanged70s sampler bound must expire before acquisition.
+				if waiting.Status != "UNKNOWN" || waiting.Frames == nil || waiting.Frames.SampleSuccesses < 2 || len(waiting.Effects) != 0 || waiting.Reason != "frame sampler run-time budget exhausted" || !slices.Equal(waiting.ScheduledIntervals, []int{7876}) || waiting.UI == nil || waiting.UI.Projection != "headers-only" || len(waiting.UI.PlayerRecords) != 0 || len(waiting.UI.Widgets) != 0 || len(waiting.UI.Saved.Players) != 0 {
 					t.Fatal(row.Name, "did not fail within actual long acquire-board wait", waiting)
 				}
 				entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
 				if err != nil {
 					t.Fatal(err)
 				}
+				scenarioReceipts := 0
 				for _, entry := range entries {
-					if strings.Contains(entry.Name(), "2-scenario") && entry.Name() != "2-scenario-00-acquire-board.pending.json" && entry.Name() != "2-scenario-00-acquire-board.complete.json" {
-						t.Fatal(row.Name, "frame tick emitted a lifecycle effect artifact", entry.Name())
+					if strings.HasPrefix(entry.Name(), "2-scenario") {
+						scenarioReceipts++
+						if entry.Name() != "2-scenario-00-wait-board.pending.json" {
+							t.Fatal(row.Name, "frame tick emitted a lifecycle effect artifact", entry.Name())
+						}
 					}
+				}
+				if scenarioReceipts != 1 {
+					t.Fatal(row.Name, "compact watch lost its single pending effect", scenarioReceipts)
 				}
 			}
 			if row.Checkpoint {
