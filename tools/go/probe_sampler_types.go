@@ -55,27 +55,29 @@ type ProbeFrameSummary struct {
 // ProbeFrameRun belongs to one serialized lifecycle. A cold owned-ready epoch
 // resets only epoch/sample baselines; run time and retained ordinals continue.
 type ProbeFrameRun struct {
-	Policy          ProbeFramePolicy
-	Budget          *ProbeArtifactBudget
-	Runtime         ProbeCaptureRuntime
-	Admission       json.RawMessage
-	CardPath        string
-	Ready           bool
-	Finalizing      bool
-	Started         time.Time
-	EpochStarted    time.Time
-	NextAttempt     time.Time
-	NextHealth      time.Time
-	NextStorage     time.Time
-	NextWake        time.Time
-	LastPine        time.Time
-	LastSample      time.Time
-	LastVisual      time.Time
-	LastSelected    time.Time
-	Previous        []byte
-	CSV             []byte
-	CSVInfo         os.FileInfo
-	Summary         ProbeFrameSummary
-	NativeSlot      *ProbeArtifactClaim
-	FinalizerClaims []ProbeArtifactClaim
+	Policy    ProbeFramePolicy
+	Budget    *ProbeArtifactBudget
+	Runtime   ProbeCaptureRuntime
+	Admission json.RawMessage
+	CardPath  string
+	Ready     bool
+	// Owned pause/toggle inhibits ordinary F8 only, not epoch health or deadlines.
+	OrdinaryCaptureInhibited bool
+	Finalizing               bool
+	Started                  time.Time
+	EpochStarted             time.Time
+	NextAttempt              time.Time
+	NextHealth               time.Time
+	NextStorage              time.Time
+	NextWake                 time.Time
+	LastPine                 time.Time
+	LastSample               time.Time
+	LastVisual               time.Time
+	LastSelected             time.Time
+	Previous                 []byte
+	CSV                      []byte
+	CSVInfo                  os.FileInfo
+	Summary                  ProbeFrameSummary
+	NativeSlot               *ProbeArtifactClaim
+	FinalizerClaims          []ProbeArtifactClaim
 }

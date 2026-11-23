@@ -160,6 +160,8 @@ func TestProbeLifecycleChild(t *testing.T) {
 		binary.LittleEndian.PutUint32(uiHeaderRequest[1:], first[1])
 	}
 	acquisitionPolls, acquisitionPauses, delayedResume, heldHeaderReads := 0, 0, 0, 0
+	pausedGuides, resumedGuides, pausedHealth, heldHealthBefore := 0, 0, 0, 0
+	var heldDelayUntil time.Time
 	acquisitionFacts := ""
 	for _, argument := range os.Args {
 		if strings.HasPrefix(argument, "acquisition-facts=") {
@@ -310,6 +312,24 @@ func TestProbeLifecycleChild(t *testing.T) {
 						continue
 					}
 					renderedGuides = guideCount
+					if acquisitionRetry {
+						journal, err := os.ReadFile(filepath.Join(root, "events.jsonl"))
+						last := bytes.TrimSpace(journal)
+						last = last[bytes.LastIndexByte(last, '\n')+1:]
+						var event ProbeCaptureEvent
+						if err != nil || json.Unmarshal(last, &event) != nil {
+							t.Fatal("controlled acquisition capture event", err)
+						}
+						if event.Event == probeOrdinaryFrameEventKind {
+							if vmStatus == 1 {
+								pausedGuides++
+								continue // A paused renderer cannot satisfy ordinary capture.
+							}
+							if acquisitionPauses > 0 {
+								resumedGuides++
+							}
+						}
+					}
 					name := "first-save.png"
 					if guideCount > 1 {
 						name = fmt.Sprintf("capture-%d.png", guideCount)
@@ -428,6 +448,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 			}
 			if frameIndex == 0 {
 				firstFrame = bytes.Clone(payload)
+				if len(payload) == 5 && payload[0] <= 3 && vmStatus == 1 && time.Now().Before(heldDelayUntil) {
+					// Spread a real held interval across bounded reads, never delay status.
+					time.Sleep(min(700*time.Millisecond, time.Until(heldDelayUntil)))
+				}
 				if len(payload) == 5 && payload[0] <= 3 && slices.Contains(os.Args, "pre-acquisition-delay") {
 					_, started := os.Stat(filepath.Join(root, "go-records-2-scenario.json"))
 					_, completed := os.Stat(filepath.Join(root, "receipts", "2-scenario-04-acquire-board.complete.json"))
@@ -1094,7 +1118,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 					}
 					if acquisitionFacts != "" {
-						facts, _ := json.Marshal([]int{acquisitionPolls, acquisitionPauses, delayedResume})
+						facts, _ := json.Marshal([]int{acquisitionPolls, acquisitionPauses, delayedResume, pausedGuides, resumedGuides, pausedHealth})
 						_ = os.WriteFile(acquisitionFacts, facts, 0600)
 					}
 					if address == 0x56b190 && slices.Contains(os.Args, "frame-selector-drift") {
@@ -1129,6 +1153,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 							if acquisitionRetry && vmStatus == 1 {
 								acquisitionPauses++
 								heldHeaderReads = 0
+								journal, _ := os.ReadFile(filepath.Join(root, "events.jsonl"))
+								heldHealthBefore = bytes.Count(journal, []byte(`"event":"go-frame-health"`))
+								if acquisitionPauses == 1 && !acquisitionUnsupported && !acquisitionReceiptBound && !acquisitionUnexplained {
+									heldDelayUntil = time.Now().Add(11 * time.Second)
+								}
 							}
 						}
 					}
@@ -1136,6 +1165,8 @@ func TestProbeLifecycleChild(t *testing.T) {
 					if delayedResume > 0 {
 						delayedResume--
 						if delayedResume == 0 {
+							journal, _ := os.ReadFile(filepath.Join(root, "events.jsonl"))
+							pausedHealth += bytes.Count(journal, []byte(`"event":"go-frame-health"`)) - heldHealthBefore
 							vmStatus = 0
 						}
 					}
@@ -1710,6 +1741,38 @@ func TestProbeLifecycle(t *testing.T) {
 	// Keep the slow, real polling/resource regression separately selectable.
 	// The child rejects takeover until two held misses have resumed successfully.
 	t.Run("acquisition", func(t *testing.T) {
+		for _, row := range []struct {
+			Name, Failure   string
+			Elapsed, Gap    time.Duration
+			Health, Storage bool
+		}{
+			{Name: "held overdue capture", Elapsed: 300 * time.Second, Gap: 119 * time.Second},
+			{Name: "held exact gap", Elapsed: 300 * time.Second, Gap: 120 * time.Second},
+			{Name: "held gap expired", Elapsed: 300 * time.Second, Gap: 120*time.Second + time.Nanosecond, Failure: "frame sampler successful capture gap exceeded120s"},
+			{Name: "held run expired", Elapsed: 900 * time.Second, Gap: time.Second, Failure: "frame sampler run-time budget exhausted"},
+			{Name: "held health still due", Elapsed: 300 * time.Second, Gap: time.Second, Health: true, Failure: "frame sampler lacks its admitted accounting/journal owner"},
+			{Name: "held storage still due", Elapsed: 300 * time.Second, Gap: time.Second, Storage: true, Failure: "frame sampler lacks its admitted accounting/journal owner"},
+		} {
+			now := time.Date(2026, 11, 23, 0, 0, 0, 0, time.UTC)
+			policy := ProbeFramePolicy{MaxRunSeconds: 900}
+			candidate := profile
+			candidate.Frames = &policy
+			state := ProbeFrameRun{Policy: policy, Ready: true, OrdinaryCaptureInhibited: true, Started: now.Add(-row.Elapsed), EpochStarted: now.Add(-row.Gap), NextAttempt: now.Add(-time.Second), NextHealth: now.Add(time.Second), NextStorage: now.Add(2 * time.Second)}
+			if row.Health {
+				state.NextHealth = now
+			}
+			if row.Storage {
+				state.NextStorage = now
+			}
+			journal := ProbeEventJournal{}
+			err := sampleProbeFrame(candidate, &journal, &state, now)
+			if row.Failure == "" && err != nil || row.Failure != "" && (err == nil || err.Error() != row.Failure) {
+				t.Fatal(row.Name, err)
+			}
+			if !state.NextAttempt.Equal(now.Add(-time.Second)) || state.Summary.Attempts != 0 || state.Previous != nil || len(journal.Events) != 0 || row.Failure == "" && !state.NextWake.Equal(state.NextHealth) {
+				t.Fatal(row.Name, "held tick lost pending capture, spun on its wake, or acquired", state)
+			}
+		}
 		for _, variant := range []string{"retry", "unsupported-move", "receipt-bound", "unexplained-byte"} {
 			candidate := profile
 			candidate.Root = t.TempDir()
@@ -1794,7 +1857,7 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			factsRaw, err := os.ReadFile(factsPath)
 			var facts []int
-			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 3 || facts[0] < 260 || facts[1] != 3 || facts[2] != 0 {
+			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 6 || facts[0] < 260 || facts[1] != 3 || facts[2] != 0 || facts[3] != 0 || facts[4] == 0 || facts[5] == 0 {
 				t.Fatal("real compact polling/held misses/resume facts", string(factsRaw), err)
 			}
 			entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
@@ -1845,7 +1908,7 @@ func TestProbeLifecycle(t *testing.T) {
 			if err != nil || result.Steps[1].UI == nil || result.Steps[1].UI.Projection != "" || len(result.Steps[1].UI.PlayerRecords) != 4 || result.Steps[1].UI.AdmissionSHA256 != fmt.Sprintf("%x", sha256.Sum256(admission)) {
 				t.Fatal("one nonce admission did not carry into full transaction", err)
 			}
-			t.Logf("%d compact polls, three held candidates, delayed checked resumes, %d receipt files, %d ordinary samples", facts[0], len(entries), result.Frames.SampleSuccesses)
+			t.Logf("%d compact polls, three held candidates, delayed checked resumes, %d receipt files, %d ordinary samples; paused ordinary F8=%d resumed=%d paused health=%d", facts[0], len(entries), result.Frames.SampleSuccesses, facts[3], facts[4], facts[5])
 		}
 	})
 	t.Run("save-dialog", func(t *testing.T) {

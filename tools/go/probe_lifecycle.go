@@ -3233,6 +3233,9 @@ requests:
 							step.VMStatusAfter = &value
 						}
 						if vmStatus == wanted {
+							if wanted == 0 && frameRun != nil {
+								frameRun.OrdinaryCaptureInhibited = false
+							}
 							verified = true
 							break
 						}
@@ -3445,6 +3448,10 @@ requests:
 				command, settle := table.WarmCommand, table.WarmSettleMS
 				if effect == "toggle-pause" {
 					command, settle = table.PauseCommand, table.PauseSettleMS
+					if frameRun != nil {
+						// ACK proves input, not renderer progress. Resume needs owned RUNNING.
+						frameRun.OrdinaryCaptureInhibited = true
+					}
 				}
 				_, sendErr := io.Copy(connection, strings.NewReader(command))
 				_ = connection.(*net.UnixConn).CloseWrite()
@@ -3771,6 +3778,7 @@ requests:
 		if frameEpochReady {
 			if step.Status == "COMPLETED" {
 				frameRun.Ready, frameRun.NextAttempt = true, time.Now().Add(4*time.Second)
+				frameRun.OrdinaryCaptureInhibited = false
 			} else {
 				frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", "frame sampler owned-ready completion is not durable"
 			}

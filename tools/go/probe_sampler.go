@@ -88,7 +88,7 @@ func sampleProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal,
 		}
 		storageDue := !now.Before(state.NextStorage)
 		healthDue := !now.Before(state.NextHealth)
-		captureDue := state.Ready && !now.Before(state.NextAttempt)
+		captureDue := state.Ready && !state.OrdinaryCaptureInhibited && !now.Before(state.NextAttempt)
 		if !storageDue && !healthDue && !captureDue {
 			break
 		}
@@ -229,7 +229,11 @@ func sampleProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal,
 		state.NextAttempt = time.Now().Add(4 * time.Second)
 	}
 	state.NextWake = state.Started.Add(time.Duration(state.Policy.MaxRunSeconds) * time.Second)
-	for _, due := range []time.Time{state.NextAttempt, state.NextHealth, state.NextStorage} {
+	wakes := []time.Time{state.NextHealth, state.NextStorage}
+	if !state.OrdinaryCaptureInhibited {
+		wakes = append(wakes, state.NextAttempt)
+	}
+	for _, due := range wakes {
 		if !due.IsZero() && due.Before(state.NextWake) {
 			state.NextWake = due
 		}
