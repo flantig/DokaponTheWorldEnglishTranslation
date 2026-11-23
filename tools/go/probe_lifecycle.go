@@ -2559,7 +2559,11 @@ requests:
 					}
 					padSpec.DeviceParent, padSpec.Published, padSpec.MaxEventBytes = parent, &publishedPad, 64<<20
 				}
-				go serveProbePad(ctx, padSpec, padReady, padDone, &retiredPad)
+				var removal *ProbeArtifactClaim
+				if artifactBudget != nil {
+					removal = &retiredPad
+				}
+				go serveProbePad(ctx, padSpec, padReady, padDone, removal)
 				padErr := <-padReady
 				if padSpec.DeviceParent != nil {
 					padErr = errors.Join(padErr, padSpec.DeviceParent.Close())

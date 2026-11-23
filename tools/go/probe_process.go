@@ -254,7 +254,7 @@ func terminateProbeProcesses(state *ProbeLifecycleProcesses, runtime ProbeMemory
 				*retiredPad = ProbeArtifactClaim{}
 			}
 		} else {
-			*retiredPad = ProbeArtifactClaim{}
+			result = fmt.Errorf("pad socket retirement lacks its owning artifact budget")
 		}
 	}
 	if !state.Launched || state.NativeExited && state.LauncherReaped && len(state.Unqualified) == 0 {
