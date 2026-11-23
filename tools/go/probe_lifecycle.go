@@ -3063,6 +3063,8 @@ requests:
 				}
 				statusOnly := effect == "status-running" || effect == "status-paused"
 				afterToggle := index > 0 && action.Effects[index-1] == "toggle-pause"
+				wait, takeover := slices.Index(action.Effects, "wait-board"), slices.Index(action.Effects, "takeover-control")
+				acquisitionObservation := statusOnly && !retryAcquisition && !acquisitionDeadline.IsZero() && wait >= 0 && index > wait && index < takeover
 				watch := effect == "watch-progress"
 				pollLimit := int(^uint(0) >> 1)
 				if statusOnly {
@@ -3187,12 +3189,26 @@ requests:
 					}
 					if statusOnly {
 						readSet = nil
+						wanted := uint32(0)
+						if effect == "status-paused" {
+							wanted = 1
+						}
+						if acquisitionObservation && err == nil && binary.LittleEndian.Uint32(status[5:]) == wanted {
+							// Diagnostic reads never replace the original candidate's
+							// nine-field qualification or grant any write authority.
+							for _, read := range table.WatchReads {
+								if read.ID == "current" || read.ID == "board_handle" || read.ID == "board_cursor" {
+									readSet = append(readSet, read)
+								}
+							}
+						}
 					}
 					readMap := map[string]ProbeMemoryRequest{}
 					payloads := map[string][]byte{}
 					values := map[string]uint64{}
 					memory := ProbeMemoryReport{Version: 1, SourceSHA256: table.WatchSourceSHA256, BuildSHA256: profile.Program.SHA256, Session: profile.Session, Epoch: epoch, ISOSHA256: profile.Inputs["iso"].SHA256, Provenance: "go-owned-lifecycle-v1", ProcessGuarded: true, Observations: []ProbeMemoryObservation{}, Decoded: []ProbeMemoryDecoded{}, Limits: "Actual owned Go-child finite reads; not legacy admission or gameplay/coverage acceptance."}
 					decoders := []ProbeMemoryDecoder{}
+					readStarted := time.Now()
 					for _, read := range readSet {
 						if err != nil {
 							break
@@ -3211,6 +3227,7 @@ requests:
 						memory.Observations = append(memory.Observations, ProbeMemoryObservation{ID: read.ID, RequestHex: fmt.Sprintf("%x", requestData), ReplyHex: fmt.Sprintf("%x", reply), Value: value})
 						decoders = append(decoders, ProbeMemoryDecoder{ID: read.ID, Kind: "scalar", Requests: []string{read.ID}})
 					}
+					readEnded := time.Now()
 					_ = connection.Close()
 					if err != nil {
 						if watch || statusOnly {
@@ -3237,6 +3254,20 @@ requests:
 							step.VMStatusAfter = &value
 						}
 						if vmStatus == wanted {
+							if acquisitionObservation {
+								origin := acquisitionDeadline.Add(-time.Duration(profile.Scenario.WaitTimeoutMS) * time.Millisecond)
+								pendingRow.Details, _ = json.Marshal(map[string]any{
+									"memory": memory,
+									"acquisition_handoff": map[string]any{
+										"candidate_attempt": effectVisits[wait], "epoch": epoch,
+										"clock":         "nanoseconds since original acquisition watch start; monotonic",
+										"phase":         effect,
+										"scope":         "three headers after verified status; not whole UI or an instantaneous snapshot",
+										"read_start_ns": readStarted.Sub(origin).Nanoseconds(),
+										"read_end_ns":   readEnded.Sub(origin).Nanoseconds(),
+									},
+								})
+							}
 							if wanted == 0 && afterToggle && frameRun != nil {
 								frameRun.OrdinaryCaptureInhibited = false
 							}
@@ -3457,13 +3488,31 @@ requests:
 						frameRun.OrdinaryCaptureInhibited = true
 					}
 				}
+				submitStarted := time.Now()
 				_, sendErr := io.Copy(connection, strings.NewReader(command))
 				_ = connection.(*net.UnixConn).CloseWrite()
+				submitEnded := time.Now()
+				ackStarted := submitEnded
 				ack, ackErr := io.ReadAll(io.LimitReader(connection, 257))
+				ackEnded := time.Now()
 				_ = connection.Close()
 				if sendErr != nil || ackErr != nil || strings.TrimSpace(string(ack)) != "ok" {
 					step.Reason = "warm reset effect is ambiguous"
 					break actions
+				}
+				wait, takeover := slices.Index(action.Effects, "wait-board"), slices.Index(action.Effects, "takeover-control")
+				if effect == "toggle-pause" && !retryAcquisition && !acquisitionDeadline.IsZero() && wait >= 0 && index > wait && index < takeover {
+					origin := acquisitionDeadline.Add(-time.Duration(profile.Scenario.WaitTimeoutMS) * time.Millisecond)
+					pendingRow.Details, _ = json.Marshal(map[string]any{"acquisition_handoff": map[string]any{
+						"candidate_attempt": effectVisits[wait], "epoch": epoch,
+						"clock":           "nanoseconds since original acquisition watch start; monotonic",
+						"phase":           "pause-client",
+						"scope":           "client submission and ACK only; no XTEST dispatch timestamp; read-to-submit gap is unobserved",
+						"submit_start_ns": submitStarted.Sub(origin).Nanoseconds(),
+						"submit_end_ns":   submitEnded.Sub(origin).Nanoseconds(),
+						"ack_start_ns":    ackStarted.Sub(origin).Nanoseconds(),
+						"ack_end_ns":      ackEnded.Sub(origin).Nanoseconds(),
+					}})
 				}
 				if err := waitProbeFrame(profile, &journal, frameRun, time.Duration(settle)*time.Millisecond); err != nil {
 					step.Reason = err.Error()
@@ -3614,6 +3663,17 @@ requests:
 			}
 			pendingRow.Phase = "complete"
 			detail, _ := json.Marshal(step)
+			if len(pendingRow.Details) != 0 {
+				// Add scoped evidence to this receipt only. Raw values preserve
+				// typed integers, and the shared step cannot carry it forward.
+				var fields, scoped map[string]json.RawMessage
+				_ = json.Unmarshal(detail, &fields)
+				_ = json.Unmarshal(pendingRow.Details, &scoped)
+				for key, value := range scoped {
+					fields[key] = value
+				}
+				detail, _ = json.Marshal(fields)
+			}
 			pendingRow.Details = detail
 			completeData, _ := json.Marshal(pendingRow)
 			if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(receiptDir, effectBase+".complete.json"), bytes.NewReader(completeData), int64(len(completeData)), fmt.Sprintf("%x", sha256.Sum256(completeData)), 0600); err != nil {

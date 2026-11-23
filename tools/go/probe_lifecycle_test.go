@@ -854,7 +854,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				queueFlags := uint32(5)
-				if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && acquisitionPauses == 3 {
+				if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && acquisitionPauses == 4 {
 					// Stable headers and valid controls, but no eligible native task yet.
 					queueFlags = 0
 				}
@@ -862,6 +862,11 @@ func TestProbeLifecycleChild(t *testing.T) {
 					for b := 0; b < 4; b++ {
 						memory[address+uint32(b)] = byte(value >> (8 * b))
 					}
+				}
+				if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && (acquisitionPauses == 1 || acquisitionPauses == 2) {
+					// The first candidate was already lost before submission;
+					// the second loses its handle across the owned pause.
+					memory[0x56a800] = 0
 				}
 				if paired && scenarioStage >= 8 && scenarioStage <= 10 {
 					memory[0x56b598] = 0
@@ -1051,7 +1056,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						for b, value := range []byte("char" + strconv.Itoa(int(character))) {
 							memory[node+0x10+uint32(b)] = value
 						}
-						if widget == 0 && index == 0 && (slices.Contains(os.Args, "unsupported-ui") || acquisitionUnsupported || acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && (acquisitionPauses == 1 || acquisitionPauses == 3)) {
+						if widget == 0 && index == 0 && (slices.Contains(os.Args, "unsupported-ui") || acquisitionUnsupported || acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && (acquisitionPauses == 1 || acquisitionPauses == 4)) {
 							for b, value := range []byte("char2047\x00") {
 								memory[node+0x10+uint32(b)] = value
 							}
@@ -1076,7 +1081,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				if len(payload) == 6 && payload[0] == 4 {
-					if acquisitionRetry && payload[5] == 0 && (acquisitionPauses != 4 || acquisitionPolls < 260 || delayedResume != 0) {
+					if acquisitionRetry && payload[5] == 0 && (acquisitionPauses != 5 || acquisitionPolls < 260 || delayedResume != 0) {
 						t.Fatal("takeover before bounded compact wait and checked resume", acquisitionPolls, acquisitionPauses, delayedResume)
 					}
 					restore := paired && payload[5] == 1 && scenarioStage == 1 && vmStatus == 0 && scenarioControl == 0
@@ -1115,9 +1120,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					width := 1 << payload[0]
 					address := binary.LittleEndian.Uint32(payload[1:])
+					if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 0 && acquisitionPauses == 0 && len(firstFrame) == 1 && firstFrame[0] == 15 && address == 0x56a800 {
+						memory[address] = 0
+					}
 					if acquisitionRetry && bytes.Equal(firstFrame, uiHeaderRequest) && address == 0x56581c && scenarioControl != 0 && vmStatus == 1 {
 						heldHeaderReads++
-						if !acquisitionUnexplained && acquisitionPauses == 2 && heldHeaderReads >= 2 {
+						if !acquisitionUnexplained && acquisitionPauses == 3 && heldHeaderReads >= 2 {
 							// Only the canonical COM control byte changes between
 							// the first held read and the second pre-write read.
 							scenarioControl = 2
@@ -1770,7 +1778,7 @@ func TestProbeLifecycle(t *testing.T) {
 		t.Logf("startup-%s one CIRCLE/release after ready, warning retained, supported transition", variant)
 	}
 	// Keep the slow, real polling/resource regression separately selectable.
-	// The child rejects takeover until three held misses have resumed successfully.
+	// The child rejects takeover until four held misses have resumed successfully.
 	t.Run("acquisition", func(t *testing.T) {
 		for _, row := range []struct {
 			Name, Failure   string
@@ -1888,12 +1896,104 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			factsRaw, err := os.ReadFile(factsPath)
 			var facts []int
-			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 11 || facts[0] < 260 || facts[1] != 4 || facts[2] != 0 || facts[3] != 0 || facts[4] == 0 || facts[5] == 0 || facts[6] != 0 || facts[7] == 0 || facts[7] != facts[8] || facts[9] < 4000 || facts[10] <= 0 || facts[10] > 700 {
+			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 11 || facts[0] < 260 || facts[1] != 5 || facts[2] != 0 || facts[3] != 0 || facts[4] == 0 || facts[5] == 0 || facts[6] != 0 || facts[7] == 0 || facts[7] != facts[8] || facts[9] < 4000 || facts[10] <= 0 || facts[10] > 700 {
 				t.Fatal("real compact polling/held misses/resume facts", string(factsRaw), err)
 			}
 			entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
 			if err != nil || len(entries) >= 512 {
 				t.Fatal("receipt reserve exceeded", len(entries), err)
+			}
+			handoffBounds := map[int]map[string]map[string]int64{}
+			for _, entry := range entries {
+				if !strings.HasSuffix(entry.Name(), ".complete.json") {
+					continue
+				}
+				operationReport := false
+				for _, request := range candidate.Requests {
+					operationReport = operationReport || entry.Name() == request.Nonce+".complete.json"
+				}
+				if operationReport {
+					continue
+				}
+				data, _ := os.ReadFile(filepath.Join(candidate.Root, "receipts", entry.Name()))
+				var receipt ProbeLifecycleEffect
+				var details, handoff map[string]json.RawMessage
+				if json.Unmarshal(data, &receipt) != nil || receipt.Phase != "complete" || receipt.Action == "" || json.Unmarshal(receipt.Details, &details) != nil || len(details) == 0 {
+					t.Fatal("unreadable effect details", entry.Name())
+				}
+				if len(details["acquisition_handoff"]) == 0 {
+					continue
+				}
+				if json.Unmarshal(details["acquisition_handoff"], &handoff) != nil {
+					t.Fatal("unreadable handoff", entry.Name())
+				}
+				var attempt, observedEpoch int
+				var phase, scope, clock string
+				_ = json.Unmarshal(handoff["candidate_attempt"], &attempt)
+				_ = json.Unmarshal(handoff["epoch"], &observedEpoch)
+				_ = json.Unmarshal(handoff["phase"], &phase)
+				_ = json.Unmarshal(handoff["scope"], &scope)
+				_ = json.Unmarshal(handoff["clock"], &clock)
+				if attempt < 1 || attempt > 5 || observedEpoch != result.Steps[1].Epoch || receipt.Nonce != "2-scenario" || !strings.Contains(clock, "monotonic") {
+					t.Fatal("handoff lost attempt/epoch/clock", entry.Name(), attempt, observedEpoch, clock)
+				}
+				if handoffBounds[attempt] == nil {
+					handoffBounds[attempt] = map[string]map[string]int64{}
+				}
+				if handoffBounds[attempt][phase] != nil {
+					t.Fatal("handoff leaked into another receipt", entry.Name(), attempt, phase)
+				}
+				names := []string{"read_start_ns", "read_end_ns"}
+				if phase == "pause-client" {
+					if !strings.Contains(entry.Name(), "-02-toggle-pause") || !strings.Contains(scope, "no XTEST dispatch timestamp") || !strings.Contains(scope, "gap is unobserved") {
+						t.Fatal("client interval claims dispatch or wrong scope", entry.Name(), scope)
+					}
+					names = []string{"submit_start_ns", "submit_end_ns", "ack_start_ns", "ack_end_ns"}
+				} else {
+					if phase != "status-running" && phase != "status-paused" || phase == "status-running" && !strings.Contains(entry.Name(), "-01-status-running") || phase == "status-paused" && !strings.Contains(entry.Name(), "-03-status-paused") || !strings.Contains(scope, "not whole UI") {
+						t.Fatal("header read leaked outside acquisition", entry.Name(), phase, scope)
+					}
+					var memory ProbeMemoryReport
+					if json.Unmarshal(details["memory"], &memory) != nil || !memory.ProcessGuarded || memory.Epoch != observedEpoch || len(memory.Observations) != 3 {
+						t.Fatal("handoff lacks scoped guarded reads", entry.Name())
+					}
+					for index, observation := range memory.Observations {
+						id := []string{"current", "board_handle", "board_cursor"}[index]
+						opcode := []byte{1, 2, 2}[index]
+						address := []uint32{0x56b190, 0x56a800, 0x56a808}[index]
+						request, requestErr := hex.DecodeString(observation.RequestHex)
+						reply, replyErr := hex.DecodeString(observation.ReplyHex)
+						value := uint64(0)
+						if index == 1 && !(attempt == 1 || phase == "status-paused" && attempt == 2) {
+							value = 1
+						}
+						if index == 2 && phase == "status-paused" && attempt == 1 {
+							value = 3
+						}
+						if requestErr != nil || replyErr != nil || len(request) != 9 || request[4] != opcode || binary.LittleEndian.Uint32(request[5:]) != address || observation.ID != id || observation.Value != value || len(reply) != 5+1<<opcode {
+							t.Fatal("handoff readset/order/value differs", entry.Name(), observation)
+						}
+					}
+				}
+				bounds := map[string]int64{}
+				for _, name := range names {
+					var value int64
+					if json.Unmarshal(handoff[name], &value) != nil || value < 0 {
+						t.Fatal("missing monotonic interval", entry.Name(), name)
+					}
+					bounds[name] = value
+				}
+				handoffBounds[attempt][phase] = bounds
+			}
+			if len(handoffBounds) != 5 {
+				t.Fatal("missing candidate handoffs", handoffBounds)
+			}
+			for attempt, phases := range handoffBounds {
+				running, client, paused := phases["status-running"], phases["pause-client"], phases["status-paused"]
+				if len(phases) != 3 || running["read_start_ns"] > running["read_end_ns"] || running["read_end_ns"] > client["submit_start_ns"] || client["submit_start_ns"] > client["submit_end_ns"] || client["submit_end_ns"] != client["ack_start_ns"] || client["ack_start_ns"] > client["ack_end_ns"] || client["ack_end_ns"] > paused["read_start_ns"] || paused["read_start_ns"] > paused["read_end_ns"] {
+					t.Fatal("handoff interval order differs", attempt, phases)
+				}
+				t.Logf("candidate%d observed running-to-submit gap%dns; client ACK is not XTEST dispatch", attempt, client["submit_start_ns"]-running["read_end_ns"])
 			}
 			waitReceipts, heldReceipts, resumeReceipts := 0, 0, 0
 			driftWithUnsupportedMove := false
@@ -1948,14 +2048,14 @@ func TestProbeLifecycle(t *testing.T) {
 					resumeReceipts++
 				}
 			}
-			if !driftWithUnsupportedMove || !taskMissWithUnsupportedMove || waitReceipts != 8 || heldReceipts != 8 || resumeReceipts != 8 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
+			if !driftWithUnsupportedMove || !taskMissWithUnsupportedMove || waitReceipts != 10 || heldReceipts != 10 || resumeReceipts != 10 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
 				t.Fatal("polls must share one receipt pair per candidate and service sampler", waitReceipts, heldReceipts, resumeReceipts, result.Frames, result.Steps[1].Skips)
 			}
 			admission, err := os.ReadFile(filepath.Join(candidate.Root, "go-records-2-scenario.json"))
 			if err != nil || result.Steps[1].UI == nil || result.Steps[1].UI.Projection != "" || len(result.Steps[1].UI.PlayerRecords) != 4 || result.Steps[1].UI.AdmissionSHA256 != fmt.Sprintf("%x", sha256.Sum256(admission)) {
 				t.Fatal("one nonce admission did not carry into full transaction", err)
 			}
-			t.Logf("%d compact polls, four held candidates including stable task miss/unsupported Move, delayed checked resumes, %d receipt files, %d ordinary samples; paused ordinary F8=%d resumed=%d paused health=%d", facts[0], len(entries), result.Frames.SampleSuccesses, facts[3], facts[4], facts[5])
+			t.Logf("%d compact polls, five held candidates including pre-submission/across-pause loss and stable task miss/unsupported Move, delayed checked resumes, %d receipt files, %d ordinary samples; paused ordinary F8=%d resumed=%d paused health=%d", facts[0], len(entries), result.Frames.SampleSuccesses, facts[3], facts[4], facts[5])
 			t.Logf("ordinary attempt%d returned before compact anchor; candidate armed at%dms with%dms bounded read delay; candidate-to-pause ordinary F8=%d", facts[7], facts[9], facts[10], facts[6])
 		}
 	})
