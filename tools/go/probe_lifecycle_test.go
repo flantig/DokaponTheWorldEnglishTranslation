@@ -137,6 +137,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 	toggleTimeout := slices.Contains(os.Args, "toggle-timeout")
 	watchSample, modeReads, seenPause := 0, 0, 0
 	vmStatus := uint32(0)
+	acquisitionRetry := slices.Contains(os.Args, "acquisition-retry")
+	acquisitionReceiptBound := slices.Contains(os.Args, "acquisition-receipt-bound")
+	acquisitionUnexplained := slices.Contains(os.Args, "acquisition-unexplained")
+	acquisitionPolls, acquisitionPauses, delayedResume, heldHeaderReads := 0, 0, 0, 0
+	acquisitionFacts := ""
+	for _, argument := range os.Args {
+		if strings.HasPrefix(argument, "acquisition-facts=") {
+			acquisitionFacts = strings.TrimPrefix(argument, "acquisition-facts=")
+		}
+	}
 	failedReady := slices.Contains(os.Args, "failed-ready")
 	streamVariant := ""
 	gridVariant := ""
@@ -730,6 +740,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 					for b := 0; b < 4; b++ {
 						memory[base+304+uint32(b)] = byte(uint32(100*(player+1)) >> (8 * b))
 					}
+					if acquisitionUnexplained && player == 0 && vmStatus == 1 && heldHeaderReads >= 2 {
+						memory[base+304]++
+					}
 				}
 				if paired && len(loadedRecords) == 2032 {
 					for offset, value := range loadedRecords {
@@ -810,6 +823,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 				if scenarioStage == 0 || scenarioStage == 12 {
 					texts[0] = "Move"
 					sources[0] = 0x534bc0
+					if acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && acquisitionPauses == 1 {
+						// A known pre-write candidate miss must resume before retrying.
+						sources[0] = 0x534bc4
+					}
 					if vmStatus == 0 && scenarioControl == 0 && slices.Contains(os.Args, "move-after-resume") {
 						sources[0] = 0x534bc4
 					}
@@ -985,6 +1002,9 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				if len(payload) == 6 && payload[0] == 4 {
+					if acquisitionRetry && payload[5] == 0 && (acquisitionPauses != 3 || acquisitionPolls < 260 || delayedResume != 0) {
+						t.Fatal("takeover before bounded compact wait and checked resume", acquisitionPolls, acquisitionPauses, delayedResume)
+					}
 					restore := paired && payload[5] == 1 && scenarioStage == 1 && vmStatus == 0 && scenarioControl == 0
 					bootHandoff := newGame && payload[5] == 1 && scenarioStage == 24 && vmStatus == 0 && scenarioControl == 0
 					if binary.LittleEndian.Uint32(payload[1:]) != uint32(0x56bfc1+activeActor*508) || !restore && !bootHandoff && (payload[5] != 0 || vmStatus != 1) {
@@ -1021,6 +1041,38 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					width := 1 << payload[0]
 					address := binary.LittleEndian.Uint32(payload[1:])
+					if acquisitionRetry && address == 0x56581c && scenarioControl != 0 && vmStatus == 1 {
+						heldHeaderReads++
+						if !acquisitionUnexplained && acquisitionPauses == 2 && heldHeaderReads >= 2 {
+							// Only the canonical COM control byte changes between
+							// the first held read and the second pre-write read.
+							scenarioControl = 2
+						}
+					}
+					if acquisitionRetry && address == 0x56581c && scenarioControl != 0 && vmStatus == 0 {
+						acquisitionPolls++
+						if acquisitionPolls < 260 && !acquisitionReceiptBound && !acquisitionUnexplained {
+							memory[address], memory[address+1] = 0x60, 2
+						}
+						if acquisitionReceiptBound && acquisitionPolls == 1 {
+							// Fill only this unsampled controlled run's owned receipt
+							// namespace; acquisition must preserve space for stop.
+							receipts := filepath.Join(root, "receipts")
+							entries, err := os.ReadDir(receipts)
+							if err != nil {
+								t.Fatal(err)
+							}
+							for index := len(entries); index < 470; index++ {
+								if err := os.WriteFile(filepath.Join(receipts, fmt.Sprintf("fixture-%03d.json", index)), []byte("{}"), 0600); err != nil {
+									t.Fatal(err)
+								}
+							}
+						}
+					}
+					if acquisitionFacts != "" {
+						facts, _ := json.Marshal([]int{acquisitionPolls, acquisitionPauses, delayedResume})
+						_ = os.WriteFile(acquisitionFacts, facts, 0600)
+					}
 					if address == 0x56b190 && slices.Contains(os.Args, "frame-selector-drift") {
 						frameCurrentReads++
 						if frameCurrentReads >= 2 {
@@ -1046,9 +1098,23 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 					}
 					if pauses > seenPause && !toggleTimeout {
-						vmStatus ^= uint32((pauses - seenPause) & 1)
+						if acquisitionRetry && vmStatus == 1 {
+							delayedResume = 3
+						} else {
+							vmStatus ^= uint32((pauses - seenPause) & 1)
+							if acquisitionRetry && vmStatus == 1 {
+								acquisitionPauses++
+								heldHeaderReads = 0
+							}
+						}
 					}
 					seenPause = pauses
+					if delayedResume > 0 {
+						delayedResume--
+						if delayedResume == 0 {
+							vmStatus = 0
+						}
+					}
 					reply = []byte{9, 0, 0, 0, 0, 0, 0, 0, 0}
 					binary.LittleEndian.PutUint32(reply[5:], vmStatus)
 				case bytes.Equal(payload, []byte{1, 0x1c, 0x58, 0x56, 0}):
@@ -1617,6 +1683,104 @@ func TestProbeLifecycle(t *testing.T) {
 		}
 		t.Logf("startup-%s one CIRCLE/release after ready, warning retained, supported transition", variant)
 	}
+	// Keep the slow, real polling/resource regression separately selectable.
+	// The child rejects takeover until two held misses have resumed successfully.
+	t.Run("acquisition", func(t *testing.T) {
+		for _, variant := range []string{"retry", "receipt-bound", "unexplained-byte"} {
+			candidate := profile
+			candidate.Root = t.TempDir()
+			if err := os.Chmod(candidate.Root, 0700); err != nil {
+				t.Fatal(err)
+			}
+			factsPath := filepath.Join(sources, "acquisition-facts-"+variant+".json")
+			candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-first-save", "acquisition-retry", "frame-no-trace", "acquisition-facts="+factsPath)
+			candidate.ReadyTimeoutMS = 10000
+			candidate.Inputs = maps.Clone(profile.Inputs)
+			candidate.Inputs["card"] = RegistryInput{Path: cardPath, Size: int64(len(card)), SHA256: fmt.Sprintf("%x", sha256.Sum256(card))}
+			candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, WaitTimeoutMS: 120000, MaxUIReads: 4096}
+			candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 180, MaxRetainedFrames: 64, MaxManagedFiles: 2048, MaxManagedBytes: 1 << 30, MaxJournalBytes: 8 << 20}
+			if variant == "receipt-bound" {
+				candidate.Frames = nil
+				candidate.ProgramArgs = append(candidate.ProgramArgs, "acquisition-receipt-bound")
+				candidate.Scenario.WaitTimeoutMS = 5000
+			}
+			if variant == "unexplained-byte" {
+				candidate.Frames = nil
+				candidate.ProgramArgs = append(candidate.ProgramArgs, "acquisition-unexplained")
+				candidate.Scenario.WaitTimeoutMS = 5000
+			}
+			candidate.Requests = nil
+			for ordinal, operation := range []string{"initial", "scenario", "stop"} {
+				candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: profile.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", ordinal+1, operation)})
+			}
+			input, _ := json.Marshal(candidate)
+			result, err := runProbeLifecycle(input)
+			if variant == "unexplained-byte" {
+				_, writeErr := os.Lstat(filepath.Join(candidate.Root, "scenario-write.bin"))
+				if err != nil || result.Status != "INCOMPLETE" || len(result.Steps) != 3 || result.Steps[1].Reason != "source widget/player owner changed before takeover" || result.Steps[2].Status != "COMPLETED" || !os.IsNotExist(writeErr) {
+					t.Fatal("unexplained non-control drift must refuse before the first native write", result, err, writeErr)
+				}
+				t.Log("unexplained non-control player byte refused without takeover; stop completed")
+				continue
+			}
+			if variant == "receipt-bound" {
+				entries, readErr := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+				if err != nil || readErr != nil || result.Status != "INCOMPLETE" || len(result.Steps) != 3 || result.Steps[1].Reason != "board acquisition receipt reserve exhausted" || result.Steps[2].Status != "COMPLETED" || len(entries) > 512 || slices.Contains(result.Steps[1].Effects, "toggle-pause") {
+					t.Fatal("receipt exhaustion must refuse before pausing and retain owned stop", result, len(entries), err, readErr)
+				}
+				t.Logf("receipt reserve refused acquisition before input; owned stop completed with %d files", len(entries))
+				continue
+			}
+			if err != nil || result.Status != "COMPLETED" || len(result.Steps) != 3 || result.Steps[1].Capture == nil || result.Steps[1].Capture.Status != "CAPTURED" || result.Steps[2].Status != "COMPLETED" {
+				t.Fatalf("bounded held acquisition: %+v %v", result, err)
+			}
+			if result.Steps[1].Capture.Checkpoint != 1 || result.Steps[1].Checkpoint == nil || len(result.Steps[1].Checkpoint.Checkpoints) != 1 || result.Steps[1].Checkpoint.Checkpoints[0].Checkpoint != 1 {
+				t.Fatal("rejected candidates consumed a checkpoint ordinal", result.Steps[1].Checkpoint)
+			}
+			factsRaw, err := os.ReadFile(factsPath)
+			var facts []int
+			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 3 || facts[0] < 260 || facts[1] != 3 || facts[2] != 0 {
+				t.Fatal("real compact polling/held misses/resume facts", string(factsRaw), err)
+			}
+			entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+			if err != nil || len(entries) >= 512 {
+				t.Fatal("receipt reserve exceeded", len(entries), err)
+			}
+			waitReceipts, heldReceipts, resumeReceipts := 0, 0, 0
+			for _, entry := range entries {
+				if strings.HasPrefix(entry.Name(), "2-scenario-00-wait-board") {
+					waitReceipts++
+					if strings.HasSuffix(entry.Name(), ".complete.json") {
+						data, _ := os.ReadFile(filepath.Join(candidate.Root, "receipts", entry.Name()))
+						var effect ProbeLifecycleEffect
+						var step ProbeLifecycleStep
+						if json.Unmarshal(data, &effect) != nil || json.Unmarshal(effect.Details, &step) != nil || step.UI == nil || step.UI.Projection != "headers-only" || len(step.UI.PlayerRecords) != 0 || len(step.UI.Widgets) != 0 || len(step.UI.Saved.Players) != 0 || step.UI.BoardAIReady {
+							t.Fatal("compact candidacy mislabeled as full held UI", entry.Name())
+						}
+						for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
+							if _, present := step.UI.Headers[key]; !present {
+								t.Fatal("candidate missing canonical header", key)
+							}
+						}
+					}
+				}
+				if strings.HasPrefix(entry.Name(), "2-scenario-04-acquire-board") {
+					heldReceipts++
+				}
+				if strings.HasPrefix(entry.Name(), "2-scenario-07-status-running") {
+					resumeReceipts++
+				}
+			}
+			if waitReceipts != 6 || heldReceipts != 6 || resumeReceipts != 6 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
+				t.Fatal("polls must share one receipt pair per candidate and service sampler", waitReceipts, heldReceipts, resumeReceipts, result.Frames, result.Steps[1].Skips)
+			}
+			admission, err := os.ReadFile(filepath.Join(candidate.Root, "go-records-2-scenario.json"))
+			if err != nil || result.Steps[1].UI == nil || result.Steps[1].UI.Projection != "" || len(result.Steps[1].UI.PlayerRecords) != 4 || result.Steps[1].UI.AdmissionSHA256 != fmt.Sprintf("%x", sha256.Sum256(admission)) {
+				t.Fatal("one nonce admission did not carry into full transaction", err)
+			}
+			t.Logf("%d compact polls, three held candidates, delayed checked resumes, %d receipt files, %d ordinary samples", facts[0], len(entries), result.Frames.SampleSuccesses)
+		}
+	})
 	t.Run("save-dialog", func(t *testing.T) {
 		for index, row := range []struct {
 			Name, Reason, Source string
@@ -1642,7 +1806,7 @@ func TestProbeLifecycle(t *testing.T) {
 					t.Fatal(err)
 				}
 				candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-first-save", "save-dialog-"+row.Name)
-				candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, MaxUIReads: 4096}
+				candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, WaitTimeoutMS: 60000, MaxUIReads: 4096}
 				operations := []string{"initial", "scenario", "stop"}
 				countFile := "file-selection-attempts.txt"
 				if row.Load {
@@ -3178,7 +3342,7 @@ func TestProbeLifecycle(t *testing.T) {
 		if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
 			t.Fatal(err)
 		}
-		scenarioProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, MaxUIReads: 4096}
+		scenarioProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, WaitTimeoutMS: 60000, MaxUIReads: 4096}
 		scenarioInput, _ := json.Marshal(scenarioProfile)
 		scenarioResult, scenarioErr := runProbeLifecycle(scenarioInput)
 		for _, step := range scenarioResult.Steps {
@@ -3757,7 +3921,7 @@ func TestProbeLifecycle(t *testing.T) {
 				bundle.GoOwner.Profile.Requests = nil
 			}
 			bad, _ := json.Marshal(bundle)
-			if _, err := admitProbeRecords(bad); err == nil {
+			if _, err := admitProbeRecords(bad, probeRecordsCurrent); err == nil {
 				t.Error(variant, "admitted")
 			} else if variant == "unsupported-backend" && err.Error() != "unsupported owned pad backend" {
 				t.Error(variant, "did not reach declared backend guard", err)
@@ -3878,7 +4042,7 @@ func TestProbeLifecycle(t *testing.T) {
 			if err := os.WriteFile(pairedGlyphPath, pairedGlyphRaw, 0400); err != nil {
 				t.Fatal(err)
 			}
-			pairedProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: pairedGlyphPath, Size: int64(len(pairedGlyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(pairedGlyphRaw))}, TimeoutMS: 180000, MaxUIReads: 4096}
+			pairedProfile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: pairedGlyphPath, Size: int64(len(pairedGlyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(pairedGlyphRaw))}, TimeoutMS: 180000, WaitTimeoutMS: 180000, MaxUIReads: 4096}
 			pairedProfile.Requests = nil
 			operations := []string{"initial", "scenario", "warm-load", "load", "cold-load", "load", "restore", "stop"}
 			warmIndex, coldIndex, coldLoadIndex, finalIndex := 3, 4, 5, 6
@@ -4076,7 +4240,7 @@ func TestProbeLifecycle(t *testing.T) {
 					}
 				}
 				for index, capture := range evidence.Captures {
-					admission, err := admitProbeRecords(capture.Admission)
+					admission, err := admitProbeRecords(capture.Admission, probeRecordsCurrent)
 					if err != nil {
 						t.Fatal(err)
 					}

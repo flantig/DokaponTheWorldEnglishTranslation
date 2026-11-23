@@ -14,15 +14,17 @@ import (
 // pointers/glyphs stay explicit on their widget, never a truncated trusted match.
 func readProbeUI(plan ProbeUIPlan, runtime ProbeMemoryRuntime) (ProbeUIState, error) {
 	var state ProbeUIState
-	admission, err := admitProbeRecords(plan.Admission)
+	admission, err := admitProbeRecords(plan.Admission, probeRecordsCurrent)
 	if err != nil {
 		return state, err
 	}
 	if admission.SourceSchema != "go-probe-records-v1" || runtime.Provenance != "owned_go" || plan.TimeoutMS < 1 || plan.TimeoutMS > 10000 || plan.MaxReads < 1 || plan.MaxReads > 32768 {
 		return state, fmt.Errorf("UI acquisition requires bounded owned Go context")
 	}
-	if _, _, err := glyphMaps(plan.Glyphmap, true); err != nil {
-		return state, err
+	if !plan.HeadersOnly {
+		if _, _, err := glyphMaps(plan.Glyphmap, true); err != nil {
+			return state, err
+		}
 	}
 	var source struct {
 		Version      int
@@ -240,6 +242,11 @@ func readProbeUI(plan ProbeUIPlan, runtime ProbeMemoryRuntime) (ProbeUIState, er
 		switch phase.Kind {
 		case "header":
 			state.Headers = values
+			if plan.HeadersOnly {
+				state.Projection = "headers-only"
+				state.Saved, state.PlayerRecords, state.Widgets = ProbeSavedState{}, nil, nil
+				return state, nil
+			}
 			fields := []*(*uint32){&state.Saved.Story, &state.Saved.Week, &state.Saved.Day, &state.Saved.Current, &state.Saved.Area}
 			for index, key := range []string{"story", "week", "day", "current", "area"} {
 				value := uint32(values[key])

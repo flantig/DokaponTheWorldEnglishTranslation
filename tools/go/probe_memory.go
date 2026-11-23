@@ -39,7 +39,11 @@ func readProbeMemory(raw, runtimeRaw []byte) (ProbeMemoryReport, error) {
 	if plan.Version != 1 || plan.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" {
 		return report, fmt.Errorf("unsupported probe memory version or source")
 	}
-	admission, err := admitProbeRecords(plan.Admission)
+	consumer := probeRecordsCurrent
+	if len(runtimeRaw) == 0 {
+		consumer = probeRecordsSaved
+	}
+	admission, err := admitProbeRecords(plan.Admission, consumer)
 	if err != nil {
 		return report, fmt.Errorf("probe memory admission: %w", err)
 	}

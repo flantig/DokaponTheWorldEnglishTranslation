@@ -31,7 +31,7 @@ func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput
 	launchProgram = profile.Program
 	if profile.PadBackend == "private-x11" {
 		x := profile.PrivateX11
-		if x == nil || profile.Flatpak == nil || profile.Flatpak.PINESlot == 0 || fmt.Sprint(profile.Flatpak.PINESlot) == probePINEDefaultSlot || profile.Resume != nil || !regexp.MustCompile(`^:[1-9][0-9]{1,3}$`).MatchString(x.Display) || x.Server.PID < 1 || x.Server.Starttime == 0 {
+		if x == nil || profile.Flatpak == nil || profile.Flatpak.PINESlot == 0 || fmt.Sprint(profile.Flatpak.PINESlot) == probePINEDefaultSlot || !regexp.MustCompile(`^:[1-9][0-9]{1,3}$`).MatchString(x.Display) || x.Server.PID < 1 || x.Server.Starttime == 0 {
 			return launchProgram, nil, nil, fmt.Errorf("private X11 requires its pinned server, nondefault PINE slot and fresh owned Flatpak epoch")
 		}
 		for _, input := range []RegistryInput{x.Authority, x.ServerProgram} {
@@ -42,9 +42,22 @@ func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput
 		if x.Authority.Size > 65536 || !slices.Equal(x.Server.Cmdline, []string{x.ServerProgram.Path, x.Display, "-screen", "1024x768", "-auth", x.Authority.Path, "-nolisten", "tcp", "-no-host-grab", "-noreset"}) {
 			return launchProgram, nil, nil, fmt.Errorf("private Xephyr command differs from its fixed authenticated contract")
 		}
-		for _, request := range profile.Requests {
-			if !slices.Contains([]string{"initial", "newgame", "scenario", "observe-frame", "watch", "stop"}, request.Operation) {
-				return launchProgram, nil, nil, fmt.Errorf("private keyboard input supports only the first-save qualification path")
+		if profile.Resume != nil && (profile.Seed == nil || len(profile.Requests) == 0 || profile.Requests[0].Operation != "resume") {
+			return launchProgram, nil, nil, fmt.Errorf("private saved resume requires its seed and first resume request")
+		}
+		for index, request := range profile.Requests {
+			switch request.Operation {
+			case "initial", "newgame", "scenario", "observe-frame", "watch", "stop", "warm", "cold":
+			case "resume":
+				if index != 0 || profile.Resume == nil || profile.Seed == nil {
+					return launchProgram, nil, nil, fmt.Errorf("private resume requires its existing saved-facts contract")
+				}
+			case "recover":
+				if profile.Policy == nil || profile.Policy.MaxRecoveries < 1 {
+					return launchProgram, nil, nil, fmt.Errorf("private recovery requires an explicit recovery budget")
+				}
+			default:
+				return launchProgram, nil, nil, fmt.Errorf("private keyboard request is outside the bounded save/lifecycle contract")
 			}
 		}
 	} else if profile.PrivateX11 != nil {
@@ -244,19 +257,29 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			Effects []string
 			To      string
 		}
-		WarmCommand       string               `json:"warm_command"`
-		WarmSettleMS      int                  `json:"warm_settle_ms"`
-		WarmWidths        []uint64             `json:"warm_widths"`
-		PauseCommand      string               `json:"pause_command"`
-		PauseSettleMS     int                  `json:"pause_settle_ms"`
-		StatusPolls       int                  `json:"status_polls"`
-		StatusPollMS      int                  `json:"status_poll_ms"`
-		WatchSourceSHA256 string               `json:"watch_source_sha256"`
-		WatchReads        []ProbeMemoryRequest `json:"watch_reads"`
-		ProgressOrder     []string             `json:"progress_order"`
+		WarmCommand         string               `json:"warm_command"`
+		WarmKeyboardBinding string               `json:"warm_keyboard_binding"`
+		WarmSettleMS        int                  `json:"warm_settle_ms"`
+		WarmWidths          []uint64             `json:"warm_widths"`
+		PauseCommand        string               `json:"pause_command"`
+		PauseSettleMS       int                  `json:"pause_settle_ms"`
+		StatusPolls         int                  `json:"status_polls"`
+		StatusPollMS        int                  `json:"status_poll_ms"`
+		WatchSourceSHA256   string               `json:"watch_source_sha256"`
+		WatchReads          []ProbeMemoryRequest `json:"watch_reads"`
+		ProgressOrder       []string             `json:"progress_order"`
 	}
 	if err := json.Unmarshal(probeLifecycleActions, &table); err != nil {
 		return report, err
+	}
+	allowWarmReset := false
+	if padBackend == "private-x11" {
+		for _, request := range profile.Requests {
+			allowWarmReset = allowWarmReset || slices.Contains(table.Actions[request.Operation].Effects, "reset")
+		}
+		if allowWarmReset && table.WarmKeyboardBinding == "" {
+			return report, fmt.Errorf("requested warm reset has no keyboard recipe")
+		}
 	}
 	var scenarioData struct {
 		Rows map[string]struct {
@@ -304,6 +327,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	if json.Unmarshal(probeScenarioData, &scenarioData) != nil {
 		return report, fmt.Errorf("invalid built-in scenario facts")
 	}
+	var playerLayout struct {
+		Base   uint32 `json:"player_base"`
+		Stride uint32 `json:"player_stride"`
+	}
+	if json.Unmarshal(probeUISource, &playerLayout) != nil || playerLayout.Stride != scenarioData.Stride || scenarioData.ControlBase < playerLayout.Base || scenarioData.ControlBase-playerLayout.Base >= playerLayout.Stride {
+		return report, fmt.Errorf("built-in player control layout differs")
+	}
+	controlOffset := int(scenarioData.ControlBase - playerLayout.Base)
 	var observationData ProbeObservationTable
 	if json.Unmarshal(probeObservationData, &observationData) != nil {
 		return report, fmt.Errorf("invalid built-in observation facts")
@@ -351,8 +382,15 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			if _, ok := scenarioData.Recipes[profile.Scenario.Recipe]; !ok || profile.Seed == nil || profile.Scenario.WaitTimeoutMS < 1 || profile.Scenario.WaitTimeoutMS > 86400000 || profile.Resume != nil {
 				return report, fmt.Errorf("unsupported bounded story recipe or resume")
 			}
-		} else if profile.Scenario.Calibration || profile.Scenario.WaitTimeoutMS != 0 {
-			return report, fmt.Errorf("story calibration/wait policy requires its explicit recipe")
+		} else {
+			if profile.Scenario.Calibration || profile.Scenario.WaitTimeoutMS < 0 || profile.Scenario.WaitTimeoutMS > 86400000 {
+				return report, fmt.Errorf("scenario wait requires its explicit bounded policy")
+			}
+			for _, request := range profile.Requests {
+				if slices.Contains(table.Actions[request.Operation].Effects, "wait-board") && profile.Scenario.WaitTimeoutMS < 1 {
+					return report, fmt.Errorf("board acquisition requires its explicit wait timeout")
+				}
+			}
 		}
 	}
 	report = ProbeLifecycleReport{Version: 1, SourceFormat: profile.SourceFormat, Session: profile.Session, Status: "COMPLETED", Steps: []ProbeLifecycleStep{}, SourceSHA256: map[string]string{}, PadLayoutSHA256: fmt.Sprintf("%x", sha256.Sum256(probePadLayout)), Limits: "Offline Go-owned direct-child/event-sink lifecycle and qualified saved-source resume. No native emulator/device/SDL/BIOS/card acceptance, legacy fixed-file IPC compatibility, Continue/restored-state proof, gameplay coverage or full.05 credit. Resource/soak agreement and native qualification remain pending."}
@@ -636,6 +674,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	defer cancel()
 	padReady, padDone := make(chan error, 1), make(chan error, 1)
 	var retiredPad ProbeArtifactClaim
+	var publishedPad ProbeArtifactClaim
 	padStarted := false
 	var privateNative atomic.Pointer[ProbeProcessRecord]
 	skipReasons := map[string]bool{}
@@ -729,7 +768,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var checkpointDue, postClearSince time.Time
 	noncePattern := regexp.MustCompile(`^([1-9][0-9]*)-(initial|newgame|prepare-scenario|prepare-load|resave|warm|warm-load|cold|cold-load|load|stop|pause|unpause|watch|recover|resume|scenario|restore|finish|observe-storage|observe-frame)$`)
 requests:
-	for _, request := range profile.Requests {
+	for requestIndex, request := range profile.Requests {
 		step := ProbeLifecycleStep{Request: request, Status: "REFUSED", Epoch: epoch, Owned: processes.Native, Effects: []string{}, RecoveryAttempts: recoveryAttempts}
 		artifactClass = probeArtifactNormal
 		journal.Finalizing = false
@@ -928,6 +967,8 @@ requests:
 				step.Reason = "explicit Go recovery budget exhausted"
 			} else if !readFailure || ambiguousFailure || lastSafeCardSHA == "" || processes.Command != nil || processes.Native != nil {
 				step.Reason = "recovery requires proved disposal after a read-only failure"
+			} else if padBackend == "private-x11" && (len(report.Steps) == 0 || report.Steps[len(report.Steps)-1].Request.Operation != "stop" || report.Steps[len(report.Steps)-1].Status != "COMPLETED" || !padStarted || privateNative.Load() != nil) {
+				step.Reason = "private recovery lacks its durable neutralized stop"
 			} else {
 				data, err := readInput(cardPath, 64<<20)
 				if err != nil || fmt.Sprintf("%x", sha256.Sum256(data)) != lastSafeCardSHA {
@@ -948,6 +989,10 @@ requests:
 		requestBytes, _ := json.Marshal(request)
 		requestSHA := fmt.Sprintf("%x", sha256.Sum256(requestBytes))
 		var stopPublicationErr error
+		var transitionReleaseErr error
+		var acquisitionDeadline time.Time
+		retryAcquisition := false
+		effectVisits := map[int]int{}
 	actions:
 		for index, repeats := 0, 0; index < len(action.Effects); {
 			effect := action.Effects[index]
@@ -961,8 +1006,10 @@ requests:
 			pendingRow := ProbeLifecycleEffect{Version: 1, Session: profile.Session, Nonce: request.Nonce, RequestSHA256: requestSHA, Action: effect, Phase: "pending"}
 			pendingData, _ := json.Marshal(pendingRow)
 			effectBase := fmt.Sprintf("%s-%02d-%s", request.Nonce, index, effect)
-			if repeats > 0 {
-				effectBase += fmt.Sprintf("-repeat%d", repeats)
+			visit := effectVisits[index]
+			effectVisits[index] = visit + 1
+			if visit > 0 {
+				effectBase += fmt.Sprintf("-repeat%d", visit)
 			}
 			if err := writeProbeArtifact(artifactBudget, artifactClass, filepath.Join(receiptDir, effectBase+".pending.json"), bytes.NewReader(pendingData), int64(len(pendingData)), fmt.Sprintf("%x", sha256.Sum256(pendingData)), 0600); err != nil {
 				if request.Operation != "stop" || frameRun == nil {
@@ -990,7 +1037,7 @@ requests:
 				effect = "emit-card-witness"
 			}
 			switch effect {
-			case "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage", "admit-frame":
+			case "wait-board", "acquire-board", "qualify-load", "qualify-handoff", "qualify-newgame", "qualify-resave", "qualify-terminal", "observe-storage", "admit-frame":
 				if processes.Native == nil || lastOwnedStep.Status != "COMPLETED" {
 					step.Reason = "scenario requires completed current ownership"
 					break actions
@@ -1024,28 +1071,30 @@ requests:
 					step.Reason = err.Error()
 					break actions
 				}
-				card, err := readInput(cardPath, 64<<20)
-				if err != nil {
-					step.Reason = err.Error()
-					break actions
-				}
-				scenarioAdmission, err = buildProbeGoAdmission(profile, lastOwnedStep, processes.Native, observed, fmt.Sprintf("%x", sha256.Sum256(card)))
-				if err != nil {
-					step.Reason = err.Error()
-					break actions
-				}
-				admitted, err := admitProbeRecords(scenarioAdmission)
-				if err != nil {
-					step.Reason = err.Error()
-					break actions
-				}
 				path := filepath.Join(profile.Root, "go-records-"+request.Nonce+".json")
-				digest := fmt.Sprintf("%x", sha256.Sum256(scenarioAdmission))
-				if err := writeProbeArtifact(artifactBudget, artifactClass, path, bytes.NewReader(scenarioAdmission), int64(len(scenarioAdmission)), digest, 0600); err != nil {
+				if scenarioRuntime.Evidence == nil || scenarioRuntime.Evidence.Path != path {
+					card, err := readInput(cardPath, 64<<20)
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					scenarioAdmission, err = buildProbeGoAdmission(profile, lastOwnedStep, processes.Native, observed, fmt.Sprintf("%x", sha256.Sum256(card)))
+					if err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					digest := fmt.Sprintf("%x", sha256.Sum256(scenarioAdmission))
+					if err := writeProbeArtifact(artifactBudget, artifactClass, path, bytes.NewReader(scenarioAdmission), int64(len(scenarioAdmission)), digest, 0600); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					scenarioRuntime = ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(scenarioAdmission)), SHA256: digest}}
+				}
+				admitted, err := admitProbeRecords(scenarioAdmission, probeRecordsCurrent)
+				if err != nil {
 					step.Reason = err.Error()
 					break actions
 				}
-				scenarioRuntime = ProbeMemoryRuntime{Provenance: "owned_go", Root: profile.Root, TimeoutMS: 1000, Evidence: &RegistryInput{Path: path, Size: int64(len(scenarioAdmission)), SHA256: digest}}
 				if effect == "admit-frame" {
 					plan := ProbeMemoryBundle{Version: 1, SourceSHA256: table.SourceSHA256, Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256}
 					for _, read := range table.WatchReads {
@@ -1269,7 +1318,49 @@ requests:
 					step.Evidence = &RegistryInput{Path: evidencePath, Size: int64(len(evidenceRaw)), SHA256: evidenceSHA}
 					break
 				}
-				scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
+				if effect == "wait-board" {
+					if acquisitionDeadline.IsZero() {
+						acquisitionDeadline = time.Now().Add(time.Duration(profile.Scenario.WaitTimeoutMS) * time.Millisecond)
+					}
+					candidateReady := false
+					for time.Now().Before(acquisitionDeadline) {
+						compact, err := readProbeUI(ProbeUIPlan{Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256, Glyphmap: scenarioGlyphs, TimeoutMS: 10000, MaxReads: profile.Scenario.MaxUIReads, HeadersOnly: true}, scenarioRuntime)
+						if err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+						scenarioUI = compact
+						step.UI = &scenarioUI
+						gameplay := compact.Headers["story"] >= 1 && compact.Headers["story"] <= 49
+						if profile.Scenario.Recipe != "" && gameplay && !gameplayStarted {
+							intervals, err := probeCheckpointIntervals(*profile.Seed, 1, profile.Scenario.Calibration)
+							if err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
+							scheduledIntervals, gameplayStarted = intervals, true
+							checkpointDue = time.Now().Add(time.Duration(intervals[0]) * time.Second)
+						}
+						step.ScheduledIntervals = slices.Clone(scheduledIntervals)
+						eligible := gameplay && !time.Now().Before(checkpointDue) && compact.Headers["mode"] == 0x1b0 && compact.Headers["current"] < 4 && compact.Headers["board_options"] == 5 && compact.Headers["board_handle"] == 1 && compact.Headers["board_cursor"] == 0
+						if eligible && time.Now().Before(acquisitionDeadline) {
+							candidateReady = true
+							break
+						}
+						if err := waitProbeFrame(profile, &journal, frameRun, min(250*time.Millisecond, max(time.Duration(0), time.Until(acquisitionDeadline)))); err != nil {
+							step.Reason = err.Error()
+							break actions
+						}
+					}
+					if !candidateReady {
+						step.Reason = "board acquisition wait deadline expired"
+						break actions
+					}
+					break
+				}
+				if effect != "acquire-board" {
+					scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
+				}
 				if effect == "qualify-terminal" {
 					scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.WaitTimeoutMS) * time.Millisecond)
 				}
@@ -1288,10 +1379,30 @@ requests:
 					yesNoBoxes = 0
 					yesNoPending = false
 				}
+				candidateHeaders := scenarioUI.Headers
+				heldCardSHA := ""
+				if effect == "acquire-board" {
+					var admissionFacts ProbeRecordBundle
+					_ = json.Unmarshal(scenarioAdmission, &admissionFacts)
+					card, cardErr := readInput(cardPath, 64<<20)
+					heldCardSHA = fmt.Sprintf("%x", sha256.Sum256(card))
+					if cardErr != nil || admissionFacts.GoOwner == nil || heldCardSHA != admissionFacts.GoOwner.CardSHA256 {
+						step.Reason = "private card changed after board candidate admission"
+						break actions
+					}
+					step.CardBefore = heldCardSHA
+				}
 				scenarioUI, err = readProbeUI(ProbeUIPlan{Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256, Glyphmap: scenarioGlyphs, TimeoutMS: 10000, MaxReads: profile.Scenario.MaxUIReads}, scenarioRuntime)
 				if err != nil {
 					step.Reason = err.Error()
 					break actions
+				}
+				if heldCardSHA != "" {
+					card, cardErr := readInput(cardPath, 64<<20)
+					if cardErr != nil || fmt.Sprintf("%x", sha256.Sum256(card)) != heldCardSHA {
+						step.Reason = "private card changed during held board acquisition"
+						break actions
+					}
 				}
 				if effect != "acquire-board" {
 					fileSelected = false
@@ -1303,45 +1414,9 @@ requests:
 					step.UI = &scenarioUI
 					break
 				}
-				if profile.Scenario.Recipe != "" {
-					if !gameplayStarted {
-						if scenarioUI.Headers["story"] < 1 || scenarioUI.Headers["story"] > 49 {
-							step.Reason = "checkpoint outside source gameplay interval"
-							break actions
-						}
-						intervals, err := probeCheckpointIntervals(*profile.Seed, 1, profile.Scenario.Calibration)
-						if err != nil {
-							step.Reason = err.Error()
-							break actions
-						}
-						scheduledIntervals = intervals
-						gameplayStarted = true
-						checkpointDue = time.Now().Add(time.Duration(intervals[0]) * time.Second)
-					}
-					if time.Until(checkpointDue) > time.Duration(profile.Scenario.WaitTimeoutMS)*time.Millisecond {
-						step.Reason = "recipe due exceeds explicit wait budget"
-						break actions
-					}
-					for time.Now().Before(checkpointDue) {
-						if err := waitProbeFrame(profile, &journal, frameRun, min(time.Second, time.Until(checkpointDue))); err != nil {
-							step.Reason = err.Error()
-							break actions
-						}
-						scenarioUI, err = readProbeUI(ProbeUIPlan{Admission: scenarioAdmission, BuildSHA256: profile.Program.SHA256, Glyphmap: scenarioGlyphs, TimeoutMS: 10000, MaxReads: profile.Scenario.MaxUIReads}, scenarioRuntime)
-						if err != nil {
-							step.Reason = err.Error()
-							break actions
-						}
-					}
-					step.ScheduledIntervals = slices.Clone(scheduledIntervals)
-				}
 				scenarioActor = int(scenarioUI.Headers["current"])
-				move := false
-				for _, widget := range scenarioUI.Widgets {
-					move = move || !widget.Unsupported && widget.Source == scenarioData.MoveSource && widget.Text == "Move" && widget.Ready == 0 && widget.Flags&3 == 1
-				}
-				if scenarioActor < 0 || scenarioActor >= 4 || scenarioUI.Headers["mode"] != 0x1b0 || scenarioUI.Headers["board_options"] != 5 || scenarioUI.Headers["board_handle"] != 1 || scenarioUI.Headers["board_cursor"] != 0 || !move || !scenarioUI.BoardAIReady {
-					step.Reason = "source board/Move/task context is not eligible"
+				if scenarioActor < 0 || scenarioActor >= 4 {
+					step.Reason = "source board current player is invalid"
 					break actions
 				}
 				for _, player := range scenarioUI.Saved.Players {
@@ -1349,6 +1424,24 @@ requests:
 						step.Reason = "source board has unowned human or invalid control"
 						break actions
 					}
+				}
+				candidateMatches := true
+				for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
+					candidateMatches = candidateMatches && candidateHeaders[key] == scenarioUI.Headers[key]
+				}
+				move := false
+				for _, widget := range scenarioUI.Widgets {
+					move = move || !widget.Unsupported && widget.Source == scenarioData.MoveSource && widget.Text == "Move" && widget.Ready == 0 && widget.Flags&3 == 1
+				}
+				if !candidateMatches || scenarioUI.Headers["mode"] != 0x1b0 || scenarioUI.Headers["board_options"] != 5 || scenarioUI.Headers["board_handle"] != 1 || scenarioUI.Headers["board_cursor"] != 0 || !move || !scenarioUI.BoardAIReady {
+					// No control write has occurred. Reuse the checked unpause
+					// effects before returning to the same bounded candidate wait.
+					retryAcquisition = true
+					step.UI = &scenarioUI
+					if !slices.Contains(step.Skips, "paused board candidate changed or Move/task not ready") {
+						step.Skips = append(step.Skips, "paused board candidate changed or Move/task not ready")
+					}
+					break
 				}
 				originalControl = *scenarioUI.Saved.Players[scenarioActor].Control
 				if profile.Seed != nil && !gameplayStarted {
@@ -1362,17 +1455,6 @@ requests:
 					checkpointDue = time.Now().Add(time.Duration(intervals[0]) * time.Second)
 					step.ScheduledIntervals = slices.Clone(intervals)
 				}
-				checkpointNumber++
-				checkpointFileIndex = scenarioFileIndex
-				// Waiting for a scheduled, eligible turn is separate from the
-				// acquired UI transaction's bounded takeover/Save budget.
-				scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
-				warmVerified, coldVerified, restored = false, false, false
-				preparedState = nil
-				preparationAcknowledged = false
-				scenarioSaved = nil
-				fileSelected, saveCompleted = false, false
-				fileDialogSeen, fileSelectionRetries = false, 0
 				step.UI = &scenarioUI
 			case "takeover-control", "restore-control", "boot-handoff":
 				if processes.Native == nil || scenarioActor < 0 || scenarioActor >= 4 || len(scenarioAdmission) == 0 {
@@ -1410,11 +1492,68 @@ requests:
 					}
 					scenarioUI = fresh
 				}
+				ownerChanged := false
 				for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
 					if fresh.Headers[key] != scenarioUI.Headers[key] {
-						step.Reason = "source board owner changed before takeover"
+						ownerChanged = true
+					}
+				}
+				if effect == "takeover-control" {
+					// Only the fully read candidate tuple may defer a pre-write
+					// takeover. Unexplained saved/player/widget changes stay fatal.
+					validControls := fresh.Headers["current"] < 4 && len(fresh.Saved.Players) == 4
+					for _, player := range fresh.Saved.Players {
+						validControls = validControls && player.Control != nil && *player.Control >= 1 && *player.Control <= 3
+					}
+					if !validControls {
+						step.Reason = "source board has unowned human or invalid control"
 						break actions
 					}
+					knownSaved := scenarioUI.Saved
+					knownSaved.Story, knownSaved.Week, knownSaved.Day, knownSaved.Current, knownSaved.Area = fresh.Saved.Story, fresh.Saved.Week, fresh.Saved.Day, fresh.Saved.Current, fresh.Saved.Area
+					knownSaved.Players = slices.Clone(scenarioUI.Saved.Players)
+					knownRecords := make([][]byte, len(scenarioUI.PlayerRecords))
+					knownControls := len(knownRecords) == 4 && len(fresh.PlayerRecords) == 4 && len(knownSaved.Players) == 4
+					if knownControls {
+						for player, previous := range scenarioUI.PlayerRecords {
+							if len(previous) != int(playerLayout.Stride) || len(fresh.PlayerRecords[player]) != len(previous) || knownSaved.Players[player].Control == nil || *knownSaved.Players[player].Control < 1 || *knownSaved.Players[player].Control > 3 {
+								knownControls = false
+								break
+							}
+							knownRecords[player] = bytes.Clone(previous)
+							control := fresh.PlayerRecords[player][controlOffset]
+							ownerChanged = ownerChanged || control != previous[controlOffset]
+							knownRecords[player][controlOffset] = control
+							knownSaved.Players[player].Control = fresh.Saved.Players[player].Control
+							knownSaved.Players[player].RecordSHA256 = fresh.Saved.Players[player].RecordSHA256
+							knownSaved.Players[player].TutorialInitializedSHA256 = fresh.Saved.Players[player].TutorialInitializedSHA256
+						}
+					}
+					knownWidgets := slices.Clone(scenarioUI.Widgets)
+					knownMove := false
+					if len(knownWidgets) == len(fresh.Widgets) {
+						for index, widget := range knownWidgets {
+							if widget.Source != scenarioData.MoveSource || widget.Text != "Move" || widget.Unsupported || fresh.Widgets[index].Index != widget.Index || fresh.Widgets[index].Unsupported {
+								continue
+							}
+							next := fresh.Widgets[index]
+							knownMove = true
+							ownerChanged = ownerChanged || next.Source != widget.Source || next.Text != widget.Text || next.Ready != widget.Ready || next.Flags != widget.Flags
+							knownWidgets[index].Source, knownWidgets[index].Text, knownWidgets[index].Ready, knownWidgets[index].Flags = next.Source, next.Text, next.Ready, next.Flags
+						}
+					}
+					if ownerChanged && knownMove && knownControls && reflect.DeepEqual(knownSaved, fresh.Saved) && reflect.DeepEqual(knownRecords, fresh.PlayerRecords) && reflect.DeepEqual(knownWidgets, fresh.Widgets) {
+						retryAcquisition = true
+						step.UI = &fresh
+						if !slices.Contains(step.Skips, "paused board candidate changed or Move/task not ready") {
+							step.Skips = append(step.Skips, "paused board candidate changed or Move/task not ready")
+						}
+						break
+					}
+				}
+				if ownerChanged {
+					step.Reason = "source board owner changed before takeover"
+					break actions
 				}
 				if !reflect.DeepEqual(fresh.Saved, scenarioUI.Saved) || !reflect.DeepEqual(fresh.Widgets, scenarioUI.Widgets) {
 					step.Reason = "source widget/player owner changed before takeover"
@@ -1463,6 +1602,18 @@ requests:
 					step.Reason = "takeover requires actual paused status"
 					break actions
 				}
+				if effect == "takeover-control" {
+					// A deferred pre-write candidate consumes neither a checkpoint
+					// ordinal nor the acquired transaction's fresh Save clock.
+					checkpointNumber++
+					checkpointFileIndex = scenarioFileIndex
+					scenarioDeadline = time.Now().Add(time.Duration(profile.Scenario.TimeoutMS) * time.Millisecond)
+					warmVerified, coldVerified, restored = false, false, false
+					preparedState, scenarioSaved = nil, nil
+					preparationAcknowledged = false
+					fileSelected, saveCompleted = false, false
+					fileDialogSeen, fileSelectionRetries = false, 0
+				}
 				address := scenarioData.ControlBase + uint32(scenarioActor)*scenarioData.Stride
 				packet := []byte{10, 0, 0, 0, 4, 0, 0, 0, 0, 0}
 				binary.LittleEndian.PutUint32(packet[5:], address)
@@ -1496,7 +1647,7 @@ requests:
 				for player := range fresh.PlayerRecords {
 					expected := bytes.Clone(scenarioUI.PlayerRecords[player])
 					if player == scenarioActor {
-						expected[241] = writeControl
+						expected[controlOffset] = writeControl
 					}
 					if !bytes.Equal(expected, fresh.PlayerRecords[player]) {
 						step.Reason = "source owner changed during takeover"
@@ -1511,8 +1662,8 @@ requests:
 				if effect == "restore-control" {
 					restored = true
 				}
-			case "verify-human", "select-data", "select-save", "card-save", "select-continue", "select-newgame", "front-end", "wait-board", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "ack-preparation-image", "wait-advance", "wait-terminal":
-				if repeats == 0 && (effect == "front-end" || effect == "wait-board") {
+			case "verify-human", "select-data", "select-save", "card-save", "select-continue", "select-newgame", "front-end", "card-preview", "card-load", "card-prepare-load", "card-load-prepared", "ack-preparation-image", "wait-advance", "wait-terminal":
+				if repeats == 0 && effect == "front-end" {
 					scenarioDeadline = frontEndDeadline
 				}
 				if repeats == 0 && (effect == "select-continue" || effect == "wait-advance") {
@@ -1535,7 +1686,7 @@ requests:
 					break actions
 				}
 				step.UI = &ui
-				loading := effect == "wait-terminal" || effect == "select-continue" || effect == "select-newgame" || effect == "front-end" || effect == "wait-board" || effect == "card-preview" || effect == "preview-dwell" || effect == "card-load" || effect == "card-prepare-load" || effect == "card-load-prepared" || effect == "ack-preparation-image"
+				loading := effect == "wait-terminal" || effect == "select-continue" || effect == "select-newgame" || effect == "front-end" || effect == "card-preview" || effect == "preview-dwell" || effect == "card-load" || effect == "card-prepare-load" || effect == "card-load-prepared" || effect == "ack-preparation-image"
 				if !loading && effect != "wait-advance" && (ui.Headers["current"] != uint64(scenarioActor) || *ui.Saved.Players[scenarioActor].Control != 0) {
 					step.Reason = "source human actor changed"
 					break actions
@@ -1642,23 +1793,6 @@ requests:
 						break actions
 					}
 					command = "CIRCLE"
-				case "wait-board":
-					eligible := ui.Headers["mode"] == 0x1b0 && ui.Headers["current"] < 4 && ui.Headers["board_options"] == 5 && ui.Headers["board_handle"] == 1 && ui.Headers["board_cursor"] == 0 && ui.BoardAIReady
-					move := false
-					for _, widget := range ui.Widgets {
-						move = move || !widget.Unsupported && widget.Source == scenarioData.MoveSource && widget.Text == "Move" && widget.Ready == 0 && widget.Flags&3 == 1
-					}
-					for _, player := range ui.Saved.Players {
-						eligible = eligible && *player.Control >= 1 && *player.Control <= 3
-					}
-					if eligible && move {
-						break
-					}
-					if err := waitProbeFrame(profile, &journal, frameRun, 250*time.Millisecond); err != nil {
-						step.Reason = err.Error()
-						break actions
-					}
-					repeatEffect = true
 				case "select-continue", "select-newgame":
 					if repeats >= scenarioData.Reload.TitleAttempts {
 						step.Reason = "source Continue selector timed out"
@@ -2425,6 +2559,9 @@ requests:
 						}
 					}
 					required["Hotkeys.ResetVM"] = ""
+					if allowWarmReset {
+						required["Hotkeys.ResetVM"] = table.WarmKeyboardBinding
+					}
 					required["InputSources.SDL"], required["InputSources.Keyboard"], required["InputSources.Mouse"] = "false", "true", "false"
 					required["Pad1.Type"], required["Pad.MultitapPort1"], required["Pad.MultitapPort2"] = "DualShock2", "false", "false"
 					for port := 2; port <= 8; port++ {
@@ -2585,13 +2722,17 @@ requests:
 					}
 				}
 				padSpec := ProbePadSpec{Root: profile.Root, Backend: padBackend, PrivateX11: profile.PrivateX11, Native: &privateNative, BuildSHA256: profile.Program.SHA256, CleanupMS: min(profile.StopTimeoutMS, 1000)}
-				var publishedPad ProbeArtifactClaim
+				if allowWarmReset {
+					padSpec.WarmKeyboardBinding = table.WarmKeyboardBinding
+				}
 				if artifactBudget != nil {
 					claim := ProbeArtifactClaim{ID: "artifact:" + filepath.Join(profile.Root, "pad-device.json"), Path: filepath.Join(profile.Root, "pad-device.json"), Class: probeArtifactNormal, MaxFinalBytes: 4 << 20}
 					if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
 						step.Reason = err.Error()
 						break actions
 					}
+				}
+				if artifactBudget != nil || allowWarmReset {
 					parent, err := os.Open(profile.Root)
 					if err != nil {
 						step.Reason = err.Error()
@@ -2628,6 +2769,10 @@ requests:
 					}
 				}
 			case "launch":
+				if transitionReleaseErr != nil {
+					step.Reason = "private epoch key release is uncertain: " + transitionReleaseErr.Error()
+					break actions
+				}
 				if frameRun != nil {
 					frameRun.Ready = false
 				}
@@ -2638,7 +2783,6 @@ requests:
 				if request.Operation == "cold" || request.Operation == "cold-load" || request.Operation == "recover" {
 					epoch++
 				}
-				processes = ProbeLifecycleProcesses{Epoch: epoch, Budget: artifactBudget, ArtifactClass: artifactClass}
 				if artifactBudget != nil {
 					snapshots := filepath.Join(dataRoot, "snaps")
 					if artifactBudget.SnapshotRoots[snapshots] == nil {
@@ -2702,21 +2846,111 @@ requests:
 					}
 					logPath := filepath.Join(profileDir, "emulog.txt")
 					if _, err := os.Lstat(logPath); err == nil {
+						if epoch < 1 || !processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) != 0 {
+							step.Reason = "epoch log rotation requires proved prior writer disposal"
+							break actions
+						}
 						prior := filepath.Join(profileDir, fmt.Sprintf("emulog-epoch-%d.txt", epoch-1))
 						if _, err := os.Lstat(prior); !os.IsNotExist(err) {
 							step.Reason = "epoch log preservation target already exists"
 							break actions
 						}
-						if err := os.Rename(logPath, prior); err != nil {
-							step.Reason = err.Error()
+						parentInfo, err := os.Lstat(profileDir)
+						parent, openErr := os.Open(profileDir)
+						if err != nil || openErr != nil {
+							if parent != nil {
+								_ = parent.Close()
+							}
+							step.Reason = "epoch log parent is unavailable"
 							break actions
 						}
+						openedParent, statErr := parent.Stat()
+						if statErr != nil || !parentInfo.IsDir() || parentInfo.Mode().Perm() != 0700 || !os.SameFile(parentInfo, openedParent) || artifactBudget != nil && (artifactBudget.Roots[profileDir] == nil || !os.SameFile(artifactBudget.Roots[profileDir], openedParent)) {
+							_ = parent.Close()
+							step.Reason = "epoch log parent differs from its private pin"
+							break actions
+						}
+						parentOwner, ok := openedParent.Sys().(*syscall.Stat_t)
+						if !ok || parentOwner.Uid != uint32(os.Getuid()) {
+							_ = parent.Close()
+							step.Reason = "epoch log parent has another owner"
+							break actions
+						}
+						fd, err := syscall.Openat(int(parent.Fd()), filepath.Base(logPath), syscall.O_RDONLY|syscall.O_NOFOLLOW|syscall.O_NONBLOCK, 0)
+						if err != nil {
+							_ = parent.Close()
+							step.Reason = "epoch log cannot be opened through its pinned parent"
+							break actions
+						}
+						file := os.NewFile(uintptr(fd), logPath)
+						info, err := file.Stat()
+						if err != nil || !info.Mode().IsRegular() || info.Size() < 0 || info.Size() == 1<<63-1 || info.Mode().Perm()&0022 != 0 {
+							_ = file.Close()
+							_ = parent.Close()
+							step.Reason = "epoch log is not a bounded regular file"
+							break actions
+						}
+						owner, ok := info.Sys().(*syscall.Stat_t)
+						if !ok || owner.Uid != uint32(os.Getuid()) || owner.Nlink != 1 || artifactBudget != nil && (artifactBudget.NativeFiles[logPath] == nil || !os.SameFile(artifactBudget.NativeFiles[logPath], info)) {
+							_ = file.Close()
+							_ = parent.Close()
+							step.Reason = "epoch log lacks its exclusive prior native inode"
+							break actions
+						}
+						hash := sha256.New()
+						count, readErr := io.Copy(hash, io.LimitReader(file, info.Size()+1))
+						after, afterErr := file.Stat()
+						closeErr := file.Close()
+						if readErr != nil || afterErr != nil || closeErr != nil || count != info.Size() || !os.SameFile(info, after) || info.Size() != after.Size() || info.ModTime() != after.ModTime() || info.Mode() != after.Mode() {
+							_ = parent.Close()
+							step.Reason = "epoch log stable readback changed"
+							break actions
+						}
+						digest := fmt.Sprintf("%x", hash.Sum(nil))
+						archive := ProbeArtifactClaim{ID: "artifact:" + prior, Path: prior, Class: probeArtifactNormal, MaxFinalBytes: uint64(info.Size()), ExpectedInfo: after, ExpectedSHA256: digest}
+						var source ProbeArtifactClaim
+						if artifactBudget != nil {
+							source = artifactBudget.claims["native:"+logPath]
+							source.ExpectedInfo = after
+							archive.MaxFinalBytes = max(archive.MaxFinalBytes, artifactBudget.held[logPath])
+							if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, []ProbeArtifactClaim{archive}); err != nil {
+								_ = parent.Close()
+								step.Reason = err.Error()
+								break actions
+							}
+						}
+						renameErr := renameProbeArtifact(parent, filepath.Base(logPath), filepath.Base(prior))
+						if renameErr == nil {
+							renameErr = parent.Sync()
+						}
+						parentCloseErr := parent.Close()
+						archived, archiveErr := os.Lstat(prior)
+						_, absentErr := os.Lstat(logPath)
+						currentParent, parentErr := os.Lstat(profileDir)
+						if renameErr != nil || parentCloseErr != nil || archiveErr != nil || !os.IsNotExist(absentErr) || parentErr != nil || !os.SameFile(openedParent, currentParent) || !os.SameFile(after, archived) || after.Size() != archived.Size() || after.ModTime() != archived.ModTime() || after.Mode() != archived.Mode() {
+							step.Reason = "epoch log no-replace rotation or parent durability is unknown"
+							break actions
+						}
+						archiveOwner, ok := archived.Sys().(*syscall.Stat_t)
+						if !ok || archiveOwner.Uid != uint32(os.Getuid()) || archiveOwner.Nlink != 1 || currentParent.Mode().Perm() != 0700 {
+							step.Reason = "epoch log archive ownership changed"
+							break actions
+						}
+						archive.ExpectedInfo = archived
+						if artifactBudget != nil {
+							if err := accountProbeArtifacts(artifactBudget, probeArtifactRotate, []ProbeArtifactClaim{source, archive}); err != nil {
+								step.Reason = err.Error()
+								break actions
+							}
+						}
+						step.Evidence = &RegistryInput{Path: prior, Size: archived.Size(), SHA256: digest}
 					} else if !os.IsNotExist(err) {
 						step.Reason = "epoch log identity unavailable"
 						break actions
 					}
 					program, args = launchProgram.Path, slices.Clone(launchArgs)
 				}
+				processes = ProbeLifecycleProcesses{Epoch: epoch, Budget: artifactBudget, ArtifactClass: artifactClass}
 				processes.Command = exec.Command(program, args...)
 				processes.Command.Env = append(os.Environ(), "DOKAPON_PROBE_SESSION_ROOT="+profile.Root)
 				if profile.PrivateX11 != nil {
@@ -2819,11 +3053,12 @@ requests:
 					deadline = time.Now().Add(time.Duration(profile.QuietMS+profile.ReadyTimeoutMS) * time.Millisecond)
 				}
 				statusOnly := effect == "status-running" || effect == "status-paused"
+				afterToggle := index > 0 && action.Effects[index-1] == "toggle-pause"
 				watch := effect == "watch-progress"
 				pollLimit := int(^uint(0) >> 1)
 				if statusOnly {
 					pollLimit = table.StatusPolls
-					if index == 0 || action.Effects[index-1] != "toggle-pause" {
+					if !afterToggle {
 						pollLimit = 1
 					}
 					deadline = time.Now().Add(time.Duration(table.StatusPolls*table.StatusPollMS+profile.ReadyTimeoutMS) * time.Millisecond)
@@ -2985,7 +3220,7 @@ requests:
 						if effect == "status-paused" {
 							wanted = 1
 						}
-						if index == 0 || action.Effects[index-1] != "toggle-pause" {
+						if !afterToggle {
 							value := vmStatus
 							step.VMStatusBefore = &value
 						} else {
@@ -2996,7 +3231,7 @@ requests:
 							verified = true
 							break
 						}
-						if index == 0 || action.Effects[index-1] != "toggle-pause" || vmStatus != 1-wanted {
+						if !afterToggle || vmStatus != 1-wanted {
 							step.Reason = "unexpected VM status during guarded toggle"
 							break actions
 						}
@@ -3163,6 +3398,39 @@ requests:
 					step.Reason = err.Error()
 					break actions
 				}
+				if effect == "toggle-pause" && !retryAcquisition && index+1 < len(action.Effects) && action.Effects[index+1] == "status-paused" {
+					wait := slices.Index(action.Effects, "wait-board")
+					takeover := slices.Index(action.Effects, "takeover-control")
+					if wait >= 0 && takeover > index {
+						// A real candidate can consume durable receipts; idle polls
+						// cannot. Leave room for one maximal miss/resume cycle,
+						// a single-pass completion and the requested exact stops.
+						existing, err := os.ReadDir(receiptDir)
+						if err != nil {
+							step.Reason = "board acquisition receipt census failed"
+							break actions
+						}
+						missEffects := takeover - index + 1 + 3 + index - wait
+						// The census already includes this effect's pending file.
+						needed := 2*missEffects - 1 + 2*(len(action.Effects)-index) + 1
+						for _, future := range profile.Requests[requestIndex+1:] {
+							if future.Operation == "stop" {
+								needed += 2*len(table.Actions["stop"].Effects) + 1
+							}
+						}
+						if len(existing)+needed > 512 {
+							step.Reason = "board acquisition receipt reserve exhausted"
+							break actions
+						}
+					}
+				}
+				if effect == "reset" && padBackend == "private-x11" {
+					if !allowWarmReset || publishedPad.ExpectedInfo == nil || publishedPad.ExpectedSHA256 == "" {
+						step.Reason = "warm reset lacks its written keyboard recipe"
+						break actions
+					}
+					step.Evidence = &RegistryInput{Path: publishedPad.Path, Size: int64(publishedPad.MaxFinalBytes), SHA256: publishedPad.ExpectedSHA256}
+				}
 				connection, err := net.DialTimeout("unix", filepath.Join(profile.Root, "pad.sock"), time.Second)
 				if err != nil {
 					step.Reason = "owned pad unavailable"
@@ -3187,16 +3455,57 @@ requests:
 				}
 			case "terminate":
 				processes.ArtifactClass = artifactClass
-				if padBackend == "private-x11" && padStarted {
-					cancel()
-					if err := <-padDone; err != nil {
-						runErr = errors.Join(runErr, fmt.Errorf("private keyboard release is uncertain: %w", err))
-					}
-					padStarted = false
-					privateNative.Store(nil)
-				}
 				if frameRun != nil {
 					frameRun.Ready = false
+				}
+				if padBackend == "private-x11" && padStarted {
+					preservePad := request.Operation == "cold"
+					if request.Operation == "stop" && requestIndex+1 < len(profile.Requests) && readFailure && !ambiguousFailure && profile.Policy != nil && recoveryAttempts < profile.Policy.MaxRecoveries && (frameRun == nil || frameRun.Summary.Failure == "") {
+						next := profile.Requests[requestIndex+1]
+						parts := noncePattern.FindStringSubmatch(next.Nonce)
+						if next.Operation == "recover" && next.Phase == "requested" && next.Session == profile.Session && len(parts) == 3 && parts[2] == "recover" {
+							nextOrdinal, parseErr := strconv.ParseUint(parts[1], 10, 64)
+							preservePad = parseErr == nil && nextOrdinal > ordinal
+						}
+					}
+					if preservePad {
+						bound := privateNative.Load()
+						if bound == nil || processes.Native == nil || !reflect.DeepEqual(*bound, *processes.Native) {
+							transitionReleaseErr = fmt.Errorf("private epoch transition lacks its bound old target")
+						} else {
+							connection, err := net.DialTimeout("unix", filepath.Join(profile.Root, "pad.sock"), time.Second)
+							if err != nil {
+								transitionReleaseErr = fmt.Errorf("private epoch release service is unavailable: %w", err)
+							} else {
+								_ = connection.SetDeadline(time.Now().Add(2 * time.Second))
+								_, sendErr := io.Copy(connection, strings.NewReader("releaseall"))
+								if sendErr == nil {
+									sendErr = connection.(*net.UnixConn).CloseWrite()
+								}
+								ack, ackErr := io.ReadAll(io.LimitReader(connection, 257))
+								_ = connection.Close()
+								if sendErr != nil || ackErr != nil || string(ack) != "ok\n" {
+									transitionReleaseErr = fmt.Errorf("private epoch release acknowledgement is unknown")
+								}
+							}
+						}
+						preservePad = transitionReleaseErr == nil
+						if preservePad {
+							// Keep IDs and the socket grant, with no input target
+							// during the gap between proven native epochs.
+							privateNative.Store(nil)
+						}
+					}
+					if !preservePad {
+						// An attempted stop still disposes its exact owned processes
+						// after uncertain input release; it never admits recovery.
+						cancel()
+						if err := <-padDone; err != nil {
+							runErr = errors.Join(runErr, fmt.Errorf("private keyboard release is uncertain: %w", err))
+						}
+						padStarted = false
+						privateNative.Store(nil)
+					}
 				}
 				if processes.Native != nil {
 					data, err := readInput(cardPath, 64<<20)
@@ -3281,7 +3590,7 @@ requests:
 				break actions
 			}
 			effect = plannedEffect
-			if !repeatEffect {
+			if !repeatEffect && !retryAcquisition {
 				step.Effects = append(step.Effects, effect)
 			}
 			pendingRow.Phase = "complete"
@@ -3307,7 +3616,36 @@ requests:
 				}
 				stopPublicationErr = errors.Join(stopPublicationErr, err)
 			}
-			if repeatEffect {
+			if retryAcquisition {
+				next := -1
+				switch effect {
+				case "acquire-board", "takeover-control":
+					// Both known misses recheck the same owner and PAUSED status
+					// before choosing the existing checked resume pair.
+					next = slices.Index(action.Effects, "status-paused")
+				case "status-paused":
+					next = slices.Index(action.Effects, "takeover-control") + 1
+					if next < 1 || next+1 >= len(action.Effects) || action.Effects[next] != "toggle-pause" || action.Effects[next+1] != "status-running" {
+						next = -1
+					}
+				case "toggle-pause":
+					next = index + 1
+					if next >= len(action.Effects) || action.Effects[next] != "status-running" {
+						next = -1
+					}
+				case "status-running":
+					next = slices.Index(action.Effects, "wait-board")
+					if next >= 0 {
+						step.Effects = step.Effects[:next]
+						retryAcquisition = false
+					}
+				}
+				if next < 0 {
+					step.Reason = "board acquisition retry lacks its checked resume effects"
+					break actions
+				}
+				index, repeats = next, repeats+1
+			} else if repeatEffect {
 				repeats++
 			} else {
 				index++
@@ -3317,6 +3655,9 @@ requests:
 		if stopPublicationErr != nil && step.Reason == "" {
 			step.Reason = "stop evidence publication is unknown: " + stopPublicationErr.Error()
 		}
+		if transitionReleaseErr != nil && step.Reason == "" {
+			step.Reason = "private epoch key release is uncertain: " + transitionReleaseErr.Error()
+		}
 		if step.Reason == "" && len(step.Effects) == len(action.Effects) {
 			step.Status = "COMPLETED"
 			if request.Operation == "recover" {
@@ -3324,11 +3665,6 @@ requests:
 			}
 			phase = action.To
 			step.Epoch = epoch
-			if padBackend == "private-x11" && processes.Native != nil {
-				bound := *processes.Native
-				bound.Cmdline = slices.Clone(bound.Cmdline)
-				privateNative.Store(&bound)
-			}
 			if frameRun != nil && step.Status == "COMPLETED" && slices.Contains([]string{"initial", "resume", "cold", "cold-load", "recover"}, request.Operation) {
 				// A completed owned-ready epoch admits immutable facts once. Every
 				// acquisition still repeats the process, peer, source and epoch guards.
@@ -3418,6 +3754,11 @@ requests:
 		}
 		if step.Status == "COMPLETED" && slices.Contains([]string{"initial", "resume", "cold", "cold-load", "recover"}, request.Operation) {
 			processes.BootstrapPending = false
+			if padBackend == "private-x11" && processes.Native != nil {
+				bound := *processes.Native
+				bound.Cmdline = slices.Clone(bound.Cmdline)
+				privateNative.Store(&bound)
+			}
 		}
 		if frameEpochReady {
 			if step.Status == "COMPLETED" {
@@ -3512,7 +3853,7 @@ func buildProbeGoAdmission(profile ProbeLifecycleProfile, step ProbeLifecycleSte
 	if err != nil {
 		return nil, err
 	}
-	if _, err := admitProbeRecords(raw); err != nil {
+	if _, err := admitProbeRecords(raw, probeRecordsCurrent); err != nil {
 		return nil, err
 	}
 	return raw, nil

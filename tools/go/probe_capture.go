@@ -91,7 +91,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample, bud
 	if !declaredTags || managed == nil && !declaredUI {
 		return receipt, fmt.Errorf("capture plan requires source frame tags and UI decoders")
 	}
-	admission, err := admitProbeRecords(memoryPlan.Admission)
+	admission, err := admitProbeRecords(memoryPlan.Admission, probeRecordsCurrent)
 	if err != nil {
 		return receipt, err
 	}

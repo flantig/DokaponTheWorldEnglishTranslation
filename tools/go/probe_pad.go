@@ -40,6 +40,34 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 		done <- err
 		return
 	}
+	var resetSupplement map[string]string
+	if spec.Backend == "private-x11" && spec.WarmKeyboardBinding != "" {
+		var recipe map[string]json.RawMessage
+		var binding string
+		err := json.Unmarshal(probeLifecycleActions, &recipe)
+		if err == nil {
+			err = json.Unmarshal(recipe["warm_keyboard_binding"], &binding)
+		}
+		key := strings.TrimPrefix(binding, "Keyboard/")
+		if err != nil || binding != spec.WarmKeyboardBinding || key == binding || key == "" || strings.ContainsAny(key, " &\t\r\n") {
+			err = fmt.Errorf("warm keyboard recipe differs or is not one unmodified key")
+			ready <- err
+			done <- err
+			return
+		}
+		for name, button := range layout.Buttons {
+			if name != "R3" && button.KeyboardBinding == binding {
+				err = fmt.Errorf("warm keyboard recipe overlaps another owned key")
+				ready <- err
+				done <- err
+				return
+			}
+		}
+		button := layout.Buttons["R3"]
+		button.KeyboardBinding = binding
+		layout.Buttons["R3"] = button
+		resetSupplement = map[string]string{"logical_button": "R3", "settings_key": button.SettingsKey, "keyboard_binding": button.KeyboardBinding, "recipe_sha256": fmt.Sprintf("%x", sha256.Sum256(probeLifecycleActions))}
+	}
 	if spec.Backend != "event-sink" && spec.Backend != "uinput" && spec.Backend != "private-x11" {
 		err := fmt.Errorf("unsupported owned pad backend")
 		ready <- err
@@ -89,7 +117,11 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 	// Setup binds keyboard/mouse IDs before this service's sequential command loop.
 	var forwarderIDs [2]uint16
 	if spec.Backend == "private-x11" {
-		planBytes, _ = json.Marshal(map[string]any{"source_format": "go-owned-private-keyboard-v1", "backend": spec.Backend, "private_x11": spec.PrivateX11, "layout_sha256": fmt.Sprintf("%x", sha256.Sum256(probePadLayout)), "layout": json.RawMessage(probePadLayout)})
+		plan := map[string]any{"source_format": "go-owned-private-keyboard-v1", "backend": spec.Backend, "private_x11": spec.PrivateX11, "layout_sha256": fmt.Sprintf("%x", sha256.Sum256(probePadLayout)), "layout": json.RawMessage(probePadLayout)}
+		if resetSupplement != nil {
+			plan["warm_reset"] = resetSupplement
+		}
+		planBytes, _ = json.Marshal(plan)
 		setupCtx, setupCancel := context.WithTimeout(ctx, time.Second)
 		_, err = emitProbeX11(setupCtx, *spec.PrivateX11, nil, spec.BuildSHA256, nil, false, &forwarderIDs)
 		setupCancel()

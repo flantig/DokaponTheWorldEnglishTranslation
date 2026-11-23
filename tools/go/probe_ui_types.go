@@ -15,6 +15,7 @@ type ProbeUIPlan struct {
 	Glyphmap    json.RawMessage `json:"glyphmap"`
 	TimeoutMS   int             `json:"timeout_ms"`
 	MaxReads    int             `json:"max_reads"`
+	HeadersOnly bool            `json:"-"`
 }
 
 type ProbeUIWidget struct {
@@ -36,6 +37,7 @@ type ProbeUIChoice struct {
 }
 
 type ProbeUIState struct {
+	Projection      string            `json:"projection,omitempty"`
 	AdmissionSHA256 string            `json:"admission_sha256"`
 	Session         string            `json:"session"`
 	Epoch           int               `json:"epoch"`

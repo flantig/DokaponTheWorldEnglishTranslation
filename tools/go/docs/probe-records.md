@@ -144,9 +144,27 @@ The reviewed paired extension now produces one complete **offline** checkpoint P
 
 The reviewed NewGame/preparation extension infers a nonzero human actor, performs the guarded intro handoff and board takeover, then prepares an unseen tutorial through real controlled Save/Load. The flag is initialized before the exact help image is captured and reread; one acknowledgement changes no record bytes. Final resave and the ordinary pair yield the exact independent17-event/10-capture report PASS. Image construction waits without input until source readiness; ordinary-load image refusal stays intact. Source epochs, literal card/records, retained failures and limitations are canonical in `probe-records-proof.json#newgame_preparation_offline_assessment`. This remains offline software, not native gameplay, three sequential stories, broader cohorts, owner-agreed unattended bounds or handover; the score stays85/90.
 
+Current `newgame` completes after verified COM boot handoff, not board acquisition.
+`scenario` and `prepare-scenario` start a fresh, once-only bounded
+`scenario.wait_timeout_ms` watch. The internal header-only projection in
+`readProbeUI` supplies candidate headers, read count and admission provenance, with
+no player records, Move widget or AI-readiness proof. A candidate authorizes the
+existing owned pause, then full UI acquisition compares all nine identity headers,
+Move/task readiness and COM controls before takeover. A known prewrite candidate
+miss uses checked resume before retrying within the same deadline; ambiguous
+pause, ownership or write outcomes stop. The separate Save transaction clock
+starts after held acquisition; frontend and whole-run sampler bounds do not reset.
+
+Saved reports retain the exact historical action vectors in
+`lifecycle-actions.json#saved_effect_vectors`. Only the internal saved consumer
+accepts those complete vectors; live consumers require the exact current vector.
+Partial or superset matches never qualify producer completion. This purpose is
+not a CLI option or record-schema field, and header candidates earn no held-UI
+or native criterion credit.
+
 Startup selection retains the frozen Python ready-to-CIRCLE contract for the
 complete normalized registry0x488780 slot1 checking message. The sole partial
-glyph exception requires movie width588, widget0/source0x5358a0, flags1/kind0/page0,
+glyph exception requires movie mode588, widget0/source0x5358a0, flags1/kind0/page0,
 an idle card tuple, one active widget and only its out-of-range-pointer warning.
 The early widget scan refuses that exact unsupported message in a different
 context before movie/title fallback input. Unsupported evidence remains intact;
@@ -182,9 +200,10 @@ F8 witness. Native save/checkpoint and full criterion qualification remain pendi
 (path/size/SHA256) and `server` (the actual Xephyr PID/start/argv observation).
 The exact server argv is `Xephyr :N -screen 1024x768 -auth AUTH -nolisten tcp
 -no-host-grab -noreset`. The display must differ from the controller's host
-display. This fresh Flatpak profile requires a nondefault PINE slot and accepts
-only initial/newgame/scenario/observe-frame/watch/stop requests. Loading a copied
-card alone does not bypass the existing same-run scenario save condition.
+display. This fresh Flatpak profile requires a nondefault PINE slot. Warm/cold,
+qualified saved resume and explicitly budgeted recovery use the existing lifecycle
+contracts alongside the first-save route; their native qualification is pending.
+Loading a copied card alone does not bypass the same-run scenario save condition.
 
 The pinned PCSX2 2.8.2 Flatpak needs `UI.SettingsVersion=1`. Private preparation
 inserts a genuinely missing key into its generated INI, preserving the verified
@@ -238,9 +257,27 @@ Primary and release failures both remain failures.
 
 The shared layout binds CROSS/X, CIRCLE/C, START/Return, UP/Up, DOWN/Down,
 L3/TogglePause/F6 and logical GUIDE/Screenshot/F8. SDL and mouse sources are
-disabled, other pads are disconnected, reset is unbound, and extra/folded
-duplicate input consumers refuse. No R3 or general keyboard mapper is provided.
-The existing input parser/hold/ack owner serves both transports.
+disabled, other pads are disconnected, and extra/folded duplicate consumers refuse.
+Only a requested reset effect adds the recipe-bound R3/ResetVM/Keyboard/F7
+supplement to the private device plan and generated INI; other routes leave reset
+unbound. Its committed `pad-device.json` writer identity/hash is required even
+without frame sampling. The seven-key base layout and its capture SHA stay
+unchanged. This is no general keyboard mapper; the existing input parser/hold/ack
+owner serves both transports. `emitProbeX11` retains the service-owned pair of
+forwarder IDs for setup, effects and cleanup.
+
+Cold/recovery transitions release keys against the old bound native target before
+clearing that target for the epoch gap. The service/socket survives only a proved
+eligible transition; a new target binds after its completed boot evidence is
+durable. Final stop releases/cancels the service and disposes owned processes.
+Sampled cold transitions preserve final-epoch capture and accounting requirements.
+After prior native/launcher disposal, `emulog.txt` rotates to an exclusive
+`emulog-epoch-N.txt` through the pinned parent with no replacement. Stable
+inode/hash readback, directory sync and archive high-water accounting must succeed
+before the live log reservation can accept a new inode. No copy/unlink or overwrite
+fallback exists. The rename primitive is Linux amd64 only; its unsupported-platform
+variant refuses, and Windows support remains pending. These contracts add no native lifecycle,
+Windows, save/checkpoint or milestone acceptance.
 
 Private capture receipts explicitly name `trigger_backend: "private-x11"`, pin
 the Go layout bytes, and retain an `x11_effect` acknowledgement with its capture

@@ -18,8 +18,11 @@ import (
 // Syntax/membership checks precede source-ordered boot checks. The outer caller's
 // acknowledged request is idempotent; the same nonce reaching boot is a replay.
 // Observations are saved evidence, never permission to open paths or control a VM.
-func admitProbeRecords(raw []byte) (ProbeRecordReport, error) {
+func admitProbeRecords(raw []byte, consumer ProbeRecordConsumer) (ProbeRecordReport, error) {
 	var report ProbeRecordReport
+	if consumer != probeRecordsCurrent && consumer != probeRecordsSaved {
+		return report, fmt.Errorf("probe records require a known internal consumer purpose")
+	}
 	if len(raw) == 0 || len(raw) > 1<<20 {
 		return report, fmt.Errorf("probe record bundle exceeds its 1MiB input bound")
 	}
@@ -53,11 +56,20 @@ func admitProbeRecords(raw []byte) (ProbeRecordReport, error) {
 			}
 		}
 		var contract struct {
-			Actions map[string]struct{ Effects []string }
+			Actions      map[string]struct{ Effects []string }
+			SavedEffects map[string]map[string][]string `json:"saved_effect_vectors"`
 		}
 		_ = json.Unmarshal(probeLifecycleActions, &contract)
 		completed, known := contract.Actions[step.Request.Operation]
-		if len(parts) != 3 || parts[2] != step.Request.Operation || !linked || !known || !slices.Equal(completed.Effects, step.Effects) {
+		matchedEffects := known && slices.Equal(completed.Effects, step.Effects)
+		if !matchedEffects && consumer == probeRecordsSaved {
+			for _, version := range contract.SavedEffects {
+				if prior, exists := version[step.Request.Operation]; exists && slices.Equal(prior, step.Effects) {
+					matchedEffects = true
+				}
+			}
+		}
+		if len(parts) != 3 || parts[2] != step.Request.Operation || !linked || !known || !matchedEffects {
 			return report, fmt.Errorf("Go completed request nonce/operation/linkage differs")
 		}
 		var owned ProbeProcessRecord

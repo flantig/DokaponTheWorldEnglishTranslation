@@ -37,7 +37,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	if bundle.Version != 1 || !slices.Contains([]string{"probe-evidence-legacy-2026-11-13", "probe-evidence-go-v1"}, bundle.SourceSchema) || bundle.SourceSHA256 != "f6d9bcf48634a234da6632f42e4faea9f66d79dcaad0783b79ccce477ed4f0e8" {
 		return report, fmt.Errorf("unsupported probe evidence version or source schema")
 	}
-	admission, err := admitProbeRecords(bundle.Admission)
+	admission, err := admitProbeRecords(bundle.Admission, probeRecordsSaved)
 	if err != nil {
 		return report, fmt.Errorf("probe evidence admission: %w", err)
 	}
@@ -730,7 +730,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			if !checkpointOnly {
 				return report, fmt.Errorf("per-capture admission requires the Go checkpoint cohort")
 			}
-			qualified, err := admitProbeRecords(capture.Admission)
+			qualified, err := admitProbeRecords(capture.Admission, probeRecordsSaved)
 			if err != nil {
 				return report, err
 			}

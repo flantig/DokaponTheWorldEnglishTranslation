@@ -95,7 +95,7 @@ func run(args []string, stdout io.Writer) error {
 		var report any
 		switch noun {
 		case "records":
-			report, err = admitProbeRecords(data)
+			report, err = admitProbeRecords(data, probeRecordsSaved)
 		case "evidence":
 			report, err = reportProbeEvidence(data)
 		case "memory":

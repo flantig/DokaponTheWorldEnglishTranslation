@@ -2,6 +2,14 @@ package main
 
 import "encoding/json"
 
+// ProbeRecordConsumer is an internal trust boundary, never profile configuration.
+type ProbeRecordConsumer uint8
+
+const (
+	probeRecordsCurrent ProbeRecordConsumer = iota + 1
+	probeRecordsSaved
+)
+
 // ProbeRecordBundle versions this offline import, not the legacy emitted JSON.
 // Claimed paths and process observations are data and are never opened or adopted.
 type ProbeRecordBundle struct {

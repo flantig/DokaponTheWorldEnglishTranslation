@@ -18,6 +18,7 @@ const (
 	probeArtifactReserve ProbeArtifactAction = iota
 	probeArtifactCommit
 	probeArtifactRelease
+	probeArtifactRotate
 )
 
 type ProbeArtifactClass uint8
@@ -76,7 +77,7 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		return fmt.Errorf("artifact budget requires owned roots and valid file/byte partitions")
 	}
 	switch action {
-	case probeArtifactReserve, probeArtifactCommit, probeArtifactRelease:
+	case probeArtifactReserve, probeArtifactCommit, probeArtifactRelease, probeArtifactRotate:
 	default:
 		return fmt.Errorf("unsupported artifact accounting action")
 	}
@@ -89,6 +90,44 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 	roots := maps.Clone(budget.Roots)
 	nativeFiles := maps.Clone(budget.NativeFiles)
 	nativeRetirement := false
+	rotationSource, rotationArchive := "", ""
+	var rotationHighWater uint64
+	if action == probeArtifactRotate {
+		// The caller completed no-replace rename and parent sync after owned
+		// writer disposal. Commit independently hashes the immutable archive.
+		if len(claims) != 2 {
+			return fmt.Errorf("artifact rotation requires its source and reserved archive")
+		}
+		source, archive := claims[0], claims[1]
+		prior, sourceExists := budget.claims[source.ID]
+		destination, archiveExists := budget.claims[archive.ID]
+		pin := nativeFiles[source.Path]
+		parent := filepath.Dir(source.Path)
+		if !sourceExists || !budget.active[source.ID] || source.ID != "native:"+source.Path || prior.Path != source.Path || prior.Class != probeArtifactNative || source.Class != probeArtifactNative || source.MaxFinalBytes != prior.MaxFinalBytes {
+			return fmt.Errorf("artifact rotation lacks its exact active native reservation")
+		}
+		if pin == nil || !pin.Mode().IsRegular() || source.ExpectedInfo == nil || !os.SameFile(pin, source.ExpectedInfo) {
+			return fmt.Errorf("artifact rotation lacks its saved native inode")
+		}
+		if !archiveExists || !budget.active[archive.ID] || archive.ID != "artifact:"+archive.Path || destination.Path != archive.Path || destination.Class != probeArtifactNormal || archive.Class != probeArtifactNormal || parent != filepath.Dir(archive.Path) || source.Path == archive.Path || budget.Roots[parent] == nil {
+			return fmt.Errorf("artifact rotation lacks its reserved same-parent immutable archive")
+		}
+		if archive.ExpectedInfo == nil || !archive.ExpectedInfo.Mode().IsRegular() || !os.SameFile(source.ExpectedInfo, archive.ExpectedInfo) || archive.ExpectedInfo.Size() < 0 {
+			return fmt.Errorf("artifact rotation archive is not its renamed inode")
+		}
+		if _, err := os.Lstat(source.Path); !os.IsNotExist(err) {
+			return fmt.Errorf("artifact rotation cannot prove the old name absent")
+		}
+		rotationSource, rotationArchive = source.Path, archive.Path
+		rotationHighWater = max(budget.held[source.Path], uint64(archive.ExpectedInfo.Size()))
+		if destination.MaxFinalBytes < rotationHighWater {
+			return fmt.Errorf("artifact rotation archive did not reserve measured high-water")
+		}
+		nativeFiles[source.Path] = nil
+		// Reuse exact writer digest/readback commit. The live reservation stays
+		// active, but its next birth becomes authoritative only at final commit.
+		action, claims = probeArtifactCommit, claims[1:]
+	}
 	for root, pin := range budget.SnapshotRoots {
 		if prior, ok := roots[root]; ok && (pin == nil || prior == nil || !os.SameFile(prior, pin)) {
 			return fmt.Errorf("artifact snapshot root pin differs: %s", root)
@@ -515,6 +554,14 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 			delete(births, claim.ID)
 		}
 	}
+	if rotationSource != "" {
+		held[rotationArchive] = max(held[rotationArchive], rotationHighWater)
+		delete(held, rotationSource)
+		delete(observed, rotationSource)
+		live := staged["native:"+rotationSource]
+		live.ExpectedInfo, live.ExpectedSHA256 = nil, ""
+		staged[live.ID] = live
+	}
 	exposure := maps.Clone(held)
 	classes := map[string]ProbeArtifactClass{}
 	var ordinaryFiles, ordinaryBytes, finalizerFiles, finalizerBytes uint64
@@ -615,6 +662,20 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		parentStat, ok := parent.Sys().(*syscall.Stat_t)
 		if !ok || parentStat.Uid != uint32(os.Getuid()) {
 			return fmt.Errorf("native settings parent owner changed before acknowledgment")
+		}
+	}
+	if rotationSource != "" {
+		if _, err := os.Lstat(rotationSource); !os.IsNotExist(err) {
+			return fmt.Errorf("artifact rotation old name changed before acknowledgment")
+		}
+		info, err := os.Lstat(rotationArchive)
+		prior := current[rotationArchive]
+		if err != nil || prior == nil || !os.SameFile(prior, info) || prior.Size() != info.Size() || prior.ModTime() != info.ModTime() || prior.Mode() != info.Mode() {
+			return fmt.Errorf("artifact rotation archive changed before acknowledgment")
+		}
+		stat, ok := info.Sys().(*syscall.Stat_t)
+		if !ok || stat.Uid != uint32(os.Getuid()) || stat.Nlink != 1 {
+			return fmt.Errorf("artifact rotation archive ownership changed before acknowledgment")
 		}
 	}
 	budget.claims, budget.active = staged, active

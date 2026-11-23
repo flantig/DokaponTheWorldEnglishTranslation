@@ -170,15 +170,16 @@ type ProbeLifecycleEffect struct {
 }
 
 type ProbePadSpec struct {
-	DeviceParent  *os.File
-	Published     *ProbeArtifactClaim
-	MaxEventBytes int64
-	Root          string
-	Backend       string
-	PrivateX11    *ProbeX11Spec
-	Native        *atomic.Pointer[ProbeProcessRecord]
-	BuildSHA256   string
-	CleanupMS     int
+	DeviceParent        *os.File
+	Published           *ProbeArtifactClaim
+	MaxEventBytes       int64
+	Root                string
+	Backend             string
+	PrivateX11          *ProbeX11Spec
+	Native              *atomic.Pointer[ProbeProcessRecord]
+	BuildSHA256         string
+	CleanupMS           int
+	WarmKeyboardBinding string
 }
 
 // ProbeX11Spec pins one private server and its credential file, not the host desktop.

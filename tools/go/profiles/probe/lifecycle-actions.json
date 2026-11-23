@@ -109,10 +109,11 @@
         "ready"
       ],
       "effects": [
-        "acquire-board",
+        "wait-board",
         "status-running",
         "toggle-pause",
         "status-paused",
+        "acquire-board",
         "takeover-control",
         "toggle-pause",
         "status-running",
@@ -192,8 +193,7 @@
         "qualify-newgame",
         "select-newgame",
         "front-end",
-        "boot-handoff",
-        "wait-board"
+        "boot-handoff"
       ],
       "to": "ready"
     },
@@ -202,10 +202,11 @@
         "ready"
       ],
       "effects": [
-        "acquire-board",
+        "wait-board",
         "status-running",
         "toggle-pause",
         "status-paused",
+        "acquire-board",
         "takeover-control",
         "toggle-pause",
         "status-running",
@@ -284,6 +285,7 @@
     }
   },
   "warm_command": "tap R3 0.1",
+  "warm_keyboard_binding": "Keyboard/F7",
   "warm_settle_ms": 1000,
   "warm_widths": [
     608,
@@ -390,5 +392,46 @@
     "p2-money",
     "p3-square",
     "p3-money"
-  ]
+  ],
+  "saved_effect_vectors": {
+    "pre-held-acquisition-v1": {
+      "newgame": [
+        "qualify-newgame",
+        "select-newgame",
+        "front-end",
+        "boot-handoff",
+        "wait-board"
+      ],
+      "scenario": [
+        "acquire-board",
+        "status-running",
+        "toggle-pause",
+        "status-paused",
+        "takeover-control",
+        "toggle-pause",
+        "status-running",
+        "verify-human",
+        "select-data",
+        "select-save",
+        "card-save",
+        "capture-save",
+        "report-save"
+      ],
+      "prepare-scenario": [
+        "acquire-board",
+        "status-running",
+        "toggle-pause",
+        "status-paused",
+        "takeover-control",
+        "toggle-pause",
+        "status-running",
+        "verify-human",
+        "emit-preparation-start",
+        "select-data",
+        "select-save",
+        "card-save",
+        "capture-preparation-save"
+      ]
+    }
+  }
 }

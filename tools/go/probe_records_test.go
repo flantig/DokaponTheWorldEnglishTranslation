@@ -30,6 +30,112 @@ import (
 )
 
 func TestProbeRecords(t *testing.T) {
+	for _, fault := range []string{"", "occupied", "wrong-inode", "digest", "overage", "parent", "basename", "closed-parent"} {
+		root := t.TempDir()
+		_ = os.Chmod(root, 0700)
+		parentInfo, _ := os.Lstat(root)
+		live, archived := filepath.Join(root, "emulog.txt"), filepath.Join(root, "emulog-epoch-0.txt")
+		budget := ProbeArtifactBudget{MaxFiles: 8, MaxBytes: 100, FinalizerFiles: 1, FinalizerBytes: 20, Roots: map[string]os.FileInfo{root: parentInfo}, NativeFiles: map[string]os.FileInfo{live: nil}}
+		source := ProbeArtifactClaim{ID: "native:" + live, Path: live, Class: probeArtifactNative, MaxFinalBytes: 20}
+		if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{source}); err != nil {
+			t.Fatal(err)
+		}
+		for _, contents := range []string{"old\n", "old\nold\nold\n", "old\n"} {
+			if err := os.WriteFile(live, []byte(contents), 0600); err != nil {
+				t.Fatal(err)
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil {
+				t.Fatal(err)
+			}
+		}
+		if budget.held[live] != 12 {
+			t.Fatal("native log truncation lost measured exposure")
+		}
+		source.ExpectedInfo, _ = os.Lstat(live)
+		archive := ProbeArtifactClaim{ID: "artifact:" + archived, Path: archived, Class: probeArtifactNormal, MaxFinalBytes: 12}
+		if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{archive}); err != nil {
+			t.Fatal(err)
+		}
+		pins, claims, active := maps.Clone(budget.NativeFiles), maps.Clone(budget.claims), maps.Clone(budget.active)
+		parent, err := os.Open(root)
+		if err != nil {
+			t.Fatal(err)
+		}
+		oldBase := filepath.Base(live)
+		if fault == "occupied" {
+			if err := os.WriteFile(archived, []byte("foreign"), 0600); err != nil {
+				t.Fatal(err)
+			}
+		} else if fault == "basename" {
+			oldBase = "../emulog.txt"
+		} else if fault == "closed-parent" {
+			_ = parent.Close()
+		}
+		renameErr := renameProbeArtifact(parent, oldBase, filepath.Base(archived))
+		if fault == "occupied" || fault == "basename" || fault == "closed-parent" {
+			_ = parent.Close()
+			original, readErr := os.ReadFile(live)
+			if renameErr == nil || readErr != nil || string(original) != "old\n" {
+				t.Fatal("unsafe no-replace rename admitted", fault, renameErr, readErr)
+			}
+			if fault == "occupied" {
+				foreign, _ := os.ReadFile(archived)
+				if string(foreign) != "foreign" {
+					t.Fatal("foreign archive overwritten")
+				}
+			}
+			continue
+		}
+		syncErr, closeErr := parent.Sync(), parent.Close()
+		if renameErr != nil || syncErr != nil || closeErr != nil {
+			t.Fatal("owned no-replace rename failed", renameErr, syncErr, closeErr)
+		}
+		archive.ExpectedInfo, _ = os.Lstat(archived)
+		archive.ExpectedSHA256 = fmt.Sprintf("%x", sha256.Sum256([]byte("old\n")))
+		switch fault {
+		case "wrong-inode":
+			archive.ExpectedInfo = parentInfo
+		case "digest":
+			archive.ExpectedSHA256 = strings.Repeat("0", 64)
+		case "overage":
+			budget.MaxFiles = 2
+		case "parent":
+			if err := os.Rename(root, root+"-held"); err != nil {
+				t.Fatal(err)
+			}
+			if err := os.Mkdir(root, 0700); err != nil {
+				t.Fatal(err)
+			}
+		}
+		err = accountProbeArtifacts(&budget, probeArtifactRotate, []ProbeArtifactClaim{source, archive})
+		if fault == "parent" {
+			_ = os.Remove(root)
+			if restoreErr := os.Rename(root+"-held", root); restoreErr != nil {
+				t.Fatal(restoreErr)
+			}
+		}
+		if fault != "" {
+			if err == nil || !reflect.DeepEqual(pins, budget.NativeFiles) || !reflect.DeepEqual(claims, budget.claims) || !reflect.DeepEqual(active, budget.active) || budget.held[live] != 12 || budget.observed[live] == nil {
+				t.Fatal("failed rotation changed old authority or exposure", fault, err)
+			}
+			continue
+		}
+		if err != nil || budget.NativeFiles[live] != nil || budget.observed[live] != nil || budget.held[live] != 0 || budget.held[archived] != 12 || budget.claims[archive.ID].MaxFinalBytes != 4 || budget.active[archive.ID] || !budget.active[source.ID] {
+			t.Fatal("rotation did not preserve immutable size/hash and separate high-water", err)
+		}
+		if err := os.WriteFile(live, []byte("next\n"), 0600); err != nil {
+			t.Fatal(err)
+		}
+		if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil || budget.NativeFiles[live] == nil || os.SameFile(source.ExpectedInfo, budget.NativeFiles[live]) {
+			t.Fatal("next native log birth was not independently pinned", err)
+		}
+		if err := os.WriteFile(archived, []byte("changed\n"), 0600); err != nil {
+			t.Fatal(err)
+		}
+		if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err == nil {
+			t.Fatal("archived epoch log remained mutable")
+		}
+	}
 	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "retire-no-proof", "retire-wrong-inode", "retire-replaced", "retire-overage", "retire-overage-ordinary", "retire-before-launch", "directory-bound", "large-maxfiles", "settings-rename", "settings-temp", "settings-key", "settings-missing", "settings-extra", "settings-alias", "settings-parent", "settings-symlink", "settings-hardlink", "settings-size", "settings-rollback", "settings-temp-cap", "settings-pad-retire", "settings-prelaunch-temp", "settings-temp-dir", "vulkan-growth", "vulkan-replace", "vulkan-directory", "vulkan-socket", "vulkan-sibling", "vulkan-parent"} {
 		root := t.TempDir()
 		if err := os.Chmod(root, 0700); err != nil {
@@ -889,7 +995,7 @@ func TestProbeRecords(t *testing.T) {
 			raw = bytes.Replace(raw, []byte(`"version":1`), []byte(`"version":1,"version":1`), 1)
 		}
 		before := bytes.Clone(raw)
-		report, err := admitProbeRecords(raw)
+		report, err := admitProbeRecords(raw, probeRecordsCurrent)
 		if !bytes.Equal(raw, before) {
 			t.Fatal(test.Name, "admission changed input")
 		}
@@ -1299,11 +1405,28 @@ func TestProbeRecords(t *testing.T) {
 	_ = json.Unmarshal(privateBytes, &privateProfile)
 	privateProfile.PadBackend, privateProfile.Flatpak.PINESlot = "private-x11", 28012
 	privateProfile.PrivateX11 = &ProbeX11Spec{Display: ":89", Authority: RegistryInput{Path: "/fixture/private.auth", Size: 58, SHA256: strings.Repeat("a", 64)}, ServerProgram: RegistryInput{Path: "/fixture/Xephyr", Size: 128, SHA256: strings.Repeat("b", 64)}, Server: ProbeProcessRecord{PID: 399, Starttime: 77, State: "S", Cmdline: []string{"/fixture/Xephyr", ":89", "-screen", "1024x768", "-auth", "/fixture/private.auth", "-nolisten", "tcp", "-no-host-grab", "-noreset"}}}
-	for _, fault := range []string{"", "default-slot", "display", "server", "reset", "credential", "wrong-backend", "unsupported-operation"} {
+	for _, fault := range []string{"", "warm", "cold", "recover", "resume", "resume-no-seed", "resume-not-first", "recover-no-budget", "default-slot", "display", "server", "reset", "credential", "wrong-backend", "unsupported-operation"} {
 		encoded, _ := json.Marshal(privateProfile)
 		var profile ProbeLifecycleProfile
 		_ = json.Unmarshal(encoded, &profile)
 		switch fault {
+		case "warm", "cold":
+			profile.Requests = []ProbeLifecycleRequest{{Operation: "initial"}, {Operation: fault}, {Operation: "stop"}}
+		case "recover", "recover-no-budget":
+			profile.Requests = []ProbeLifecycleRequest{{Operation: "initial"}, {Operation: "observe-frame"}, {Operation: "stop"}, {Operation: "recover"}, {Operation: "stop"}}
+			if fault == "recover" {
+				profile.Policy = &ProbeLifecyclePolicy{MaxRecoveries: 1}
+			}
+		case "resume", "resume-no-seed", "resume-not-first":
+			_ = json.Unmarshal([]byte(`{"root":"/fixture/prior"}`), &profile.Resume)
+			seed := uint64(23)
+			profile.Seed = &seed
+			profile.Requests = []ProbeLifecycleRequest{{Operation: "resume"}, {Operation: "stop"}}
+			if fault == "resume-no-seed" {
+				profile.Seed = nil
+			} else if fault == "resume-not-first" {
+				profile.Requests[0].Operation = "initial"
+			}
 		case "default-slot":
 			profile.Flatpak.PINESlot = 28011
 		case "display":
@@ -1322,10 +1445,11 @@ func TestProbeRecords(t *testing.T) {
 		before, _ := json.Marshal(profile)
 		_, argv, native, err := planProbeLaunch(profile)
 		after, _ := json.Marshal(profile)
-		if (err != nil) != (fault != "") || !bytes.Equal(before, after) {
+		supported := slices.Contains([]string{"", "warm", "cold", "recover", "resume"}, fault)
+		if (err == nil) != supported || !bytes.Equal(before, after) {
 			t.Fatal("private keyboard plan/refusal/mutation", fault, err)
 		}
-		if fault == "" && (!slices.Equal(argv, append([]string{"run", "--socket=x11", "--nosocket=wayland", "--env=QT_QPA_PLATFORM=xcb"}, flatpakFixture.LaunchArgs[1:]...)) || !slices.Equal(native, flatpakFixture.NativeArgs)) {
+		if supported && (!slices.Equal(argv, append([]string{"run", "--socket=x11", "--nosocket=wayland", "--env=QT_QPA_PLATFORM=xcb"}, flatpakFixture.LaunchArgs[1:]...)) || !slices.Equal(native, flatpakFixture.NativeArgs)) {
 			t.Fatal("private keyboard grant changed native argv or omitted fixed display route")
 		}
 	}
@@ -1337,7 +1461,43 @@ func TestProbeRecords(t *testing.T) {
 			t.Fatal("private keyboard subset changed", name)
 		}
 	}
+	if fmt.Sprintf("%x", sha256.Sum256(probePadLayout)) != "b083cf1e0e99f3e8e7c7a7c7ddce84c373c04995be64448183fdb924c4afbf5f" {
+		t.Fatal("historical seven-key capture source changed")
+	}
+	// Invalid supplements fail in the real service owner before any SDK/client call.
+	for _, binding := range []string{"Keyboard/F9", "Keyboard/F8", "Keyboard/Shift & Keyboard/F7"} {
+		ready, done := make(chan error, 1), make(chan error, 1)
+		serveProbePad(context.Background(), ProbePadSpec{Backend: "private-x11", WarmKeyboardBinding: binding}, ready, done, nil)
+		readyErr, doneErr := <-ready, <-done
+		if readyErr == nil || doneErr == nil || !strings.Contains(readyErr.Error(), "warm keyboard recipe") {
+			t.Fatal("invalid warm recipe reached private setup", binding, readyErr, doneErr)
+		}
+	}
 	// Both the SDK and no-SDK owners refuse before any server/process access.
+	{
+		padRoot := t.TempDir()
+		_ = os.Chmod(padRoot, 0700)
+		parent, err := os.Open(padRoot)
+		if err != nil {
+			t.Fatal(err)
+		}
+		ctx, cancel := context.WithCancel(context.Background())
+		ready, done := make(chan error, 1), make(chan error, 1)
+		var published ProbeArtifactClaim
+		go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink", DeviceParent: parent, Published: &published}, ready, done, nil)
+		readyErr := <-ready
+		closeErr := parent.Close()
+		data, readErr := os.ReadFile(filepath.Join(padRoot, "pad-device.json"))
+		info, statErr := os.Lstat(filepath.Join(padRoot, "pad-device.json"))
+		cancel()
+		doneErr := <-done
+		if readyErr != nil || closeErr != nil || readErr != nil || statErr != nil || doneErr != nil || published.ExpectedInfo == nil || !os.SameFile(published.ExpectedInfo, info) || published.MaxFinalBytes != uint64(len(data)) || published.ExpectedSHA256 != fmt.Sprintf("%x", sha256.Sum256(data)) {
+			t.Fatal("unsampled service writer lacks its actual durable artifact", published, readyErr, closeErr, readErr, statErr, doneErr)
+		}
+		if _, err := parent.Stat(); err == nil {
+			t.Fatal("writer parent descriptor was not closed")
+		}
+	}
 	if _, err := emitProbeX11(context.Background(), ProbeX11Spec{}, nil, "", nil, false, nil); err == nil {
 		t.Fatal("private X11 accepted an unbounded operation")
 	}
@@ -1579,7 +1739,7 @@ func TestProbeRecords(t *testing.T) {
 		if row.Fault == "" {
 			frameGoAdmission = bytes.Clone(raw)
 		}
-		report, err := admitProbeRecords(raw)
+		report, err := admitProbeRecords(raw, probeRecordsCurrent)
 		if (err != nil) != row.Error || !row.Error && (report.Status != "ADMITTED" || report.LiveOwnership) {
 			t.Fatalf("%s saved Flatpak admission: %v", row.Name, err)
 		}
@@ -2936,6 +3096,48 @@ func TestProbeRecords(t *testing.T) {
 	if json.Unmarshal(probeLifecycleActions, &actionFacts) != nil {
 		t.Fatal("saved Go operation facts")
 	}
+	// These are the exact previously published vectors, independent of the new
+	// recipe's saved-reader table. Identical receipt bytes must never authorize
+	// live acquisition through the saved-only compatibility boundary.
+	for operation, effects := range map[string][]string{
+		"newgame":          {"qualify-newgame", "select-newgame", "front-end", "boot-handoff", "wait-board"},
+		"scenario":         {"acquire-board", "status-running", "toggle-pause", "status-paused", "takeover-control", "toggle-pause", "status-running", "verify-human", "select-data", "select-save", "card-save", "capture-save", "report-save"},
+		"prepare-scenario": {"acquire-board", "status-running", "toggle-pause", "status-paused", "takeover-control", "toggle-pause", "status-running", "verify-human", "emit-preparation-start", "select-data", "select-save", "card-save", "capture-preparation-save"},
+	} {
+		var historical ProbeRecordBundle
+		if json.Unmarshal(frameGoAdmission, &historical) != nil {
+			t.Fatal("historical admission scaffold")
+		}
+		request := ProbeLifecycleRequest{Session: historical.GoOwner.Profile.Session, Phase: "requested", Nonce: "2-" + operation, Operation: operation}
+		historical.GoOwner.Profile.Requests = []ProbeLifecycleRequest{request}
+		historical.GoOwner.Step.Request, historical.GoOwner.Step.Effects = request, effects
+		raw, _ := json.Marshal(historical)
+		before := bytes.Clone(raw)
+		if report, err := admitProbeRecords(raw, probeRecordsSaved); err != nil || report.BundleSHA256 != fmt.Sprintf("%x", sha256.Sum256(raw)) {
+			t.Fatal("exact historical saved admission", operation, err)
+		}
+		if _, err := admitProbeRecords(raw, probeRecordsCurrent); err == nil || !strings.Contains(err.Error(), "nonce/operation/linkage") {
+			t.Fatal("historical effects admitted as live", operation, err)
+		}
+		if _, err := readProbeUI(ProbeUIPlan{Admission: raw}, ProbeMemoryRuntime{}); err == nil || !strings.Contains(err.Error(), "nonce/operation/linkage") {
+			t.Fatal("historical live UI reached acquisition", operation, err)
+		}
+		if _, err := admitProbeRecords(raw, 0); err == nil || !strings.Contains(err.Error(), "consumer purpose") {
+			t.Fatal("unknown consumer admitted", operation, err)
+		}
+		if !bytes.Equal(raw, before) {
+			t.Fatal("historical record bytes changed")
+		}
+		// The old newgame vector minus its final wait is the exact current
+		// vector, so use a shorter prefix that matches neither closed version.
+		for _, changed := range [][]string{effects[:len(effects)-2], append(slices.Clone(effects), "status-running")} {
+			historical.GoOwner.Step.Effects = changed
+			mutated, _ := json.Marshal(historical)
+			if _, err := admitProbeRecords(mutated, probeRecordsSaved); err == nil {
+				t.Fatal("saved vector prefix/superset admitted", operation)
+			}
+		}
+	}
 	for epoch, operation := range []string{"warm-load", "cold-load"} {
 		var records ProbeRecordBundle
 		if json.Unmarshal(frameGoAdmission, &records) != nil {
@@ -2955,7 +3157,7 @@ func TestProbeRecords(t *testing.T) {
 			}
 		}
 		admission, _ := json.Marshal(records)
-		if _, err := admitProbeRecords(admission); err != nil {
+		if _, err := admitProbeRecords(admission, probeRecordsCurrent); err != nil {
 			t.Fatal("saved Go epoch admission", epoch, err)
 		}
 		var receipt ProbeCaptureReceipt
@@ -3212,7 +3414,7 @@ func TestProbeRecords(t *testing.T) {
 		}
 	}
 	privateAdmission, _ := json.Marshal(privateRecords)
-	if _, err := admitProbeRecords(privateAdmission); err != nil {
+	if _, err := admitProbeRecords(privateAdmission, probeRecordsCurrent); err != nil {
 		t.Fatal("private saved owner fixture", err)
 	}
 	for _, fault := range []string{"", "nonce", "target-birth", "target-environment", "window", "server-birth", "authority", "forwarding", "key", "pressed", "missing-pressed", "null-pressed", "legacy-ack", "legacy-source"} {
