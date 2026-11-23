@@ -288,7 +288,7 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		held[path] = max(held[path], size)
 	}
 	// Discovery can only increase retained exposure, including on later failures.
-	budget.observed, budget.held = observed, maps.Clone(held)
+	budget.observed, budget.held = maps.Clone(observed), maps.Clone(held)
 	for id, baseline := range baselines {
 		claim := staged[id]
 		fresh := ""

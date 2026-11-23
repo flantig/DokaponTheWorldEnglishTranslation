@@ -127,7 +127,7 @@ func TestProbeRecords(t *testing.T) {
 					t.Fatal(err)
 				}
 			}
-			pins, claimsBefore, heldBefore := maps.Clone(budget.NativeFiles), maps.Clone(budget.claims), maps.Clone(budget.held)
+			pins, claimsBefore, heldBefore, observedBefore, activeBefore := maps.Clone(budget.NativeFiles), maps.Clone(budget.claims), maps.Clone(budget.held), maps.Clone(budget.observed), maps.Clone(budget.active)
 			if fault == "retire-before-launch" {
 				state := ProbeLifecycleProcesses{Budget: &budget, ArtifactClass: probeArtifactFinalizer}
 				_, err = terminateProbeProcesses(&state, ProbeMemoryRuntime{Root: root}, "", time.Millisecond, &claim)
@@ -139,7 +139,7 @@ func TestProbeRecords(t *testing.T) {
 			}
 			refused := fault == "retire-no-proof" || fault == "retire-wrong-inode" || fault == "retire-replaced" || fault == "retire-overage-ordinary"
 			if refused {
-				if err == nil || !reflect.DeepEqual(pins, budget.NativeFiles) || !reflect.DeepEqual(claimsBefore, budget.claims) || !reflect.DeepEqual(heldBefore, budget.held) {
+				if err == nil || !reflect.DeepEqual(pins, budget.NativeFiles) || !reflect.DeepEqual(claimsBefore, budget.claims) || !reflect.DeepEqual(heldBefore, budget.held) || !reflect.DeepEqual(observedBefore, budget.observed) || !reflect.DeepEqual(activeBefore, budget.active) {
 					t.Fatal("unproved socket retirement changed authority/exposure", fault, err)
 				}
 				if fault == "retire-replaced" {
