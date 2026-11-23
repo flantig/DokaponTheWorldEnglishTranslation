@@ -1345,6 +1345,10 @@ requests:
 						step.ScheduledIntervals = slices.Clone(scheduledIntervals)
 						eligible := gameplay && !time.Now().Before(checkpointDue) && compact.Headers["mode"] == 0x1b0 && compact.Headers["current"] < 4 && compact.Headers["board_options"] == 5 && compact.Headers["board_handle"] == 1 && compact.Headers["board_cursor"] == 0
 						if eligible && time.Now().Before(acquisitionDeadline) {
+							if frameRun != nil {
+								// Do not insert ordinary F8 between candidacy and its owned pause.
+								frameRun.OrdinaryCaptureInhibited = true
+							}
 							candidateReady = true
 							break
 						}
@@ -3233,7 +3237,7 @@ requests:
 							step.VMStatusAfter = &value
 						}
 						if vmStatus == wanted {
-							if wanted == 0 && frameRun != nil {
+							if wanted == 0 && afterToggle && frameRun != nil {
 								frameRun.OrdinaryCaptureInhibited = false
 							}
 							verified = true
