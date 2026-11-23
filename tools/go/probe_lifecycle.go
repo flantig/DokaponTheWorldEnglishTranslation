@@ -681,6 +681,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			return report, fmt.Errorf("frame budget cannot withhold admitted stop/finalization evidence")
 		}
 		artifactBudget = &ProbeArtifactBudget{MaxFiles: profile.Frames.MaxManagedFiles, MaxBytes: profile.Frames.MaxManagedBytes, FinalizerFiles: finalizerFiles, FinalizerBytes: finalizerBytes, Roots: map[string]os.FileInfo{profile.Root: rootInfo}, NativeFiles: map[string]os.FileInfo{}, SnapshotRoots: map[string]os.FileInfo{}}
+		processes.Budget = artifactBudget
 		journal.Budget, journal.MaxBytes = artifactBudget, profile.Frames.MaxJournalBytes
 		frameRun = &ProbeFrameRun{Policy: *profile.Frames, Budget: artifactBudget, CardPath: cardPath, Summary: ProbeFrameSummary{Status: "ACTIVE", CodecQualification: "go-image-jpeg-unqualified", Policy: *profile.Frames, Limits: "Cooperative owned-artifact accounting; native growth is observed, not a kernel quota. Go JPEG nominal quality82 timeline/75 checkpoint is not qualified as Pillow equivalent. Frame integrity does not establish gameplay/native coverage."}}
 		if err := accountProbeArtifacts(artifactBudget, probeArtifactReserve, nil); err != nil {
