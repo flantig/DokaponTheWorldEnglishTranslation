@@ -2096,7 +2096,7 @@ func TestProbeLifecycle(t *testing.T) {
 				}
 			}
 			synthetic := ProbeLifecycleProcesses{Launched: true, Native: &native}
-			if _, err := terminateProbeProcesses(&synthetic, ProbeMemoryRuntime{Provenance: "synthetic_flatpak", Root: fixtureRoot}, profile.Program.SHA256, time.Second); err == nil || synthetic.CleanupAttempts != 0 {
+			if _, err := terminateProbeProcesses(&synthetic, ProbeMemoryRuntime{Provenance: "synthetic_flatpak", Root: fixtureRoot}, profile.Program.SHA256, time.Second, nil); err == nil || synthetic.CleanupAttempts != 0 {
 				t.Fatal("synthetic facts reached signaling", err)
 			}
 			childData, err := os.ReadFile(filepath.Join(fixtureRoot, fmt.Sprintf("child-evidence-%d.json", native.PID)))
@@ -2210,7 +2210,7 @@ func TestProbeLifecycle(t *testing.T) {
 					t.Fatal("partial cleanup lost the remaining launcher")
 				}
 			}
-			exitedBefore, err := terminateProbeProcesses(&state, ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, profile.Program.SHA256, 5*time.Second)
+			exitedBefore, err := terminateProbeProcesses(&state, ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, profile.Program.SHA256, 5*time.Second, nil)
 			if err != nil || exitedBefore || !state.NativeExited || !state.LauncherReaped || state.Command != nil || state.Native != nil || len(state.Candidates) != 0 {
 				t.Fatalf("split cleanup incomplete: %+v before=%t %v", state, exitedBefore, err)
 			}
@@ -2222,7 +2222,7 @@ func TestProbeLifecycle(t *testing.T) {
 			if err != nil || !bytes.Equal(card, expectedCard) {
 				t.Fatal("card readback before confirmed native exit/launcher disposal differs", string(card), err)
 			}
-			if _, err := terminateProbeProcesses(&state, ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, profile.Program.SHA256, time.Second); err != nil || state.CleanupAttempts != 1 {
+			if _, err := terminateProbeProcesses(&state, ProbeMemoryRuntime{Provenance: "owned_flatpak", Root: fixtureRoot}, profile.Program.SHA256, time.Second, nil); err != nil || state.CleanupAttempts != 1 {
 				t.Fatal("confirmed cleanup was not idempotent", err)
 			}
 			_ = controllerWrite.Close()
@@ -2368,13 +2368,24 @@ func TestProbeLifecycle(t *testing.T) {
 			t.Errorf("pending cannot retry: %+v %v", pendingReport, err)
 		}
 		// C-global source/header oracle comparisons use only an owned event file.
-		for _, extent := range []int64{0, 48, 96} {
+		for _, row := range []struct {
+			Extent      int64
+			SocketFault string
+		}{{}, {Extent: 48}, {Extent: 96}, {SocketFault: "removed"}, {SocketFault: "replaced"}} {
+			extent := row.Extent
 			padRoot := t.TempDir()
 			_ = os.Chmod(padRoot, 0700)
 			ctx, cancel := context.WithCancel(context.Background())
 			ready, done := make(chan error, 1), make(chan error, 1)
-			go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink", MaxEventBytes: extent}, ready, done)
+			var removed ProbeArtifactClaim
+			go serveProbePad(ctx, ProbePadSpec{Root: padRoot, Backend: "event-sink", MaxEventBytes: extent}, ready, done, &removed)
 			if err := <-ready; err != nil {
+				cancel()
+				t.Fatal(err)
+			}
+			socketPath := filepath.Join(padRoot, "pad.sock")
+			socketInfo, err := os.Lstat(socketPath)
+			if err != nil {
 				cancel()
 				t.Fatal(err)
 			}
@@ -2406,9 +2417,27 @@ func TestProbeLifecycle(t *testing.T) {
 					t.Errorf("pad command%s %q %v %v", command, ack, err, readErr)
 				}
 			}
+			if row.SocketFault != "" {
+				if err := os.Remove(socketPath); err != nil {
+					cancel()
+					t.Fatal(err)
+				}
+				if row.SocketFault == "replaced" {
+					if err := os.WriteFile(socketPath, []byte("foreign"), 0600); err != nil {
+						cancel()
+						t.Fatal(err)
+					}
+				}
+			}
 			cancel()
 			padErr := <-done
-			if extent == 48 {
+			if row.SocketFault != "" {
+				if padErr == nil || removed.ExpectedInfo != nil {
+					t.Fatal("foreign/missing socket produced an owned unlink witness", row.SocketFault, padErr)
+				}
+			} else if removed.ExpectedInfo == nil || !os.SameFile(socketInfo, removed.ExpectedInfo) || removed.Path != socketPath || removed.ID != "native:"+socketPath || removed.Class != probeArtifactNative {
+				t.Fatal("actual pad cleanup did not bind its removed inode", padErr, removed)
+			} else if extent == 48 {
 				if padErr == nil || padErr.Error() != "owned pad command and release headroom exceed its reservation" {
 					t.Fatal("insufficient GUIDE down/up extent did not refuse before input", padErr)
 				}
@@ -2452,7 +2481,12 @@ func TestProbeLifecycle(t *testing.T) {
 					t.Error("primary-header setup/axis oracle mismatch")
 				}
 			}
-			if _, err := os.Lstat(filepath.Join(padRoot, "pad.sock")); !os.IsNotExist(err) {
+			if row.SocketFault == "replaced" {
+				data, err := os.ReadFile(socketPath)
+				if err != nil || string(data) != "foreign" {
+					t.Fatal("foreign replacement was changed by cleanup", err)
+				}
+			} else if _, err := os.Lstat(socketPath); !os.IsNotExist(err) {
 				t.Error("owned pad socket survived cleanup")
 			}
 		}

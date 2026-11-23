@@ -57,6 +57,7 @@ type ProbeArtifactBudget struct {
 	snapshotBaseline                                   map[string]map[string]os.FileInfo
 	snapshotBirth                                      map[string]string
 	ordinaryExceeded                                   bool
+	finalizing                                         bool
 }
 
 // accountProbeArtifacts inventories only pinned private roots and exact native
@@ -85,6 +86,8 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		}
 	}
 	roots := maps.Clone(budget.Roots)
+	nativeFiles := maps.Clone(budget.NativeFiles)
+	nativeRetirement := false
 	for root, pin := range budget.SnapshotRoots {
 		if prior, ok := roots[root]; ok && (pin == nil || prior == nil || !os.SameFile(prior, pin)) {
 			return fmt.Errorf("artifact snapshot root pin differs: %s", root)
@@ -185,7 +188,7 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 			}
 		}
 	}
-	for path, pin := range budget.NativeFiles {
+	for path, pin := range nativeFiles {
 		if !filepath.IsAbs(path) || filepath.Clean(path) != path {
 			return fmt.Errorf("native artifact requires a canonical exact path")
 		}
@@ -201,7 +204,19 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 		info := current[path]
 		if info == nil {
 			if pin != nil {
-				return fmt.Errorf("pinned native artifact disappeared: %s", path)
+				if action != probeArtifactRelease || len(claims) != 1 {
+					return fmt.Errorf("pinned native artifact disappeared: %s", path)
+				}
+				claim := claims[0]
+				prior, exists := budget.claims[claim.ID]
+				if !exists || !budget.active[claim.ID] || claim.ID != "native:"+path || prior.Path != path || prior.Class != probeArtifactNative || prior.MaxFinalBytes != 0 || claim.Path != path || claim.Class != probeArtifactNative || claim.MaxFinalBytes != 0 || pin.Mode()&os.ModeSocket == 0 || claim.ExpectedInfo == nil || !os.SameFile(pin, claim.ExpectedInfo) {
+					return fmt.Errorf("native socket retirement lacks its exact outstanding inode claim: %s", path)
+				}
+				if _, err := os.Lstat(path); !os.IsNotExist(err) {
+					return fmt.Errorf("native socket retirement cannot prove absence: %s", path)
+				}
+				delete(nativeFiles, path)
+				nativeRetirement = true
 			}
 			continue
 		}
@@ -397,6 +412,9 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 			if !exists {
 				return fmt.Errorf("artifact release requires its outstanding claim")
 			}
+			if !snapshot && claim.Class == probeArtifactNative && claim.ExpectedInfo != nil && claim.ExpectedInfo.Mode()&os.ModeSocket != 0 && !nativeRetirement {
+				return fmt.Errorf("native socket retirement requires its pinned inode")
+			}
 			if snapshot {
 				if claim.ExpectedInfo == nil || !os.SameFile(claim.ExpectedInfo, budget.SnapshotRoots[claim.Path]) {
 					return fmt.Errorf("snapshot release requires its acknowledged directory identity")
@@ -426,7 +444,7 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 	exposure := maps.Clone(held)
 	classes := map[string]ProbeArtifactClass{}
 	var ordinaryFiles, ordinaryBytes, finalizerFiles, finalizerBytes uint64
-	ordinaryExceeded := false
+	ordinaryExceeded := budget.ordinaryExceeded
 	for id, claim := range staged {
 		path := claim.Path
 		if baselines[id] != nil {
@@ -465,7 +483,7 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 	}
 	ordinaryExceeded = ordinaryExceeded || ordinaryFiles > budget.MaxFiles-budget.FinalizerFiles
 	budget.ordinaryExceeded = ordinaryExceeded
-	if ordinaryExceeded && !finalizerOnly {
+	if ordinaryExceeded && !finalizerOnly && !(nativeRetirement && budget.finalizing) {
 		return fmt.Errorf("artifact ordinary capacity exceeded; only reserved finalization remains available")
 	}
 	for directory, prior := range visited {
@@ -482,6 +500,7 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 	budget.claims, budget.active = staged, active
 	budget.snapshotBaseline, budget.snapshotBirth = baselines, births
 	budget.observed, budget.held = observed, held
+	budget.NativeFiles = nativeFiles
 	for path, pin := range budget.NativeFiles {
 		if pin == nil && current[path] != nil {
 			budget.NativeFiles[path] = current[path]

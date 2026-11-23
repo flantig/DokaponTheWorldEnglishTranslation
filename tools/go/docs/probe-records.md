@@ -80,6 +80,10 @@ requires the actual request/artifact footprint and explicit owner agreement.
 Selected JPEGs, checkpoint JPEGs, CSV and journals remain preserved. Reaching a
 duration, frame, file or byte cap refuses the affected sampling/publication work and keeps failed
 or uncertain evidence/reservations; reserved finalization may remain available.
+Pad shutdown supplies its exact inode only after checked unlink, parent sync
+and confirmed absence. The serialized finalizer retires that matching socket
+claim before writing cleanup evidence. Missing or replaced sockets without this
+proof still refuse; zero-byte retirement does not clear unrelated overage.
 This is not rolling deletion or automatic normal completion. Native capture,
 stalled/partial behavior and the chosen resource/retention limits still need
 owner-operated qualification; the software accounting is not a kernel quota.

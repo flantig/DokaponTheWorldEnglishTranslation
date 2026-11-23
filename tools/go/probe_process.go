@@ -240,9 +240,25 @@ func selectProbeProcesses(runtime ProbeMemoryRuntime, pids []int, build string, 
 
 // terminateProbeProcesses is the sole signal/reap owner for stop and failure
 // finalization. Launcher reaping never proves native exit or unlocks card writes.
-func terminateProbeProcesses(state *ProbeLifecycleProcesses, runtime ProbeMemoryRuntime, build string, timeout time.Duration) (exitedBeforeStop bool, result error) {
+func terminateProbeProcesses(state *ProbeLifecycleProcesses, runtime ProbeMemoryRuntime, build string, timeout time.Duration, retiredPad *ProbeArtifactClaim) (exitedBeforeStop bool, result error) {
+	// Only the completed pad owner can acknowledge this unlink, before any writer
+	// inventories the missing socket. The caller has received padDone first.
+	if retiredPad != nil && retiredPad.ExpectedInfo != nil {
+		path := filepath.Join(runtime.Root, "pad.sock")
+		if retiredPad.ID != "native:"+path || retiredPad.Path != path || retiredPad.Class != probeArtifactNative || retiredPad.MaxFinalBytes != 0 || retiredPad.ExpectedInfo.Mode()&os.ModeSocket == 0 || state.ArtifactClass != probeArtifactFinalizer {
+			result = fmt.Errorf("pad socket retirement is not its finalization witness")
+		} else if state.Budget != nil {
+			state.Budget.finalizing = true
+			result = accountProbeArtifacts(state.Budget, probeArtifactRelease, []ProbeArtifactClaim{*retiredPad})
+			if result == nil {
+				*retiredPad = ProbeArtifactClaim{}
+			}
+		} else {
+			*retiredPad = ProbeArtifactClaim{}
+		}
+	}
 	if !state.Launched || state.NativeExited && state.LauncherReaped && len(state.Unqualified) == 0 {
-		return false, nil
+		return false, result
 	}
 	if strings.HasPrefix(runtime.Provenance, "synthetic_") {
 		return false, fmt.Errorf("synthetic process facts never authorize signaling")

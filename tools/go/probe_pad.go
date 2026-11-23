@@ -27,7 +27,10 @@ import (
 // serveProbePad owns one private endpoint and input device/event sink. Clients
 // half-close after one bounded legacy command payload; every effect gets an ack.
 // Cancellation releases held inputs and only this service's own socket/device.
-func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, done chan<- error) {
+func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, done chan<- error, removed *ProbeArtifactClaim) {
+	if removed != nil {
+		*removed = ProbeArtifactClaim{}
+	}
 	if spec.Published != nil {
 		*spec.Published = ProbeArtifactClaim{}
 	}
@@ -418,10 +421,31 @@ service:
 			result = err
 		}
 	}
-	_ = listener.Close()
-	if current, err := os.Lstat(socketPath); err == nil && socketInfo != nil && os.SameFile(socketInfo, current) {
-		_ = os.Remove(socketPath)
+	// DeviceParent was handed back after readiness; shutdown needs fresh authority.
+	cleanupErr := listener.Close()
+	if cleanupErr == nil {
+		parent, openErr := os.Open(spec.Root)
+		if openErr != nil {
+			cleanupErr = openErr
+		} else {
+			opened, statErr := parent.Stat()
+			current, socketErr := os.Lstat(socketPath)
+			if statErr != nil || !os.SameFile(info, opened) || socketErr != nil || socketInfo == nil || !os.SameFile(socketInfo, current) {
+				cleanupErr = fmt.Errorf("owned pad socket or parent changed before removal")
+			} else if err := os.Remove(socketPath); err != nil {
+				cleanupErr = err
+			} else if err := parent.Sync(); err != nil {
+				cleanupErr = err
+			} else if _, err := os.Lstat(socketPath); !os.IsNotExist(err) {
+				cleanupErr = fmt.Errorf("owned pad socket absence is unproven")
+			}
+			cleanupErr = errors.Join(cleanupErr, parent.Close())
+			if cleanupErr == nil && removed != nil {
+				*removed = ProbeArtifactClaim{ID: "native:" + socketPath, Path: socketPath, Class: probeArtifactNative, ExpectedInfo: socketInfo}
+			}
+		}
 	}
+	result = errors.Join(result, cleanupErr)
 	if created {
 		_, _, errno := syscall.Syscall(syscall.SYS_IOCTL, device.Fd(), 0x5502, 0)
 		if errno != 0 && result == nil {

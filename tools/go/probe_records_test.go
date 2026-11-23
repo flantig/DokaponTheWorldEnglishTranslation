@@ -30,7 +30,7 @@ import (
 )
 
 func TestProbeRecords(t *testing.T) {
-	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "directory-bound", "large-maxfiles"} {
+	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "retire-no-proof", "retire-wrong-inode", "retire-replaced", "retire-overage", "retire-overage-ordinary", "retire-before-launch", "directory-bound", "large-maxfiles"} {
 		root := t.TempDir()
 		if err := os.Chmod(root, 0700); err != nil {
 			t.Fatal(err)
@@ -68,9 +68,10 @@ func TestProbeRecords(t *testing.T) {
 			}
 			continue
 		}
-		if fault == "native-socket" || fault == "foreign-socket" {
-			claim.Path, claim.Class, claim.MaxFinalBytes = filepath.Join(root, "peer.sock"), probeArtifactNative, 0
-			if fault == "native-socket" {
+		if fault == "native-socket" || fault == "foreign-socket" || strings.HasPrefix(fault, "retire-") {
+			claim.Path, claim.Class, claim.MaxFinalBytes = filepath.Join(root, "pad.sock"), probeArtifactNative, 0
+			claim.ID = "native:" + claim.Path
+			if fault != "foreign-socket" {
 				budget.NativeFiles[claim.Path] = nil
 				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{claim}); err != nil {
 					t.Fatal(err)
@@ -102,12 +103,67 @@ func TestProbeRecords(t *testing.T) {
 				listener.Close()
 				t.Fatal("socket commit was read or acknowledged")
 			}
+			if strings.HasPrefix(fault, "retire-overage") {
+				budget.NativeFiles[path] = info
+				if err := os.WriteFile(path, bytes.Repeat([]byte("x"), 101), 0600); err != nil {
+					t.Fatal(err)
+				}
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err == nil || !budget.ordinaryExceeded {
+					t.Fatal("unrelated ordinary overage was not recorded", err)
+				}
+				budget.finalizing = fault == "retire-overage"
+			}
 			if err := listener.Close(); err != nil {
 				t.Fatal(err)
 			}
-			delete(budget.NativeFiles, claim.Path) // Caller has exact writer-exit/absence ACK.
-			if err := accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{claim}); err != nil || len(budget.claims) != 0 {
+			if fault == "retire-no-proof" {
+				claim.ExpectedInfo = nil
+			}
+			if fault == "retire-wrong-inode" {
+				claim.ExpectedInfo = info
+			}
+			if fault == "retire-replaced" {
+				if err := os.WriteFile(claim.Path, []byte("foreign"), 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			pins, claimsBefore, heldBefore := maps.Clone(budget.NativeFiles), maps.Clone(budget.claims), maps.Clone(budget.held)
+			if fault == "retire-before-launch" {
+				state := ProbeLifecycleProcesses{Budget: &budget, ArtifactClass: probeArtifactFinalizer}
+				_, err = terminateProbeProcesses(&state, ProbeMemoryRuntime{Root: root}, "", time.Millisecond, &claim)
+				if claim.ExpectedInfo != nil || state.CleanupAttempts != 0 {
+					t.Fatal("pre-launch socket disposal did not consume its proof without process work", err)
+				}
+			} else {
+				err = accountProbeArtifacts(&budget, probeArtifactRelease, []ProbeArtifactClaim{claim})
+			}
+			refused := fault == "retire-no-proof" || fault == "retire-wrong-inode" || fault == "retire-replaced" || fault == "retire-overage-ordinary"
+			if refused {
+				if err == nil || !reflect.DeepEqual(pins, budget.NativeFiles) || !reflect.DeepEqual(claimsBefore, budget.claims) || !reflect.DeepEqual(heldBefore, budget.held) {
+					t.Fatal("unproved socket retirement changed authority/exposure", fault, err)
+				}
+				if fault == "retire-replaced" {
+					data, readErr := os.ReadFile(claim.Path)
+					if readErr != nil || string(data) != "foreign" {
+						t.Fatal("replacement socket artifact was altered", readErr)
+					}
+				}
+				continue
+			}
+			if err != nil || budget.NativeFiles[claim.Path] != nil || budget.active[claim.ID] {
 				t.Fatalf("owned socket absence was not released: %v", err)
+			}
+			if fault == "retire-overage" {
+				if !budget.ordinaryExceeded || budget.held[path] != heldBefore[path] || budget.NativeFiles[path] == nil {
+					t.Fatal("retirement forgot unrelated ordinary overage/exposure")
+				}
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{other}); err == nil {
+					t.Fatal("retirement resumed ordinary work after overage")
+				}
+			}
+			finalPath := filepath.Join(root, "final.json")
+			if err := writeProbeArtifact(&budget, probeArtifactFinalizer, finalPath, strings.NewReader("{}"), 2, fmt.Sprintf("%x", sha256.Sum256([]byte("{}"))), 0600); err != nil {
+				t.Fatal("known socket retirement blocked finalizer", err)
 			}
 			continue
 		}
@@ -1010,7 +1066,7 @@ func TestProbeRecords(t *testing.T) {
 		}
 	}
 	ready, done := make(chan error, 1), make(chan error, 1)
-	serveProbePad(context.Background(), ProbePadSpec{Backend: "private-x11"}, ready, done)
+	serveProbePad(context.Background(), ProbePadSpec{Backend: "private-x11"}, ready, done, nil)
 	if <-ready == nil || <-done == nil {
 		t.Fatal("private pad accepted absent pinned credentials/native binding")
 	}
@@ -1299,7 +1355,7 @@ func TestProbeRecords(t *testing.T) {
 			}
 		}
 		processes := ProbeLifecycleProcesses{Launched: true, Candidates: matched, Unqualified: unqualified}
-		if _, err := terminateProbeProcesses(&processes, runtime, build, time.Millisecond); err == nil || !strings.Contains(err.Error(), "never authorize signaling") || processes.CleanupAttempts != 0 {
+		if _, err := terminateProbeProcesses(&processes, runtime, build, time.Millisecond, nil); err == nil || !strings.Contains(err.Error(), "never authorize signaling") || processes.CleanupAttempts != 0 {
 			t.Fatal("synthetic facts crossed signaling boundary", err)
 		}
 	}

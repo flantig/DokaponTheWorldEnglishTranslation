@@ -634,6 +634,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	padReady, padDone := make(chan error, 1), make(chan error, 1)
+	var retiredPad ProbeArtifactClaim
 	padStarted := false
 	var privateNative atomic.Pointer[ProbeProcessRecord]
 	skipReasons := map[string]bool{}
@@ -2557,7 +2558,7 @@ requests:
 					}
 					padSpec.DeviceParent, padSpec.Published, padSpec.MaxEventBytes = parent, &publishedPad, 64<<20
 				}
-				go serveProbePad(ctx, padSpec, padReady, padDone)
+				go serveProbePad(ctx, padSpec, padReady, padDone, &retiredPad)
 				padErr := <-padReady
 				if padSpec.DeviceParent != nil {
 					padErr = errors.Join(padErr, padSpec.DeviceParent.Close())
@@ -3138,7 +3139,11 @@ requests:
 				}
 				processes.BootstrapPending = false
 				var err error
-				step.ExitedBeforeStop, err = terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
+				var retirement *ProbeArtifactClaim
+				if !padStarted {
+					retirement = &retiredPad
+				}
+				step.ExitedBeforeStop, err = terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond, retirement)
 				if err != nil {
 					if frameRun == nil || request.Operation != "stop" || !processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) != 0 {
 						step.Reason = err.Error()
@@ -3377,9 +3382,13 @@ requests:
 		padStarted = false
 		privateNative.Store(nil)
 	}
-	if processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
+	var retirement *ProbeArtifactClaim
+	if !padStarted {
+		retirement = &retiredPad
+	}
+	if retirement != nil && retirement.ExpectedInfo != nil || processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
 		processes.ArtifactClass = probeArtifactFinalizer
-		_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
+		_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond, retirement)
 		runErr = errors.Join(runErr, cleanupErr)
 		report.Status = "INCOMPLETE"
 	}
@@ -3387,6 +3396,11 @@ requests:
 	if padStarted {
 		if err := <-padDone; err != nil {
 			report.Status = "INCOMPLETE"
+		}
+		if retiredPad.ExpectedInfo != nil {
+			processes.ArtifactClass = probeArtifactFinalizer
+			_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond, &retiredPad)
+			runErr = errors.Join(runErr, cleanupErr)
 		}
 	}
 	if processes.Command != nil || processes.Native != nil || len(processes.Candidates) > 0 || len(processes.Unqualified) > 0 || runErr != nil {
