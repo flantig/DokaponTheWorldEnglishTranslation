@@ -152,6 +152,14 @@ func TestProbeLifecycleChild(t *testing.T) {
 			capacityVariant = argument
 		}
 	}
+	startupVariant := ""
+	for _, argument := range os.Args {
+		if strings.HasPrefix(argument, "startup-card-") {
+			startupVariant = strings.TrimPrefix(argument, "startup-card-")
+		}
+	}
+	startupReads, startupAcknowledged := 0, false
+	startupReady := startupVariant != "unready" && startupVariant != "empty" && startupVariant != "busy"
 	newGame := slices.Contains(os.Args, "scenario-newgame")
 	sequenceRun := 0
 	for index := 1; index <= 3; index++ {
@@ -528,6 +536,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 							case 5:
 								scenarioStage = 6
 							case 8:
+								if startupVariant != "" && !startupAcknowledged {
+									if !startupReady {
+										t.Fatal("startup CIRCLE before ready")
+									}
+									startupAcknowledged = true
+									ack, _ := json.Marshal(map[string]int{"ui_reads": startupReads, "press_offset": eventOffset})
+									_ = os.WriteFile(filepath.Join(root, "startup-card-ack.json"), ack, 0600)
+									break
+								}
 								if newGame && titleCursor == 0 {
 									scenarioStage = 20
 									scenarioControl = 0
@@ -614,6 +631,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 				if !slices.Contains(os.Args, "frame-no-trace") {
 					trace, _ := json.Marshal(scenarioTrace)
 					_ = os.WriteFile(filepath.Join(root, "scenario-inputs.json"), trace, 0600)
+				}
+				if startupVariant != "" && !startupAcknowledged && len(payload) == 5 && payload[0] <= 3 && binary.LittleEndian.Uint32(payload[1:]) == 0x56b192 {
+					startupReads++
+					if startupVariant == "unready" || startupVariant == "empty" {
+						startupReady = startupReads >= 3
+					}
 				}
 				if paired && slices.Contains(os.Args, "tampered-prefix") && !prefixTampered && scenarioStage == 6 {
 					if _, err := os.Stat(filepath.Join(root, "save-report.json")); err == nil {
@@ -742,6 +765,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 				if scenarioStage == 26 || scenarioStage == 27 {
 					innerWidth = 0x2e0
 				}
+				if startupVariant != "" && !startupAcknowledged && scenarioStage == 8 {
+					innerWidth = 588
+					if startupVariant == "mode" {
+						innerWidth = 608
+					}
+				}
 				for address, value := range map[uint32]uint32{0x56581c: innerWidth, 0x56b598: 1, 0x56b190: uint32(activeActor), 0x579ba6: yesNoCursor, 0x56a804: 5, 0x56a800: 1, 0x56a808: uint32(boardCursor), 0x56a8e0: 5, 0x56a8e4: 1, 0x56a8e8: 0x200 + uint32(activeActor)} {
 					for b := 0; b < 4; b++ {
 						memory[address+uint32(b)] = byte(value >> (8 * b))
@@ -841,6 +870,39 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 					}
 				}
+				if startupVariant != "" && !startupAcknowledged && scenarioStage == 8 {
+					texts = map[int]string{0: "Checkingthememorycard(PS2)inslot1.Donotremovethememorycard(PS2)."}
+					selections = map[int]int{}
+					sources[0] = 0x5358a0
+					ready[0] = 0
+					if startupReady {
+						ready[0] = 1
+					}
+					switch startupVariant {
+					case "empty":
+						if !startupReady {
+							texts[0] = ""
+						}
+					case "source":
+						sources[0] += 4
+					case "text":
+						texts[0] = "CheckingthememorycardWRONG"
+					case "format":
+						texts[0] = "Formatthememorycard?"
+					case "delete":
+						texts[0] = "Deletethedata?"
+					case "no-data":
+						texts[0] = "Thereisnodataonthememorycard(PS2)."
+					case "extra":
+						texts[1] = "Unexpectedquestion?"
+					case "index":
+						texts[1], sources[1], ready[1] = texts[0], sources[0], ready[0]
+						delete(texts, 0)
+						memory[0x570108] = 1
+					case "state":
+						memory[0x570114] = 1
+					}
+				}
 				for widget, text := range texts {
 					base := uint32(0x5657a0 + 196*widget)
 					glyphs := uint32(0x300000 + widget*0x10000)
@@ -865,6 +927,30 @@ func TestProbeLifecycleChild(t *testing.T) {
 						memory[cursor] = 1
 						memory[cursor+4] = 8
 						memory[cursor+0x18] = byte(selection)
+					}
+					if startupVariant != "" && !startupAcknowledged && scenarioStage == 8 && sources[widget] != 0 && text != "" {
+						count := len(text) + 1
+						if startupVariant == "warnings" {
+							count++
+						}
+						memory[base+0x58], memory[base+0x59] = byte(count), byte(count>>8)
+						switch startupVariant {
+						case "flags":
+							memory[base] = 5
+						case "kind":
+							memory[base+4] = 1
+						case "page":
+							memory[base+0x4d] = 1
+						case "reason":
+							node := nodes + uint32(len(text))*32
+							for b := 0; b < 4; b++ {
+								memory[glyphs+uint32(len(text))*96+0x18+uint32(b)] = byte(node >> (8 * b))
+							}
+							copyLabel := []byte("not-a-char")
+							for b, value := range copyLabel {
+								memory[node+0x10+uint32(b)] = value
+							}
+						}
 					}
 					for index, character := range []byte(text) {
 						node := nodes + uint32(index)*32
@@ -1411,24 +1497,123 @@ func TestProbeLifecycle(t *testing.T) {
 		}
 	}
 	t.Setenv("DOKAPON_PROBE_LIFECYCLE_CHILD", "1")
-	t.Run("save-dialog", func(t *testing.T) {
-		glyphs := map[string]string{}
-		for character := 32; character < 127; character++ {
-			glyphs[strconv.Itoa(character)] = string(rune(character))
-		}
-		glyphRaw, _ := json.Marshal(glyphs)
-		glyphPath := filepath.Join(sources, "save-dialog-glyphmap.json")
-		if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
+	glyphs := map[string]string{}
+	for character := 32; character < 127; character++ {
+		glyphs[strconv.Itoa(character)] = string(rune(character))
+	}
+	glyphRaw, _ := json.Marshal(glyphs)
+	glyphPath := filepath.Join(sources, "save-dialog-glyphmap.json")
+	if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
+		t.Fatal(err)
+	}
+	card, err := os.ReadFile("testdata/probe-paired-card-initial.bin")
+	if err != nil {
+		t.Fatal(err)
+	}
+	cardPath := filepath.Join(sources, "save-dialog-card.bin")
+	if err := os.WriteFile(cardPath, card, 0400); err != nil {
+		t.Fatal(err)
+	}
+	for index, variant := range []string{"ready", "unready", "empty", "busy", "text", "source", "mode", "kind", "flags", "page", "reason", "warnings", "extra", "index", "state", "format", "delete", "no-data"} {
+		candidate := profile
+		candidate.Root = filepath.Join(root, fmt.Sprintf("startup-%d", index))
+		if err := os.Mkdir(candidate.Root, 0700); err != nil {
 			t.Fatal(err)
 		}
-		card, err := os.ReadFile("testdata/probe-paired-card-initial.bin")
+		candidate.ReadyTimeoutMS = 10000
+		candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-newgame", "startup-card-"+variant)
+		candidate.Inputs = maps.Clone(profile.Inputs)
+		candidate.Inputs["card"] = RegistryInput{Path: cardPath, Size: int64(len(card)), SHA256: fmt.Sprintf("%x", sha256.Sum256(card))}
+		candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 30000, FrontEndTimeoutMS: 30000, NoTutorial: true, MaxUIReads: 4096}
+		if variant == "busy" {
+			candidate.Scenario.FrontEndTimeoutMS = 1000
+		}
+		candidate.Requests = nil
+		for ordinal, operation := range []string{"initial", "newgame", "stop"} {
+			candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: profile.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", ordinal+1, operation)})
+		}
+		input, _ := json.Marshal(candidate)
+		result, err := runProbeLifecycle(input)
+		if err != nil || len(result.Steps) != 3 || result.Steps[0].Status != "COMPLETED" || result.Steps[2].Status != "COMPLETED" {
+			t.Fatal("startup fixture lifecycle", variant, result, err)
+		}
+		positive := variant == "ready" || variant == "unready" || variant == "empty"
+		events, err := os.ReadFile(filepath.Join(candidate.Root, "pad-events.bin"))
 		if err != nil {
 			t.Fatal(err)
 		}
-		cardPath := filepath.Join(sources, "save-dialog-card.bin")
-		if err := os.WriteFile(cardPath, card, 0400); err != nil {
+		if !positive {
+			want := "unrecognized startup card prompt"
+			if variant == "busy" {
+				want = "source scenario deadline expired"
+			}
+			if result.Steps[1].Status != "UNKNOWN" || result.Steps[1].Reason != want {
+				t.Fatal("startup refusal", variant, result.Steps[1])
+			}
+			for offset := 0; offset+24 <= len(events); offset += 24 {
+				if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+					t.Fatal("unsupported startup context emitted a key", variant)
+				}
+			}
+			t.Logf("startup-%s refused without key, reason=%s", variant, want)
+			continue
+		}
+		if result.Steps[1].Status != "COMPLETED" {
+			t.Fatal("startup did not reach later supported newgame state", variant, result.Steps[1])
+		}
+		ackRaw, err := os.ReadFile(filepath.Join(candidate.Root, "startup-card-ack.json"))
+		var ack map[string]int
+		if err != nil || json.Unmarshal(ackRaw, &ack) != nil || ack["ui_reads"] < 2 || (variant == "unready" || variant == "empty") && ack["ui_reads"] < 3 {
+			t.Fatal("startup acknowledgement preceded ready reread", variant, string(ackRaw), err)
+		}
+		presses, released := 0, false
+		for offset := 0; offset+24 <= len(events); offset += 24 {
+			kind, code, value := binary.LittleEndian.Uint16(events[offset+16:]), binary.LittleEndian.Uint16(events[offset+18:]), binary.LittleEndian.Uint32(events[offset+20:])
+			if kind != 1 {
+				continue
+			}
+			if offset <= ack["press_offset"] && value == 1 {
+				if code != 305 {
+					t.Fatal("unexpected input before checking acknowledgement", variant, code)
+				}
+				presses++
+			} else if offset > ack["press_offset"] && code == 305 && value == 0 {
+				released = true
+				break
+			} else if offset > ack["press_offset"] && value == 1 {
+				t.Fatal("later input preceded checking release", variant)
+			}
+		}
+		if presses != 1 || !released {
+			t.Fatal("checking acknowledgement lacks exactly one CIRCLE/release", variant, presses, released)
+		}
+		entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+		if err != nil {
 			t.Fatal(err)
 		}
+		warningKept, laterSupported, waited := false, false, false
+		for _, entry := range entries {
+			if !strings.Contains(entry.Name(), "-select-newgame") || !strings.HasSuffix(entry.Name(), ".complete.json") {
+				continue
+			}
+			raw, err := os.ReadFile(filepath.Join(candidate.Root, "receipts", entry.Name()))
+			var effect ProbeLifecycleEffect
+			var step ProbeLifecycleStep
+			if err != nil || json.Unmarshal(raw, &effect) != nil || json.Unmarshal(effect.Details, &step) != nil || step.UI == nil {
+				t.Fatal("startup effect receipt missing UI", variant, err)
+			}
+			for _, widget := range step.UI.Widgets {
+				warningKept = warningKept || widget.Unsupported && len(step.UI.Unsupported) == 1 && step.UI.Unsupported[0] == "widget0 glyph pointer unsupported"
+				laterSupported = laterSupported || !widget.Unsupported && strings.HasPrefix(widget.Text, "NewGameFreeBattleContinue")
+				waited = waited || widget.Ready == 0
+			}
+		}
+		if !warningKept || !laterSupported || (variant == "unready" || variant == "empty") && !waited {
+			t.Fatal("startup warning/wait/later state evidence lost", variant, warningKept, waited, laterSupported)
+		}
+		t.Logf("startup-%s one CIRCLE/release after ready, warning retained, supported transition", variant)
+	}
+	t.Run("save-dialog", func(t *testing.T) {
 		for index, row := range []struct {
 			Name, Reason, Source string
 			Attempts             int

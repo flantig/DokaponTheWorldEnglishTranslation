@@ -272,13 +272,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 			IdlePollMS   int    `json:"idle_poll_ms"`
 			SettleMS     int    `json:"settle_ms"`
 		}
-		MoveSource  uint64 `json:"move_source"`
-		ControlBase uint32 `json:"control_base"`
-		Stride      uint32 `json:"player_stride"`
-		DataText    string `json:"data_text"`
-		Prompts     []string
-		Recipes     map[string]ProbeStoryRecipe `json:"recipes"`
-		NewGame     struct {
+		MoveSource      uint64 `json:"move_source"`
+		ControlBase     uint32 `json:"control_base"`
+		Stride          uint32 `json:"player_stride"`
+		DataText        string `json:"data_text"`
+		Prompts         []string
+		StartupMessages map[string]string           `json:"startup_messages"`
+		Recipes         map[string]ProbeStoryRecipe `json:"recipes"`
+		NewGame         struct {
 			TitleTarget   uint64 `json:"title_target"`
 			NarrationMode uint64 `json:"narration_mode"`
 			YesNoMode     uint64 `json:"yesno_mode"`
@@ -1670,9 +1671,23 @@ requests:
 							menu = widget
 						}
 					}
-					bootMessage := false
+					bootMessage, acceptedPartialCheck := false, false
 					for _, widget := range ui.Widgets {
-						bootMessage = bootMessage || ui.Headers["mode"] == scenarioData.Reload.MovieMode && widget.Index == 0 && widget.Source == scenarioData.Reload.BootMessageSource
+						bootWidget := ui.Headers["mode"] == scenarioData.Reload.MovieMode && widget.Index == 0 && widget.Source == scenarioData.Reload.BootMessageSource
+						bootMessage = bootMessage || bootWidget
+						if widget.Unsupported && widget.Text != "" && widget.Text == scenarioData.StartupMessages["0x488780"] {
+							// The frozen reader skips out-of-range glyph pointers. Keep the
+							// warning; this exact boot message alone retains its ready action.
+							pointerWarning := len(ui.Unsupported) == 1 && ui.Unsupported[0] == "widget0 glyph pointer unsupported"
+							bootIdentity := bootWidget && widget.Flags == 1 && widget.Kind == 0 && widget.Page == 0
+							idleCard := ui.Headers["save_kind"] == 0 && ui.Headers["mc_dialog"] == 0 && ui.Headers["mc_phase"] == 0 &&
+								ui.Headers["message_widget"] == 0 && ui.Headers["file_widget"] == 0
+							if !pointerWarning || !bootIdentity || !idleCard || len(ui.Widgets) != 1 {
+								step.Reason = "unrecognized startup card prompt"
+								break actions
+							}
+							acceptedPartialCheck = true
+						}
 					}
 					startup := bootMessage || (ui.Headers["mode"] == scenarioData.Reload.BootMode || ui.Headers["mode"] == scenarioData.Reload.MovieMode) && ui.Headers["save_kind"] == 0 && ui.Headers["mc_dialog"] == 1
 					target := scenarioData.Reload.ContinueTarget
@@ -1694,7 +1709,11 @@ requests:
 						}
 						for _, widget := range ui.Widgets {
 							if uint64(widget.Index) == messageIndex {
-								if widget.Unsupported || widget.Text != "" && !strings.HasPrefix(widget.Text, "Checkingthememorycard") && !strings.HasPrefix(widget.Text, "Thereisnodataonthememorycard(PS2).") {
+								if widget.Unsupported && !acceptedPartialCheck {
+									step.Reason = "unrecognized startup card prompt"
+									break actions
+								}
+								if widget.Text != "" && !strings.HasPrefix(widget.Text, "Checkingthememorycard") && !strings.HasPrefix(widget.Text, "Thereisnodataonthememorycard(PS2).") {
 									step.Reason = "unrecognized startup card prompt"
 									break actions
 								}

@@ -144,6 +144,19 @@ The reviewed paired extension now produces one complete **offline** checkpoint P
 
 The reviewed NewGame/preparation extension infers a nonzero human actor, performs the guarded intro handoff and board takeover, then prepares an unseen tutorial through real controlled Save/Load. The flag is initialized before the exact help image is captured and reread; one acknowledgement changes no record bytes. Final resave and the ordinary pair yield the exact independent17-event/10-capture report PASS. Image construction waits without input until source readiness; ordinary-load image refusal stays intact. Source epochs, literal card/records, retained failures and limitations are canonical in `probe-records-proof.json#newgame_preparation_offline_assessment`. This remains offline software, not native gameplay, three sequential stories, broader cohorts, owner-agreed unattended bounds or handover; the score stays85/90.
 
+Startup selection retains the frozen Python ready-to-CIRCLE contract for the
+complete normalized registry0x488780 slot1 checking message. The sole partial
+glyph exception requires movie width588, widget0/source0x5358a0, flags1/kind0/page0,
+an idle card tuple, one active widget and only its out-of-range-pointer warning.
+The early widget scan refuses that exact unsupported message in a different
+context before movie/title fallback input. Unsupported evidence remains intact;
+the decoder and all other unsupported or destructive prompt refusals are unchanged.
+Ready1 uses the existing CIRCLE acknowledgement/release path; unready or supported
+empty construction waits250ms and rereads. The600-attempt bound, newgame maximum20m
+front-end and Continue150s deadline are unchanged. R5 verified the prior cache
+fix, readiness and owned stop but ended at this classifier; the new exception
+still needs a separately admitted native run, with no save/checkpoint credit yet.
+
 The reviewed `--probe-sequence` prototype composes three immutable recipes through the same lifecycle owner. Controlled creation, overwrite and alternating File1/File2 saves produce four independent checkpoint memberships across three runs, with story50 terminal observations and verified cleanup/postflush before synthetic card carry. The test card is GOPCARD1, not a PS2 card format. Selected `randint(0,0)` calibration consumes actual generator draws; normal cadence defaults remain unchanged. Source guards, complete card/report oracles, retained failures and verification receipts are canonical in `probe-records-proof.json#sequence_offline_assessment`. No native stories, broader producer coverage, owner resource/soak agreement or handover is accepted;85/90 and probe2/6 remain unchanged.
 
 The optional lifecycle `observe-storage` action now acquires one source-qualified fixed field through two ordered Read64 replies and the existing memory decoder/report comparator. Registry wording and recipe/glyph facts remain canonical inputs; actual bytes and their hash-linked memory evidence are acquired. This is a non-atomic storage observation, not displayed UI or installed-RAM attestation. The exact83cb input guard and portable controlled tests are separate. A fixed comparison may PASS while the report without checkpoints remains UNKNOWN. See `probe-records-proof.json#storage_offline_assessment`; scores and native/owner gates remain unchanged.
