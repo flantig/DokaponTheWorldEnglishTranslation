@@ -85,6 +85,7 @@ type ProbeProcessRecord struct {
 	Profile           string   `json:"profile,omitempty"`
 	Epoch             *int     `json:"epoch,omitempty"`
 	PINESocket        string   `json:"pine_socket,omitempty"`
+	PINESlot          int      `json:"pine_slot,omitempty"`
 	EnvironmentSHA256 string   `json:"environment_sha256,omitempty"`
 }
 

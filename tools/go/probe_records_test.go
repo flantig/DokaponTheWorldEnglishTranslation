@@ -903,6 +903,14 @@ func TestProbeRecords(t *testing.T) {
 			t.Fatal(err)
 		}
 		switch row.Fault {
+		case "slot-custom":
+			profile.Flatpak.PINESlot = 28012
+		case "slot-default":
+			profile.Flatpak.PINESlot = 28011
+		case "slot-negative":
+			profile.Flatpak.PINESlot = -1
+		case "slot-large":
+			profile.Flatpak.PINESlot = 65536
 		case "argv0":
 			profile.Flatpak.RuntimeArgv0 = ""
 		case "project":
@@ -950,6 +958,10 @@ func TestProbeRecords(t *testing.T) {
 		}
 		epoch := 0
 		owned := ProbeProcessRecord{PID: 421, Starttime: 123, State: "S", Cmdline: slices.Clone(flatpakFixture.NativeArgs), Session: profile.Session, ISO: profile.Inputs["iso"].Path, ISOSHA256: profile.Inputs["iso"].SHA256, Profile: filepath.Join(profile.Root, "profile"), Epoch: &epoch, PINESocket: "/tmp/fixture-runtime/pcsx2.sock", EnvironmentSHA256: strings.Repeat("1", 64)}
+		if strings.HasPrefix(row.Fault, "slot-") || row.Fault == "after-custom-socket" {
+			profile.Flatpak.PINESlot, owned.PINESlot = 28012, 28012
+			owned.PINESocket += ".28012"
+		}
 		launcher := ProbeProcessRecord{PID: 321, Starttime: 100, State: "S", Cmdline: []string{"bwrap", "--source-wrapper"}}
 		startup := RegistryInput{Path: filepath.Join(profile.Root, "startup-epoch-0.json"), Size: 1, SHA256: strings.Repeat("2", 64)}
 		step := ProbeLifecycleStep{Request: profile.Requests[0], Status: "COMPLETED", Epoch: 0, Owned: &owned, Launcher: &launcher, Startup: &startup, Effects: []string{"prepare", "pad", "launch", "verify"}}
@@ -958,6 +970,17 @@ func TestProbeRecords(t *testing.T) {
 		factsBytes, _ := json.Marshal(facts)
 		step.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(factsBytes))
 		switch row.Fault {
+		case "slot-record":
+			owned.PINESlot = 28013
+		case "slot-suffix":
+			owned.PINESocket = "/tmp/fixture-runtime/pcsx2.sock"
+		case "slot-default":
+			profile.Flatpak.PINESlot, owned.PINESlot = 28011, 28011
+			owned.PINESocket = "/tmp/fixture-runtime/pcsx2.sock"
+			facts = profile
+			facts.Requests = nil
+			factsBytes, _ = json.Marshal(facts)
+			step.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(factsBytes))
 		case "native-argv":
 			owned.Cmdline = []string{profile.Flatpak.Launcher.Path, "run", probeFlatpakAppID}
 		case "launcher":
@@ -979,7 +1002,16 @@ func TestProbeRecords(t *testing.T) {
 		view := ProbeProfileRecord{Datapath: owned.Profile, DataRoot: dataRoot, SourceSettings: profile.Inputs["settings"].Path, SourceSettingsSHA256: profile.Inputs["settings"].SHA256, SourceCard: profile.Inputs["card"].Path, SourceCardSHA256: profile.Inputs["card"].SHA256, Card: filepath.Join(dataRoot, "memcards", "probe-slot1.ps2"), CardInitialSHA256: profile.Inputs["card"].SHA256, BIOS: filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path))}
 		ownedBytes, _ := json.Marshal(owned)
 		viewBytes, _ := json.Marshal(view)
-		bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewBytes}, {Role: "owned", Data: ownedBytes}}, AfterProcess: &owned, GoOwner: &ProbeGoOwner{Profile: profile, Step: step, CardSHA256: strings.Repeat("3", 64)}}
+		after := owned
+		switch row.Fault {
+		case "after-slot":
+			after.PINESlot = 28012
+		case "after-custom-socket":
+			after.PINESocket = "/tmp/fixture-runtime/pcsx2.sock.28013"
+		case "after-environment":
+			after.EnvironmentSHA256 = strings.Repeat("4", 64)
+		}
+		bundle := ProbeRecordBundle{Version: 1, SourceSchema: "go-probe-records-v1", SourceSHA256: "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f", RunRoot: profile.Root, Context: "owned_go", Records: []ProbeRecord{{Role: "profile", Data: viewBytes}, {Role: "owned", Data: ownedBytes}}, AfterProcess: &after, GoOwner: &ProbeGoOwner{Profile: profile, Step: step, CardSHA256: strings.Repeat("3", 64)}}
 		raw, _ := json.Marshal(bundle)
 		if row.Fault == "" {
 			frameGoAdmission = bytes.Clone(raw)
@@ -1023,13 +1055,41 @@ func TestProbeRecords(t *testing.T) {
 			}
 		}
 		runtime := ProbeMemoryRuntime{Provenance: "synthetic_flatpak", Root: root}
+		if row.Fault == "slot-custom" || row.Fault == "slot-stale" {
+			runtime.PINESlot = 28012
+		}
+		if row.Fault == "slot-default" {
+			runtime.PINESlot = 28011
+		}
 		build := fmt.Sprintf("%x", sha256.Sum256([]byte("native-build")))
 		matched, unqualified, err := selectProbeProcesses(runtime, []int{421}, build, []string{"pcsx2-qt"}, notBefore)
 		if (err != nil) != row.Error || len(matched) != row.Matched || len(unqualified) != row.Unqualified {
 			t.Fatalf("%s selector: matched=%d unqualified=%d err=%v", row.Name, len(matched), len(unqualified), err)
 		}
-		if len(matched) > 0 && (matched[0].PINESocket != "/tmp/fixture-runtime/pcsx2.sock" || len(matched[0].EnvironmentSHA256) != 64) {
+		socketName := "/tmp/fixture-runtime/pcsx2.sock"
+		if runtime.PINESlot != 0 && runtime.PINESlot != 28011 {
+			socketName += ".28012"
+		}
+		if len(matched) > 0 && (matched[0].PINESocket != socketName || matched[0].PINESlot != runtime.PINESlot || len(matched[0].EnvironmentSHA256) != 64) {
 			t.Fatal("synthetic native namespace facts missing")
+		}
+		if len(matched) > 0 {
+			expected := matched[0]
+			check := runtime
+			if row.Fault == "slot-stale" {
+				check.PINESlot = 28013
+			}
+			_, err := observeProbeProcess(check, 421, &expected, build)
+			if (err != nil) != (row.Fault == "slot-stale") {
+				t.Fatal("saved PINE slot recheck", row.Name, err)
+			}
+			if row.Fault == "slot-custom" {
+				direct := expected
+				direct.PINESocket = ""
+				if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "synthetic_peer", Root: root}, 421, &direct, build); err == nil {
+					t.Fatal("direct process invented a Flatpak PINE slot")
+				}
+			}
 		}
 		processes := ProbeLifecycleProcesses{Launched: true, Candidates: matched, Unqualified: unqualified}
 		if _, err := terminateProbeProcesses(&processes, runtime, build, time.Millisecond); err == nil || !strings.Contains(err.Error(), "never authorize signaling") || processes.CleanupAttempts != 0 {

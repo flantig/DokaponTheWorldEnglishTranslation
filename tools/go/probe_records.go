@@ -96,9 +96,19 @@ func admitProbeRecords(raw []byte) (ProbeRecordReport, error) {
 			if native.RuntimeArgv0 == "" || native.ProjectRoot == "" || step.Launcher == nil || step.Launcher.PID < 1 || step.Launcher.Starttime == 0 || step.Startup == nil || step.Startup.Path != filepath.Join(profile.Root, fmt.Sprintf("startup-epoch-%d.json", step.Epoch)) || step.Startup.Size < 1 || len(step.Startup.SHA256) != 64 || !filepath.IsAbs(owned.PINESocket) || filepath.Clean(owned.PINESocket) != owned.PINESocket || len(owned.EnvironmentSHA256) != 64 || len(native.Launcher.SHA256) != 64 {
 				return report, fmt.Errorf("Go Flatpak launcher/native/startup facts differ")
 			}
+			name := "pcsx2.sock"
+			if native.PINESlot != 0 && fmt.Sprint(native.PINESlot) != probePINEDefaultSlot {
+				name += fmt.Sprintf(".%d", native.PINESlot)
+			}
+			if owned.PINESlot != native.PINESlot || filepath.Base(owned.PINESocket) != name {
+				return report, fmt.Errorf("Go Flatpak PINE slot/namespace facts differ")
+			}
 
-		} else if owned.PINESocket != "" || owned.EnvironmentSHA256 != "" || step.Launcher != nil || step.Startup != nil {
+		} else if owned.PINESlot != 0 || owned.PINESocket != "" || owned.EnvironmentSHA256 != "" || step.Launcher != nil || step.Startup != nil {
 			return report, fmt.Errorf("direct child facts contain a different launcher contract")
+		}
+		if bundle.AfterProcess.PINESlot != owned.PINESlot || bundle.AfterProcess.PINESocket != owned.PINESocket || bundle.AfterProcess.EnvironmentSHA256 != owned.EnvironmentSHA256 {
+			return report, fmt.Errorf("Go process recheck changed PINE slot/namespace facts")
 		}
 		if !reflect.DeepEqual(owned.Cmdline, expectedArgs) || bundle.AfterProcess.PID != owned.PID || bundle.AfterProcess.Starttime != owned.Starttime || !reflect.DeepEqual(bundle.AfterProcess.Cmdline, owned.Cmdline) || bundle.AfterProcess.State == "" || bundle.AfterProcess.State == "Z" || bundle.AfterProcess.State == "X" || view.Datapath != owned.Profile || view.DataRoot != dataRoot || view.Card != filepath.Join(dataRoot, "memcards", "probe-slot1.ps2") || view.CardInitialSHA256 != profile.Inputs["card"].SHA256 || view.SourceCard != profile.Inputs["card"].Path || view.SourceCardSHA256 != profile.Inputs["card"].SHA256 || view.SourceSettings != profile.Inputs["settings"].Path || view.SourceSettingsSHA256 != profile.Inputs["settings"].SHA256 || view.BIOS != filepath.Join(dataRoot, "bios", filepath.Base(profile.Inputs["bios"].Path)) {
 			return report, fmt.Errorf("Go probe argv/profile snapshot differs")

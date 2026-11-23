@@ -53,6 +53,7 @@ type ProbeLifecycleProfile struct {
 // ProbeFlatpakLaunch separates the submitted launcher from the emulator artifact.
 // ISOAlias is only the source portal spelling; the ordinary host ISO is unchanged.
 type ProbeFlatpakLaunch struct {
+	PINESlot       int                      `json:"pine_slot,omitempty"` // Omitted preserves the stock default and unsuffixed socket.
 	Launcher       RegistryInput            `json:"launcher"`
 	LauncherArgs   []string                 `json:"launcher_args,omitempty"`
 	ProjectRoot    string                   `json:"project_root"`

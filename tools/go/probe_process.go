@@ -47,6 +47,20 @@ type ProbeLifecycleProcesses struct {
 // absent stat or matching terminal state. Other errors never establish exit.
 func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbeProcessRecord, build string) (ProbeProcessRecord, error) {
 	var observed ProbeProcessRecord
+	slot := runtime.PINESlot
+	if expected != nil {
+		if slot != 0 && slot != expected.PINESlot {
+			return observed, fmt.Errorf("owned emulator PINE slot changed")
+		}
+		slot = expected.PINESlot
+	}
+	if slot < 0 || slot > 65535 {
+		return observed, fmt.Errorf("owned emulator PINE slot is outside1..65535")
+	}
+	namespace := runtime.Provenance == "owned_flatpak" || runtime.Provenance == "synthetic_flatpak" || expected != nil && expected.PINESocket != ""
+	if slot != 0 && !namespace {
+		return observed, fmt.Errorf("PINE slot requires the owned Flatpak namespace contract")
+	}
 	procRoot := "/proc"
 	if runtime.Provenance == "synthetic_peer" || runtime.Provenance == "synthetic_flatpak" {
 		procRoot = filepath.Join(runtime.Root, "proc")
@@ -55,7 +69,7 @@ func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbePro
 	hasExpectedIdentity := expected != nil && pid > 0 && expected.PID == pid && expected.Starttime > 0
 	if runtime.Provenance == "synthetic_peer" || runtime.Provenance == "synthetic_flatpak" {
 		paths := []string{procRoot, processRoot, filepath.Join(processRoot, "stat"), filepath.Join(processRoot, "cmdline"), filepath.Join(processRoot, "exe")}
-		if runtime.Provenance == "synthetic_flatpak" || expected != nil && expected.PINESocket != "" {
+		if namespace {
 			paths = append(paths, filepath.Join(processRoot, "environ"))
 		}
 		for _, path := range paths {
@@ -121,7 +135,7 @@ func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbePro
 	if exeErr != nil || hashErr != nil || afterErr != nil || !before.Mode().IsRegular() || count < 1 || count > 256<<20 || count != before.Size() || before.Size() != after.Size() || before.ModTime() != after.ModTime() || runtime.Provenance != "owned_launcher" && fmt.Sprintf("%x", hasher.Sum(nil)) != build {
 		return observed, fmt.Errorf("probe runtime executable build differs")
 	}
-	if runtime.Provenance == "owned_flatpak" || runtime.Provenance == "synthetic_flatpak" || expected != nil && expected.PINESocket != "" {
+	if namespace {
 		environment, err := os.Open(filepath.Join(processRoot, "environ"))
 		if err != nil {
 			return observed, fmt.Errorf("owned emulator environment unavailable")
@@ -141,7 +155,13 @@ func observeProbeProcess(runtime ProbeMemoryRuntime, pid int, expected *ProbePro
 				runtimeDir, found = value, true
 			}
 		}
-		observed.PINESocket = filepath.Join(runtimeDir, "pcsx2.sock")
+		// Stock PCSX2 appends the decimal slot only when it differs from28011.
+		name := "pcsx2.sock"
+		if slot != 0 && strconv.Itoa(slot) != probePINEDefaultSlot {
+			name += "." + strconv.Itoa(slot)
+		}
+		observed.PINESocket = filepath.Join(runtimeDir, name)
+		observed.PINESlot = slot
 		observed.EnvironmentSHA256 = fmt.Sprintf("%x", sha256.Sum256(data))
 		if expected != nil && (expected.PINESocket != observed.PINESocket || expected.EnvironmentSHA256 != observed.EnvironmentSHA256) {
 			return observed, fmt.Errorf("owned emulator namespace endpoint changed")

@@ -116,6 +116,14 @@ The optional `flatpak` profile preserves `program` as the emulator artifact auth
 
 Prelaunch refuses any live source PCSX2 candidate, including foreign native processes, and bounds the Flatpak instance query to the source10s. Adoption requires one exact newly created native build/argv/birth identity, independent of the wrapper kernel image. Namespace PINE derives from the exact emulator's bounded environment through `/proc/<pid>/root`; the existing peer PID/UID guard remains. Real display/audio environment is inherited unchanged. Four complete startup directory lines must match the private data root before readonly epoch log/metadata snapshots admit reads; empty or partial active logs wait within the original deadline.
 
+Optional `flatpak.pine_slot` selects a bounded stock PINE slot (1..65535).
+Omission preserves28011; explicit28011 also uses `pcsx2.sock`. Other slots use
+`pcsx2.sock.<decimal-slot>`, under the actual owned child's observed runtime
+directory. Private INI preparation, saved admission and subsequent kernel checks
+bind the same declared slot. This follows the [stock2.8.2 implementation](https://github.com/PCSX2/pcsx2/blob/v2.8.2/pcsx2/PINE.cpp#L280-L297).
+It neither overrides XDG_RUNTIME_DIR nor weakens peer credentials or authorizes
+concurrent/native execution. Private keyboard/display qualification is separate.
+
 One termination owner signals native identities only through Linux-amd64 pidfds, refuses synthetic facts and unsupported stable signaling, and proves native exit separately from direct-launcher reaping. Ambiguous candidates are retained and never signaled. Flush requires both facts with no unresolved writer. Bootstrap failure cleanup applies only before durable readiness; later recoverable observation failures retain explicit stop/resume behavior. Explicit stop can finish partial cleanup from established launch authority.
 
 Controlled known-PID tests cover split lifetimes, namespace reads with correct/wrong peer credentials, graceful flush, controller-loss noflush and remaining-launcher reaping. Literal offline tables cover mapping, saved identity, startup prefix and synthetic selector refusals. Full lifecycle Flatpak/global discovery and actual startup production remain unexecuted: a fake CLI alone would still require inspecting unrelated protected host processes. Neither Flatpak `ps` PID nor `child-pid` is the native application identity. No native/device/version/slot/Guide/pause-reset/resource/retention or handover acceptance follows.

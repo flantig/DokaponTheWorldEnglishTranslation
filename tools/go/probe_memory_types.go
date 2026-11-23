@@ -32,6 +32,7 @@ type ProbeMemoryDecoder struct {
 // Runtime roots are explicit CLI inputs; no path claimed by an admission bundle
 // is followed. Synthetic peers are confined to an owned private root, never live.
 type ProbeMemoryRuntime struct {
+	PINESlot   int            `json:"pine_slot,omitempty"` // Initial owned Flatpak selection; later checks use the saved process identity.
 	Provenance string         `json:"provenance"`
 	Root       string         `json:"root"`
 	TimeoutMS  int            `json:"timeout_ms"`

@@ -39,6 +39,9 @@ func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput
 	var launcherArgs []string
 	launchISO := profile.Inputs["iso"].Path
 	if native := profile.Flatpak; native != nil {
+		if native.PINESlot < 0 || native.PINESlot > 65535 {
+			return launchProgram, args, nativeArgs, fmt.Errorf("Flatpak PINE slot must be omitted or1..65535")
+		}
 		if len(native.LauncherArgs) > 16 || native.Launcher.Size < 1 || len(native.Launcher.SHA256) != 64 || !filepath.IsAbs(native.Launcher.Path) || filepath.Clean(native.Launcher.Path) != native.Launcher.Path || native.RuntimeArgv0 == "" || len(native.RuntimeArgv0) > 4096 || strings.TrimSpace(native.RuntimeArgv0) != native.RuntimeArgv0 || strings.ContainsAny(native.RuntimeArgv0, "\x00\r\n") {
 			return launchProgram, args, nativeArgs, fmt.Errorf("unsupported bounded Flatpak launch contract")
 		}
@@ -2349,6 +2352,9 @@ requests:
 				if profile.Flatpak != nil {
 					required["EmuCore.EnablePINE"] = "true"
 					required["EmuCore.PINESlot"] = probePINEDefaultSlot
+					if profile.Flatpak.PINESlot != 0 {
+						required["EmuCore.PINESlot"] = strconv.Itoa(profile.Flatpak.PINESlot)
+					}
 					required["UI.StartFullscreen"] = "false"
 					required["UI.SetupWizardIncomplete"] = "false"
 					for _, port := range []int{1, 2} {
@@ -2632,7 +2638,7 @@ requests:
 							processes.Launcher = &launcher
 						}
 						if processes.Launcher != nil {
-							processes.Candidates, processes.Unqualified, err = selectProbeProcesses(ProbeMemoryRuntime{}, nil, profile.Program.SHA256, nativeArgs, processes.Launcher.Starttime)
+							processes.Candidates, processes.Unqualified, err = selectProbeProcesses(ProbeMemoryRuntime{PINESlot: profile.Flatpak.PINESlot}, nil, profile.Program.SHA256, nativeArgs, processes.Launcher.Starttime)
 							if err == nil && len(processes.Candidates) == 1 && len(processes.Unqualified) == 0 {
 								observed = processes.Candidates[0]
 								processes.Candidates = nil

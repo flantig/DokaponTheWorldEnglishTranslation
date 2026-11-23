@@ -114,6 +114,26 @@
       "name": "native argv0 is observation only",
       "fault": "",
       "error": false
+    },
+    {
+      "name": "explicit nondefault slot",
+      "fault": "slot-custom",
+      "error": false
+    },
+    {
+      "name": "explicit default remains stock",
+      "fault": "slot-default",
+      "error": false
+    },
+    {
+      "name": "negative slot refuses",
+      "fault": "slot-negative",
+      "error": true
+    },
+    {
+      "name": "oversized slot refuses",
+      "fault": "slot-large",
+      "error": true
     }
   ],
   "admission_cases": [
@@ -160,6 +180,41 @@
     {
       "name": "native reused birth",
       "fault": "native-birth",
+      "error": true
+    },
+    {
+      "name": "bound nondefault slot",
+      "fault": "slot-custom",
+      "error": false
+    },
+    {
+      "name": "bound explicit default",
+      "fault": "slot-default",
+      "error": false
+    },
+    {
+      "name": "saved slot mismatch",
+      "fault": "slot-record",
+      "error": true
+    },
+    {
+      "name": "unsuffixed custom endpoint",
+      "fault": "slot-suffix",
+      "error": true
+    },
+    {
+      "name": "independent process recheck changed default slot",
+      "fault": "after-slot",
+      "error": true
+    },
+    {
+      "name": "independent process recheck changed custom socket",
+      "fault": "after-custom-socket",
+      "error": true
+    },
+    {
+      "name": "independent process recheck changed environment",
+      "fault": "after-environment",
       "error": true
     }
   ],
@@ -269,6 +324,27 @@
       "matched": 0,
       "unqualified": 1,
       "error": true
+    },
+    {
+      "name": "custom socket derives actual namespace",
+      "fault": "slot-custom",
+      "matched": 1,
+      "unqualified": 0,
+      "error": false
+    },
+    {
+      "name": "explicit default socket unsuffixed",
+      "fault": "slot-default",
+      "matched": 1,
+      "unqualified": 0,
+      "error": false
+    },
+    {
+      "name": "saved slot cannot be overridden",
+      "fault": "slot-stale",
+      "matched": 1,
+      "unqualified": 0,
+      "error": false
     }
   ]
 }
