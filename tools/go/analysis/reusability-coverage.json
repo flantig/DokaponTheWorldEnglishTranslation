@@ -1032,7 +1032,7 @@
     "ARCHITECTURE.html": "8683b76ec216457b63dd05ce6563fcdb3104986337fd3b36868de5d6b2c85d3e",
     "ARCHITECTURE.md": "cbf64303ff13b86b9ede98dcae476541c7ec9694bac828cf5c05150b9d45dfb0",
     "MIGRATION.md": "1a58c164f14433c97c814abd42373a5297006861aca1c486a34665ea3a782f26",
-    "README.md": "688436608840ff13cb7e1b791fa85ba5cceeb15e50f3178849e36fcf43f09dcd",
+    "README.md": "d7a8fc669c4f89d68ac70e1efb344522271e720f8ce2a6089b99802e07f142d6",
     "analysis/approximate-palette-reuse-contract.json": "57fa301877ddfacfa3888ae5172fc4e5c2ae5fe2163377e7d173b1c1a3487e07",
     "analysis/approximate-palette-reuse-decision.json": "00d5294ee9153938a6f23f399f93e428cc1ed56003a128947d2a6d0d994d0838",
     "analysis/asset-comparison-decision.json": "a5c804100d12ea1e2ef63903ee58b273f5ca5b0b2075c2758dcc2972c0a40096",
@@ -1055,7 +1055,7 @@
     "analysis/fit-line-count-oracle-erratum.json": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3",
     "analysis/fit-line-count-reuse-decision.json": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714",
     "analysis/fullpage-tbw2-reuse-decision.json": "2be87c6520f8f752612c8ea42e82a1cffcd049965ed37844c96c5feac47aca04",
-    "analysis/go-current-input-accounting.json": "9283b03d8f98ba72a7f0fd874325bfc156e6f9996067168c877a1c2a2d248e7e",
+    "analysis/go-current-input-accounting.json": "77b1d616550cb1cb339185f0d8965bd344457f4dd2cbecd8352a04e8e6fcdda9",
     "analysis/grouped-psmt8-authoring-contract.json": "b5bf4aaf7ac743cd130ec4470af132f39b98cf140c57a171df77b76ebcd5da01",
     "analysis/guarded-transaction-coverage-reassessment.json": "841d24a962fcf0eeb89a31bf7948064f419192a3c9b0401923d6e6884a37cad3",
     "analysis/guarded-transaction-coverage-review.json": "74c188a329fa6949642cad2329349f6b9148593fcf29c9d0cd3c5ca3adecee1b",
@@ -1257,7 +1257,7 @@
     "fonts/hud-labels.json": "f1d73ee0e21a4ac60d28fdb05f7546d12a9bc412b5e7e16a22a8a29d082e405f",
     "fonts/hud-labels.png": "59a6fa8e3a281f120bc4f0cbf42c441ed1ef5607b772b1567ee61b168dcd690a",
     "glyphs.go": "395e9d57b16db4fab6ce0bb117abebfc4ec4cee5d21b96fea0412ce0639c0933",
-    "go.mod": "9fcf0307ecc4f0b5d14e495cb1631647dd35e220744c3dfe4786b95531d5aad9",
+    "go.mod": "612d42d8803a68a12eb4877c18937e5bde0a7dd6ca01387ee89d01a20212c40f",
     "image_types.go": "3bc753a4a53bd0857bca9fcd02fafe933cb1168dc1911042075e8c2fbc5e52b9",
     "input_types.go": "c98f6a3be0a6004d493561b11e838164ca9a4466af40afe8840a351e00d07686",
     "inputs.go": "e475b60804b68bc3e726919da0bca763b988034412ed1dcc4d45b0cf20084601",
@@ -4074,5 +4074,16 @@
     "build_minimum_qualification": "Actual frozen go.modgo1.24,testedSDK1.26.6; approved1.26modulealignment separatefollowup",
     "proof_sha256": "3d85d6edff971ad49d314d5f5ab207d0d49fb43b99103515dceeb9a1451f7f5a",
     "accounting_sha256": "9283b03d8f98ba72a7f0fd874325bfc156e6f9996067168c877a1c2a2d248e7e"
+  },
+  "latest_go126_minimum_increment": {
+    "at": "2026-11-23T04:27:55Z",
+    "declared_minimum": "go1.26",
+    "tested_sdk": "go1.26.6-X:nodwarf5",
+    "accounting": "analysis/go-current-input-accounting.json#latest_go126_minimum_increment",
+    "checks": "evidence/reusability-coverage-checks.json#latest_go126_minimum_increment",
+    "scope": "Approved module minimum and source-build prerequisites; binaryusersneednoGoSDK; no1.27upgrade/dependency/toolchainpin",
+    "criterion_credit": 0,
+    "family_credit": 0,
+    "coverage_unchanged": "85/98,probe2/14,Windows0/8native-qualified,13/15Full;full410incomplete"
   }
 }

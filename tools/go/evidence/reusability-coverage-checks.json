@@ -18,7 +18,7 @@
     "ARCHITECTURE.html": "8683b76ec216457b63dd05ce6563fcdb3104986337fd3b36868de5d6b2c85d3e",
     "ARCHITECTURE.md": "d5f12138a03f9d1f71366ba5971c4780d81c3317d3ac75c3eab8f8131ea01dc2",
     "MIGRATION.md": "1a58c164f14433c97c814abd42373a5297006861aca1c486a34665ea3a782f26",
-    "README.md": "688436608840ff13cb7e1b791fa85ba5cceeb15e50f3178849e36fcf43f09dcd",
+    "README.md": "d7a8fc669c4f89d68ac70e1efb344522271e720f8ce2a6089b99802e07f142d6",
     "analysis/asset-comparison-decision.json": "a5c804100d12ea1e2ef63903ee58b273f5ca5b0b2075c2758dcc2972c0a40096",
     "analysis/asset-contact-contract.json": "9d442442157b5f819090d1cdc03eef32ca35a354038ea0a0a59b00841d0e724c",
     "analysis/asset-manifest-contract.json": "77918a5c1d465310970b6cbbbf7967c2b3a99f585d7bc541e1fee0c6e1172bb5",
@@ -33,7 +33,7 @@
     "analysis/fit-line-count-contract.json": "418e1ceb3d7a5f9b3dd3ed77ada23fef19d94c81eff8cd57dab0e544da1fa7dc",
     "analysis/fit-line-count-oracle-erratum.json": "388c005c5da21c23ee878bd4ef3c9d979081e688378ce0b05a29ad2bb33116f3",
     "analysis/fit-line-count-reuse-decision.json": "15c2e8dc05e07b15aae9ff077a1b06a594666cceb84073850abc4e9fe25f6714",
-    "analysis/go-current-input-accounting.json": "9283b03d8f98ba72a7f0fd874325bfc156e6f9996067168c877a1c2a2d248e7e",
+    "analysis/go-current-input-accounting.json": "77b1d616550cb1cb339185f0d8965bd344457f4dd2cbecd8352a04e8e6fcdda9",
     "analysis/inline-icons-reuse-decision.json": "7220f120359530fe540098a00a80d1f18d47f7022d35257de23fd222ed5bc656",
     "analysis/migration-roadmap.json": "81f2e0f72444e023fd17d16231d607dfe80ebfd5f88a7de8b33f357d8383d998",
     "analysis/native-raster-reuse-decision.json": "24413cf3cc56b63701d6d6bd5a54921e8937cff5933810163b5c908020c75134",
@@ -58,7 +58,7 @@
     "analysis/registry-insert-contract.json": "404bc6ae2fdbe715863359adabaa3120268ec6c8c92d65ed7dcd2b4f5634e7bb",
     "analysis/registry-status-contract.json": "b9c32c8d0b1951013092bd847f8370bbaa79448d6a4f75b7747897871f4905bb",
     "analysis/registry-status-reuse-decision.json": "f9171e2646c2dcb888da69e186defe3e6ff9ff99827da55d829a7476e67a5f92",
-    "analysis/reusability-coverage.json": "0b70ac9ff0a549ee7c482e36b812062f1fe58de04c61adf5eb62d4e577e9f89b",
+    "analysis/reusability-coverage.json": "4f4a10c5325f2be52fd99dd107304d4dceb33f36b682e344dce70610c2933b5d",
     "analysis/reusability-coverage.md": "dbb1405648eec01901558f956fff7d9c1dffa662d264398f62a947a343ee68a2",
     "analysis/reusable-toolkit-plan.json": "2d6a3b503545aa69389ea30e083b5cac4c53aae65ca7ee552f7a11288e2a5ada",
     "analysis/sixth-family-closure-review.json": "863c904dec6b563c9f5e6568e857c267b0bfbf8914e3747c7efb3317f798340a",
@@ -760,7 +760,8 @@
     "testdata/probe-image.json": "47db0208115abc681da3812b3a5ec270f6665554397cb40c70f8c349eb41a50e",
     "testdata/probe-image.png": "5499197ad0de203df894f6d78915c87deffa744c40507d931f9f2a3fdfc64f93",
     "probe_sampler.go": "4bd7c0df13ffd11ee0bb6a422a9832666f749b71fe565a0efacbecfe921ecad8",
-    "probe_sampler_types.go": "5006bc1c5ce60e15acf34ffb7c1debea97dd1ba611f403df20d94155fa970c8c"
+    "probe_sampler_types.go": "5006bc1c5ce60e15acf34ffb7c1debea97dd1ba611f403df20d94155fa970c8c",
+    "go.mod": "612d42d8803a68a12eb4877c18937e5bde0a7dd6ca01387ee89d01a20212c40f"
   },
   "prior_checkpoints": [
     {
@@ -4140,5 +4141,79 @@
     "preserved": "Current85/98/probe2/14/Windows0/8 andall410policy/retirement/unknown semantics unchanged",
     "proof_sha256": "3d85d6edff971ad49d314d5f5ab207d0d49fb43b99103515dceeb9a1451f7f5a",
     "accounting_sha256": "9283b03d8f98ba72a7f0fd874325bfc156e6f9996067168c877a1c2a2d248e7e"
+  },
+  "latest_go126_minimum_increment": {
+    "at": "2026-11-23T04:27:55Z",
+    "source_patch_sha256": "32766e08dad58b07a4e44f878e4f636ebda70097590eda7b5651f560ea315aeb",
+    "local_source_tip": "db371caae7c0342695ef812b0047243c164980ca",
+    "worker_receipt": {
+      "local_path": ".goal/development/go126-minimum/repo/tools/go/.goal/go126-minimum/v2/receipt.json",
+      "sha256": "e0809c3341507895140289eb98e4523a7609e3670de015f954ca1c90909d7c70",
+      "availability": "Localdurableboundedsoftwareevidence"
+    },
+    "module_query": {
+      "actual_main_module": "dokapon/tools",
+      "actual_go_version": "1.26",
+      "go_toolchain": "local",
+      "sdk_observed": "go1.26.6-X:nodwarf5 linux/amd64"
+    },
+    "input_identity": {
+      "members": 460,
+      "sha256": "6c2de7890dcf8b657a27b7565b695049054007ffc98e46fe93ecc66a3dae8427",
+      "all_actualintegrationinputs_match": true
+    },
+    "verification": {
+      "records_writer_race": {
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 28.373,
+        "command": "GOTOOLCHAIN=local GOMAXPROCS=2 nice -n 10 go test -p=1 -race -run '^Test(ProbeRecords|MisalignedTargetAndWriterBoundary)$' -count=1 -timeout=2m .",
+        "log": "../v1/records-writer-race.log",
+        "sha256": "3fdf2ce9f7cd9379957a0ef23fcf91a025cfac1e642f4c098b8de7ca43756b0a"
+      },
+      "core_build": {
+        "status": "PASS",
+        "exit_code": 0,
+        "log": "../v1/build.log",
+        "binary": "../v1/dokapon-tool",
+        "sha256": "ab1b19a2403304f8eece5a29da4c3e1adc3e4e0ae808d3133cd733f1b6b66098"
+      },
+      "nativefonts_build": {
+        "status": "PASS",
+        "exit_code": 0,
+        "log": "../v1/build-nativefonts.log",
+        "binary": "../v1/dokapon-tool-nativefonts",
+        "sha256": "4cb18c2029759e5ad711de5607afcecc89759402ecbf7d27ed0a57c2d7d5a952"
+      },
+      "core_vet": {
+        "status": "PASS",
+        "exit_code": 0,
+        "log": "../v1/vet.log"
+      },
+      "nativefonts_vet": {
+        "status": "PASS",
+        "exit_code": 0,
+        "log": "../v1/vet-nativefonts.log"
+      },
+      "initial_oversized_selection": {
+        "status": "FAIL_TIMEOUT_NO_ASSERTION_RESULT",
+        "elapsed_seconds": 240.068,
+        "log": "../v1/focused-race.log",
+        "sha256": "ad94123d6b4301516486bff1d57b7d8cbe4858f74c005f86b774489ebf270354",
+        "actual_running_test": "TestCLIDryRunAndApply",
+        "actual_trace": "patch_test.go13929, authorRegistry utf8 validation of33MiB aggregate-budget refusal input",
+        "classification": "Ad-hoc4m verification cap was too short for giant existing CLI owner. Not a product timeout contract, assertion pass or inferred code regression. CLI/Golden were not subsequently rerun; full integrated verification remains deferred per owner pacing."
+      },
+      "full_cli_and_golden_verified_on_new_directive": false,
+      "health_baseline_rerun_on_new_directive": false,
+      "full_suite_pass_claimed": false
+    },
+    "binary_provenance_qualification": "Builds occurred before metadata rebase; binaries are pinned by their actual SHA256 and tested input manifest. Observed embedded vcs.revision a55731d544b10fbf2d97945d5399a7529c0883cc is not used as the reviewed worktree source identity.",
+    "source_go_unchanged": true,
+    "new_functions": 0,
+    "new_dependencies": 0,
+    "criterion_credit": 0,
+    "native_executions": 0,
+    "artifact_path_context": "Relative ../v1 log/binary paths below belong to the local worker receiptv2 directory; they are not published repository artifacts"
   }
 }

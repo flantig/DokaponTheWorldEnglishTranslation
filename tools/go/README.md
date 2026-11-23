@@ -41,6 +41,11 @@ then check behavior, change scope and whether a developer can follow the code.
 
 ## Build and run
 
+Source builds require **Go1.26 or later**. Built executables do not need a Go SDK
+to run; builds with `nativefonts` still need the native libraries described below.
+Set `GOTOOLCHAIN=local` for build/test commands to use only the installed SDK and
+prevent automatic toolchain downloads.
+
 From the repository root:
 
 ```sh
