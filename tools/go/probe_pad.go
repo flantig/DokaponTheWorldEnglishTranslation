@@ -432,7 +432,7 @@ service:
 			current, socketErr := os.Lstat(socketPath)
 			if statErr != nil || !os.SameFile(info, opened) || socketErr != nil || socketInfo == nil || !os.SameFile(socketInfo, current) {
 				cleanupErr = fmt.Errorf("owned pad socket or parent changed before removal")
-			} else if err := os.Remove(socketPath); err != nil {
+			} else if err := syscall.Unlinkat(int(parent.Fd()), filepath.Base(socketPath)); err != nil {
 				cleanupErr = err
 			} else if err := parent.Sync(); err != nil {
 				cleanupErr = err
