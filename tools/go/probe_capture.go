@@ -51,7 +51,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample, bud
 			return receipt, err
 		}
 	}
-	if profile.Version != 1 || profile.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || profile.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" {
+	if profile.Version != 1 || profile.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" {
 		return receipt, fmt.Errorf("unsupported capture version or backend source")
 	}
 	if !regexp.MustCompile(probeCaptureIDPattern).MatchString(profile.CaptureID) || profile.EventID < 1 || profile.Checkpoint < 0 || profile.LogOffset < 0 || profile.LogBytes < 1 || profile.LogBytes > 1<<20 {
@@ -97,6 +97,14 @@ func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample, bud
 	}
 	var records ProbeRecordBundle
 	_ = json.Unmarshal(memoryPlan.Admission, &records)
+	privateX11 := profile.TriggerBackend == "private-x11"
+	if privateX11 {
+		if records.GoOwner == nil || records.GoOwner.Profile.PadBackend != "private-x11" || records.GoOwner.Profile.PrivateX11 == nil || profile.PadSourceSHA256 != fmt.Sprintf("%x", sha256.Sum256(probePadLayout)) || runtime.Memory.Provenance != "owned_go" {
+			return receipt, fmt.Errorf("private capture trigger lacks admitted keyboard transport")
+		}
+	} else if profile.TriggerBackend != "" || profile.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || records.GoOwner != nil && records.GoOwner.Profile.PadBackend == "private-x11" {
+		return receipt, fmt.Errorf("unsupported capture trigger transport or source")
+	}
 	var owned ProbeProcessRecord
 	var admittedProfile ProbeProfileRecord
 	for _, record := range records.Records {
@@ -209,6 +217,7 @@ func captureProbeEvidence(raw, runtimeRaw []byte, managed *ProbeFrameSample, bud
 	}
 
 	receipt = ProbeCaptureReceipt{ManagedFailure: receipt.ManagedFailure, Version: 1, SourceSHA256: profile.SourceSHA256, PadSourceSHA256: profile.PadSourceSHA256, CaptureID: profile.CaptureID, EventID: profile.EventID, Checkpoint: profile.Checkpoint, RunID: admission.RunID, Session: admission.Session, Epoch: admission.Epoch, PID: owned.PID, Starttime: owned.Starttime, ISOSHA256: admission.ISOSHA256, BuildSHA256: memoryPlan.BuildSHA256, Provenance: runtime.Memory.Provenance, Status: "UNKNOWN", Reason: "capture did not complete", StartedAt: time.Now().UTC().Format(time.RFC3339Nano), LockBudgetMS: profile.LockTimeoutMS, CaptureBudgetMS: profile.CaptureTimeoutMS, SnapshotPreserved: true, LogOffset: profile.LogOffset, LogSHA256: profile.LogSHA256, LogHex: hex.EncodeToString(logData), Representation: "original-png", Derivatives: "Pillow RGB/default640x480 resize and JPEG parity unqualified; no derivative produced", PolicyStatus: "profile-caps-enforced; native owner retention/resource agreement pending"}
+	receipt.TriggerBackend = profile.TriggerBackend
 	if managed != nil {
 		receipt.Representation = "transient-rgb640"
 		receipt.Derivatives = "RGB640 and RGB64 in memory only; no JPEG or compatibility claim"
@@ -389,18 +398,33 @@ transaction:
 		}
 		_ = pad.SetDeadline(deadline)
 		receipt.GuideCommand = "tap GUIDE 0.05"
+		if privateX11 {
+			receipt.GuideCommand += " " + profile.CaptureID
+		}
 		_, sendErr := io.Copy(pad, strings.NewReader(receipt.GuideCommand))
 		// The Go backend frames one command by half-close; legacy one-read peers
 		// receive the same complete payload before replying.
 		if sendErr == nil {
 			sendErr = pad.(*net.UnixConn).CloseWrite()
 		}
-		ack, ackErr := io.ReadAll(io.LimitReader(pad, 257))
+		ackLimit := int64(256)
+		if privateX11 {
+			ackLimit = 65536
+		}
+		ack, ackErr := io.ReadAll(io.LimitReader(pad, ackLimit+1))
 		_ = pad.Close()
 		receipt.GuideAckHex = hex.EncodeToString(ack)
-		if sendErr != nil || ackErr != nil || len(ack) > 256 || strings.TrimSpace(string(ack)) != "ok" {
+		if sendErr != nil || ackErr != nil || int64(len(ack)) > ackLimit || !privateX11 && strings.TrimSpace(string(ack)) != "ok" {
 			receipt.Reason = "capture trigger acknowledgement unknown"
 			break
+		}
+		if privateX11 {
+			var effect ProbeX11Effect
+			if err := effect.admit(ack, profile.CaptureID, *records.GoOwner.Profile.PrivateX11, owned); err != nil {
+				receipt.Reason = err.Error()
+				break
+			}
+			receipt.X11Effect = &effect
 		}
 		var capturedInfo os.FileInfo
 		for {

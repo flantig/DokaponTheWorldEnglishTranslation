@@ -39,7 +39,7 @@ func admitProbeRecords(raw []byte) (ProbeRecordReport, error) {
 		owner := bundle.GoOwner
 		profile := owner.Profile
 		switch profile.PadBackend {
-		case "", "event-sink", "uinput":
+		case "", "event-sink", "uinput", "private-x11":
 		default:
 			return report, fmt.Errorf("unsupported owned pad backend")
 		}

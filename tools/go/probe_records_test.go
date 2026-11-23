@@ -3,6 +3,7 @@ package main
 import (
 	"archive/zip"
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/hex"
@@ -935,6 +936,58 @@ func TestProbeRecords(t *testing.T) {
 		if !row.Error && (launchProgram != profile.Flatpak.Launcher || !slices.Equal(args, flatpakFixture.LaunchArgs) || !slices.Equal(nativeArgs, flatpakFixture.NativeArgs)) {
 			t.Fatalf("%s literal launch/native argv differs", row.Name)
 		}
+	}
+	privateBytes, _ := json.Marshal(flatpakFixture.Profile)
+	var privateProfile ProbeLifecycleProfile
+	_ = json.Unmarshal(privateBytes, &privateProfile)
+	privateProfile.PadBackend, privateProfile.Flatpak.PINESlot = "private-x11", 28012
+	privateProfile.PrivateX11 = &ProbeX11Spec{Display: ":89", Authority: RegistryInput{Path: "/fixture/private.auth", Size: 58, SHA256: strings.Repeat("a", 64)}, ServerProgram: RegistryInput{Path: "/fixture/Xephyr", Size: 128, SHA256: strings.Repeat("b", 64)}, Server: ProbeProcessRecord{PID: 399, Starttime: 77, State: "S", Cmdline: []string{"/fixture/Xephyr", ":89", "-screen", "1024x768", "-auth", "/fixture/private.auth", "-nolisten", "tcp", "-no-host-grab", "-noreset"}}}
+	for _, fault := range []string{"", "default-slot", "display", "server", "reset", "credential", "wrong-backend", "unsupported-operation"} {
+		encoded, _ := json.Marshal(privateProfile)
+		var profile ProbeLifecycleProfile
+		_ = json.Unmarshal(encoded, &profile)
+		switch fault {
+		case "default-slot":
+			profile.Flatpak.PINESlot = 28011
+		case "display":
+			profile.PrivateX11.Display = ":0"
+		case "server":
+			profile.PrivateX11.Server.Starttime = 0
+		case "reset":
+			profile.PrivateX11.Server.Cmdline = profile.PrivateX11.Server.Cmdline[:9]
+		case "credential":
+			profile.PrivateX11.Authority.SHA256 = ""
+		case "wrong-backend":
+			profile.PadBackend = "uinput"
+		case "unsupported-operation":
+			profile.Requests[0].Operation = "load"
+		}
+		before, _ := json.Marshal(profile)
+		_, argv, native, err := planProbeLaunch(profile)
+		after, _ := json.Marshal(profile)
+		if (err != nil) != (fault != "") || !bytes.Equal(before, after) {
+			t.Fatal("private keyboard plan/refusal/mutation", fault, err)
+		}
+		if fault == "" && (!slices.Equal(argv, append([]string{"run", "--socket=x11", "--nosocket=wayland", "--env=QT_QPA_PLATFORM=xcb"}, flatpakFixture.LaunchArgs[1:]...)) || !slices.Equal(native, flatpakFixture.NativeArgs)) {
+			t.Fatal("private keyboard grant changed native argv or omitted fixed display route")
+		}
+	}
+	var keyboard ProbePadLayout
+	_ = json.Unmarshal(probePadLayout, &keyboard)
+	bindings := map[string]string{"CROSS": "Keyboard/X", "CIRCLE": "Keyboard/C", "START": "Keyboard/Return", "UP": "Keyboard/Up", "DOWN": "Keyboard/Down", "L3": "Keyboard/F6", "GUIDE": "Keyboard/F8"}
+	for name, button := range keyboard.Buttons {
+		if button.KeyboardBinding != bindings[name] {
+			t.Fatal("private keyboard subset changed", name)
+		}
+	}
+	// Both the SDK and no-SDK owners refuse before any server/process access.
+	if _, err := emitProbeX11(context.Background(), ProbeX11Spec{}, nil, "", nil, false); err == nil {
+		t.Fatal("private X11 accepted an unbounded operation")
+	}
+	ready, done := make(chan error, 1), make(chan error, 1)
+	serveProbePad(context.Background(), ProbePadSpec{Backend: "private-x11"}, ready, done)
+	if <-ready == nil || <-done == nil {
+		t.Fatal("private pad accepted absent pinned credentials/native binding")
 	}
 	directProfile := flatpakFixture.Profile
 	directProfile.Flatpak = nil
@@ -2621,6 +2674,89 @@ func TestProbeRecords(t *testing.T) {
 	first, changed := ordinaryReport.FrameComparisons[0], ordinaryReport.FrameComparisons[1]
 	if first.Status != "AVAILABLE" || first.MeanRGBDifference == nil || *first.MeanRGBDifference != 999 || first.SumAbsRGB != nil || changed.Status != "AVAILABLE" || changed.MeanRGBDifference == nil || math.Float64bits(*changed.MeanRGBDifference) != 0x3ff0000000000000 || changed.SumAbsRGB == nil || *changed.SumAbsRGB != 9216 {
 		t.Fatal("ordinary saved frame arithmetic differs", first, changed)
+	}
+	// Saved private-transport facts exercise the consumer only. No X server,
+	// credential file, key event or native screenshot is created by these rows.
+	privateRecordsBytes, _ := json.Marshal(ordinaryRecords)
+	var privateRecords ProbeRecordBundle
+	_ = json.Unmarshal(privateRecordsBytes, &privateRecords)
+	privateRecords.GoOwner.Profile = privateProfile
+	privateOwned := *privateRecords.GoOwner.Step.Owned
+	privateOwned.PINESlot, privateOwned.PINESocket = 28012, "/tmp/fixture-runtime/pcsx2.sock.28012"
+	privateRecords.GoOwner.Step.Owned = &privateOwned
+	privateRecords.AfterProcess = &privateOwned
+	privateFacts := privateProfile
+	privateFacts.Requests = nil
+	privateFactsBytes, _ := json.Marshal(privateFacts)
+	privateRecords.GoOwner.Step.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(privateFactsBytes))
+	for index := range privateRecords.Records {
+		if privateRecords.Records[index].Role == "owned" {
+			privateRecords.Records[index].Data, _ = json.Marshal(privateOwned)
+		}
+	}
+	privateAdmission, _ := json.Marshal(privateRecords)
+	if _, err := admitProbeRecords(privateAdmission); err != nil {
+		t.Fatal("private saved owner fixture", err)
+	}
+	for _, fault := range []string{"", "nonce", "target-birth", "target-environment", "window", "server-birth", "authority", "forwarding", "key", "pressed", "missing-pressed", "null-pressed", "legacy-ack", "legacy-source"} {
+		var bundle ProbeEvidenceBundle
+		_ = json.Unmarshal(ordinaryRaw, &bundle)
+		bundle.Admission = privateAdmission
+		for index := range bundle.Captures {
+			receipt := &bundle.Captures[index].Receipt
+			receipt.TriggerBackend, receipt.Provenance = "private-x11", "owned_go"
+			receipt.PadSourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(probePadLayout))
+			receipt.GuideCommand = "tap GUIDE 0.05 " + receipt.CaptureID
+			effect := ProbeX11Effect{CaptureID: receipt.CaptureID, Display: ":89", AuthoritySHA: strings.Repeat("a", 64), Server: privateProfile.PrivateX11.Server, Window: 0x200001, Target: privateOwned, ClientPID: privateOwned.PID, ForwardersOff: true, Keys: []string{"F8"}}
+			if index == 0 {
+				switch fault {
+				case "nonce":
+					effect.CaptureID = "other-attempt"
+				case "target-birth":
+					effect.Target.Starttime++
+				case "target-environment":
+					effect.Target.EnvironmentSHA256 = strings.Repeat("f", 64)
+				case "window":
+					effect.Window = 0
+				case "server-birth":
+					effect.Server.Starttime++
+				case "authority":
+					effect.AuthoritySHA = strings.Repeat("f", 64)
+				case "forwarding":
+					effect.ForwardersOff = false
+				case "key":
+					effect.Keys = []string{"F9"}
+				case "pressed":
+					effect.Pressed = true
+				case "legacy-source":
+					receipt.PadSourceSHA256 = "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36"
+				}
+			}
+			receipt.X11Effect = &effect
+			ack, _ := json.Marshal(effect)
+			if index == 0 && (fault == "missing-pressed" || fault == "null-pressed") {
+				var fields map[string]json.RawMessage
+				_ = json.Unmarshal(ack, &fields)
+				delete(fields, "pressed")
+				if fault == "null-pressed" {
+					fields["pressed"] = json.RawMessage("null")
+				}
+				ack, _ = json.Marshal(fields)
+			}
+			receipt.GuideAckHex = hex.EncodeToString(append(append([]byte("ok "), ack...), '\n'))
+			if fault == "legacy-ack" && index == 0 {
+				receipt.GuideAckHex = hex.EncodeToString([]byte("ok\n"))
+			}
+			for _, memory := range []*ProbeMemoryReport{receipt.MemoryBefore, receipt.MemoryAfter} {
+				memory.Provenance, memory.ProcessGuarded = "owned_go", true
+				memory.SessionEvidenceSHA256 = fmt.Sprintf("%x", sha256.Sum256(privateAdmission))
+			}
+		}
+		raw, _ := json.Marshal(bundle)
+		got, err := reportProbeEvidence(raw)
+		if (err != nil) != (fault != "") || fault == "" && (got.Status != "PASS" || got.LiveOwnership || len(got.Captures) != 2) {
+			t.Fatal("saved private F8 linkage", fault, err)
+		}
 	}
 	for _, fault := range []string{"unknown", "refused", "empty-events", "empty-captures", "missing-event", "missing-receipt", "extra-event", "duplicate-event", "duplicate-event-capture", "duplicate-receipt", "duplicate-receipt-event", "missing-checkpoint", "null-checkpoint", "positive-checkpoint", "wrong-kind", "wrong-capture-id", "bad-time", "missing-cohort", "empty-cohort", "checkpoint-cohort", "story-cohort", "non-Go", "members", "checks", "story", "resume"} {
 		var bundle ProbeEvidenceBundle

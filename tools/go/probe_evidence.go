@@ -723,6 +723,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		transitionOperation := ""
 		captureAdmission := admission
 		captureAdmissionRaw := bundle.Admission
+		captureOwner := captureRecords.GoOwner
 		if len(capture.Admission) > 0 {
 			if !checkpointOnly {
 				return report, fmt.Errorf("per-capture admission requires the Go checkpoint cohort")
@@ -741,6 +742,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 				return report, fmt.Errorf("story capture crosses recipe/cadence contract")
 			}
 			captureAdmission, captureAdmissionRaw = qualified, capture.Admission
+			captureOwner = currentRecords.GoOwner
 			for _, record := range currentRecords.Records {
 				if record.Role == "owned" {
 					_ = json.Unmarshal(record.Data, &captureOwned)
@@ -802,8 +804,16 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			frameIndices[receipt.CaptureID] = captureIndex
 		}
 		selectedCheckpoint, selectedEventExists := eventCheckpoint[receipt.EventID]
-		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" || receipt.RunID != captureAdmission.RunID || receipt.Session != captureAdmission.Session || receipt.Epoch != captureAdmission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != captureAdmission.ISOSHA256 || !selectedEventExists || selectedCheckpoint != receipt.Checkpoint || !frameOnly && checkpoints[receipt.Checkpoint] == nil || frameOnly && (receipt.Checkpoint != 0 || ordinaryEvents[receipt.EventID].CaptureID != receipt.CaptureID) {
+		if receipt.Version != 1 || receipt.SourceSHA256 != "5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f" || receipt.RunID != captureAdmission.RunID || receipt.Session != captureAdmission.Session || receipt.Epoch != captureAdmission.Epoch || receipt.PID != captureOwned.PID || receipt.Starttime != captureOwned.Starttime || receipt.ISOSHA256 != captureAdmission.ISOSHA256 || !selectedEventExists || selectedCheckpoint != receipt.Checkpoint || !frameOnly && checkpoints[receipt.Checkpoint] == nil || frameOnly && (receipt.Checkpoint != 0 || ordinaryEvents[receipt.EventID].CaptureID != receipt.CaptureID) {
 			return report, fmt.Errorf("capture receipt differs from admitted identity or source event")
+		}
+		privateX11 := captureOwner != nil && captureOwner.Profile.PadBackend == "private-x11"
+		if privateX11 {
+			if captureOwner.Profile.PrivateX11 == nil || receipt.TriggerBackend != "private-x11" || receipt.PadSourceSHA256 != fmt.Sprintf("%x", sha256.Sum256(probePadLayout)) || receipt.Provenance != "owned_go" {
+				return report, fmt.Errorf("capture private keyboard source differs from admitted transport")
+			}
+		} else if receipt.TriggerBackend != "" || receipt.X11Effect != nil || receipt.PadSourceSHA256 != "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36" {
+			return report, fmt.Errorf("capture legacy trigger transport or source differs")
 		}
 		if checkpointOnly && precedingCapture != nil {
 			if receipt.Epoch < precedingCapture.Epoch || receipt.Epoch > precedingCapture.Epoch+1 || receipt.Epoch == precedingCapture.Epoch && (receipt.PID != precedingCapture.PID || receipt.Starttime != precedingCapture.Starttime) || receipt.Epoch == precedingCapture.Epoch+1 && receipt.PID == precedingCapture.PID {
@@ -837,12 +847,22 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		link := ProbeCaptureLink{CaptureID: receipt.CaptureID, EventID: receipt.EventID, Checkpoint: receipt.Checkpoint, Status: "UNKNOWN", Reason: receipt.Reason, ReceiptSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), Provenance: receipt.Provenance}
 		switch receipt.Status {
 		case "CAPTURED":
-			if receipt.MemoryBefore == nil || receipt.MemoryAfter == nil || receipt.GuideCommand != "tap GUIDE 0.05" || receipt.Representation != "original-png" {
+			command := "tap GUIDE 0.05"
+			if privateX11 {
+				command += " " + receipt.CaptureID
+			}
+			if receipt.MemoryBefore == nil || receipt.MemoryAfter == nil || receipt.GuideCommand != command || receipt.Representation != "original-png" {
 				return report, fmt.Errorf("complete capture lacks original image or typed observations")
 			}
 			ack, err := hex.DecodeString(receipt.GuideAckHex)
-			if err != nil || strings.TrimSpace(string(ack)) != "ok" {
+			if err != nil || !privateX11 && strings.TrimSpace(string(ack)) != "ok" {
 				return report, fmt.Errorf("complete capture lacks screenshot acknowledgement")
+			}
+			if privateX11 {
+				var effect ProbeX11Effect
+				if effect.admit(ack, receipt.CaptureID, *captureOwner.Profile.PrivateX11, captureOwned) != nil || receipt.X11Effect == nil || !reflect.DeepEqual(effect, *receipt.X11Effect) {
+					return report, fmt.Errorf("complete capture lacks its admitted private F8 effect")
+				}
 			}
 			before, after := receipt.MemoryBefore, receipt.MemoryAfter
 			if before.Session != receipt.Session || before.Epoch != receipt.Epoch || before.BuildSHA256 != receipt.BuildSHA256 || before.ISOSHA256 != receipt.ISOSHA256 || after.ISOSHA256 != before.ISOSHA256 || after.Session != before.Session || after.Epoch != before.Epoch || after.BuildSHA256 != before.BuildSHA256 || after.SessionEvidenceSHA256 != before.SessionEvidenceSHA256 || before.Provenance != receipt.Provenance || after.Provenance != receipt.Provenance || !reflect.DeepEqual(before.Decoded, after.Decoded) {

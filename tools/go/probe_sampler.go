@@ -149,6 +149,10 @@ func sampleProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal,
 		memory.Decoders = []ProbeMemoryDecoder{{ID: "source-tags", Kind: "frame_tags", Requests: []string{"tag0", "tag1", "tag2"}}}
 		memoryRaw, _ := json.Marshal(memory)
 		plan := ProbeCaptureProfile{Version: 1, SourceSHA256: memory.SourceSHA256, PadSourceSHA256: "1c1dab832d28026ad960eeb9d08e19c5ab40e00f9c30517aadc906921c555a36", Memory: memoryRaw, CaptureID: captureID, EventID: len(journal.Events), Checkpoint: 0, LogOffset: published.Offset, LogBytes: len(published.Data), LogSHA256: fmt.Sprintf("%x", sha256.Sum256(published.Data)), MaxSnapshotFiles: 256, MaxImageBytes: 16 << 20, MaxPixels: 1 << 20, MaxRetainedFiles: 2, MaxRetainedBytes: 20 << 20, LockTimeoutMS: 10000, CaptureTimeoutMS: 10000}
+		if profile.PadBackend == "private-x11" {
+			plan.TriggerBackend = "private-x11"
+			plan.PadSourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(probePadLayout))
+		}
 		planRaw, _ := json.Marshal(plan)
 		runtimeRaw, _ := json.Marshal(state.Runtime)
 		state.Summary.Attempts++

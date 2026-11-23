@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"os"
+	"sync/atomic"
 )
 
 // ProbeEventJournal is serialized lifecycle-owned publication state. Projection
@@ -34,6 +35,7 @@ type ProbeLifecycleProfile struct {
 	Root           string                   `json:"root"`
 	Session        string                   `json:"session"`
 	PadBackend     string                   `json:"pad_backend,omitempty"`
+	PrivateX11     *ProbeX11Spec            `json:"private_x11,omitempty"`
 	Flatpak        *ProbeFlatpakLaunch      `json:"flatpak,omitempty"`
 	Program        RegistryInput            `json:"program"`
 	ProgramArgs    []string                 `json:"program_args"`
@@ -169,6 +171,32 @@ type ProbePadSpec struct {
 	MaxEventBytes int64
 	Root          string
 	Backend       string
+	PrivateX11    *ProbeX11Spec
+	Native        *atomic.Pointer[ProbeProcessRecord]
+	BuildSHA256   string
+	CleanupMS     int
+}
+
+// ProbeX11Spec pins one private server and its credential file, not the host desktop.
+type ProbeX11Spec struct {
+	Display       string             `json:"display"`
+	Authority     RegistryInput      `json:"authority"`
+	ServerProgram RegistryInput      `json:"server_program"`
+	Server        ProbeProcessRecord `json:"server"`
+}
+
+// ProbeX11Effect records a checked server-local effect; it is not a PNG completion ack.
+type ProbeX11Effect struct {
+	CaptureID     string             `json:"capture_id,omitempty"`
+	Display       string             `json:"display"`
+	AuthoritySHA  string             `json:"authority_sha256"`
+	Server        ProbeProcessRecord `json:"server"`
+	Window        uint32             `json:"window"`
+	Target        ProbeProcessRecord `json:"target"`
+	ClientPID     int                `json:"client_pid"`
+	ForwardersOff bool               `json:"forwarders_disabled"`
+	Keys          []string           `json:"keys"`
+	Pressed       bool               `json:"pressed"`
 }
 
 // ProbePadLayout shares the fixed native settings contract and emitted input ABI.
@@ -180,10 +208,11 @@ type ProbePadLayout struct {
 	DeviceVersion        uint16 `json:"device_version"`
 	MaxEffects           uint32 `json:"max_effects"`
 	Buttons              map[string]struct {
-		Type, Code  uint16
-		SettingsKey string `json:"settings_key"`
-		SDLBinding  string `json:"sdl_binding"`
-		Down        int32
+		Type, Code      uint16
+		SettingsKey     string `json:"settings_key"`
+		SDLBinding      string `json:"sdl_binding"`
+		KeyboardBinding string `json:"keyboard_binding,omitempty"`
+		Down            int32
 	}
 	Axes []struct {
 		Code                 uint16

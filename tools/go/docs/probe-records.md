@@ -151,3 +151,42 @@ The one-row stored grid (registry0x47ea90) reuses unchanged stream decoding and 
 The capacity observation reuses strict read-only `inspect` from the lifecycle owner. Acquired13-word facts derive configured loader/translation capacity; independently inspected serialized bytes derive artifact nonzero extent and the shared aligned append cursor. Runtime allocation and usage remain UNKNOWN, and zero tail implies no ownership. Ordinary consumer gates and all planning/apply/write refusals are retained; there is no new public CLI dispatch. Source/hash qualification remains caller duty. Historical SUBST comparisons remain separate. Exact source, synthetic refusals and public test projection are canonical in `probe-records-proof.json#capacity_offline_assessment`, without native/UI/checkpoint or additional criterion credit.
 
 One approved mini_g02 native-asset artifact now supplies actual fullRGBA and rawCLUT through the existing ISO/CMB/texture owners, with strict current8772 index/source/selector checks. Expected geometry/pixels/palette come from independent approvedPNG/native-envelope facts. Standard byte-array/base64 fields coexist exclusively with historical hex, keeping full byte equality and the same4MiB complete-bundle bound. Known failures remain FAIL when evidence is missing; case aliases cannot bypass representation exclusivity. A matching artifact row leaves overallUNKNOWN and zero checkpoints, without installed-RAM/UI/display/nativeCLUT-link or fullcriterion credit. Exact approval/source/oracles/reviews are canonical in `probe-records-proof.json#image_asset_offline_assessment`; actual payload assertions preceded ordinary TempDir cleanup.
+### Private X11 first-save qualification route
+
+Linux builds with CGO and `-tags nativex11` can select `pad_backend: "private-x11"`.
+The optional SDK uses `pkg-config` packages `xcb`, `xcb-res`, `xcb-xinput`,
+`xcb-xtest` and `x11`; the default build refuses this backend before effects.
+This source capability has not yet been exercised against native Xephyr/PCSX2.
+
+`private_x11` pins `display`, `authority` (path/size/SHA256), `server_program`
+(path/size/SHA256) and `server` (the actual Xephyr PID/start/argv observation).
+The exact server argv is `Xephyr :N -screen 1024x768 -auth AUTH -nolisten tcp
+-no-host-grab -noreset`. The display must differ from the controller's host
+display. This fresh Flatpak profile requires a nondefault PINE slot and accepts
+only initial/newgame/scenario/observe-frame/watch/stop requests. Loading a copied
+card alone does not bypass the existing same-run scenario save condition.
+
+Before launch, the authenticated private-server connection disables the exact
+Xephyr physical keyboard/mouse forwarders. Each later effect refuses a re-enabled
+forwarder or an unexpected slave input device. A bounded private-server grab
+fences XRes local-client PID/focus verification and XTEST delivery. The server
+must share the controller's PID namespace, and the focused client must be the
+freshly verified owned emulator. These checks do not grab or inject the host
+display. Cancellation interrupts SDK I/O and releases the private server grab;
+held keys receive a separately bounded release attempt before native disposal.
+Primary and release failures both remain failures.
+
+The shared layout binds CROSS/X, CIRCLE/C, START/Return, UP/Up, DOWN/Down,
+L3/TogglePause/F6 and logical GUIDE/Screenshot/F8. SDL and mouse sources are
+disabled, other pads are disconnected, reset is unbound, and extra/folded
+duplicate input consumers refuse. No R3 or general keyboard mapper is provided.
+The existing input parser/hold/ack owner serves both transports.
+
+Private capture receipts explicitly name `trigger_backend: "private-x11"`, pin
+the Go layout bytes, and retain an `x11_effect` acknowledgement with its capture
+ID, private display/auth/server, XRes window/client PID and native identity.
+Live acquisition and saved reporting use the same pure ACK admission gate.
+This is an F8 key-release acknowledgement, not screenshot completion; the
+existing bounded PNG transaction, PINE peer, epoch/log/root guards and source
+positive-checkpoint save conditions still apply. Legacy SDL receipt fields,
+source pins and command/ACK semantics remain unchanged.

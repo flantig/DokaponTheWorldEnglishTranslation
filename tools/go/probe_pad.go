@@ -7,12 +7,14 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math"
 	"net"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"slices"
 	"strconv"
@@ -35,8 +37,14 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 		done <- err
 		return
 	}
-	if spec.Backend != "event-sink" && spec.Backend != "uinput" {
+	if spec.Backend != "event-sink" && spec.Backend != "uinput" && spec.Backend != "private-x11" {
 		err := fmt.Errorf("unsupported owned pad backend")
+		ready <- err
+		done <- err
+		return
+	}
+	if spec.Backend == "private-x11" && (!probeX11Available || spec.PrivateX11 == nil || spec.Native == nil || spec.CleanupMS < 1 || spec.CleanupMS > 10000) {
+		err := fmt.Errorf("private X11 input requires its available SDK, pinned server and native binding")
 		ready <- err
 		done <- err
 		return
@@ -75,7 +83,12 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 	planBytes, _ := json.Marshal(map[string]any{"source_format": "go-owned-pad-v1", "backend": spec.Backend, "setup_hex": hex.EncodeToString(setup), "axes_hex": hex.EncodeToString(axes), "phys": layout.Phys, "layout": json.RawMessage(probePadLayout)})
 	var device *os.File
 	created := false
-	if spec.Backend == "event-sink" {
+	if spec.Backend == "private-x11" {
+		planBytes, _ = json.Marshal(map[string]any{"source_format": "go-owned-private-keyboard-v1", "backend": spec.Backend, "private_x11": spec.PrivateX11, "layout_sha256": fmt.Sprintf("%x", sha256.Sum256(probePadLayout)), "layout": json.RawMessage(probePadLayout)})
+		setupCtx, setupCancel := context.WithTimeout(ctx, time.Second)
+		_, err = emitProbeX11(setupCtx, *spec.PrivateX11, nil, spec.BuildSHA256, nil, false)
+		setupCancel()
+	} else if spec.Backend == "event-sink" {
 		device, err = os.OpenFile(filepath.Join(spec.Root, "pad-events.bin"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
 	} else {
 		if runtime.GOOS != "linux" || runtime.GOARCH != "amd64" {
@@ -152,7 +165,9 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 		}
 	}
 	if result != nil {
-		_ = device.Close()
+		if device != nil {
+			_ = device.Close()
+		}
 		ready <- result
 		done <- result
 		return
@@ -173,7 +188,9 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 		if created {
 			_, _, _ = syscall.Syscall(syscall.SYS_IOCTL, device.Fd(), 0x5502, 0)
 		}
-		_ = device.Close()
+		if device != nil {
+			_ = device.Close()
+		}
 		ready <- err
 		done <- err
 		return
@@ -227,7 +244,12 @@ service:
 		names := []string{}
 		duration := time.Duration(0)
 		valid := readErr == nil && len(command) <= 256
-		if len(fields) == 3 && fields[0] == "tap" {
+		captureID := ""
+		if (len(fields) == 3 || spec.Backend == "private-x11" && len(fields) == 4) && fields[0] == "tap" {
+			if len(fields) == 4 {
+				captureID = fields[3]
+				valid = valid && fields[1] == "GUIDE" && regexp.MustCompile(probeCaptureIDPattern).MatchString(captureID)
+			}
 			names = strings.Split(strings.ToUpper(fields[1]), "+")
 			seconds, err := strconv.ParseFloat(fields[2], 64)
 			if err != nil || math.IsNaN(seconds) || math.IsInf(seconds, 0) || seconds < 0.01 || seconds > 1 {
@@ -252,13 +274,21 @@ service:
 			if _, ok := layout.Buttons[name]; !ok || seen[name] {
 				valid = false
 			}
+			if spec.Backend == "private-x11" && layout.Buttons[name].KeyboardBinding == "" {
+				valid = false
+			}
 			seen[name] = true
+		}
+		if spec.Backend == "private-x11" && len(fields) >= 3 {
+			valid = valid && len(names) == 1 && (names[0] != "GUIDE" || captureID != "")
 		}
 		if !valid {
 			_, _ = io.WriteString(client, "err invalid owned pad command\n")
 			_ = client.Close()
 			continue
 		}
+		workCtx, workCancel := context.WithTimeout(ctx, time.Second)
+		var x11Effect *ProbeX11Effect
 		if spec.MaxEventBytes > 0 && spec.Backend == "event-sink" {
 			info, statErr := device.Stat()
 			needed := int64(len(names)+len(held)) * 48
@@ -266,6 +296,7 @@ service:
 				needed += int64(len(names)) * 48
 			}
 			if statErr != nil || info.Size() < 0 || needed > spec.MaxEventBytes || info.Size() > spec.MaxEventBytes-needed {
+				workCancel()
 				result = fmt.Errorf("owned pad command and release headroom exceed its reservation")
 				_, _ = io.WriteString(client, "err input extent refused\n")
 				_ = client.Close()
@@ -286,6 +317,26 @@ service:
 				value := int32(0)
 				if stage == 0 && duration > 0 {
 					value = button.Down
+				}
+				if spec.Backend == "private-x11" {
+					key := strings.TrimPrefix(button.KeyboardBinding, "Keyboard/")
+					if len(key) == 1 {
+						key = strings.ToLower(key)
+					}
+					if value != 0 {
+						held[name] = true
+					}
+					observed, inputErr := emitProbeX11(workCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, []string{key}, value != 0)
+					if inputErr != nil {
+						result = inputErr
+						reply = "err private keyboard effect uncertain\n"
+						break
+					}
+					x11Effect = &observed
+					if value == 0 {
+						delete(held, name)
+					}
+					continue
 				}
 				event := make([]byte, 48)
 				binary.LittleEndian.PutUint16(event[16:], button.Type)
@@ -317,11 +368,16 @@ service:
 				break
 			}
 		}
+		workCancel()
 		if spec.Backend == "event-sink" && result == nil {
 			result = device.Sync()
 		}
 		if result != nil {
 			reply = "err input effect uncertain\n"
+		} else if spec.Backend == "private-x11" && len(names) == 1 && names[0] == "GUIDE" && x11Effect != nil {
+			x11Effect.CaptureID = captureID
+			encoded, _ := json.Marshal(x11Effect)
+			reply = "ok " + string(encoded) + "\n"
 		}
 		_, _ = io.WriteString(client, reply)
 		_ = client.Close()
@@ -334,6 +390,23 @@ service:
 		heldNames = append(heldNames, name)
 	}
 	slices.Sort(heldNames)
+	if spec.Backend == "private-x11" && len(heldNames) > 0 {
+		var keys []string
+		for _, name := range heldNames {
+			key := strings.TrimPrefix(layout.Buttons[name].KeyboardBinding, "Keyboard/")
+			if len(key) == 1 {
+				key = strings.ToLower(key)
+			}
+			keys = append(keys, key)
+		}
+		cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), time.Duration(spec.CleanupMS)*time.Millisecond)
+		_, releaseErr := emitProbeX11(cleanupCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, keys, false)
+		cleanupCancel()
+		if releaseErr != nil {
+			result = errors.Join(result, fmt.Errorf("private keyboard release is uncertain: %w", releaseErr))
+		}
+		heldNames = nil
+	}
 	for _, name := range heldNames {
 		button := layout.Buttons[name]
 		event := make([]byte, 48)
@@ -353,8 +426,44 @@ service:
 			result = errno
 		}
 	}
-	if err := device.Close(); err != nil && result == nil {
-		result = err
+	if device != nil {
+		if err := device.Close(); err != nil && result == nil {
+			result = err
+		}
 	}
 	done <- result
+}
+
+// admit validates one logical-capture ACK against already admitted immutable
+// transport/process facts. Live capture and saved replay share this pure gate;
+// an F8 release acknowledgement is never a screenshot-completion acknowledgement.
+func (effect *ProbeX11Effect) admit(ack []byte, captureID string, spec ProbeX11Spec, owned ProbeProcessRecord) error {
+	*effect = ProbeX11Effect{}
+	if len(ack) > 65536 || !bytes.HasPrefix(ack, []byte("ok ")) {
+		return fmt.Errorf("private screenshot acknowledgement framing differs")
+	}
+	payload := bytes.TrimSpace(ack[3:])
+	if err := checkJSON(checkedJSON{raw: payload, allObjects: true, text: true, requiredByDepth: map[int][]string{1: {"pressed"}}, nonNullByDepth: map[int][]string{1: {"pressed"}}, aliasesByDepth: map[int][]string{1: {"pressed"}}}); err != nil {
+		return err
+	}
+	var decoded ProbeX11Effect
+	decoder := json.NewDecoder(bytes.NewReader(payload))
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&decoded); err != nil {
+		return err
+	}
+	if decoded.CaptureID != captureID || !regexp.MustCompile(probeCaptureIDPattern).MatchString(captureID) {
+		return fmt.Errorf("private screenshot acknowledgement belongs to another capture")
+	}
+	if decoded.Display != spec.Display || decoded.AuthoritySHA != spec.Authority.SHA256 || decoded.Server.PID != spec.Server.PID || decoded.Server.Starttime != spec.Server.Starttime || !slices.Equal(decoded.Server.Cmdline, spec.Server.Cmdline) {
+		return fmt.Errorf("private screenshot server or credential identity differs")
+	}
+	if decoded.Window < 2 || decoded.ClientPID != owned.PID || decoded.Target.PID != owned.PID || decoded.Target.Starttime != owned.Starttime || decoded.Target.PINESocket != owned.PINESocket || decoded.Target.PINESlot != owned.PINESlot || decoded.Target.EnvironmentSHA256 != owned.EnvironmentSHA256 || !slices.Equal(decoded.Target.Cmdline, owned.Cmdline) {
+		return fmt.Errorf("private screenshot window or owned native identity differs")
+	}
+	if !decoded.ForwardersOff || decoded.Pressed || !slices.Equal(decoded.Keys, []string{"F8"}) {
+		return fmt.Errorf("private screenshot key release or input isolation differs")
+	}
+	*effect = decoded
+	return nil
 }

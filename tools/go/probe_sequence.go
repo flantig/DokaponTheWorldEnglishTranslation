@@ -57,7 +57,7 @@ func runProbeSequence(raw []byte) (ProbeSequenceReport, error) {
 		switch effectiveBackend {
 		case "":
 			effectiveBackend = "event-sink"
-		case "event-sink", "uinput":
+		case "event-sink", "uinput", "private-x11":
 		default:
 			return report, fmt.Errorf("unsupported owned pad backend")
 		}

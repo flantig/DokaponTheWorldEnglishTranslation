@@ -20,6 +20,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"syscall"
 	"time"
 )
@@ -28,6 +29,27 @@ import (
 // admission and sequence preflight. It opens no paths and preserves literal profiles.
 func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput, args []string, nativeArgs []string, err error) {
 	launchProgram = profile.Program
+	if profile.PadBackend == "private-x11" {
+		x := profile.PrivateX11
+		if x == nil || profile.Flatpak == nil || profile.Flatpak.PINESlot == 0 || fmt.Sprint(profile.Flatpak.PINESlot) == probePINEDefaultSlot || profile.Resume != nil || !regexp.MustCompile(`^:[1-9][0-9]{1,3}$`).MatchString(x.Display) || x.Server.PID < 1 || x.Server.Starttime == 0 {
+			return launchProgram, nil, nil, fmt.Errorf("private X11 requires its pinned server, nondefault PINE slot and fresh owned Flatpak epoch")
+		}
+		for _, input := range []RegistryInput{x.Authority, x.ServerProgram} {
+			if !filepath.IsAbs(input.Path) || filepath.Clean(input.Path) != input.Path || input.Size < 1 || input.Size > 256<<20 || len(input.SHA256) != 64 {
+				return launchProgram, nil, nil, fmt.Errorf("private X11 resource identity is invalid")
+			}
+		}
+		if x.Authority.Size > 65536 || !slices.Equal(x.Server.Cmdline, []string{x.ServerProgram.Path, x.Display, "-screen", "1024x768", "-auth", x.Authority.Path, "-nolisten", "tcp", "-no-host-grab", "-noreset"}) {
+			return launchProgram, nil, nil, fmt.Errorf("private Xephyr command differs from its fixed authenticated contract")
+		}
+		for _, request := range profile.Requests {
+			if !slices.Contains([]string{"initial", "newgame", "scenario", "observe-frame", "watch", "stop"}, request.Operation) {
+				return launchProgram, nil, nil, fmt.Errorf("private keyboard input supports only the first-save qualification path")
+			}
+		}
+	} else if profile.PrivateX11 != nil {
+		return launchProgram, nil, nil, fmt.Errorf("private X11 facts require the private-x11 pad backend")
+	}
 	args = append(slices.Clone(profile.ProgramArgs), "-datapath", filepath.Join(profile.Root, "profile"), "-batch", profile.Inputs["iso"].Path)
 	nativeArgs = append([]string{profile.Program.Path}, args...)
 	if len(profile.ProgramArgs) > 16 {
@@ -72,6 +94,9 @@ func planProbeLaunch(profile ProbeLifecycleProfile) (launchProgram RegistryInput
 		nativeArgs = append([]string{native.RuntimeArgv0}, profile.ProgramArgs...)
 		nativeArgs = append(nativeArgs, "-batch", "-datapath", privateProfile, "-logfile", filepath.Join(privateProfile, "emulog.txt"), launchISO)
 		launcherArgs = append(slices.Clone(native.LauncherArgs), "run")
+		if profile.PrivateX11 != nil {
+			launcherArgs = append(launcherArgs, "--socket=x11", "--nosocket=wayland", "--env=QT_QPA_PLATFORM=xcb")
+		}
 		if native.ISOAlias == "" {
 			launcherArgs = append(launcherArgs, "--filesystem="+filepath.Dir(launchISO)+":ro")
 		}
@@ -135,6 +160,10 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	case "":
 		padBackend = "event-sink"
 	case "event-sink", "uinput":
+	case "private-x11":
+		if !probeX11Available {
+			return report, fmt.Errorf("private X11 input requires Linux and -tags nativex11 with the XCB SDK")
+		}
 	default:
 		return report, fmt.Errorf("unsupported owned pad backend")
 	}
@@ -588,6 +617,11 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	}
 	if padBackend == "uinput" {
 		report.Limits = "Explicit uinput configuration with a fixed source-level SDL3 settings contract. Installed emulator, SDL device association, input calibration, Guide/pause/reset consumption, native scenarios, owner resource/soak agreement and handover remain unqualified."
+	} else if padBackend == "private-x11" {
+		if profile.PrivateX11.Display == os.Getenv("DISPLAY") {
+			return report, fmt.Errorf("private X11 display must differ from the host desktop")
+		}
+		report.Limits = "Private authenticated Xephyr/XRes/XTEST keyboard input for the existing first-save path. SDL and host forwarders disabled; no global controller device. Native capture, input calibration, source scenarios, retention/resource and handover qualification remain separate."
 	}
 
 	profileDir := filepath.Join(profile.Root, "profile")
@@ -601,6 +635,7 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	defer cancel()
 	padReady, padDone := make(chan error, 1), make(chan error, 1)
 	padStarted := false
+	var privateNative atomic.Pointer[ProbeProcessRecord]
 	skipReasons := map[string]bool{}
 	recoveryAttempts := 0
 	readFailure, ambiguousFailure := false, false
@@ -2177,6 +2212,10 @@ requests:
 					captureProfile.MaxSnapshotFiles, captureProfile.MaxRetainedFiles, captureProfile.MaxRetainedBytes = 256, 1024, 512<<20
 				}
 				captureRuntime := ProbeCaptureRuntime{Memory: scenarioRuntime, Snapshots: filepath.Join(dataRoot, "snaps"), Output: captureRoot, BackendPID: os.Getpid()}
+				if padBackend == "private-x11" {
+					captureProfile.TriggerBackend = "private-x11"
+					captureProfile.PadSourceSHA256 = fmt.Sprintf("%x", sha256.Sum256(probePadLayout))
+				}
 				captureRaw, _ := json.Marshal(captureProfile)
 				runtimeRaw, _ := json.Marshal(captureRuntime)
 				receipt, err := captureProbeEvidence(captureRaw, runtimeRaw, nil, artifactBudget)
@@ -2349,6 +2388,24 @@ requests:
 						required[fmt.Sprintf("Pad%d.Type", port)] = "NotConnected"
 					}
 				}
+				if padBackend == "private-x11" {
+					var layout ProbePadLayout
+					if err := json.Unmarshal(probePadLayout, &layout); err != nil {
+						step.Reason = err.Error()
+						break actions
+					}
+					for _, button := range layout.Buttons {
+						if button.KeyboardBinding != "" {
+							required[button.SettingsKey] = button.KeyboardBinding
+						}
+					}
+					required["Hotkeys.ResetVM"] = ""
+					required["InputSources.SDL"], required["InputSources.Keyboard"], required["InputSources.Mouse"] = "false", "true", "false"
+					required["Pad1.Type"], required["Pad.MultitapPort1"], required["Pad.MultitapPort2"] = "DualShock2", "false", "false"
+					for port := 2; port <= 8; port++ {
+						required[fmt.Sprintf("Pad%d.Type", port)] = "NotConnected"
+					}
+				}
 				if profile.Flatpak != nil {
 					required["EmuCore.EnablePINE"] = "true"
 					required["EmuCore.PINESlot"] = probePINEDefaultSlot
@@ -2379,7 +2436,7 @@ requests:
 					name := section + "." + strings.TrimSpace(key)
 					_, duplicate := values[name]
 					folded := strings.ToLower(name)
-					if !found || duplicate || padBackend == "uinput" && nativeKeys[folded] {
+					if !found || duplicate || (padBackend == "uinput" || padBackend == "private-x11") && nativeKeys[folded] {
 						step.Reason = "settings template is not normalized"
 						break actions
 					}
@@ -2393,10 +2450,10 @@ requests:
 					}
 				}
 				for key, value := range values {
-					if padBackend == "uinput" {
+					if padBackend == "uinput" || padBackend == "private-x11" {
 						folded := strings.ToLower(key)
 						_, canonical := required[key]
-						if !canonical && value != "" && (strings.HasPrefix(folded, "pad") || strings.HasPrefix(folded, "hotkeys.") || strings.HasPrefix(folded, "inputsources.") && value != "false" || strings.Contains(strings.ToLower(value), "sdl-")) {
+						if !canonical && value != "" && (strings.HasPrefix(folded, "pad") || strings.HasPrefix(folded, "hotkeys.") || strings.HasPrefix(folded, "inputsources.") && value != "false" || strings.Contains(strings.ToLower(value), "sdl-") || padBackend == "private-x11" && strings.Contains(strings.ToLower(value), "keyboard/")) {
 							step.Reason = "native settings have an extra input consumer: " + key
 							break actions
 						}
@@ -2479,7 +2536,7 @@ requests:
 						}
 					}
 				}
-				padSpec := ProbePadSpec{Root: profile.Root, Backend: padBackend}
+				padSpec := ProbePadSpec{Root: profile.Root, Backend: padBackend, PrivateX11: profile.PrivateX11, Native: &privateNative, BuildSHA256: profile.Program.SHA256, CleanupMS: min(profile.StopTimeoutMS, 1000)}
 				var publishedPad ProbeArtifactClaim
 				if artifactBudget != nil {
 					claim := ProbeArtifactClaim{ID: "artifact:" + filepath.Join(profile.Root, "pad-device.json"), Path: filepath.Join(profile.Root, "pad-device.json"), Class: probeArtifactNormal, MaxFinalBytes: 4 << 20}
@@ -2604,6 +2661,18 @@ requests:
 				}
 				processes.Command = exec.Command(program, args...)
 				processes.Command.Env = append(os.Environ(), "DOKAPON_PROBE_SESSION_ROOT="+profile.Root)
+				if profile.PrivateX11 != nil {
+					processes.Command.Env = nil
+					for _, entry := range os.Environ() {
+						key, _, _ := strings.Cut(entry, "=")
+						switch key {
+						case "DISPLAY", "XAUTHORITY", "WAYLAND_DISPLAY", "QT_QPA_PLATFORM":
+						default:
+							processes.Command.Env = append(processes.Command.Env, entry)
+						}
+					}
+					processes.Command.Env = append(processes.Command.Env, "DOKAPON_PROBE_SESSION_ROOT="+profile.Root, "DISPLAY="+profile.PrivateX11.Display, "XAUTHORITY="+profile.PrivateX11.Authority.Path, "QT_QPA_PLATFORM=xcb")
+				}
 				if profile.Flatpak != nil {
 					processes.Command.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
 				}
@@ -3048,6 +3117,14 @@ requests:
 				}
 			case "terminate":
 				processes.ArtifactClass = artifactClass
+				if padBackend == "private-x11" && padStarted {
+					cancel()
+					if err := <-padDone; err != nil {
+						runErr = errors.Join(runErr, fmt.Errorf("private keyboard release is uncertain: %w", err))
+					}
+					padStarted = false
+					privateNative.Store(nil)
+				}
 				if frameRun != nil {
 					frameRun.Ready = false
 				}
@@ -3173,6 +3250,11 @@ requests:
 			}
 			phase = action.To
 			step.Epoch = epoch
+			if padBackend == "private-x11" && processes.Native != nil {
+				bound := *processes.Native
+				bound.Cmdline = slices.Clone(bound.Cmdline)
+				privateNative.Store(&bound)
+			}
 			if frameRun != nil && step.Status == "COMPLETED" && slices.Contains([]string{"initial", "resume", "cold", "cold-load", "recover"}, request.Operation) {
 				// A completed owned-ready epoch admits immutable facts once. Every
 				// acquisition still repeats the process, peer, source and epoch guards.
@@ -3288,6 +3370,12 @@ requests:
 		if err := sampleProbeFrame(profile, &journal, frameRun, time.Now()); err != nil {
 			report.Status = "INCOMPLETE"
 		}
+	}
+	if padBackend == "private-x11" && padStarted {
+		cancel()
+		runErr = errors.Join(runErr, <-padDone)
+		padStarted = false
+		privateNative.Store(nil)
 	}
 	if processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
 		processes.ArtifactClass = probeArtifactFinalizer

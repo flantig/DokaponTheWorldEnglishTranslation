@@ -43,6 +43,7 @@ type ProbeCaptureProfile struct {
 	Version          int             `json:"version"`
 	SourceSHA256     string          `json:"source_sha256"`
 	PadSourceSHA256  string          `json:"pad_source_sha256"`
+	TriggerBackend   string          `json:"trigger_backend,omitempty"`
 	Memory           json.RawMessage `json:"memory"`
 	CaptureID        string          `json:"capture_id"`
 	EventID          int             `json:"event_id"`
@@ -75,6 +76,8 @@ type ProbeCaptureReceipt struct {
 	Version              int                     `json:"version"`
 	SourceSHA256         string                  `json:"source_sha256"`
 	PadSourceSHA256      string                  `json:"pad_source_sha256"`
+	TriggerBackend       string                  `json:"trigger_backend,omitempty"`
+	X11Effect            *ProbeX11Effect         `json:"x11_effect,omitempty"`
 	CaptureID            string                  `json:"capture_id"`
 	EventID              int                     `json:"event_id"`
 	Checkpoint           int                     `json:"checkpoint"`
