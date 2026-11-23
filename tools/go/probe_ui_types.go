@@ -27,6 +27,14 @@ type ProbeUIWidget struct {
 	Unsupported                      bool    `json:"unsupported,omitempty"`
 }
 
+// ProbeUIChoice preserves the effective choice and its same-read source. Headers
+// retain the raw game word even when a visible menu cursor is authoritative.
+type ProbeUIChoice struct {
+	Source    string         `json:"source"`
+	Selection *uint64        `json:"selection"`
+	Widget    *ProbeUIWidget `json:"widget,omitempty"`
+}
+
 type ProbeUIState struct {
 	AdmissionSHA256 string            `json:"admission_sha256"`
 	Session         string            `json:"session"`
@@ -36,6 +44,7 @@ type ProbeUIState struct {
 	Saved           ProbeSavedState   `json:"saved"`
 	PlayerRecords   [][]byte          `json:"player_records"`
 	Widgets         []ProbeUIWidget   `json:"widgets"`
+	YesNo           *ProbeUIChoice    `json:"yesno,omitempty"`
 	BoardAIReady    bool              `json:"board_ai_ready"`
 	Reads           int               `json:"reads"`
 	Unsupported     []string          `json:"unsupported"`

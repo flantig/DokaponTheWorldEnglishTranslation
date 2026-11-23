@@ -349,5 +349,15 @@ func readProbeUI(plan ProbeUIPlan, runtime ProbeMemoryRuntime) (ProbeUIState, er
 			}
 		}
 	}
+	if state.Headers["mc_dialog"] != 0 {
+		selection := state.Headers["yesno"]
+		state.YesNo = &ProbeUIChoice{Source: "header", Selection: &selection}
+		for _, widget := range state.Widgets {
+			if !widget.Unsupported && widget.Flags&3 == 1 && widget.Text == "YesNo" && widget.Selection != nil && *widget.Selection <= 1 {
+				state.YesNo = &ProbeUIChoice{Source: "visible_widget", Selection: widget.Selection, Widget: &widget}
+				break
+			}
+		}
+	}
 	return state, nil
 }

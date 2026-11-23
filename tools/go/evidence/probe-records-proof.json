@@ -2303,6 +2303,102 @@
       "probe": "2/6",
       "full_families": "13/15"
     },
-    "source_pins_scope": "Current PUBLIC projection only; private review route/files, reconciliation fields and other overlays are excluded"
+    "source_pins_scope": "Current PUBLIC projection only; private review route/files, reconciliation fields and other overlays are excluded Those recorded sampler pins belong to published commit 764482ef8524860d35fff1cfa8676671f3dae0e0; later shared-save member pins are assessed separately."
+  },
+  "shared_save_offline_assessment": {
+    "at": "2026-11-23T00:51:48.930Z",
+    "base_commit": "764482ef8524860d35fff1cfa8676671f3dae0e0",
+    "scope": "Platform-neutral save-dialog decisions, verified on controlled Linux fixtures and saved observations only",
+    "source_pins": {
+      "probe_ui.go": "aac3f88d1067e3c89700f1100efab036a0b54c23f1409a97f10a149576407a11",
+      "probe_ui_types.go": "656b939b63b19e5302c5f0c0710634abc2128fd5263983264651653389a899ba",
+      "probe_lifecycle.go": "58b63befb549adde871ab89a324b942aa67fd3651b92c546a143250077c81939",
+      "probe_evidence.go": "05e0d3af2ae6e7fa79022abff43643851ce38cfb6eccefd5544fed9665f32680",
+      "probe_lifecycle_test.go": "d9076e65e55b5829f2a38efb5ce739e72e9e306c0d96f4cd1678ef5fbab1360f",
+      "probe_records_test.go": "3055f8b039fbb33cb304da6f6db785f52a015944f6ee39f36677e03b5099f0aa",
+      "docs/probe-records.md": "3252bf9f629a2b971e34b9d35ef20a263689879ea4615a67cd6607b5756d04f1"
+    },
+    "contract": [
+      "Preserve raw yesno header; effective *uint64 choice records explicit header or visible_widget source from the same read",
+      "Visible supported YesNo selection0..1 outranks the header; serialized choice and prompt indices must be disjoint",
+      "Omitted legacy observations retain header-only semantics; no schema or runtime status added",
+      "Repeat acknowledged file selection at most5times only on the requested slot before any dialog; unknown ACK, drift or deadline ends the transaction"
+    ],
+    "verification": {
+      "runner": "Retained newly compiled merged test binary",
+      "binary_sha256": "da4b661d4e4111798c446923f5e569b346bd42ce2f4e76019bffa80f59aac9e8",
+      "source_manifest_sha256": "007fd8b33fa3f1b7cd348849185696360a5bcf354422cd6298a032dab67bf8ec",
+      "records": {
+        "status": "PASS",
+        "seconds": 6.14,
+        "arguments": [
+          "-test.run",
+          "^TestProbeRecords$",
+          "-test.count=1",
+          "-test.timeout=2m"
+        ],
+        "log_sha256": "d46eef552d59ca9aa898bf36ceae2059db8eaa3b7b4fdfcd6da5bb5d8acaf729",
+        "scope": "Existing Records suite plus14 synthetic saved-choice cases, including explicit same-index refusal; no live runtime authenticity."
+      },
+      "save_dialog": {
+        "status": "PASS",
+        "seconds": 388.89,
+        "arguments": [
+          "-test.run",
+          "^TestProbeLifecycle$/^save-dialog$",
+          "-test.count=1",
+          "-test.timeout=8m"
+        ],
+        "log_sha256": "0dccdc805e72897e0272fbb47c5343c0c055ddfda61fa3c353b0bc8dd388b887",
+        "scope": "All10 controlled Linux fixture rows, including Save then warmLoad with3/3 acknowledged selection counts; existing per-transaction deadlines unchanged."
+      },
+      "build_vet": {
+        "core": "PASS",
+        "nativefonts": "PASS"
+      },
+      "static": "gofmt, scoped whitespace, source stability, credential patterns and exact base-preservation inverse PASS",
+      "full_suite": "NOT_RUN",
+      "race_suite": "NOT_RUN",
+      "native": "NOT_RUN",
+      "windows": "NOT_RUN",
+      "whole_story": "NOT_RUN"
+    },
+    "accounting": {
+      "assessment": "analysis/go-current-input-accounting.json#latest_shared_save_increment",
+      "sha256": "ce9ab78b3d5250eec5c7aa718c19bca3296014de47de8070c3c21e6d7ea1be3e",
+      "owned_increment": {
+        "production_go_bytes": 2826,
+        "production_go_files": 0,
+        "named_functions": 0,
+        "new_types": 1,
+        "go_test_bytes": 16020,
+        "module_bytes": 0,
+        "recipe_bytes": 0,
+        "contract_doc_bytes": 1017,
+        "readme_bytes": 594
+      }
+    },
+    "reuse": {
+      "owners": [
+        "readProbeUI",
+        "runProbeLifecycle",
+        "reportProbeEvidence",
+        "TestProbeLifecycle",
+        "TestProbeRecords"
+      ],
+      "new_functions": 0,
+      "new_types": 1,
+      "new_dependencies": 0
+    },
+    "independent_review": "Component f434e5f65f042d5d3bb0099defdc2327925d145fedd7017170d7cd8641d67abc and exact guard621e5c47e39b5f55dc5e114d0d26ce8f471955d04336ce84d54b5a7814bab29c were reviewed; final exact integration review belongs to the publication receipt.",
+    "base_preservation": "Reversing the pure reviewed feature through an owned alternate index yields exact base tree f61d3298c8e95e18cb91d81860dc2c78f11bc547, preserving Linux crash/listener/70s fixture changes and all prior metadata.",
+    "criterion_credit": 0,
+    "family_credit": 0,
+    "scores_unchanged": "85/90, probe2/6,13/15Full",
+    "remaining": [
+      "Native Windows/Linux emulator and input qualification",
+      "Full stories, soak, resource agreement and handover",
+      "Complete410 responsibility proof and broader input accounting reconciliation"
+    ]
   }
 }

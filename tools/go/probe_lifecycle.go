@@ -669,12 +669,14 @@ func runProbeLifecycle(raw []byte) (ProbeLifecycleReport, error) {
 	var scenarioUI ProbeUIState
 	scenarioActor, originalControl := -1, uint32(0)
 	fileSelected, saveCompleted := false, false
+	fileDialogSeen, fileSelectionRetries := false, 0
 	var scenarioDeadline time.Time
 	checkpointNumber, acceptedCheckpoint := 0, 0
 	checkpointFileIndex := 1
 	pendingPromptKind := ""
 	var pendingPrompt *ProbeUIWidget
 	var pendingPromptHeaders map[string]uint64
+	var pendingPromptYesNo *ProbeUIChoice
 	seenPromptWitness := map[string]bool{}
 	scenarioFileIndex := 1
 	if profile.Scenario != nil {
@@ -1252,6 +1254,7 @@ requests:
 				}
 				if effect != "acquire-board" {
 					fileSelected = false
+					fileDialogSeen, fileSelectionRetries = false, 0
 					if effect == "qualify-resave" {
 						saveCompleted = false
 					}
@@ -1328,6 +1331,7 @@ requests:
 				preparationAcknowledged = false
 				scenarioSaved = nil
 				fileSelected, saveCompleted = false, false
+				fileDialogSeen, fileSelectionRetries = false, 0
 				step.UI = &scenarioUI
 			case "takeover-control", "restore-control", "boot-handoff":
 				if processes.Native == nil || scenarioActor < 0 || scenarioActor >= 4 || len(scenarioAdmission) == 0 {
@@ -1817,6 +1821,9 @@ requests:
 						break actions
 					}
 					if ui.Headers["mc_dialog"] != 0 {
+						if fileSelected {
+							fileDialogSeen = true
+						}
 						var prompt *ProbeUIWidget
 						for index := range ui.Widgets {
 							if uint64(ui.Widgets[index].Index) == ui.Headers["message_widget"] && !ui.Widgets[index].Unsupported {
@@ -1835,7 +1842,7 @@ requests:
 						}
 						if profile.Scenario.Recipe != "" {
 							kind := ""
-							if effect == "card-save" && strings.HasPrefix(prompt.Text, "OverwriteFile") && ui.Headers["yesno"] == 0 {
+							if effect == "card-save" && strings.HasPrefix(prompt.Text, "OverwriteFile") && ui.YesNo != nil && *ui.YesNo.Selection == 0 {
 								kind = "overwrite-confirmed"
 							}
 							if effect == "card-save" && strings.HasPrefix(prompt.Text, "Newdatawascreated") && prompt.Ready == 1 {
@@ -1846,6 +1853,7 @@ requests:
 								observed := *prompt
 								pendingPrompt = &observed
 								pendingPromptHeaders = map[string]uint64{"mode": ui.Headers["mode"], "mc_dialog": ui.Headers["mc_dialog"], "yesno": ui.Headers["yesno"], "message_widget": ui.Headers["message_widget"]}
+								pendingPromptYesNo = ui.YesNo
 								repeatEffect = true
 								break
 							}
@@ -1857,7 +1865,7 @@ requests:
 								step.Reason = err.Error()
 								break actions
 							}
-						} else if question && ui.Headers["yesno"] != 0 {
+						} else if question && ui.YesNo != nil && *ui.YesNo.Selection != 0 {
 							command = "UP"
 						} else if question || prompt.Ready == 1 {
 							if strings.HasPrefix(prompt.Text, "Savecomplete.") {
@@ -1884,8 +1892,14 @@ requests:
 						}
 						if fileSelected {
 							if effect != "card-save" || !saveCompleted {
-								step.Reason = "source file selection returned without Save completion"
-								break actions
+								if fileDialogSeen || fileSelectionRetries >= 5 || *menu.Selection != uint64(row.FileIndex) {
+									step.Reason = "source file selection returned without Save completion"
+									break actions
+								}
+								fileSelectionRetries++
+								command = "CIRCLE"
+								repeatEffect = true
+								break
 							}
 							saved := ui.Saved
 							scenarioSaved = &saved
@@ -1931,6 +1945,7 @@ requests:
 						}
 						if selectingFile {
 							fileSelected = true
+							fileDialogSeen, fileSelectionRetries = false, 0
 						}
 						if effect == "ack-preparation-image" {
 							preparationAcknowledged = true
@@ -2043,6 +2058,7 @@ requests:
 					if isPrompt {
 						event["prompt"] = pendingPrompt
 						event["prompt_headers"] = pendingPromptHeaders
+						event["prompt_yesno"] = pendingPromptYesNo
 					}
 					if effect != "capture-save" {
 						event["state"] = step.UI.Saved

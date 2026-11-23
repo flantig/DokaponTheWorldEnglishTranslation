@@ -14,6 +14,7 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io"
+	"maps"
 	"net"
 	"os"
 	"os/exec"
@@ -168,6 +169,15 @@ func TestProbeLifecycleChild(t *testing.T) {
 		expires = time.Now().Add(600 * time.Second)
 	}
 	scenarioStage, boardCursor, tabCursor, fileCursor, eventOffset := 0, 0, 0, 0, 0
+	choiceVariant := ""
+	for _, argument := range os.Args {
+		if strings.HasPrefix(argument, "save-dialog-") {
+			choiceVariant = strings.TrimPrefix(argument, "save-dialog-")
+		}
+	}
+	fileSelectionAttempts := 0
+	fileLoadAttempts := 0
+	ackInjected := false
 	scenarioControl := byte(1)
 	activeActor := 0
 	frameCurrentReads := 0
@@ -398,7 +408,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 							fileCursor += delta
 						case 8:
 							titleCursor += delta
-						case 21, 23:
+						case 3, 21, 23:
 							yesNoCursor = uint32(int(yesNoCursor) + delta)
 						}
 					}
@@ -439,8 +449,19 @@ func TestProbeLifecycleChild(t *testing.T) {
 								}
 							case 2:
 								if fileCursor == expectedFile {
+									fileSelectionAttempts++
+									_ = os.WriteFile(filepath.Join(root, "file-selection-attempts.txt"), []byte(strconv.Itoa(fileSelectionAttempts)), 0600)
+									if choiceVariant == "retry-bound" || (choiceVariant == "delayed-selection" || choiceVariant == "shifted-cursor") && fileSelectionAttempts <= 2 {
+										if choiceVariant == "shifted-cursor" {
+											fileCursor = 0
+										}
+										break
+									}
 									scenarioStage = 3
 									yesNoCursor = 0
+									if choiceVariant == "header-yes-widget-no" {
+										yesNoCursor = 1
+									}
 									if sequenceRun > 0 {
 										card, _ := os.ReadFile(filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2"))
 										offset := 8 + fileCursor*2052
@@ -451,6 +472,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 									}
 								}
 							case 3:
+								if choiceVariant == "header-yes-widget-no" && yesNoCursor != 0 {
+									t.Fatal("card confirmation ignored visible No cursor")
+								}
+								if choiceVariant == "header-no-widget-yes" && yesNoCursor != 0 {
+									t.Fatal("stale No header moved the visible Yes cursor")
+								}
+								if choiceVariant == "dialog-return" {
+									scenarioStage = 2
+									break
+								}
 								if paired {
 									cardPath := filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2")
 									card, err := os.ReadFile(cardPath)
@@ -493,6 +524,13 @@ func TestProbeLifecycleChild(t *testing.T) {
 								}
 							case 9:
 								if fileCursor == expectedFile {
+									if choiceVariant == "delayed-selection" {
+										fileLoadAttempts++
+										_ = os.WriteFile(filepath.Join(root, "file-load-attempts.txt"), []byte(strconv.Itoa(fileLoadAttempts)), 0600)
+										if fileLoadAttempts <= 2 {
+											break
+										}
+									}
 									if paired && peerPreviewSamples != 40 {
 										t.Fatalf("Load before all40 successful preview exchanges: %d", peerPreviewSamples)
 									}
@@ -579,6 +617,30 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				memory := map[uint32]byte{}
+				if choiceVariant == "unknown-ack" && scenarioStage == 2 && fileCursor == expectedFile && !ackInjected {
+					ackInjected = true
+					padPath := filepath.Join(root, "pad.sock")
+					originalPath := filepath.Join(root, "pad-original.sock")
+					if err := os.Rename(padPath, originalPath); err != nil {
+						t.Fatal(err)
+					}
+					peer, err := net.ListenUnix("unix", &net.UnixAddr{Name: padPath, Net: "unix"})
+					if err != nil {
+						t.Fatal(err)
+					}
+					go func() {
+						connection, err := peer.AcceptUnix()
+						if err == nil {
+							_ = connection.SetDeadline(time.Now().Add(2 * time.Second))
+							command, _ := io.ReadAll(io.LimitReader(connection, 257))
+							_ = os.WriteFile(filepath.Join(root, "unknown-ack-command.txt"), command, 0600)
+							_, _ = io.WriteString(connection, "unknown\n")
+							_ = connection.Close()
+						}
+						_ = peer.Close()
+						_ = os.Rename(originalPath, padPath)
+					}()
+				}
 				if newGame && scenarioStage == 24 && len(payload) == 5 && binary.LittleEndian.Uint32(payload[1:]) == 0x56581c {
 					introSamples++
 				}
@@ -748,11 +810,29 @@ func TestProbeLifecycleChild(t *testing.T) {
 						memory[0x57010c+uint32(b)] = byte(uint32(2) >> (8 * b))
 					}
 				}
+				if scenarioStage == 3 && choiceVariant != "" {
+					if choiceVariant == "header-yes-widget-no" {
+						memory[0x579ba6] = 0
+					}
+					if choiceVariant == "header-no-widget-yes" {
+						memory[0x579ba6] = 1
+					}
+					if choiceVariant != "missing-widget" && choiceVariant != "delayed-selection" && choiceVariant != "dialog-return" {
+						texts[3] = "YesNo"
+						selections[3] = int(yesNoCursor)
+						if choiceVariant == "invalid-widget" {
+							selections[3] = 2
+						}
+					}
+				}
 				for widget, text := range texts {
 					base := uint32(0x5657a0 + 196*widget)
 					glyphs := uint32(0x300000 + widget*0x10000)
 					nodes := uint32(0x500000 + widget*0x10000)
 					memory[base] = 1
+					if widget == 3 && choiceVariant == "hidden-widget" {
+						memory[base] = 3
+					}
 					memory[base+0x48] = ready[widget]
 					for address, word := range map[uint32]uint32{base + 0x70: sources[widget], base + 0x94: glyphs} {
 						for b := 0; b < 4; b++ {
@@ -1202,6 +1282,118 @@ func TestProbeLifecycle(t *testing.T) {
 		}
 	}
 	t.Setenv("DOKAPON_PROBE_LIFECYCLE_CHILD", "1")
+	t.Run("save-dialog", func(t *testing.T) {
+		glyphs := map[string]string{}
+		for character := 32; character < 127; character++ {
+			glyphs[strconv.Itoa(character)] = string(rune(character))
+		}
+		glyphRaw, _ := json.Marshal(glyphs)
+		glyphPath := filepath.Join(sources, "save-dialog-glyphmap.json")
+		if err := os.WriteFile(glyphPath, glyphRaw, 0400); err != nil {
+			t.Fatal(err)
+		}
+		card, err := os.ReadFile("testdata/probe-paired-card-initial.bin")
+		if err != nil {
+			t.Fatal(err)
+		}
+		cardPath := filepath.Join(sources, "save-dialog-card.bin")
+		if err := os.WriteFile(cardPath, card, 0400); err != nil {
+			t.Fatal(err)
+		}
+		for index, row := range []struct {
+			Name, Reason, Source string
+			Attempts             int
+			Header, Selection    uint64
+			Load                 bool
+		}{
+			{Name: "header-yes-widget-no", Source: "visible_widget", Attempts: 1, Selection: 1},
+			{Name: "header-no-widget-yes", Source: "visible_widget", Attempts: 1, Header: 1},
+			{Name: "missing-widget", Source: "header", Attempts: 1},
+			{Name: "invalid-widget", Source: "header", Attempts: 1},
+			{Name: "hidden-widget", Source: "header", Attempts: 1},
+			{Name: "delayed-selection", Attempts: 3, Load: true},
+			{Name: "shifted-cursor", Attempts: 1, Reason: "source file selection returned without Save completion"},
+			{Name: "retry-bound", Attempts: 6, Reason: "source file selection returned without Save completion"},
+			{Name: "dialog-return", Attempts: 1, Reason: "source file selection returned without Save completion"},
+			{Name: "unknown-ack", Reason: "source input acknowledgement unknown"},
+		} {
+			t.Run(row.Name, func(t *testing.T) {
+				candidate := profile
+				candidate.Root = filepath.Join(root, fmt.Sprintf("dialog-%d", index))
+				if err := os.Mkdir(candidate.Root, 0700); err != nil {
+					t.Fatal(err)
+				}
+				candidate.ProgramArgs = append(slices.Clone(profile.ProgramArgs), "scenario-first-save", "save-dialog-"+row.Name)
+				candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, MaxUIReads: 4096}
+				operations := []string{"initial", "scenario", "stop"}
+				countFile := "file-selection-attempts.txt"
+				if row.Load {
+					candidate.ReadyTimeoutMS = 10000
+					candidate.ProgramArgs = append(candidate.ProgramArgs, "scenario-paired")
+					candidate.Inputs = maps.Clone(profile.Inputs)
+					candidate.Inputs["card"] = RegistryInput{Path: cardPath, Size: int64(len(card)), SHA256: fmt.Sprintf("%x", sha256.Sum256(card))}
+					operations = []string{"initial", "scenario", "warm-load", "load", "stop"}
+					countFile = "file-load-attempts.txt"
+				}
+				candidate.Requests = nil
+				for ordinal, operation := range operations {
+					candidate.Requests = append(candidate.Requests, ProbeLifecycleRequest{Session: profile.Session, Operation: operation, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", ordinal+1, operation)})
+				}
+				input, _ := json.Marshal(candidate)
+				result, err := runProbeLifecycle(input)
+				status := "COMPLETED"
+				if row.Reason != "" {
+					status = "INCOMPLETE"
+				}
+				if err != nil || result.Status != status || len(result.Steps) != len(operations) || result.Steps[1].Reason != row.Reason || result.Steps[len(result.Steps)-1].Status != "COMPLETED" {
+					t.Fatalf("save dialog lifecycle: %+v %v", result, err)
+				}
+				attempts, readErr := os.ReadFile(filepath.Join(candidate.Root, countFile))
+				if row.Attempts == 0 {
+					if !os.IsNotExist(readErr) {
+						t.Fatal("unknown acknowledgement was retried", string(attempts), readErr)
+					}
+					command, err := os.ReadFile(filepath.Join(candidate.Root, "unknown-ack-command.txt"))
+					if err != nil || string(command) != "tap CIRCLE 0.1" {
+						t.Fatal("uncertain selection did not reach the controlled peer once", string(command), err)
+					}
+				} else if readErr != nil || string(attempts) != strconv.Itoa(row.Attempts) {
+					t.Fatal("selection retry count", string(attempts), readErr)
+				}
+				if row.Load {
+					attempts, err := os.ReadFile(filepath.Join(candidate.Root, "file-selection-attempts.txt"))
+					if err != nil || string(attempts) != "3" {
+						t.Fatal("first transaction did not require its two acknowledged retries", string(attempts), err)
+					}
+				}
+				if row.Source != "" {
+					entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
+					if err != nil {
+						t.Fatal(err)
+					}
+					observed := false
+					for _, entry := range entries {
+						if !strings.Contains(entry.Name(), "-card-save") || !strings.HasSuffix(entry.Name(), ".complete.json") {
+							continue
+						}
+						data, _ := os.ReadFile(filepath.Join(candidate.Root, "receipts", entry.Name()))
+						var effect ProbeLifecycleEffect
+						var step ProbeLifecycleStep
+						if json.Unmarshal(data, &effect) != nil || json.Unmarshal(effect.Details, &step) != nil || step.UI == nil {
+							t.Fatal("missing actual acquired UI receipt")
+						}
+						choice := step.UI.YesNo
+						if choice != nil && choice.Source == row.Source && choice.Selection != nil && *choice.Selection == row.Selection && step.UI.Headers["yesno"] == row.Header {
+							observed = true
+						}
+					}
+					if !observed {
+						t.Fatal("same-read effective choice or unchanged raw header missing")
+					}
+				}
+			})
+		}
+	})
 	// Storage has no scenario/UI transaction. Keep it selectable without replaying
 	// the long baseline or three-story cohort; child and input setup stay shared.
 	t.Run("storage", func(t *testing.T) {
@@ -3559,7 +3751,16 @@ func TestProbeLifecycle(t *testing.T) {
 				for _, value := range normalized["events"].([]any) {
 					row := value.(map[string]any)
 					row["offset"] = float64(0)
-					row["data"].(map[string]any)["time"] = "NORMALIZED_TIME"
+					data := row["data"].(map[string]any)
+					data["time"] = "NORMALIZED_TIME"
+					if data["event"] == "card-data-created" || data["event"] == "overwrite-confirmed" {
+						choice, ok := data["prompt_yesno"].(map[string]any)
+						if !ok || choice["source"] != "header" || choice["selection"] != data["prompt_headers"].(map[string]any)["yesno"] || choice["widget"] != nil {
+							t.Fatal("current header-source prompt observation differs", data)
+						}
+						// The frozen oracle predates the additive source observation.
+						delete(data, "prompt_yesno")
+					}
 				}
 				for _, value := range normalized["captures"].([]any) {
 					value.(map[string]any)["receipt_sha256"] = "NORMALIZED_RECEIPT_SHA256"

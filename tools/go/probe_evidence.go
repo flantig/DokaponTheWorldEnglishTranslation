@@ -94,6 +94,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		Mode           *uint64           `json:"mode,omitempty"`
 		Prompt         *ProbeUIWidget    `json:"prompt,omitempty"`
 		PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
+		PromptYesNo    *ProbeUIChoice    `json:"prompt_yesno,omitempty"`
 	}
 	eventCheckpoint := map[int]int{}
 	var ordinaryEvents map[int]ProbeCaptureEvent
@@ -119,9 +120,29 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			Mode           *uint64           `json:"mode,omitempty"`
 			Prompt         *ProbeUIWidget    `json:"prompt,omitempty"`
 			PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
+			PromptYesNo    *ProbeUIChoice    `json:"prompt_yesno,omitempty"`
 		}
 		if err := json.Unmarshal(saved.Data, &event); err != nil {
 			return report, err
+		}
+		if choice := event.PromptYesNo; choice != nil {
+			if choice.Selection == nil {
+				return report, fmt.Errorf("prompt YesNo observation lacks its effective selection")
+			}
+			switch choice.Source {
+			case "header":
+				selection, present := event.PromptHeaders["yesno"]
+				if choice.Widget != nil || !present || *choice.Selection != selection {
+					return report, fmt.Errorf("prompt YesNo header observation differs")
+				}
+			case "visible_widget":
+				widget := choice.Widget
+				if widget == nil || widget.Index < 0 || widget.Index >= 20 || widget.Unsupported || widget.Flags&3 != 1 || widget.Text != "YesNo" || widget.Selection == nil || *widget.Selection > 1 || *choice.Selection != *widget.Selection || event.Prompt != nil && widget.Index == event.Prompt.Index {
+					return report, fmt.Errorf("prompt YesNo visible widget observation differs")
+				}
+			default:
+				return report, fmt.Errorf("unknown prompt YesNo observation source")
+			}
 		}
 		if saved.Offset < 0 || saved.Offset < previousEnd || event.EventID <= previousID || event.Checkpoint < previousCheckpoint || event.Event == "" {
 			return report, fmt.Errorf("probe evidence events must preserve distinct IDs, checkpoint order and nonoverlapping source offsets")
@@ -1031,9 +1052,15 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 			}
 			_, hasYesNo := event.PromptHeaders["yesno"]
 			_, hasMessage := event.PromptHeaders["message_widget"]
+			// Historical receipts have only the raw header. New observations must
+			// justify their source instead of silently rewriting that raw word.
+			yesNo := event.PromptHeaders["yesno"]
+			if choice := event.PromptYesNo; choice != nil {
+				yesNo = *choice.Selection
+			}
 			if event.Prompt != nil && hasYesNo && hasMessage && !event.Prompt.Unsupported && event.Prompt.Flags&3 == 1 && event.PromptHeaders["mode"] == 0x2e0 && event.PromptHeaders["mc_dialog"] != 0 && event.PromptHeaders["message_widget"] == uint64(event.Prompt.Index) {
 				created = created || event.Event == "card-data-created" && strings.HasPrefix(event.Prompt.Text, "Newdatawascreated") && event.Prompt.Ready == 1
-				overwritten = overwritten || event.Event == "overwrite-confirmed" && strings.HasPrefix(event.Prompt.Text, "OverwriteFile") && event.PromptHeaders["yesno"] == 0
+				overwritten = overwritten || event.Event == "overwrite-confirmed" && strings.HasPrefix(event.Prompt.Text, "OverwriteFile") && yesNo == 0
 			}
 			if event.EventID == bundle.Story.TerminalEventID && event.Event == "story-target-reached" && event.State != nil {
 				_, captured := capturedEvents[event.EventID]

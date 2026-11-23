@@ -1,5 +1,9 @@
 # Offline probe records
 
+Card questions preserve the raw `headers.yesno` word. The UI reader separately records `yesno` with an effective `selection` and explicit `source`: a supported, visible `YesNo` widget with a cursor in0..1 takes precedence; otherwise the current header is the source. New prompt witnesses carry that same-read observation in `prompt_yesno`, including the widget snapshot when applicable. The saved-evidence verifier validates these facts before using the effective choice for overwrite credit. Historical witnesses that omit `prompt_yesno` retain their header-only contract.
+
+An acknowledged file selection may repeat Circle at most five times while the current menu still points to the requested slot and no dialog has appeared. Cursor drift, a returned dialog, an expired transaction or an uncertain input acknowledgement prevents another selection. A fresh acknowledged selection resets its dialog/retry state. These rules are shared across platforms; they do not qualify native Windows or Linux runtime behavior.
+
 `--probe-records bundle.json` reads one immutable bundle (maximum1MiB) and emits a deterministic linkage report. It rejects all other operation, input and write arguments. It never opens the paths claimed inside records, reads process memory or controls a runtime.
 
 Import version1, `text-probe-legacy-2026-11-13`, pins `text_probe_run.py` source5439db31097c19d3b92969d5403c2c19dc3518cea4ed4c075df1a3830b8ef56f. This versions the offline import format, not a field in historical Python records. `testdata/probe-records.json` is the complete sanitized example and independent expected-case table.

@@ -2350,6 +2350,151 @@ func TestProbeRecords(t *testing.T) {
 	if err != nil || len(crossBaseline.Captures) != 2 || crossBaseline.Captures[0].Status != "ACCEPTED" || crossBaseline.Captures[1].Status != "ACCEPTED" {
 		t.Fatal("valid raw cross-epoch baseline", err)
 	}
+	// Saved consumer scaffold only: retain the independent paired events and
+	// image facts, then bind a synthetic overwrite/terminal to their Go lineage.
+	var story ProbeEvidenceBundle
+	if json.Unmarshal(crossRaw, &story) != nil {
+		t.Fatal("saved story lacks its paired scaffold")
+	}
+	story.Cohort = "go-story-checkpoints-v1"
+	story.Story = &ProbeStoryFacts{Recipe: "new-game-overwrite", Phase: "complete", TerminalEventID: 12}
+	captureTemplates := story.Captures
+	story.Captures = nil
+	for _, id := range []int{1, 3, 4, 6, 7, 8, 9, 12} {
+		index := 0
+		if id >= 6 {
+			index = 1
+		}
+		capture := captureTemplates[index]
+		capture.Receipt.CaptureID, capture.Receipt.EventID = fmt.Sprintf("saved-story-%d", id), id
+		capture.Receipt.ImagePath = capture.Receipt.CaptureID + ".png"
+		story.Captures = append(story.Captures, capture)
+	}
+	for index := range story.Captures {
+		capture := &story.Captures[index]
+		var records ProbeRecordBundle
+		if json.Unmarshal(capture.Admission, &records) != nil {
+			t.Fatal("saved story capture admission")
+		}
+		records.GoOwner.Profile.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Recipe: "new-game-overwrite"}
+		operation := ""
+		switch capture.Receipt.EventID {
+		case 1:
+			operation = "newgame"
+		case 3, 4:
+			operation = "warm-load"
+		case 6, 7:
+			operation = "cold-load"
+		case 8, 9:
+			operation = "load"
+		case 12:
+			operation = "restore"
+		}
+		request := ProbeLifecycleRequest{Session: records.GoOwner.Profile.Session, Phase: "requested", Nonce: fmt.Sprintf("%d-%s", capture.Receipt.EventID, operation), Operation: operation}
+		records.GoOwner.Profile.Requests = []ProbeLifecycleRequest{request}
+		records.GoOwner.Step.Request, records.GoOwner.Step.Effects = request, actionFacts.Actions[operation].Effects
+		facts := records.GoOwner.Profile
+		facts.Requests = nil
+		factsRaw, _ := json.Marshal(facts)
+		records.GoOwner.Step.ProfileSHA256 = fmt.Sprintf("%x", sha256.Sum256(factsRaw))
+		capture.Admission, _ = json.Marshal(records)
+		before, after := *capture.Receipt.MemoryBefore, *capture.Receipt.MemoryAfter
+		capture.Receipt.MemoryBefore, capture.Receipt.MemoryAfter = &before, &after
+		for _, memory := range []*ProbeMemoryReport{capture.Receipt.MemoryBefore, capture.Receipt.MemoryAfter} {
+			memory.SessionEvidenceSHA256 = fmt.Sprintf("%x", sha256.Sum256(capture.Admission))
+		}
+		story.Admission = bytes.Clone(capture.Admission)
+	}
+	var lastEvent map[string]any
+	if json.Unmarshal(story.Events[len(story.Events)-1].Data, &lastEvent) != nil {
+		t.Fatal("saved story terminal source")
+	}
+	for index := range story.Events {
+		var event map[string]any
+		_ = json.Unmarshal(story.Events[index].Data, &event)
+		event["slot"] = 0
+		story.Events[index].Data, _ = json.Marshal(event)
+	}
+	witness := map[string]any{"event": "overwrite-confirmed", "event_id": 11, "checkpoint": 1, "time": "2026-11-16T00:00:00+0000", "slot": 0, "prompt": map[string]any{"index": 2, "Flags": 1, "text": "OverwriteFile1"}, "prompt_headers": map[string]uint64{"mode": 0x2e0, "mc_dialog": 1, "yesno": 0, "message_widget": 2}}
+	witnessRaw, _ := json.Marshal(witness)
+	story.Events = append(story.Events, ProbeEvidenceEvent{Data: witnessRaw})
+	lastEvent["event"], lastEvent["event_id"], lastEvent["slot"] = "story-target-reached", 12, 0
+	lastEvent["state"].(map[string]any)["story"] = 50
+	terminalRaw, _ := json.Marshal(lastEvent)
+	story.Events = append(story.Events, ProbeEvidenceEvent{Data: terminalRaw})
+	storyRaw, _ := json.Marshal(story)
+	for _, row := range []struct {
+		Name, Source, Fault, Status, Error string
+		Header, Selection                  uint64
+	}{
+		{Name: "historical header-only Yes", Status: "PASS"},
+		{Name: "historical header-only No", Header: 1, Status: "UNKNOWN"},
+		{Name: "current header fallback", Source: "header", Status: "PASS"},
+		{Name: "visible No beats raw Yes", Source: "visible_widget", Selection: 1, Status: "UNKNOWN"},
+		{Name: "visible Yes beats raw No", Source: "visible_widget", Header: 1, Status: "PASS"},
+		{Name: "choice overlaps prompt widget", Source: "visible_widget", Fault: "same-index", Error: "prompt YesNo visible widget observation differs"},
+		{Name: "hidden widget", Source: "visible_widget", Fault: "hidden", Error: "prompt YesNo visible widget observation differs"},
+		{Name: "unsupported widget", Source: "visible_widget", Fault: "unsupported", Error: "prompt YesNo visible widget observation differs"},
+		{Name: "invalid widget selection", Source: "visible_widget", Fault: "invalid", Error: "prompt YesNo visible widget observation differs"},
+		{Name: "missing widget selection", Source: "visible_widget", Fault: "missing-selection", Error: "prompt YesNo visible widget observation differs"},
+		{Name: "missing effective selection", Source: "visible_widget", Fault: "missing-effective", Error: "prompt YesNo observation lacks its effective selection"},
+		{Name: "effective source disagreement", Source: "visible_widget", Fault: "different-effective", Error: "prompt YesNo visible widget observation differs"},
+		{Name: "unknown source", Source: "unknown", Error: "unknown prompt YesNo observation source"},
+		{Name: "header disagreement", Source: "header", Header: 1, Error: "prompt YesNo header observation differs"},
+	} {
+		var candidate ProbeEvidenceBundle
+		_ = json.Unmarshal(storyRaw, &candidate)
+		var event map[string]any
+		_ = json.Unmarshal(candidate.Events[10].Data, &event)
+		event["prompt_headers"].(map[string]any)["yesno"] = row.Header
+		if row.Source != "" {
+			choice := map[string]any{"source": row.Source, "selection": row.Selection}
+			if row.Source == "visible_widget" {
+				widget := map[string]any{"index": 3, "Flags": 1, "text": "YesNo", "selection": row.Selection}
+				switch row.Fault {
+				case "same-index":
+					widget["index"] = 2
+				case "hidden":
+					widget["Flags"] = 3
+				case "unsupported":
+					widget["unsupported"] = true
+				case "invalid":
+					widget["selection"] = 2
+				case "missing-selection":
+					delete(widget, "selection")
+				case "missing-effective":
+					delete(choice, "selection")
+				case "different-effective":
+					choice["selection"] = 1
+				}
+				choice["widget"] = widget
+			}
+			event["prompt_yesno"] = choice
+		}
+		candidate.Events[10].Data, _ = json.Marshal(event)
+		var offset int64
+		for index := range candidate.Events {
+			event := &candidate.Events[index]
+			event.Offset = offset
+			offset += int64(len(event.Data))
+			var identity struct {
+				EventID int `json:"event_id"`
+			}
+			_ = json.Unmarshal(event.Data, &identity)
+			for captureIndex := range candidate.Captures {
+				receipt := &candidate.Captures[captureIndex].Receipt
+				if receipt.EventID == identity.EventID {
+					receipt.LogOffset, receipt.LogHex, receipt.LogSHA256 = event.Offset, hex.EncodeToString(event.Data), fmt.Sprintf("%x", sha256.Sum256(event.Data))
+				}
+			}
+		}
+		input, _ := json.Marshal(candidate)
+		before := bytes.Clone(input)
+		outcome, err := reportProbeEvidence(input)
+		if !bytes.Equal(input, before) || row.Error != "" && (err == nil || err.Error() != row.Error) || row.Error == "" && (err != nil || outcome.Status != row.Status) {
+			t.Fatalf("%s saved YesNo evidence: %s %v", row.Name, outcome.Status, err)
+		}
+	}
 	cross.FrameComparisons = []ProbeFrameComparison{{CaptureID: "frame-epoch-1", PreviousCaptureID: "frame-epoch-0"}}
 	crossRaw, _ = json.Marshal(cross)
 	if _, err := reportProbeEvidence(crossRaw); err == nil || err.Error() != "frame comparison crosses actual process/session/epoch identity" {
