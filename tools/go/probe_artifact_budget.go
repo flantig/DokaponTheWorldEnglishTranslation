@@ -180,6 +180,16 @@ func accountProbeArtifacts(budget *ProbeArtifactBudget, action ProbeArtifactActi
 			if settingsCandidate && (!budget.NativeSettings.Armed || !info.Mode().IsRegular()) {
 				return fmt.Errorf("native settings staging file is not admitted: %s", path)
 			}
+			if _, native := budget.NativeFiles[path]; native {
+				for _, name := range probeVulkanCacheFiles {
+					if entry.Name() == name {
+						parent := budget.Roots[directory]
+						if !info.Mode().IsRegular() || parent == nil || !os.SameFile(parent, visited[directory]) || parent.Mode().Perm() != 0700 {
+							return fmt.Errorf("native Vulkan cache is not its exclusive regular file and pinned parent: %s", path)
+						}
+					}
+				}
+			}
 			if info.IsDir() {
 				if _, snapshot := budget.SnapshotRoots[directory]; snapshot {
 					return fmt.Errorf("artifact snapshot root contains a directory")

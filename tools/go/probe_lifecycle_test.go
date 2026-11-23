@@ -1194,7 +1194,7 @@ func TestProbeLifecycle(t *testing.T) {
 	if json.Unmarshal(fields["native_settings"], &nativeSettings) != nil || json.Unmarshal(fields["native_settings_cases"], &nativeCases) != nil || len(nativeCases) != 30 {
 		t.Fatal("literal native settings oracle")
 	}
-	for _, version := range []string{"missing", "1", "blank", "0", "2", "case", "duplicate", "repeat-ui", "crlf", "prelaunch-cap"} {
+	for _, version := range []string{"missing", "1", "blank", "0", "2", "case", "duplicate", "repeat-ui", "crlf", "prelaunch-cap", "cache-grants"} {
 		row := nativeCases[0]
 		row.Name, row.Backend, row.From, row.To, row.Error = "flatpak-version-"+version, "event-sink", "", "", ""
 		row.Flatpak, row.PrivateSettings = true, version == "missing" || version == "1" || version == "repeat-ui" || version == "crlf"
@@ -1218,11 +1218,14 @@ func TestProbeLifecycle(t *testing.T) {
 			row.From, row.To, row.Reason = "[UI]\n", "[UI]\nSettingsVersion=1\n[UI]\n", "pad service failed: "
 		case "prelaunch-cap":
 			row.PrivateSettings, row.Reason = true, "effect completion publication failed"
+		case "cache-grants":
+			row.PrivateSettings, row.Reason = true, "artifact ordinary capacity exceeded"
 		}
 		nativeCases = append(nativeCases, row)
 	}
 	for _, row := range nativeCases {
 		prelaunchCap := row.Name == "flatpak-version-prelaunch-cap"
+		cacheGrants := row.Name == "flatpak-version-cache-grants"
 		candidate := profile
 		candidate.PadBackend = row.Backend
 		candidate.Root = t.TempDir()
@@ -1260,10 +1263,10 @@ func TestProbeLifecycle(t *testing.T) {
 				t.Fatal(err)
 			}
 			candidate.Root = filepath.Join(project, "generated", strings.Repeat("r", 96))
-			if prelaunchCap {
+			if prelaunchCap || cacheGrants {
 				candidate.Root = filepath.Join(project, "generated", "cap")
 			}
-			if !prelaunchCap && len(filepath.Join(candidate.Root, "pad.sock")) <= 107 {
+			if !prelaunchCap && !cacheGrants && len(filepath.Join(candidate.Root, "pad.sock")) <= 107 {
 				t.Fatal("preparation test must refuse before any launcher through the Unix pathname bound")
 			}
 			if err := os.Mkdir(candidate.Root, 0700); err != nil {
@@ -1276,6 +1279,11 @@ func TestProbeLifecycle(t *testing.T) {
 						t.Fatal(err)
 					}
 				}
+			}
+			if cacheGrants {
+				// All three actual launch grants exceed this ordinary partition;
+				// deleting one leaves enough room to reach the refused launcher.
+				candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 60, MaxRetainedFrames: 16, MaxManagedFiles: 64, MaxManagedBytes: 8*probeFinalizerArtifactBytes + 216<<20, MaxJournalBytes: 1 << 20}
 			}
 			iso := candidate.Inputs["iso"]
 			iso.Path = filepath.Join(project, "generated", "work", "source.iso")
@@ -1318,7 +1326,7 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			actual, err := os.ReadFile(filepath.Join(candidate.Root, "profile", "PCSX2", "inis", "PCSX2.ini"))
 			expectedEffects := []string{"prepare"}
-			if prelaunchCap {
+			if prelaunchCap || cacheGrants {
 				expectedEffects = append(expectedEffects, "pad")
 			}
 			proof := result.Steps[0].Evidence

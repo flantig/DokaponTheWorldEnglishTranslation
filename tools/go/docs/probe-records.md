@@ -162,6 +162,8 @@ The optional SDK uses `pkg-config` packages `xcb`, `xcb-res`, `xcb-xinput`,
 `xcb-xtest` and `x11`; the default build refuses this backend before effects.
 R3 completed native private-pad setup and emulator launch; its log reached game
 boot, but Go readiness, keys, F8 and capture remained unqualified.
+R4 subsequently completed Go readiness and retained its first ordinary sampled
+F8 witness. Native save/checkpoint and full criterion qualification remain pending.
 
 `private_x11` pins `display`, `authority` (path/size/SHA256), `server_program`
 (path/size/SHA256) and `server` (the actual Xephyr PID/start/argv observation).
@@ -190,7 +192,20 @@ Unstable reads, preexisting staging files and changed parent authority refuse.
 This is a cooperative exact-path contract, not proof of which process wrote an
 inode. Other native pins, immutable outputs and screenshot baselines stay strict.
 R3's prior INI guard and cascading socket publication refusal are preserved
-historical failures; this source change still needs a separately admitted native run.
+historical failures. R4 recorded its actual prepared writer digest and admitted
+the normalized runtime INI through readiness and the first ordinary sample.
+
+Sampled Flatpak launch also reserves exactly `vulkan_shaders.bin`,
+`vulkan_shaders.idx` and `vulkan_pipelines.bin` below the prepared private cache
+parent. PCSX2 2.8.2 appends shader/index records and truncates pipeline data in
+place. Each existing native reservation precharges16MiB (48MiB together), which
+is not a per-file limit; observed high-water bytes and the total run cap remain
+authoritative. Birth requires an owned exclusive regular file under the saved0700
+parent. Same-inode append/truncate is admitted; sockets, directories, replaced
+parents/inodes and changes to unrelated siblings refuse. Invalid-cache rebuilding
+that deletes/recreates an already pinned file remains refused. No renderer/cache
+setting is changed. R4's cache refusal and resulting stop-publication cascade stay
+historical evidence; the new exact grants still need a separately admitted native run.
 
 Before launch, the authenticated private-server connection disables the exact
 Xephyr physical keyboard/mouse forwarders. Setup binds their distinct IDs by

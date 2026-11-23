@@ -27,6 +27,10 @@ var probePadLayout []byte
 //go:embed profiles/probe/observations.json
 var probeObservationData []byte
 
+// PCSX2 2.8.2 Vulkan appends shader/index records and truncates pipeline data
+// in place. Invalid-cache deletion/recreation does not retain inode authority.
+var probeVulkanCacheFiles = [...]string{"vulkan_shaders.bin", "vulkan_shaders.idx", "vulkan_pipelines.bin"}
+
 // ProbeLifecycleProfile declares one pinned program and owned input roles.
 // The initial slice is a bounded direct-child transaction, not production handover.
 type ProbeLifecycleProfile struct {

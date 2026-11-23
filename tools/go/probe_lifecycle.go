@@ -2497,6 +2497,15 @@ requests:
 						step.Reason = err.Error()
 						break actions
 					}
+					if name == "cache" && profile.Flatpak != nil && artifactBudget != nil {
+						path := filepath.Join(dataRoot, name)
+						pin, err := os.Lstat(path)
+						if err != nil || !pin.IsDir() || pin.Mode().Perm() != 0700 {
+							step.Reason = "private cache parent is unavailable"
+							break actions
+						}
+						artifactBudget.Roots[path] = pin
+					}
 				}
 				copyRoles := []string{"settings", "bios", "card"}
 				for _, role := range roleOrder {
@@ -2636,7 +2645,13 @@ requests:
 						step.Reason = err.Error()
 						break actions
 					}
-					for _, path := range []string{filepath.Join(profile.Root, "peer.sock"), filepath.Join(profile.Root, fmt.Sprintf("child-epoch-%d.log", epoch)), filepath.Join(profileDir, "emulog.txt")} {
+					nativePaths := []string{filepath.Join(profile.Root, "peer.sock"), filepath.Join(profile.Root, fmt.Sprintf("child-epoch-%d.log", epoch)), filepath.Join(profileDir, "emulog.txt")}
+					if profile.Flatpak != nil {
+						for _, name := range probeVulkanCacheFiles {
+							nativePaths = append(nativePaths, filepath.Join(dataRoot, "cache", name))
+						}
+					}
+					for _, path := range nativePaths {
 						if prior := artifactBudget.NativeFiles[path]; prior != nil {
 							continue
 						}

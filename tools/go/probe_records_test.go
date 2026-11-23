@@ -30,7 +30,7 @@ import (
 )
 
 func TestProbeRecords(t *testing.T) {
-	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "retire-no-proof", "retire-wrong-inode", "retire-replaced", "retire-overage", "retire-overage-ordinary", "retire-before-launch", "directory-bound", "large-maxfiles", "settings-rename", "settings-temp", "settings-key", "settings-missing", "settings-extra", "settings-alias", "settings-parent", "settings-symlink", "settings-hardlink", "settings-size", "settings-rollback", "settings-temp-cap", "settings-pad-retire", "settings-prelaunch-temp", "settings-temp-dir"} {
+	for _, fault := range []string{"overlap", "append-shrink", "commit-no-proof", "commit-hash", "commit-inode", "release-present", "release-absent", "ordinary-files", "ordinary-bytes", "finalizer-files", "finalizer-bytes", "finalizer-reserved", "native-growth", "native-overflow", "native-settings", "symlink", "hardlink", "snapshot-release", "snapshot-commit", "snapshot-extra", "snapshot-baseline", "snapshot-unremoved", "finalizer-after-overage", "finalizer-after-files", "native-socket", "foreign-socket", "retire-no-proof", "retire-wrong-inode", "retire-replaced", "retire-overage", "retire-overage-ordinary", "retire-before-launch", "directory-bound", "large-maxfiles", "settings-rename", "settings-temp", "settings-key", "settings-missing", "settings-extra", "settings-alias", "settings-parent", "settings-symlink", "settings-hardlink", "settings-size", "settings-rollback", "settings-temp-cap", "settings-pad-retire", "settings-prelaunch-temp", "settings-temp-dir", "vulkan-growth", "vulkan-replace", "vulkan-directory", "vulkan-socket", "vulkan-sibling", "vulkan-parent"} {
 		root := t.TempDir()
 		if err := os.Chmod(root, 0700); err != nil {
 			t.Fatal(err)
@@ -235,6 +235,121 @@ func TestProbeRecords(t *testing.T) {
 			}
 			continue
 		}
+		if strings.HasPrefix(fault, "vulkan-") {
+			if !slices.Equal(probeVulkanCacheFiles[:], []string{"vulkan_shaders.bin", "vulkan_shaders.idx", "vulkan_pipelines.bin"}) {
+				t.Fatal("source Vulkan cache names differ")
+			}
+			budget.MaxFiles, budget.MaxBytes, budget.FinalizerFiles, budget.FinalizerBytes = 16, 128<<20, 2, 1<<20
+			cache := filepath.Join(root, "cache")
+			if err := os.Mkdir(cache, 0700); err != nil {
+				t.Fatal(err)
+			}
+			parent, err := os.Lstat(cache)
+			if err != nil {
+				t.Fatal(err)
+			}
+			budget.Roots[cache] = parent
+			for _, name := range probeVulkanCacheFiles {
+				path := filepath.Join(cache, name)
+				budget.NativeFiles[path] = nil
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, []ProbeArtifactClaim{{ID: "native:" + path, Path: path, Class: probeArtifactNative, MaxFinalBytes: 16 << 20}}); err != nil {
+					t.Fatal(err)
+				}
+			}
+			target := filepath.Join(cache, "vulkan_shaders.bin")
+			if fault == "vulkan-directory" || fault == "vulkan-socket" {
+				var listener *net.UnixListener
+				if fault == "vulkan-directory" {
+					err = os.Mkdir(target, 0700)
+				} else {
+					listener, err = net.ListenUnix("unix", &net.UnixAddr{Name: target, Net: "unix"})
+				}
+				if err != nil {
+					t.Fatal(err)
+				}
+				accountErr := accountProbeArtifacts(&budget, probeArtifactReserve, nil)
+				if listener != nil {
+					if err := listener.Close(); err != nil {
+						t.Fatal(err)
+					}
+				}
+				if accountErr == nil || budget.NativeFiles[target] != nil {
+					t.Fatal("nonregular native cache was admitted", fault, accountErr)
+				}
+				continue
+			}
+			for _, name := range probeVulkanCacheFiles {
+				if err := os.WriteFile(filepath.Join(cache, name), []byte("seed"), 0644); err != nil {
+					t.Fatal(err)
+				}
+			}
+			sibling := filepath.Join(cache, "unrelated.bin")
+			if err := os.WriteFile(sibling, []byte("immutable"), 0644); err != nil {
+				t.Fatal(err)
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil {
+				t.Fatal("cache first births", err)
+			}
+			pins := maps.Clone(budget.NativeFiles)
+			for _, name := range probeVulkanCacheFiles {
+				flags, data := os.O_WRONLY|os.O_APPEND, "append"
+				if name == "vulkan_pipelines.bin" {
+					flags, data = os.O_WRONLY|os.O_TRUNC, "p"
+				}
+				file, err := os.OpenFile(filepath.Join(cache, name), flags, 0)
+				if err != nil {
+					t.Fatal(err)
+				}
+				_, writeErr := file.WriteString(data)
+				if err := errors.Join(writeErr, file.Sync(), file.Close()); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err != nil {
+				t.Fatal("source append/truncate cache writes", err)
+			}
+			for _, name := range probeVulkanCacheFiles {
+				path := filepath.Join(cache, name)
+				want := uint64(len("seedappend"))
+				if name == "vulkan_pipelines.bin" {
+					want = uint64(len("seed"))
+				}
+				if !os.SameFile(pins[path], budget.NativeFiles[path]) || budget.held[path] != want {
+					t.Fatal("cache mutation lost inode/high-water", name)
+				}
+			}
+			switch fault {
+			case "vulkan-replace":
+				if err := os.Rename(target, target+".old"); err != nil {
+					t.Fatal(err)
+				}
+				err = os.WriteFile(target, []byte("foreign"), 0644)
+			case "vulkan-sibling":
+				err = os.WriteFile(sibling, []byte("changed"), 0644)
+			case "vulkan-parent":
+				if err := os.Rename(cache, cache+"-old"); err != nil {
+					t.Fatal(err)
+				}
+				err = os.Mkdir(cache, 0700)
+			}
+			if err != nil {
+				t.Fatal(err)
+			}
+			if fault != "vulkan-growth" {
+				held := maps.Clone(budget.held)
+				if err := accountProbeArtifacts(&budget, probeArtifactReserve, nil); err == nil || !reflect.DeepEqual(pins, budget.NativeFiles) || !reflect.DeepEqual(held, budget.held) {
+					t.Fatal("foreign cache mutation changed authority/exposure", fault, err)
+				}
+				if fault == "vulkan-replace" {
+					actual, err := os.ReadFile(target)
+					if err != nil || string(actual) != "foreign" {
+						t.Fatal("foreign cache replacement changed", err)
+					}
+				}
+				continue
+			}
+			// Fall through to the existing exact socket retirement/finalizer fixture.
+		}
 		if fault == "directory-bound" {
 			for index := 0; index < 4; index++ {
 				if err := os.Mkdir(filepath.Join(root, strconv.Itoa(index)), 0700); err != nil {
@@ -253,7 +368,7 @@ func TestProbeRecords(t *testing.T) {
 			}
 			continue
 		}
-		if fault == "native-socket" || fault == "foreign-socket" || strings.HasPrefix(fault, "retire-") {
+		if fault == "native-socket" || fault == "foreign-socket" || strings.HasPrefix(fault, "retire-") || fault == "vulkan-growth" {
 			claim.Path, claim.Class, claim.MaxFinalBytes = filepath.Join(root, "pad.sock"), probeArtifactNative, 0
 			claim.ID = "native:" + claim.Path
 			if fault != "foreign-socket" {
