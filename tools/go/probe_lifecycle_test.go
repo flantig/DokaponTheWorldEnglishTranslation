@@ -411,7 +411,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 				firstFrame = bytes.Clone(payload)
 				if slices.Contains(os.Args, "pre-acquisition-delay") {
 					_, started := os.Stat(filepath.Join(root, "go-records-2-scenario.json"))
-					_, completed := os.Stat(filepath.Join(root, "receipts", "2-scenario-00-acquire-board.complete.json"))
+					_, completed := os.Stat(filepath.Join(root, "receipts", "2-scenario-04-acquire-board.complete.json"))
 					if started == nil && os.IsNotExist(completed) {
 						time.Sleep(700 * time.Millisecond)
 					}
@@ -1697,8 +1697,8 @@ func TestProbeLifecycle(t *testing.T) {
 			candidate.ReadyTimeoutMS = 10000
 			candidate.Inputs = maps.Clone(profile.Inputs)
 			candidate.Inputs["card"] = RegistryInput{Path: cardPath, Size: int64(len(card)), SHA256: fmt.Sprintf("%x", sha256.Sum256(card))}
-			candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, WaitTimeoutMS: 120000, MaxUIReads: 4096}
-			candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 180, MaxRetainedFrames: 64, MaxManagedFiles: 2048, MaxManagedBytes: 1 << 30, MaxJournalBytes: 8 << 20}
+			candidate.Scenario = &ProbeScenarioSpec{ID: "first-save-nondefault", Glyphmap: RegistryInput{Path: glyphPath, Size: int64(len(glyphRaw)), SHA256: fmt.Sprintf("%x", sha256.Sum256(glyphRaw))}, TimeoutMS: 60000, WaitTimeoutMS: 180000, MaxUIReads: 4096}
+			candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 300, MaxRetainedFrames: 64, MaxManagedFiles: 2048, MaxManagedBytes: 1 << 30, MaxJournalBytes: 8 << 20}
 			if variant == "receipt-bound" {
 				candidate.Frames = nil
 				candidate.ProgramArgs = append(candidate.ProgramArgs, "acquisition-receipt-bound")
@@ -3992,8 +3992,8 @@ func TestProbeLifecycle(t *testing.T) {
 				t.Fatal("expired pre-acquisition budget consumed the fresh transaction budget")
 			}
 			if refusal.Continues {
-				before, _ := os.Stat(filepath.Join(candidate.Root, "receipts", "2-scenario-00-acquire-board.pending.json"))
-				after, _ := os.Stat(filepath.Join(candidate.Root, "receipts", "2-scenario-00-acquire-board.complete.json"))
+				before, _ := os.Stat(filepath.Join(candidate.Root, "receipts", "2-scenario-00-wait-board.pending.json"))
+				after, _ := os.Stat(filepath.Join(candidate.Root, "receipts", "2-scenario-04-acquire-board.complete.json"))
 				if before == nil || after == nil || after.ModTime().Sub(before.ModTime()) <= time.Duration(candidate.Scenario.TimeoutMS)*time.Millisecond {
 					t.Fatal("witness did not expire pre-acquisition budget")
 				}

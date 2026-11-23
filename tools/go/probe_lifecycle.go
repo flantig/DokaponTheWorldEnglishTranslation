@@ -1432,6 +1432,10 @@ requests:
 				}
 				move := false
 				for _, widget := range scenarioUI.Widgets {
+					if widget.Source == scenarioData.MoveSource && widget.Unsupported {
+						step.Reason = "source board/Move/task context is not eligible"
+						break actions
+					}
 					move = move || !widget.Unsupported && widget.Source == scenarioData.MoveSource && widget.Text == "Move" && widget.Ready == 0 && widget.Flags&3 == 1
 				}
 				if !candidateMatches || scenarioUI.Headers["mode"] != 0x1b0 || scenarioUI.Headers["board_options"] != 5 || scenarioUI.Headers["board_handle"] != 1 || scenarioUI.Headers["board_cursor"] != 0 || !move || !scenarioUI.BoardAIReady {
