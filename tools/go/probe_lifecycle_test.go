@@ -827,7 +827,12 @@ func TestProbeLifecycleChild(t *testing.T) {
 						innerWidth = 608
 					}
 				}
-				for address, value := range map[uint32]uint32{0x56581c: innerWidth, 0x56b598: 1, 0x56b190: uint32(activeActor), 0x579ba6: yesNoCursor, 0x56a804: 5, 0x56a800: 1, 0x56a808: uint32(boardCursor), 0x56a8e0: 5, 0x56a8e4: 1, 0x56a8e8: 0x200 + uint32(activeActor)} {
+				queueFlags := uint32(5)
+				if acquisitionRetry && !acquisitionUnexplained && !acquisitionUnsupported && vmStatus == 1 && acquisitionPauses == 3 {
+					// Stable headers and valid controls, but no eligible native task yet.
+					queueFlags = 0
+				}
+				for address, value := range map[uint32]uint32{0x56581c: innerWidth, 0x56b598: 1, 0x56b190: uint32(activeActor), 0x579ba6: yesNoCursor, 0x56a804: 5, 0x56a800: 1, 0x56a808: uint32(boardCursor), 0x56a8e0: queueFlags, 0x56a8e4: 1, 0x56a8e8: 0x200 + uint32(activeActor)} {
 					for b := 0; b < 4; b++ {
 						memory[address+uint32(b)] = byte(value >> (8 * b))
 					}
@@ -1020,7 +1025,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 						for b, value := range []byte("char" + strconv.Itoa(int(character))) {
 							memory[node+0x10+uint32(b)] = value
 						}
-						if widget == 0 && index == 0 && (slices.Contains(os.Args, "unsupported-ui") || acquisitionUnsupported || acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && acquisitionPauses == 1) {
+						if widget == 0 && index == 0 && (slices.Contains(os.Args, "unsupported-ui") || acquisitionUnsupported || acquisitionRetry && !acquisitionUnexplained && vmStatus == 1 && (acquisitionPauses == 1 || acquisitionPauses == 3)) {
 							for b, value := range []byte("char2047\x00") {
 								memory[node+0x10+uint32(b)] = value
 							}
@@ -1045,7 +1050,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 				}
 				if len(payload) == 6 && payload[0] == 4 {
-					if acquisitionRetry && payload[5] == 0 && (acquisitionPauses != 3 || acquisitionPolls < 260 || delayedResume != 0) {
+					if acquisitionRetry && payload[5] == 0 && (acquisitionPauses != 4 || acquisitionPolls < 260 || delayedResume != 0) {
 						t.Fatal("takeover before bounded compact wait and checked resume", acquisitionPolls, acquisitionPauses, delayedResume)
 					}
 					restore := paired && payload[5] == 1 && scenarioStage == 1 && vmStatus == 0 && scenarioControl == 0
@@ -1739,7 +1744,7 @@ func TestProbeLifecycle(t *testing.T) {
 		t.Logf("startup-%s one CIRCLE/release after ready, warning retained, supported transition", variant)
 	}
 	// Keep the slow, real polling/resource regression separately selectable.
-	// The child rejects takeover until two held misses have resumed successfully.
+	// The child rejects takeover until three held misses have resumed successfully.
 	t.Run("acquisition", func(t *testing.T) {
 		for _, row := range []struct {
 			Name, Failure   string
@@ -1857,7 +1862,7 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			factsRaw, err := os.ReadFile(factsPath)
 			var facts []int
-			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 6 || facts[0] < 260 || facts[1] != 3 || facts[2] != 0 || facts[3] != 0 || facts[4] == 0 || facts[5] == 0 {
+			if err != nil || json.Unmarshal(factsRaw, &facts) != nil || len(facts) != 6 || facts[0] < 260 || facts[1] != 4 || facts[2] != 0 || facts[3] != 0 || facts[4] == 0 || facts[5] == 0 {
 				t.Fatal("real compact polling/held misses/resume facts", string(factsRaw), err)
 			}
 			entries, err := os.ReadDir(filepath.Join(candidate.Root, "receipts"))
@@ -1866,6 +1871,7 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			waitReceipts, heldReceipts, resumeReceipts := 0, 0, 0
 			driftWithUnsupportedMove := false
+			taskMissWithUnsupportedMove := false
 			for _, entry := range entries {
 				if strings.HasPrefix(entry.Name(), "2-scenario-00-wait-board") {
 					waitReceipts++
@@ -1894,6 +1900,21 @@ func TestProbeLifecycle(t *testing.T) {
 						}
 						for _, widget := range held.UI.Widgets {
 							driftWithUnsupportedMove = driftWithUnsupportedMove || held.UI.Headers["board_cursor"] == 3 && widget.Source == 0x534bc0 && widget.Unsupported
+							if !held.UI.BoardAIReady && widget.Source == 0x534bc0 && widget.Unsupported {
+								compactPath := strings.Replace(entry.Name(), "04-acquire-board", "00-wait-board", 1)
+								compactRaw, err := os.ReadFile(filepath.Join(candidate.Root, "receipts", compactPath))
+								var compactEffect ProbeLifecycleEffect
+								var compact ProbeLifecycleStep
+								if err != nil || json.Unmarshal(compactRaw, &compactEffect) != nil || json.Unmarshal(compactEffect.Details, &compact) != nil || compact.UI == nil {
+									t.Fatal("task-miss compact/held evidence", err)
+								}
+								for _, key := range []string{"mode", "story", "week", "day", "current", "area", "board_handle", "board_options", "board_cursor"} {
+									if compact.UI.Headers[key] != held.UI.Headers[key] {
+										t.Fatal("task miss was hidden by changed header", key)
+									}
+								}
+								taskMissWithUnsupportedMove = true
+							}
 						}
 					}
 				}
@@ -1901,14 +1922,14 @@ func TestProbeLifecycle(t *testing.T) {
 					resumeReceipts++
 				}
 			}
-			if !driftWithUnsupportedMove || waitReceipts != 6 || heldReceipts != 6 || resumeReceipts != 6 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
+			if !driftWithUnsupportedMove || !taskMissWithUnsupportedMove || waitReceipts != 8 || heldReceipts != 8 || resumeReceipts != 8 || result.Frames == nil || result.Frames.SampleSuccesses < 2 || len(result.Steps[1].Skips) != 1 {
 				t.Fatal("polls must share one receipt pair per candidate and service sampler", waitReceipts, heldReceipts, resumeReceipts, result.Frames, result.Steps[1].Skips)
 			}
 			admission, err := os.ReadFile(filepath.Join(candidate.Root, "go-records-2-scenario.json"))
 			if err != nil || result.Steps[1].UI == nil || result.Steps[1].UI.Projection != "" || len(result.Steps[1].UI.PlayerRecords) != 4 || result.Steps[1].UI.AdmissionSHA256 != fmt.Sprintf("%x", sha256.Sum256(admission)) {
 				t.Fatal("one nonce admission did not carry into full transaction", err)
 			}
-			t.Logf("%d compact polls, three held candidates, delayed checked resumes, %d receipt files, %d ordinary samples; paused ordinary F8=%d resumed=%d paused health=%d", facts[0], len(entries), result.Frames.SampleSuccesses, facts[3], facts[4], facts[5])
+			t.Logf("%d compact polls, four held candidates including stable task miss/unsupported Move, delayed checked resumes, %d receipt files, %d ordinary samples; paused ordinary F8=%d resumed=%d paused health=%d", facts[0], len(entries), result.Frames.SampleSuccesses, facts[3], facts[4], facts[5])
 		}
 	})
 	t.Run("save-dialog", func(t *testing.T) {
