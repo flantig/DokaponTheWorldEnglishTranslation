@@ -140,6 +140,24 @@ func TestProbeLifecycleChild(t *testing.T) {
 	acquisitionRetry := slices.Contains(os.Args, "acquisition-retry")
 	acquisitionReceiptBound := slices.Contains(os.Args, "acquisition-receipt-bound")
 	acquisitionUnexplained := slices.Contains(os.Args, "acquisition-unexplained")
+	var uiHeaderRequest []byte
+	if acquisitionRetry {
+		var source struct{ Headers map[string][]uint32 }
+		if json.Unmarshal(probeUISource, &source) != nil || len(source.Headers) == 0 {
+			t.Fatal("controlled UI header layout")
+		}
+		keys := make([]string, 0, len(source.Headers))
+		for key := range source.Headers {
+			keys = append(keys, key)
+		}
+		slices.Sort(keys)
+		first := source.Headers[keys[0]]
+		if len(first) != 2 || first[0] > 3 {
+			t.Fatal("controlled first UI header request")
+		}
+		uiHeaderRequest = []byte{byte(first[0]), 0, 0, 0, 0}
+		binary.LittleEndian.PutUint32(uiHeaderRequest[1:], first[1])
+	}
 	acquisitionPolls, acquisitionPauses, delayedResume, heldHeaderReads := 0, 0, 0, 0
 	acquisitionFacts := ""
 	for _, argument := range os.Args {
@@ -409,7 +427,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 			}
 			if frameIndex == 0 {
 				firstFrame = bytes.Clone(payload)
-				if slices.Contains(os.Args, "pre-acquisition-delay") {
+				if len(payload) == 5 && payload[0] <= 3 && slices.Contains(os.Args, "pre-acquisition-delay") {
 					_, started := os.Stat(filepath.Join(root, "go-records-2-scenario.json"))
 					_, completed := os.Stat(filepath.Join(root, "receipts", "2-scenario-04-acquire-board.complete.json"))
 					if started == nil && os.IsNotExist(completed) {
@@ -1041,7 +1059,7 @@ func TestProbeLifecycleChild(t *testing.T) {
 					}
 					width := 1 << payload[0]
 					address := binary.LittleEndian.Uint32(payload[1:])
-					if acquisitionRetry && address == 0x56581c && scenarioControl != 0 && vmStatus == 1 {
+					if acquisitionRetry && bytes.Equal(firstFrame, uiHeaderRequest) && address == 0x56581c && scenarioControl != 0 && vmStatus == 1 {
 						heldHeaderReads++
 						if !acquisitionUnexplained && acquisitionPauses == 2 && heldHeaderReads >= 2 {
 							// Only the canonical COM control byte changes between
@@ -1050,11 +1068,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 						}
 					}
 					if acquisitionRetry && address == 0x56581c && scenarioControl != 0 && vmStatus == 0 {
-						acquisitionPolls++
+						// Sampler tags start with mode, unlike the canonical UI
+						// header batch. Only actual UI polls advance this fixture.
+						uiBatch := bytes.Equal(firstFrame, uiHeaderRequest)
+						if uiBatch {
+							acquisitionPolls++
+						}
 						if acquisitionPolls < 260 && !acquisitionReceiptBound && !acquisitionUnexplained {
 							memory[address], memory[address+1] = 0x60, 2
 						}
-						if acquisitionReceiptBound && acquisitionPolls == 1 {
+						if acquisitionReceiptBound && uiBatch && acquisitionPolls == 1 {
 							// Fill only this unsampled controlled run's owned receipt
 							// namespace; acquisition must preserve space for stop.
 							receipts := filepath.Join(root, "receipts")
