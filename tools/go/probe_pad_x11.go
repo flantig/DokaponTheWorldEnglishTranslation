@@ -34,10 +34,15 @@ const probeX11Available = true
 // XRes owns window PID proof; only Xephyr's physical forwarders are disabled.
 // The caller owns logical holds/releases. Cancellation shuts down this connection,
 // including a blocking SDK reply, without touching the server or host input.
-func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRecord, build string, keys []string, pressed bool) (ProbeX11Effect, error) {
+// Fresh setup alone publishes keyboard/mouse IDs after verifying their disabled
+// floating state. Later effects only read those service-local pins, never adopt.
+func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRecord, build string, keys []string, pressed bool, forwarderIDs *[2]uint16) (ProbeX11Effect, error) {
 	var effect ProbeX11Effect
 	if _, bounded := ctx.Deadline(); !bounded || ctx.Err() != nil {
 		return effect, fmt.Errorf("private X11 operation requires a live bounded deadline")
+	}
+	if forwarderIDs == nil || target == nil && *forwarderIDs != [2]uint16{} || target != nil && (forwarderIDs[0] == 0 || forwarderIDs[1] == 0 || forwarderIDs[0] == forwarderIDs[1]) {
+		return effect, fmt.Errorf("private X11 forwarder pins require fresh setup or a complete distinct identity")
 	}
 	server, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child"}, spec.Server.PID, &spec.Server, spec.ServerProgram.SHA256)
 	if err != nil {
@@ -170,6 +175,7 @@ func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRe
 	}
 	atom := property.atom
 	C.free(unsafe.Pointer(property))
+	candidateIDs := *forwarderIDs
 	for pass := 0; pass < 2; pass++ {
 		devices := C.xcb_input_xi_query_device_reply(x, C.xcb_input_xi_query_device(x, C.XCB_INPUT_DEVICE_ALL), nil)
 		if devices == nil {
@@ -181,42 +187,73 @@ func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRe
 		}
 		forwarders, testKeyboard, testPointer := 0, false, false
 		seen := map[string]bool{}
-		var disabled [2]C.xcb_input_device_id_t
+		seenIDs := map[uint16]bool{}
+		var masters, masterAttachments, testAttachments, forwarderAttachments [2]uint16
 		iter := C.xcb_input_xi_query_device_infos_iterator(devices)
 		for iter.rem > 0 {
 			device := iter.data
 			deviceName := C.GoStringN(C.xcb_input_xi_device_info_name(device), C.int(device.name_len))
+			id := uint16(device.deviceid)
+			deviceType, enabled, attachment := uint16(device._type), uint8(device.enabled), uint16(device.attachment)
+			if id == 0 || seen[deviceName] || seenIDs[id] {
+				C.free(unsafe.Pointer(devices))
+				return effect, fmt.Errorf("private X11 duplicate device: pass=%d name=%q id=%d type=%d enabled=%d", pass, deviceName, id, deviceType, enabled)
+			}
+			seen[deviceName], seenIDs[id] = true, true
 			switch deviceName {
 			case "Xephyr virtual keyboard", "Xephyr virtual mouse":
-				if forwarders >= 2 || seen[deviceName] || deviceName == "Xephyr virtual keyboard" && device._type != C.XCB_INPUT_DEVICE_TYPE_SLAVE_KEYBOARD || deviceName == "Xephyr virtual mouse" && device._type != C.XCB_INPUT_DEVICE_TYPE_SLAVE_POINTER || (target != nil || pass == 1) && device.enabled != 0 {
-					C.free(unsafe.Pointer(devices))
-					return effect, fmt.Errorf("private Xephyr forwarder identity/state differs")
+				role := 0
+				if deviceName == "Xephyr virtual mouse" {
+					role = 1
 				}
-				disabled[forwarders] = device.deviceid
-				seen[deviceName] = true
-				forwarders++
-			default:
-				isKeyboard := device._type == C.XCB_INPUT_DEVICE_TYPE_SLAVE_KEYBOARD
-				isPointer := device._type == C.XCB_INPUT_DEVICE_TYPE_SLAVE_POINTER
-				if isKeyboard || isPointer || device._type == C.XCB_INPUT_DEVICE_TYPE_FLOATING_SLAVE {
-					if device.enabled == 0 || !(isKeyboard && deviceName == "Virtual core XTEST keyboard" || isPointer && deviceName == "Virtual core XTEST pointer") {
+				if target == nil && pass == 0 {
+					if device.enabled != 1 || device.attachment == 0 || role == 0 && device._type != C.XCB_INPUT_DEVICE_TYPE_SLAVE_KEYBOARD || role == 1 && device._type != C.XCB_INPUT_DEVICE_TYPE_SLAVE_POINTER {
 						C.free(unsafe.Pointer(devices))
-						return effect, fmt.Errorf("private X11 has an unexpected physical input consumer")
+						return effect, fmt.Errorf("private Xephyr initial forwarder differs: pass=%d name=%q id=%d type=%d enabled=%d attachment=%d", pass, deviceName, id, deviceType, enabled, attachment)
 					}
-					testKeyboard = testKeyboard || isKeyboard
-					testPointer = testPointer || isPointer
+					candidateIDs[role] = id
+					forwarderAttachments[role] = uint16(device.attachment)
+				} else if id != candidateIDs[role] || device._type != C.XCB_INPUT_DEVICE_TYPE_FLOATING_SLAVE || device.enabled != 0 || device.attachment != 0 {
+					C.free(unsafe.Pointer(devices))
+					return effect, fmt.Errorf("private Xephyr disabled forwarder differs: pass=%d name=%q id=%d expected=%d type=%d enabled=%d attachment=%d", pass, deviceName, id, candidateIDs[role], deviceType, enabled, attachment)
 				}
+				forwarders++
+			case "Virtual core keyboard", "Virtual core pointer":
+				role := 0
+				if deviceName == "Virtual core pointer" {
+					role = 1
+				}
+				if device.enabled != 1 || role == 0 && device._type != C.XCB_INPUT_DEVICE_TYPE_MASTER_KEYBOARD || role == 1 && device._type != C.XCB_INPUT_DEVICE_TYPE_MASTER_POINTER {
+					C.free(unsafe.Pointer(devices))
+					return effect, fmt.Errorf("private X11 master differs: pass=%d name=%q id=%d type=%d enabled=%d", pass, deviceName, id, deviceType, enabled)
+				}
+				masters[role], masterAttachments[role] = id, uint16(device.attachment)
+			case "Virtual core XTEST keyboard", "Virtual core XTEST pointer":
+				role := 0
+				if deviceName == "Virtual core XTEST pointer" {
+					role = 1
+				}
+				if device.enabled != 1 || role == 0 && device._type != C.XCB_INPUT_DEVICE_TYPE_SLAVE_KEYBOARD || role == 1 && device._type != C.XCB_INPUT_DEVICE_TYPE_SLAVE_POINTER {
+					C.free(unsafe.Pointer(devices))
+					return effect, fmt.Errorf("private X11 XTEST device differs: pass=%d name=%q id=%d type=%d enabled=%d", pass, deviceName, id, deviceType, enabled)
+				}
+				testAttachments[role] = uint16(device.attachment)
+				testKeyboard = testKeyboard || role == 0
+				testPointer = testPointer || role == 1
+			default:
+				C.free(unsafe.Pointer(devices))
+				return effect, fmt.Errorf("private X11 unexpected input consumer: pass=%d name=%q id=%d type=%d enabled=%d", pass, deviceName, id, deviceType, enabled)
 			}
 			C.xcb_input_xi_device_info_next(&iter)
 		}
 		C.free(unsafe.Pointer(devices))
-		if forwarders != 2 || !testKeyboard || !testPointer {
+		if forwarders != 2 || !testKeyboard || !testPointer || masters[0] == 0 || masters[1] == 0 || masterAttachments[0] != masters[1] || masterAttachments[1] != masters[0] || testAttachments != masters || target == nil && pass == 0 && forwarderAttachments != masters {
 			return effect, fmt.Errorf("private X11 input device set is incomplete")
 		}
 		if pass == 0 && target == nil {
 			value := C.uint8_t(0)
-			for _, id := range disabled {
-				problem := C.xcb_request_check(x, C.xcb_input_xi_change_property_checked(x, id, C.XCB_PROP_MODE_REPLACE, 8, atom, C.XCB_ATOM_INTEGER, 1, unsafe.Pointer(&value)))
+			for _, id := range candidateIDs {
+				problem := C.xcb_request_check(x, C.xcb_input_xi_change_property_checked(x, C.xcb_input_device_id_t(id), C.XCB_PROP_MODE_REPLACE, 8, atom, C.XCB_ATOM_INTEGER, 1, unsafe.Pointer(&value)))
 				if problem != nil {
 					C.free(unsafe.Pointer(problem))
 					return effect, fmt.Errorf("private Xephyr host forwarding could not be disabled")
@@ -229,7 +266,13 @@ func emitProbeX11(ctx context.Context, spec ProbeX11Spec, target *ProbeProcessRe
 		if _, err := observeProbeProcess(ProbeMemoryRuntime{Provenance: "owned_child"}, spec.Server.PID, &spec.Server, spec.ServerProgram.SHA256); err != nil {
 			return effect, fmt.Errorf("private X11 server changed during setup: %w", err)
 		}
-		return effect, ctx.Err()
+		if err := ctx.Err(); err != nil {
+			return effect, err
+		}
+		if target == nil {
+			*forwarderIDs = candidateIDs
+		}
+		return effect, nil
 	}
 	// The private server grab fences focus/XRes and key delivery against other
 	// clients. It never grabs the host display; disconnect/cancel releases it.

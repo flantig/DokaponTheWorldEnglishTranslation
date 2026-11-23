@@ -982,8 +982,32 @@ func TestProbeRecords(t *testing.T) {
 		}
 	}
 	// Both the SDK and no-SDK owners refuse before any server/process access.
-	if _, err := emitProbeX11(context.Background(), ProbeX11Spec{}, nil, "", nil, false); err == nil {
+	if _, err := emitProbeX11(context.Background(), ProbeX11Spec{}, nil, "", nil, false, nil); err == nil {
 		t.Fatal("private X11 accepted an unbounded operation")
+	}
+	for _, row := range []struct {
+		Pins   *[2]uint16
+		Target *ProbeProcessRecord
+	}{
+		{},
+		{Target: &ProbeProcessRecord{}},
+		{Pins: &[2]uint16{}, Target: &ProbeProcessRecord{}},
+		{Pins: &[2]uint16{6, 0}, Target: &ProbeProcessRecord{}},
+		{Pins: &[2]uint16{0, 7}, Target: &ProbeProcessRecord{}},
+		{Pins: &[2]uint16{6, 6}, Target: &ProbeProcessRecord{}},
+		{Pins: &[2]uint16{6, 7}},
+		{Pins: &[2]uint16{6, 0}},
+	} {
+		var before [2]uint16
+		if row.Pins != nil {
+			before = *row.Pins
+		}
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		_, err := emitProbeX11(ctx, ProbeX11Spec{}, row.Target, "", nil, false, row.Pins)
+		cancel()
+		if err == nil || probeX11Available && !strings.Contains(err.Error(), "forwarder pins") || row.Pins != nil && *row.Pins != before {
+			t.Fatal("private X11 accepted or mutated incomplete/reused forwarder pins", row, err)
+		}
 	}
 	ready, done := make(chan error, 1), make(chan error, 1)
 	serveProbePad(context.Background(), ProbePadSpec{Backend: "private-x11"}, ready, done)

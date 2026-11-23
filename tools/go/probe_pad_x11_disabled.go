@@ -9,6 +9,6 @@ import (
 
 const probeX11Available = false
 
-func emitProbeX11(context.Context, ProbeX11Spec, *ProbeProcessRecord, string, []string, bool) (ProbeX11Effect, error) {
+func emitProbeX11(context.Context, ProbeX11Spec, *ProbeProcessRecord, string, []string, bool, *[2]uint16) (ProbeX11Effect, error) {
 	return ProbeX11Effect{}, fmt.Errorf("private X11 input requires Linux and -tags nativex11 with the XCB SDK")
 }

@@ -167,8 +167,14 @@ only initial/newgame/scenario/observe-frame/watch/stop requests. Loading a copie
 card alone does not bypass the existing same-run scenario save condition.
 
 Before launch, the authenticated private-server connection disables the exact
-Xephyr physical keyboard/mouse forwarders. Each later effect refuses a re-enabled
-forwarder or an unexpected slave input device. A bounded private-server grab
+Xephyr physical keyboard/mouse forwarders. Setup binds their distinct IDs by
+keyboard/mouse role only after both change from enabled attached slaves to
+disabled floating slaves with attachment zero, as Xserver21.1.24 requires.
+The service retains those two IDs outside immutable profile configuration;
+every later press/release and cleanup verifies the same IDs/names/state and the
+enabled canonical master/XTEST hierarchy. Reordered inventories do not change
+roles; replaced, re-enabled or foreign devices refuse. Failed partial setup
+publishes no IDs and leaves server state unqualified for retry. A bounded private-server grab
 fences XRes local-client PID/focus verification and XTEST delivery. The server
 must share the controller's PID namespace, and the focused client must be the
 freshly verified owned emulator. These checks do not grab or inject the host

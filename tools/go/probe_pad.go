@@ -83,10 +83,12 @@ func serveProbePad(ctx context.Context, spec ProbePadSpec, ready chan<- error, d
 	planBytes, _ := json.Marshal(map[string]any{"source_format": "go-owned-pad-v1", "backend": spec.Backend, "setup_hex": hex.EncodeToString(setup), "axes_hex": hex.EncodeToString(axes), "phys": layout.Phys, "layout": json.RawMessage(probePadLayout)})
 	var device *os.File
 	created := false
+	// Setup binds keyboard/mouse IDs before this service's sequential command loop.
+	var forwarderIDs [2]uint16
 	if spec.Backend == "private-x11" {
 		planBytes, _ = json.Marshal(map[string]any{"source_format": "go-owned-private-keyboard-v1", "backend": spec.Backend, "private_x11": spec.PrivateX11, "layout_sha256": fmt.Sprintf("%x", sha256.Sum256(probePadLayout)), "layout": json.RawMessage(probePadLayout)})
 		setupCtx, setupCancel := context.WithTimeout(ctx, time.Second)
-		_, err = emitProbeX11(setupCtx, *spec.PrivateX11, nil, spec.BuildSHA256, nil, false)
+		_, err = emitProbeX11(setupCtx, *spec.PrivateX11, nil, spec.BuildSHA256, nil, false, &forwarderIDs)
 		setupCancel()
 	} else if spec.Backend == "event-sink" {
 		device, err = os.OpenFile(filepath.Join(spec.Root, "pad-events.bin"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
@@ -326,7 +328,7 @@ service:
 					if value != 0 {
 						held[name] = true
 					}
-					observed, inputErr := emitProbeX11(workCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, []string{key}, value != 0)
+					observed, inputErr := emitProbeX11(workCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, []string{key}, value != 0, &forwarderIDs)
 					if inputErr != nil {
 						result = inputErr
 						reply = "err private keyboard effect uncertain\n"
@@ -400,7 +402,7 @@ service:
 			keys = append(keys, key)
 		}
 		cleanupCtx, cleanupCancel := context.WithTimeout(context.Background(), time.Duration(spec.CleanupMS)*time.Millisecond)
-		_, releaseErr := emitProbeX11(cleanupCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, keys, false)
+		_, releaseErr := emitProbeX11(cleanupCtx, *spec.PrivateX11, spec.Native.Load(), spec.BuildSHA256, keys, false, &forwarderIDs)
 		cleanupCancel()
 		if releaseErr != nil {
 			result = errors.Join(result, fmt.Errorf("private keyboard release is uncertain: %w", releaseErr))
