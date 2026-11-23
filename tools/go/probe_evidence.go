@@ -80,7 +80,8 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	}
 
 	hashPattern := regexp.MustCompile(`^[0-9a-f]{64}$`)
-	var events []struct {
+	// Keep anonymous decoder identity so JSON errors retain their wording.
+	type savedEvent = struct {
 		Event          string            `json:"event"`
 		EventID        int               `json:"event_id"`
 		Checkpoint     int               `json:"checkpoint"`
@@ -96,6 +97,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 		PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
 		PromptYesNo    *ProbeUIChoice    `json:"prompt_yesno,omitempty"`
 	}
+	var events []savedEvent
 	eventCheckpoint := map[int]int{}
 	var ordinaryEvents map[int]ProbeCaptureEvent
 	var ordinaryCaptureIDs map[string]bool
@@ -106,22 +108,7 @@ func reportProbeEvidence(raw []byte) (ProbeEvidenceReport, error) {
 	var previousEnd int64 = -1
 	previousID, previousCheckpoint := 0, 0
 	for _, saved := range bundle.Events {
-		var event struct {
-			Event          string            `json:"event"`
-			EventID        int               `json:"event_id"`
-			Checkpoint     int               `json:"checkpoint"`
-			Time           string            `json:"time"`
-			State          *ProbeSavedState  `json:"state"`
-			Expected       *ProbeSavedState  `json:"expected"`
-			Slot           *int              `json:"slot"`
-			Method         string            `json:"method"`
-			Phase          string            `json:"phase"`
-			PreviewSamples int               `json:"successful_preview_samples"`
-			Mode           *uint64           `json:"mode,omitempty"`
-			Prompt         *ProbeUIWidget    `json:"prompt,omitempty"`
-			PromptHeaders  map[string]uint64 `json:"prompt_headers,omitempty"`
-			PromptYesNo    *ProbeUIChoice    `json:"prompt_yesno,omitempty"`
-		}
+		var event savedEvent
 		if err := json.Unmarshal(saved.Data, &event); err != nil {
 			return report, err
 		}
