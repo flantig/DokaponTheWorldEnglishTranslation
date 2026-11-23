@@ -40,8 +40,9 @@ func waitProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal, s
 // sampleProbeFrame is one cooperative tick, shared by lifecycle wait sites.
 // It never waits for a schedule or restarts a process. Successful acquisition is
 // health even when filtered; retained state advances only in publishProbeFrame.
+// Finalization reuses the same capture-gap policy without acquiring or publishing.
 func sampleProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal, state *ProbeFrameRun, now time.Time) error {
-	if profile.Frames == nil || state == nil || state.Finalizing || state.Started.IsZero() {
+	if profile.Frames == nil || state == nil || state.Started.IsZero() && !state.Finalizing {
 		return nil
 	}
 	var failure error
@@ -51,19 +52,39 @@ func sampleProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal,
 			failure = fmt.Errorf("frame sampler already failed: %s", state.Summary.Failure)
 			break
 		}
-		if now.Sub(state.Started) >= time.Duration(state.Policy.MaxRunSeconds)*time.Second {
+		if !state.Finalizing && now.Sub(state.Started) >= time.Duration(state.Policy.MaxRunSeconds)*time.Second {
 			failure = fmt.Errorf("frame sampler run-time budget exhausted")
 			break
 		}
-		if state.Ready {
+		if state.Finalizing && state.Summary.EpochCaptures == 0 {
+			failure = fmt.Errorf("frame sampler lacks a successful capture in the final epoch")
+			break
+		}
+		if state.Ready || state.Finalizing {
 			anchor := state.EpochStarted
 			if state.LastSample.After(anchor) {
 				anchor = state.LastSample
 			}
-			if now.Sub(anchor) > 120*time.Second {
+			gap := now.Sub(anchor).Seconds()
+			if state.Finalizing {
+				// The stopped-epoch observation is saved with its completed stop.
+				// Replay must check that fact, not the wall clock of a later run.
+				if state.Summary.FinalCaptureGapSeconds == nil && !state.Started.IsZero() {
+					state.Summary.FinalCaptureGapSeconds = &gap
+				}
+				if state.Summary.FinalCaptureGapSeconds == nil || *state.Summary.FinalCaptureGapSeconds < 0 {
+					failure = fmt.Errorf("frame sampler final capture gap is unavailable")
+					break
+				}
+				gap = *state.Summary.FinalCaptureGapSeconds
+			}
+			if gap > 120 {
 				failure = fmt.Errorf("frame sampler successful capture gap exceeded120s")
 				break
 			}
+		}
+		if state.Finalizing {
+			break
 		}
 		storageDue := !now.Before(state.NextStorage)
 		healthDue := !now.Before(state.NextHealth)
@@ -210,7 +231,10 @@ func sampleProbeFrame(profile ProbeLifecycleProfile, journal *ProbeEventJournal,
 		}
 	}
 	if failure != nil {
-		state.Summary.Status, state.Summary.Failure = "UNKNOWN", failure.Error()
+		state.Summary.Status = "UNKNOWN"
+		if state.Summary.Failure == "" {
+			state.Summary.Failure = failure.Error()
+		}
 	}
 	return failure
 }

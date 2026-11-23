@@ -233,6 +233,8 @@ func TestProbeLifecycleChild(t *testing.T) {
 		scenarioWrites, _ = strconv.Atoi(string(priorWrites))
 	}
 	seenReset, renderedGuides := 0, 0
+	var latePNG []byte
+	var latePNGAfter time.Time
 	for offset := 0; offset+24 <= len(padBytes); offset += 24 {
 		if binary.LittleEndian.Uint16(padBytes[offset+16:]) == 1 && binary.LittleEndian.Uint16(padBytes[offset+18:]) == 316 && binary.LittleEndian.Uint32(padBytes[offset+20:]) == 1 {
 			renderedGuides++
@@ -291,6 +293,10 @@ func TestProbeLifecycleChild(t *testing.T) {
 						if err != nil {
 							t.Fatal(err)
 						}
+						if slices.Contains(os.Args, "frame-late-on-stop") {
+							latePNG, latePNGAfter = imageBytes, time.Now().Add(10*time.Second)
+							continue
+						}
 						if slices.Contains(os.Args, "frame-checkpoint-contrast") {
 							journal, err := os.ReadFile(filepath.Join(root, "events.jsonl"))
 							last := bytes.TrimSpace(journal)
@@ -321,6 +327,16 @@ func TestProbeLifecycleChild(t *testing.T) {
 		}
 		select {
 		case <-stopped:
+			if latePNG != nil {
+				// Finish the first GUIDE after its full acquisition window, even
+				// if owned shutdown begins before this delayed producer completes.
+				if delay := time.Until(latePNGAfter); delay > 0 {
+					time.Sleep(delay)
+				}
+				if err := os.WriteFile(filepath.Join(root, "profile", "PCSX2", "snaps", "late.png"), latePNG, 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
 			card := filepath.Join(root, "profile", "PCSX2", "memcards", "probe-slot1.ps2")
 			data, err := os.ReadFile(card)
 			if err != nil || len(data) == 0 {
@@ -3067,6 +3083,43 @@ func TestProbeLifecycle(t *testing.T) {
 				t.Fatal("clock-only tick caused acquisition/publication effects", offset)
 			}
 		}
+		freshFinalGap, staleFinalGap, negativeFinalGap := 120.0, 120.001, -1.0
+		for _, row := range []struct {
+			Name, PriorFailure, WantFailure string
+			EpochCaptures                   uint64
+			Gap                             time.Duration
+			Replay                          bool
+			RecordedGap                     *float64
+		}{
+			{Name: "healthy final epoch", EpochCaptures: 1, Gap: 120 * time.Second},
+			{Name: "earlier epoch success cannot satisfy final epoch", Gap: time.Second, WantFailure: "frame sampler lacks a successful capture in the final epoch"},
+			{Name: "final stale capture", EpochCaptures: 1, Gap: 120*time.Second + time.Nanosecond, WantFailure: "frame sampler successful capture gap exceeded120s"},
+			{Name: "primary failure survives final health check", PriorFailure: "controlled primary failure", Gap: 300 * time.Second, WantFailure: "controlled primary failure"},
+			{Name: "replayed healthy final gap", EpochCaptures: 1, Replay: true, RecordedGap: &freshFinalGap},
+			{Name: "replayed stale final gap", EpochCaptures: 1, Replay: true, RecordedGap: &staleFinalGap, WantFailure: "frame sampler successful capture gap exceeded120s"},
+			{Name: "replayed final gap lacks observation", EpochCaptures: 1, Replay: true, WantFailure: "frame sampler final capture gap is unavailable"},
+			{Name: "replayed negative final gap", EpochCaptures: 1, Replay: true, RecordedGap: &negativeFinalGap, WantFailure: "frame sampler final capture gap is unavailable"},
+		} {
+			now := time.Date(2026, 11, 16, 0, 0, 0, 0, time.UTC)
+			policy := ProbeFramePolicy{MaxRunSeconds: 900}
+			candidate := profile
+			candidate.Frames = &policy
+			state := ProbeFrameRun{Policy: policy, Finalizing: true, Started: now.Add(-600 * time.Second), EpochStarted: now.Add(-400 * time.Second), LastSample: now.Add(-row.Gap)}
+			state.Summary.SampleSuccesses, state.Summary.SelectedCommits, state.Summary.EpochCaptures = 2, 1, row.EpochCaptures
+			state.Summary.Failure = row.PriorFailure
+			state.Summary.FinalCaptureGapSeconds = row.RecordedGap
+			if row.Replay {
+				state.Started, state.EpochStarted, state.LastSample = time.Time{}, time.Time{}, time.Time{}
+			}
+			journal := ProbeEventJournal{}
+			err := sampleProbeFrame(candidate, &journal, &state, now)
+			if (err != nil) != (row.WantFailure != "") || state.Summary.Failure != row.WantFailure {
+				t.Fatal(row.Name, "final capture health", err, state.Summary)
+			}
+			if state.Summary.Attempts != 0 || state.Summary.SampleSuccesses != 2 || state.Summary.SelectedCommits != 1 || state.Previous != nil || journal.Bytes != nil || len(journal.Events) != 0 {
+				t.Fatal(row.Name, "final health check caused acquisition/publication effects")
+			}
+		}
 		for _, lateFailure := range []bool{false, true} {
 			candidate := profile
 			candidate.Root = t.TempDir()
@@ -3142,13 +3195,15 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 		}
 		for _, row := range []struct {
-			Name, Fault                  string
-			InnerWait, Reset, Checkpoint bool
+			Name, Fault                                   string
+			InnerWait, Reset, Checkpoint, FinalEpochEmpty bool
 		}{
 			{Name: "sampler stable capture health"},
 			{Name: "sampler cold epoch predecessor reset", Reset: true},
+			{Name: "sampler final cold epoch has no capture", Reset: true, FinalEpochEmpty: true},
 			{Name: "sampler services real acquire-board wait", InnerWait: true},
 			{Name: "sampler CSV acknowledgement gates selected baseline", Fault: "frame-csv-conflict"},
+			{Name: "sampler refuses missing image and preserves late first birth", Fault: "frame-late-on-stop"},
 			{Name: "sampler checkpoint derivative preserves ordinary baseline", Checkpoint: true},
 		} {
 			candidate := profile
@@ -3164,9 +3219,16 @@ func TestProbeLifecycle(t *testing.T) {
 			candidate.Policy = &ProbeLifecyclePolicy{PollMS: 1000, WarnRepeats: 12, TerminalRepeats: 14, MaxPolls: 11, MaxRecoveries: 1, MaxDistinctSkips: 4}
 			candidate.Frames = &ProbeFramePolicy{MaxRunSeconds: 90, MaxRetainedFrames: 32, MaxManagedFiles: 4096, MaxManagedBytes: 512 << 20, MaxJournalBytes: 8 << 20}
 			operations := []string{"initial", "watch", "stop"}
+			if row.Fault == "frame-late-on-stop" {
+				candidate.StopTimeoutMS = 10000 // The controlled writer may finish its delayed first screenshot during stop.
+				operations = []string{"initial", "watch", "observe-frame", "cold", "watch", "stop"}
+			}
 			if row.Reset {
 				candidate.Policy.MaxPolls = 6
 				operations = []string{"initial", "watch", "cold", "watch", "stop"}
+				if row.FinalEpochEmpty {
+					operations = []string{"initial", "watch", "cold", "stop"}
+				}
 			}
 			if row.InnerWait {
 				// Two 20s capture bounds, two 10s UI reads and two 4s waits, plus 2s bookkeeping.
@@ -3194,12 +3256,12 @@ func TestProbeLifecycle(t *testing.T) {
 			}
 			result, err := runProbeLifecycle(input)
 			wantStatus := "COMPLETED"
-			if row.InnerWait || row.Fault != "" {
+			if row.InnerWait || row.Fault != "" || row.FinalEpochEmpty {
 				wantStatus = "INCOMPLETE"
 			}
 			frames := result.Frames
 			csv, csvErr := os.ReadFile(filepath.Join(candidate.Root, "frames.csv"))
-			missingFrameFacts := frames != nil && row.Fault == "" && (frames.SampleSuccesses < 2 || frames.EpochCaptures < 1 || frames.LastSampleSeconds == nil || frames.LastSelectedSeconds == nil || frames.PreviousComparisonHash == "" || frames.LastJPEG == "" || frames.LastJPEGSHA256 == "" || csvErr != nil || !bytes.HasPrefix(csv, []byte("frame,t,mode,story,week\n")))
+			missingFrameFacts := frames != nil && row.Fault == "" && !row.FinalEpochEmpty && (frames.SampleSuccesses < 2 || frames.EpochCaptures < 1 || frames.LastSampleSeconds == nil || frames.LastSelectedSeconds == nil || frames.PreviousComparisonHash == "" || frames.LastJPEG == "" || frames.LastJPEGSHA256 == "" || csvErr != nil || !bytes.HasPrefix(csv, []byte("frame,t,mode,story,week\n")))
 			if err != nil || result.Status != wantStatus || len(result.Steps) != len(operations) || frames == nil || frames.CodecQualification != "go-image-jpeg-unqualified" || missingFrameFacts {
 				encoded, encodeErr := json.Marshal(result)
 				t.Logf("%s full lifecycle report: %s (marshal=%v)", row.Name, encoded, encodeErr)
@@ -3232,7 +3294,32 @@ func TestProbeLifecycle(t *testing.T) {
 				}
 				t.Fatalf("%s lifecycle/codec/frame facts status=%s want=%s missing_frame_facts=%t: %v", row.Name, result.Status, wantStatus, missingFrameFacts, err)
 			}
-			if row.Fault != "" {
+			if row.FinalEpochEmpty {
+				before, cold := result.Steps[1].Frames, result.Steps[2]
+				if frames.Status != "UNKNOWN" || frames.Failure != "frame sampler lacks a successful capture in the final epoch" || frames.Epoch != 1 || frames.EpochCaptures != 0 || frames.SampleSuccesses == 0 || frames.SelectedCommits != 1 || frames.PreviousComparisonHash != "" || before == nil || before.EpochCaptures == 0 || cold.Status != "COMPLETED" || cold.Epoch != 1 {
+					t.Fatal(row.Name, "earlier epoch capture concealed missing final epoch", frames, cold)
+				}
+			} else if row.Fault == "frame-late-on-stop" {
+				if frames.Status != "UNKNOWN" || frames.Attempts != 1 || frames.CaptureErrors != 1 || frames.SampleSuccesses != 0 || frames.Epoch != 0 || frames.EpochCaptures != 0 || frames.SelectedCommits != 0 || frames.CheckpointCommits != 0 || frames.LastSampleSeconds != nil || frames.LastSelectedSeconds != nil || frames.LastJPEG != "" || frames.PreviousComparisonHash != "" || frames.Failure != "frame sampler capture authority: capture deadline expired without a complete stable PNG: <nil>" || csvErr != nil || string(csv) != "frame,t,mode,story,week\n" {
+					t.Fatal(row.Name, "expired or late first attempt gained frame health/selection", frames, csvErr)
+				}
+				for _, rejected := range result.Steps[2:5] {
+					if rejected.Status != "REFUSED" || rejected.Reason != "frame sampler failed; only explicit stop remains admitted" || rejected.Epoch != 0 || len(rejected.Effects) != 0 || rejected.Capture != nil || rejected.Checkpoint != nil {
+						t.Fatal(row.Name, "failed sampler admitted a new capture or epoch", rejected)
+					}
+				}
+				late, lateErr := os.ReadFile(filepath.Join(candidate.Root, "profile", "PCSX2", "snaps", "late.png"))
+				events, eventErr := os.ReadFile(filepath.Join(candidate.Root, "pad-events.bin"))
+				guides := 0
+				for offset := 0; offset+24 <= len(events); offset += 24 {
+					if binary.LittleEndian.Uint16(events[offset+16:]) == 1 && binary.LittleEndian.Uint16(events[offset+18:]) == 316 && binary.LittleEndian.Uint32(events[offset+20:]) == 1 {
+						guides++
+					}
+				}
+				if lateErr != nil || !bytes.Equal(late, pngBytes) || eventErr != nil || guides != 1 {
+					t.Fatal(row.Name, "late first-trigger bytes lost or GUIDE retriggered", lateErr, eventErr, guides)
+				}
+			} else if row.Fault != "" {
 				if frames.SampleSuccesses != 1 || frames.SelectedCommits != 0 || frames.PreviousComparisonHash != "" || frames.LastSelectedSeconds != nil || frames.LastJPEG != "" || frames.Failure == "" || csvErr != nil || string(csv) != "controlled CSV conflict\n" {
 					t.Fatal(row.Name, "unacknowledged publication advanced selected baseline", frames, csvErr)
 				}

@@ -36,6 +36,7 @@ type ProbeFrameSummary struct {
 	CaptureErrors          uint64           `json:"capture_errors"`
 	LastPineSeconds        *float64         `json:"last_pine_seconds,omitempty"`
 	LastSampleSeconds      *float64         `json:"last_sample_seconds,omitempty"`
+	FinalCaptureGapSeconds *float64         `json:"final_capture_gap_seconds,omitempty"`
 	LastVisualSeconds      *float64         `json:"last_visual_seconds,omitempty"`
 	LastSelectedSeconds    *float64         `json:"last_selected_seconds,omitempty"`
 	LastMean               *float64         `json:"last_mean,omitempty"`

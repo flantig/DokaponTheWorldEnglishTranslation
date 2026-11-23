@@ -3172,6 +3172,7 @@ requests:
 				// acquisition still repeats the process, peer, source and epoch guards.
 				frameRun.Previous = nil
 				frameRun.Summary.Epoch, frameRun.Summary.EpochCaptures, frameRun.Summary.PreviousComparisonHash = epoch, 0, ""
+				frameRun.Summary.FinalCaptureGapSeconds = nil
 				epochSummary := frameRun.Summary
 				step.Frames = &epochSummary
 				observed, observeErr := observeProbeProcess(ProbeMemoryRuntime{}, processes.Native.PID, processes.Native, profile.Program.SHA256)
@@ -3214,6 +3215,7 @@ requests:
 							frameEpochReady = true
 							frameRun.NextAttempt, frameRun.Previous = now.Add(4*time.Second), nil
 							frameRun.Summary.Epoch, frameRun.Summary.EpochCaptures = epoch, 0
+							frameRun.Summary.FinalCaptureGapSeconds = nil
 							frameRun.Summary.PreviousComparisonHash = ""
 						}
 					}
@@ -3223,6 +3225,11 @@ requests:
 				}
 			}
 			if frameRun != nil {
+				if request.Operation == "stop" {
+					if err := sampleProbeFrame(profile, &journal, frameRun, time.Now()); err != nil {
+						report.Status = "INCOMPLETE"
+					}
+				}
 				frames := frameRun.Summary
 				step.Frames = &frames
 			}
@@ -3270,6 +3277,12 @@ requests:
 		}
 		report.Steps = append(report.Steps, step)
 	}
+	if frameRun != nil {
+		frameRun.Finalizing = true
+		if err := sampleProbeFrame(profile, &journal, frameRun, time.Now()); err != nil {
+			report.Status = "INCOMPLETE"
+		}
+	}
 	if processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
 		processes.ArtifactClass = probeArtifactFinalizer
 		_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond)
@@ -3292,7 +3305,7 @@ requests:
 				frameRun.Summary.Status, frameRun.Summary.Failure = "UNKNOWN", "frame sampler final owned disposal remains unknown"
 				report.Status = "INCOMPLETE"
 			}
-			if frameRun.Summary.SampleSuccesses == 0 || frameRun.Summary.SelectedCommits == 0 {
+			if frameRun.Summary.Failure == "" && (frameRun.Summary.SampleSuccesses == 0 || frameRun.Summary.SelectedCommits == 0) {
 				frameRun.Summary.Status = "UNKNOWN"
 				frameRun.Summary.Failure = "frame sampler lacks a successful retained frame"
 				report.Status = "INCOMPLETE"

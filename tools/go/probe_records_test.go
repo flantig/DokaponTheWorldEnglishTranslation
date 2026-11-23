@@ -219,6 +219,9 @@ func TestProbeRecords(t *testing.T) {
 				if (err != nil) != (fault == "snapshot-unremoved") || err == nil && (len(budget.claims) != 0 || len(budget.held) != 2) {
 					t.Fatalf("%s release ignored baseline/new-file proof: %v %+v", fault, err, budget.held)
 				}
+				if fault == "snapshot-unremoved" && (!budget.active[claim.ID] || budget.claims[claim.ID].MaxFinalBytes != 10 || budget.snapshotBirth[claim.ID] != fresh || budget.held[fresh] != 3) {
+					t.Fatal("unremoved late snapshot lost its original conservative reservation", budget.claims, budget.held)
+				}
 			}
 			continue
 		}

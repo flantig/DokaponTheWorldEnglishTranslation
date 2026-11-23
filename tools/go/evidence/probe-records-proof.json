@@ -2400,5 +2400,106 @@
       "Full stories, soak, resource agreement and handover",
       "Complete410 responsibility proof and broader input accounting reconciliation"
     ]
+  },
+  "capture_health_offline_assessment": {
+    "at": "2026-11-23T04:10:31Z",
+    "status": "CONTROLLED_LINUX_SOFTWARE_VERIFIED_ZERO_CREDIT",
+    "scope": "Final owned-epoch/gap health and existing bounded terminal-refusal transaction tests; no cross-call pending state/type/argument/retry framework",
+    "base_commit": "0d9bac2e59d106499ea6d37dac0fa7a3a6a1fc45",
+    "source_pins": {
+      "docs/probe-records.md": "ea51caca0744c4e291777713e466b8cbb6a1bf26ac6644d0f6e50285da09ecc0",
+      "probe_lifecycle.go": "039ba1d829a4999dc263d27483d27b2abd35b4ef42e2f30bbb0f1d11a7dc3406",
+      "probe_lifecycle_test.go": "51ac6108ae5efb35e865623404c2b6f7123ff11c2c475c40d6ea8a11a7c15f66",
+      "probe_records_test.go": "eb70249a11ee9b9d93a10268b780bb3f54323f1444ebd659a7debc4c6922f92f",
+      "probe_sampler.go": "4bd7c0df13ffd11ee0bb6a422a9832666f749b71fe565a0efacbecfe921ecad8",
+      "probe_sampler_types.go": "5006bc1c5ce60e15acf34ffb7c1debea97dd1ba611f403df20d94155fa970c8c"
+    },
+    "contract": {
+      "final_health": "A successful capture is required in the final owned epoch; prior lifetime success cannot satisfy it. Stop/flush finalization preserves the final gap for replay; stale, missing or negative saved gap refuses and primary failure survives.",
+      "terminal_refusal": "An acknowledged GUIDE without eligible PNG remains bounded terminal refusal, not sample success or retry permission. Lifecycle evidence proves one GUIDE/attempt, no later capture/epoch/credit, owned cleanup and late-file preservation; the separate Records accountant case proves retained reservation, not direct lifecycle NativeSlot introspection.",
+      "unchanged": "Raw capture behavior, per-operation deadlines, eight-minute controlled baseline cap, source/card ownership and existing report unknown semantics remain."
+    },
+    "verification": {
+      "controlled_lifecycle_baseline_race": {
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 438.546,
+        "command": "GOMAXPROCS=2 nice -n 10 go test -p=1 -race -run '^TestProbeLifecycle$/^baseline$' -count=1 -timeout=8m .",
+        "log": "lifecycle-baseline-race.log",
+        "sha256": "6d16a9266e8a859e641c808cd0cd214128bda6fcffb5788bf6f7e60a9653e791"
+      },
+      "records_writer_race": {
+        "status": "PASS",
+        "exit_code": 0,
+        "elapsed_seconds": 28.463,
+        "command": "GOMAXPROCS=2 nice -n 10 go test -p=1 -race -run '^Test(ProbeRecords|MisalignedTargetAndWriterBoundary)$' -count=1 -timeout=2m .",
+        "log": "records-writer-race.log",
+        "sha256": "a5bd18eacb3dbb65e52f5ddaeed2ddebe3ffa141707b021ecab047e2ce791e0f"
+      },
+      "core_nativefonts_build_vet": {
+        "status": "PASS",
+        "job": 10027,
+        "core_build": "PASS",
+        "nativefonts_build": "PASS",
+        "core_vet": "PASS",
+        "nativefonts_vet": "PASS",
+        "toolchain": "go1.26.6-X:nodwarf5 linux/amd64",
+        "module": "go1.24 unchanged;1.26minimumalignmentseparate"
+      },
+      "complete_input_manifest_sha256": "f33a0203266d4fa91a0e3d72fa93cd0d41637ca9262c5660fdd0906003b7d142",
+      "integration_all224_inputs_match": true,
+      "full_suite": "NOT_RUN",
+      "native": "NOT_RUN",
+      "history": "Original sampler fixture failures/calibration and earlier source epochs remain intact in sampler_offline_assessment; no erased failure history",
+      "static": "Owner sourcepins/format/whitespace/credentials PASS; integration all224source/test/fixture inputs byte-identical to testedowner",
+      "evidence_scopes": [
+        "Existing TestProbeLifecycleChild and TestProbeLifecycle/baseline force the first GUIDE's PNG to arrive during owned SIGTERM, at least10s after observing GUIDE. Actual test requires missing-PNG authority failure, one GUIDE/attempt, rejected observe-frame/cold/watch, epoch0, zero sample/selection/checkpoint credit, bytewise late PNG preservation and existing exact owned-PID/flush/socket cleanup checks.",
+        "Existing TestProbeRecords snapshot-unremoved case separately proves the original active claim retains size10, the same native birth and held3bytes after release refusal. This is shared-accountant evidence, not direct introspection of the full lifecycle's private NativeSlot."
+      ],
+      "worker_receipt": {
+        "local_path": ".goal/development/linux-terminal-capture/repo/tools/go/.goal/capture-terminal/v1/receipt.json",
+        "sha256": "7de601c1f9a6e7414f15de84c2c423af33f2c2152b958eaaa417007bcce75ba9",
+        "local_source_tip": "d30927b332c6be92332e56c0205ab466a7c862f8",
+        "availability": "Local durable software evidence, not public native qualification"
+      },
+      "retained_earlier_broad_failure": {
+        "status": "FAIL",
+        "seconds": 480.014,
+        "timeout": "8m unchanged",
+        "scope": "Earlier broad lifecycle run timed out in save-dialog work; not a pass or the final selected-baseline result",
+        "local_log": ".goal/development/linux-capture-health/repo/tools/go/.goal/capture-health/v1/lifecycle-race.log",
+        "log_sha256": "fed8f9ff4edcd49c70c74dc354cef8fd79807448142dbf1b0972a379d2f68289",
+        "retained_source_manifest": ".goal/development/linux-capture-health/repo/tools/go/.goal/capture-health/v1/final-health-source.sha256",
+        "source_manifest_sha256": "3ae23820dfad7287a08e1e09be2e935d1a99d0a0d56148dbe9abe09f4d57bc98",
+        "qualification": "Retained worker source snapshot; this metadata step does not newly assert pre/post equality for that earlier failed run"
+      }
+    },
+    "accounting": {
+      "path": "analysis/go-current-input-accounting.json",
+      "pointer": "/latest_capture_health_increment",
+      "production_bytes": 1494,
+      "test_bytes": 6526,
+      "doc_bytes": 707,
+      "new_functions": 0,
+      "new_types": 0,
+      "module_delta": 0,
+      "sha256": "9283b03d8f98ba72a7f0fd874325bfc156e6f9996067168c877a1c2a2d248e7e"
+    },
+    "review": {
+      "source": "Final-health9bc, negative-gapb84 and terminal0fff source changes reviewed; exact combined artifact review belongs to the separate publication receipt",
+      "qualification": "Read-only source/metadata review is not native or criterion acceptance"
+    },
+    "criterion_credit": 0,
+    "family_credit": 0,
+    "scores_unchanged": "85/98;probe2/14;Windows0/8native-qualified;13/15Full",
+    "remaining": [
+      "Owner-operated current-source isolated native capture comparison",
+      "Explicit owner-agreed bounded retention/resource limits, including stalled/partial capture",
+      "Native acquisition/Flatpak startup and source/device/input authority",
+      "Pillow/JPEG parity or an explicitly accepted derivative disposition; PNG-only retirement remains unaccepted",
+      "Fullstories/soak/one-owner handover and broader410 responsibility/input reconciliation",
+      "Windows native execution user-deferred; wholeWindowsmodule unbuildable; Go1.26 minimum module alignment separate"
+    ],
+    "owner_coordination": "Retained owner notes from Nov15/16 are stale; current story state/socket/display/window authority unknown, no release inferred"
   }
 }
