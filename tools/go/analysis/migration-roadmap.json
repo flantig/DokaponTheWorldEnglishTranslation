@@ -1,22 +1,23 @@
 {
   "schema_version": 2,
-  "checklist_version": "capability-milestones-v3",
+  "checklist_version": "capability-milestones-v4-windows",
   "created_at": "2026-10-21T00:32:23.943095+00:00",
-  "scope": "All 15 core families retain six stable groups each. The user-approved current-tooling amendment changes two obligations; the other 88 rows and all existing credits are unchanged. Exact accepted-834 v2 views preserve the previous 90 requirements and statuses.",
+  "scope": "Current checklist: 98 acceptance groups across the same 15 families. The original 90 rows retain their requirements and credits; eight user-required Windows rows extend the existing probe family. The earlier 85/90 scope is dated history, not a competing current counter.",
   "original_baseline": {
     "path": "analysis/reusability-coverage-baseline.json",
     "sha256": "2b0aaa88e14fb301cb972ad8fb3339689cb79b186e66e01464f877b0b3861b7b"
   },
   "scoring": {
-    "rule": "100 * proven milestones / six milestones per family. Partial, missing, held, unproven and reviewed-disposition groups earn zero credit. Equal-weight acceptance groups are not equal effort.",
-    "denominator_frozen_for_future_updates": true,
+    "rule": "100 * proven milestones / current 98 acceptance groups. Partial implementation, selected cross-compilation, Linux tests and review do not grant native Windows qualification. Equal-weight groups are planning units, not equal effort, code migration or parity percentages.",
+    "denominator_frozen_for_future_updates": false,
     "family_completion": "All material current family obligations and an independent completion assessment remain required. Reviewed disposition is recorded separately from verified Go support. Checklist arithmetic and scope amendment never automatically promote a family.",
     "does_not_measure": [
       "Code reuse or readability",
       "Percentage of implementation effort/time remaining",
       "Historical script migration",
       "Current mod byte parity or visual/gameplay approval"
-    ]
+    ],
+    "scope_change_policy": "The user replaced the prior 90-group current scope with 98 groups on 2026-11-23 UTC; future changes require explicit scope decisions."
   },
   "evidence_basis": {
     "independent_static_review": "analysis/sixth-family-closure-review.json",
@@ -1581,8 +1582,8 @@
       "title": "Probe orchestration and evidence",
       "accepted_family_status": "partial",
       "verified_milestones": 2,
-      "total_milestones": 6,
-      "checklist_percent": 33.33,
+      "total_milestones": 14,
+      "checklist_percent": 14.29,
       "milestones": [
         {
           "id": "probe_orchestration_evidence.01",
@@ -1687,10 +1688,166 @@
           ],
           "evidence_qualification": "Scope and gap evidence only; no Go/native acceptance proof.",
           "detail": "Offline Continue/New Game, nondefault File2 creation, paired warm/cold reload/advancement, three controlled recipe sequence and fixed/narrative/grid/capacity/image artifact producers are implemented. Exact native stories, broader required cohort inventory, actual device/UI parity and owner-policy/handover remain held, credit0."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.01",
+          "platform": "windows",
+          "requirement": "Private filesystem and durable evidence artifacts",
+          "expands": [
+            "probe_orchestration_evidence.04",
+            "probe_orchestration_evidence.05"
+          ],
+          "acceptance": "All shared evidence/card/profile writers use Windows identity, private-access, reparse/alias refusal and durable publication contracts. Replaced parents/files, nonregular targets, failed writes and cleanup preserve foreign/source bytes; native Windows checks confirm the complete integrated path.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "partial_component",
+          "selected_windows_compile": "component_pass",
+          "linux_tests": "component_pass",
+          "read_only_review": "file_v3_closed_component_only",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [
+            "file_v3"
+          ],
+          "remaining": "File layer exists; capture/frame/journal/private-field and sequence publication integration remains. No whole Windows binary or native artifact assurance."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.02",
+          "platform": "windows",
+          "requirement": "Owned launch, identity, stop and card preservation",
+          "expands": [
+            "probe_orchestration_evidence.05"
+          ],
+          "acceptance": "Stock PCSX2 owned launch is bound to held process HANDLE, creation time, executable/build and session identity. Foreign/reused targets refuse; bounded stop/reap, warm/cold distinction and verified card postflush/preservation pass through the shared lifecycle under native Windows.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "partial_component",
+          "selected_windows_compile": "component_pass",
+          "linux_tests": "component_pass",
+          "read_only_review": "pending_process_slice",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [
+            "process_peer"
+          ],
+          "remaining": "Process observation/held-handle stop/reap are component work; complete lifecycle, card semantics and native stop/preservation remain."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.03",
+          "platform": "windows",
+          "requirement": "Owned PINE loopback connection association",
+          "expands": [
+            "probe_orchestration_evidence.03",
+            "probe_orchestration_evidence.05"
+          ],
+          "acceptance": "The established local TCP connection is associated with the exact owned emulator process using the reversed established tuple and session context; foreign/missing/stale/ambiguous associations refuse. Native Windows adversarial checks verify the trusted-host accidental-target contract, separately from Unix peer credentials.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "partial_component",
+          "selected_windows_compile": "component_pass",
+          "linux_tests": "component_pass",
+          "read_only_review": "pending_process_slice",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [
+            "process_peer"
+          ],
+          "remaining": "Source-selected tuple association exists; complete PINE/lifecycle integration and native Windows tuple/refusal evidence remain."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.04",
+          "platform": "windows",
+          "requirement": "Controller isolation and neutralization",
+          "expands": [
+            "probe_orchestration_evidence.05"
+          ],
+          "acceptance": "An explicit supported Windows controller backend verifies driver/configuration prerequisites, owns and neutralizes its target, bounds all input and cleanup, and refuses unsafe competing consumers. Global ViGEm pad exposure is not claimed as co-running emulator isolation; native checks establish the accepted single-owner policy.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "remaining",
+          "selected_windows_compile": "not_verified",
+          "linux_tests": "not_verified_for_windows_contract",
+          "read_only_review": "not_reviewed",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [],
+          "remaining": "Windows backend, safe isolation policy/configuration, neutralization and native device verification remain."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.05",
+          "platform": "windows",
+          "requirement": "Typed reads and diagnostic eligibility",
+          "expands": [
+            "probe_orchestration_evidence.03"
+          ],
+          "acceptance": "Windows typed reads preserve exact build/session/source guards, partial/stale/unsupported refusals and saved/live provenance. Current diagnostic material and displaced-instruction/ABI eligibility are independently established; native source-bound comparisons support every claimed diagnostic.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "remaining",
+          "selected_windows_compile": "not_verified",
+          "linux_tests": "not_verified_for_windows_contract",
+          "read_only_review": "not_reviewed",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [],
+          "remaining": "Memory-root platform assumptions and current-source diagnostic/native eligibility remain; existing offline readers do not establish this Windows contract."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.06",
+          "platform": "windows",
+          "requirement": "Capture, rendering, retention and resource bounds",
+          "expands": [
+            "probe_orchestration_evidence.04"
+          ],
+          "acceptance": "Serialized Windows captures bind pixels, frame tags, decoded UI, paths and logs to one owned process/session. Render/PNG and required derivative behavior, stalled/partial/refused capture, bounded retention and owner-agreed resource limits pass with native comparisons; unknown diagnostic outcomes remain unknown.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "remaining",
+          "selected_windows_compile": "not_verified",
+          "linux_tests": "not_verified_for_windows_contract",
+          "read_only_review": "not_reviewed",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [],
+          "remaining": "Capture/peer/file-publication and frame directory/append portability, render/derivative parity and native resource/retention qualification remain."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.07",
+          "platform": "windows",
+          "requirement": "Friendly preflight, configuration and handoff bundle",
+          "expands": [
+            "probe_orchestration_evidence.05",
+            "probe_orchestration_evidence.06"
+          ],
+          "acceptance": "Both OS paths explain actionable prerequisites and failures before launch. A reproducible stock Windows configuration and complete reviewed binary/validation bundle cover executable/build, BIOS/card paths, TCP PINE and controller dependencies; source builds use Go1.26 minimum, binary users need no SDK. A deferred native handoff validates the complete bundle.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "remaining",
+          "selected_windows_compile": "component_bundle_only",
+          "linux_tests": "not_verified_for_windows_contract",
+          "read_only_review": "file_bundle_only",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [
+            "file_v3"
+          ],
+          "remaining": "A file-layer validation ZIP exists, not a complete Windows toolkit. Whole Windows module, friendly integrated preflight/configuration and final bundle remain."
+        },
+        {
+          "id": "probe_orchestration_evidence.windows.08",
+          "platform": "windows",
+          "requirement": "Native Windows scenarios, soak and one-owner handover",
+          "expands": [
+            "probe_orchestration_evidence.05",
+            "probe_orchestration_evidence.06"
+          ],
+          "acceptance": "The exact integrated Windows build completes source-bound smoke, three sequential stories, nondefault slots, paired reload/advancement, preservation/overwrite/retry and required cohorts. Owner-agreed soak/recovery/resource/retention limits pass before independent acceptance and one-owner production handover.",
+          "credit": 0,
+          "status": "unproven_in_Go",
+          "implementation": "remaining",
+          "selected_windows_compile": "not_verified",
+          "linux_tests": "not_verified_for_windows_contract",
+          "read_only_review": "not_reviewed",
+          "native_windows": "not_run_owner_deferred",
+          "component_evidence": [],
+          "remaining": "Native Windows execution is deferred by the user until handoff after implementation; no full stories, soak or handover qualification."
         }
       ],
-      "remaining_roadmap": ".01 offline admission and .02 saved-evidence reports accepted. Offline typed reads, capture, lifecycle, Continue/New Game, paired reload/advance, controlled three-recipe sequence and storage/image observations exist. Native .03-.06 qualification and owner gates remain held.",
-      "next_achievable_milestone": "Qualify current source-bound Flatpak launch/adoption/startup production in an authorized native window, retaining shared ownership/namespace/exit-postflush guards and global foreign-owner refusal; no offline criterion credit.",
+      "remaining_roadmap": "Two original offline groups accepted; original native .03-.06 and eight Windows platform acceptance groups remain uncredited. Windows native execution is owner-deferred until later handoff; implementation proceeds without that execution gate.",
+      "next_achievable_milestone": "Complete the shared Windows platform integration and friendly preflight/configuration/bundle while preserving Linux behavior; native Windows qualification follows at the later owner handoff.",
       "dependencies": [
         "Existing Python runtime owner",
         "Owner-approved sanitized schema and oracle fixtures",
@@ -1702,7 +1859,15 @@
         "Build/session-bound typed memory reads and decoders match owner oracles and refuse stale/partial/malformed/unsupported reads. Versioned diagnostic hook/counter plans, saved/live provenance and material displaced-instruction/ABI obligations are independently verified.",
         "Serialized captures tie frame tags, decoded UI, image paths, logs and checkpoint outcome to one process/session; timeout, partial and cross-session/race cases are preserved/refused; owner-operated native comparison confirms parity. Bounded evidence retention and resource budgets are agreed with the probe owner and verified, including stalled/partial capture behavior.",
         "Exact PID/starttime/build/ISO, profile receipt, PINE, virtual-pad, IPC/session/nonce and private card roots govern lifecycle and cleanup. Warm reset differs from cold restart; preservation/post-flush hashes and adversarial ownership refusals pass under one controller owner. BIOS/card/controller identities are guarded. Unattended crash/stall detection, bounded recovery, safe stop/resume and post-flush preservation pass under owner-agreed limits. Bounded skip/attempt policy preserves SKIPPED/UNKNOWN outcomes without granting coverage or unbounded polling/retries.",
-        "Exact-source smoke and three sequential stories, nondefault slot creation/paired reload, preservation/overwrite/retry, verified advancement and broader required cohorts pass; independent acceptance authorizes one-owner handover without duplicate production FSM. Starting the story probe and leaving it unattended requires owner-agreed bounded soak duration, recovery outcomes, resource and evidence-retention acceptance. These limits remain TBD; prior three-story tests do not establish this acceptance."
+        "Exact-source smoke and three sequential stories, nondefault slot creation/paired reload, preservation/overwrite/retry, verified advancement and broader required cohorts pass; independent acceptance authorizes one-owner handover without duplicate production FSM. Starting the story probe and leaving it unattended requires owner-agreed bounded soak duration, recovery outcomes, resource and evidence-retention acceptance. These limits remain TBD; prior three-story tests do not establish this acceptance.",
+        "All shared evidence/card/profile writers use Windows identity, private-access, reparse/alias refusal and durable publication contracts. Replaced parents/files, nonregular targets, failed writes and cleanup preserve foreign/source bytes; native Windows checks confirm the complete integrated path.",
+        "Stock PCSX2 owned launch is bound to held process HANDLE, creation time, executable/build and session identity. Foreign/reused targets refuse; bounded stop/reap, warm/cold distinction and verified card postflush/preservation pass through the shared lifecycle under native Windows.",
+        "The established local TCP connection is associated with the exact owned emulator process using the reversed established tuple and session context; foreign/missing/stale/ambiguous associations refuse. Native Windows adversarial checks verify the trusted-host accidental-target contract, separately from Unix peer credentials.",
+        "An explicit supported Windows controller backend verifies driver/configuration prerequisites, owns and neutralizes its target, bounds all input and cleanup, and refuses unsafe competing consumers. Global ViGEm pad exposure is not claimed as co-running emulator isolation; native checks establish the accepted single-owner policy.",
+        "Windows typed reads preserve exact build/session/source guards, partial/stale/unsupported refusals and saved/live provenance. Current diagnostic material and displaced-instruction/ABI eligibility are independently established; native source-bound comparisons support every claimed diagnostic.",
+        "Serialized Windows captures bind pixels, frame tags, decoded UI, paths and logs to one owned process/session. Render/PNG and required derivative behavior, stalled/partial/refused capture, bounded retention and owner-agreed resource limits pass with native comparisons; unknown diagnostic outcomes remain unknown.",
+        "Both OS paths explain actionable prerequisites and failures before launch. A reproducible stock Windows configuration and complete reviewed binary/validation bundle cover executable/build, BIOS/card paths, TCP PINE and controller dependencies; source builds use Go1.26 minimum, binary users need no SDK. A deferred native handoff validates the complete bundle.",
+        "The exact integrated Windows build completes source-bound smoke, three sequential stories, nondefault slots, paired reload/advancement, preservation/overwrite/retry and required cohorts. Owner-agreed soak/recovery/resource/retention limits pass before independent acceptance and one-owner production handover."
       ],
       "original_requirement_crosswalk": [
         {
@@ -1748,7 +1913,7 @@
         "runtime_platform",
         "runtime_scenarios"
       ],
-      "classification": "Inherited static diagnostic Go support is Partial; operational platform/scenario support remains unproven. All six milestone credits are zero. No new Go probe module or controller owner."
+      "classification": "Partial: 2/14 current acceptance groups; no Windows-qualified group. Original 2/6 is dated prior scope. Source-component, compile, Linux-test and review facts remain separate from native acceptance."
     }
   ],
   "totals": {
@@ -1756,8 +1921,8 @@
     "core_families": 15,
     "family_completion_percent": 86.67,
     "verified_milestones": 85,
-    "milestones": 90,
-    "checklist_index_percent": 94.44,
+    "milestones": 98,
+    "checklist_index_percent": 86.73,
     "warning": "Checklist index is a planning aid; equal-weight groups differ in effort and do not measure reuse or script migration."
   },
   "next_target": {
@@ -1766,7 +1931,7 @@
     "status": "FLATPAK_SOURCE_WIRED_NATIVE_PRODUCER_QUALIFICATION_PENDING",
     "rule": "Current-source Flatpak launch/adoption/namespace/exit integration is wired and controlled components pass. Real Flatpak/global discovery/startup production remains unexecuted; native .03-.06, broader cohorts and owner resource/soak/handover remain held."
   },
-  "updated_at": "2026-11-13T23:09:57Z",
+  "updated_at": "2026-11-23T01:14:47Z",
   "latest_milestone": {
     "at": "2026-11-05T10:26:25.281316+00:00",
     "proof": "evidence/registry-pools-proof.json",
@@ -2579,5 +2744,57 @@
     "record": "image_asset_offline_assessment",
     "milestone_credit": 0,
     "scope": "One approved nativeassetartifact; no installedRAM/UI/display/CLUTlink/checkpoint credit"
+  },
+  "previous_90_group_scope": {
+    "at": "2026-11-23T01:14:47Z",
+    "source_commit": "76dd248e1f64c50c5683667bfe7b80324502c916",
+    "path": "tools/go/analysis/migration-roadmap.json",
+    "sha256": "c1c52d3388da39d05250887a0355a09ed4cd7ad41e5f43772618b325f5c62660",
+    "checklist_version": "capability-milestones-v3",
+    "totals": {
+      "fully_verified_families": 13,
+      "core_families": 15,
+      "family_completion_percent": 86.67,
+      "verified_milestones": 85,
+      "milestones": 90,
+      "checklist_index_percent": 94.44,
+      "warning": "Checklist index is a planning aid; equal-weight groups differ in effort and do not measure reuse or script migration."
+    },
+    "probe": {
+      "verified": 2,
+      "total": 6
+    },
+    "note": "Dated prior scope only; replaced by the current 98-group checklist"
+  },
+  "windows_scope": {
+    "at": "2026-11-23T01:14:47Z",
+    "decision": "User requires stock Windows and Linux support and replaces current total with85/98; same15families",
+    "qualified": 0,
+    "total": 8,
+    "qualification_percent": 0,
+    "native_executed_rows": 0,
+    "implementation_partial_rows": 3,
+    "implementation_complete_rows": 0,
+    "whole_windows_module": "FAIL; remaining platform calls in capture/frame/lifecycle/memory/pad/sequence",
+    "build_policy": "Go1.26 minimum until full milestones; newest toolchain work deferred; binary users need no SDK",
+    "native_execution_policy": "Owner-deferred until later handoff; does not block other implementation",
+    "evidence_availability": "Component receipts are local development artifacts, not published native proof; source snapshots remain isolated and unmerged",
+    "component_evidence": {
+      "file_v3": {
+        "local_path": ".goal/development/platform-core/repo/tools/go/.goal/platform-core/v3/receipt.json",
+        "sha256": "fa6786a543fd88fcbfcbdf604683a1bc93afb4bf35254bd555bc87c8015df644",
+        "local_source_commit": "87a1c3330d1215bb849fda2ca0ebca05f5fdb3c1",
+        "scope": "Common file writer; Linux focused/race/build/vet and selected Windows compile; reviewed source component, native0",
+        "review_record": "Coordinator-transcribed closure; immutable receipt predates closure"
+      },
+      "process_peer": {
+        "local_path": ".goal/development/platform-core/repo/tools/go/.goal/platform-process/receipt.json",
+        "sha256": "2b08a3b62638dba42187beb7f1d1804b9eea7e0cbde5bd5b09d98bbfb0555d2f",
+        "local_source_commit": "2d340bd093f0dfb9955225ff5a5d2fffbfaa16a2",
+        "sources_sha256": "549183fd7fd5ac68e011c1e3c798030745c0dafb3bb4cb8719734a3f7b523805",
+        "scope": "Process/peer component only; Linux own-kernel0.368s, Records+Writer+kernelrace30.693s; corebuild/vet PASS, selected Windows owners compile/vet PASS without test executable; whole Windows module fails, native0",
+        "review_record": "Process slice review pending"
+      }
+    }
   }
 }

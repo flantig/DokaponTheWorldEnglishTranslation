@@ -1,8 +1,39 @@
-# Granular capability roadmap, v3
+# Granular capability roadmap, v4
 
-All15 core families have six stable acceptance groups each. **85/90 proven (94.44%)**, with **13/15 full families (86.67%)**. Partial, held, unproven and reviewed-disposition groups earn zero. These equal-weight groups are not time, effort, code reuse or historical-script coverage.
+The user added eight Windows requirements and replaced the current denominator
+on 2026-11-23 UTC. The prior 85/90 scope is retained as dated history in the
+[canonical roadmap](migration-roadmap.json#previous_90_group_scope), not as a
+second current score. Windows rows extend the existing probe family, mapped to
+its typed-read, capture, lifecycle and handover duties. No sixteenth family or
+new completion credit is introduced.
 
-The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations. The other 88 rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. Probe remains2/6, and Python remains its production owner. Offline typed reads, capture, lifecycle, Continue/New Game, paired reload/advance, a controlled three-recipe sequence and storage/image observations are documented in [the offline proof](../evidence/probe-records-proof.json); `.03`–`.06` remain uncredited pending native/source/material, broader cohort and owner-policy gates. Optional native-pad wiring has fixed offline settings guards. Current-source Flatpak launch/adoption/namespace and exit integration is wired through shared owners with controlled component evidence; real Flatpak/global discovery/startup production, native qualification and handover remain held.
+Windows progress is **0/8 native-qualified**, with three partially implemented
+component rows and zero complete rows. Selected Windows compilation, Linux
+tests and read-only component review are separate facts. The complete Windows
+module still fails to compile. Go 1.26 remains the source-build minimum until
+full milestones; binary users need no SDK. Native Windows execution is deferred
+by the user until the later handoff and does not block ongoing implementation.
+
+| Windows ID suffix | Required contract | Implementation / evidence | Native qualification |
+|---|---|---|---|
+| windows.01 | Filesystem privacy and durable artifacts | Partial file layer; selected Windows compile, Linux tests and source review | 0, deferred |
+| windows.02 | Owned launch, identity, stop and card preservation | Partial process component; selected compile and Linux tests, review pending | 0, deferred |
+| windows.03 | PINE loopback association | Partial trusted-host tuple component; selected compile and Linux tests, review pending | 0, deferred |
+| windows.04 | Controller isolation and neutralization | Windows backend/configuration and device contract remain | 0, deferred |
+| windows.05 | Typed reads and diagnostic eligibility | Windows integration and source/material/native qualification remain | 0, deferred |
+| windows.06 | Capture, rendering, retention and resource bounds | Windows integration, derivative/native parity and owner limits remain | 0, deferred |
+| windows.07 | Friendly preflight, configuration and handoff bundle | File-check ZIP is component evidence only; complete toolkit/configuration/bundle remains | 0, deferred |
+| windows.08 | Native scenarios, soak and one-owner handover | Full native stories/cohorts, agreed soak and handover remain | 0, deferred |
+
+Exact row gates and pinned local component receipts are in the canonical JSON.
+Local development evidence is not publicly published/native qualification.
+Global ViGEm exposure does not establish co-running emulator isolation; Windows
+owned HANDLE/creation/executable and TCP tuple assurance is a trusted-host
+accidental-target contract distinct from Unix peer credentials.
+
+The same15 core families now have98 acceptance groups. **85/98 proven (86.73%)**, with **13/15 full families (86.67%)**. Partial, held, unproven and reviewed-disposition groups earn zero. These equal-weight groups are not time, effort, code reuse or historical-script coverage.
+
+The [approved current-tooling amendment](current-tooling-scope-v3.json) changes exactly two obligations within the original90 groups. The other88 original rows and every Go credit are unchanged. The [exact accepted-834 v2 roadmap](migration-roadmap-v2-accepted834.json) preserves the previous requirements, statuses and zero-credit research goals. Probe is2/14, including Windows0/8, and Python remains its production owner. Offline typed reads, capture, lifecycle, Continue/New Game, paired reload/advance, a controlled three-recipe sequence and storage/image observations are documented in [the offline proof](../evidence/probe-records-proof.json); `.03`–`.06` remain uncredited pending native/source/material, broader cohort and owner-policy gates. Optional native-pad wiring has fixed offline settings guards. Current-source Flatpak launch/adoption/namespace and exit integration is wired through shared owners with controlled component evidence; real Flatpak/global discovery/startup production, native qualification and handover remain held.
 
 ## Guarded patching
 
@@ -244,7 +275,7 @@ Next: All six original milestones proven; no new milestone or denominator introd
 
 ## Probe orchestration and evidence
 
-`probe_orchestration_evidence`: 2/6, family status partial.
+`probe_orchestration_evidence`: 2/14, family status partial.
 
 | Stable ID | Requirement | Status | Credit | Evidence |
 |---|---|---|---|---|
@@ -283,6 +314,6 @@ The [consumer diagnostic assessment](consumer-layout-facts.json#current_conditio
 
 The [canonical assessment](../evidence/reconstruction-row-proof.json#current_raster_criterion_assessment) completes raster6/6 and13/15 Full families. It joins one exact native replay, a separate editable donor/order witness and203 source-bound material decisions. These are distinct evidence units, with no arbitrary-generator, pristine-source or gameplay claim. Next is probe.01; six probe rows remain0/6 and retired image.06 remains zero-credit.
 
-### Current offline probe reports (85/90)
+### Historical offline probe reports (prior85/90 scope)
 
 The [canonical saved-evidence assessment](../evidence/probe-records-proof.json#current_report_criterion_assessment) accepts probe.02, with probe2/6 and13/15 Full families. Four probe groups and the retired zero-credit image.06 remain. Next is probe.03 typed reads/diagnostics; saved reports confer no live authenticity or runtime handover.

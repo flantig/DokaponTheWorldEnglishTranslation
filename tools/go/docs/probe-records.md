@@ -1,5 +1,14 @@
 # Offline probe records
 
+The current [migration checklist](../analysis/migration-roadmap.md) is **85/98**,
+probe **2/14**, including **0/8 native-qualified Windows requirements**. The eight
+Windows rows track filesystem, process, PINE, input, diagnostics, capture,
+preflight and handover in the existing probe family. Component implementation,
+selected compilation and Linux tests are separate from native qualification;
+the whole Windows module is not yet buildable. Windows native execution is
+owner-deferred until later handoff. Earlier dated assessments and their 85/90
+or probe2/6 counters below preserve the scope at those historical checkpoints.
+
 Card questions preserve the raw `headers.yesno` word. The UI reader separately records `yesno` with an effective `selection` and explicit `source`: a supported, visible `YesNo` widget with a cursor in0..1 takes precedence; otherwise the current header is the source. New prompt witnesses carry that same-read observation in `prompt_yesno`, including the widget snapshot when applicable. The saved-evidence verifier validates these facts before using the effective choice for overwrite credit. Historical witnesses that omit `prompt_yesno` retain their header-only contract.
 
 An acknowledged file selection may repeat Circle at most five times while the current menu still points to the requested slot and no dialog has appeared. Cursor drift, a returned dialog, an expired transaction or an uncertain input acknowledgement prevents another selection. A fresh acknowledged selection resets its dialog/retry state. These rules are shared across platforms; they do not qualify native Windows or Linux runtime behavior.
