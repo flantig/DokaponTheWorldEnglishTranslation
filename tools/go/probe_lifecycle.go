@@ -3439,7 +3439,7 @@ requests:
 	if !padStarted {
 		retirement = &retiredPad
 	}
-	if retirement != nil && retirement.ExpectedInfo != nil && (!processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) != 0) || processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
+	if !processes.Launched && retirement != nil && retirement.ExpectedInfo != nil || processes.BootstrapPending || frameRun != nil && frameRun.Summary.Failure != "" && (processes.Command != nil || processes.Native != nil || len(processes.Candidates) != 0) {
 		processes.ArtifactClass = probeArtifactFinalizer
 		_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond, retirement)
 		runErr = errors.Join(runErr, cleanupErr)
@@ -3452,7 +3452,7 @@ requests:
 		}
 		// Completed disposal has no writers left; retain any unresolved exposure
 		// rather than turn an already reported artifact refusal into a lost report.
-		if retiredPad.ExpectedInfo != nil && (!processes.NativeExited || !processes.LauncherReaped || len(processes.Unqualified) != 0) {
+		if !processes.Launched && retiredPad.ExpectedInfo != nil {
 			processes.ArtifactClass = probeArtifactFinalizer
 			_, cleanupErr := terminateProbeProcesses(&processes, ProbeMemoryRuntime{Root: profile.Root}, profile.Program.SHA256, time.Duration(profile.StopTimeoutMS)*time.Millisecond, &retiredPad)
 			runErr = errors.Join(runErr, cleanupErr)
